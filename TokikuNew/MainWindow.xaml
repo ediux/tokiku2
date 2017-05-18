@@ -5,8 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TokikuNew"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="東菊金屬 ERP System" Height="350" Width="525" WindowState="Maximized" Icon="16x16.png">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="37"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="48"/>
+            <RowDefinition Height="27"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem Header="專案" FontSize="27">
+                <MenuItem Header="開啟專案"></MenuItem>
+                <MenuItem Header="管理專案"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="系統管理" FontSize="27">
+                <MenuItem Header="人員管理" ></MenuItem>
+                <Separator/>
+                <MenuItem Header="結束程式"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <TabControl Grid.Row="1" Margin="0,0,0,0">
+            <TabItem Header="TabItem">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="TabItem">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Button>F1
+            新增</Button>
+        </StackPanel>
+        <StatusBar Margin="0" Grid.Row="3"/>
     </Grid>
 </Window>
