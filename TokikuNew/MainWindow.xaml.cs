@@ -24,5 +24,10 @@ namespace TokikuNew
         {
             InitializeComponent();
         }
+
+        private void btnTabClose_Click(object sender, RoutedEventArgs e)
+        {
+            Workspaces.Items.Remove(Workspaces.SelectedItem);
+        }
     }
 }
