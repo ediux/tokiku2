@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2389002a12914c48b97a044932513ea4" Name="Diagram1">
+        <EntityTypeShape EntityType="TokikuModel.Contacts" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TokikuModel.Manufacturers" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TokikuModel.Membership" Width="1.5" PointX="5.25" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TokikuModel.Profile" Width="1.5" PointX="5.25" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TokikuModel.Roles" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TokikuModel.States" Width="1.5" PointX="6" PointY="21.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TokikuModel.Users" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
+        <AssociationConnector Association="TokikuModel.FK_Manufacturers_Contacts" ManuallyRouted="false" />
+        <AssociationConnector Association="TokikuModel.FK_Manufacturers_Contacts_MCP" ManuallyRouted="false" />
+        <AssociationConnector Association="TokikuModel.FK_Manufacturers_Users_Create" ManuallyRouted="false" />
+        <AssociationConnector Association="TokikuModel.FK__aspnet_Me__UserI__164452B1" ManuallyRouted="false" />
+        <AssociationConnector Association="TokikuModel.FK__aspnet_Pr__UserI__1FCDBCEB" ManuallyRouted="false" />
+        <AssociationConnector Association="TokikuModel.UsersInRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TokikuModel.Engineering" Width="1.5" PointX="6" PointY="23.875" />
+        <EntityTypeShape EntityType="TokikuModel.ShopFlowHistory" Width="1.5" PointX="8.25" PointY="14.375" />
+        <AssociationConnector Association="TokikuModel.FK_ShopFlowHistory_Engineering" />
+        <AssociationConnector Association="TokikuModel.FK_ShopFlowHistory_States" />
+        <AssociationConnector Association="TokikuModel.FK_ShopFlowHistory_Users" />
+        <EntityTypeShape EntityType="TokikuModel.Materials" Width="1.5" PointX="8.375" PointY="0.75" />
+        <EntityTypeShape EntityType="TokikuModel.ProjectContract" Width="1.5" PointX="8.25" PointY="4.375" />
+        <AssociationConnector Association="TokikuModel.FK_ProjectContract_Manufacturers" />
+        <AssociationConnector Association="TokikuModel.FK_ProjectContract_Users" />
+        <EntityTypeShape EntityType="TokikuModel.MaterialCategories" Width="1.5" PointX="6.125" PointY="29.25" />
+        <EntityTypeShape EntityType="TokikuModel.PromissoryNoteManagement" Width="1.5" PointX="10.5" PointY="6.75" />
+        <EntityTypeShape EntityType="TokikuModel.TicketTypes" Width="1.5" PointX="8.25" PointY="10.5" />
+        <AssociationConnector Association="TokikuModel.FK_Materials_Manufacturers" />
+        <AssociationConnector Association="TokikuModel.FK_Materials_MaterialCategories" />
+        <AssociationConnector Association="TokikuModel.FK_Materials_Users" />
+        <AssociationConnector Association="TokikuModel.FK_PromissoryNoteManagement_ProjectContract" />
+        <AssociationConnector Association="TokikuModel.FK_PromissoryNoteManagement_TicketTypes" />
+        <AssociationConnector Association="TokikuModel.FK_PromissoryNoteManagement_Users" />
+        <EntityTypeShape EntityType="TokikuModel.AccessLog" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TokikuModel.BOM" Width="1.5" PointX="11" PointY="10.875" />
+        <AssociationConnector Association="TokikuModel.FK_BOM_Materials" />
+        <AssociationConnector Association="TokikuModel.FK_BOM_ShopFlowHistory" />
+        <EntityTypeShape EntityType="TokikuModel.Projects" Width="1.5" PointX="2.75" PointY="14.625" />
+        <AssociationConnector Association="TokikuModel.FK_Engineering_Projects" />
+        <AssociationConnector Association="TokikuModel.FK_ProjectContract_Projects" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
