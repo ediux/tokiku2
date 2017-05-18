@@ -93,5 +93,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tokiku.Controllers\Tokiku.Controllers.csproj">
+      <Project>{98214455-767f-4c8e-bf90-af0bb7135a79}</Project>
+      <Name>Tokiku.Controllers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tokiku.Entity\Tokiku.Entity.csproj">
+      <Project>{14cc904e-4a5c-401b-a7db-ddb045abb6dd}</Project>
+      <Name>Tokiku.Entity</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
