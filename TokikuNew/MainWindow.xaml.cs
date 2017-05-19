@@ -32,6 +32,40 @@ namespace TokikuNew
 
         private void ExitApp_Click(object sender, RoutedEventArgs e)
         {
+            this.Close();
+        }
+
+        private void MI_Project_Click(object sender, RoutedEventArgs e)
+        {
+            //顯示選擇專案的視窗
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Workspaces.Items.Clear();
+        }
+
+        private void MI_CreateNew_Project_Click(object sender, RoutedEventArgs e)
+        {
+            TabItem addWorkarea = new TabItem();
+            addWorkarea.Header = "建立專案";
+            addWorkarea.Content = new Views.CreateProjectView();
+            Workspaces.Items.Add(addWorkarea);
+            Workspaces.SelectedItem = addWorkarea;
+        }
+
+        private void MI_CreateNew_Factories_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MI_CreateNew_Contracts_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MI_CreateNew_Customers_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }
