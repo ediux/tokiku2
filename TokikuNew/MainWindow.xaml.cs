@@ -29,5 +29,10 @@ namespace TokikuNew
         {
             Workspaces.Items.Remove(Workspaces.SelectedItem);
         }
+
+        private void ExitApp_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
