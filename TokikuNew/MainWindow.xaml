@@ -3,33 +3,30 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
         xmlns:local="clr-namespace:TokikuNew"
         mc:Ignorable="d"
-        Title="東菊金屬 ERP System" Height="350" Width="733.195" WindowState="Maximized" Icon="16x16.png">
+        Title="東菊金屬 ERP System" Height="350" Width="792.685" WindowState="Maximized" Icon="16x16.png" Loaded="Window_Loaded">
     <Window.Resources>
-
+        <vm:MainViewModel x:Key="MainModel" x:Name="Model" />
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="24"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="48"/>
+            
             <RowDefinition Height="27"/>
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0">
-            <MenuItem Header="專案">
-
+        <Menu Grid.Row="0" FontSize="17">
+            <MenuItem Header="專案" Name="MI_Project" Click="MI_Project_Click">
             </MenuItem>
-            <MenuItem Header="主檔建立">
-                <MenuItem Header="專案"></MenuItem>
+            <MenuItem Header="主檔建立" FontSize="17" Name="MI_CreateNew">
+                <MenuItem Header="廠商" Name="MI_CreateNew_Factories" Click="MI_CreateNew_Factories_Click"></MenuItem>
+                <MenuItem Header="客戶" Name="MI_CreateNew_Customers" Click="MI_CreateNew_Customers_Click"></MenuItem>
+                <MenuItem Header="聯絡人" Name="MI_CreateNew_Contracts" Click="MI_CreateNew_Contracts_Click"></MenuItem>
+                <MenuItem Header="專案" Name="MI_CreateNew_Project" Click="MI_CreateNew_Project_Click"></MenuItem>
             </MenuItem>
-            <MenuItem Header="用料需求"></MenuItem>
-            <MenuItem Header="鋁擠型"></MenuItem>
-            <MenuItem Header="框"></MenuItem>
-            <MenuItem Header="玻璃"></MenuItem>
-            <MenuItem Header="鋁板"></MenuItem>
-            <MenuItem Header="鐵件"></MenuItem>
-            <MenuItem Header="其他材料"></MenuItem>
+          
             <MenuItem Header="報表"></MenuItem>
             <MenuItem Header="帳務"></MenuItem>
             <MenuItem Header="系統管理">
@@ -213,66 +210,11 @@
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
         </TabControl>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" >
-            <Button Margin="2" Width="48" Name="btnF1">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F1" TextAlignment="Center"></TextBlock>
-                    <TextBlock Text="新增" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F2" TextAlignment="Center"></TextBlock>
-                    <TextBlock Text="修改" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F3" TextAlignment="Center"></TextBlock>
-                    <TextBlock Text="存檔" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F4" TextAlignment="Center"></TextBlock>
-                    <TextBlock Text="查詢" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F7" TextAlignment="Center"></TextBlock>
-                    <TextBlock Text="Excel" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F9" TextAlignment="Center"></TextBlock>
-                    <TextBlock Text="取消" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F10" TextAlignment="Center"></TextBlock>
-                    <TextBlock Text="結束" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F11" TextAlignment="Center"></TextBlock>
-                    <TextBlock Text="新增行" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F12" TextAlignment="Center"></TextBlock>
-                    <TextBlock Text="刪除行" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-        </StackPanel>
+       
         <StatusBar Margin="0" Grid.Row="3">
             <StackPanel Orientation="Horizontal">
-                <Image Width="16" Height="16"/>
-                <TextBlock Name="userNameDisplay" Text=""/>
+                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xe187;" />
+                <TextBlock Name="userNameDisplay" Text="{Binding LoginedUser.UserName, Source={StaticResource MainModel}}"/>
             </StackPanel>
         </StatusBar>
     </Grid>

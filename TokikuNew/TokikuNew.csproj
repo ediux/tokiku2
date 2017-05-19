@@ -54,6 +54,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Views\CreateProjectView.xaml.cs">
+      <DependentUpon>CreateProjectView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProjectViewer.xaml.cs">
+      <DependentUpon>ProjectViewer.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -131,10 +137,12 @@
       <Project>{14cc904e-4a5c-401b-a7db-ddb045abb6dd}</Project>
       <Name>Tokiku.Entity</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tokiku.ViewModels\Tokiku.ViewModels.csproj">
+      <Project>{f5811844-946b-4050-847a-7ed8b46edbf5}</Project>
+      <Name>Tokiku.ViewModels</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="16x16.png" />
   </ItemGroup>
