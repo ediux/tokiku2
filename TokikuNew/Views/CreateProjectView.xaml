@@ -41,9 +41,9 @@
             <TextBlock Grid.Row="3" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="工程簽約日期"/>
             <DatePicker Grid.Row="3" Grid.Column="1" Margin="2" FontSize="12" Text="{Binding ProjectSigningDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
             <TextBlock Grid.Row="4" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="工地地址"/>
-            <TextBox Grid.Row="4" Grid.Column="1" Margin="2" Text="{Binding SiteAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" Text="{Binding SiteAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Grid.Row="5" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="備註"/>
-            <TextBox Grid.Row="5" Grid.Column="1" Margin="2" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+            <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
             <TextBlock Grid.Row="6" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="狀態"/>
             <ComboBox Grid.Row="6" Grid.Column="1" Margin="2" />
             <GroupBox Header="客戶" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="4">
@@ -58,7 +58,7 @@
                     <TextBox Grid.Row="2" Margin="2"/>
                 </Grid>
             </GroupBox>
-            <TabControl Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="8"/>
+          
         </Grid>
         <StackPanel Grid.Row="1" Orientation="Horizontal" >
             <Button Margin="2" Width="48" x:Name="btnF1" IsEnabled="False">

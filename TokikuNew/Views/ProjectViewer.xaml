@@ -22,7 +22,9 @@
             <MenuItem Header="其他材料"></MenuItem>
         </Menu>
         <ContentControl Grid.Row="1">
-
+            <GroupBox Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="8" Margin="5" Header="專案圖集、施工順序[最後更新時間:]">
+                <DataGrid Margin="0,0,-2,0" VerticalAlignment="Top" Height="166"/>
+            </GroupBox>
         </ContentControl>
         <StackPanel Grid.Row="2" Orientation="Horizontal" Background="Silver" >
             <Button Margin="2" Width="48" Name="btnF1">
