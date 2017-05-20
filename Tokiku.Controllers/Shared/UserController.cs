@@ -28,6 +28,7 @@ namespace Tokiku.Controllers.Shared
                 LoweredUserName = LoweredUserName,
                 UserId = Guid.NewGuid(),
                 UserName = UserName
+                 
             };
 
             Membership newMembership = new Membership()
@@ -55,6 +56,8 @@ namespace Tokiku.Controllers.Shared
                 Users = newUser
             };
 
+            
+
             if (!database.Users.Where(w => w.UserName == UserName).Any())
             {
                 if (!database.Roles.Where(w => w.LoweredRoleName == LoweredRoleName).Any())
@@ -69,11 +72,29 @@ namespace Tokiku.Controllers.Shared
                     newRole.Users.Add(newUser);
                     database.Roles.Add(newRole);
                 }
+                else
+                {
+                    Roles adminRole = (from r in database.Roles
+                                       where r.LoweredRoleName == LoweredRoleName
+                                       select r).SingleOrDefault();
 
+                    adminRole.Users.Add(newUser);
+                }
+
+                newUser.Membership = newMembership;
                 database.Users.Add(newUser);
                 database.SaveChanges();
             }
 
+        }
+
+        public Users GetUser(string UserName)
+        {
+            string LoweredUserName = UserName.ToLowerInvariant();
+
+            return (from u in database.Users
+                    where u.UserName == UserName || u.LoweredUserName == LoweredUserName
+                    select u).SingleOrDefault();
         }
 
         public Users Login(string UserName, string pwd)
@@ -82,7 +103,7 @@ namespace Tokiku.Controllers.Shared
             {
                 var lowedUserName = UserName.ToLowerInvariant();
                 var result = (from u in database.Users
-                              where u.LoweredUserName == lowedUserName
+                              where u.LoweredUserName == lowedUserName && u.Membership.Password == pwd
                               select u).SingleOrDefault();
 
                 if (result != null)
@@ -90,6 +111,21 @@ namespace Tokiku.Controllers.Shared
                     return result;
                 }
 
+                if (UserName.ToLowerInvariant() == "root" && pwd == "1234")
+                {
+                    var isexists = GetUser("root");
+
+                    if (isexists != null)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        AddUser("root", pwd, "Admins");
+                        return GetUser("root");
+                    }
+
+                }
                 return null;
             }
             catch

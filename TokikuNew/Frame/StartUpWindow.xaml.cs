@@ -37,15 +37,28 @@ namespace TokikuNew.Frame
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainwin = new MainWindow();
-            mainwin.Model = new MainViewModel();
-            mainwin.Model.LoginedUser = new Tokiku.Entity.Users() {
-                UserName=Model.UserName
-            };
-            mainwin.DataContext = mainwin.Model;
-            mainwin.Closed += Mainwin_Closed;
-            mainwin.Show();            
-            this.Hide();
+            tblkMessage.Text = "正在登入...";
+            tblkMessage.Foreground = new SolidColorBrush(Colors.Black);
+            Model.Password = pwdBox.Password;
+
+            var loginedUser = Model.Login();
+            if (loginedUser != null)
+            {
+                tblkMessage.Text = "登入成功!";
+                MainWindow mainwin = new MainWindow();
+                mainwin.Model = new MainViewModel();
+                mainwin.Model.LoginedUser = loginedUser;
+                mainwin.DataContext = mainwin.Model;
+                mainwin.Closed += Mainwin_Closed;
+                mainwin.Show();
+                tblkMessage.Text = "";
+                this.Hide();
+            }
+            else
+            {
+                tblkMessage.Text = "登入失敗!";
+                tblkMessage.Foreground = new SolidColorBrush(Colors.Red);
+            }
         }
 
         private void Mainwin_Closed(object sender, EventArgs e)

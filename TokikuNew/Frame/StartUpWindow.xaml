@@ -33,7 +33,7 @@
             <TextBlock Text="登入帳號" Grid.Row="0" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Margin="2,0"/>
             <TextBox Grid.Row="0" Grid.Column="1" Margin="2" Text="{Binding UserName}" />
             <TextBlock Text="登入密碼" Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Margin="2,0"/>
-            <PasswordBox Grid.Row="1" Grid.Column="1" Margin="2" />
+            <PasswordBox Grid.Row="1" Grid.Column="1" Margin="2" Name="pwdBox"/>
             <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
                 <Button Name="btnLogin" Content="登入" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" Click="btnLogin_Click" />
                 <Button Name="btnCancel" Content="取消" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" Click="btnCancel_Click" />

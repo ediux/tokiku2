@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tokiku.Entity;
+using System.Windows;
 
 namespace Tokiku.ViewModels
 {
@@ -12,7 +13,7 @@ namespace Tokiku.ViewModels
     {
         public MainViewModel()
         {
-            _LoginedUser = new Users()
+            LoginedUser = new Users()
             {
                 UserId = Guid.Empty,
                 UserName = "root",
@@ -20,11 +21,12 @@ namespace Tokiku.ViewModels
                 IsAnonymous = false,
             };
         }
-        private Users _LoginedUser;
 
-        private ProjectBaseViewModel _selectedProjectData = null;
+        public static readonly DependencyProperty LoginedUserProperty = DependencyProperty.Register("LoginedUser", typeof(Users), typeof(MainViewModel), new PropertyMetadata(DependencyProperty.UnsetValue));
 
-        private Collection<ProjectBaseViewModel> _selectList = new Collection<ProjectBaseViewModel>();
+        public static readonly DependencyProperty CurrentProjectProperty = DependencyProperty.Register("CurrentProject", typeof(ProjectBaseViewModel), typeof(MainViewModel), new PropertyMetadata(DependencyProperty.UnsetValue));
+
+        public static readonly DependencyProperty LoadedProjectsProperty = DependencyProperty.Register("LoadedProjects", typeof(Collection<ProjectBaseViewModel>), typeof(MainViewModel), new PropertyMetadata(DependencyProperty.UnsetValue));
 
         /// <summary>
         /// 目前選定的專案
@@ -33,33 +35,36 @@ namespace Tokiku.ViewModels
         {
             get
             {
-                //if (_selectedProjectData == null)
-                //{
-                //    return "專案";
-                //}
-                //else
-                //{
-                //    return string.Format("{0} - {1}", _selectedProjectData?.Code ?? "", _selectedProjectData?.ShortName ?? "");
-                //}
-                return _selectedProjectData;
+                return GetValue(CurrentProjectProperty) as ProjectBaseViewModel;
             }
 
             set
             {
-                _selectedProjectData = value;
-
+                SetValue(CurrentProjectProperty, value);
                 RaisePropertyChanged("CurrentProject");
             }
         }
 
+        /// <summary>
+        /// 取得目前登入的使用者
+        /// </summary>
         public Users LoginedUser
         {
-            get { return _LoginedUser; }
+            get { return GetValue(LoginedUserProperty) as Users; }
             set
             {
-                _LoginedUser = value;
+                SetValue(LoginedUserProperty, value);
                 RaisePropertyChanged("LoginedUser");
             }
+        }
+
+        /// <summary>
+        /// 取得目前已選取的專案
+        /// </summary>
+        public Collection<ProjectBaseViewModel> LoadedProjects
+        {
+            get { return GetValue(LoadedProjectsProperty) as Collection<ProjectBaseViewModel>; }
+            set { SetValue(LoadedProjectsProperty, value); }
         }
     }
 }
