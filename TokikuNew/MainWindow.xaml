@@ -8,7 +8,6 @@
         mc:Ignorable="d"
         Title="東菊金屬 ERP System" Height="350" Width="792.685" WindowState="Maximized" Icon="16x16.png" Loaded="Window_Loaded" Background="{DynamicResource WindowBackgroundBrush}" DataContext="{Binding Model}">
     <Window.Resources>
-        <ObjectDataProvider x:Key="MainModel" ObjectType="{x:Type vm:MainViewModel}" />
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>

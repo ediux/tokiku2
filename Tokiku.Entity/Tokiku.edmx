@@ -174,9 +174,10 @@
           <Property Name="ShortName" Type="nvarchar" MaxLength="25" />
           <Property Name="ProjectSigningDate" Type="smalldatetime" Nullable="false" />
           <Property Name="SiteAddress" Type="nvarchar" MaxLength="250" />
-          <Property Name="ClientId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientId" Type="uniqueidentifier" />
           <Property Name="CreateTime" Type="smalldatetime" Nullable="false" />
           <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="PromissoryNoteManagement">
           <Key>
@@ -1212,11 +1213,12 @@
           <Property Name="ShortName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="ProjectSigningDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="SiteAddress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="ClientId" Type="Guid" Nullable="false" />
+          <Property Name="ClientId" Type="Guid" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Engineering" Relationship="TokikuModel.FK_Engineering_Projects" FromRole="Projects" ToRole="Engineering" />
           <NavigationProperty Name="ProjectContract" Relationship="TokikuModel.FK_ProjectContract_Projects" FromRole="Projects" ToRole="ProjectContract" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Engineering_Projects">
           <End Type="TokikuModel.Projects" Role="Projects" Multiplicity="1" />
@@ -1493,6 +1495,7 @@
           <EntitySetMapping Name="Projects">
             <EntityTypeMapping TypeName="TokikuModel.Projects">
               <MappingFragment StoreEntitySet="Projects">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
                 <ScalarProperty Name="ClientId" ColumnName="ClientId" />

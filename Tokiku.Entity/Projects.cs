@@ -27,9 +27,10 @@ namespace Tokiku.Entity
         public string ShortName { get; set; }
         public System.DateTime ProjectSigningDate { get; set; }
         public string SiteAddress { get; set; }
-        public System.Guid ClientId { get; set; }
+        public Nullable<System.Guid> ClientId { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
+        public string Comment { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Engineering> Engineering { get; set; }

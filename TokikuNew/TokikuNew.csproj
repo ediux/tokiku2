@@ -64,6 +64,7 @@
     <Compile Include="Frame\StartUpWindow.xaml.cs">
       <DependentUpon>StartUpWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ValueConverters\SigningDateToCodeConverter.cs" />
     <Compile Include="Views\CreateProjectView.xaml.cs">
       <DependentUpon>CreateProjectView.xaml</DependentUpon>
     </Compile>
@@ -174,5 +175,6 @@
   <ItemGroup>
     <Resource Include="16x16.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

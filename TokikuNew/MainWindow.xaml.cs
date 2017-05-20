@@ -22,7 +22,7 @@ namespace TokikuNew
     public partial class MainWindow : Window
     {
         #region 相依屬性
-        public static readonly DependencyProperty ModelProperty = DependencyProperty.Register("Model", typeof(MainViewModel), typeof(MainViewModel));
+        public static readonly DependencyProperty ModelProperty = DependencyProperty.Register("Model", typeof(MainViewModel), typeof(MainViewModel),new PropertyMetadata(default(MainViewModel)));
 
         public MainViewModel Model
         {
@@ -32,7 +32,8 @@ namespace TokikuNew
         #endregion
         public MainWindow()
         {
-            InitializeComponent();         
+            InitializeComponent();
+            Model = new MainViewModel();
         }
 
         private void btnTabClose_Click(object sender, RoutedEventArgs e)
