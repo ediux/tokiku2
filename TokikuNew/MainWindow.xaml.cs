@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tokiku.ViewModels;
 
 namespace TokikuNew
 {
@@ -20,9 +21,18 @@ namespace TokikuNew
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region 相依屬性
+        public static readonly DependencyProperty ModelProperty = DependencyProperty.Register("Model", typeof(MainViewModel), typeof(MainViewModel));
+
+        public MainViewModel Model
+        {
+            get { return GetValue(ModelProperty) as MainViewModel; }
+            set { SetValue(ModelProperty, value); }
+        }
+        #endregion
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();         
         }
 
         private void btnTabClose_Click(object sender, RoutedEventArgs e)
@@ -49,7 +59,9 @@ namespace TokikuNew
         {
             TabItem addWorkarea = new TabItem();
             addWorkarea.Header = "建立專案";
-            addWorkarea.Content = new Views.CreateProjectView();
+            addWorkarea.Content = new Views.CreateProjectView() { Margin = new Thickness(0) };
+            addWorkarea.Margin = new Thickness(0);
+            
             Workspaces.Items.Add(addWorkarea);
             Workspaces.SelectedItem = addWorkarea;
         }

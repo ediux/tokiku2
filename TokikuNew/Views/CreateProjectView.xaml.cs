@@ -20,6 +20,10 @@ namespace TokikuNew.Views
     /// </summary>
     public partial class CreateProjectView : UserControl
     {
+        #region 相依屬性
+
+        #endregion
+
         public CreateProjectView()
         {
             InitializeComponent();

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Tokiku.ViewModels
 {
-    public class BaseViewModel : INotifyPropertyChanged
+    public class BaseViewModel : System.Windows.DependencyObject, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

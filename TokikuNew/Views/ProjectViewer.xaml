@@ -5,10 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Margin="0,0,-122,0">
+             d:DesignHeight="300">
+    <Grid Background="{DynamicResource ControlBackgroundBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="22"/>
+            <RowDefinition Height="27"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="48"/>
         </Grid.RowDefinitions>
@@ -22,7 +22,7 @@
             <MenuItem Header="其他材料"></MenuItem>
         </Menu>
         <ContentControl Grid.Row="1">
-            
+
         </ContentControl>
         <StackPanel Grid.Row="2" Orientation="Horizontal" Background="Silver" >
             <Button Margin="2" Width="48" Name="btnF1">
