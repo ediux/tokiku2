@@ -24,11 +24,21 @@
             <MenuItem Header="鐵件"></MenuItem>
             <MenuItem Header="其他材料"></MenuItem>
         </Menu>
-        <ContentControl Grid.Row="1" Grid.Column="1">
-            <GroupBox Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="8" Margin="5" Header="專案圖集、施工順序[最後更新時間:]">
+        <Grid Grid.Row="1" Margin="0,2,-0.5,46" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150*"/>
+                <RowDefinition Height="150*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="25*"/>
+            </Grid.ColumnDefinitions>
+            <GroupBox Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="1" Margin="5" Header="專案圖集、施工順序[最後更新時間:]">
                 <DataGrid Margin="0,0,-2,0" VerticalAlignment="Top" Height="166"/>
             </GroupBox>
-        </ContentControl>
+        </Grid>
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Background="{DynamicResource ControlBackgroundBrush}" >
             <Button Margin="2" Width="48" Name="btnF1">
                 <StackPanel Orientation="Vertical">
