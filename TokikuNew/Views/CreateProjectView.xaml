@@ -8,6 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="443.478" d:DesignWidth="600" DataContext="{Binding Model}" >
     <UserControl.Resources>
+        <ValueConverters:NOTGateValueConverter x:Key="NOTGateValueConverter"/>
         <ValueConverters:SigningDateToCodeConverter x:Key="SigningDateToCodeConverter"/>
     </UserControl.Resources>
     <Grid Background="{DynamicResource ControlBackgroundBrush}" Margin="0,0,0,0" >
@@ -33,29 +34,39 @@
                 <ColumnDefinition Width="30*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Row="0" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="專案代碼"/>
-            <TextBox Grid.Row="0" Grid.Column="1" Margin="2" Text="{Binding ProjectSigningDate, Mode=OneWay, Converter={StaticResource SigningDateToCodeConverter}}"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Margin="2" Text="{Binding Code, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
             <TextBlock Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="專案簡稱"/>
             <TextBox Grid.Row="1" Grid.Column="1" Margin="2" Text="{Binding ShortName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
             <TextBlock Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="專案全名"/>
             <TextBox Grid.Row="2" Grid.Column="1" Margin="2" Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
             <TextBlock Grid.Row="3" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="工程簽約日期"/>
-            <DatePicker Grid.Row="3" Grid.Column="1" Margin="2" FontSize="12" Text="{Binding ProjectSigningDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+            <DatePicker x:Name="ProjectSigningDate" Grid.Row="3" Grid.Column="1" Margin="2" FontSize="12"  Text="{Binding ProjectSigningDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
             <TextBlock Grid.Row="4" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="工地地址"/>
             <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" Text="{Binding SiteAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Grid.Row="5" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="備註"/>
             <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
             <TextBlock Grid.Row="6" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="狀態"/>
-            <ComboBox Grid.Row="6" Grid.Column="1" Margin="2" />
-            <GroupBox Header="客戶" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="4">
+            <ComboBox Grid.Row="6" Grid.Column="1" Margin="2" ItemsSource="{Binding StateText}" SelectedValuePath="Id" SelectedValue="{Binding State,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding StateName}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <GroupBox Header="客戶" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="3">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="27"/>
                         <RowDefinition Height="27"/>
-                        <RowDefinition Height="27"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="客戶名稱" Grid.Row="0" TextAlignment="Left" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="1" Margin="2"/>
-                    <TextBox Grid.Row="2" Margin="2"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="80*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="客戶代號" Grid.Row="0" TextAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Margin="2"/>
+                    <TextBlock Text="客戶名稱" Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Margin="2" />
                 </Grid>
             </GroupBox>
           
@@ -73,7 +84,7 @@
                     <TextBlock Text="修改" TextAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <Button Margin="2" Width="48" Name="btnSave" Click="btnSave_Click" AutomationProperties.AccessKey="F3">
+            <Button Margin="2" Width="48" Name="btnSave" Click="btnSave_Click" AutomationProperties.AccessKey="F3" IsEnabled="{Binding IsSaved, Converter={StaticResource NOTGateValueConverter}}">
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="F3" TextAlignment="Center"/>
                     <TextBlock Text="存檔" TextAlignment="Center"/>

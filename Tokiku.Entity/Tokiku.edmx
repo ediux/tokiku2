@@ -178,6 +178,8 @@
           <Property Name="CreateTime" Type="smalldatetime" Nullable="false" />
           <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="Void" Type="bit" Nullable="false" />
+          <Property Name="State" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="PromissoryNoteManagement">
           <Key>
@@ -438,6 +440,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Projects_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="0..1" />
+          <End Role="Projects" Type="Self.Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projects_States">
+          <End Role="States" Type="Self.States" Multiplicity="1" />
+          <End Role="Projects" Type="Self.Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="States">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="State" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PromissoryNoteManagement_ProjectContract">
           <End Role="ProjectContract" Type="Self.ProjectContract" Multiplicity="0..1" />
           <End Role="PromissoryNoteManagement" Type="Self.PromissoryNoteManagement" Multiplicity="*" />
@@ -593,6 +619,14 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="ProjectContract" EntitySet="ProjectContract" />
           </AssociationSet>
+          <AssociationSet Name="FK_Projects_Manufacturers" Association="Self.FK_Projects_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projects_States" Association="Self.FK_Projects_States">
+            <End Role="States" EntitySet="States" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
           <AssociationSet Name="FK_PromissoryNoteManagement_ProjectContract" Association="Self.FK_PromissoryNoteManagement_ProjectContract">
             <End Role="ProjectContract" EntitySet="ProjectContract" />
             <End Role="PromissoryNoteManagement" EntitySet="PromissoryNoteManagement" />
@@ -669,6 +703,7 @@
           <NavigationProperty Name="CreateUser" Relationship="Self.FK_Manufacturers_Users_Create" FromRole="Manufacturers" ToRole="Users" />
           <NavigationProperty Name="ProjectContract" Relationship="TokikuModel.FK_ProjectContract_Manufacturers" FromRole="Manufacturers" ToRole="ProjectContract" />
           <NavigationProperty Name="Materials" Relationship="TokikuModel.FK_Materials_Manufacturers" FromRole="Manufacturers" ToRole="Materials" />
+          <NavigationProperty Name="Projects" Relationship="TokikuModel.FK_Projects_Manufacturers" FromRole="Manufacturers" ToRole="Projects" />
         </EntityType>
         <EntityType Name="Membership">
           <Key>
@@ -724,6 +759,7 @@
           <Property Name="Id" Type="Byte" Nullable="false" />
           <Property Name="StateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="ShopFlowHistory" Relationship="TokikuModel.FK_ShopFlowHistory_States" FromRole="States" ToRole="ShopFlowHistory" />
+          <NavigationProperty Name="Projects" Relationship="TokikuModel.FK_Projects_States" FromRole="States" ToRole="Projects" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -909,6 +945,14 @@
           <AssociationSet Name="FK_ProjectContract_Projects" Association="TokikuModel.FK_ProjectContract_Projects">
             <End Role="Projects" EntitySet="Projects" />
             <End Role="ProjectContract" EntitySet="ProjectContract" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projects_Manufacturers" Association="TokikuModel.FK_Projects_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projects_States" Association="TokikuModel.FK_Projects_States">
+            <End Role="States" EntitySet="States" />
+            <End Role="Projects" EntitySet="Projects" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Engineering">
@@ -1219,6 +1263,10 @@
           <NavigationProperty Name="Engineering" Relationship="TokikuModel.FK_Engineering_Projects" FromRole="Projects" ToRole="Engineering" />
           <NavigationProperty Name="ProjectContract" Relationship="TokikuModel.FK_ProjectContract_Projects" FromRole="Projects" ToRole="ProjectContract" />
           <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Void" Type="Boolean" Nullable="false" />
+          <Property Name="State" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="TokikuModel.FK_Projects_Manufacturers" FromRole="Projects" ToRole="Manufacturers" />
+          <NavigationProperty Name="States" Relationship="TokikuModel.FK_Projects_States" FromRole="Projects" ToRole="States" />
         </EntityType>
         <Association Name="FK_Engineering_Projects">
           <End Type="TokikuModel.Projects" Role="Projects" Multiplicity="1" />
@@ -1241,6 +1289,30 @@
             </Principal>
             <Dependent Role="ProjectContract">
               <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projects_Manufacturers">
+          <End Type="TokikuModel.Manufacturers" Role="Manufacturers" Multiplicity="0..1" />
+          <End Type="TokikuModel.Projects" Role="Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projects_States">
+          <End Type="TokikuModel.States" Role="States" Multiplicity="1" />
+          <End Type="TokikuModel.Projects" Role="Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="States">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="State" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1495,6 +1567,8 @@
           <EntitySetMapping Name="Projects">
             <EntityTypeMapping TypeName="TokikuModel.Projects">
               <MappingFragment StoreEntitySet="Projects">
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Void" ColumnName="Void" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />

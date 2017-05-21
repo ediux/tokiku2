@@ -14,6 +14,7 @@
                 <ResourceDictionary Source="Themes\ShinyRed.xaml" />
                 <ResourceDictionary Source="Themes\WhistlerBlue.xaml" />
                 -->
+                <ResourceDictionary Source="Resources\SystemStrings.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources></Application>

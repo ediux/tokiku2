@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="TokikuNew.Views.ProjectSelectListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:vm ="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+             xmlns:entity="clr-namespace:Tokiku.Entity;assembly=Tokiku.Entity"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="414.736" Loaded="UserControl_Loaded">
+    <Grid Background="{DynamicResource ControlBackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="27"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="請選擇專案" VerticalAlignment="Center" Margin="2,0,2,0"/>
+        <TreeView Grid.Row="1" Background="{DynamicResource ControlBackgroundBrush}" Name="ProjectList" Margin="2" SelectedItemChanged="ProjectList_SelectedItemChanged" >
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type entity:Engineering}" ItemsSource="{Binding Engineering}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Code}" />
+                        <TextBlock Text="-"/>
+                        <TextBlock Text="{Binding ShortName}"/>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+                <DataTemplate DataType="{x:Type entity:Projects}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Code}" />
+                        <TextBlock Text="-"/>
+                        <TextBlock Text="{Binding ShortName}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </TreeView.Resources>
+        </TreeView>
+    </Grid>
+</UserControl>

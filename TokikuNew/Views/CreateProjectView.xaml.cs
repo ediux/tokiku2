@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using WinForm=System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -43,19 +45,36 @@ namespace TokikuNew.Views
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            ProjectsController controller = new ProjectsController();
-            Projects newProject = new Projects();
-            newProject.ClientId = Model.ClientId;
-            newProject.Code = Model.Code;
-            newProject.CreateTime = Model.CreateTime = DateTime.Now;
-            newProject.CreateUserId = Model.LoginedUser.UserId;
-            newProject.Name = Model.Name;
-            newProject.ProjectSigningDate = Model.ProjectSigningDate;
-            newProject.ShortName = Model.ShortName;
-            newProject.SiteAddress = Model.SiteAddress;
-            newProject.Comment = Model.Comment;
-            controller.Add(newProject);
-            Model = new ProjectBaseViewModel();
+            try
+            {
+                
+                Model.SaveModel();
+            }
+            catch (Exception ex)
+            {
+                if (ex is DbEntityValidationException)
+                {
+                    DbEntityValidationException dbex = (DbEntityValidationException)ex;
+                    string msg = "";
+                    foreach (var err in dbex.EntityValidationErrors)
+                    {
+                        foreach (var errb in err.ValidationErrors)
+                        {
+                            msg += errb.ErrorMessage;
+                        }
+                    }
+
+
+                    WinForm.MessageBox.Show(msg, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
+                }
+                else
+                {
+                    
+                    WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
+                }                
+            }
+
+
         }
     }
 }

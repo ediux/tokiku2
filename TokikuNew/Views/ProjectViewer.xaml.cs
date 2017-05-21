@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tokiku.Controllers;
+using Tokiku.ViewModels;
 
 namespace TokikuNew.Views
 {
@@ -20,9 +22,27 @@ namespace TokikuNew.Views
     /// </summary>
     public partial class ProjectViewer : UserControl
     {
+        private ProjectsController controller = new ProjectsController();
+
+        #region 相依屬性
+        public static readonly DependencyProperty ModelProperty = DependencyProperty.Register("Model", typeof(ProjectBaseViewModel), typeof(ProjectViewer), new PropertyMetadata(default(ProjectBaseViewModel)));
+
+        public ProjectBaseViewModel Model
+        {
+            get { return GetValue(ModelProperty) as ProjectBaseViewModel; }
+            set { SetValue(ModelProperty, value); }
+        }
+        #endregion
+
         public ProjectViewer()
         {
             InitializeComponent();
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+           
+                     
         }
     }
 }

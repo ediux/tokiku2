@@ -40,9 +40,11 @@
         <EntityTypeShape EntityType="TokikuModel.BOM" Width="1.5" PointX="11" PointY="10.875" />
         <AssociationConnector Association="TokikuModel.FK_BOM_Materials" />
         <AssociationConnector Association="TokikuModel.FK_BOM_ShopFlowHistory" />
-        <EntityTypeShape EntityType="TokikuModel.Projects" Width="1.5" PointX="2.75" PointY="14.625" />
+        <EntityTypeShape EntityType="TokikuModel.Projects" Width="1.5" PointX="2.75" PointY="14.625" IsExpanded="true" />
         <AssociationConnector Association="TokikuModel.FK_Engineering_Projects" />
         <AssociationConnector Association="TokikuModel.FK_ProjectContract_Projects" />
+        <AssociationConnector Association="TokikuModel.FK_Projects_Manufacturers" />
+        <AssociationConnector Association="TokikuModel.FK_Projects_States" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

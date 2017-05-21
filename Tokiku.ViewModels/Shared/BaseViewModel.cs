@@ -22,8 +22,59 @@ namespace Tokiku.ViewModels
             };
         }
 
+        /// <summary>
+        /// 將來自資料庫的資料實體抄到檢視模型。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity"></param>
+        protected void BindingFromModel<T>(T entity) where T : class
+        {
+            Type t = typeof(T);
+            Type ct = this.GetType();
+
+            var props = t.GetProperties();
+
+            foreach(var prop in props)
+            {
+                var ctProp = ct.GetProperty(prop.Name);
+                if (ctProp != null)
+                {
+                    ctProp.SetValue(this, prop.GetValue(entity));                    
+                }
+            }
+
+            IsModify = false;
+            IsSaved = false;
+        }
+
+        protected T CopyToModel<T>(T entity) where T : class
+        {
+            
+            Type t = this.GetType();
+            Type ct = typeof(T);
+
+            var props = t.GetProperties();
+
+            foreach (var prop in props)
+            {
+                var ctProp = ct.GetProperty(prop.Name);
+                if (ctProp != null)
+                {
+                    ctProp.SetValue(entity, prop.GetValue(this));
+                }
+            }
+            return entity;
+        }
+        
+        /// <summary>
+        /// 屬性變更事件。
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// 引發屬性變更事件。
+        /// </summary>
+        /// <param name="PropertyName">發生變更的屬性名稱。</param>
         protected void RaisePropertyChanged(string PropertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));

@@ -27,16 +27,16 @@ namespace Tokiku.Controllers
             {
                 string[] parts = result.Split('-');
 
-                if(parts!=null && parts.Length > 1)
+                if (parts != null && parts.Length > 1)
                 {
                     int currentNumber = 0;
 
-                    if(int.TryParse(parts[1],out currentNumber))
+                    if (int.TryParse(parts[1], out currentNumber))
                     {
                         currentNumber += 1;
                         return currentNumber.ToString();
                     }
-                }                
+                }
             }
 
             return "001";
@@ -44,7 +44,80 @@ namespace Tokiku.Controllers
 
         public void Add(Projects model)
         {
-            throw new NotImplementedException();
+            database.Projects.Add(model);
+            database.SaveChanges();
+        }
+
+        public Projects QuerySingle(Guid ProjectId)
+        {
+            try
+            {
+                var result = from p in database.Projects
+                             where p.Id == ProjectId && p.Void == false
+                             select p;
+
+                if (result.Any())
+                {
+                    return result.Single();
+                }
+
+                return null;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public List<Projects> QueryAll()
+        {
+            try
+            {
+                var result = from p in database.Projects
+                             where p.Void == false
+                             select p;
+
+                return result.ToList();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public bool IsExists(Guid ProjectId)
+        {
+            try
+            {
+                var result = from p in database.Projects
+                             where p.Id == ProjectId && p.Void == false
+                             select p;
+
+                return result.Any();
+            }
+            catch
+            {
+
+                return false;
+            }
+        }
+
+        public void Update(Projects updatedProject)
+        {
+            var original = QuerySingle(updatedProject.Id);
+            if (original != null)
+            {
+                original = updatedProject;
+                database.SaveChanges();
+            }
+        }
+
+        public List<States> GetAllState()
+        {
+            return (from c in database.States
+                    select c).ToList();
         }
     }
 }

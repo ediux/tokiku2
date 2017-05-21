@@ -5,14 +5,21 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="300">
+             d:DesignHeight="300" d:DesignWidth="795.349" Loaded="UserControl_Loaded" >
     <Grid Background="{DynamicResource ControlBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="48"/>
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <GridSplitter Grid.Row="0" Grid.Column="0" Background="Transparent" Grid.RowSpan="3" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="5"/>
+
+   
+        <Menu Grid.Row="0" Grid.Column="1">
             <MenuItem Header="用料需求"></MenuItem>
             <MenuItem Header="鋁擠型"></MenuItem>
             <MenuItem Header="單元安框"></MenuItem>
@@ -21,12 +28,12 @@
             <MenuItem Header="鐵件"></MenuItem>
             <MenuItem Header="其他材料"></MenuItem>
         </Menu>
-        <ContentControl Grid.Row="1">
+        <ContentControl Grid.Row="1" Grid.Column="1">
             <GroupBox Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="8" Margin="5" Header="專案圖集、施工順序[最後更新時間:]">
                 <DataGrid Margin="0,0,-2,0" VerticalAlignment="Top" Height="166"/>
             </GroupBox>
         </ContentControl>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Background="Silver" >
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Background="Silver" >
             <Button Margin="2" Width="48" Name="btnF1">
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="F1" TextAlignment="Center"></TextBlock>
