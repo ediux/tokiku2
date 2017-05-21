@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tokiku.Controllers;
+using Tokiku.Entity;
 using Tokiku.ViewModels;
 
 namespace TokikuNew.Views
@@ -29,11 +30,11 @@ namespace TokikuNew.Views
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty SelectedProjectProperty = DependencyProperty.Register("SelectedProject", typeof(ProjectBaseViewModel), typeof(ProjectSelectListView));
+        public static readonly DependencyProperty SelectedProjectProperty = DependencyProperty.Register("SelectedProject", typeof(Projects), typeof(ProjectSelectListView));
 
-        public ProjectBaseViewModel SelectedProject
+        public Projects SelectedProject
         {
-            get { return (ProjectBaseViewModel)GetValue(SelectedProjectProperty); }
+            get { return (Projects)GetValue(SelectedProjectProperty); }
             set { SetValue(SelectedProjectProperty, value); }
         }
 
@@ -52,7 +53,7 @@ namespace TokikuNew.Views
 
         private void ProjectList_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            SelectedProject = (ProjectBaseViewModel)e.NewValue;
+            SelectedProject = (Projects)e.NewValue;
             RaiseEvent(new RoutedEventArgs(SelectedProjectChangedEvent, SelectedProject));
         }
 

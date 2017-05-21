@@ -1,10 +1,10 @@
-﻿<UserControl
+﻿<UserControl x:Class="TokikuNew.Views.CreateProjectView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
-             xmlns:ValueConverters="clr-namespace:TokikuNew.ValueConverters" x:Class="TokikuNew.Views.CreateProjectView"
+             xmlns:ValueConverters="clr-namespace:TokikuNew.ValueConverters" 
              mc:Ignorable="d" 
              d:DesignHeight="443.478" d:DesignWidth="600" DataContext="{Binding Model}" >
     <UserControl.Resources>

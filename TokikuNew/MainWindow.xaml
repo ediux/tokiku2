@@ -6,7 +6,7 @@
         xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
         xmlns:local="clr-namespace:TokikuNew"
         mc:Ignorable="d"
-        Title="東菊金屬 ERP System" Height="350" Width="792.685" WindowState="Maximized" Icon="16x16.png" Loaded="Window_Loaded" Background="{DynamicResource WindowBackgroundBrush}" DataContext="{Binding Model}">
+        Title="東菊金屬 ERP System" Height="350" Width="792.685" WindowState="Maximized" Icon="16x16.png" Loaded="Window_Loaded" Background="{DynamicResource WindowBackgroundBrush}">
     <Window.Resources>
     </Window.Resources>
     <Grid>

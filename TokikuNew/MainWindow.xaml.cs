@@ -34,6 +34,7 @@ namespace TokikuNew
         {
             InitializeComponent();
             Model = new MainViewModel();
+            this.DataContext = Model;
         }
 
         private void btnTabClose_Click(object sender, RoutedEventArgs e)

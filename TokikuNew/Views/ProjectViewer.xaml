@@ -13,13 +13,9 @@
             <RowDefinition Height="48"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <GridSplitter Grid.Row="0" Grid.Column="0" Background="Transparent" Grid.RowSpan="3" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="5"/>
-
-   
-        <Menu Grid.Row="0" Grid.Column="1">
+        <Menu Grid.Row="0" Grid.Column="0">
             <MenuItem Header="用料需求"></MenuItem>
             <MenuItem Header="鋁擠型"></MenuItem>
             <MenuItem Header="單元安框"></MenuItem>
@@ -33,7 +29,7 @@
                 <DataGrid Margin="0,0,-2,0" VerticalAlignment="Top" Height="166"/>
             </GroupBox>
         </ContentControl>
-        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Background="Silver" >
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Background="{DynamicResource ControlBackgroundBrush}" >
             <Button Margin="2" Width="48" Name="btnF1">
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="F1" TextAlignment="Center"></TextBlock>
