@@ -9,7 +9,8 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DataId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CreateTime" Type="smalldatetime" Nullable="false" />
           <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ActionCode" Type="tinyint" Nullable="false" />
@@ -927,7 +928,6 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="PromissoryNoteManagement" EntitySet="PromissoryNoteManagement" />
           </AssociationSet>
-          <EntitySet Name="AccessLog" EntityType="TokikuModel.AccessLog" />
           <EntitySet Name="BOM" EntityType="TokikuModel.BOM" />
           <AssociationSet Name="FK_BOM_Materials" Association="TokikuModel.FK_BOM_Materials">
             <End Role="Materials" EntitySet="Materials" />
@@ -954,6 +954,7 @@
             <End Role="States" EntitySet="States" />
             <End Role="Projects" EntitySet="Projects" />
           </AssociationSet>
+          <EntitySet Name="AccessLog" EntityType="TokikuModel.AccessLog" />
         </EntityContainer>
         <EntityType Name="Engineering">
           <Key>
@@ -1203,15 +1204,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="AccessLog">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="UserId" Type="Guid" Nullable="false" />
-          <Property Name="ActionCode" Type="Byte" Nullable="false" />
-        </EntityType>
         <EntityType Name="BOM">
           <Key>
             <PropertyRef Name="Id" />
@@ -1316,6 +1308,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AccessLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DataId" Type="Guid" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="ActionCode" Type="Byte" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1544,16 +1546,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="AccessLog">
-            <EntityTypeMapping TypeName="TokikuModel.AccessLog">
-              <MappingFragment StoreEntitySet="AccessLog">
-                <ScalarProperty Name="ActionCode" ColumnName="ActionCode" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="BOM">
             <EntityTypeMapping TypeName="TokikuModel.BOM">
               <MappingFragment StoreEntitySet="BOM">
@@ -1578,6 +1570,17 @@
                 <ScalarProperty Name="ShortName" ColumnName="ShortName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccessLog">
+            <EntityTypeMapping TypeName="TokikuModel.AccessLog">
+              <MappingFragment StoreEntitySet="AccessLog">
+                <ScalarProperty Name="ActionCode" ColumnName="ActionCode" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="DataId" ColumnName="DataId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

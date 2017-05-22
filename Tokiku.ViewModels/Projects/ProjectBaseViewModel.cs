@@ -49,47 +49,15 @@ namespace Tokiku.ViewModels
                     CreateTime = DateTime.Now;
                     CreateUserId = LoginedUser.UserId;
                     CopyToModel(newProject);
-                    //newProject.Id = Guid.NewGuid();            
-                    //newProject.ClientId = ClientId;
-                    //newProject.Code = Code;
-                    //newProject.CreateTime = CreateTime = DateTime.Now;
-                    //newProject.CreateUserId = LoginedUser.UserId;
-                    //newProject.Name = Name;
-                    //newProject.ProjectSigningDate = ProjectSigningDate;
-                    //newProject.ShortName = ShortName;
-                    //newProject.SiteAddress = SiteAddress;
-                    //newProject.Comment = Comment;
                     controller.Add(newProject);
                 }
-
+                IsEditorMode = true;
                 IsSaved = true;
                 IsModify = false;
             }
             catch
             {
                 throw;
-                //if (ex is DbEntityValidationException)
-                //{
-                //    DbEntityValidationException dbex = (DbEntityValidationException)ex;
-                //    string msg = "";
-                //    foreach (var err in dbex.EntityValidationErrors)
-                //    {
-                //        foreach (var errb in err.ValidationErrors)
-                //        {
-                //            msg += errb.ErrorMessage;
-                //        }
-                //    }
-
-                //    throw new Exception(msg);
-                   
-                //    //MessageBox.Show(msg, "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
-                //}
-                //else
-                //{
-                //    MessageBox.Show(ex.Message, "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
-                //}
-
-
             }
            
         }
@@ -138,8 +106,10 @@ namespace Tokiku.ViewModels
             
             if (!e.NewValue.Equals(e.OldValue))
             {
+                source.SetValue(IsEditorModeProperty, true);
                 source.SetValue(IsModifyProperty, true);
                 source.SetValue(IsSavedProperty, false);
+                source.SetValue(CanSaveProperty, true);
             }
         }
 
@@ -147,9 +117,10 @@ namespace Tokiku.ViewModels
         {
             if (!e.NewValue.Equals(e.OldValue))
             {
-
+                source.SetValue(IsEditorModeProperty, true);
                 source.SetValue(IsModifyProperty, true);
                 source.SetValue(IsSavedProperty, false);
+                source.SetValue(CanSaveProperty, true);
             }
         }
         #endregion

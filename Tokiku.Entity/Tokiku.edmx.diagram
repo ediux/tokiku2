@@ -36,7 +36,6 @@
         <AssociationConnector Association="TokikuModel.FK_PromissoryNoteManagement_ProjectContract" />
         <AssociationConnector Association="TokikuModel.FK_PromissoryNoteManagement_TicketTypes" />
         <AssociationConnector Association="TokikuModel.FK_PromissoryNoteManagement_Users" />
-        <EntityTypeShape EntityType="TokikuModel.AccessLog" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="TokikuModel.BOM" Width="1.5" PointX="11" PointY="10.875" />
         <AssociationConnector Association="TokikuModel.FK_BOM_Materials" />
         <AssociationConnector Association="TokikuModel.FK_BOM_ShopFlowHistory" />
@@ -45,6 +44,7 @@
         <AssociationConnector Association="TokikuModel.FK_ProjectContract_Projects" />
         <AssociationConnector Association="TokikuModel.FK_Projects_Manufacturers" />
         <AssociationConnector Association="TokikuModel.FK_Projects_States" />
+        <EntityTypeShape EntityType="TokikuModel.AccessLog" Width="1.5" PointX="5.375" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

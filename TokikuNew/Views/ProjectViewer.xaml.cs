@@ -41,8 +41,7 @@ namespace TokikuNew.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-           
-                     
+            this.DataContext = Model;                
         }
     }
 }

@@ -42,12 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientViewModel.cs" />
-    <Compile Include="ManufacturersViewModel.cs" />
+    <Compile Include="ContactsViewModel.cs" />
+    <Compile Include="Manufacturers\ManufacturersViewModel.cs" />
     <Compile Include="Shared\BaseViewModel.cs" />
     <Compile Include="Shared\LoginViewModel.cs" />
     <Compile Include="Shared\MainViewModel.cs" />
     <Compile Include="Projects\ProjectBaseViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tokiku.Controllers\Tokiku.Controllers.csproj">

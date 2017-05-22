@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ManufacturersController.cs" />
     <Compile Include="ProjectsController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shared\UserController.cs" />

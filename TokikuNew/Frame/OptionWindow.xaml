@@ -1,0 +1,32 @@
+﻿<Window x:Class="TokikuNew.Frame.OptionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TokikuNew.Frame"
+        mc:Ignorable="d"
+        Title="系統選項" Height="300" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="27"/>
+            <RowDefinition Height="27"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="60*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="主題" Grid.Row="0" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" FontSize="15" Margin="5"/>
+        <ComboBox Name="ThemeSelection" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="2" SelectionChanged="ThemeSelection_SelectionChanged">
+            <ComboBox.Items>
+                <ComboBoxItem Content="BureauBlack" Tag="Themes\BureauBlack.xaml" />
+                <ComboBoxItem Content="BureauBlue" Tag="Themes\BureauBlue.xaml" Selector.IsSelected="True"/>
+                <ComboBoxItem Content="ExpressionDark" Tag="Themes\ExpressionDark.xaml" />
+                <ComboBoxItem Content="ExpressionLight" Tag="Themes\ExpressionLight.xaml" />
+                <ComboBoxItem Content="ShinyBlue" Tag="Themes\ShinyBlue.xaml" />
+                <ComboBoxItem Content="ShinyRed" Tag="Themes\ShinyRed.xaml" />
+                <ComboBoxItem Content="WhistlerBlue" Tag="Themes\WhistlerBlue.xaml" />
+            </ComboBox.Items>
+        </ComboBox>
+    </Grid>
+</Window>

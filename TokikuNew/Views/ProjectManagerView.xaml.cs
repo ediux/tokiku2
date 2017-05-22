@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-using WinForm=System.Windows.Forms;
+using WinForm = System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -21,12 +21,12 @@ using Tokiku.ViewModels;
 namespace TokikuNew.Views
 {
     /// <summary>
-    /// CreateProjectView.xaml 的互動邏輯
+    /// ProjectManagerView.xaml 的互動邏輯
     /// </summary>
-    public partial class CreateProjectView : UserControl
+    public partial class ProjectManagerView : UserControl
     {
         #region 相依屬性
-        public static readonly DependencyProperty ModelProperty = DependencyProperty.Register("Model", typeof(ProjectBaseViewModel), typeof(CreateProjectView), new PropertyMetadata(default(ProjectBaseViewModel)));
+        public static readonly DependencyProperty ModelProperty = DependencyProperty.Register("Model", typeof(ProjectBaseViewModel), typeof(ProjectManagerView), new PropertyMetadata(default(ProjectBaseViewModel)));
 
         public ProjectBaseViewModel Model
         {
@@ -35,7 +35,7 @@ namespace TokikuNew.Views
         }
         #endregion
 
-        public CreateProjectView()
+        public ProjectManagerView()
         {
             InitializeComponent();
 
@@ -47,8 +47,8 @@ namespace TokikuNew.Views
         {
             try
             {
-                
                 Model.SaveModel();
+                Model.CanSave = false;
             }
             catch (Exception ex)
             {
@@ -69,12 +69,32 @@ namespace TokikuNew.Views
                 }
                 else
                 {
-                    
+
                     WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
-                }                
+                }
             }
 
 
+        }
+
+        private void btnModify_Click(object sender, RoutedEventArgs e)
+        {
+            Model.IsEditorMode = !Model.IsEditorMode;
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Model.DisabledEditor();
+            Model.CanSave = false;
+        }
+
+        private void UserControl_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F3)
+            {
+                if (Model.CanSave)
+                    btnSave_Click(sender, new RoutedEventArgs(e.RoutedEvent));
+            }
         }
     }
 }

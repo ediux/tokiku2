@@ -39,8 +39,8 @@ namespace Tokiku.Entity
         public virtual DbSet<MaterialCategories> MaterialCategories { get; set; }
         public virtual DbSet<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
         public virtual DbSet<TicketTypes> TicketTypes { get; set; }
-        public virtual DbSet<AccessLog> AccessLog { get; set; }
         public virtual DbSet<BOM> BOM { get; set; }
         public virtual DbSet<Projects> Projects { get; set; }
+        public virtual DbSet<AccessLog> AccessLog { get; set; }
     }
 }

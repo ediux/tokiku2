@@ -7,53 +7,41 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class ProjectsController
+    public class ManufacturersController
     {
         private TokikuEntities database;
 
-        public ProjectsController()
+        public ManufacturersController()
         {
             database = new TokikuEntities();
         }
 
-        public string GetNextProjectSerialNumber(string year)
+        public string GetNextProjectSerialNumber()
         {
-            var result = (from q in database.Projects
-                          where q.Code.StartsWith(year.Trim()) && q.Code.Contains("-F") == false
+            var result = (from q in database.Manufacturers
                           orderby q.Code descending
                           select q.Code).FirstOrDefault();
 
             if (!string.IsNullOrEmpty(result))
             {
-                string[] parts = result.Split('-');
 
-                if (parts != null && parts.Length > 1)
-                {
-                    int currentNumber = 0;
-
-                    if (int.TryParse(parts[1], out currentNumber))
-                    {
-                        currentNumber += 1;
-                        return currentNumber.ToString();
-                    }
-                }
             }
 
             return "001";
         }
 
-        public void Add(Projects model)
+        public void Add(Manufacturers model)
         {
-            database.Projects.Add(model);
+            database.Manufacturers.Add(model);
             database.SaveChanges();
         }
 
-        public Projects QuerySingle(Guid ProjectId)
+        public Manufacturers QuerySingle(Guid ManufacturersId)
         {
             try
             {
-                var result = from p in database.Projects
-                             where p.Id == ProjectId && p.Void == false
+                var result = from p in database.Manufacturers
+                             where p.Id == ManufacturersId && p.Void == false
                              select p;
 
                 if (result.Any())
@@ -70,11 +58,11 @@ namespace Tokiku.Controllers
             }
         }
 
-        public List<Projects> QueryAll()
+        public List<Manufacturers> QueryAll()
         {
             try
             {
-                var result = from p in database.Projects
+                var result = from p in database.Manufacturers
                              where p.Void == false
                              select p;
 
@@ -87,12 +75,12 @@ namespace Tokiku.Controllers
             }
         }
 
-        public bool IsExists(Guid ProjectId)
+        public bool IsExists(Guid ManufacturersId)
         {
             try
             {
-                var result = from p in database.Projects
-                             where p.Id == ProjectId && p.Void == false
+                var result = from p in database.Manufacturers
+                             where p.Id == ManufacturersId && p.Void == false
                              select p;
 
                 return result.Any();
@@ -104,7 +92,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        public void Update(Projects updatedProject)
+        public void Update(Manufacturers updatedProject)
         {
             var original = QuerySingle(updatedProject.Id);
             if (original != null)
@@ -114,12 +102,12 @@ namespace Tokiku.Controllers
             }
         }
 
-        public void Delete(Guid ProjectId, Guid UserId)
+        public void Delete(Guid ManufacturersId, Guid UserId)
         {
             try
             {
-                var result = from p in database.Projects
-                             where p.Id == ProjectId && p.Void == false
+                var result = from p in database.Manufacturers
+                             where p.Id == ManufacturersId && p.Void == false
                              select p;
 
                 if (result.Any())
@@ -127,7 +115,7 @@ namespace Tokiku.Controllers
                     var data = result.Single();
                     data.Void = true;
 
-                    database.AccessLog.Add(new AccessLog() { ActionCode = 3, CreateTime = DateTime.Now, DataId = ProjectId, UserId = UserId });
+                    database.AccessLog.Add(new AccessLog() { ActionCode = 3, CreateTime = DateTime.Now, DataId = ManufacturersId, UserId = UserId });
                     database.SaveChanges();
                 }
 
@@ -137,12 +125,6 @@ namespace Tokiku.Controllers
 
                 throw;
             }
-        }
-
-        public List<States> GetAllState()
-        {
-            return (from c in database.States
-                    select c).ToList();
         }
     }
 }

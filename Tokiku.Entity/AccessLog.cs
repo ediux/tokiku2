@@ -14,7 +14,8 @@ namespace Tokiku.Entity
     
     public partial class AccessLog
     {
-        public System.Guid Id { get; set; }
+        public long Id { get; set; }
+        public System.Guid DataId { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid UserId { get; set; }
         public byte ActionCode { get; set; }

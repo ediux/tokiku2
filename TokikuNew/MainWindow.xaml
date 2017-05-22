@@ -16,18 +16,19 @@
             <RowDefinition Height="27"/>
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" >
-            <MenuItem Header="專案" Name="MI_Project" Click="MI_Project_Click">
-            </MenuItem>
-            <MenuItem Header="主檔建立" Name="MI_CreateNew">
-                <MenuItem Header="廠商" Name="MI_CreateNew_Factories" Click="MI_CreateNew_Factories_Click"></MenuItem>
-                <MenuItem Header="客戶" Name="MI_CreateNew_Customers" Click="MI_CreateNew_Customers_Click"></MenuItem>
-                <MenuItem Header="聯絡人" Name="MI_CreateNew_Contracts" Click="MI_CreateNew_Contracts_Click"></MenuItem>
+            <MenuItem Header="主檔維護" Name="MI_CreateNew">
+                <MenuItem Header="廠商" Name="MI_CreateNew_Factories" Click="MI_CreateNew_Factories_Click">
+                    <MenuItem Header="聯絡人" Name="MI_CreateNew_Factories_Contracts" Click="MI_CreateNew_Contracts_Click"></MenuItem>
+                </MenuItem>
+                <MenuItem Header="客戶" Name="MI_CreateNew_Customers" Click="MI_CreateNew_Customers_Click">
+                    <MenuItem Header="聯絡人" Name="MI_MI_CreateNew_Customers_Contracts" Click="MI_CreateNew_Contracts_Click"></MenuItem>
+                </MenuItem>
                 <MenuItem Header="專案" Name="MI_CreateNew_Project" Click="MI_CreateNew_Project_Click"></MenuItem>
             </MenuItem>
-
             <MenuItem Header="報表"></MenuItem>
             <MenuItem Header="帳務"></MenuItem>
             <MenuItem Header="系統管理">
+                <MenuItem Header="選項" Name="MI_SystemOption" Click="MI_SystemOption_Click"/>
                 <MenuItem Header="人員管理" ></MenuItem>
                 <Separator/>
                 <MenuItem Header="結束程式" Name="ExitApp" Click="ExitApp_Click"></MenuItem>
@@ -210,8 +211,8 @@
                     </Setter>
                 </Style>
             </TabControl.Resources>
-            <TabItem Header="Welcome">
-                <WebBrowser Source="http://tokiku.com.tw/ezportal/homeweb/index.php" Margin="0" />
+            <TabItem Header="專案列表">
+                <Views:ProjectSelectListView x:Name="ProjectSelectionPage" SelectedProjectChanged="ProjectSelectionPage_SelectedProjectChanged" />
             </TabItem>
         </TabControl>
 
