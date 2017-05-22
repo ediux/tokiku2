@@ -78,7 +78,6 @@ namespace TokikuNew
                 }
                 Workspaces.Items.Remove(Workspaces.SelectedItem);
                 Model.CurrentProject = null;
-                MI_Project.Header = "專案";
             }
             catch (Exception ex)
             {
@@ -100,7 +99,8 @@ namespace TokikuNew
                 Frame.ProjectSelectionWindow projectSelectionWin = new Frame.ProjectSelectionWindow();
                 if (projectSelectionWin.ShowDialog().HasValue && projectSelectionWin.SelectedProject != null)
                 {
-                    MI_Project.Header = string.Format("專案:{0}-{1}", projectSelectionWin.SelectedProject.Code, projectSelectionWin.SelectedProject.ShortName);
+                    //MI_Project.Header = string.Format("專案:{0}-{1}", projectSelectionWin.SelectedProject.Code, projectSelectionWin.SelectedProject.ShortName);
+                    string TabName = string.Format("專案:{0}-{1}", projectSelectionWin.SelectedProject.Code, projectSelectionWin.SelectedProject.ShortName);
                     Model.CurrentProject = new ProjectBaseViewModel();
                     Model.CurrentProject.QueryModel(projectSelectionWin.SelectedProject.Id);
 
@@ -111,7 +111,7 @@ namespace TokikuNew
 
                     foreach (TabItem item in Workspaces.Items)
                     {
-                        if (item.Header.Equals(MI_Project.Header))
+                        if (item.Header.Equals(TabName))
                         {
                             isExisted = true;
                             addWorkarea = item;
@@ -121,7 +121,7 @@ namespace TokikuNew
 
                     if (!isExisted)
                     {
-                        addWorkarea.Header = MI_Project.Header;
+                        addWorkarea.Header = TabName;
 
                         var vm = new Views.ProjectViewer() { Margin = new Thickness(0) };
                         vm.Model = new ProjectBaseViewModel();
@@ -178,26 +178,26 @@ namespace TokikuNew
                 //}
                 //else
                 //{
-                    var vm = new Views.ProjectManagerView() { Margin = new Thickness(0), Model = new ProjectBaseViewModel() };
-                    vm.Model.LoginedUser = Model.LoginedUser;
+                var vm = new Views.ProjectManagerView() { Margin = new Thickness(0), Model = new ProjectBaseViewModel() };
+                vm.Model.LoginedUser = Model.LoginedUser;
 
-                    if (Model.CurrentProject == null)
-                    {
-                        vm.Model.IsNew = true;
-                        vm.Model.EnableEditor();
-                    }
-                    else
-                    {
-                        vm.Model.IsNew = false;
-                        vm.Model.DisabledEditor();
-                    }
+                if (Model.CurrentProject == null)
+                {
+                    vm.Model.IsNew = true;
+                    vm.Model.EnableEditor();
+                }
+                else
+                {
+                    vm.Model.IsNew = false;
+                    vm.Model.DisabledEditor();
+                }
 
-                    vm.DataContext = vm.Model;
-                    addWorkarea.Content = vm;
-                    addWorkarea.Margin = new Thickness(0);
+                vm.DataContext = vm.Model;
+                addWorkarea.Content = vm;
+                addWorkarea.Margin = new Thickness(0);
 
-                    Workspaces.Items.Add(addWorkarea);
-                    Workspaces.SelectedItem = addWorkarea;
+                Workspaces.Items.Add(addWorkarea);
+                Workspaces.SelectedItem = addWorkarea;
                 //}
 
 
@@ -216,7 +216,47 @@ namespace TokikuNew
 
         private void MI_CreateNew_Contracts_Click(object sender, RoutedEventArgs e)
         {
+            string Header = "廠商主檔-聯絡人管理";
+            TabItem addWorkarea = new TabItem();
+            bool isExisted = false;
 
+            foreach (TabItem item in Workspaces.Items)
+            {
+                if (item.Header.Equals(Header))
+                {
+                    isExisted = true;
+                    addWorkarea = item;
+                    break;
+                }
+            }
+
+            if (!isExisted)
+            {
+                addWorkarea.Header = Header;
+
+                var vm = new Views.ContactPersonManageView() { Margin = new Thickness(0) };
+                //vm.Model = new ContactsViewModel();
+                //vm.Model.IsNew = true;                
+                //vm.Model.LoginedUser = Model.LoginedUser;
+                //vm.DataContext = vm.Model;             
+                
+                vm.OnPageClosing += Vm_OnPageClosing;
+                addWorkarea.Content = vm;
+                addWorkarea.Margin = new Thickness(0);
+
+                Workspaces.Items.Add(addWorkarea);
+                Workspaces.SelectedItem = addWorkarea;
+            }
+            else
+            {
+
+                Workspaces.SelectedItem = addWorkarea;
+            }
+        }
+
+        private void Vm_OnPageClosing(object sender, RoutedEventArgs e)
+        {
+            btnTabClose_Click(sender, e);
         }
 
         private void MI_CreateNew_Customers_Click(object sender, RoutedEventArgs e)
@@ -235,9 +275,9 @@ namespace TokikuNew
             Model.CurrentProject = new ProjectBaseViewModel();
             Model.CurrentProject.QueryModel(ProjectSelectionPage.SelectedProject.Id);
 
-            MI_Project.Header = string.Format("專案:{0}-{1}", projectSelectionWin.SelectedProject.Code, projectSelectionWin.SelectedProject.ShortName);
+            string Header = string.Format("專案:{0}-{1}", ProjectSelectionPage.SelectedProject.Code, ProjectSelectionPage.SelectedProject.ShortName);
             Model.CurrentProject = new ProjectBaseViewModel();
-            Model.CurrentProject.QueryModel(projectSelectionWin.SelectedProject.Id);
+            Model.CurrentProject.QueryModel(ProjectSelectionPage.SelectedProject.Id);
 
             TabItem addWorkarea = new TabItem();
 
@@ -246,7 +286,7 @@ namespace TokikuNew
 
             foreach (TabItem item in Workspaces.Items)
             {
-                if (item.Header.Equals(MI_Project.Header))
+                if (item.Header.Equals(Header))
                 {
                     isExisted = true;
                     addWorkarea = item;
@@ -256,11 +296,11 @@ namespace TokikuNew
 
             if (!isExisted)
             {
-                addWorkarea.Header = MI_Project.Header;
+                addWorkarea.Header = Header;
 
                 var vm = new Views.ProjectViewer() { Margin = new Thickness(0) };
                 vm.Model = new ProjectBaseViewModel();
-                vm.Model.QueryModel(projectSelectionWin.SelectedProject.Id);
+                vm.Model.QueryModel(ProjectSelectionPage.SelectedProject.Id);
                 vm.Model.LoginedUser = Model.LoginedUser;
                 vm.DataContext = vm.Model;
 

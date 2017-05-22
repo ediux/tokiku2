@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:TokikuNew.Views"
              xmlns:ValueConverters="clr-namespace:TokikuNew.ValueConverters" 
              mc:Ignorable="d" 
-             d:DesignHeight="443.478" d:DesignWidth="600" DataContext="{Binding Model}" KeyDown="UserControl_KeyDown" >
+             d:DesignHeight="443.478" d:DesignWidth="600" DataContext="{Binding Model}" KeyDown="UserControl_KeyDown" Loaded="UserControl_Loaded" >
     <UserControl.Resources>
         <ValueConverters:NOTGateValueConverter x:Key="NOTGateValueConverter"/>
         <ValueConverters:SigningDateToCodeConverter x:Key="SigningDateToCodeConverter"/>
@@ -44,12 +44,12 @@
             <TextBox Grid.Row="1" Grid.Column="1" Margin="2" Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}"/>
             <TextBlock Grid.Row="1" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center" Text="工程簽約日期"/>
             <DatePicker x:Name="ProjectSigningDate" Grid.Row="1" Grid.Column="3" Margin="2" FontSize="12"  Text="{Binding ProjectSigningDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}" />
-            <TextBlock Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="工地地址"/>
-            <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" Text="{Binding SiteAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}"/>
+            <TextBlock Grid.Row="4" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="工地地址"/>
+            <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" Text="{Binding SiteAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}"/>
             <TextBlock Grid.Row="3" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="備註"/>
             <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}"  />
-            <TextBlock Grid.Row="4" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="狀態"/>
-            <ComboBox Grid.Row="4" Grid.Column="1" Margin="2" ItemsSource="{Binding StateText}" SelectedValuePath="Id" SelectedValue="{Binding State,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}">
+            <TextBlock Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="狀態"/>
+            <ComboBox Grid.Row="2" Grid.Column="1" Margin="2" ItemsSource="{Binding StateText}" SelectedValuePath="Id" SelectedValue="{Binding State,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding StateName}"/>

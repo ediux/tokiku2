@@ -25,6 +25,7 @@ namespace TokikuNew.Views
     /// </summary>
     public partial class ProjectManagerView : UserControl
     {
+        
         #region 相依屬性
         public static readonly DependencyProperty ModelProperty = DependencyProperty.Register("Model", typeof(ProjectBaseViewModel), typeof(ProjectManagerView), new PropertyMetadata(default(ProjectBaseViewModel)));
 
@@ -95,6 +96,11 @@ namespace TokikuNew.Views
                 if (Model.CanSave)
                     btnSave_Click(sender, new RoutedEventArgs(e.RoutedEvent));
             }
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

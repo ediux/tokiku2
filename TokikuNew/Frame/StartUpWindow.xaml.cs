@@ -31,8 +31,6 @@ namespace TokikuNew.Frame
         public StartUpWindow()
         {
             InitializeComponent();
-            Model = new LoginViewModel();
-            this.DataContext = Model;
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
@@ -100,6 +98,16 @@ namespace TokikuNew.Frame
         private void pwdBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter) { btnLogin_Click(sender, new RoutedEventArgs(e.RoutedEvent)); }
+        }
+
+        private void window_Initialized(object sender, EventArgs e)
+        {
+            Model = new LoginViewModel();
+        }
+
+        private void window_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.DataContext = Model;
         }
     }
 }

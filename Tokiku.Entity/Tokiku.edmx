@@ -35,11 +35,14 @@
           <Property Name="Phone" Type="nvarchar" MaxLength="10" />
           <Property Name="ExtensionNumber" Type="nvarchar" MaxLength="6" />
           <Property Name="Mobile" Type="nvarchar" MaxLength="10" />
+          <Property Name="EMail" Type="nvarchar" MaxLength="250" />
           <Property Name="Fax" Type="nvarchar" MaxLength="10" />
+          <Property Name="IsDefault" Type="bit" Nullable="false" />
           <Property Name="IsPrincipal" Type="bit" Nullable="false" />
           <Property Name="Void" Type="bit" Nullable="false" />
           <Property Name="CreateTime" Type="smalldatetime" Nullable="false" />
           <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Comment" Type="ntext" />
         </EntityType>
         <EntityType Name="Engineering">
           <Key>
@@ -673,8 +676,11 @@
           <Property Name="Void" Type="Boolean" Nullable="false" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="Manufacturers" Relationship="Self.FK_Manufacturers_Contacts" FromRole="Contacts" ToRole="Manufacturers" />
-          <NavigationProperty Name="Manufacturers1" Relationship="Self.FK_Manufacturers_Contacts_MCP" FromRole="Contacts" ToRole="Manufacturers" />
+          <NavigationProperty Name="Principal" Relationship="Self.FK_Manufacturers_Contacts" FromRole="Contacts" ToRole="Manufacturers" />
+          <NavigationProperty Name="MainContactPerson" Relationship="Self.FK_Manufacturers_Contacts_MCP" FromRole="Contacts" ToRole="Manufacturers" />
+          <Property Name="EMail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IsDefault" Type="Boolean" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Manufacturers">
           <Key>
@@ -1327,6 +1333,9 @@
           <EntitySetMapping Name="Contacts">
             <EntityTypeMapping TypeName="TokikuModel.Contacts">
               <MappingFragment StoreEntitySet="Contacts">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+                <ScalarProperty Name="EMail" ColumnName="EMail" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Dep" ColumnName="Dep" />

@@ -11,7 +11,7 @@
         ShowInTaskbar="True" 
         DataContext="{Binding Model}" 
         ResizeMode="NoResize" 
-        Icon="../16x16.png">
+        Icon="../16x16.png" Initialized="window_Initialized" Loaded="window_Loaded">
     <Window.Resources>
     </Window.Resources>
     <Grid Background="{DynamicResource WindowBackgroundBrush}">

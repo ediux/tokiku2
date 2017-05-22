@@ -17,8 +17,8 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Contacts()
         {
-            this.Manufacturers = new HashSet<Manufacturers>();
-            this.Manufacturers1 = new HashSet<Manufacturers>();
+            this.Principal = new HashSet<Manufacturers>();
+            this.MainContactPerson = new HashSet<Manufacturers>();
         }
     
         public System.Guid Id { get; set; }
@@ -33,10 +33,13 @@ namespace Tokiku.Entity
         public bool Void { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
+        public string EMail { get; set; }
+        public bool IsDefault { get; set; }
+        public string Comment { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Manufacturers> Manufacturers { get; set; }
+        public virtual ICollection<Manufacturers> Principal { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Manufacturers> Manufacturers1 { get; set; }
+        public virtual ICollection<Manufacturers> MainContactPerson { get; set; }
     }
 }

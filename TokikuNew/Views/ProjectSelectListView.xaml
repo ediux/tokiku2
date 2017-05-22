@@ -13,7 +13,16 @@
             <RowDefinition Height="27"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="請選擇專案" VerticalAlignment="Center" Margin="2,0,2,0"/>
+        <Grid  Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60*"/>
+                <ColumnDefinition Width="40*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="請選擇專案" VerticalAlignment="Center" Margin="2,0,2,0"/>
+            <TextBox Name="SearchBar" Grid.Column="1" Margin="5" AcceptsReturn="True" KeyDown="SearchBar_KeyDown" />
+            <Button Content="&#xE11A;" FontFamily="Segoe MDL2 Assets" Grid.Column="1" Margin="-5,5,5,5" HorizontalAlignment="Right" FontSize="10" Width="17" Height="17" Click="Button_Click" />
+        </Grid>
+        
         <TreeView Grid.Row="1" Background="{DynamicResource ControlBackgroundBrush}" Name="ProjectList" Margin="2" SelectedItemChanged="ProjectList_SelectedItemChanged" >
             <TreeView.Resources>
                 <HierarchicalDataTemplate DataType="{x:Type entity:Engineering}" ItemsSource="{Binding Engineering}">

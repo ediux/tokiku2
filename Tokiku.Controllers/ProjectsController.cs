@@ -144,5 +144,13 @@ namespace Tokiku.Controllers
             return (from c in database.States
                     select c).ToList();
         }
+
+        public List<Projects> SearchByText(string text)
+        {
+            return (from p in database.Projects
+                    where p.Void == false &&
+                    (p.Code.Contains(text) || p.Name.Contains(text) || p.ShortName.Contains(text))
+                    select p).ToList();
+        }
     }
 }

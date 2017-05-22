@@ -73,6 +73,26 @@ namespace TokikuNew.Views
             RaiseEvent(newEventArgs);
         }
 
+        private void SearchBar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key== Key.Enter)
+            {
+                ProjectList.ItemsSource = controller.SearchByText(SearchBar.Text);
+            }
+            else
+            {
+                if(e.Key== Key.Escape)
+                {
+                    ProjectList.ItemsSource = controller.QueryAll();
+                    SearchBar.Text = "";
+                }
+            }
+        }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //搜尋框
+            ProjectList.ItemsSource = controller.SearchByText(SearchBar.Text);            
+        }
     }
 }

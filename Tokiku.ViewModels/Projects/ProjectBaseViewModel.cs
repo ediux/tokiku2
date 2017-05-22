@@ -67,7 +67,12 @@ namespace Tokiku.ViewModels
             controller = new ProjectsController();
             Id = Guid.NewGuid();
             StateText = controller.GetAllState();
-        } 
+        }
+
+        public void Delete(Guid ProjectId)
+        {
+            controller.Delete(ProjectId, LoginedUser.UserId);
+        }
         #endregion
 
         #region 相依性屬性宣告

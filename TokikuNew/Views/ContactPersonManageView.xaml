@@ -4,9 +4,127 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:ValueConverters="clr-namespace:TokikuNew.ValueConverters" 
              mc:Ignorable="d" 
-             d:DesignHeight="480" d:DesignWidth="640">
+             d:DesignHeight="421.269" d:DesignWidth="640" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <ValueConverters:NOTGateValueConverter x:Key="NOTGateValueConverter"/>
+        <ValueConverters:SigningDateToCodeConverter x:Key="SigningDateToCodeConverter"/>
+    </UserControl.Resources>
     <Grid Background="{DynamicResource ControlBackgroundBrush}">
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="48"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100*" />
+                <RowDefinition Height="27" />
+                <RowDefinition Height="27" />
+                <RowDefinition Height="27" />
+                <RowDefinition Height="27" />
+                <RowDefinition Height="27" />
+                <RowDefinition Height="27" />
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="40*"/>
+            </Grid.ColumnDefinitions>
+            <DataGrid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Margin="5" ItemsSource="{Binding ContractsList}" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto" SelectedCellsChanged="DataGrid_SelectedCellsChanged" SelectionChanged="DataGrid_SelectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="姓名" Binding="{Binding Name}" Width="100" />
+                    <DataGridTextColumn Header="部門" Binding="{Binding Dep}" Width="100" />
+                    <DataGridTextColumn Header="職稱" Binding="{Binding Title}" Width="100" />
+                    <DataGridTextColumn Header="行動電話" Binding="{Binding Mobile}" Width="70" />
+                    <DataGridTextColumn Header="電話" Binding="{Binding Phone}" Width="70" />
+                    <DataGridTextColumn Header="傳真" Binding="{Binding Fax}" Width="70"/>
+                    <DataGridTextColumn Header="eMail" Binding="{Binding EMail}" Width="200" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <TextBlock Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="姓名" />
+            <TextBox Grid.Row="1" Grid.Column="1" Margin="2" Text="{Binding Name, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}" TabIndex="1"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center" Text="部門"/>
+            <TextBox Grid.Row="1" Grid.Column="3" Margin="2" Text="{Binding Dep,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}" TabIndex="2"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="職稱"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Margin="2" Text="{Binding Title,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}" TabIndex="3"/>
+            <TextBlock Grid.Row="2" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center" Text="行動電話"/>
+            <TextBox Grid.Row="2" Grid.Column="3" Margin="2" Text="{Binding Mobile,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}" TabIndex="4"/>
+            <TextBlock Grid.Row="3" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="電話"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Margin="2" Text="{Binding Phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}" TabIndex="5"/>
+            <TextBlock Grid.Row="3" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center" Text="分機"/>
+            <TextBox Grid.Row="3" Grid.Column="3" Margin="2" Text="{Binding ExtensionNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}" TabIndex="6"/>
+            <TextBlock Grid.Row="4" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="傳真"/>
+            <TextBox Grid.Row="4" Grid.Column="1" Margin="2" Text="{Binding Fax, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}" TabIndex="7"/>
+            <TextBlock Grid.Row="4" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center" Text="eMail"/>
+            <TextBox Grid.Row="4" Grid.Column="3" Margin="2" Text="{Binding EMail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}" TabIndex="8"/>
+            <TextBlock Grid.Row="5" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="狀態"/>
+            <StackPanel Grid.Row="5" Grid.Column="1" Margin="2" Orientation="Horizontal">
+                <RadioButton Content="啟用" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" IsChecked="{Binding Void}" TabIndex="9" IsEnabled="{Binding IsEditorMode}"></RadioButton>
+                <RadioButton Content="停用" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding Void}" TabIndex="10" IsEnabled="{Binding IsEditorMode}"></RadioButton>
+            </StackPanel>
+            <TextBlock Grid.Row="5" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center" Text="備註" IsEnabled="{Binding IsEditorMode}"/>
+            <TextBox Grid.Row="5" Grid.Column="3" Margin="2" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}" TabIndex="11"/>
+            <CheckBox Grid.Row="6" Grid.Column="1" Margin="2" IsChecked="{Binding IsDefault, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}" VerticalAlignment="Center"
+                     Content="預設聯絡人" Foreground="Red" TabIndex="12"/>
+        </Grid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" >
+            <Button Margin="2" Width="48" x:Name="btnF1" IsEnabled="{Binding IsNew, Converter={StaticResource NOTGateValueConverter}}" Click="btnF1_Click">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="F1" TextAlignment="Center"/>
+                    <TextBlock Text="新增" TextAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button Margin="2" Width="48" IsEnabled="{Binding IsEditorMode, Converter={StaticResource NOTGateValueConverter}}" Name="btnModify" Click="btnModify_Click">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="F2" TextAlignment="Center"/>
+                    <TextBlock Text="修改" TextAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button Margin="2" Width="48" Name="btnSave" Click="btnSave_Click" IsEnabled="{Binding CanSave}">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="F3" TextAlignment="Center"/>
+                    <TextBlock Text="存檔" TextAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button Margin="2" Width="48">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="F4" TextAlignment="Center"/>
+                    <TextBlock Text="查詢" TextAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button Margin="2" Width="48" IsEnabled="False">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="F7" TextAlignment="Center"/>
+                    <TextBlock Text="Excel" TextAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button Margin="2" Width="48" Name="btnCancel" Click="btnCancel_Click" IsEnabled="False" >
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="F9" TextAlignment="Center"/>
+                    <TextBlock Text="取消" TextAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="btnExit" Margin="2" Width="48" Click="btnExit_Click">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="F10" TextAlignment="Center"/>
+                    <TextBlock Text="結束" TextAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button Margin="2" Width="48" IsEnabled="False">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="F11" TextAlignment="Center"/>
+                    <TextBlock Text="新增行" TextAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button Margin="2" Width="48" IsEnabled="False">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="F12" TextAlignment="Center"/>
+                    <TextBlock Text="刪除行" TextAlignment="Center"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
     </Grid>
 </UserControl>
