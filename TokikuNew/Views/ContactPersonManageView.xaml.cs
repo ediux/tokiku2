@@ -31,6 +31,20 @@ namespace TokikuNew.Views
             InitializeComponent();
         }
 
+
+        /// <summary>
+        /// 是否和客戶端聯絡人
+        /// </summary>
+        public bool IsClient
+        {
+            get { return (bool)GetValue(IsClientProperty); }
+            set { SetValue(IsClientProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsClient.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsClientProperty =
+            DependencyProperty.Register("IsClient", typeof(bool), typeof(ContactPersonManageView), new PropertyMetadata(false));
+           
         public ContactsViewModel Model
         {
             get { return (ContactsViewModel)GetValue(ModelProperty); }
@@ -57,7 +71,7 @@ namespace TokikuNew.Views
             if (Model == null)
                 Model = new ContactsViewModel();
 
-            Model.QueryAll();
+            Model.QueryAll(IsClient);
             Model.EnableEditor();
             DataContext = Model;
         }
@@ -70,10 +84,12 @@ namespace TokikuNew.Views
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             try
-            {
+            {                
                 Model.SaveModel();
+                Model = new ContactsViewModel();
                 Model.CanSave = false;
-                Model.QueryAll();
+                Model.QueryAll(IsClient);
+                
             }
             catch (Exception ex)
             {
@@ -111,17 +127,15 @@ namespace TokikuNew.Views
             RaiseEvent(new RoutedEventArgs(OnPageClosingEvent));
         }
 
-        private void DataGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
-        {
-
-        }
-
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count > 0)
             {
                 var obj = e.AddedItems[0];
-                Model.QueryModel(((Contacts)obj).Id);                
+                if(obj is Contacts)
+                {
+                    Model.QueryModel(((Contacts)obj).Id);
+                }                
             }
 
             Model.IsNew = false;

@@ -17,7 +17,6 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Users()
         {
-            this.Manufacturers = new HashSet<Manufacturers>();
             this.Roles = new HashSet<Roles>();
             this.ShopFlowHistory = new HashSet<ShopFlowHistory>();
             this.ProjectContract = new HashSet<ProjectContract>();
@@ -32,8 +31,6 @@ namespace Tokiku.Entity
         public bool IsAnonymous { get; set; }
         public System.DateTime LastActivityDate { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Manufacturers> Manufacturers { get; set; }
         public virtual Membership Membership { get; set; }
         public virtual Profile Profile { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

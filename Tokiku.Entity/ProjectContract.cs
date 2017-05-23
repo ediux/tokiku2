@@ -40,7 +40,6 @@ namespace Tokiku.Entity
         public Nullable<float> PrepaymentGuaranteeAmount { get; set; }
         public Nullable<System.DateTime> OpenDate { get; set; }
     
-        public virtual Manufacturers Manufacturers { get; set; }
         public virtual Users CreateUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }

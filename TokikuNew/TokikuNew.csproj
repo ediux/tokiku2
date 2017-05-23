@@ -72,7 +72,9 @@
       <DependentUpon>StartUpWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValueConverters\NOTGateValueConverter.cs" />
+    <Compile Include="ValueConverters\ShortNameValueConverter.cs" />
     <Compile Include="ValueConverters\SigningDateToCodeConverter.cs" />
+    <Compile Include="ValueConverters\CheckBoxSwitchValueConverter.cs" />
     <Compile Include="Views\ContactPersonManageView.xaml.cs">
       <DependentUpon>ContactPersonManageView.xaml</DependentUpon>
     </Compile>

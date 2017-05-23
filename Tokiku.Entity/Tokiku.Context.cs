@@ -26,7 +26,6 @@ namespace Tokiku.Entity
         }
     
         public virtual DbSet<Contacts> Contacts { get; set; }
-        public virtual DbSet<Manufacturers> Manufacturers { get; set; }
         public virtual DbSet<Membership> Membership { get; set; }
         public virtual DbSet<Profile> Profile { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
@@ -42,5 +41,6 @@ namespace Tokiku.Entity
         public virtual DbSet<BOM> BOM { get; set; }
         public virtual DbSet<Projects> Projects { get; set; }
         public virtual DbSet<AccessLog> AccessLog { get; set; }
+        public virtual DbSet<Manufacturers> Manufacturers { get; set; }
     }
 }

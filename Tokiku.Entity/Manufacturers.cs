@@ -17,8 +17,7 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Manufacturers()
         {
-            this.ProjectContract = new HashSet<ProjectContract>();
-            this.Materials = new HashSet<Materials>();
+            this.Contacts = new HashSet<Contacts>();
             this.Projects = new HashSet<Projects>();
         }
     
@@ -26,7 +25,6 @@ namespace Tokiku.Entity
         public string Code { get; set; }
         public string Name { get; set; }
         public string ShortName { get; set; }
-        public System.Guid PrincipalId { get; set; }
         public string UniformNumbers { get; set; }
         public string Phone { get; set; }
         public string Fax { get; set; }
@@ -35,20 +33,29 @@ namespace Tokiku.Entity
         public string FactoryPhone { get; set; }
         public string FactoryFax { get; set; }
         public string FactoryAddress { get; set; }
-        public System.Guid MainContactPersonId { get; set; }
         public string Comment { get; set; }
         public bool Void { get; set; }
         public bool IsClient { get; set; }
+        public string ContractNumber { get; set; }
+        public Nullable<System.DateTime> StartDate { get; set; }
+        public Nullable<System.DateTime> CompletionDate { get; set; }
+        public string AccountingCode { get; set; }
+        public string BankName { get; set; }
+        public string BankAccount { get; set; }
+        public string BankAccountName { get; set; }
+        public string CheckNumber { get; set; }
+        public Nullable<float> ContractAmount { get; set; }
+        public Nullable<float> AmountDue { get; set; }
+        public Nullable<float> PrepaymentGuaranteeAmount { get; set; }
+        public Nullable<System.DateTime> OpenDate { get; set; }
+        public byte PaymentType { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
+        public string Principal { get; set; }
+        public string MainContactPerson { get; set; }
     
-        public virtual Contacts Principal { get; set; }
-        public virtual Contacts MainContactPerson { get; set; }
-        public virtual Users CreateUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProjectContract> ProjectContract { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Materials> Materials { get; set; }
+        public virtual ICollection<Contacts> Contacts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Projects> Projects { get; set; }
     }

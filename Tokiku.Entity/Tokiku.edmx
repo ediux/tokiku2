@@ -24,6 +24,14 @@
           <Property Name="MaterialsId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Amount" Type="real" Nullable="false" />
         </EntityType>
+        <EntityType Name="ClientsInProjects">
+          <Key>
+            <PropertyRef Name="ClientId" />
+            <PropertyRef Name="ProjectId" />
+          </Key>
+          <Property Name="ClientId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProjectId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
         <EntityType Name="Contacts">
           <Key>
             <PropertyRef Name="Id" />
@@ -43,6 +51,14 @@
           <Property Name="CreateTime" Type="smalldatetime" Nullable="false" />
           <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Comment" Type="ntext" />
+        </EntityType>
+        <EntityType Name="ContractsInManufacturers">
+          <Key>
+            <PropertyRef Name="ManufacturersId" />
+            <PropertyRef Name="ContactId" />
+          </Key>
+          <Property Name="ManufacturersId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ContactId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="Engineering">
           <Key>
@@ -72,7 +88,6 @@
           <Property Name="Code" Type="nvarchar" MaxLength="15" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ShortName" Type="nvarchar" MaxLength="50" />
-          <Property Name="PrincipalId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="UniformNumbers" Type="nchar" MaxLength="8" />
           <Property Name="Phone" Type="nvarchar" MaxLength="10" />
           <Property Name="Fax" Type="nvarchar" MaxLength="10" />
@@ -81,12 +96,26 @@
           <Property Name="FactoryPhone" Type="nvarchar" MaxLength="10" />
           <Property Name="FactoryFax" Type="nvarchar" MaxLength="10" />
           <Property Name="FactoryAddress" Type="nvarchar" MaxLength="250" />
-          <Property Name="MainContactPersonId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Comment" Type="nvarchar(max)" />
           <Property Name="Void" Type="bit" Nullable="false" />
           <Property Name="IsClient" Type="bit" Nullable="false" />
+          <Property Name="ContractNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="StartDate" Type="smalldatetime" />
+          <Property Name="CompletionDate" Type="smalldatetime" />
+          <Property Name="AccountingCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="BankName" Type="nvarchar" MaxLength="50" />
+          <Property Name="BankAccount" Type="nvarchar" MaxLength="50" />
+          <Property Name="BankAccountName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CheckNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContractAmount" Type="real" />
+          <Property Name="AmountDue" Type="real" />
+          <Property Name="PrepaymentGuaranteeAmount" Type="real" />
+          <Property Name="OpenDate" Type="smalldatetime" />
+          <Property Name="PaymentType" Type="tinyint" Nullable="false" />
           <Property Name="CreateTime" Type="smalldatetime" Nullable="false" />
           <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Principal" Type="nvarchar" MaxLength="50" />
+          <Property Name="MainContactPerson" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="MaterialCategories">
           <Key>
@@ -324,6 +353,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ClientsInProjects_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="ClientsInProjects" Type="Self.ClientsInProjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClientsInProjects">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientsInProjects_Projects">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="1" />
+          <End Role="ClientsInProjects" Type="Self.ClientsInProjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClientsInProjects">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContractsInManufacturers_Contacts">
+          <End Role="Contacts" Type="Self.Contacts" Multiplicity="1" />
+          <End Role="ContractsInManufacturers" Type="Self.ContractsInManufacturers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contacts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ContractsInManufacturers">
+              <PropertyRef Name="ContactId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContractsInManufacturers_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="ContractsInManufacturers" Type="Self.ContractsInManufacturers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ContractsInManufacturers">
+              <PropertyRef Name="ManufacturersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Engineering_Projects">
           <End Role="Projects" Type="Self.Projects" Multiplicity="1" />
           <End Role="Engineering" Type="Self.Engineering" Multiplicity="*" />
@@ -333,54 +410,6 @@
             </Principal>
             <Dependent Role="Engineering">
               <PropertyRef Name="ProjectId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Manufacturers_Contacts">
-          <End Role="Contacts" Type="Self.Contacts" Multiplicity="1" />
-          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Contacts">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Manufacturers">
-              <PropertyRef Name="PrincipalId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Manufacturers_Contacts_MCP">
-          <End Role="Contacts" Type="Self.Contacts" Multiplicity="1" />
-          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Contacts">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Manufacturers">
-              <PropertyRef Name="MainContactPersonId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Manufacturers_Users_Create">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Manufacturers">
-              <PropertyRef Name="CreateUserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Materials_Manufacturers">
-          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
-          <End Role="Materials" Type="Self.Materials" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Manufacturers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Materials">
-              <PropertyRef Name="ManufacturersId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -408,18 +437,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProjectContract_Manufacturers">
-          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
-          <End Role="ProjectContract" Type="Self.ProjectContract" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Manufacturers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProjectContract">
-              <PropertyRef Name="ContractorId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ProjectContract_Projects">
           <End Role="Projects" Type="Self.Projects" Multiplicity="0..1" />
           <End Role="ProjectContract" Type="Self.ProjectContract" Multiplicity="*" />
@@ -441,18 +458,6 @@
             </Principal>
             <Dependent Role="ProjectContract">
               <PropertyRef Name="CreateUserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Projects_Manufacturers">
-          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="0..1" />
-          <End Role="Projects" Type="Self.Projects" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Manufacturers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Projects">
-              <PropertyRef Name="ClientId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -543,7 +548,9 @@
         <EntityContainer Name="TokikuModelStoreContainer">
           <EntitySet Name="AccessLog" EntityType="Self.AccessLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BOM" EntityType="Self.BOM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientsInProjects" EntityType="Self.ClientsInProjects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contacts" EntityType="Self.Contacts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContractsInManufacturers" EntityType="Self.ContractsInManufacturers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Engineering" EntityType="Self.Engineering" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Manufacturers" EntityType="Self.Manufacturers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MaterialCategories" EntityType="Self.MaterialCategories" Schema="dbo" store:Type="Tables" />
@@ -583,25 +590,25 @@
             <End Role="ShopFlowHistory" EntitySet="ShopFlowHistory" />
             <End Role="BOM" EntitySet="BOM" />
           </AssociationSet>
+          <AssociationSet Name="FK_ClientsInProjects_Manufacturers" Association="Self.FK_ClientsInProjects_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="ClientsInProjects" EntitySet="ClientsInProjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientsInProjects_Projects" Association="Self.FK_ClientsInProjects_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="ClientsInProjects" EntitySet="ClientsInProjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContractsInManufacturers_Contacts" Association="Self.FK_ContractsInManufacturers_Contacts">
+            <End Role="Contacts" EntitySet="Contacts" />
+            <End Role="ContractsInManufacturers" EntitySet="ContractsInManufacturers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContractsInManufacturers_Manufacturers" Association="Self.FK_ContractsInManufacturers_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="ContractsInManufacturers" EntitySet="ContractsInManufacturers" />
+          </AssociationSet>
           <AssociationSet Name="FK_Engineering_Projects" Association="Self.FK_Engineering_Projects">
             <End Role="Projects" EntitySet="Projects" />
             <End Role="Engineering" EntitySet="Engineering" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Manufacturers_Contacts" Association="Self.FK_Manufacturers_Contacts">
-            <End Role="Contacts" EntitySet="Contacts" />
-            <End Role="Manufacturers" EntitySet="Manufacturers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Manufacturers_Contacts_MCP" Association="Self.FK_Manufacturers_Contacts_MCP">
-            <End Role="Contacts" EntitySet="Contacts" />
-            <End Role="Manufacturers" EntitySet="Manufacturers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Manufacturers_Users_Create" Association="Self.FK_Manufacturers_Users_Create">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Manufacturers" EntitySet="Manufacturers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Materials_Manufacturers" Association="Self.FK_Materials_Manufacturers">
-            <End Role="Manufacturers" EntitySet="Manufacturers" />
-            <End Role="Materials" EntitySet="Materials" />
           </AssociationSet>
           <AssociationSet Name="FK_Materials_MaterialCategories" Association="Self.FK_Materials_MaterialCategories">
             <End Role="MaterialCategories" EntitySet="MaterialCategories" />
@@ -611,10 +618,6 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Materials" EntitySet="Materials" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProjectContract_Manufacturers" Association="Self.FK_ProjectContract_Manufacturers">
-            <End Role="Manufacturers" EntitySet="Manufacturers" />
-            <End Role="ProjectContract" EntitySet="ProjectContract" />
-          </AssociationSet>
           <AssociationSet Name="FK_ProjectContract_Projects" Association="Self.FK_ProjectContract_Projects">
             <End Role="Projects" EntitySet="Projects" />
             <End Role="ProjectContract" EntitySet="ProjectContract" />
@@ -622,10 +625,6 @@
           <AssociationSet Name="FK_ProjectContract_Users" Association="Self.FK_ProjectContract_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="ProjectContract" EntitySet="ProjectContract" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Projects_Manufacturers" Association="Self.FK_Projects_Manufacturers">
-            <End Role="Manufacturers" EntitySet="Manufacturers" />
-            <End Role="Projects" EntitySet="Projects" />
           </AssociationSet>
           <AssociationSet Name="FK_Projects_States" Association="Self.FK_Projects_States">
             <End Role="States" EntitySet="States" />
@@ -676,41 +675,10 @@
           <Property Name="Void" Type="Boolean" Nullable="false" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="Principal" Relationship="Self.FK_Manufacturers_Contacts" FromRole="Contacts" ToRole="Manufacturers" />
-          <NavigationProperty Name="MainContactPerson" Relationship="Self.FK_Manufacturers_Contacts_MCP" FromRole="Contacts" ToRole="Manufacturers" />
           <Property Name="EMail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="IsDefault" Type="Boolean" Nullable="false" />
           <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Manufacturers">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="Code" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ShortName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PrincipalId" Type="Guid" Nullable="false" />
-          <Property Name="UniformNumbers" Type="String" MaxLength="8" FixedLength="true" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Fax" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="eMail" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="FactoryPhone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="FactoryFax" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="FactoryAddress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="MainContactPersonId" Type="Guid" Nullable="false" />
-          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Void" Type="Boolean" Nullable="false" />
-          <Property Name="IsClient" Type="Boolean" Nullable="false" />
-          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="Principal" Relationship="Self.FK_Manufacturers_Contacts" FromRole="Manufacturers" ToRole="Contacts" />
-          <NavigationProperty Name="MainContactPerson" Relationship="Self.FK_Manufacturers_Contacts_MCP" FromRole="Manufacturers" ToRole="Contacts" />
-          <NavigationProperty Name="CreateUser" Relationship="Self.FK_Manufacturers_Users_Create" FromRole="Manufacturers" ToRole="Users" />
-          <NavigationProperty Name="ProjectContract" Relationship="TokikuModel.FK_ProjectContract_Manufacturers" FromRole="Manufacturers" ToRole="ProjectContract" />
-          <NavigationProperty Name="Materials" Relationship="TokikuModel.FK_Materials_Manufacturers" FromRole="Manufacturers" ToRole="Materials" />
-          <NavigationProperty Name="Projects" Relationship="TokikuModel.FK_Projects_Manufacturers" FromRole="Manufacturers" ToRole="Projects" />
+          <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.ContractsInManufacturers" FromRole="Contacts" ToRole="Manufacturers" />
         </EntityType>
         <EntityType Name="Membership">
           <Key>
@@ -778,7 +746,6 @@
           <Property Name="MobileAlias" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
           <Property Name="IsAnonymous" Type="Boolean" Nullable="false" />
           <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Manufacturers" Relationship="Self.FK_Manufacturers_Users_Create" FromRole="Users" ToRole="Manufacturers" />
           <NavigationProperty Name="Membership" Relationship="Self.FK__aspnet_Me__UserI__164452B1" FromRole="Users" ToRole="Membership" />
           <NavigationProperty Name="Profile" Relationship="Self.FK__aspnet_Pr__UserI__1FCDBCEB" FromRole="Users" ToRole="Profile" />
           <NavigationProperty Name="Roles" Relationship="Self.UsersInRoles" FromRole="Users" ToRole="Roles" />
@@ -787,42 +754,6 @@
           <NavigationProperty Name="Materials" Relationship="TokikuModel.FK_Materials_Users" FromRole="Users" ToRole="Materials" />
           <NavigationProperty Name="PromissoryNoteManagement" Relationship="TokikuModel.FK_PromissoryNoteManagement_Users" FromRole="Users" ToRole="PromissoryNoteManagement" />
         </EntityType>
-        <Association Name="FK_Manufacturers_Contacts">
-          <End Role="Contacts" Type="Self.Contacts" Multiplicity="1" />
-          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Contacts">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Manufacturers">
-              <PropertyRef Name="PrincipalId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Manufacturers_Contacts_MCP">
-          <End Role="Contacts" Type="Self.Contacts" Multiplicity="1" />
-          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Contacts">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Manufacturers">
-              <PropertyRef Name="MainContactPersonId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Manufacturers_Users_Create">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Manufacturers">
-              <PropertyRef Name="CreateUserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__aspnet_Me__UserI__164452B1">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Membership" Type="Self.Membership" Multiplicity="0..1" />
@@ -853,24 +784,11 @@
         </Association>
         <EntityContainer Name="TokikuEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Contacts" EntityType="Self.Contacts" />
-          <EntitySet Name="Manufacturers" EntityType="Self.Manufacturers" />
           <EntitySet Name="Membership" EntityType="Self.Membership" />
           <EntitySet Name="Profile" EntityType="Self.Profile" />
           <EntitySet Name="Roles" EntityType="Self.Roles" />
           <EntitySet Name="States" EntityType="Self.States" />
           <EntitySet Name="Users" EntityType="Self.Users" />
-          <AssociationSet Name="FK_Manufacturers_Contacts" Association="Self.FK_Manufacturers_Contacts">
-            <End Role="Contacts" EntitySet="Contacts" />
-            <End Role="Manufacturers" EntitySet="Manufacturers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Manufacturers_Contacts_MCP" Association="Self.FK_Manufacturers_Contacts_MCP">
-            <End Role="Contacts" EntitySet="Contacts" />
-            <End Role="Manufacturers" EntitySet="Manufacturers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Manufacturers_Users_Create" Association="Self.FK_Manufacturers_Users_Create">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Manufacturers" EntitySet="Manufacturers" />
-          </AssociationSet>
           <AssociationSet Name="FK__aspnet_Me__UserI__164452B1" Association="Self.FK__aspnet_Me__UserI__164452B1">
             <End Role="Users" EntitySet="Users" />
             <End Role="Membership" EntitySet="Membership" />
@@ -899,10 +817,6 @@
           </AssociationSet>
           <EntitySet Name="Materials" EntityType="TokikuModel.Materials" />
           <EntitySet Name="ProjectContract" EntityType="TokikuModel.ProjectContract" />
-          <AssociationSet Name="FK_ProjectContract_Manufacturers" Association="TokikuModel.FK_ProjectContract_Manufacturers">
-            <End Role="Manufacturers" EntitySet="Manufacturers" />
-            <End Role="ProjectContract" EntitySet="ProjectContract" />
-          </AssociationSet>
           <AssociationSet Name="FK_ProjectContract_Users" Association="TokikuModel.FK_ProjectContract_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="ProjectContract" EntitySet="ProjectContract" />
@@ -910,10 +824,6 @@
           <EntitySet Name="MaterialCategories" EntityType="TokikuModel.MaterialCategories" />
           <EntitySet Name="PromissoryNoteManagement" EntityType="TokikuModel.PromissoryNoteManagement" />
           <EntitySet Name="TicketTypes" EntityType="TokikuModel.TicketTypes" />
-          <AssociationSet Name="FK_Materials_Manufacturers" Association="TokikuModel.FK_Materials_Manufacturers">
-            <End Role="Manufacturers" EntitySet="Manufacturers" />
-            <End Role="Materials" EntitySet="Materials" />
-          </AssociationSet>
           <AssociationSet Name="FK_Materials_MaterialCategories" Association="TokikuModel.FK_Materials_MaterialCategories">
             <End Role="MaterialCategories" EntitySet="MaterialCategories" />
             <End Role="Materials" EntitySet="Materials" />
@@ -952,15 +862,20 @@
             <End Role="Projects" EntitySet="Projects" />
             <End Role="ProjectContract" EntitySet="ProjectContract" />
           </AssociationSet>
-          <AssociationSet Name="FK_Projects_Manufacturers" Association="TokikuModel.FK_Projects_Manufacturers">
-            <End Role="Manufacturers" EntitySet="Manufacturers" />
-            <End Role="Projects" EntitySet="Projects" />
-          </AssociationSet>
           <AssociationSet Name="FK_Projects_States" Association="TokikuModel.FK_Projects_States">
             <End Role="States" EntitySet="States" />
             <End Role="Projects" EntitySet="Projects" />
           </AssociationSet>
           <EntitySet Name="AccessLog" EntityType="TokikuModel.AccessLog" />
+          <EntitySet Name="Manufacturers" EntityType="TokikuModel.Manufacturers" />
+          <AssociationSet Name="ContractsInManufacturers" Association="TokikuModel.ContractsInManufacturers">
+            <End Role="Contacts" EntitySet="Contacts" />
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+          </AssociationSet>
+          <AssociationSet Name="ClientsInProjects" Association="TokikuModel.ClientsInProjects">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Engineering">
           <Key>
@@ -1046,7 +961,6 @@
           <Property Name="UnitPrice" Type="Single" Nullable="false" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_Materials_Manufacturers" FromRole="Materials" ToRole="Manufacturers" />
           <NavigationProperty Name="MaterialCategories" Relationship="TokikuModel.FK_Materials_MaterialCategories" FromRole="Materials" ToRole="MaterialCategories" />
           <NavigationProperty Name="Users" Relationship="TokikuModel.FK_Materials_Users" FromRole="Materials" ToRole="Users" />
           <NavigationProperty Name="BOM" Relationship="TokikuModel.FK_BOM_Materials" FromRole="Materials" ToRole="BOM" />
@@ -1072,25 +986,12 @@
           <Property Name="PaymentType" Type="Byte" Nullable="false" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_ProjectContract_Manufacturers" FromRole="ProjectContract" ToRole="Manufacturers" />
           <NavigationProperty Name="CreateUser" Relationship="TokikuModel.FK_ProjectContract_Users" FromRole="ProjectContract" ToRole="Users" />
           <Property Name="PrepaymentGuaranteeAmount" Type="Single" />
           <Property Name="OpenDate" Type="DateTime" Precision="0" />
           <NavigationProperty Name="PromissoryNoteManagement" Relationship="TokikuModel.FK_PromissoryNoteManagement_ProjectContract" FromRole="ProjectContract" ToRole="PromissoryNoteManagement" />
           <NavigationProperty Name="Projects" Relationship="TokikuModel.FK_ProjectContract_Projects" FromRole="ProjectContract" ToRole="Projects" />
         </EntityType>
-        <Association Name="FK_ProjectContract_Manufacturers">
-          <End Type="TokikuModel.Manufacturers" Role="Manufacturers" Multiplicity="1" />
-          <End Type="TokikuModel.ProjectContract" Role="ProjectContract" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Manufacturers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProjectContract">
-              <PropertyRef Name="ContractorId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ProjectContract_Users">
           <End Type="TokikuModel.Users" Role="Users" Multiplicity="1" />
           <End Type="TokikuModel.ProjectContract" Role="ProjectContract" Multiplicity="*" />
@@ -1138,18 +1039,6 @@
           <NavigationProperty Name="PromissoryNoteManagement" Relationship="TokikuModel.FK_PromissoryNoteManagement_TicketTypes" FromRole="TicketTypes" ToRole="PromissoryNoteManagement" />
           <Property Name="IsPromissoryNote" Type="Boolean" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Materials_Manufacturers">
-          <End Type="TokikuModel.Manufacturers" Role="Manufacturers" Multiplicity="1" />
-          <End Type="TokikuModel.Materials" Role="Materials" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Manufacturers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Materials">
-              <PropertyRef Name="ManufacturersId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Materials_MaterialCategories">
           <End Type="TokikuModel.MaterialCategories" Role="MaterialCategories" Multiplicity="1" />
           <End Type="TokikuModel.Materials" Role="Materials" Multiplicity="*" />
@@ -1263,8 +1152,8 @@
           <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Void" Type="Boolean" Nullable="false" />
           <Property Name="State" Type="Byte" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="TokikuModel.FK_Projects_Manufacturers" FromRole="Projects" ToRole="Manufacturers" />
           <NavigationProperty Name="States" Relationship="TokikuModel.FK_Projects_States" FromRole="Projects" ToRole="States" />
+          <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.ClientsInProjects" FromRole="Projects" ToRole="Manufacturers" />
         </EntityType>
         <Association Name="FK_Engineering_Projects">
           <End Type="TokikuModel.Projects" Role="Projects" Multiplicity="1" />
@@ -1290,18 +1179,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Projects_Manufacturers">
-          <End Type="TokikuModel.Manufacturers" Role="Manufacturers" Multiplicity="0..1" />
-          <End Type="TokikuModel.Projects" Role="Projects" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Manufacturers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Projects">
-              <PropertyRef Name="ClientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Projects_States">
           <End Type="TokikuModel.States" Role="States" Multiplicity="1" />
           <End Type="TokikuModel.Projects" Role="Projects" Multiplicity="*" />
@@ -1324,6 +1201,53 @@
           <Property Name="UserId" Type="Guid" Nullable="false" />
           <Property Name="ActionCode" Type="Byte" Nullable="false" />
         </EntityType>
+        <EntityType Name="Manufacturers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShortName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UniformNumbers" Type="String" MaxLength="8" FixedLength="true" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Fax" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="eMail" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="FactoryPhone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="FactoryFax" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="FactoryAddress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Void" Type="Boolean" Nullable="false" />
+          <Property Name="IsClient" Type="Boolean" Nullable="false" />
+          <Property Name="ContractNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="CompletionDate" Type="DateTime" Precision="0" />
+          <Property Name="AccountingCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BankName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BankAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BankAccountName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CheckNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContractAmount" Type="Single" />
+          <Property Name="AmountDue" Type="Single" />
+          <Property Name="PrepaymentGuaranteeAmount" Type="Single" />
+          <Property Name="OpenDate" Type="DateTime" Precision="0" />
+          <Property Name="PaymentType" Type="Byte" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
+          <Property Name="Principal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MainContactPerson" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Contacts" Relationship="TokikuModel.ContractsInManufacturers" FromRole="Manufacturers" ToRole="Contacts" />
+          <NavigationProperty Name="Projects" Relationship="TokikuModel.ClientsInProjects" FromRole="Manufacturers" ToRole="Projects" />
+        </EntityType>
+        <Association Name="ContractsInManufacturers">
+          <End Type="TokikuModel.Contacts" Role="Contacts" Multiplicity="*" />
+          <End Type="TokikuModel.Manufacturers" Role="Manufacturers" Multiplicity="*" />
+        </Association>
+        <Association Name="ClientsInProjects">
+          <End Type="TokikuModel.Manufacturers" Role="Manufacturers" Multiplicity="*" />
+          <End Type="TokikuModel.Projects" Role="Projects" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1346,31 +1270,6 @@
                 <ScalarProperty Name="Fax" ColumnName="Fax" />
                 <ScalarProperty Name="IsPrincipal" ColumnName="IsPrincipal" />
                 <ScalarProperty Name="Void" ColumnName="Void" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Manufacturers">
-            <EntityTypeMapping TypeName="TokikuModel.Manufacturers">
-              <MappingFragment StoreEntitySet="Manufacturers">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
-                <ScalarProperty Name="PrincipalId" ColumnName="PrincipalId" />
-                <ScalarProperty Name="UniformNumbers" ColumnName="UniformNumbers" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Fax" ColumnName="Fax" />
-                <ScalarProperty Name="eMail" ColumnName="eMail" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="FactoryPhone" ColumnName="FactoryPhone" />
-                <ScalarProperty Name="FactoryFax" ColumnName="FactoryFax" />
-                <ScalarProperty Name="FactoryAddress" ColumnName="FactoryAddress" />
-                <ScalarProperty Name="MainContactPersonId" ColumnName="MainContactPersonId" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="Void" ColumnName="Void" />
-                <ScalarProperty Name="IsClient" ColumnName="IsClient" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
               </MappingFragment>
@@ -1594,6 +1493,60 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Manufacturers">
+            <EntityTypeMapping TypeName="TokikuModel.Manufacturers">
+              <MappingFragment StoreEntitySet="Manufacturers">
+                <ScalarProperty Name="MainContactPerson" ColumnName="MainContactPerson" />
+                <ScalarProperty Name="Principal" ColumnName="Principal" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+                <ScalarProperty Name="OpenDate" ColumnName="OpenDate" />
+                <ScalarProperty Name="PrepaymentGuaranteeAmount" ColumnName="PrepaymentGuaranteeAmount" />
+                <ScalarProperty Name="AmountDue" ColumnName="AmountDue" />
+                <ScalarProperty Name="ContractAmount" ColumnName="ContractAmount" />
+                <ScalarProperty Name="CheckNumber" ColumnName="CheckNumber" />
+                <ScalarProperty Name="BankAccountName" ColumnName="BankAccountName" />
+                <ScalarProperty Name="BankAccount" ColumnName="BankAccount" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="AccountingCode" ColumnName="AccountingCode" />
+                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="ContractNumber" ColumnName="ContractNumber" />
+                <ScalarProperty Name="IsClient" ColumnName="IsClient" />
+                <ScalarProperty Name="Void" ColumnName="Void" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="FactoryAddress" ColumnName="FactoryAddress" />
+                <ScalarProperty Name="FactoryFax" ColumnName="FactoryFax" />
+                <ScalarProperty Name="FactoryPhone" ColumnName="FactoryPhone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="eMail" ColumnName="eMail" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="UniformNumbers" ColumnName="UniformNumbers" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ContractsInManufacturers" TypeName="TokikuModel.ContractsInManufacturers" StoreEntitySet="ContractsInManufacturers">
+            <EndProperty Name="Manufacturers">
+              <ScalarProperty Name="Id" ColumnName="ManufacturersId" />
+            </EndProperty>
+            <EndProperty Name="Contacts">
+              <ScalarProperty Name="Id" ColumnName="ContactId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="ClientsInProjects" TypeName="TokikuModel.ClientsInProjects" StoreEntitySet="ClientsInProjects">
+            <EndProperty Name="Projects">
+              <ScalarProperty Name="Id" ColumnName="ProjectId" />
+            </EndProperty>
+            <EndProperty Name="Manufacturers">
+              <ScalarProperty Name="Id" ColumnName="ClientId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

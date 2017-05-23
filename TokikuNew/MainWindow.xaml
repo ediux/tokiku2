@@ -17,7 +17,8 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" >
             <MenuItem Header="主檔維護" Name="MI_CreateNew">
-                <MenuItem Header="廠商" Name="MI_CreateNew_Factories" Click="MI_CreateNew_Factories_Click">
+                <MenuItem Header="廠商" Name="MI_CreateNew_Factories" >
+                    <MenuItem Header="管理" Name="MI_CreateNew_Factories_Intro" Click="MI_CreateNew_Factories_Click"></MenuItem>
                     <MenuItem Header="聯絡人" Name="MI_CreateNew_Factories_Contracts" Click="MI_CreateNew_Contracts_Click"></MenuItem>
                 </MenuItem>
                 <MenuItem Header="客戶" Name="MI_CreateNew_Customers" Click="MI_CreateNew_Customers_Click">

@@ -4,99 +4,227 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:ValueConverters="clr-namespace:TokikuNew.ValueConverters" 
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="800" Background="{DynamicResource ControlBackgroundBrush}">
+             d:DesignHeight="768" d:DesignWidth="1024" Background="{DynamicResource ControlBackgroundBrush}" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <ValueConverters:NOTGateValueConverter x:Key="NOTGateValueConverter"/>
+        <ValueConverters:SigningDateToCodeConverter x:Key="SigningDateToCodeConverter"/>
+    </UserControl.Resources>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20*"/>
-            <ColumnDefinition Width="50*"/>
-            <ColumnDefinition Width="20*"/>
-            <ColumnDefinition Width="50*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="27"/>
-            <RowDefinition Height="27"/>
-            <RowDefinition Height="27"/>
-            <RowDefinition Height="27"/>
-            <RowDefinition Height="27"/>
-            <RowDefinition Height="27"/>
-            <RowDefinition Height="27"/>
-            <RowDefinition Height="27"/>
-            <RowDefinition Height="27"/>
-            <RowDefinition Height="27"/>
-            <RowDefinition Height="27"/>
-            <RowDefinition Height="27"/>
-            <RowDefinition Height="27"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="48"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="廠商代碼" Grid.Row="0" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-        <TextBox Name="tbCode" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Margin="2" Text="{Binding Code,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBlock Text="名稱" Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-        <TextBox Name="tbName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-        <TextBlock Text="簡稱" Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-        <TextBox Name="tbShortName" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding ShortName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-        <TextBlock Text="負責人" Grid.Row="3" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-        <TextBox Name="tbPrincipal" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Code,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-        <TextBlock Text="統一編號" Grid.Row="4" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Margin="2" />
-        <TextBlock Text="公司電話" Grid.Row="5" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" Margin="2" />
-        <TextBlock Text="公司傳真" Grid.Row="6" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" Margin="2" />
-        <TextBlock Text="公司電子郵件" Grid.Row="7" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" Margin="2" />
-        <TextBlock Text="公司地址" Grid.Row="8" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="8" Grid.Column="1" VerticalAlignment="Center" Margin="2" />
-        <TextBlock Text="備註" Grid.Row="9" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="9" Grid.Column="1" VerticalAlignment="Center" Margin="2" />
-        <GroupBox Header="工廠" Grid.Row="0" Grid.RowSpan="6" Grid.Column="2" Grid.ColumnSpan="2" Margin="2">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="27"/>
-                    <RowDefinition Height="27"/>
-                    <RowDefinition Height="27"/>
-                    <RowDefinition Height="48"/>
-                </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="連絡電話:" TextAlignment="Left" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="1" Margin="2"></TextBox>
-                <TextBlock Grid.Row="2" Text="地址:" TextAlignment="Left" VerticalAlignment="Center"/>
-                <RichTextBox Grid.Row="3"></RichTextBox>
-            </Grid>
-        </GroupBox>
-        <GroupBox Header="付款條件" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="6" Grid.RowSpan="6">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="27"/>
-                    <RowDefinition Height="27"/>
-                    <RowDefinition Height="27"/>
-                    <RowDefinition Height="27"/>
-                    <RowDefinition Height="27"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="20*"/>
-                    <ColumnDefinition Width="80*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Text="會計代碼" TextAlignment="Right" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
-                <TextBox Grid.Row="0" Grid.Column="1" Margin="2"/>
-                <TextBlock Text="銀行名稱" TextAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Margin="2"/>
-                <TextBlock Text="帳號" TextAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"/>
-                <TextBox Grid.Row="2" Grid.Column="1" Margin="2"/>
-                <TextBlock Text="帳戶名稱" TextAlignment="Right" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0"/>
-                <TextBox Grid.Row="3" Grid.Column="1" Margin="2"/>
-                <TextBlock Text="帳號" TextAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"/>
-                <Grid Grid.Row="4" Grid.Column="1" >
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="50*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="27"/>
+                <RowDefinition Height="27"/>
+                <RowDefinition Height="27"/>
+                <RowDefinition Height="27"/>
+                <RowDefinition Height="27"/>
+                <RowDefinition Height="27"/>
+                <RowDefinition Height="27"/>
+                <RowDefinition Height="27"/>
+                <RowDefinition Height="27"/>
+                <RowDefinition Height="27"/>
+                <RowDefinition Height="27"/>
+                <RowDefinition Height="27"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="廠商代碼" Grid.Row="0" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+            <TextBlock Name="tbCode" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Margin="2" Text="{Binding Code,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Text="名稱" Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+            <TextBox Name="tbName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="簡稱" Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+            <TextBlock Name="tbShortName" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding ShortName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="負責人" Grid.Row="3" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+            <TextBox Name="tbPrincipal" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding PrincipalName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="統一編號" Grid.Row="4" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding UniformNumbers,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="公司電話" Grid.Row="5" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Phone,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="公司傳真" Grid.Row="6" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Fax,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="公司電子郵件" Grid.Row="7" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding eMail,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="公司地址" Grid.Row="8" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="8" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Address,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="備註" Grid.Row="9" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+            <RichTextBox Grid.Row="9" Grid.Column="1" Grid.RowSpan="3" VerticalAlignment="Stretch" Margin="2" DataContext="{Binding Comment,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+            <GroupBox Header="工廠" Grid.Row="0" Grid.RowSpan="6" Grid.Column="2" Grid.ColumnSpan="2" Margin="2">
+                <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="27"/>
+                        <RowDefinition Height="27"/>
+                        <RowDefinition Height="27"/>
+                        <RowDefinition Height="48"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="連絡電話:" TextAlignment="Left" VerticalAlignment="Center" />
+                    <TextBox Grid.Row="1" Margin="2" Text="{Binding FactoryPhone,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+                    <TextBlock Grid.Row="2" Text="地址:" TextAlignment="Left" VerticalAlignment="Center"/>
+                    <RichTextBox Grid.Row="3" DataContext="{Binding FactoryAddress,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ></RichTextBox>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="付款條件" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="6" Grid.RowSpan="6">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="27"/>
+                        <RowDefinition Height="27"/>
+                        <RowDefinition Height="27"/>
+                        <RowDefinition Height="27"/>
+                        <RowDefinition Height="27"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="20*"/>
                         <ColumnDefinition Width="80*"/>
                     </Grid.ColumnDefinitions>
-                    <ComboBox Grid.Row="0" Grid.Column="0"></ComboBox>
-                    <TextBox HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="1" Margin="2,0"/>
-                </Grid> 
-            </Grid>
-        </GroupBox>
+                    <TextBlock Text="會計代碼" TextAlignment="Right" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Margin="2" Text="{Binding AccountingCode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Text="銀行名稱" TextAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Margin="2" Text="{Binding BankName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Text="帳號" TextAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" Margin="2" Text="{Binding BankAccount,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Text="帳戶名稱" TextAlignment="Right" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0"/>
+                    <TextBox Grid.Row="3" Grid.Column="1" Margin="2" Text="{Binding BankAccountName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Text="支付方式" TextAlignment="Right" VerticalAlignment="Center" Grid.Row="4" Grid.Column="0"/>
+                    <Grid Grid.Row="4" Grid.Column="1" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20*"/>
+                            <ColumnDefinition Width="80*"/>
+                        </Grid.ColumnDefinitions>
+                        <ComboBox Grid.Row="0" Grid.Column="0" SelectedIndex="0" SelectedValue="{Binding PaymentType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                            <ComboBoxItem Content="現金" Tag="0"/>
+                            <ComboBoxItem Content="匯款" Tag="1"/>
+                            <ComboBoxItem Content="支票" Tag="2"/>
+                            <ComboBoxItem Content="其他" Tag="3"/>
+                        </ComboBox>
+                        <TextBox HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="1" Margin="2,0" Text="{Binding CheckNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                    </Grid>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="相關聯絡人" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="2" Margin="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="27"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="60*"/>
+                        <ColumnDefinition Width="20*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="搜尋" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="15"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Margin="3"/>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                        <Button Content="搜尋" Name="btnContractSearch" Click="btnContractSearch_Click" Margin="2" />
+                        <Button Content="新增" Name="btnAddList" Click="btnAddList_Click" Margin="2" />
+                    </StackPanel>
+                    <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto" Name="ContractList" SelectionChanged="ContractList_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="姓名" Binding="{Binding Name}" Width="100" />
+                            <DataGridTextColumn Header="部門" Binding="{Binding Dep}" Width="100" />
+                            <DataGridTextColumn Header="職稱" Binding="{Binding Title}" Width="100" />
+                            <DataGridTextColumn Header="行動電話" Binding="{Binding Mobile}" Width="70" />
+                            <DataGridTextColumn Header="電話" Binding="{Binding Phone}" Width="70" />
+                            <DataGridTextColumn Header="傳真" Binding="{Binding Fax}" Width="70"/>
+                            <DataGridTextColumn Header="eMail" Binding="{Binding EMail}" Width="200" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="交易品項" Grid.Row="12" Grid.Column="2" Grid.ColumnSpan="2" Margin="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="27"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="60*"/>
+                        <ColumnDefinition Width="20*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="搜尋" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="15"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Margin="3"/>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                        <Button Content="搜尋" Name="btnMtSearch" Click="btnMtSearch_Click" Margin="2" />
+                        <Button Content="新增" Name="btnAddMTList" Click="btnAddMTList_Click" Margin="2" />
+                    </StackPanel>
+                    <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto" Name="MTList" SelectionChanged="MTList_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="項次" Binding="{Binding Name}" Width="100" />
+                            <DataGridTextColumn Header="交易品項" Binding="{Binding Dep}" Width="100" />
+                            <DataGridTextColumn Header="類別" Binding="{Binding Title}" Width="100" />
+                            <DataGridTextColumn Header="票期" Binding="{Binding Mobile}" Width="70" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </GroupBox>
+        </Grid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" >
+            <Button Margin="2" Width="48" x:Name="btnF1" IsEnabled="{Binding IsNew, Converter={StaticResource NOTGateValueConverter}}" Click="btnF1_Click">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="F1" TextAlignment="Center"/>
+                    <TextBlock Text="新增" TextAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button Margin="2" Width="48" IsEnabled="{Binding IsEditorMode, Converter={StaticResource NOTGateValueConverter}}" Name="btnModify" Click="btnModify_Click">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="F2" TextAlignment="Center"/>
+                    <TextBlock Text="修改" TextAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button Margin="2" Width="48" Name="btnSave" Click="btnSave_Click" IsEnabled="{Binding CanSave}">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="F3" TextAlignment="Center"/>
+                    <TextBlock Text="存檔" TextAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button Margin="2" Width="48" IsEnabled="False">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="F4" TextAlignment="Center"/>
+                    <TextBlock Text="查詢" TextAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button Margin="2" Width="48" IsEnabled="False">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="F7" TextAlignment="Center"/>
+                    <TextBlock Text="Excel" TextAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button Margin="2" Width="48" Name="btnCancel" Click="btnCancel_Click" IsEnabled="False" >
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="F9" TextAlignment="Center"/>
+                    <TextBlock Text="取消" TextAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="btnExit" Margin="2" Width="48" Click="btnExit_Click">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="F10" TextAlignment="Center"/>
+                    <TextBlock Text="結束" TextAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button Margin="2" Width="48" IsEnabled="False">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="F11" TextAlignment="Center"/>
+                    <TextBlock Text="新增行" TextAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button Margin="2" Width="48" IsEnabled="False">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="F12" TextAlignment="Center"/>
+                    <TextBlock Text="刪除行" TextAlignment="Center"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
     </Grid>
 </UserControl>

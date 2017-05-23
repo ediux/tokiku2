@@ -211,7 +211,37 @@ namespace TokikuNew
 
         private void MI_CreateNew_Factories_Click(object sender, RoutedEventArgs e)
         {
+            string Header = "廠商主檔";
+            TabItem addWorkarea = new TabItem();
+            bool isExisted = false;
 
+            foreach (TabItem item in Workspaces.Items)
+            {
+                if (item.Header.Equals(Header))
+                {
+                    isExisted = true;
+                    addWorkarea = item;
+                    break;
+                }
+            }
+
+            if (!isExisted)
+            {
+                addWorkarea.Header = Header;
+
+                var vm = new Views.ManufacturersManageView() { Margin = new Thickness(0) };       
+                vm.OnPageClosing += Vm_OnPageClosing;
+                addWorkarea.Content = vm;
+                addWorkarea.Margin = new Thickness(0);
+
+                Workspaces.Items.Add(addWorkarea);
+                Workspaces.SelectedItem = addWorkarea;
+            }
+            else
+            {
+
+                Workspaces.SelectedItem = addWorkarea;
+            }
         }
 
         private void MI_CreateNew_Contracts_Click(object sender, RoutedEventArgs e)
@@ -239,7 +269,7 @@ namespace TokikuNew
                 //vm.Model.IsNew = true;                
                 //vm.Model.LoginedUser = Model.LoginedUser;
                 //vm.DataContext = vm.Model;             
-                
+
                 vm.OnPageClosing += Vm_OnPageClosing;
                 addWorkarea.Content = vm;
                 addWorkarea.Margin = new Thickness(0);
@@ -273,6 +303,7 @@ namespace TokikuNew
         private void ProjectSelectionPage_SelectedProjectChanged(object sender, RoutedEventArgs e)
         {
             Model.CurrentProject = new ProjectBaseViewModel();
+            ProjectSelectionPage.SelectedProject = e.OriginalSource as Projects;
             Model.CurrentProject.QueryModel(ProjectSelectionPage.SelectedProject.Id);
 
             string Header = string.Format("專案:{0}-{1}", ProjectSelectionPage.SelectedProject.Code, ProjectSelectionPage.SelectedProject.ShortName);
@@ -337,7 +368,7 @@ namespace TokikuNew
             {
                 addWorkarea.Header = Header;
 
-                var vm = new Views.ContactPersonManageView() { Margin = new Thickness(0) };
+                var vm = new Views.ContactPersonManageView() { Margin = new Thickness(0), IsClient = true };
                 //vm.Model = new ContactsViewModel();
                 //vm.Model.IsNew = true;                
                 //vm.Model.LoginedUser = Model.LoginedUser;

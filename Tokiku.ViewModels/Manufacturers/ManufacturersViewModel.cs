@@ -10,6 +10,7 @@ namespace Tokiku.ViewModels
     public class ManufacturersViewModel : BaseViewModel
     {
         private Controllers.ManufacturersController controller;
+        private Controllers.ContactController controller2;
         #region 公開方法(中介層呼叫)
 
         /// <summary>
@@ -19,7 +20,14 @@ namespace Tokiku.ViewModels
         public void QueryModel(Guid ProjectId)
         {
             Entity.Manufacturers result = controller.QuerySingle(ProjectId);
-            BindingFromModel(result);
+
+            if (result != null)
+            {
+                Contracts = result.Contacts.ToList();
+                BindingFromModel(result);
+                DisabledEditor();
+            }
+
         }
 
         /// <summary>
@@ -57,11 +65,93 @@ namespace Tokiku.ViewModels
         public ManufacturersViewModel()
         {
             controller = new Controllers.ManufacturersController();
+            controller2 = new Controllers.ContactController();
             Id = Guid.NewGuid();
+
+            var lastitem = controller.QueryAll().OrderByDescending(s => s.Code).FirstOrDefault();
+            if (lastitem != null)
+            {
+                int numif = 0;
+                if (int.TryParse(lastitem.Code, out numif))
+                {
+                    if (numif <= 99)
+                    {
+                        Code = (numif + 1).ToString();
+                        return;
+                    }
+                    
+                }
+
+                Dictionary<int, string> dict = new Dictionary<int, string>();
+                dict.Add(0, "0");
+                dict.Add(1, "1");
+                dict.Add(2, "2");
+                dict.Add(3, "3");
+                dict.Add(4, "4");
+                dict.Add(5, "5");
+                dict.Add(6, "6");
+                dict.Add(7, "7");
+                dict.Add(8, "8");
+                dict.Add(9, "9");
+                dict.Add(10, "A");
+                dict.Add(11, "B");
+                dict.Add(12, "C");
+                dict.Add(13, "D");
+                dict.Add(14, "E");
+                dict.Add(15, "F");
+                dict.Add(16, "G");
+                dict.Add(17, "H");
+                dict.Add(18, "I");
+                dict.Add(19, "J");
+                dict.Add(20, "K");
+                dict.Add(21, "L");
+                dict.Add(22, "M");
+                dict.Add(23, "N");
+                dict.Add(24, "O");
+                dict.Add(25, "P");
+                dict.Add(26, "Q");
+                dict.Add(27, "R");
+                dict.Add(28, "S");
+                dict.Add(29, "T");
+                dict.Add(30, "U");
+                dict.Add(31, "V");
+                dict.Add(32, "W");
+                dict.Add(33, "X");
+                dict.Add(34, "Y");
+                dict.Add(35, "Z");
+
+                string hignchar = lastitem.Code.Substring(0, 1);
+                string lowchar = lastitem.Code.Substring(1, 1);
+
+                int lowint = dict.Where(w => w.Value == lowchar).Select(s => s.Key).Single();
+                int highint = dict.Where(w => w.Value == hignchar).Select(s => s.Key).Single();
+
+                if (lowint == 35)
+                {
+                    lowint = 0;
+                    highint += 1;
+                }
+                else
+                {
+                    lowint += 1;
+                }
+
+                Code = dict[highint] + dict[lowint];
+            }
+            else
+            {
+                Code = "01";
+            }
+
         }
         #endregion
 
         public static readonly DependencyProperty IdProperty = DependencyProperty.Register("Id", typeof(Guid), typeof(ManufacturersViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
+
+        public void QueryAll()
+        {
+
+        }
 
         public static readonly DependencyProperty CodeProperty = DependencyProperty.Register("Code", typeof(string), typeof(ManufacturersViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
@@ -69,7 +159,7 @@ namespace Tokiku.ViewModels
 
         public static readonly DependencyProperty ShortNameProperty = DependencyProperty.Register("ShortName", typeof(string), typeof(ManufacturersViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
-        public static readonly DependencyProperty PrincipalNameProperty = DependencyProperty.Register("PrincipalName", typeof(string), typeof(ManufacturersViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
+        public static readonly DependencyProperty PrincipalProperty = DependencyProperty.Register("Principal", typeof(string), typeof(ManufacturersViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
         public static readonly DependencyProperty UniformNumbersProperty = DependencyProperty.Register("UniformNumbers", typeof(string), typeof(ManufacturersViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
@@ -108,12 +198,6 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty CreateUserIdProperty = DependencyProperty.Register("CreateUserId",
          typeof(Guid), typeof(ManufacturersViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
-        public static readonly DependencyProperty PrincipalProperty = DependencyProperty.Register("Principal",
-         typeof(ContactsViewModel), typeof(ManufacturersViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
-
-        public static readonly DependencyProperty MainContactPersonProperty = DependencyProperty.Register("MainContactPerson",
-         typeof(ContactsViewModel), typeof(ManufacturersViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
-
         public static readonly DependencyProperty CreateUserProperty = DependencyProperty.Register("CreateUser",
     typeof(UserViewModel), typeof(ManufacturersViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
@@ -122,9 +206,9 @@ namespace Tokiku.ViewModels
 
         public System.Guid Id { get { return (Guid)GetValue(IdProperty); } set { SetValue(IdProperty, value); } }
         public string Code { get { return (string)GetValue(CodeProperty); } set { SetValue(CodeProperty, value); } }
-        public string Name { get { return (string)GetValue(NameProperty); } set { SetValue(NameProperty, value); } }
+        public string Name { get { return (string)GetValue(NameProperty); } set { SetValue(NameProperty, value); SetValue(ShortNameProperty, value.Substring(0, 4)); } }
         public string ShortName { get { return (string)GetValue(ShortNameProperty); } set { SetValue(ShortNameProperty, value); } }
-        public string PrincipalName { get { return (string)GetValue(PrincipalNameProperty); } set { SetValue(PrincipalNameProperty, value); } }
+        public string Principal { get { return (string)GetValue(PrincipalProperty); } set { SetValue(PrincipalProperty, value); } }
         public string UniformNumbers { get { return (string)GetValue(UniformNumbersProperty); } set { SetValue(UniformNumbersProperty, value); } }
         public string Phone { get { return (string)GetValue(PhoneProperty); } set { SetValue(PhoneProperty, value); } }
         public string Fax { get { return (string)GetValue(FaxProperty); } set { SetValue(FaxProperty, value); } }
@@ -140,14 +224,123 @@ namespace Tokiku.ViewModels
         public System.DateTime CreateTime { get { return (DateTime)GetValue(CreateTimeProperty); } set { SetValue(CreateTimeProperty, value); } }
         public System.Guid CreateUserId { get { return (Guid)GetValue(CreateUserIdProperty); } set { SetValue(CreateUserIdProperty, value); } }
 
-        public virtual ContactsViewModel Principal { get { return (ContactsViewModel)GetValue(PrincipalProperty); } set { SetValue(PrincipalProperty, value); } }
-        public virtual ContactsViewModel MainContactPerson { get { return (ContactsViewModel)GetValue(MainContactPersonProperty); } set { SetValue(MainContactPersonProperty, value); } }
+
         public virtual UserViewModel CreateUser { get { return (UserViewModel)GetValue(IdProperty); } set { SetValue(IdProperty, value); } }
-     
+
         //public virtual ICollection<ProjectContract> ProjectContract { get; set; }
-       
+
         //public virtual ICollection<Materials> Materials { get; set; }
-       
+
         public virtual ICollection<ProjectBaseViewModel> Projects { get; set; }
+
+
+
+        public string AccountingCode
+        {
+            get { return (string)GetValue(AccountingCodeProperty); }
+            set { SetValue(AccountingCodeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for AccountingCode.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AccountingCodeProperty =
+            DependencyProperty.Register("AccountingCode", typeof(string), typeof(ManufacturersViewModel), new PropertyMetadata(string.Empty));
+
+
+
+        public string BankName
+        {
+            get { return (string)GetValue(BankNameProperty); }
+            set { SetValue(BankNameProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for BankName.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty BankNameProperty =
+            DependencyProperty.Register("BankName", typeof(string), typeof(ManufacturersViewModel), new PropertyMetadata(string.Empty));
+
+
+
+
+        public string BankAccount
+        {
+            get { return (string)GetValue(BankAccountProperty); }
+            set { SetValue(BankAccountProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for BankAccount.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty BankAccountProperty =
+            DependencyProperty.Register("BankAccount", typeof(string), typeof(ManufacturersViewModel), new PropertyMetadata(string.Empty));
+
+
+
+        public string BankAccountName
+        {
+            get { return (string)GetValue(BankAccountNameProperty); }
+            set { SetValue(BankAccountNameProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for BankAccountName.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty BankAccountNameProperty =
+            DependencyProperty.Register("BankAccountName", typeof(string), typeof(ManufacturersViewModel), new PropertyMetadata(string.Empty));
+
+
+
+        public byte PaymentType
+        {
+            get { return (byte)GetValue(PaymentTypeProperty); }
+            set { SetValue(PaymentTypeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for PaymentType.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PaymentTypeProperty =
+            DependencyProperty.Register("PaymentType", typeof(byte), typeof(ManufacturersViewModel), new PropertyMetadata((byte)0));
+
+
+
+        public string CheckNumber
+        {
+            get { return (string)GetValue(CheckNumberProperty); }
+            set { SetValue(CheckNumberProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CheckNumber.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CheckNumberProperty =
+            DependencyProperty.Register("CheckNumber", typeof(string), typeof(ManufacturersViewModel), new PropertyMetadata(string.Empty));
+
+
+        public List<Entity.Contacts> Contracts
+        {
+            get { return (List<Entity.Contacts>)GetValue(ContractsProperty); }
+            set { SetValue(ContractsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Contracts.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ContractsProperty =
+            DependencyProperty.Register("Contracts", typeof(List<Entity.Contacts>), typeof(ManufacturersViewModel), new PropertyMetadata(default(List<Entity.Contacts>)));
+
+
+
+        public List<Entity.Materials> Materials
+        {
+            get { return (List<Entity.Materials>)GetValue(MaterialsProperty); }
+            set { SetValue(MaterialsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Materials.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MaterialsProperty =
+            DependencyProperty.Register("Materials", typeof(List<Entity.Materials>), typeof(ManufacturersViewModel), new PropertyMetadata(default(List<Entity.Materials>)));
+
+
+
+        public Entity.Contacts SelectedContract
+        {
+            get { return (Entity.Contacts)GetValue(SelectedContractProperty); }
+            set { SetValue(SelectedContractProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for  SelectedContract.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedContractProperty =
+            DependencyProperty.Register(" SelectedContract", typeof(Entity.Contacts), typeof(ManufacturersViewModel), new PropertyMetadata(default(Entity.Contacts)));
+
+
     }
 }

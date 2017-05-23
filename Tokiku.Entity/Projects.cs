@@ -19,6 +19,7 @@ namespace Tokiku.Entity
         {
             this.Engineering = new HashSet<Engineering>();
             this.ProjectContract = new HashSet<ProjectContract>();
+            this.Manufacturers = new HashSet<Manufacturers>();
         }
     
         public System.Guid Id { get; set; }
@@ -38,7 +39,8 @@ namespace Tokiku.Entity
         public virtual ICollection<Engineering> Engineering { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectContract> ProjectContract { get; set; }
-        public virtual Manufacturers Client { get; set; }
         public virtual States States { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Manufacturers> Manufacturers { get; set; }
     }
 }

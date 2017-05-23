@@ -8,6 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="421.269" d:DesignWidth="640" Loaded="UserControl_Loaded">
     <UserControl.Resources>
+        <ValueConverters:CheckBoxSwitchValueConverter x:Key="CheckBoxSwitchValueConverter"/>
         <ValueConverters:NOTGateValueConverter x:Key="NOTGateValueConverter"/>
         <ValueConverters:SigningDateToCodeConverter x:Key="SigningDateToCodeConverter"/>
     </UserControl.Resources>
@@ -33,7 +34,7 @@
                 <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="40*"/>
             </Grid.ColumnDefinitions>
-            <DataGrid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Margin="5" ItemsSource="{Binding ContractsList}" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto" SelectedCellsChanged="DataGrid_SelectedCellsChanged" SelectionChanged="DataGrid_SelectionChanged">
+            <DataGrid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Margin="5" ItemsSource="{Binding ContractsList}" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto" SelectionChanged="DataGrid_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="姓名" Binding="{Binding Name}" Width="100" />
                     <DataGridTextColumn Header="部門" Binding="{Binding Dep}" Width="100" />
@@ -62,8 +63,8 @@
             <TextBox Grid.Row="4" Grid.Column="3" Margin="2" Text="{Binding EMail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}" TabIndex="8"/>
             <TextBlock Grid.Row="5" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="狀態"/>
             <StackPanel Grid.Row="5" Grid.Column="1" Margin="2" Orientation="Horizontal">
-                <RadioButton Content="啟用" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" IsChecked="{Binding Void}" TabIndex="9" IsEnabled="{Binding IsEditorMode}"></RadioButton>
-                <RadioButton Content="停用" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding Void}" TabIndex="10" IsEnabled="{Binding IsEditorMode}"></RadioButton>
+                <RadioButton Content="啟用" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" IsChecked="{Binding Void, ConverterParameter=false, Converter={StaticResource CheckBoxSwitchValueConverter}}" TabIndex="9" IsEnabled="{Binding IsEditorMode}"></RadioButton>
+                <RadioButton Content="停用" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding Void, ConverterParameter=true, Converter={StaticResource CheckBoxSwitchValueConverter}}" TabIndex="10" IsEnabled="{Binding IsEditorMode}"></RadioButton>
             </StackPanel>
             <TextBlock Grid.Row="5" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center" Text="備註" IsEnabled="{Binding IsEditorMode}"/>
             <TextBox Grid.Row="5" Grid.Column="3" Margin="2" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}" TabIndex="11"/>
