@@ -316,5 +316,45 @@ namespace TokikuNew
                 Workspaces.SelectedItem = addWorkarea;
             }
         }
+
+        private void MI_CreateNew_Customers_Contracts_Click(object sender, RoutedEventArgs e)
+        {
+            string Header = "客戶主檔-聯絡人管理";
+            TabItem addWorkarea = new TabItem();
+            bool isExisted = false;
+
+            foreach (TabItem item in Workspaces.Items)
+            {
+                if (item.Header.Equals(Header))
+                {
+                    isExisted = true;
+                    addWorkarea = item;
+                    break;
+                }
+            }
+
+            if (!isExisted)
+            {
+                addWorkarea.Header = Header;
+
+                var vm = new Views.ContactPersonManageView() { Margin = new Thickness(0) };
+                //vm.Model = new ContactsViewModel();
+                //vm.Model.IsNew = true;                
+                //vm.Model.LoginedUser = Model.LoginedUser;
+                //vm.DataContext = vm.Model;             
+
+                vm.OnPageClosing += Vm_OnPageClosing;
+                addWorkarea.Content = vm;
+                addWorkarea.Margin = new Thickness(0);
+
+                Workspaces.Items.Add(addWorkarea);
+                Workspaces.SelectedItem = addWorkarea;
+            }
+            else
+            {
+
+                Workspaces.SelectedItem = addWorkarea;
+            }
+        }
     }
 }

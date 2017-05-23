@@ -94,5 +94,14 @@ namespace TokikuNew.Views
             //搜尋框
             ProjectList.ItemsSource = controller.SearchByText(SearchBar.Text);            
         }
+
+        private void ProjectList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0)
+            {
+                var obj = e.AddedItems[0];
+                RaiseEvent(new RoutedEventArgs(SelectedProjectChangedEvent, obj));            
+            }            
+        }
     }
 }

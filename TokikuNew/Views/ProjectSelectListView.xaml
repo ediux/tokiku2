@@ -22,24 +22,15 @@
             <TextBox Name="SearchBar" Grid.Column="1" Margin="5" AcceptsReturn="True" KeyDown="SearchBar_KeyDown" />
             <Button Content="&#xE11A;" FontFamily="Segoe MDL2 Assets" Grid.Column="1" Margin="-5,5,5,5" HorizontalAlignment="Right" FontSize="10" Width="17" Height="17" Click="Button_Click" />
         </Grid>
-        
-        <TreeView Grid.Row="1" Background="{DynamicResource ControlBackgroundBrush}" Name="ProjectList" Margin="2" SelectedItemChanged="ProjectList_SelectedItemChanged" >
-            <TreeView.Resources>
-                <HierarchicalDataTemplate DataType="{x:Type entity:Engineering}" ItemsSource="{Binding Engineering}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Code}" />
-                        <TextBlock Text="-"/>
-                        <TextBlock Text="{Binding ShortName}"/>
-                    </StackPanel>
-                </HierarchicalDataTemplate>
-                <DataTemplate DataType="{x:Type entity:Projects}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Code}" />
-                        <TextBlock Text="-"/>
-                        <TextBlock Text="{Binding ShortName}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </TreeView.Resources>
-        </TreeView>
+        <DataGrid Name="ProjectList" Grid.Row="1" Margin="5" ItemsSource="{Binding ContractsList}" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto" SelectionChanged="ProjectList_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="專案代號" Binding="{Binding Code}" Width="100" />
+                <DataGridTextColumn Header="專案名稱" Binding="{Binding Name}" Width="100" />
+                <DataGridTextColumn Header="起造日期" Binding="{Binding}" Width="100" />
+                <DataGridTextColumn Header="完工日期" Binding="{Binding}" Width="70" />
+                <DataGridTextColumn Header="狀態列" Binding="{Binding State}" Width="70" />
+                <DataGridTextColumn Header="保固到期日" Binding="{Binding}" Width="70"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

@@ -21,7 +21,7 @@
                     <MenuItem Header="聯絡人" Name="MI_CreateNew_Factories_Contracts" Click="MI_CreateNew_Contracts_Click"></MenuItem>
                 </MenuItem>
                 <MenuItem Header="客戶" Name="MI_CreateNew_Customers" Click="MI_CreateNew_Customers_Click">
-                    <MenuItem Header="聯絡人" Name="MI_MI_CreateNew_Customers_Contracts" Click="MI_CreateNew_Contracts_Click"></MenuItem>
+                    <MenuItem Header="聯絡人" Name="MI_CreateNew_Customers_Contracts" Click="MI_CreateNew_Customers_Contracts_Click"></MenuItem>
                 </MenuItem>
                 <MenuItem Header="專案" Name="MI_CreateNew_Project" Click="MI_CreateNew_Project_Click"></MenuItem>
             </MenuItem>
@@ -215,7 +215,6 @@
                 <Views:ProjectSelectListView x:Name="ProjectSelectionPage" SelectedProjectChanged="ProjectSelectionPage_SelectedProjectChanged" />
             </TabItem>
         </TabControl>
-
         <StatusBar Margin="0" Grid.Row="3">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Margin="1" FontFamily="Segoe MDL2 Assets" Text="&#xe187;" VerticalAlignment="Center" HorizontalAlignment="Center" />

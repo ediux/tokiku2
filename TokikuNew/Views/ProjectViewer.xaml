@@ -35,44 +35,16 @@
                 <ColumnDefinition Width="25*"/>
                 <ColumnDefinition Width="25*"/>
             </Grid.ColumnDefinitions>
-            <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="27" />
-                    <RowDefinition Height="27" />
-                    <RowDefinition Height="27" />
-                    <RowDefinition Height="27" />
-                    <RowDefinition Height="27" />
-                    <RowDefinition Height="27" />
-                    <RowDefinition Height="27" />
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="75"/>
-                    <ColumnDefinition Width="50*"/>
-                    <ColumnDefinition Width="20*"/>
-                    <ColumnDefinition Width="30*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Row="0" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="專案代碼"/>
-                <TextBox Grid.Row="0" Grid.Column="1" Margin="2" Text="{Binding Code, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBlock Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="專案簡稱"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Margin="2" Text="{Binding ShortName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBlock Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="專案全名"/>
-                <TextBox Grid.Row="2" Grid.Column="1" Margin="2" Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBlock Grid.Row="3" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="工程簽約日期"/>
-                <DatePicker x:Name="ProjectSigningDate" Grid.Row="3" Grid.Column="1" Margin="2" FontSize="12"  Text="{Binding ProjectSigningDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
-                <TextBlock Grid.Row="4" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="工地地址"/>
-                <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" Text="{Binding SiteAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBlock Grid.Row="5" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="備註"/>
-                <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
-                <TextBlock Grid.Row="6" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="狀態"/>
-                <ComboBox Grid.Row="6" Grid.Column="1" Margin="2" ItemsSource="{Binding StateText}" SelectedValuePath="Id" SelectedValue="{Binding State,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding StateName}"/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            </Grid>
+            <DataGrid Grid.Row="0" Margin="5" Grid.ColumnSpan="4" ItemsSource="{Binding ContractsList}" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="工程代號" Binding="{Binding Code}" Width="100" />
+                    <DataGridTextColumn Header="工程名稱" Binding="{Binding Name}" Width="100" />
+                    <DataGridTextColumn Header="起造日期" Binding="{Binding}" Width="100" />
+                    <DataGridTextColumn Header="完工日期" Binding="{Binding}" Width="70" />
+                    <DataGridTextColumn Header="狀態列" Binding="{Binding State}" Width="70" />
+                    <DataGridTextColumn Header="保固到期日" Binding="{Binding}" Width="70"/>
+                </DataGrid.Columns>
+            </DataGrid>
             <GroupBox Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="1" Margin="5" Header="專案圖集、施工順序[最後更新時間:]">
                 <DataGrid Margin="0,0,0,0" VerticalAlignment="Stretch" />
             </GroupBox>
