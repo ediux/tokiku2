@@ -5,29 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class BaseViewModel : DependencyObject, INotifyPropertyChanged
+    public class UserViewModel : DependencyObject, INotifyPropertyChanged
     {
-        public BaseViewModel()
-        {
-            LoginedUser = new UserViewModel()
-            {
-                UserId = Guid.Empty,
-                UserName = "root",
-                LoweredUserName = "root",
-                IsAnonymous = false,
-            };
-
-            IsNew = true;
-            IsModify = false;
-            IsSaved = false;
-            IsEditorMode = false;
-            CanSave = false;
-        }
-
         /// <summary>
         /// 將來自資料庫的資料實體抄到檢視模型。
         /// </summary>
@@ -100,7 +82,7 @@ namespace Tokiku.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
         }
 
-        public static readonly DependencyProperty IsNewProperty = DependencyProperty.Register("IsNew", typeof(bool), typeof(BaseViewModel));
+        public static readonly DependencyProperty IsNewProperty = DependencyProperty.Register("IsNew", typeof(bool), typeof(UserViewModel));
 
         /// <summary>
         /// 是否為新增?
@@ -111,7 +93,7 @@ namespace Tokiku.ViewModels
             set { SetValue(IsNewProperty, value); }
         }
 
-        public static readonly DependencyProperty IsEditorModeProperty = DependencyProperty.Register("IsEditorMode", typeof(bool), typeof(BaseViewModel));
+        public static readonly DependencyProperty IsEditorModeProperty = DependencyProperty.Register("IsEditorMode", typeof(bool), typeof(UserViewModel));
 
         /// <summary>
         /// 是否在編輯模式?
@@ -122,7 +104,7 @@ namespace Tokiku.ViewModels
             set { SetValue(IsEditorModeProperty, value); }
         }
 
-        public static readonly DependencyProperty IsModifyProperty = DependencyProperty.Register("IsModify", typeof(bool), typeof(BaseViewModel));
+        public static readonly DependencyProperty IsModifyProperty = DependencyProperty.Register("IsModify", typeof(bool), typeof(UserViewModel));
 
         /// <summary>
         /// 指出是否已經修改
@@ -133,7 +115,7 @@ namespace Tokiku.ViewModels
             set { SetValue(IsModifyProperty, value); }
         }
 
-        public static readonly DependencyProperty IsSavedProperty = DependencyProperty.Register("IsSaved", typeof(bool), typeof(BaseViewModel));
+        public static readonly DependencyProperty IsSavedProperty = DependencyProperty.Register("IsSaved", typeof(bool), typeof(UserViewModel));
 
         /// <summary>
         /// 是否已存檔?
@@ -144,7 +126,7 @@ namespace Tokiku.ViewModels
             set { SetValue(IsSavedProperty, value); }
         }
 
-        public static readonly DependencyProperty CanSaveProperty = DependencyProperty.Register("CanSave", typeof(bool), typeof(BaseViewModel));
+        public static readonly DependencyProperty CanSaveProperty = DependencyProperty.Register("CanSave", typeof(bool), typeof(UserViewModel));
 
         public bool CanSave
         {
@@ -158,19 +140,7 @@ namespace Tokiku.ViewModels
             }
         }
 
-        public static readonly DependencyProperty LoginedUserProperty = DependencyProperty.Register("LoginedUser", typeof(UserViewModel), typeof(BaseViewModel), new PropertyMetadata(default(Users)));
-        /// <summary>
-        /// 取得目前登入的使用者
-        /// </summary>
-        public UserViewModel LoginedUser
-        {
-            get { return GetValue(LoginedUserProperty) as UserViewModel; }
-            set
-            {
-                SetValue(LoginedUserProperty, value);
-                RaisePropertyChanged("LoginedUser");
-            }
-        }
+      
 
         internal static void DefaultFieldChanged(DependencyObject source, DependencyPropertyChangedEventArgs e)
         {
@@ -194,7 +164,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for Error.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ErrorProperty =
-            DependencyProperty.Register("Error", typeof(Exception), typeof(BaseViewModel), new PropertyMetadata(default(Exception)));
+            DependencyProperty.Register("Error", typeof(Exception), typeof(UserViewModel), new PropertyMetadata(default(Exception)));
 
 
 
@@ -207,7 +177,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for HasError.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty HasErrorProperty =
-            DependencyProperty.Register("HasError", typeof(bool), typeof(BaseViewModel), new PropertyMetadata(false));
+            DependencyProperty.Register("HasError", typeof(bool), typeof(UserViewModel), new PropertyMetadata(false));
 
 
 
@@ -220,9 +190,80 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for CanCreateNew.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CanCreateNewProperty =
-            DependencyProperty.Register("CanCreateNew", typeof(bool), typeof(BaseViewModel), new PropertyMetadata(false));
+            DependencyProperty.Register("CanCreateNew", typeof(bool), typeof(UserViewModel), new PropertyMetadata(false));
 
 
+
+        public Guid UserId
+        {
+            get { return (Guid )GetValue(UserIdProperty); }
+            set { SetValue(UserIdProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for UserId.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty UserIdProperty =
+            DependencyProperty.Register("UserId", typeof(Guid ), typeof(UserViewModel), new PropertyMetadata(Guid.NewGuid()));
+
+
+
+        public string UserName
+        {
+            get { return (string)GetValue(UserNameProperty); }
+            set { SetValue(UserNameProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for UserName.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty UserNameProperty =
+            DependencyProperty.Register("UserName", typeof(string), typeof(UserViewModel), new PropertyMetadata(string.Empty));
+
+
+        public string LoweredUserName
+        {
+            get { return (string)GetValue(LoweredUserNameProperty); }
+            set { SetValue(LoweredUserNameProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for LoweredUserName.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty LoweredUserNameProperty =
+            DependencyProperty.Register("LoweredUserName", typeof(string), typeof(UserViewModel), new PropertyMetadata(string.Empty));
+
+
+
+
+        public string MobileAlias
+        {
+            get { return (string)GetValue(MobileAliasProperty); }
+            set { SetValue(MobileAliasProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MobileAlias.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MobileAliasProperty =
+            DependencyProperty.Register("MobileAlias", typeof(string), typeof(UserViewModel), new PropertyMetadata(string.Empty));
+
+
+
+        public bool IsAnonymous
+        {
+            get { return (bool)GetValue(IsAnonymousProperty); }
+            set { SetValue(IsAnonymousProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsAnonymous.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsAnonymousProperty =
+            DependencyProperty.Register("IsAnonymous", typeof(bool), typeof(UserViewModel), new PropertyMetadata(false));
+
+
+
+
+        public DateTime LastActivityDate
+        {
+            get { return (DateTime)GetValue(LastActivityDateProperty); }
+            set { SetValue(LastActivityDateProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for LastActivityDate.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty LastActivityDateProperty =
+            DependencyProperty.Register("LastActivityDate", typeof(DateTime), typeof(UserViewModel), new PropertyMetadata(DateTime.Now));
 
     }
 }

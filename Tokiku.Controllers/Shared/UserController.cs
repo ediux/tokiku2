@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tokiku.Entity;
+using Tokiku.ViewModels;
 
 namespace Tokiku.Controllers.Shared
 {
-    public class UserController
+    public class UserController : BaseController
     {
         private TokikuEntities database;
 
@@ -15,6 +16,7 @@ namespace Tokiku.Controllers.Shared
         {
             database = new TokikuEntities();
         }
+        
 
         public void AddUser(string UserName, string pwd, string role, string email = "abc@cde.com")
         {
@@ -28,7 +30,7 @@ namespace Tokiku.Controllers.Shared
                 LoweredUserName = LoweredUserName,
                 UserId = Guid.NewGuid(),
                 UserName = UserName
-                 
+
             };
 
             Membership newMembership = new Membership()
@@ -56,7 +58,7 @@ namespace Tokiku.Controllers.Shared
                 Users = newUser
             };
 
-            
+
 
             if (!database.Users.Where(w => w.UserName == UserName).Any())
             {
@@ -88,13 +90,40 @@ namespace Tokiku.Controllers.Shared
 
         }
 
+        public UserViewModel AddUser(UserViewModel model)
+        {
+            var user = new Users();
+            CopyToNotModel(user, model);
+            user = database.Users.Add(user);
+            database.SaveChanges();
+
+            return BindingFromNotModel<Users, UserViewModel>(user);
+        }
+
         public Users GetUser(string UserName)
         {
             string LoweredUserName = UserName.ToLowerInvariant();
 
-            return (from u in database.Users
-                    where u.UserName == UserName || u.LoweredUserName == LoweredUserName
-                    select u).SingleOrDefault();
+            var user = (from u in database.Users
+                        where u.UserName == UserName || u.LoweredUserName == LoweredUserName
+                        select u).SingleOrDefault();
+
+            return user;
+        }
+
+        public UserViewModel Login(LoginViewModel model)
+        {
+            try
+            {
+                return BindingFromNotModel<Users, UserViewModel>(Login(model.UserName, model.Password));
+            }
+            catch (Exception ex)
+            {
+                UserViewModel vm = new UserViewModel();
+                vm.Error = ex;
+                return vm;
+            }
+
         }
 
         public Users Login(string UserName, string pwd)

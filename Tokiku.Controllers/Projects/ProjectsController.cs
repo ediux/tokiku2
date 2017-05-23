@@ -1,16 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tokiku.Entity;
+using Tokiku.ViewModels;
 
 namespace Tokiku.Controllers
 {
-    public class ProjectsController
+    public class ProjectsController : BaseController
     {
         private TokikuEntities database;
+        #region 公開方法(中介層呼叫)
 
+
+
+        /// <summary>
+        /// 儲存變更
+        /// </summary>
+        public void SaveModel(ProjectBaseViewModel model)
+        {
+            try
+            {
+                if (IsExists(model.Id))
+                {
+                    Update(model);
+                }
+                else
+                {
+                    Add(model);
+
+                }
+                model.IsEditorMode = true;
+                model.IsSaved = true;
+                model.IsModify = false;
+            }
+            catch
+            {
+                throw;
+            }
+
+        }
+
+        #endregion
         public ProjectsController()
         {
             database = new TokikuEntities();
@@ -42,13 +75,17 @@ namespace Tokiku.Controllers
             return "001";
         }
 
-        public void Add(Projects model)
+        public void Add(ProjectBaseViewModel model)
         {
-            database.Projects.Add(model);
+            Projects newProject = new Projects();
+            model.CreateTime = DateTime.Now;
+            model.CreateUserId = model.LoginedUser.UserId;
+            CopyToModel(newProject, model);
+            database.Projects.Add(newProject);
             database.SaveChanges();
         }
 
-        public Projects QuerySingle(Guid ProjectId)
+        public ProjectBaseViewModel QuerySingle(Guid ProjectId)
         {
             try
             {
@@ -58,7 +95,7 @@ namespace Tokiku.Controllers
 
                 if (result.Any())
                 {
-                    return result.Single();
+                    return BindingFromModel<Projects, ProjectBaseViewModel>(result.Single());
                 }
 
                 return null;
@@ -70,7 +107,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        public List<Projects> QueryAll()
+        public ObservableCollection<ProjectBaseViewModel> QueryAll()
         {
             try
             {
@@ -78,7 +115,7 @@ namespace Tokiku.Controllers
                              where p.Void == false
                              select p;
 
-                return result.ToList();
+                return new ObservableCollection<ProjectBaseViewModel>(result.ToList().ConvertAll(c => BindingFromModel<Projects, ProjectBaseViewModel>(c)));
             }
             catch (Exception)
             {
@@ -104,7 +141,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        public void Update(Projects updatedProject)
+        public void Update(ProjectBaseViewModel updatedProject)
         {
             var original = QuerySingle(updatedProject.Id);
             if (original != null)

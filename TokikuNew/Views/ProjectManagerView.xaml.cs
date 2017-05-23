@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +24,7 @@ namespace TokikuNew.Views
     /// </summary>
     public partial class ProjectManagerView : UserControl
     {
-        
+        private ProjectsController controller = new ProjectsController();
         #region 相依屬性
         public static readonly DependencyProperty ModelProperty = DependencyProperty.Register("Model", typeof(ProjectBaseViewModel), typeof(ProjectManagerView), new PropertyMetadata(default(ProjectBaseViewModel)));
 
@@ -48,31 +47,12 @@ namespace TokikuNew.Views
         {
             try
             {
-                Model.SaveModel();
+                controller.SaveModel(Model);                
                 Model.CanSave = false;
             }
             catch (Exception ex)
-            {
-                if (ex is DbEntityValidationException)
-                {
-                    DbEntityValidationException dbex = (DbEntityValidationException)ex;
-                    string msg = "";
-                    foreach (var err in dbex.EntityValidationErrors)
-                    {
-                        foreach (var errb in err.ValidationErrors)
-                        {
-                            msg += errb.ErrorMessage;
-                        }
-                    }
-
-
-                    WinForm.MessageBox.Show(msg, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
-                }
-                else
-                {
-
-                    WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
-                }
+            {                
+                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
             }
 
 
@@ -85,7 +65,7 @@ namespace TokikuNew.Views
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            Model.DisabledEditor();
+            Model.IsEditorMode = false;
             Model.CanSave = false;
         }
 

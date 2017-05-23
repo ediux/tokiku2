@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +23,7 @@ namespace TokikuNew.Views
     /// </summary>
     public partial class ContactPersonManageView : UserControl
     {
-        private ContactController controller;
+        private ContactController controller = new ContactController();
 
         public ContactPersonManageView()
         {
@@ -44,7 +43,7 @@ namespace TokikuNew.Views
         // Using a DependencyProperty as the backing store for IsClient.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsClientProperty =
             DependencyProperty.Register("IsClient", typeof(bool), typeof(ContactPersonManageView), new PropertyMetadata(false));
-           
+
         public ContactsViewModel Model
         {
             get { return (ContactsViewModel)GetValue(ModelProperty); }
@@ -71,8 +70,8 @@ namespace TokikuNew.Views
             if (Model == null)
                 Model = new ContactsViewModel();
 
-            Model.QueryAll(IsClient);
-            Model.EnableEditor();
+            Model.ContractsList = controller.QueryAll();
+            Model.IsEditorMode = true;
             DataContext = Model;
         }
 
@@ -84,41 +83,27 @@ namespace TokikuNew.Views
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             try
-            {                
-                Model.SaveModel();
+            {
+                controller.SaveModel(Model);
+                if (Model.HasError)
+                {
+                    WinForm.MessageBox.Show(Model.Error.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
+                }
                 Model = new ContactsViewModel();
                 Model.CanSave = false;
-                Model.QueryAll(IsClient);
-                
+                Model.ContractsList = controller.QueryAll();
+
+
             }
             catch (Exception ex)
             {
-                if (ex is DbEntityValidationException)
-                {
-                    DbEntityValidationException dbex = (DbEntityValidationException)ex;
-                    string msg = "";
-                    foreach (var err in dbex.EntityValidationErrors)
-                    {
-                        foreach (var errb in err.ValidationErrors)
-                        {
-                            msg += errb.ErrorMessage;
-                        }
-                    }
-
-
-                    WinForm.MessageBox.Show(msg, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
-                }
-                else
-                {
-
-                    WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
-                }
+                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);                
             }
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            Model.DisabledEditor();
+            Model.IsEditorMode = false;
             Model.CanSave = false;
         }
 
@@ -132,10 +117,10 @@ namespace TokikuNew.Views
             if (e.AddedItems.Count > 0)
             {
                 var obj = e.AddedItems[0];
-                if(obj is Contacts)
+                if (obj is Contacts)
                 {
-                    Model.QueryModel(((Contacts)obj).Id);
-                }                
+                    Model = controller.QuerySingle(((Contacts)obj).Id);
+                }
             }
 
             Model.IsNew = false;
@@ -144,7 +129,7 @@ namespace TokikuNew.Views
         private void btnF1_Click(object sender, RoutedEventArgs e)
         {
             Model = new ContactsViewModel();
-            Model.QueryAll();
+            Model.ContractsList = controller.QueryAll();
             Model.IsNew = true;
             DataContext = Model;
         }

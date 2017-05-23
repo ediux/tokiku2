@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Tokiku.Controllers.Shared;
 using Tokiku.ViewModels;
 
 namespace TokikuNew.Frame
@@ -20,6 +21,8 @@ namespace TokikuNew.Frame
     /// </summary>
     public partial class StartUpWindow : Window
     {
+        private UserController controller = new UserController();
+
         public static readonly DependencyProperty ModelProperty = DependencyProperty.Register("Model", typeof(LoginViewModel), typeof(StartUpWindow), new PropertyMetadata(default(LoginViewModel)));
 
         public LoginViewModel Model
@@ -39,7 +42,8 @@ namespace TokikuNew.Frame
             tblkMessage.Foreground = new SolidColorBrush(Colors.Black);
             Model.Password = pwdBox.Password;
 
-            var loginedUser = Model.Login();
+            var loginedUser = controller.Login(Model);
+
             if (loginedUser != null)
             {
                 tblkMessage.Text = "登入成功!";
