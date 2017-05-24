@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tokiku.Entity;
 using Tokiku.ViewModels;
+using TokikuNew.Controls;
 
 namespace TokikuNew
 {
@@ -34,7 +35,7 @@ namespace TokikuNew
         public MainWindow()
         {
             InitializeComponent();
-            
+
             Model = new MainViewModel();
             this.DataContext = Model;
         }
@@ -50,37 +51,40 @@ namespace TokikuNew
         {
             try
             {
-                TabItem currentworking = (TabItem)Workspaces.SelectedItem;
-
+                TabItem currentworking = (TabItem)sender;
+               
                 if (currentworking != null)
                 {
-                    if (currentworking.Content is Views.ProjectManagerView)
+                    if (currentworking.Content != null)
                     {
-                        Views.ProjectManagerView vm = currentworking.Content as Views.ProjectManagerView;
-                        if (vm.Model.IsModify && vm.Model.IsSaved == false)
+                        if (currentworking.Content is Views.ProjectManagerView)
                         {
-                            if (MessageBox.Show("您有變更尚未儲存，是否更新?", "關閉前確認", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                            Views.ProjectManagerView vm = currentworking.Content as Views.ProjectManagerView;
+                            if (vm.Model.IsModify && vm.Model.IsSaved == false)
                             {
-                                controller.SaveModel(vm.Model);
+                                if (MessageBox.Show("您有變更尚未儲存，是否更新?", "關閉前確認", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                                {
+                                    controller.SaveModel(vm.Model);
+                                }
                             }
                         }
-                    }
 
-                    if (currentworking.Content is Views.ProjectViewer)
-                    {
-                        Views.ProjectViewer vm = currentworking.Content as Views.ProjectViewer;
-                        if (vm.Model.IsModify && vm.Model.IsSaved == false)
+                        if (currentworking.Content is Views.ProjectViewer)
                         {
-                            if (MessageBox.Show("您有變更尚未儲存，是否更新?", "關閉前確認", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                            Views.ProjectViewer vm = currentworking.Content as Views.ProjectViewer;
+                            if (vm.Model.IsModify && vm.Model.IsSaved == false)
                             {
-                                controller.SaveModel(vm.Model);
+                                if (MessageBox.Show("您有變更尚未儲存，是否更新?", "關閉前確認", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                                {
+                                    controller.SaveModel(vm.Model);
+                                }
                             }
                         }
-                    }
 
-                }
-                Workspaces.Items.Remove(Workspaces.SelectedItem);
-                Model.CurrentProject = null;
+                        Workspaces.Items.Remove(currentworking);
+                        Model.CurrentProject = null;
+                    }
+                }                               
             }
             catch (Exception ex)
             {
@@ -129,7 +133,6 @@ namespace TokikuNew
                         var vm = new Views.ProjectViewer() { Margin = new Thickness(0) };
                         vm.Model = controller.QuerySingle(projectSelectionWin.SelectedProject.Id);
                         vm.Model.LoginedUser = Model.LoginedUser;
-                        vm.DataContext = vm.Model;
 
                         addWorkarea.Content = vm;
                         addWorkarea.Margin = new Thickness(0);
@@ -310,19 +313,23 @@ namespace TokikuNew
             string Header = string.Format("專案:{0}-{1}", ProjectSelectionPage.SelectedProject.Code, ProjectSelectionPage.SelectedProject.ShortName);
             Model.CurrentProject = controller.QuerySingle(ProjectSelectionPage.SelectedProject.Id);
 
-            TabItem addWorkarea = new TabItem();
-
+            ClosableTabItem addWorkarea = new ClosableTabItem();
+            addWorkarea.OnPageClosing += btnTabClose_Click;
 
             bool isExisted = false;
 
             foreach (TabItem item in Workspaces.Items)
             {
-                if (item.Header.Equals(Header))
+                if (item is ClosableTabItem)
                 {
-                    isExisted = true;
-                    addWorkarea = item;
-                    break;
+                    if (item.Header.Equals(Header))
+                    {
+                        isExisted = true;
+                        addWorkarea = (ClosableTabItem)item;
+                        break;
+                    }
                 }
+
             }
 
             if (!isExisted)

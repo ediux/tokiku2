@@ -38,9 +38,7 @@ namespace TokikuNew.Views
         public ProjectManagerView()
         {
             InitializeComponent();
-
-            Model = new ProjectBaseViewModel();
-            this.DataContext = Model;
+           
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -80,7 +78,7 @@ namespace TokikuNew.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            
+            //DataContext = Model;
         }
 
         private void tbName_TextChanged(object sender, TextChangedEventArgs e)

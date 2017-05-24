@@ -60,6 +60,7 @@
     <Compile Include="Controls\ClosableTab.xaml.cs">
       <DependentUpon>ClosableTab.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ClosableTabItem.cs" />
     <Compile Include="Frame\OptionWindow.xaml.cs">
       <DependentUpon>OptionWindow.xaml</DependentUpon>
     </Compile>
@@ -122,6 +123,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Resources\MyTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\SystemStrings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

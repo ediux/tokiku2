@@ -53,7 +53,7 @@ namespace Tokiku.Controllers
         {
             var result = (from q in database.Projects
                           where q.Code.StartsWith(year.Trim()) && q.Code.Contains("-F") == false
-                          orderby q.Code descending
+                          orderby q.State ascending, q.Code ascending
                           select q.Code).FirstOrDefault();
 
             if (!string.IsNullOrEmpty(result))
@@ -91,6 +91,7 @@ namespace Tokiku.Controllers
             {
                 var result = from p in database.Projects
                              where p.Id == ProjectId && p.Void == false
+                             orderby p.State ascending, p.Code ascending
                              select p;
 
                 if (result.Any())
@@ -113,6 +114,7 @@ namespace Tokiku.Controllers
             {
                 var result = from p in database.Projects
                              where p.Void == false
+                             orderby p.State ascending, p.Code ascending
                              select p;
 
                 return new ObservableCollection<ProjectBaseViewModel>(result.ToList().ConvertAll(c => BindingFromModel<Projects, ProjectBaseViewModel>(c)));
@@ -130,6 +132,7 @@ namespace Tokiku.Controllers
             {
                 var result = from p in database.Projects
                              where p.Id == ProjectId && p.Void == false
+                             orderby p.State ascending, p.Code ascending
                              select p;
 
                 return result.Any();
@@ -157,6 +160,7 @@ namespace Tokiku.Controllers
             {
                 var result = from p in database.Projects
                              where p.Id == ProjectId && p.Void == false
+                             orderby p.State ascending, p.Code ascending
                              select p;
 
                 if (result.Any())
@@ -184,10 +188,21 @@ namespace Tokiku.Controllers
 
         public List<Projects> SearchByText(string text)
         {
-            return (from p in database.Projects
-                    where p.Void == false &&
-                    (p.Code.Contains(text) || p.Name.Contains(text) || p.ShortName.Contains(text))
-                    select p).ToList();
+            if(text!=null && text.Length > 0)
+            {
+                return (from p in database.Projects
+                        where p.Void == false &&
+                        (p.Code.Contains(text) || p.Name.Contains(text) || p.ShortName.Contains(text))
+                        orderby p.State ascending, p.Code ascending
+                        select p).ToList();
+            }
+            else
+            {
+                return (from p in database.Projects
+                        where p.Void == false
+                        orderby p.State ascending, p.Code ascending
+                        select p).ToList();
+            }
         }
     }
 }
