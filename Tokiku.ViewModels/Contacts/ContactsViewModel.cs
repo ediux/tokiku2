@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,82 +11,8 @@ namespace Tokiku.ViewModels
 {
     public class ContactsViewModel : BaseViewModel
     {
-        private Controllers.ContactController controller;
-        #region 公開方法(中介層呼叫)
-        public void QueryAll(bool IsClient = false,bool IsListOnly=true)
-        {
-            //if (IsClient)
-            //{
-            //    ContractsList = controller.QueryAll().Where(w => w.Manufacturers.Where(s => s.IsClient == true).Any()).ToList();
-            //}
-            //else
-            //{
-            //    ContractsList = controller.QueryAll().Where(w => w.Manufacturers.Where(s => s.IsClient == false).Any()).ToList();
-            //}
-
-            //if (ContractsList.Any() == false)
-            //{
-                ContractsList = controller.QueryAll();
-            //}
-        }
-
-        /// <summary>
-        /// 查詢單一個體的資料實體。
-        /// </summary>
-        /// <param name="ProjectId"></param>
-        public void QueryModel(Guid ProjectId)
-        {
-            Entity.Contacts result = controller.QuerySingle(ProjectId);
-            BindingFromModel(result);
-        }
-
-        /// <summary>
-        /// 儲存變更
-        /// </summary>
-        public void SaveModel()
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(Name))
-                {
-                    return;
-                }
-
-                if (controller.IsExists(Id))
-                {
-                    Entity.Contacts result = controller.QuerySingle(Id);
-                    CopyToModel(result);
-                    controller.Update(result, LoginedUser.UserId);
-                }
-                else
-                {
-                    Entity.Contacts newProject = new Entity.Contacts();
-                    CreateTime = DateTime.Now;
-                    CreateUserId = LoginedUser.UserId;
-                    CopyToModel(newProject);
-                    controller.Add(newProject);
-                }
-                IsEditorMode = true;
-                IsSaved = true;
-                IsModify = false;
-            }
-            catch
-            {
-                throw;
-            }
-
-        }
-
-        public void Delete(Guid ContactsId)
-        {
-            controller.Delete(ContactsId, LoginedUser.UserId);
-        }
-
-        #endregion
-
         public ContactsViewModel()
-        {
-            controller = new Controllers.ContactController();
+        {           
             Id = Guid.NewGuid();
         }
 
@@ -270,15 +197,15 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty IsDefaultProperty =
             DependencyProperty.Register("IsDefault", typeof(bool), typeof(ContactsViewModel), new PropertyMetadata(false, new PropertyChangedCallback(DefaultFieldChanged)));
 
-        public List<Contacts> ContractsList
+        public ObservableCollection<ContactsViewModel> ContractsList
         {
-            get { return (List<Contacts>)GetValue(ContractsListProperty); }
+            get { return (ObservableCollection<ContactsViewModel>)GetValue(ContractsListProperty); }
             set { SetValue(ContractsListProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ContractsListProperty =
-            DependencyProperty.Register("ContactsList", typeof(List<Contacts>), typeof(ContactsViewModel), new PropertyMetadata(default(List<Contacts>), new PropertyChangedCallback(DefaultFieldChanged)));
+            DependencyProperty.Register("ContactsList", typeof(ObservableCollection<Contacts>), typeof(ContactsViewModel), new PropertyMetadata(default(ObservableCollection<ContactsViewModel>), new PropertyChangedCallback(DefaultFieldChanged)));
 
     }
 }

@@ -23,21 +23,6 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 登入密碼
         /// </summary>
-        public string Password { get { return (string)GetValue(PasswordProperty); } set { SetValue(PasswordProperty, value); RaisePropertyChanged("Password"); } }
-
-        public Entity.Users Login()
-        {
-            try
-            {
-                Controllers.Shared.UserController userctrl = new Controllers.Shared.UserController();
-                return userctrl.Login(UserName, Password);
-            }
-            catch (Exception)
-            {
-
-                return null;
-            }
-
-        }
+        public string Password { get { return (string)GetValue(PasswordProperty); } set { SetValue(PasswordProperty, value); RaisePropertyChanged("Password"); } }      
     }
 }

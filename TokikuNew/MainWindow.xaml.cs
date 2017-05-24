@@ -34,9 +34,12 @@ namespace TokikuNew
         public MainWindow()
         {
             InitializeComponent();
+            
             Model = new MainViewModel();
             this.DataContext = Model;
         }
+
+        private Tokiku.Controllers.ProjectsController controller = new Tokiku.Controllers.ProjectsController();
 
         /// <summary>
         /// 當關閉分頁時觸發的事件
@@ -58,7 +61,7 @@ namespace TokikuNew
                         {
                             if (MessageBox.Show("您有變更尚未儲存，是否更新?", "關閉前確認", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                             {
-                                vm.Model.SaveModel();
+                                controller.SaveModel(vm.Model);
                             }
                         }
                     }
@@ -70,7 +73,7 @@ namespace TokikuNew
                         {
                             if (MessageBox.Show("您有變更尚未儲存，是否更新?", "關閉前確認", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                             {
-                                vm.Model.SaveModel();
+                                controller.SaveModel(vm.Model);
                             }
                         }
                     }
@@ -101,8 +104,8 @@ namespace TokikuNew
                 {
                     //MI_Project.Header = string.Format("專案:{0}-{1}", projectSelectionWin.SelectedProject.Code, projectSelectionWin.SelectedProject.ShortName);
                     string TabName = string.Format("專案:{0}-{1}", projectSelectionWin.SelectedProject.Code, projectSelectionWin.SelectedProject.ShortName);
-                    Model.CurrentProject = new ProjectBaseViewModel();
-                    Model.CurrentProject.QueryModel(projectSelectionWin.SelectedProject.Id);
+
+                    Model.CurrentProject = controller.QuerySingle(projectSelectionWin.SelectedProject.Id);
 
                     TabItem addWorkarea = new TabItem();
 
@@ -124,8 +127,7 @@ namespace TokikuNew
                         addWorkarea.Header = TabName;
 
                         var vm = new Views.ProjectViewer() { Margin = new Thickness(0) };
-                        vm.Model = new ProjectBaseViewModel();
-                        vm.Model.QueryModel(projectSelectionWin.SelectedProject.Id);
+                        vm.Model = controller.QuerySingle(projectSelectionWin.SelectedProject.Id);
                         vm.Model.LoginedUser = Model.LoginedUser;
                         vm.DataContext = vm.Model;
 
@@ -137,7 +139,6 @@ namespace TokikuNew
                     }
                     else
                     {
-
                         Workspaces.SelectedItem = addWorkarea;
                     }
 
@@ -184,12 +185,12 @@ namespace TokikuNew
                 if (Model.CurrentProject == null)
                 {
                     vm.Model.IsNew = true;
-                    vm.Model.EnableEditor();
+                    vm.Model.IsEditorMode = true;
                 }
                 else
                 {
                     vm.Model.IsNew = false;
-                    vm.Model.DisabledEditor();
+                    vm.Model.IsEditorMode = false;
                 }
 
                 vm.DataContext = vm.Model;
@@ -229,7 +230,7 @@ namespace TokikuNew
             {
                 addWorkarea.Header = Header;
 
-                var vm = new Views.ManufacturersManageView() { Margin = new Thickness(0) };       
+                var vm = new Views.ManufacturersManageView() { Margin = new Thickness(0) };
                 vm.OnPageClosing += Vm_OnPageClosing;
                 addWorkarea.Content = vm;
                 addWorkarea.Margin = new Thickness(0);
@@ -303,12 +304,11 @@ namespace TokikuNew
         private void ProjectSelectionPage_SelectedProjectChanged(object sender, RoutedEventArgs e)
         {
             Model.CurrentProject = new ProjectBaseViewModel();
-            ProjectSelectionPage.SelectedProject = e.OriginalSource as Projects;
-            Model.CurrentProject.QueryModel(ProjectSelectionPage.SelectedProject.Id);
+            ProjectSelectionPage.SelectedProject = e.OriginalSource as ProjectBaseViewModel;
+            Model.CurrentProject = controller.QuerySingle(ProjectSelectionPage.SelectedProject.Id);
 
             string Header = string.Format("專案:{0}-{1}", ProjectSelectionPage.SelectedProject.Code, ProjectSelectionPage.SelectedProject.ShortName);
-            Model.CurrentProject = new ProjectBaseViewModel();
-            Model.CurrentProject.QueryModel(ProjectSelectionPage.SelectedProject.Id);
+            Model.CurrentProject = controller.QuerySingle(ProjectSelectionPage.SelectedProject.Id);
 
             TabItem addWorkarea = new TabItem();
 
@@ -330,8 +330,7 @@ namespace TokikuNew
                 addWorkarea.Header = Header;
 
                 var vm = new Views.ProjectViewer() { Margin = new Thickness(0) };
-                vm.Model = new ProjectBaseViewModel();
-                vm.Model.QueryModel(ProjectSelectionPage.SelectedProject.Id);
+                vm.Model = controller.QuerySingle(ProjectSelectionPage.SelectedProject.Id);
                 vm.Model.LoginedUser = Model.LoginedUser;
                 vm.DataContext = vm.Model;
 

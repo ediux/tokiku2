@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Tokiku.Entity;
 using System.Windows;
-using Tokiku.Controllers;
 
 namespace Tokiku.ViewModels
 {
@@ -14,65 +13,7 @@ namespace Tokiku.ViewModels
         #region 私有變數
         /// <summary>
         /// 專案相關控制器
-        /// </summary>
-        private ProjectsController controller; 
-        #endregion
-
-        #region 公開方法(中介層呼叫)
-
-        /// <summary>
-        /// 查詢單一個體的資料實體。
-        /// </summary>
-        /// <param name="ProjectId"></param>
-        public void QueryModel(Guid ProjectId)
-        {
-            Projects result = controller.QuerySingle(ProjectId);
-            BindingFromModel(result);
-        }
-
-        /// <summary>
-        /// 儲存變更
-        /// </summary>
-        public void SaveModel()
-        {
-            try
-            {
-                if (controller.IsExists(Id))
-                {
-                    Projects result = controller.QuerySingle(Id);
-                    CopyToModel(result);                    
-                    controller.Update(result);
-                }
-                else
-                {
-                    Projects newProject = new Projects();
-                    CreateTime = DateTime.Now;
-                    CreateUserId = LoginedUser.UserId;
-                    CopyToModel(newProject);
-                    controller.Add(newProject);
-                }
-                IsEditorMode = true;
-                IsSaved = true;
-                IsModify = false;
-            }
-            catch
-            {
-                throw;
-            }
-           
-        }
-
-        public ProjectBaseViewModel()
-        {
-            controller = new ProjectsController();
-            Id = Guid.NewGuid();
-            StateText = controller.GetAllState();
-        }
-
-        public void Delete(Guid ProjectId)
-        {
-            controller.Delete(ProjectId, LoginedUser.UserId);
-        }
+        /// </summary>         
         #endregion
 
         #region 相依性屬性宣告

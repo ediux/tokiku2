@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +23,7 @@ namespace TokikuNew.Views
     /// </summary>
     public partial class ManufacturersManageView : UserControl
     {
-        private ManufacturersController controller;
+        private ManufacturersController controller=new ManufacturersController();
 
         public ManufacturersManageView()
         {
@@ -52,8 +51,7 @@ namespace TokikuNew.Views
 
         private void btnF1_Click(object sender, RoutedEventArgs e)
         {
-            Model = new ManufacturersViewModel();
-            Model.QueryAll();
+            Model = new ManufacturersViewModel();            
             Model.IsNew = true;
             DataContext = Model;
         }
@@ -67,38 +65,18 @@ namespace TokikuNew.Views
         {
             try
             {
-                Model.SaveModel();
-                Model.CanSave = false;
-                Model.QueryAll();
+                controller.SaveModel(Model);
+                Model.CanSave = false;                
             }
             catch (Exception ex)
             {
-                if (ex is DbEntityValidationException)
-                {
-                    DbEntityValidationException dbex = (DbEntityValidationException)ex;
-                    string msg = "";
-                    foreach (var err in dbex.EntityValidationErrors)
-                    {
-                        foreach (var errb in err.ValidationErrors)
-                        {
-                            msg += errb.ErrorMessage;
-                        }
-                    }
-
-
-                    WinForm.MessageBox.Show(msg, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
-                }
-                else
-                {
-
-                    WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
-                }
+                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
             }
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            Model.DisabledEditor();
+            Model.IsEditorMode = false;
             Model.CanSave = false;
         }
 
@@ -144,8 +122,8 @@ namespace TokikuNew.Views
             if (Model == null)
                 Model = new ManufacturersViewModel();
 
-            Model.QueryAll();
-            Model.EnableEditor();
+            //Model.QueryAll();
+            Model.IsEditorMode = false;
             DataContext = Model;
         }
     }
