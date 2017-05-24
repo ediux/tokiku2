@@ -31,10 +31,8 @@ namespace Tokiku.Entity
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<States> States { get; set; }
         public virtual DbSet<Users> Users { get; set; }
-        public virtual DbSet<Engineering> Engineering { get; set; }
         public virtual DbSet<ShopFlowHistory> ShopFlowHistory { get; set; }
         public virtual DbSet<Materials> Materials { get; set; }
-        public virtual DbSet<ProjectContract> ProjectContract { get; set; }
         public virtual DbSet<MaterialCategories> MaterialCategories { get; set; }
         public virtual DbSet<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
         public virtual DbSet<TicketTypes> TicketTypes { get; set; }
@@ -42,5 +40,8 @@ namespace Tokiku.Entity
         public virtual DbSet<Projects> Projects { get; set; }
         public virtual DbSet<AccessLog> AccessLog { get; set; }
         public virtual DbSet<Manufacturers> Manufacturers { get; set; }
+        public virtual DbSet<PaymentTypes> PaymentTypes { get; set; }
+        public virtual DbSet<Engineering> Engineering { get; set; }
+        public virtual DbSet<ProjectContract> ProjectContract { get; set; }
     }
 }

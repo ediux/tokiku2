@@ -57,6 +57,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BaseUserControl.cs" />
+    <Compile Include="Controls\ClosableTab.xaml.cs">
+      <DependentUpon>ClosableTab.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Frame\OptionWindow.xaml.cs">
       <DependentUpon>OptionWindow.xaml</DependentUpon>
     </Compile>
@@ -73,6 +76,9 @@
     <Compile Include="Views\ContactPersonManageView.xaml.cs">
       <DependentUpon>ContactPersonManageView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ContractManager.xaml.cs">
+      <DependentUpon>ContractManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ManufacturersManageView.xaml.cs">
       <DependentUpon>ManufacturersManageView.xaml</DependentUpon>
     </Compile>
@@ -88,6 +94,10 @@
     <Compile Include="Views\VendorListView.xaml.cs">
       <DependentUpon>VendorListView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\ClosableTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Frame\OptionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -145,6 +155,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ContactPersonManageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ContractManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -42,10 +42,18 @@ namespace TokikuNew.Views
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             this.DataContext = Model;
-            projectmgr.Model = Model;
-            projectmgr.DataContext = Model;
+            //projectmgr.Model = Model;
+            //projectmgr.DataContext = Model;
            
 
+        }
+
+        private void tbName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //if (tbName.Text.Trim().Length > 0)
+            //{
+            //    tbShortName.Text = tbName.Text.Substring(0, Math.Min(4, tbName.Text.Length));
+            //} 
         }
     }
 }

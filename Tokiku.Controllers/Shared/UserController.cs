@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Tokiku.Entity;
 using Tokiku.ViewModels;
 
-namespace Tokiku.Controllers.Shared
+namespace Tokiku.Controllers
 {
     public class UserController : BaseController
     {

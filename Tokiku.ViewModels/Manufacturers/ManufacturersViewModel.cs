@@ -156,6 +156,19 @@ namespace Tokiku.ViewModels
 
 
 
+
+        public ObservableCollection<PaymentTypeViewModel> PaymentTypes
+        {
+            get { return (ObservableCollection<PaymentTypeViewModel>)GetValue(PaymentTypesProperty); }
+            set { SetValue(PaymentTypesProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for PaymentTypes.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PaymentTypesProperty =
+            DependencyProperty.Register("PaymentTypes", typeof(ObservableCollection<PaymentTypeViewModel>), typeof(ManufacturersViewModel), new PropertyMetadata(default(ObservableCollection<PaymentTypeViewModel>)));
+
+
+
         public string CheckNumber
         {
             get { return (string)GetValue(CheckNumberProperty); }

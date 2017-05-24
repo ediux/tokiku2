@@ -12,25 +12,18 @@ namespace Tokiku.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class ShopFlowHistory
+    public partial class PaymentTypes
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ShopFlowHistory()
+        public PaymentTypes()
         {
-            this.BOM = new HashSet<BOM>();
+            this.Manufacturers = new HashSet<Manufacturers>();
         }
     
-        public System.Guid Id { get; set; }
-        public System.Guid EngineeringId { get; set; }
-        public Nullable<System.Guid> ShopId { get; set; }
-        public byte State { get; set; }
-        public System.DateTime CreateTime { get; set; }
-        public System.Guid CreateUserId { get; set; }
+        public byte Id { get; set; }
+        public string PaymentTypeName { get; set; }
     
-        public virtual States States { get; set; }
-        public virtual Users Users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BOM> BOM { get; set; }
-        public virtual Engineering Engineering { get; set; }
+        public virtual ICollection<Manufacturers> Manufacturers { get; set; }
     }
 }

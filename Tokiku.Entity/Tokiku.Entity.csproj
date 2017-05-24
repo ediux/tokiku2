@@ -73,6 +73,9 @@
     <Compile Include="Membership.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
+    <Compile Include="PaymentTypes.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
     <Compile Include="Profile.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>

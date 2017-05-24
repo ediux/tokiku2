@@ -49,6 +49,7 @@
     <Compile Include="Shared\MainViewModel.cs" />
     <Compile Include="Projects\ProjectBaseViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shared\PaymentTypeViewModel.cs" />
     <Compile Include="Shared\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

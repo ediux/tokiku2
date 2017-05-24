@@ -18,6 +18,11 @@ namespace Tokiku.Controllers
             database = new TokikuEntities();
         }
       
+        public ManufacturersViewModel CreateNew()
+        {
+            return new ManufacturersViewModel();
+        }
+
         /// <summary>
         /// 取得廠商代碼流水號
         /// </summary>

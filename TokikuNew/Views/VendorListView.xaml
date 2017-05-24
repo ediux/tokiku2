@@ -5,8 +5,37 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="768" d:DesignWidth="1024"
+             Background="{DynamicResource ControlBackgroundBrush}">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="27"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid  Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60*"/>
+                <ColumnDefinition Width="40*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="請選擇廠商" VerticalAlignment="Center" Margin="2,0,2,0"/>
+            <TextBox Name="SearchBar" Grid.Column="1" Margin="2" AcceptsReturn="True" KeyDown="SearchBar_KeyDown" />
+            <Button Content="&#xE11A;" FontFamily="Segoe MDL2 Assets" Grid.Column="1" Margin="2,2,2,2" HorizontalAlignment="Right" FontSize="10" Click="Button_Click" />
+        </Grid>
+        <DataGrid Name="VendorList" Grid.Row="1" Margin="5" ItemsSource="{Binding ContractsList}" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto" SelectionChanged="VendorList_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="廠商代號" Binding="{Binding Code}" Width="100" />
+                <DataGridTextColumn Header="廠商名稱" Binding="{Binding Name}" Width="100" />
+                <DataGridTextColumn Header="廠商簡稱" Binding="{Binding Name}" Width="100" />
+                <DataGridTextColumn Header="負責人" Width="100" />
+                <DataGridTextColumn Header="統一編號" Width="70" />
+                <DataGridTextColumn Header="主要聯絡人" Width="70" />
+                <DataGridTextColumn Header="公司電話" Width="70" />
+                <DataGridTextColumn Header="公司地址" Width="70" />
+                <DataGridTextColumn Header="公司傳真" Width="70" />
+                <DataGridTextColumn Header="工廠電話"  Width="70" />
+                <DataGridTextColumn Header="工廠地址" Width="70"/>
+                <DataGridCheckBoxColumn Header="狀態" Width="70"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

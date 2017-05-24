@@ -386,5 +386,10 @@ namespace TokikuNew
                 Workspaces.SelectedItem = addWorkarea;
             }
         }
+
+        private void VendorSelection_SelectedVendorChanged(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

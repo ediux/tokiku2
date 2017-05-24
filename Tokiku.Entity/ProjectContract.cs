@@ -17,6 +17,7 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ProjectContract()
         {
+            this.Engineering = new HashSet<Engineering>();
             this.PromissoryNoteManagement = new HashSet<PromissoryNoteManagement>();
         }
     
@@ -27,22 +28,19 @@ namespace Tokiku.Entity
         public string ContractNumber { get; set; }
         public System.DateTime StartDate { get; set; }
         public System.DateTime CompletionDate { get; set; }
-        public string AccountingCode { get; set; }
-        public string BankName { get; set; }
-        public string BankAccount { get; set; }
-        public string BankAccountName { get; set; }
-        public string CheckNumber { get; set; }
         public Nullable<float> ContractAmount { get; set; }
         public Nullable<float> AmountDue { get; set; }
+        public Nullable<float> PrepaymentGuaranteeAmount { get; set; }
+        public Nullable<System.DateTime> OpenDate { get; set; }
         public byte PaymentType { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
-        public Nullable<float> PrepaymentGuaranteeAmount { get; set; }
-        public Nullable<System.DateTime> OpenDate { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Engineering> Engineering { get; set; }
+        public virtual Projects Projects { get; set; }
         public virtual Users CreateUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
-        public virtual Projects Projects { get; set; }
     }
 }

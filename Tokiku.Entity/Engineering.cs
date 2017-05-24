@@ -21,7 +21,7 @@ namespace Tokiku.Entity
         }
     
         public System.Guid Id { get; set; }
-        public System.Guid ProjectId { get; set; }
+        public System.Guid ProjectContractId { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
         public string ShorName { get; set; }
@@ -38,6 +38,6 @@ namespace Tokiku.Entity
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShopFlowHistory> ShopFlowHistory { get; set; }
-        public virtual Projects Projects { get; set; }
+        public virtual ProjectContract ProjectContract { get; set; }
     }
 }

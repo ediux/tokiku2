@@ -82,5 +82,15 @@ namespace TokikuNew.Views
         {
             
         }
+
+        private void tbName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            
+        }
+
+        private void DataGrid_KeyDown(object sender, KeyEventArgs e)
+        {
+            
+        }
     }
 }

@@ -58,5 +58,6 @@ namespace Tokiku.Entity
         public virtual ICollection<Contacts> Contacts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Projects> Projects { get; set; }
+        public virtual PaymentTypes PaymentTypes { get; set; }
     }
 }

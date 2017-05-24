@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tokiku.ViewModels;
 
 namespace TokikuNew.Views
 {
@@ -23,6 +24,30 @@ namespace TokikuNew.Views
         public VendorListView()
         {
             InitializeComponent();
+        }
+
+        public static readonly RoutedEvent SelectedVendorChangedEvent = EventManager.RegisterRoutedEvent(
+             "SelectedProjectChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(VendorListView));
+
+        public event RoutedEventHandler SelectedVendorChanged
+        {
+            add { AddHandler(SelectedVendorChangedEvent, value); }
+            remove { RemoveHandler(SelectedVendorChangedEvent, value); }
+        }
+
+        private void SearchBar_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void VendorList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
