@@ -112,7 +112,7 @@
                     </Grid>
                 </Grid>
             </GroupBox>
-            <GroupBox Header="相關聯絡人" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="2" Margin="2">
+            <GroupBox Header="相關聯絡人" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="4" Margin="2">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="27"/>
@@ -138,33 +138,6 @@
                             <DataGridTextColumn Header="電話" Binding="{Binding Phone}" Width="70" />
                             <DataGridTextColumn Header="傳真" Binding="{Binding Fax}" Width="70"/>
                             <DataGridTextColumn Header="eMail" Binding="{Binding EMail}" Width="200" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
-            </GroupBox>
-            <GroupBox Header="交易品項" Grid.Row="12" Grid.Column="2" Grid.ColumnSpan="2" Margin="2">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="27"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="20*"/>
-                        <ColumnDefinition Width="60*"/>
-                        <ColumnDefinition Width="20*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="搜尋" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="15"/>
-                    <TextBox Grid.Row="0" Grid.Column="1" Margin="3"/>
-                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
-                        <Button Content="搜尋" Name="btnMtSearch" Click="btnMtSearch_Click" Margin="2" />
-                        <Button Content="新增" Name="btnAddMTList" Click="btnAddMTList_Click" Margin="2" />
-                    </StackPanel>
-                    <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto" Name="MTList" SelectionChanged="MTList_SelectionChanged">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="項次" Binding="{Binding Name}" Width="100" />
-                            <DataGridTextColumn Header="交易品項" Binding="{Binding Dep}" Width="100" />
-                            <DataGridTextColumn Header="類別" Binding="{Binding Title}" Width="100" />
-                            <DataGridTextColumn Header="票期" Binding="{Binding Mobile}" Width="70" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>

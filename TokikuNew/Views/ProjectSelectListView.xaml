@@ -26,10 +26,10 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="專案代號" Binding="{Binding Code}" Width="100" />
                 <DataGridTextColumn Header="專案名稱" Binding="{Binding Name}" Width="100" />
-                <DataGridTextColumn Header="起造日期" Binding="{Binding}" Width="100" />
-                <DataGridTextColumn Header="完工日期" Binding="{Binding}" Width="70" />
-                <DataGridTextColumn Header="狀態列" Binding="{Binding State}" Width="70" />
-                <DataGridTextColumn Header="保固到期日" Binding="{Binding}" Width="70"/>
+                <DataGridTextColumn Header="起造日期" Width="100" />
+                <DataGridTextColumn Header="完工日期" Width="70" />
+                <DataGridTextColumn Header="狀態列"  Width="70" />
+                <DataGridTextColumn Header="保固到期日" Width="70"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

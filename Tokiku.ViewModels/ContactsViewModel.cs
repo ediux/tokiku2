@@ -14,19 +14,19 @@ namespace Tokiku.ViewModels
         #region 公開方法(中介層呼叫)
         public void QueryAll(bool IsClient = false,bool IsListOnly=true)
         {
-            if (IsClient)
-            {
-                ContractsList = controller.QueryAll().Where(w => w.Manufacturers.Where(s => s.IsClient == true).Any()).ToList();
-            }
-            else
-            {
-                ContractsList = controller.QueryAll().Where(w => w.Manufacturers.Where(s => s.IsClient == false).Any()).ToList();
-            }
+            //if (IsClient)
+            //{
+            //    ContractsList = controller.QueryAll().Where(w => w.Manufacturers.Where(s => s.IsClient == true).Any()).ToList();
+            //}
+            //else
+            //{
+            //    ContractsList = controller.QueryAll().Where(w => w.Manufacturers.Where(s => s.IsClient == false).Any()).ToList();
+            //}
 
-            if (ContractsList.Any() == false && IsListOnly)
-            {
+            //if (ContractsList.Any() == false)
+            //{
                 ContractsList = controller.QueryAll();
-            }
+            //}
         }
 
         /// <summary>
