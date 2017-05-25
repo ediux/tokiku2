@@ -16,7 +16,6 @@ namespace Tokiku.Controllers
         {
             database = new TokikuEntities();
         }
-        
 
         public void AddUser(string UserName, string pwd, string role, string email = "abc@cde.com")
         {
@@ -125,6 +124,7 @@ namespace Tokiku.Controllers
             }
 
         }
+        private static Users _CurrentLoginedUserStorage;
 
         public Users Login(string UserName, string pwd)
         {
@@ -137,6 +137,10 @@ namespace Tokiku.Controllers
 
                 if (result != null)
                 {
+                    if (_CurrentLoginedUserStorage != null)
+                        _CurrentLoginedUserStorage = null;
+
+                    _CurrentLoginedUserStorage = result;
                     return result;
                 }
 
@@ -151,7 +155,11 @@ namespace Tokiku.Controllers
                     else
                     {
                         AddUser("root", pwd, "Admins");
-                        return GetUser("root");
+                        if (_CurrentLoginedUserStorage != null)
+                            _CurrentLoginedUserStorage = null;
+
+                        _CurrentLoginedUserStorage = GetUser("root");
+                        return _CurrentLoginedUserStorage;
                     }
 
                 }
@@ -163,6 +171,25 @@ namespace Tokiku.Controllers
             }
 
 
+        }
+
+        public UserViewModel GetCurrentLoginUser()
+        {
+            try
+            {
+                if (_CurrentLoginedUserStorage != null)
+                {
+                    return BindingFromNotModel<Users, UserViewModel>(_CurrentLoginedUserStorage);
+                }
+
+                return default(UserViewModel);
+            }
+            catch (Exception ex)
+            {
+                UserViewModel error = new UserViewModel();
+                error.Error = ex;
+                return error;
+            }
         }
     }
 }

@@ -44,32 +44,48 @@ namespace Tokiku.Controllers
         }
 
         #endregion
+
         public ProjectsController()
         {
             database = new TokikuEntities();
         }
 
+        public ProjectBaseViewModel CreateNew()
+        {
+            UserController usercontroller = new UserController();
+
+            return new ProjectBaseViewModel()
+            {
+                Id = Guid.NewGuid(),
+                Code = string.Format("{0:000}-{1}",DateTime.Today.Year-1911, GetNextProjectSerialNumber((DateTime.Now.Year - 1911).ToString())),
+                LoginedUser = usercontroller.GetCurrentLoginUser(),
+                IsNew = true,
+                IsEditorMode = true
+            };
+        }
+
         public string GetNextProjectSerialNumber(string year)
         {
             var result = (from q in database.Projects
-                          where q.Code.StartsWith(year.Trim()) && q.Code.Contains("-F") == false
-                          orderby q.State ascending, q.Code ascending
+                          where q.Code.StartsWith(year.Trim())
+                          orderby q.Code descending
                           select q.Code).FirstOrDefault();
 
             if (!string.IsNullOrEmpty(result))
             {
                 string[] parts = result.Split('-');
 
-                if (parts != null && parts.Length > 1)
+                if (parts.Any() && parts.Length >= 1)
                 {
                     int currentNumber = 0;
 
                     if (int.TryParse(parts[1], out currentNumber))
                     {
                         currentNumber += 1;
-                        return currentNumber.ToString();
+                        return string.Format("{0:000}", currentNumber);
                     }
                 }
+
             }
 
             return "001";
@@ -188,7 +204,7 @@ namespace Tokiku.Controllers
 
         public List<Projects> SearchByText(string text)
         {
-            if(text!=null && text.Length > 0)
+            if (text != null && text.Length > 0)
             {
                 return (from p in database.Projects
                         where p.Void == false &&

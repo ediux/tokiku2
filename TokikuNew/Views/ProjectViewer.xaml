@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="768" d:DesignWidth="1024" Loaded="UserControl_Loaded" DataContext="[Model]" >
+             d:DesignHeight="768" d:DesignWidth="1024" Loaded="UserControl_Loaded" >
     <Grid Background="{DynamicResource ControlBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>
@@ -25,9 +25,7 @@
         </Menu>
         <TabControl Grid.Row="1" Grid.RowSpan="2" TabStripPlacement="Top">
             <TabItem Header="專案主檔">
-                <DockPanel>
-                    <local:ProjectManagerView DockPanel.Dock="Bottom"  DataContext="{Binding}" Model="{Binding}"/>
-                </DockPanel>
+                <local:ProjectManagerView DockPanel.Dock="Bottom" x:Name="PMV" />
             </TabItem>
         </TabControl>
 

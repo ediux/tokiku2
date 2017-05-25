@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using Tokiku.Controllers;
+using Tokiku.ViewModels;
 
 namespace TokikuNew.Controls
 {
@@ -49,11 +50,11 @@ namespace TokikuNew.Controls
                     if (Content is Views.ProjectManagerView)
                     {
                         Views.ProjectManagerView vm = Content as Views.ProjectManagerView;
-                        if (vm.Model.IsModify && vm.Model.IsSaved == false)
+                        if (((Tokiku.ViewModels.ProjectBaseViewModel)vm.DataContext).IsModify && ((Tokiku.ViewModels.ProjectBaseViewModel)vm.DataContext).IsSaved == false)
                         {
                             if (MessageBox.Show("您有變更尚未儲存，是否更新?", "關閉前確認", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                             {
-                                controller.SaveModel(vm.Model);
+                                controller.SaveModel((Tokiku.ViewModels.ProjectBaseViewModel)vm.DataContext);
                             }
                         }
                     }
@@ -61,19 +62,24 @@ namespace TokikuNew.Controls
                     if (Content is Views.ProjectViewer)
                     {
                         Views.ProjectViewer vm = Content as Views.ProjectViewer;
-                        if (vm.Model.IsModify && vm.Model.IsSaved == false)
+                        ProjectBaseViewModel model = (ProjectBaseViewModel)vm.DataContext;
+                        if (model != null)
                         {
-                            if (MessageBox.Show("您有變更尚未儲存，是否更新?", "關閉前確認", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                            if (model.IsModify && model.IsSaved == false)
                             {
-                                controller.SaveModel(vm.Model);
+                                if (MessageBox.Show("您有變更尚未儲存，是否更新?", "關閉前確認", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                                {
+                                    controller.SaveModel(vm.Model);
+                                }
                             }
                         }
+
                     }
 
-                    RaiseEvent(new RoutedEventArgs(OnPageClosingEvent,e.OriginalSource));  //重新引發分頁關閉事件
+                    RaiseEvent(new RoutedEventArgs(OnPageClosingEvent, e.OriginalSource));  //重新引發分頁關閉事件
                     return;
-                }                            
-            }                       
+                }
+            }
         }
 
         public static readonly RoutedEvent OnPageClosingEvent = EventManager.RegisterRoutedEvent(

@@ -66,10 +66,10 @@ namespace Tokiku.ViewModels
 
         public System.Guid Id { get { return (Guid)GetValue(IdProperty); } set { SetValue(IdProperty, value); } }
         public string Code { get { return (string)GetValue(CodeProperty); } set { SetValue(CodeProperty, value); } }
-        public string Name { get { return (string)GetValue(NameProperty); } set { SetValue(NameProperty, value); SetValue(ShortNameProperty, value.Substring(0, 4)); } }
+        public string Name { get { return (string)GetValue(NameProperty); } set { SetValue(NameProperty, value); SetValue(ShortNameProperty, value.Substring(0, Math.Min(value.Length,4))); } }
         public string ShortName { get { return (string)GetValue(ShortNameProperty); } set { SetValue(ShortNameProperty, value); } }
         public string Principal { get { return (string)GetValue(PrincipalProperty); } set { SetValue(PrincipalProperty, value); } }
-        public string UniformNumbers { get { return (string)GetValue(UniformNumbersProperty); } set { SetValue(UniformNumbersProperty, value); } }
+        public string UniformNumbers { get { return (string)GetValue(UniformNumbersProperty); } set { SetValue(UniformNumbersProperty, value); } } 
         public string Phone { get { return (string)GetValue(PhoneProperty); } set { SetValue(PhoneProperty, value); } }
         public string Fax { get { return (string)GetValue(FaxProperty); } set { SetValue(FaxProperty, value); } }
         public string eMail { get { return (string)GetValue(eMailProperty); } set { SetValue(eMailProperty, value); } }

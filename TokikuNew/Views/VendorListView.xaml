@@ -4,10 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:controls="clr-namespace:TokikuNew.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024"
+             xmlns:ctrl="clr-namespace:Tokiku.Controllers;assembly=Tokiku.Controllers"
              Background="{DynamicResource ControlBackgroundBrush}">
-    <Grid>
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="UI_VenderList" ObjectType="{x:Type ctrl:ManufacturersController}" MethodName="QueryAll" />
+    </UserControl.Resources>
+    <Grid DataContext="{Binding Source={StaticResource UI_VenderList}}">
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>
             <RowDefinition Height="*"/>
@@ -17,25 +22,35 @@
                 <ColumnDefinition Width="60*"/>
                 <ColumnDefinition Width="40*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="請選擇廠商" VerticalAlignment="Center" Margin="2,0,2,0"/>
-            <TextBox Name="SearchBar" Grid.Column="1" Margin="2" AcceptsReturn="True" KeyDown="SearchBar_KeyDown" />
-            <Button Content="&#xE11A;" FontFamily="Segoe MDL2 Assets" Grid.Column="1" Margin="2,2,2,2" HorizontalAlignment="Right" FontSize="10" Click="Button_Click" />
+            <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="請選擇廠商" VerticalAlignment="Center" Margin="5,0,2,0"/>
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="125*"/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+                <controls:SearchBar x:Name="sSearchBar" Search="Button_Click" ResetSearch="sSearchBar_ResetSearch" Grid.Column="0"/>
+                <Button Name="btnNew" Grid.Column="1" Margin="5,1" Content="新增" Click="btnNew_Click" />
+            </Grid>
         </Grid>
-        <DataGrid Name="VendorList" Grid.Row="1" Margin="5" ItemsSource="{Binding ContractsList}" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto" SelectionChanged="VendorList_SelectionChanged">
+        <controls:CustomDataGrid x:Name="VendorList" AllowExecuteSystemCommand="False" Grid.Row="1" Margin="5"
+                                 ItemsSource="{Binding Mode=OneWay}" ClipboardCopyMode="IncludeHeader" 
+                                 SelectedCellsChanged="VendorList_SelectedCellsChanged" AutoGenerateColumns="False" 
+                                 HorizontalScrollBarVisibility="Auto" CanUserAddRows="True"
+                                 AddingNewItem="VendorList_AddingNewItem">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="廠商代號" Binding="{Binding Code}" Width="100" />
+                <DataGridHyperlinkColumn  Header="廠商代號" Binding="{Binding Code}" Width="100" />
                 <DataGridTextColumn Header="廠商名稱" Binding="{Binding Name}" Width="100" />
-                <DataGridTextColumn Header="廠商簡稱" Binding="{Binding Name}" Width="100" />
-                <DataGridTextColumn Header="負責人" Width="100" />
-                <DataGridTextColumn Header="統一編號" Width="70" />
-                <DataGridTextColumn Header="主要聯絡人" Width="70" />
-                <DataGridTextColumn Header="公司電話" Width="70" />
-                <DataGridTextColumn Header="公司地址" Width="70" />
-                <DataGridTextColumn Header="公司傳真" Width="70" />
-                <DataGridTextColumn Header="工廠電話"  Width="70" />
-                <DataGridTextColumn Header="工廠地址" Width="70"/>
-                <DataGridCheckBoxColumn Header="狀態" Width="70"/>
+                <DataGridTextColumn Header="廠商簡稱" Binding="{Binding ShortName}" Width="100" />
+                <DataGridTextColumn Header="負責人" Binding="{Binding Principal}" Width="100" />
+                <DataGridTextColumn Header="統一編號" Binding="{Binding UniformNumbers}" Width="70" />
+                <DataGridTextColumn Header="主要聯絡人" Width="70" Binding="{Binding MainContactPerson}"/>
+                <DataGridTextColumn Header="公司電話" Width="70" Binding="{Binding Phone}"/>
+                <DataGridTextColumn Header="公司地址" Width="70" Binding="{Binding Address}"/>
+                <DataGridTextColumn Header="公司傳真" Width="70" Binding="{Binding Fax}"/>
+                <DataGridTextColumn Header="工廠電話"  Width="70" Binding="{Binding FactoryPhone}"/>
+                <DataGridTextColumn Header="工廠地址" Width="70" Binding="{Binding FactoryAddress}"/>
+                <DataGridCheckBoxColumn Header="狀態" Width="70" Binding="{Binding Void}" />
             </DataGrid.Columns>
-        </DataGrid>
+        </controls:CustomDataGrid>
     </Grid>
 </UserControl>

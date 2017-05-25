@@ -57,10 +57,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BaseUserControl.cs" />
+    <Compile Include="ClipboardHelper.cs" />
     <Compile Include="Controls\ClosableTab.xaml.cs">
       <DependentUpon>ClosableTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ClosableTabItem.cs" />
+    <Compile Include="Controls\CustomDataGrid.cs" />
+    <Compile Include="Controls\SearchBar.xaml.cs">
+      <DependentUpon>SearchBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Frame\OptionWindow.xaml.cs">
       <DependentUpon>OptionWindow.xaml</DependentUpon>
     </Compile>
@@ -74,6 +79,9 @@
     <Compile Include="ValueConverters\ShortNameValueConverter.cs" />
     <Compile Include="ValueConverters\SigningDateToCodeConverter.cs" />
     <Compile Include="ValueConverters\CheckBoxSwitchValueConverter.cs" />
+    <Compile Include="Views\ClientManageView.xaml.cs">
+      <DependentUpon>ClientManageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ContactPersonManageView.xaml.cs">
       <DependentUpon>ContactPersonManageView.xaml</DependentUpon>
     </Compile>
@@ -96,6 +104,10 @@
       <DependentUpon>VendorListView.xaml</DependentUpon>
     </Compile>
     <Page Include="Controls\ClosableTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SearchBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -158,6 +170,10 @@
     <Page Include="Themes\WhistlerBlue.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ClientManageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ContactPersonManageView.xaml">
       <SubType>Designer</SubType>

@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using Tokiku.Entity;
 using Tokiku.ViewModels;
 using TokikuNew.Controls;
+using TokikuNew.Views;
 
 namespace TokikuNew
 {
@@ -23,21 +24,9 @@ namespace TokikuNew
     /// </summary>
     public partial class MainWindow : Window
     {
-        #region 相依屬性
-        public static readonly DependencyProperty ModelProperty = DependencyProperty.Register("Model", typeof(MainViewModel), typeof(MainViewModel), new PropertyMetadata(default(MainViewModel)));
-
-        public MainViewModel Model
-        {
-            get { return GetValue(ModelProperty) as MainViewModel; }
-            set { SetValue(ModelProperty, value); }
-        }
-        #endregion
         public MainWindow()
         {
             InitializeComponent();
-
-            Model = new MainViewModel();
-            this.DataContext = Model;
         }
 
         private Tokiku.Controllers.ProjectsController controller = new Tokiku.Controllers.ProjectsController();
@@ -51,16 +40,16 @@ namespace TokikuNew
         {
             try
             {
-                TabItem currentworking = (TabItem)sender;
-               
+                TabItem currentworking = (TabItem)e.Source;
+
                 if (currentworking != null)
                 {
                     if (currentworking.Content != null)
                     {
                         Workspaces.Items.Remove(currentworking);
-                        Model.CurrentProject = null;
+                        ((MainViewModel)((ObjectDataProvider)DataContext).Data).CurrentProject = null;
                     }
-                }                               
+                }
             }
             catch (Exception ex)
             {
@@ -74,94 +63,29 @@ namespace TokikuNew
             this.Close();
         }
 
-        private void MI_Project_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                //顯示選擇專案的視窗
-                Frame.ProjectSelectionWindow projectSelectionWin = new Frame.ProjectSelectionWindow();
-                if (projectSelectionWin.ShowDialog().HasValue && projectSelectionWin.SelectedProject != null)
-                {
-                    //MI_Project.Header = string.Format("專案:{0}-{1}", projectSelectionWin.SelectedProject.Code, projectSelectionWin.SelectedProject.ShortName);
-                    string TabName = string.Format("專案:{0}-{1}", projectSelectionWin.SelectedProject.Code, projectSelectionWin.SelectedProject.ShortName);
-
-                    Model.CurrentProject = controller.QuerySingle(projectSelectionWin.SelectedProject.Id);
-
-                    TabItem addWorkarea = new TabItem();
-
-
-                    bool isExisted = false;
-
-                    foreach (TabItem item in Workspaces.Items)
-                    {
-                        if (item.Header.Equals(TabName))
-                        {
-                            isExisted = true;
-                            addWorkarea = item;
-                            break;
-                        }
-                    }
-
-                    if (!isExisted)
-                    {
-                        addWorkarea.Header = TabName;
-
-                        var vm = new Views.ProjectViewer() { Margin = new Thickness(0) };
-                        vm.Model = controller.QuerySingle(projectSelectionWin.SelectedProject.Id);
-                        vm.Model.LoginedUser = Model.LoginedUser;
-
-                        addWorkarea.Content = vm;
-                        addWorkarea.Margin = new Thickness(0);
-
-                        Workspaces.Items.Add(addWorkarea);
-                        Workspaces.SelectedItem = addWorkarea;
-                    }
-                    else
-                    {
-                        Workspaces.SelectedItem = addWorkarea;
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-        }
+       
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
+            AddHandler(ProjectSelectListView.SendNewPageRequestEvent, new RoutedEventHandler(MI_CreateNew_Project_Click));
+            AddHandler(VendorListView.SendNewPageRequestEvent, new RoutedEventHandler(MI_CreateNew_Factories_Click));
+            AddHandler(ClosableTabItem.OnPageClosingEvent, new RoutedEventHandler(btnTabClose_Click));
         }
 
         private void MI_CreateNew_Project_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                TabItem addWorkarea = new TabItem();
+                ClosableTabItem addWorkarea = new ClosableTabItem();
                 addWorkarea.Header = "專案主檔";
 
-                var vm = new Views.ProjectManagerView() { Margin = new Thickness(0), Model = new ProjectBaseViewModel() };
-                vm.Model.LoginedUser = Model.LoginedUser;
-
-                if (Model.CurrentProject == null)
-                {
-                    vm.Model.IsNew = true;
-                    vm.Model.IsEditorMode = true;
-                }
-                else
-                {
-                    vm.Model.IsNew = false;
-                    vm.Model.IsEditorMode = false;
-                }
-
-                vm.DataContext = vm.Model;
+                var vm = new Views.ProjectManagerView() { Margin = new Thickness(0)};
+              
                 addWorkarea.Content = vm;
                 addWorkarea.Margin = new Thickness(0);
 
                 Workspaces.Items.Add(addWorkarea);
-                Workspaces.SelectedItem = addWorkarea;                
+                Workspaces.SelectedItem = addWorkarea;
 
 
             }
@@ -174,83 +98,75 @@ namespace TokikuNew
 
         private void MI_CreateNew_Factories_Click(object sender, RoutedEventArgs e)
         {
-            string Header = "廠商主檔";
-            TabItem addWorkarea = new TabItem();
-            bool isExisted = false;
-
-            foreach (TabItem item in Workspaces.Items)
+            try
             {
-                if (item.Header.Equals(Header))
-                {
-                    isExisted = true;
-                    addWorkarea = item;
-                    break;
-                }
-            }
+                ClosableTabItem addWorkarea = new ClosableTabItem();
+                addWorkarea.Header = "廠商主檔";
 
-            if (!isExisted)
-            {
-                addWorkarea.Header = Header;
+                var vm = new ManufacturersManageView() { Margin = new Thickness(0) };
 
-                var vm = new Views.ManufacturersManageView() { Margin = new Thickness(0) };
-                vm.OnPageClosing += Vm_OnPageClosing;
                 addWorkarea.Content = vm;
                 addWorkarea.Margin = new Thickness(0);
 
                 Workspaces.Items.Add(addWorkarea);
                 Workspaces.SelectedItem = addWorkarea;
-            }
-            else
-            {
 
-                Workspaces.SelectedItem = addWorkarea;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void MI_CreateNew_Contracts_Click(object sender, RoutedEventArgs e)
         {
-            string Header = "廠商主檔-聯絡人管理";
-            TabItem addWorkarea = new TabItem();
-            bool isExisted = false;
-
-            foreach (TabItem item in Workspaces.Items)
+            try
             {
-                if (item.Header.Equals(Header))
+                string Header = "廠商主檔-聯絡人管理";
+                TabItem addWorkarea = new TabItem();
+                bool isExisted = false;
+
+                foreach (TabItem item in Workspaces.Items)
                 {
-                    isExisted = true;
-                    addWorkarea = item;
-                    break;
+                    if (item.Header.Equals(Header))
+                    {
+                        isExisted = true;
+                        addWorkarea = item;
+                        break;
+                    }
+                }
+
+                if (!isExisted)
+                {
+                    addWorkarea.Header = Header;
+
+                    var vm = new Views.ContactPersonManageView() { Margin = new Thickness(0) };
+                    //vm.Model = new ContactsViewModel();
+                    //vm.Model.IsNew = true;                
+                    //vm.Model.LoginedUser = Model.LoginedUser;
+                    //vm.DataContext = vm.Model;             
+
+                    addWorkarea.Content = vm;
+                    addWorkarea.Margin = new Thickness(0);
+
+                    Workspaces.Items.Add(addWorkarea);
+                    Workspaces.SelectedItem = addWorkarea;
+                }
+                else
+                {
+
+                    Workspaces.SelectedItem = addWorkarea;
                 }
             }
-
-            if (!isExisted)
+            catch (Exception ex)
             {
-                addWorkarea.Header = Header;
-
-                var vm = new Views.ContactPersonManageView() { Margin = new Thickness(0) };
-                //vm.Model = new ContactsViewModel();
-                //vm.Model.IsNew = true;                
-                //vm.Model.LoginedUser = Model.LoginedUser;
-                //vm.DataContext = vm.Model;             
-
-                vm.OnPageClosing += Vm_OnPageClosing;
-                addWorkarea.Content = vm;
-                addWorkarea.Margin = new Thickness(0);
-
-                Workspaces.Items.Add(addWorkarea);
-                Workspaces.SelectedItem = addWorkarea;
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            else
-            {
 
-                Workspaces.SelectedItem = addWorkarea;
-            }
         }
 
-        private void Vm_OnPageClosing(object sender, RoutedEventArgs e)
-        {
-            btnTabClose_Click(sender, e);
-        }
+
 
         private void MI_CreateNew_Customers_Click(object sender, RoutedEventArgs e)
         {
@@ -259,102 +175,159 @@ namespace TokikuNew
 
         private void MI_SystemOption_Click(object sender, RoutedEventArgs e)
         {
-            Frame.OptionWindow optwin = new Frame.OptionWindow();
-            optwin.ShowDialog();
+            try
+            {
+                Frame.OptionWindow optwin = new Frame.OptionWindow();
+                optwin.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+
         }
 
         private void ProjectSelectionPage_SelectedProjectChanged(object sender, RoutedEventArgs e)
         {
-            Model.CurrentProject = new ProjectBaseViewModel();
-            ProjectSelectionPage.SelectedProject = e.OriginalSource as ProjectBaseViewModel;
-            Model.CurrentProject = controller.QuerySingle(ProjectSelectionPage.SelectedProject.Id);
-
-            string Header = string.Format("專案:{0}-{1}", ProjectSelectionPage.SelectedProject.Code, ProjectSelectionPage.SelectedProject.ShortName);
-            Model.CurrentProject = controller.QuerySingle(ProjectSelectionPage.SelectedProject.Id);
-
-            ClosableTabItem addWorkarea = new ClosableTabItem();
-            addWorkarea.OnPageClosing += btnTabClose_Click;
-
-            bool isExisted = false;
-
-            foreach (TabItem item in Workspaces.Items)
+            try
             {
-                if (item is ClosableTabItem)
+                ((MainViewModel)((ObjectDataProvider)DataContext).Data).CurrentProject = ProjectSelectionPage.SelectedProject = e.OriginalSource as ProjectBaseViewModel;
+
+                string Header = string.Format("專案:{0}-{1}", ProjectSelectionPage.SelectedProject.Code, ProjectSelectionPage.SelectedProject.ShortName);
+                //((MainViewModel)DataContext).CurrentProject = controller.QuerySingle(ProjectSelectionPage.SelectedProject.Id);
+
+                ClosableTabItem addWorkarea = new ClosableTabItem();
+                //addWorkarea.OnPageClosing += btnTabClose_Click;
+
+                bool isExisted = false;
+
+                foreach (TabItem item in Workspaces.Items)
                 {
-                    if (item.Header.Equals(Header))
+                    if (item is ClosableTabItem)
                     {
-                        isExisted = true;
-                        addWorkarea = (ClosableTabItem)item;
-                        break;
+                        if (item.Header.Equals(Header))
+                        {
+                            isExisted = true;
+                            addWorkarea = (ClosableTabItem)item;
+                            break;
+                        }
                     }
+
                 }
 
-            }
+                if (!isExisted)
+                {
+                    addWorkarea.Header = Header;
 
-            if (!isExisted)
+                    var vm = new Views.ProjectViewer() { Margin = new Thickness(0) };
+
+                    vm.DataContext = ProjectSelectionPage.SelectedProject;
+
+                    addWorkarea.Content = vm;
+                    addWorkarea.Margin = new Thickness(0);
+
+                    Workspaces.Items.Add(addWorkarea);
+                    Workspaces.SelectedItem = addWorkarea;
+                }
+                else
+                {
+
+                    Workspaces.SelectedItem = addWorkarea;
+                }
+            }
+            catch (Exception ex)
             {
-                addWorkarea.Header = Header;
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
 
-                var vm = new Views.ProjectViewer() { Margin = new Thickness(0) };
-                vm.Model = controller.QuerySingle(ProjectSelectionPage.SelectedProject.Id);
-                vm.Model.LoginedUser = Model.LoginedUser;
-                vm.DataContext = vm.Model;
-
-                addWorkarea.Content = vm;
-                addWorkarea.Margin = new Thickness(0);
-
-                Workspaces.Items.Add(addWorkarea);
-                Workspaces.SelectedItem = addWorkarea;
             }
-            else
-            {
 
-                Workspaces.SelectedItem = addWorkarea;
-            }
         }
 
         private void MI_CreateNew_Customers_Contracts_Click(object sender, RoutedEventArgs e)
         {
-            string Header = "客戶主檔-聯絡人管理";
-            TabItem addWorkarea = new TabItem();
-            bool isExisted = false;
-
-            foreach (TabItem item in Workspaces.Items)
+            try
             {
-                if (item.Header.Equals(Header))
+                string Header = "客戶主檔-聯絡人管理";
+                TabItem addWorkarea = new TabItem();
+                bool isExisted = false;
+
+                foreach (TabItem item in Workspaces.Items)
                 {
-                    isExisted = true;
-                    addWorkarea = item;
-                    break;
+                    if (item.Header.Equals(Header))
+                    {
+                        isExisted = true;
+                        addWorkarea = item;
+                        break;
+                    }
+                }
+
+                if (!isExisted)
+                {
+                    addWorkarea.Header = Header;
+
+                    var vm = new Views.ContactPersonManageView() { Margin = new Thickness(0), IsClient = true };
+
+                    addWorkarea.Content = vm;
+                    addWorkarea.Margin = new Thickness(0);
+
+                    Workspaces.Items.Add(addWorkarea);
+                    Workspaces.SelectedItem = addWorkarea;
+                }
+                else
+                {
+
+                    Workspaces.SelectedItem = addWorkarea;
                 }
             }
-
-            if (!isExisted)
+            catch (Exception ex)
             {
-                addWorkarea.Header = Header;
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
 
-                var vm = new Views.ContactPersonManageView() { Margin = new Thickness(0), IsClient = true };
-                //vm.Model = new ContactsViewModel();
-                //vm.Model.IsNew = true;                
-                //vm.Model.LoginedUser = Model.LoginedUser;
-                //vm.DataContext = vm.Model;             
-
-                vm.OnPageClosing += Vm_OnPageClosing;
-                addWorkarea.Content = vm;
-                addWorkarea.Margin = new Thickness(0);
-
-                Workspaces.Items.Add(addWorkarea);
-                Workspaces.SelectedItem = addWorkarea;
             }
-            else
-            {
 
-                Workspaces.SelectedItem = addWorkarea;
-            }
         }
 
         private void VendorSelection_SelectedVendorChanged(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                string Header = "廠商主檔";
+                TabItem addWorkarea = new TabItem();
+                bool isExisted = false;
+
+                foreach (TabItem item in Workspaces.Items)
+                {
+                    if (item.Header.Equals(Header))
+                    {
+                        isExisted = true;
+                        addWorkarea = item;
+                        break;
+                    }
+                }
+
+                if (!isExisted)
+                {
+                    addWorkarea.Header = Header;
+
+                    var vm = new Views.ManufacturersManageView() { Margin = new Thickness(0) };
+                    addWorkarea.Content = vm;
+                    addWorkarea.Margin = new Thickness(0);
+
+                    Workspaces.Items.Add(addWorkarea);
+                    Workspaces.SelectedItem = addWorkarea;
+                }
+                else
+                {
+
+                    Workspaces.SelectedItem = addWorkarea;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
 
         }
 

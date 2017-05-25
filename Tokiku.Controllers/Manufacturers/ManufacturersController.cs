@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Tokiku.Controllers
         {
             database = new TokikuEntities();
         }
-      
+
         public ManufacturersViewModel CreateNew()
         {
             return new ManufacturersViewModel();
@@ -108,6 +109,25 @@ namespace Tokiku.Controllers
             return string.Format("{0:##}", Code);
         }
 
+        public IEnumerable SearchByText(string originalSource)
+        {
+            if (originalSource != null && originalSource.Length > 0)
+            {
+                return (from p in database.Manufacturers
+                        where p.Void == false && p.IsClient == false &&
+                        (p.Code.Contains(originalSource) || p.Name.Contains(originalSource) || p.ShortName.Contains(originalSource))
+                        orderby p.Code ascending
+                        select p).ToList();
+            }
+            else
+            {
+                return (from p in database.Manufacturers
+                        where p.Void == false && p.IsClient == false
+                        orderby p.Code ascending
+                        select p).ToList();
+            }
+        }
+
         /// <summary>
         /// 查詢單一個體的資料實體。
         /// </summary>
@@ -129,7 +149,6 @@ namespace Tokiku.Controllers
             return null;
         }
 
-        private ContactController controller2;
 
         /// <summary>
         /// 儲存變更
@@ -200,10 +219,10 @@ namespace Tokiku.Controllers
             try
             {
                 var result = from p in database.Manufacturers
-                             where p.Void == false
+                             where p.Void == false && p.IsClient == false
                              select p;
 
-                return new System.Collections.ObjectModel.ObservableCollection<ManufacturersViewModel>(result.ToList().ConvertAll(c => BindingFromModel<Manufacturers, ManufacturersViewModel>(c)));
+                return new ObservableCollection<ManufacturersViewModel>(result.ToList().ConvertAll(c => BindingFromModel<Manufacturers, ManufacturersViewModel>(c)));
             }
             catch (Exception)
             {

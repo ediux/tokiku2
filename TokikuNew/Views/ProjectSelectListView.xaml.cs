@@ -60,12 +60,21 @@ namespace TokikuNew.Views
         public static readonly RoutedEvent SelectedProjectChangedEvent = EventManager.RegisterRoutedEvent(
        "SelectedProjectChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ProjectSelectListView));
 
+
+        public static readonly RoutedEvent SendNewPageRequestEvent = EventManager.RegisterRoutedEvent("SendNewPageRequest", RoutingStrategy.Bubble
+            , typeof(RoutedEventHandler), typeof(ProjectSelectListView));
+
         public event RoutedEventHandler SelectedProjectChanged
         {
             add { AddHandler(SelectedProjectChangedEvent, value); }
             remove { RemoveHandler(SelectedProjectChangedEvent, value); }
         }
 
+        public event RoutedEventHandler SendNewPageRequest
+        {
+            add { AddHandler(SendNewPageRequestEvent, value); }
+            remove { RemoveHandler(SendNewPageRequestEvent, value); }
+        }
         // This method raises the Tap event
         protected void RaiseSelectProjectChangedEvent()
         {
@@ -73,26 +82,12 @@ namespace TokikuNew.Views
             RaiseEvent(newEventArgs);
         }
 
-        private void SearchBar_KeyDown(object sender, KeyEventArgs e)
-        {
-            if(e.Key== Key.Enter)
-            {
-                ProjectList.ItemsSource = controller.SearchByText(SearchBar.Text);
-            }
-            else
-            {
-                if(e.Key== Key.Escape)
-                {
-                    ProjectList.ItemsSource = controller.QueryAll();
-                    SearchBar.Text = "";
-                }
-            }
-        }
+       
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //搜尋框
-            ProjectList.ItemsSource = controller.SearchByText(SearchBar.Text);            
+            ProjectList.ItemsSource = controller.SearchByText((string)e.OriginalSource);            
         }
 
         private void ProjectList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -102,6 +97,16 @@ namespace TokikuNew.Views
                 var obj = e.AddedItems[0];
                 RaiseEvent(new RoutedEventArgs(SelectedProjectChangedEvent, obj));            
             }            
+        }
+
+        private void btnNew_Click(object sender, RoutedEventArgs e)
+        {
+            RaiseEvent(new RoutedEventArgs(SendNewPageRequestEvent, e.OriginalSource));   
+        }
+
+        private void cSearchBar_ResetSearch(object sender, RoutedEventArgs e)
+        {
+            ProjectList.ItemsSource = controller.QueryAll();
         }
     }
 }

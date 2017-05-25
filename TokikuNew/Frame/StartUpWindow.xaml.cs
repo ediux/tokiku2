@@ -40,9 +40,9 @@ namespace TokikuNew.Frame
             {
                 tblkMessage.Text = "登入成功!";
                 MainWindow mainwin = new MainWindow();
-                mainwin.Model = new MainViewModel();
-                mainwin.Model.LoginedUser = loginedUser;
-                mainwin.DataContext = mainwin.Model;
+                //mainwin.Model = new MainViewModel();
+                //mainwin.Model.LoginedUser = loginedUser;
+                //mainwin.DataContext = mainwin.Model;
                 mainwin.Closed += Mainwin_Closed;
                 mainwin.Show();
                 tblkMessage.Text = "";

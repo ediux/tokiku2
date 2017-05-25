@@ -126,5 +126,10 @@ namespace TokikuNew.Views
             Model.IsEditorMode = false;
             DataContext = Model;
         }
+
+        private void ContractList_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+
+        }
     }
 }

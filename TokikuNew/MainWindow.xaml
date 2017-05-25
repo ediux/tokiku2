@@ -2,14 +2,15 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
-        xmlns:local="clr-namespace:TokikuNew"
-        xmlns:my="clr-namespace:TokikuNew.Controls"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:local="clr-namespace:TokikuNew" 
+        xmlns:ctrl="clr-namespace:Tokiku.Controllers;assembly=Tokiku.Controllers"
         mc:Ignorable="d"
+        DataContext="{DynamicResource UI_MainViewModel}"
         Title="東菊金屬 ERP System" Height="768" Width="1024" WindowState="Maximized" Icon="16x16.png" Loaded="Window_Loaded" Background="{DynamicResource WindowBackgroundBrush}">
     <Window.Resources>
-        
+        <ObjectDataProvider x:Key="UI_MainViewModel" ObjectType="{x:Type ctrl:MainController}" MethodName="Index">
+        </ObjectDataProvider>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>

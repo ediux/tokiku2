@@ -174,14 +174,27 @@ namespace Tokiku.ViewModels
 
         internal static void DefaultFieldChanged(DependencyObject source, DependencyPropertyChangedEventArgs e)
         {
-
-            if (!e.NewValue.Equals(e.OldValue))
+            if (e.NewValue != null)
             {
-                source.SetValue(IsEditorModeProperty, true);
-                source.SetValue(IsModifyProperty, true);
-                source.SetValue(IsSavedProperty, false);
-                source.SetValue(CanSaveProperty, true);
+                if (!e.NewValue.Equals(e.OldValue))
+                {
+                    source.SetValue(IsEditorModeProperty, true);
+                    source.SetValue(IsModifyProperty, true);
+                    source.SetValue(IsSavedProperty, false);
+                    source.SetValue(CanSaveProperty, true);
+                }
             }
+            else
+            {
+                if (e.OldValue != null)
+                {
+                    source.SetValue(IsEditorModeProperty, true);
+                    source.SetValue(IsModifyProperty, true);
+                    source.SetValue(IsSavedProperty, false);
+                    source.SetValue(CanSaveProperty, true);
+                }
+            }
+
         }
 
 
