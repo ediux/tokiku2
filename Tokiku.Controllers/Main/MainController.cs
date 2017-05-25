@@ -3,27 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Tokiku.ViewModels;
 
 namespace Tokiku.Controllers
 {
-    public class MainController : BaseController
+    public class MainController
     {
-        public MainViewModel Index()
+        public void Index(Window frame)
         {
             UserController controller = new UserController();
-
+            ProjectsController pc = new ProjectsController();
             try
             {
                 MainViewModel main_model = new MainViewModel();
                 main_model.LoginedUser = controller.GetCurrentLoginUser();
-                return main_model;
+                main_model.Projects = pc.QueryAll();
+                frame.DataContext = main_model;
+                if (!main_model.HasError)
+                    frame.Show();
+                else
+                    MessageBox.Show(string.Join(",", main_model.Errors));
             }
             catch (Exception ex)
             {
-                MainViewModel error_model = new MainViewModel();
-                error_model.Error = ex;
-                return error_model;
+                MessageBox.Show(ex.Message);
             }
 
         }

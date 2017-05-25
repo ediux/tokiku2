@@ -71,13 +71,12 @@ namespace TokikuNew.Views
                 Model = new ContactsViewModel();
 
             Model.ContractsList = controller.QueryAll();
-            Model.IsEditorMode = true;
             DataContext = Model;
         }
 
         private void btnModify_Click(object sender, RoutedEventArgs e)
         {
-            Model.IsEditorMode = !Model.IsEditorMode;
+            Model.CanEdit = !Model.CanEdit;
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -87,7 +86,7 @@ namespace TokikuNew.Views
                 controller.SaveModel(Model);
                 if (Model.HasError)
                 {
-                    WinForm.MessageBox.Show(Model.Error.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
+                    WinForm.MessageBox.Show(string.Join(",", Model.Errors), "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
                 }
                 Model = new ContactsViewModel();
                 Model.CanSave = false;
@@ -97,13 +96,13 @@ namespace TokikuNew.Views
             }
             catch (Exception ex)
             {
-                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);                
+                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
             }
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            Model.IsEditorMode = false;
+            Model.CanEdit = false;
             Model.CanSave = false;
         }
 
@@ -119,18 +118,18 @@ namespace TokikuNew.Views
                 var obj = e.AddedItems[0];
                 if (obj is Contacts)
                 {
-                    Model = controller.QuerySingle(((Contacts)obj).Id);
+                    Model = controller.Query(x => x.Id == ((Contacts)obj).Id);
                 }
             }
 
-            Model.IsNew = false;
+            Model.IsNewInstance = false;
         }
 
         private void btnF1_Click(object sender, RoutedEventArgs e)
         {
             Model = new ContactsViewModel();
             Model.ContractsList = controller.QueryAll();
-            Model.IsNew = true;
+            Model.IsNewInstance = true;
             DataContext = Model;
         }
     }

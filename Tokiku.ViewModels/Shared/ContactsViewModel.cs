@@ -5,14 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class ContactsViewModel : BaseViewModel
+    public class ContactsViewModel : BaseViewModel, IBaseViewModelWithLoginedUser
     {
         public ContactsViewModel()
-        {           
+        {
             Id = Guid.NewGuid();
         }
 
@@ -24,7 +23,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for Id.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IdProperty =
-            DependencyProperty.Register("Id", typeof(Guid), typeof(ContactsViewModel), new PropertyMetadata(Guid.NewGuid(),new PropertyChangedCallback(DefaultFieldChanged)));
+            DependencyProperty.Register("Id", typeof(Guid), typeof(ContactsViewModel), new PropertyMetadata(Guid.NewGuid(), new PropertyChangedCallback(DefaultFieldChanged)));
 
         /// <summary>
         /// 姓名
@@ -205,7 +204,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ContractsListProperty =
-            DependencyProperty.Register("ContactsList", typeof(ObservableCollection<Contacts>), typeof(ContactsViewModel), new PropertyMetadata(default(ObservableCollection<ContactsViewModel>), new PropertyChangedCallback(DefaultFieldChanged)));
+            DependencyProperty.Register("ContactsList", typeof(ObservableCollection<ContactsViewModel>), typeof(ContactsViewModel), new PropertyMetadata(default(ObservableCollection<ContactsViewModel>), new PropertyChangedCallback(DefaultFieldChanged)));
 
     }
 }

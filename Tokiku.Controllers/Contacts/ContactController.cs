@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity.Validation;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Tokiku.Entity;
@@ -10,55 +11,11 @@ using Tokiku.ViewModels;
 
 namespace Tokiku.Controllers
 {
-    public class ContactController : BaseController
+    public class ContactController : BaseController<ContactsViewModel, Contacts>
     {
-        private TokikuEntities database;
-
         public ContactController()
         {
-            database = new TokikuEntities();
-        }
 
-        public void Add(ContactsViewModel model)
-        {
-            try
-            {
-                Contacts newdata = new Contacts();
-                model.CreateTime = DateTime.Now;
-                model.CreateUserId = model.LoginedUser.UserId;
-                CopyToModel(newdata, model);
-                database.Contacts.Add(newdata);
-                database.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                model.Error = ex;
-            }
-
-        }
-
-        public ContactsViewModel QuerySingle(Guid ContactId)
-        {
-            ContactsViewModel model = new ContactsViewModel();
-
-            try
-            {
-                var result = from p in database.Contacts
-                             where p.Id == ContactId && p.Void == false
-                             select p;
-
-                if (result.Any())
-                {
-                    return BindingFromModel<Contacts, ContactsViewModel>(result.Single());
-                }
-
-                return null;
-            }
-            catch (Exception ex)
-            {
-                model.Error = ex;
-                return model;
-            }
         }
 
         public ObservableCollection<ContactsViewModel> QueryAll()
@@ -69,7 +26,7 @@ namespace Tokiku.Controllers
                              where p.Void == false
                              select p;
 
-                return new ObservableCollection<ContactsViewModel>(result.ToList().ConvertAll(c => BindingFromModel<Contacts, ContactsViewModel>(c)));
+                return new ObservableCollection<ContactsViewModel>(result.ToList().ConvertAll(c => BindingFromModel(c)));
             }
             catch (Exception)
             {
@@ -97,47 +54,39 @@ namespace Tokiku.Controllers
 
         public void Update(ContactsViewModel updatedProject, Guid UserId)
         {
-            var original = QuerySingle(updatedProject.Id);
-            if (original != null)
-            {
-                original = updatedProject;
-                database.AccessLog.Add(new AccessLog() { ActionCode = 2, CreateTime = DateTime.Now, DataId = updatedProject.Id, UserId = UserId });
-                database.SaveChanges();
-            }
-        }
-
-        public void Delete(Guid ContactsId, Guid UserId)
-        {
             try
             {
-                var result = from p in database.Manufacturers
-                             where p.Id == ContactsId && p.Void == false
-                             select p;
-
-                if (result.Any())
+                Update(updatedProject);
+            }
+            catch (Exception ex)
+            {
+                if (ex is DbEntityValidationException)
                 {
-                    var data = result.Single();
-                    data.Void = true;
+                    DbEntityValidationException dbex = (DbEntityValidationException)ex;
 
-                    database.AccessLog.Add(new AccessLog() { ActionCode = 3, CreateTime = DateTime.Now, DataId = ContactsId, UserId = UserId });
-                    database.SaveChanges();
+                    List<string> msg = new List<string>();
+
+                    foreach (var err in dbex.EntityValidationErrors)
+                    {
+                        foreach (var errb in err.ValidationErrors)
+                        {
+                            msg.Add(errb.ErrorMessage);
+                        }
+                    }
+
+                    updatedProject.Errors = msg.AsEnumerable();
+
                 }
 
+                updatedProject.Errors = new string[] { ex.Message };
             }
-            catch (Exception)
-            {
 
-                throw;
-            }
         }
-
-
-        #region 公開方法(中介層呼叫)
 
         /// <summary>
         /// 儲存變更
         /// </summary>
-        public void SaveModel(ContactsViewModel model)
+        public override void SaveModel(ContactsViewModel model)
         {
             try
             {
@@ -151,37 +100,246 @@ namespace Tokiku.Controllers
                     Update(model, model.LoginedUser.UserId);
                 }
                 else
-                {                   
+                {
                     Add(model);
                 }
-                model.IsEditorMode = true;
-                model.IsSaved = true;
+
                 model.IsModify = false;
+                model.IsNewInstance = false;
+                model.IsSaved = true;
+                model.CanDelete = true;
+                model.CanEdit = true;
+                model.CanNew = true;
+                model.CanSave = false;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 if (ex is DbEntityValidationException)
                 {
                     DbEntityValidationException dbex = (DbEntityValidationException)ex;
-                    string msg = "";
+
+                    List<string> msg = new List<string>();
+
                     foreach (var err in dbex.EntityValidationErrors)
                     {
                         foreach (var errb in err.ValidationErrors)
                         {
-                            msg += errb.ErrorMessage;
+                            msg.Add(errb.ErrorMessage);
                         }
                     }
 
-                    model.Error = new Exception(msg);                    
+                    model.Errors = msg.AsEnumerable();
+
                 }
-                else
-                {
-                    model.Error = ex;                   
-                }
+
+                model.Errors = new string[] { ex.Message };
             }
         }
 
+        public override ContactsViewModel CreateNew()
+        {
+            try
+            {
+                ContactsViewModel model = new ContactsViewModel();
+                return model;
+            }
+            catch (Exception ex)
+            {
+                ContactsViewModel model = new ContactsViewModel();
 
-        #endregion
+                if (ex is DbEntityValidationException)
+                {
+                    DbEntityValidationException dbex = (DbEntityValidationException)ex;
+
+                    List<string> msg = new List<string>();
+
+                    foreach (var err in dbex.EntityValidationErrors)
+                    {
+                        foreach (var errb in err.ValidationErrors)
+                        {
+                            msg.Add(errb.ErrorMessage);
+                        }
+                    }
+
+                    model.Errors = msg.AsEnumerable();
+
+                }
+
+                model.Errors = new string[] { ex.Message };
+                return model;
+            }
+
+        }
+
+        public override void Add(ContactsViewModel model)
+        {
+            try
+            {
+                Contacts newdata = new Contacts();
+                model.CreateTime = DateTime.Now;
+                model.CreateUserId = model.LoginedUser.UserId;
+                CopyToModel(newdata, model);
+                database.Contacts.Add(newdata);
+                database.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+                if (ex is DbEntityValidationException)
+                {
+                    DbEntityValidationException dbex = (DbEntityValidationException)ex;
+
+                    List<string> msg = new List<string>();
+
+                    foreach (var err in dbex.EntityValidationErrors)
+                    {
+                        foreach (var errb in err.ValidationErrors)
+                        {
+                            msg.Add(errb.ErrorMessage);
+                        }
+                    }
+
+                    model.Errors = msg.AsEnumerable();
+                }
+
+                model.Errors = new string[] { ex.Message };
+            }
+        }
+
+        public override ContactsViewModel Update(ContactsViewModel model)
+        {
+            try
+            {
+                var original = (from q in database.Contacts
+                                where q.Id == model.Id
+                                select q).SingleOrDefault();
+
+                if (original != null)
+                {
+                    CopyToModel(original, model);
+                    database.AccessLog.Add(new AccessLog() { ActionCode = 2, CreateTime = DateTime.Now, DataId = original.Id, UserId = model.LoginedUser.UserId });
+                    database.SaveChanges();
+
+                    return Query(x => x.Id == model.Id);
+                }
+
+                model.Errors = new string[] { };
+                model.HasError = true;
+
+                return model;
+            }
+            catch (Exception ex)
+            {
+                if (ex is DbEntityValidationException)
+                {
+                    DbEntityValidationException dbex = (DbEntityValidationException)ex;
+
+                    List<string> msg = new List<string>();
+
+                    foreach (var err in dbex.EntityValidationErrors)
+                    {
+                        foreach (var errb in err.ValidationErrors)
+                        {
+                            msg.Add(errb.ErrorMessage);
+                        }
+                    }
+
+                    model.Errors = msg.AsEnumerable();
+                    return model;
+                }
+
+                model.Errors = new string[] { ex.Message };
+                return model;
+
+            }
+
+        }
+
+        public override void Delete(ContactsViewModel model)
+        {
+            try
+            {
+                model.Void = true; //設定為停用
+                model = Update(model);
+            }
+            catch (Exception ex)
+            {
+                if (ex is DbEntityValidationException)
+                {
+                    DbEntityValidationException dbex = (DbEntityValidationException)ex;
+
+                    List<string> msg = new List<string>();
+
+                    foreach (var err in dbex.EntityValidationErrors)
+                    {
+                        foreach (var errb in err.ValidationErrors)
+                        {
+                            msg.Add(errb.ErrorMessage);
+                        }
+                    }
+
+                    model.Errors = msg.AsEnumerable();
+
+                }
+
+                model.Errors = new string[] { ex.Message };
+
+
+            }
+        }
+
+        public override bool IsExists(Expression<Func<Contacts, bool>> filiter)
+        {
+            try
+            {
+                return database.Contacts.Where(filiter).Any();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public override ContactsViewModel Query(Expression<Func<Contacts, bool>> filiter)
+        {
+            ContactsViewModel model = new ContactsViewModel();
+
+            try
+            {
+                var result = database.Contacts
+                    .Where(filiter);
+
+                if (result.Any())
+                {
+                    return BindingFromModel(result.Single());
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                if (ex is DbEntityValidationException)
+                {
+                    DbEntityValidationException dbex = (DbEntityValidationException)ex;
+
+                    List<string> msg = new List<string>();
+
+                    foreach (var err in dbex.EntityValidationErrors)
+                    {
+                        foreach (var errb in err.ValidationErrors)
+                        {
+                            msg.Add(errb.ErrorMessage);
+                        }
+                    }
+
+                    model.Errors = msg.AsEnumerable();
+                    return model;
+                }
+
+                model.Errors = new string[] { ex.Message };
+                return model;
+            }
+        }
+
     }
 }

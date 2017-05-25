@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tokiku.Controllers;
 using Tokiku.ViewModels;
+using TokikuNew.Controls;
 
 namespace TokikuNew.Views
 {
@@ -41,11 +42,18 @@ namespace TokikuNew.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            //註冊一個處理分頁關閉的事件處理器
+            AddHandler(ClosableTabItem.OnPageClosingEvent, new RoutedEventHandler(ProjectViewer_OnPageClosing));
             //this.DataContext = Model;
             //projectmgr.Model = Model;
             //projectmgr.DataContext = Model;
            
 
+        }
+
+        private void ProjectViewer_OnPageClosing(object sender, RoutedEventArgs e)
+        {
+            
         }
 
         private void tbName_TextChanged(object sender, TextChangedEventArgs e)

@@ -56,7 +56,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BaseUserControl.cs" />
     <Compile Include="ClipboardHelper.cs" />
     <Compile Include="Controls\ClosableTab.xaml.cs">
       <DependentUpon>ClosableTab.xaml</DependentUpon>
@@ -78,7 +77,7 @@
     <Compile Include="ValueConverters\NOTGateValueConverter.cs" />
     <Compile Include="ValueConverters\ShortNameValueConverter.cs" />
     <Compile Include="ValueConverters\SigningDateToCodeConverter.cs" />
-    <Compile Include="ValueConverters\CheckBoxSwitchValueConverter.cs" />
+    <Compile Include="ValueConverters\RadioButtonSwitchValueConverter.cs" />
     <Compile Include="Views\ClientManageView.xaml.cs">
       <DependentUpon>ClientManageView.xaml</DependentUpon>
     </Compile>

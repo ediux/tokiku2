@@ -47,7 +47,7 @@ namespace TokikuNew
                     if (currentworking.Content != null)
                     {
                         Workspaces.Items.Remove(currentworking);
-                        ((MainViewModel)((ObjectDataProvider)DataContext).Data).CurrentProject = null;
+                        ((MainViewModel)DataContext).CurrentProject = null;
                     }
                 }
             }
@@ -192,7 +192,7 @@ namespace TokikuNew
         {
             try
             {
-                ((MainViewModel)((ObjectDataProvider)DataContext).Data).CurrentProject = ProjectSelectionPage.SelectedProject = e.OriginalSource as ProjectBaseViewModel;
+                ProjectSelectionPage.SelectedProject = e.OriginalSource as ProjectBaseViewModel;
 
                 string Header = string.Format("專案:{0}-{1}", ProjectSelectionPage.SelectedProject.Code, ProjectSelectionPage.SelectedProject.ShortName);
                 //((MainViewModel)DataContext).CurrentProject = controller.QuerySingle(ProjectSelectionPage.SelectedProject.Id);
@@ -293,7 +293,7 @@ namespace TokikuNew
             try
             {
                 string Header = "廠商主檔";
-                TabItem addWorkarea = new TabItem();
+                ClosableTabItem addWorkarea = new ClosableTabItem();
                 bool isExisted = false;
 
                 foreach (TabItem item in Workspaces.Items)
@@ -301,7 +301,7 @@ namespace TokikuNew
                     if (item.Header.Equals(Header))
                     {
                         isExisted = true;
-                        addWorkarea = item;
+                        addWorkarea = (ClosableTabItem)item;
                         break;
                     }
                 }
@@ -311,6 +311,7 @@ namespace TokikuNew
                     addWorkarea.Header = Header;
 
                     var vm = new Views.ManufacturersManageView() { Margin = new Thickness(0) };
+                    vm.DataContext = e.OriginalSource;
                     addWorkarea.Content = vm;
                     addWorkarea.Margin = new Thickness(0);
 

@@ -116,6 +116,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Tokiku.edmx</DependentUpon>
     </Compile>
+    <Compile Include="TokikuEntities.cs" />
     <Compile Include="Users.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>

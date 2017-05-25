@@ -5,27 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class BaseViewModel : DependencyObject, INotifyPropertyChanged
-    {
-        public BaseViewModel()
-        {
-            LoginedUser = new UserViewModel()
-            {
-                UserId = Guid.Empty,
-                UserName = "root",
-                LoweredUserName = "root",
-                IsAnonymous = false,
-            };
 
-            IsNew = true;
-            IsModify = false;
-            IsSaved = false;
-            IsEditorMode = false;
-            CanSave = false;
+    public abstract class WithOutBaseViewModel : DependencyObject, IBaseViewModel
+    {
+        public WithOutBaseViewModel()
+        {
         }
 
         /// <summary>
@@ -48,12 +35,14 @@ namespace Tokiku.ViewModels
                     ctProp.SetValue(this, prop.GetValue(entity));
                 }
             }
-            IsEditorMode = false;
-            IsModify = false;
-            IsSaved = false;
-            CanSave = false;
         }
 
+        /// <summary>
+        /// 將檢視模型抄寫到資料實體物件
+        /// </summary>
+        /// <typeparam name="T">目標資料實體物件型別</typeparam>
+        /// <param name="entity">資料實體物件執行個體。</param>
+        /// <returns></returns>
         protected T CopyToModel<T>(T entity) where T : class
         {
 
@@ -74,18 +63,24 @@ namespace Tokiku.ViewModels
             return entity;
         }
 
-        public void EnableEditor()
+        /// <summary>
+        /// 啟用編輯模式
+        /// </summary>
+        public virtual void EnableEditor()
         {
-            IsEditorMode = true;
             CanSave = true;
         }
 
-        public void DisabledEditor()
+        /// <summary>
+        /// 關閉編輯模式
+        /// </summary>
+        public virtual void DisabledEditor()
         {
-            IsEditorMode = false;
+
             CanSave = false;
         }
 
+        #region PropertyChanged 事件
         /// <summary>
         /// 屬性變更事件。
         /// </summary>
@@ -99,30 +94,64 @@ namespace Tokiku.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
         }
+        #endregion
 
-        public static readonly DependencyProperty IsNewProperty = DependencyProperty.Register("IsNew", typeof(bool), typeof(BaseViewModel));
-
-        /// <summary>
-        /// 是否為新增?
-        /// </summary>
-        public bool IsNew
-        {
-            get { return (bool)GetValue(IsNewProperty); }
-            set { SetValue(IsNewProperty, value); }
-        }
-
-        public static readonly DependencyProperty IsEditorModeProperty = DependencyProperty.Register("IsEditorMode", typeof(bool), typeof(BaseViewModel));
 
         /// <summary>
-        /// 是否在編輯模式?
+        /// 指出目前是否處於初始化狀態
         /// </summary>
-        public bool IsEditorMode
+        public bool IsNewInstance
         {
-            get { return (bool)GetValue(IsEditorModeProperty); }
-            set { SetValue(IsEditorModeProperty, value); }
+            get { return (bool)GetValue(IsNewInstanceProperty); }
+            set { SetValue(IsNewInstanceProperty, value); }
         }
 
-        public static readonly DependencyProperty IsModifyProperty = DependencyProperty.Register("IsModify", typeof(bool), typeof(BaseViewModel));
+        // Using a DependencyProperty as the backing store for IsNewInstance.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsNewInstanceProperty =
+            DependencyProperty.Register("IsNewInstance", typeof(bool), typeof(WithOutBaseViewModel), new PropertyMetadata(true));
+
+
+        /// <summary>
+        /// 指出是否可以建立新資料
+        /// </summary>
+        public bool CanNew
+        {
+            get { return (bool)GetValue(CanNewProperty); }
+            set { SetValue(CanNewProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CanNew.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CanNewProperty =
+            DependencyProperty.Register("CanNew", typeof(bool), typeof(WithOutBaseViewModel), new PropertyMetadata(true));
+
+        /// <summary>
+        /// 指出是否可以被編輯
+        /// </summary>
+        public bool CanEdit
+        {
+            get { return (bool)GetValue(CanEditProperty); }
+            set { SetValue(CanEditProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CanEdit.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CanEditProperty =
+            DependencyProperty.Register("CanEdit", typeof(bool), typeof(WithOutBaseViewModel), new PropertyMetadata(true));
+
+
+        /// <summary>
+        /// 指出是否可以被刪除(停用)
+        /// </summary>
+        public bool CanDelete
+        {
+            get { return (bool)GetValue(CanDeleteProperty); }
+            set { SetValue(CanDeleteProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CanDelete.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CanDeleteProperty =
+            DependencyProperty.Register("CanDelete", typeof(bool), typeof(WithOutBaseViewModel), new PropertyMetadata(false));
+
+        public static readonly DependencyProperty IsModifyProperty = DependencyProperty.Register("IsModify", typeof(bool), typeof(WithOutBaseViewModel));
 
         /// <summary>
         /// 指出是否已經修改
@@ -133,7 +162,7 @@ namespace Tokiku.ViewModels
             set { SetValue(IsModifyProperty, value); }
         }
 
-        public static readonly DependencyProperty IsSavedProperty = DependencyProperty.Register("IsSaved", typeof(bool), typeof(BaseViewModel));
+        public static readonly DependencyProperty IsSavedProperty = DependencyProperty.Register("IsSaved", typeof(bool), typeof(WithOutBaseViewModel));
 
         /// <summary>
         /// 是否已存檔?
@@ -144,8 +173,11 @@ namespace Tokiku.ViewModels
             set { SetValue(IsSavedProperty, value); }
         }
 
-        public static readonly DependencyProperty CanSaveProperty = DependencyProperty.Register("CanSave", typeof(bool), typeof(BaseViewModel));
+        public static readonly DependencyProperty CanSaveProperty = DependencyProperty.Register("CanSave", typeof(bool), typeof(WithOutBaseViewModel));
 
+        /// <summary>
+        /// 指出是否可以存檔?
+        /// </summary>
         public bool CanSave
         {
             get
@@ -158,60 +190,62 @@ namespace Tokiku.ViewModels
             }
         }
 
-        public static readonly DependencyProperty LoginedUserProperty = DependencyProperty.Register("LoginedUser", typeof(UserViewModel), typeof(BaseViewModel), new PropertyMetadata(default(Users)));
         /// <summary>
-        /// 取得目前登入的使用者
+        /// 判定各內容狀態
         /// </summary>
-        public UserViewModel LoginedUser
-        {
-            get { return GetValue(LoginedUserProperty) as UserViewModel; }
-            set
-            {
-                SetValue(LoginedUserProperty, value);
-                RaisePropertyChanged("LoginedUser");
-            }
-        }
-
+        /// <param name="source"></param>
+        /// <param name="e"></param>
         internal static void DefaultFieldChanged(DependencyObject source, DependencyPropertyChangedEventArgs e)
         {
             if (e.NewValue != null)
             {
+                if (e.OldValue != null)                
+                    source.SetValue(IsNewInstanceProperty, false);
+
                 if (!e.NewValue.Equals(e.OldValue))
                 {
-                    source.SetValue(IsEditorModeProperty, true);
-                    source.SetValue(IsModifyProperty, true);
-                    source.SetValue(IsSavedProperty, false);
-                    source.SetValue(CanSaveProperty, true);
+                    source.SetValue(IsModifyProperty, true);    //設定已被修改
+                    source.SetValue(IsSavedProperty, false);    //設定尚未儲存
+                    source.SetValue(CanSaveProperty, true);     //設定可以存檔
+                    source.SetValue(CanDeleteProperty, true);
+                    source.SetValue(CanEditProperty, false);
+                    source.SetValue(CanNewProperty, true);
+                    ((WithOutBaseViewModel)source).RaisePropertyChanged(e.Property.Name);
                 }
             }
             else
             {
                 if (e.OldValue != null)
-                {
-                    source.SetValue(IsEditorModeProperty, true);
-                    source.SetValue(IsModifyProperty, true);
-                    source.SetValue(IsSavedProperty, false);
-                    source.SetValue(CanSaveProperty, true);
+                {                    
+                    source.SetValue(IsModifyProperty, true);    //設定已被修改
+                    source.SetValue(IsSavedProperty, false);    //設定尚未儲存
+                    source.SetValue(CanSaveProperty, true);     //設定可以存檔
+                    source.SetValue(CanDeleteProperty, true);
+                    source.SetValue(CanEditProperty, false);
+                    source.SetValue(CanNewProperty, true);
+                    ((WithOutBaseViewModel)source).RaisePropertyChanged(e.Property.Name);
                 }
             }
 
         }
 
 
-
-        public Exception Error
+        /// <summary>
+        /// 錯誤訊息
+        /// </summary>
+        public IEnumerable<string> Errors
         {
-            get { return (Exception)GetValue(ErrorProperty); }
+            get { return (IEnumerable<string>)GetValue(ErrorProperty); }
             set { SetValue(ErrorProperty, value); if (value != null) { HasError = true; } }
         }
 
         // Using a DependencyProperty as the backing store for Error.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ErrorProperty =
-            DependencyProperty.Register("Error", typeof(Exception), typeof(BaseViewModel), new PropertyMetadata(default(Exception)));
+            DependencyProperty.Register("Error", typeof(IEnumerable<string>), typeof(WithOutBaseViewModel), new PropertyMetadata(default(Exception)));
 
-
-
-
+        /// <summary>
+        /// 指出是否發生錯誤
+        /// </summary>
         public bool HasError
         {
             get { return (bool)GetValue(HasErrorProperty); }
@@ -220,22 +254,37 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for HasError.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty HasErrorProperty =
-            DependencyProperty.Register("HasError", typeof(bool), typeof(BaseViewModel), new PropertyMetadata(false));
-
-
-
-
-        public bool CanCreateNew
-        {
-            get { return (bool)GetValue(CanCreateNewProperty); }
-            set { SetValue(CanCreateNewProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for CanCreateNew.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CanCreateNewProperty =
-            DependencyProperty.Register("CanCreateNew", typeof(bool), typeof(BaseViewModel), new PropertyMetadata(false));
-
-
+            DependencyProperty.Register("HasError", typeof(bool), typeof(WithOutBaseViewModel), new PropertyMetadata(false));
 
     }
+
+    public abstract class BaseViewModel : WithOutBaseViewModel, IBaseViewModelWithLoginedUser
+    {
+        public BaseViewModel()
+        {
+            LoginedUser = new UserViewModel()
+            {
+                UserId = Guid.Empty,
+                UserName = "root",
+                LoweredUserName = "root",
+                IsAnonymous = false,
+            };
+        }
+
+        public static readonly DependencyProperty LoginedUserProperty = DependencyProperty.Register("LoginedUser", typeof(UserViewModel), typeof(WithOutBaseViewModel), new PropertyMetadata(default(UserViewModel),
+            new PropertyChangedCallback(DefaultFieldChanged)));
+        /// <summary>
+        /// 取得目前登入的使用者
+        /// </summary>
+        public UserViewModel LoginedUser
+        {
+            get { return GetValue(LoginedUserProperty) as UserViewModel; }
+            set
+            {
+                SetValue(LoginedUserProperty, value);                
+            }
+        }
+    }
 }
+
+

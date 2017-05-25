@@ -9,17 +9,15 @@ using Tokiku.ViewModels;
 
 namespace Tokiku.Controllers
 {
-    public class ProjectsController : BaseController
+    public class ProjectsController : BaseController<ProjectBaseViewModel, Projects>
     {
-        private TokikuEntities database;
+
         #region 公開方法(中介層呼叫)
-
-
 
         /// <summary>
         /// 儲存變更
         /// </summary>
-        public void SaveModel(ProjectBaseViewModel model)
+        public override void SaveModel(ProjectBaseViewModel model)
         {
             try
             {
@@ -32,13 +30,17 @@ namespace Tokiku.Controllers
                     Add(model);
 
                 }
-                model.IsEditorMode = true;
+                model.CanEdit = false;
                 model.IsSaved = true;
                 model.IsModify = false;
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                if (model == null)
+                {
+                    model = CreateNew();
+                }
+                setErrortoModel(model, ex);
             }
 
         }
@@ -47,20 +49,20 @@ namespace Tokiku.Controllers
 
         public ProjectsController()
         {
-            database = new TokikuEntities();
+
         }
 
-        public ProjectBaseViewModel CreateNew()
+        public override ProjectBaseViewModel CreateNew()
         {
             UserController usercontroller = new UserController();
 
             return new ProjectBaseViewModel()
             {
                 Id = Guid.NewGuid(),
-                Code = string.Format("{0:000}-{1}",DateTime.Today.Year-1911, GetNextProjectSerialNumber((DateTime.Now.Year - 1911).ToString())),
+                Code = string.Format("{0:000}-{1}", DateTime.Today.Year - 1911, GetNextProjectSerialNumber((DateTime.Now.Year - 1911).ToString())),
                 LoginedUser = usercontroller.GetCurrentLoginUser(),
-                IsNew = true,
-                IsEditorMode = true
+                IsNewInstance = true,
+                CanEdit = true
             };
         }
 
@@ -91,14 +93,22 @@ namespace Tokiku.Controllers
             return "001";
         }
 
-        public void Add(ProjectBaseViewModel model)
+        public override void Add(ProjectBaseViewModel model)
         {
-            Projects newProject = new Projects();
-            model.CreateTime = DateTime.Now;
-            model.CreateUserId = model.LoginedUser.UserId;
-            CopyToModel(newProject, model);
-            database.Projects.Add(newProject);
-            database.SaveChanges();
+            try
+            {
+                Projects newProject = new Projects();
+                model.CreateTime = DateTime.Now;
+                model.CreateUserId = model.LoginedUser.UserId;
+                CopyToModel(newProject, model);
+                database.Projects.Add(newProject);
+                database.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(model, ex);
+            }
+
         }
 
         public ProjectBaseViewModel QuerySingle(Guid ProjectId)
@@ -112,15 +122,16 @@ namespace Tokiku.Controllers
 
                 if (result.Any())
                 {
-                    return BindingFromModel<Projects, ProjectBaseViewModel>(result.Single());
+                    return BindingFromModel(result.Single());
                 }
 
                 return null;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                ProjectBaseViewModel model = new ProjectBaseViewModel();
+                setErrortoModel(model, ex);
+                return model;
             }
         }
 
@@ -133,12 +144,15 @@ namespace Tokiku.Controllers
                              orderby p.State ascending, p.Code ascending
                              select p;
 
-                return new ObservableCollection<ProjectBaseViewModel>(result.ToList().ConvertAll(c => BindingFromModel<Projects, ProjectBaseViewModel>(c)));
+                return new ObservableCollection<ProjectBaseViewModel>(result.ToList().ConvertAll(c => BindingFromModel(c)));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                var q = new ObservableCollection<ProjectBaseViewModel>();
+                var model = CreateNew();
+                setErrortoModel(model, ex);
+                q.Add(model);
+                return q;
             }
         }
 
@@ -160,14 +174,25 @@ namespace Tokiku.Controllers
             }
         }
 
-        public void Update(ProjectBaseViewModel updatedProject)
+        public override ProjectBaseViewModel Update(ProjectBaseViewModel updatedProject)
         {
-            var original = QuerySingle(updatedProject.Id);
-            if (original != null)
+            try
             {
-                original = updatedProject;
-                database.SaveChanges();
+                var original = QuerySingle(updatedProject.Id);
+                if (original != null)
+                {
+                    original = updatedProject;
+                    database.SaveChanges();
+                }
+                updatedProject = Query(s => s.Id == updatedProject.Id);
+                return updatedProject;
             }
+            catch (Exception ex)
+            {
+                setErrortoModel(updatedProject, ex);
+                return updatedProject;
+            }
+
         }
 
         public void Delete(Guid ProjectId, Guid UserId)
@@ -192,32 +217,31 @@ namespace Tokiku.Controllers
             catch (Exception)
             {
 
-                throw;
             }
         }
 
-        public List<States> GetAllState()
+        public ObservableCollection<States> GetAllState()
         {
-            return (from c in database.States
-                    select c).ToList();
+            return new ObservableCollection<States>(from c in database.States
+                                                    select c);
         }
 
-        public List<Projects> SearchByText(string text)
+        public ObservableCollection<ProjectBaseViewModel> SearchByText(string text)
         {
             if (text != null && text.Length > 0)
             {
-                return (from p in database.Projects
-                        where p.Void == false &&
-                        (p.Code.Contains(text) || p.Name.Contains(text) || p.ShortName.Contains(text))
-                        orderby p.State ascending, p.Code ascending
-                        select p).ToList();
+                return new ObservableCollection<ProjectBaseViewModel>(from p in database.Projects
+                                                                      where p.Void == false &&
+                                                                      (p.Code.Contains(text) || p.Name.Contains(text) || p.ShortName.Contains(text))
+                                                                      orderby p.State ascending, p.Code ascending
+                                                                      select BindingFromModel(p));
             }
             else
             {
-                return (from p in database.Projects
-                        where p.Void == false
-                        orderby p.State ascending, p.Code ascending
-                        select p).ToList();
+                return new ObservableCollection<ProjectBaseViewModel>(from p in database.Projects
+                                                                      where p.Void == false
+                                                                      orderby p.State ascending, p.Code ascending
+                                                                      select BindingFromModel(p));
             }
         }
     }

@@ -5,12 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:TokikuNew" 
         xmlns:ctrl="clr-namespace:Tokiku.Controllers;assembly=Tokiku.Controllers"
-        mc:Ignorable="d"
-        DataContext="{DynamicResource UI_MainViewModel}"
+        mc:Ignorable="d"        
         Title="東菊金屬 ERP System" Height="768" Width="1024" WindowState="Maximized" Icon="16x16.png" Loaded="Window_Loaded" Background="{DynamicResource WindowBackgroundBrush}">
     <Window.Resources>
-        <ObjectDataProvider x:Key="UI_MainViewModel" ObjectType="{x:Type ctrl:MainController}" MethodName="Index">
-        </ObjectDataProvider>
+
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -31,7 +29,7 @@
         </Menu>
         <TabControl Grid.Row="1" Margin="0,0,0,0" x:Name="Workspaces" FontSize="15">
             <TabItem Header="專案列表" >
-                <Views:ProjectSelectListView x:Name="ProjectSelectionPage" SelectedProjectChanged="ProjectSelectionPage_SelectedProjectChanged" />
+                <Views:ProjectSelectListView x:Name="ProjectSelectionPage" SelectedProjectChanged="ProjectSelectionPage_SelectedProjectChanged" DataContext="{Binding Projects}" />
             </TabItem>
             <TabItem Header="廠商列表" >
                 <Views:VendorListView x:Name="VendorSelection" SelectedVendorChanged="VendorSelection_SelectedVendorChanged" />

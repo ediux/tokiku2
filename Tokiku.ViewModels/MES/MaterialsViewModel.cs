@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TokikuNew
+namespace Tokiku.ViewModels
 {
-    public abstract class BaseUserControl : System.Windows.Controls.UserControl
+    public class MaterialsViewModel : BaseViewModel, IBaseViewModelWithLoginedUser
     {
-
     }
 }

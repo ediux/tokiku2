@@ -39,7 +39,10 @@ namespace TokikuNew.Frame
             if (loginedUser != null)
             {
                 tblkMessage.Text = "登入成功!";
+                MainController mc = new MainController();
+                
                 MainWindow mainwin = new MainWindow();
+                mc.Index(mainwin);
                 //mainwin.Model = new MainViewModel();
                 //mainwin.Model.LoginedUser = loginedUser;
                 //mainwin.DataContext = mainwin.Model;

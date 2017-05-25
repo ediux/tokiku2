@@ -4,18 +4,17 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tokiku.Entity;
 using System.Windows;
 
 namespace Tokiku.ViewModels
 {
-    public class MainViewModel : BaseViewModel
+    public class MainViewModel : BaseViewModel, IBaseViewModelWithLoginedUser
     {
         public MainViewModel()
         {        
         }
 
-        public static readonly DependencyProperty CurrentProjectProperty = DependencyProperty.Register("CurrentProject", typeof(ProjectBaseViewModel), typeof(MainViewModel), new PropertyMetadata(default(ProjectBaseViewModel)));
+        public static readonly DependencyProperty CurrentProjectProperty = DependencyProperty.Register("CurrentProject", typeof(ProjectBaseViewModel), typeof(MainViewModel), new PropertyMetadata(default(ProjectBaseViewModel), new PropertyChangedCallback(DefaultFieldChanged)));
 
         /// <summary>
         /// 目前選定的專案
@@ -35,6 +34,18 @@ namespace Tokiku.ViewModels
         }
 
 
-    
+
+        public ObservableCollection<ProjectBaseViewModel> Projects
+        {
+            get { return (ObservableCollection<ProjectBaseViewModel>)GetValue(ProjectsProperty); }
+            set { SetValue(ProjectsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Projects.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ProjectsProperty =
+            DependencyProperty.Register("Projects", typeof(ObservableCollection<ProjectBaseViewModel>), typeof(MainViewModel), new PropertyMetadata(default(ObservableCollection<ProjectBaseViewModel>)));
+
+ 
+
     }
 }

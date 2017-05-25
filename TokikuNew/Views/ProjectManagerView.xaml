@@ -45,19 +45,19 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="專案代碼" />
-                    <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center" Margin="2" Name="lblCode" Text="{Binding Code, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center" Margin="2" Name="lblCode" Text="{Binding Code, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CanEdit}"/>
                     <TextBlock Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="專案全名"/>
-                    <TextBox x:Name="tbName" Grid.Row="1" Grid.Column="1" Margin="2" Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}" TextChanged="tbName_TextChanged"/>
+                    <TextBox x:Name="tbName" Grid.Row="1" Grid.Column="1" Margin="2" Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CanEdit}" TextChanged="tbName_TextChanged"/>
                     <TextBlock Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="專案簡稱"/>
-                    <TextBlock x:Name="tbShortName" Grid.Row="2" Grid.Column="1" Margin="2" TextAlignment="Left" VerticalAlignment="Center" Text="{Binding ShortName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}"/>
+                    <TextBlock x:Name="tbShortName" Grid.Row="2" Grid.Column="1" Margin="2" TextAlignment="Left" VerticalAlignment="Center" Text="{Binding ShortName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CanEdit}"/>
                     <TextBlock Grid.Row="3" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="工程簽約日期"/>
-                    <DatePicker x:Name="ProjectSigningDate" Grid.Row="3" Grid.Column="1" Margin="2" FontSize="12"  Text="{Binding ProjectSigningDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}" />
+                    <DatePicker x:Name="ProjectSigningDate" Grid.Row="3" Grid.Column="1" Margin="2" FontSize="12"  Text="{Binding ProjectSigningDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CanEdit}" />
                     <TextBlock Grid.Row="4" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Top" Margin="0,5,0,5" Text="工地地址"/>
-                    <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" DataContext="{Binding SiteAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsEditorMode,Converter={StaticResource NOTGateValueConverter}}"/>
+                    <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" DataContext="{Binding SiteAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CanEdit,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding CanEdit,Converter={StaticResource NOTGateValueConverter}}"/>
                     <TextBlock Grid.Row="6" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Top" Margin="0,5,0,5" Text="備註"/>
-                    <RichTextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" DataContext="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}" IsReadOnly="{Binding IsEditorMode, Converter={StaticResource NOTGateValueConverter}}"  />
+                    <RichTextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" DataContext="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CanEdit}" IsReadOnly="{Binding CanEdit, Converter={StaticResource NOTGateValueConverter}}"  />
                     <TextBlock Grid.Row="5" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="狀態"/>
-                    <ComboBox Grid.Row="5" Grid.Column="1" Margin="2" ItemsSource="{Binding Mode=OneWay, Source={StaticResource UI_StateTexts}}" SelectedValuePath="Id" SelectedValue="{Binding State,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}">
+                    <ComboBox Grid.Row="5" Grid.Column="1" Margin="2" ItemsSource="{Binding Mode=OneWay, Source={StaticResource UI_StateTexts}}" SelectedValuePath="Id" SelectedValue="{Binding State,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CanEdit}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding StateName}"/>
@@ -85,7 +85,7 @@
                             <ColumnDefinition Width="60*"/>
                             <ColumnDefinition Width="40*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox Grid.Row="0" Grid.Column="0" Margin="2"  IsEnabled="{Binding IsEditorMode}"/>
+                        <TextBox Grid.Row="0" Grid.Column="0" Margin="2"  IsEnabled="{Binding CanEdit}"/>
                         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
                             <Button Content="..."></Button>
                             <Button Content="新增" Click="Button_Click"></Button>
@@ -98,7 +98,7 @@
 
                 </Grid>
             </GroupBox>
-            <GroupBox Header="合約列表" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" IsEnabled="{Binding IsEditorMode}" Margin="5">
+            <GroupBox Header="合約列表" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" IsEnabled="{Binding CanEdit}" Margin="5">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="27"/>

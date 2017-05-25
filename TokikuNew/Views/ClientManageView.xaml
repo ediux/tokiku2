@@ -9,7 +9,7 @@
              xmlns:ValueConverters="clr-namespace:TokikuNew.ValueConverters" 
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024"
-             Background="{DynamicResource ControlBackgroundBrush}">
+             Background="{DynamicResource ControlBackgroundBrush}" Initialized="UserControl_Initialized">
     <UserControl.Resources>
         <ValueConverters:NOTGateValueConverter x:Key="NOTGateValueConverter"/>
         <ValueConverters:SigningDateToCodeConverter x:Key="SigningDateToCodeConverter"/>
@@ -72,7 +72,7 @@
             </GroupBox>
 
             <GroupBox Header="合約項目" Grid.Row="0" Grid.Column="1" Margin="5">
-                <c:CustomDataGrid  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5">
+                <c:CustomDataGrid HorizontalScrollBarVisibility="Auto"  Margin="5">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="工程代號"/>
                         <DataGridTextColumn Header="工程名稱"/>
@@ -88,7 +88,8 @@
                     </DataGrid.Columns>
                 </c:CustomDataGrid>
             </GroupBox>
-            <GroupBox Header="相關聯絡人" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="4" Margin="2" ScrollViewer.CanContentScroll="True" >
+            <GroupBox Header="相關聯絡人" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="4" Margin="2" 
+                      >
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="27"/>
@@ -103,7 +104,9 @@
                     <c:SearchBar x:Name="sSearchBar" Grid.Column="1" Grid.Row="0" Search="sSearchBar_Search" ResetSearch="sSearchBar_ResetSearch" />
                     <Button HorizontalAlignment="Left" Grid.Column="2" Width="30" Grid.Row="0" Content="新增" Name="btnAddList" Click="btnAddList_Click" Margin="2" />
 
-                    <c:CustomDataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto" x:Name="ContractList" SelectedCellsChanged="ContractList_SelectedCellsChanged">
+                    <c:CustomDataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" AutoGenerateColumns="False" 
+                                      HorizontalScrollBarVisibility="Auto"  x:Name="ContractList" 
+                                      SelectedCellsChanged="ContractList_SelectedCellsChanged">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="姓名" Binding="{Binding Name}" Width="100" />
                             <DataGridTextColumn Header="部門" Binding="{Binding Dep}" Width="100" />

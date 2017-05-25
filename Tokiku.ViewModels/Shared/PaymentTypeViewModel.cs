@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace Tokiku.ViewModels
 {
-    public class PaymentTypeViewModel : BaseViewModel
+    public class PaymentTypeViewModel : WithOutBaseViewModel,IBaseViewModel
     {
 
 
@@ -19,7 +19,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for Id.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IdProperty =
-            DependencyProperty.Register("Id", typeof(byte), typeof(PaymentTypeViewModel), new PropertyMetadata(0));
+            DependencyProperty.Register("Id", typeof(byte), typeof(PaymentTypeViewModel), new PropertyMetadata(0, new PropertyChangedCallback(DefaultFieldChanged)));
 
 
 
@@ -31,7 +31,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for PaymentTypeName.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PaymentTypeNameProperty =
-            DependencyProperty.Register("PaymentTypeName", typeof(string), typeof(PaymentTypeViewModel), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("PaymentTypeName", typeof(string), typeof(PaymentTypeViewModel), new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
 
 
     }

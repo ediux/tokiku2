@@ -52,13 +52,13 @@ namespace TokikuNew.Views
         private void btnF1_Click(object sender, RoutedEventArgs e)
         {
             Model = new ManufacturersViewModel();            
-            Model.IsNew = true;
+            Model.IsNewInstance = true;
             DataContext = Model;
         }
 
         private void btnModify_Click(object sender, RoutedEventArgs e)
         {
-            Model.IsEditorMode = !Model.IsEditorMode;
+            Model.CanEdit = !Model.CanEdit;
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -76,7 +76,7 @@ namespace TokikuNew.Views
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            Model.IsEditorMode = false;
+            Model.CanEdit = false;
             Model.CanSave = false;
         }
 
@@ -117,14 +117,14 @@ namespace TokikuNew.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            controller = new ManufacturersController();
+            //controller = new ManufacturersController();
 
-            if (Model == null)
-                Model = new ManufacturersViewModel();
+            //if (Model == null)
+            //    Model = new ManufacturersViewModel();
 
-            //Model.QueryAll();
-            Model.IsEditorMode = false;
-            DataContext = Model;
+            ////Model.QueryAll();
+            //Model.CanEdit = false;
+            Model = (ManufacturersViewModel)DataContext;
         }
 
         private void ContractList_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)

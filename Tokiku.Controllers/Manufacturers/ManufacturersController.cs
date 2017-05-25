@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity.Validation;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Tokiku.Entity;
@@ -10,18 +12,14 @@ using Tokiku.ViewModels;
 
 namespace Tokiku.Controllers
 {
-    public class ManufacturersController : BaseController
+    public class ManufacturersController : BaseController<ManufacturersViewModel, Manufacturers>
     {
-        private TokikuEntities database;
 
+        private UserController controller;
         public ManufacturersController()
         {
-            database = new TokikuEntities();
-        }
+            controller = new UserController();
 
-        public ManufacturersViewModel CreateNew()
-        {
-            return new ManufacturersViewModel();
         }
 
         /// <summary>
@@ -29,8 +27,9 @@ namespace Tokiku.Controllers
         /// </summary>
         /// <param name="Code"></param>
         /// <returns></returns>
-        public string GetNextProjectSerialNumber(string Code)
+        public string GetNextProjectSerialNumber()
         {
+            string Code = string.Empty;
             var lastitem = QueryAll().OrderByDescending(s => s.Code).FirstOrDefault();
             if (lastitem != null)
             {
@@ -106,7 +105,7 @@ namespace Tokiku.Controllers
                 Code = "01";
             }
 
-            return string.Format("{0:##}", Code);
+            return string.Format("{0:00}", Code);
         }
 
         public IEnumerable SearchByText(string originalSource)
@@ -132,86 +131,29 @@ namespace Tokiku.Controllers
         /// 查詢單一個體的資料實體。
         /// </summary>
         /// <param name="ProjectId"></param>
-        public ManufacturersViewModel QueryModel(Guid ProjectId)
-        {
-            Manufacturers result = QuerySingle(ProjectId);
-
-            if (result != null)
-            {
-                ManufacturersViewModel vm = new ManufacturersViewModel();
-                vm = BindingFromModel<Manufacturers, ManufacturersViewModel>(result);
-                vm.Contracts = new ObservableCollection<ContactsViewModel>(result.Contacts.ToList().ConvertAll(c => BindingFromModel<Contacts, ContactsViewModel>(c)));
-                vm.IsEditorMode = false;
-
-                return vm;
-            }
-
-            return null;
-        }
-
-
-        /// <summary>
-        /// 儲存變更
-        /// </summary>
-        public void SaveModel(ManufacturersViewModel model)
+        public ManufacturersViewModel QueryModel(Guid ManufacturersId)
         {
             try
             {
-                if (IsExists(model.Id))
-                {
-                    Manufacturers result = QuerySingle(model.Id);
-                    CopyToModel(result, model);
-                    Update(result);
-                }
-                else
-                {
-                    Manufacturers newProject = new Manufacturers();
-                    CopyToModel(newProject, model);
-                    newProject.CreateTime = DateTime.Now;
-                    newProject.CreateUserId = model.LoginedUser.UserId;
-
-                    database.Manufacturers.Add(newProject);
-                }
-                model.IsEditorMode = true;
-                model.IsSaved = true;
-                model.IsModify = false;
-            }
-            catch
-            {
-                throw;
-            }
-
-        }
-
-
-        public void Add(ManufacturersViewModel model)
-        {
-            var dbm = new Manufacturers();
-            CopyToModel(dbm, model);
-            database.Manufacturers.Add(dbm);
-            database.SaveChanges();
-        }
-
-        private Manufacturers QuerySingle(Guid ManufacturersId)
-        {
-            try
-            {
-                var result = from p in database.Manufacturers
-                             where p.Id == ManufacturersId && p.Void == false
-                             select p;
-
-                if (result.Any())
-                {
-                    return result.Single();
-                }
-
-                return null;
+                return Query(q => q.Id == ManufacturersId);
             }
             catch (Exception)
             {
 
                 throw;
             }
+
+            //if (result != null)
+            //{
+            //    ManufacturersViewModel vm = new ManufacturersViewModel();
+            //    vm = BindingFromModel<Manufacturers, ManufacturersViewModel>(result);
+            //    vm.Contracts = new ObservableCollection<ContactsViewModel>(result.Contacts.ToList().ConvertAll(c => BindingFromModel<Contacts, ContactsViewModel>(c)));
+            //    vm.IsEditorMode = false;
+
+            //    return vm;
+            //}
+
+            //return null;
         }
 
         public ObservableCollection<ManufacturersViewModel> QueryAll()
@@ -222,7 +164,7 @@ namespace Tokiku.Controllers
                              where p.Void == false && p.IsClient == false
                              select p;
 
-                return new ObservableCollection<ManufacturersViewModel>(result.ToList().ConvertAll(c => BindingFromModel<Manufacturers, ManufacturersViewModel>(c)));
+                return new ObservableCollection<ManufacturersViewModel>(result.ToList().ConvertAll(c => BindingFromModel(c)));
             }
             catch (Exception)
             {
@@ -231,39 +173,40 @@ namespace Tokiku.Controllers
             }
         }
 
-        public bool IsExists(Guid ManufacturersId)
+        public override ManufacturersViewModel CreateNew()
+        {
+            try
+            {
+                UserController uc = new UserController();
+                var model = new ManufacturersViewModel()
+                {
+                    LoginedUser = uc.GetCurrentLoginUser(),
+                    Code = GetNextProjectSerialNumber()
+                };
+                return model;
+            }
+            catch (Exception ex)
+            {
+                ManufacturersViewModel m = new ManufacturersViewModel();
+                m.Errors = new string[] { ex.Message, ex.StackTrace };
+                return m;
+            }
+        }
+
+        public override void Add(ManufacturersViewModel model)
+        {
+            var dbm = new Manufacturers();
+            CopyToModel(dbm, model);
+            database.Manufacturers.Add(dbm);
+            database.SaveChanges();
+        }
+
+        public override void Delete(ManufacturersViewModel model)
         {
             try
             {
                 var result = from p in database.Manufacturers
-                             where p.Id == ManufacturersId && p.Void == false
-                             select p;
-
-                return result.Any();
-            }
-            catch
-            {
-
-                return false;
-            }
-        }
-
-        private void Update(Manufacturers updatedProject)
-        {
-            var original = QuerySingle(updatedProject.Id);
-            if (original != null)
-            {
-                original = updatedProject;
-                database.SaveChanges();
-            }
-        }
-
-        public void Delete(Guid ManufacturersId, Guid UserId)
-        {
-            try
-            {
-                var result = from p in database.Manufacturers
-                             where p.Id == ManufacturersId && p.Void == false
+                             where p.Id == model.Id && p.Void == false
                              select p;
 
                 if (result.Any())
@@ -271,15 +214,54 @@ namespace Tokiku.Controllers
                     var data = result.Single();
                     data.Void = true;
 
-                    database.AccessLog.Add(new AccessLog() { ActionCode = 3, CreateTime = DateTime.Now, DataId = ManufacturersId, UserId = UserId });
+                    database.AccessLog.Add(new AccessLog() { ActionCode = 3, CreateTime = DateTime.Now, DataId = model.Id, UserId = model.LoginedUser.UserId });
                     database.SaveChanges();
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
+            {
+                setErrortoModel(model, ex);
+            }
+        }
+
+     
+
+        /// <summary>
+        /// 儲存變更
+        /// </summary>
+        public override void SaveModel(ManufacturersViewModel model)
+        {
+            try
+            {
+                if (IsExists(q => q.Id == model.Id))
+                {
+                    Update(model);                    
+                }
+                else
+                {
+                    Add(model);
+                    model = Query(x => x.Id == model.Id);                    
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public override bool IsExists(Expression<Func<Manufacturers, bool>> filiter)
+        {
+            try
+            {
+                var result = database.Manufacturers.Where(filiter);
+
+                return result.Any();
+            }
+            catch
             {
 
-                throw;
+                return false;
             }
         }
     }

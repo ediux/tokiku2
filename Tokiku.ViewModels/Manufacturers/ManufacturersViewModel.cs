@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace Tokiku.ViewModels
 {
-    public class ManufacturersViewModel : BaseViewModel
+    public class ManufacturersViewModel : BaseViewModel, IBaseViewModelWithLoginedUser
     {
 
         public static readonly DependencyProperty IdProperty = DependencyProperty.Register("Id", typeof(Guid), typeof(ManufacturersViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
@@ -188,31 +188,31 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for Contracts.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ContractsProperty =
-            DependencyProperty.Register("Contracts", typeof(ObservableCollection<Entity.Contacts>), typeof(ManufacturersViewModel), new PropertyMetadata(default(ObservableCollection<Entity.Contacts>)));
+            DependencyProperty.Register("Contracts", typeof(ObservableCollection<ContactsViewModel>), typeof(ManufacturersViewModel), new PropertyMetadata(default(ObservableCollection<ContactsViewModel>)));
 
 
 
-        public ObservableCollection<Entity.Materials> Materials
+        public ObservableCollection<MaterialsViewModel> Materials
         {
-            get { return (ObservableCollection<Entity.Materials>)GetValue(MaterialsProperty); }
+            get { return (ObservableCollection<MaterialsViewModel>)GetValue(MaterialsProperty); }
             set { SetValue(MaterialsProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for Materials.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MaterialsProperty =
-            DependencyProperty.Register("Materials", typeof(ObservableCollection<Entity.Materials>), typeof(ManufacturersViewModel), new PropertyMetadata(default(ObservableCollection<Entity.Materials>)));
+            DependencyProperty.Register("Materials", typeof(ObservableCollection<MaterialsViewModel>), typeof(ManufacturersViewModel), new PropertyMetadata(default(ObservableCollection<MaterialsViewModel>)));
 
 
 
-        public Entity.Contacts SelectedContract
+        public ContactsViewModel SelectedContract
         {
-            get { return (Entity.Contacts)GetValue(SelectedContractProperty); }
+            get { return (ContactsViewModel)GetValue(SelectedContractProperty); }
             set { SetValue(SelectedContractProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for  SelectedContract.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedContractProperty =
-            DependencyProperty.Register(" SelectedContract", typeof(Entity.Contacts), typeof(ManufacturersViewModel), new PropertyMetadata(default(Entity.Contacts)));
+            DependencyProperty.Register(" SelectedContract", typeof(ContactsViewModel), typeof(ManufacturersViewModel), new PropertyMetadata(default(ContactsViewModel)));
 
 
     }

@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 namespace TokikuNew.Controls
 {   
     /// <summary>
-    /// ClosableTab.xaml 的互動邏輯
+    /// 用來替換Tab控制項的面板用控制項
     /// </summary>
     public partial class ClosableTab : UserControl
     {
@@ -26,6 +26,12 @@ namespace TokikuNew.Controls
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 當關閉分頁時引發的事件處理。
+        /// </summary>
+        /// <remarks>
+        /// 引發獨立的自訂路由事件，由外層UI元素進行對應攔截事件訊息。
+        /// </remarks>
         private void btnTabClose_Click(object sender, RoutedEventArgs e)
         {
             RoutedEventArgs eu = new RoutedEventArgs(ButtonBase.ClickEvent, btnTabClose);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,7 +49,7 @@ namespace TokikuNew.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            ProjectList.ItemsSource = controller.QueryAll();            
+            ProjectList.ItemsSource = (ObservableCollection<ProjectBaseViewModel>)DataContext;
         }
 
         private void ProjectList_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -82,12 +83,12 @@ namespace TokikuNew.Views
             RaiseEvent(newEventArgs);
         }
 
-       
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //搜尋框
-            ProjectList.ItemsSource = controller.SearchByText((string)e.OriginalSource);            
+            ProjectList.ItemsSource = controller.SearchByText((string)e.OriginalSource);
         }
 
         private void ProjectList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -95,13 +96,13 @@ namespace TokikuNew.Views
             if (e.AddedItems.Count > 0)
             {
                 var obj = e.AddedItems[0];
-                RaiseEvent(new RoutedEventArgs(SelectedProjectChangedEvent, obj));            
-            }            
+                RaiseEvent(new RoutedEventArgs(SelectedProjectChangedEvent, obj));
+            }
         }
 
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
-            RaiseEvent(new RoutedEventArgs(SendNewPageRequestEvent, e.OriginalSource));   
+            RaiseEvent(new RoutedEventArgs(SendNewPageRequestEvent, e.OriginalSource));
         }
 
         private void cSearchBar_ResetSearch(object sender, RoutedEventArgs e)

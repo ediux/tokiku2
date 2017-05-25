@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tokiku.ViewModels;
 
 namespace TokikuNew.Views
 {
@@ -63,6 +64,17 @@ namespace TokikuNew.Views
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void UserControl_Initialized(object sender, EventArgs e)
+        {
+            if (DataContext != null)
+            {
+                if(DataContext is ProjectBaseViewModel)
+                {
+
+                }
+            }
         }
     }
 }

@@ -110,7 +110,7 @@
                     <c:SearchBar Grid.Column="1" Grid.Row="0" />
                     <Button HorizontalAlignment="Left" Grid.Column="2" Width="30" Grid.Row="0" Content="新增" Name="btnAddList" Click="btnAddList_Click" Margin="2" />
 
-                    <c:CustomDataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto" x:Name="ContractList" SelectedCellsChanged="ContractList_SelectedCellsChanged">
+                    <c:CustomDataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" CanUserAddRows="True" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto" x:Name="ContractList" SelectedCellsChanged="ContractList_SelectedCellsChanged" DataContext="{Binding Contracts}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="姓名" Binding="{Binding Name}" Width="100" />
                             <DataGridTextColumn Header="部門" Binding="{Binding Dep}" Width="100" />
@@ -174,13 +174,13 @@
             </Grid>
         </Grid>
         <StackPanel Grid.Row="1" Orientation="Horizontal" >
-            <Button Margin="2" Width="48" x:Name="btnF1" IsEnabled="{Binding IsNew, Converter={StaticResource NOTGateValueConverter}}" Click="btnF1_Click">
+            <Button Margin="2" Width="48" x:Name="btnF1" IsEnabled="{Binding IsNewInstance, Converter={StaticResource NOTGateValueConverter}}" Click="btnF1_Click">
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="F1" TextAlignment="Center"/>
                     <TextBlock Text="新增" TextAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <Button Margin="2" Width="48" IsEnabled="{Binding IsEditorMode, Converter={StaticResource NOTGateValueConverter}}" Name="btnModify" Click="btnModify_Click">
+            <Button Margin="2" Width="48" IsEnabled="{Binding CanEdit, Converter={StaticResource NOTGateValueConverter}}" Name="btnModify" Click="btnModify_Click">
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="F2" TextAlignment="Center"/>
                     <TextBlock Text="修改" TextAlignment="Center"/>

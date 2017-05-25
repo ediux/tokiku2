@@ -6,9 +6,9 @@
              xmlns:local="clr-namespace:TokikuNew.Views"
              xmlns:ValueConverters="clr-namespace:TokikuNew.ValueConverters" 
              mc:Ignorable="d" 
-             d:DesignHeight="421.269" d:DesignWidth="640" Loaded="UserControl_Loaded">
+             d:DesignHeight="768" d:DesignWidth="1024" Loaded="UserControl_Loaded">
     <UserControl.Resources>
-        <ValueConverters:CheckBoxSwitchValueConverter x:Key="CheckBoxSwitchValueConverter"/>
+        <ValueConverters:RadioButtonSwitchValueConverter x:Key="CheckBoxSwitchValueConverter"/>
         <ValueConverters:NOTGateValueConverter x:Key="NOTGateValueConverter"/>
         <ValueConverters:SigningDateToCodeConverter x:Key="SigningDateToCodeConverter"/>
     </UserControl.Resources>

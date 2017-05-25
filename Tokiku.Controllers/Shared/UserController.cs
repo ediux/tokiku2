@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data.Entity.Validation;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Tokiku.Entity;
@@ -8,125 +11,144 @@ using Tokiku.ViewModels;
 
 namespace Tokiku.Controllers
 {
-    public class UserController : BaseController
+    public class UserController : BaseController<UserViewModel, Users>
     {
-        private TokikuEntities database;
+
 
         public UserController()
         {
-            database = new TokikuEntities();
         }
 
         public void AddUser(string UserName, string pwd, string role, string email = "abc@cde.com")
         {
-            string LoweredUserName = UserName.ToLowerInvariant();
-            string LoweredRoleName = role.ToLowerInvariant();
-
-            Users newUser = new Users()
+            try
             {
-                IsAnonymous = false,
-                LastActivityDate = new DateTime(1754, 1, 1),
-                LoweredUserName = LoweredUserName,
-                UserId = Guid.NewGuid(),
-                UserName = UserName
 
-            };
+                string LoweredUserName = UserName.ToLowerInvariant();
+                string LoweredRoleName = role.ToLowerInvariant();
 
-            Membership newMembership = new Membership()
-            {
-                CreateDate = DateTime.UtcNow,
-                FailedPasswordAnswerAttemptCount = 0,
-                FailedPasswordAnswerAttemptWindowStart = new DateTime(1754, 1, 1),
-                FailedPasswordAttemptCount = 0,
-                FailedPasswordAttemptWindowStart = new DateTime(1754, 1, 1),
-                IsApproved = true,
-                Comment = string.Empty,
-                Email = email,
-                LoweredEmail = email.ToLowerInvariant(),
-                MobilePIN = string.Empty,
-                PasswordAnswer = string.Empty,
-                PasswordQuestion = string.Empty,
-                PasswordSalt = string.Empty,
-                IsLockedOut = false,
-                LastLockoutDate = new DateTime(1754, 1, 1),
-                LastLoginDate = new DateTime(1754, 1, 1),
-                Password = pwd,
-                PasswordFormat = 0,
-                LastPasswordChangedDate = new DateTime(1754, 1, 1),
-                UserId = newUser.UserId,
-                Users = newUser
-            };
-
-
-
-            if (!database.Users.Where(w => w.UserName == UserName).Any())
-            {
-                if (!database.Roles.Where(w => w.LoweredRoleName == LoweredRoleName).Any())
+                Users newUser = new Users()
                 {
-                    Roles newRole = new Roles()
+                    IsAnonymous = false,
+                    LastActivityDate = new DateTime(1754, 1, 1),
+                    LoweredUserName = LoweredUserName,
+                    UserId = Guid.NewGuid(),
+                    UserName = UserName
+
+                };
+
+                Membership newMembership = new Membership()
+                {
+                    CreateDate = DateTime.UtcNow,
+                    FailedPasswordAnswerAttemptCount = 0,
+                    FailedPasswordAnswerAttemptWindowStart = new DateTime(1754, 1, 1),
+                    FailedPasswordAttemptCount = 0,
+                    FailedPasswordAttemptWindowStart = new DateTime(1754, 1, 1),
+                    IsApproved = true,
+                    Comment = string.Empty,
+                    Email = email,
+                    LoweredEmail = email.ToLowerInvariant(),
+                    MobilePIN = string.Empty,
+                    PasswordAnswer = string.Empty,
+                    PasswordQuestion = string.Empty,
+                    PasswordSalt = string.Empty,
+                    IsLockedOut = false,
+                    LastLockoutDate = new DateTime(1754, 1, 1),
+                    LastLoginDate = new DateTime(1754, 1, 1),
+                    Password = pwd,
+                    PasswordFormat = 0,
+                    LastPasswordChangedDate = new DateTime(1754, 1, 1),
+                    UserId = newUser.UserId,
+                    Users = newUser
+                };
+
+                if (!database.Users.Where(w => w.UserName == UserName).Any())
+                {
+                    if (!database.Roles.Where(w => w.LoweredRoleName == LoweredRoleName).Any())
                     {
-                        Description = role,
-                        LoweredRoleName = LoweredRoleName,
-                        RoleId = Guid.NewGuid(),
-                        RoleName = role,
-                    };
-                    newRole.Users.Add(newUser);
-                    database.Roles.Add(newRole);
-                }
-                else
-                {
-                    Roles adminRole = (from r in database.Roles
-                                       where r.LoweredRoleName == LoweredRoleName
-                                       select r).SingleOrDefault();
+                        Roles newRole = new Roles()
+                        {
+                            Description = role,
+                            LoweredRoleName = LoweredRoleName,
+                            RoleId = Guid.NewGuid(),
+                            RoleName = role,
+                        };
+                        newRole.Users.Add(newUser);
+                        database.Roles.Add(newRole);
+                    }
+                    else
+                    {
+                        Roles adminRole = (from r in database.Roles
+                                           where r.LoweredRoleName == LoweredRoleName
+                                           select r).SingleOrDefault();
 
-                    adminRole.Users.Add(newUser);
-                }
+                        adminRole.Users.Add(newUser);
+                    }
 
-                newUser.Membership = newMembership;
-                database.Users.Add(newUser);
-                database.SaveChanges();
+                    newUser.Membership = newMembership;
+                    database.Users.Add(newUser);
+                    database.SaveChanges();
+                }
+            }
+            catch
+            {
             }
 
         }
 
-        public UserViewModel AddUser(UserViewModel model)
+
+
+        public UserViewModel GetUser(string UserName)
         {
-            var user = new Users();
-            CopyToNotModel(user, model);
-            user = database.Users.Add(user);
-            database.SaveChanges();
+            UserViewModel vm = new UserViewModel();
 
-            return BindingFromNotModel<Users, UserViewModel>(user);
-        }
-
-        public Users GetUser(string UserName)
-        {
-            string LoweredUserName = UserName.ToLowerInvariant();
-
-            var user = (from u in database.Users
-                        where u.UserName == UserName || u.LoweredUserName == LoweredUserName
-                        select u).SingleOrDefault();
-
-            return user;
+            try
+            {
+                return Query(s => s.UserName == UserName);
+            }
+            catch (Exception ex)
+            {
+                vm.Errors = new string[] { ex.Message };
+                return vm;
+            }
         }
 
         public UserViewModel Login(LoginViewModel model)
         {
             try
             {
-                return BindingFromNotModel<Users, UserViewModel>(Login(model.UserName, model.Password));
+                return Login(model.UserName, model.Password);
             }
             catch (Exception ex)
             {
-                UserViewModel vm = new UserViewModel();
-                vm.Error = ex;
-                return vm;
+                
+                if (ex is DbEntityValidationException)
+                {
+                    DbEntityValidationException dbex = (DbEntityValidationException)ex;
+
+                    List<string> msg = new List<string>();
+
+                    foreach (var err in dbex.EntityValidationErrors)
+                    {
+                        foreach (var errb in err.ValidationErrors)
+                        {
+                            msg.Add(errb.ErrorMessage);
+                        }
+                    }
+
+                    model.Errors = msg.AsEnumerable();
+                   
+                }
+
+                model.Errors = new string[] { ex.Message };
+
+                return new UserViewModel() { Errors = model.Errors };
             }
 
         }
-        private static Users _CurrentLoginedUserStorage;
+        private static UserViewModel _CurrentLoginedUserStorage;
 
-        public Users Login(string UserName, string pwd)
+        public UserViewModel Login(string UserName, string pwd)
         {
             try
             {
@@ -140,8 +162,8 @@ namespace Tokiku.Controllers
                     if (_CurrentLoginedUserStorage != null)
                         _CurrentLoginedUserStorage = null;
 
-                    _CurrentLoginedUserStorage = result;
-                    return result;
+                    _CurrentLoginedUserStorage = BindingFromModel(result);
+                    return _CurrentLoginedUserStorage;
                 }
 
                 if (UserName.ToLowerInvariant() == "root" && pwd == "1234")
@@ -165,9 +187,29 @@ namespace Tokiku.Controllers
                 }
                 return null;
             }
-            catch
+            catch(Exception ex)
             {
-                throw;
+                UserViewModel model = new UserViewModel();
+                if (ex is DbEntityValidationException)
+                {
+                    DbEntityValidationException dbex = (DbEntityValidationException)ex;
+
+                    List<string> msg = new List<string>();
+
+                    foreach (var err in dbex.EntityValidationErrors)
+                    {
+                        foreach (var errb in err.ValidationErrors)
+                        {
+                            msg.Add(errb.ErrorMessage);
+                        }
+                    }
+
+                    model.Errors = msg.AsEnumerable();
+                    return model;
+                }
+
+                model.Errors = new string[] { ex.Message };
+                return model;
             }
 
 
@@ -179,7 +221,7 @@ namespace Tokiku.Controllers
             {
                 if (_CurrentLoginedUserStorage != null)
                 {
-                    return BindingFromNotModel<Users, UserViewModel>(_CurrentLoginedUserStorage);
+                    return _CurrentLoginedUserStorage;
                 }
 
                 return default(UserViewModel);
@@ -187,9 +229,31 @@ namespace Tokiku.Controllers
             catch (Exception ex)
             {
                 UserViewModel error = new UserViewModel();
-                error.Error = ex;
+                error.Errors = new string[] { ex.Message };
                 return error;
             }
         }
+
+        public override UserViewModel CreateNew()
+        {
+            return new UserViewModel();
+        }
+
+        public override void Add(UserViewModel model)
+        {
+            try
+            {
+                Users newUser = new Users();
+                CopyToModel(newUser, model);
+                database.Users.Add(newUser);
+                database.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(model, ex);                
+            }
+        }
+
+
     }
 }

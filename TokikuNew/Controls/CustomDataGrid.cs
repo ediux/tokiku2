@@ -29,8 +29,6 @@ namespace TokikuNew.Controls
             SetValue(CanUserAddRowsProperty, true);
         }
 
-
-
         public bool AllowExecuteSystemCommand
         {
             get { return (bool)GetValue(AllowExecuteSystemCommandProperty); }
@@ -45,8 +43,8 @@ namespace TokikuNew.Controls
 
         private void CustomDataGrid_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            if (e.Command == ApplicationCommands.Paste) { e.CanExecute = true & (bool)GetValue(AllowExecuteSystemCommandProperty); }
-            if (e.Command == ApplicationCommands.Copy) { e.CanExecute = true & (bool)GetValue(AllowExecuteSystemCommandProperty); }
+            if (e.Command == ApplicationCommands.Paste) { e.CanExecute = (bool)GetValue(AllowExecuteSystemCommandProperty); }
+            if (e.Command == ApplicationCommands.Copy) { e.CanExecute = (bool)GetValue(AllowExecuteSystemCommandProperty); }
         }
 
         private void CustomDataGrid_Executed(object sender, ExecutedRoutedEventArgs e)

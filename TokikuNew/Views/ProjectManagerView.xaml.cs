@@ -74,12 +74,12 @@ namespace TokikuNew.Views
 
         private void btnModify_Click(object sender, RoutedEventArgs e)
         {
-            SelectedProject.IsEditorMode = !SelectedProject.IsEditorMode;
+            SelectedProject.CanEdit = !SelectedProject.CanEdit;
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            SelectedProject.IsEditorMode = false;
+            SelectedProject.CanEdit = false;
             SelectedProject.CanSave = false;
         }
 
@@ -94,6 +94,7 @@ namespace TokikuNew.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            //註冊關閉事件處理器
 
             if (SelectedProject == null)
             {
