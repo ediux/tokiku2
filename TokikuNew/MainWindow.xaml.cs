@@ -57,30 +57,6 @@ namespace TokikuNew
                 {
                     if (currentworking.Content != null)
                     {
-                        if (currentworking.Content is Views.ProjectManagerView)
-                        {
-                            Views.ProjectManagerView vm = currentworking.Content as Views.ProjectManagerView;
-                            if (vm.Model.IsModify && vm.Model.IsSaved == false)
-                            {
-                                if (MessageBox.Show("您有變更尚未儲存，是否更新?", "關閉前確認", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                                {
-                                    controller.SaveModel(vm.Model);
-                                }
-                            }
-                        }
-
-                        if (currentworking.Content is Views.ProjectViewer)
-                        {
-                            Views.ProjectViewer vm = currentworking.Content as Views.ProjectViewer;
-                            if (vm.Model.IsModify && vm.Model.IsSaved == false)
-                            {
-                                if (MessageBox.Show("您有變更尚未儲存，是否更新?", "關閉前確認", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                                {
-                                    controller.SaveModel(vm.Model);
-                                }
-                            }
-                        }
-
                         Workspaces.Items.Remove(currentworking);
                         Model.CurrentProject = null;
                     }
@@ -166,22 +142,6 @@ namespace TokikuNew
                 TabItem addWorkarea = new TabItem();
                 addWorkarea.Header = "專案主檔";
 
-                //if (Model.CurrentProject != null)
-                //{
-                //    var vm = new Views.ProjectManagerView() { Margin = new Thickness(0) };
-                //    vm.Model = Model.CurrentProject;
-                //    vm.Model.LoginedUser = Model.LoginedUser;
-                //    vm.DataContext = vm.Model;
-                //    vm.Model.IsNew = false;
-                //    vm.Model.DisabledEditor();
-                //    addWorkarea.Content = vm;
-                //    addWorkarea.Margin = new Thickness(0);
-
-                //    Workspaces.Items.Add(addWorkarea);
-                //    Workspaces.SelectedItem = addWorkarea;
-                //}
-                //else
-                //{
                 var vm = new Views.ProjectManagerView() { Margin = new Thickness(0), Model = new ProjectBaseViewModel() };
                 vm.Model.LoginedUser = Model.LoginedUser;
 
@@ -201,8 +161,7 @@ namespace TokikuNew
                 addWorkarea.Margin = new Thickness(0);
 
                 Workspaces.Items.Add(addWorkarea);
-                Workspaces.SelectedItem = addWorkarea;
-                //}
+                Workspaces.SelectedItem = addWorkarea;                
 
 
             }
@@ -395,6 +354,26 @@ namespace TokikuNew
         }
 
         private void VendorSelection_SelectedVendorChanged(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MI_Reports_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MI_Finance_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MI_System_Members_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MI_System_Roles_Click(object sender, RoutedEventArgs e)
         {
 
         }

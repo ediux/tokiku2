@@ -18,11 +18,12 @@
             <RowDefinition Height="27"/>
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" >
-            <MenuItem Header="報表"></MenuItem>
-            <MenuItem Header="帳務"></MenuItem>
+            <MenuItem Header="報表" Name="MI_Reports" Click="MI_Reports_Click"></MenuItem>
+            <MenuItem Header="帳務" Name="MI_Finance" Click="MI_Finance_Click"></MenuItem>
             <MenuItem Header="系統管理">
                 <MenuItem Header="選項" Name="MI_SystemOption" Click="MI_SystemOption_Click"/>
-                <MenuItem Header="人員管理" ></MenuItem>
+                <MenuItem Header="人員管理" Name="MI_System_Members" Click="MI_System_Members_Click" ></MenuItem>
+                <MenuItem Header="角色管理" Name="MI_System_Roles" Click="MI_System_Roles_Click"></MenuItem>
                 <Separator/>
                 <MenuItem Header="結束程式" Name="ExitApp" Click="ExitApp_Click"></MenuItem>
             </MenuItem>

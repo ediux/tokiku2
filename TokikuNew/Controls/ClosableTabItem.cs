@@ -7,11 +7,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+using Tokiku.Controllers;
 
 namespace TokikuNew.Controls
 {
     public class ClosableTabItem : TabItem
     {
+        private ProjectsController controller = new ProjectsController();
+
         public ClosableTabItem()
         {
             AddHandler(Button.ClickEvent, new RoutedEventHandler(Headerobj_OnPageClosing));
@@ -42,6 +45,31 @@ namespace TokikuNew.Controls
                 if (btn.Name == "btnTabClose")
                 {
                     e.Handled = true;
+
+                    if (Content is Views.ProjectManagerView)
+                    {
+                        Views.ProjectManagerView vm = Content as Views.ProjectManagerView;
+                        if (vm.Model.IsModify && vm.Model.IsSaved == false)
+                        {
+                            if (MessageBox.Show("您有變更尚未儲存，是否更新?", "關閉前確認", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                            {
+                                controller.SaveModel(vm.Model);
+                            }
+                        }
+                    }
+
+                    if (Content is Views.ProjectViewer)
+                    {
+                        Views.ProjectViewer vm = Content as Views.ProjectViewer;
+                        if (vm.Model.IsModify && vm.Model.IsSaved == false)
+                        {
+                            if (MessageBox.Show("您有變更尚未儲存，是否更新?", "關閉前確認", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                            {
+                                controller.SaveModel(vm.Model);
+                            }
+                        }
+                    }
+
                     RaiseEvent(new RoutedEventArgs(OnPageClosingEvent,e.OriginalSource));  //重新引發分頁關閉事件
                     return;
                 }                            
