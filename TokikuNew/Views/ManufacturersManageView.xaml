@@ -10,8 +10,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024" Background="{DynamicResource ControlBackgroundBrush}" Loaded="UserControl_Loaded">
     <UserControl.Resources>
-        <ValueConverters:NOTGateValueConverter x:Key="NOTGateValueConverter"/>
-        <ValueConverters:SigningDateToCodeConverter x:Key="SigningDateToCodeConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>

@@ -31,30 +31,22 @@ namespace TokikuNew.Views
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty SelectedProjectProperty = DependencyProperty.Register("SelectedProject", typeof(ProjectBaseViewModel), typeof(ProjectSelectListView));
+        public static readonly DependencyProperty SelectedProjectProperty = DependencyProperty.Register("SelectedProject", typeof(ProjectListViewModel), typeof(ProjectSelectListView));
 
-        public ProjectBaseViewModel SelectedProject
+        public ProjectListViewModel SelectedProject
         {
-            get { return (ProjectBaseViewModel)GetValue(SelectedProjectProperty); }
+            get { return (ProjectListViewModel)GetValue(SelectedProjectProperty); }
             set { SetValue(SelectedProjectProperty, value); }
         }
-
-        public static readonly DependencyProperty CommandClickProperty = DependencyProperty.Register("CommandClick", typeof(string), typeof(ProjectSelectListView));
-
-        public string CommandClick
-        {
-            get { return (string)GetValue(CommandClickProperty); }
-            set { SetValue(CommandClickProperty, value); }
-        }
-
+       
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            ProjectList.ItemsSource = (ObservableCollection<ProjectBaseViewModel>)DataContext;
+            //ProjectList.ItemsSource = (ObservableCollection<ProjectBaseViewModel>)DataContext;
         }
 
         private void ProjectList_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            SelectedProject = (ProjectBaseViewModel)e.NewValue;
+            SelectedProject = (ProjectListViewModel)e.NewValue;
             RaiseEvent(new RoutedEventArgs(SelectedProjectChangedEvent, SelectedProject));
         }
 

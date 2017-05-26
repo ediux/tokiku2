@@ -42,6 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CRM\ClientViewModel.cs" />
+    <Compile Include="EngineeringViewModel.cs" />
+    <Compile Include="ProjectContractViewModel.cs" />
+    <Compile Include="Projects\ProjectListViewModel.cs" />
+    <Compile Include="PromissoryNoteManagementViewModel.cs" />
     <Compile Include="Shared\ContactsViewModel.cs" />
     <Compile Include="Manufacturers\ManufacturersViewModel.cs" />
     <Compile Include="MES\MaterialsViewModel.cs" />

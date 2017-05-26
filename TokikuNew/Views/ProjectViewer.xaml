@@ -1,33 +1,37 @@
-﻿<UserControl x:Class="TokikuNew.Views.ProjectViewer"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:Controls="clr-namespace:TokikuNew.Controls" x:Class="TokikuNew.Views.ProjectViewer"
              mc:Ignorable="d" 
-             d:DesignHeight="768" d:DesignWidth="1024" Loaded="UserControl_Loaded" >
+             d:DesignHeight="768" d:DesignWidth="1024" Loaded="UserControl_Loaded"  >
     <Grid Background="{DynamicResource ControlBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="48"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Menu Grid.Row="0" Grid.Column="0">
-            <MenuItem Header="用料需求"></MenuItem>
-            <MenuItem Header="鋁擠型"></MenuItem>
-            <MenuItem Header="單元安框"></MenuItem>
-            <MenuItem Header="玻璃"></MenuItem>
-            <MenuItem Header="鋁板"></MenuItem>
-            <MenuItem Header="鐵件"></MenuItem>
-            <MenuItem Header="其他材料"></MenuItem>
+            <MenuItem Header="用料需求"/>
+            <MenuItem Header="鋁擠型"/>
+            <MenuItem Header="單元安框"/>
+            <MenuItem Header="玻璃"/>
+            <MenuItem Header="鋁板"/>
+            <MenuItem Header="鐵件"/>
+            <MenuItem Header="其他材料"/>
         </Menu>
-        <TabControl Grid.Row="1" Grid.RowSpan="2" TabStripPlacement="Top">
+        <TabControl Grid.Row="1" TabStripPlacement="Top">
             <TabItem Header="專案主檔">
-                <local:ProjectManagerView x:Name="PMV" DataContext="{Binding}" />
+                <local:ProjectManagerView x:Name="PMV" DataContext="{Binding}" SelectedProject="{Binding}" />
             </TabItem>
         </TabControl>
+
+        <Controls:DockBar x:Name="dbar" Grid.Row="2" DocumentMode="Read" />
 
     </Grid>
 </UserControl>

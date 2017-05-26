@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace Tokiku.ViewModels
 {
-    public class ProjectBaseViewModel : BaseViewModel, IBaseViewModelWithLoginedUser
+    public class ProjectBaseViewModel : WithOutBaseViewModel, IBaseViewModel
     {
         #region 私有變數
         /// <summary>
@@ -28,7 +28,7 @@ namespace Tokiku.ViewModels
 
         public static readonly DependencyProperty ShortNameProperty = DependencyProperty.Register("ShortName", typeof(string), typeof(ProjectBaseViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
-        public static readonly DependencyProperty ClientIdProperty = DependencyProperty.Register("ClientId", typeof(Guid), typeof(ProjectBaseViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
+        public static readonly DependencyProperty ClientIdProperty = DependencyProperty.Register("ClientId", typeof(Guid?), typeof(ProjectBaseViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
         public static readonly DependencyProperty CreateTimeProperty = DependencyProperty.Register("CreateTime", typeof(DateTime), typeof(ProjectBaseViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
@@ -80,7 +80,7 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 客戶
         /// </summary>
-        public System.Guid ClientId { get { return (Guid)GetValue(ClientIdProperty); } set { SetValue(ClientIdProperty, value); } }
+        public System.Guid? ClientId { get { return (Guid?)GetValue(ClientIdProperty); } set { SetValue(ClientIdProperty, value); } }
         /// <summary>
         /// 建立時間
         /// </summary>
@@ -111,16 +111,32 @@ namespace Tokiku.ViewModels
         /// <remarks>
         /// (0: 啟用 1:停用)
         /// </remarks>
-        public bool Void { get { return (bool)GetValue(VoidProperty); } set { SetValue(VoidProperty, value); } }
+        public bool Void { get { return (bool)GetValue(VoidProperty); } set { SetValue(VoidProperty, value); RaisePropertyChanged("Void"); } }
 
+        
         /// <summary>
         /// 狀態資料來源
         /// </summary>
         public ObservableCollection<StatesViewModel> StateText
         {
             get { return (ObservableCollection<StatesViewModel>)GetValue(StateTextProperty); }
-            set { SetValue(StateTextProperty, value); }
-        } 
+            set { SetValue(StateTextProperty, value); RaisePropertyChanged("StateText"); }
+        }
         #endregion
+
+
+
+        public ProjectContractViewModelCollection ProjectContract
+        {
+            get { return (ProjectContractViewModelCollection)GetValue(ProjectContractProperty); }
+            set { SetValue(ProjectContractProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ProjectContract.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ProjectContractProperty =
+            DependencyProperty.Register("ProjectContract", typeof(ProjectContractViewModelCollection), typeof(ProjectBaseViewModel
+                ), new PropertyMetadata(default(ProjectContractViewModelCollection),new PropertyChangedCallback(DefaultFieldChanged)));
+
+
     }
 }

@@ -192,7 +192,7 @@ namespace TokikuNew
         {
             try
             {
-                ProjectSelectionPage.SelectedProject = e.OriginalSource as ProjectBaseViewModel;
+                ProjectSelectionPage.SelectedProject = e.OriginalSource as ProjectListViewModel;
 
                 string Header = string.Format("專案:{0}-{1}", ProjectSelectionPage.SelectedProject.Code, ProjectSelectionPage.SelectedProject.ShortName);
                 //((MainViewModel)DataContext).CurrentProject = controller.QuerySingle(ProjectSelectionPage.SelectedProject.Id);
@@ -222,7 +222,7 @@ namespace TokikuNew
 
                     var vm = new Views.ProjectViewer() { Margin = new Thickness(0) };
 
-                    vm.DataContext = ProjectSelectionPage.SelectedProject;
+                    vm.DataContext = controller.Query(w => w.Id == ProjectSelectionPage.SelectedProject.Id);
 
                     addWorkarea.Content = vm;
                     addWorkarea.Margin = new Thickness(0);

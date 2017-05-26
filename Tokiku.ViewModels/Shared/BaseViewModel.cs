@@ -9,7 +9,7 @@ using System.Windows;
 namespace Tokiku.ViewModels
 {
 
-    public abstract class WithOutBaseViewModel : DependencyObject, IBaseViewModel
+    public class WithOutBaseViewModel : DependencyObject, IBaseViewModel
     {
         public WithOutBaseViewModel()
         {
@@ -33,6 +33,7 @@ namespace Tokiku.ViewModels
                 if (ctProp != null)
                 {
                     ctProp.SetValue(this, prop.GetValue(entity));
+                    RaisePropertyChanged(ctProp.Name);
                 }
             }
         }
@@ -57,6 +58,7 @@ namespace Tokiku.ViewModels
                 if (ctProp != null)
                 {
                     ctProp.SetValue(entity, prop.GetValue(this));
+                    RaisePropertyChanged(ctProp.Name);
                 }
             }
 
@@ -103,12 +105,12 @@ namespace Tokiku.ViewModels
         public bool IsNewInstance
         {
             get { return (bool)GetValue(IsNewInstanceProperty); }
-            set { SetValue(IsNewInstanceProperty, value); }
+            set { SetValue(IsNewInstanceProperty, value); RaisePropertyChanged("IsNewInstance"); }
         }
 
         // Using a DependencyProperty as the backing store for IsNewInstance.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsNewInstanceProperty =
-            DependencyProperty.Register("IsNewInstance", typeof(bool), typeof(WithOutBaseViewModel), new PropertyMetadata(true,new PropertyChangedCallback(DefaultFieldChanged)));
+            DependencyProperty.Register("IsNewInstance", typeof(bool),typeof(WithOutBaseViewModel));
 
 
         /// <summary>
@@ -117,12 +119,12 @@ namespace Tokiku.ViewModels
         public bool CanNew
         {
             get { return (bool)GetValue(CanNewProperty); }
-            set { SetValue(CanNewProperty, value); }
+            set { SetValue(CanNewProperty, value); RaisePropertyChanged("CanNew"); }
         }
 
         // Using a DependencyProperty as the backing store for CanNew.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CanNewProperty =
-            DependencyProperty.Register("CanNew", typeof(bool), typeof(WithOutBaseViewModel), new PropertyMetadata(true, new PropertyChangedCallback(DefaultFieldChanged)));
+            DependencyProperty.Register("CanNew", typeof(bool), typeof(WithOutBaseViewModel));
 
         /// <summary>
         /// 指出是否可以被編輯
@@ -130,12 +132,12 @@ namespace Tokiku.ViewModels
         public bool CanEdit
         {
             get { return (bool)GetValue(CanEditProperty); }
-            set { SetValue(CanEditProperty, value); }
+            set { SetValue(CanEditProperty, value); RaisePropertyChanged("CanEdit"); }
         }
 
         // Using a DependencyProperty as the backing store for CanEdit.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CanEditProperty =
-            DependencyProperty.Register("CanEdit", typeof(bool), typeof(WithOutBaseViewModel), new PropertyMetadata(true, new PropertyChangedCallback(DefaultFieldChanged)));
+            DependencyProperty.Register("CanEdit", typeof(bool), typeof(WithOutBaseViewModel));
 
 
         /// <summary>
@@ -144,14 +146,14 @@ namespace Tokiku.ViewModels
         public bool CanDelete
         {
             get { return (bool)GetValue(CanDeleteProperty); }
-            set { SetValue(CanDeleteProperty, value); }
+            set { SetValue(CanDeleteProperty, value); RaisePropertyChanged("CanDelete"); }
         }
 
         // Using a DependencyProperty as the backing store for CanDelete.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CanDeleteProperty =
             DependencyProperty.Register("CanDelete", typeof(bool), typeof(WithOutBaseViewModel), new PropertyMetadata(false));
 
-        public static readonly DependencyProperty IsModifyProperty = DependencyProperty.Register("IsModify", typeof(bool), typeof(WithOutBaseViewModel),new PropertyMetadata(false, new PropertyChangedCallback(DefaultFieldChanged)));
+        public static readonly DependencyProperty IsModifyProperty = DependencyProperty.Register("IsModify", typeof(bool), typeof(WithOutBaseViewModel));
 
         /// <summary>
         /// 指出是否已經修改
@@ -162,7 +164,7 @@ namespace Tokiku.ViewModels
             set { SetValue(IsModifyProperty, value); RaisePropertyChanged("IsModify"); }
         }
 
-        public static readonly DependencyProperty IsSavedProperty = DependencyProperty.Register("IsSaved", typeof(bool), typeof(WithOutBaseViewModel), new PropertyMetadata(false, new PropertyChangedCallback(DefaultFieldChanged)));
+        public static readonly DependencyProperty IsSavedProperty = DependencyProperty.Register("IsSaved", typeof(bool), typeof(WithOutBaseViewModel));
 
         /// <summary>
         /// 是否已存檔?
@@ -173,11 +175,12 @@ namespace Tokiku.ViewModels
             set {
                 SetValue(IsSavedProperty, value);
                 RaisePropertyChanged("IsSaved");
-                SetValue(CanSaveProperty, !value);
-                RaisePropertyChanged("CanSave"); }
+                //SetValue(CanSaveProperty, !value);
+                //RaisePropertyChanged("CanSave"); 
+            }
         }
 
-        public static readonly DependencyProperty CanSaveProperty = DependencyProperty.Register("CanSave", typeof(bool), typeof(WithOutBaseViewModel), new PropertyMetadata(false, new PropertyChangedCallback(DefaultFieldChanged)));
+        public static readonly DependencyProperty CanSaveProperty = DependencyProperty.Register("CanSave", typeof(bool), typeof(WithOutBaseViewModel));
 
         /// <summary>
         /// 指出是否可以存檔?
@@ -191,7 +194,7 @@ namespace Tokiku.ViewModels
             set
             {
                 SetValue(CanSaveProperty, value);
-                RaisePropertyChanged("Can");
+                RaisePropertyChanged("CanSave");
             }
         }
 
@@ -201,7 +204,7 @@ namespace Tokiku.ViewModels
         /// <param name="source"></param>
         /// <param name="e"></param>
         internal static void DefaultFieldChanged(DependencyObject source, DependencyPropertyChangedEventArgs e)
-        {
+        {            
             if (e.NewValue != null)
             {
                 if (e.OldValue != null)
@@ -212,8 +215,7 @@ namespace Tokiku.ViewModels
                     source.SetValue(IsModifyProperty, true);    //設定已被修改
                     source.SetValue(IsSavedProperty, false);    //設定尚未儲存
                     source.SetValue(CanSaveProperty, true);     //設定可以存檔
-                    source.SetValue(CanDeleteProperty, true);
-                    source.SetValue(CanEditProperty, false);
+                    source.SetValue(CanDeleteProperty, true);                    
                     source.SetValue(CanNewProperty, true);          
                 }
             }
@@ -224,8 +226,7 @@ namespace Tokiku.ViewModels
                     source.SetValue(IsModifyProperty, true);    //設定已被修改
                     source.SetValue(IsSavedProperty, false);    //設定尚未儲存
                     source.SetValue(CanSaveProperty, true);     //設定可以存檔
-                    source.SetValue(CanDeleteProperty, true);
-                    source.SetValue(CanEditProperty, false);
+                    source.SetValue(CanDeleteProperty, true);                  
                     source.SetValue(CanNewProperty, true);
                     
                 }
@@ -246,7 +247,7 @@ namespace Tokiku.ViewModels
         // Using a DependencyProperty as the backing store for Error.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ErrorProperty =
             DependencyProperty.Register("Error", typeof(IEnumerable<string>), typeof(WithOutBaseViewModel), 
-                new PropertyMetadata(default(Exception),new PropertyChangedCallback(DefaultFieldChanged)));
+                new PropertyMetadata(default(Exception)));
 
         /// <summary>
         /// 指出是否發生錯誤
@@ -259,34 +260,33 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for HasError.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty HasErrorProperty =
-            DependencyProperty.Register("HasError", typeof(bool), typeof(WithOutBaseViewModel), new PropertyMetadata(false,
-                new PropertyChangedCallback(DefaultFieldChanged)));
+            DependencyProperty.Register("HasError", typeof(bool), typeof(WithOutBaseViewModel), new PropertyMetadata(false));
 
 
 
         public bool CanQuery
         {
             get { return (bool)GetValue(CanQueryProperty); }
-            set { SetValue(CanQueryProperty, value); }
+            set { SetValue(CanQueryProperty, value); RaisePropertyChanged("CanQuery"); }
         }
 
         // Using a DependencyProperty as the backing store for CanQuery.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CanQueryProperty =
             DependencyProperty.Register("CanQuery", typeof(bool), typeof(WithOutBaseViewModel), new PropertyMetadata(false
-                , new PropertyChangedCallback(DefaultFieldChanged)));
+                ));
 
 
 
         public bool CanCommit
         {
             get { return (bool)GetValue(CanCommitProperty); }
-            set { SetValue(CanCommitProperty, value); }
+            set { SetValue(CanCommitProperty, value); RaisePropertyChanged("CanCommit"); }
         }
 
         // Using a DependencyProperty as the backing store for CanQuery.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CanCommitProperty =
             DependencyProperty.Register("CanCommit", typeof(bool), typeof(WithOutBaseViewModel), new PropertyMetadata(false
-                , new PropertyChangedCallback(DefaultFieldChanged)));
+                ));
 
 
 
@@ -294,39 +294,39 @@ namespace Tokiku.ViewModels
         public bool CanUseFeatures
         {
             get { return (bool)GetValue(CanUseFeaturesProperty); }
-            set { SetValue(CanUseFeaturesProperty, value); }
+            set { SetValue(CanUseFeaturesProperty, value); RaisePropertyChanged("CanUseFeatures"); }
         }
 
         // Using a DependencyProperty as the backing store for CanUseFeatures.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CanUseFeaturesProperty =
             DependencyProperty.Register("CanUseFeatures", typeof(bool), typeof(WithOutBaseViewModel), new PropertyMetadata(false
-                , new PropertyChangedCallback(DefaultFieldChanged)));
+                ));
 
 
 
         public bool CanRunExcel
         {
             get { return (bool)GetValue(CanRunExcelProperty); }
-            set { SetValue(CanRunExcelProperty, value); }
+            set { SetValue(CanRunExcelProperty, value); RaisePropertyChanged("CanRunExcel"); }
         }
 
         // Using a DependencyProperty as the backing store for CanRunExcel.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CanRunExcelProperty =
             DependencyProperty.Register("CanRunExcel", typeof(bool), typeof(WithOutBaseViewModel), new PropertyMetadata(false
-                , new PropertyChangedCallback(DefaultFieldChanged)));
+                ));
 
 
 
         public bool CanPrint
         {
             get { return (bool)GetValue(CanPrintProperty); }
-            set { SetValue(CanPrintProperty, value); }
+            set { SetValue(CanPrintProperty, value); RaisePropertyChanged("CanPrint"); }
         }
 
         // Using a DependencyProperty as the backing store for CanPrint.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CanPrintProperty =
             DependencyProperty.Register("CanPrint", typeof(bool), typeof(WithOutBaseViewModel), new PropertyMetadata(true
-                , new PropertyChangedCallback(DefaultFieldChanged)));
+                ));
 
 
 
@@ -335,13 +335,13 @@ namespace Tokiku.ViewModels
         public bool CanCancel
         {
             get { return (bool)GetValue(CanCancelProperty); }
-            set { SetValue(CanCancelProperty, value); }
+            set { SetValue(CanCancelProperty, value); RaisePropertyChanged("CanCancel"); }
         }
 
         // Using a DependencyProperty as the backing store for CanCancel.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CanCancelProperty =
             DependencyProperty.Register("CanCancel", typeof(bool), typeof(WithOutBaseViewModel), new PropertyMetadata(false
-                , new PropertyChangedCallback(DefaultFieldChanged)));
+                ));
 
 
 
@@ -349,26 +349,26 @@ namespace Tokiku.ViewModels
         public bool CanClose
         {
             get { return (bool)GetValue(CanCloseProperty); }
-            set { SetValue(CanCloseProperty, value); }
+            set { SetValue(CanCloseProperty, value); RaisePropertyChanged("CanClose"); }
         }
 
         // Using a DependencyProperty as the backing store for CanClose.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CanCloseProperty =
             DependencyProperty.Register("CanClose", typeof(bool), typeof(WithOutBaseViewModel), new PropertyMetadata(false
-                , new PropertyChangedCallback(DefaultFieldChanged)));
+                ));
 
 
 
         public bool CanAddColumn
         {
             get { return (bool)GetValue(CanAddColumnProperty); }
-            set { SetValue(CanAddColumnProperty, value); }
+            set { SetValue(CanAddColumnProperty, value); RaisePropertyChanged("CanAddColumn"); }
         }
 
         // Using a DependencyProperty as the backing store for CanAddColumn.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CanAddColumnProperty =
             DependencyProperty.Register("CanAddColumn", typeof(bool), typeof(WithOutBaseViewModel), new PropertyMetadata(false
-                , new PropertyChangedCallback(DefaultFieldChanged)));
+               ));
 
 
 
@@ -376,20 +376,20 @@ namespace Tokiku.ViewModels
         public bool CanAddRow
         {
             get { return (bool)GetValue(CanAddRowProperty); }
-            set { SetValue(CanAddRowProperty, value); }
+            set { SetValue(CanAddRowProperty, value); RaisePropertyChanged("CanAddRow"); }
         }
 
         // Using a DependencyProperty as the backing store for CanAddRow.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CanAddRowProperty =
             DependencyProperty.Register("CanAddRow", typeof(bool), typeof(WithOutBaseViewModel), new PropertyMetadata(false
-                ,new PropertyChangedCallback(DefaultFieldChanged)));
+                ));
 
 
 
 
     }
 
-    public abstract class BaseViewModel : WithOutBaseViewModel, IBaseViewModelWithLoginedUser
+    public class BaseViewModel : WithOutBaseViewModel, IBaseViewModelWithLoginedUser
     {
         public BaseViewModel()
         {

@@ -13,7 +13,7 @@
     <UserControl.InputBindings>
         <KeyBinding Command="New" Key="F1"/>
         <KeyBinding Command="{StaticResource Modify}" Key="F2"/>
-        <KeyBinding Command="Save" Key="F3" />
+        <KeyBinding Command="{StaticResource Save}" Key="F3" />
         <KeyBinding Command="{StaticResource Query}" Key="F4"/>
         <KeyBinding Command="{StaticResource Commit}" Key="F5"/>
         <KeyBinding Command="{StaticResource Features}" Key="F6"/>
@@ -25,74 +25,74 @@
         <KeyBinding Command="{StaticResource AddRow}" Key="F12"/>
     </UserControl.InputBindings>
     <StackPanel Grid.Row="1" Orientation="Horizontal" >
-        <Button Margin="2" Width="48" x:Name="btnF1" Command="New" IsEnabled="{Binding Path=CanNew,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Click="btnF1_Click">
+        <Button Margin="2" Width="48" x:Name="btnF1"   Click="btnF1_Click">
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="F1" TextAlignment="Center"/>
                 <TextBlock Text="新增" TextAlignment="Center"/>
             </StackPanel>
         </Button>
-        <Button Margin="2" Width="48" IsEnabled="{Binding CanEdit, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{StaticResource Modify}" Name="btnF2" Click="btnF2_Click">
+        <Button Margin="2" Width="48"   Name="btnF2" Click="btnF2_Click">
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="F2" TextAlignment="Center"/>
                 <TextBlock Text="修改" TextAlignment="Center"/>
             </StackPanel>
         </Button>
-        <Button Margin="2" Width="48" Name="btnF3" Click="btnF3_Click" Command="Save" IsEnabled="{Binding CanSave,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+        <Button Margin="2" Width="48" Name="btnF3" Click="btnF3_Click">
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="F3" TextAlignment="Center"/>
                 <TextBlock Text="暫存" TextAlignment="Center"/>
             </StackPanel>
         </Button>
-        <Button Margin="2" Width="48" Name="btnF4" Click="btnF4_Click" Command="{StaticResource Query}" IsEnabled="{Binding CanQuery,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" >
+        <Button Margin="2" Width="48" Name="btnF4" Click="btnF4_Click" Command="{StaticResource Query}"  >
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="F4" TextAlignment="Center"/>
                 <TextBlock Text="查詢" TextAlignment="Center"/>
             </StackPanel>
         </Button>
-        <Button Margin="2" Width="48" Name="btnF5" Click="btnF5_Click" Command="{StaticResource Commit}" IsEnabled="{Binding CanCommit,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+        <Button Margin="2" Width="48" Name="btnF5" Click="btnF5_Click" Command="{StaticResource Commit}" >
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="F5" TextAlignment="Center"/>
                 <TextBlock Text="確認" FontSize="10" TextAlignment="Center"/>
                 <TextBlock Text="送出" FontSize="10" TextAlignment="Center"/>
             </StackPanel>
         </Button>
-        <Button Margin="2" Width="48" Name="btnF6" Click="btnF6_Click" Command="{StaticResource Features}" IsEnabled="{Binding CanUseFeatures,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+        <Button Margin="2" Width="48" Name="btnF6" Click="btnF6_Click" Command="{StaticResource Features}">
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="F6" TextAlignment="Center"/>
                 <TextBlock Text="功能" TextAlignment="Center"/>
             </StackPanel>
         </Button>
-        <Button Margin="2" Width="48" Name="btnF7" Click="btnF7_Click" Command="{StaticResource RunExcel}" IsEnabled="{Binding CanRunExcel,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+        <Button Margin="2" Width="48" Name="btnF7" Click="btnF7_Click" Command="{StaticResource RunExcel}">
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="F7" TextAlignment="Center"/>
                 <TextBlock Text="Excel" TextAlignment="Center"/>
             </StackPanel>
         </Button>
-        <Button Margin="2" Width="48" Name="btnF8" Click="btnF8_Click" Command="Print" IsEnabled="{Binding CanPrint,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+        <Button Margin="2" Width="48" Name="btnF8" Click="btnF8_Click" Command="Print" >
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="F8" TextAlignment="Center"/>
                 <TextBlock Text="列印" TextAlignment="Center"/>
             </StackPanel>
         </Button>
-        <Button Margin="2" Width="48" Name="btnF9" Click="btnF9_Click" Command="{StaticResource Cancel}" IsEnabled="{Binding CanCancel,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+        <Button Margin="2" Width="48" Name="btnF9" Click="btnF9_Click" Command="{StaticResource Cancel}" >
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="F9" TextAlignment="Center"/>
                 <TextBlock Text="取消" TextAlignment="Center"/>
             </StackPanel>
         </Button>
-        <Button Margin="2" Width="48" Name="btnF10" Click="btnF10_Click" Command="Close" IsEnabled="{Binding CanClose,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+        <Button Margin="2" Width="48" Name="btnF10" Click="btnF10_Click" Command="Close" >
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="F10" TextAlignment="Center"/>
                 <TextBlock Text="結束" TextAlignment="Center"/>
             </StackPanel>
         </Button>
-        <Button Margin="2" Width="48" Name="btnF11" Click="btnF11_Click" Command="{StaticResource AddColumn}" IsEnabled="{Binding CanAddColumn,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+        <Button Margin="2" Width="48" Name="btnF11" Click="btnF11_Click" Command="{StaticResource AddColumn}">
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="F11" TextAlignment="Center"/>
                 <TextBlock Text="新增行" TextAlignment="Center"/>
             </StackPanel>
         </Button>
-        <Button Margin="2" Width="48" Name="btnF12" Click="btnF12_Click" Command="{StaticResource AddRow}" IsEnabled="{Binding CanAddRow,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+        <Button Margin="2" Width="48" Name="btnF12" Click="btnF12_Click" Command="{StaticResource AddRow}">
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="F12" TextAlignment="Center"/>
                 <TextBlock Text="刪除列" TextAlignment="Center"/>

@@ -65,6 +65,7 @@
     <Compile Include="Controls\DockBar.xaml.cs">
       <DependentUpon>DockBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\DocumentLifeCircle.cs" />
     <Compile Include="Controls\SearchBar.xaml.cs">
       <DependentUpon>SearchBar.xaml</DependentUpon>
     </Compile>

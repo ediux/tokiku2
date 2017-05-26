@@ -32,9 +32,10 @@
                 <Views:ProjectSelectListView x:Name="ProjectSelectionPage" SelectedProjectChanged="ProjectSelectionPage_SelectedProjectChanged" DataContext="{Binding Projects}" />
             </TabItem>
             <TabItem Header="廠商列表" >
-                <Views:VendorListView x:Name="VendorSelection" SelectedVendorChanged="VendorSelection_SelectedVendorChanged" />
+                <Views:VendorListView x:Name="VendorSelection" SelectedVendorChanged="VendorSelection_SelectedVendorChanged" DataContext="{Binding Manufacturers}" />
             </TabItem>
             <TabItem Header="客戶列表" >
+                
             </TabItem>
         </TabControl>
         <StatusBar Margin="0" Grid.Row="3">

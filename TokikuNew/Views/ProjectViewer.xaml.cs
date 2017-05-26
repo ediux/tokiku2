@@ -44,13 +44,23 @@ namespace TokikuNew.Views
         {
             //註冊一個處理分頁關閉的事件處理器
             AddHandler(ClosableTabItem.OnPageClosingEvent, new RoutedEventHandler(ProjectViewer_OnPageClosing));
+            AddHandler(DockBar.DocumentModeChangedEvent, new RoutedEventHandler(btnModify_Click));
             //this.DataContext = Model;
             //projectmgr.Model = Model;
             //projectmgr.DataContext = Model;
-           
+            dbar.DocumentMode = DocumentLifeCircle.Create;
 
         }
-
+        private void btnModify_Click(object sender, RoutedEventArgs e)
+        {
+           // ProjectBaseViewModel model = (ProjectBaseViewModel)DataContext;
+           // model.CanEdit = false;
+           // model.CanSave = true;
+           //// PMV.DataContext = model;
+           // PMV.UpdateLayout();
+           //// dbar.DataContext = model;
+           // dbar.UpdateLayout();
+        }
         private void ProjectViewer_OnPageClosing(object sender, RoutedEventArgs e)
         {
             

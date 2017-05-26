@@ -72,14 +72,14 @@ namespace Tokiku.Controllers
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="entity"></param>
-        protected TView BindingFromNotModel(T entity)
+        protected TViewB BindingFromNotModel<TViewB, TB>(TB entity) where TViewB : IBaseViewModel where TB : class
         {
-            TView ViewModel = Activator.CreateInstance<TView>();
+            TViewB ViewModel = Activator.CreateInstance<TViewB>();
 
             try
             {
-                Type t = typeof(T);
-                Type ct = typeof(TView);
+                Type t = typeof(TB);
+                Type ct = typeof(TViewB);
 
                 var props = t.GetProperties();
 
@@ -141,7 +141,7 @@ namespace Tokiku.Controllers
         /// <typeparam name="T">要抄寫的目標物件型別</typeparam>
         /// <param name="entity"></param>
         /// <returns></returns>
-        protected void CopyToNotModel(T entity, TView ViewModel)
+        protected void CopyToNotModel<TViewB>(T entity, TViewB ViewModel) where TViewB : IBaseViewModel
         {
 
             try
@@ -172,7 +172,7 @@ namespace Tokiku.Controllers
         /// </summary>
         /// <param name="model">檢視模型型別。</param>
         /// <param name="ex">例外錯誤狀況執行個體。</param>
-        protected static void setErrortoModel(TView model, Exception ex)
+        protected static void setErrortoModel(IBaseViewModel model, Exception ex)
         {
             if (ex is DbEntityValidationException)
             {
@@ -291,21 +291,21 @@ namespace Tokiku.Controllers
 
         public virtual TView Update(TView model)
         {
-         
+
 
             try
             {
                 T entity = Activator.CreateInstance<T>();
                 CopyToModel(entity, model);
-                
-                var findresult= database.Set<T>().Find(IdentifyPrimaryKey(entity));
 
-                if (findresult!=null)
+                var findresult = database.Set<T>().Find(IdentifyPrimaryKey(entity));
+
+                if (findresult != null)
                 {
                     findresult = entity;
                     database.SaveChanges();
                     findresult = database.Set<T>().Find(IdentifyPrimaryKey(findresult));
-                    return BindingFromModel(findresult);                   
+                    return BindingFromModel(findresult);
                 }
 
                 return default(TView);
@@ -343,7 +343,7 @@ namespace Tokiku.Controllers
                 {
                     model = Activator.CreateInstance<TView>();
                 }
-                setErrortoModel(model, ex);             
+                setErrortoModel(model, ex);
             }
         }
 

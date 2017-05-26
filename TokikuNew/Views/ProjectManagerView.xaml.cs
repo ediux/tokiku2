@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using Tokiku.Controllers;
 using Tokiku.Entity;
 using Tokiku.ViewModels;
+using TokikuNew.Controls;
 
 namespace TokikuNew.Views
 {
@@ -95,14 +96,15 @@ namespace TokikuNew.Views
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             //註冊關閉事件處理器
+            //AddHandler(DockBar.ModifyRequstEvent, new RoutedEventHandler(btnModify_Click));
 
-            if (SelectedProject == null)
-            {
-                if(this.DataContext!=null && DataContext is ProjectBaseViewModel)
-                {
-                    SelectedProject = (ProjectBaseViewModel)DataContext;
-                }
-            }
+            //if (SelectedProject == null)
+            //{
+            //    if(this.DataContext!=null && DataContext is ProjectBaseViewModel)
+            //    {
+            //        SelectedProject = (ProjectBaseViewModel)DataContext;
+            //    }
+            //}
 
             //dbar.DataContext = this.DataContext;
             //if (DataContext != null)

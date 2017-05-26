@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Tokiku.Entity;
@@ -59,8 +60,7 @@ namespace Tokiku.Controllers
             return new ProjectBaseViewModel()
             {
                 Id = Guid.NewGuid(),
-                Code = string.Format("{0:000}-{1}", DateTime.Today.Year - 1911, GetNextProjectSerialNumber((DateTime.Now.Year - 1911).ToString())),
-                LoginedUser = usercontroller.GetCurrentLoginUser(),
+                Code = string.Format("{0:000}-{1}", DateTime.Today.Year - 1911, GetNextProjectSerialNumber((DateTime.Now.Year - 1911).ToString())),              
                 IsNewInstance = true,
                 CanEdit = true
             };
@@ -97,9 +97,11 @@ namespace Tokiku.Controllers
         {
             try
             {
+                UserController uc = new UserController();
+                var LoginedUser = uc.GetCurrentLoginUser();
                 Projects newProject = new Projects();
                 model.CreateTime = DateTime.Now;
-                model.CreateUserId = model.LoginedUser.UserId;
+                model.CreateUserId = LoginedUser.UserId;
                 CopyToModel(newProject, model);
                 database.Projects.Add(newProject);
                 database.SaveChanges();
@@ -135,21 +137,30 @@ namespace Tokiku.Controllers
             }
         }
 
-        public ObservableCollection<ProjectBaseViewModel> QueryAll()
+        public ObservableCollection<ProjectListViewModel> QueryAll()
         {
             try
             {
                 var result = from p in database.Projects
                              where p.Void == false
                              orderby p.State ascending, p.Code ascending
-                             select p;
+                             select new ProjectListViewModel
+                             {
+                                 Id = p.Id,
+                                 Code = p.Code,
+                                 Name = p.Name,
+                                 ShortName = p.ShortName,
+                                 State = p.States.StateName,
+                                 StartDate = (p.ProjectContract.OrderByDescending(s => s.StartDate).FirstOrDefault()).StartDate,
+                                 CompletionDate = p.ProjectContract.OrderByDescending(s => s.StartDate).FirstOrDefault().CompletionDate
+                             };
 
-                return new ObservableCollection<ProjectBaseViewModel>(result.ToList().ConvertAll(c => BindingFromModel(c)));
+                return new ObservableCollection<ProjectListViewModel>(result);
             }
             catch (Exception ex)
             {
-                var q = new ObservableCollection<ProjectBaseViewModel>();
-                var model = CreateNew();
+                var q = new ObservableCollection<ProjectListViewModel>();
+                var model = new ProjectListViewModel();
                 setErrortoModel(model, ex);
                 q.Add(model);
                 return q;
@@ -195,6 +206,47 @@ namespace Tokiku.Controllers
 
         }
 
+        public override ProjectBaseViewModel Query(Expression<Func<Projects, bool>> filiter)
+        {
+            try
+            {
+                var result = database.Projects
+                    .Where(filiter)
+                    .Where(w => w.Void == false)
+                    .OrderBy(s => s.State).OrderBy(p => p.Code)
+                            .Select(p =>
+                              new ProjectBaseViewModel
+                              {
+                                  CanEdit = true,
+                                  Id = p.Id,
+                                  Code = p.Code,
+                                  Name = p.Name,
+                                  ShortName = p.ShortName,
+                                  ClientId = p.ClientId,
+                                  Comment = p.Comment,
+                                  ProjectSigningDate = p.ProjectSigningDate,
+                                  SiteAddress = p.SiteAddress,
+                                  State = p.State,
+                                  Void = p.Void                                 
+                              }).SingleOrDefault();
+
+                result.CanDelete = true;
+                result.CanEdit = true;
+                result.IsNewInstance = false;
+                result.CanSave = false;
+
+                
+                result.StateText = new ObservableCollection<StatesViewModel>(from q in database.States
+                                                                             select new StatesViewModel { Id = q.Id, StateName = q.StateName });
+                return result;
+            }
+            catch (Exception ex)
+            {
+                var model = new ProjectBaseViewModel();
+                setErrortoModel(model, ex);
+                return model;
+            }
+        }
         public void Delete(Guid ProjectId, Guid UserId)
         {
             try

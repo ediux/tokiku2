@@ -8,7 +8,7 @@
              xmlns:entity="clr-namespace:Tokiku.Entity;assembly=Tokiku.Entity"
              xmlns:controls ="clr-namespace:TokikuNew.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="414.736" Loaded="UserControl_Loaded">
+             d:DesignHeight="768" d:DesignWidth="1024" Loaded="UserControl_Loaded">
     <Grid Background="{DynamicResource ControlBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>
@@ -29,15 +29,14 @@
                 <Button Grid.Column="1" Margin="5,1" Content="新增" Name="btnNew" Click="btnNew_Click"></Button>
             </Grid>
         </Grid>
-        <controls:CustomDataGrid x:Name="ProjectList" Grid.Row="1" Margin="5" ItemsSource="{Binding ContractsList}" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto" SelectionChanged="ProjectList_SelectionChanged" AllowExecuteSystemCommand="False">
+        <controls:CustomDataGrid x:Name="ProjectList" Grid.Row="1" Margin="5" ItemsSource="{Binding}" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto" SelectionChanged="ProjectList_SelectionChanged" AllowExecuteSystemCommand="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="專案代號" Binding="{Binding Code}" Width="100" />
                 <DataGridTextColumn Header="專案名稱" Binding="{Binding Name}" Width="100" />
-                <DataGridTextColumn Header="起造日期" Width="100" />
-                <DataGridTextColumn Header="完工日期" Width="70" />
-                <DataGridTextColumn Header="狀態列"  Width="70" />
+                <DataGridTextColumn Header="起造日期" Width="100" Binding="{Binding StartDate}"/>
+                <DataGridTextColumn Header="完工日期" Width="70" Binding="{Binding CompletionDate}" />
+                <DataGridTextColumn Header="狀態列"  Width="70" Binding="{Binding State}" />
                 <DataGridTextColumn Header="保固到期日" Width="70"/>
-                <DataGridCheckBoxColumn Header="" Width="30"/>
             </DataGrid.Columns>
         </controls:CustomDataGrid>
     </Grid>
