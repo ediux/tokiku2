@@ -123,61 +123,6 @@
                 </Grid>
             </GroupBox>
         </Grid>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" >
-            <Button Margin="2" Width="48" x:Name="btnF1" IsEnabled="{Binding IsNew, Converter={StaticResource NOTGateValueConverter}}" Click="btnF1_Click">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F1" TextAlignment="Center"/>
-                    <TextBlock Text="新增" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48" IsEnabled="{Binding IsEditorMode, Converter={StaticResource NOTGateValueConverter}}" Name="btnModify" Click="btnModify_Click">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F2" TextAlignment="Center"/>
-                    <TextBlock Text="修改" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48" Name="btnSave" Click="btnSave_Click" IsEnabled="{Binding CanSave}">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F3" TextAlignment="Center"/>
-                    <TextBlock Text="存檔" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48" IsEnabled="False">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F4" TextAlignment="Center"/>
-                    <TextBlock Text="查詢" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48" IsEnabled="False">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F7" TextAlignment="Center"/>
-                    <TextBlock Text="Excel" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48" Name="btnCancel" Click="btnCancel_Click" IsEnabled="False" >
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F9" TextAlignment="Center"/>
-                    <TextBlock Text="取消" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button x:Name="btnExit" Margin="2" Width="48" Click="btnExit_Click">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F10" TextAlignment="Center"/>
-                    <TextBlock Text="結束" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48" IsEnabled="False">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F11" TextAlignment="Center"/>
-                    <TextBlock Text="新增行" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48" IsEnabled="False">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F12" TextAlignment="Center"/>
-                    <TextBlock Text="刪除行" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-        </StackPanel>
+        <c:DockBar Grid.Row="1" />
     </Grid>
 </UserControl>

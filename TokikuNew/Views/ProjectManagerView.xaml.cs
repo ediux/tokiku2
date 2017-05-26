@@ -104,6 +104,7 @@ namespace TokikuNew.Views
                 }
             }
 
+            //dbar.DataContext = this.DataContext;
             //if (DataContext != null)
             //{
             //    ObjectDataProvider _objectDataProvider = this.FindResource("UI_ProjectDataSource") as ObjectDataProvider;

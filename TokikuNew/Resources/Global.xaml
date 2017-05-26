@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ValueConverters="clr-namespace:TokikuNew.ValueConverters" 
+                    xmlns:local="clr-namespace:TokikuNew.Resources">
+    <ValueConverters:NOTGateValueConverter x:Key="NOTGateValueConverter"/>
+    <ValueConverters:SigningDateToCodeConverter x:Key="SigningDateToCodeConverter"/>
+    <RoutedUICommand x:Key="Modify" Text="修改"/>
+    <RoutedUICommand x:Key="Query" Text="查詢"/>
+    <RoutedUICommand x:Key="Commit" Text="確認送出"/>
+    <RoutedUICommand x:Key="Features" Text="功能"/>
+    <RoutedUICommand x:Key="RunExcel" Text="Run Excel App"/>
+    <RoutedUICommand x:Key="Cancel" Text="查詢"/>
+    <RoutedUICommand x:Key="AddColumn" Text="新增行"/>
+    <RoutedUICommand x:Key="AddRow" Text="新增列"/>
+</ResourceDictionary>

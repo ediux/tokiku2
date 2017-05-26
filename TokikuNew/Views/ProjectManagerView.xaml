@@ -1,20 +1,13 @@
-﻿<UserControl x:Class="TokikuNew.Views.ProjectManagerView"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:TokikuNew.Views"
-             xmlns:ValueConverters="clr-namespace:TokikuNew.ValueConverters" 
-             xmlns:ctrl="clr-namespace:Tokiku.Controllers;assembly=Tokiku.Controllers"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controller="clr-namespace:Tokiku.Controllers;assembly=Tokiku.Controllers"
+             xmlns:Controls="clr-namespace:TokikuNew.Controls" xmlns:local="clr-namespace:TokikuNew.Views" x:Name="userControl" x:Class="TokikuNew.Views.ProjectManagerView"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024" KeyDown="UserControl_KeyDown" Loaded="UserControl_Loaded" 
-              >
-    <UserControl.Resources>
-        <ObjectDataProvider ObjectType="{x:Type ctrl:ProjectsController}" x:Key="UI_ProjectDataSource" MethodName="CreateNew" />
-        <ObjectDataProvider ObjectType="{x:Type ctrl:ProjectsController}" x:Key="UI_StateTexts" MethodName="GetAllState"/>
-        <ValueConverters:NOTGateValueConverter x:Key="NOTGateValueConverter"/>
-        <ValueConverters:SigningDateToCodeConverter x:Key="SigningDateToCodeConverter"/>
-    </UserControl.Resources>
+             DataContext="{Binding}" >
     <Grid Background="{DynamicResource ControlBackgroundBrush}" Margin="0,0,0,0" >
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -45,19 +38,19 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="專案代碼" />
-                    <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center" Margin="2" Name="lblCode" Text="{Binding Code, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CanEdit}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center" Margin="2" x:Name="lblCode" Text="{Binding Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CanEdit}"/>
                     <TextBlock Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="專案全名"/>
-                    <TextBox x:Name="tbName" Grid.Row="1" Grid.Column="1" Margin="2" Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CanEdit}" TextChanged="tbName_TextChanged"/>
+                    <TextBox x:Name="tbName" Grid.Row="1" Grid.Column="1" Margin="2" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CanEdit}" TextChanged="tbName_TextChanged"/>
                     <TextBlock Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="專案簡稱"/>
-                    <TextBlock x:Name="tbShortName" Grid.Row="2" Grid.Column="1" Margin="2" TextAlignment="Left" VerticalAlignment="Center" Text="{Binding ShortName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CanEdit}"/>
+                    <TextBlock x:Name="tbShortName" Grid.Row="2" Grid.Column="1" Margin="2" TextAlignment="Left" VerticalAlignment="Center" Text="{Binding ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CanEdit}"/>
                     <TextBlock Grid.Row="3" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="工程簽約日期"/>
                     <DatePicker x:Name="ProjectSigningDate" Grid.Row="3" Grid.Column="1" Margin="2" FontSize="12"  Text="{Binding ProjectSigningDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CanEdit}" />
                     <TextBlock Grid.Row="4" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Top" Margin="0,5,0,5" Text="工地地址"/>
-                    <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" DataContext="{Binding SiteAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CanEdit,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding CanEdit,Converter={StaticResource NOTGateValueConverter}}"/>
+                    <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" DataContext="{Binding SiteAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CanEdit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding CanEdit, Converter={StaticResource NOTGateValueConverter}}"/>
                     <TextBlock Grid.Row="6" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Top" Margin="0,5,0,5" Text="備註"/>
                     <RichTextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" DataContext="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CanEdit}" IsReadOnly="{Binding CanEdit, Converter={StaticResource NOTGateValueConverter}}"  />
                     <TextBlock Grid.Row="5" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="狀態"/>
-                    <ComboBox Grid.Row="5" Grid.Column="1" Margin="2" ItemsSource="{Binding Mode=OneWay, Source={StaticResource UI_StateTexts}}" SelectedValuePath="Id" SelectedValue="{Binding State,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CanEdit}">
+                    <ComboBox Grid.Row="5" Grid.Column="1" Margin="2" ItemsSource="{Binding Mode=OneWay, Source=StateText}" SelectedValuePath="Id" SelectedValue="{Binding State, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CanEdit}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding StateName}"/>
@@ -87,8 +80,8 @@
                         </Grid.ColumnDefinitions>
                         <TextBox Grid.Row="0" Grid.Column="0" Margin="2"  IsEnabled="{Binding CanEdit}"/>
                         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
-                            <Button Content="..."></Button>
-                            <Button Content="新增" Click="Button_Click"></Button>
+                            <Button Content="..."/>
+                            <Button Content="新增" Click="Button_Click"/>
                         </StackPanel>
                     </Grid>
 
@@ -108,12 +101,12 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
-                        <Button Content="新增" Margin="5,2"></Button>
-                        <Button Content="停用" Margin="5,2"></Button>
+                        <Button Content="新增" Margin="5,2"/>
+                        <Button Content="停用" Margin="5,2"/>
                     </StackPanel>
-                    <DataGrid Grid.Row="1" Grid.Column="0">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="項次"></DataGridTextColumn>
+                    <Controls:CustomDataGrid Grid.Row="1" Grid.Column="0">
+                        <Controls:CustomDataGrid.Columns>
+                            <DataGridTextColumn Header="項次"/>
                             <DataGridTextColumn Header="合約編號"/>
                             <DataGridTextColumn Header="簽約日期"/>
                             <DataGridTextColumn Header="起造日期"/>
@@ -126,68 +119,14 @@
                             <DataGridTextColumn Header="監造單位"/>
                             <DataGridTextColumn Header="異動人員"/>
                             <DataGridTextColumn Header="付款條件"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-
+                        </Controls:CustomDataGrid.Columns>
+                    </Controls:CustomDataGrid>
                 </Grid>
             </GroupBox>
 
         </Grid>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" >
-            <Button Margin="2" Width="48" x:Name="btnF1" IsEnabled="{Binding IsNew, Converter={StaticResource NOTGateValueConverter}}">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F1" TextAlignment="Center"/>
-                    <TextBlock Text="新增" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48" IsEnabled="{Binding IsEditorMode, Converter={StaticResource NOTGateValueConverter}}" Name="btnModify" Click="btnModify_Click">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F2" TextAlignment="Center"/>
-                    <TextBlock Text="修改" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48" Name="btnSave" Click="btnSave_Click" AutomationProperties.AccessKey="F3" IsEnabled="{Binding CanSave}">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F3" TextAlignment="Center"/>
-                    <TextBlock Text="存檔" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F4" TextAlignment="Center"/>
-                    <TextBlock Text="查詢" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48" AutomationProperties.AccessKey="F7">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F7" TextAlignment="Center"/>
-                    <TextBlock Text="Excel" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48" Name="btnCancel" Click="btnCancel_Click" >
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F9" TextAlignment="Center"/>
-                    <TextBlock Text="取消" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F10" TextAlignment="Center"/>
-                    <TextBlock Text="結束" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48" IsEnabled="False">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F11" TextAlignment="Center"/>
-                    <TextBlock Text="新增行" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48" IsEnabled="False">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F12" TextAlignment="Center"/>
-                    <TextBlock Text="刪除行" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-        </StackPanel>
+
+        <Controls:DockBar  Grid.Row="1" x:Name="dbar" CanEdit="{Binding CanEdit,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" DataContext="{Binding}" />
+
     </Grid>
 </UserControl>

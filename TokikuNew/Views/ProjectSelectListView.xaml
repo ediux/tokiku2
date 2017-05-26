@@ -28,10 +28,8 @@
                 <controls:SearchBar Grid.Column="0" x:Name="cSearchBar" Search="Button_Click" ResetSearch="cSearchBar_ResetSearch" />
                 <Button Grid.Column="1" Margin="5,1" Content="新增" Name="btnNew" Click="btnNew_Click"></Button>
             </Grid>
-
-
         </Grid>
-        <DataGrid Name="ProjectList" Grid.Row="1" Margin="5" ItemsSource="{Binding ContractsList}" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto" SelectionChanged="ProjectList_SelectionChanged">
+        <controls:CustomDataGrid x:Name="ProjectList" Grid.Row="1" Margin="5" ItemsSource="{Binding ContractsList}" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto" SelectionChanged="ProjectList_SelectionChanged" AllowExecuteSystemCommand="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="專案代號" Binding="{Binding Code}" Width="100" />
                 <DataGridTextColumn Header="專案名稱" Binding="{Binding Name}" Width="100" />
@@ -41,6 +39,6 @@
                 <DataGridTextColumn Header="保固到期日" Width="70"/>
                 <DataGridCheckBoxColumn Header="" Width="30"/>
             </DataGrid.Columns>
-        </DataGrid>
+        </controls:CustomDataGrid>
     </Grid>
 </UserControl>

@@ -48,6 +48,7 @@ namespace Tokiku.ViewModels
         /// </summary>
         bool IsSaved { get; set; }
 
+        bool CanQuery { get; set; }
 
         event PropertyChangedEventHandler PropertyChanged;
 

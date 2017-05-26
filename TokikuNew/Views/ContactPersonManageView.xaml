@@ -1,10 +1,11 @@
-﻿<UserControl x:Class="TokikuNew.Views.ContactPersonManageView"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
              xmlns:ValueConverters="clr-namespace:TokikuNew.ValueConverters" 
+             xmlns:Controls="clr-namespace:TokikuNew.Controls" x:Class="TokikuNew.Views.ContactPersonManageView" 
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024" Loaded="UserControl_Loaded">
     <UserControl.Resources>
@@ -46,13 +47,13 @@
                 </DataGrid.Columns>
             </DataGrid>
             <TextBlock Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="姓名" />
-            <TextBox Grid.Row="1" Grid.Column="1" Margin="2" Text="{Binding Name, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}" TabIndex="1"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Margin="2" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}" TabIndex="1"/>
             <TextBlock Grid.Row="1" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center" Text="部門"/>
-            <TextBox Grid.Row="1" Grid.Column="3" Margin="2" Text="{Binding Dep,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}" TabIndex="2"/>
+            <TextBox Grid.Row="1" Grid.Column="3" Margin="2" Text="{Binding Dep, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}" TabIndex="2"/>
             <TextBlock Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="職稱"/>
-            <TextBox Grid.Row="2" Grid.Column="1" Margin="2" Text="{Binding Title,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}" TabIndex="3"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Margin="2" Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}" TabIndex="3"/>
             <TextBlock Grid.Row="2" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center" Text="行動電話"/>
-            <TextBox Grid.Row="2" Grid.Column="3" Margin="2" Text="{Binding Mobile,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}" TabIndex="4"/>
+            <TextBox Grid.Row="2" Grid.Column="3" Margin="2" Text="{Binding Mobile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}" TabIndex="4"/>
             <TextBlock Grid.Row="3" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="電話"/>
             <TextBox Grid.Row="3" Grid.Column="1" Margin="2" Text="{Binding Phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}" TabIndex="5"/>
             <TextBlock Grid.Row="3" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center" Text="分機"/>
@@ -63,69 +64,14 @@
             <TextBox Grid.Row="4" Grid.Column="3" Margin="2" Text="{Binding EMail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}" TabIndex="8"/>
             <TextBlock Grid.Row="5" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="狀態"/>
             <StackPanel Grid.Row="5" Grid.Column="1" Margin="2" Orientation="Horizontal">
-                <RadioButton Content="啟用" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" IsChecked="{Binding Void, ConverterParameter=false, Converter={StaticResource CheckBoxSwitchValueConverter}}" TabIndex="9" IsEnabled="{Binding IsEditorMode}"></RadioButton>
-                <RadioButton Content="停用" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding Void, ConverterParameter=true, Converter={StaticResource CheckBoxSwitchValueConverter}}" TabIndex="10" IsEnabled="{Binding IsEditorMode}"></RadioButton>
+                <RadioButton Content="啟用" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" IsChecked="{Binding Void, ConverterParameter=false, Converter={StaticResource CheckBoxSwitchValueConverter}}" TabIndex="9" IsEnabled="{Binding IsEditorMode}"/>
+                <RadioButton Content="停用" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding Void, ConverterParameter=true, Converter={StaticResource CheckBoxSwitchValueConverter}}" TabIndex="10" IsEnabled="{Binding IsEditorMode}"/>
             </StackPanel>
             <TextBlock Grid.Row="5" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center" Text="備註" IsEnabled="{Binding IsEditorMode}"/>
             <TextBox Grid.Row="5" Grid.Column="3" Margin="2" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}" TabIndex="11"/>
             <CheckBox Grid.Row="6" Grid.Column="1" Margin="2" IsChecked="{Binding IsDefault, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorMode}" VerticalAlignment="Center"
                      Content="預設聯絡人" Foreground="Red" TabIndex="12"/>
         </Grid>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" >
-            <Button Margin="2" Width="48" x:Name="btnF1" IsEnabled="{Binding IsNew, Converter={StaticResource NOTGateValueConverter}}" Click="btnF1_Click">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F1" TextAlignment="Center"/>
-                    <TextBlock Text="新增" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48" IsEnabled="{Binding IsEditorMode, Converter={StaticResource NOTGateValueConverter}}" Name="btnModify" Click="btnModify_Click">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F2" TextAlignment="Center"/>
-                    <TextBlock Text="修改" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48" Name="btnSave" Click="btnSave_Click" IsEnabled="{Binding CanSave}">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F3" TextAlignment="Center"/>
-                    <TextBlock Text="存檔" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F4" TextAlignment="Center"/>
-                    <TextBlock Text="查詢" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48" IsEnabled="False">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F7" TextAlignment="Center"/>
-                    <TextBlock Text="Excel" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48" Name="btnCancel" Click="btnCancel_Click" IsEnabled="False" >
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F9" TextAlignment="Center"/>
-                    <TextBlock Text="取消" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button x:Name="btnExit" Margin="2" Width="48" Click="btnExit_Click">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F10" TextAlignment="Center"/>
-                    <TextBlock Text="結束" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48" IsEnabled="False">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F11" TextAlignment="Center"/>
-                    <TextBlock Text="新增行" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="2" Width="48" IsEnabled="False">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="F12" TextAlignment="Center"/>
-                    <TextBlock Text="刪除行" TextAlignment="Center"/>
-                </StackPanel>
-            </Button>
-        </StackPanel>
+        <Controls:DockBar Grid.Row="1" />
     </Grid>
 </UserControl>

@@ -80,7 +80,7 @@ namespace TokikuNew
                 addWorkarea.Header = "專案主檔";
 
                 var vm = new Views.ProjectManagerView() { Margin = new Thickness(0)};
-              
+                vm.DataContext = controller.CreateNew();
                 addWorkarea.Content = vm;
                 addWorkarea.Margin = new Thickness(0);
 
