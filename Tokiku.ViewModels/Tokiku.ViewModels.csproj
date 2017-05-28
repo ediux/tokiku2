@@ -50,13 +50,18 @@
     <Compile Include="Manufacturers\ManufacturersViewModel.cs" />
     <Compile Include="MES\MaterialsViewModel.cs" />
     <Compile Include="Shared\BaseViewModel.cs" />
+    <Compile Include="Shared\DocumentStatusViewModel.cs" />
     <Compile Include="Shared\IBaseViewModel.cs" />
+    <Compile Include="Shared\IBaseViewModelWithLoginedUser.cs" />
+    <Compile Include="Shared\IToolbarButtonsViewModel.cs" />
     <Compile Include="Shared\LoginViewModel.cs" />
     <Compile Include="Shared\MainViewModel.cs" />
     <Compile Include="Projects\ProjectBaseViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shared\PaymentTypeViewModel.cs" />
+    <Compile Include="Shared\ToolbarButtonsViewModel.cs" />
     <Compile Include="Shared\UserViewModel.cs" />
+    <Compile Include="Shared\WithLoginUserBaseViewModel.cs" />
     <Compile Include="StatesViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

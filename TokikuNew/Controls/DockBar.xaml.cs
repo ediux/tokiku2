@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 namespace TokikuNew.Controls
 {
     /// <summary>
-    /// DockBar.xaml 的互動邏輯
+    /// DockBar.xaml 的互動邏輯(工具列控制項)
     /// </summary>
     public partial class DockBar : UserControl
     {
@@ -38,16 +38,9 @@ namespace TokikuNew.Controls
             switch ((DocumentLifeCircle)e.NewValue)
             {
                 case DocumentLifeCircle.Create:
-                    src.btnF1.IsEnabled = true;
+                    src.btnF1.IsEnabled = false;
                     src.btnF2.IsEnabled = false;
                     src.btnF3.IsEnabled = true;
-                    //src.btnF4.IsEnabled = true;
-                    //src.btnF5.IsEnabled = true;
-                    //src.btnF6.IsEnabled = true;
-                    //src.btnF7.IsEnabled = true;
-                    //src.btnF8.IsEnabled = true;
-                    //src.btnF9.IsEnabled = true;
-                    //src.btnF10.IsEnabled = true;
                     src.btnF11.IsEnabled = true;
                     src.btnF12.IsEnabled = true;
                    
@@ -78,22 +71,25 @@ namespace TokikuNew.Controls
             src.UpdateLayout();
         }
 
-        #region 上升事件
+        #region WPF 事件路由
 
-        /// <summary>
-        /// 新增功能按鈕的路由事件。
-        /// </summary>
+        #region DocumentModeChanged 事件
+
         public static readonly RoutedEvent DocumentModeChangedEvent =
             EventManager.RegisterRoutedEvent("DocumentModeChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(DockBar));
-
+      /// <summary>
+        /// 新增文件模式變更的路由事件。
+        /// </summary>
         public event RoutedEventHandler DocumentModeChanged
         {
             add { AddHandler(DocumentModeChangedEvent, value); }
             remove { RemoveHandler(DocumentModeChangedEvent, value); }
         }
+        #endregion
 
+        #region 查詢功能鈕觸發事件
         public static readonly RoutedEvent QueryButtonClickEvent =
-    EventManager.RegisterRoutedEvent("QueryButtonClick", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(DockBar));
+   EventManager.RegisterRoutedEvent("QueryButtonClick", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(DockBar));
 
         public event RoutedEventHandler QueryButtonClick
         {
@@ -102,6 +98,13 @@ namespace TokikuNew.Controls
         }
         #endregion
 
+        #endregion
+
+        #region 文件模式屬性
+
+        /// <summary>
+        /// 取得或設定工具列目前文件編輯模式
+        /// </summary>
         public DocumentLifeCircle DocumentMode
         {
             get { return (DocumentLifeCircle)GetValue(DocumentModeProperty); }
@@ -111,6 +114,8 @@ namespace TokikuNew.Controls
         // Using a DependencyProperty as the backing store for DocumentMode.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DocumentModeProperty =
             DependencyProperty.Register("DocumentMode", typeof(DocumentLifeCircle), typeof(DockBar), new PropertyMetadata(DocumentLifeCircle.Read, new PropertyChangedCallback(DefaultFieldChanged)));
+
+        #endregion
 
         private void btnF1_Click(object sender, RoutedEventArgs e)
         {
@@ -127,11 +132,21 @@ namespace TokikuNew.Controls
             e.Handled = true;
         }
 
+        /// <summary>
+        /// 傳回是否能執行系統命令的事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
         }
 
+        /// <summary>
+        /// 處理當系統命令的執行事件。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (e.Command == ApplicationCommands.New)
@@ -149,13 +164,14 @@ namespace TokikuNew.Controls
 
         private void btnF3_Click(object sender, RoutedEventArgs e)
         {
-            DocumentMode = DocumentLifeCircle.Read;
+            DocumentMode = DocumentLifeCircle.Save;
             e.Handled = true;
             RaiseEvent(new RoutedEventArgs(DocumentModeChangedEvent, DocumentMode));
         }
 
         private void btnF4_Click(object sender, RoutedEventArgs e)
         {
+            DocumentMode = DocumentLifeCircle.Read;
             e.Handled = true;
             RaiseEvent(new RoutedEventArgs(QueryButtonClickEvent, this));
         }
@@ -198,12 +214,14 @@ namespace TokikuNew.Controls
 
         private void btnF11_Click(object sender, RoutedEventArgs e)
         {
+            DocumentMode = DocumentLifeCircle.Update;
             e.Handled = true;
             RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent, this));
         }
 
         private void btnF12_Click(object sender, RoutedEventArgs e)
         {
+            DocumentMode = DocumentLifeCircle.Update;
             e.Handled = true;
             RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent, this));
         }

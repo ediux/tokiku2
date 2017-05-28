@@ -53,14 +53,7 @@ namespace TokikuNew.Views
             VendorList.ItemsSource = controller.SearchByText((string)e.OriginalSource);
         }
 
-        private void VendorList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.AddedItems.Count > 0)
-            {
-                var obj = e.AddedItems[0];
-                RaiseEvent(new RoutedEventArgs(SelectedVendorChangedEvent, obj));
-            }
-        }
+       
 
         private void sSearchBar_ResetSearch(object sender, RoutedEventArgs e)
         {
@@ -69,7 +62,7 @@ namespace TokikuNew.Views
 
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
-            RaiseEvent(new RoutedEventArgs(SendNewPageRequestEvent, e.OriginalSource));
+            RaiseEvent(new RoutedEventArgs(SendNewPageRequestEvent, this));
         }
 
      

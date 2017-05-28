@@ -76,5 +76,29 @@ namespace TokikuNew.Views
                 }
             }
         }
+
+        private void tbName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (tbName.Text.Length > 0)
+            {
+                if (tbName.Text.Length >= 2)
+                {
+                    tbShortName.Text = tbName.Text.Substring(0, Math.Min(2, tbName.Text.Length));
+                }
+                else
+                {
+                    tbShortName.Text = tbName.Text;
+                }
+            }
+            else
+            {
+                tbShortName.Text = string.Empty;
+            }
+        }
+
+        private void ContractList_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+
+        }
     }
 }

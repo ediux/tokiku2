@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Tokiku.ViewModels
 {
-    public class MaterialsViewModel : BaseViewModel
+    public interface IBaseViewModelWithLoginedUser : IBaseViewModel
     {
+        UserViewModel LoginedUser { get; set; }
     }
 }

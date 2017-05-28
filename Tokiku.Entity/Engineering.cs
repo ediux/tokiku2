@@ -26,18 +26,12 @@ namespace Tokiku.Entity
         public string Name { get; set; }
         public string ShorName { get; set; }
         public float Area { get; set; }
-        public System.DateTime WarrantyDate { get; set; }
-        public string Architect { get; set; }
-        public int BuildingHeightAboveground { get; set; }
-        public int BuildingHeightUnderground { get; set; }
-        public string BuildingCompany { get; set; }
-        public string SupervisionUnit { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
         public bool IsAppend { get; set; }
     
+        public virtual ProjectContract ProjectContract { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShopFlowHistory> ShopFlowHistory { get; set; }
-        public virtual ProjectContract ProjectContract { get; set; }
     }
 }

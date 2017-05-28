@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,7 +9,25 @@ using System.Windows;
 
 namespace Tokiku.ViewModels
 {
-    public class ProjectListViewModel : WithOutBaseViewModel ,IBaseViewModel
+    public class ProjectListViewModelCollection : ObservableCollection<ProjectListViewModel>, IBaseViewModel
+    {
+        public ProjectListViewModelCollection() : base()
+        {
+
+        }
+
+        public ProjectListViewModelCollection(IEnumerable<ProjectListViewModel> source) : base(source)
+        {
+
+        }
+
+        private IEnumerable<string> _Errors;
+        public IEnumerable<string> Errors { get => _Errors; set => _Errors = value; }
+        private bool _HasError = false;
+        public bool HasError { get => _HasError; set => _HasError = value; }
+
+    }
+    public class ProjectListViewModel : BaseViewModel
     {
         public static readonly DependencyProperty IdProperty = DependencyProperty.Register("Id", typeof(Guid), typeof(ProjectListViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
@@ -59,7 +79,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for StartDate.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty StartDateProperty =
-            DependencyProperty.Register("StartDate", typeof(DateTime?), typeof(ProjectListViewModel), new PropertyMetadata(default(DateTime?),new PropertyChangedCallback(DefaultFieldChanged)));
+            DependencyProperty.Register("StartDate", typeof(DateTime?), typeof(ProjectListViewModel), new PropertyMetadata(default(DateTime?), new PropertyChangedCallback(DefaultFieldChanged)));
 
 
 
@@ -73,7 +93,18 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty CompletionDateProperty =
             DependencyProperty.Register("CompletionDate", typeof(DateTime?), typeof(ProjectListViewModel), new PropertyMetadata(default(DateTime?), new PropertyChangedCallback(DefaultFieldChanged)));
 
+        /// <summary>
+        /// 保固日期
+        /// </summary>
+        public DateTime? WarrantyDate
+        {
+            get { return (DateTime?)GetValue(WarrantyDateProperty); }
+            set { SetValue(WarrantyDateProperty, value); }
+        }
 
+        // Using a DependencyProperty as the backing store for WarrantyDate.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty WarrantyDateProperty =
+            DependencyProperty.Register("WarrantyDate", typeof(DateTime?), typeof(ProjectListViewModel), new PropertyMetadata(default(DateTime?)));
 
         //public System.DateTime StartDate { get; set; }
         //public System.DateTime CompletionDate { get; set; }

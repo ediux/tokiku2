@@ -50,7 +50,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientController.cs" />
     <Compile Include="Main\MainController.cs" />
+    <Compile Include="ProjectContractController.cs" />
     <Compile Include="Shared\BaseController.cs" />
     <Compile Include="Contacts\ContactController.cs" />
     <Compile Include="Manufacturers\ManufacturersController.cs" />

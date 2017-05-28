@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace Tokiku.ViewModels
 {
-    public class StatesViewModel : BaseViewModel, IBaseViewModelWithLoginedUser
+    public class StatesViewModel : BaseViewModel
     {
 
 

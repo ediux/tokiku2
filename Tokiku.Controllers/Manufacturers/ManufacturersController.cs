@@ -16,10 +16,10 @@ namespace Tokiku.Controllers
     {
 
         private UserController controller;
+
         public ManufacturersController()
         {
             controller = new UserController();
-
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace Tokiku.Controllers
                 {
                     if (numif <= 99)
                     {
-                        Code = (numif + 1).ToString();
+                        Code = string.Format("{0:00}", (numif + 1));
                         return Code;
                     }
 
@@ -108,6 +108,30 @@ namespace Tokiku.Controllers
             return string.Format("{0:00}", Code);
         }
 
+        public ClientViewModelCollection QueryAllClients()
+        {
+            try
+            {
+                var result = from q in database.Manufacturers
+                             where q.IsClient == true && q.Void == false
+                             select q;
+
+                if (result.Any())
+                {
+                    return new ClientViewModelCollection(result.Select(s => BindingFromModel<ClientViewModel, Manufacturers>(s))
+                        .AsEnumerable());
+                }
+
+                return new ClientViewModelCollection();
+            }
+            catch (Exception ex)
+            {
+                var model = new ClientViewModelCollection();
+                setErrortoModel(model, ex);
+                return model;
+            }
+        }
+
         public IEnumerable SearchByText(string originalSource)
         {
             if (originalSource != null && originalSource.Length > 0)
@@ -124,6 +148,80 @@ namespace Tokiku.Controllers
                         where p.Void == false && p.IsClient == false
                         orderby p.Code ascending
                         select p).ToList();
+            }
+        }
+
+        public ClientViewModelCollection SearchClientByTest(string filiter)
+        {
+            if (filiter != null && filiter.Length > 0)
+            {
+                var result = from p in database.Manufacturers
+                             where p.Void == false && p.IsClient == true &&
+                             (p.Code.Contains(filiter) || p.Name.Contains(filiter) || p.ShortName.Contains(filiter))
+                             orderby p.Code ascending
+                             select new ClientViewModel()
+                             {
+                                 AccountingCode = p.AccountingCode,
+                                 Address = p.Address,
+                                 BankAccount = p.BankAccount,
+                                 BankAccountName = p.BankAccountName,
+                                 BankName = p.BankName,
+                                 CheckNumber = p.CheckNumber,
+                                 Code = p.Code,
+                                 Comment = p.Comment,
+                                 CreateTime = p.CreateTime,
+                                 CreateUserId = p.CreateUserId,
+                                 eMail = p.eMail,
+                                 FactoryAddress = p.FactoryAddress,
+                                 FactoryFax = p.FactoryFax,
+                                 FactoryPhone = p.FactoryPhone,
+                                 Fax = p.Fax,
+                                 Id = p.Id,
+                                 IsClient = p.IsClient,
+                                 Name = p.Name,
+                                 PaymentType = p.PaymentType,
+                                 Phone = p.Phone,
+                                 Principal = p.Principal,
+                                 ShortName = p.ShortName,
+                                 UniformNumbers = p.UniformNumbers,
+                                 Void = p.Void
+                             };
+
+                return new ClientViewModelCollection(result);
+                
+            }
+            else
+            {
+                return new ClientViewModelCollection(from p in database.Manufacturers
+                        where p.Void == false && p.IsClient == true
+                        orderby p.Code ascending
+                        select new ClientViewModel()
+                        {
+                            AccountingCode = p.AccountingCode,
+                            Address = p.Address,
+                            BankAccount = p.BankAccount,
+                            BankAccountName = p.BankAccountName,
+                            BankName = p.BankName,
+                            CheckNumber = p.CheckNumber,
+                            Code = p.Code,
+                            Comment = p.Comment,
+                            CreateTime = p.CreateTime,
+                            CreateUserId = p.CreateUserId,
+                            eMail = p.eMail,
+                            FactoryAddress = p.FactoryAddress,
+                            FactoryFax = p.FactoryFax,
+                            FactoryPhone = p.FactoryPhone,
+                            Fax = p.Fax,
+                            Id = p.Id,
+                            IsClient = p.IsClient,
+                            Name = p.Name,
+                            PaymentType = p.PaymentType,
+                            Phone = p.Phone,
+                            Principal = p.Principal,
+                            ShortName = p.ShortName,
+                            UniformNumbers = p.UniformNumbers,
+                            Void = p.Void
+                        });
             }
         }
 
@@ -180,7 +278,6 @@ namespace Tokiku.Controllers
                 UserController uc = new UserController();
                 var model = new ManufacturersViewModel()
                 {
-                    LoginedUser = uc.GetCurrentLoginUser(),
                     Code = GetNextProjectSerialNumber()
                 };
                 return model;
@@ -205,6 +302,8 @@ namespace Tokiku.Controllers
         {
             try
             {
+                UserController controller = new UserController();
+
                 var result = from p in database.Manufacturers
                              where p.Id == model.Id && p.Void == false
                              select p;
@@ -214,7 +313,7 @@ namespace Tokiku.Controllers
                     var data = result.Single();
                     data.Void = true;
 
-                    database.AccessLog.Add(new AccessLog() { ActionCode = 3, CreateTime = DateTime.Now, DataId = model.Id, UserId = model.LoginedUser.UserId });
+                    database.AccessLog.Add(new AccessLog() { ActionCode = 3, CreateTime = DateTime.Now, DataId = model.Id, UserId = controller.GetCurrentLoginUser().UserId });
                     database.SaveChanges();
                 }
 
@@ -225,7 +324,7 @@ namespace Tokiku.Controllers
             }
         }
 
-     
+
 
         /// <summary>
         /// 儲存變更
@@ -236,12 +335,12 @@ namespace Tokiku.Controllers
             {
                 if (IsExists(q => q.Id == model.Id))
                 {
-                    Update(model);                    
+                    Update(model);
                 }
                 else
                 {
                     Add(model);
-                    model = Query(x => x.Id == model.Id);                    
+                    model = Query(x => x.Id == model.Id);
                 }
             }
             catch
@@ -264,5 +363,7 @@ namespace Tokiku.Controllers
                 return false;
             }
         }
+
+    
     }
 }

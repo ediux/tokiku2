@@ -35,6 +35,16 @@ namespace TokikuNew.Views
         }
         #endregion
 
+        public UserViewModel LoginedUser
+        {
+            get { return (UserViewModel)GetValue(LoginedUserProperty); }
+            set { SetValue(LoginedUserProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for LoginedUser.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty LoginedUserProperty =
+            DependencyProperty.Register("LoginedUser", typeof(UserViewModel), typeof(ProjectViewer), new PropertyMetadata(default(UserViewModel)));
+
         public ProjectViewer()
         {
             InitializeComponent();
@@ -42,25 +52,21 @@ namespace TokikuNew.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            Binding loginuserbinding = new Binding();
+            loginuserbinding.Source = this.LoginedUser;
+
+         PMV.SetBinding(ProjectManagerView.LoginedUserProperty, loginuserbinding);
+
             //註冊一個處理分頁關閉的事件處理器
             AddHandler(ClosableTabItem.OnPageClosingEvent, new RoutedEventHandler(ProjectViewer_OnPageClosing));
-            AddHandler(DockBar.DocumentModeChangedEvent, new RoutedEventHandler(btnModify_Click));
+            //AddHandler(DockBar.DocumentModeChangedEvent, new RoutedEventHandler(btnModify_Click));
             //this.DataContext = Model;
             //projectmgr.Model = Model;
             //projectmgr.DataContext = Model;
-            dbar.DocumentMode = DocumentLifeCircle.Create;
+            //dbar.DocumentMode = DocumentLifeCircle.Create;
 
         }
-        private void btnModify_Click(object sender, RoutedEventArgs e)
-        {
-           // ProjectBaseViewModel model = (ProjectBaseViewModel)DataContext;
-           // model.CanEdit = false;
-           // model.CanSave = true;
-           //// PMV.DataContext = model;
-           // PMV.UpdateLayout();
-           //// dbar.DataContext = model;
-           // dbar.UpdateLayout();
-        }
+      
         private void ProjectViewer_OnPageClosing(object sender, RoutedEventArgs e)
         {
             

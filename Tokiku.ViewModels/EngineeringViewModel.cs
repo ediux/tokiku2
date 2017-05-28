@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tokiku.ViewModels
 {
-    public class EngineeringViewModel : BaseViewModel, IBaseViewModelWithLoginedUser
+    public class EngineeringViewModel : BaseViewModel
     {
         //public System.Guid Id { get; set; }
         //public System.Guid ProjectContractId { get; set; }

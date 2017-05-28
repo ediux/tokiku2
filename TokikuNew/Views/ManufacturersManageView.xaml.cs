@@ -52,13 +52,13 @@ namespace TokikuNew.Views
         private void btnF1_Click(object sender, RoutedEventArgs e)
         {
             Model = new ManufacturersViewModel();            
-            Model.IsNewInstance = true;
+            Model.Status.IsNewInstance = true;
             DataContext = Model;
         }
 
         private void btnModify_Click(object sender, RoutedEventArgs e)
         {
-            Model.CanEdit = !Model.CanEdit;
+            Model.Status.IsModify = false;
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -66,7 +66,7 @@ namespace TokikuNew.Views
             try
             {
                 controller.SaveModel(Model);
-                Model.CanSave = false;                
+                Model.Status.IsSaved = true;                
             }
             catch (Exception ex)
             {
@@ -76,8 +76,7 @@ namespace TokikuNew.Views
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            Model.CanEdit = false;
-            Model.CanSave = false;
+          
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
@@ -116,20 +115,34 @@ namespace TokikuNew.Views
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            //controller = new ManufacturersController();
-
-            //if (Model == null)
-            //    Model = new ManufacturersViewModel();
-
-            ////Model.QueryAll();
-            //Model.CanEdit = false;
-            Model = (ManufacturersViewModel)DataContext;
+        {        
+            Binding modelBinding = new Binding();
+            modelBinding.Source = this.DataContext;
+            SetBinding(ModelProperty, modelBinding);
         }
 
         private void ContractList_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
 
+        }
+
+        private void tbName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (tbName.Text.Length > 0)
+            {
+                if (tbName.Text.Length >= 4)
+                {
+                    tbShortName.Text = tbName.Text.Substring(0, Math.Min(4, tbName.Text.Length));
+                }
+                else
+                {
+                    tbShortName.Text = tbName.Text;
+                }
+            }
+            else
+            {
+                tbShortName.Text = string.Empty;
+            }
         }
     }
 }

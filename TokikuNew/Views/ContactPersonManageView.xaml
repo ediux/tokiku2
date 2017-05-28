@@ -9,9 +9,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024" Loaded="UserControl_Loaded">
     <UserControl.Resources>
-        <ValueConverters:RadioButtonSwitchValueConverter x:Key="CheckBoxSwitchValueConverter"/>
-        <ValueConverters:NOTGateValueConverter x:Key="NOTGateValueConverter"/>
-        <ValueConverters:SigningDateToCodeConverter x:Key="SigningDateToCodeConverter"/>
     </UserControl.Resources>
     <Grid Background="{DynamicResource ControlBackgroundBrush}">
         <Grid.RowDefinitions>

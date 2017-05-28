@@ -9,7 +9,7 @@ using System.Windows;
 
 namespace Tokiku.ViewModels
 {
-    public class LoginViewModel : WithOutBaseViewModel, IBaseViewModel
+    public class LoginViewModel : BaseViewModel, IBaseViewModel
     {
 
         public static readonly DependencyProperty UserNameProperty = DependencyProperty.Register("UserName", typeof(string), typeof(LoginViewModel), new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));

@@ -8,9 +8,12 @@ using System.Windows;
 
 namespace Tokiku.ViewModels
 {
-    public class UserViewModel : WithOutBaseViewModel,IBaseViewModel
+    public class UserViewModel : BaseViewModel,IBaseViewModel
     {
-
+        public UserViewModel()
+        {
+            Status = new DocumentStatusViewModel();
+        }
         public Guid UserId
         {
             get { return (Guid )GetValue(UserIdProperty); }

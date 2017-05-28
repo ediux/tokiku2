@@ -29,13 +29,13 @@
         </Menu>
         <TabControl Grid.Row="1" Margin="0,0,0,0" x:Name="Workspaces" FontSize="15">
             <TabItem Header="專案列表" >
-                <Views:ProjectSelectListView x:Name="ProjectSelectionPage" SelectedProjectChanged="ProjectSelectionPage_SelectedProjectChanged" DataContext="{Binding Projects}" />
+                <Views:ProjectSelectListView x:Name="ProjectSelectionPage" SelectedProjectChanged="ProjectSelectionPage_SelectedProjectChanged" DataContext="{Binding Projects}"  />
             </TabItem>
             <TabItem Header="廠商列表" >
                 <Views:VendorListView x:Name="VendorSelection" SelectedVendorChanged="VendorSelection_SelectedVendorChanged" DataContext="{Binding Manufacturers}" />
             </TabItem>
             <TabItem Header="客戶列表" >
-                
+                <Views:ClientListView/>
             </TabItem>
         </TabControl>
         <StatusBar Margin="0" Grid.Row="3">

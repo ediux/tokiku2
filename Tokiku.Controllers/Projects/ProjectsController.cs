@@ -31,9 +31,9 @@ namespace Tokiku.Controllers
                     Add(model);
 
                 }
-                model.CanEdit = false;
-                model.IsSaved = true;
-                model.IsModify = false;
+
+                model.Status.IsSaved = true;
+                model.Status.IsModify = false;
             }
             catch (Exception ex)
             {
@@ -57,13 +57,18 @@ namespace Tokiku.Controllers
         {
             UserController usercontroller = new UserController();
 
-            return new ProjectBaseViewModel()
+            var newmodel = new ProjectBaseViewModel()
             {
                 Id = Guid.NewGuid(),
-                Code = string.Format("{0:000}-{1}", DateTime.Today.Year - 1911, GetNextProjectSerialNumber((DateTime.Now.Year - 1911).ToString())),              
-                IsNewInstance = true,
-                CanEdit = true
+                Code = string.Format("{0:000}-{1}", DateTime.Today.Year - 1911, GetNextProjectSerialNumber((DateTime.Now.Year - 1911).ToString())),
             };
+
+            newmodel.ProjectContract = new ProjectContractViewModelCollection();
+            newmodel.StateText = GetAllState();
+            ManufacturersController mc = new ManufacturersController();
+            newmodel.Clients = mc.QueryAllClients();
+            
+            return newmodel;
         }
 
         public string GetNextProjectSerialNumber(string year)
@@ -100,9 +105,24 @@ namespace Tokiku.Controllers
                 UserController uc = new UserController();
                 var LoginedUser = uc.GetCurrentLoginUser();
                 Projects newProject = new Projects();
+                newProject.Id = Guid.NewGuid();
                 model.CreateTime = DateTime.Now;
                 model.CreateUserId = LoginedUser.UserId;
                 CopyToModel(newProject, model);
+                if (model.ProjectContract.Any())
+                {
+                    foreach (var row in model.ProjectContract)
+                    {
+                        ProjectContract newdata = new ProjectContract();
+                        newdata.ProjectId = newProject.Id;
+                        newdata.SigningDate = model.ProjectSigningDate;
+                        newdata.AmountDue = 0F;
+                        newdata.Area = 0F;
+                        CopyToModel(newdata, row);
+                        newdata.State = model.StateText.Where(s => s.StateName == row.StateText).Select(s => s.Id).SingleOrDefault();
+                        newProject.ProjectContract.Add(newdata);
+                    }
+                }
                 database.Projects.Add(newProject);
                 database.SaveChanges();
             }
@@ -117,6 +137,8 @@ namespace Tokiku.Controllers
         {
             try
             {
+                ProjectContractController PCC = new ProjectContractController();
+                ManufacturersController mc = new ManufacturersController();
                 var result = from p in database.Projects
                              where p.Id == ProjectId && p.Void == false
                              orderby p.State ascending, p.Code ascending
@@ -124,7 +146,11 @@ namespace Tokiku.Controllers
 
                 if (result.Any())
                 {
-                    return BindingFromModel(result.Single());
+                    var model= BindingFromModel(result.Single());
+
+                    model.ProjectContract = PCC.QueryAll(model.Id);
+                    model.Clients = mc.QueryAllClients();
+                    return model;
                 }
 
                 return null;
@@ -152,7 +178,8 @@ namespace Tokiku.Controllers
                                  ShortName = p.ShortName,
                                  State = p.States.StateName,
                                  StartDate = (p.ProjectContract.OrderByDescending(s => s.StartDate).FirstOrDefault()).StartDate,
-                                 CompletionDate = p.ProjectContract.OrderByDescending(s => s.StartDate).FirstOrDefault().CompletionDate
+                                 CompletionDate = p.ProjectContract.OrderByDescending(s => s.StartDate).FirstOrDefault().CompletionDate,
+                                 WarrantyDate = p.ProjectContract.OrderByDescending(s=>s.WarrantyDate).FirstOrDefault().WarrantyDate
                              };
 
                 return new ObservableCollection<ProjectListViewModel>(result);
@@ -189,10 +216,52 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var original = QuerySingle(updatedProject.Id);
+                var original = (from q in database.Projects
+                                where q.Id == updatedProject.Id
+                                select q).Single();
+
                 if (original != null)
                 {
-                    original = updatedProject;
+                    CopyToModel(original, updatedProject);
+                    if (updatedProject.ProjectContract.Any())
+                    {
+                        Stack<ProjectContract> removeStack = new Stack<ProjectContract>();
+
+                        foreach (var rowindb in original.ProjectContract)
+                        {
+                            if (updatedProject.ProjectContract.Where(w => w.Id == rowindb.Id).Any() == false)
+                            {
+                                //remove(指資料真的被移除了)
+                                removeStack.Push(rowindb);
+                            }
+                        }
+
+                        if (removeStack.Count > 0)
+                        {
+                            while (removeStack.Count > 0)
+                            {
+                                original.ProjectContract.Remove(removeStack.Pop());
+                            }
+                        }
+
+                        foreach (var row in updatedProject.ProjectContract)
+                        {
+                            if (original.ProjectContract.Where(w => w.Id == row.Id).Any())
+                            {
+                                var foundinoriginal = original.ProjectContract.Where(w => w.Id == row.Id).Single();
+                                CopyToModel(foundinoriginal, row);
+                                database.Entry(foundinoriginal).State = System.Data.Entity.EntityState.Modified;
+                            }
+                            else
+                            {
+                                ProjectContract newData = new ProjectContract();
+                                CopyToModel(newData, row);
+                                newData.ProjectId = original.Id;
+                                original.ProjectContract.Add(newData);
+                            }
+                        }
+                    }
+                    database.Entry(original).State = System.Data.Entity.EntityState.Modified;
                     database.SaveChanges();
                 }
                 updatedProject = Query(s => s.Id == updatedProject.Id);
@@ -213,32 +282,30 @@ namespace Tokiku.Controllers
                 var result = database.Projects
                     .Where(filiter)
                     .Where(w => w.Void == false)
-                    .OrderBy(s => s.State).OrderBy(p => p.Code)
-                            .Select(p =>
-                              new ProjectBaseViewModel
-                              {
-                                  CanEdit = true,
-                                  Id = p.Id,
-                                  Code = p.Code,
-                                  Name = p.Name,
-                                  ShortName = p.ShortName,
-                                  ClientId = p.ClientId,
-                                  Comment = p.Comment,
-                                  ProjectSigningDate = p.ProjectSigningDate,
-                                  SiteAddress = p.SiteAddress,
-                                  State = p.State,
-                                  Void = p.Void                                 
-                              }).SingleOrDefault();
+                    .OrderBy(s => s.State)
+                    .OrderBy(p => p.Code)
+                    .SingleOrDefault();
 
-                result.CanDelete = true;
-                result.CanEdit = true;
-                result.IsNewInstance = false;
-                result.CanSave = false;
+                ProjectBaseViewModel model = BindingFromModel(result);
 
-                
-                result.StateText = new ObservableCollection<StatesViewModel>(from q in database.States
-                                                                             select new StatesViewModel { Id = q.Id, StateName = q.StateName });
-                return result;
+                model.Status.IsNewInstance = false;
+                model.StateText = GetAllState();
+
+                model.ProjectContract = new ProjectContractViewModelCollection();
+
+                if (result.ProjectContract.Any())
+                {
+                    foreach(var row in result.ProjectContract)
+                    {
+                        model.ProjectContract.Add(BindingFromModel<ProjectContractViewModel, ProjectContract>(row));
+                    }
+                }
+
+                ManufacturersController mc = new ManufacturersController();
+
+                model.Clients = mc.QueryAllClients(); 
+         
+                return model;
             }
             catch (Exception ex)
             {
@@ -272,28 +339,58 @@ namespace Tokiku.Controllers
             }
         }
 
-        public ObservableCollection<States> GetAllState()
+        public ObservableCollection<StatesViewModel> GetAllState()
         {
-            return new ObservableCollection<States>(from c in database.States
-                                                    select c);
+            return new ObservableCollection<StatesViewModel>(from c in database.States
+                                                             select new StatesViewModel()
+                                                             {
+                                                                 Id = c.Id,
+                                                                 StateName = c.StateName
+                                                             });
         }
 
         public ObservableCollection<ProjectBaseViewModel> SearchByText(string text)
         {
             if (text != null && text.Length > 0)
             {
-                return new ObservableCollection<ProjectBaseViewModel>(from p in database.Projects
-                                                                      where p.Void == false &&
-                                                                      (p.Code.Contains(text) || p.Name.Contains(text) || p.ShortName.Contains(text))
-                                                                      orderby p.State ascending, p.Code ascending
-                                                                      select BindingFromModel(p));
+                var result = (from p in database.Projects
+                              where p.Void == false &&
+                              (p.Code.Contains(text) || p.Name.Contains(text) || p.ShortName.Contains(text))
+                              orderby p.State ascending, p.Code ascending
+                              select p);
+
+                var model = new ObservableCollection<ProjectBaseViewModel>();
+
+                if (result.Any())
+                {
+                    foreach(var row in result)
+                    {
+                        model.Add(BindingFromModel(row));
+                    }
+                }
+
+                return model;
             }
             else
             {
-                return new ObservableCollection<ProjectBaseViewModel>(from p in database.Projects
-                                                                      where p.Void == false
-                                                                      orderby p.State ascending, p.Code ascending
-                                                                      select BindingFromModel(p));
+
+                var result = (from p in database.Projects
+                              where p.Void == false
+                              orderby p.State ascending, p.Code ascending
+                              select p);
+
+                var model = new ObservableCollection<ProjectBaseViewModel>();
+
+                if (result.Any())
+                {
+                    foreach (var row in result)
+                    {
+                        model.Add(BindingFromModel(row));
+                    }
+                }
+
+                return model;
+                
             }
         }
     }

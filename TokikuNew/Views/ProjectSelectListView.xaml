@@ -36,7 +36,7 @@
                 <DataGridTextColumn Header="起造日期" Width="100" Binding="{Binding StartDate}"/>
                 <DataGridTextColumn Header="完工日期" Width="70" Binding="{Binding CompletionDate}" />
                 <DataGridTextColumn Header="狀態列"  Width="70" Binding="{Binding State}" />
-                <DataGridTextColumn Header="保固到期日" Width="70"/>
+                <DataGridTextColumn Header="保固到期日" Width="70" Binding="{Binding WarrantyDate}"/>
             </DataGrid.Columns>
         </controls:CustomDataGrid>
     </Grid>

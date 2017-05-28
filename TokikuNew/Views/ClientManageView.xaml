@@ -48,9 +48,9 @@
                     </Grid.RowDefinitions>
                     <TextBlock Text="客戶代碼" Grid.Row="0" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
                     <TextBlock Name="tbCode" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Code,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBlock Text="名稱" Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-                    <TextBox Name="tbName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBlock Text="簡稱" Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBlock Text="客戶名稱" Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBox Name="tbName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" TextChanged="tbName_TextChanged" />
+                    <TextBlock Text="客戶簡稱" Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
                     <TextBlock Name="tbShortName" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding ShortName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                     <TextBlock Text="聯絡人" Grid.Row="3" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
                     <TextBox Name="tbPrincipal" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding PrincipalName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
@@ -70,7 +70,7 @@
             </GroupBox>
 
             <GroupBox Header="合約項目" Grid.Row="0" Grid.Column="1" Margin="5">
-                <c:CustomDataGrid HorizontalScrollBarVisibility="Auto"  Margin="5">
+                <c:CustomDataGrid x:Name="EngList" HorizontalScrollBarVisibility="Auto"  Margin="5">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="工程代號"/>
                         <DataGridTextColumn Header="工程名稱"/>

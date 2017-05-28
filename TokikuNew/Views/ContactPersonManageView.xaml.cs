@@ -76,7 +76,7 @@ namespace TokikuNew.Views
 
         private void btnModify_Click(object sender, RoutedEventArgs e)
         {
-            Model.CanEdit = !Model.CanEdit;
+            
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -89,7 +89,7 @@ namespace TokikuNew.Views
                     WinForm.MessageBox.Show(string.Join(",", Model.Errors), "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
                 }
                 Model = new ContactsViewModel();
-                Model.CanSave = false;
+                Model.Status.IsSaved = true;
                 Model.ContractsList = controller.QueryAll();
 
 
@@ -102,8 +102,7 @@ namespace TokikuNew.Views
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            Model.CanEdit = false;
-            Model.CanSave = false;
+           
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
@@ -122,14 +121,14 @@ namespace TokikuNew.Views
                 }
             }
 
-            Model.IsNewInstance = false;
+            Model.Status.IsNewInstance = false;
         }
 
         private void btnF1_Click(object sender, RoutedEventArgs e)
         {
             Model = new ContactsViewModel();
             Model.ContractsList = controller.QueryAll();
-            Model.IsNewInstance = true;
+            Model.Status.IsNewInstance = true;
             DataContext = Model;
         }
     }

@@ -1,22 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using WinForm = System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Tokiku.Controllers;
-using Tokiku.Entity;
 using Tokiku.ViewModels;
 using TokikuNew.Controls;
+using WinForm = System.Windows.Forms;
 
 namespace TokikuNew.Views
 {
@@ -32,6 +22,7 @@ namespace TokikuNew.Views
             InitializeComponent();
         }
 
+        #region SelectedProject
         public ProjectBaseViewModel SelectedProject
         {
             get { return (ProjectBaseViewModel)GetValue(SelectedProjectProperty); }
@@ -42,99 +33,80 @@ namespace TokikuNew.Views
         public static readonly DependencyProperty SelectedProjectProperty =
             DependencyProperty.Register("SelectedProject", typeof(ProjectBaseViewModel), typeof(ProjectManagerView), new PropertyMetadata(default(ProjectBaseViewModel)));
 
+        #endregion
 
-
-        //public ProjectManagerView(ProjectBaseViewModel model) : this()
-        //{
-        //    ObjectDataProvider _objectDataProvider = this.FindResource("UI_ProjectDataSource") as ObjectDataProvider;
-
-        //    if (_objectDataProvider != null)
-        //    {
-        //        _objectDataProvider.ObjectType = controller.GetType();
-        //        _objectDataProvider.MethodName = "QuerySingle";
-        //        _objectDataProvider.MethodParameters.Clear();
-        //        _objectDataProvider.MethodParameters.Add(model.Id);
-        //        ((ProjectBaseViewModel)_objectDataProvider.Data).LoginedUser = ((MainViewModel)((ObjectDataProvider)DataContext).Data).LoginedUser;
-        //    }
-        //}
-
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        public ClientViewModel SelectedClient
         {
-            try
-            {
-                controller.SaveModel(SelectedProject);
-                SelectedProject.CanSave = false;
-            }
-            catch (Exception ex)
-            {
-                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
-            }
-
-
+            get { return (ClientViewModel)GetValue(SelectedClientProperty); }
+            set { SetValue(SelectedClientProperty, value); }
         }
 
-        private void btnModify_Click(object sender, RoutedEventArgs e)
+        // Using a DependencyProperty as the backing store for SelectedClient.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedClientProperty =
+            DependencyProperty.Register("SelectedClient", typeof(ClientViewModel), typeof(ProjectManagerView), new PropertyMetadata(default(ClientViewModel)));
+
+
+
+        public UserViewModel LoginedUser
         {
-            SelectedProject.CanEdit = !SelectedProject.CanEdit;
+            get { return (UserViewModel)GetValue(LoginedUserProperty); }
+            set { SetValue(LoginedUserProperty, value); }
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        // Using a DependencyProperty as the backing store for LoginedUser.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty LoginedUserProperty =
+            DependencyProperty.Register("LoginedUser", typeof(UserViewModel), typeof(ProjectManagerView), new PropertyMetadata(default(UserViewModel)));
+
+
+
+
+        #region Document Mode
+
+
+        public DocumentLifeCircle Mode
         {
-            SelectedProject.CanEdit = false;
-            SelectedProject.CanSave = false;
+            get { return (DocumentLifeCircle)GetValue(ModeProperty); }
+            set { SetValue(ModeProperty, value); }
         }
 
-        private void UserControl_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.F3)
-            {
-                if (SelectedProject.CanSave)
-                    btnSave_Click(sender, new RoutedEventArgs(e.RoutedEvent));
-            }
-        }
+        // Using a DependencyProperty as the backing store for Mode.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ModeProperty =
+            DependencyProperty.Register("Mode", typeof(DocumentLifeCircle), typeof(ProjectManagerView), new PropertyMetadata(DocumentLifeCircle.Read));
+        #endregion
+
+        #region IsShowClientSelection
+
+        #endregion
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            //註冊關閉事件處理器
-            //AddHandler(DockBar.ModifyRequstEvent, new RoutedEventHandler(btnModify_Click));
+            Binding selectProjectBinding = new Binding();
+            selectProjectBinding.Source = this.DataContext;
+            SetBinding(SelectedProjectProperty, selectProjectBinding);
 
-            //if (SelectedProject == null)
-            //{
-            //    if(this.DataContext!=null && DataContext is ProjectBaseViewModel)
-            //    {
-            //        SelectedProject = (ProjectBaseViewModel)DataContext;
-            //    }
-            //}
 
-            //dbar.DataContext = this.DataContext;
-            //if (DataContext != null)
-            //{
-            //    ObjectDataProvider _objectDataProvider = this.FindResource("UI_ProjectDataSource") as ObjectDataProvider;
-            //    //Model = (ProjectBaseViewModel)_objectDataProvider.Data;
-
-            //    //ObjectDataProvider _objectDataProvider2 = PMV.FindResource("UI_ProjectDataSource") as ObjectDataProvider;
-
-            //    if (_objectDataProvider != null && DataContext is ProjectBaseViewModel)
-            //    {
-            //        _objectDataProvider.ObjectType = typeof(ProjectBaseViewModel);
-            //        _objectDataProvider.MethodName = "QuerySingle";
-            //        _objectDataProvider.MethodParameters.Clear();
-            //        _objectDataProvider.MethodParameters.Add(((ProjectBaseViewModel)DataContext).Id);
-            //        ((ProjectBaseViewModel)_objectDataProvider.Data).LoginedUser = ((MainViewModel)((ObjectDataProvider)DataContext).Data).LoginedUser;
-            //    }
-            //}
-
-            //DataContext = Model;
         }
 
+        /// <summary>
+        /// 當輸入專案全名的連動作業
+        /// </summary>
         private void tbName_TextChanged(object sender, TextChangedEventArgs e)
         {
-
-        }
-
-        private void DataGrid_KeyDown(object sender, KeyEventArgs e)
-        {
-
+            if (tbName.Text.Length > 0)
+            {
+                if (tbName.Text.Length >= 2)
+                {
+                    tbShortName.Text = tbName.Text.Substring(0, Math.Min(2, tbName.Text.Length));
+                }
+                else
+                {
+                    tbShortName.Text = tbName.Text;
+                }
+            }
+            else
+            {
+                tbShortName.Text = string.Empty;
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -149,6 +121,105 @@ namespace TokikuNew.Views
         {
             add { AddHandler(SendNewPageRequestEvent, value); }
             remove { RemoveHandler(SendNewPageRequestEvent, value); }
+        }
+
+        private void DockBar_DocumentModeChanged(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                e.Handled = true;
+               
+                DocumentLifeCircle mode = (DocumentLifeCircle)e.OriginalSource;
+                switch (mode)
+                {
+
+                    case DocumentLifeCircle.Create:
+                  
+                        this.DataContext = controller.CreateNew();
+                        SelectedProject.CreateUserId = LoginedUser.UserId;
+                        if (SelectedProject.HasError)
+                        {
+                            MessageBox.Show(string.Join("\n", SelectedProject.Errors.ToArray()));
+                            dockBar.DocumentMode = DocumentLifeCircle.Read;
+                        }
+                        break;
+                    case DocumentLifeCircle.Save:
+                        if (SelectedProject.CreateUserId == Guid.Empty)
+                        {
+                            SelectedProject.CreateUserId = LoginedUser.UserId;
+                        }
+                        if (SelectedProject.ProjectContract.Count > 0)
+                        {
+                            foreach (ProjectContractViewModel model in SelectedProject.ProjectContract)
+                            {
+                                if (model.CreateUserId == Guid.Empty)
+                                {
+                                    model.CreateUserId = LoginedUser.UserId;
+                                }
+                            }
+                        }
+                        controller.SaveModel(SelectedProject);
+                        if (SelectedProject.HasError)
+                        {
+                            MessageBox.Show(string.Join("\n", SelectedProject.Errors.ToArray()));
+                            dockBar.DocumentMode = DocumentLifeCircle.Update;
+                        }
+                        else
+                        {
+                            dockBar.DocumentMode = DocumentLifeCircle.Read;
+                        }
+                        break;
+                    case DocumentLifeCircle.Update:
+
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
+            }
+        }
+
+        private void btnAddContract_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedProject.ProjectContract == null)
+                SelectedProject.ProjectContract = new ProjectContractViewModelCollection();
+
+            SelectedProject.ProjectContract.Add(new ProjectContractViewModel());
+           // UpdateLayout();
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnShowClientSelection_Click(object sender, RoutedEventArgs e)
+        {
+            if ((string)btnShowClientSelection.Content == "編輯")
+            {
+                ClientList.Visibility = Visibility.Visible;
+                btnShowClientSelection.Content = "隱藏";
+            }
+            else
+            {
+                if ((string)btnShowClientSelection.Content == "隱藏")
+                {
+                    btnShowClientSelection.Content = "編輯";
+                    ClientList.Visibility = Visibility.Hidden;
+                }
+            }
+
+           // UpdateLayout();
+        }
+
+        private void ClientList_SelectedClientChanged(object sender, RoutedEventArgs e)
+        {
+            ClientViewModel model = e.OriginalSource as ClientViewModel;
+            if (model != null)
+            {
+                SelectedProject.ClientId = model.Id;
+            }
         }
     }
 }

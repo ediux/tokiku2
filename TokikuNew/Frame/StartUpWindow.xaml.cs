@@ -43,11 +43,9 @@ namespace TokikuNew.Frame
                 
                 MainWindow mainwin = new MainWindow();
                 mc.Index(mainwin);
-                //mainwin.Model = new MainViewModel();
-                //mainwin.Model.LoginedUser = loginedUser;
-                //mainwin.DataContext = mainwin.Model;
                 mainwin.Closed += Mainwin_Closed;
                 mainwin.Show();
+
                 tblkMessage.Text = "";
                 tbUserName.Text = "";
                 pwdBox.Password = "";
@@ -62,12 +60,12 @@ namespace TokikuNew.Frame
 
         private void Mainwin_Closed(object sender, EventArgs e)
         {
-            this.Show();
+            Close();
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)

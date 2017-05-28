@@ -97,20 +97,21 @@ namespace Tokiku.Controllers
 
                 if (IsExists(model.Id))
                 {
-                    Update(model, model.LoginedUser.UserId);
+                    using (UserController usercontroller = new UserController())
+                    {
+                        Update(model, usercontroller.GetCurrentLoginUser().UserId);
+                    }
+
                 }
                 else
                 {
                     Add(model);
                 }
 
-                model.IsModify = false;
-                model.IsNewInstance = false;
-                model.IsSaved = true;
-                model.CanDelete = true;
-                model.CanEdit = true;
-                model.CanNew = true;
-                model.CanSave = false;
+                model.Status.IsModify = false;
+                model.Status.IsNewInstance = false;
+                model.Status.IsSaved = true;
+
             }
             catch (Exception ex)
             {
@@ -175,12 +176,16 @@ namespace Tokiku.Controllers
         {
             try
             {
-                Contacts newdata = new Contacts();
-                model.CreateTime = DateTime.Now;
-                model.CreateUserId = model.LoginedUser.UserId;
-                CopyToModel(newdata, model);
-                database.Contacts.Add(newdata);
-                database.SaveChanges();
+                using (UserController usercontroller = new UserController())
+                {
+                    Contacts newdata = new Contacts();
+                    model.CreateTime = DateTime.Now;
+                    model.CreateUserId = usercontroller.GetCurrentLoginUser().UserId;
+                    CopyToModel(newdata, model);
+                    database.Contacts.Add(newdata);
+                    database.SaveChanges();
+                }
+
             }
             catch (Exception ex)
             {
@@ -216,9 +221,19 @@ namespace Tokiku.Controllers
 
                 if (original != null)
                 {
-                    CopyToModel(original, model);
-                    database.AccessLog.Add(new AccessLog() { ActionCode = 2, CreateTime = DateTime.Now, DataId = original.Id, UserId = model.LoginedUser.UserId });
-                    database.SaveChanges();
+                    using (UserController usercontroller = new UserController())
+                    {
+                        CopyToModel(original, model);
+                        database.AccessLog.Add(new AccessLog()
+                        {
+                            ActionCode = 2,
+                            CreateTime = DateTime.Now,
+                            DataId = original.Id,
+                            UserId = usercontroller.GetCurrentLoginUser().UserId
+                        });
+                        database.SaveChanges();
+                    }
+
 
                     return Query(x => x.Id == model.Id);
                 }

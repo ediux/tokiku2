@@ -95,13 +95,44 @@ namespace TokikuNew.Controls
                         PropertyInfo pi = item.GetType().GetProperty(propertyName);
                         if (pi != null)
                         {
-                            object convertedValue = Convert.ChangeType(value, pi.PropertyType);
-                            item.GetType().GetProperty(propertyName).SetValue(item, convertedValue, null);
-                        }
-                        //column.OnPastingCellClipboardContent(item, rowData[rowDataIndex][columnDataIndex]);
+                            try
+                            {
+                                object convertedValue = Convert.ChangeType(value, pi.PropertyType);
+                                item.GetType().GetProperty(propertyName).SetValue(item, convertedValue, null);
+                            }
+                            catch
+                            {
+                                //跳過轉型失敗的欄位值
+                                continue;
+                            }
+
+                        }                     
                     }
+                }
+
+
+            }
+
+            if (e.Command == ApplicationCommands.Copy)
+            {
+                if (this.SelectedItems.Count > 0)
+                {
+                    List<string> converttomatrix = new List<string>();
+                    foreach (var row in SelectedItems)
+                    {
+                        Type data = row.GetType();
+
+                        var dataobject_column_values = data.GetProperties()
+                            .Select(s=>string.Format("{0}",s.GetValue(row)))
+                            .ToArray();
+
+                        converttomatrix.Add(string.Join("\t", dataobject_column_values));
+                    }
+                    string rawdata = string.Join("\n", converttomatrix.ToArray());
+                    Clipboard.SetText(rawdata);
                 }
             }
         }
     }
 }
+

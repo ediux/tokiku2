@@ -70,12 +70,6 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ShorName" Type="nvarchar" MaxLength="25" />
           <Property Name="Area" Type="real" Nullable="false" />
-          <Property Name="WarrantyDate" Type="smalldatetime" Nullable="false" />
-          <Property Name="Architect" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="BuildingHeightAboveground" Type="int" Nullable="false" />
-          <Property Name="BuildingHeightUnderground" Type="int" Nullable="false" />
-          <Property Name="BuildingCompany" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="SupervisionUnit" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreateTime" Type="smalldatetime" Nullable="false" />
           <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="IsAppend" Type="bit" Nullable="false" />
@@ -186,7 +180,7 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ProjectId" Type="uniqueidentifier" />
-          <Property Name="ContractorId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ContractorId" Type="uniqueidentifier" />
           <Property Name="SigningDate" Type="smalldatetime" Nullable="false" />
           <Property Name="ContractNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="StartDate" Type="smalldatetime" Nullable="false" />
@@ -195,7 +189,19 @@
           <Property Name="AmountDue" Type="real" />
           <Property Name="PrepaymentGuaranteeAmount" Type="real" />
           <Property Name="OpenDate" Type="smalldatetime" />
-          <Property Name="PaymentType" Type="tinyint" Nullable="false" />
+          <Property Name="PaymentType" Type="tinyint" />
+          <Property Name="WarrantyDate" Type="smalldatetime" />
+          <Property Name="Architect" Type="nvarchar" MaxLength="50" />
+          <Property Name="BuildingHeightAboveground" Type="int" />
+          <Property Name="BuildingHeightUnderground" Type="int" />
+          <Property Name="BuildingCompany" Type="nvarchar" MaxLength="50" />
+          <Property Name="SupervisionUnit" Type="nvarchar" MaxLength="50" />
+          <Property Name="Area" Type="real" />
+          <Property Name="IsAppend" Type="bit" />
+          <Property Name="IsRepair" Type="bit" />
+          <Property Name="State" Type="tinyint" />
+          <Property Name="CheckoutDay" Type="tinyint" Nullable="false" />
+          <Property Name="PaymentDay" Type="tinyint" Nullable="false" />
           <Property Name="CreateTime" Type="smalldatetime" Nullable="false" />
           <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
@@ -451,6 +457,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProjectContract_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="0..1" />
+          <End Role="ProjectContract" Type="Self.ProjectContract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProjectContract">
+              <PropertyRef Name="ContractorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProjectContract_Projects">
           <End Role="Projects" Type="Self.Projects" Multiplicity="0..1" />
           <End Role="ProjectContract" Type="Self.ProjectContract" Multiplicity="*" />
@@ -460,6 +478,18 @@
             </Principal>
             <Dependent Role="ProjectContract">
               <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectContract_States">
+          <End Role="States" Type="Self.States" Multiplicity="0..1" />
+          <End Role="ProjectContract" Type="Self.ProjectContract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="States">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProjectContract">
+              <PropertyRef Name="State" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -637,8 +667,16 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Materials" EntitySet="Materials" />
           </AssociationSet>
+          <AssociationSet Name="FK_ProjectContract_Manufacturers" Association="Self.FK_ProjectContract_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="ProjectContract" EntitySet="ProjectContract" />
+          </AssociationSet>
           <AssociationSet Name="FK_ProjectContract_Projects" Association="Self.FK_ProjectContract_Projects">
             <End Role="Projects" EntitySet="Projects" />
+            <End Role="ProjectContract" EntitySet="ProjectContract" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectContract_States" Association="Self.FK_ProjectContract_States">
+            <End Role="States" EntitySet="States" />
             <End Role="ProjectContract" EntitySet="ProjectContract" />
           </AssociationSet>
           <AssociationSet Name="FK_ProjectContract_Users" Association="Self.FK_ProjectContract_Users">
@@ -754,6 +792,7 @@
           <Property Name="StateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="ShopFlowHistory" Relationship="TokikuModel.FK_ShopFlowHistory_States" FromRole="States" ToRole="ShopFlowHistory" />
           <NavigationProperty Name="Projects" Relationship="TokikuModel.FK_Projects_States" FromRole="States" ToRole="Projects" />
+          <NavigationProperty Name="ProjectContract" Relationship="TokikuModel.FK_ProjectContract_States" FromRole="States" ToRole="ProjectContract" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -879,14 +918,18 @@
             <End Role="Manufacturers" EntitySet="Manufacturers" />
           </AssociationSet>
           <EntitySet Name="Engineering" EntityType="TokikuModel.Engineering" />
-          <AssociationSet Name="FK_ShopFlowHistory_Engineering" Association="TokikuModel.FK_ShopFlowHistory_Engineering">
-            <End Role="Engineering" EntitySet="Engineering" />
-            <End Role="ShopFlowHistory" EntitySet="ShopFlowHistory" />
-          </AssociationSet>
           <EntitySet Name="ProjectContract" EntityType="TokikuModel.ProjectContract" />
           <AssociationSet Name="FK_Engineering_ProjectContract" Association="TokikuModel.FK_Engineering_ProjectContract">
             <End Role="ProjectContract" EntitySet="ProjectContract" />
             <End Role="Engineering" EntitySet="Engineering" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShopFlowHistory_Engineering" Association="TokikuModel.FK_ShopFlowHistory_Engineering">
+            <End Role="Engineering" EntitySet="Engineering" />
+            <End Role="ShopFlowHistory" EntitySet="ShopFlowHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectContract_Manufacturers" Association="TokikuModel.FK_ProjectContract_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="ProjectContract" EntitySet="ProjectContract" />
           </AssociationSet>
           <AssociationSet Name="FK_ProjectContract_Projects" Association="TokikuModel.FK_ProjectContract_Projects">
             <End Role="Projects" EntitySet="Projects" />
@@ -900,7 +943,11 @@
             <End Role="ProjectContract" EntitySet="ProjectContract" />
             <End Role="PromissoryNoteManagement" EntitySet="PromissoryNoteManagement" />
           </AssociationSet>
-        </EntityContainer>
+          <AssociationSet Name="FK_ProjectContract_States" Association="TokikuModel.FK_ProjectContract_States">
+            <End Role="States" EntitySet="States" />
+            <End Role="ProjectContract" EntitySet="ProjectContract" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="ShopFlowHistory">
           <Key>
             <PropertyRef Name="Id" />
@@ -1154,6 +1201,7 @@
           <NavigationProperty Name="Contacts" Relationship="TokikuModel.ContractsInManufacturers" FromRole="Manufacturers" ToRole="Contacts" />
           <NavigationProperty Name="Projects" Relationship="TokikuModel.ClientsInProjects" FromRole="Manufacturers" ToRole="Projects" />
           <NavigationProperty Name="PaymentTypes" Relationship="TokikuModel.FK_Manufacturers_PaymentTypes" FromRole="Manufacturers" ToRole="PaymentTypes" />
+          <NavigationProperty Name="ProjectContract" Relationship="TokikuModel.FK_ProjectContract_Manufacturers" FromRole="Manufacturers" ToRole="ProjectContract" />
         </EntityType>
         <Association Name="ContractsInManufacturers">
           <End Type="TokikuModel.Contacts" Role="Contacts" Multiplicity="*" />
@@ -1193,18 +1241,61 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ShorName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Area" Type="Single" Nullable="false" />
-          <Property Name="WarrantyDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Architect" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BuildingHeightAboveground" Type="Int32" Nullable="false" />
-          <Property Name="BuildingHeightUnderground" Type="Int32" Nullable="false" />
-          <Property Name="BuildingCompany" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SupervisionUnit" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
           <Property Name="IsAppend" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="ShopFlowHistory" Relationship="TokikuModel.FK_ShopFlowHistory_Engineering" FromRole="Engineering" ToRole="ShopFlowHistory" />
           <NavigationProperty Name="ProjectContract" Relationship="TokikuModel.FK_Engineering_ProjectContract" FromRole="Engineering" ToRole="ProjectContract" />
+          <NavigationProperty Name="ShopFlowHistory" Relationship="TokikuModel.FK_ShopFlowHistory_Engineering" FromRole="Engineering" ToRole="ShopFlowHistory" />
         </EntityType>
+        <EntityType Name="ProjectContract">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ProjectId" Type="Guid" />
+          <Property Name="ContractorId" Type="Guid" />
+          <Property Name="SigningDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ContractNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CompletionDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ContractAmount" Type="Single" />
+          <Property Name="AmountDue" Type="Single" />
+          <Property Name="PrepaymentGuaranteeAmount" Type="Single" />
+          <Property Name="OpenDate" Type="DateTime" Precision="0" />
+          <Property Name="PaymentType" Type="Byte" />
+          <Property Name="WarrantyDate" Type="DateTime" Precision="0" />
+          <Property Name="Architect" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BuildingHeightAboveground" Type="Int32" />
+          <Property Name="BuildingHeightUnderground" Type="Int32" />
+          <Property Name="BuildingCompany" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SupervisionUnit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Area" Type="Single" />
+          <Property Name="IsAppend" Type="Boolean" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Engineering" Relationship="TokikuModel.FK_Engineering_ProjectContract" FromRole="ProjectContract" ToRole="Engineering" />
+          <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_ProjectContract_Manufacturers" FromRole="ProjectContract" ToRole="Manufacturers" />
+          <NavigationProperty Name="Projects" Relationship="TokikuModel.FK_ProjectContract_Projects" FromRole="ProjectContract" ToRole="Projects" />
+          <NavigationProperty Name="Users" Relationship="TokikuModel.FK_ProjectContract_Users" FromRole="ProjectContract" ToRole="Users" />
+          <NavigationProperty Name="PromissoryNoteManagement" Relationship="TokikuModel.FK_PromissoryNoteManagement_ProjectContract" FromRole="ProjectContract" ToRole="PromissoryNoteManagement" />
+          <Property Name="State" Type="Byte" />
+          <NavigationProperty Name="States" Relationship="TokikuModel.FK_ProjectContract_States" FromRole="ProjectContract" ToRole="States" />
+          <Property Name="CheckoutDay" Type="Byte" Nullable="false" />
+          <Property Name="PaymentDay" Type="Byte" Nullable="false" />
+          <Property Name="IsRepair" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK_Engineering_ProjectContract">
+          <End Type="TokikuModel.ProjectContract" Role="ProjectContract" Multiplicity="1" />
+          <End Type="TokikuModel.Engineering" Role="Engineering" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectContract">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Engineering">
+              <PropertyRef Name="ProjectContractId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ShopFlowHistory_Engineering">
           <End Type="TokikuModel.Engineering" Role="Engineering" Multiplicity="1" />
           <End Type="TokikuModel.ShopFlowHistory" Role="ShopFlowHistory" Multiplicity="*" />
@@ -1217,38 +1308,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="ProjectContract">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="ProjectId" Type="Guid" />
-          <Property Name="ContractorId" Type="Guid" Nullable="false" />
-          <Property Name="SigningDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ContractNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="CompletionDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ContractAmount" Type="Single" />
-          <Property Name="AmountDue" Type="Single" />
-          <Property Name="PrepaymentGuaranteeAmount" Type="Single" />
-          <Property Name="OpenDate" Type="DateTime" Precision="0" />
-          <Property Name="PaymentType" Type="Byte" Nullable="false" />
-          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="Engineering" Relationship="TokikuModel.FK_Engineering_ProjectContract" FromRole="ProjectContract" ToRole="Engineering" />
-          <NavigationProperty Name="Projects" Relationship="TokikuModel.FK_ProjectContract_Projects" FromRole="ProjectContract" ToRole="Projects" />
-          <NavigationProperty Name="CreateUser" Relationship="TokikuModel.FK_ProjectContract_Users" FromRole="ProjectContract" ToRole="Users" />
-          <NavigationProperty Name="PromissoryNoteManagement" Relationship="TokikuModel.FK_PromissoryNoteManagement_ProjectContract" FromRole="ProjectContract" ToRole="PromissoryNoteManagement" />
-        </EntityType>
-        <Association Name="FK_Engineering_ProjectContract">
-          <End Type="TokikuModel.ProjectContract" Role="ProjectContract" Multiplicity="1" />
-          <End Type="TokikuModel.Engineering" Role="Engineering" Multiplicity="*" />
+        <Association Name="FK_ProjectContract_Manufacturers">
+          <End Type="TokikuModel.Manufacturers" Role="Manufacturers" Multiplicity="0..1" />
+          <End Type="TokikuModel.ProjectContract" Role="ProjectContract" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ProjectContract">
+            <Principal Role="Manufacturers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Engineering">
-              <PropertyRef Name="ProjectContractId" />
+            <Dependent Role="ProjectContract">
+              <PropertyRef Name="ContractorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1288,7 +1356,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="FK_ProjectContract_States">
+          <End Type="TokikuModel.States" Role="States" Multiplicity="0..1" />
+          <End Type="TokikuModel.ProjectContract" Role="ProjectContract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="States">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProjectContract">
+              <PropertyRef Name="State" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1555,12 +1635,6 @@
                 <ScalarProperty Name="IsAppend" ColumnName="IsAppend" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="SupervisionUnit" ColumnName="SupervisionUnit" />
-                <ScalarProperty Name="BuildingCompany" ColumnName="BuildingCompany" />
-                <ScalarProperty Name="BuildingHeightUnderground" ColumnName="BuildingHeightUnderground" />
-                <ScalarProperty Name="BuildingHeightAboveground" ColumnName="BuildingHeightAboveground" />
-                <ScalarProperty Name="Architect" ColumnName="Architect" />
-                <ScalarProperty Name="WarrantyDate" ColumnName="WarrantyDate" />
                 <ScalarProperty Name="Area" ColumnName="Area" />
                 <ScalarProperty Name="ShorName" ColumnName="ShorName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1573,8 +1647,20 @@
           <EntitySetMapping Name="ProjectContract">
             <EntityTypeMapping TypeName="TokikuModel.ProjectContract">
               <MappingFragment StoreEntitySet="ProjectContract">
+                <ScalarProperty Name="IsRepair" ColumnName="IsRepair" />
+                <ScalarProperty Name="PaymentDay" ColumnName="PaymentDay" />
+                <ScalarProperty Name="CheckoutDay" ColumnName="CheckoutDay" />
+                <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="IsAppend" ColumnName="IsAppend" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="SupervisionUnit" ColumnName="SupervisionUnit" />
+                <ScalarProperty Name="BuildingCompany" ColumnName="BuildingCompany" />
+                <ScalarProperty Name="BuildingHeightUnderground" ColumnName="BuildingHeightUnderground" />
+                <ScalarProperty Name="BuildingHeightAboveground" ColumnName="BuildingHeightAboveground" />
+                <ScalarProperty Name="Architect" ColumnName="Architect" />
+                <ScalarProperty Name="WarrantyDate" ColumnName="WarrantyDate" />
                 <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
                 <ScalarProperty Name="OpenDate" ColumnName="OpenDate" />
                 <ScalarProperty Name="PrepaymentGuaranteeAmount" ColumnName="PrepaymentGuaranteeAmount" />

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tokiku.ViewModels
 {
-    public class PromissoryNoteManagementViewModel : BaseViewModel, IBaseViewModelWithLoginedUser
+    public class PromissoryNoteManagementViewModel : BaseViewModel
     {
     }
 }

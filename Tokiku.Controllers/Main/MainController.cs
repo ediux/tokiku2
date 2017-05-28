@@ -15,12 +15,15 @@ namespace Tokiku.Controllers
             UserController controller = new UserController();
             ProjectsController pc = new ProjectsController();
             ManufacturersController mc = new ManufacturersController();
+
             try
             {
                 MainViewModel main_model = new MainViewModel();
+
                 main_model.LoginedUser = controller.GetCurrentLoginUser();
                 main_model.Projects = pc.QueryAll();
                 main_model.Manufacturers = mc.QueryAll();
+                main_model.Clients = mc.QueryAllClients();
 
                 frame.DataContext = main_model;
                 if (!main_model.HasError)

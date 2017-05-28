@@ -38,7 +38,7 @@ namespace TokikuNew.Views
             get { return (ProjectListViewModel)GetValue(SelectedProjectProperty); }
             set { SetValue(SelectedProjectProperty, value); }
         }
-       
+
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             //ProjectList.ItemsSource = (ObservableCollection<ProjectBaseViewModel>)DataContext;
@@ -75,12 +75,10 @@ namespace TokikuNew.Views
             RaiseEvent(newEventArgs);
         }
 
-
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //搜尋框
-            ProjectList.ItemsSource = controller.SearchByText((string)e.OriginalSource);
+            DataContext = controller.SearchByText((string)e.OriginalSource);
         }
 
         private void ProjectList_SelectionChanged(object sender, SelectionChangedEventArgs e)

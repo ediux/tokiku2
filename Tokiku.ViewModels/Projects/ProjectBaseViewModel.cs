@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace Tokiku.ViewModels
 {
-    public class ProjectBaseViewModel : WithOutBaseViewModel, IBaseViewModel
+    public class ProjectBaseViewModel : BaseViewModel, IBaseViewModel
     {
         #region 私有變數
         /// <summary>
@@ -124,8 +124,10 @@ namespace Tokiku.ViewModels
         }
         #endregion
 
-
-
+        #region Project Contract
+        /// <summary>
+        /// 專案合約
+        /// </summary>
         public ProjectContractViewModelCollection ProjectContract
         {
             get { return (ProjectContractViewModelCollection)GetValue(ProjectContractProperty); }
@@ -135,7 +137,22 @@ namespace Tokiku.ViewModels
         // Using a DependencyProperty as the backing store for ProjectContract.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ProjectContractProperty =
             DependencyProperty.Register("ProjectContract", typeof(ProjectContractViewModelCollection), typeof(ProjectBaseViewModel
-                ), new PropertyMetadata(default(ProjectContractViewModelCollection),new PropertyChangedCallback(DefaultFieldChanged)));
+                ), new PropertyMetadata(default(ProjectContractViewModelCollection), new PropertyChangedCallback(DefaultFieldChanged)));
+        #endregion
+
+
+        /// <summary>
+        /// 客戶列表
+        /// </summary>
+        public ClientViewModelCollection Clients
+        {
+            get { return (ClientViewModelCollection)GetValue(ClientsProperty); }
+            set { SetValue(ClientsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Clients.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ClientsProperty =
+            DependencyProperty.Register("Clients", typeof(ClientViewModelCollection), typeof(ProjectBaseViewModel), new PropertyMetadata(new ClientViewModelCollection()));
 
 
     }

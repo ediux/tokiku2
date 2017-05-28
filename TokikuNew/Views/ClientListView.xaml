@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="TokikuNew.Views.ClientListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:controls="clr-namespace:TokikuNew.Controls"
+             mc:Ignorable="d" 
+             Background="{DynamicResource ControlBackgroundBrush}"
+             d:DesignHeight="768" d:DesignWidth="1024">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="27"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid  Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60*"/>
+                <ColumnDefinition Width="40*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="請選擇客戶" VerticalAlignment="Center" Margin="5,0,2,0"/>
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="125*"/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+                <controls:SearchBar x:Name="sSearchBar" Search="sSearchBar_Search" DataContext="{Binding Clients}" ResetSearch="sSearchBar_ResetSearch" Grid.Column="0"/>
+                <Button Name="btnNew" Grid.Column="1" Margin="5,1" Content="新增" Click="btnNew_Click" />
+            </Grid>
+        </Grid>
+        <controls:CustomDataGrid x:Name="ClientList" AllowExecuteSystemCommand="False" Grid.Row="1" Margin="5"
+                                 ItemsSource="{Binding}" ClipboardCopyMode="IncludeHeader" 
+                                 SelectedCellsChanged="ClientList_SelectedCellsChanged" AutoGenerateColumns="False"                            
+                                 AddingNewItem="ClientList_AddingNewItem">
+            <DataGrid.Columns>
+                <DataGridHyperlinkColumn  Header="客戶代號" Binding="{Binding Code}" Width="100" />
+                <DataGridTextColumn Header="客戶名稱" Binding="{Binding Name}" Width="100" />
+                <DataGridTextColumn Header="客戶簡稱" Binding="{Binding ShortName}" Width="100" />
+                <DataGridTextColumn Header="負責人" Binding="{Binding Principal}" Width="100" />
+                <DataGridTextColumn Header="統一編號" Binding="{Binding UniformNumbers}" Width="70" />
+                <DataGridTextColumn Header="主要聯絡人" Width="70" Binding="{Binding MainContactPerson}"/>
+                <DataGridTextColumn Header="公司電話" Width="70" Binding="{Binding Phone}"/>
+                <DataGridTextColumn Header="公司地址" Width="70" Binding="{Binding Address}"/>
+                <DataGridTextColumn Header="公司傳真" Width="70" Binding="{Binding Fax}"/>
+                <DataGridCheckBoxColumn Header="狀態" Width="70" Binding="{Binding Void}" />
+            </DataGrid.Columns>
+        </controls:CustomDataGrid>
+    </Grid>
+</UserControl>

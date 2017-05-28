@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace Tokiku.ViewModels
 {
-    public class ContactsViewModel : BaseViewModel, IBaseViewModelWithLoginedUser
+    public class ContactsViewModel : BaseViewModel
     {
         public ContactsViewModel()
         {
