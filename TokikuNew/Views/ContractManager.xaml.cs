@@ -29,7 +29,8 @@ namespace TokikuNew.Views
             InitializeComponent();
         }
 
-        private ProjectContractController controller = new ProjectContractController();
+
+        private EngineeringController controller = new  EngineeringController();
 
         #region Document Mode
 
@@ -47,6 +48,18 @@ namespace TokikuNew.Views
 
 
 
+        public ProjectContractViewModel CurrentProjectContract
+        {
+            get { return (ProjectContractViewModel)GetValue(CurrentProjectContractProperty); }
+            set { SetValue(CurrentProjectContractProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CurrentProjectContract.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CurrentProjectContractProperty =
+            DependencyProperty.Register("CurrentProjectContract", typeof(ProjectContractViewModel), typeof(ContractManager), new PropertyMetadata(default(ProjectContractViewModel)));
+
+
+
         public EngineeringViewModel SelectedEngineering
         {
             get { return (EngineeringViewModel)GetValue(SelectedEngineeringProperty); }
@@ -55,9 +68,7 @@ namespace TokikuNew.Views
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedEngineeringProperty =
-            DependencyProperty.Register("SelectedEngineering", typeof(int), typeof(ContractManager), new PropertyMetadata(default(EngineeringViewModel)));
-
-
+            DependencyProperty.Register("SelectedEngineering", typeof(EngineeringViewModel), typeof(ContractManager), new PropertyMetadata(default(EngineeringViewModel)));
 
 
         public UserViewModel LoginedUser
@@ -95,6 +106,10 @@ namespace TokikuNew.Views
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             AddHandler(DockBar.DocumentModeChangedEvent, new RoutedEventHandler(DockBar_DocumentModeChanged));
+            Binding datasourceing = new Binding();
+            datasourceing.Source = this.DataContext;
+
+            SetBinding(CurrentProjectContractProperty, datasourceing);    
         }
 
         private void EngCaseList_Selected(object sender, RoutedEventArgs e)
@@ -115,11 +130,10 @@ namespace TokikuNew.Views
                 {
 
                     case DocumentLifeCircle.Create:
-
-                        this.DataContext = controller.CreateNew();
-
+                        ProjectContractViewModel model1 = (ProjectContractViewModel)DataContext;
+                        SelectedEngineering = controller.CreateNew();
                         SelectedEngineering.CreateUserId = LoginedUser.UserId;
-
+                        model1.Engineerings.Add(SelectedEngineering);
 
                         if (SelectedEngineering.HasError)
                         {
@@ -156,7 +170,7 @@ namespace TokikuNew.Views
                             }
                         }
 
-                        controller.SaveModel((ProjectContractViewModel)DataContext);
+                        controller.SaveModel(SelectedEngineering);
                         SelectedEngineering.Status.IsModify = false;
                         SelectedEngineering.Status.IsSaved = true;
 
@@ -176,11 +190,13 @@ namespace TokikuNew.Views
                         }
                         break;
                     case DocumentLifeCircle.Update:
-                        SelectedEngineering.Status.IsModify = false;
-                        SelectedEngineering.Status.IsSaved = false;
-                        SelectedEngineering.Status.IsNewInstance = false;
+                        ProjectContractViewModel model3 = (ProjectContractViewModel)DataContext;
+                        model3.Status.IsModify = false;
+                        model3.Status.IsSaved = false;
+                        model3.Status.IsNewInstance = false;
                         break;
                 }
+                Mode = dockBar.DocumentMode;
                 UpdateLayout();
             }
             catch (Exception ex)
@@ -196,6 +212,20 @@ namespace TokikuNew.Views
 
         private void CustomDataGrid_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
         {
+
+        }
+
+        private void EngCaseList_Selected(object sender, MouseButtonEventArgs e)
+        {
+            //選擇合約項目
+            SelectedEngineering = (EngineeringViewModel)EngCaseList.SelectedItem;
+            if (SelectedEngineering != null)
+            {
+                SelectedEngineering = controller.Query(q => q.Id == SelectedEngineering.Id);
+                com1.ItemsSource = SelectedEngineering.Compositions;
+                com2.ItemsSource = SelectedEngineering.Compositions2;
+
+            }
 
         }
     }

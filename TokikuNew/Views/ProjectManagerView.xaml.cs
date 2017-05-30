@@ -16,7 +16,9 @@ namespace TokikuNew.Views
     public partial class ProjectManagerView : UserControl
     {
         private ProjectsController controller = new ProjectsController();
+        private ProjectContractController projectcontroll = new ProjectContractController();
         private ClientController clientcontroller = new ClientController();
+
         public ProjectManagerView()
         {
             InitializeComponent();
@@ -227,6 +229,8 @@ namespace TokikuNew.Views
             if (e.OriginalSource is ProjectContractViewModel)
             {
                 ProjectContractViewModel disableContract = (ProjectContractViewModel)e.OriginalSource;
+                projectcontroll.Delete(disableContract);
+                UpdateLayout();
                 //disableContract.Void
             }
         }
@@ -261,16 +265,6 @@ namespace TokikuNew.Views
                 SelectedProject.ClientId = SelectedClient.Id;
 
             }
-        }
-
-        private void CustomDataGrid_Selected(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void CustomDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
 
         private void ContractList_Selected(object sender, RoutedEventArgs e)

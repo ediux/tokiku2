@@ -157,8 +157,6 @@ namespace Tokiku.Controllers
         {
             try
             {
-
-
                 var result = from p in database.Projects
                              where p.Id == ProjectId && p.Void == false
                              orderby p.State ascending, p.Code ascending

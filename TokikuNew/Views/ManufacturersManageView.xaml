@@ -91,9 +91,10 @@
                     </Grid>
                 </GroupBox>
                 <GroupBox Grid.Row="1" Grid.Column="0" Header="交易品項" Margin="5">
-                    <c:CustomDataGrid>
+                    <c:CustomDataGrid CanUserAddRows="True" CanUserDeleteRows="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header=""/>
+                            <DataGridTextColumn Header="類別"/>
+                            <DataGridTextColumn Header="品項"/>
                         </DataGrid.Columns>
                     </c:CustomDataGrid>
                 </GroupBox>

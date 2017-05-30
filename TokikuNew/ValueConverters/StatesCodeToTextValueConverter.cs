@@ -54,14 +54,14 @@ namespace TokikuNew.ValueConverters
                     if (result != null)
                         return result.Id;
 
-                    return (byte)0;
+                    return default(byte?);
                 }
 
                 return value;
             }
             catch
             {
-                return (byte)0;
+                return default(byte?);
             }
         }
     }

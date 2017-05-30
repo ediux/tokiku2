@@ -82,6 +82,7 @@
     <Compile Include="ValueConverters\NOTGateValueConverter.cs" />
     <Compile Include="ValueConverters\RadioButtonSwitchValueConverter.cs" />
     <Compile Include="ValueConverters\BooleanToVisibilityValueConveter.cs" />
+    <Compile Include="ValueConverters\ReadModeToDisabledControllerValueConverter.cs" />
     <Compile Include="ValueConverters\StatesCodeToTextValueConverter.cs" />
     <Compile Include="Views\ClientListView.xaml.cs">
       <DependentUpon>ClientListView.xaml</DependentUpon>

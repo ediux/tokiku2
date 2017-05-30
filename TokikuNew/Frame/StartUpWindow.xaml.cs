@@ -36,26 +36,35 @@ namespace TokikuNew.Frame
 
             var loginedUser = controller.Login(Model);
 
-            if (loginedUser != null)
+            if (loginedUser.HasError)
             {
-                tblkMessage.Text = "登入成功!";
-                MainController mc = new MainController();
-                
-                MainWindow mainwin = new MainWindow();
-                mc.Index(mainwin);
-                mainwin.Closed += Mainwin_Closed;
-                mainwin.Show();
-
-                tblkMessage.Text = "";
-                tbUserName.Text = "";
-                pwdBox.Password = "";
-                this.Hide();
+                tblkMessage.Text = loginedUser.Errors.GetEnumerator().Current;
+                tblkMessage.Foreground = new SolidColorBrush(Colors.Red);
             }
             else
             {
-                tblkMessage.Text = "登入失敗!";
-                tblkMessage.Foreground = new SolidColorBrush(Colors.Red);
+                if (loginedUser != null)
+                {
+                    tblkMessage.Text = "登入成功!";
+                    MainController mc = new MainController();
+
+                    MainWindow mainwin = new MainWindow();
+                    mc.Index(mainwin);
+                    mainwin.Closed += Mainwin_Closed;
+                    mainwin.Show();
+
+                    tblkMessage.Text = "";
+                    tbUserName.Text = "";
+                    pwdBox.Password = "";
+                    this.Hide();
+                }
+                else
+                {
+                    tblkMessage.Text = "登入失敗!";
+                    tblkMessage.Foreground = new SolidColorBrush(Colors.Red);
+                }
             }
+         
         }
 
         private void Mainwin_Closed(object sender, EventArgs e)

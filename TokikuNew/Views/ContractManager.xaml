@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
-             xmlns:Controls="clr-namespace:TokikuNew.Controls" x:Class="TokikuNew.Views.ContractManager"
+             xmlns:Controls="clr-namespace:TokikuNew.Controls" x:Name="userControl" x:Class="TokikuNew.Views.ContractManager"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024" Background="{DynamicResource ControlBackgroundBrush}"
              Loaded="UserControl_Loaded">
@@ -28,6 +28,7 @@
                                          CanUserAddRows="True"
                                          CanUserDeleteRows="True"
                                          ItemsSource="{Binding Engineerings}"
+                                         IsEnabled="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"
                                          x:Name="EngCaseList"
                                          MouseDoubleClick="EngCaseList_Selected">
                     <Controls:CustomDataGrid.Columns>
@@ -43,7 +44,7 @@
                 </Controls:CustomDataGrid>
             </GroupBox>
             <GroupBox Header="施工圖集" Grid.Row="1" Grid.Column="0" Margin="5">
-                <Controls:CustomDataGrid ItemsSource="{Binding Compositions}" CanUserAddRows="True" CanUserDeleteRows="True" MouseDoubleClick="CustomDataGrid_MouseDoubleClick">
+                <Controls:CustomDataGrid x:Name="com1" ItemsSource="{Binding Compositions}" CanUserAddRows="True" CanUserDeleteRows="True" MouseDoubleClick="CustomDataGrid_MouseDoubleClick">
                     <Controls:CustomDataGrid.Columns>
                         <DataGridTextColumn Header="圖集" Binding="{Binding Order}" />
                         <DataGridTextColumn Header="組合編號" Binding="{Binding Code}" />
@@ -58,7 +59,7 @@
                 </Controls:CustomDataGrid>
             </GroupBox>
             <GroupBox Header="加工圖集" Grid.Row="1" Grid.Column="1" Margin="5">
-                <Controls:CustomDataGrid ItemsSource="{Binding Compositions2}" CanUserAddRows="True" CanUserDeleteRows="True" MouseDoubleClick="CustomDataGrid_MouseDoubleClick_1">
+                <Controls:CustomDataGrid x:Name="com2" ItemsSource="{Binding Compositions2}" CanUserAddRows="True" CanUserDeleteRows="True" MouseDoubleClick="CustomDataGrid_MouseDoubleClick_1">
                     <Controls:CustomDataGrid.Columns>
                         <DataGridTextColumn Header="圖集" Binding="{Binding Order}" />
                         <DataGridTextColumn Header="組合編號" Binding="{Binding Code}" />

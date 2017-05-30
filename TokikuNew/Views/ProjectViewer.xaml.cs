@@ -122,12 +122,10 @@ namespace TokikuNew.Views
 
                     var vm = new ContractManager() { Margin = new Thickness(0) };
                     vm.DataContext = model;
+                    vm.LoginedUser = LoginedUser;
+                    vm.CurrentProjectContract = model;
+
                     vm.Mode = DocumentLifeCircle.Read;
-
-                    //Binding bindinglogineduser = new Binding();
-                    //bindinglogineduser.Source = LoginedUser;
-
-                    //vm.SetBinding(ContractManager.LoginedUserProperty, bindinglogineduser);
 
                     addWorkarea.Content = vm;
                     addWorkarea.Margin = new Thickness(0);
@@ -137,7 +135,6 @@ namespace TokikuNew.Views
 
                 }
 
-              
             }
             catch (Exception ex)
             {
