@@ -75,7 +75,7 @@
                 <TextBlock Text="列印" TextAlignment="Center"/>
             </StackPanel>
         </Button>
-        <Button Margin="2" Width="48" Name="btnF9" Click="btnF9_Click" Command="{StaticResource Cancel}" >
+        <Button Margin="2" Width="48" Name="btnF9" Click="btnF9_Click" >
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="F9" TextAlignment="Center"/>
                 <TextBlock Text="取消" TextAlignment="Center"/>

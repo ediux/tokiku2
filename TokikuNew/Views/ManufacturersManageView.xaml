@@ -109,6 +109,7 @@
                 </Grid.RowDefinitions>
                 <GroupBox Header="合約項目" Grid.Column="0" Grid.Row="0" Margin="5">
                     <c:CustomDataGrid CanUserAddRows="False" CanUserDeleteRows="False"
+                                       AutoGenerateColumns="False"
                                       ItemsSource="{Binding Engineerings}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header=""/>

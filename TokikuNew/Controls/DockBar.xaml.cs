@@ -26,6 +26,19 @@ namespace TokikuNew.Controls
             InitializeComponent();
         }
 
+
+
+        public DocumentLifeCircle LastState
+        {
+            get { return (DocumentLifeCircle)GetValue(LastStateProperty); }
+            set { SetValue(LastStateProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for LastState.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty LastStateProperty =
+            DependencyProperty.Register("LastState", typeof(DocumentLifeCircle), typeof(DockBar), new PropertyMetadata(DocumentLifeCircle.Read));
+
+
         /// <summary>
         /// 判定各內容狀態
         /// </summary>
@@ -34,8 +47,8 @@ namespace TokikuNew.Controls
         protected static void DefaultFieldChanged(DependencyObject source, DependencyPropertyChangedEventArgs e)
         {
             DockBar src = (DockBar)source;
-
-            ChoiceMode((DocumentLifeCircle)e.NewValue, src);
+            source.SetValue(LastStateProperty, e.OldValue);
+            ChoiceMode((DocumentLifeCircle)e.NewValue, src);                        
         }
 
         private static void ChoiceMode(DocumentLifeCircle mode, DockBar src)
@@ -210,7 +223,8 @@ namespace TokikuNew.Controls
         private void btnF9_Click(object sender, RoutedEventArgs e)
         {
             e.Handled = true;
-            RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent, this));
+            DocumentMode = LastState;
+            RaiseEvent(new RoutedEventArgs(DocumentModeChangedEvent, DocumentMode));
         }
 
         private void btnF10_Click(object sender, RoutedEventArgs e)

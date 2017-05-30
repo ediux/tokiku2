@@ -103,7 +103,7 @@ namespace TokikuNew.Views
             selectProjectBinding.Source = DataContext;
             SetBinding(SelectedProjectProperty, selectProjectBinding);
 
-            if (SelectedProject.ClientId.HasValue)
+            if (SelectedClient != null && SelectedProject.ClientId.HasValue)
             {
                 SelectedClient = clientcontroller.Query(s => s.Id == SelectedProject.ClientId.Value);
             }
@@ -152,8 +152,8 @@ namespace TokikuNew.Views
             {
                 e.Handled = true;
 
-                DocumentLifeCircle mode = (DocumentLifeCircle)e.OriginalSource;
-                switch (mode)
+                Mode = (DocumentLifeCircle)e.OriginalSource;
+                switch (Mode)
                 {
 
                     case DocumentLifeCircle.Create:
@@ -207,6 +207,7 @@ namespace TokikuNew.Views
                         SelectedProject.Status.IsNewInstance = false;
                         break;
                 }
+               
                 UpdateLayout();
             }
             catch (Exception ex)

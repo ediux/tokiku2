@@ -58,9 +58,6 @@ namespace TokikuNew.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            PMV.Mode = Mode;
-
-
             //註冊一個處理分頁關閉的事件處理器
             AddHandler(ClosableTabItem.OnPageClosingEvent, new RoutedEventHandler(ProjectViewer_OnPageClosing));
             AddHandler(ProjectManagerView.SendNewPageRequestEvent, new RoutedEventHandler(ProjectViewer_OpenNewTab));

@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024" Loaded="UserControl_Loaded" 
               >
-    <Grid Background="{DynamicResource ControlBackgroundBrush}" Margin="0,0,0,0" >
+    <Grid Background="{DynamicResource ControlBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="48"/>
@@ -38,19 +38,26 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="專案代碼:" />
-                    <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center" Margin="2" x:Name="lblCode" Text="{Binding Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center" Margin="2" x:Name="lblCode" Text="{Binding Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                               IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
                     <TextBlock Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="專案全名" />
-                    <TextBox x:Name="tbName" Grid.Row="1" Grid.Column="1" Margin="2" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"   TextChanged="tbName_TextChanged"/>
+                    <TextBox x:Name="tbName" Grid.Row="1" Grid.Column="1" Margin="2" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"   TextChanged="tbName_TextChanged" 
+                             IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
                     <TextBlock Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="專案簡稱:"/>
-                    <TextBlock x:Name="tbShortName" Grid.Row="2" Grid.Column="1" Margin="2" TextAlignment="Left" VerticalAlignment="Center" Text="{Binding ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="tbShortName" Grid.Row="2" Grid.Column="1" Margin="2" TextAlignment="Left" VerticalAlignment="Center" Text="{Binding ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                               IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
                     <TextBlock Grid.Row="3" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="工程簽約日期"/>
-                    <DatePicker x:Name="ProjectSigningDate" Grid.Row="3" Grid.Column="1" Margin="2" FontSize="12" Text="{Binding ProjectSigningDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+                    <DatePicker x:Name="ProjectSigningDate" Grid.Row="3" Grid.Column="1" Margin="2" FontSize="12" Text="{Binding ProjectSigningDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
                     <TextBlock Grid.Row="4" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Top" Margin="0,5,0,5" Text="工地地址"/>
-                    <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" Text="{Binding SiteAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+                    <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" Text="{Binding SiteAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                             IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
                     <TextBlock Grid.Row="6" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Top" Margin="0,5,0,5" Text="備註"/>
-                    <TextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" Text="{Binding Path=Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" Text="{Binding Path=Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                             IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
                     <TextBlock Grid.Row="5" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="狀態"/>
-                    <ComboBox Grid.Row="5" Grid.Column="1" Margin="2" ItemsSource="{Binding StateText}" SelectedValuePath="Id" SelectedValue="{Binding Path=State, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                    <ComboBox Grid.Row="5" Grid.Column="1" Margin="2" ItemsSource="{Binding StateText}" SelectedValuePath="Id" SelectedValue="{Binding Path=State, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                              IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding StateName}"/>
@@ -79,7 +86,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0" Margin="2" Text="{Binding SelectedClient.Code, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="1">
-                            <Button x:Name="btnShowClientSelection" Content="編輯" Click="btnShowClientSelection_Click"/>
+                            <Button x:Name="btnShowClientSelection" Content="編輯" Click="btnShowClientSelection_Click" IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
                         </StackPanel>
                     </Grid>
                     <TextBlock Text="客戶名稱:" Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
@@ -88,6 +95,7 @@
                                           DataContext="{Binding Clients}"                                          
                                           HorizontalAlignment="Stretch" Margin="0" Visibility="Hidden" 
                                           SelectedClientChanged="ClientList_SelectedClientChanged"
+                                          IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"
                                           />
                 </Grid>
             </GroupBox>
@@ -102,12 +110,13 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">
-                        <Controls:SearchBar x:Name="ProjectContactSearchBar" Width="350" />
+                        <Controls:SearchBar x:Name="ProjectContactSearchBar" Width="350" IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}" />
                     </StackPanel>
                     <Controls:CustomDataGrid Grid.Row="1" Grid.Column="0" AllowExecuteSystemCommand="True" AutoGenerateColumns="False" CanUserDeleteRows="True"  CanUserAddRows="True" ItemsSource="{Binding SelectedProject.ProjectContract, ElementName=userControl}"
                                             MouseDoubleClick="ContractList_MouseDoubleClick"
                                              DataGridRow.Selected="ContractList_Selected"
-                                             x:Name="ContractList">
+                                             x:Name="ContractList"
+                                             IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}">
                         <Controls:CustomDataGrid.Columns>
                             <DataGridTextColumn Header="合約編號" Binding="{Binding ContractNumber}"/>
                             <DataGridTextColumn Header="簽約日期" Binding="{Binding SigningDate}"/>
@@ -133,7 +142,7 @@
                 </Grid>
             </GroupBox>
         </Grid>
-        <Controls:DockBar x:Name="dockBar" Grid.Row="1" DocumentMode="{Binding Path=Mode, ElementName=userControl}" DocumentModeChanged="DockBar_DocumentModeChanged" />
+        <Controls:DockBar x:Name="dockBar" Grid.Row="1" DocumentMode="{Binding Path=Mode,Mode=TwoWay,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True, ElementName=userControl}" DocumentModeChanged="DockBar_DocumentModeChanged" />
 
     </Grid>
 </UserControl>

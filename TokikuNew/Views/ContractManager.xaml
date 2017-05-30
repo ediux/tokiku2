@@ -44,7 +44,8 @@
                 </Controls:CustomDataGrid>
             </GroupBox>
             <GroupBox Header="施工圖集" Grid.Row="1" Grid.Column="0" Margin="5">
-                <Controls:CustomDataGrid x:Name="com1" ItemsSource="{Binding Compositions}" CanUserAddRows="True" CanUserDeleteRows="True" MouseDoubleClick="CustomDataGrid_MouseDoubleClick">
+                <Controls:CustomDataGrid x:Name="com1" ItemsSource="{Binding Compositions}" CanUserAddRows="True" CanUserDeleteRows="True" MouseDoubleClick="CustomDataGrid_MouseDoubleClick"
+                                         IsEnabled="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}">
                     <Controls:CustomDataGrid.Columns>
                         <DataGridTextColumn Header="圖集" Binding="{Binding Order}" />
                         <DataGridTextColumn Header="組合編號" Binding="{Binding Code}" />
@@ -59,7 +60,8 @@
                 </Controls:CustomDataGrid>
             </GroupBox>
             <GroupBox Header="加工圖集" Grid.Row="1" Grid.Column="1" Margin="5">
-                <Controls:CustomDataGrid x:Name="com2" ItemsSource="{Binding Compositions2}" CanUserAddRows="True" CanUserDeleteRows="True" MouseDoubleClick="CustomDataGrid_MouseDoubleClick_1">
+                <Controls:CustomDataGrid x:Name="com2" ItemsSource="{Binding Compositions2}" CanUserAddRows="True" CanUserDeleteRows="True" MouseDoubleClick="CustomDataGrid_MouseDoubleClick_1"
+                                         IsEnabled="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}">
                     <Controls:CustomDataGrid.Columns>
                         <DataGridTextColumn Header="圖集" Binding="{Binding Order}" />
                         <DataGridTextColumn Header="組合編號" Binding="{Binding Code}" />
