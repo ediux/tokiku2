@@ -29,9 +29,11 @@
             </Grid>
         </Grid>
         <controls:CustomDataGrid x:Name="ClientList" AllowExecuteSystemCommand="False" Grid.Row="1" Margin="5"
-                                 ItemsSource="{Binding}" ClipboardCopyMode="IncludeHeader" 
-                                 SelectedCellsChanged="ClientList_SelectedCellsChanged" AutoGenerateColumns="False"                            
-                                 AddingNewItem="ClientList_AddingNewItem">
+                                 ItemsSource="{Binding}" CanUserDeleteRows="False"  CanUserAddRows="False"
+                                 AutoGenerateColumns="False"  
+                                 MouseDoubleClick="ClientList_MouseDoubleClick"
+                                 IsReadOnly="True"
+                                 >
             <DataGrid.Columns>
                 <DataGridHyperlinkColumn  Header="客戶代號" Binding="{Binding Code}" Width="100" />
                 <DataGridTextColumn Header="客戶名稱" Binding="{Binding Name}" Width="100" />

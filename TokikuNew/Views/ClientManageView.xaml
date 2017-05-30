@@ -9,7 +9,7 @@
              xmlns:ValueConverters="clr-namespace:TokikuNew.ValueConverters" 
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024"
-             Background="{DynamicResource ControlBackgroundBrush}" Initialized="UserControl_Initialized">
+             Background="{DynamicResource ControlBackgroundBrush}" Loaded="UserControl_Loaded">
     <UserControl.Resources>
     </UserControl.Resources>
     <Grid>
@@ -69,21 +69,20 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="合約項目" Grid.Row="0" Grid.Column="1" Margin="5">
-                <c:CustomDataGrid x:Name="EngList" HorizontalScrollBarVisibility="Auto"  Margin="5">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="工程代號"/>
-                        <DataGridTextColumn Header="工程名稱"/>
-                        <DataGridTextColumn Header="面積數"/>
-                        <DataGridTextColumn Header="起造日期"/>
-                        <DataGridTextColumn Header="完工日期"/>
-                        <DataGridTextColumn Header="狀態"/>
-                        <DataGridTextColumn Header="保固到期日"/>
-                        <DataGridTextColumn Header="建築師"/>
-                        <DataGridTextColumn Header="建築高度"/>
-                        <DataGridTextColumn Header="營造廠"/>
-                        <DataGridTextColumn Header="監造單位"/>
-                    </DataGrid.Columns>
+            <GroupBox Header="合約列表" Grid.Row="0" Grid.Column="1" Margin="5">
+                <c:CustomDataGrid x:Name="EngList" HorizontalScrollBarVisibility="Auto"
+                                 CanUserAddRows="False" CanUserDeleteRows="False"
+                                  AutoGenerateColumns="False"
+                                  Margin="5" ItemsSource="{Binding Projects}">
+                    <c:CustomDataGrid.Columns>
+                        <DataGridTextColumn Header="專案代碼" Binding="{Binding Code}"/>
+                        <DataGridTextColumn Header="專案全名" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="簡稱" Binding="{Binding ShortName}"/>
+                        <DataGridTextColumn Header="工程簽約日期" Binding="{Binding ProjectSigningDate}"/>
+                        <DataGridTextColumn Header="工地地址" Binding="{Binding SiteAddress}"/>
+                        <DataGridTextColumn Header="狀態" Binding="{Binding State, Converter={StaticResource StatesCodeToTextValueConverter}}"/>
+                        
+                    </c:CustomDataGrid.Columns>
                 </c:CustomDataGrid>
             </GroupBox>
             <GroupBox Header="相關聯絡人" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="4" Margin="2" 
@@ -94,16 +93,16 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="20*"/>
-                        <ColumnDefinition Width="60*"/>
-                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="50*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="搜尋" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="15"/>
                     <c:SearchBar x:Name="sSearchBar" Grid.Column="1" Grid.Row="0" Search="sSearchBar_Search" ResetSearch="sSearchBar_ResetSearch" />
-                    <Button HorizontalAlignment="Left" Grid.Column="2" Width="30" Grid.Row="0" Content="新增" Name="btnAddList" Click="btnAddList_Click" Margin="2" />
-
                     <c:CustomDataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" AutoGenerateColumns="False" 
-                                      HorizontalScrollBarVisibility="Auto"  x:Name="ContractList" 
+                                      HorizontalScrollBarVisibility="Auto"  x:Name="ContractList"
+                                      CanUserAddRows="True"
+                                      CanUserDeleteRows="True"
+                                      ItemsSource="{Binding Contracts}"
                                       SelectedCellsChanged="ContractList_SelectedCellsChanged">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="姓名" Binding="{Binding Name}" Width="100" />
@@ -121,6 +120,7 @@
                 </Grid>
             </GroupBox>
         </Grid>
-        <c:DockBar Grid.Row="1" />
+        <c:DockBar Grid.Row="1" x:Name="dockBar" DocumentModeChanged="dockBar_DocumentModeChanged" DocumentMode="{Binding Path=Mode}"
+                    />
     </Grid>
 </UserControl>

@@ -26,5 +26,16 @@ namespace Tokiku.ViewModels
     public class ClientViewModel : ManufacturersViewModel
     {
 
+        public ProjectContractViewModelCollection ProjectContract
+        {
+            get { return (ProjectContractViewModelCollection)GetValue(ProjectContractProperty); }
+            set { SetValue(ProjectContractProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ProjectContract.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ProjectContractProperty =
+            DependencyProperty.Register("ProjectContract", typeof(ProjectContractViewModelCollection), typeof(ClientViewModel), new PropertyMetadata(default(ProjectContractViewModelCollection)));
+
+
     }
 }

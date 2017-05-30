@@ -35,7 +35,7 @@
                 <Views:VendorListView x:Name="VendorSelection" SelectedVendorChanged="VendorSelection_SelectedVendorChanged" DataContext="{Binding Manufacturers}" />
             </TabItem>
             <TabItem Header="客戶列表" >
-                <Views:ClientListView/>
+                <Views:ClientListView SelectedClientChanged="ClientListView_SelectedClientChanged" DataContext="{Binding Clients}"/>
             </TabItem>
         </TabControl>
         <StatusBar Margin="0" Grid.Row="3">

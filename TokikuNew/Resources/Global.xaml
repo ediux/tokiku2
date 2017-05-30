@@ -4,6 +4,9 @@
                     xmlns:local="clr-namespace:TokikuNew.Resources">
     <ValueConverters:NOTGateValueConverter x:Key="NOTGateValueConverter"/>
     <ValueConverters:RadioButtonSwitchValueConverter x:Key="RadioButtonSwitchValueConverter" />
+    <ValueConverters:BooleanToVisibilityValueConveter x:Key="BooleanToVisibilityValueConveter"/>
+    <ValueConverters:DocumentLifeCycleStateToVisibilityValueConverter x:Key="DocumentLifeCycleStateToVisibilityValueConverter"/>
+    <ValueConverters:StatesCodeToTextValueConverter x:Key="StatesCodeToTextValueConverter"/>
     <RoutedUICommand x:Key="Modify" Text="修改"/>
     <RoutedUICommand x:Key="Save" Text="暫存"/>
     <RoutedUICommand x:Key="Query" Text="查詢"/>

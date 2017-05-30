@@ -99,5 +99,14 @@ namespace TokikuNew.Views
         {
             ProjectList.ItemsSource = controller.QueryAll();
         }
+
+        private void ProjectList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (ProjectList.SelectedItem != null)
+            {
+                SelectedProject = (ProjectListViewModel)ProjectList.SelectedItem;
+                RaiseEvent(new RoutedEventArgs(SelectedProjectChangedEvent, SelectedProject));
+            }
+        }
     }
 }

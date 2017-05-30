@@ -24,22 +24,28 @@ namespace TokikuNew.Views
     public partial class ProjectViewer : UserControl
     {
         private ProjectsController controller = new ProjectsController();
+        private ProjectContractController projectcontractcontroller = new ProjectContractController();
 
-        #region 相依屬性
-        public static readonly DependencyProperty ModelProperty = DependencyProperty.Register("Model", typeof(ProjectBaseViewModel), typeof(ProjectViewer), new PropertyMetadata(default(ProjectBaseViewModel)));
-
-        public ProjectBaseViewModel Model
-        {
-            get { return GetValue(ModelProperty) as ProjectBaseViewModel; }
-            set { SetValue(ModelProperty, value); }
-        }
-        #endregion
 
         public UserViewModel LoginedUser
         {
             get { return (UserViewModel)GetValue(LoginedUserProperty); }
             set { SetValue(LoginedUserProperty, value); }
         }
+
+        #region Document Mode
+
+
+        public DocumentLifeCircle Mode
+        {
+            get { return (DocumentLifeCircle)GetValue(ModeProperty); }
+            set { SetValue(ModeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Mode.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ModeProperty =
+            DependencyProperty.Register("Mode", typeof(DocumentLifeCircle), typeof(ProjectViewer), new PropertyMetadata(DocumentLifeCircle.Read));
+        #endregion
 
         // Using a DependencyProperty as the backing store for LoginedUser.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty LoginedUserProperty =
@@ -52,32 +58,92 @@ namespace TokikuNew.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Binding loginuserbinding = new Binding();
-            loginuserbinding.Source = this.LoginedUser;
+            PMV.Mode = Mode;
 
-         PMV.SetBinding(ProjectManagerView.LoginedUserProperty, loginuserbinding);
 
             //註冊一個處理分頁關閉的事件處理器
             AddHandler(ClosableTabItem.OnPageClosingEvent, new RoutedEventHandler(ProjectViewer_OnPageClosing));
-            //AddHandler(DockBar.DocumentModeChangedEvent, new RoutedEventHandler(btnModify_Click));
-            //this.DataContext = Model;
-            //projectmgr.Model = Model;
-            //projectmgr.DataContext = Model;
-            //dbar.DocumentMode = DocumentLifeCircle.Create;
+            AddHandler(ProjectManagerView.SendNewPageRequestEvent, new RoutedEventHandler(ProjectViewer_OpenNewTab));
 
         }
-      
+
         private void ProjectViewer_OnPageClosing(object sender, RoutedEventArgs e)
         {
-            
+            e.Handled = true;
+
+            try
+            {
+                
+                TabItem currentworking = (TabItem)e.OriginalSource;
+
+                if (currentworking != null)
+                {
+                    if (currentworking.Content != null)
+                    {
+                        UserControl contextObject = (UserControl)currentworking.Content;
+
+                        if (contextObject.DataContext != null)
+                        {
+                            BaseViewModel vmodel = (BaseViewModel)contextObject.DataContext;
+                            if (vmodel.Status.IsModify && vmodel.Status.IsSaved == false)
+                            {
+                                if (MessageBox.Show("您尚未儲存，要繼續嗎?", "關閉前確認", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                                {
+                                    return;
+                                }
+                            }
+                        }
+
+                        InnerWorkspaces.Items.Remove(currentworking);
+                       
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        private void tbName_TextChanged(object sender, TextChangedEventArgs e)
+        private void ProjectViewer_OpenNewTab(object sender, RoutedEventArgs e)
         {
-            //if (tbName.Text.Trim().Length > 0)
-            //{
-            //    tbShortName.Text = tbName.Text.Substring(0, Math.Min(4, tbName.Text.Length));
-            //} 
+            try
+            {
+                e.Handled = true;
+                if (e.OriginalSource is ProjectContractViewModel)
+                {
+
+                    ProjectContractViewModel model = (ProjectContractViewModel)e.OriginalSource;
+
+                    model = projectcontractcontroller.Query(s => s.Id == model.Id);
+
+                    ClosableTabItem addWorkarea = new ClosableTabItem();
+                    addWorkarea.Header = string.Format("合約:{0}", model.ContractNumber);
+
+                    var vm = new ContractManager() { Margin = new Thickness(0) };
+                    vm.DataContext = model;
+                    vm.Mode = DocumentLifeCircle.Read;
+
+                    //Binding bindinglogineduser = new Binding();
+                    //bindinglogineduser.Source = LoginedUser;
+
+                    //vm.SetBinding(ContractManager.LoginedUserProperty, bindinglogineduser);
+
+                    addWorkarea.Content = vm;
+                    addWorkarea.Margin = new Thickness(0);
+
+                    InnerWorkspaces.Items.Add(addWorkarea);
+                    InnerWorkspaces.SelectedItem = addWorkarea;
+
+                }
+
+              
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
+
     }
 }

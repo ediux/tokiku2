@@ -24,7 +24,7 @@ namespace TokikuNew.Controls
                 if (btn.Name == "btnTabClose")
                 {
                     e.Handled = true;
-                    RaiseEvent(new RoutedEventArgs(OnPageClosingEvent, e.OriginalSource));  //停止關閉按鈕事件上升，並建立真正的分頁關閉上升事件觸發
+                    RaiseEvent(new RoutedEventArgs(OnPageClosingEvent, this));  //停止關閉按鈕事件上升，並建立真正的分頁關閉上升事件觸發
                     return;
                 }
             }

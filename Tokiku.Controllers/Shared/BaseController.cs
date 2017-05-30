@@ -13,11 +13,201 @@ using Tokiku.ViewModels;
 
 namespace Tokiku.Controllers
 {
-    public abstract class BaseController<TView, T> : IDisposable where TView : IBaseViewModel where T : class
+    public abstract class BaseController : IDisposable
     {
         protected TokikuEntities database;
 
-        public BaseController()
+        /// <summary>
+        /// 將來自資料庫的資料實體抄到檢視模型。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity"></param>
+        protected TViewB BindingFromModel<TViewB, TB>(TB entity) where TViewB : IBaseViewModel where TB : class
+        {
+            TViewB ViewModel = Activator.CreateInstance<TViewB>();
+
+            try
+            {
+                Type t = typeof(TB);
+                Type ct = typeof(TViewB);
+
+                var props = t.GetProperties();
+
+                foreach (var prop in props)
+                {
+                    try
+                    {
+                        var ctProp = ct.GetProperty(prop.Name);
+
+                        if (ctProp != null)
+                        {
+                            if (prop.PropertyType == ctProp.PropertyType)
+                            {
+                                ctProp.SetValue(ViewModel, prop.GetValue(entity));
+                            }
+                        }
+                    }
+                    catch
+                    {
+                        continue;
+                    }
+
+                }
+
+                return ViewModel;
+            }
+            catch (Exception ex)
+            {
+                ViewModel.Errors = new string[] { ex.Message + "," + ex.StackTrace };
+                return ViewModel;
+            }
+        }
+
+
+        /// <summary>
+        /// 將檢視模型的內容抄寫到非資料實體模型物件。
+        /// </summary>
+        /// <typeparam name="T">要抄寫的目標物件型別</typeparam>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        protected void CopyToModel<TViewB, TB>(TB entity, TViewB ViewModel) where TViewB : IBaseViewModel where TB : class
+        {
+            try
+            {
+                Type CurrentViewModelType = typeof(TViewB);
+                Type TargetEntity = typeof(TB);
+
+                var CurrentViewModel_Property = CurrentViewModelType.GetProperties();
+
+                foreach (var ViewModelProperty in CurrentViewModel_Property)
+                {
+                    try
+                    {
+                        var EntityProperty = TargetEntity.GetProperty(ViewModelProperty.Name);
+                        if (EntityProperty != null)
+                        {
+                            var value = ViewModelProperty.GetValue(ViewModel);
+
+                            if (value != null && !value.Equals(EntityProperty.GetValue(entity)))
+                            {
+                                EntityProperty.SetValue(entity, ViewModelProperty.GetValue(ViewModel));
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        setErrortoModel(ViewModel, ex);
+                        continue;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ViewModel != null)
+                    ViewModel.Errors = new string[] { ex.Message + "," + ex.StackTrace };
+            }
+        }
+
+        #region IDisposable Support
+        private bool disposedValue = false; // 偵測多餘的呼叫
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    database.Dispose();
+                }
+
+                // TODO: 釋放 Unmanaged 資源 (Unmanaged 物件) 並覆寫下方的完成項。
+                // TODO: 將大型欄位設為 null。
+
+                disposedValue = true;
+            }
+        }
+
+        // TODO: 僅當上方的 Dispose(bool disposing) 具有會釋放 Unmanaged 資源的程式碼時，才覆寫完成項。
+        // ~BaseController() {
+        //   // 請勿變更這個程式碼。請將清除程式碼放入上方的 Dispose(bool disposing) 中。
+        //   Dispose(false);
+        // }
+
+        // 加入這個程式碼的目的在正確實作可處置的模式。
+        public void Dispose()
+        {
+            // 請勿變更這個程式碼。請將清除程式碼放入上方的 Dispose(bool disposing) 中。
+            Dispose(true);
+            // TODO: 如果上方的完成項已被覆寫，即取消下行的註解狀態。
+            // GC.SuppressFinalize(this);
+        }
+        #endregion
+
+        /// <summary>
+        /// 將錯誤訊息寫到檢視模型中以利顯示。
+        /// </summary>
+        /// <param name="model">檢視模型型別。</param>
+        /// <param name="ex">例外錯誤狀況執行個體。</param>
+        protected static void setErrortoModel(IBaseViewModel model, Exception ex)
+        {
+
+            if (ex is DbEntityValidationException)
+            {
+                DbEntityValidationException dbex = (DbEntityValidationException)ex;
+
+                List<string> msg = new List<string>();
+
+                foreach (var err in dbex.EntityValidationErrors)
+                {
+                    foreach (var errb in err.ValidationErrors)
+                    {
+                        msg.Add(errb.ErrorMessage);
+                    }
+                }
+
+                model.Errors = msg.AsEnumerable();
+
+            }
+            else
+            {
+                if (ex is DbUpdateException)
+                {
+                    DbUpdateException efex = (DbUpdateException)ex;
+
+                    List<string> msg = new List<string>();
+
+                    ScanErrorMessage(efex, msg);
+
+                    model.Errors = msg.AsEnumerable();
+                }
+                else
+                {
+                    model.Errors = new string[] { ex.Message, ex.StackTrace };
+                }
+
+            }
+
+        }
+
+        private static void ScanErrorMessage(Exception ex, List<string> messageQueue)
+        {
+            if (ex.InnerException != null)
+            {
+                ScanErrorMessage(ex.InnerException, messageQueue);
+            }
+
+            messageQueue.Add(ex.Message);
+
+        }
+
+
+    }
+    public abstract class BaseController<TView, T> : BaseController where TView : IBaseViewModel where T : class
+    {
+
+
+        public BaseController() : base()
         {
             try
             {
@@ -81,54 +271,6 @@ namespace Tokiku.Controllers
 
         }
 
-
-        /// <summary>
-        /// 將來自資料庫的資料實體抄到檢視模型。
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="entity"></param>
-        protected TViewB BindingFromModel<TViewB, TB>(TB entity) where TViewB : IBaseViewModel where TB : class
-        {
-            TViewB ViewModel = Activator.CreateInstance<TViewB>();
-
-            try
-            {
-                Type t = typeof(TB);
-                Type ct = typeof(TViewB);
-
-                var props = t.GetProperties();
-
-                foreach (var prop in props)
-                {
-                    try
-                    {
-                        var ctProp = ct.GetProperty(prop.Name);
-
-                        if (ctProp != null)
-                        {
-                            if (prop.PropertyType == ctProp.PropertyType)
-                            {
-                                ctProp.SetValue(ViewModel, prop.GetValue(entity));
-                            }
-                        }
-                    }
-                    catch
-                    {
-                        continue;
-                    }
-
-                }
-
-                return ViewModel;
-            }
-            catch (Exception ex)
-            {
-                ViewModel.Errors = new string[] { ex.Message + "," + ex.StackTrace };
-                return ViewModel;
-            }
-        }
-
-
         /// <summary>
         /// 將檢視模型的內容抄寫到資料實體模型。
         /// </summary>
@@ -156,7 +298,7 @@ namespace Tokiku.Controllers
 
                             if (value != null && !value.Equals(EntityProperty.GetValue(entity)))
                             {
-                                EntityProperty.SetValue(entity, Convert.ChangeType(ViewModelProperty.GetValue(ViewModel), EntityProperty.PropertyType));
+                                EntityProperty.SetValue(entity, ViewModelProperty.GetValue(ViewModel));
                             }
                         }
                     }
@@ -173,108 +315,6 @@ namespace Tokiku.Controllers
                 if (ViewModel != null)
                     ViewModel.Errors = new string[] { ex.Message + "," + ex.StackTrace };
             }
-        }
-
-        /// <summary>
-        /// 將檢視模型的內容抄寫到非資料實體模型物件。
-        /// </summary>
-        /// <typeparam name="T">要抄寫的目標物件型別</typeparam>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        protected void CopyToModel<TViewB, TB>(TB entity, TViewB ViewModel) where TViewB : IBaseViewModel where TB : class
-        {
-            try
-            {
-                Type CurrentViewModelType = typeof(TViewB);
-                Type TargetEntity = typeof(TB);
-
-                var CurrentViewModel_Property = CurrentViewModelType.GetProperties();
-
-                foreach (var ViewModelProperty in CurrentViewModel_Property)
-                {
-                    try
-                    {
-                        var EntityProperty = TargetEntity.GetProperty(ViewModelProperty.Name);
-                        if (EntityProperty != null)
-                        {
-                            var value = ViewModelProperty.GetValue(ViewModel);
-
-                            if (value != null && !value.Equals(EntityProperty.GetValue(entity)))
-                            {
-                                EntityProperty.SetValue(entity, ViewModelProperty.GetValue(ViewModel));
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        setErrortoModel(ViewModel, ex);
-                        continue;
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                if (ViewModel != null)
-                    ViewModel.Errors = new string[] { ex.Message + "," + ex.StackTrace };
-            }
-        }
-
-        /// <summary>
-        /// 將錯誤訊息寫到檢視模型中以利顯示。
-        /// </summary>
-        /// <param name="model">檢視模型型別。</param>
-        /// <param name="ex">例外錯誤狀況執行個體。</param>
-        protected static void setErrortoModel(IBaseViewModel model, Exception ex)
-        {
-
-            if (ex is DbEntityValidationException)
-            {
-                DbEntityValidationException dbex = (DbEntityValidationException)ex;
-
-                List<string> msg = new List<string>();
-
-                foreach (var err in dbex.EntityValidationErrors)
-                {
-                    foreach (var errb in err.ValidationErrors)
-                    {
-                        msg.Add(errb.ErrorMessage);
-                    }
-                }
-
-                model.Errors = msg.AsEnumerable();
-
-            }
-            else
-            {
-                if (ex is DbUpdateException)
-                {
-                    DbUpdateException efex = (DbUpdateException)ex;
-
-                    List<string> msg = new List<string>();
-
-                    ScanErrorMessage(efex, msg);
-
-                    model.Errors = msg.AsEnumerable();
-                }
-                else
-                {
-                    model.Errors = new string[] { ex.Message, ex.StackTrace };
-                }
-
-            }
-
-        }
-
-        private static void ScanErrorMessage(Exception ex, List<string> messageQueue)
-        {
-            if (ex.InnerException != null)
-            {
-                ScanErrorMessage(ex.InnerException, messageQueue);
-            }
-
-            messageQueue.Add(ex.Message);
-
         }
 
         /// <summary>
@@ -299,7 +339,6 @@ namespace Tokiku.Controllers
 
             return pkeys.ToArray();
         }
-
 
         /// <summary>
         /// 預設的建立檢視模型執行個體的方法。
@@ -356,6 +395,7 @@ namespace Tokiku.Controllers
                 {
                     T entity = result.Single();
                     model = BindingFromModel(entity);
+                    return model;
                 }
 
                 return default(TView);
@@ -470,41 +510,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        #region IDisposable Support
-        private bool disposedValue = false; // 偵測多餘的呼叫
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    // TODO: 處置 Managed 狀態 (Managed 物件)。
-                    database.Dispose();
-                }
-
-                // TODO: 釋放 Unmanaged 資源 (Unmanaged 物件) 並覆寫下方的完成項。
-                // TODO: 將大型欄位設為 null。
-
-                disposedValue = true;
-            }
-        }
-
-        // TODO: 僅當上方的 Dispose(bool disposing) 具有會釋放 Unmanaged 資源的程式碼時，才覆寫完成項。
-        // ~BaseController() {
-        //   // 請勿變更這個程式碼。請將清除程式碼放入上方的 Dispose(bool disposing) 中。
-        //   Dispose(false);
-        // }
-
-        // 加入這個程式碼的目的在正確實作可處置的模式。
-        public void Dispose()
-        {
-            // 請勿變更這個程式碼。請將清除程式碼放入上方的 Dispose(bool disposing) 中。
-            Dispose(true);
-            // TODO: 如果上方的完成項已被覆寫，即取消下行的註解狀態。
-            // GC.SuppressFinalize(this);
-        }
-        #endregion
+        
 
     }
 }

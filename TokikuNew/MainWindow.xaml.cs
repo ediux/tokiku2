@@ -47,6 +47,7 @@ namespace TokikuNew
                 {
                     if (currentworking.Content != null)
                     {
+                       
                         Workspaces.Items.Remove(currentworking);
                         ((MainViewModel)DataContext).CurrentProject = null;
                     }
@@ -72,6 +73,8 @@ namespace TokikuNew
             AddHandler(VendorListView.SendNewPageRequestEvent, new RoutedEventHandler(MI_CreateNew_Factories_Click));
             AddHandler(ClientListView.SendNewPageRequestEvent, new RoutedEventHandler(MI_CreateNew_Customers_Click));
             AddHandler(ClosableTabItem.OnPageClosingEvent, new RoutedEventHandler(btnTabClose_Click));
+            AddHandler(ManufacturersManageView.OnPageClosingEvent, new RoutedEventHandler(btnTabClose_Click));
+
         }
 
         private void MI_CreateNew_Project_Click(object sender, RoutedEventArgs e)
@@ -116,47 +119,13 @@ namespace TokikuNew
                 using (var mc = new ManufacturersController())
                 {
                     var vm = new ManufacturersManageView() { Margin = new Thickness(0) };
-
+                    vm.Mode = DocumentLifeCircle.Create;
                     vm.DataContext = mc.CreateNew();
-                    addWorkarea.Content = vm;
-                    addWorkarea.Margin = new Thickness(0);
 
-                    Workspaces.Items.Add(addWorkarea);
-                    Workspaces.SelectedItem = addWorkarea;
-                }
+                    Binding bindinglogineduser = new Binding();
+                    bindinglogineduser.Source = ((MainViewModel)DataContext).LoginedUser;
 
-
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void MI_CreateNew_Contracts_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                string Header = "廠商主檔-聯絡人管理";
-                TabItem addWorkarea = new TabItem();
-                bool isExisted = false;
-
-                foreach (TabItem item in Workspaces.Items)
-                {
-                    if (item.Header.Equals(Header))
-                    {
-                        isExisted = true;
-                        addWorkarea = item;
-                        break;
-                    }
-                }
-
-                if (!isExisted)
-                {
-                    addWorkarea.Header = Header;
-
-                    var vm = new ContactPersonManageView() { Margin = new Thickness(0) };
+                    vm.SetBinding(ManufacturersManageView.LoginedUserProperty, bindinglogineduser);
 
                     addWorkarea.Content = vm;
                     addWorkarea.Margin = new Thickness(0);
@@ -164,25 +133,19 @@ namespace TokikuNew
                     Workspaces.Items.Add(addWorkarea);
                     Workspaces.SelectedItem = addWorkarea;
                 }
-                else
-                {
-
-                    Workspaces.SelectedItem = addWorkarea;
-                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
         }
 
         private void MI_CreateNew_Customers_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                string Header = "廠商主檔-客戶管理";
-                TabItem addWorkarea = new TabItem();
+                string Header = "客戶管理";
+                ClosableTabItem addWorkarea = new ClosableTabItem();
                 bool isExisted = false;
 
                 foreach (TabItem item in Workspaces.Items)
@@ -190,7 +153,7 @@ namespace TokikuNew
                     if (item.Header.Equals(Header))
                     {
                         isExisted = true;
-                        addWorkarea = item;
+                        addWorkarea = (ClosableTabItem)item;
                         break;
                     }
                 }
@@ -203,6 +166,13 @@ namespace TokikuNew
 
                         var vm = new ClientManageView() { Margin = new Thickness(0) };
                         vm.DataContext = cc.CreateNew();
+                        vm.Mode = DocumentLifeCircle.Create;
+
+                        Binding bindinglogineduser = new Binding();
+                        bindinglogineduser.Source = ((MainViewModel)DataContext).LoginedUser;
+
+                        vm.SetBinding(ClientManageView.LoginedUserProperty, bindinglogineduser);
+
                         addWorkarea.Content = vm;
                         addWorkarea.Margin = new Thickness(0);
 
@@ -272,55 +242,12 @@ namespace TokikuNew
                     var vm = new ProjectViewer() { Margin = new Thickness(0) };
 
                     vm.DataContext = controller.Query(w => w.Id == ProjectSelectionPage.SelectedProject.Id);
+                    vm.Mode = DocumentLifeCircle.Read;
 
                     Binding bindinglogineduser = new Binding();
                     bindinglogineduser.Source = ((MainViewModel)DataContext).LoginedUser;
 
                     vm.SetBinding(ProjectViewer.LoginedUserProperty, bindinglogineduser);
-
-                    addWorkarea.Content = vm;
-                    addWorkarea.Margin = new Thickness(0);
-
-                    Workspaces.Items.Add(addWorkarea);
-                    Workspaces.SelectedItem = addWorkarea;
-                }
-                else
-                {
-
-                    Workspaces.SelectedItem = addWorkarea;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            }
-
-        }
-
-        private void MI_CreateNew_Customers_Contracts_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                string Header = "客戶主檔-聯絡人管理";
-                TabItem addWorkarea = new TabItem();
-                bool isExisted = false;
-
-                foreach (TabItem item in Workspaces.Items)
-                {
-                    if (item.Header.Equals(Header))
-                    {
-                        isExisted = true;
-                        addWorkarea = item;
-                        break;
-                    }
-                }
-
-                if (!isExisted)
-                {
-                    addWorkarea.Header = Header;
-
-                    var vm = new ContactPersonManageView() { Margin = new Thickness(0), IsClient = true };
 
                     addWorkarea.Content = vm;
                     addWorkarea.Margin = new Thickness(0);
@@ -366,6 +293,13 @@ namespace TokikuNew
 
                     var vm = new ManufacturersManageView() { Margin = new Thickness(0) };
                     vm.DataContext = e.OriginalSource;
+                    vm.Mode = DocumentLifeCircle.Update;
+
+                    Binding bindinglogineduser = new Binding();
+                    bindinglogineduser.Source = ((MainViewModel)DataContext).LoginedUser;
+
+                    vm.SetBinding(ManufacturersManageView.LoginedUserProperty, bindinglogineduser);
+
                     addWorkarea.Content = vm;
                     addWorkarea.Margin = new Thickness(0);
 
@@ -404,6 +338,40 @@ namespace TokikuNew
         private void MI_System_Roles_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void ClientListView_SelectedClientChanged(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ClosableTabItem addWorkarea = new ClosableTabItem();
+                addWorkarea.Header = "客戶主檔";
+
+
+                using (var mc = new ClientController ())
+                {
+                    ClientViewModel model = (ClientViewModel)e.OriginalSource;
+
+                    var vm = new ClientManageView () { Margin = new Thickness(0) };
+                    vm.Mode = DocumentLifeCircle.Read;
+                    vm.DataContext = mc.Query(q => q.Id == model.Id);
+
+                    Binding bindinglogineduser = new Binding();
+                    bindinglogineduser.Source = ((MainViewModel)DataContext).LoginedUser;
+
+                    vm.SetBinding(ClientManageView.LoginedUserProperty, bindinglogineduser);
+
+                    addWorkarea.Content = vm;
+                    addWorkarea.Margin = new Thickness(0);
+
+                    Workspaces.Items.Add(addWorkarea);
+                    Workspaces.SelectedItem = addWorkarea;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

@@ -16,25 +16,41 @@ namespace TokikuNew.Views
     public partial class ProjectManagerView : UserControl
     {
         private ProjectsController controller = new ProjectsController();
-
+        private ClientController clientcontroller = new ClientController();
         public ProjectManagerView()
         {
             InitializeComponent();
         }
 
-        #region SelectedProject
-        public ProjectBaseViewModel SelectedProject
+
+
+        #region 分頁關閉事件
+
+        public static readonly RoutedEvent OnPageClosingEvent = EventManager.RegisterRoutedEvent(
+"OnPageClosingEvent", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ProjectManagerView));
+
+        public event RoutedEventHandler OnPageClosing
         {
-            get { return (ProjectBaseViewModel)GetValue(SelectedProjectProperty); }
+            add { AddHandler(OnPageClosingEvent, value); }
+            remove { RemoveHandler(OnPageClosingEvent, value); }
+        }
+
+        #endregion
+
+        #region SelectedProject
+        public ProjectsViewModel SelectedProject
+        {
+            get { return (ProjectsViewModel)GetValue(SelectedProjectProperty); }
             set { SetValue(SelectedProjectProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for SelectedProject.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedProjectProperty =
-            DependencyProperty.Register("SelectedProject", typeof(ProjectBaseViewModel), typeof(ProjectManagerView), new PropertyMetadata(default(ProjectBaseViewModel)));
+            DependencyProperty.Register("SelectedProject", typeof(ProjectsViewModel), typeof(ProjectManagerView), new PropertyMetadata(default(ProjectsViewModel)));
 
         #endregion
 
+        #region 已選擇的客戶
         public ClientViewModel SelectedClient
         {
             get { return (ClientViewModel)GetValue(SelectedClientProperty); }
@@ -44,9 +60,12 @@ namespace TokikuNew.Views
         // Using a DependencyProperty as the backing store for SelectedClient.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedClientProperty =
             DependencyProperty.Register("SelectedClient", typeof(ClientViewModel), typeof(ProjectManagerView), new PropertyMetadata(default(ClientViewModel)));
+        #endregion
 
-
-
+        #region 系統登入者
+        /// <summary>
+        /// 目前已登入者
+        /// </summary>
         public UserViewModel LoginedUser
         {
             get { return (UserViewModel)GetValue(LoginedUserProperty); }
@@ -56,9 +75,7 @@ namespace TokikuNew.Views
         // Using a DependencyProperty as the backing store for LoginedUser.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty LoginedUserProperty =
             DependencyProperty.Register("LoginedUser", typeof(UserViewModel), typeof(ProjectManagerView), new PropertyMetadata(default(UserViewModel)));
-
-
-
+        #endregion
 
         #region Document Mode
 
@@ -81,9 +98,13 @@ namespace TokikuNew.Views
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Binding selectProjectBinding = new Binding();
-            selectProjectBinding.Source = this.DataContext;
+            selectProjectBinding.Source = DataContext;
             SetBinding(SelectedProjectProperty, selectProjectBinding);
 
+            if (SelectedProject.ClientId.HasValue)
+            {
+                SelectedClient = clientcontroller.Query(s => s.Id == SelectedProject.ClientId.Value);
+            }
 
         }
 
@@ -128,19 +149,20 @@ namespace TokikuNew.Views
             try
             {
                 e.Handled = true;
-               
+
                 DocumentLifeCircle mode = (DocumentLifeCircle)e.OriginalSource;
                 switch (mode)
                 {
 
                     case DocumentLifeCircle.Create:
-                  
+
                         this.DataContext = controller.CreateNew();
                         SelectedProject.CreateUserId = LoginedUser.UserId;
+
+
                         if (SelectedProject.HasError)
                         {
                             MessageBox.Show(string.Join("\n", SelectedProject.Errors.ToArray()));
-                            dockBar.DocumentMode = DocumentLifeCircle.Read;
                         }
                         break;
                     case DocumentLifeCircle.Save:
@@ -159,6 +181,9 @@ namespace TokikuNew.Views
                             }
                         }
                         controller.SaveModel(SelectedProject);
+                        SelectedProject.Status.IsModify = false;
+                        SelectedProject.Status.IsSaved = true;
+
                         if (SelectedProject.HasError)
                         {
                             MessageBox.Show(string.Join("\n", SelectedProject.Errors.ToArray()));
@@ -168,11 +193,19 @@ namespace TokikuNew.Views
                         {
                             dockBar.DocumentMode = DocumentLifeCircle.Read;
                         }
+
+                        if (SelectedProject.Status.IsNewInstance)
+                        {
+                            RaiseEvent(new RoutedEventArgs(OnPageClosingEvent, this));
+                        }
                         break;
                     case DocumentLifeCircle.Update:
-
+                        SelectedProject.Status.IsModify = false;
+                        SelectedProject.Status.IsSaved = false;
+                        SelectedProject.Status.IsNewInstance = false;
                         break;
                 }
+                UpdateLayout();
             }
             catch (Exception ex)
             {
@@ -186,12 +219,16 @@ namespace TokikuNew.Views
                 SelectedProject.ProjectContract = new ProjectContractViewModelCollection();
 
             SelectedProject.ProjectContract.Add(new ProjectContractViewModel());
-           // UpdateLayout();
+            // UpdateLayout();
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-
+            if (e.OriginalSource is ProjectContractViewModel)
+            {
+                ProjectContractViewModel disableContract = (ProjectContractViewModel)e.OriginalSource;
+                //disableContract.Void
+            }
         }
 
         private void btnShowClientSelection_Click(object sender, RoutedEventArgs e)
@@ -210,16 +247,45 @@ namespace TokikuNew.Views
                 }
             }
 
-           // UpdateLayout();
+            // UpdateLayout();
         }
 
         private void ClientList_SelectedClientChanged(object sender, RoutedEventArgs e)
         {
             ClientViewModel model = e.OriginalSource as ClientViewModel;
+
             if (model != null)
             {
-                SelectedProject.ClientId = model.Id;
+                SelectedClient = model;
+
+                SelectedProject.ClientId = SelectedClient.Id;
+
             }
+        }
+
+        private void CustomDataGrid_Selected(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CustomDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ContractList_Selected(object sender, RoutedEventArgs e)
+        {
+            RaiseEvent(new RoutedEventArgs(SendNewPageRequestEvent, ContractList.SelectedItem));
+        }
+
+        private void ContractList_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            RaiseEvent(new RoutedEventArgs(SendNewPageRequestEvent, ContractList.SelectedItem));
+        }
+
+        private void ContractList_Selected_1(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

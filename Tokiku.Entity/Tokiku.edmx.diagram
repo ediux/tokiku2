@@ -36,15 +36,20 @@
         <AssociationConnector Association="TokikuModel.ClientsInProjects" />
         <EntityTypeShape EntityType="TokikuModel.PaymentTypes" Width="1.5" PointX="1.5" PointY="24.5" />
         <AssociationConnector Association="TokikuModel.FK_Manufacturers_PaymentTypes" />
-        <EntityTypeShape EntityType="TokikuModel.Engineering" Width="1.5" PointX="11.25" PointY="20.375" />
         <EntityTypeShape EntityType="TokikuModel.ProjectContract" Width="1.5" PointX="9" PointY="18.875" />
-        <AssociationConnector Association="TokikuModel.FK_Engineering_ProjectContract" />
-        <AssociationConnector Association="TokikuModel.FK_ShopFlowHistory_Engineering" />
         <AssociationConnector Association="TokikuModel.FK_ProjectContract_Manufacturers" />
         <AssociationConnector Association="TokikuModel.FK_ProjectContract_Projects" />
         <AssociationConnector Association="TokikuModel.FK_ProjectContract_Users" />
         <AssociationConnector Association="TokikuModel.FK_PromissoryNoteManagement_ProjectContract" />
         <AssociationConnector Association="TokikuModel.FK_ProjectContract_States" />
+        <EntityTypeShape EntityType="TokikuModel.Engineering" Width="1.5" PointX="11.25" PointY="20.75" />
+        <AssociationConnector Association="TokikuModel.FK_Engineering_ProjectContract" />
+        <AssociationConnector Association="TokikuModel.FK_ShopFlowHistory_Engineering" />
+        <EntityTypeShape EntityType="TokikuModel.Compositions" Width="1.5" PointX="13.5" PointY="20.5" />
+        <EntityTypeShape EntityType="TokikuModel.CompositionTypes" Width="1.5" PointX="11.25" PointY="17.625" />
+        <AssociationConnector Association="TokikuModel.FK_Compositions_CompositionTypes" />
+        <AssociationConnector Association="TokikuModel.FK_Compositions_Engineering" />
+        <AssociationConnector Association="TokikuModel.FK_Engineering_States" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

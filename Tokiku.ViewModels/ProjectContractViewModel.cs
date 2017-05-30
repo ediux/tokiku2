@@ -371,15 +371,15 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 目前專案列表
         /// </summary>
-        public ProjectBaseViewModel Projects
+        public ProjectsViewModel Projects
         {
-            get { return (ProjectBaseViewModel)GetValue(ProjectsProperty); }
+            get { return (ProjectsViewModel)GetValue(ProjectsProperty); }
             set { SetValue(ProjectsProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for Projects.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ProjectsProperty =
-            DependencyProperty.Register("Projects", typeof(ProjectBaseViewModel), typeof(ProjectContractViewModel), new PropertyMetadata(default(ProjectBaseViewModel)));
+            DependencyProperty.Register("Projects", typeof(ProjectsViewModel), typeof(ProjectContractViewModel), new PropertyMetadata(default(ProjectsViewModel)));
 
 
         /// <summary>
@@ -452,7 +452,32 @@ namespace Tokiku.ViewModels
             DependencyProperty.Register("IsRepair", typeof(bool?), typeof(ProjectContractViewModel), new PropertyMetadata(default(bool?)));
 
 
-        //public virtual ICollection<EngineeringViewModel> Engineering { get; set; }
+
+
+        public EngineeringViewModelCollection Engineerings
+        {
+            get { return (EngineeringViewModelCollection)GetValue(EngineeringsProperty); }
+            set { SetValue(EngineeringsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Engineerings.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty EngineeringsProperty =
+            DependencyProperty.Register("Engineerings", typeof(EngineeringViewModelCollection), typeof(ProjectContractViewModel), new PropertyMetadata(default(EngineeringViewModelCollection)));
+
+
+
+
+        public PromissoryNoteManagementViewModelCollection PromissoryNoteManagement
+        {
+            get { return (PromissoryNoteManagementViewModelCollection)GetValue(PromissoryNoteManagementProperty); }
+            set { SetValue(PromissoryNoteManagementProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for PromissoryNoteManagement.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PromissoryNoteManagementProperty =
+            DependencyProperty.Register("PromissoryNoteManagement", typeof(PromissoryNoteManagementViewModelCollection), typeof(ProjectContractViewModel), new PropertyMetadata(default(PromissoryNoteManagementViewModelCollection)));
+
+
         //public virtual ProjectBaseViewModel Projects { get; set; }
         //public virtual UserViewModel CreateUser { get; set; }
 

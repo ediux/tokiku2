@@ -8,11 +8,26 @@ using System.Windows;
 
 namespace Tokiku.ViewModels
 {
+    public class ManufacturersViewModelCollection : ObservableCollection<ManufacturersViewModel>, IBaseViewModel
+    {
+        public ManufacturersViewModelCollection()
+        {
+            HasError = false;
+        }
+
+        public ManufacturersViewModelCollection(IEnumerable<ClientViewModel> source):base(source){
+
+        }
+
+        public IEnumerable<string> Errors { get; set; }
+        public bool HasError { get; set; }
+    }
+
     public class ManufacturersViewModel : BaseViewModel, IBaseViewModel
     {
         public ManufacturersViewModel()
         {
-            Projects = new ObservableCollection<ProjectBaseViewModel>();
+            Projects = new  ProjectsViewModelCollection();
 
         }
         public static readonly DependencyProperty IdProperty = DependencyProperty.Register("Id", typeof(Guid), typeof(ManufacturersViewModel), new PropertyMetadata(Guid.NewGuid()));
@@ -75,7 +90,7 @@ namespace Tokiku.ViewModels
     typeof(UserViewModel), typeof(ManufacturersViewModel), new PropertyMetadata(default(UserViewModel)));
 
         public static readonly DependencyProperty ProjectsProperty = DependencyProperty.Register("Projects",
-   typeof(ObservableCollection<ProjectBaseViewModel>), typeof(ManufacturersViewModel), new PropertyMetadata(default(ObservableCollection<ProjectBaseViewModel>)));
+   typeof(ProjectsViewModelCollection), typeof(ManufacturersViewModel), new PropertyMetadata(default(ProjectsViewModelCollection)));
 
         public System.Guid Id { get { return (Guid)GetValue(IdProperty); } set { SetValue(IdProperty, value); RaisePropertyChanged("Id"); } }
         public string Code { get { return (string)GetValue(CodeProperty); } set { SetValue(CodeProperty, value); RaisePropertyChanged("Code"); } }
@@ -102,9 +117,9 @@ namespace Tokiku.ViewModels
 
         //public virtual ICollection<Materials> Materials { get; set; }
 
-        public virtual ObservableCollection<ProjectBaseViewModel> Projects {
+        public virtual ProjectsViewModelCollection Projects {
             get {
-                return (ObservableCollection<ProjectBaseViewModel>)GetValue(ProjectsProperty);
+                return (ProjectsViewModelCollection)GetValue(ProjectsProperty);
             }
             set {
                 SetValue(ProjectsProperty, value);
@@ -195,27 +210,27 @@ namespace Tokiku.ViewModels
             DependencyProperty.Register("CheckNumber", typeof(string), typeof(ManufacturersViewModel), new PropertyMetadata(string.Empty));
 
 
-        public ObservableCollection<ContactsViewModel> Contracts
+        public ContactsViewModelCollection Contracts
         {
-            get { return (ObservableCollection<ContactsViewModel>)GetValue(ContractsProperty); }
+            get { return (ContactsViewModelCollection)GetValue(ContractsProperty); }
             set { SetValue(ContractsProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for Contracts.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ContractsProperty =
-            DependencyProperty.Register("Contracts", typeof(ObservableCollection<ContactsViewModel>), typeof(ManufacturersViewModel), new PropertyMetadata(default(ObservableCollection<ContactsViewModel>)));
+            DependencyProperty.Register("Contracts", typeof(ContactsViewModelCollection), typeof(ManufacturersViewModel), new PropertyMetadata(default(ObservableCollection<ContactsViewModel>)));
 
 
 
-        public ObservableCollection<MaterialsViewModel> Materials
+        public MaterialsViewModelCollection Materials
         {
-            get { return (ObservableCollection<MaterialsViewModel>)GetValue(MaterialsProperty); }
+            get { return (MaterialsViewModelCollection)GetValue(MaterialsProperty); }
             set { SetValue(MaterialsProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for Materials.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MaterialsProperty =
-            DependencyProperty.Register("Materials", typeof(ObservableCollection<MaterialsViewModel>), typeof(ManufacturersViewModel), new PropertyMetadata(default(ObservableCollection<MaterialsViewModel>)));
+            DependencyProperty.Register("Materials", typeof(MaterialsViewModelCollection), typeof(ManufacturersViewModel), new PropertyMetadata(default(ObservableCollection<MaterialsViewModel>)));
 
 
 
@@ -228,6 +243,19 @@ namespace Tokiku.ViewModels
         // Using a DependencyProperty as the backing store for  SelectedContract.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedContractProperty =
             DependencyProperty.Register(" SelectedContract", typeof(ContactsViewModel), typeof(ManufacturersViewModel), new PropertyMetadata(default(ContactsViewModel)));
+
+
+
+
+        public EngineeringViewModelCollection Engineerings
+        {
+            get { return (EngineeringViewModelCollection)GetValue(EngineeringsProperty); }
+            set { SetValue(EngineeringsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Engineerings.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty EngineeringsProperty =
+            DependencyProperty.Register("Engineerings", typeof(EngineeringViewModelCollection), typeof(ManufacturersViewModel), new PropertyMetadata(default(EngineeringViewModelCollection)));
 
 
     }

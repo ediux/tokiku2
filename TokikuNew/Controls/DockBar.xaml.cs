@@ -35,7 +35,12 @@ namespace TokikuNew.Controls
         {
             DockBar src = (DockBar)source;
 
-            switch ((DocumentLifeCircle)e.NewValue)
+            ChoiceMode((DocumentLifeCircle)e.NewValue, src);
+        }
+
+        private static void ChoiceMode(DocumentLifeCircle mode, DockBar src)
+        {
+            switch (mode)
             {
                 case DocumentLifeCircle.Create:
                     src.btnF1.IsEnabled = false;
@@ -43,7 +48,7 @@ namespace TokikuNew.Controls
                     src.btnF3.IsEnabled = true;
                     src.btnF11.IsEnabled = true;
                     src.btnF12.IsEnabled = true;
-                   
+
                     break;
                 case DocumentLifeCircle.Delete:
                     src.btnF1.IsEnabled = true;
@@ -67,7 +72,7 @@ namespace TokikuNew.Controls
                     src.btnF12.IsEnabled = false;
                     break;
             }
-            
+
             src.UpdateLayout();
         }
 
@@ -77,7 +82,7 @@ namespace TokikuNew.Controls
 
         public static readonly RoutedEvent DocumentModeChangedEvent =
             EventManager.RegisterRoutedEvent("DocumentModeChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(DockBar));
-      /// <summary>
+        /// <summary>
         /// 新增文件模式變更的路由事件。
         /// </summary>
         public event RoutedEventHandler DocumentModeChanged
@@ -119,14 +124,14 @@ namespace TokikuNew.Controls
 
         private void btnF1_Click(object sender, RoutedEventArgs e)
         {
-            DocumentMode = DocumentLifeCircle.Create;            
+            DocumentMode = DocumentLifeCircle.Create;
             RaiseEvent(new RoutedEventArgs(DocumentModeChangedEvent, DocumentMode));
             e.Handled = true;
         }
 
         private void btnF2_Click(object sender, RoutedEventArgs e)
         {
-            DocumentMode = DocumentLifeCircle.Update;            
+            DocumentMode = DocumentLifeCircle.Update;
             RaiseEvent(new RoutedEventArgs(DocumentModeChangedEvent, DocumentMode));
             UpdateLayout();
             e.Handled = true;
@@ -226,11 +231,9 @@ namespace TokikuNew.Controls
             RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent, this));
         }
 
-        private void UserControl_Initialized(object sender, EventArgs e)
+        private void userControl_Loaded(object sender, RoutedEventArgs e)
         {
-            btnF1.IsEnabled = true;
-            btnF2.IsEnabled = false;
-            btnF3.IsEnabled = false;
+            ChoiceMode(this.DocumentMode, this);
         }
     }
 }

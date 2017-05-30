@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="48" d:DesignWidth="1024" Initialized="UserControl_Initialized">
+             d:DesignHeight="48" d:DesignWidth="1024"
+              Loaded="userControl_Loaded" >
     <UserControl.CommandBindings>
         <CommandBinding Command="New" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed"/>
         <CommandBinding Command="{StaticResource Modify}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed"/>

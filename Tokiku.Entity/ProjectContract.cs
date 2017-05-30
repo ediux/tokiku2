@@ -17,8 +17,8 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ProjectContract()
         {
-            this.Engineering = new HashSet<Engineering>();
             this.PromissoryNoteManagement = new HashSet<PromissoryNoteManagement>();
+            this.Engineering = new HashSet<Engineering>();
         }
     
         public System.Guid Id { get; set; }
@@ -48,13 +48,13 @@ namespace Tokiku.Entity
         public byte PaymentDay { get; set; }
         public Nullable<bool> IsRepair { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Engineering> Engineering { get; set; }
         public virtual Manufacturers Manufacturers { get; set; }
         public virtual Projects Projects { get; set; }
         public virtual Users Users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
         public virtual States States { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Engineering> Engineering { get; set; }
     }
 }

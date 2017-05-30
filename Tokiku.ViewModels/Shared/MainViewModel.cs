@@ -21,17 +21,17 @@ namespace Tokiku.ViewModels
 
         #region 目前選定的專案
         public static readonly DependencyProperty CurrentProjectProperty =
-                   DependencyProperty.Register("CurrentProject", typeof(ProjectBaseViewModel), typeof(MainViewModel),
-                       new PropertyMetadata(default(ProjectBaseViewModel)));
+                   DependencyProperty.Register("CurrentProject", typeof(ProjectsViewModel), typeof(MainViewModel),
+                       new PropertyMetadata(default(ProjectsViewModel)));
 
         /// <summary>
         /// 目前選定的專案
         /// </summary>
-        public ProjectBaseViewModel CurrentProject
+        public ProjectsViewModel CurrentProject
         {
             get
             {
-                return GetValue(CurrentProjectProperty) as ProjectBaseViewModel;
+                return GetValue(CurrentProjectProperty) as ProjectsViewModel;
             }
 
             set

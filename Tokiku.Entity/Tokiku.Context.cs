@@ -41,7 +41,9 @@ namespace Tokiku.Entity
         public virtual DbSet<AccessLog> AccessLog { get; set; }
         public virtual DbSet<Manufacturers> Manufacturers { get; set; }
         public virtual DbSet<PaymentTypes> PaymentTypes { get; set; }
-        public virtual DbSet<Engineering> Engineering { get; set; }
         public virtual DbSet<ProjectContract> ProjectContract { get; set; }
+        public virtual DbSet<Engineering> Engineering { get; set; }
+        public virtual DbSet<Compositions> Compositions { get; set; }
+        public virtual DbSet<CompositionTypes> CompositionTypes { get; set; }
     }
 }

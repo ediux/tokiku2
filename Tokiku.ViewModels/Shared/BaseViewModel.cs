@@ -19,10 +19,11 @@ namespace Tokiku.ViewModels
             {
                 if (!e.OldValue.Equals(e.NewValue))
                 {
-                    if (d.GetType() == typeof(BaseViewModel))
+                    if (d.GetType().GetInterface("IBaseViewModel") == typeof(IBaseViewModel))
                     {
                         BaseViewModel model = ((BaseViewModel)d);
                         model.Status.IsModify = true;
+                        model.Status.IsSaved = false;
                         model.PropertyChanged?.Invoke(model, new PropertyChangedEventArgs(e.Property.Name));
                     }
                 }

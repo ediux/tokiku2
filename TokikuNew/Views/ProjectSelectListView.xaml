@@ -29,7 +29,13 @@
                 <Button Grid.Column="1" Margin="5,1" Content="新增" Name="btnNew" Click="btnNew_Click"></Button>
             </Grid>
         </Grid>
-        <controls:CustomDataGrid x:Name="ProjectList" Grid.Row="1" Margin="5" ItemsSource="{Binding}" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto" SelectionChanged="ProjectList_SelectionChanged" AllowExecuteSystemCommand="False">
+        <controls:CustomDataGrid x:Name="ProjectList" Grid.Row="1" Margin="5" ItemsSource="{Binding}" 
+                                 AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto" 
+                                 CanUserAddRows="False"
+                                 CanUserDeleteRows="False"
+                                 IsReadOnly="True"
+                                 MouseDoubleClick="ProjectList_MouseDoubleClick"
+                                 AllowExecuteSystemCommand="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="專案代號" Binding="{Binding Code}" Width="100" />
                 <DataGridTextColumn Header="專案名稱" Binding="{Binding Name}" Width="100" />

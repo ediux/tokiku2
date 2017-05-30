@@ -21,30 +21,40 @@ namespace TokikuNew.Views
     /// </summary>
     public partial class ClientListView : UserControl
     {
-        private ManufacturersController controller = new ManufacturersController();
+        private ClientController controller = new ClientController();
 
         public ClientListView()
         {
             InitializeComponent();
         }
 
+        #region 選擇客戶變更事件
         public static readonly RoutedEvent SelectedClientChangedEvent = EventManager.RegisterRoutedEvent(
-             "SelectedClientChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ClientListView));
+          "SelectedClientChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ClientListView));
 
+        /// <summary>
+        /// 選擇客戶變更事件
+        /// </summary>
         public event RoutedEventHandler SelectedClientChanged
         {
             add { AddHandler(SelectedClientChangedEvent, value); }
             remove { RemoveHandler(SelectedClientChangedEvent, value); }
-        }
+        } 
+        #endregion
 
+        #region 開新分頁的路由事件
         public static readonly RoutedEvent SendNewPageRequestEvent = EventManager.RegisterRoutedEvent("SendNewPageRequest", RoutingStrategy.Bubble
-    , typeof(RoutedEventHandler), typeof(ClientListView));
+   , typeof(RoutedEventHandler), typeof(ClientListView));
 
+        /// <summary>
+        /// 發出開新分頁的路由事件
+        /// </summary>
         public event RoutedEventHandler SendNewPageRequest
         {
             add { AddHandler(SendNewPageRequestEvent, value); }
             remove { RemoveHandler(SendNewPageRequestEvent, value); }
-        }
+        } 
+        #endregion
 
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
@@ -71,14 +81,14 @@ namespace TokikuNew.Views
                 if (header == 0)
                 {
                     if (obj != null)
-                        RaiseEvent(new RoutedEventArgs(SelectedClientChangedEvent, obj));
+                        RaiseEvent(new RoutedEventArgs(SelectedClientChangedEvent, ClientList.SelectedItem));
                 }
             }
         }
 
-        private void ClientList_AddingNewItem(object sender, AddingNewItemEventArgs e)
+        private void ClientList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            RaiseEvent(new RoutedEventArgs(SelectedClientChangedEvent, ClientList.SelectedItem));
         }
     }
 }

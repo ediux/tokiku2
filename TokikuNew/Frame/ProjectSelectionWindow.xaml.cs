@@ -13,17 +13,17 @@ namespace TokikuNew.Frame
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty SelectedProjectProperty = DependencyProperty.Register("SelectedProject", typeof(ProjectBaseViewModel), typeof(ProjectSelectionWindow));
+        public static readonly DependencyProperty SelectedProjectProperty = DependencyProperty.Register("SelectedProject", typeof(ProjectsViewModel), typeof(ProjectSelectionWindow));
 
-        public ProjectBaseViewModel SelectedProject
+        public ProjectsViewModel SelectedProject
         {
-            get { return (ProjectBaseViewModel)GetValue(SelectedProjectProperty); }
+            get { return (ProjectsViewModel)GetValue(SelectedProjectProperty); }
             set { SetValue(SelectedProjectProperty, value); }
         }
 
         private void ProjectSelectListView_SelectedProjectChanged(object sender, RoutedEventArgs e)
         {
-            SelectedProject = (ProjectBaseViewModel)e.OriginalSource;
+            SelectedProject = (ProjectsViewModel)e.OriginalSource;
             DialogResult = true;
             Close();
         }

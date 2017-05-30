@@ -108,123 +108,61 @@ namespace Tokiku.Controllers
             return string.Format("{0:00}", Code);
         }
 
-        public ClientViewModelCollection QueryAllClients()
-        {
-            try
-            {
-                var result = from q in database.Manufacturers
-                             where q.IsClient == true && q.Void == false
-                             select q;
-
-                if (result.Any())
-                {
-                    return new ClientViewModelCollection(result.Select(s => BindingFromModel<ClientViewModel, Manufacturers>(s))
-                        .AsEnumerable());
-                }
-
-                return new ClientViewModelCollection();
-            }
-            catch (Exception ex)
-            {
-                var model = new ClientViewModelCollection();
-                setErrortoModel(model, ex);
-                return model;
-            }
-        }
+       
 
         public IEnumerable SearchByText(string originalSource)
         {
             if (originalSource != null && originalSource.Length > 0)
             {
-                return (from p in database.Manufacturers
-                        where p.Void == false && p.IsClient == false &&
-                        (p.Code.Contains(originalSource) || p.Name.Contains(originalSource) || p.ShortName.Contains(originalSource))
-                        orderby p.Code ascending
-                        select p).ToList();
+                var result = (from p in database.Manufacturers
+                              where p.Void == false && p.IsClient == false &&
+                              (p.Code.Contains(originalSource) || p.Name.Contains(originalSource) || p.ShortName.Contains(originalSource))
+                              orderby p.Code ascending
+                              select p);
+
+                ManufacturersViewModelCollection rtn = new ManufacturersViewModelCollection();
+
+                ResultBindingToViewModelCollection(rtn, result);
+
+                return rtn;
             }
             else
             {
-                return (from p in database.Manufacturers
-                        where p.Void == false && p.IsClient == false
-                        orderby p.Code ascending
-                        select p).ToList();
+                var result = (from p in database.Manufacturers
+                              where p.Void == false && p.IsClient == false
+                              orderby p.Code ascending
+                              select p);
+
+                ManufacturersViewModelCollection rtn = new ManufacturersViewModelCollection();
+
+                ResultBindingToViewModelCollection(rtn, result);
+
+                return rtn;
             }
         }
 
-        public ClientViewModelCollection SearchClientByTest(string filiter)
+      
+        public override ManufacturersViewModel Query(Expression<Func<Manufacturers, bool>> filiter)
         {
-            if (filiter != null && filiter.Length > 0)
+            try
             {
-                var result = from p in database.Manufacturers
-                             where p.Void == false && p.IsClient == true &&
-                             (p.Code.Contains(filiter) || p.Name.Contains(filiter) || p.ShortName.Contains(filiter))
-                             orderby p.Code ascending
-                             select new ClientViewModel()
-                             {
-                                 AccountingCode = p.AccountingCode,
-                                 Address = p.Address,
-                                 BankAccount = p.BankAccount,
-                                 BankAccountName = p.BankAccountName,
-                                 BankName = p.BankName,
-                                 CheckNumber = p.CheckNumber,
-                                 Code = p.Code,
-                                 Comment = p.Comment,
-                                 CreateTime = p.CreateTime,
-                                 CreateUserId = p.CreateUserId,
-                                 eMail = p.eMail,
-                                 FactoryAddress = p.FactoryAddress,
-                                 FactoryFax = p.FactoryFax,
-                                 FactoryPhone = p.FactoryPhone,
-                                 Fax = p.Fax,
-                                 Id = p.Id,
-                                 IsClient = p.IsClient,
-                                 Name = p.Name,
-                                 PaymentType = p.PaymentType,
-                                 Phone = p.Phone,
-                                 Principal = p.Principal,
-                                 ShortName = p.ShortName,
-                                 UniformNumbers = p.UniformNumbers,
-                                 Void = p.Void
-                             };
+                var result = database.Manufacturers
+                    .Where(filiter)
+                    .Where(w => w.Void == false)
+                    .OrderBy(p => p.Code)
+                    .SingleOrDefault();
 
-                return new ClientViewModelCollection(result);
-                
+                ManufacturersViewModel model = ResultBindingToViewModel(result);
+
+                return model;
             }
-            else
+            catch (Exception ex)
             {
-                return new ClientViewModelCollection(from p in database.Manufacturers
-                        where p.Void == false && p.IsClient == true
-                        orderby p.Code ascending
-                        select new ClientViewModel()
-                        {
-                            AccountingCode = p.AccountingCode,
-                            Address = p.Address,
-                            BankAccount = p.BankAccount,
-                            BankAccountName = p.BankAccountName,
-                            BankName = p.BankName,
-                            CheckNumber = p.CheckNumber,
-                            Code = p.Code,
-                            Comment = p.Comment,
-                            CreateTime = p.CreateTime,
-                            CreateUserId = p.CreateUserId,
-                            eMail = p.eMail,
-                            FactoryAddress = p.FactoryAddress,
-                            FactoryFax = p.FactoryFax,
-                            FactoryPhone = p.FactoryPhone,
-                            Fax = p.Fax,
-                            Id = p.Id,
-                            IsClient = p.IsClient,
-                            Name = p.Name,
-                            PaymentType = p.PaymentType,
-                            Phone = p.Phone,
-                            Principal = p.Principal,
-                            ShortName = p.ShortName,
-                            UniformNumbers = p.UniformNumbers,
-                            Void = p.Void
-                        });
+                var model = new ManufacturersViewModel();
+                setErrortoModel(model, ex);
+                return model;
             }
         }
-
         /// <summary>
         /// 查詢單一個體的資料實體。
         /// </summary>
@@ -241,34 +179,59 @@ namespace Tokiku.Controllers
                 throw;
             }
 
-            //if (result != null)
-            //{
-            //    ManufacturersViewModel vm = new ManufacturersViewModel();
-            //    vm = BindingFromModel<Manufacturers, ManufacturersViewModel>(result);
-            //    vm.Contracts = new ObservableCollection<ContactsViewModel>(result.Contacts.ToList().ConvertAll(c => BindingFromModel<Contacts, ContactsViewModel>(c)));
-            //    vm.IsEditorMode = false;
-
-            //    return vm;
-            //}
-
-            //return null;
         }
 
-        public ObservableCollection<ManufacturersViewModel> QueryAll()
+        public ManufacturersViewModelCollection QueryAll()
         {
+            ManufacturersViewModelCollection rtn = new ManufacturersViewModelCollection();
+
             try
             {
                 var result = from p in database.Manufacturers
                              where p.Void == false && p.IsClient == false
                              select p;
 
-                return new ObservableCollection<ManufacturersViewModel>(result.ToList().ConvertAll(c => BindingFromModel(c)));
-            }
-            catch (Exception)
-            {
+                ResultBindingToViewModelCollection(rtn, result);
 
-                throw;
+                return rtn;
             }
+            catch
+            {
+                return rtn;
+            }
+        }
+
+        private void ResultBindingToViewModelCollection(ManufacturersViewModelCollection rtn, IQueryable<Manufacturers> result)
+        {
+            if (result.Any())
+            {
+                foreach (var item in result)
+                {
+                    ManufacturersViewModel model = ResultBindingToViewModel(item);
+
+                    rtn.Add(model);
+                }
+            }
+        }
+
+        private ManufacturersViewModel ResultBindingToViewModel(Manufacturers item)
+        {
+            ManufacturersViewModel model = BindingFromModel(item);
+
+            model.Contracts = new ContactsViewModelCollection();
+
+            if (item.Contacts.Any())
+            {
+                foreach (var row in item.Contacts)
+                {
+                    model.Contracts.Add(BindingFromModel<ContactsViewModel, Contacts>(row));
+                }
+            }
+
+            if (model.Engineerings == null)
+                model.Engineerings = new EngineeringViewModelCollection();
+
+            return model;
         }
 
         public override ManufacturersViewModel CreateNew()
@@ -278,7 +241,10 @@ namespace Tokiku.Controllers
                 UserController uc = new UserController();
                 var model = new ManufacturersViewModel()
                 {
-                    Code = GetNextProjectSerialNumber()
+                    Id = Guid.NewGuid(),
+                    Code = GetNextProjectSerialNumber(),
+                    Contracts = new ContactsViewModelCollection(),
+                    Engineerings = new EngineeringViewModelCollection()
                 };
                 return model;
             }
@@ -294,8 +260,98 @@ namespace Tokiku.Controllers
         {
             var dbm = new Manufacturers();
             CopyToModel(dbm, model);
+
+            if (model.Contracts.Any())
+            {
+                foreach (var item in model.Contracts)
+                {
+                    Contacts newContacts = new Contacts();
+                    CopyToModel(newContacts, item);
+                    dbm.Contacts.Add(newContacts);
+                }
+            }
+
+            if (model.Materials.Any())
+            {
+                foreach (var item in model.Materials)
+                {
+                    Materials newContacts = new Materials();
+                    CopyToModel(newContacts, item);
+
+                }
+            }
+
             database.Manufacturers.Add(dbm);
             database.SaveChanges();
+        }
+
+        public override ManufacturersViewModel Update(ManufacturersViewModel model)
+        {
+            try
+            {
+                UserController uc = new UserController();
+                var LoginedUser = uc.GetCurrentLoginUser();
+                var dbm = (from q in database.Manufacturers
+                           where q.Id == model.Id && q.Void == false
+                           select q).SingleOrDefault();
+
+                if (dbm != null)
+                {
+                    CopyToModel(dbm, model);
+
+                    if (model.Contracts.Any())
+                    {
+                        foreach (var item in model.Contracts)
+                        {
+                            Stack<Contacts> removeStack = new Stack<Contacts>();
+
+                            foreach (var rowindb in dbm.Contacts)
+                            {
+                                if (model.Contracts.Where(w => w.Id == rowindb.Id).Any() == false)
+                                {
+                                    //remove(指資料真的被移除了)
+                                    removeStack.Push(rowindb);
+                                }
+                            }
+
+                            if (removeStack.Count > 0)
+                            {
+                                while (removeStack.Count > 0)
+                                {
+                                    dbm.Contacts.Remove(removeStack.Pop());
+                                }
+                            }
+
+                            foreach (var row in model.Contracts)
+                            {
+                                if (dbm.Contacts.Where(w => w.Id == row.Id).Any())
+                                {
+                                    var foundinoriginal = dbm.Contacts.Where(w => w.Id == row.Id).Single();
+                                    CopyToModel(foundinoriginal, row);
+                                    database.Entry(foundinoriginal).State = System.Data.Entity.EntityState.Modified;
+                                }
+                                else
+                                {
+                                    Contacts newData = new Contacts();
+                                    CopyToModel(newData, row);
+                                    newData.CreateUserId = LoginedUser.UserId;
+                                    dbm.Contacts.Add(newData);
+                                }
+                            }
+                        }
+                    }
+                }
+                database.Entry(dbm).State = System.Data.Entity.EntityState.Modified;
+                database.SaveChanges();
+
+                return Query(w => w.Id == model.Id);
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(model, ex);
+                return model;
+            }
+
         }
 
         public override void Delete(ManufacturersViewModel model)
@@ -364,6 +420,6 @@ namespace Tokiku.Controllers
             }
         }
 
-    
+
     }
 }

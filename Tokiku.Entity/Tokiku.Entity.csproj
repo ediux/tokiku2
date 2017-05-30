@@ -55,6 +55,12 @@
     <Compile Include="BOM.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
+    <Compile Include="Compositions.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompositionTypes.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
     <Compile Include="Contacts.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>

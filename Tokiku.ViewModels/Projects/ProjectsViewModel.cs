@@ -1,14 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Windows;
 
 namespace Tokiku.ViewModels
 {
-    public class ProjectBaseViewModel : BaseViewModel, IBaseViewModel
+    public class ProjectsViewModelCollection : ObservableCollection<ProjectsViewModel>, IBaseViewModel
+    {
+        public ProjectsViewModelCollection()
+        {
+            HasError = false;
+        }
+
+        public ProjectsViewModelCollection(IEnumerable<ProjectsViewModel> source):base(source){
+
+        }
+
+        public IEnumerable<string> Errors { get; set; }
+        public bool HasError { get; set; }
+    }
+
+    public class ProjectsViewModel : BaseViewModel, IBaseViewModel
     {
         #region 私有變數
         /// <summary>
@@ -18,31 +30,31 @@ namespace Tokiku.ViewModels
 
         #region 相依性屬性宣告
 
-        public static readonly DependencyProperty IdProperty = DependencyProperty.Register("Id", typeof(Guid), typeof(ProjectBaseViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
+        public static readonly DependencyProperty IdProperty = DependencyProperty.Register("Id", typeof(Guid), typeof(ProjectsViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
-        public static readonly DependencyProperty CodeProperty = DependencyProperty.Register("Code", typeof(string), typeof(ProjectBaseViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
+        public static readonly DependencyProperty CodeProperty = DependencyProperty.Register("Code", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
-        public static readonly DependencyProperty ProjectSigningDateProperty = DependencyProperty.Register("ProjectSigningDate", typeof(DateTime), typeof(ProjectBaseViewModel), new PropertyMetadata(DateTime.Today, new PropertyChangedCallback(DefaultFieldChanged)));
+        public static readonly DependencyProperty ProjectSigningDateProperty = DependencyProperty.Register("ProjectSigningDate", typeof(DateTime), typeof(ProjectsViewModel), new PropertyMetadata(DateTime.Today, new PropertyChangedCallback(DefaultFieldChanged)));
 
-        public static readonly DependencyProperty NameProperty = DependencyProperty.Register("Name", typeof(string), typeof(ProjectBaseViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
+        public static readonly DependencyProperty NameProperty = DependencyProperty.Register("Name", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
-        public static readonly DependencyProperty ShortNameProperty = DependencyProperty.Register("ShortName", typeof(string), typeof(ProjectBaseViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
+        public static readonly DependencyProperty ShortNameProperty = DependencyProperty.Register("ShortName", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
-        public static readonly DependencyProperty ClientIdProperty = DependencyProperty.Register("ClientId", typeof(Guid?), typeof(ProjectBaseViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
+        public static readonly DependencyProperty ClientIdProperty = DependencyProperty.Register("ClientId", typeof(Guid?), typeof(ProjectsViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
-        public static readonly DependencyProperty CreateTimeProperty = DependencyProperty.Register("CreateTime", typeof(DateTime), typeof(ProjectBaseViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
+        public static readonly DependencyProperty CreateTimeProperty = DependencyProperty.Register("CreateTime", typeof(DateTime), typeof(ProjectsViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
-        public static readonly DependencyProperty CreateUserIdProperty = DependencyProperty.Register("CreateUserId", typeof(Guid), typeof(ProjectBaseViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
+        public static readonly DependencyProperty CreateUserIdProperty = DependencyProperty.Register("CreateUserId", typeof(Guid), typeof(ProjectsViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
-        public static readonly DependencyProperty SiteAddressProperty = DependencyProperty.Register("SiteAddress", typeof(string), typeof(ProjectBaseViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
+        public static readonly DependencyProperty SiteAddressProperty = DependencyProperty.Register("SiteAddress", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
-        public static readonly DependencyProperty StateProperty = DependencyProperty.Register("State", typeof(byte), typeof(ProjectBaseViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
+        public static readonly DependencyProperty StateProperty = DependencyProperty.Register("State", typeof(byte), typeof(ProjectsViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
-        public static readonly DependencyProperty StateTextProperty = DependencyProperty.Register("StateText", typeof(ObservableCollection<StatesViewModel>), typeof(ProjectBaseViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
+        public static readonly DependencyProperty StateTextProperty = DependencyProperty.Register("StateText", typeof(StatesViewModelCollection), typeof(ProjectsViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
-        public static readonly DependencyProperty VoidProperty = DependencyProperty.Register("Void", typeof(bool), typeof(ProjectBaseViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
+        public static readonly DependencyProperty VoidProperty = DependencyProperty.Register("Void", typeof(bool), typeof(ProjectsViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
-        public static readonly DependencyProperty CommentProperty = DependencyProperty.Register("Comment", typeof(string), typeof(ProjectBaseViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
+        public static readonly DependencyProperty CommentProperty = DependencyProperty.Register("Comment", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
         #endregion
 
@@ -117,9 +129,9 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 狀態資料來源
         /// </summary>
-        public ObservableCollection<StatesViewModel> StateText
+        public StatesViewModelCollection StateText
         {
-            get { return (ObservableCollection<StatesViewModel>)GetValue(StateTextProperty); }
+            get { return (StatesViewModelCollection)GetValue(StateTextProperty); }
             set { SetValue(StateTextProperty, value); RaisePropertyChanged("StateText"); }
         }
         #endregion
@@ -136,7 +148,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for ProjectContract.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ProjectContractProperty =
-            DependencyProperty.Register("ProjectContract", typeof(ProjectContractViewModelCollection), typeof(ProjectBaseViewModel
+            DependencyProperty.Register("ProjectContract", typeof(ProjectContractViewModelCollection), typeof(ProjectsViewModel
                 ), new PropertyMetadata(default(ProjectContractViewModelCollection), new PropertyChangedCallback(DefaultFieldChanged)));
         #endregion
 
@@ -152,7 +164,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for Clients.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ClientsProperty =
-            DependencyProperty.Register("Clients", typeof(ClientViewModelCollection), typeof(ProjectBaseViewModel), new PropertyMetadata(new ClientViewModelCollection()));
+            DependencyProperty.Register("Clients", typeof(ClientViewModelCollection), typeof(ProjectsViewModel), new PropertyMetadata(new ClientViewModelCollection()));
 
 
     }

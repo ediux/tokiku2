@@ -77,20 +77,22 @@
                             <ColumnDefinition Width="60*"/>
                             <ColumnDefinition Width="40*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="2" />
+                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="2" Text="{Binding SelectedClient.Code, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="1">
                             <Button x:Name="btnShowClientSelection" Content="編輯" Click="btnShowClientSelection_Click"/>
                         </StackPanel>
                     </Grid>
                     <TextBlock Text="客戶名稱:" Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Row="1" Grid.Column="1"   Margin="2" />
+                    <TextBlock Grid.Row="1" Grid.Column="1"   Margin="2" Text="{Binding SelectedClient.Name, ElementName=userControl, Mode=OneWay}" />
                     <local:ClientListView x:Name="ClientList" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="2"
-                                          DataContext="{Binding Clients}"
+                                          DataContext="{Binding Clients}"                                          
                                           HorizontalAlignment="Stretch" Margin="0" Visibility="Hidden" 
-                                          SelectedClientChanged="ClientList_SelectedClientChanged"/>
+                                          SelectedClientChanged="ClientList_SelectedClientChanged"
+                                          />
                 </Grid>
             </GroupBox>
-            <GroupBox Header="合約列表" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" DataContext="{Binding ProjectContract}" Margin="5">
+            <GroupBox Header="合約列表" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                      DataContext="{Binding ProjectContract}" Margin="5">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="27"/>
@@ -102,13 +104,16 @@
                     <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">
                         <Controls:SearchBar x:Name="ProjectContactSearchBar" Width="350" />
                     </StackPanel>
-                    <Controls:CustomDataGrid Grid.Row="1" Grid.Column="0" AllowExecuteSystemCommand="True" AutoGenerateColumns="False" CanUserDeleteRows="True"  CanUserAddRows="True" ItemsSource="{Binding SelectedProject.ProjectContract, ElementName=userControl}" >
+                    <Controls:CustomDataGrid Grid.Row="1" Grid.Column="0" AllowExecuteSystemCommand="True" AutoGenerateColumns="False" CanUserDeleteRows="True"  CanUserAddRows="True" ItemsSource="{Binding SelectedProject.ProjectContract, ElementName=userControl}"
+                                            MouseDoubleClick="ContractList_MouseDoubleClick"
+                                             DataGridRow.Selected="ContractList_Selected"
+                                             x:Name="ContractList">
                         <Controls:CustomDataGrid.Columns>
                             <DataGridTextColumn Header="合約編號" Binding="{Binding ContractNumber}"/>
                             <DataGridTextColumn Header="簽約日期" Binding="{Binding SigningDate}"/>
                             <DataGridTextColumn Header="起造日期" Binding="{Binding StartDate}"/>
                             <DataGridTextColumn Header="完工日期" Binding="{Binding CompletionDate}"/>
-                            <DataGridTextColumn Header="狀態" Binding="{Binding StateText}"/>
+                            <DataGridTextColumn Header="狀態" Binding="{Binding State, Converter={StaticResource StatesCodeToTextValueConverter}}"/>
                             <DataGridTextColumn Header="保固到期日" Binding="{Binding WarrantyDate}"/>
                             <DataGridTextColumn Header="建築師" Binding="{Binding Architect}"/>
                             <DataGridTextColumn Header="建築高度(地上)" Binding="{Binding BuildingHeightAboveground}"/>
@@ -128,7 +133,7 @@
                 </Grid>
             </GroupBox>
         </Grid>
-        <Controls:DockBar x:Name="dockBar" Grid.Row="1" DocumentMode="Create" DocumentModeChanged="DockBar_DocumentModeChanged" />
-        
+        <Controls:DockBar x:Name="dockBar" Grid.Row="1" DocumentMode="{Binding Path=Mode, ElementName=userControl}" DocumentModeChanged="DockBar_DocumentModeChanged" />
+
     </Grid>
 </UserControl>

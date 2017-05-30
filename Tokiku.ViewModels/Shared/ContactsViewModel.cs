@@ -8,11 +8,28 @@ using System.Windows;
 
 namespace Tokiku.ViewModels
 {
+    public class ContactsViewModelCollection : ObservableCollection<ContactsViewModel>,IBaseViewModel
+    {
+        public ContactsViewModelCollection()
+        {
+
+        }
+
+        public ContactsViewModelCollection(IEnumerable<ContactsViewModel> source) : base(source)
+        {
+
+        }
+
+        private IEnumerable<string> _Errors;
+        public IEnumerable<string> Errors { get => _Errors; set => _Errors = value; }
+        private bool _HasError = false;
+        public bool HasError { get => _HasError; set => _HasError = value; }
+    }
     public class ContactsViewModel : BaseViewModel
     {
         public ContactsViewModel()
         {
-            Id = Guid.NewGuid();
+           
         }
 
         public Guid Id

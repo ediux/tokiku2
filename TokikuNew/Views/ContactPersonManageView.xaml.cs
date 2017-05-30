@@ -1,21 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Tokiku.Controllers;
-using Tokiku.Entity;
 using Tokiku.ViewModels;
+using TokikuNew.Controls;
 using WinForm = System.Windows.Forms;
+
 namespace TokikuNew.Views
 {
     /// <summary>
@@ -31,68 +23,136 @@ namespace TokikuNew.Views
         }
 
 
+        #region 登入人員
+
+        public UserViewModel LoginedUser
+        {
+            get { return (UserViewModel)GetValue(LoginedUserProperty); }
+            set { SetValue(LoginedUserProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for LoginedUser.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty LoginedUserProperty =
+            DependencyProperty.Register("LoginedUser", typeof(UserViewModel), typeof(ContactPersonManageView), new PropertyMetadata(default(UserViewModel)));
+
+
+        #endregion
+
+        #region Document Mode
+
         /// <summary>
-        /// 是否和客戶端聯絡人
+        /// 文件模式
         /// </summary>
-        public bool IsClient
+        public DocumentLifeCircle Mode
         {
-            get { return (bool)GetValue(IsClientProperty); }
-            set { SetValue(IsClientProperty, value); }
+            get { return (DocumentLifeCircle)GetValue(ModeProperty); }
+            set { SetValue(ModeProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for IsClient.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty IsClientProperty =
-            DependencyProperty.Register("IsClient", typeof(bool), typeof(ContactPersonManageView), new PropertyMetadata(false));
+        // Using a DependencyProperty as the backing store for Mode.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ModeProperty =
+            DependencyProperty.Register("Mode", typeof(DocumentLifeCircle), typeof(ContactPersonManageView), new PropertyMetadata(DocumentLifeCircle.Read));
+        #endregion
 
-        public ContactsViewModel Model
+        #region SelectedContact
+        /// <summary>
+        /// 選擇的聯絡人
+        /// </summary>
+        public ContactsViewModel SelectedContact
         {
-            get { return (ContactsViewModel)GetValue(ModelProperty); }
-            set { SetValue(ModelProperty, value); }
+            get { return (ContactsViewModel)GetValue(SelectedContactProperty); }
+            set { SetValue(SelectedContactProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ModelProperty =
-            DependencyProperty.Register("Model", typeof(ContactsViewModel), typeof(ContactPersonManageView), new PropertyMetadata(default(ContactsViewModel)));
+        // Using a DependencyProperty as the backing store for SelectedContact.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedContactProperty =
+            DependencyProperty.Register("SelectedContact", typeof(ContactsViewModel),
+                typeof(ContactPersonManageView), new PropertyMetadata(default(ContactsViewModel)));
+        #endregion
 
-        public static readonly RoutedEvent OnPageClosingEvent = EventManager.RegisterRoutedEvent(
-"OnPageClosingEvent", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ContactPersonManageView));
-
+        #region 分頁關閉事件
+        public static readonly RoutedEvent OnPageClosingEvent = 
+            EventManager.RegisterRoutedEvent("OnPageClosingEvent", 
+                RoutingStrategy.Bubble, 
+                typeof(RoutedEventHandler),
+                typeof(ContactPersonManageView));
+        
+        /// <summary>
+        /// 發出關閉分頁事件
+        /// </summary>
         public event RoutedEventHandler OnPageClosing
         {
             add { AddHandler(OnPageClosingEvent, value); }
             remove { RemoveHandler(OnPageClosingEvent, value); }
         }
+        #endregion
+
+        #region 聯絡人選擇變更事件
+        public static readonly RoutedEvent SelectedContactChangedEvent = EventManager.RegisterRoutedEvent(
+          "SelectedClientChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ContactPersonManageView));
+
+        public event RoutedEventHandler SelectedContactChanged
+        {
+            add { AddHandler(SelectedContactChangedEvent, value); }
+            remove { RemoveHandler(SelectedContactChangedEvent, value); }
+        }
+        #endregion
+
+        #region 資料來源副本(廠商/聯絡人)
+        public ManufacturersViewModel SelectedManufacturer
+        {
+            get { return (ManufacturersViewModel)GetValue(SelectedManufacturerProperty); }
+            set { SetValue(SelectedManufacturerProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Contracts.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedManufacturerProperty =
+            DependencyProperty.Register("SelectedManufacturer", typeof(ManufacturersViewModel)
+                , typeof(ContactPersonManageView), new PropertyMetadata(default(ManufacturersViewModel)));
+        #endregion
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            controller = new ContactController();
+            AddHandler(DockBar.DocumentModeChangedEvent, new RoutedEventHandler(DockBar_DocumentModeChanged));
+            Binding sourceBinding = new Binding();
+            sourceBinding.Source = DataContext;
 
-            if (Model == null)
-                Model = new ContactsViewModel();
-
-            Model.ContractsList = controller.QueryAll();
-            DataContext = Model;
+            SetBinding(SelectedManufacturerProperty, sourceBinding);
         }
 
-        private void btnModify_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        private void DockBar_DocumentModeChanged(object sender, RoutedEventArgs e)
         {
             try
             {
-                controller.SaveModel(Model);
-                if (Model.HasError)
+                e.Handled = true;
+
+                DocumentLifeCircle mode = (DocumentLifeCircle)e.OriginalSource;
+                switch (mode)
                 {
-                    WinForm.MessageBox.Show(string.Join(",", Model.Errors), "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
+                    case DocumentLifeCircle.Save:
+                        if (SelectedManufacturer.CreateUserId == Guid.Empty)
+                        {
+                            SelectedManufacturer.CreateUserId = LoginedUser.UserId;
+                        }
+                        if (SelectedManufacturer.Contracts.Count > 0)
+                        {
+                            foreach (ContactsViewModel model in SelectedManufacturer.Contracts)
+                            {
+                                if (model.CreateUserId == Guid.Empty)
+                                {
+                                    model.CreateUserId = LoginedUser.UserId;
+                                }
+                            }
+                        }
+
+                        if (SelectedManufacturer.HasError)
+                        {
+                            MessageBox.Show(string.Join("\n", SelectedManufacturer.Errors.ToArray()));
+                        }
+
+                        break;
+
                 }
-                Model = new ContactsViewModel();
-                Model.Status.IsSaved = true;
-                Model.ContractsList = controller.QueryAll();
-
-
             }
             catch (Exception ex)
             {
@@ -100,36 +160,28 @@ namespace TokikuNew.Views
             }
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void ContractSearchBar_ResetSearch(object sender, RoutedEventArgs e)
         {
-           
+            DataContext = controller.QueryAll();
         }
 
-        private void btnExit_Click(object sender, RoutedEventArgs e)
+        private void ContractSearchBar_Search(object sender, RoutedEventArgs e)
         {
-            RaiseEvent(new RoutedEventArgs(OnPageClosingEvent));
+            DataContext = controller.SearchByText((string)e.OriginalSource, SelectedManufacturer.Id, SelectedManufacturer.IsClient);
         }
 
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ContractList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count > 0)
             {
                 var obj = e.AddedItems[0];
-                if (obj is Contacts)
+                if (obj != null && obj is ContactsViewModel)
                 {
-                    Model = controller.Query(x => x.Id == ((Contacts)obj).Id);
+                    SelectedContact = (ContactsViewModel)obj;
+                    SelectedContact.Status.IsNewInstance = false;
+                    RaiseEvent(new RoutedEventArgs(SelectedContactChangedEvent, obj));
                 }
             }
-
-            Model.Status.IsNewInstance = false;
-        }
-
-        private void btnF1_Click(object sender, RoutedEventArgs e)
-        {
-            Model = new ContactsViewModel();
-            Model.ContractsList = controller.QueryAll();
-            Model.Status.IsNewInstance = true;
-            DataContext = Model;
         }
     }
 }

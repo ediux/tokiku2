@@ -12,31 +12,18 @@ namespace Tokiku.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class Engineering
+    public partial class CompositionTypes
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Engineering()
+        public CompositionTypes()
         {
-            this.ShopFlowHistory = new HashSet<ShopFlowHistory>();
             this.Compositions = new HashSet<Compositions>();
         }
     
-        public System.Guid Id { get; set; }
-        public System.Guid ProjectContractId { get; set; }
-        public string Code { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
-        public System.DateTime StartDate { get; set; }
-        public System.DateTime CompletionDate { get; set; }
-        public Nullable<byte> State { get; set; }
-        public Nullable<System.DateTime> WarrantyDate { get; set; }
-        public System.DateTime CreateTime { get; set; }
-        public System.Guid CreateUserId { get; set; }
     
-        public virtual ProjectContract ProjectContract { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ShopFlowHistory> ShopFlowHistory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Compositions> Compositions { get; set; }
-        public virtual States States { get; set; }
     }
 }

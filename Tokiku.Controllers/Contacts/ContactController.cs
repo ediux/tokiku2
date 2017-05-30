@@ -11,6 +11,9 @@ using Tokiku.ViewModels;
 
 namespace Tokiku.Controllers
 {
+    /// <summary>
+    /// 聯絡人商業邏輯層控制器
+    /// </summary>
     public class ContactController : BaseController<ContactsViewModel, Contacts>
     {
         public ContactController()
@@ -18,7 +21,7 @@ namespace Tokiku.Controllers
 
         }
 
-        public ObservableCollection<ContactsViewModel> QueryAll()
+        public ContactsViewModelCollection QueryAll()
         {
             try
             {
@@ -26,12 +29,55 @@ namespace Tokiku.Controllers
                              where p.Void == false
                              select p;
 
-                return new ObservableCollection<ContactsViewModel>(result.ToList().ConvertAll(c => BindingFromModel(c)));
+                ContactsViewModelCollection rtn = new ContactsViewModelCollection();
+
+                if (result.Any())
+                {
+                    foreach(var item in result)
+                    {
+                        rtn.Add(BindingFromModel(item));
+                    }
+                }
+
+                return rtn;
+
             }
             catch (Exception)
             {
 
                 throw;
+            }
+        }
+    
+
+        public ContactsViewModelCollection SearchByText(string filiter,Guid ManufactoryId,bool isClient)
+        {
+            if (filiter != null && filiter.Length > 0)
+            {
+                var result = (from p in database.Manufacturers
+                              from q in p.Contacts
+                              where p.Void == false && p.Id == ManufactoryId 
+                              && p.IsClient == isClient &&
+                              (q.Comment.Contains(filiter) || q.Dep.Contains(filiter))
+                              orderby q.Name ascending
+                              select q);
+
+                var rtn = new ContactsViewModelCollection();
+
+                if (result.Any())
+                {
+                    foreach(var item in result)
+                    {
+                        rtn.Add(BindingFromModel(item));
+                    }
+                }
+
+                return rtn;
+            }
+            else
+            {
+                var result = QueryAll();
+                return result;
             }
         }
 
@@ -52,6 +98,7 @@ namespace Tokiku.Controllers
             }
         }
 
+       
         public void Update(ContactsViewModel updatedProject, Guid UserId)
         {
             try

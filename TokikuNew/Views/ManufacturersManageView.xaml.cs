@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tokiku.Controllers;
 using Tokiku.ViewModels;
+using TokikuNew.Controls;
 using WinForm = System.Windows.Forms;
 
 namespace TokikuNew.Views
@@ -23,12 +24,13 @@ namespace TokikuNew.Views
     /// </summary>
     public partial class ManufacturersManageView : UserControl
     {
-        private ManufacturersController controller=new ManufacturersController();
+        private ManufacturersController controller = new ManufacturersController();
 
         public ManufacturersManageView()
         {
             InitializeComponent();
         }
+        #region 分頁關閉事件
 
         public static readonly RoutedEvent OnPageClosingEvent = EventManager.RegisterRoutedEvent(
 "OnPageClosingEvent", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ManufacturersManageView));
@@ -39,86 +41,61 @@ namespace TokikuNew.Views
             remove { RemoveHandler(OnPageClosingEvent, value); }
         }
 
-        public ManufacturersViewModel Model
+        #endregion
+
+        #region 目前操作的廠商資料
+
+        public ManufacturersViewModel SelectedManufacturers
         {
-            get { return (ManufacturersViewModel)GetValue(ModelProperty); }
-            set { SetValue(ModelProperty, value); }
+            get { return (ManufacturersViewModel)GetValue(SelectedManufacturersProperty); }
+            set { SetValue(SelectedManufacturersProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ModelProperty =
-            DependencyProperty.Register("Model", typeof(ManufacturersViewModel), typeof(ManufacturersManageView), new PropertyMetadata(default(ManufacturersViewModel)));
+        // Using a DependencyProperty as the backing store for SelectedManufacturers.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedManufacturersProperty =
+            DependencyProperty.Register("SelectedManufacturers", typeof(ManufacturersViewModel), typeof(ManufacturersManageView), new PropertyMetadata(default(ManufacturersViewModel)));
 
-        private void btnF1_Click(object sender, RoutedEventArgs e)
+        #endregion
+
+        #region 登入人員
+
+        public UserViewModel LoginedUser
         {
-            Model = new ManufacturersViewModel();            
-            Model.Status.IsNewInstance = true;
-            DataContext = Model;
+            get { return (UserViewModel)GetValue(LoginedUserProperty); }
+            set { SetValue(LoginedUserProperty, value); }
         }
 
-        private void btnModify_Click(object sender, RoutedEventArgs e)
+        // Using a DependencyProperty as the backing store for LoginedUser.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty LoginedUserProperty =
+            DependencyProperty.Register("LoginedUser", typeof(UserViewModel), typeof(ManufacturersManageView), new PropertyMetadata(default(UserViewModel)));
+
+
+        #endregion
+
+        #region Document Mode
+
+
+        public DocumentLifeCircle Mode
         {
-            Model.Status.IsModify = false;
+            get { return (DocumentLifeCircle)GetValue(ModeProperty); }
+            set { SetValue(ModeProperty, value); }
         }
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                controller.SaveModel(Model);
-                Model.Status.IsSaved = true;                
-            }
-            catch (Exception ex)
-            {
-                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
-            }
-        }
+        // Using a DependencyProperty as the backing store for Mode.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ModeProperty =
+            DependencyProperty.Register("Mode", typeof(DocumentLifeCircle), typeof(ManufacturersManageView), new PropertyMetadata(DocumentLifeCircle.Read));
+        #endregion
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
-          
-        }
-
-        private void btnExit_Click(object sender, RoutedEventArgs e)
-        {
-            RaiseEvent(new RoutedEventArgs(OnPageClosingEvent));
-        }
-
-        private void ContractList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void btnAddList_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnContractSearch_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnMtSearch_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnAddMTList_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void MTList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {        
-            Binding modelBinding = new Binding();
-            modelBinding.Source = this.DataContext;
-            SetBinding(ModelProperty, modelBinding);
+        {
+            Binding SelectedManufacturersBinding = new Binding();
+            SelectedManufacturersBinding.Source = this.DataContext;
+            SetBinding(SelectedManufacturersProperty, SelectedManufacturersBinding);
+
+            Binding ModeBinding = new Binding();
+            ModeBinding.Source = Mode;
+            dockBar.SetBinding(DockBar.DocumentModeProperty, ModeBinding);
         }
 
         private void ContractList_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
@@ -142,6 +119,85 @@ namespace TokikuNew.Views
             else
             {
                 tbShortName.Text = string.Empty;
+            }
+        }
+
+        private void DockBar_DocumentModeChanged(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                e.Handled = true;
+
+                DocumentLifeCircle mode = (DocumentLifeCircle)e.OriginalSource;
+                switch (mode)
+                {
+
+                    case DocumentLifeCircle.Create:
+
+                        this.DataContext = controller.CreateNew();
+                        SelectedManufacturers.CreateUserId = LoginedUser.UserId;
+                        if (SelectedManufacturers.HasError)
+                        {
+                            MessageBox.Show(string.Join("\n", SelectedManufacturers.Errors.ToArray()));
+                            dockBar.DocumentMode = DocumentLifeCircle.Read;
+                        }
+                      
+                        break;
+                    case DocumentLifeCircle.Save:
+                        if (SelectedManufacturers.CreateUserId == Guid.Empty)
+                        {
+                            SelectedManufacturers.CreateUserId = LoginedUser.UserId;
+                        }
+
+                        if (SelectedManufacturers.Contracts != null)
+                        {
+                            if (SelectedManufacturers.Contracts.Count > 0)
+                            {
+                                foreach (ContactsViewModel model in SelectedManufacturers.Contracts)
+                                {
+                                    if (model.CreateUserId == Guid.Empty)
+                                    {
+                                        model.CreateUserId = LoginedUser.UserId;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (SelectedManufacturers.Engineerings != null)
+                        {
+                            if (SelectedManufacturers.Engineerings.Count > 0)
+                            {
+                                foreach (EngineeringViewModel model in SelectedManufacturers.Engineerings)
+                                {
+
+                                }
+                            }
+                        }
+
+                        if (SelectedManufacturers.Materials == null)
+                            SelectedManufacturers.Materials = new MaterialsViewModelCollection();
+
+                        controller.SaveModel(SelectedManufacturers);
+
+                        if (SelectedManufacturers.HasError)
+                        {
+                            MessageBox.Show(string.Join("\n", SelectedManufacturers.Errors.ToArray()));
+                            dockBar.DocumentMode = DocumentLifeCircle.Update;
+                        }
+                        else
+                        {
+                            dockBar.DocumentMode = DocumentLifeCircle.Read;
+                        }
+                        RaiseEvent(new RoutedEventArgs(OnPageClosingEvent, this));
+                        break;
+                    case DocumentLifeCircle.Update:
+
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
             }
         }
     }
