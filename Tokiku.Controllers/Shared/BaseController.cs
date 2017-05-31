@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -30,7 +31,10 @@ namespace Tokiku.Controllers
             {
                 Type t = typeof(TB);
                 Type ct = typeof(TViewB);
-
+#if DEBUG
+                Debug.WriteLine(string.Format("資料實體{0},檢視模型為{1}", t.Name, ct.Name));
+                Debug.WriteLine("開始抄寫.");
+#endif
                 var props = t.GetProperties();
 
                 foreach (var prop in props)
@@ -41,19 +45,39 @@ namespace Tokiku.Controllers
 
                         if (ctProp != null)
                         {
+
                             if (prop.PropertyType == ctProp.PropertyType)
                             {
+                                var entityvalue = prop.GetValue(entity);
+                                var value = ctProp.GetValue(ViewModel);
+
+#if DEBUG
+                                Debug.WriteIf(entityvalue == null, string.Format("資料實體屬性 {0}({2}) 內容值為 {1}(null).\n", prop.Name, entityvalue,prop.PropertyType.Name));
+                                Debug.WriteIf(value == null, string.Format("檢視模型屬性 {0}({2}) 內容值為 {1}(null).\n", ctProp.Name, value,ctProp.PropertyType.Name));
+#endif
+
                                 ctProp.SetValue(ViewModel, prop.GetValue(entity));
                             }
                         }
                     }
+#if DEBUG
+                    catch(Exception ex)
+#else
                     catch
+#endif
+
                     {
-                        continue;
+#if DEBUG
+                        Debug.WriteLine(ex.Message);
+
+#endif
+                    continue;
                     }
 
                 }
-
+#if DEBUG
+                Debug.WriteLine("結束抄寫.");
+#endif
                 return ViewModel;
             }
             catch (Exception ex)
@@ -76,7 +100,10 @@ namespace Tokiku.Controllers
             {
                 Type CurrentViewModelType = typeof(TViewB);
                 Type TargetEntity = typeof(TB);
-
+#if DEBUG
+                Debug.WriteLine(string.Format("資料實體{0},檢視模型為{1}", TargetEntity.Name, CurrentViewModelType.Name));
+                Debug.WriteLine("開始抄寫.");
+#endif
                 var CurrentViewModel_Property = CurrentViewModelType.GetProperties();
 
                 foreach (var ViewModelProperty in CurrentViewModel_Property)
@@ -86,11 +113,16 @@ namespace Tokiku.Controllers
                         var EntityProperty = TargetEntity.GetProperty(ViewModelProperty.Name);
                         if (EntityProperty != null)
                         {
+                            var entityvalue = EntityProperty.GetValue(entity);
                             var value = ViewModelProperty.GetValue(ViewModel);
 
-                            if (value != null && !value.Equals(EntityProperty.GetValue(entity)))
+                            if (value != null && !value.Equals(entityvalue))
                             {
-                                EntityProperty.SetValue(entity, ViewModelProperty.GetValue(ViewModel));
+#if DEBUG
+                                Debug.WriteIf(entityvalue == null, string.Format("資料實體屬性 {0}({2}) 內容值為 {1}.\n", EntityProperty.Name, entityvalue,EntityProperty.PropertyType.Name));
+                                Debug.WriteIf(value == null, string.Format("檢視模型屬性 {0}({2}) 內容值為 {1}.\n", ViewModelProperty.Name, value,ViewModelProperty.PropertyType.Name));
+#endif
+                                EntityProperty.SetValue(entity, value);
                             }
                         }
                     }
@@ -101,6 +133,10 @@ namespace Tokiku.Controllers
                     }
 
                 }
+#if DEBUG
+                Debug.WriteLine("結束抄寫.");
+#endif
+
             }
             catch (Exception ex)
             {
@@ -109,7 +145,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        #region IDisposable Support
+#region IDisposable Support
         private bool disposedValue = false; // 偵測多餘的呼叫
 
         protected virtual void Dispose(bool disposing)
@@ -142,7 +178,7 @@ namespace Tokiku.Controllers
             // TODO: 如果上方的完成項已被覆寫，即取消下行的註解狀態。
             // GC.SuppressFinalize(this);
         }
-        #endregion
+#endregion
 
         /// <summary>
         /// 將錯誤訊息寫到檢視模型中以利顯示。
@@ -162,6 +198,9 @@ namespace Tokiku.Controllers
                 {
                     foreach (var errb in err.ValidationErrors)
                     {
+#if DEBUG
+                        Debug.WriteLine(errb.ErrorMessage);
+#endif
                         msg.Add(errb.ErrorMessage);
                     }
                 }
@@ -203,6 +242,7 @@ namespace Tokiku.Controllers
 
 
     }
+
     public abstract class BaseController<TView, T> : BaseController where TView : IBaseViewModel where T : class
     {
 
@@ -228,46 +268,7 @@ namespace Tokiku.Controllers
         /// <param name="entity"></param>
         protected TView BindingFromModel(T entity)
         {
-            TView ViewModel = Activator.CreateInstance<TView>();
-
-            try
-            {
-                Type t = typeof(T);
-                Type ct = typeof(TView);
-
-                var props = t.GetProperties();
-
-                foreach (var prop in props)
-                {
-                    try
-                    {
-                        var ctProp = ct.GetProperty(prop.Name);
-
-                        if (ctProp != null)
-                        {
-
-                            if (ctProp.PropertyType == prop.PropertyType)
-                            {
-
-                                ctProp.SetValue(ViewModel, prop.GetValue(entity));
-                            }
-
-                        }
-                    }
-                    catch
-                    {
-                        continue;
-                    }
-
-                }
-
-                return ViewModel;
-            }
-            catch (Exception ex)
-            {
-                ViewModel.Errors = new string[] { ex.Message + "," + ex.StackTrace };
-                return ViewModel;
-            }
+            return BindingFromModel<TView, T>(entity);
 
         }
 
@@ -279,42 +280,7 @@ namespace Tokiku.Controllers
         /// <returns></returns>
         protected void CopyToModel(T entity, TView ViewModel)
         {
-
-            try
-            {
-                Type CurrentViewModelType = typeof(TView);
-                Type TargetEntity = typeof(T);
-
-                var CurrentViewModel_Property = CurrentViewModelType.GetProperties();
-
-                foreach (var ViewModelProperty in CurrentViewModel_Property)
-                {
-                    try
-                    {
-                        var EntityProperty = TargetEntity.GetProperty(ViewModelProperty.Name);
-                        if (EntityProperty != null)
-                        {
-                            var value = ViewModelProperty.GetValue(ViewModel);
-
-                            if (value != null && !value.Equals(EntityProperty.GetValue(entity)))
-                            {
-                                EntityProperty.SetValue(entity, ViewModelProperty.GetValue(ViewModel));
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        //setErrortoModel(ViewModel, ex);
-                        continue;
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                if (ViewModel != null)
-                    ViewModel.Errors = new string[] { ex.Message + "," + ex.StackTrace };
-            }
+            base.CopyToModel(entity, ViewModel);
         }
 
         /// <summary>
@@ -510,7 +476,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        
+
 
     }
 }
