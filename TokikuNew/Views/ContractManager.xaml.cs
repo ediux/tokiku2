@@ -30,7 +30,7 @@ namespace TokikuNew.Views
         }
 
 
-        private EngineeringController controller = new  EngineeringController();
+        private EngineeringController controller = new EngineeringController();
 
         #region Document Mode
 
@@ -109,7 +109,7 @@ namespace TokikuNew.Views
             Binding datasourceing = new Binding();
             datasourceing.Source = this.DataContext;
 
-            SetBinding(CurrentProjectContractProperty, datasourceing);    
+            SetBinding(CurrentProjectContractProperty, datasourceing);
         }
 
         private void EngCaseList_Selected(object sender, RoutedEventArgs e)
@@ -147,6 +147,12 @@ namespace TokikuNew.Views
                         {
                             SelectedEngineering.CreateUserId = LoginedUser.UserId;
                         }
+
+                        if (SelectedEngineering.Compositions == null)
+                            SelectedEngineering.Compositions = new CompositionsViewModelCollection();
+
+                        if (SelectedEngineering.Compositions2 == null)
+                            SelectedEngineering.Compositions2 = new CompositionsViewModelCollection();
 
                         if (SelectedEngineering.Compositions.Count > 0)
                         {
@@ -222,9 +228,11 @@ namespace TokikuNew.Views
             if (SelectedEngineering != null)
             {
                 SelectedEngineering = controller.Query(q => q.Id == SelectedEngineering.Id);
-                com1.ItemsSource = SelectedEngineering.Compositions;
-                com2.ItemsSource = SelectedEngineering.Compositions2;
-
+                if (SelectedEngineering != null)
+                {
+                    com1.ItemsSource = SelectedEngineering.Compositions;
+                    com2.ItemsSource = SelectedEngineering.Compositions2;
+                }
             }
 
         }

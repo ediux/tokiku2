@@ -215,5 +215,17 @@ namespace Tokiku.ViewModels
             DependencyProperty.Register("Compositions2", typeof(CompositionsViewModelCollection), typeof(EngineeringViewModel), new PropertyMetadata(default(CompositionsViewModelCollection)));
 
 
+
+        public string Architect
+        {
+            get { return (string)GetValue(ArchitectProperty); }
+            set { SetValue(ArchitectProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Architect.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ArchitectProperty =
+            DependencyProperty.Register("Architect", typeof(string), typeof(EngineeringViewModel), new PropertyMetadata(string.Empty));
+
+
     }
 }

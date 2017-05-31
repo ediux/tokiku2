@@ -7,9 +7,6 @@
         xmlns:ctrl="clr-namespace:Tokiku.Controllers;assembly=Tokiku.Controllers"
         mc:Ignorable="d"        
         Title="東菊金屬 ERP System" Height="768" Width="1024" WindowState="Maximized" Icon="16x16.png" Loaded="Window_Loaded" Background="{DynamicResource WindowBackgroundBrush}">
-    <Window.Resources>
-
-    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>
@@ -36,6 +33,9 @@
             </TabItem>
             <TabItem Header="客戶列表" >
                 <Views:ClientListView SelectedClientChanged="ClientListView_SelectedClientChanged" DataContext="{Binding Clients}"/>
+            </TabItem>
+            <TabItem Header="模具總表">
+                
             </TabItem>
         </TabControl>
         <StatusBar Margin="0" Grid.Row="3">

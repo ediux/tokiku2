@@ -53,8 +53,6 @@ namespace TokikuNew.Views
             VendorList.ItemsSource = controller.SearchByText((string)e.OriginalSource);
         }
 
-       
-
         private void sSearchBar_ResetSearch(object sender, RoutedEventArgs e)
         {
             VendorList.ItemsSource = controller.QueryAll();
@@ -64,8 +62,6 @@ namespace TokikuNew.Views
         {
             RaiseEvent(new RoutedEventArgs(SendNewPageRequestEvent, this));
         }
-
-     
 
         private void VendorList_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
@@ -80,11 +76,6 @@ namespace TokikuNew.Views
                         RaiseEvent(new RoutedEventArgs(SelectedVendorChangedEvent, obj));
                 }
             }
-
-        }
-
-        private void VendorList_AddingNewItem(object sender, AddingNewItemEventArgs e)
-        {
 
         }
     }

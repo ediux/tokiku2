@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="TokikuNew.Views.ClientManageView"
+﻿<UserControl x:Name="userControl" x:Class="TokikuNew.Views.ClientManageView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -47,9 +47,9 @@
                         <RowDefinition Height="27"/>
                     </Grid.RowDefinitions>
                     <TextBlock Text="客戶代碼" Grid.Row="0" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-                    <TextBlock Name="tbCode" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Code,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
+                    <TextBlock Name="tbCode" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Code,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                     <TextBlock Text="客戶名稱" Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-                    <TextBox Name="tbName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" TextChanged="tbName_TextChanged" IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
+                    <TextBox Name="tbName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" TextChanged="tbName_TextChanged" IsEnabled="{Binding Path=Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <TextBlock Text="客戶簡稱" Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
                     <TextBlock Name="tbShortName" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding ShortName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
                     <TextBlock Text="聯絡人" Grid.Row="3" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
@@ -73,7 +73,7 @@
                 <c:CustomDataGrid x:Name="EngList" HorizontalScrollBarVisibility="Auto"
                                  CanUserAddRows="False" CanUserDeleteRows="False"
                                   AutoGenerateColumns="False"
-                                  IsReadOnly ="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"
+                                  IsReadOnly="True"
                                   Margin="5" ItemsSource="{Binding Projects}">
                     <c:CustomDataGrid.Columns>
                         <DataGridTextColumn Header="專案代碼" Binding="{Binding Code}"/>
@@ -82,7 +82,7 @@
                         <DataGridTextColumn Header="工程簽約日期" Binding="{Binding ProjectSigningDate}"/>
                         <DataGridTextColumn Header="工地地址" Binding="{Binding SiteAddress}"/>
                         <DataGridTextColumn Header="狀態" Binding="{Binding State, Converter={StaticResource StatesCodeToTextValueConverter}}"/>
-                        
+
                     </c:CustomDataGrid.Columns>
                 </c:CustomDataGrid>
             </GroupBox>
@@ -98,23 +98,25 @@
                         <ColumnDefinition Width="50*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="搜尋" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="15"/>
-                    <c:SearchBar x:Name="sSearchBar" Grid.Column="1" Grid.Row="0" Search="sSearchBar_Search" ResetSearch="sSearchBar_ResetSearch" IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}" />
+                   
+                    <c:SearchBar x:Name="sSearchBar" Grid.Column="1" Grid.Row="0" Search="sSearchBar_Search" ResetSearch="sSearchBar_ResetSearch"  />
                     <c:CustomDataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" AutoGenerateColumns="False" 
-                                      HorizontalScrollBarVisibility="Auto"  x:Name="ContractList"
-                                      CanUserAddRows="True"
-                                      CanUserDeleteRows="True"
+                                      x:Name="ContractList"
+                                      CanUserAddRows="{Binding Path=Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      CanUserDeleteRows="{Binding Path=Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       ItemsSource="{Binding Contracts}"
-                                      IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"
-                                      SelectedCellsChanged="ContractList_SelectedCellsChanged">
+                                      IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource  ReadModeToEnabledValueConverter}, ElementName=userControl}"
+                                      >
                         <DataGrid.Columns>
+                            <DataGridCheckBoxColumn Header="預設"  Binding="{Binding IsDefault}" Width="40"/>
                             <DataGridTextColumn Header="姓名" Binding="{Binding Name}" Width="100" />
-                            <DataGridTextColumn Header="部門" Binding="{Binding Dep}" Width="100" />
-                            <DataGridTextColumn Header="職稱" Binding="{Binding Title}" Width="100" />
                             <DataGridTextColumn Header="行動電話" Binding="{Binding Mobile}" Width="70" />
                             <DataGridTextColumn Header="電話" Binding="{Binding Phone}" Width="70" />
                             <DataGridTextColumn Header="分機" Binding="{Binding ExtensionNumber}" Width="70" />
                             <DataGridTextColumn Header="傳真" Binding="{Binding Fax}" Width="70"/>
                             <DataGridTextColumn Header="eMail" Binding="{Binding EMail}" Width="200" />
+                            <DataGridTextColumn Header="部門" Binding="{Binding Dep}" Width="100" />
+                            <DataGridTextColumn Header="職稱" Binding="{Binding Title}" Width="100" />
                             <DataGridCheckBoxColumn Header="狀態" Binding="{Binding Void}" Width="30"/>
                             <DataGridTextColumn Header="備註" Binding="{Binding Comment}" Width="200" />
                         </DataGrid.Columns>
@@ -122,7 +124,9 @@
                 </Grid>
             </GroupBox>
         </Grid>
-        <c:DockBar Grid.Row="1" x:Name="dockBar" DocumentModeChanged="dockBar_DocumentModeChanged" DocumentMode="{Binding Path=Mode,Mode=TwoWay,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True, ElementName=userControl}"
+        <c:DockBar Grid.Row="1" x:Name="dockBar" 
+                   DocumentModeChanged="dockBar_DocumentModeChanged" 
+                   DocumentMode="{Binding Path=Mode, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     />
     </Grid>
 </UserControl>

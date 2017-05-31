@@ -212,6 +212,11 @@ namespace Tokiku.Controllers
                     rtn.Add(model);
                 }
             }
+            else
+            {
+                rtn = new ManufacturersViewModelCollection();
+                rtn.Add(CreateNew());
+            }
         }
 
         private ManufacturersViewModel ResultBindingToViewModel(Manufacturers item)
@@ -231,6 +236,16 @@ namespace Tokiku.Controllers
             if (model.Engineerings == null)
                 model.Engineerings = new EngineeringViewModelCollection();
 
+            model.PaymentTypes = new ObservableCollection<PaymentTypeViewModel>();
+
+            if (database.PaymentTypes.Any())
+            {
+                foreach(var paytype in database.PaymentTypes.ToArray())
+                {
+                    model.PaymentTypes.Add(new PaymentTypeViewModel { Id = paytype.Id, PaymentTypeName = paytype.PaymentTypeName });
+                }
+            }
+           
             return model;
         }
 
@@ -328,7 +343,7 @@ namespace Tokiku.Controllers
                                 {
                                     var foundinoriginal = dbm.Contacts.Where(w => w.Id == row.Id).Single();
                                     CopyToModel(foundinoriginal, row);
-                                    database.Entry(foundinoriginal).State = System.Data.Entity.EntityState.Modified;
+                                  //  database.Entry(foundinoriginal).State = System.Data.Entity.EntityState.Modified;
                                 }
                                 else
                                 {
@@ -341,7 +356,7 @@ namespace Tokiku.Controllers
                         }
                     }
                 }
-                database.Entry(dbm).State = System.Data.Entity.EntityState.Modified;
+                //database.Entry(dbm).State = System.Data.Entity.EntityState.Modified;
                 database.SaveChanges();
 
                 return Query(w => w.Id == model.Id);
@@ -399,9 +414,9 @@ namespace Tokiku.Controllers
                     model = Query(x => x.Id == model.Id);
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                throw;
+                setErrortoModel(model, ex);
             }
         }
 

@@ -14,8 +14,13 @@ namespace Tokiku.Controllers
         public override ProjectContractViewModel CreateNew()
         {
             var rtn = new ProjectContractViewModel() { Id = Guid.NewGuid() };
+            EngineeringController engcontroller = new EngineeringController();
             rtn.Engineerings = new EngineeringViewModelCollection();
+
+            EngineeringViewModel defaultNew = engcontroller.CreateNew();
+            rtn.Engineerings.Add(defaultNew);
             rtn.PromissoryNoteManagement = new PromissoryNoteManagementViewModelCollection();
+
             return rtn;
         }
 
@@ -36,7 +41,7 @@ namespace Tokiku.Controllers
             {
                 ProjectContractViewModel model = new ProjectContractViewModel();
                 setErrortoModel(model, ex);
-                throw;
+                return model;
             }
          
         }

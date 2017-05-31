@@ -27,13 +27,14 @@ namespace Tokiku.Controllers
             {
                 var result = from p in database.Contacts
                              where p.Void == false
+                             orderby p.IsDefault ascending
                              select p;
 
                 ContactsViewModelCollection rtn = new ContactsViewModelCollection();
 
                 if (result.Any())
                 {
-                    foreach(var item in result)
+                    foreach (var item in result)
                     {
                         rtn.Add(BindingFromModel(item));
                     }
@@ -48,25 +49,26 @@ namespace Tokiku.Controllers
                 throw;
             }
         }
-    
 
-        public ContactsViewModelCollection SearchByText(string filiter,Guid ManufactoryId,bool isClient)
+
+        public ContactsViewModelCollection SearchByText(string filiter, Guid ManufactoryId, bool isClient)
         {
             if (filiter != null && filiter.Length > 0)
             {
                 var result = (from p in database.Manufacturers
                               from q in p.Contacts
-                              where p.Void == false && p.Id == ManufactoryId 
-                              && p.IsClient == isClient &&
-                              (q.Comment.Contains(filiter) || q.Dep.Contains(filiter))
-                              orderby q.Name ascending
+                              where (p.Void == false && p.Id == ManufactoryId
+                              && p.IsClient == isClient) ||
+                              (q.Name.Contains(filiter) || q.Phone.Contains(filiter)
+                              || q.Mobile.Contains(filiter) || q.EMail.Contains(filiter))
+                              orderby q.IsDefault ascending, q.Name ascending
                               select q);
 
                 var rtn = new ContactsViewModelCollection();
 
                 if (result.Any())
                 {
-                    foreach(var item in result)
+                    foreach (var item in result)
                     {
                         rtn.Add(BindingFromModel(item));
                     }
@@ -76,8 +78,23 @@ namespace Tokiku.Controllers
             }
             else
             {
-                var result = QueryAll();
-                return result;
+                var result = (from p in database.Manufacturers
+                              from q in p.Contacts
+                              where q.Void == false && p.IsClient == isClient
+                              && p.Id == ManufactoryId
+                              orderby q.IsDefault ascending, q.Name ascending
+                              select q);
+
+                var rtn = new ContactsViewModelCollection();
+
+                if (result.Any())
+                {
+                    foreach (var item in result)
+                    {
+                        rtn.Add(BindingFromModel(item));
+                    }
+                }
+                return rtn;
             }
         }
 
@@ -98,7 +115,7 @@ namespace Tokiku.Controllers
             }
         }
 
-       
+
         public void Update(ContactsViewModel updatedProject, Guid UserId)
         {
             try
@@ -369,7 +386,9 @@ namespace Tokiku.Controllers
             try
             {
                 var result = database.Contacts
-                    .Where(filiter);
+                    .Where(filiter)
+                    .OrderByDescending(p => p.IsDefault)
+                    .OrderBy(p => p.Name);
 
                 if (result.Any())
                 {

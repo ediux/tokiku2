@@ -30,8 +30,10 @@ namespace TokikuNew
             InitializeComponent();
         }
 
+        ManufacturersController mc = new ManufacturersController();
+        ClientController clientcontroller = new ClientController();
         private Tokiku.Controllers.ProjectsController controller = new Tokiku.Controllers.ProjectsController();
-
+       
         /// <summary>
         /// 當關閉分頁時觸發的事件
         /// </summary>
@@ -41,17 +43,24 @@ namespace TokikuNew
         {
             try
             {
-                TabItem currentworking = (TabItem)e.Source;
-
-                if (currentworking != null)
+                if (e.Source is TabItem)
                 {
-                    if (currentworking.Content != null)
+                    TabItem currentworking = (TabItem)e.Source;
+
+                    if (currentworking != null)
                     {
-                       
-                        Workspaces.Items.Remove(currentworking);
-                        ((MainViewModel)DataContext).CurrentProject = null;
+                        if (currentworking.Content != null)
+                        {
+
+                            Workspaces.Items.Remove(currentworking);
+                            ((MainViewModel)DataContext).Projects = controller.QueryAll();
+                            ((MainViewModel)DataContext).Manufacturers = mc.QueryAll();
+                            ((MainViewModel)DataContext).Clients = clientcontroller.QueryAll();
+                            ((MainViewModel)DataContext).CurrentProject = null;
+                        }
                     }
                 }
+
             }
             catch (Exception ex)
             {
@@ -73,7 +82,7 @@ namespace TokikuNew
             AddHandler(VendorListView.SendNewPageRequestEvent, new RoutedEventHandler(MI_CreateNew_Factories_Click));
             AddHandler(ClientListView.SendNewPageRequestEvent, new RoutedEventHandler(MI_CreateNew_Customers_Click));
             AddHandler(ClosableTabItem.OnPageClosingEvent, new RoutedEventHandler(btnTabClose_Click));
-            AddHandler(ManufacturersManageView.OnPageClosingEvent, new RoutedEventHandler(btnTabClose_Click));
+
 
         }
 
@@ -82,7 +91,7 @@ namespace TokikuNew
             try
             {
                 ClosableTabItem addWorkarea = new ClosableTabItem();
-                addWorkarea.Header = "專案主檔";
+                addWorkarea.Header = "新增專案";
 
                 var vm = new ProjectManagerView() { Margin = new Thickness(0) };
                 vm.DataContext = controller.CreateNew();
@@ -113,7 +122,7 @@ namespace TokikuNew
             try
             {
                 ClosableTabItem addWorkarea = new ClosableTabItem();
-                addWorkarea.Header = "廠商主檔";
+                addWorkarea.Header = "新增廠商";
 
 
                 using (var mc = new ManufacturersController())
@@ -144,7 +153,7 @@ namespace TokikuNew
         {
             try
             {
-                string Header = "客戶管理";
+                string Header = "新增客戶";
                 ClosableTabItem addWorkarea = new ClosableTabItem();
                 bool isExisted = false;
 
@@ -167,11 +176,7 @@ namespace TokikuNew
                         var vm = new ClientManageView() { Margin = new Thickness(0) };
                         vm.DataContext = cc.CreateNew();
                         vm.Mode = DocumentLifeCircle.Create;
-
-                        Binding bindinglogineduser = new Binding();
-                        bindinglogineduser.Source = ((MainViewModel)DataContext).LoginedUser;
-
-                        vm.SetBinding(ClientManageView.LoginedUserProperty, bindinglogineduser);
+                        vm.LoginedUser = ((MainViewModel)DataContext).LoginedUser;
 
                         addWorkarea.Content = vm;
                         addWorkarea.Margin = new Thickness(0);
@@ -215,7 +220,7 @@ namespace TokikuNew
                 ProjectSelectionPage.SelectedProject = e.OriginalSource as ProjectListViewModel;
 
                 string Header = string.Format("專案:{0}-{1}", ProjectSelectionPage.SelectedProject.Code, ProjectSelectionPage.SelectedProject.ShortName);
-                
+
 
                 ClosableTabItem addWorkarea = new ClosableTabItem();
 
@@ -253,13 +258,9 @@ namespace TokikuNew
                     addWorkarea.Margin = new Thickness(0);
 
                     Workspaces.Items.Add(addWorkarea);
-                    Workspaces.SelectedItem = addWorkarea;
                 }
-                else
-                {
 
-                    Workspaces.SelectedItem = addWorkarea;
-                }
+                Workspaces.SelectedItem = addWorkarea;
             }
             catch (Exception ex)
             {
@@ -273,44 +274,45 @@ namespace TokikuNew
         {
             try
             {
-                string Header = "廠商主檔";
-                ClosableTabItem addWorkarea = new ClosableTabItem();
-                bool isExisted = false;
-
-                foreach (TabItem item in Workspaces.Items)
+                if (e.OriginalSource != null && e.OriginalSource is ManufacturersViewModel)
                 {
-                    if (item.Header.Equals(Header))
+                    ManufacturersViewModel model = (ManufacturersViewModel)e.OriginalSource;
+
+                    string Header = string.Format("廠商-{0}[{1}]", model.ShortName, model.Code);
+                    ClosableTabItem addWorkarea = null;
+                    bool isExisted = false;
+
+                    foreach (TabItem item in Workspaces.Items)
                     {
-                        isExisted = true;
-                        addWorkarea = (ClosableTabItem)item;
-                        break;
+                        if (item.Header.Equals(Header))
+                        {
+                            isExisted = true;
+                            addWorkarea = (ClosableTabItem)item;
+                            break;
+                        }
                     }
-                }
 
-                if (!isExisted)
-                {
-                    addWorkarea.Header = Header;
+                    if (!isExisted)
+                    {
+                        addWorkarea = new ClosableTabItem();
+                        addWorkarea.Header = Header;
 
-                    var vm = new ManufacturersManageView() { Margin = new Thickness(0) };
-                    vm.DataContext = e.OriginalSource;
-                    vm.Mode = DocumentLifeCircle.Update;
+                        var vm = new ManufacturersManageView() { Margin = new Thickness(0) };
+                        vm.DataContext = model;
+                        vm.LoginedUser = ((MainViewModel)DataContext).LoginedUser;
 
-                    Binding bindinglogineduser = new Binding();
-                    bindinglogineduser.Source = ((MainViewModel)DataContext).LoginedUser;
+                        vm.Mode = DocumentLifeCircle.Read;
 
-                    vm.SetBinding(ManufacturersManageView.LoginedUserProperty, bindinglogineduser);
+                        addWorkarea.Content = vm;
+                        addWorkarea.Margin = new Thickness(0);
 
-                    addWorkarea.Content = vm;
-                    addWorkarea.Margin = new Thickness(0);
+                        Workspaces.Items.Add(addWorkarea);
 
-                    Workspaces.Items.Add(addWorkarea);
-                    Workspaces.SelectedItem = addWorkarea;
-                }
-                else
-                {
+                    }
 
                     Workspaces.SelectedItem = addWorkarea;
                 }
+
             }
             catch (Exception ex)
             {
@@ -345,28 +347,31 @@ namespace TokikuNew
             try
             {
                 ClosableTabItem addWorkarea = new ClosableTabItem();
-                addWorkarea.Header = "客戶主檔";
 
+                ClientViewModel model = (ClientViewModel)e.OriginalSource;
 
-                using (var mc = new ClientController ())
+                if (model != null)
+                    addWorkarea.Header = string.Format("客戶-{0}[{1}]", model.ShortName, model.Code);
+                else
+                    return;
+
+                using (var mc = new ClientController())
                 {
-                    ClientViewModel model = (ClientViewModel)e.OriginalSource;
 
-                    var vm = new ClientManageView () { Margin = new Thickness(0) };
-                    vm.Mode = DocumentLifeCircle.Read;
+                    var vm = new ClientManageView() { Margin = new Thickness(0) };
+
                     vm.DataContext = mc.Query(q => q.Id == model.Id);
+                    vm.Mode = DocumentLifeCircle.Read;
+                    vm.LoginedUser = ((MainViewModel)DataContext).LoginedUser;
 
-                    Binding bindinglogineduser = new Binding();
-                    bindinglogineduser.Source = ((MainViewModel)DataContext).LoginedUser;
-
-                    vm.SetBinding(ClientManageView.LoginedUserProperty, bindinglogineduser);
 
                     addWorkarea.Content = vm;
                     addWorkarea.Margin = new Thickness(0);
 
                     Workspaces.Items.Add(addWorkarea);
-                    Workspaces.SelectedItem = addWorkarea;
                 }
+
+                Workspaces.SelectedItem = addWorkarea;
             }
             catch (Exception ex)
             {

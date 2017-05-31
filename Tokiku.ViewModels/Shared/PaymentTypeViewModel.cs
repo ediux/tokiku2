@@ -19,7 +19,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for Id.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IdProperty =
-            DependencyProperty.Register("Id", typeof(byte), typeof(PaymentTypeViewModel), new PropertyMetadata(0, new PropertyChangedCallback(DefaultFieldChanged)));
+            DependencyProperty.Register("Id", typeof(byte), typeof(PaymentTypeViewModel), new PropertyMetadata((byte)0, new PropertyChangedCallback(DefaultFieldChanged)));
 
 
 

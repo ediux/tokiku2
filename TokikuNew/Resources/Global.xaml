@@ -6,8 +6,10 @@
     <ValueConverters:RadioButtonSwitchValueConverter x:Key="RadioButtonSwitchValueConverter" />
     <ValueConverters:BooleanToVisibilityValueConveter x:Key="BooleanToVisibilityValueConveter"/>
     <ValueConverters:DocumentLifeCycleStateToVisibilityValueConverter x:Key="DocumentLifeCycleStateToVisibilityValueConverter"/>
-    <ValueConverters:ReadModeToDisabledControllerValueConverter x:Key="ReadModeToDisabledControllerValueConverter"/>
+    <ValueConverters:ReadModeToDisabledValueConverter x:Key="ReadModeToDisabledControllerValueConverter"/>
     <ValueConverters:StatesCodeToTextValueConverter x:Key="StatesCodeToTextValueConverter"/>
+    <ValueConverters:ReadModeToVisibilityValueConverter x:Key="ReadModeToVisibilityValueConverter"/>
+    <ValueConverters:ReadModeToEnabledValueConverter x:Key="ReadModeToEnabledValueConverter" />
     <RoutedUICommand x:Key="Modify" Text="修改"/>
     <RoutedUICommand x:Key="Save" Text="暫存"/>
     <RoutedUICommand x:Key="Query" Text="查詢"/>

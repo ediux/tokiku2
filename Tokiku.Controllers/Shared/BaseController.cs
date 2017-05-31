@@ -151,12 +151,17 @@ namespace Tokiku.Controllers
         /// <param name="ex">例外錯誤狀況執行個體。</param>
         protected static void setErrortoModel(IBaseViewModel model, Exception ex)
         {
+            if (model == null)
+                model = (IBaseViewModel)Activator.CreateInstance(model.GetType());
+
+            if (model.Errors == null)
+                model.Errors = new string[] { }.AsEnumerable();
 
             if (ex is DbEntityValidationException)
             {
                 DbEntityValidationException dbex = (DbEntityValidationException)ex;
 
-                List<string> msg = new List<string>();
+                List<string> msg = new List<string>(model.Errors);
 
                 foreach (var err in dbex.EntityValidationErrors)
                 {
@@ -279,42 +284,45 @@ namespace Tokiku.Controllers
         /// <returns></returns>
         protected void CopyToModel(T entity, TView ViewModel)
         {
+            Type CurrentViewModelType = typeof(TView);
+            Type TargetEntity = typeof(T);
 
-            try
+            var CurrentViewModel_Property = CurrentViewModelType.GetProperties();
+
+            foreach (var ViewModelProperty in CurrentViewModel_Property)
             {
-                Type CurrentViewModelType = typeof(TView);
-                Type TargetEntity = typeof(T);
-
-                var CurrentViewModel_Property = CurrentViewModelType.GetProperties();
-
-                foreach (var ViewModelProperty in CurrentViewModel_Property)
+                try
                 {
-                    try
+                    var EntityProperty = TargetEntity.GetProperty(ViewModelProperty.Name);
+                    if (EntityProperty != null)
                     {
-                        var EntityProperty = TargetEntity.GetProperty(ViewModelProperty.Name);
-                        if (EntityProperty != null)
-                        {
-                            var value = ViewModelProperty.GetValue(ViewModel);
 
-                            if (value != null && !value.Equals(EntityProperty.GetValue(entity)))
-                            {
-                                EntityProperty.SetValue(entity, ViewModelProperty.GetValue(ViewModel));
-                            }
+                        if (EntityProperty.PropertyType.IsGenericType && EntityProperty.PropertyType.GetGenericTypeDefinition().Name == (typeof(ICollection<>).Name))
+                        {
+                            continue;
+                        }
+
+                        if (ViewModelProperty.PropertyType.IsGenericType && ViewModelProperty.PropertyType.GetGenericTypeDefinition().Name == (typeof(ObservableCollection<>).Name))
+                        {
+                            continue;
+                        }
+
+                        var value = ViewModelProperty.GetValue(ViewModel);
+
+                        if (value != null && !value.Equals(EntityProperty.GetValue(entity)))
+                        {
+                            EntityProperty.SetValue(entity, value);
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        //setErrortoModel(ViewModel, ex);
-                        continue;
-                    }
-
                 }
+                catch (Exception ex)
+                {
+                    setErrortoModel(ViewModel, ex);
+                    continue;
+                }
+
             }
-            catch (Exception ex)
-            {
-                if (ViewModel != null)
-                    ViewModel.Errors = new string[] { ex.Message + "," + ex.StackTrace };
-            }
+          
         }
 
         /// <summary>

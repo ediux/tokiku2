@@ -268,7 +268,7 @@ namespace Tokiku.Controllers
                             {
                                 var foundinoriginal = original.ProjectContract.Where(w => w.Id == row.Id).Single();
                                 CopyToModel(foundinoriginal, row);
-                                database.Entry(foundinoriginal).State = System.Data.Entity.EntityState.Modified;
+                                
                             }
                             else
                             {
@@ -279,7 +279,7 @@ namespace Tokiku.Controllers
                             }
                         }
                     }
-                    database.Entry(original).State = System.Data.Entity.EntityState.Modified;
+                   
                     database.SaveChanges();
                 }
                 updatedProject = Query(s => s.Id == updatedProject.Id);
@@ -359,23 +359,22 @@ namespace Tokiku.Controllers
 
 
 
-        public ObservableCollection<ProjectsViewModel> SearchByText(string text)
+        public ObservableCollection<ProjectListViewModel> SearchByText(string text)
         {
             if (text != null && text.Length > 0)
             {
-                var result = (from p in database.Projects
-                              where p.Void == false &&
-                              (p.Code.Contains(text) || p.Name.Contains(text) || p.ShortName.Contains(text))
-                              orderby p.State ascending, p.Code ascending
-                              select p);
+                var result = QueryAll().Where(s => s.Code.Contains(text)
+                || s.State.Contains(text)
+                 || s.Name.Contains(text)
+                || s.ShortName.Contains(text));
 
-                var model = new ObservableCollection<ProjectsViewModel>();
+                var model = new ObservableCollection<ProjectListViewModel>();
 
                 if (result.Any())
                 {
                     foreach (var row in result)
                     {
-                        model.Add(BindingFromModel(row));
+                        model.Add(row);
                     }
                 }
 
@@ -384,18 +383,15 @@ namespace Tokiku.Controllers
             else
             {
 
-                var result = (from p in database.Projects
-                              where p.Void == false
-                              orderby p.State ascending, p.Code ascending
-                              select p);
+                var result = QueryAll();
 
-                var model = new ObservableCollection<ProjectsViewModel>();
+                var model = new ObservableCollection<ProjectListViewModel>();
 
                 if (result.Any())
                 {
                     foreach (var row in result)
                     {
-                        model.Add(BindingFromModel(row));
+                        model.Add(row);
                     }
                 }
 

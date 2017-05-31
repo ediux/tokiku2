@@ -59,18 +59,7 @@ namespace TokikuNew.Views
             ContractList.ItemsSource = contactcontroller.SearchByText((string)e.OriginalSource, model.Id, true);
         }
 
-        #region 分頁關閉事件
 
-        public static readonly RoutedEvent OnPageClosingEvent = EventManager.RegisterRoutedEvent(
-"OnPageClosingEvent", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ClientManageView));
-
-        public event RoutedEventHandler OnPageClosing
-        {
-            add { AddHandler(OnPageClosingEvent, value); }
-            remove { RemoveHandler(OnPageClosingEvent, value); }
-        }
-
-        #endregion
 
         private void sSearchBar_ResetSearch(object sender, RoutedEventArgs e)
         {
@@ -98,10 +87,7 @@ namespace TokikuNew.Views
             }
         }
 
-        private void ContractList_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
-        {
 
-        }
 
         private void dockBar_DocumentModeChanged(object sender, RoutedEventArgs e)
         {
@@ -117,7 +103,7 @@ namespace TokikuNew.Views
 
                     case DocumentLifeCircle.Create:
                         this.DataContext = controller.CreateNew();
-
+                        SelectedManufacturers = (ClientViewModel) DataContext;
                         SelectedManufacturers.CreateUserId = LoginedUser.UserId;
 
                         if (SelectedManufacturers.HasError)
@@ -157,7 +143,7 @@ namespace TokikuNew.Views
                                 }
                             }
                         }
-
+                        SelectedManufacturers.IsClient = true;
                         if (SelectedManufacturers.Materials == null)
                             SelectedManufacturers.Materials = new MaterialsViewModelCollection();
 
@@ -166,16 +152,25 @@ namespace TokikuNew.Views
                         if (SelectedManufacturers.HasError)
                         {
                             MessageBox.Show(string.Join("\n", SelectedManufacturers.Errors.ToArray()));
-                            dockBar.DocumentMode = DocumentLifeCircle.Update;
+                            Mode = dockBar.LastState;
+                            break;
                         }
-                        else
+                        
+                        Mode = DocumentLifeCircle.Read;
+                        SelectedManufacturers.Status.IsNewInstance = false;
+                        SelectedManufacturers.Status.IsModify = false;
+                        SelectedManufacturers.Status.IsSaved = true;
+
+                        if (SelectedManufacturers.Status.IsNewInstance)
                         {
-                            dockBar.DocumentMode = DocumentLifeCircle.Read;
+                            RaiseEvent(new RoutedEventArgs(ClosableTabItem.OnPageClosingEvent, this));
                         }
-                        RaiseEvent(new RoutedEventArgs(OnPageClosingEvent, this));
+
                         break;
                     case DocumentLifeCircle.Update:
-
+                        SelectedManufacturers.Status.IsNewInstance = false;
+                        SelectedManufacturers.Status.IsModify = false;
+                        SelectedManufacturers.Status.IsSaved = false;
                         break;
                 }
                 UpdateLayout();
@@ -188,10 +183,7 @@ namespace TokikuNew.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            //Binding DocumentModeBinding = new Binding();
-            //DocumentModeBinding.Source = Mode;
 
-            //dockBar.SetBinding(DockBar.DocumentModeProperty, DocumentModeBinding);
 
 
         }
