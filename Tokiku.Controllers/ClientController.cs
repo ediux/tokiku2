@@ -24,6 +24,13 @@ namespace Tokiku.Controllers
                             orderby q.Code descending
                             select q).FirstOrDefault();
 
+            model.Contracts = new ContactsViewModelCollection();
+            model.ProjectContract = new ProjectContractViewModelCollection();
+            model.Projects = new ProjectsViewModelCollection();
+            model.Status.IsNewInstance = true;
+            model.Status.IsSaved = false;
+            model.Status.IsModify = false;
+
             if (findlast != null)
             {
                 if (findlast.Code.StartsWith("CM"))
@@ -33,13 +40,16 @@ namespace Tokiku.Controllers
                     if (int.TryParse(findlast.Code.Substring(2), out i))
                     {
                         model.Code = string.Format("CM{0:000}", i + 1);
+                        return model;
                     }
+
+
                 }
+
             }
-            else
-            {
-                model.Code = "CM001";
-            }
+
+            model.Code = "CM001";
+
 
             return model;
         }
@@ -103,7 +113,7 @@ namespace Tokiku.Controllers
             if (originalSource != null && originalSource.Length > 0)
             {
                 var result = (from p in database.Manufacturers
-                              where p.Void == false && p.IsClient == false &&
+                              where p.Void == false && p.IsClient == true &&
                               (p.Code.Contains(originalSource) || p.Name.Contains(originalSource) || p.ShortName.Contains(originalSource))
                               orderby p.Code ascending
                               select p);
@@ -117,7 +127,7 @@ namespace Tokiku.Controllers
             else
             {
                 var result = (from p in database.Manufacturers
-                              where p.Void == false && p.IsClient == false
+                              where p.Void == false && p.IsClient == true
                               orderby p.Code ascending
                               select p);
 
@@ -158,7 +168,7 @@ namespace Tokiku.Controllers
 
             if (item.Projects.Any())
             {
-                foreach(var row in item.Projects)
+                foreach (var row in item.Projects)
                 {
                     model.Projects.Add(BindingFromModel<ProjectsViewModel, Projects>(row));
                 }
@@ -166,7 +176,7 @@ namespace Tokiku.Controllers
 
             if (item.ProjectContract.Any())
             {
-                foreach(var row in item.ProjectContract)
+                foreach (var row in item.ProjectContract)
                 {
                     model.ProjectContract.Add(BindingFromModel<ProjectContractViewModel, ProjectContract>(row));
                 }

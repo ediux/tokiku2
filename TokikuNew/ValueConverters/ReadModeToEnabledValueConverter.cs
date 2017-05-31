@@ -5,12 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
-using Tokiku.ViewModels;
 using TokikuNew.Controls;
 
 namespace TokikuNew.ValueConverters
 {
-    public class ReadModeToDisabledControllerValueConverter : IValueConverter
+    public class ReadModeToEnabledValueConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -20,15 +19,17 @@ namespace TokikuNew.ValueConverters
                 if (DocMode == DocumentLifeCircle.Create ||
                     DocMode == DocumentLifeCircle.Update)
                 {
-                    return true;
+                    return false;
                 }
                 else
                 {
-                    return false;
+                    return true;
                 }
             }
             return false;
         }
+
+       
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -41,15 +42,17 @@ namespace TokikuNew.ValueConverters
                         default:
                         case DocumentLifeCircle.Create:
                         case DocumentLifeCircle.Update:
-                            return true;
+                            return false;
                         case DocumentLifeCircle.Read:
                         case DocumentLifeCircle.Delete:
                         case DocumentLifeCircle.Save:
-                            return false;
+                            return true;
                     }
                 }
             }
             return value;
         }
+
+       
     }
 }

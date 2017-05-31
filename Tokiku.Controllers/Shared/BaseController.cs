@@ -187,12 +187,17 @@ namespace Tokiku.Controllers
         /// <param name="ex">例外錯誤狀況執行個體。</param>
         protected static void setErrortoModel(IBaseViewModel model, Exception ex)
         {
+            if (model == null)
+                model = (IBaseViewModel)Activator.CreateInstance(model.GetType());
+
+            if (model.Errors == null)
+                model.Errors = new string[] { }.AsEnumerable();
 
             if (ex is DbEntityValidationException)
             {
                 DbEntityValidationException dbex = (DbEntityValidationException)ex;
 
-                List<string> msg = new List<string>();
+                List<string> msg = new List<string>(model.Errors);
 
                 foreach (var err in dbex.EntityValidationErrors)
                 {

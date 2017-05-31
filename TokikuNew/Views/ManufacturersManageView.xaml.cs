@@ -30,18 +30,6 @@ namespace TokikuNew.Views
         {
             InitializeComponent();
         }
-        #region 分頁關閉事件
-
-        public static readonly RoutedEvent OnPageClosingEvent = EventManager.RegisterRoutedEvent(
-"OnPageClosingEvent", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ManufacturersManageView));
-
-        public event RoutedEventHandler OnPageClosing
-        {
-            add { AddHandler(OnPageClosingEvent, value); }
-            remove { RemoveHandler(OnPageClosingEvent, value); }
-        }
-
-        #endregion
 
         #region 目前操作的廠商資料
 
@@ -90,17 +78,8 @@ namespace TokikuNew.Views
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Binding SelectedManufacturersBinding = new Binding();
-            SelectedManufacturersBinding.Source = this.DataContext;
+            SelectedManufacturersBinding.Source = DataContext;
             SetBinding(SelectedManufacturersProperty, SelectedManufacturersBinding);
-
-            //Binding ModeBinding = new Binding();
-            //ModeBinding.Source = Mode;
-            //dockBar.SetBinding(DockBar.DocumentModeProperty, ModeBinding);
-        }
-
-        private void ContractList_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
-        {
-
         }
 
         private void tbName_TextChanged(object sender, TextChangedEventArgs e)
@@ -128,20 +107,25 @@ namespace TokikuNew.Views
             {
                 e.Handled = true;
 
-                DocumentLifeCircle mode = (DocumentLifeCircle)e.OriginalSource;
-                switch (mode)
-                {
+                Mode = (DocumentLifeCircle)e.OriginalSource;
 
+                switch (Mode)
+                {
                     case DocumentLifeCircle.Create:
 
-                        this.DataContext = controller.CreateNew();
+                        DataContext = controller.CreateNew();
+                        SelectedManufacturers = (ManufacturersViewModel)DataContext;
                         SelectedManufacturers.CreateUserId = LoginedUser.UserId;
                         if (SelectedManufacturers.HasError)
                         {
                             MessageBox.Show(string.Join("\n", SelectedManufacturers.Errors.ToArray()));
                             dockBar.DocumentMode = DocumentLifeCircle.Read;
+                            break;
                         }
-                      
+                        SelectedManufacturers.Status.IsModify = false;
+                        SelectedManufacturers.Status.IsSaved = false;
+                        SelectedManufacturers.Status.IsNewInstance = true;
+
                         break;
                     case DocumentLifeCircle.Save:
                         if (SelectedManufacturers.CreateUserId == Guid.Empty)
@@ -169,7 +153,10 @@ namespace TokikuNew.Views
                             {
                                 foreach (EngineeringViewModel model in SelectedManufacturers.Engineerings)
                                 {
-
+                                    if (model.CreateUserId == Guid.Empty)
+                                    {
+                                        model.CreateUserId = LoginedUser.UserId;
+                                    }
                                 }
                             }
                         }
@@ -182,18 +169,24 @@ namespace TokikuNew.Views
                         if (SelectedManufacturers.HasError)
                         {
                             MessageBox.Show(string.Join("\n", SelectedManufacturers.Errors.ToArray()));
-                            dockBar.DocumentMode = DocumentLifeCircle.Update;
+                            Mode = dockBar.LastState;
+                           
+                            break;
                         }
-                        else
+
+                        if (dockBar.LastState == DocumentLifeCircle.Create)
                         {
-                            dockBar.DocumentMode = DocumentLifeCircle.Read;
+                            RaiseEvent(new RoutedEventArgs(ClosableTabItem.OnPageClosingEvent, this.Parent));
                         }
-                        RaiseEvent(new RoutedEventArgs(OnPageClosingEvent, this));
+                        Mode = DocumentLifeCircle.Read;
                         break;
                     case DocumentLifeCircle.Update:
-
+                        SelectedManufacturers.Status.IsModify = false;
+                        SelectedManufacturers.Status.IsSaved = false;
+                        SelectedManufacturers.Status.IsNewInstance = false;
                         break;
                 }
+                UpdateLayout();
             }
             catch (Exception ex)
             {

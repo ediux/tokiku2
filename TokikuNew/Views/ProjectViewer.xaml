@@ -27,7 +27,7 @@
         <TabControl Grid.Row="1" TabStripPlacement="Top" Name="InnerWorkspaces">
             <TabItem Header="專案主檔">
                 <local:ProjectManagerView x:Name="PMV" SelectedProject="{Binding}" Mode="Read"
-                                    LoginedUser="{Binding LoginedUser}" />
+                                    LoginedUser="{Binding LoginedUser, ElementName=userControl}" />
             </TabItem>
         </TabControl>
     </Grid>

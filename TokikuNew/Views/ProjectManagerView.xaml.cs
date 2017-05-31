@@ -151,21 +151,21 @@ namespace TokikuNew.Views
             try
             {
                 e.Handled = true;
-
+                SelectedProject.Errors = null;
                 Mode = (DocumentLifeCircle)e.OriginalSource;
                 switch (Mode)
                 {
 
                     case DocumentLifeCircle.Create:
 
-                        this.DataContext = controller.CreateNew();
+                        DataContext = SelectedProject = controller.CreateNew();
                         SelectedProject.CreateUserId = LoginedUser.UserId;
 
 
-                        if (SelectedProject.HasError)
-                        {
-                            MessageBox.Show(string.Join("\n", SelectedProject.Errors.ToArray()));
-                        }
+                        SelectedProject.Status.IsModify = false;
+                        SelectedProject.Status.IsSaved = false;
+                        SelectedProject.Status.IsNewInstance = true;
+
                         break;
                     case DocumentLifeCircle.Save:
                         if (SelectedProject.CreateUserId == Guid.Empty)
@@ -189,12 +189,12 @@ namespace TokikuNew.Views
                         if (SelectedProject.HasError)
                         {
                             MessageBox.Show(string.Join("\n", SelectedProject.Errors.ToArray()));
-                            dockBar.DocumentMode = DocumentLifeCircle.Update;
+                            SelectedProject.Errors = null;
+                            Mode = dockBar.LastState;                         
+                            break;
                         }
-                        else
-                        {
-                            dockBar.DocumentMode = DocumentLifeCircle.Read;
-                        }
+
+                        Mode = DocumentLifeCircle.Read;
 
                         if (SelectedProject.Status.IsNewInstance)
                         {
@@ -207,7 +207,7 @@ namespace TokikuNew.Views
                         SelectedProject.Status.IsNewInstance = false;
                         break;
                 }
-               
+
                 UpdateLayout();
             }
             catch (Exception ex)
@@ -238,21 +238,7 @@ namespace TokikuNew.Views
 
         private void btnShowClientSelection_Click(object sender, RoutedEventArgs e)
         {
-            if ((string)btnShowClientSelection.Content == "編輯")
-            {
-                ClientList.Visibility = Visibility.Visible;
-                btnShowClientSelection.Content = "隱藏";
-            }
-            else
-            {
-                if ((string)btnShowClientSelection.Content == "隱藏")
-                {
-                    btnShowClientSelection.Content = "編輯";
-                    ClientList.Visibility = Visibility.Hidden;
-                }
-            }
 
-            // UpdateLayout();
         }
 
         private void ClientList_SelectedClientChanged(object sender, RoutedEventArgs e)

@@ -35,7 +35,7 @@
                                  ItemsSource="{Binding}" ClipboardCopyMode="IncludeHeader" 
                                  SelectedCellsChanged="VendorList_SelectedCellsChanged" AutoGenerateColumns="False" 
                                  HorizontalScrollBarVisibility="Auto" CanUserAddRows="True"
-                                 AddingNewItem="VendorList_AddingNewItem">
+                                 IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridHyperlinkColumn  Header="廠商代號" Binding="{Binding Code}" Width="100" />
                 <DataGridTextColumn Header="廠商名稱" Binding="{Binding Name}" Width="100" />

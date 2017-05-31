@@ -70,31 +70,34 @@ namespace TokikuNew.Views
 
             try
             {
-                
-                TabItem currentworking = (TabItem)e.OriginalSource;
-
-                if (currentworking != null)
+                if (e.OriginalSource is TabItem)
                 {
-                    if (currentworking.Content != null)
-                    {
-                        UserControl contextObject = (UserControl)currentworking.Content;
+                    TabItem currentworking = (TabItem)e.OriginalSource;
 
-                        if (contextObject.DataContext != null)
+                    if (currentworking != null)
+                    {
+                        if (currentworking.Content != null)
                         {
-                            BaseViewModel vmodel = (BaseViewModel)contextObject.DataContext;
-                            if (vmodel.Status.IsModify && vmodel.Status.IsSaved == false)
+                            UserControl contextObject = (UserControl)currentworking.Content;
+
+                            if (contextObject.DataContext != null)
                             {
-                                if (MessageBox.Show("您尚未儲存，要繼續嗎?", "關閉前確認", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                                BaseViewModel vmodel = (BaseViewModel)contextObject.DataContext;
+                                if (vmodel.Status.IsModify && vmodel.Status.IsSaved == false)
                                 {
-                                    return;
+                                    if (MessageBox.Show("您尚未儲存，要繼續嗎?", "關閉前確認", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                                    {
+                                        return;
+                                    }
                                 }
                             }
-                        }
 
-                        InnerWorkspaces.Items.Remove(currentworking);
-                       
+                            InnerWorkspaces.Items.Remove(currentworking);
+
+                        }
                     }
                 }
+
             }
             catch (Exception ex)
             {
@@ -114,6 +117,10 @@ namespace TokikuNew.Views
 
                     model = projectcontractcontroller.Query(s => s.Id == model.Id);
 
+                    if (model == null)
+                    {
+                        model = projectcontractcontroller.CreateNew();
+                    }
                     ClosableTabItem addWorkarea = new ClosableTabItem();
                     addWorkarea.Header = string.Format("合約:{0}", model.ContractNumber);
 

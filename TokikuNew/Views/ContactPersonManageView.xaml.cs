@@ -163,12 +163,12 @@ namespace TokikuNew.Views
 
         private void ContractSearchBar_ResetSearch(object sender, RoutedEventArgs e)
         {
-            DataContext = controller.QueryAll();
+            ContractList.ItemsSource = controller.QueryAll();
         }
 
         private void ContractSearchBar_Search(object sender, RoutedEventArgs e)
         {
-            DataContext = controller.SearchByText((string)e.OriginalSource, SelectedManufacturer.Id, SelectedManufacturer.IsClient);
+            ContractList.ItemsSource = controller.SearchByText((string)e.OriginalSource, SelectedManufacturer.Id, SelectedManufacturer.IsClient);
         }
 
         private void ContractList_SelectionChanged(object sender, SelectionChangedEventArgs e)

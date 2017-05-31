@@ -109,7 +109,7 @@
           <Property Name="Code" Type="nvarchar" MaxLength="15" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ShortName" Type="nvarchar" MaxLength="50" />
-          <Property Name="UniformNumbers" Type="nchar" MaxLength="8" />
+          <Property Name="UniformNumbers" Type="nvarchar" MaxLength="15" />
           <Property Name="Phone" Type="nvarchar" MaxLength="10" />
           <Property Name="Fax" Type="nvarchar" MaxLength="10" />
           <Property Name="eMail" Type="nvarchar" MaxLength="200" />
@@ -1262,7 +1262,7 @@
           <Property Name="Code" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ShortName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UniformNumbers" Type="String" MaxLength="8" FixedLength="true" Unicode="true" />
+          <Property Name="UniformNumbers" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Fax" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="eMail" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />

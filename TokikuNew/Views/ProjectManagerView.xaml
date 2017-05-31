@@ -75,27 +75,20 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="30*"/>
+                        <ColumnDefinition Width="10*"/>
                         <ColumnDefinition Width="70*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="客戶代號:" Grid.Row="0" TextAlignment="Right" VerticalAlignment="Center"/>
-                    <Grid Grid.Column="1" Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="60*"/>
-                            <ColumnDefinition Width="40*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="2" Text="{Binding SelectedClient.Code, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="1">
-                            <Button x:Name="btnShowClientSelection" Content="編輯" Click="btnShowClientSelection_Click" IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
-                        </StackPanel>
-                    </Grid>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Margin="2" Text="{Binding SelectedClient.Code, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    
                     <TextBlock Text="客戶名稱:" Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
                     <TextBlock Grid.Row="1" Grid.Column="1"   Margin="2" Text="{Binding SelectedClient.Name, ElementName=userControl, Mode=OneWay}" />
                     <local:ClientListView x:Name="ClientList" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="2"
                                           DataContext="{Binding Clients}"                                          
-                                          HorizontalAlignment="Stretch" Margin="0" Visibility="Hidden" 
+                                          HorizontalAlignment="Stretch" Margin="0" 
                                           SelectedClientChanged="ClientList_SelectedClientChanged"
                                           IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"
+                                          Visibility="{Binding Path=Mode, Converter={StaticResource ReadModeToVisibilityValueConverter}, ElementName=userControl}"
                                           />
                 </Grid>
             </GroupBox>
@@ -110,13 +103,16 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">
-                        <Controls:SearchBar x:Name="ProjectContactSearchBar" Width="350" IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}" />
+                        <Controls:SearchBar x:Name="ProjectContactSearchBar" Width="350" />
                     </StackPanel>
-                    <Controls:CustomDataGrid Grid.Row="1" Grid.Column="0" AllowExecuteSystemCommand="True" AutoGenerateColumns="False" CanUserDeleteRows="True"  CanUserAddRows="True" ItemsSource="{Binding SelectedProject.ProjectContract, ElementName=userControl}"
-                                            MouseDoubleClick="ContractList_MouseDoubleClick"
+                    <Controls:CustomDataGrid Grid.Row="1" Grid.Column="0" AllowExecuteSystemCommand="True" AutoGenerateColumns="False" 
+                                             CanUserDeleteRows="{Binding Path=Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                                             CanUserAddRows="{Binding Path=Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                             ItemsSource="{Binding SelectedProject.ProjectContract, ElementName=userControl}"
+                                             MouseDoubleClick="ContractList_MouseDoubleClick"
                                              DataGridRow.Selected="ContractList_Selected"
                                              x:Name="ContractList"
-                                             IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}">
+                                             IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}">
                         <Controls:CustomDataGrid.Columns>
                             <DataGridTextColumn Header="合約編號" Binding="{Binding ContractNumber}"/>
                             <DataGridTextColumn Header="簽約日期" Binding="{Binding SigningDate}"/>
