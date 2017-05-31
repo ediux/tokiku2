@@ -25,6 +25,7 @@
                                       CanUserAddRows="True" CanUserDeleteRows="True" 
                                       AutoGenerateColumns="False"
                                       x:Name="ContractList" SelectionChanged="ContractList_SelectionChanged"
+                          IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"
                           ItemsSource="{Binding Contracts}"
                                       >
             <DataGrid.Columns>

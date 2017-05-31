@@ -116,7 +116,7 @@
                                             MouseDoubleClick="ContractList_MouseDoubleClick"
                                              DataGridRow.Selected="ContractList_Selected"
                                              x:Name="ContractList"
-                                             IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}">
+                                             IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}">
                         <Controls:CustomDataGrid.Columns>
                             <DataGridTextColumn Header="合約編號" Binding="{Binding ContractNumber}"/>
                             <DataGridTextColumn Header="簽約日期" Binding="{Binding SigningDate}"/>

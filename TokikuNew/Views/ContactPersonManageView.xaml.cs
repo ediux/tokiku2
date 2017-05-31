@@ -126,8 +126,8 @@ namespace TokikuNew.Views
             {
                 e.Handled = true;
 
-                DocumentLifeCircle mode = (DocumentLifeCircle)e.OriginalSource;
-                switch (mode)
+                Mode = (DocumentLifeCircle)e.OriginalSource;
+                switch (Mode)
                 {
                     case DocumentLifeCircle.Save:
                         if (SelectedManufacturer.CreateUserId == Guid.Empty)
@@ -153,6 +153,7 @@ namespace TokikuNew.Views
                         break;
 
                 }
+                UpdateLayout();
             }
             catch (Exception ex)
             {

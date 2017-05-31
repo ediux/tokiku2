@@ -93,9 +93,9 @@ namespace TokikuNew.Views
             SelectedManufacturersBinding.Source = this.DataContext;
             SetBinding(SelectedManufacturersProperty, SelectedManufacturersBinding);
 
-            Binding ModeBinding = new Binding();
-            ModeBinding.Source = Mode;
-            dockBar.SetBinding(DockBar.DocumentModeProperty, ModeBinding);
+            //Binding ModeBinding = new Binding();
+            //ModeBinding.Source = Mode;
+            //dockBar.SetBinding(DockBar.DocumentModeProperty, ModeBinding);
         }
 
         private void ContractList_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)

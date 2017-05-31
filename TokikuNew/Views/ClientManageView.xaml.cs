@@ -100,7 +100,7 @@ namespace TokikuNew.Views
 
         private void ContractList_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
-            
+
         }
 
         private void dockBar_DocumentModeChanged(object sender, RoutedEventArgs e)
@@ -111,8 +111,8 @@ namespace TokikuNew.Views
 
                 ClientViewModel SelectedManufacturers = (ClientViewModel)DataContext;
 
-                DocumentLifeCircle mode = (DocumentLifeCircle)e.OriginalSource;
-                switch (mode)
+                Mode = (DocumentLifeCircle)e.OriginalSource;
+                switch (Mode)
                 {
 
                     case DocumentLifeCircle.Create:
@@ -160,7 +160,7 @@ namespace TokikuNew.Views
 
                         if (SelectedManufacturers.Materials == null)
                             SelectedManufacturers.Materials = new MaterialsViewModelCollection();
-                      
+
                         controller.SaveModel(SelectedManufacturers);
 
                         if (SelectedManufacturers.HasError)
@@ -178,6 +178,7 @@ namespace TokikuNew.Views
 
                         break;
                 }
+                UpdateLayout();
             }
             catch (Exception ex)
             {
@@ -187,12 +188,12 @@ namespace TokikuNew.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Binding DocumentModeBinding = new Binding();
-            DocumentModeBinding.Source = Mode;
+            //Binding DocumentModeBinding = new Binding();
+            //DocumentModeBinding.Source = Mode;
 
-            dockBar.SetBinding(DockBar.DocumentModeProperty, DocumentModeBinding);
+            //dockBar.SetBinding(DockBar.DocumentModeProperty, DocumentModeBinding);
 
-           
+
         }
     }
 }
