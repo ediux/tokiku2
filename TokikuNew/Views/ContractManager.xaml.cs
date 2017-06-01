@@ -132,10 +132,20 @@ namespace TokikuNew.Views
                     case DocumentLifeCircle.Save:
                         ProjectContractViewModel model = (ProjectContractViewModel)DataContext;
 
-                        if (SelectedEngineering.CreateUserId == Guid.Empty)
+                        if (model != null)
                         {
-                            SelectedEngineering.CreateUserId = LoginedUser.UserId;
+                            if (SelectedEngineering != null)
+                            {
+                                
+                                if (SelectedEngineering.CreateUserId == Guid.Empty)
+                                {
+                                    SelectedEngineering.CreateUserId = LoginedUser.UserId;
+                                }
+                              
+                            }
                         }
+                     
+
 
                         if (SelectedEngineering.Compositions == null)
                             SelectedEngineering.Compositions = new CompositionsViewModelCollection();

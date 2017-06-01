@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
+
 namespace TokikuNew
 {
     /// <summary>
@@ -13,5 +14,18 @@ namespace TokikuNew
     /// </summary>
     public partial class App : Application
     {
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            try
+            {
+                Tokiku.Controllers.SystemController.StartUp();
+          
+            }
+            catch
+            {
+
+                
+            }
+        }
     }
 }

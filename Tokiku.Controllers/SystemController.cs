@@ -33,5 +33,20 @@ namespace Tokiku.Controllers
                 throw;
             }
         }
+
+        public static void StartUp()
+        {
+            try
+            {
+                TokikuEntities.StartUp();
+
+            }
+            catch
+            {
+
+
+            }
+
+        }
     }
 }

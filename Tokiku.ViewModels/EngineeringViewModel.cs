@@ -100,7 +100,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for StartDate.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty StartDateProperty =
-            DependencyProperty.Register("StartDate", typeof(DateTime), typeof(EngineeringViewModel), new PropertyMetadata(new DateTime(1754, 1, 1)));
+            DependencyProperty.Register("StartDate", typeof(DateTime), typeof(EngineeringViewModel), new PropertyMetadata(new DateTime(1900, 1, 1)));
 
 
 
@@ -112,7 +112,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for CompletionDate.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CompletionDateProperty =
-            DependencyProperty.Register("CompletionDate", typeof(DateTime), typeof(EngineeringViewModel), new PropertyMetadata(new DateTime(1754,1,1)));
+            DependencyProperty.Register("CompletionDate", typeof(DateTime), typeof(EngineeringViewModel), new PropertyMetadata(new DateTime(1900,1,1)));
 
 
 
