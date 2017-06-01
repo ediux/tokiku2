@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -38,7 +39,7 @@ namespace TokikuNew.Frame
 
             if (loginedUser.HasError)
             {
-                tblkMessage.Text = loginedUser.Errors.GetEnumerator().Current;
+                tblkMessage.Text = loginedUser.Errors.First();
                 tblkMessage.Foreground = new SolidColorBrush(Colors.Red);
             }
             else

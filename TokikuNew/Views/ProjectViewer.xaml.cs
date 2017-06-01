@@ -107,37 +107,31 @@ namespace TokikuNew.Views
 
         private void ProjectViewer_OpenNewTab(object sender, RoutedEventArgs e)
         {
+           
+        }
+
+        private void MI_Projects_Order_1_Click(object sender, RoutedEventArgs e)
+        {
             try
             {
-                e.Handled = true;
-                if (e.OriginalSource is ProjectContractViewModel)
-                {
+                ClosableTabItem addWorkarea = new ClosableTabItem();
+                addWorkarea.Header = "鋁擠型";
 
-                    ProjectContractViewModel model = (ProjectContractViewModel)e.OriginalSource;
+                var vm = new ProjectManagerView() { Margin = new Thickness(0) };
+                vm.DataContext = controller.CreateNew();
+                vm.Mode = DocumentLifeCircle.Create;
 
-                    model = projectcontractcontroller.Query(s => s.Id == model.Id);
+                //Binding bindinglogineduser = new Binding();
+                //bindinglogineduser.Source = ((MainViewModel)DataContext).LoginedUser;
 
-                    if (model == null)
-                    {
-                        model = projectcontractcontroller.CreateNew();
-                    }
-                    ClosableTabItem addWorkarea = new ClosableTabItem();
-                    addWorkarea.Header = string.Format("合約:{0}", model.ContractNumber);
+                //vm.SetBinding(ProjectManagerView.LoginedUserProperty, bindinglogineduser);
 
-                    var vm = new ContractManager() { Margin = new Thickness(0) };
-                    vm.DataContext = model;
-                    vm.LoginedUser = LoginedUser;
-                    vm.CurrentProjectContract = model;
+                addWorkarea.Content = vm;
+                addWorkarea.Margin = new Thickness(0);
 
-                    vm.Mode = DocumentLifeCircle.Read;
+                InnerWorkspaces.Items.Add(addWorkarea);
+                InnerWorkspaces.SelectedItem = addWorkarea;
 
-                    addWorkarea.Content = vm;
-                    addWorkarea.Margin = new Thickness(0);
-
-                    InnerWorkspaces.Items.Add(addWorkarea);
-                    InnerWorkspaces.SelectedItem = addWorkarea;
-
-                }
 
             }
             catch (Exception ex)
@@ -145,6 +139,5 @@ namespace TokikuNew.Views
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
     }
 }

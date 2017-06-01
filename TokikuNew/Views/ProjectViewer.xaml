@@ -17,7 +17,7 @@
         </Grid.ColumnDefinitions>
         <Menu Grid.Row="0" Grid.Column="0">
             <MenuItem Header="用料需求"/>
-            <MenuItem Header="鋁擠型"/>
+            <MenuItem Header="鋁擠型" Name="MI_Projects_Order_1" Click="MI_Projects_Order_1_Click"/>
             <MenuItem Header="單元安框"/>
             <MenuItem Header="玻璃"/>
             <MenuItem Header="鋁板"/>

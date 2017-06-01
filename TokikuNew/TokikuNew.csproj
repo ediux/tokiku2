@@ -86,6 +86,9 @@
     <Compile Include="ValueConverters\ReadModeToEnabledValueConverter.cs" />
     <Compile Include="ValueConverters\ReadModeToVisibilityValueConverter.cs" />
     <Compile Include="ValueConverters\StatesCodeToTextValueConverter.cs" />
+    <Compile Include="Views\AluminumExtrusionOrderSheetView.xaml.cs">
+      <DependentUpon>AluminumExtrusionOrderSheetView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ClientListView.xaml.cs">
       <DependentUpon>ClientListView.xaml</DependentUpon>
     </Compile>
@@ -191,6 +194,10 @@
     <Page Include="Themes\WhistlerBlue.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AluminumExtrusionOrderSheetView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ClientListView.xaml">
       <SubType>Designer</SubType>
