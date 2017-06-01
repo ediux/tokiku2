@@ -100,6 +100,12 @@
     <Compile Include="Roles.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
+    <Compile Include="ShopFlow.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ShopFlowDetail.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
     <Compile Include="ShopFlowHistory.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
@@ -126,6 +132,9 @@
     </Compile>
     <Compile Include="TokikuEntities.cs" />
     <Compile Include="Users.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorkShops.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
   </ItemGroup>

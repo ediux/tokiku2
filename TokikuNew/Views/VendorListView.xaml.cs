@@ -38,15 +38,7 @@ namespace TokikuNew.Views
             remove { RemoveHandler(SelectedVendorChangedEvent, value); }
         }
 
-        public static readonly RoutedEvent SendNewPageRequestEvent = EventManager.RegisterRoutedEvent("SendNewPageRequest", RoutingStrategy.Bubble
-    , typeof(RoutedEventHandler), typeof(VendorListView));
-
-        public event RoutedEventHandler SendNewPageRequest
-        {
-            add { AddHandler(SendNewPageRequestEvent, value); }
-            remove { RemoveHandler(SendNewPageRequestEvent, value); }
-        }
-
+      
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //搜尋框
@@ -60,7 +52,7 @@ namespace TokikuNew.Views
 
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
-            RaiseEvent(new RoutedEventArgs(SendNewPageRequestEvent, this));
+            RaiseEvent(new RoutedEventArgs(Controls.ClosableTabItem.SendNewPageRequestEvent, this));
         }
 
         private void VendorList_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)

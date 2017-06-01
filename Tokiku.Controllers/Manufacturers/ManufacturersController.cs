@@ -224,7 +224,6 @@ namespace Tokiku.Controllers
             else
             {
                 rtn = new ManufacturersViewModelCollection();
-                rtn.Add(CreateNew());
             }
         }
 

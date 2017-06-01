@@ -44,5 +44,14 @@ namespace TokikuNew.Controls
             add { AddHandler(OnPageClosingEvent, value); }
             remove { RemoveHandler(OnPageClosingEvent, value); }
         }
+
+        public static readonly RoutedEvent SendNewPageRequestEvent = EventManager.RegisterRoutedEvent("SendNewPageRequest", RoutingStrategy.Bubble
+          , typeof(RoutedEventHandler), typeof(ClosableTabItem));
+
+        public event RoutedEventHandler SendNewPageRequest
+        {
+            add { AddHandler(SendNewPageRequestEvent, value); }
+            remove { RemoveHandler(SendNewPageRequestEvent, value); }
+        }
     }
 }

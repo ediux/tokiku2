@@ -54,8 +54,7 @@ namespace TokikuNew.Views
        "SelectedProjectChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ProjectSelectListView));
 
 
-        public static readonly RoutedEvent SendNewPageRequestEvent = EventManager.RegisterRoutedEvent("SendNewPageRequest", RoutingStrategy.Bubble
-            , typeof(RoutedEventHandler), typeof(ProjectSelectListView));
+      
 
         public event RoutedEventHandler SelectedProjectChanged
         {
@@ -63,11 +62,7 @@ namespace TokikuNew.Views
             remove { RemoveHandler(SelectedProjectChangedEvent, value); }
         }
 
-        public event RoutedEventHandler SendNewPageRequest
-        {
-            add { AddHandler(SendNewPageRequestEvent, value); }
-            remove { RemoveHandler(SendNewPageRequestEvent, value); }
-        }
+       
         // This method raises the Tap event
         protected void RaiseSelectProjectChangedEvent()
         {
@@ -92,7 +87,7 @@ namespace TokikuNew.Views
 
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
-            RaiseEvent(new RoutedEventArgs(SendNewPageRequestEvent, e.OriginalSource));
+            RaiseEvent(new RoutedEventArgs(Controls.ClosableTabItem.SendNewPageRequestEvent, e.OriginalSource));
         }
 
         private void cSearchBar_ResetSearch(object sender, RoutedEventArgs e)

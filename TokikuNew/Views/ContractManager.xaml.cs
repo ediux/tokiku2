@@ -81,14 +81,7 @@ namespace TokikuNew.Views
         public static readonly DependencyProperty LoginedUserProperty =
             DependencyProperty.Register("LoginedUser", typeof(UserViewModel), typeof(ContractManager), new PropertyMetadata(default(UserViewModel)));
 
-        public static readonly RoutedEvent SendNewPageRequestEvent = EventManager.RegisterRoutedEvent("SendNewPageRequest", RoutingStrategy.Bubble
-        , typeof(RoutedEventHandler), typeof(ContractManager));
-
-        public event RoutedEventHandler SendNewPageRequest
-        {
-            add { AddHandler(SendNewPageRequestEvent, value); }
-            remove { RemoveHandler(SendNewPageRequestEvent, value); }
-        }
+      
 
 
 

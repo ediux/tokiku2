@@ -42,23 +42,11 @@ namespace TokikuNew.Views
         } 
         #endregion
 
-        #region 開新分頁的路由事件
-        public static readonly RoutedEvent SendNewPageRequestEvent = EventManager.RegisterRoutedEvent("SendNewPageRequest", RoutingStrategy.Bubble
-   , typeof(RoutedEventHandler), typeof(ClientListView));
-
-        /// <summary>
-        /// 發出開新分頁的路由事件
-        /// </summary>
-        public event RoutedEventHandler SendNewPageRequest
-        {
-            add { AddHandler(SendNewPageRequestEvent, value); }
-            remove { RemoveHandler(SendNewPageRequestEvent, value); }
-        } 
-        #endregion
+       
 
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
-            RaiseEvent(new RoutedEventArgs(SendNewPageRequestEvent, e.OriginalSource));
+            RaiseEvent(new RoutedEventArgs(Controls.ClosableTabItem.SendNewPageRequestEvent, e.OriginalSource));
         }
 
         private void sSearchBar_ResetSearch(object sender, RoutedEventArgs e)

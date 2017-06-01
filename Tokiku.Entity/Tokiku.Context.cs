@@ -45,5 +45,8 @@ namespace Tokiku.Entity
         public virtual DbSet<Engineering> Engineering { get; set; }
         public virtual DbSet<Compositions> Compositions { get; set; }
         public virtual DbSet<CompositionTypes> CompositionTypes { get; set; }
+        public virtual DbSet<ShopFlow> ShopFlow { get; set; }
+        public virtual DbSet<ShopFlowDetail> ShopFlowDetail { get; set; }
+        public virtual DbSet<WorkShops> WorkShops { get; set; }
     }
 }

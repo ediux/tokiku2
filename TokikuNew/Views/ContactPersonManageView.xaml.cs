@@ -192,7 +192,8 @@ namespace TokikuNew.Views
             CheckBox cb = (CheckBox)e.Source;
             ContactsViewModel currentrow = (ContactsViewModel)cell.DataContext;
 
-            var founddefuts = ((ManufacturersViewModel)DataContext).Contracts.Where(w => w.IsDefault == true
+            var founddefuts = ((ManufacturersViewModel)ContractList.DataContext).Contracts
+                .Where(w => w.IsDefault == true
             && w.Id != currentrow.Id );
 
             if (founddefuts.Any())
@@ -205,6 +206,7 @@ namespace TokikuNew.Views
                     }
                 }
             }
+
 
             if (currentrow.IsDefault == false)
             {

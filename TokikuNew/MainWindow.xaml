@@ -35,8 +35,9 @@
                 <Views:ClientListView SelectedClientChanged="ClientListView_SelectedClientChanged" DataContext="{Binding Clients}"/>
             </TabItem>
             <TabItem Header="模具總表">
-                
+                  <Views:MaterialsTotalView />
             </TabItem>
+          
         </TabControl>
         <StatusBar Margin="0" Grid.Row="3">
             <StackPanel Orientation="Horizontal">

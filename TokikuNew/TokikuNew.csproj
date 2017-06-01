@@ -101,6 +101,9 @@
     <Compile Include="Views\ManufacturersManageView.xaml.cs">
       <DependentUpon>ManufacturersManageView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MaterialsTotalView.xaml.cs">
+      <DependentUpon>MaterialsTotalView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ProjectManagerView.xaml.cs">
       <DependentUpon>ProjectManagerView.xaml</DependentUpon>
     </Compile>
@@ -206,6 +209,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ManufacturersManageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MaterialsTotalView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

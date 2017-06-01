@@ -78,12 +78,39 @@ namespace TokikuNew
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            AddHandler(ProjectSelectListView.SendNewPageRequestEvent, new RoutedEventHandler(MI_CreateNew_Project_Click));
-            AddHandler(VendorListView.SendNewPageRequestEvent, new RoutedEventHandler(MI_CreateNew_Factories_Click));
-            AddHandler(ClientListView.SendNewPageRequestEvent, new RoutedEventHandler(MI_CreateNew_Customers_Click));
+            AddHandler(ClosableTabItem.SendNewPageRequestEvent, new RoutedEventHandler(Window_AutoOpenNewPage));
             AddHandler(ClosableTabItem.OnPageClosingEvent, new RoutedEventHandler(btnTabClose_Click));
+            //AddHandler(VendorListView.SendNewPageRequestEvent, new RoutedEventHandler(MI_CreateNew_Factories_Click));
+            //AddHandler(ClientListView.SendNewPageRequestEvent, new RoutedEventHandler(MI_CreateNew_Customers_Click));
+          
 
 
+        }
+
+        private void Window_AutoOpenNewPage(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if(e.Source is Views.ProjectSelectListView)
+                {
+                    MI_CreateNew_Project_Click(sender, e);
+                }
+
+                if(e.Source is Views.VendorListView)
+                {
+                    MI_CreateNew_Factories_Click(sender, e);
+                }
+
+                if(e.Source is Views.ClientListView)
+                {
+                    MI_CreateNew_Customers_Click(sender, e);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
         private void MI_CreateNew_Project_Click(object sender, RoutedEventArgs e)

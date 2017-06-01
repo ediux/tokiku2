@@ -20,6 +20,7 @@ namespace Tokiku.Entity
             this.Contacts = new HashSet<Contacts>();
             this.Projects = new HashSet<Projects>();
             this.ProjectContract = new HashSet<ProjectContract>();
+            this.WorkShops = new HashSet<WorkShops>();
         }
     
         public System.Guid Id { get; set; }
@@ -62,5 +63,7 @@ namespace Tokiku.Entity
         public virtual PaymentTypes PaymentTypes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectContract> ProjectContract { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WorkShops> WorkShops { get; set; }
     }
 }
