@@ -24,21 +24,6 @@ namespace TokikuNew.Views
             InitializeComponent();
         }
 
-
-
-        #region 分頁關閉事件
-
-        public static readonly RoutedEvent OnPageClosingEvent = EventManager.RegisterRoutedEvent(
-"OnPageClosingEvent", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ProjectManagerView));
-
-        public event RoutedEventHandler OnPageClosing
-        {
-            add { AddHandler(OnPageClosingEvent, value); }
-            remove { RemoveHandler(OnPageClosingEvent, value); }
-        }
-
-        #endregion
-
         #region SelectedProject
         public ProjectsViewModel SelectedProject
         {
@@ -90,7 +75,7 @@ namespace TokikuNew.Views
 
         // Using a DependencyProperty as the backing store for Mode.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ModeProperty =
-            DependencyProperty.Register("Mode", typeof(DocumentLifeCircle), typeof(ProjectManagerView), new PropertyMetadata(DocumentLifeCircle.Read));
+            DependencyProperty.Register("Mode", typeof(DocumentLifeCircle), typeof(ProjectManagerView));
         #endregion
 
         #region IsShowClientSelection
@@ -187,11 +172,9 @@ namespace TokikuNew.Views
 
                         if (SelectedClient != null)
                             SelectedProject.ClientId = SelectedClient.Id;
-                       
+
 
                         controller.SaveModel(SelectedProject);
-                        SelectedProject.Status.IsModify = false;
-                        SelectedProject.Status.IsSaved = true;
 
                         if (SelectedProject.HasError)
                         {
@@ -201,12 +184,16 @@ namespace TokikuNew.Views
                             break;
                         }
 
-                        Mode = DocumentLifeCircle.Read;
-
                         if (SelectedProject.Status.IsNewInstance)
                         {
-                            RaiseEvent(new RoutedEventArgs(OnPageClosingEvent, this));
+                            RaiseEvent(new RoutedEventArgs(ClosableTabItem.OnPageClosingEvent, this));
                         }
+
+                        Mode = DocumentLifeCircle.Read;
+
+                        SelectedProject.Status.IsModify = false;
+                        SelectedProject.Status.IsSaved = true;
+                        SelectedProject.Status.IsNewInstance = false;
                         break;
                     case DocumentLifeCircle.Update:
                         SelectedProject.Status.IsModify = false;
@@ -215,7 +202,6 @@ namespace TokikuNew.Views
                         break;
                 }
 
-                UpdateLayout();
             }
             catch (Exception ex)
             {

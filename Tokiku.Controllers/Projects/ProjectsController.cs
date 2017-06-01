@@ -79,7 +79,7 @@ namespace Tokiku.Controllers
         public string GetNextProjectSerialNumber(string year)
         {
             var result = (from q in database.Projects
-                          where q.Code.StartsWith(year.Trim())
+                          where q.Code.StartsWith(year.Trim()) && q.Void==false
                           orderby q.Code descending
                           select q.Code).FirstOrDefault();
 
@@ -107,46 +107,49 @@ namespace Tokiku.Controllers
         {
             try
             {
-
-                var LoginedUser = usercontroller.GetCurrentLoginUser();
-                Projects newProject = new Projects();
-                //newProject.ProjectName = "";
-                //newProject.Id = model.Id;
-                model.CreateTime = DateTime.Now;
-                model.CreateUserId = LoginedUser.UserId;
-                CopyToModel(newProject, model);
-
-                if (model.ClientId.HasValue)
+                using (database)
                 {
-                    var custommodel = (from q in database.Manufacturers
-                                       where q.Id == model.ClientId.Value
-                                       select q).SingleOrDefault();
+                    var LoginedUser = usercontroller.GetCurrentLoginUser();
+                    Projects newProject = new Projects();
+                    //newProject.ProjectName = "";
+                    //newProject.Id = model.Id;
+                    model.CreateTime = DateTime.Now;
+                    model.CreateUserId = LoginedUser.UserId;
+                    CopyToModel(newProject, model);
 
-                    if (custommodel != null)
+                    if (model.ClientId.HasValue)
                     {
-                        newProject.Clients.Add(custommodel);
+                        var custommodel = (from q in database.Manufacturers
+                                           where q.Id == model.ClientId.Value
+                                           select q).SingleOrDefault();
+
+                        if (custommodel != null)
+                        {
+                            newProject.Clients.Add(custommodel);
+                        }
+
                     }
 
-                }
-
-                if (model.ProjectContract.Any())
-                {
-                    foreach (var row in model.ProjectContract)
+                    if (model.ProjectContract.Any())
                     {
-                        ProjectContract newdata = new ProjectContract();
-    
-                        newdata.AmountDue = 0F;
-                        newdata.Area = 0F;
-                        CopyToModel(newdata, row);
-                        newdata.ProjectId = newProject.Id;
-                        newdata.SigningDate = model.ProjectSigningDate;
-                        newdata.State = model.StateText.Where(s => s.StateName == row.StateText).Select(s => s.Id).SingleOrDefault();
-                        newProject.ProjectContract.Add(newdata);
+                        foreach (var row in model.ProjectContract)
+                        {
+                            ProjectContract newdata = new ProjectContract();
+
+                            newdata.AmountDue = 0F;
+                            newdata.Area = 0F;
+                            CopyToModel(newdata, row);
+                            newdata.ProjectId = newProject.Id;
+                            newdata.SigningDate = model.ProjectSigningDate;
+                            newdata.State = model.StateText.Where(s => s.StateName == row.StateText).Select(s => s.Id).SingleOrDefault();
+                            newProject.ProjectContract.Add(newdata);
+                        }
                     }
+
+                    database.Projects.Add(newProject);
+                    database.SaveChanges();
                 }
 
-                database.Projects.Add(newProject);
-                database.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -154,7 +157,7 @@ namespace Tokiku.Controllers
             }
             finally
             {
-                database.Dispose();
+
                 database = new TokikuEntities();
             }
         }
@@ -191,22 +194,26 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var result = from p in database.Projects
-                             where p.Void == false
-                             orderby p.State ascending, p.Code ascending
-                             select new ProjectListViewModel
-                             {
-                                 Id = p.Id,
-                                 Code = p.Code,
-                                 ProjectName = p.ProjectName,
-                                 ShortName = p.ShortName,
-                                 State = p.States.StateName,
-                                 StartDate = (p.ProjectContract.OrderByDescending(s => s.StartDate).FirstOrDefault()).StartDate,
-                                 CompletionDate = p.ProjectContract.OrderByDescending(s => s.StartDate).FirstOrDefault().CompletionDate,
-                                 WarrantyDate = p.ProjectContract.OrderByDescending(s => s.WarrantyDate).FirstOrDefault().WarrantyDate
-                             };
+                using (database)
+                {
+                    var result = from p in database.Projects
+                                 where p.Void == false
+                                 orderby p.State ascending, p.Code ascending
+                                 select new ProjectListViewModel
+                                 {
+                                     Id = p.Id,
+                                     Code = p.Code,
+                                     ProjectName = p.ProjectName,
+                                     ShortName = p.ShortName,
+                                     State = p.States.StateName,
+                                     StartDate = (p.ProjectContract.OrderByDescending(s => s.StartDate).FirstOrDefault()).StartDate,
+                                     CompletionDate = p.ProjectContract.OrderByDescending(s => s.StartDate).FirstOrDefault().CompletionDate,
+                                     WarrantyDate = p.ProjectContract.OrderByDescending(s => s.WarrantyDate).FirstOrDefault().WarrantyDate
+                                 };
 
-                return new ObservableCollection<ProjectListViewModel>(result);
+                    return new ObservableCollection<ProjectListViewModel>(result.AsEnumerable());
+                }
+
             }
             catch (Exception ex)
             {
@@ -215,6 +222,10 @@ namespace Tokiku.Controllers
                 setErrortoModel(model, ex);
                 q.Add(model);
                 return q;
+            }
+            finally
+            {
+                database = new TokikuEntities();
             }
         }
 
@@ -240,61 +251,71 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var original = (from q in database.Projects
-                                where q.Id == updatedProject.Id
-                                select q).Single();
 
-                if (original != null)
+
+                using (database)
                 {
-                    CopyToModel(original, updatedProject);
-                    if (updatedProject.ProjectContract.Any())
+                    var original = (from q in database.Projects
+                                    where q.Id == updatedProject.Id
+                                    select q).Single();
+
+                    if (original != null)
                     {
-                        Stack<ProjectContract> removeStack = new Stack<ProjectContract>();
-
-                        foreach (var rowindb in original.ProjectContract)
+                        CopyToModel(original, updatedProject);
+                        if (updatedProject.ProjectContract.Any())
                         {
-                            if (updatedProject.ProjectContract.Where(w => w.Id == rowindb.Id).Any() == false)
+                            Stack<ProjectContract> removeStack = new Stack<ProjectContract>();
+
+                            foreach (var rowindb in original.ProjectContract)
                             {
-                                //remove(指資料真的被移除了)
-                                removeStack.Push(rowindb);
+                                if (updatedProject.ProjectContract.Where(w => w.Id == rowindb.Id).Any() == false)
+                                {
+                                    //remove(指資料真的被移除了)
+                                    removeStack.Push(rowindb);
+                                }
+                            }
+
+                            if (removeStack.Count > 0)
+                            {
+                                while (removeStack.Count > 0)
+                                {
+                                    original.ProjectContract.Remove(removeStack.Pop());
+                                }
+                            }
+
+                            foreach (var row in updatedProject.ProjectContract)
+                            {
+                                if (original.ProjectContract.Where(w => w.Id == row.Id).Any())
+                                {
+                                    var foundinoriginal = original.ProjectContract.Where(w => w.Id == row.Id).Single();
+                                    CopyToModel(foundinoriginal, row);
+
+                                }
+                                else
+                                {
+                                    ProjectContract newData = new ProjectContract();
+                                    CopyToModel(newData, row);
+                                    newData.ProjectId = original.Id;
+                                    original.ProjectContract.Add(newData);
+                                }
                             }
                         }
 
-                        if (removeStack.Count > 0)
-                        {
-                            while (removeStack.Count > 0)
-                            {
-                                original.ProjectContract.Remove(removeStack.Pop());
-                            }
-                        }
-
-                        foreach (var row in updatedProject.ProjectContract)
-                        {
-                            if (original.ProjectContract.Where(w => w.Id == row.Id).Any())
-                            {
-                                var foundinoriginal = original.ProjectContract.Where(w => w.Id == row.Id).Single();
-                                CopyToModel(foundinoriginal, row);
-                                
-                            }
-                            else
-                            {
-                                ProjectContract newData = new ProjectContract();
-                                CopyToModel(newData, row);
-                                newData.ProjectId = original.Id;
-                                original.ProjectContract.Add(newData);
-                            }
-                        }
+                        database.SaveChanges();
                     }
-                   
-                    database.SaveChanges();
+                    updatedProject = Query(s => s.Id == updatedProject.Id);
+                    return updatedProject;
                 }
-                updatedProject = Query(s => s.Id == updatedProject.Id);
-                return updatedProject;
+
             }
             catch (Exception ex)
             {
                 setErrortoModel(updatedProject, ex);
                 return updatedProject;
+            }
+            finally
+            {
+                database = new TokikuEntities();
             }
 
         }
@@ -325,9 +346,12 @@ namespace Tokiku.Controllers
                     }
                 }
 
-                ManufacturersController mc = new ManufacturersController();
+                using (ManufacturersController mc = new ManufacturersController())
+                {
+                    model.Clients = ClientController.QueryAll();
+                }
 
-                model.Clients = ClientController.QueryAll();
+
 
                 return model;
             }

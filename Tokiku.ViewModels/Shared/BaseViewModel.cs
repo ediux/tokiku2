@@ -104,7 +104,7 @@ namespace Tokiku.ViewModels
         public IEnumerable<string> Errors
         {
             get { return (IEnumerable<string>)GetValue(ErrorProperty); }
-            set { SetValue(ErrorProperty, value); if (value != null) { HasError = true; } }
+            set { SetValue(ErrorProperty, value); if (value != null) { HasError = true; } else { HasError = false; } }
         }
 
         // Using a DependencyProperty as the backing store for Error.  This enables animation, styling, binding, etc...

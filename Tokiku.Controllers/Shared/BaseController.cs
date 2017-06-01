@@ -354,10 +354,14 @@ namespace Tokiku.Controllers
         {
             try
             {
-                T entity = Activator.CreateInstance<T>();
-                CopyToModel(entity, model);
-                database.Set<T>().Add(entity);
-                database.SaveChanges();
+                using (database)
+                {
+                    T entity = Activator.CreateInstance<T>();
+                    CopyToModel(entity, model);
+                    database.Set<T>().Add(entity);
+                    database.SaveChanges();
+                }
+
             }
             catch (Exception ex)
             {
@@ -366,6 +370,10 @@ namespace Tokiku.Controllers
                     model = Activator.CreateInstance<TView>();
                 }
                 setErrortoModel(model, ex);
+            }
+            finally
+            {
+                database = new TokikuEntities();
             }
         }
 
@@ -403,20 +411,24 @@ namespace Tokiku.Controllers
 
             try
             {
-                T entity = Activator.CreateInstance<T>();
-                CopyToModel(entity, model);
-
-                var findresult = database.Set<T>().Find(IdentifyPrimaryKey(entity));
-
-                if (findresult != null)
+                using (database)
                 {
-                    findresult = entity;
-                    database.SaveChanges();
-                    findresult = database.Set<T>().Find(IdentifyPrimaryKey(findresult));
-                    return BindingFromModel(findresult);
+                    T entity = Activator.CreateInstance<T>();
+                    CopyToModel(entity, model);
+
+                    var findresult = database.Set<T>().Find(IdentifyPrimaryKey(entity));
+
+                    if (findresult != null)
+                    {
+                        findresult = entity;
+                        database.SaveChanges();
+                        findresult = database.Set<T>().Find(IdentifyPrimaryKey(findresult));
+                        return BindingFromModel(findresult);
+                    }
+
+                    return default(TView);
                 }
 
-                return default(TView);
             }
             catch (Exception ex)
             {
@@ -427,22 +439,30 @@ namespace Tokiku.Controllers
                 setErrortoModel(model, ex);
                 return model;
             }
+            finally
+            {
+                database = new TokikuEntities();
+            }
         }
 
         public virtual void Delete(TView model)
         {
             try
             {
-                T entity = Activator.CreateInstance<T>();
-                CopyToModel(entity, model);
-
-                var findresult = database.Set<T>().Find(IdentifyPrimaryKey(entity));
-
-                if (findresult != null)
+                using (database)
                 {
-                    database.Set<T>().Remove(findresult);
-                    database.SaveChanges();
+                    T entity = Activator.CreateInstance<T>();
+                    CopyToModel(entity, model);
+
+                    var findresult = database.Set<T>().Find(IdentifyPrimaryKey(entity));
+
+                    if (findresult != null)
+                    {
+                        database.Set<T>().Remove(findresult);
+                        database.SaveChanges();
+                    }
                 }
+
 
             }
             catch (Exception ex)
@@ -452,6 +472,10 @@ namespace Tokiku.Controllers
                     model = Activator.CreateInstance<TView>();
                 }
                 setErrortoModel(model, ex);
+            }
+            finally
+            {
+                database = new TokikuEntities();
             }
         }
 

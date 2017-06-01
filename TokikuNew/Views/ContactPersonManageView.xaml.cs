@@ -23,6 +23,19 @@ namespace TokikuNew.Views
         }
 
 
+
+        public bool IsClient
+        {
+            get { return (bool)GetValue(IsClientProperty); }
+            set { SetValue(IsClientProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsClient.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsClientProperty =
+            DependencyProperty.Register("IsClient", typeof(bool), typeof(ContactPersonManageView), new PropertyMetadata(false));
+
+
+
         #region 登入人員
 
         public UserViewModel LoginedUser
@@ -68,23 +81,6 @@ namespace TokikuNew.Views
         public static readonly DependencyProperty SelectedContactProperty =
             DependencyProperty.Register("SelectedContact", typeof(ContactsViewModel),
                 typeof(ContactPersonManageView), new PropertyMetadata(default(ContactsViewModel)));
-        #endregion
-
-        #region 分頁關閉事件
-        public static readonly RoutedEvent OnPageClosingEvent = 
-            EventManager.RegisterRoutedEvent("OnPageClosingEvent", 
-                RoutingStrategy.Bubble, 
-                typeof(RoutedEventHandler),
-                typeof(ContactPersonManageView));
-        
-        /// <summary>
-        /// 發出關閉分頁事件
-        /// </summary>
-        public event RoutedEventHandler OnPageClosing
-        {
-            add { AddHandler(OnPageClosingEvent, value); }
-            remove { RemoveHandler(OnPageClosingEvent, value); }
-        }
         #endregion
 
         #region 聯絡人選擇變更事件
@@ -183,6 +179,43 @@ namespace TokikuNew.Views
                     RaiseEvent(new RoutedEventArgs(SelectedContactChangedEvent, obj));
                 }
             }
+        }
+
+        private void DataGridCheckBoxColumn_Selected(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        void OnChecked(object sender, RoutedEventArgs e)
+        {
+            DataGridCell cell = (DataGridCell)sender;
+            CheckBox cb = (CheckBox)e.Source;
+            ContactsViewModel currentrow = (ContactsViewModel)cell.DataContext;
+
+            var founddefuts = ((ManufacturersViewModel)DataContext).Contracts.Where(w => w.IsDefault == true
+            && w.Id != currentrow.Id );
+
+            if (founddefuts.Any())
+            {
+                if (founddefuts.Count() > 0)
+                {
+                    foreach (var fix in founddefuts)
+                    {
+                        fix.IsDefault = false;
+                    }
+                }
+            }
+
+            if (currentrow.IsDefault == false)
+            {
+                if (cb.IsChecked.HasValue && cb.IsChecked.Value)
+                {
+                    currentrow.IsDefault = true;
+                }
+            }
+          
+            //ContactsViewModel contact = (ContactsViewModel)e.OriginalSource;
+
         }
     }
 }

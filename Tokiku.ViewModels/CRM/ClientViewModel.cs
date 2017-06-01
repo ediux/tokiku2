@@ -8,24 +8,29 @@ using System.Windows;
 
 namespace Tokiku.ViewModels
 {
-    public class ClientViewModelCollection : ObservableCollection<ClientViewModel>,IBaseViewModel
+    public class ClientViewModelCollection : ObservableCollection<ClientViewModel>, IBaseViewModel
     {
         public ClientViewModelCollection()
         {
             HasError = false;
         }
 
-        public ClientViewModelCollection(IEnumerable<ClientViewModel> source):base(source){
+        public ClientViewModelCollection(IEnumerable<ClientViewModel> source) : base(source)
+        {
 
         }
 
         public IEnumerable<string> Errors { get; set; }
         public bool HasError { get; set; }
-     
+
     }
     public class ClientViewModel : ManufacturersViewModel
     {
 
+        public ClientViewModel() : base()
+        {
+            IsClient = true;
+        }
         public ProjectContractViewModelCollection ProjectContract
         {
             get { return (ProjectContractViewModelCollection)GetValue(ProjectContractProperty); }

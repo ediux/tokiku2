@@ -90,18 +90,7 @@ namespace TokikuNew.Views
             remove { RemoveHandler(SendNewPageRequestEvent, value); }
         }
 
-        #region 分頁關閉事件
 
-        public static readonly RoutedEvent OnPageClosingEvent = EventManager.RegisterRoutedEvent(
-"OnPageClosingEvent", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ContractManager));
-
-        public event RoutedEventHandler OnPageClosing
-        {
-            add { AddHandler(OnPageClosingEvent, value); }
-            remove { RemoveHandler(OnPageClosingEvent, value); }
-        }
-
-        #endregion
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
@@ -124,9 +113,9 @@ namespace TokikuNew.Views
             {
                 e.Handled = true;
 
-                DocumentLifeCircle mode = (DocumentLifeCircle)e.OriginalSource;
+                Mode = (DocumentLifeCircle)e.OriginalSource;
 
-                switch (mode)
+                switch (Mode)
                 {
 
                     case DocumentLifeCircle.Create:
@@ -177,23 +166,21 @@ namespace TokikuNew.Views
                         }
 
                         controller.SaveModel(SelectedEngineering);
-                        SelectedEngineering.Status.IsModify = false;
-                        SelectedEngineering.Status.IsSaved = true;
 
                         if (SelectedEngineering.HasError)
                         {
                             MessageBox.Show(string.Join("\n", SelectedEngineering.Errors.ToArray()));
-                            dockBar.DocumentMode = DocumentLifeCircle.Update;
+                            SelectedEngineering.Errors = null;
+                            Mode = DocumentLifeCircle.Update;
+                            break;
                         }
-                        else
-                        {
-                            dockBar.DocumentMode = DocumentLifeCircle.Read;
-                        }
-
                         if (SelectedEngineering.Status.IsNewInstance)
                         {
-                            RaiseEvent(new RoutedEventArgs(OnPageClosingEvent, this));
+                            RaiseEvent(new RoutedEventArgs(ClosableTabItem.OnPageClosingEvent, this.Parent));
                         }
+                        Mode = DocumentLifeCircle.Read;
+                        SelectedEngineering.Status.IsModify = false;
+                        SelectedEngineering.Status.IsSaved = true;
                         break;
                     case DocumentLifeCircle.Update:
                         ProjectContractViewModel model3 = (ProjectContractViewModel)DataContext;
@@ -202,7 +189,7 @@ namespace TokikuNew.Views
                         model3.Status.IsNewInstance = false;
                         break;
                 }
-                Mode = dockBar.DocumentMode;
+                //Mode = dockBar.DocumentMode;
                 UpdateLayout();
             }
             catch (Exception ex)

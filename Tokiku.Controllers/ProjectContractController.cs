@@ -43,53 +43,51 @@ namespace Tokiku.Controllers
                 setErrortoModel(model, ex);
                 return model;
             }
-         
+
         }
 
         public override void Add(ProjectContractViewModel model)
         {
             try
             {
-                ProjectContract entity = new ProjectContract();
-                CopyToModel(entity, model);
-                if (model.Engineerings.Any())
-                { 
-                    foreach(var eng in model.Engineerings)
-                    {
-                        Engineering engmodel = new Engineering();
-                        CopyToModel(engmodel, eng);
-                        engmodel.ProjectContractId = model.Id;
-                        entity.Engineering.Add(engmodel);
-                    }                
-                }
-               
-                if (model.PromissoryNoteManagement.Any())
+                using (database)
                 {
-                    foreach(var row in model.PromissoryNoteManagement)
+                    ProjectContract entity = new ProjectContract();
+                    CopyToModel(entity, model);
+                    if (model.Engineerings.Any())
                     {
-                        PromissoryNoteManagement PNMRow = new PromissoryNoteManagement();
-                        CopyToModel(PNMRow, row);
-                        
-                        entity.PromissoryNoteManagement.Add(PNMRow);
+                        foreach (var eng in model.Engineerings)
+                        {
+                            Engineering engmodel = new Engineering();
+                            CopyToModel(engmodel, eng);
+                            engmodel.ProjectContractId = model.Id;
+                            entity.Engineering.Add(engmodel);
+                        }
                     }
+
+                    if (model.PromissoryNoteManagement.Any())
+                    {
+                        foreach (var row in model.PromissoryNoteManagement)
+                        {
+                            PromissoryNoteManagement PNMRow = new PromissoryNoteManagement();
+                            CopyToModel(PNMRow, row);
+
+                            entity.PromissoryNoteManagement.Add(PNMRow);
+                        }
+                    }
+                    database.ProjectContract.Add(entity);
+                    database.SaveChanges();
                 }
-                database.ProjectContract.Add(entity);
-                database.SaveChanges();
+
             }
             catch (Exception ex)
             {
                 setErrortoModel(model, ex);
             }
-        }
-
-        public override ProjectContractViewModel Update(ProjectContractViewModel model)
-        {
-            return base.Update(model);
-        }
-
-        public override void Delete(ProjectContractViewModel model)
-        {
-            base.Delete(model);
+            finally
+            {
+                database = new TokikuEntities();
+            }
         }
 
         public ProjectContractViewModelCollection QueryAll(Guid ProjectId)
@@ -146,7 +144,7 @@ namespace Tokiku.Controllers
             {
                 if (queries.Any())
                 {
-                    foreach(var row in queries)
+                    foreach (var row in queries)
                     {
                         rtn.Add(ResultBindToViewModel(row));
                     }

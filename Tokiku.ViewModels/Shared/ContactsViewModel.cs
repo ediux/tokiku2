@@ -12,7 +12,7 @@ namespace Tokiku.ViewModels
     {
         public ContactsViewModelCollection()
         {
-
+           
         }
 
         public ContactsViewModelCollection(IEnumerable<ContactsViewModel> source) : base(source)

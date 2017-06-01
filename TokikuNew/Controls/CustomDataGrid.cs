@@ -26,7 +26,7 @@ namespace TokikuNew.Controls
     new ExecutedRoutedEventHandler(CustomDataGrid_Executed),
     new CanExecuteRoutedEventHandler(CustomDataGrid_CanExecute)));
 
-            SetValue(CanUserAddRowsProperty, true);
+            //SetValue(CanUserAddRowsProperty, true);
         }
 
         public bool AllowExecuteSystemCommand
@@ -62,9 +62,11 @@ namespace TokikuNew.Controls
                 int maxColumnDisplayIndex = Columns.Count - 1;
 
                 int rowDataIndex = 0;
+
+                
                 for (int i = minRowIndex; i <= maxRowIndex && rowDataIndex < rowData.Count; i++, rowDataIndex++)
                 {
-                    if (CanUserAddRows && i == maxRowIndex)
+                    if (i == maxRowIndex)
                     {
                         // add a new row to be pasted to
                         ICollectionView cv = CollectionViewSource.GetDefaultView(Items);
@@ -97,8 +99,8 @@ namespace TokikuNew.Controls
                         {
                             try
                             {
-                                object convertedValue = Convert.ChangeType(value, pi.PropertyType);
-                                item.GetType().GetProperty(propertyName).SetValue(item, convertedValue, null);
+                             
+                                item.GetType().GetProperty(propertyName).SetValue(item, value, null);
                             }
                             catch
                             {

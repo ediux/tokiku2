@@ -8,6 +8,7 @@ namespace Tokiku.Entity
 {
     public partial class TokikuEntities
     {
+       
         public TokikuEntities(string connectionString):base(connectionString)
         {
 

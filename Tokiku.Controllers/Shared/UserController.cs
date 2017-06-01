@@ -121,7 +121,7 @@ namespace Tokiku.Controllers
             }
             catch (Exception ex)
             {
-                
+
                 if (ex is DbEntityValidationException)
                 {
                     DbEntityValidationException dbex = (DbEntityValidationException)ex;
@@ -137,7 +137,7 @@ namespace Tokiku.Controllers
                     }
 
                     model.Errors = msg.AsEnumerable();
-                   
+
                 }
 
                 model.Errors = new string[] { ex.Message };
@@ -187,7 +187,7 @@ namespace Tokiku.Controllers
                 }
                 return null;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 UserViewModel model = new UserViewModel();
                 if (ex is DbEntityValidationException)
@@ -236,25 +236,40 @@ namespace Tokiku.Controllers
 
         public override UserViewModel CreateNew()
         {
-            return new UserViewModel();
+            return new UserViewModel()
+            {
+                IsAnonymous = true,
+                LastActivityDate = new DateTime(1754, 1, 1),
+                LoweredUserName = Environment.UserName.ToLowerInvariant(),
+                UserName = Environment.UserName,
+                UserId = Guid.NewGuid()
+            };
         }
 
         public override void Add(UserViewModel model)
         {
             try
             {
-                Users newUser = new Users();
+                using (database)
+                {
+    Users newUser = new Users();
                 CopyToModel(newUser, model);
                 database.Users.Add(newUser);
                 database.SaveChanges();
+                }
+            
             }
             catch (Exception ex)
             {
-                setErrortoModel(model, ex);                
+                setErrortoModel(model, ex);
+            }
+            finally
+            {
+                database = new TokikuEntities();
             }
         }
 
-      
+
 
 
     }

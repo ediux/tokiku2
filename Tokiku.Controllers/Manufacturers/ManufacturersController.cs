@@ -108,7 +108,7 @@ namespace Tokiku.Controllers
             return string.Format("{0:00}", Code);
         }
 
-       
+
 
         public IEnumerable SearchByText(string originalSource)
         {
@@ -141,7 +141,7 @@ namespace Tokiku.Controllers
             }
         }
 
-      
+
         public override ManufacturersViewModel Query(Expression<Func<Manufacturers, bool>> filiter)
         {
             try
@@ -187,17 +187,26 @@ namespace Tokiku.Controllers
 
             try
             {
-                var result = from p in database.Manufacturers
-                             where p.Void == false && p.IsClient == false
-                             select p;
+                using (database)
+                {
+                    var result = from p in database.Manufacturers
+                                 where p.Void == false && p.IsClient == false
+                                 orderby p.Code ascending
+                                 select p;
 
-                ResultBindingToViewModelCollection(rtn, result);
+                    ResultBindingToViewModelCollection(rtn, result);
 
-                return rtn;
+                    return rtn;
+                }
+
             }
             catch
             {
                 return rtn;
+            }
+            finally
+            {
+                database = new TokikuEntities();
             }
         }
 
@@ -240,12 +249,12 @@ namespace Tokiku.Controllers
 
             if (database.PaymentTypes.Any())
             {
-                foreach(var paytype in database.PaymentTypes.ToArray())
+                foreach (var paytype in database.PaymentTypes.ToArray())
                 {
                     model.PaymentTypes.Add(new PaymentTypeViewModel { Id = paytype.Id, PaymentTypeName = paytype.PaymentTypeName });
                 }
             }
-           
+
             return model;
         }
 
@@ -273,98 +282,121 @@ namespace Tokiku.Controllers
 
         public override void Add(ManufacturersViewModel model)
         {
-            var dbm = new Manufacturers();
-            CopyToModel(dbm, model);
-
-            if (model.Contracts.Any())
-            {
-                foreach (var item in model.Contracts)
-                {
-                    Contacts newContacts = new Contacts();
-                    CopyToModel(newContacts, item);
-                    dbm.Contacts.Add(newContacts);
-                }
-            }
-
-            if (model.Materials.Any())
-            {
-                foreach (var item in model.Materials)
-                {
-                    Materials newContacts = new Materials();
-                    CopyToModel(newContacts, item);
-
-                }
-            }
-
-            database.Manufacturers.Add(dbm);
-            database.SaveChanges();
-        }
-
-        public override ManufacturersViewModel Update(ManufacturersViewModel model)
-        {
             try
             {
-                UserController uc = new UserController();
-                var LoginedUser = uc.GetCurrentLoginUser();
-                var dbm = (from q in database.Manufacturers
-                           where q.Id == model.Id && q.Void == false
-                           select q).SingleOrDefault();
-
-                if (dbm != null)
+                using (database)
                 {
+                    var dbm = new Manufacturers();
                     CopyToModel(dbm, model);
 
                     if (model.Contracts.Any())
                     {
                         foreach (var item in model.Contracts)
                         {
-                            Stack<Contacts> removeStack = new Stack<Contacts>();
+                            Contacts newContacts = new Contacts();
+                            CopyToModel(newContacts, item);
+                            dbm.Contacts.Add(newContacts);
+                        }
+                    }
 
-                            foreach (var rowindb in dbm.Contacts)
-                            {
-                                if (model.Contracts.Where(w => w.Id == rowindb.Id).Any() == false)
-                                {
-                                    //remove(指資料真的被移除了)
-                                    removeStack.Push(rowindb);
-                                }
-                            }
+                    if (model.Materials.Any())
+                    {
+                        foreach (var item in model.Materials)
+                        {
+                            Materials newContacts = new Materials();
+                            CopyToModel(newContacts, item);
 
-                            if (removeStack.Count > 0)
-                            {
-                                while (removeStack.Count > 0)
-                                {
-                                    dbm.Contacts.Remove(removeStack.Pop());
-                                }
-                            }
+                        }
+                    }
 
-                            foreach (var row in model.Contracts)
+                    database.Manufacturers.Add(dbm);
+                    database.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(model, ex);
+            }
+            finally
+            {
+                database = new TokikuEntities();
+            }
+
+        }
+
+        public override ManufacturersViewModel Update(ManufacturersViewModel model)
+        {
+            try
+            {
+                using (database)
+                {
+                    UserController uc = new UserController();
+                    var LoginedUser = uc.GetCurrentLoginUser();
+                    var dbm = (from q in database.Manufacturers
+                               where q.Id == model.Id && q.Void == false
+                               select q).SingleOrDefault();
+
+                    if (dbm != null)
+                    {
+                        CopyToModel(dbm, model);
+
+                        if (model.Contracts.Any())
+                        {
+                            foreach (var item in model.Contracts)
                             {
-                                if (dbm.Contacts.Where(w => w.Id == row.Id).Any())
+                                Stack<Contacts> removeStack = new Stack<Contacts>();
+
+                                foreach (var rowindb in dbm.Contacts)
                                 {
-                                    var foundinoriginal = dbm.Contacts.Where(w => w.Id == row.Id).Single();
-                                    CopyToModel(foundinoriginal, row);
-                                  //  database.Entry(foundinoriginal).State = System.Data.Entity.EntityState.Modified;
+                                    if (model.Contracts.Where(w => w.Id == rowindb.Id).Any() == false)
+                                    {
+                                        //remove(指資料真的被移除了)
+                                        removeStack.Push(rowindb);
+                                    }
                                 }
-                                else
+
+                                if (removeStack.Count > 0)
                                 {
-                                    Contacts newData = new Contacts();
-                                    CopyToModel(newData, row);
-                                    newData.CreateUserId = LoginedUser.UserId;
-                                    dbm.Contacts.Add(newData);
+                                    while (removeStack.Count > 0)
+                                    {
+                                        dbm.Contacts.Remove(removeStack.Pop());
+                                    }
+                                }
+
+                                foreach (var row in model.Contracts)
+                                {
+                                    if (dbm.Contacts.Where(w => w.Id == row.Id).Any())
+                                    {
+                                        var foundinoriginal = dbm.Contacts.Where(w => w.Id == row.Id).Single();
+                                        CopyToModel(foundinoriginal, row);
+                                        //  database.Entry(foundinoriginal).State = System.Data.Entity.EntityState.Modified;
+                                    }
+                                    else
+                                    {
+                                        Contacts newData = new Contacts();
+                                        CopyToModel(newData, row);
+                                        newData.CreateUserId = LoginedUser.UserId;
+                                        dbm.Contacts.Add(newData);
+                                    }
                                 }
                             }
                         }
                     }
-                }
-                //database.Entry(dbm).State = System.Data.Entity.EntityState.Modified;
-                database.SaveChanges();
+                    //database.Entry(dbm).State = System.Data.Entity.EntityState.Modified;
+                    database.SaveChanges();
 
-                return Query(w => w.Id == model.Id);
+                    return Query(w => w.Id == model.Id);
+                }
+
             }
             catch (Exception ex)
             {
                 setErrortoModel(model, ex);
                 return model;
+            }
+            finally
+            {
+                database = new TokikuEntities();
             }
 
         }
@@ -414,7 +446,7 @@ namespace Tokiku.Controllers
                     model = Query(x => x.Id == model.Id);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 setErrortoModel(model, ex);
             }

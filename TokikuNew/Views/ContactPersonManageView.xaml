@@ -29,8 +29,14 @@
                           ItemsSource="{Binding Contracts}"
                                       >
             <DataGrid.Columns>
-                <DataGridCheckBoxColumn Header="預設"  Binding="{Binding IsDefault}" Width="40"/>
-                <DataGridTextColumn Header="姓名" Binding="{Binding Name}" Width="100" />
+                <DataGridCheckBoxColumn Header="預設"  Binding="{Binding IsDefault}" Width="40">
+                    <DataGridCheckBoxColumn.CellStyle>
+                        <Style>
+                            <EventSetter Event="CheckBox.Checked" Handler="OnChecked"/>
+                        </Style>
+                    </DataGridCheckBoxColumn.CellStyle>
+                </DataGridCheckBoxColumn>
+                <DataGridTextColumn Header="姓名" Binding="{Binding Name}" Width="100"  />
                 <DataGridTextColumn Header="行動電話" Binding="{Binding Mobile}" Width="70" />
                 <DataGridTextColumn Header="電話" Binding="{Binding Phone}" Width="70" />
                 <DataGridTextColumn Header="分機" Binding="{Binding ExtensionNumber}" Width="70" />

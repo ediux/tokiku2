@@ -138,20 +138,9 @@ namespace TokikuNew.Views
                             {
                                 foreach (ContactsViewModel model in SelectedManufacturers.Contracts)
                                 {
-                                    if (model.CreateUserId == Guid.Empty)
-                                    {
-                                        model.CreateUserId = LoginedUser.UserId;
-                                    }
-                                }
-                            }
-                        }
 
-                        if (SelectedManufacturers.Engineerings != null)
-                        {
-                            if (SelectedManufacturers.Engineerings.Count > 0)
-                            {
-                                foreach (EngineeringViewModel model in SelectedManufacturers.Engineerings)
-                                {
+                                    model.Id = Guid.NewGuid();
+
                                     if (model.CreateUserId == Guid.Empty)
                                     {
                                         model.CreateUserId = LoginedUser.UserId;
@@ -174,13 +163,19 @@ namespace TokikuNew.Views
                             break;
                         }
 
-                        Mode = DocumentLifeCircle.Read;
+
 
                         if (dockBar.LastState == DocumentLifeCircle.Create)
                         {
                             RaiseEvent(new RoutedEventArgs(ClosableTabItem.OnPageClosingEvent, this.Parent));
                         }
-                        
+
+                        Mode = DocumentLifeCircle.Read;
+
+                        SelectedManufacturers.Status.IsModify = false;
+                        SelectedManufacturers.Status.IsSaved = true;
+                        SelectedManufacturers.Status.IsNewInstance = false;
+
                         break;
                     case DocumentLifeCircle.Update:
                         SelectedManufacturers.Status.IsModify = false;

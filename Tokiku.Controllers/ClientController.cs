@@ -206,5 +206,124 @@ namespace Tokiku.Controllers
                 return rtn;
             }
         }
+
+        public override void Add(ClientViewModel model)
+        {
+            try
+            {
+                using (database)
+                {
+                    var dbm = new Manufacturers();
+                    CopyToModel(dbm, model);
+
+                    if (model.Contracts.Any())
+                    {
+                        foreach (var item in model.Contracts)
+                        {
+                            Contacts newContacts = new Contacts();
+                            CopyToModel(newContacts, item);
+                            dbm.Contacts.Add(newContacts);
+                        }
+                    }
+
+                    if (model.Materials.Any())
+                    {
+                        foreach (var item in model.Materials)
+                        {
+                            Materials newContacts = new Materials();
+                            CopyToModel(newContacts, item);
+
+                        }
+                    }
+
+                    database.Manufacturers.Add(dbm);
+                    database.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(model, ex);
+            }
+            finally
+            {
+                database = new TokikuEntities();
+            }
+        }
+
+        public override ClientViewModel Update(ClientViewModel model)
+        {
+            try
+            {
+                using (database)
+                {
+                    UserController uc = new UserController();
+                    var LoginedUser = uc.GetCurrentLoginUser();
+                    var dbm = (from q in database.Manufacturers
+                               where q.Id == model.Id && q.Void == false
+                               select q).SingleOrDefault();
+
+                    if (dbm != null)
+                    {
+                        CopyToModel(dbm, model);
+
+                        if (model.Contracts.Any())
+                        {
+                            foreach (var item in model.Contracts)
+                            {
+                                Stack<Contacts> removeStack = new Stack<Contacts>();
+
+                                foreach (var rowindb in dbm.Contacts)
+                                {
+                                    if (model.Contracts.Where(w => w.Id == rowindb.Id).Any() == false)
+                                    {
+                                        //remove(指資料真的被移除了)
+                                        removeStack.Push(rowindb);
+                                    }
+                                }
+
+                                if (removeStack.Count > 0)
+                                {
+                                    while (removeStack.Count > 0)
+                                    {
+                                        dbm.Contacts.Remove(removeStack.Pop());
+                                    }
+                                }
+
+                                foreach (var row in model.Contracts)
+                                {
+                                    if (dbm.Contacts.Where(w => w.Id == row.Id).Any())
+                                    {
+                                        var foundinoriginal = dbm.Contacts.Where(w => w.Id == row.Id).Single();
+                                        CopyToModel(foundinoriginal, row);
+                                        //  database.Entry(foundinoriginal).State = System.Data.Entity.EntityState.Modified;
+                                    }
+                                    else
+                                    {
+                                        Contacts newData = new Contacts();
+                                        CopyToModel(newData, row);
+                                        newData.CreateUserId = LoginedUser.UserId;
+                                        dbm.Contacts.Add(newData);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //database.Entry(dbm).State = System.Data.Entity.EntityState.Modified;
+                    database.SaveChanges();
+
+                    return Query(w => w.Id == model.Id);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(model, ex);
+                return model;
+            }
+            finally
+            {
+                database = new TokikuEntities();
+            }
+        }
     }
 }

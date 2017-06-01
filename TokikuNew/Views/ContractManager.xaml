@@ -24,9 +24,10 @@
             </Grid.RowDefinitions>
             <GroupBox Grid.Column="0" Grid.Row="0"  Grid.ColumnSpan="2" Margin="5" Header="合約項目(工程項目)">
                 <Controls:CustomDataGrid Margin="5" VerticalAlignment="Stretch" 
+                                         AllowExecuteSystemCommand="True"
                                          AutoGenerateColumns="False"
-                                         CanUserAddRows="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"
-                                         CanUserDeleteRows="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"
+                                         CanUserAddRows="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,  ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"
+                                         CanUserDeleteRows="{Binding Path=Mode,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"
                                          ItemsSource="{Binding Engineerings}"
                                          IsReadOnly="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}"
                                          x:Name="EngCaseList"

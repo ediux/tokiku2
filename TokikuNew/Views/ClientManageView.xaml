@@ -4,10 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
-             xmlns:controller="clr-namespace:Tokiku.Controllers;assembly=Tokiku.Controllers"
+            
              xmlns:c="clr-namespace:TokikuNew.Controls"
-             xmlns:ValueConverters="clr-namespace:TokikuNew.ValueConverters" 
+
              mc:Ignorable="d" 
+             
              d:DesignHeight="768" d:DesignWidth="1024"
              Background="{DynamicResource ControlBackgroundBrush}" Loaded="UserControl_Loaded">
     <UserControl.Resources>
@@ -49,7 +50,7 @@
                     <TextBlock Text="客戶代碼" Grid.Row="0" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
                     <TextBlock Name="tbCode" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Code,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                     <TextBlock Text="客戶名稱" Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-                    <TextBox Name="tbName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" TextChanged="tbName_TextChanged" IsEnabled="{Binding Path=Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Name="tbName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Path=Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" TextChanged="tbName_TextChanged" IsEnabled="{Binding Path=Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <TextBlock Text="客戶簡稱" Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
                     <TextBlock Name="tbShortName" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding ShortName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
                     <TextBlock Text="聯絡人" Grid.Row="3" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
@@ -89,38 +90,8 @@
             <GroupBox Header="相關聯絡人" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="4" Margin="2" 
                       >
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="27"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50*"/>
-                        <ColumnDefinition Width="50*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="搜尋" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="15"/>
+                    <local:ContactPersonManageView x:Name="ContractList" Mode="{Binding Path=Mode, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                    
-                    <c:SearchBar x:Name="sSearchBar" Grid.Column="1" Grid.Row="0" Search="sSearchBar_Search" ResetSearch="sSearchBar_ResetSearch"  />
-                    <c:CustomDataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" AutoGenerateColumns="False" 
-                                      x:Name="ContractList"
-                                      CanUserAddRows="{Binding Path=Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      CanUserDeleteRows="{Binding Path=Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      ItemsSource="{Binding Contracts}"
-                                      IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource  ReadModeToEnabledValueConverter}, ElementName=userControl}"
-                                      >
-                        <DataGrid.Columns>
-                            <DataGridCheckBoxColumn Header="預設"  Binding="{Binding IsDefault}" Width="40"/>
-                            <DataGridTextColumn Header="姓名" Binding="{Binding Name}" Width="100" />
-                            <DataGridTextColumn Header="行動電話" Binding="{Binding Mobile}" Width="70" />
-                            <DataGridTextColumn Header="電話" Binding="{Binding Phone}" Width="70" />
-                            <DataGridTextColumn Header="分機" Binding="{Binding ExtensionNumber}" Width="70" />
-                            <DataGridTextColumn Header="傳真" Binding="{Binding Fax}" Width="70"/>
-                            <DataGridTextColumn Header="eMail" Binding="{Binding EMail}" Width="200" />
-                            <DataGridTextColumn Header="部門" Binding="{Binding Dep}" Width="100" />
-                            <DataGridTextColumn Header="職稱" Binding="{Binding Title}" Width="100" />
-                            <DataGridCheckBoxColumn Header="狀態" Binding="{Binding Void}" Width="30"/>
-                            <DataGridTextColumn Header="備註" Binding="{Binding Comment}" Width="200" />
-                        </DataGrid.Columns>
-                    </c:CustomDataGrid>
                 </Grid>
             </GroupBox>
         </Grid>

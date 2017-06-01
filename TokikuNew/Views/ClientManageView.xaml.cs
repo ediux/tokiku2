@@ -53,20 +53,20 @@ namespace TokikuNew.Views
         public static readonly DependencyProperty LoginedUserProperty =
             DependencyProperty.Register("LoginedUser", typeof(UserViewModel), typeof(ClientManageView), new PropertyMetadata(default(UserViewModel)));
 
-        private void sSearchBar_Search(object sender, RoutedEventArgs e)
-        {
-            ManufacturersViewModel model = (ManufacturersViewModel)DataContext;
-            ContractList.ItemsSource = contactcontroller.SearchByText((string)e.OriginalSource, model.Id, true);
-        }
+        //private void sSearchBar_Search(object sender, RoutedEventArgs e)
+        //{
+        //    ManufacturersViewModel model = (ManufacturersViewModel)DataContext;
+        //    ContractList.DataContext = contactcontroller.SearchByText((string)e.OriginalSource, model.Id, true);
+        //}
 
 
 
-        private void sSearchBar_ResetSearch(object sender, RoutedEventArgs e)
-        {
-            ManufacturersViewModel model = (ManufacturersViewModel)DataContext;
+        //private void sSearchBar_ResetSearch(object sender, RoutedEventArgs e)
+        //{
+        //    ManufacturersViewModel model = (ManufacturersViewModel)DataContext;
 
-            ContractList.ItemsSource = model.Contracts;
-        }
+        //    ContractList.DataContext = model.Contracts;
+        //}
 
         private void tbName_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -103,12 +103,13 @@ namespace TokikuNew.Views
 
                     case DocumentLifeCircle.Create:
                         this.DataContext = controller.CreateNew();
-                        SelectedManufacturers = (ClientViewModel) DataContext;
+                        SelectedManufacturers = (ClientViewModel)DataContext;
                         SelectedManufacturers.CreateUserId = LoginedUser.UserId;
 
                         if (SelectedManufacturers.HasError)
                         {
                             MessageBox.Show(string.Join("\n", SelectedManufacturers.Errors.ToArray()));
+                            SelectedManufacturers.Errors = null;
                             dockBar.DocumentMode = DocumentLifeCircle.Read;
                         }
 
@@ -125,6 +126,8 @@ namespace TokikuNew.Views
                             {
                                 foreach (ContactsViewModel model in SelectedManufacturers.Contracts)
                                 {
+                                    model.Id = Guid.NewGuid();
+
                                     if (model.CreateUserId == Guid.Empty)
                                     {
                                         model.CreateUserId = LoginedUser.UserId;
@@ -144,6 +147,7 @@ namespace TokikuNew.Views
                             }
                         }
                         SelectedManufacturers.IsClient = true;
+
                         if (SelectedManufacturers.Materials == null)
                             SelectedManufacturers.Materials = new MaterialsViewModelCollection();
 
@@ -152,20 +156,21 @@ namespace TokikuNew.Views
                         if (SelectedManufacturers.HasError)
                         {
                             MessageBox.Show(string.Join("\n", SelectedManufacturers.Errors.ToArray()));
+                            SelectedManufacturers.Errors = null;
                             Mode = dockBar.LastState;
                             break;
                         }
-                        
-                        Mode = DocumentLifeCircle.Read;
-                        SelectedManufacturers.Status.IsNewInstance = false;
-                        SelectedManufacturers.Status.IsModify = false;
-                        SelectedManufacturers.Status.IsSaved = true;
 
                         if (SelectedManufacturers.Status.IsNewInstance)
                         {
                             RaiseEvent(new RoutedEventArgs(ClosableTabItem.OnPageClosingEvent, this));
                         }
 
+                        Mode = DocumentLifeCircle.Read;
+
+                        SelectedManufacturers.Status.IsNewInstance = false;
+                        SelectedManufacturers.Status.IsModify = false;
+                        SelectedManufacturers.Status.IsSaved = true;
                         break;
                     case DocumentLifeCircle.Update:
                         SelectedManufacturers.Status.IsNewInstance = false;

@@ -240,14 +240,17 @@ namespace Tokiku.Controllers
         {
             try
             {
-                using (UserController usercontroller = new UserController())
+                using (database)
                 {
-                    Contacts newdata = new Contacts();
-                    model.CreateTime = DateTime.Now;
-                    model.CreateUserId = usercontroller.GetCurrentLoginUser().UserId;
-                    CopyToModel(newdata, model);
-                    database.Contacts.Add(newdata);
-                    database.SaveChanges();
+                    using (UserController usercontroller = new UserController())
+                    {
+                        Contacts newdata = new Contacts();
+                        model.CreateTime = DateTime.Now;
+                        model.CreateUserId = usercontroller.GetCurrentLoginUser().UserId;
+                        CopyToModel(newdata, model);
+                        database.Contacts.Add(newdata);
+                        database.SaveChanges();
+                    }
                 }
 
             }
@@ -279,57 +282,46 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var original = (from q in database.Contacts
-                                where q.Id == model.Id
-                                select q).SingleOrDefault();
-
-                if (original != null)
+                using (database)
                 {
-                    using (UserController usercontroller = new UserController())
+                    var original = (from q in database.Contacts
+                                    where q.Id == model.Id
+                                    select q).SingleOrDefault();
+
+                    if (original != null)
                     {
-                        CopyToModel(original, model);
-                        database.AccessLog.Add(new AccessLog()
+                        using (UserController usercontroller = new UserController())
                         {
-                            ActionCode = 2,
-                            CreateTime = DateTime.Now,
-                            DataId = original.Id,
-                            UserId = usercontroller.GetCurrentLoginUser().UserId
-                        });
-                        database.SaveChanges();
-                    }
-
-
-                    return Query(x => x.Id == model.Id);
-                }
-
-                model.Errors = new string[] { };
-                model.HasError = true;
-
-                return model;
-            }
-            catch (Exception ex)
-            {
-                if (ex is DbEntityValidationException)
-                {
-                    DbEntityValidationException dbex = (DbEntityValidationException)ex;
-
-                    List<string> msg = new List<string>();
-
-                    foreach (var err in dbex.EntityValidationErrors)
-                    {
-                        foreach (var errb in err.ValidationErrors)
-                        {
-                            msg.Add(errb.ErrorMessage);
+                            CopyToModel(original, model);
+                            database.AccessLog.Add(new AccessLog()
+                            {
+                                ActionCode = 2,
+                                CreateTime = DateTime.Now,
+                                DataId = original.Id,
+                                UserId = usercontroller.GetCurrentLoginUser().UserId
+                            });
+                            database.SaveChanges();
                         }
+
+
+                        return Query(x => x.Id == model.Id);
                     }
 
-                    model.Errors = msg.AsEnumerable();
+                    model.Errors = new string[] { };
+                    model.HasError = true;
+
                     return model;
                 }
 
-                model.Errors = new string[] { ex.Message };
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(model, ex);
                 return model;
-
+            }
+            finally
+            {
+                database = new TokikuEntities();
             }
 
         }
