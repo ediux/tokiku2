@@ -1218,7 +1218,7 @@
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ShortName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="ProjectSigningDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="SiteAddress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
@@ -1710,7 +1710,7 @@
                 <ScalarProperty Name="SiteAddress" ColumnName="SiteAddress" />
                 <ScalarProperty Name="ProjectSigningDate" ColumnName="ProjectSigningDate" />
                 <ScalarProperty Name="ShortName" ColumnName="ShortName" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProjectName" ColumnName="Name" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

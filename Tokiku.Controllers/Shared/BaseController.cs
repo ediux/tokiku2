@@ -32,6 +32,7 @@ namespace Tokiku.Controllers
                 Type t = typeof(TB);
                 Type ct = typeof(TViewB);
 #if DEBUG
+                Debug.WriteLine("BindingFromModel");
                 Debug.WriteLine(string.Format("資料實體{0},檢視模型為{1}", t.Name, ct.Name));
                 Debug.WriteLine("開始抄寫.");
 #endif
@@ -48,20 +49,21 @@ namespace Tokiku.Controllers
 
                             if (prop.PropertyType == ctProp.PropertyType)
                             {
+
                                 var entityvalue = prop.GetValue(entity);
                                 var value = ctProp.GetValue(ViewModel);
 
 #if DEBUG
-                                Debug.WriteIf(entityvalue == null, string.Format("資料實體屬性 {0}({2}) 內容值為 {1}(null).\n", prop.Name, entityvalue,prop.PropertyType.Name));
-                                Debug.WriteIf(value == null, string.Format("檢視模型屬性 {0}({2}) 內容值為 {1}(null).\n", ctProp.Name, value,ctProp.PropertyType.Name));
+                                Debug.Write(string.Format("資料實體屬性 {0}({2}) 內容值為 {1}(null).\n", prop.Name, entityvalue, prop.PropertyType.Name));
+                                Debug.Write(string.Format("檢視模型屬性 {0}({2}) 內容值為 {1}(null).\n", ctProp.Name, value, ctProp.PropertyType.Name));
 #endif
 
-                                ctProp.SetValue(ViewModel, prop.GetValue(entity));
+                                ctProp.SetValue(ViewModel, entityvalue);
                             }
                         }
                     }
 #if DEBUG
-                    catch(Exception ex)
+                    catch (Exception ex)
 #else
                     catch
 #endif
@@ -71,7 +73,7 @@ namespace Tokiku.Controllers
                         Debug.WriteLine(ex.Message);
 
 #endif
-                    continue;
+                        continue;
                     }
 
                 }
@@ -98,9 +100,10 @@ namespace Tokiku.Controllers
         {
             try
             {
-                Type CurrentViewModelType = typeof(TViewB);
-                Type TargetEntity = typeof(TB);
+                Type CurrentViewModelType = ViewModel.GetType();
+                Type TargetEntity = entity.GetType();
 #if DEBUG
+                Debug.WriteLine("CopyToModel");
                 Debug.WriteLine(string.Format("資料實體{0},檢視模型為{1}", TargetEntity.Name, CurrentViewModelType.Name));
                 Debug.WriteLine("開始抄寫.");
 #endif
@@ -116,14 +119,26 @@ namespace Tokiku.Controllers
                             var entityvalue = EntityProperty.GetValue(entity);
                             var value = ViewModelProperty.GetValue(ViewModel);
 
+                            if (EntityProperty.PropertyType.IsGenericType && EntityProperty.PropertyType.GetGenericTypeDefinition().Name == (typeof(ICollection<>).Name))
+                            {
+                                continue;
+                            }
+
+
+
+                            if (ViewModelProperty.PropertyType.IsGenericType && ViewModelProperty.PropertyType.GetGenericTypeDefinition().Name == (typeof(ObservableCollection<>).Name))
+                            {
+                                continue;
+                            }
+#if DEBUG
+                            Debug.WriteLine(string.Format("資料實體屬性 {0}({2}) 內容值為 {1}.\n", EntityProperty.Name, entityvalue, EntityProperty.PropertyType.Name));
+                            Debug.WriteLine(string.Format("檢視模型屬性 {0}({2}) 內容值為 {1}.\n", ViewModelProperty.Name, value, ViewModelProperty.PropertyType.Name));
+#endif
                             if (value != null && !value.Equals(entityvalue))
                             {
-#if DEBUG
-                                Debug.WriteIf(entityvalue == null, string.Format("資料實體屬性 {0}({2}) 內容值為 {1}.\n", EntityProperty.Name, entityvalue,EntityProperty.PropertyType.Name));
-                                Debug.WriteIf(value == null, string.Format("檢視模型屬性 {0}({2}) 內容值為 {1}.\n", ViewModelProperty.Name, value,ViewModelProperty.PropertyType.Name));
-#endif
                                 EntityProperty.SetValue(entity, value);
                             }
+                            Debug.WriteLine(string.Format("抄寫後資料實體屬性 {0}({2}) 內容值為 {1}.\n", EntityProperty.Name, EntityProperty.GetValue(entity), EntityProperty.PropertyType.Name));
                         }
                     }
                     catch (Exception ex)
@@ -145,7 +160,7 @@ namespace Tokiku.Controllers
             }
         }
 
-#region IDisposable Support
+        #region IDisposable Support
         private bool disposedValue = false; // 偵測多餘的呼叫
 
         protected virtual void Dispose(bool disposing)
@@ -178,7 +193,7 @@ namespace Tokiku.Controllers
             // TODO: 如果上方的完成項已被覆寫，即取消下行的註解狀態。
             // GC.SuppressFinalize(this);
         }
-#endregion
+        #endregion
 
         /// <summary>
         /// 將錯誤訊息寫到檢視模型中以利顯示。

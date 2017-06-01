@@ -103,7 +103,7 @@ namespace TokikuNew.Views
             selectProjectBinding.Source = DataContext;
             SetBinding(SelectedProjectProperty, selectProjectBinding);
 
-            if (SelectedClient != null && SelectedProject.ClientId.HasValue)
+            if (SelectedProject.ClientId.HasValue)
             {
                 SelectedClient = clientcontroller.Query(s => s.Id == SelectedProject.ClientId.Value);
             }
@@ -180,8 +180,15 @@ namespace TokikuNew.Views
                                 {
                                     model.CreateUserId = LoginedUser.UserId;
                                 }
+
+                                model.ProjectId = SelectedProject.Id;
                             }
                         }
+
+                        if (SelectedClient != null)
+                            SelectedProject.ClientId = SelectedClient.Id;
+                       
+
                         controller.SaveModel(SelectedProject);
                         SelectedProject.Status.IsModify = false;
                         SelectedProject.Status.IsSaved = true;
@@ -190,7 +197,7 @@ namespace TokikuNew.Views
                         {
                             MessageBox.Show(string.Join("\n", SelectedProject.Errors.ToArray()));
                             SelectedProject.Errors = null;
-                            Mode = dockBar.LastState;                         
+                            Mode = dockBar.LastState;
                             break;
                         }
 

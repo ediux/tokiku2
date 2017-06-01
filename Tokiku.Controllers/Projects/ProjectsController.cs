@@ -110,7 +110,8 @@ namespace Tokiku.Controllers
 
                 var LoginedUser = usercontroller.GetCurrentLoginUser();
                 Projects newProject = new Projects();
-                newProject.Id = Guid.NewGuid();
+                //newProject.ProjectName = "";
+                //newProject.Id = model.Id;
                 model.CreateTime = DateTime.Now;
                 model.CreateUserId = LoginedUser.UserId;
                 CopyToModel(newProject, model);
@@ -133,11 +134,12 @@ namespace Tokiku.Controllers
                     foreach (var row in model.ProjectContract)
                     {
                         ProjectContract newdata = new ProjectContract();
-                        newdata.ProjectId = newProject.Id;
-                        newdata.SigningDate = model.ProjectSigningDate;
+    
                         newdata.AmountDue = 0F;
                         newdata.Area = 0F;
                         CopyToModel(newdata, row);
+                        newdata.ProjectId = newProject.Id;
+                        newdata.SigningDate = model.ProjectSigningDate;
                         newdata.State = model.StateText.Where(s => s.StateName == row.StateText).Select(s => s.Id).SingleOrDefault();
                         newProject.ProjectContract.Add(newdata);
                     }
@@ -150,7 +152,11 @@ namespace Tokiku.Controllers
             {
                 setErrortoModel(model, ex);
             }
-
+            finally
+            {
+                database.Dispose();
+                database = new TokikuEntities();
+            }
         }
 
         public ProjectsViewModel QuerySingle(Guid ProjectId)
@@ -192,7 +198,7 @@ namespace Tokiku.Controllers
                              {
                                  Id = p.Id,
                                  Code = p.Code,
-                                 Name = p.Name,
+                                 ProjectName = p.ProjectName,
                                  ShortName = p.ShortName,
                                  State = p.States.StateName,
                                  StartDate = (p.ProjectContract.OrderByDescending(s => s.StartDate).FirstOrDefault()).StartDate,
@@ -365,7 +371,7 @@ namespace Tokiku.Controllers
             {
                 var result = QueryAll().Where(s => s.Code.Contains(text)
                 || s.State.Contains(text)
-                 || s.Name.Contains(text)
+                 || s.ProjectName.Contains(text)
                 || s.ShortName.Contains(text));
 
                 var model = new ObservableCollection<ProjectListViewModel>();

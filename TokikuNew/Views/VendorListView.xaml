@@ -38,7 +38,7 @@
                                  IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridHyperlinkColumn  Header="廠商代號" Binding="{Binding Code}" Width="100" />
-                <DataGridTextColumn Header="廠商名稱" Binding="{Binding Name}" Width="100" />
+                <DataGridTextColumn Header="廠商名稱" Binding="{Binding Path=Name}" Width="100" />
                 <DataGridTextColumn Header="廠商簡稱" Binding="{Binding ShortName}" Width="100" />
                 <DataGridTextColumn Header="負責人" Binding="{Binding Principal}" Width="100" />
                 <DataGridTextColumn Header="統一編號" Binding="{Binding UniformNumbers}" Width="70" />

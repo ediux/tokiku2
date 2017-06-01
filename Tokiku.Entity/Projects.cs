@@ -23,7 +23,7 @@ namespace Tokiku.Entity
     
         public System.Guid Id { get; set; }
         public string Code { get; set; }
-        public string Name { get; set; }
+        public string ProjectName { get; set; }
         public string ShortName { get; set; }
         public System.DateTime ProjectSigningDate { get; set; }
         public string SiteAddress { get; set; }

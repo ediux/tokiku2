@@ -41,7 +41,7 @@
                     <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center" Margin="2" x:Name="lblCode" Text="{Binding Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
                     <TextBlock Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="專案全名" />
-                    <TextBox x:Name="tbName" Grid.Row="1" Grid.Column="1" Margin="2" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"   TextChanged="tbName_TextChanged" 
+                    <TextBox x:Name="tbName" Grid.Row="1" Grid.Column="1" Margin="2" Text="{Binding Path=ProjectName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="tbName_TextChanged" 
                              IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
                     <TextBlock Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="專案簡稱:"/>
                     <TextBlock x:Name="tbShortName" Grid.Row="2" Grid.Column="1" Margin="2" TextAlignment="Left" VerticalAlignment="Center" Text="{Binding ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -115,11 +115,11 @@
                                              IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}">
                         <Controls:CustomDataGrid.Columns>
                             <DataGridTextColumn Header="合約編號" Binding="{Binding ContractNumber}"/>
-                            <DataGridTextColumn Header="簽約日期" Binding="{Binding SigningDate}"/>
-                            <DataGridTextColumn Header="起造日期" Binding="{Binding StartDate}"/>
-                            <DataGridTextColumn Header="完工日期" Binding="{Binding CompletionDate}"/>
+                            <DataGridTextColumn Header="簽約日期" Binding="{Binding SigningDate,StringFormat={}{0:yyyy/MM/dd}}"/>
+                            <DataGridTextColumn Header="起造日期" Binding="{Binding StartDate,StringFormat={}{0:yyyy/MM/dd}}"/>
+                            <DataGridTextColumn Header="完工日期" Binding="{Binding CompletionDate,StringFormat={}{0:yyyy/MM/dd}}"/>
                             <DataGridTextColumn Header="狀態" Binding="{Binding State, Converter={StaticResource StatesCodeToTextValueConverter}}"/>
-                            <DataGridTextColumn Header="保固到期日" Binding="{Binding WarrantyDate}"/>
+                            <DataGridTextColumn Header="保固到期日" Binding="{Binding WarrantyDate,StringFormat={}{0:yyyy/MM/dd}}"/>
                             <DataGridTextColumn Header="建築師" Binding="{Binding Architect}"/>
                             <DataGridTextColumn Header="建築高度(地上)" Binding="{Binding BuildingHeightAboveground}"/>
                             <DataGridTextColumn Header="建築高度(地下)" Binding="{Binding BuildingHeightUnderground}"/>

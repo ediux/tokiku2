@@ -33,7 +33,7 @@ namespace Tokiku.ViewModels
 
         public static readonly DependencyProperty CodeProperty = DependencyProperty.Register("Code", typeof(string), typeof(ProjectListViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
-        public static readonly DependencyProperty NameProperty = DependencyProperty.Register("Name", typeof(string), typeof(ProjectListViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
+        public static readonly DependencyProperty ProjectNameProperty = DependencyProperty.Register("ProjectName", typeof(string), typeof(ProjectListViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
         public static readonly DependencyProperty ShortNameProperty = DependencyProperty.Register("ShortName", typeof(string), typeof(ProjectListViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
@@ -60,7 +60,7 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 專案名稱
         /// </summary>
-        public string Name { get { return (string)GetValue(NameProperty); } set { SetValue(NameProperty, value); RaisePropertyChanged("Name"); } }
+        public string ProjectName { get { return (string)GetValue(ProjectNameProperty); } set { SetValue(ProjectNameProperty, value); RaisePropertyChanged("ProjectName"); } }
         /// <summary>
         /// 專案名稱(簡稱)
         /// </summary>

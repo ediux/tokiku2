@@ -79,7 +79,7 @@
                         <DataGridTextColumn Header="專案代碼" Binding="{Binding Code}"/>
                         <DataGridTextColumn Header="專案全名" Binding="{Binding Name}"/>
                         <DataGridTextColumn Header="簡稱" Binding="{Binding ShortName}"/>
-                        <DataGridTextColumn Header="工程簽約日期" Binding="{Binding ProjectSigningDate}"/>
+                        <DataGridTextColumn Header="工程簽約日期" Binding="{Binding ProjectSigningDate,StringFormat={}{0:yyyy/MM/dd}}"/>
                         <DataGridTextColumn Header="工地地址" Binding="{Binding SiteAddress}"/>
                         <DataGridTextColumn Header="狀態" Binding="{Binding State, Converter={StaticResource StatesCodeToTextValueConverter}}"/>
 

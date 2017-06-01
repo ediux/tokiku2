@@ -38,11 +38,11 @@
                                  AllowExecuteSystemCommand="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="專案代號" Binding="{Binding Code}" Width="100" />
-                <DataGridTextColumn Header="專案名稱" Binding="{Binding Name}" Width="100" />
-                <DataGridTextColumn Header="起造日期" Width="100" Binding="{Binding StartDate}"/>
-                <DataGridTextColumn Header="完工日期" Width="70" Binding="{Binding CompletionDate}" />
+                <DataGridTextColumn Header="專案名稱" Binding="{Binding ProjectName}" Width="100" />
+                <DataGridTextColumn Header="起造日期" Width="100" Binding="{Binding StartDate,StringFormat={}{0:yyyy/MM/dd}}"/>
+                <DataGridTextColumn Header="完工日期" Width="70" Binding="{Binding CompletionDate,StringFormat={}{0:yyyy/MM/dd}}" />
                 <DataGridTextColumn Header="狀態列"  Width="70" Binding="{Binding State}" />
-                <DataGridTextColumn Header="保固到期日" Width="70" Binding="{Binding WarrantyDate}"/>
+                <DataGridTextColumn Header="保固到期日" Width="70" Binding="{Binding WarrantyDate,StringFormat={}{0:yyyy/MM/dd}}"/>
             </DataGrid.Columns>
         </controls:CustomDataGrid>
     </Grid>

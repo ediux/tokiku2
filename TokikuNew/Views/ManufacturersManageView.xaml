@@ -51,7 +51,7 @@
                     <TextBlock Text="廠商代碼" Grid.Row="0" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
                     <TextBlock Name="tbCode" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Code,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                     <TextBlock Text="名稱" Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-                    <TextBox Name="tbName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" TextChanged="tbName_TextChanged" IsEnabled="{Binding Path=Mode, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Name="tbName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Path=Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" TextChanged="tbName_TextChanged" IsEnabled="{Binding Path=Mode, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBlock Text="簡稱" Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
                     <TextBlock Name="tbShortName" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding ShortName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                     <TextBlock Text="負責人"   Grid.Row="3" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
@@ -117,9 +117,9 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="工程代碼" Binding="{Binding Code}"/>
                             <DataGridTextColumn Header="工程名稱" Binding="{Binding Name}"/>
-                            <DataGridTextColumn Header="起造日期" Binding="{Binding StartDate}"/>
-                            <DataGridTextColumn Header="完工日期" Binding="{Binding CompletionDate}"/>
-                            <DataGridTextColumn Header="保固到期日" Binding="{Binding WarrantyDate}"/>
+                            <DataGridTextColumn Header="起造日期" Binding="{Binding StartDate,StringFormat={}{0:yyyy/MM/dd}}"/>
+                            <DataGridTextColumn Header="完工日期" Binding="{Binding CompletionDate,StringFormat={}{0:yyyy/MM/dd}}"/>
+                            <DataGridTextColumn Header="保固到期日" Binding="{Binding WarrantyDate,StringFormat={}{0:yyyy/MM/dd}}"/>
                             <DataGridTextColumn Header="建築師" Binding="{Binding WarrantyDate}"/>
                             <DataGridTextColumn Header="狀態" Binding="{Binding State, Converter={StaticResource StatesCodeToTextValueConverter}}"/>
                         </DataGrid.Columns>

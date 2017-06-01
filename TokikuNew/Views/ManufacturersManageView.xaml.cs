@@ -77,9 +77,7 @@ namespace TokikuNew.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Binding SelectedManufacturersBinding = new Binding();
-            SelectedManufacturersBinding.Source = DataContext;
-            SetBinding(SelectedManufacturersProperty, SelectedManufacturersBinding);
+            SelectedManufacturers = (ManufacturersViewModel)DataContext;
         }
 
         private void tbName_TextChanged(object sender, TextChangedEventArgs e)
@@ -119,6 +117,7 @@ namespace TokikuNew.Views
                         if (SelectedManufacturers.HasError)
                         {
                             MessageBox.Show(string.Join("\n", SelectedManufacturers.Errors.ToArray()));
+                            SelectedManufacturers.Errors = null;
                             dockBar.DocumentMode = DocumentLifeCircle.Read;
                             break;
                         }
@@ -164,21 +163,24 @@ namespace TokikuNew.Views
                         if (SelectedManufacturers.Materials == null)
                             SelectedManufacturers.Materials = new MaterialsViewModelCollection();
 
-                        controller.SaveModel(SelectedManufacturers);
+                        controller.SaveModel((ManufacturersViewModel)DataContext);
 
                         if (SelectedManufacturers.HasError)
                         {
                             MessageBox.Show(string.Join("\n", SelectedManufacturers.Errors.ToArray()));
                             Mode = dockBar.LastState;
-                           
+                            SelectedManufacturers.Errors = null;
+                            //DataContext = controller.CreateNew();
                             break;
                         }
+
+                        Mode = DocumentLifeCircle.Read;
 
                         if (dockBar.LastState == DocumentLifeCircle.Create)
                         {
                             RaiseEvent(new RoutedEventArgs(ClosableTabItem.OnPageClosingEvent, this.Parent));
                         }
-                        Mode = DocumentLifeCircle.Read;
+                        
                         break;
                     case DocumentLifeCircle.Update:
                         SelectedManufacturers.Status.IsModify = false;
