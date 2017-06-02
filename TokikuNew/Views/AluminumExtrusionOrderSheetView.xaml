@@ -10,7 +10,7 @@
              d:DesignHeight="768" d:DesignWidth="1024">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="180"/>
+            <RowDefinition Height="243"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="48"/>
         </Grid.RowDefinitions>
@@ -22,7 +22,9 @@
                 <RowDefinition Height="27"/>
                 <RowDefinition Height="27"/>
                 <RowDefinition Height="27"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="27"/>
+                <RowDefinition Height="27"/>
+                <RowDefinition Height="27"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left">
                 <TextBlock Text="ID" FontSize="17" Margin="2,2,0,2" VerticalAlignment="Center" />
@@ -47,22 +49,118 @@
                 <TextBlock Text="預估交期:" FontSize="17" VerticalAlignment="Center" Margin="2"/>
                 <DatePicker Width="200" VerticalAlignment="Center" FontSize="15" Margin="2"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left">
-                <TextBlock Text="輸入人員" FontSize="17" Margin="2,2,0,2" VerticalAlignment="Center" />
-                <TextBox Text="{Binding LoginedUser.UserName, ElementName=userControl}" Width="100" IsReadOnly="True" FontSize="15" Margin="2" IsEnabled="False" TextAlignment="Center" VerticalAlignment="Center"/>
-            </StackPanel>
+            <GroupBox Header="此訂製單已收料,不可異動" Foreground="Red" Grid.Row="1" Grid.RowSpan="3" Margin="5">
+                <StackPanel  Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <TextBlock Foreground="Black" Text="輸入人員" FontSize="17" Margin="2,2,0,2" VerticalAlignment="Center" />
+                    <TextBox Foreground="Black" Text="{Binding LoginedUser.UserName, ElementName=userControl}" Width="100" IsReadOnly="True" FontSize="15" Margin="2" IsEnabled="False" TextAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Foreground="Black" Text="建檔日期:" FontSize="17" VerticalAlignment="Center" Margin="2"/>
+                    <DatePicker Foreground="Black" Width="200" VerticalAlignment="Center" FontSize="15" Margin="2"/>
+                    <TextBlock Foreground="Black" Text="製單人員:" FontSize="17" Margin="2,2,0,2" VerticalAlignment="Center" />
+                    <TextBox Foreground="Black" Text="{Binding LoginedUser.UserName, ElementName=userControl}" Width="100" IsReadOnly="True" FontSize="15" Margin="2" IsEnabled="False" TextAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Foreground="Black" Text="製單日期:" FontSize="17" VerticalAlignment="Center" Margin="2"/>
+                    <DatePicker Foreground="Black" Width="200" VerticalAlignment="Center" FontSize="15" Margin="2"/>
+                    <TextBlock Foreground="Black" Text="連絡電話:" FontSize="17" VerticalAlignment="Center" Margin="2"/>
+                    <TextBox Foreground="Black" Width="200" MaxLength="20" VerticalAlignment="Center" FontSize="15" Margin="2"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="廠商" Grid.Row="4" Grid.RowSpan="5" Margin="5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25*"/>
+                        <ColumnDefinition Width="25*"/>
+                        <ColumnDefinition Width="25*"/>
+                        <ColumnDefinition Width="25*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+                        <TextBlock Foreground="Green" FontSize="15" Text="材料廠商" VerticalAlignment="Center"/>
+                        <TextBox Width="50" VerticalAlignment="Center" Margin="2"/>
+                        <TextBox Width="auto" MinWidth="125" HorizontalAlignment="Stretch" Margin="2" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                        <TextBlock Foreground="Green" FontSize="15" Text="聯絡人" VerticalAlignment="Center"/>
+                        <TextBox Width="auto" MinWidth="200" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" Grid.RowSpan="3">
+                        <TextBlock Foreground="Green" FontSize="15" Text="送貨地址" VerticalAlignment="Top" Margin="2,5"/>
+                        <TextBox Width="auto" MinWidth="170" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="0" Grid.Column="4" Orientation="Horizontal" Grid.RowSpan="3">
+                        <TextBlock Foreground="Green" FontSize="15" Text="備註" VerticalAlignment="Top" Margin="5"/>
+                        <TextBox Width="auto" MinWidth="170" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="4"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
+                        <TextBlock Foreground="Green" FontSize="15" Text="連絡電話" VerticalAlignment="Center"/>
+                        <TextBox Width="auto" MinWidth="180" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBlock Foreground="Green" FontSize="15" Text="Fax" HorizontalAlignment="Right" MinWidth="40" VerticalAlignment="Center"/>
+                        <TextBox Width="auto" MinWidth="200" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
+                        <TextBlock Foreground="Green" FontSize="15" Text="保留數" HorizontalAlignment="Right" MinWidth="40" VerticalAlignment="Center"/>
+                        <TextBox Width="auto" MinWidth="200" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+                        <TextBlock Foreground="Green" FontSize="15" Text="施工位置/加工圖" HorizontalAlignment="Right" MinWidth="40" VerticalAlignment="Center"/>
+                        <TextBox Width="130" MinWidth="130" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2"/>
+                    </StackPanel>
+                </Grid>
+            </GroupBox>
         </Grid>
         <TabControl Grid.Row="1" TabStripPlacement="Bottom" >
             <TabItem Header="訂製單">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <Controls:CustomDataGrid>
+                        <Controls:CustomDataGrid.Columns>
+                            <DataGridTextColumn Header=""/>
+                            <DataGridTextColumn Header="東菊編號"/>
+                            <DataGridTextColumn Header="大同編號"/>
+                            <DataGridTextColumn Header="材質"/>
+                            <DataGridTextColumn Header="單位重"/>
+                            <DataGridTextColumn Header="訂購長度"/>
+                            <DataGridTextColumn Header="需求數量"/>
+                            <DataGridTextColumn Header="備品數量"/>
+                            <DataGridTextColumn Header="下單數量"/>
+                            <DataGridTextColumn Header="備註"/>
+                        </Controls:CustomDataGrid.Columns>
+                    </Controls:CustomDataGrid>
+                </Grid>
             </TabItem>
             <TabItem Header="材質估價">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <Controls:CustomDataGrid>
+                        <Controls:CustomDataGrid.Columns>
+                            <DataGridTextColumn Header=""/>
+                            <DataGridTextColumn Header="材質"/>
+                            <DataGridTextColumn Header="kg單價"/>
+                            <DataGridTextColumn Header="重量"/>
+                            <DataGridTextColumn Header="預估總價"/>
+                        </Controls:CustomDataGrid.Columns>
+                    </Controls:CustomDataGrid>
+                </Grid>
             </TabItem>
             <TabItem Header="雜項">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <Controls:CustomDataGrid>
+                        <Controls:CustomDataGrid.Columns>
+                            <DataGridTextColumn Header=""/>
+                            <DataGridTextColumn Header="東菊編號/項目"/>
+                            <DataGridTextColumn Header="廠商編號"/>
+                            <DataGridTextColumn Header="說明"/>
+                            <DataGridTextColumn Header="單價"/>
+                            <DataGridTextColumn Header="數量"/>
+                            <DataGridTextColumn Header="金額"/>
+                        </Controls:CustomDataGrid.Columns>
+                    </Controls:CustomDataGrid>
+
+                </Grid>
             </TabItem>
         </TabControl>
-        <Controls:DockBar  Grid.Row="2" />
+        <Controls:DockBar Grid.Row="2" DocumentMode="Read"/>
     </Grid>
 </UserControl>
