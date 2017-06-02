@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
-             xmlns:Controls="clr-namespace:TokikuNew.Controls" x:Class="TokikuNew.Views.AluminumExtrusionOrderSheetView"
+             xmlns:Controls="clr-namespace:TokikuNew.Controls" x:Name="userControl" x:Class="TokikuNew.Views.AluminumExtrusionOrderSheetView"
              mc:Ignorable="d" 
              Background="{DynamicResource ResourceKey=ControlBackgroundBrush}"
              d:DesignHeight="768" d:DesignWidth="1024">
@@ -24,28 +24,32 @@
                 <RowDefinition Height="27"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" >
-                <TextBlock Text="ID" FontSize="22" Margin="2,2,0,2" VerticalAlignment="Center" />
+            <StackPanel Orientation="Horizontal" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                <TextBlock Text="ID" FontSize="17" Margin="2,2,0,2" VerticalAlignment="Center" />
                 <TextBox Text="5431" IsReadOnly="True" FontSize="15" Margin="2" IsEnabled="False" TextAlignment="Center" VerticalAlignment="Center"/>
-                <TextBlock Text="訂單屬性" FontSize="22"/>
+                <TextBlock Text="訂單屬性" FontSize="17"/>
                 <ComboBox Margin="2" Width="100" VerticalAlignment="Center">
                     <ComboBox.Items>
                         <ComboBoxItem Content="一般訂製單" IsSelected="True"/>
                     </ComboBox.Items>
                 </ComboBox>
-                <TextBlock Text="需求單位" FontSize="22" Margin="2,2,0,2" VerticalAlignment="Center"/>
+                <TextBlock Text="需求單位" FontSize="17" Margin="2,2,0,2" VerticalAlignment="Center"/>
                 <ComboBox Margin="2" Width="100" VerticalAlignment="Center">
                     <ComboBox.Items>
                         <ComboBoxItem Content="公司" IsSelected="True"/>
                         <ComboBoxItem Content="其他"/>
                     </ComboBox.Items>
                 </ComboBox>
-                <TextBlock Text="訂製單號:" FontSize="22" VerticalAlignment="Center" Margin="2"/>
+                <TextBlock Text="訂製單號:" FontSize="17" VerticalAlignment="Center" Margin="2"/>
                 <TextBox Width="200" MaxLength="20" VerticalAlignment="Center" FontSize="15" Margin="2"/>
-                <TextBlock Text="批號:" FontSize="22" VerticalAlignment="Center" Margin="2"/>
+                <TextBlock Text="批號:" FontSize="17" VerticalAlignment="Center" Margin="2"/>
                 <TextBox Width="100" MaxLength="20" VerticalAlignment="Center" FontSize="15" Margin="2"/>
-                <TextBlock Text="預估交期:" FontSize="22" VerticalAlignment="Center" Margin="2"/>
+                <TextBlock Text="預估交期:" FontSize="17" VerticalAlignment="Center" Margin="2"/>
                 <DatePicker Width="200" VerticalAlignment="Center" FontSize="15" Margin="2"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left">
+                <TextBlock Text="輸入人員" FontSize="17" Margin="2,2,0,2" VerticalAlignment="Center" />
+                <TextBox Text="{Binding LoginedUser.UserName, ElementName=userControl}" Width="100" IsReadOnly="True" FontSize="15" Margin="2" IsEnabled="False" TextAlignment="Center" VerticalAlignment="Center"/>
             </StackPanel>
         </Grid>
         <TabControl Grid.Row="1" TabStripPlacement="Bottom" >

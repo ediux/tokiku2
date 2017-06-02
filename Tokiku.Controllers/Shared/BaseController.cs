@@ -7,8 +7,6 @@ using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using Tokiku.Entity;
 using Tokiku.ViewModels;
 
@@ -138,7 +136,9 @@ namespace Tokiku.Controllers
                             {
                                 EntityProperty.SetValue(entity, value);
                             }
+#if DEBUG
                             Debug.WriteLine(string.Format("抄寫後資料實體屬性 {0}({2}) 內容值為 {1}.\n", EntityProperty.Name, EntityProperty.GetValue(entity), EntityProperty.PropertyType.Name));
+#endif
                         }
                     }
                     catch (Exception ex)

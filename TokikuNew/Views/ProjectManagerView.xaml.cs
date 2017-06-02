@@ -119,16 +119,7 @@ namespace TokikuNew.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            RaiseEvent(new RoutedEventArgs(SendNewPageRequestEvent, this));
-        }
-
-        public static readonly RoutedEvent SendNewPageRequestEvent = EventManager.RegisterRoutedEvent("SendNewPageRequest", RoutingStrategy.Bubble
-           , typeof(RoutedEventHandler), typeof(ProjectManagerView));
-
-        public event RoutedEventHandler SendNewPageRequest
-        {
-            add { AddHandler(SendNewPageRequestEvent, value); }
-            remove { RemoveHandler(SendNewPageRequestEvent, value); }
+            RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, this));
         }
 
         private void DockBar_DocumentModeChanged(object sender, RoutedEventArgs e)
@@ -224,14 +215,25 @@ namespace TokikuNew.Views
             {
                 ProjectContractViewModel disableContract = (ProjectContractViewModel)e.OriginalSource;
                 projectcontroll.Delete(disableContract);
-                UpdateLayout();
-                //disableContract.Void
+                UpdateLayout();                
             }
         }
 
         private void btnShowClientSelection_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                e.Handled = true;
 
+                if (e.OriginalSource is ProjectContractViewModel)
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
+            }
         }
 
         private void ClientList_SelectedClientChanged(object sender, RoutedEventArgs e)
@@ -249,12 +251,12 @@ namespace TokikuNew.Views
 
         private void ContractList_Selected(object sender, RoutedEventArgs e)
         {
-            RaiseEvent(new RoutedEventArgs(SendNewPageRequestEvent, ContractList.SelectedItem));
+            RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, ContractList.SelectedItem));
         }
 
         private void ContractList_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            RaiseEvent(new RoutedEventArgs(SendNewPageRequestEvent, ContractList.SelectedItem));
+            RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, ContractList.SelectedItem));
         }
 
         private void ContractList_Selected_1(object sender, RoutedEventArgs e)

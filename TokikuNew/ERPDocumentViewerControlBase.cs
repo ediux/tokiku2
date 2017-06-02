@@ -5,26 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Tokiku.ViewModels;
 using TokikuNew.Controls;
+using System.Windows.Automation.Peers;
 
-namespace TokikuNew.Views
+namespace TokikuNew
 {
-    /// <summary>
-    /// AluminumExtrusionOrderSheetView.xaml 的互動邏輯
-    /// </summary>
-    public partial class AluminumExtrusionOrderSheetView : UserControl
+    public class ERPDocumentViewerControlBase : System.Windows.Controls.UserControl
     {
-        public AluminumExtrusionOrderSheetView()
+        public ERPDocumentViewerControlBase() : base()
         {
-            InitializeComponent();
+
         }
 
         #region Document Mode
@@ -40,13 +31,13 @@ namespace TokikuNew.Views
 
         // Using a DependencyProperty as the backing store for Mode.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ModeProperty =
-            DependencyProperty.Register("Mode", typeof(DocumentLifeCircle), typeof(AluminumExtrusionOrderSheetView), new PropertyMetadata(DocumentLifeCircle.Read));
+            DependencyProperty.Register("Mode", typeof(DocumentLifeCircle), typeof(ERPDocumentViewerControlBase), new PropertyMetadata(DocumentLifeCircle.Read));
         #endregion
 
         #region 登入的使用者
         // Using a DependencyProperty as the backing store for LoginedUser.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty LoginedUserProperty =
-            DependencyProperty.Register("LoginedUser", typeof(UserViewModel), typeof(AluminumExtrusionOrderSheetView), new PropertyMetadata(default(UserViewModel)));
+            DependencyProperty.Register("LoginedUser", typeof(UserViewModel), typeof(ERPDocumentViewerControlBase), new PropertyMetadata(default(UserViewModel)));
 
         /// <summary>
         /// 登入的使用者

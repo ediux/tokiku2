@@ -15,9 +15,17 @@ using System.Windows.Shapes;
 using Tokiku.Controllers;
 using Tokiku.ViewModels;
 using TokikuNew.Controls;
+using WinForm = System.Windows.Forms;
 
 namespace TokikuNew.Views
 {
+    public partial class test : ERPDocumentViewerControlBase
+    {
+        public test()
+        {
+            
+        }
+    }
     /// <summary>
     /// ProjectViewer.xaml 的互動邏輯
     /// </summary>
@@ -27,15 +35,11 @@ namespace TokikuNew.Views
         private ProjectContractController projectcontractcontroller = new ProjectContractController();
 
 
-        public UserViewModel LoginedUser
-        {
-            get { return (UserViewModel)GetValue(LoginedUserProperty); }
-            set { SetValue(LoginedUserProperty, value); }
-        }
-
         #region Document Mode
 
-
+        /// <summary>
+        /// 目前載入的文件所處的模式
+        /// </summary>
         public DocumentLifeCircle Mode
         {
             get { return (DocumentLifeCircle)GetValue(ModeProperty); }
@@ -47,9 +51,21 @@ namespace TokikuNew.Views
             DependencyProperty.Register("Mode", typeof(DocumentLifeCircle), typeof(ProjectViewer), new PropertyMetadata(DocumentLifeCircle.Read));
         #endregion
 
+        #region 登入的使用者
         // Using a DependencyProperty as the backing store for LoginedUser.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty LoginedUserProperty =
             DependencyProperty.Register("LoginedUser", typeof(UserViewModel), typeof(ProjectViewer), new PropertyMetadata(default(UserViewModel)));
+
+        /// <summary>
+        /// 登入的使用者
+        /// </summary>
+        public UserViewModel LoginedUser
+        {
+            get { return (UserViewModel)GetValue(LoginedUserProperty); }
+            set { SetValue(LoginedUserProperty, value); }
+        }
+        #endregion
+
 
         public ProjectViewer()
         {
@@ -58,10 +74,11 @@ namespace TokikuNew.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            
             //註冊一個處理分頁關閉的事件處理器
             AddHandler(ClosableTabItem.OnPageClosingEvent, new RoutedEventHandler(ProjectViewer_OnPageClosing));
             AddHandler(ClosableTabItem.SendNewPageRequestEvent, new RoutedEventHandler(ProjectViewer_OpenNewTab));
-
+            
         }
 
         private void ProjectViewer_OnPageClosing(object sender, RoutedEventArgs e)
@@ -107,7 +124,19 @@ namespace TokikuNew.Views
 
         private void ProjectViewer_OpenNewTab(object sender, RoutedEventArgs e)
         {
-           
+            try
+            {
+                e.Handled = true;
+
+                if (e.OriginalSource is ProjectContractViewModel)
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
+            }
         }
 
         private void MI_Projects_Order_1_Click(object sender, RoutedEventArgs e)
@@ -117,17 +146,15 @@ namespace TokikuNew.Views
                 ClosableTabItem addWorkarea = new ClosableTabItem();
                 addWorkarea.Header = "鋁擠型";
 
-                var vm = new ProjectManagerView() { Margin = new Thickness(0) };
-                vm.DataContext = controller.CreateNew();
-                vm.Mode = DocumentLifeCircle.Create;
-
-                //Binding bindinglogineduser = new Binding();
-                //bindinglogineduser.Source = ((MainViewModel)DataContext).LoginedUser;
-
-                //vm.SetBinding(ProjectManagerView.LoginedUserProperty, bindinglogineduser);
+                var vm = new AluminumExtrusionOrderSheetView() { Margin = new Thickness(0) };
 
                 addWorkarea.Content = vm;
                 addWorkarea.Margin = new Thickness(0);
+
+                Binding LoginedUserBinding = new Binding();
+                LoginedUserBinding.Source = LoginedUser;
+
+                vm.SetBinding(AluminumExtrusionOrderSheetView.LoginedUserProperty, LoginedUserBinding);
 
                 InnerWorkspaces.Items.Add(addWorkarea);
                 InnerWorkspaces.SelectedItem = addWorkarea;
