@@ -1,7 +1,14 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:ValueConverters="clr-namespace:TokikuNew.ValueConverters" 
-                    xmlns:local="clr-namespace:TokikuNew.Resources">
+                    xmlns:entity="clr-namespace:Tokiku.Entity;assembly=Tokiku.Entity"
+                    xmlns:controllers="clr-namespace:Tokiku.Controllers;assembly=Tokiku.Controllers"
+                    xmlns:viewmodels="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+                    xmlns:ValueConverters="clr-namespace:TokikuNew.ValueConverters">
+    <controllers:MainController x:Key="MainController">
+        
+    </controllers:MainController>
+    <controllers:ManufacturersController x:Key="ManufacturersController" />
+    <viewmodels:MainViewModel x:Key="MainViewModel" />
     <ValueConverters:NOTGateValueConverter x:Key="NOTGateValueConverter"/>
     <ValueConverters:RadioButtonSwitchValueConverter x:Key="RadioButtonSwitchValueConverter" />
     <ValueConverters:BooleanToVisibilityValueConveter x:Key="BooleanToVisibilityValueConveter"/>

@@ -249,6 +249,17 @@ namespace Tokiku.Controllers
 
         }
 
+        protected static void setErrortoModel(IBaseViewModel model, string Message)
+        {
+            if (model == null)
+                model = (IBaseViewModel)Activator.CreateInstance(model.GetType());
+
+            if (model.Errors == null)
+                model.Errors = new string[] { }.AsEnumerable();
+
+            model.Errors = new string[] { Message };
+        }
+
         private static void ScanErrorMessage(Exception ex, List<string> messageQueue)
         {
             if (ex.InnerException != null)
@@ -260,13 +271,129 @@ namespace Tokiku.Controllers
 
         }
 
+        public UserViewModel Login(LoginViewModel model)
+        {
+            try
+            {
+                using (database)
+                {
+                    string loweredUserName = model.UserName.ToLowerInvariant();
+                    _CurrentLoginedUserStorage = (from q in database.Users
+                                                  from m in database.Membership
+                                                  where m.UserId == q.UserId && q.LoweredUserName == loweredUserName
+                                                  && m.Password == model.Password
+                                                  select new UserViewModel()
+                                                  {
+                                                      IsAnonymous = q.IsAnonymous,
+                                                      LastActivityDate = q.LastActivityDate,
+                                                      LoweredUserName = q.LoweredUserName,
+                                                      MobileAlias = q.MobileAlias,
+                                                      Password = m.Password,
+                                                      UserId = q.UserId,
+                                                      UserName = q.UserName
+                                                  }).SingleOrDefault();
+                    if (_CurrentLoginedUserStorage != null)
+                    {
+                        return _CurrentLoginedUserStorage;
+                    }
 
+                    _CurrentLoginedUserStorage = new UserViewModel();
+                    setErrortoModel(_CurrentLoginedUserStorage, "登入失敗!");
+                    return _CurrentLoginedUserStorage;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                setErrortoModel(model, ex);
+
+                return new UserViewModel() { Errors = model.Errors };
+            }
+            finally
+            {
+                database = new TokikuEntities();
+            }
+
+        }
+        protected static UserViewModel _CurrentLoginedUserStorage;
+
+        public UserViewModel GetCurrentLoginUser()
+        {
+            try
+            {
+                if (_CurrentLoginedUserStorage != null)
+                {
+                    return _CurrentLoginedUserStorage;
+                }
+
+                return default(UserViewModel);
+            }
+            catch (Exception ex)
+            {
+                UserViewModel error = new UserViewModel();
+                error.Errors = new string[] { ex.Message };
+                return error;
+            }
+        }
+
+        public UserViewModel GetUser(string UserName)
+        {
+            UserViewModel vm = new UserViewModel();
+
+            try
+            {
+                using (database)
+                {
+                    string loweredUserName = UserName.ToLowerInvariant();
+                    _CurrentLoginedUserStorage = (from q in database.Users
+                                                  from m in database.Membership
+                                                  where m.UserId == q.UserId && q.LoweredUserName == loweredUserName
+                                                  select new UserViewModel()
+                                                  {
+                                                      IsAnonymous = q.IsAnonymous,
+                                                      LastActivityDate = q.LastActivityDate,
+                                                      LoweredUserName = q.LoweredUserName,
+                                                      MobileAlias = q.MobileAlias,
+                                                      Password = m.Password,
+                                                      UserId = q.UserId,
+                                                      UserName = q.UserName
+                                                  }).SingleOrDefault();
+
+                    if (_CurrentLoginedUserStorage != null)
+                    {
+                        return _CurrentLoginedUserStorage;
+                    }
+
+                    _CurrentLoginedUserStorage = new UserViewModel();
+                    setErrortoModel(_CurrentLoginedUserStorage, "登入失敗!");
+                    return _CurrentLoginedUserStorage;
+                }
+            }
+            catch (Exception ex)
+            {
+                vm.Errors = new string[] { ex.Message };
+                return vm;
+            }
+        }
+
+        public UserViewModel Login(string UserName, string pwd)
+        {
+            try
+            {
+                return Login(new LoginViewModel() { Password = pwd, UserName = UserName });
+            }
+            catch (Exception ex)
+            {
+                UserViewModel model = new UserViewModel();
+                setErrortoModel(model, ex);
+                return model;
+            }
+        }
+       
     }
 
     public abstract class BaseController<TView, T> : BaseController where TView : IBaseViewModel where T : class
     {
-
-
         public BaseController() : base()
         {
             try
@@ -383,16 +510,21 @@ namespace Tokiku.Controllers
 
             try
             {
-                var result = database.Set<T>().Where(filiter);
-
-                if (result.Any())
+                using (database)
                 {
-                    T entity = result.Single();
-                    model = BindingFromModel(entity);
+                    var result = database.Set<T>().Where(filiter);
+
+                    if (result.Any())
+                    {
+                        T entity = result.Single();
+                        model = BindingFromModel(entity);
+                        return model;
+                    }
+
+                    model = Activator.CreateInstance<TView>();
+                    setErrortoModel(model, "Not Found!");
                     return model;
                 }
-
-                return default(TView);
             }
             catch (Exception ex)
             {
@@ -403,12 +535,14 @@ namespace Tokiku.Controllers
                 setErrortoModel(model, ex);
                 return model;
             }
+            finally
+            {
+                database = new TokikuEntities();
+            }
         }
 
         public virtual TView Update(TView model)
         {
-
-
             try
             {
                 using (database)

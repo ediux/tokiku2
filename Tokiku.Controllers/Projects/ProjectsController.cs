@@ -190,7 +190,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        public ObservableCollection<ProjectListViewModel> QueryAll()
+        public ProjectListViewModelCollection QueryAll()
         {
             try
             {
@@ -211,17 +211,15 @@ namespace Tokiku.Controllers
                                      WarrantyDate = p.ProjectContract.OrderByDescending(s => s.WarrantyDate).FirstOrDefault().WarrantyDate
                                  };
 
-                    return new ObservableCollection<ProjectListViewModel>(result.AsEnumerable());
+                    return new ProjectListViewModelCollection(result.AsEnumerable());
                 }
 
             }
             catch (Exception ex)
             {
-                var q = new ObservableCollection<ProjectListViewModel>();
-                var model = new ProjectListViewModel();
-                setErrortoModel(model, ex);
-                q.Add(model);
-                return q;
+                var model = new ProjectListViewModelCollection();             
+                setErrortoModel(model, ex);                
+                return model;
             }
             finally
             {

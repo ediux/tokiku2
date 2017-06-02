@@ -13,7 +13,7 @@ namespace Tokiku.ViewModels
         public MainViewModel()
         {
             Status = new DocumentStatusViewModel();
-            Projects = new ObservableCollection<ProjectListViewModel>();
+            Projects = new ProjectListViewModelCollection();
             Manufacturers = new ObservableCollection<ManufacturersViewModel>();
             Clients = new ClientViewModelCollection();
             ToolBarButtons = new ToolbarButtonsViewModel();
@@ -47,16 +47,16 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 專案列表
         /// </summary>
-        public ObservableCollection<ProjectListViewModel> Projects
+        public ProjectListViewModelCollection Projects
         {
-            get { return (ObservableCollection<ProjectListViewModel>)GetValue(ProjectsProperty); }
+            get { return (ProjectListViewModelCollection)GetValue(ProjectsProperty); }
             set { SetValue(ProjectsProperty, value); RaisePropertyChanged("Projects"); }
         }
 
         // Using a DependencyProperty as the backing store for Projects.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ProjectsProperty =
-            DependencyProperty.Register("Projects", typeof(ObservableCollection<ProjectListViewModel>), typeof(MainViewModel),
-                new PropertyMetadata(default(ObservableCollection<ProjectListViewModel>)));
+            DependencyProperty.Register("Projects", typeof(ProjectListViewModelCollection), typeof(MainViewModel),
+                new PropertyMetadata(default(ProjectListViewModelCollection)));
         #endregion
 
         #region 廠商列表

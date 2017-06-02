@@ -25,15 +25,19 @@ namespace TokikuNew
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(ManufacturersController _mc, ClientController _clientcontroller, ProjectsController _controller)
         {
             InitializeComponent();
+            mc = _mc;
+            clientcontroller = _clientcontroller;
+            controller = _controller;
+
         }
 
-        ManufacturersController mc = new ManufacturersController();
-        ClientController clientcontroller = new ClientController();
-        private Tokiku.Controllers.ProjectsController controller = new Tokiku.Controllers.ProjectsController();
-       
+        ManufacturersController mc;
+        ClientController clientcontroller;
+        private ProjectsController controller;
+
         /// <summary>
         /// 當關閉分頁時觸發的事件
         /// </summary>
@@ -43,6 +47,8 @@ namespace TokikuNew
         {
             try
             {
+
+
                 if (e.Source is TabItem)
                 {
                     TabItem currentworking = (TabItem)e.Source;
@@ -78,30 +84,27 @@ namespace TokikuNew
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            mc = (ManufacturersController)FindResource("ManufacturersController");
+
             AddHandler(ClosableTabItem.SendNewPageRequestEvent, new RoutedEventHandler(Window_AutoOpenNewPage));
             AddHandler(ClosableTabItem.OnPageClosingEvent, new RoutedEventHandler(btnTabClose_Click));
-            //AddHandler(VendorListView.SendNewPageRequestEvent, new RoutedEventHandler(MI_CreateNew_Factories_Click));
-            //AddHandler(ClientListView.SendNewPageRequestEvent, new RoutedEventHandler(MI_CreateNew_Customers_Click));
-          
-
-
         }
 
         private void Window_AutoOpenNewPage(object sender, RoutedEventArgs e)
         {
             try
             {
-                if(e.Source is Views.ProjectSelectListView)
+                if (e.Source is Views.ProjectSelectListView)
                 {
                     MI_CreateNew_Project_Click(sender, e);
                 }
 
-                if(e.Source is Views.VendorListView)
+                if (e.Source is Views.VendorListView)
                 {
                     MI_CreateNew_Factories_Click(sender, e);
                 }
 
-                if(e.Source is Views.ClientListView)
+                if (e.Source is Views.ClientListView)
                 {
                     MI_CreateNew_Customers_Click(sender, e);
                 }
@@ -399,6 +402,29 @@ namespace TokikuNew
                 }
 
                 Workspaces.SelectedItem = addWorkarea;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void MI_TestView_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ClosableTabItem addWorkarea = new ClosableTabItem();
+                addWorkarea.Header = "測試元件";
+
+                var vm = new TestView() { Margin = new Thickness(0) };
+                vm.DataContext = ((MainViewModel)DataContext).Clients;
+                addWorkarea.Content = vm;
+                addWorkarea.Margin = new Thickness(0);
+
+                Workspaces.Items.Add(addWorkarea);
+                Workspaces.SelectedItem = addWorkarea;
+
+
             }
             catch (Exception ex)
             {

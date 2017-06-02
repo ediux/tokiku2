@@ -1,15 +1,50 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using Tokiku.ViewModels;
 
 namespace Tokiku.Controllers
 {
-    public class MainController
+    public class MainController : BaseController
     {
+        ProjectsController pc;
+        ManufacturersController mc;
+        ClientController clientcontroller;
+
+        public MainController(ProjectsController _pc,ManufacturersController _mc, ClientController _cc)
+        {
+            pc = _pc;
+            mc = _mc;
+            clientcontroller = _cc;
+        }
+
+        public MainViewModel Index()
+        {
+            try
+            {
+                MainViewModel main_model = new MainViewModel();
+
+                main_model.LoginedUser = GetCurrentLoginUser();
+                main_model.Projects = pc.QueryAll();
+                main_model.Manufacturers = mc.QueryAll();
+                main_model.Clients = clientcontroller.QueryAll();
+
+
+                if (!main_model.HasError)
+                    return main_model;
+                else
+                {
+                    setErrortoModel(main_model, "");
+                    return main_model;
+                }
+            }
+            catch (Exception ex)
+            {
+                MainViewModel model = new MainViewModel();
+                setErrortoModel(model, ex);
+                return model;
+            }
+        }
+
         public void Index(Window frame)
         {
             UserController controller = new UserController();
@@ -20,7 +55,7 @@ namespace Tokiku.Controllers
             {
                 MainViewModel main_model = new MainViewModel();
 
-                main_model.LoginedUser = controller.GetCurrentLoginUser();
+                main_model.LoginedUser = GetCurrentLoginUser();
                 main_model.Projects = pc.QueryAll();
                 main_model.Manufacturers = mc.QueryAll();
                 main_model.Clients = clientcontroller.QueryAll();

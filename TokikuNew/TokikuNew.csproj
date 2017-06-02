@@ -34,9 +34,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="C1.WPF.SpreadSheet.4, Version=4.0.20132.342, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce, processorArchitecture=MSIL" />
+    <Reference Include="C1.WPF.SpreadSheet.C1Chart.4, Version=4.0.20132.170, Culture=neutral, PublicKeyToken=f63432dd4d20448b, processorArchitecture=MSIL" />
+    <Reference Include="C1.WPF.SpreadSheet.C1Chart3D.4, Version=4.0.20132.170, Culture=neutral, PublicKeyToken=f63432dd4d20448b, processorArchitecture=MSIL" />
+    <Reference Include="C1.WPF.SpreadSheet.Toolbar.4, Version=4.0.20132.342, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce, processorArchitecture=MSIL" />
+    <Reference Include="GrapeCity.WPF.CalcEngine, Version=10.40.20171.0, Culture=neutral, PublicKeyToken=3ef656c0a61aba3a, processorArchitecture=MSIL" />
+    <Reference Include="GrapeCity.WPF.SpreadSheet.Data, Version=10.40.20171.0, Culture=neutral, PublicKeyToken=3ef656c0a61aba3a, processorArchitecture=MSIL" />
+    <Reference Include="GrapeCity.WPF.SpreadSheet.UI, Version=10.40.20171.0, Culture=neutral, PublicKeyToken=3ef656c0a61aba3a, processorArchitecture=MSIL" />
+    <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -116,6 +126,9 @@
     </Compile>
     <Compile Include="Views\ProjectViewer.xaml.cs">
       <DependentUpon>ProjectViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestView.xaml.cs">
+      <DependentUpon>TestView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\VendorListView.xaml.cs">
       <DependentUpon>VendorListView.xaml</DependentUpon>
@@ -236,6 +249,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\TestView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\VendorListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -255,6 +272,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Properties\Licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
