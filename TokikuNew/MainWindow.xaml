@@ -16,6 +16,7 @@
         <Menu Grid.Row="0" >
             <MenuItem Header="報表" Name="MI_Reports" Click="MI_Reports_Click"></MenuItem>
             <MenuItem Header="帳務" Name="MI_Finance" Click="MI_Finance_Click"></MenuItem>
+            <MenuItem Header="測試" ToolTip="用來測試元件用" Name="MI_TestView" Click="MI_TestView_Click"></MenuItem>
             <MenuItem Header="系統管理">
                 <MenuItem Header="選項" Name="MI_SystemOption" Click="MI_SystemOption_Click"/>
                 <MenuItem Header="人員管理" Name="MI_System_Members" Click="MI_System_Members_Click" ></MenuItem>

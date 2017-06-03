@@ -14,7 +14,7 @@ namespace TokikuNew.Frame
     /// </summary>
     public partial class StartUpWindow : Window
     {
-        private UserController controller = new UserController();
+        private UserController controller = App.Resolve<UserController>();
 
         public static readonly DependencyProperty ModelProperty = DependencyProperty.Register("Model", typeof(LoginViewModel), typeof(StartUpWindow), new PropertyMetadata(default(LoginViewModel)));
 
@@ -47,17 +47,18 @@ namespace TokikuNew.Frame
                 if (loginedUser != null)
                 {
                     tblkMessage.Text = "登入成功!";
-                    MainController mc = new MainController();
+                    MainController mc = App.Resolve<MainController>();
 
-                    MainWindow mainwin = new MainWindow();
-                    mc.Index(mainwin);
+                 var mainwin=   App.Navigate<MainWindow, MainViewModel>(mc.Index());
+
+
                     mainwin.Closed += Mainwin_Closed;
                     mainwin.Show();
 
                     tblkMessage.Text = "";
                     tbUserName.Text = "";
                     pwdBox.Password = "";
-                    this.Hide();
+                    Hide();
                 }
                 else
                 {
@@ -114,7 +115,7 @@ namespace TokikuNew.Frame
 
         private void window_Loaded(object sender, RoutedEventArgs e)
         {
-            this.DataContext = Model;
+            DataContext = Model;
         }
     }
 }
