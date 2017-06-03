@@ -32,11 +32,11 @@ namespace Tokiku.Entity
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
     
-        public virtual ProjectContract ProjectContract { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShopFlowHistory> ShopFlowHistory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Compositions> Compositions { get; set; }
         public virtual States States { get; set; }
+        public virtual ProjectContract ProjectContract { get; set; }
     }
 }

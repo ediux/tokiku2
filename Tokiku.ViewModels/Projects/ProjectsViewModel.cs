@@ -50,8 +50,6 @@ namespace Tokiku.ViewModels
 
         public static readonly DependencyProperty StateProperty = DependencyProperty.Register("State", typeof(byte), typeof(ProjectsViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
-        public static readonly DependencyProperty StateTextProperty = DependencyProperty.Register("StateText", typeof(StatesViewModelCollection), typeof(ProjectsViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
-
         public static readonly DependencyProperty VoidProperty = DependencyProperty.Register("Void", typeof(bool), typeof(ProjectsViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
         public static readonly DependencyProperty CommentProperty = DependencyProperty.Register("Comment", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
@@ -124,21 +122,153 @@ namespace Tokiku.ViewModels
         /// (0: 啟用 1:停用)
         /// </remarks>
         public bool Void { get { return (bool)GetValue(VoidProperty); } set { SetValue(VoidProperty, value); RaisePropertyChanged("Void"); } }
-
-        
+ 
         /// <summary>
-        /// 狀態資料來源
+        /// 起造日期
         /// </summary>
-        public StatesViewModelCollection StateText
+        public DateTime StartDate
         {
-            get { return (StatesViewModelCollection)GetValue(StateTextProperty); }
-            set { SetValue(StateTextProperty, value); RaisePropertyChanged("StateText"); }
+            get { return (DateTime)GetValue(StartDateProperty); }
+            set { SetValue(StartDateProperty, value); }
         }
+
+        // Using a DependencyProperty as the backing store for StartDate.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty StartDateProperty =
+            DependencyProperty.Register("StartDate", typeof(DateTime), typeof(ProjectContractViewModel), new PropertyMetadata(DateTime.Today));
+
+        /// <summary>
+        /// 完工日期
+        /// </summary>
+        public DateTime? CompletionDate
+        {
+            get { return (DateTime?)GetValue(CompletionDateProperty); }
+            set { SetValue(CompletionDateProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CompletionDate.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CompletionDateProperty =
+            DependencyProperty.Register("CompletionDate", typeof(DateTime?), typeof(ProjectContractViewModel), new PropertyMetadata(default(DateTime?)));
+
+
+        /// <summary>
+        /// 支付方式
+        /// </summary>
+        public byte? PaymentType
+        {
+            get { return (byte?)GetValue(PaymentTypeProperty); }
+            set { SetValue(PaymentTypeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for PaymentType.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PaymentTypeProperty =
+            DependencyProperty.Register("PaymentType", typeof(byte?), typeof(ProjectContractViewModel), new PropertyMetadata(default(byte?)));
+
+
+
+        /// <summary>
+        /// 保固日期
+        /// </summary>
+        public DateTime? WarrantyDate
+        {
+            get { return (DateTime?)GetValue(WarrantyDateProperty); }
+            set { SetValue(WarrantyDateProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for WarrantyDate.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty WarrantyDateProperty =
+            DependencyProperty.Register("WarrantyDate", typeof(DateTime?), typeof(ProjectContractViewModel), new PropertyMetadata(default(DateTime?)));
+
+
+
+        /// <summary>
+        /// 建築師
+        /// </summary>
+        public string Architect
+        {
+            get { return (string)GetValue(ArchitectProperty); }
+            set { SetValue(ArchitectProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Architect.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ArchitectProperty =
+            DependencyProperty.Register("Architect", typeof(string), typeof(ProjectContractViewModel), new PropertyMetadata(string.Empty));
+
+
+
+        /// <summary>
+        /// 建築高度(地上)
+        /// </summary>
+        public int? BuildingHeightAboveground
+        {
+            get { return (int?)GetValue(BuildingHeightAbovegroundProperty); }
+            set { SetValue(BuildingHeightAbovegroundProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for BuildingHeightAboveground.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty BuildingHeightAbovegroundProperty =
+            DependencyProperty.Register("BuildingHeightAboveground", typeof(int?), typeof(ProjectContractViewModel), new PropertyMetadata(default(int?)));
+
+
+
+        /// <summary>
+        /// 建築高度(地下)
+        /// </summary>
+        public int? BuildingHeightUnderground
+        {
+            get { return (int?)GetValue(BuildingHeightUndergroundProperty); }
+            set { SetValue(BuildingHeightUndergroundProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for BuildingHeightUnderground.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty BuildingHeightUndergroundProperty =
+            DependencyProperty.Register("BuildingHeightUnderground", typeof(int?), typeof(ProjectContractViewModel), new PropertyMetadata(default(int?)));
+
+
+        /// <summary>
+        /// 營造廠
+        /// </summary>
+        public string BuildingCompany
+        {
+            get { return (string)GetValue(BuildingCompanyProperty); }
+            set { SetValue(BuildingCompanyProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for BuildingCompany.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty BuildingCompanyProperty =
+            DependencyProperty.Register("BuildingCompany", typeof(string), typeof(ProjectContractViewModel), new PropertyMetadata(string.Empty));
+
+
+        /// <summary>
+        /// 監造單位
+        /// </summary>
+        public string SupervisionUnit
+        {
+            get { return (string)GetValue(SupervisionUnitProperty); }
+            set { SetValue(SupervisionUnitProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for BuildingCompany.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SupervisionUnitProperty =
+            DependencyProperty.Register("SupervisionUnit", typeof(string), typeof(ProjectContractViewModel), new PropertyMetadata(string.Empty));
+
+        /// <summary>
+        /// 面積數
+        /// </summary>
+        public float? Area
+        {
+            get { return (float?)GetValue(AreaProperty); }
+            set { SetValue(AreaProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Area.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AreaProperty =
+            DependencyProperty.Register("Area", typeof(float?), typeof(ProjectContractViewModel), new PropertyMetadata(default(float?)));
+
         #endregion
 
         #region Project Contract
         /// <summary>
-        /// 專案合約
+        /// 專案合約清單
         /// </summary>
         public ProjectContractViewModelCollection ProjectContract
         {

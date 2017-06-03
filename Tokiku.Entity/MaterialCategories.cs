@@ -18,6 +18,7 @@ namespace Tokiku.Entity
         public MaterialCategories()
         {
             this.Materials = new HashSet<Materials>();
+            this.ManufacturersBussinessItems = new HashSet<ManufacturersBussinessItems>();
         }
     
         public System.Guid Id { get; set; }
@@ -27,5 +28,7 @@ namespace Tokiku.Entity
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Materials> Materials { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
     }
 }

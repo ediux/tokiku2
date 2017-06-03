@@ -66,7 +66,7 @@ namespace Tokiku.Controllers
             };
 
             newmodel.ProjectContract = new ProjectContractViewModelCollection();
-            newmodel.StateText = StatesController.QueryAll();
+            //newmodel.StateText = StatesController.QueryAll();
             newmodel.Clients = ClientController.QueryAll();
 
             newmodel.Status.IsModify = false;
@@ -79,7 +79,7 @@ namespace Tokiku.Controllers
         public string GetNextProjectSerialNumber(string year)
         {
             var result = (from q in database.Projects
-                          where q.Code.StartsWith(year.Trim()) && q.Void==false
+                          where q.Code.StartsWith(year.Trim()) && q.Void == false
                           orderby q.Code descending
                           select q.Code).FirstOrDefault();
 
@@ -141,7 +141,7 @@ namespace Tokiku.Controllers
                             CopyToModel(newdata, row);
                             newdata.ProjectId = newProject.Id;
                             newdata.SigningDate = model.ProjectSigningDate;
-                            newdata.State = model.StateText.Where(s => s.StateName == row.StateText).Select(s => s.Id).SingleOrDefault();
+                            
                             newProject.ProjectContract.Add(newdata);
                         }
                     }
@@ -217,8 +217,8 @@ namespace Tokiku.Controllers
             }
             catch (Exception ex)
             {
-                var model = new ProjectListViewModelCollection();             
-                setErrortoModel(model, ex);                
+                var model = new ProjectListViewModelCollection();
+                setErrortoModel(model, ex);
                 return model;
             }
             finally
@@ -332,7 +332,7 @@ namespace Tokiku.Controllers
                 ProjectsViewModel model = BindingFromModel(result);
 
                 model.Status.IsNewInstance = false;
-                model.StateText = StatesController.QueryAll();
+              
 
                 model.ProjectContract = new ProjectContractViewModelCollection();
 
@@ -387,45 +387,49 @@ namespace Tokiku.Controllers
 
 
 
-        public ObservableCollection<ProjectListViewModel> SearchByText(string text)
+        public ProjectListViewModelCollection SearchByText(string text)
         {
-            if (text != null && text.Length > 0)
+            var model = new ProjectListViewModelCollection();
+            try
             {
-                var result = QueryAll().Where(s => s.Code.Contains(text)
-                || s.State.Contains(text)
-                 || s.ProjectName.Contains(text)
-                || s.ShortName.Contains(text));
-
-                var model = new ObservableCollection<ProjectListViewModel>();
-
-                if (result.Any())
+                if (text != null && text.Length > 0)
                 {
-                    foreach (var row in result)
-                    {
-                        model.Add(row);
-                    }
-                }
+                    var result = QueryAll().Where(s => s.Code.Contains(text)
+                     || s.ProjectName.Contains(text)
+                    || (s.ShortName != null && s.ShortName.Contains(text)));
 
+                    if (result.Any())
+                    {
+                        foreach (var row in result)
+                        {
+                            model.Add(row);
+                        }
+                    }
+
+                    return model;
+                }
+                else
+                {
+                    var result = QueryAll();
+
+                    if (result.Any())
+                    {
+                        foreach (var row in result)
+                        {
+                            model.Add(row);
+                        }
+                    }
+
+                    return model;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(model, ex);
                 return model;
             }
-            else
-            {
 
-                var result = QueryAll();
-
-                var model = new ObservableCollection<ProjectListViewModel>();
-
-                if (result.Any())
-                {
-                    foreach (var row in result)
-                    {
-                        model.Add(row);
-                    }
-                }
-
-                return model;
-
-            }
         }
     }
 }

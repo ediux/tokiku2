@@ -14,6 +14,7 @@ namespace Tokiku.Controllers
 {
     public abstract class BaseController : IDisposable
     {
+      
         protected TokikuEntities database;
 
         /// <summary>
@@ -389,7 +390,7 @@ namespace Tokiku.Controllers
                 return model;
             }
         }
-       
+
     }
 
     public abstract class BaseController<TView, T> : BaseController where TView : IBaseViewModel where T : class

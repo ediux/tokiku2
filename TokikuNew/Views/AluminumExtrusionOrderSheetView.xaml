@@ -26,7 +26,7 @@
                 <RowDefinition Height="27"/>
                 <RowDefinition Height="27"/>
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <WrapPanel Orientation="Horizontal" Grid.Row="0">
                 <TextBlock Text="ID" FontSize="17" Margin="2,2,0,2" VerticalAlignment="Center" />
                 <TextBox Text="5431" IsReadOnly="True" FontSize="15" Margin="2" IsEnabled="False" TextAlignment="Center" VerticalAlignment="Center"/>
                 <TextBlock Text="訂單屬性" FontSize="17"/>
@@ -48,7 +48,7 @@
                 <TextBox Width="100" MaxLength="20" VerticalAlignment="Center" FontSize="15" Margin="2"/>
                 <TextBlock Text="預估交期:" FontSize="17" VerticalAlignment="Center" Margin="2"/>
                 <DatePicker Width="200" VerticalAlignment="Center" FontSize="15" Margin="2"/>
-            </StackPanel>
+            </WrapPanel>
             <GroupBox Header="此訂製單已收料,不可異動" Foreground="Red" Grid.Row="1" Grid.RowSpan="3" Margin="5">
                 <StackPanel  Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left">
                     <TextBlock Foreground="Black" Text="輸入人員" FontSize="17" Margin="2,2,0,2" VerticalAlignment="Center" />

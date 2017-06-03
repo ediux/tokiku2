@@ -38,7 +38,20 @@ namespace TokikuNew.Views
             remove { RemoveHandler(SelectedVendorChangedEvent, value); }
         }
 
-      
+
+
+        public ManufacturersViewModel SelectedManufacturer
+        {
+            get { return (ManufacturersViewModel)GetValue(SelectedManufacturerProperty); }
+            set { SetValue(SelectedManufacturerProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectedManufacturer.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedManufacturerProperty =
+            DependencyProperty.Register("SelectedManufacturer", typeof(ManufacturersViewModel), typeof(VendorListView), new PropertyMetadata(default(ManufacturersViewModel)));
+
+
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //搜尋框
@@ -65,10 +78,20 @@ namespace TokikuNew.Views
                 if (header == 0)
                 {
                     if (obj != null)
-                        RaiseEvent(new RoutedEventArgs(SelectedVendorChangedEvent, obj));
+                    {
+                        SelectedManufacturer = (ManufacturersViewModel)obj;
+                    }
                 }
             }
 
+        }
+
+        private void VendorList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if(SelectedManufacturer!=null)
+            {
+                RaiseEvent(new RoutedEventArgs(SelectedVendorChangedEvent, SelectedManufacturer));
+            }
         }
     }
 }

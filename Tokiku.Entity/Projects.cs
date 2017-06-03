@@ -27,12 +27,25 @@ namespace Tokiku.Entity
         public string ShortName { get; set; }
         public System.DateTime ProjectSigningDate { get; set; }
         public string SiteAddress { get; set; }
-        public Nullable<System.Guid> ClientId { get; set; }
+        public System.Guid ClientId { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
         public string Comment { get; set; }
         public bool Void { get; set; }
         public byte State { get; set; }
+        public System.DateTime StartDate { get; set; }
+        public Nullable<System.DateTime> CompletionDate { get; set; }
+        public Nullable<System.DateTime> OpenDate { get; set; }
+        public Nullable<System.DateTime> WarrantyDate { get; set; }
+        public string Architect { get; set; }
+        public Nullable<int> BuildingHeightAboveground { get; set; }
+        public Nullable<int> BuildingHeightUnderground { get; set; }
+        public string BuildingCompany { get; set; }
+        public string SupervisionUnit { get; set; }
+        public Nullable<float> Area { get; set; }
+        public Nullable<byte> PaymentType { get; set; }
+        public Nullable<byte> CheckoutDay { get; set; }
+        public Nullable<byte> PaymentDay { get; set; }
     
         public virtual States States { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

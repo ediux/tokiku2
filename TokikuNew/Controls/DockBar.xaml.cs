@@ -48,7 +48,7 @@ namespace TokikuNew.Controls
         {
             DockBar src = (DockBar)source;
             source.SetValue(LastStateProperty, e.OldValue);
-            ChoiceMode((DocumentLifeCircle)e.NewValue, src);                        
+            ChoiceMode((DocumentLifeCircle)e.NewValue, src);
         }
 
         private static void ChoiceMode(DocumentLifeCircle mode, DockBar src)
@@ -249,7 +249,21 @@ namespace TokikuNew.Controls
 
         private void userControl_Loaded(object sender, RoutedEventArgs e)
         {
+            //RoutedUICommand SaveCommand = (RoutedUICommand)FindResource("Save");
+            //RoutedUICommand QueryCommand = (RoutedUICommand)FindResource("Query");
+            //if (SaveCommand != null)
+            //{
+            //    SaveCommand.CanExecuteChanged += SaveCommand_CanExecuteChanged;
+            //}
+
+            //if (QueryCommand != null)
+            //{
+            //    QueryCommand.CanExecuteChanged += SaveCommand_CanExecuteChanged;
+            //}
+
             ChoiceMode(this.DocumentMode, this);
         }
+
+      
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Data;
 
 namespace Tokiku.ViewModels
 {
@@ -137,7 +138,7 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty StatusProperty =
             DependencyProperty.Register("Status", typeof(DocumentStatusViewModel), typeof(BaseViewModel), new PropertyMetadata(default(DocumentStatusViewModel)));
 
-
+        
     }
 
 

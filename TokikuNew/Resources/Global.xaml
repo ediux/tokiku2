@@ -4,10 +4,6 @@
                     xmlns:controllers="clr-namespace:Tokiku.Controllers;assembly=Tokiku.Controllers"
                     xmlns:viewmodels="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
                     xmlns:ValueConverters="clr-namespace:TokikuNew.ValueConverters">
-    <controllers:MainController x:Key="MainController">
-        
-    </controllers:MainController>
-    <controllers:ManufacturersController x:Key="ManufacturersController" />
     <viewmodels:MainViewModel x:Key="MainViewModel" />
     <ValueConverters:NOTGateValueConverter x:Key="NOTGateValueConverter"/>
     <ValueConverters:RadioButtonSwitchValueConverter x:Key="RadioButtonSwitchValueConverter" />
@@ -17,7 +13,7 @@
     <ValueConverters:StatesCodeToTextValueConverter x:Key="StatesCodeToTextValueConverter"/>
     <ValueConverters:ReadModeToVisibilityValueConverter x:Key="ReadModeToVisibilityValueConverter"/>
     <ValueConverters:ReadModeToEnabledValueConverter x:Key="ReadModeToEnabledValueConverter" />
-    <RoutedUICommand x:Key="Modify" Text="修改"/>
+    <RoutedUICommand x:Key="Modify" Text="修改" />
     <RoutedUICommand x:Key="Save" Text="暫存"/>
     <RoutedUICommand x:Key="Query" Text="查詢"/>
     <RoutedUICommand x:Key="Commit" Text="確認送出"/>

@@ -4,11 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
-            
              xmlns:c="clr-namespace:TokikuNew.Controls"
-
              mc:Ignorable="d" 
-             
              d:DesignHeight="768" d:DesignWidth="1024"
              Background="{DynamicResource ControlBackgroundBrush}" Loaded="UserControl_Loaded">
     <UserControl.Resources>
@@ -52,7 +49,7 @@
                     <TextBlock Text="客戶名稱" Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
                     <TextBox Name="tbName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Path=Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" TextChanged="tbName_TextChanged" IsEnabled="{Binding Path=Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <TextBlock Text="客戶簡稱" Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-                    <TextBlock Name="tbShortName" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding ShortName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
+                    <TextBox Name="tbShortName" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding ShortName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
                     <TextBlock Text="聯絡人" Grid.Row="3" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
                     <TextBox Name="tbPrincipal" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding PrincipalName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
                     <TextBlock Text="統一編號" Grid.Row="4" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>

@@ -21,8 +21,8 @@ namespace Tokiku.Entity
             this.ShopFlowHistory = new HashSet<ShopFlowHistory>();
             this.Materials = new HashSet<Materials>();
             this.PromissoryNoteManagement = new HashSet<PromissoryNoteManagement>();
-            this.ProjectContract = new HashSet<ProjectContract>();
             this.ShopFlowDetail = new HashSet<ShopFlowDetail>();
+            this.ProjectContract = new HashSet<ProjectContract>();
         }
     
         public System.Guid UserId { get; set; }
@@ -43,8 +43,8 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProjectContract> ProjectContract { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShopFlowDetail> ShopFlowDetail { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProjectContract> ProjectContract { get; set; }
     }
 }

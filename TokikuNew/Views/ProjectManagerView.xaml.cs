@@ -15,9 +15,9 @@ namespace TokikuNew.Views
     /// </summary>
     public partial class ProjectManagerView : UserControl
     {
-        private ProjectsController controller = new ProjectsController();
-        private ProjectContractController projectcontroll = new ProjectContractController();
-        private ClientController clientcontroller = new ClientController();
+        private ProjectsController controller = App.Resolve<ProjectsController>();
+        private ProjectContractController projectcontroll = App.Resolve<ProjectContractController>();
+        private ClientController clientcontroller = App.Resolve<ClientController>();
 
         public ProjectManagerView()
         {

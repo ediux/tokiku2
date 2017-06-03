@@ -53,7 +53,7 @@
                     <TextBlock Text="名稱" Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
                     <TextBox Name="tbName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Path=Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" TextChanged="tbName_TextChanged" IsEnabled="{Binding Path=Mode, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBlock Text="簡稱" Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-                    <TextBlock Name="tbShortName" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding ShortName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Width="30"  Name="tbShortName" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="2" Text="{Binding ShortName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                     <TextBlock Text="負責人"   Grid.Row="3" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
                     <TextBox Name="tbPrincipal" MaxLength="6" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding PrincipalName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=Mode, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBlock Text="統一編號" Grid.Row="4" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
@@ -92,7 +92,7 @@
                         <RichTextBox Grid.Row="3" DataContext="{Binding FactoryAddress,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=Mode, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></RichTextBox>
                     </Grid>
                 </GroupBox>
-                <GroupBox Grid.Row="1" Grid.Column="0" Header="交易品項" Margin="5">
+                <GroupBox Grid.Row="1" Grid.Column="0" Header="營業項目" Margin="5">
                     <c:CustomDataGrid CanUserAddRows="True" CanUserDeleteRows="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="類別"/>
@@ -109,7 +109,7 @@
                     <RowDefinition Height="50*"/>
                     <RowDefinition Height="50*"/>
                 </Grid.RowDefinitions>
-                <GroupBox Header="合約項目" Grid.Column="0" Grid.Row="0" Margin="5">
+                <GroupBox Header="交易歷程" Grid.Column="0" Grid.Row="0" Margin="5">
                     <c:CustomDataGrid CanUserAddRows="False" CanUserDeleteRows="False"
                                        AutoGenerateColumns="False"
                                       IsReadOnly="True"

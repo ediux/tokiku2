@@ -52,68 +52,137 @@
     <Compile Include="AccessLog.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
+    <Compile Include="AccessLog.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
     <Compile Include="BOM.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BOM.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
     <Compile Include="Compositions.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
+    <Compile Include="Compositions.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
     <Compile Include="CompositionTypes.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompositionTypes.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
     <Compile Include="Contacts.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
+    <Compile Include="Contacts.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFGeneratePartialClass.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
     <Compile Include="Engineering.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Engineering.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
     <Compile Include="Manufacturers.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
-    <Compile Include="Manufacturers.partial.cs" />
+    <Compile Include="Manufacturers.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ManufacturersBussinessItems.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
     <Compile Include="MaterialCategories.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MaterialCategories.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
     <Compile Include="Materials.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
+    <Compile Include="Materials.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
     <Compile Include="Membership.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Membership.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
     <Compile Include="PaymentTypes.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
+    <Compile Include="PaymentTypes.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
     <Compile Include="Profile.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Profile.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
     <Compile Include="ProjectContract.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProjectContract.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
     <Compile Include="Projects.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
-    <Compile Include="Projects.partial.cs" />
+    <Compile Include="Projects.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
     <Compile Include="PromissoryNoteManagement.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PromissoryNoteManagement.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Roles.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
+    <Compile Include="Roles.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
     <Compile Include="ShopFlow.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ShopFlow.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
     <Compile Include="ShopFlowDetail.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
+    <Compile Include="ShopFlowDetail.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
     <Compile Include="ShopFlowHistory.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ShopFlowHistory.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
     <Compile Include="States.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
+    <Compile Include="States.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
     <Compile Include="TicketTypes.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TicketTypes.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
     <Compile Include="Tokiku.Context.cs">
       <AutoGen>True</AutoGen>
@@ -134,8 +203,14 @@
     <Compile Include="Users.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
+    <Compile Include="Users.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
     <Compile Include="WorkShops.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorkShops.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +227,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="EFGeneratePartialClass.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EFGeneratePartialClass.cs</LastGenOutput>
+    </Content>
     <Content Include="Tokiku.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Tokiku.Context.cs</LastGenOutput>

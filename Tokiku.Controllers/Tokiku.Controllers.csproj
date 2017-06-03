@@ -50,6 +50,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AluminumExtrusionOrderSheetViewController.cs" />
     <Compile Include="ClientController.cs" />
     <Compile Include="EngineeringController.cs" />
     <Compile Include="Main\MainController.cs" />

@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 using Tokiku.Controllers;
 using Tokiku.Entity;
 using Tokiku.ViewModels;
-
+using WinForm = System.Windows.Forms;
 namespace TokikuNew.Views
 {
     /// <summary>
@@ -54,7 +54,7 @@ namespace TokikuNew.Views
        "SelectedProjectChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ProjectSelectListView));
 
 
-      
+
 
         public event RoutedEventHandler SelectedProjectChanged
         {
@@ -62,7 +62,7 @@ namespace TokikuNew.Views
             remove { RemoveHandler(SelectedProjectChangedEvent, value); }
         }
 
-       
+
         // This method raises the Tap event
         protected void RaiseSelectProjectChangedEvent()
         {
@@ -72,8 +72,15 @@ namespace TokikuNew.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //搜尋框
-            DataContext = controller.SearchByText((string)e.OriginalSource);
+            try
+            {
+                //搜尋框
+                DataContext = controller.SearchByText((string)e.OriginalSource);
+            }
+            catch (Exception ex)
+            {
+                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
+            }
         }
 
         private void ProjectList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -92,7 +99,7 @@ namespace TokikuNew.Views
 
         private void cSearchBar_ResetSearch(object sender, RoutedEventArgs e)
         {
-            ProjectList.ItemsSource = controller.QueryAll();
+            DataContext = controller.QueryAll();
         }
 
         private void ProjectList_MouseDoubleClick(object sender, MouseButtonEventArgs e)

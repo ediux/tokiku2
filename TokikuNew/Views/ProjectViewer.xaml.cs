@@ -23,7 +23,7 @@ namespace TokikuNew.Views
     {
         public test()
         {
-            
+
         }
     }
     /// <summary>
@@ -74,11 +74,11 @@ namespace TokikuNew.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            
+
             //註冊一個處理分頁關閉的事件處理器
             AddHandler(ClosableTabItem.OnPageClosingEvent, new RoutedEventHandler(ProjectViewer_OnPageClosing));
             AddHandler(ClosableTabItem.SendNewPageRequestEvent, new RoutedEventHandler(ProjectViewer_OpenNewTab));
-            
+
         }
 
         private void ProjectViewer_OnPageClosing(object sender, RoutedEventArgs e)
@@ -128,9 +128,50 @@ namespace TokikuNew.Views
             {
                 e.Handled = true;
 
+                ClosableTabItem addWorkarea = null;
+                string Header = string.Empty;
+
+                object SharedModel = null;
+
                 if (e.OriginalSource is ProjectContractViewModel)
                 {
+                    ProjectContractViewModel model = (ProjectContractViewModel)e.OriginalSource;
+                    SharedModel = model;
+                    Header = string.Format("合約-{0}[{1}]", model.Projects.ShortName, model.ContractNumber);
+                }
 
+                
+
+                bool isExisted = false;
+
+                foreach (TabItem item in InnerWorkspaces.Items)
+                {
+                    if (item.Header.Equals(addWorkarea.Header))
+                    {
+                        isExisted = true;
+                        addWorkarea = (ClosableTabItem)item;
+                        break;
+                    }
+                }
+
+                if (!isExisted)
+                {
+                    if (e.OriginalSource != null && e.OriginalSource is ManufacturersViewModel)
+                    {
+                        var vm = new ManufacturersManageView() { Margin = new Thickness(0) };
+                        vm.DataContext = SharedModel;
+                        vm.LoginedUser = ((MainViewModel)DataContext).LoginedUser;
+
+                        vm.Mode = DocumentLifeCircle.Read;
+
+                        addWorkarea.Content = vm;
+                        addWorkarea.Margin = new Thickness(0);
+
+                      
+                    }
+
+                    InnerWorkspaces.Items.Add(addWorkarea);
+                    InnerWorkspaces.SelectedItem = addWorkarea;
                 }
             }
             catch (Exception ex)

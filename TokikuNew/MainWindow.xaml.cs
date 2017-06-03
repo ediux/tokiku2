@@ -84,8 +84,6 @@ namespace TokikuNew
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            mc = (ManufacturersController)FindResource("ManufacturersController");
-
             AddHandler(ClosableTabItem.SendNewPageRequestEvent, new RoutedEventHandler(Window_AutoOpenNewPage));
             AddHandler(ClosableTabItem.OnPageClosingEvent, new RoutedEventHandler(btnTabClose_Click));
         }
@@ -111,8 +109,7 @@ namespace TokikuNew
             }
             catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -154,24 +151,39 @@ namespace TokikuNew
                 ClosableTabItem addWorkarea = new ClosableTabItem();
                 addWorkarea.Header = "新增廠商";
 
+                bool isExisted = true;
 
-                using (var mc = new ManufacturersController())
+                foreach (TabItem item in Workspaces.Items)
                 {
-                    var vm = new ManufacturersManageView() { Margin = new Thickness(0) };
-                    vm.Mode = DocumentLifeCircle.Create;
-                    vm.DataContext = mc.CreateNew();
-
-                    Binding bindinglogineduser = new Binding();
-                    bindinglogineduser.Source = ((MainViewModel)DataContext).LoginedUser;
-
-                    vm.SetBinding(ManufacturersManageView.LoginedUserProperty, bindinglogineduser);
-
-                    addWorkarea.Content = vm;
-                    addWorkarea.Margin = new Thickness(0);
-
-                    Workspaces.Items.Add(addWorkarea);
-                    Workspaces.SelectedItem = addWorkarea;
+                    if (item.Header.Equals(addWorkarea.Header))
+                    {
+                        isExisted = true;
+                        addWorkarea = (ClosableTabItem)item;
+                        break;
+                    }
                 }
+
+                if (!isExisted)
+                {
+                    using (var mc = new ManufacturersController())
+                    {
+                        var vm = new ManufacturersManageView() { Margin = new Thickness(0) };
+                        vm.Mode = DocumentLifeCircle.Create;
+                        vm.DataContext = mc.CreateNew();
+
+                        Binding bindinglogineduser = new Binding();
+                        bindinglogineduser.Source = ((MainViewModel)DataContext).LoginedUser;
+
+                        vm.SetBinding(ManufacturersManageView.LoginedUserProperty, bindinglogineduser);
+
+                        addWorkarea.Content = vm;
+                        addWorkarea.Margin = new Thickness(0);
+
+                        Workspaces.Items.Add(addWorkarea);
+                        Workspaces.SelectedItem = addWorkarea;
+                    }
+                }
+
             }
             catch (Exception ex)
             {
@@ -218,7 +230,6 @@ namespace TokikuNew
                 }
                 else
                 {
-
                     Workspaces.SelectedItem = addWorkarea;
                 }
             }
@@ -267,7 +278,6 @@ namespace TokikuNew
                             break;
                         }
                     }
-
                 }
 
                 if (!isExisted)
@@ -385,7 +395,18 @@ namespace TokikuNew
                 else
                     return;
 
-                using (var mc = new ClientController())
+                bool isExisted = true;
+
+                foreach (TabItem item in Workspaces.Items)
+                {
+                    if (item.Header.Equals(addWorkarea.Header))
+                    {
+                        isExisted = true;
+                        addWorkarea = (ClosableTabItem)item;
+                        break;
+                    }
+                }
+                if (!isExisted)
                 {
 
                     var vm = new ClientManageView() { Margin = new Thickness(0) };
@@ -399,9 +420,9 @@ namespace TokikuNew
                     addWorkarea.Margin = new Thickness(0);
 
                     Workspaces.Items.Add(addWorkarea);
+                    Workspaces.SelectedItem = addWorkarea;
                 }
 
-                Workspaces.SelectedItem = addWorkarea;
             }
             catch (Exception ex)
             {
@@ -416,14 +437,28 @@ namespace TokikuNew
                 ClosableTabItem addWorkarea = new ClosableTabItem();
                 addWorkarea.Header = "測試元件";
 
-                var vm = new TestView() { Margin = new Thickness(0) };
-                vm.DataContext = ((MainViewModel)DataContext).Clients;
-                addWorkarea.Content = vm;
-                addWorkarea.Margin = new Thickness(0);
+                bool isExisted = true;
 
-                Workspaces.Items.Add(addWorkarea);
-                Workspaces.SelectedItem = addWorkarea;
+                foreach (TabItem item in Workspaces.Items)
+                {
+                    if (item.Header.Equals(addWorkarea.Header))
+                    {
+                        isExisted = true;
+                        addWorkarea = (ClosableTabItem)item;
+                        break;
+                    }
+                }
 
+                if (!isExisted)
+                {
+                    var vm = new TestView() { Margin = new Thickness(0) };
+                    vm.DataContext = ((MainViewModel)DataContext).Clients;
+                    addWorkarea.Content = vm;
+                    addWorkarea.Margin = new Thickness(0);
+
+                    Workspaces.Items.Add(addWorkarea);
+                    Workspaces.SelectedItem = addWorkarea;
+                }
 
             }
             catch (Exception ex)

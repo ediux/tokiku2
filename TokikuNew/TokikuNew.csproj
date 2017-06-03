@@ -100,6 +100,9 @@
     <Compile Include="Views\AluminumExtrusionOrderSheetView.xaml.cs">
       <DependentUpon>AluminumExtrusionOrderSheetView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\BusinessItemListView.xaml.cs">
+      <DependentUpon>BusinessItemListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ClientListView.xaml.cs">
       <DependentUpon>ClientListView.xaml</DependentUpon>
     </Compile>
@@ -210,6 +213,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\AluminumExtrusionOrderSheetView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BusinessItemListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

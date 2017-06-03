@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -95,6 +96,7 @@ namespace Tokiku.ViewModels
    typeof(ProjectsViewModelCollection), typeof(ManufacturersViewModel),
    new PropertyMetadata(default(ProjectsViewModelCollection), new PropertyChangedCallback(DefaultFieldChanged)));
 
+        [Display(Name="編號")]
         public System.Guid Id { get { return (Guid)GetValue(IdProperty); } set { SetValue(IdProperty, value); RaisePropertyChanged("Id"); } }
         public string Code { get { return (string)GetValue(CodeProperty); } set { SetValue(CodeProperty, value); RaisePropertyChanged("Code"); } }
         public string Name { get { return (string)GetValue(NameProperty); } set { SetValue(NameProperty, value); RaisePropertyChanged("Name"); } }
