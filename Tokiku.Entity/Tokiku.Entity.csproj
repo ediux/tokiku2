@@ -99,6 +99,9 @@
     <Compile Include="ManufacturersBussinessItems.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
+    <Compile Include="ManufacturersBussinessItems.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
     <Compile Include="MaterialCategories.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
