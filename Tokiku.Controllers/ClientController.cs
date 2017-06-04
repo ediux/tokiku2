@@ -256,7 +256,7 @@ namespace Tokiku.Controllers
             {
                 using (database)
                 {
-                    UserController uc = new UserController();
+                    StartUpWindowController uc = new StartUpWindowController();
                     var LoginedUser = uc.GetCurrentLoginUser();
                     var dbm = (from q in database.Manufacturers
                                where q.Id == model.Id && q.Void == false

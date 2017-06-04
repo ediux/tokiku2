@@ -7,204 +7,26 @@ using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using Tokiku.Entity;
-using Tokiku.ViewModels;
 
 namespace Tokiku.Controllers
 {
     public abstract class BaseController : IDisposable
     {
-      
-        protected TokikuEntities database;
 
-        /// <summary>
-        /// 將來自資料庫的資料實體抄到檢視模型。
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="entity"></param>
-        protected TViewB BindingFromModel<TViewB, TB>(TB entity) where TViewB : IBaseViewModel where TB : class
-        {
-            TViewB ViewModel = Activator.CreateInstance<TViewB>();
-
-            try
-            {
-                Type t = typeof(TB);
-                Type ct = typeof(TViewB);
-#if DEBUG
-                Debug.WriteLine("BindingFromModel");
-                Debug.WriteLine(string.Format("資料實體{0},檢視模型為{1}", t.Name, ct.Name));
-                Debug.WriteLine("開始抄寫.");
-#endif
-                var props = t.GetProperties();
-
-                foreach (var prop in props)
-                {
-                    try
-                    {
-                        var ctProp = ct.GetProperty(prop.Name);
-
-                        if (ctProp != null)
-                        {
-
-                            if (prop.PropertyType == ctProp.PropertyType)
-                            {
-
-                                var entityvalue = prop.GetValue(entity);
-                                var value = ctProp.GetValue(ViewModel);
-
-#if DEBUG
-                                Debug.Write(string.Format("資料實體屬性 {0}({2}) 內容值為 {1}(null).\n", prop.Name, entityvalue, prop.PropertyType.Name));
-                                Debug.Write(string.Format("檢視模型屬性 {0}({2}) 內容值為 {1}(null).\n", ctProp.Name, value, ctProp.PropertyType.Name));
-#endif
-
-                                ctProp.SetValue(ViewModel, entityvalue);
-                            }
-                        }
-                    }
-#if DEBUG
-                    catch (Exception ex)
-#else
-                    catch
-#endif
-
-                    {
-#if DEBUG
-                        Debug.WriteLine(ex.Message);
-
-#endif
-                        continue;
-                    }
-
-                }
-#if DEBUG
-                Debug.WriteLine("結束抄寫.");
-#endif
-                return ViewModel;
-            }
-            catch (Exception ex)
-            {
-                ViewModel.Errors = new string[] { ex.Message + "," + ex.StackTrace };
-                return ViewModel;
-            }
-        }
-
-
-        /// <summary>
-        /// 將檢視模型的內容抄寫到非資料實體模型物件。
-        /// </summary>
-        /// <typeparam name="T">要抄寫的目標物件型別</typeparam>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        protected void CopyToModel<TViewB, TB>(TB entity, TViewB ViewModel) where TViewB : IBaseViewModel where TB : class
-        {
-            try
-            {
-                Type CurrentViewModelType = ViewModel.GetType();
-                Type TargetEntity = entity.GetType();
-#if DEBUG
-                Debug.WriteLine("CopyToModel");
-                Debug.WriteLine(string.Format("資料實體{0},檢視模型為{1}", TargetEntity.Name, CurrentViewModelType.Name));
-                Debug.WriteLine("開始抄寫.");
-#endif
-                var CurrentViewModel_Property = CurrentViewModelType.GetProperties();
-
-                foreach (var ViewModelProperty in CurrentViewModel_Property)
-                {
-                    try
-                    {
-                        var EntityProperty = TargetEntity.GetProperty(ViewModelProperty.Name);
-                        if (EntityProperty != null)
-                        {
-                            var entityvalue = EntityProperty.GetValue(entity);
-                            var value = ViewModelProperty.GetValue(ViewModel);
-
-                            if (EntityProperty.PropertyType.IsGenericType && EntityProperty.PropertyType.GetGenericTypeDefinition().Name == (typeof(ICollection<>).Name))
-                            {
-                                continue;
-                            }
-
-
-
-                            if (ViewModelProperty.PropertyType.IsGenericType && ViewModelProperty.PropertyType.GetGenericTypeDefinition().Name == (typeof(ObservableCollection<>).Name))
-                            {
-                                continue;
-                            }
-#if DEBUG
-                            Debug.WriteLine(string.Format("資料實體屬性 {0}({2}) 內容值為 {1}.\n", EntityProperty.Name, entityvalue, EntityProperty.PropertyType.Name));
-                            Debug.WriteLine(string.Format("檢視模型屬性 {0}({2}) 內容值為 {1}.\n", ViewModelProperty.Name, value, ViewModelProperty.PropertyType.Name));
-#endif
-                            if (value != null && !value.Equals(entityvalue))
-                            {
-                                EntityProperty.SetValue(entity, value);
-                            }
-#if DEBUG
-                            Debug.WriteLine(string.Format("抄寫後資料實體屬性 {0}({2}) 內容值為 {1}.\n", EntityProperty.Name, EntityProperty.GetValue(entity), EntityProperty.PropertyType.Name));
-#endif
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        setErrortoModel(ViewModel, ex);
-                        continue;
-                    }
-
-                }
-#if DEBUG
-                Debug.WriteLine("結束抄寫.");
-#endif
-
-            }
-            catch (Exception ex)
-            {
-                if (ViewModel != null)
-                    ViewModel.Errors = new string[] { ex.Message + "," + ex.StackTrace };
-            }
-        }
-
-        #region IDisposable Support
-        private bool disposedValue = false; // 偵測多餘的呼叫
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    database.Dispose();
-                }
-
-                // TODO: 釋放 Unmanaged 資源 (Unmanaged 物件) 並覆寫下方的完成項。
-                // TODO: 將大型欄位設為 null。
-
-                disposedValue = true;
-            }
-        }
-
-        // TODO: 僅當上方的 Dispose(bool disposing) 具有會釋放 Unmanaged 資源的程式碼時，才覆寫完成項。
-        // ~BaseController() {
-        //   // 請勿變更這個程式碼。請將清除程式碼放入上方的 Dispose(bool disposing) 中。
-        //   Dispose(false);
-        // }
-
-        // 加入這個程式碼的目的在正確實作可處置的模式。
-        public void Dispose()
-        {
-            // 請勿變更這個程式碼。請將清除程式碼放入上方的 Dispose(bool disposing) 中。
-            Dispose(true);
-            // TODO: 如果上方的完成項已被覆寫，即取消下行的註解狀態。
-            // GC.SuppressFinalize(this);
-        }
-        #endregion
+        protected IUnitOfWork database;
 
         /// <summary>
         /// 將錯誤訊息寫到檢視模型中以利顯示。
         /// </summary>
         /// <param name="model">檢視模型型別。</param>
         /// <param name="ex">例外錯誤狀況執行個體。</param>
-        protected static void setErrortoModel(IBaseViewModel model, Exception ex)
+        protected static void setErrortoModel(ExecuteResultEntity model, Exception ex)
         {
+
             if (model == null)
-                model = (IBaseViewModel)Activator.CreateInstance(model.GetType());
+                model = new ExecuteResultEntity();
 
             if (model.Errors == null)
                 model.Errors = new string[] { }.AsEnumerable();
@@ -250,16 +72,23 @@ namespace Tokiku.Controllers
 
         }
 
-        protected static void setErrortoModel(IBaseViewModel model, string Message)
+        /// <summary>
+        /// 將錯誤訊息寫到檢視模型中以利顯示。
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="Message"></param>
+        protected static void setErrortoModel(ExecuteResultEntity model, string Message)
         {
+
             if (model == null)
-                model = (IBaseViewModel)Activator.CreateInstance(model.GetType());
+                model = (ExecuteResultEntity)Activator.CreateInstance(model.GetType());
 
             if (model.Errors == null)
                 model.Errors = new string[] { }.AsEnumerable();
 
             model.Errors = new string[] { Message };
         }
+
 
         private static void ScanErrorMessage(Exception ex, List<string> messageQueue)
         {
@@ -272,120 +101,134 @@ namespace Tokiku.Controllers
 
         }
 
-        public UserViewModel Login(LoginViewModel model)
+        #region IDisposable Support
+        private bool disposedValue = false; // 偵測多餘的呼叫
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    database.Dispose();
+                }
+
+                // TODO: 釋放 Unmanaged 資源 (Unmanaged 物件) 並覆寫下方的完成項。
+                // TODO: 將大型欄位設為 null。
+
+                disposedValue = true;
+            }
+        }
+
+        // TODO: 僅當上方的 Dispose(bool disposing) 具有會釋放 Unmanaged 資源的程式碼時，才覆寫完成項。
+        // ~BaseController() {
+        //   // 請勿變更這個程式碼。請將清除程式碼放入上方的 Dispose(bool disposing) 中。
+        //   Dispose(false);
+        // }
+
+        // 加入這個程式碼的目的在正確實作可處置的模式。
+        public void Dispose()
+        {
+            // 請勿變更這個程式碼。請將清除程式碼放入上方的 Dispose(bool disposing) 中。
+            Dispose(true);
+            // TODO: 如果上方的完成項已被覆寫，即取消下行的註解狀態。
+            // GC.SuppressFinalize(this);
+        }
+        #endregion
+
+
+
+        public ExecuteResultEntity<Users> Login(LoginParameter model)
         {
             try
             {
-                using (database)
+                using ((TokikuEntities)database)
                 {
                     string loweredUserName = model.UserName.ToLowerInvariant();
-                    _CurrentLoginedUserStorage = (from q in database.Users
-                                                  from m in database.Membership
-                                                  where m.UserId == q.UserId && q.LoweredUserName == loweredUserName
-                                                  && m.Password == model.Password
-                                                  select new UserViewModel()
-                                                  {
-                                                      IsAnonymous = q.IsAnonymous,
-                                                      LastActivityDate = q.LastActivityDate,
-                                                      LoweredUserName = q.LoweredUserName,
-                                                      MobileAlias = q.MobileAlias,
-                                                      Password = m.Password,
-                                                      UserId = q.UserId,
-                                                      UserName = q.UserName
-                                                  }).SingleOrDefault();
+                    _CurrentLoginedUserStorage = (from q in RepositoryHelper.GetUsersRepository(database).All()
+                                                  where q.LoweredUserName == loweredUserName
+                                                  && q.Membership.Password == model.Password
+                                                  select q).SingleOrDefault();
+
                     if (_CurrentLoginedUserStorage != null)
                     {
-                        return _CurrentLoginedUserStorage;
+                        return new ExecuteResultEntity<Users>() { Result = _CurrentLoginedUserStorage };
                     }
 
-                    _CurrentLoginedUserStorage = new UserViewModel();
-                    setErrortoModel(_CurrentLoginedUserStorage, "登入失敗!");
-                    return _CurrentLoginedUserStorage;
+                    ExecuteResultEntity<Users> error = new ExecuteResultEntity<Users>();
+                    setErrortoModel(error, "登入失敗!");
+                    return error;
                 }
             }
             catch (Exception ex)
             {
+                ExecuteResultEntity<Users> error = new ExecuteResultEntity<Users>();
 
-                setErrortoModel(model, ex);
+                setErrortoModel(error, ex);
 
-                return new UserViewModel() { Errors = model.Errors };
-            }
-            finally
-            {
-                database = new TokikuEntities();
+                return error;
             }
 
         }
-        protected static UserViewModel _CurrentLoginedUserStorage;
 
-        public UserViewModel GetCurrentLoginUser()
+        protected static Users _CurrentLoginedUserStorage;
+
+        public ExecuteResultEntity<Users> GetCurrentLoginUser()
         {
             try
             {
                 if (_CurrentLoginedUserStorage != null)
                 {
-                    return _CurrentLoginedUserStorage;
+                    return new ExecuteResultEntity<Users>() { Result = _CurrentLoginedUserStorage };
                 }
 
-                return default(UserViewModel);
+                return new ExecuteResultEntity<Users>() { Errors = new string[] { "登入失敗!" } };
             }
             catch (Exception ex)
             {
-                UserViewModel error = new UserViewModel();
+                ExecuteResultEntity<Users> error = new ExecuteResultEntity<Users>();
                 error.Errors = new string[] { ex.Message };
                 return error;
             }
         }
 
-        public UserViewModel GetUser(string UserName)
+        public ExecuteResultEntity<Users> GetUser(string UserName)
         {
-            UserViewModel vm = new UserViewModel();
-
             try
             {
-                using (database)
+                using (IUsersRepository UserRepo = RepositoryHelper.GetUsersRepository())
                 {
+
                     string loweredUserName = UserName.ToLowerInvariant();
-                    _CurrentLoginedUserStorage = (from q in database.Users
-                                                  from m in database.Membership
-                                                  where m.UserId == q.UserId && q.LoweredUserName == loweredUserName
-                                                  select new UserViewModel()
-                                                  {
-                                                      IsAnonymous = q.IsAnonymous,
-                                                      LastActivityDate = q.LastActivityDate,
-                                                      LoweredUserName = q.LoweredUserName,
-                                                      MobileAlias = q.MobileAlias,
-                                                      Password = m.Password,
-                                                      UserId = q.UserId,
-                                                      UserName = q.UserName
-                                                  }).SingleOrDefault();
+                    _CurrentLoginedUserStorage = (from q in UserRepo.All()
+                                                  where q.LoweredUserName == loweredUserName
+                                                  select q).SingleOrDefault();
 
                     if (_CurrentLoginedUserStorage != null)
                     {
-                        return _CurrentLoginedUserStorage;
+                        return ExecuteResultEntity<Users>.CreateResultEntity(_CurrentLoginedUserStorage);
                     }
 
-                    _CurrentLoginedUserStorage = new UserViewModel();
-                    setErrortoModel(_CurrentLoginedUserStorage, "登入失敗!");
-                    return _CurrentLoginedUserStorage;
+
+                    return ExecuteResultEntity<Users>.CreateErrorResultEntity(new Exception("登入失敗!"));
                 }
+
             }
             catch (Exception ex)
             {
-                vm.Errors = new string[] { ex.Message };
-                return vm;
+                return ExecuteResultEntity<Users>.CreateErrorResultEntity(ex);
             }
         }
 
-        public UserViewModel Login(string UserName, string pwd)
+        public ExecuteResultEntity<Users> Login(string UserName, string pwd)
         {
             try
             {
-                return Login(new LoginViewModel() { Password = pwd, UserName = UserName });
+                return Login(new LoginParameter() { Password = pwd, UserName = UserName });
             }
             catch (Exception ex)
             {
-                UserViewModel model = new UserViewModel();
+                ExecuteResultEntity<Users> model = new ExecuteResultEntity<Users>();
                 setErrortoModel(model, ex);
                 return model;
             }
@@ -393,42 +236,22 @@ namespace Tokiku.Controllers
 
     }
 
-    public abstract class BaseController<TView, T> : BaseController where TView : IBaseViewModel where T : class
+    public abstract class BaseController<T> : BaseController where T : class
     {
         public BaseController() : base()
         {
             try
             {
-                database = new TokikuEntities();
+                database = RepositoryHelper.GetUnitOfWork();
             }
             catch
             {
 #if DEBUG
-                database = new TokikuEntities("data source=220.130.128.36,1443;initial catalog=Tokiku2;persist security info=True;user id=sa;password=1qaz@WSX;MultipleActiveResultSets=True;App=EntityFramework");
+                //database = new TokikuEntities("data source=220.130.128.36,1443;initial catalog=Tokiku2;persist security info=True;user id=sa;password=1qaz@WSX;MultipleActiveResultSets=True;App=EntityFramework");
+                database = RepositoryHelper.GetUnitOfWork();
+                database.ConnectionString = "data source = 220.130.128.36,1443; initial catalog = Tokiku2; persist security info = True; user id = sa; password = 1qaz @WSX; MultipleActiveResultSets = True; App = EntityFramework";
 #endif
             }
-        }
-
-        /// <summary>
-        /// 將來自資料庫的資料實體抄到檢視模型。
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="entity"></param>
-        protected TView BindingFromModel(T entity)
-        {
-            return BindingFromModel<TView, T>(entity);
-
-        }
-
-        /// <summary>
-        /// 將檢視模型的內容抄寫到資料實體模型。
-        /// </summary>
-        /// <typeparam name="T">要抄寫的目標物件型別</typeparam>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        protected void CopyToModel(T entity, TView ViewModel)
-        {
-            base.CopyToModel(entity, ViewModel);
         }
 
         /// <summary>
@@ -454,200 +277,254 @@ namespace Tokiku.Controllers
             return pkeys.ToArray();
         }
 
+        private IRepositoryBase<T> GetRepository()
+        {
+            Type type = typeof(T);
+
+            Type RepositoryType = typeof(RepositoryHelper);
+
+
+            if (RepositoryType != null)
+            {
+                MethodInfo GetRepositoryMethod = RepositoryType.GetMethod(string.Format("{0}Repository"), System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Instance);
+
+                return (IRepositoryBase<T>)GetRepositoryMethod.Invoke(null, new object[] { database });
+            }
+
+            return default(IRepositoryBase<T>);
+
+        }
+
         /// <summary>
         /// 預設的建立檢視模型執行個體的方法。
         /// </summary>
         /// <returns>傳回初始化的檢視模型。</returns>
-        public virtual TView CreateNew()
+        public virtual ExecuteResultEntity<T> CreateNew()
         {
-            TView model = default(TView);
+            ExecuteResultEntity<T> model = null;
 
             try
             {
-                model = Activator.CreateInstance<TView>();
+                model = new ExecuteResultEntity<T>();
+                model.Result = Activator.CreateInstance<T>();
                 return model;
             }
             catch (Exception ex)
             {
                 if (model == null)
                 {
-                    model = Activator.CreateInstance<TView>();
+                    model = ExecuteResultEntity<T>.CreateErrorResultEntity(ex);
                 }
                 setErrortoModel(model, ex);
                 return model;
             }
         }
 
-        public virtual void Add(TView model)
+        /// <summary>
+        /// 加入單一資料列到資料庫。
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public virtual ExecuteResultEntity Add(T entity)
         {
             try
             {
-                using (database)
+                using (IRepositoryBase<T> repo = GetRepository())
                 {
-                    T entity = Activator.CreateInstance<T>();
-                    CopyToModel(entity, model);
-                    database.Set<T>().Add(entity);
-                    database.SaveChanges();
+                    repo.Add(entity);
+                    repo.UnitOfWork.Commit();
+                    entity = repo.Reload(entity);
+                    return ExecuteResultEntity<T>.CreateResultEntity(entity);
                 }
 
             }
             catch (Exception ex)
             {
-                if (model == null)
-                {
-                    model = Activator.CreateInstance<TView>();
-                }
+                var model = ExecuteResultEntity<T>.CreateErrorResultEntity(ex);
                 setErrortoModel(model, ex);
-            }
-            finally
-            {
-                database = new TokikuEntities();
+                return model;
             }
         }
 
-        public virtual TView Query(Expression<Func<T, bool>> filiter)
+        /// <summary>
+        /// 取得查詢結果。        
+        /// </summary>
+        /// <param name="filiter">LINQ查詢表示式</param>
+        /// <returns>傳回帶有訊息的查詢集合。</returns>
+        public virtual ExecuteResultEntity<ICollection<T>> Query(Expression<Func<T, bool>> filiter)
         {
-            TView model = default(TView);
+
+            ExecuteResultEntity<ICollection<T>> model = null;
 
             try
             {
-                using (database)
+                using (var repo = GetRepository())
                 {
-                    var result = database.Set<T>().Where(filiter);
+                    var result = repo.Where(filiter);
 
                     if (result.Any())
                     {
-                        T entity = result.Single();
-                        model = BindingFromModel(entity);
+                        model = ExecuteResultEntity<ICollection<T>>.CreateResultEntity(new Collection<T>(result.ToList()));
                         return model;
                     }
 
-                    model = Activator.CreateInstance<TView>();
-                    setErrortoModel(model, "Not Found!");
+                    model = ExecuteResultEntity<ICollection<T>>.CreateErrorResultEntity("Not Found!");
                     return model;
                 }
             }
             catch (Exception ex)
             {
-                if (model == null)
-                {
-                    model = Activator.CreateInstance<TView>();
-                }
-                setErrortoModel(model, ex);
+                model = ExecuteResultEntity<ICollection<T>>.CreateErrorResultEntity(ex);
                 return model;
             }
-            finally
-            {
-                database = new TokikuEntities();
-            }
+
         }
 
-        public virtual TView Update(TView model)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public virtual ExecuteResultEntity<T> Update(T fromModel, bool isLastRecord = true)
         {
             try
             {
-                using (database)
+                using (var repo = GetRepository())
                 {
-                    T entity = Activator.CreateInstance<T>();
-                    CopyToModel(entity, model);
-
-                    var findresult = database.Set<T>().Find(IdentifyPrimaryKey(entity));
+                    T findresult = repo.Get(IdentifyPrimaryKey(fromModel));
 
                     if (findresult != null)
                     {
-                        findresult = entity;
-                        database.SaveChanges();
-                        findresult = database.Set<T>().Find(IdentifyPrimaryKey(findresult));
-                        return BindingFromModel(findresult);
+                        Type fromSource = fromModel.GetType();
+
+                        foreach (var prop in findresult.GetType().GetProperties())
+                        {
+                            var OldValue = prop.GetValue(findresult);
+                            var NewValue = fromSource.GetProperty(prop.Name).GetValue(fromModel);
+
+                            if (OldValue != null)
+                            {
+                                if (NewValue != null && !OldValue.Equals(NewValue))
+                                {
+                                    prop.SetValue(findresult, fromSource.GetProperty(prop.Name).GetValue(fromModel));
+                                }
+                                else
+                                {
+                                    continue;
+                                }
+                            }
+                            else
+                            {
+                                if (NewValue != null)
+                                {
+                                    prop.SetValue(findresult, fromSource.GetProperty(prop.Name).GetValue(fromModel));
+                                }
+                            }
+                        }
+
+                        if (isLastRecord)
+                        {
+                            database.Commit();
+                        }
+
+                        fromModel = repo.Reload(fromModel);
+                        return ExecuteResultEntity<T>.CreateResultEntity(fromModel);
                     }
 
-                    return default(TView);
+                    return ExecuteResultEntity<T>.CreateErrorResultEntity("Data not found.");
                 }
 
             }
             catch (Exception ex)
             {
-                if (model == null)
-                {
-                    model = Activator.CreateInstance<TView>();
-                }
-                setErrortoModel(model, ex);
-                return model;
+                return ExecuteResultEntity<T>.CreateErrorResultEntity(ex);
             }
-            finally
-            {
-                database = new TokikuEntities();
-            }
+
         }
 
-        public virtual void Delete(TView model)
+        /// <summary>
+        /// 刪除資料
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public virtual ExecuteResultEntity Delete(Expression<Func<T, bool>> condtion)
         {
             try
             {
-                using (database)
+                using (var repo = GetRepository())
                 {
-                    T entity = Activator.CreateInstance<T>();
-                    CopyToModel(entity, model);
+                    var findresult = repo.Where(condtion);
 
-                    var findresult = database.Set<T>().Find(IdentifyPrimaryKey(entity));
-
-                    if (findresult != null)
+                    if (findresult.Any())
                     {
-                        database.Set<T>().Remove(findresult);
-                        database.SaveChanges();
+                        foreach (var result in findresult)
+                        {
+                            repo.Delete(result);
+                        }
+
+                        repo.UnitOfWork.Commit();
+
+                        return ExecuteResultEntity.CreateResultEntity();
                     }
+
+                    return ExecuteResultEntity.CreateErrorResultEntity("Data no found.");
                 }
-
-
             }
             catch (Exception ex)
             {
-                if (model == null)
-                {
-                    model = Activator.CreateInstance<TView>();
-                }
-                setErrortoModel(model, ex);
+                return ExecuteResultEntity.CreateErrorResultEntity(ex);
             }
-            finally
-            {
-                database = new TokikuEntities();
-            }
+
         }
 
-        public virtual void SaveModel(TView model)
+        /// <summary>
+        /// 儲存或更新資料庫
+        /// </summary>
+        /// <param name="model"></param>
+        public virtual ExecuteResultEntity<ICollection<T>> CreateOrUpdate(ICollection<T> ObjectDataSet)
         {
             try
             {
-                T entity = Activator.CreateInstance<T>();
-                CopyToModel(entity, model);
-
-                var findresult = database.Set<T>().Find(IdentifyPrimaryKey(entity));
-
-                if (findresult != null)
+                using (var repo = GetRepository())
                 {
-                    Update(model);
-                }
-                else
-                {
-                    Add(model);
-                }
+                    if (ObjectDataSet.Any())
+                    {
+                        int c = 0;
+                        foreach (var result in ObjectDataSet)
+                        {
+                            if (repo.Get(result) != null)
+                            {
+                                Update(result, c == ObjectDataSet.Count);
+                            }
+                            else
+                            {
+                                Add(result);
+                            }
+                        }
 
+                        return ExecuteResultEntity<ICollection<T>>.CreateResultEntity(ObjectDataSet);
+                    }
+
+                    return ExecuteResultEntity<ICollection<T>>.CreateErrorResultEntity("No data update.");
+
+                }
             }
             catch (Exception ex)
             {
-                if (model == null)
-                {
-                    model = Activator.CreateInstance<TView>();
-                }
-                setErrortoModel(model, ex);
+                return ExecuteResultEntity<ICollection<T>>.CreateErrorResultEntity(ex);
             }
         }
 
+        /// <summary>
+        /// 檢查是否有符合查詢條件式的資料列
+        /// </summary>
+        /// <param name="filiter"></param>
+        /// <returns></returns>
         public virtual bool IsExists(Expression<Func<T, bool>> filiter)
         {
             try
             {
-                return database.Set<T>().Where(filiter).Any();
+                return database.Context.Set<T>().Where(filiter).Any();
             }
             catch
             {

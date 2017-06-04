@@ -25,10 +25,8 @@ namespace Tokiku.Entity
         public Nullable<System.Guid> ShopFlowId { get; set; }
     
         public virtual States States { get; set; }
-        public virtual Users Users { get; set; }
-        public virtual ICollection<BOM> BOM { get; set; }
-        public virtual Engineering Engineering { get; set; }
+        public virtual Users CreateUser { get; set; }
         public virtual ShopFlowHistory ShopFlowHistory1 { get; set; }
-        public virtual ShopFlowHistory ShopFlowHistory2 { get; set; }
+        public virtual Engineering Engineering { get; set; }
     }
 }

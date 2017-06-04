@@ -28,15 +28,15 @@ namespace Tokiku.Entity
         [Required]
         public System.DateTime CompletionDate { get; set; }
         public Nullable<byte> State { get; set; }
-        public Nullable<System.DateTime> WarrantyDate { get; set; }
         [Required]
         public System.DateTime CreateTime { get; set; }
         [Required]
         public System.Guid CreateUserId { get; set; }
     
-        public virtual ProjectContract ProjectContract { get; set; }
-        public virtual ICollection<ShopFlowHistory> ShopFlowHistory { get; set; }
         public virtual ICollection<Compositions> Compositions { get; set; }
+        public virtual ProjectContract ProjectContract { get; set; }
         public virtual States States { get; set; }
+        public virtual ICollection<ProjectItemCost> ProjectItemCost { get; set; }
+        public virtual ICollection<ShopFlowHistory> ShopFlowHistory { get; set; }
     }
 }

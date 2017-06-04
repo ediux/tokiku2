@@ -14,7 +14,7 @@ namespace TokikuNew.Frame
     /// </summary>
     public partial class StartUpWindow : Window
     {
-        private UserController controller = App.Resolve<UserController>();
+        
 
         public static readonly DependencyProperty ModelProperty = DependencyProperty.Register("Model", typeof(LoginViewModel), typeof(StartUpWindow), new PropertyMetadata(default(LoginViewModel)));
 
@@ -47,7 +47,7 @@ namespace TokikuNew.Frame
                 if (loginedUser != null)
                 {
                     tblkMessage.Text = "登入成功!";
-                    MainController mc = App.Resolve<MainController>();
+                    MainWindowController mc = App.Resolve<MainWindowController>();
 
                  var mainwin=   App.Navigate<MainWindow, MainViewModel>(mc.Index());
 

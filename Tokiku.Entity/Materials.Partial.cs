@@ -29,7 +29,7 @@ namespace Tokiku.Entity
         public System.Guid CreateUserId { get; set; }
     
         public virtual MaterialCategories MaterialCategories { get; set; }
-        public virtual Users Users { get; set; }
-        public virtual ICollection<BOM> BOM { get; set; }
+        public virtual Users CreateUser { get; set; }
+        public virtual ICollection<Molds> Molds { get; set; }
     }
 }

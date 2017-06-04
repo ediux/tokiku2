@@ -19,10 +19,12 @@ namespace Tokiku.Entity
         {
             this.Roles = new HashSet<Roles>();
             this.ShopFlowHistory = new HashSet<ShopFlowHistory>();
-            this.Materials = new HashSet<Materials>();
-            this.PromissoryNoteManagement = new HashSet<PromissoryNoteManagement>();
             this.ShopFlowDetail = new HashSet<ShopFlowDetail>();
+            this.Materials = new HashSet<Materials>();
+            this.Molds = new HashSet<Molds>();
             this.ProjectContract = new HashSet<ProjectContract>();
+            this.ProjectItemCost = new HashSet<ProjectItemCost>();
+            this.PromissoryNoteManagement = new HashSet<PromissoryNoteManagement>();
         }
     
         public System.Guid UserId { get; set; }
@@ -39,12 +41,16 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShopFlowHistory> ShopFlowHistory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Materials> Materials { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShopFlowDetail> ShopFlowDetail { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Materials> Materials { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Molds> Molds { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectContract> ProjectContract { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProjectItemCost> ProjectItemCost { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
     }
 }

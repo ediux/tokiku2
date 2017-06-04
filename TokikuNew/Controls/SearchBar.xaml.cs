@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace TokikuNew.Controls
 {
@@ -60,6 +49,21 @@ namespace TokikuNew.Controls
             remove { RemoveHandler(ResetSearchEvent, value); }
         }
 
+        /// <summary>
+        /// 引發重新整理事件
+        /// </summary>
+        public static readonly RoutedEvent RefreshResultEvent = EventManager.RegisterRoutedEvent("RefreshResult", RoutingStrategy.Bubble
+    , typeof(RoutedEventHandler), typeof(SearchBar));
+
+        /// <summary>
+        /// 引發重新整理事件
+        /// </summary>
+        public event RoutedEventHandler RefreshResult
+        {
+            add { AddHandler(RefreshResultEvent, value); }
+            remove { RemoveHandler(RefreshResultEvent, value); }
+        }
+
         private void SearchBar_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -74,6 +78,11 @@ namespace TokikuNew.Controls
                     tbSearchBar.Text = "";
                 }
             }
+        }
+
+        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            RaiseEvent(new RoutedEventArgs(RefreshResultEvent, this));
         }
     }
 }

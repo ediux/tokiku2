@@ -48,9 +48,11 @@
     <Compile Include="CompositionTypesViewModel.cs" />
     <Compile Include="CRM\ClientViewModel.cs" />
     <Compile Include="EngineeringViewModel.cs" />
+    <Compile Include="PaymentTypesManageViewModel.cs" />
     <Compile Include="ProjectContractViewModel.cs" />
     <Compile Include="Projects\ProjectListViewModel.cs" />
     <Compile Include="PromissoryNoteManagementViewModel.cs" />
+    <Compile Include="Shared\BaseViewModelCollection.cs" />
     <Compile Include="Shared\ContactsViewModel.cs" />
     <Compile Include="Manufacturers\ManufacturersViewModel.cs" />
     <Compile Include="MES\MaterialsViewModel.cs" />
@@ -69,6 +71,16 @@
     <Compile Include="Shared\WithLoginUserBaseViewModel.cs" />
     <Compile Include="ShopFlowHistoryViewModel.cs" />
     <Compile Include="StatesViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tokiku.Controllers\Tokiku.Controllers.csproj">
+      <Project>{98214455-767F-4C8E-BF90-AF0BB7135A79}</Project>
+      <Name>Tokiku.Controllers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tokiku.Entity\Tokiku.Entity.csproj">
+      <Project>{14cc904e-4a5c-401b-a7db-ddb045abb6dd}</Project>
+      <Name>Tokiku.Entity</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

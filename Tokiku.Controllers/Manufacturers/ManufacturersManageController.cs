@@ -8,18 +8,17 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Tokiku.Entity;
-using Tokiku.ViewModels;
 
 namespace Tokiku.Controllers
 {
-    public class ManufacturersController : BaseController<ManufacturersViewModel, Manufacturers>
+    public class ManufacturersManageController : BaseController<Manufacturers>
     {
+        private ManufacturersRepository ManufacturersRepository;
 
-        private UserController controller;
 
-        public ManufacturersController()
+        public ManufacturersManageController()
         {
-            controller = new UserController();
+            ManufacturersRepository = RepositoryHelper.GetManufacturersRepository(database);
         }
 
         /// <summary>
@@ -27,7 +26,7 @@ namespace Tokiku.Controllers
         /// </summary>
         /// <param name="Code"></param>
         /// <returns></returns>
-        public string GetNextProjectSerialNumber()
+        private string GetNextProjectSerialNumber()
         {
             string Code = string.Empty;
             var lastitem = QueryAll().OrderByDescending(s => s.Code).FirstOrDefault();
@@ -108,41 +107,34 @@ namespace Tokiku.Controllers
             return string.Format("{0:00}", Code);
         }
 
-
-
-        public IEnumerable SearchByText(string originalSource)
+        public ExecuteResultEntity<ICollection<Manufacturers>> SearchByText(string originalSource)
         {
             if (originalSource != null && originalSource.Length > 0)
             {
-                var result = (from p in database.Manufacturers
+                var result = (from p in ManufacturersRepository.All()
                               where p.Void == false && p.IsClient == false &&
                               (p.Code.Contains(originalSource) || p.Name.Contains(originalSource) || p.ShortName.Contains(originalSource))
                               orderby p.Code ascending
                               select p);
 
-                ManufacturersViewModelCollection rtn = new ManufacturersViewModelCollection();
-
-                ResultBindingToViewModelCollection(rtn, result);
+                ExecuteResultEntity<ICollection<Manufacturers>> rtn = ExecuteResultEntity<ICollection<Manufacturers>>.CreateResultEntity(new Collection<Manufacturers>(result.ToList()));
 
                 return rtn;
             }
             else
             {
-                var result = (from p in database.Manufacturers
+                var result = (from p in ManufacturersRepository.All()
                               where p.Void == false && p.IsClient == false
                               orderby p.Code ascending
                               select p);
 
-                ManufacturersViewModelCollection rtn = new ManufacturersViewModelCollection();
-
-                ResultBindingToViewModelCollection(rtn, result);
-
+                ExecuteResultEntity<ICollection<Manufacturers>> rtn = ExecuteResultEntity<ICollection<Manufacturers>>.CreateResultEntity(new Collection<Manufacturers>(result.ToList()));
                 return rtn;
             }
         }
 
 
-        public override ManufacturersViewModel Query(Expression<Func<Manufacturers, bool>> filiter)
+        public override ExecuteResultEntity<ICollection<Manufacturers>> Query(Expression<Func<Manufacturers, bool>> filiter)
         {
             try
             {
@@ -163,25 +155,9 @@ namespace Tokiku.Controllers
                 return model;
             }
         }
-        /// <summary>
-        /// 查詢單一個體的資料實體。
-        /// </summary>
-        /// <param name="ProjectId"></param>
-        public ManufacturersViewModel QueryModel(Guid ManufacturersId)
-        {
-            try
-            {
-                return Query(q => q.Id == ManufacturersId);
-            }
-            catch (Exception)
-            {
 
-                throw;
-            }
 
-        }
-
-        public ManufacturersViewModelCollection QueryAll()
+        public ExecuteResultEntity<ICollection<Manufacturers>> QueryAll()
         {
             ManufacturersViewModelCollection rtn = new ManufacturersViewModelCollection();
 
@@ -257,11 +233,11 @@ namespace Tokiku.Controllers
             return model;
         }
 
-        public override ManufacturersViewModel CreateNew()
+        public override ExecuteResultEntity<Manufacturers> CreateNew()
         {
             try
             {
-                UserController uc = new UserController();
+                StartUpWindowController uc = new StartUpWindowController();
                 var model = new ManufacturersViewModel()
                 {
                     Id = Guid.NewGuid(),
@@ -279,7 +255,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        public override void Add(ManufacturersViewModel model)
+        public override ExecuteResultEntity Add(Manufacturers entity)
         {
             try
             {
@@ -323,13 +299,13 @@ namespace Tokiku.Controllers
 
         }
 
-        public override ManufacturersViewModel Update(ManufacturersViewModel model)
+        public override ExecuteResultEntity<Manufacturers> Update(Manufacturers fromModel, bool isLastRecord = true)
         {
             try
             {
                 using (database)
                 {
-                    UserController uc = new UserController();
+                    StartUpWindowController uc = new StartUpWindowController();
                     var LoginedUser = uc.GetCurrentLoginUser();
                     var dbm = (from q in database.Manufacturers
                                where q.Id == model.Id && q.Void == false
@@ -400,11 +376,11 @@ namespace Tokiku.Controllers
 
         }
 
-        public override void Delete(ManufacturersViewModel model)
+        public override ExecuteResultEntity Delete(Expression<Func<Manufacturers, bool>> condtion)
         {
             try
             {
-                UserController controller = new UserController();
+                StartUpWindowController controller = new StartUpWindowController();
 
                 var result = from p in database.Manufacturers
                              where p.Id == model.Id && p.Void == false
@@ -428,40 +404,17 @@ namespace Tokiku.Controllers
 
 
 
-        /// <summary>
-        /// 儲存變更
-        /// </summary>
-        public override void SaveModel(ManufacturersViewModel model)
+
+
+        public override bool IsExists(Expression<Func<Manufacturers, bool>> filiter)        
         {
             try
             {
-                if (IsExists(q => q.Id == model.Id))
-                {
-                    Update(model);
-                }
-                else
-                {
-                    Add(model);
-                    model = Query(x => x.Id == model.Id);
-                }
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(model, ex);
-            }
-        }
-
-        public override bool IsExists(Expression<Func<Manufacturers, bool>> filiter)
-        {
-            try
-            {
-                var result = database.Manufacturers.Where(filiter);
-
+                var result = ManufacturersRepository.Where(filiter);
                 return result.Any();
             }
             catch
             {
-
                 return false;
             }
         }

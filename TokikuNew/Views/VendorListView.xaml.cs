@@ -23,7 +23,7 @@ namespace TokikuNew.Views
     /// </summary>
     public partial class VendorListView : UserControl
     {
-        private Tokiku.Controllers.ManufacturersController controller = new Tokiku.Controllers.ManufacturersController();
+        private Tokiku.Controllers.ManufacturersManageController controller = new Tokiku.Controllers.ManufacturersManageController();
         public VendorListView()
         {
             InitializeComponent();         

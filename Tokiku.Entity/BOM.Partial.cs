@@ -13,13 +13,20 @@ namespace Tokiku.Entity
     {
         [Required]
         public System.Guid Id { get; set; }
-        public Nullable<System.Guid> ShopFlowId { get; set; }
         [Required]
-        public System.Guid MaterialsId { get; set; }
+        public System.Guid ProjectItemCostId { get; set; }
         [Required]
-        public float Amount { get; set; }
-    
-        public virtual Materials Materials { get; set; }
-        public virtual ShopFlowHistory ShopFlowHistory { get; set; }
+        public int Bidders { get; set; }
+        [Required]
+        public int NumberTenders { get; set; }
+        
+        [StringLength(512, ErrorMessage="欄位長度不得大於 512 個字元")]
+        public string ItemName { get; set; }
+        [Required]
+        public System.Guid ShopFlowId { get; set; }
+        [Required]
+        public System.DateTime CreateTime { get; set; }
+        [Required]
+        public System.Guid CreateUserId { get; set; }
     }
 }

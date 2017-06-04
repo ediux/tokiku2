@@ -15,11 +15,12 @@ namespace Tokiku.Entity
     public partial class BOM
     {
         public System.Guid Id { get; set; }
-        public Nullable<System.Guid> ShopFlowId { get; set; }
-        public System.Guid MaterialsId { get; set; }
-        public float Amount { get; set; }
-    
-        public virtual Materials Materials { get; set; }
-        public virtual ShopFlowHistory ShopFlowHistory { get; set; }
+        public System.Guid ProjectItemCostId { get; set; }
+        public int Bidders { get; set; }
+        public int NumberTenders { get; set; }
+        public string ItemName { get; set; }
+        public System.Guid ShopFlowId { get; set; }
+        public System.DateTime CreateTime { get; set; }
+        public System.Guid CreateUserId { get; set; }
     }
 }

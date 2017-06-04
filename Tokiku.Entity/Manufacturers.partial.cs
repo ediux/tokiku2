@@ -19,7 +19,7 @@ namespace Tokiku.Entity
         public string Code { get; set; }
         
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
-        [Required(ErrorMessage = "客戶名稱/廠商名稱為必要項。")]
+        [Required]
         public string Name { get; set; }
         
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
@@ -90,10 +90,12 @@ namespace Tokiku.Entity
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
         public string MainContactPerson { get; set; }
     
-        public virtual ICollection<Contacts> Contacts { get; set; }
-        public virtual ICollection<Projects> Projects { get; set; }
         public virtual PaymentTypes PaymentTypes { get; set; }
-        public virtual ICollection<ProjectContract> ProjectContract { get; set; }
+        public virtual ICollection<Molds> Molds { get; set; }
+        public virtual ICollection<ProjectItemCost> ProjectItemCost { get; set; }
         public virtual ICollection<WorkShops> WorkShops { get; set; }
+        public virtual ICollection<Projects> ClientForProjects { get; set; }
+        public virtual ICollection<Contacts> Contacts { get; set; }
+        public virtual ICollection<Projects> ProjectSuppliers { get; set; }
     }
 }

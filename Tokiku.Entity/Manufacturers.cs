@@ -17,10 +17,12 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Manufacturers()
         {
-            this.Contacts = new HashSet<Contacts>();
-            this.Projects = new HashSet<Projects>();
+            this.Molds = new HashSet<Molds>();
+            this.ProjectItemCost = new HashSet<ProjectItemCost>();
             this.WorkShops = new HashSet<WorkShops>();
-            this.ProjectContract = new HashSet<ProjectContract>();
+            this.ClientForProjects = new HashSet<Projects>();
+            this.Contacts = new HashSet<Contacts>();
+            this.ProjectSuppliers = new HashSet<Projects>();
         }
     
         public System.Guid Id { get; set; }
@@ -56,14 +58,18 @@ namespace Tokiku.Entity
         public string Principal { get; set; }
         public string MainContactPerson { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Contacts> Contacts { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Projects> Projects { get; set; }
         public virtual PaymentTypes PaymentTypes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Molds> Molds { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProjectItemCost> ProjectItemCost { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WorkShops> WorkShops { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProjectContract> ProjectContract { get; set; }
+        public virtual ICollection<Projects> ClientForProjects { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Contacts> Contacts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Projects> ProjectSuppliers { get; set; }
     }
 }

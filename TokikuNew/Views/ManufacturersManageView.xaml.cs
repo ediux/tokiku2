@@ -24,7 +24,7 @@ namespace TokikuNew.Views
     /// </summary>
     public partial class ManufacturersManageView : UserControl
     {
-        private ManufacturersController controller = new ManufacturersController();
+        private ManufacturersManageController controller = new ManufacturersManageController();
 
         public ManufacturersManageView()
         {

@@ -25,10 +25,10 @@ namespace TokikuNew
 
                 _IoC.Add(new ClientController());
                 _IoC.Add(new ProjectsController());
-                _IoC.Add(new UserController());
-                _IoC.Add(new ManufacturersController());
+                _IoC.Add(new StartUpWindowController());
+                _IoC.Add(new ManufacturersManageController());
                 _IoC.Add(new SystemController());
-                _IoC.Add(new MainController(Resolve<ProjectsController>(), Resolve<ManufacturersController>(), Resolve<ClientController>()));
+                _IoC.Add(new MainWindowController(Resolve<ProjectsController>(), Resolve<ManufacturersManageController>(), Resolve<ClientController>()));
 
                 Tokiku.Controllers.SystemController.StartUp();
             }

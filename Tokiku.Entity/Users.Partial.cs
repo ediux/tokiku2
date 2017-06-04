@@ -33,9 +33,11 @@ namespace Tokiku.Entity
         public virtual Profile Profile { get; set; }
         public virtual ICollection<Roles> Roles { get; set; }
         public virtual ICollection<ShopFlowHistory> ShopFlowHistory { get; set; }
-        public virtual ICollection<Materials> Materials { get; set; }
-        public virtual ICollection<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
-        public virtual ICollection<ProjectContract> ProjectContract { get; set; }
         public virtual ICollection<ShopFlowDetail> ShopFlowDetail { get; set; }
+        public virtual ICollection<Materials> Materials { get; set; }
+        public virtual ICollection<Molds> Molds { get; set; }
+        public virtual ICollection<ProjectContract> ProjectContract { get; set; }
+        public virtual ICollection<ProjectItemCost> ProjectItemCost { get; set; }
+        public virtual ICollection<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
     }
 }

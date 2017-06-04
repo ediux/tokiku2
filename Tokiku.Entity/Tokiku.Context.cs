@@ -25,29 +25,33 @@ namespace Tokiku.Entity
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Contacts> Contacts { get; set; }
         public virtual DbSet<Membership> Membership { get; set; }
         public virtual DbSet<Profile> Profile { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<States> States { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<ShopFlowHistory> ShopFlowHistory { get; set; }
-        public virtual DbSet<Materials> Materials { get; set; }
-        public virtual DbSet<MaterialCategories> MaterialCategories { get; set; }
-        public virtual DbSet<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
-        public virtual DbSet<TicketTypes> TicketTypes { get; set; }
-        public virtual DbSet<BOM> BOM { get; set; }
-        public virtual DbSet<Projects> Projects { get; set; }
         public virtual DbSet<AccessLog> AccessLog { get; set; }
-        public virtual DbSet<Manufacturers> Manufacturers { get; set; }
-        public virtual DbSet<PaymentTypes> PaymentTypes { get; set; }
-        public virtual DbSet<Engineering> Engineering { get; set; }
         public virtual DbSet<Compositions> Compositions { get; set; }
         public virtual DbSet<CompositionTypes> CompositionTypes { get; set; }
-        public virtual DbSet<ShopFlow> ShopFlow { get; set; }
         public virtual DbSet<ShopFlowDetail> ShopFlowDetail { get; set; }
         public virtual DbSet<WorkShops> WorkShops { get; set; }
-        public virtual DbSet<ProjectContract> ProjectContract { get; set; }
+        public virtual DbSet<BOM> BOM { get; set; }
+        public virtual DbSet<Contacts> Contacts { get; set; }
+        public virtual DbSet<Engineering> Engineering { get; set; }
+        public virtual DbSet<Manufacturers> Manufacturers { get; set; }
         public virtual DbSet<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
+        public virtual DbSet<MaterialCategories> MaterialCategories { get; set; }
+        public virtual DbSet<Materials> Materials { get; set; }
+        public virtual DbSet<Molds> Molds { get; set; }
+        public virtual DbSet<MoldsInProjects> MoldsInProjects { get; set; }
+        public virtual DbSet<MoldUseStatus> MoldUseStatus { get; set; }
+        public virtual DbSet<PaymentTypes> PaymentTypes { get; set; }
+        public virtual DbSet<ProjectContract> ProjectContract { get; set; }
+        public virtual DbSet<ProjectItemCost> ProjectItemCost { get; set; }
+        public virtual DbSet<Projects> Projects { get; set; }
+        public virtual DbSet<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
+        public virtual DbSet<ShopFlow> ShopFlow { get; set; }
+        public virtual DbSet<TicketTypes> TicketTypes { get; set; }
     }
 }

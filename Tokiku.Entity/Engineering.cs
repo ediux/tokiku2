@@ -17,8 +17,9 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Engineering()
         {
-            this.ShopFlowHistory = new HashSet<ShopFlowHistory>();
             this.Compositions = new HashSet<Compositions>();
+            this.ProjectItemCost = new HashSet<ProjectItemCost>();
+            this.ShopFlowHistory = new HashSet<ShopFlowHistory>();
         }
     
         public System.Guid Id { get; set; }
@@ -28,15 +29,16 @@ namespace Tokiku.Entity
         public System.DateTime StartDate { get; set; }
         public System.DateTime CompletionDate { get; set; }
         public Nullable<byte> State { get; set; }
-        public Nullable<System.DateTime> WarrantyDate { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ShopFlowHistory> ShopFlowHistory { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Compositions> Compositions { get; set; }
-        public virtual States States { get; set; }
         public virtual ProjectContract ProjectContract { get; set; }
+        public virtual States States { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProjectItemCost> ProjectItemCost { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ShopFlowHistory> ShopFlowHistory { get; set; }
     }
 }

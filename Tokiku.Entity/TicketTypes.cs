@@ -17,17 +17,19 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TicketTypes()
         {
-            this.PromissoryNoteManagement = new HashSet<PromissoryNoteManagement>();
             this.ManufacturersBussinessItems = new HashSet<ManufacturersBussinessItems>();
+            this.PromissoryNoteManagement = new HashSet<PromissoryNoteManagement>();
         }
     
         public byte Id { get; set; }
         public string Name { get; set; }
         public bool IsPromissoryNote { get; set; }
+        public System.DateTime CreateTime { get; set; }
+        public System.Guid CreateUserId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
     }
 }

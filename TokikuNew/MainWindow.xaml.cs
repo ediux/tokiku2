@@ -25,7 +25,7 @@ namespace TokikuNew
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow(ManufacturersController _mc, ClientController _clientcontroller, ProjectsController _controller)
+        public MainWindow(ManufacturersManageController _mc, ClientController _clientcontroller, ProjectsController _controller)
         {
             InitializeComponent();
             mc = _mc;
@@ -34,7 +34,7 @@ namespace TokikuNew
 
         }
 
-        ManufacturersController mc;
+        ManufacturersManageController mc;
         ClientController clientcontroller;
         private ProjectsController controller;
 
@@ -165,7 +165,7 @@ namespace TokikuNew
 
                 if (!isExisted)
                 {
-                    using (var mc = new ManufacturersController())
+                    using (var mc = new ManufacturersManageController())
                     {
                         var vm = new ManufacturersManageView() { Margin = new Thickness(0) };
                         vm.Mode = DocumentLifeCircle.Create;
@@ -458,6 +458,40 @@ namespace TokikuNew
 
                     Workspaces.Items.Add(addWorkarea);
                     Workspaces.SelectedItem = addWorkarea;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        /// <summary>
+        /// 票期管理功能表項目
+        /// </summary>        
+        private void MI_Finance_TicketManagement_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ClosableTabItem addWorkarea = new ClosableTabItem();
+                addWorkarea.Header = "票期管理";
+
+                bool isExisted = true;
+
+                foreach (TabItem item in Workspaces.Items)
+                {
+                    if (item.Header.Equals(addWorkarea.Header))
+                    {
+                        isExisted = true;
+                        addWorkarea = (ClosableTabItem)item;
+                        break;
+                    }
+                }
+
+                if (!isExisted)
+                {
+                    
                 }
 
             }

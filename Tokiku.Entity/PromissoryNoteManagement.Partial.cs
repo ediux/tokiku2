@@ -26,8 +26,8 @@ namespace Tokiku.Entity
         [Required]
         public System.Guid CreateUserId { get; set; }
     
-        public virtual TicketTypes TicketTypes { get; set; }
-        public virtual Users Users { get; set; }
         public virtual ProjectContract ProjectContract { get; set; }
+        public virtual TicketTypes TicketTypes { get; set; }
+        public virtual Users CreateUser { get; set; }
     }
 }

@@ -19,7 +19,12 @@ namespace Tokiku.Entity
         public string Name { get; set; }
         [Required]
         public bool IsPromissoryNote { get; set; }
+        [Required]
+        public System.DateTime CreateTime { get; set; }
+        [Required]
+        public System.Guid CreateUserId { get; set; }
     
+        public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
         public virtual ICollection<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
     }
 }

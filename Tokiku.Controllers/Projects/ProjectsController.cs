@@ -10,7 +10,7 @@ namespace Tokiku.Controllers
 {
     public class ProjectsController : BaseController<ProjectsViewModel, Projects>
     {
-        UserController usercontroller = new UserController();
+        StartUpWindowController usercontroller = new StartUpWindowController();
         ClientController ClientController = new ClientController();
         ProjectContractController ProjectContractController = new ProjectContractController();
         StateController StatesController = new StateController();
@@ -344,7 +344,7 @@ namespace Tokiku.Controllers
                     }
                 }
 
-                using (ManufacturersController mc = new ManufacturersController())
+                using (ManufacturersManageController mc = new ManufacturersManageController())
                 {
                     model.Clients = ClientController.QueryAll();
                 }

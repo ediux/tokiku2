@@ -121,6 +121,9 @@
     <Compile Include="Views\MaterialsTotalView.xaml.cs">
       <DependentUpon>MaterialsTotalView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PaymentTypesManageView.xaml.cs">
+      <DependentUpon>PaymentTypesManageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ProjectManagerView.xaml.cs">
       <DependentUpon>ProjectManagerView.xaml</DependentUpon>
     </Compile>
@@ -241,6 +244,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MaterialsTotalView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PaymentTypesManageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

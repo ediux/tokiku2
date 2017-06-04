@@ -17,7 +17,7 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Materials()
         {
-            this.BOM = new HashSet<BOM>();
+            this.Molds = new HashSet<Molds>();
         }
     
         public System.Guid Id { get; set; }
@@ -29,8 +29,8 @@ namespace Tokiku.Entity
         public System.Guid CreateUserId { get; set; }
     
         public virtual MaterialCategories MaterialCategories { get; set; }
-        public virtual Users Users { get; set; }
+        public virtual Users CreateUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BOM> BOM { get; set; }
+        public virtual ICollection<Molds> Molds { get; set; }
     }
 }

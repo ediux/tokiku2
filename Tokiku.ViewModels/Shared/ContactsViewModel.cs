@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
 using System.Windows;
 
 namespace Tokiku.ViewModels
 {
-    public class ContactsViewModelCollection : ObservableCollection<ContactsViewModel>,IBaseViewModel
+    public class ContactsViewModelCollection : BaseViewModelCollection<ContactsViewModel>
     {
         public ContactsViewModelCollection()
         {
@@ -24,7 +22,23 @@ namespace Tokiku.ViewModels
         public IEnumerable<string> Errors { get => _Errors; set => _Errors = value; }
         private bool _HasError = false;
         public bool HasError { get => _HasError; set => _HasError = value; }
+
+        public override void StartUp_Query()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Query<T>(Expression<Func<T, bool>> filiter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Refresh()
+        {
+            throw new NotImplementedException();
+        }
     }
+
     public class ContactsViewModel : BaseViewModel
     {
         public ContactsViewModel()

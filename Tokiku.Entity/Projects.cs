@@ -17,40 +17,47 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Projects()
         {
-            this.Clients = new HashSet<Manufacturers>();
+            this.ProjectMolds = new HashSet<MoldsInProjects>();
             this.ProjectContract = new HashSet<ProjectContract>();
+            this.Clients = new HashSet<Manufacturers>();
+            this.Suppliers = new HashSet<Manufacturers>();
         }
     
         public System.Guid Id { get; set; }
         public string Code { get; set; }
         public string ProjectName { get; set; }
-        public string ShortName { get; set; }
+        public float Area { get; set; }
+        public int BuildingHeightAboveground { get; set; }
+        public int BuildingHeightUnderground { get; set; }
         public System.DateTime ProjectSigningDate { get; set; }
-        public string SiteAddress { get; set; }
+        public System.DateTime StartDate { get; set; }
+        public byte State { get; set; }
         public System.Guid ClientId { get; set; }
+        public bool Void { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
-        public string Comment { get; set; }
-        public bool Void { get; set; }
-        public byte State { get; set; }
-        public System.DateTime StartDate { get; set; }
         public Nullable<System.DateTime> CompletionDate { get; set; }
-        public Nullable<System.DateTime> OpenDate { get; set; }
-        public Nullable<System.DateTime> WarrantyDate { get; set; }
-        public string Architect { get; set; }
-        public Nullable<int> BuildingHeightAboveground { get; set; }
-        public Nullable<int> BuildingHeightUnderground { get; set; }
-        public string BuildingCompany { get; set; }
-        public string SupervisionUnit { get; set; }
-        public Nullable<float> Area { get; set; }
-        public Nullable<byte> PaymentType { get; set; }
         public Nullable<byte> CheckoutDay { get; set; }
         public Nullable<byte> PaymentDay { get; set; }
+        public string ShortName { get; set; }
+        public string SystemType { get; set; }
+        public string SystemDesign { get; set; }
+        public string SiteAddress { get; set; }
+        public string Architect { get; set; }
+        public string ArchitectConsultant { get; set; }
+        public string BuildingCompany { get; set; }
+        public string BuildingCompanyConsultant { get; set; }
+        public string SupervisionUnit { get; set; }
+        public string Comment { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MoldsInProjects> ProjectMolds { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProjectContract> ProjectContract { get; set; }
         public virtual States States { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Manufacturers> Clients { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProjectContract> ProjectContract { get; set; }
+        public virtual ICollection<Manufacturers> Suppliers { get; set; }
     }
 }

@@ -20,8 +20,8 @@ namespace Tokiku.Entity
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
     
-        public virtual ShopFlow ShopFlow { get; set; }
         public virtual Users CreateUser { get; set; }
         public virtual WorkShops WorkShops { get; set; }
+        public virtual ShopFlow ShopFlow { get; set; }
     }
 }

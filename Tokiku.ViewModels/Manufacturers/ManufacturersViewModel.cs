@@ -3,30 +3,45 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class ManufacturersViewModelCollection : ObservableCollection<ManufacturersViewModel>, IBaseViewModel
+    public class ManufacturersViewModelCollection : BaseViewModelCollection<ManufacturersViewModel>
     {
         public ManufacturersViewModelCollection()
         {
             HasError = false;
         }
 
-        public ManufacturersViewModelCollection(IEnumerable<ClientViewModel> source) : base(source)
+        public ManufacturersViewModelCollection(IEnumerable<ManufacturersViewModel> source) : base(source)
         {
 
         }
 
-        public IEnumerable<string> Errors { get; set; }
-        public bool HasError { get; set; }
+        public override void Query<T>(Expression<Func<T, bool>> filiter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Refresh()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void StartUp_Query()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class ManufacturersViewModel : BaseViewModel, IBaseViewModel
     {
+
         public ManufacturersViewModel()
         {
             Projects = new ProjectsViewModelCollection();
@@ -302,6 +317,27 @@ namespace Tokiku.ViewModels
             DependencyProperty.Register("IsDefault", typeof(bool), typeof(ManufacturersViewModel),
                 new PropertyMetadata(false, new PropertyChangedCallback(DefaultFieldChanged)));
 
+        /// <summary>
+        /// 查詢單一個體的檢視資料
+        /// </summary>
+        /// <param name="ProjectId"></param>
+        public void QueryModel(Guid ManufacturersId)
+        {
+            try
+            {                
+                Query<Manufacturers>(q => q.Id == ManufacturersId);
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
+
+        }
+
+        public override void Query<T>(Expression<Func<T, bool>> filiter)
+        {
+            base.Query(filiter);
+        }
     }
 }

@@ -53,15 +53,17 @@
     <Compile Include="AluminumExtrusionOrderSheetViewController.cs" />
     <Compile Include="ClientController.cs" />
     <Compile Include="EngineeringController.cs" />
-    <Compile Include="Main\MainController.cs" />
+    <Compile Include="LoginParameter.cs" />
+    <Compile Include="Main\MainWindowController.cs" />
+    <Compile Include="PaymentTypesManageController.cs" />
     <Compile Include="ProjectContractController.cs" />
     <Compile Include="ProjectManagerViewController.cs" />
     <Compile Include="Shared\BaseController.cs" />
     <Compile Include="Contacts\ContactController.cs" />
-    <Compile Include="Manufacturers\ManufacturersController.cs" />
+    <Compile Include="Manufacturers\ManufacturersManageController.cs" />
     <Compile Include="Projects\ProjectsController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Shared\UserController.cs" />
+    <Compile Include="Shared\StartUpWindowController.cs" />
     <Compile Include="StateController.cs" />
     <Compile Include="SystemController.cs" />
   </ItemGroup>
@@ -73,10 +75,6 @@
     <ProjectReference Include="..\Tokiku.Entity\Tokiku.Entity.csproj">
       <Project>{14cc904e-4a5c-401b-a7db-ddb045abb6dd}</Project>
       <Name>Tokiku.Entity</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Tokiku.ViewModels\Tokiku.ViewModels.csproj">
-      <Project>{f5811844-946b-4050-847a-7ed8b46edbf5}</Project>
-      <Name>Tokiku.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

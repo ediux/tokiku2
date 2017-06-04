@@ -22,39 +22,19 @@ namespace Tokiku.Entity
         }
     
         public System.Guid Id { get; set; }
-        public Nullable<System.Guid> ProjectId { get; set; }
-        public Nullable<System.Guid> ContractorId { get; set; }
-        public System.DateTime SigningDate { get; set; }
+        public System.Guid ProjectId { get; set; }
+        public string Name { get; set; }
         public string ContractNumber { get; set; }
-        public System.DateTime StartDate { get; set; }
-        public Nullable<System.DateTime> CompletionDate { get; set; }
-        public Nullable<float> ContractAmount { get; set; }
-        public Nullable<float> AmountDue { get; set; }
-        public Nullable<float> PrepaymentGuaranteeAmount { get; set; }
-        public Nullable<System.DateTime> OpenDate { get; set; }
-        public Nullable<byte> PaymentType { get; set; }
-        public Nullable<System.DateTime> WarrantyDate { get; set; }
-        public string Architect { get; set; }
-        public Nullable<int> BuildingHeightAboveground { get; set; }
-        public Nullable<int> BuildingHeightUnderground { get; set; }
-        public string BuildingCompany { get; set; }
-        public string SupervisionUnit { get; set; }
-        public Nullable<float> Area { get; set; }
-        public Nullable<bool> IsAppend { get; set; }
-        public Nullable<bool> IsRepair { get; set; }
-        public Nullable<byte> State { get; set; }
-        public byte CheckoutDay { get; set; }
-        public byte PaymentDay { get; set; }
+        public System.DateTime SigningDate { get; set; }
+        public bool IsAppend { get; set; }
+        public bool IsRepair { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
-        public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Engineering> Engineering { get; set; }
-        public virtual Manufacturers Manufacturers { get; set; }
         public virtual Projects Projects { get; set; }
-        public virtual States States { get; set; }
-        public virtual Users Users { get; set; }
+        public virtual Users CreateUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
     }

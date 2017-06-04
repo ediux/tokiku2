@@ -14,12 +14,6 @@ namespace Tokiku.Entity
     
     public partial class ShopFlowHistory
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ShopFlowHistory()
-        {
-            this.BOM = new HashSet<BOM>();
-        }
-    
         public System.Guid Id { get; set; }
         public System.Guid EngineeringId { get; set; }
         public Nullable<System.Guid> ShopId { get; set; }
@@ -29,11 +23,8 @@ namespace Tokiku.Entity
         public Nullable<System.Guid> ShopFlowId { get; set; }
     
         public virtual States States { get; set; }
-        public virtual Users Users { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BOM> BOM { get; set; }
-        public virtual Engineering Engineering { get; set; }
+        public virtual Users CreateUser { get; set; }
         public virtual ShopFlowHistory ShopFlowHistory1 { get; set; }
-        public virtual ShopFlowHistory ShopFlowHistory2 { get; set; }
+        public virtual Engineering Engineering { get; set; }
     }
 }

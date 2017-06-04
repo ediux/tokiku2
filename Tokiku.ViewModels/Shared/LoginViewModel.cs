@@ -5,12 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-
+using Tokiku.Controllers;
 
 namespace Tokiku.ViewModels
 {
     public class LoginViewModel : BaseViewModel, IBaseViewModel
     {
+        private StartUpWindowController _controller = null;
+
+        public LoginViewModel(StartUpWindowController controller)
+        {
+            _controller = controller;
+        }
 
         public static readonly DependencyProperty UserNameProperty = DependencyProperty.Register("UserName", typeof(string), typeof(LoginViewModel), new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
 

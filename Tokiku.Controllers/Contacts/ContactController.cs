@@ -7,95 +7,79 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Tokiku.Entity;
-using Tokiku.ViewModels;
 
 namespace Tokiku.Controllers
 {
     /// <summary>
     /// 聯絡人商業邏輯層控制器
     /// </summary>
-    public class ContactController : BaseController<ContactsViewModel, Contacts>
+    public class ContactController : BaseController<Contacts>
     {
+        private ContactsRepository repo;
+
         public ContactController()
         {
-
+            repo = RepositoryHelper.GetContactsRepository(database);
         }
 
-        public ContactsViewModelCollection QueryAll()
+        public ExecuteResultEntity<Collection<Contacts>> QueryAll()
         {
             try
             {
-                var result = from p in database.Contacts
+                var result = from p in repo.All()
                              where p.Void == false
                              orderby p.IsDefault ascending
                              select p;
 
-                ContactsViewModelCollection rtn = new ContactsViewModelCollection();
-
-                if (result.Any())
-                {
-                    foreach (var item in result)
-                    {
-                        rtn.Add(BindingFromModel(item));
-                    }
-                }
-
+                ExecuteResultEntity<Collection<Contacts>> rtn = ExecuteResultEntity<Collection<Contacts>>.CreateResultEntity(new Collection<Contacts>(result.ToList()));
                 return rtn;
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                return ExecuteResultEntity<Collection<Contacts>>.CreateErrorResultEntity(ex);
             }
         }
 
 
-        public ContactsViewModelCollection SearchByText(string filiter, Guid ManufactoryId, bool isClient)
+        public ExecuteResultEntity<Collection<Contacts>> SearchByText(string filiter, Guid ManufactoryId, bool isClient)
         {
-            if (filiter != null && filiter.Length > 0)
+            try
             {
-                var result = (from p in database.Manufacturers
-                              from q in p.Contacts
-                              where (p.Void == false && p.Id == ManufactoryId
-                              && p.IsClient == isClient) ||
-                              (q.Name.Contains(filiter) || q.Phone.Contains(filiter)
-                              || q.Mobile.Contains(filiter) || q.EMail.Contains(filiter))
-                              orderby q.IsDefault ascending, q.Name ascending
-                              select q);
-
-                var rtn = new ContactsViewModelCollection();
-
-                if (result.Any())
+                if (filiter != null && filiter.Length > 0)
                 {
-                    foreach (var item in result)
-                    {
-                        rtn.Add(BindingFromModel(item));
-                    }
-                }
+                    var result = (from p in repo.All()
+                                  from q in p.Manufacturers
+                                  where (p.Void == false && p.Id == ManufactoryId
+                                  && q.IsClient == isClient) ||
+                                  (p.Name.Contains(filiter) || p.Phone.Contains(filiter)
+                           )
+                                  orderby p.IsDefault ascending, q.Name ascending
+                                  select p);
 
-                return rtn;
+                    var rtn = ExecuteResultEntity<Collection<Contacts>>.CreateResultEntity(new Collection<Contacts>(result.ToList()));
+
+                    return rtn;
+                }
+                else
+                {
+                    var result = (from p in repo.All()
+                                  from q in p.Manufacturers
+                                  where q.Void == false && q.IsClient == isClient
+                                  && p.Id == ManufactoryId
+                                  orderby p.IsDefault ascending, p.Name ascending
+                                  select p);
+
+                    var rtn = ExecuteResultEntity<Collection<Contacts>>.CreateResultEntity(new Collection<Contacts>(result.ToList()));
+
+                    return rtn;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                var result = (from p in database.Manufacturers
-                              from q in p.Contacts
-                              where q.Void == false && p.IsClient == isClient
-                              && p.Id == ManufactoryId
-                              orderby q.IsDefault ascending, q.Name ascending
-                              select q);
-
-                var rtn = new ContactsViewModelCollection();
-
-                if (result.Any())
-                {
-                    foreach (var item in result)
-                    {
-                        rtn.Add(BindingFromModel(item));
-                    }
-                }
-                return rtn;
+                return ExecuteResultEntity<Collection<Contacts>>.CreateErrorResultEntity(ex);
             }
+
         }
 
         public bool IsExists(Guid ContactId)
@@ -115,8 +99,7 @@ namespace Tokiku.Controllers
             }
         }
 
-
-        public void Update(ContactsViewModel updatedProject, Guid UserId)
+        public void Update(Contacts updatedProject, Guid UserId)
         {
             try
             {
@@ -150,7 +133,7 @@ namespace Tokiku.Controllers
         /// <summary>
         /// 儲存變更
         /// </summary>
-        public override void SaveModel(ContactsViewModel model)
+        public override ExecuteResultEntity<ICollection<Contacts>> CreateOrUpdate(ICollection<Contacts> ObjectDataSet)
         {
             try
             {
@@ -161,7 +144,7 @@ namespace Tokiku.Controllers
 
                 if (IsExists(model.Id))
                 {
-                    using (UserController usercontroller = new UserController())
+                    using (StartUpWindowController usercontroller = new StartUpWindowController())
                     {
                         Update(model, usercontroller.GetCurrentLoginUser().UserId);
                     }
@@ -201,7 +184,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        public override ContactsViewModel CreateNew()
+        public override ExecuteResultEntity<Contacts> CreateNew()
         {
             try
             {
@@ -236,13 +219,13 @@ namespace Tokiku.Controllers
 
         }
 
-        public override void Add(ContactsViewModel model)
+        public override ExecuteResultEntity Add(Contacts entity)
         {
             try
             {
                 using (database)
                 {
-                    using (UserController usercontroller = new UserController())
+                    using (StartUpWindowController usercontroller = new StartUpWindowController())
                     {
                         Contacts newdata = new Contacts();
                         model.CreateTime = DateTime.Now;
@@ -256,29 +239,12 @@ namespace Tokiku.Controllers
             }
             catch (Exception ex)
             {
-
-                if (ex is DbEntityValidationException)
-                {
-                    DbEntityValidationException dbex = (DbEntityValidationException)ex;
-
-                    List<string> msg = new List<string>();
-
-                    foreach (var err in dbex.EntityValidationErrors)
-                    {
-                        foreach (var errb in err.ValidationErrors)
-                        {
-                            msg.Add(errb.ErrorMessage);
-                        }
-                    }
-
-                    model.Errors = msg.AsEnumerable();
-                }
-
-                model.Errors = new string[] { ex.Message };
+                var model = ExecuteResultEntity.CreateErrorResultEntity(ex);
+                return model;
             }
         }
 
-        public override ContactsViewModel Update(ContactsViewModel model)
+        public override ExecuteResultEntity<Contacts> Update(Contacts fromModel, bool isLastRecord = true)
         {
             try
             {
@@ -290,7 +256,7 @@ namespace Tokiku.Controllers
 
                     if (original != null)
                     {
-                        using (UserController usercontroller = new UserController())
+                        using (StartUpWindowController usercontroller = new StartUpWindowController())
                         {
                             CopyToModel(original, model);
                             database.AccessLog.Add(new AccessLog()
@@ -326,7 +292,7 @@ namespace Tokiku.Controllers
 
         }
 
-        public override void Delete(ContactsViewModel model)
+        public override ExecuteResultEntity Delete(Expression<Func<Contacts, bool>> condtion)
         {
             try
             {
@@ -359,19 +325,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        public override bool IsExists(Expression<Func<Contacts, bool>> filiter)
-        {
-            try
-            {
-                return database.Contacts.Where(filiter).Any();
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        public override ContactsViewModel Query(Expression<Func<Contacts, bool>> filiter)
+        public override ExecuteResultEntity<ICollection<Contacts>> Query(Expression<Func<Contacts, bool>> filiter)
         {
             ContactsViewModel model = new ContactsViewModel();
 

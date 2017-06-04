@@ -2,16 +2,18 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:TokikuNew.Controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
              d:DesignHeight="27" d:DesignWidth="300">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="125*"/>
-            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="60"/>
         </Grid.ColumnDefinitions>
         <TextBox Name="tbSearchBar" Grid.Column="0" Margin="1" AcceptsReturn="False" KeyDown="SearchBar_KeyDown" />
-        <Button Content="&#xE11A;" FontFamily="Segoe MDL2 Assets" Grid.Column="1" Margin="1" HorizontalAlignment="Right" Width="28" FontSize="10" Click="Button_Click" />
+        <StackPanel Orientation="Horizontal" Grid.Column="1">
+            <Button Content="&#xE11A;" FontFamily="Segoe MDL2 Assets" Grid.Column="1" Margin="1" Width="28" FontSize="10" Click="Button_Click" ToolTip="查詢" />
+            <Button Grid.Column="6" Width="30" Content="&#xE117;" FontFamily="Segoe MDL2 Assets" Margin="1" Name="btnRefresh" Click="btnRefresh_Click" ToolTip="重新整理"/>
+        </StackPanel>
     </Grid>
 </UserControl>

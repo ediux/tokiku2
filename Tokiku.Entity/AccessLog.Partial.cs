@@ -21,5 +21,8 @@ namespace Tokiku.Entity
         public System.Guid UserId { get; set; }
         [Required]
         public byte ActionCode { get; set; }
+        
+        [StringLength(512, ErrorMessage="欄位長度不得大於 512 個字元")]
+        public string Reason { get; set; }
     }
 }

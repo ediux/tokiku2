@@ -19,5 +19,6 @@ namespace Tokiku.Entity
         public string PaymentTypeName { get; set; }
     
         public virtual ICollection<Manufacturers> Manufacturers { get; set; }
+        public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
     }
 }
