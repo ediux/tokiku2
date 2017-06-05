@@ -118,46 +118,37 @@ namespace Tokiku.Controllers
         /// <summary>
         /// 儲存變更
         /// </summary>
-        public override ExecuteResultEntity<ICollection<Contacts>> CreateOrUpdate(ICollection<Contacts> ObjectDataSet)
+        public override ExecuteResultEntity<Contacts> CreateOrUpdate(Contacts entity)
         {
             try
             {
-                if (ObjectDataSet.Any())
+                if (string.IsNullOrEmpty(entity.Name))
                 {
-                    int counter = 0;
-
-                    foreach (var entity in ObjectDataSet)
-                    {
-                        if (string.IsNullOrEmpty(entity.Name))
-                        {
-                            counter++;
-                            continue;
-                        }
-
-                        if (IsExists(s => s.Id == entity.Id))
-                        {
-                            ExecuteResultEntity<Contacts> result = Update(entity, counter == (ObjectDataSet.Count - 1));
-                            if (result.HasError)
-                            {
-                                continue;
-
-                            }
-                        }
-                        else
-                        {
-                            ExecuteResultEntity result = Add(entity);
-                            if (result.HasError)
-                            {
-                                continue;
-                            }
-
-                        }
-                        counter++;
-                    }
-
+                    return ExecuteResultEntity<Contacts>.CreateErrorResultEntity("Name is null or empty.");
                 }
 
-                return QueryAll();
+                if (IsExists(s => s.Id == entity.Id))
+                {
+                    ExecuteResultEntity<Contacts> result = Update(entity);
+
+                    return result;
+                }
+                else
+                {
+                    ExecuteResultEntity result = Add(entity);
+
+                    if (!result.HasError)
+                    {
+                        return ExecuteResultEntity<Contacts>.CreateResultEntity(repo.Reload(entity));
+                    }
+
+                    return new ExecuteResultEntity<Contacts>()
+                    {
+                        Errors = result.Errors,
+                        Result = entity
+                    };
+                }
+
 
 
                 //model.Status.IsModify = false;
@@ -167,7 +158,7 @@ namespace Tokiku.Controllers
             }
             catch (Exception ex)
             {
-                return ExecuteResultEntity<ICollection<Contacts>>.CreateErrorResultEntity(ex);
+                return ExecuteResultEntity<Contacts>.CreateErrorResultEntity(ex);
             }
         }
 
@@ -200,7 +191,7 @@ namespace Tokiku.Controllers
                 return model;
             }
         }
-      
+
         public override ExecuteResultEntity<Contacts> Update(Contacts fromModel, bool isLastRecord = true)
         {
             try

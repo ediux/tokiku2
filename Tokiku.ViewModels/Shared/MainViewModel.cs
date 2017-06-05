@@ -118,7 +118,13 @@ namespace Tokiku.ViewModels
         public override void StartUp_Query()
         {
             LoginedUser = BindingFromModel<UserViewModel, Users>(_projects_controller.GetCurrentLoginUser().Result);
-            //((MainViewModel)DataContext).Projects = controller.QueryAll();
+            var projectResult = _projects_controller.Query(v => v.Void == false);
+
+            if (!projectResult.HasError)
+            {
+                Projects = new ProjectListViewModelCollection(projectResult.Result
+                    .Select(s => BindingFromModel<ProjectListViewModel, Projects>(s)));
+            }
             //((MainViewModel)DataContext).Manufacturers = mc.QueryAll();
             //((MainViewModel)DataContext).Clients = clientcontroller.QueryAll();
         }

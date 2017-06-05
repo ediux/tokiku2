@@ -60,22 +60,22 @@ namespace Tokiku.Controllers
         {
             try
             {
-          
-                    string loweredUserName = model.UserName.ToLowerInvariant();
-                    _CurrentLoginedUserStorage = (from q in RepositoryHelper.GetUsersRepository(database).All()
-                                                  where q.LoweredUserName == loweredUserName
-                                                  && q.Membership.Password == model.Password
-                                                  select q).SingleOrDefault();
 
-                    if (_CurrentLoginedUserStorage != null)
-                    {
-                        return new ExecuteResultEntity<Users>() { Result = _CurrentLoginedUserStorage };
-                    }
+                string loweredUserName = model.UserName.ToLowerInvariant();
+                _CurrentLoginedUserStorage = (from q in RepositoryHelper.GetUsersRepository(database).All()
+                                              where q.LoweredUserName == loweredUserName
+                                              && q.Membership.Password == model.Password
+                                              select q).SingleOrDefault();
 
-                    ExecuteResultEntity<Users> error = ExecuteResultEntity<Users>.CreateErrorResultEntity("登入失敗!");
+                if (_CurrentLoginedUserStorage != null)
+                {
+                    return new ExecuteResultEntity<Users>() { Result = _CurrentLoginedUserStorage };
+                }
 
-                    return error;
-               
+                ExecuteResultEntity<Users> error = ExecuteResultEntity<Users>.CreateErrorResultEntity("登入失敗!");
+
+                return error;
+
             }
             catch (Exception ex)
             {
@@ -216,8 +216,7 @@ namespace Tokiku.Controllers
 
             try
             {
-                model = new ExecuteResultEntity<T>();
-                model.Result = Activator.CreateInstance<T>();
+                model = ExecuteResultEntity<T>.CreateResultEntity(Activator.CreateInstance<T>());
                 return model;
             }
             catch (Exception ex)
@@ -389,37 +388,27 @@ namespace Tokiku.Controllers
         /// 儲存或更新資料庫
         /// </summary>
         /// <param name="model"></param>
-        public virtual ExecuteResultEntity<ICollection<T>> CreateOrUpdate(ICollection<T> ObjectDataSet)
+        public virtual ExecuteResultEntity<T> CreateOrUpdate(T entity)
         {
             try
             {
                 using (var repo = GetRepository())
                 {
-                    if (ObjectDataSet.Any())
+                    if (repo.Get(entity) != null)
                     {
-                        int c = 0;
-                        foreach (var result in ObjectDataSet)
-                        {
-                            if (repo.Get(result) != null)
-                            {
-                                Update(result, c == ObjectDataSet.Count);
-                            }
-                            else
-                            {
-                                Add(result);
-                            }
-                        }
-
-                        return ExecuteResultEntity<ICollection<T>>.CreateResultEntity(ObjectDataSet);
+                        Update(entity);
+                    }
+                    else
+                    {
+                        Add(entity);
                     }
 
-                    return ExecuteResultEntity<ICollection<T>>.CreateErrorResultEntity("No data update.");
-
+                    return ExecuteResultEntity<T>.CreateResultEntity(repo.Get(IdentifyPrimaryKey(entity)));
                 }
             }
             catch (Exception ex)
             {
-                return ExecuteResultEntity<ICollection<T>>.CreateErrorResultEntity(ex);
+                return ExecuteResultEntity<T>.CreateErrorResultEntity(ex);
             }
         }
 

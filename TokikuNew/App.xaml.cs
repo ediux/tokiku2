@@ -31,7 +31,7 @@ namespace TokikuNew
                 _IoC.Add(new MainWindowController());
                 _IoC.Add(new PaymentTypesManageController());
 
-                Tokiku.Controllers.SystemController.StartUp();
+                SystemController.StartUp();
             }
             catch
             {

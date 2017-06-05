@@ -63,7 +63,7 @@
                         <TextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" Text="{Binding Path=Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                              IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
                         <TextBlock Grid.Row="5" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="狀態"/>
-                        <ComboBox Grid.Row="5" Grid.Column="1" Margin="2" ItemsSource="{Binding StateText}" SelectedValuePath="Id" SelectedValue="{Binding Path=State, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                        <ComboBox Grid.Row="5" Grid.Column="1" Margin="2" ItemsSource="{Binding States}" SelectedValuePath="Id" SelectedValue="{Binding Path=State, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                               IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
@@ -119,10 +119,10 @@
                             </Grid>
                         </Grid>
                         <TextBlock Text="營造廠" Grid.Row="6" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Margin="0,5,0,5" />
-                        <TextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" Text="{Binding SiteAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                        <TextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" Text="{Binding BuildingCompany, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                              IsEnabled="{Binding Path=BuildingCompany, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
                         <TextBlock Text="監造單位" Grid.Row="7" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Margin="0,5,0,5" />
-                        <TextBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" Text="{Binding SiteAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                        <TextBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" Text="{Binding SupervisionUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                              IsEnabled="{Binding Path=SupervisionUnit, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
                         <GroupBox Header="付款條件" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="8" Margin="5">
                             <Grid>

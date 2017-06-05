@@ -14,8 +14,14 @@ namespace Tokiku.Controllers
         IProjectsRepository projectsrepo;
         IStatesRepository staterepo;
 
+        public ProjectsController()
+        {
+            UserRepo = RepositoryHelper.GetUsersRepository(database);
+            manufacturerepo = RepositoryHelper.GetManufacturersRepository(database);
+            projectsrepo = RepositoryHelper.GetProjectsRepository(database);
+            staterepo = RepositoryHelper.GetStatesRepository(database);
+        }
 
-        #region 公開方法(中介層呼叫)
 
         ///// <summary>
         ///// 儲存變更
@@ -48,38 +54,30 @@ namespace Tokiku.Controllers
 
         //}
 
-        #endregion
-
-        public ProjectsController()
+        public override ExecuteResultEntity<Projects> CreateNew()
         {
-            UserRepo = RepositoryHelper.GetUsersRepository(database);
-            manufacturerepo = RepositoryHelper.GetManufacturersRepository(database);
-            projectsrepo = RepositoryHelper.GetProjectsRepository(database);
-            staterepo = RepositoryHelper.GetStatesRepository(database);
+            try
+            {
+                var newmodel = new Projects()
+                {
+                    Id = Guid.NewGuid(),
+                    Code = string.Format("{0:000}-{1}", DateTime.Today.Year - 1911, GetNextProjectSerialNumber((DateTime.Now.Year - 1911).ToString()).Result),
+                    ProjectSigningDate = DateTime.Today,
+                    StartDate = DateTime.Today,
+                    CreateTime = DateTime.Now,
+
+
+                };
+
+                return ExecuteResultEntity<Projects>.CreateResultEntity(newmodel);
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<Projects>.CreateErrorResultEntity(ex);
+            }
         }
 
-        //public override ExecuteResultEntity<Projects> CreateNew()
-        //{
-
-
-        //    var newmodel = new ProjectsViewModel()
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        Code = string.Format("{0:000}-{1}", DateTime.Today.Year - 1911, GetNextProjectSerialNumber((DateTime.Now.Year - 1911).ToString())),
-        //    };
-
-        //    newmodel.ProjectContract = new ProjectContractViewModelCollection();
-        //    //newmodel.StateText = StatesController.QueryAll();
-        //    newmodel.Clients = ClientController.QueryAll();
-
-        //    newmodel.Status.IsModify = false;
-        //    newmodel.Status.IsSaved = false;
-        //    newmodel.Status.IsNewInstance = true;
-
-        //    return newmodel;
-        //}
-
-        private string GetNextProjectSerialNumber(string year)
+        public ExecuteResultEntity<string> GetNextProjectSerialNumber(string year)
         {
             var result = (from q in projectsrepo.All()
                           where q.Code.StartsWith(year.Trim()) && q.Void == false
@@ -97,13 +95,13 @@ namespace Tokiku.Controllers
                     if (int.TryParse(parts[1], out currentNumber))
                     {
                         currentNumber += 1;
-                        return string.Format("{0:000}", currentNumber);
+                        return ExecuteResultEntity<string>.CreateResultEntity(string.Format("{0:000}", currentNumber));
                     }
                 }
 
             }
 
-            return "001";
+            return ExecuteResultEntity<string>.CreateResultEntity("001");
         }
 
         //public override ExecuteResultEntity Add(Projects entity)     
@@ -178,11 +176,11 @@ namespace Tokiku.Controllers
                 {
                     var model = result.Single();
 
-                  
-                    return ExecuteResultEntity<Projects>.CreateResultEntity(model) ;
+
+                    return ExecuteResultEntity<Projects>.CreateResultEntity(model);
                 }
 
-                return null;
+                return ExecuteResultEntity<Projects>.CreateResultEntity(default(Projects));
             }
             catch (Exception ex)
             {
@@ -208,7 +206,7 @@ namespace Tokiku.Controllers
                                      State = p.States.StateName,
                                      StartDate = p.StartDate,
                                      CompletionDate = p.CompletionDate,
-                                    
+
                                  };
 
                     return ExecuteResultEntity<ICollection<ProjectListEntity>>.CreateResultEntity(
@@ -220,7 +218,7 @@ namespace Tokiku.Controllers
             {
                 return ExecuteResultEntity<ICollection<ProjectListEntity>>.CreateErrorResultEntity(ex);
             }
-           
+
         }
 
         public bool IsExists(Guid ProjectId)
@@ -241,6 +239,18 @@ namespace Tokiku.Controllers
             }
         }
 
+        public ExecuteResultEntity<ICollection<States>> GetStates()
+        {
+            try
+            {
+                return ExecuteResultEntity<ICollection<States>>.CreateResultEntity(
+                    new Collection<States>(staterepo.All().ToList()));
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<ICollection<States>>.CreateErrorResultEntity(ex);
+            }
+        }
         //public override ExecuteResultEntity<Projects> Update(Projects fromModel, bool isLastRecord = true)
         //{
         //    try
@@ -361,7 +371,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-              
+
                 var result = from p in projectsrepo.All()
                              where p.Id == ProjectId && p.Void == false
                              orderby p.State ascending, p.Code ascending
@@ -372,7 +382,7 @@ namespace Tokiku.Controllers
                     var data = result.Single();
                     data.Void = true;
 
-                    
+
                     //database.AccessLog.Add(new AccessLog() { ActionCode = 3, CreateTime = DateTime.Now, DataId = ProjectId, UserId = UserId });
                     //database.SaveChanges();
                 }
@@ -386,7 +396,7 @@ namespace Tokiku.Controllers
 
         public ExecuteResultEntity<ICollection<ProjectListEntity>> SearchByText(string text)
         {
-           
+
             try
             {
                 if (text != null && text.Length > 0)
@@ -394,7 +404,8 @@ namespace Tokiku.Controllers
                     var result = projectsrepo.Where(s => s.Code.Contains(text)
                      || s.ProjectName.Contains(text)
                     || (s.ShortName != null && s.ShortName.Contains(text)))
-                    .Select(s=>new ProjectListEntity() {
+                    .Select(s => new ProjectListEntity()
+                    {
                         Id = s.Id,
                         Code = s.Code,
                         ProjectName = s.ProjectName,
@@ -418,7 +429,7 @@ namespace Tokiku.Controllers
                 }
             }
             catch (Exception ex)
-            { 
+            {
                 return ExecuteResultEntity<ICollection<ProjectListEntity>>.CreateErrorResultEntity(ex);
             }
 

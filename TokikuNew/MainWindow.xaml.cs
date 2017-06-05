@@ -28,10 +28,10 @@ namespace TokikuNew
         public MainWindow(ManufacturersManageController _mc, ClientController _clientcontroller, ProjectsController _controller)
         {
             InitializeComponent();
+
             mc = _mc;
             clientcontroller = _clientcontroller;
             controller = _controller;
-
         }
 
         ManufacturersManageController mc;
@@ -58,7 +58,7 @@ namespace TokikuNew
 
                             Workspaces.Items.Remove(currentworking);
                             ((MainViewModel)DataContext).Refresh();
-                          
+
                             ((MainViewModel)DataContext).CurrentProject = null;
                         }
                     }
@@ -83,6 +83,8 @@ namespace TokikuNew
         {
             AddHandler(ClosableTabItem.SendNewPageRequestEvent, new RoutedEventHandler(Window_AutoOpenNewPage));
             AddHandler(ClosableTabItem.OnPageClosingEvent, new RoutedEventHandler(btnTabClose_Click));
+
+            ((MainViewModel)DataContext).StartUp_Query();
         }
 
         private void Window_AutoOpenNewPage(object sender, RoutedEventArgs e)
@@ -118,7 +120,8 @@ namespace TokikuNew
                 addWorkarea.Header = "新增專案";
 
                 var vm = new ProjectManagerView() { Margin = new Thickness(0) };
-                vm.DataContext = controller.CreateNew();
+                vm.DataContext = new ProjectsViewModel(App.Resolve<ProjectsController>());
+                ((ProjectsViewModel)vm.DataContext).Initialized();
                 vm.Mode = DocumentLifeCircle.Create;
 
                 Binding bindinglogineduser = new Binding();
@@ -131,7 +134,6 @@ namespace TokikuNew
 
                 Workspaces.Items.Add(addWorkarea);
                 Workspaces.SelectedItem = addWorkarea;
-
 
             }
             catch (Exception ex)
@@ -488,7 +490,7 @@ namespace TokikuNew
 
                 if (!isExisted)
                 {
-                    
+
                 }
 
             }

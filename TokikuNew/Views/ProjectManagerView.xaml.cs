@@ -134,11 +134,10 @@ namespace TokikuNew.Views
                 {
 
                     case DocumentLifeCircle.Create:
+                        //SelectedProject = new ProjectsViewModel(App.Resolve<ProjectsController>());
 
-                        //DataContext = SelectedProject = controller.CreateNew().Result;
                         SelectedProject.Initialized();
                         SelectedProject.CreateUserId = LoginedUser.UserId;
-
 
                         SelectedProject.Status.IsModify = false;
                         SelectedProject.Status.IsSaved = false;
@@ -167,7 +166,7 @@ namespace TokikuNew.Views
                             SelectedProject.ClientId = SelectedClient.Id;
 
 
-                        //controller.SaveModel(SelectedProject);
+                        SelectedProject.SaveModel();
 
                         if (SelectedProject.HasError)
                         {
@@ -217,7 +216,7 @@ namespace TokikuNew.Views
             {
                 ProjectContractViewModel disableContract = (ProjectContractViewModel)e.OriginalSource;
                 //projectcontroll.Delete(disableContract);
-                UpdateLayout();                
+                UpdateLayout();
             }
         }
 

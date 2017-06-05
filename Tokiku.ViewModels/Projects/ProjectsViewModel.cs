@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Windows;
+using Tokiku.Controllers;
+using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
@@ -12,7 +16,8 @@ namespace Tokiku.ViewModels
             HasError = false;
         }
 
-        public ProjectsViewModelCollection(IEnumerable<ProjectsViewModel> source):base(source){
+        public ProjectsViewModelCollection(IEnumerable<ProjectsViewModel> source) : base(source)
+        {
 
         }
 
@@ -22,6 +27,13 @@ namespace Tokiku.ViewModels
 
     public class ProjectsViewModel : BaseViewModel, IBaseViewModel
     {
+        private ProjectsController _projectcontroller;
+
+        public ProjectsViewModel(ProjectsController projectcontroller)
+        {
+            _projectcontroller = projectcontroller;
+        }
+
         #region 私有變數
         /// <summary>
         /// 專案相關控制器
@@ -48,7 +60,7 @@ namespace Tokiku.ViewModels
 
         public static readonly DependencyProperty SiteAddressProperty = DependencyProperty.Register("SiteAddress", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
-        public static readonly DependencyProperty StateProperty = DependencyProperty.Register("State", typeof(byte), typeof(ProjectsViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
+        public static readonly DependencyProperty StateProperty = DependencyProperty.Register("State", typeof(byte), typeof(ProjectsViewModel), new PropertyMetadata((byte)1, new PropertyChangedCallback(DefaultFieldChanged)));
 
         public static readonly DependencyProperty VoidProperty = DependencyProperty.Register("Void", typeof(bool), typeof(ProjectsViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
@@ -122,7 +134,7 @@ namespace Tokiku.ViewModels
         /// (0: 啟用 1:停用)
         /// </remarks>
         public bool Void { get { return (bool)GetValue(VoidProperty); } set { SetValue(VoidProperty, value); RaisePropertyChanged("Void"); } }
- 
+
         /// <summary>
         /// 起造日期
         /// </summary>
@@ -282,7 +294,6 @@ namespace Tokiku.ViewModels
                 ), new PropertyMetadata(default(ProjectContractViewModelCollection), new PropertyChangedCallback(DefaultFieldChanged)));
         #endregion
 
-
         /// <summary>
         /// 客戶列表
         /// </summary>
@@ -297,5 +308,106 @@ namespace Tokiku.ViewModels
             DependencyProperty.Register("Clients", typeof(ClientViewModelCollection), typeof(ProjectsViewModel), new PropertyMetadata(new ClientViewModelCollection()));
 
 
+        public StatesViewModelCollection States
+        {
+            get { return (StatesViewModelCollection)GetValue(StatesProperty); }
+            set { SetValue(StatesProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for States.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty StatesProperty =
+            DependencyProperty.Register("States", typeof(StatesViewModelCollection), typeof(ProjectsViewModel), new PropertyMetadata(default(StatesViewModelCollection)));
+
+
+
+        public override void Initialized()
+        {
+            base.Initialized();
+
+            if (_projectcontroller == null)
+                return;
+
+            var result = _projectcontroller.CreateNew();
+
+            if (result.HasError == false)
+            {
+                BindingFromModel(result.Result, this);
+            }
+
+            var result_states = _projectcontroller.GetStates();
+
+            if (!result_states.HasError)
+            {
+                States = new StatesViewModelCollection();
+
+                foreach (var states in result_states.Result)
+                {
+                    StatesViewModel state = new StatesViewModel();
+                    BindingFromModel(states, state);
+                    States.Add(state);
+                }
+
+            }
+
+            ProjectContract = new ProjectContractViewModelCollection();
+
+            //ProjectContract = new ProjectContractViewModelCollection();
+
+            //newmodel.Clients = ClientController.QueryAll();
+
+        }
+
+        public override void SaveModel()
+        {
+            Projects data = _projectcontroller.QuerySingle(Id).Result;
+            if (data == null)
+            {
+                data = new Projects();
+                CopyToModel(data, this);
+
+            }
+            else
+            {
+                CopyToModel(data, this);
+            }
+
+            var result = _projectcontroller.CreateOrUpdate(data);
+
+            if (result.HasError)
+            {
+                Errors = result.Errors;
+            }
+
+            Refresh();
+        }
+
+        public override void Query()
+        {
+            var QueryResult = _projectcontroller.Query(p => p.Id == Id && p.Void == false);
+            if (!QueryResult.HasError)
+            {
+                var data = QueryResult.Result.SingleOrDefault();
+                BindingFromModel(data, this);
+
+                var result_states = _projectcontroller.GetStates();
+
+                if (!result_states.HasError)
+                {
+                    States = new StatesViewModelCollection();
+
+                    foreach (var states in result_states.Result)
+                    {
+                        StatesViewModel state = new StatesViewModel();
+                        BindingFromModel(states, state);
+                        States.Add(state);
+                    }
+                }
+            }
+        }
+
+        public override void Refresh()
+        {
+            Query();
+        }
     }
 }

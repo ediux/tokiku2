@@ -41,7 +41,7 @@ namespace Tokiku.ViewModels
 
     public class ManufacturersViewModel : BaseViewModel, IBaseViewModel
     {
-
+   
         public ManufacturersViewModel()
         {
            
@@ -325,7 +325,7 @@ namespace Tokiku.ViewModels
         {
             try
             {                
-                Query<Manufacturers>(q => q.Id == ManufacturersId);
+                
             }
             catch (Exception)
             {
@@ -341,9 +341,6 @@ namespace Tokiku.ViewModels
             Projects = new ProjectsViewModelCollection();
         }
 
-        public override void Query<T>(Expression<Func<T, bool>> filiter)
-        {
-            base.Query(filiter);
-        }
+       
     }
 }
