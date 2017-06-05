@@ -12,13 +12,12 @@ namespace Tokiku.ViewModels
     {
         public BaseViewModelCollection()
         {
-            Errors = null;
-            HasError = false;
+            Initialized();
         }
 
         public BaseViewModelCollection(IEnumerable<TView> source) : base(source)
         {
-
+            Initialized();
         }
         /// <summary>
         /// 將錯誤訊息寫到檢視模型中以利顯示。
@@ -64,12 +63,29 @@ namespace Tokiku.ViewModels
         public bool HasError { get; set; }
 
         /// <summary>
+        /// 檢視模型初始化作業
+        /// </summary>
+        public virtual void Initialized()
+        {
+            Errors = null;
+            HasError = false;
+        }
+
+        /// <summary>
         /// 在啟動時的查詢動作
         /// </summary>
         public abstract void StartUp_Query();
 
+        /// <summary>
+        /// 針對某的特定條件查詢
+        /// </summary>
+        /// <typeparam name="T">資料實體物件型別</typeparam>
+        /// <param name="filiter">Lamba表示式，代表Where查詢條件。</param>
         public abstract void Query<T>(Expression<Func<T, bool>> filiter) where T : class;
 
+        /// <summary>
+        /// 重新整理檢視模型
+        /// </summary>
         public abstract void Refresh();
         
     }

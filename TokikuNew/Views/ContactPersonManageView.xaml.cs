@@ -15,7 +15,7 @@ namespace TokikuNew.Views
     /// </summary>
     public partial class ContactPersonManageView : UserControl
     {
-        private ContactController controller = new ContactController();
+        private ContactPersonManageController controller = new ContactPersonManageController();
 
         public ContactPersonManageView()
         {
@@ -159,12 +159,12 @@ namespace TokikuNew.Views
 
         private void ContractSearchBar_ResetSearch(object sender, RoutedEventArgs e)
         {
-            ContractList.ItemsSource = controller.QueryAll();
+            ContractList.ItemsSource = controller.QueryAll().Result;
         }
 
         private void ContractSearchBar_Search(object sender, RoutedEventArgs e)
         {
-            ContractList.ItemsSource = controller.SearchByText((string)e.OriginalSource, SelectedManufacturer.Id, SelectedManufacturer.IsClient);
+            ContractList.ItemsSource = controller.SearchByText((string)e.OriginalSource, SelectedManufacturer.Id, SelectedManufacturer.IsClient).Result;
         }
 
         private void ContractList_SelectionChanged(object sender, SelectionChangedEventArgs e)

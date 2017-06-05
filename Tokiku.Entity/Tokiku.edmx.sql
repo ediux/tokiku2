@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/04/2017 08:58:07
--- Generated from EDMX file: C:\Users\ediux\documents\visual studio 2017\Projects\TokikuNew\Tokiku.Entity\Tokiku.edmx
+-- Date Created: 06/05/2017 08:10:30
+-- Generated from EDMX file: C:\Users\ediux\Source\Repos\tokiku2\Tokiku.Entity\Tokiku.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -22,18 +22,6 @@ IF OBJECT_ID(N'[dbo].[FK__aspnet_Me__UserI__164452B1]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK__aspnet_Pr__UserI__1FCDBCEB]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Profile] DROP CONSTRAINT [FK__aspnet_Pr__UserI__1FCDBCEB];
-GO
-IF OBJECT_ID(N'[dbo].[FK__aspnet_Us__RoleI__1BFD2C07]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[UsersInRoles] DROP CONSTRAINT [FK__aspnet_Us__RoleI__1BFD2C07];
-GO
-IF OBJECT_ID(N'[dbo].[FK__aspnet_Us__UserI__1CF15040]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[UsersInRoles] DROP CONSTRAINT [FK__aspnet_Us__UserI__1CF15040];
-GO
-IF OBJECT_ID(N'[dbo].[FK_BOM_Materials]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[BOM] DROP CONSTRAINT [FK_BOM_Materials];
-GO
-IF OBJECT_ID(N'[dbo].[FK_BOM_ShopFlowHistory]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[BOM] DROP CONSTRAINT [FK_BOM_ShopFlowHistory];
 GO
 IF OBJECT_ID(N'[dbo].[FK_ClientsInProjects_Manufacturers]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ClientsInProjects] DROP CONSTRAINT [FK_ClientsInProjects_Manufacturers];
@@ -77,17 +65,44 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_Materials_Users]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Materials] DROP CONSTRAINT [FK_Materials_Users];
 GO
-IF OBJECT_ID(N'[dbo].[FK_ProjectContract_Manufacturers]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ProjectContract] DROP CONSTRAINT [FK_ProjectContract_Manufacturers];
+IF OBJECT_ID(N'[dbo].[FK_Molds_Manufacturers]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Molds] DROP CONSTRAINT [FK_Molds_Manufacturers];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Molds_Materials]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Molds] DROP CONSTRAINT [FK_Molds_Materials];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Molds_MoldUseStatus]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Molds] DROP CONSTRAINT [FK_Molds_MoldUseStatus];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Molds_Users]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Molds] DROP CONSTRAINT [FK_Molds_Users];
+GO
+IF OBJECT_ID(N'[dbo].[FK_MoldsInProjects_MaterialCategories]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[MoldsInProjects] DROP CONSTRAINT [FK_MoldsInProjects_MaterialCategories];
+GO
+IF OBJECT_ID(N'[dbo].[FK_MoldsInProjects_Molds]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[MoldsInProjects] DROP CONSTRAINT [FK_MoldsInProjects_Molds];
+GO
+IF OBJECT_ID(N'[dbo].[FK_MoldsInProjects_Projects]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[MoldsInProjects] DROP CONSTRAINT [FK_MoldsInProjects_Projects];
 GO
 IF OBJECT_ID(N'[dbo].[FK_ProjectContract_Projects]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ProjectContract] DROP CONSTRAINT [FK_ProjectContract_Projects];
 GO
-IF OBJECT_ID(N'[dbo].[FK_ProjectContract_States]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ProjectContract] DROP CONSTRAINT [FK_ProjectContract_States];
-GO
 IF OBJECT_ID(N'[dbo].[FK_ProjectContract_Users]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ProjectContract] DROP CONSTRAINT [FK_ProjectContract_Users];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ProjectItemCost_Engineering]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ProjectItemCost] DROP CONSTRAINT [FK_ProjectItemCost_Engineering];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ProjectItemCost_Manufacturers]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ProjectItemCost] DROP CONSTRAINT [FK_ProjectItemCost_Manufacturers];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ProjectItemCost_MaterialCategories]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ProjectItemCost] DROP CONSTRAINT [FK_ProjectItemCost_MaterialCategories];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ProjectItemCost_Users]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ProjectItemCost] DROP CONSTRAINT [FK_ProjectItemCost_Users];
 GO
 IF OBJECT_ID(N'[dbo].[FK_Projects_States]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Projects] DROP CONSTRAINT [FK_Projects_States];
@@ -121,6 +136,18 @@ IF OBJECT_ID(N'[dbo].[FK_ShopFlowHistory_States]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_ShopFlowHistory_Users]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ShopFlowHistory] DROP CONSTRAINT [FK_ShopFlowHistory_Users];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Suppliers_Manufacturers]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Suppliers] DROP CONSTRAINT [FK_Suppliers_Manufacturers];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Suppliers_Projects]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Suppliers] DROP CONSTRAINT [FK_Suppliers_Projects];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UsersInRoles_Roles]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UsersInRoles] DROP CONSTRAINT [FK_UsersInRoles_Roles];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UsersInRoles_Users]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UsersInRoles] DROP CONSTRAINT [FK_UsersInRoles_Users];
 GO
 IF OBJECT_ID(N'[dbo].[FK_WorkShops_Manufacturers]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[WorkShops] DROP CONSTRAINT [FK_WorkShops_Manufacturers];
@@ -169,6 +196,15 @@ GO
 IF OBJECT_ID(N'[dbo].[Membership]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Membership];
 GO
+IF OBJECT_ID(N'[dbo].[Molds]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Molds];
+GO
+IF OBJECT_ID(N'[dbo].[MoldsInProjects]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[MoldsInProjects];
+GO
+IF OBJECT_ID(N'[dbo].[MoldUseStatus]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[MoldUseStatus];
+GO
 IF OBJECT_ID(N'[dbo].[PaymentTypes]', 'U') IS NOT NULL
     DROP TABLE [dbo].[PaymentTypes];
 GO
@@ -177,6 +213,9 @@ IF OBJECT_ID(N'[dbo].[Profile]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[ProjectContract]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ProjectContract];
+GO
+IF OBJECT_ID(N'[dbo].[ProjectItemCost]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ProjectItemCost];
 GO
 IF OBJECT_ID(N'[dbo].[Projects]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Projects];
@@ -199,6 +238,9 @@ GO
 IF OBJECT_ID(N'[dbo].[States]', 'U') IS NOT NULL
     DROP TABLE [dbo].[States];
 GO
+IF OBJECT_ID(N'[dbo].[Suppliers]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Suppliers];
+GO
 IF OBJECT_ID(N'[dbo].[TicketTypes]', 'U') IS NOT NULL
     DROP TABLE [dbo].[TicketTypes];
 GO
@@ -215,26 +257,6 @@ GO
 -- --------------------------------------------------
 -- Creating all tables
 -- --------------------------------------------------
-
--- Creating table 'Contacts'
-CREATE TABLE [dbo].[Contacts] (
-    [Id] uniqueidentifier  NOT NULL,
-    [Name] nvarchar(15)  NOT NULL,
-    [Dep] nvarchar(50)  NOT NULL,
-    [Title] nvarchar(50)  NULL,
-    [Phone] nvarchar(10)  NULL,
-    [ExtensionNumber] nvarchar(6)  NULL,
-    [Mobile] nvarchar(10)  NULL,
-    [Fax] nvarchar(10)  NULL,
-    [IsPrincipal] bit  NOT NULL,
-    [Void] bit  NOT NULL,
-    [CreateTime] datetime  NOT NULL,
-    [CreateUserId] uniqueidentifier  NOT NULL,
-    [EMail] nvarchar(250)  NULL,
-    [IsDefault] bit  NOT NULL,
-    [Comment] nvarchar(max)  NULL
-);
-GO
 
 -- Creating table 'Membership'
 CREATE TABLE [dbo].[Membership] (
@@ -310,94 +332,110 @@ CREATE TABLE [dbo].[ShopFlowHistory] (
 );
 GO
 
--- Creating table 'Materials'
-CREATE TABLE [dbo].[Materials] (
-    [Id] uniqueidentifier  NOT NULL,
-    [MaterialCategoryId] uniqueidentifier  NOT NULL,
-    [ManufacturersId] uniqueidentifier  NOT NULL,
-    [Name] nvarchar(50)  NOT NULL,
-    [UnitPrice] real  NOT NULL,
-    [CreateTime] datetime  NOT NULL,
-    [CreateUserId] uniqueidentifier  NOT NULL
-);
-GO
-
--- Creating table 'MaterialCategories'
-CREATE TABLE [dbo].[MaterialCategories] (
-    [Id] uniqueidentifier  NOT NULL,
-    [Name] nvarchar(50)  NULL,
-    [CreateTime] datetime  NOT NULL,
-    [CreateUserId] uniqueidentifier  NOT NULL
-);
-GO
-
--- Creating table 'PromissoryNoteManagement'
-CREATE TABLE [dbo].[PromissoryNoteManagement] (
-    [Id] uniqueidentifier  NOT NULL,
-    [ProjectContractId] uniqueidentifier  NULL,
-    [TicketTypeId] tinyint  NOT NULL,
-    [Amount] real  NOT NULL,
-    [OpenDate] datetime  NOT NULL,
-    [RecoveryDate] datetime  NULL,
-    [CreateTime] datetime  NOT NULL,
-    [CreateUserId] uniqueidentifier  NOT NULL
-);
-GO
-
--- Creating table 'TicketTypes'
-CREATE TABLE [dbo].[TicketTypes] (
-    [Id] tinyint  NOT NULL,
-    [Name] nvarchar(50)  NOT NULL,
-    [IsPromissoryNote] bit  NOT NULL
-);
-GO
-
--- Creating table 'BOM'
-CREATE TABLE [dbo].[BOM] (
-    [Id] uniqueidentifier  NOT NULL,
-    [ShopFlowId] uniqueidentifier  NULL,
-    [MaterialsId] uniqueidentifier  NOT NULL,
-    [Amount] real  NOT NULL
-);
-GO
-
--- Creating table 'Projects'
-CREATE TABLE [dbo].[Projects] (
-    [Id] uniqueidentifier  NOT NULL,
-    [Code] nvarchar(50)  NOT NULL,
-    [ProjectName] nvarchar(50)  NOT NULL,
-    [ShortName] nvarchar(25)  NULL,
-    [ProjectSigningDate] datetime  NOT NULL,
-    [SiteAddress] nvarchar(250)  NULL,
-    [ClientId] uniqueidentifier  NOT NULL,
-    [CreateTime] datetime  NOT NULL,
-    [CreateUserId] uniqueidentifier  NOT NULL,
-    [Comment] nvarchar(max)  NULL,
-    [Void] bit  NOT NULL,
-    [State] tinyint  NOT NULL,
-    [StartDate] datetime  NOT NULL,
-    [CompletionDate] datetime  NULL,
-    [OpenDate] datetime  NULL,
-    [WarrantyDate] datetime  NULL,
-    [Architect] nvarchar(50)  NULL,
-    [BuildingHeightAboveground] int  NULL,
-    [BuildingHeightUnderground] int  NULL,
-    [BuildingCompany] nvarchar(50)  NULL,
-    [SupervisionUnit] nvarchar(50)  NULL,
-    [Area] real  NULL,
-    [PaymentType] tinyint  NULL,
-    [CheckoutDay] tinyint  NULL,
-    [PaymentDay] tinyint  NULL
-);
-GO
-
 -- Creating table 'AccessLog'
 CREATE TABLE [dbo].[AccessLog] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
     [DataId] uniqueidentifier  NOT NULL,
     [CreateTime] datetime  NOT NULL,
     [UserId] uniqueidentifier  NOT NULL,
-    [ActionCode] tinyint  NOT NULL
+    [ActionCode] tinyint  NOT NULL,
+    [Reason] nvarchar(512)  NULL
+);
+GO
+
+-- Creating table 'Compositions'
+CREATE TABLE [dbo].[Compositions] (
+    [Id] uniqueidentifier  NOT NULL,
+    [EngineeringId] uniqueidentifier  NULL,
+    [Order] int  NOT NULL,
+    [CompositionTypeId] int  NULL,
+    [Code] nvarchar(50)  NOT NULL,
+    [SpecDesc] nvarchar(512)  NULL,
+    [Amount] real  NOT NULL,
+    [Reserved1] nvarchar(200)  NULL,
+    [Reserved2] nvarchar(200)  NULL,
+    [Reserved3] nvarchar(200)  NULL,
+    [Reserved4] nvarchar(200)  NULL,
+    [Reserved5] nvarchar(200)  NULL,
+    [CreateTime] datetime  NOT NULL,
+    [CreateUserId] uniqueidentifier  NOT NULL
+);
+GO
+
+-- Creating table 'CompositionTypes'
+CREATE TABLE [dbo].[CompositionTypes] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(50)  NULL
+);
+GO
+
+-- Creating table 'ShopFlowDetail'
+CREATE TABLE [dbo].[ShopFlowDetail] (
+    [Id] uniqueidentifier  NOT NULL,
+    [ShopFlowId] uniqueidentifier  NULL,
+    [WorkShopId] uniqueidentifier  NULL,
+    [CreateTime] datetime  NOT NULL,
+    [CreateUserId] uniqueidentifier  NOT NULL
+);
+GO
+
+-- Creating table 'WorkShops'
+CREATE TABLE [dbo].[WorkShops] (
+    [Id] uniqueidentifier  NOT NULL,
+    [Name] nvarchar(50)  NOT NULL,
+    [RefId] uniqueidentifier  NULL,
+    [Location] nvarchar(50)  NULL,
+    [OwnerId] uniqueidentifier  NULL,
+    [Void] bit  NOT NULL,
+    [CreateTime] datetime  NOT NULL,
+    [CreateUserId] uniqueidentifier  NOT NULL
+);
+GO
+
+-- Creating table 'BOM'
+CREATE TABLE [dbo].[BOM] (
+    [Id] uniqueidentifier  NOT NULL,
+    [ProjectItemCostId] uniqueidentifier  NOT NULL,
+    [Bidders] int  NOT NULL,
+    [NumberTenders] int  NOT NULL,
+    [ItemName] nvarchar(512)  NULL,
+    [ShopFlowId] uniqueidentifier  NOT NULL,
+    [CreateTime] datetime  NOT NULL,
+    [CreateUserId] uniqueidentifier  NOT NULL
+);
+GO
+
+-- Creating table 'Contacts'
+CREATE TABLE [dbo].[Contacts] (
+    [Id] uniqueidentifier  NOT NULL,
+    [Name] nvarchar(15)  NOT NULL,
+    [Dep] nvarchar(50)  NOT NULL,
+    [Title] nvarchar(50)  NULL,
+    [Phone] nvarchar(10)  NULL,
+    [ExtensionNumber] nvarchar(6)  NULL,
+    [Mobile] nvarchar(10)  NULL,
+    [Fax] nvarchar(10)  NULL,
+    [IsPrincipal] bit  NOT NULL,
+    [Void] bit  NOT NULL,
+    [CreateTime] datetime  NOT NULL,
+    [CreateUserId] uniqueidentifier  NOT NULL,
+    [EMail] nvarchar(250)  NULL,
+    [IsDefault] bit  NOT NULL,
+    [Comment] nvarchar(max)  NULL
+);
+GO
+
+-- Creating table 'Engineering'
+CREATE TABLE [dbo].[Engineering] (
+    [Id] uniqueidentifier  NOT NULL,
+    [ProjectContractId] uniqueidentifier  NOT NULL,
+    [Code] nvarchar(15)  NOT NULL,
+    [Name] nvarchar(50)  NOT NULL,
+    [StartDate] datetime  NOT NULL,
+    [CompletionDate] datetime  NOT NULL,
+    [State] tinyint  NULL,
+    [CreateTime] datetime  NOT NULL,
+    [CreateUserId] uniqueidentifier  NOT NULL
 );
 GO
 
@@ -438,6 +476,79 @@ CREATE TABLE [dbo].[Manufacturers] (
 );
 GO
 
+-- Creating table 'ManufacturersBussinessItems'
+CREATE TABLE [dbo].[ManufacturersBussinessItems] (
+    [Id] uniqueidentifier  NOT NULL,
+    [MaterialCategoriesId] uniqueidentifier  NOT NULL,
+    [Name] nvarchar(50)  NOT NULL,
+    [TranscationId] int  NOT NULL,
+    [PaymentTypeId] tinyint  NOT NULL,
+    [TicketTypeId] tinyint  NOT NULL
+);
+GO
+
+-- Creating table 'MaterialCategories'
+CREATE TABLE [dbo].[MaterialCategories] (
+    [Id] uniqueidentifier  NOT NULL,
+    [Name] nvarchar(50)  NULL,
+    [CreateTime] datetime  NOT NULL,
+    [CreateUserId] uniqueidentifier  NOT NULL
+);
+GO
+
+-- Creating table 'Materials'
+CREATE TABLE [dbo].[Materials] (
+    [Id] uniqueidentifier  NOT NULL,
+    [MaterialCategoryId] uniqueidentifier  NOT NULL,
+    [ManufacturersId] uniqueidentifier  NOT NULL,
+    [Name] nvarchar(50)  NOT NULL,
+    [UnitPrice] real  NOT NULL,
+    [CreateTime] datetime  NOT NULL,
+    [CreateUserId] uniqueidentifier  NOT NULL
+);
+GO
+
+-- Creating table 'Molds'
+CREATE TABLE [dbo].[Molds] (
+    [Id] uniqueidentifier  NOT NULL,
+    [OpenDate] datetime  NOT NULL,
+    [LegendMoldReduction] varbinary(max)  NULL,
+    [UsePosition] nvarchar(50)  NULL,
+    [Code] nvarchar(50)  NULL,
+    [ManufacturersId] uniqueidentifier  NOT NULL,
+    [MaterialId] uniqueidentifier  NOT NULL,
+    [UnitWeight] real  NOT NULL,
+    [SurfaceTreatment] nvarchar(50)  NULL,
+    [PaintArea] real  NOT NULL,
+    [MembraneTreatment] real  NOT NULL,
+    [MinimumYield] real  NOT NULL,
+    [ProductionIngot] real  NOT NULL,
+    [TotalOrderWeight] real  NOT NULL,
+    [MoldUseStatusId] int  NOT NULL,
+    [Comment] nvarchar(512)  NULL,
+    [CreateTime] datetime  NOT NULL,
+    [CreateUserId] uniqueidentifier  NOT NULL
+);
+GO
+
+-- Creating table 'MoldsInProjects'
+CREATE TABLE [dbo].[MoldsInProjects] (
+    [Id] uniqueidentifier  NOT NULL,
+    [MaterialCategoryId] uniqueidentifier  NOT NULL,
+    [MoldId] uniqueidentifier  NOT NULL,
+    [ProjectId] uniqueidentifier  NOT NULL
+);
+GO
+
+-- Creating table 'MoldUseStatus'
+CREATE TABLE [dbo].[MoldUseStatus] (
+    [Id] int  NOT NULL,
+    [Name] nvarchar(50)  NOT NULL,
+    [CreateTime] datetime  NOT NULL,
+    [CreateUserId] uniqueidentifier  NOT NULL
+);
+GO
+
 -- Creating table 'PaymentTypes'
 CREATE TABLE [dbo].[PaymentTypes] (
     [Id] tinyint  NOT NULL,
@@ -445,44 +556,78 @@ CREATE TABLE [dbo].[PaymentTypes] (
 );
 GO
 
--- Creating table 'Engineering'
-CREATE TABLE [dbo].[Engineering] (
+-- Creating table 'ProjectContract'
+CREATE TABLE [dbo].[ProjectContract] (
     [Id] uniqueidentifier  NOT NULL,
-    [ProjectContractId] uniqueidentifier  NOT NULL,
-    [Code] nvarchar(15)  NOT NULL,
+    [ProjectId] uniqueidentifier  NOT NULL,
     [Name] nvarchar(50)  NOT NULL,
-    [StartDate] datetime  NOT NULL,
-    [CompletionDate] datetime  NOT NULL,
-    [State] tinyint  NULL,
-    [WarrantyDate] datetime  NULL,
+    [ContractNumber] nvarchar(50)  NOT NULL,
+    [SigningDate] datetime  NOT NULL,
+    [IsAppend] bit  NOT NULL,
+    [IsRepair] bit  NOT NULL,
     [CreateTime] datetime  NOT NULL,
     [CreateUserId] uniqueidentifier  NOT NULL
 );
 GO
 
--- Creating table 'Compositions'
-CREATE TABLE [dbo].[Compositions] (
+-- Creating table 'ProjectItemCost'
+CREATE TABLE [dbo].[ProjectItemCost] (
     [Id] uniqueidentifier  NOT NULL,
-    [EngineeringId] uniqueidentifier  NULL,
-    [Order] int  NOT NULL,
-    [CompositionTypeId] int  NULL,
-    [Code] nvarchar(50)  NOT NULL,
-    [SpecDesc] nvarchar(512)  NULL,
-    [Amount] real  NOT NULL,
-    [Reserved1] nvarchar(200)  NULL,
-    [Reserved2] nvarchar(200)  NULL,
-    [Reserved3] nvarchar(200)  NULL,
-    [Reserved4] nvarchar(200)  NULL,
-    [Reserved5] nvarchar(200)  NULL,
+    [EngineeringId] uniqueidentifier  NOT NULL,
+    [MaterialCategoriesId] uniqueidentifier  NOT NULL,
+    [ManufacturersId] uniqueidentifier  NOT NULL,
+    [Specification] nvarchar(512)  NULL,
+    [Unit] real  NOT NULL,
+    [UnitPrice] decimal(18,0)  NOT NULL,
+    [Quantity] decimal(18,0)  NOT NULL,
+    [Amount] decimal(18,0)  NOT NULL,
+    [IsBudget] bit  NOT NULL,
     [CreateTime] datetime  NOT NULL,
     [CreateUserId] uniqueidentifier  NOT NULL
 );
 GO
 
--- Creating table 'CompositionTypes'
-CREATE TABLE [dbo].[CompositionTypes] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [Name] nvarchar(50)  NULL
+-- Creating table 'Projects'
+CREATE TABLE [dbo].[Projects] (
+    [Id] uniqueidentifier  NOT NULL,
+    [Code] nvarchar(50)  NOT NULL,
+    [ProjectName] nvarchar(50)  NOT NULL,
+    [Area] real  NOT NULL,
+    [BuildingHeightAboveground] int  NOT NULL,
+    [BuildingHeightUnderground] int  NOT NULL,
+    [ProjectSigningDate] datetime  NOT NULL,
+    [StartDate] datetime  NOT NULL,
+    [State] tinyint  NOT NULL,
+    [ClientId] uniqueidentifier  NOT NULL,
+    [Void] bit  NOT NULL,
+    [CreateTime] datetime  NOT NULL,
+    [CreateUserId] uniqueidentifier  NOT NULL,
+    [CompletionDate] datetime  NULL,
+    [CheckoutDay] tinyint  NULL,
+    [PaymentDay] tinyint  NULL,
+    [ShortName] nvarchar(25)  NULL,
+    [SystemType] nvarchar(50)  NULL,
+    [SystemDesign] nvarchar(50)  NULL,
+    [SiteAddress] nvarchar(250)  NULL,
+    [Architect] nvarchar(50)  NULL,
+    [ArchitectConsultant] nvarchar(50)  NULL,
+    [BuildingCompany] nvarchar(50)  NULL,
+    [BuildingCompanyConsultant] nvarchar(50)  NULL,
+    [SupervisionUnit] nvarchar(50)  NULL,
+    [Comment] nvarchar(max)  NULL
+);
+GO
+
+-- Creating table 'PromissoryNoteManagement'
+CREATE TABLE [dbo].[PromissoryNoteManagement] (
+    [Id] uniqueidentifier  NOT NULL,
+    [ProjectContractId] uniqueidentifier  NULL,
+    [TicketTypeId] tinyint  NOT NULL,
+    [Amount] real  NOT NULL,
+    [OpenDate] datetime  NOT NULL,
+    [RecoveryDate] datetime  NULL,
+    [CreateTime] datetime  NOT NULL,
+    [CreateUserId] uniqueidentifier  NOT NULL
 );
 GO
 
@@ -495,69 +640,13 @@ CREATE TABLE [dbo].[ShopFlow] (
 );
 GO
 
--- Creating table 'ShopFlowDetail'
-CREATE TABLE [dbo].[ShopFlowDetail] (
-    [Id] uniqueidentifier  NOT NULL,
-    [ShopFlowId] uniqueidentifier  NULL,
-    [WorkShopId] uniqueidentifier  NULL,
+-- Creating table 'TicketTypes'
+CREATE TABLE [dbo].[TicketTypes] (
+    [Id] tinyint  NOT NULL,
+    [Name] nvarchar(50)  NOT NULL,
+    [IsPromissoryNote] bit  NOT NULL,
     [CreateTime] datetime  NOT NULL,
     [CreateUserId] uniqueidentifier  NOT NULL
-);
-GO
-
--- Creating table 'WorkShops'
-CREATE TABLE [dbo].[WorkShops] (
-    [Id] uniqueidentifier  NOT NULL,
-    [Name] nvarchar(50)  NOT NULL,
-    [RefId] uniqueidentifier  NULL,
-    [Location] nvarchar(50)  NULL,
-    [OwnerId] uniqueidentifier  NULL,
-    [Void] bit  NOT NULL,
-    [CreateTime] datetime  NOT NULL,
-    [CreateUserId] uniqueidentifier  NOT NULL
-);
-GO
-
--- Creating table 'ProjectContract'
-CREATE TABLE [dbo].[ProjectContract] (
-    [Id] uniqueidentifier  NOT NULL,
-    [ProjectId] uniqueidentifier  NULL,
-    [ContractorId] uniqueidentifier  NULL,
-    [SigningDate] datetime  NOT NULL,
-    [ContractNumber] nvarchar(50)  NOT NULL,
-    [StartDate] datetime  NOT NULL,
-    [CompletionDate] datetime  NULL,
-    [ContractAmount] real  NULL,
-    [AmountDue] real  NULL,
-    [PrepaymentGuaranteeAmount] real  NULL,
-    [OpenDate] datetime  NULL,
-    [PaymentType] tinyint  NULL,
-    [WarrantyDate] datetime  NULL,
-    [Architect] nvarchar(50)  NULL,
-    [BuildingHeightAboveground] int  NULL,
-    [BuildingHeightUnderground] int  NULL,
-    [BuildingCompany] nvarchar(50)  NULL,
-    [SupervisionUnit] nvarchar(50)  NULL,
-    [Area] real  NULL,
-    [IsAppend] bit  NULL,
-    [IsRepair] bit  NULL,
-    [State] tinyint  NULL,
-    [CheckoutDay] tinyint  NOT NULL,
-    [PaymentDay] tinyint  NOT NULL,
-    [CreateTime] datetime  NOT NULL,
-    [CreateUserId] uniqueidentifier  NOT NULL,
-    [Name] nvarchar(50)  NOT NULL
-);
-GO
-
--- Creating table 'ManufacturersBussinessItems'
-CREATE TABLE [dbo].[ManufacturersBussinessItems] (
-    [Id] uniqueidentifier  NOT NULL,
-    [MaterialCategoriesId] uniqueidentifier  NOT NULL,
-    [Name] nvarchar(50)  NOT NULL,
-    [TranscationId] int  NOT NULL,
-    [PaymentTypeId] tinyint  NOT NULL,
-    [TicketTypeId] tinyint  NOT NULL
 );
 GO
 
@@ -568,6 +657,13 @@ CREATE TABLE [dbo].[UsersInRoles] (
 );
 GO
 
+-- Creating table 'ClientsInProjects'
+CREATE TABLE [dbo].[ClientsInProjects] (
+    [Clients_Id] uniqueidentifier  NOT NULL,
+    [ClientForProjects_Id] uniqueidentifier  NOT NULL
+);
+GO
+
 -- Creating table 'ContractsInManufacturers'
 CREATE TABLE [dbo].[ContractsInManufacturers] (
     [Contacts_Id] uniqueidentifier  NOT NULL,
@@ -575,22 +671,16 @@ CREATE TABLE [dbo].[ContractsInManufacturers] (
 );
 GO
 
--- Creating table 'ClientsInProjects'
-CREATE TABLE [dbo].[ClientsInProjects] (
-    [Clients_Id] uniqueidentifier  NOT NULL,
-    [Projects_Id] uniqueidentifier  NOT NULL
+-- Creating table 'Suppliers'
+CREATE TABLE [dbo].[Suppliers] (
+    [Suppliers_Id] uniqueidentifier  NOT NULL,
+    [ProjectSuppliers_Id] uniqueidentifier  NOT NULL
 );
 GO
 
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
-
--- Creating primary key on [Id] in table 'Contacts'
-ALTER TABLE [dbo].[Contacts]
-ADD CONSTRAINT [PK_Contacts]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
 
 -- Creating primary key on [UserId] in table 'Membership'
 ALTER TABLE [dbo].[Membership]
@@ -628,63 +718,9 @@ ADD CONSTRAINT [PK_ShopFlowHistory]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'Materials'
-ALTER TABLE [dbo].[Materials]
-ADD CONSTRAINT [PK_Materials]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
--- Creating primary key on [Id] in table 'MaterialCategories'
-ALTER TABLE [dbo].[MaterialCategories]
-ADD CONSTRAINT [PK_MaterialCategories]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
--- Creating primary key on [Id] in table 'PromissoryNoteManagement'
-ALTER TABLE [dbo].[PromissoryNoteManagement]
-ADD CONSTRAINT [PK_PromissoryNoteManagement]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
--- Creating primary key on [Id] in table 'TicketTypes'
-ALTER TABLE [dbo].[TicketTypes]
-ADD CONSTRAINT [PK_TicketTypes]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
--- Creating primary key on [Id] in table 'BOM'
-ALTER TABLE [dbo].[BOM]
-ADD CONSTRAINT [PK_BOM]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
--- Creating primary key on [Id] in table 'Projects'
-ALTER TABLE [dbo].[Projects]
-ADD CONSTRAINT [PK_Projects]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
 -- Creating primary key on [Id] in table 'AccessLog'
 ALTER TABLE [dbo].[AccessLog]
 ADD CONSTRAINT [PK_AccessLog]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
--- Creating primary key on [Id] in table 'Manufacturers'
-ALTER TABLE [dbo].[Manufacturers]
-ADD CONSTRAINT [PK_Manufacturers]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
--- Creating primary key on [Id] in table 'PaymentTypes'
-ALTER TABLE [dbo].[PaymentTypes]
-ADD CONSTRAINT [PK_PaymentTypes]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
--- Creating primary key on [Id] in table 'Engineering'
-ALTER TABLE [dbo].[Engineering]
-ADD CONSTRAINT [PK_Engineering]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -700,12 +736,6 @@ ADD CONSTRAINT [PK_CompositionTypes]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'ShopFlow'
-ALTER TABLE [dbo].[ShopFlow]
-ADD CONSTRAINT [PK_ShopFlow]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
 -- Creating primary key on [Id] in table 'ShopFlowDetail'
 ALTER TABLE [dbo].[ShopFlowDetail]
 ADD CONSTRAINT [PK_ShopFlowDetail]
@@ -718,9 +748,27 @@ ADD CONSTRAINT [PK_WorkShops]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'ProjectContract'
-ALTER TABLE [dbo].[ProjectContract]
-ADD CONSTRAINT [PK_ProjectContract]
+-- Creating primary key on [Id] in table 'BOM'
+ALTER TABLE [dbo].[BOM]
+ADD CONSTRAINT [PK_BOM]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Contacts'
+ALTER TABLE [dbo].[Contacts]
+ADD CONSTRAINT [PK_Contacts]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Engineering'
+ALTER TABLE [dbo].[Engineering]
+ADD CONSTRAINT [PK_Engineering]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Manufacturers'
+ALTER TABLE [dbo].[Manufacturers]
+ADD CONSTRAINT [PK_Manufacturers]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -730,10 +778,88 @@ ADD CONSTRAINT [PK_ManufacturersBussinessItems]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
+-- Creating primary key on [Id] in table 'MaterialCategories'
+ALTER TABLE [dbo].[MaterialCategories]
+ADD CONSTRAINT [PK_MaterialCategories]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Materials'
+ALTER TABLE [dbo].[Materials]
+ADD CONSTRAINT [PK_Materials]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Molds'
+ALTER TABLE [dbo].[Molds]
+ADD CONSTRAINT [PK_Molds]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'MoldsInProjects'
+ALTER TABLE [dbo].[MoldsInProjects]
+ADD CONSTRAINT [PK_MoldsInProjects]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'MoldUseStatus'
+ALTER TABLE [dbo].[MoldUseStatus]
+ADD CONSTRAINT [PK_MoldUseStatus]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'PaymentTypes'
+ALTER TABLE [dbo].[PaymentTypes]
+ADD CONSTRAINT [PK_PaymentTypes]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'ProjectContract'
+ALTER TABLE [dbo].[ProjectContract]
+ADD CONSTRAINT [PK_ProjectContract]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'ProjectItemCost'
+ALTER TABLE [dbo].[ProjectItemCost]
+ADD CONSTRAINT [PK_ProjectItemCost]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Projects'
+ALTER TABLE [dbo].[Projects]
+ADD CONSTRAINT [PK_Projects]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'PromissoryNoteManagement'
+ALTER TABLE [dbo].[PromissoryNoteManagement]
+ADD CONSTRAINT [PK_PromissoryNoteManagement]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'ShopFlow'
+ALTER TABLE [dbo].[ShopFlow]
+ADD CONSTRAINT [PK_ShopFlow]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'TicketTypes'
+ALTER TABLE [dbo].[TicketTypes]
+ADD CONSTRAINT [PK_TicketTypes]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
 -- Creating primary key on [Roles_RoleId], [Users_UserId] in table 'UsersInRoles'
 ALTER TABLE [dbo].[UsersInRoles]
 ADD CONSTRAINT [PK_UsersInRoles]
     PRIMARY KEY CLUSTERED ([Roles_RoleId], [Users_UserId] ASC);
+GO
+
+-- Creating primary key on [Clients_Id], [ClientForProjects_Id] in table 'ClientsInProjects'
+ALTER TABLE [dbo].[ClientsInProjects]
+ADD CONSTRAINT [PK_ClientsInProjects]
+    PRIMARY KEY CLUSTERED ([Clients_Id], [ClientForProjects_Id] ASC);
 GO
 
 -- Creating primary key on [Contacts_Id], [Manufacturers_Id] in table 'ContractsInManufacturers'
@@ -742,10 +868,10 @@ ADD CONSTRAINT [PK_ContractsInManufacturers]
     PRIMARY KEY CLUSTERED ([Contacts_Id], [Manufacturers_Id] ASC);
 GO
 
--- Creating primary key on [Clients_Id], [Projects_Id] in table 'ClientsInProjects'
-ALTER TABLE [dbo].[ClientsInProjects]
-ADD CONSTRAINT [PK_ClientsInProjects]
-    PRIMARY KEY CLUSTERED ([Clients_Id], [Projects_Id] ASC);
+-- Creating primary key on [Suppliers_Id], [ProjectSuppliers_Id] in table 'Suppliers'
+ALTER TABLE [dbo].[Suppliers]
+ADD CONSTRAINT [PK_Suppliers]
+    PRIMARY KEY CLUSTERED ([Suppliers_Id], [ProjectSuppliers_Id] ASC);
 GO
 
 -- --------------------------------------------------
@@ -824,189 +950,6 @@ ON [dbo].[ShopFlowHistory]
     ([CreateUserId]);
 GO
 
--- Creating foreign key on [MaterialCategoryId] in table 'Materials'
-ALTER TABLE [dbo].[Materials]
-ADD CONSTRAINT [FK_Materials_MaterialCategories]
-    FOREIGN KEY ([MaterialCategoryId])
-    REFERENCES [dbo].[MaterialCategories]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_Materials_MaterialCategories'
-CREATE INDEX [IX_FK_Materials_MaterialCategories]
-ON [dbo].[Materials]
-    ([MaterialCategoryId]);
-GO
-
--- Creating foreign key on [CreateUserId] in table 'Materials'
-ALTER TABLE [dbo].[Materials]
-ADD CONSTRAINT [FK_Materials_Users]
-    FOREIGN KEY ([CreateUserId])
-    REFERENCES [dbo].[Users]
-        ([UserId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_Materials_Users'
-CREATE INDEX [IX_FK_Materials_Users]
-ON [dbo].[Materials]
-    ([CreateUserId]);
-GO
-
--- Creating foreign key on [TicketTypeId] in table 'PromissoryNoteManagement'
-ALTER TABLE [dbo].[PromissoryNoteManagement]
-ADD CONSTRAINT [FK_PromissoryNoteManagement_TicketTypes]
-    FOREIGN KEY ([TicketTypeId])
-    REFERENCES [dbo].[TicketTypes]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_PromissoryNoteManagement_TicketTypes'
-CREATE INDEX [IX_FK_PromissoryNoteManagement_TicketTypes]
-ON [dbo].[PromissoryNoteManagement]
-    ([TicketTypeId]);
-GO
-
--- Creating foreign key on [CreateUserId] in table 'PromissoryNoteManagement'
-ALTER TABLE [dbo].[PromissoryNoteManagement]
-ADD CONSTRAINT [FK_PromissoryNoteManagement_Users]
-    FOREIGN KEY ([CreateUserId])
-    REFERENCES [dbo].[Users]
-        ([UserId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_PromissoryNoteManagement_Users'
-CREATE INDEX [IX_FK_PromissoryNoteManagement_Users]
-ON [dbo].[PromissoryNoteManagement]
-    ([CreateUserId]);
-GO
-
--- Creating foreign key on [MaterialsId] in table 'BOM'
-ALTER TABLE [dbo].[BOM]
-ADD CONSTRAINT [FK_BOM_Materials]
-    FOREIGN KEY ([MaterialsId])
-    REFERENCES [dbo].[Materials]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_BOM_Materials'
-CREATE INDEX [IX_FK_BOM_Materials]
-ON [dbo].[BOM]
-    ([MaterialsId]);
-GO
-
--- Creating foreign key on [ShopFlowId] in table 'BOM'
-ALTER TABLE [dbo].[BOM]
-ADD CONSTRAINT [FK_BOM_ShopFlowHistory]
-    FOREIGN KEY ([ShopFlowId])
-    REFERENCES [dbo].[ShopFlowHistory]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_BOM_ShopFlowHistory'
-CREATE INDEX [IX_FK_BOM_ShopFlowHistory]
-ON [dbo].[BOM]
-    ([ShopFlowId]);
-GO
-
--- Creating foreign key on [State] in table 'Projects'
-ALTER TABLE [dbo].[Projects]
-ADD CONSTRAINT [FK_Projects_States]
-    FOREIGN KEY ([State])
-    REFERENCES [dbo].[States]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_Projects_States'
-CREATE INDEX [IX_FK_Projects_States]
-ON [dbo].[Projects]
-    ([State]);
-GO
-
--- Creating foreign key on [Contacts_Id] in table 'ContractsInManufacturers'
-ALTER TABLE [dbo].[ContractsInManufacturers]
-ADD CONSTRAINT [FK_ContractsInManufacturers_Contacts]
-    FOREIGN KEY ([Contacts_Id])
-    REFERENCES [dbo].[Contacts]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating foreign key on [Manufacturers_Id] in table 'ContractsInManufacturers'
-ALTER TABLE [dbo].[ContractsInManufacturers]
-ADD CONSTRAINT [FK_ContractsInManufacturers_Manufacturers]
-    FOREIGN KEY ([Manufacturers_Id])
-    REFERENCES [dbo].[Manufacturers]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_ContractsInManufacturers_Manufacturers'
-CREATE INDEX [IX_FK_ContractsInManufacturers_Manufacturers]
-ON [dbo].[ContractsInManufacturers]
-    ([Manufacturers_Id]);
-GO
-
--- Creating foreign key on [Clients_Id] in table 'ClientsInProjects'
-ALTER TABLE [dbo].[ClientsInProjects]
-ADD CONSTRAINT [FK_ClientsInProjects_Manufacturers]
-    FOREIGN KEY ([Clients_Id])
-    REFERENCES [dbo].[Manufacturers]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating foreign key on [Projects_Id] in table 'ClientsInProjects'
-ALTER TABLE [dbo].[ClientsInProjects]
-ADD CONSTRAINT [FK_ClientsInProjects_Projects]
-    FOREIGN KEY ([Projects_Id])
-    REFERENCES [dbo].[Projects]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_ClientsInProjects_Projects'
-CREATE INDEX [IX_FK_ClientsInProjects_Projects]
-ON [dbo].[ClientsInProjects]
-    ([Projects_Id]);
-GO
-
--- Creating foreign key on [PaymentType] in table 'Manufacturers'
-ALTER TABLE [dbo].[Manufacturers]
-ADD CONSTRAINT [FK_Manufacturers_PaymentTypes]
-    FOREIGN KEY ([PaymentType])
-    REFERENCES [dbo].[PaymentTypes]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_Manufacturers_PaymentTypes'
-CREATE INDEX [IX_FK_Manufacturers_PaymentTypes]
-ON [dbo].[Manufacturers]
-    ([PaymentType]);
-GO
-
--- Creating foreign key on [EngineeringId] in table 'ShopFlowHistory'
-ALTER TABLE [dbo].[ShopFlowHistory]
-ADD CONSTRAINT [FK_ShopFlowHistory_Engineering]
-    FOREIGN KEY ([EngineeringId])
-    REFERENCES [dbo].[Engineering]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_ShopFlowHistory_Engineering'
-CREATE INDEX [IX_FK_ShopFlowHistory_Engineering]
-ON [dbo].[ShopFlowHistory]
-    ([EngineeringId]);
-GO
-
 -- Creating foreign key on [CompositionTypeId] in table 'Compositions'
 ALTER TABLE [dbo].[Compositions]
 ADD CONSTRAINT [FK_Compositions_CompositionTypes]
@@ -1020,66 +963,6 @@ GO
 CREATE INDEX [IX_FK_Compositions_CompositionTypes]
 ON [dbo].[Compositions]
     ([CompositionTypeId]);
-GO
-
--- Creating foreign key on [EngineeringId] in table 'Compositions'
-ALTER TABLE [dbo].[Compositions]
-ADD CONSTRAINT [FK_Compositions_Engineering]
-    FOREIGN KEY ([EngineeringId])
-    REFERENCES [dbo].[Engineering]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_Compositions_Engineering'
-CREATE INDEX [IX_FK_Compositions_Engineering]
-ON [dbo].[Compositions]
-    ([EngineeringId]);
-GO
-
--- Creating foreign key on [State] in table 'Engineering'
-ALTER TABLE [dbo].[Engineering]
-ADD CONSTRAINT [FK_Engineering_States]
-    FOREIGN KEY ([State])
-    REFERENCES [dbo].[States]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_Engineering_States'
-CREATE INDEX [IX_FK_Engineering_States]
-ON [dbo].[Engineering]
-    ([State]);
-GO
-
--- Creating foreign key on [RefId] in table 'WorkShops'
-ALTER TABLE [dbo].[WorkShops]
-ADD CONSTRAINT [FK_WorkShops_Manufacturers]
-    FOREIGN KEY ([RefId])
-    REFERENCES [dbo].[Manufacturers]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_WorkShops_Manufacturers'
-CREATE INDEX [IX_FK_WorkShops_Manufacturers]
-ON [dbo].[WorkShops]
-    ([RefId]);
-GO
-
--- Creating foreign key on [ShopFlowId] in table 'ShopFlowDetail'
-ALTER TABLE [dbo].[ShopFlowDetail]
-ADD CONSTRAINT [FK_ShopFlowDetail_ShopFlow]
-    FOREIGN KEY ([ShopFlowId])
-    REFERENCES [dbo].[ShopFlow]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_ShopFlowDetail_ShopFlow'
-CREATE INDEX [IX_FK_ShopFlowDetail_ShopFlow]
-ON [dbo].[ShopFlowDetail]
-    ([ShopFlowId]);
 GO
 
 -- Creating foreign key on [CreateUserId] in table 'ShopFlowDetail'
@@ -1121,6 +1004,21 @@ ADD CONSTRAINT [FK_ShopFlowHistory_ShopFlowHistory]
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
+-- Creating foreign key on [EngineeringId] in table 'Compositions'
+ALTER TABLE [dbo].[Compositions]
+ADD CONSTRAINT [FK_Compositions_Engineering]
+    FOREIGN KEY ([EngineeringId])
+    REFERENCES [dbo].[Engineering]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_Compositions_Engineering'
+CREATE INDEX [IX_FK_Compositions_Engineering]
+ON [dbo].[Compositions]
+    ([EngineeringId]);
+GO
+
 -- Creating foreign key on [ProjectContractId] in table 'Engineering'
 ALTER TABLE [dbo].[Engineering]
 ADD CONSTRAINT [FK_Engineering_ProjectContract]
@@ -1136,79 +1034,109 @@ ON [dbo].[Engineering]
     ([ProjectContractId]);
 GO
 
--- Creating foreign key on [ContractorId] in table 'ProjectContract'
-ALTER TABLE [dbo].[ProjectContract]
-ADD CONSTRAINT [FK_ProjectContract_Manufacturers]
-    FOREIGN KEY ([ContractorId])
-    REFERENCES [dbo].[Manufacturers]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_ProjectContract_Manufacturers'
-CREATE INDEX [IX_FK_ProjectContract_Manufacturers]
-ON [dbo].[ProjectContract]
-    ([ContractorId]);
-GO
-
--- Creating foreign key on [ProjectId] in table 'ProjectContract'
-ALTER TABLE [dbo].[ProjectContract]
-ADD CONSTRAINT [FK_ProjectContract_Projects]
-    FOREIGN KEY ([ProjectId])
-    REFERENCES [dbo].[Projects]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_ProjectContract_Projects'
-CREATE INDEX [IX_FK_ProjectContract_Projects]
-ON [dbo].[ProjectContract]
-    ([ProjectId]);
-GO
-
--- Creating foreign key on [State] in table 'ProjectContract'
-ALTER TABLE [dbo].[ProjectContract]
-ADD CONSTRAINT [FK_ProjectContract_States]
+-- Creating foreign key on [State] in table 'Engineering'
+ALTER TABLE [dbo].[Engineering]
+ADD CONSTRAINT [FK_Engineering_States]
     FOREIGN KEY ([State])
     REFERENCES [dbo].[States]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_ProjectContract_States'
-CREATE INDEX [IX_FK_ProjectContract_States]
-ON [dbo].[ProjectContract]
+-- Creating non-clustered index for FOREIGN KEY 'FK_Engineering_States'
+CREATE INDEX [IX_FK_Engineering_States]
+ON [dbo].[Engineering]
     ([State]);
 GO
 
--- Creating foreign key on [CreateUserId] in table 'ProjectContract'
-ALTER TABLE [dbo].[ProjectContract]
-ADD CONSTRAINT [FK_ProjectContract_Users]
-    FOREIGN KEY ([CreateUserId])
-    REFERENCES [dbo].[Users]
-        ([UserId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_ProjectContract_Users'
-CREATE INDEX [IX_FK_ProjectContract_Users]
-ON [dbo].[ProjectContract]
-    ([CreateUserId]);
-GO
-
--- Creating foreign key on [ProjectContractId] in table 'PromissoryNoteManagement'
-ALTER TABLE [dbo].[PromissoryNoteManagement]
-ADD CONSTRAINT [FK_PromissoryNoteManagement_ProjectContract]
-    FOREIGN KEY ([ProjectContractId])
-    REFERENCES [dbo].[ProjectContract]
+-- Creating foreign key on [EngineeringId] in table 'ProjectItemCost'
+ALTER TABLE [dbo].[ProjectItemCost]
+ADD CONSTRAINT [FK_ProjectItemCost_Engineering]
+    FOREIGN KEY ([EngineeringId])
+    REFERENCES [dbo].[Engineering]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_PromissoryNoteManagement_ProjectContract'
-CREATE INDEX [IX_FK_PromissoryNoteManagement_ProjectContract]
-ON [dbo].[PromissoryNoteManagement]
-    ([ProjectContractId]);
+-- Creating non-clustered index for FOREIGN KEY 'FK_ProjectItemCost_Engineering'
+CREATE INDEX [IX_FK_ProjectItemCost_Engineering]
+ON [dbo].[ProjectItemCost]
+    ([EngineeringId]);
+GO
+
+-- Creating foreign key on [EngineeringId] in table 'ShopFlowHistory'
+ALTER TABLE [dbo].[ShopFlowHistory]
+ADD CONSTRAINT [FK_ShopFlowHistory_Engineering]
+    FOREIGN KEY ([EngineeringId])
+    REFERENCES [dbo].[Engineering]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ShopFlowHistory_Engineering'
+CREATE INDEX [IX_FK_ShopFlowHistory_Engineering]
+ON [dbo].[ShopFlowHistory]
+    ([EngineeringId]);
+GO
+
+-- Creating foreign key on [PaymentType] in table 'Manufacturers'
+ALTER TABLE [dbo].[Manufacturers]
+ADD CONSTRAINT [FK_Manufacturers_PaymentTypes]
+    FOREIGN KEY ([PaymentType])
+    REFERENCES [dbo].[PaymentTypes]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_Manufacturers_PaymentTypes'
+CREATE INDEX [IX_FK_Manufacturers_PaymentTypes]
+ON [dbo].[Manufacturers]
+    ([PaymentType]);
+GO
+
+-- Creating foreign key on [ManufacturersId] in table 'Molds'
+ALTER TABLE [dbo].[Molds]
+ADD CONSTRAINT [FK_Molds_Manufacturers]
+    FOREIGN KEY ([ManufacturersId])
+    REFERENCES [dbo].[Manufacturers]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_Molds_Manufacturers'
+CREATE INDEX [IX_FK_Molds_Manufacturers]
+ON [dbo].[Molds]
+    ([ManufacturersId]);
+GO
+
+-- Creating foreign key on [ManufacturersId] in table 'ProjectItemCost'
+ALTER TABLE [dbo].[ProjectItemCost]
+ADD CONSTRAINT [FK_ProjectItemCost_Manufacturers]
+    FOREIGN KEY ([ManufacturersId])
+    REFERENCES [dbo].[Manufacturers]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ProjectItemCost_Manufacturers'
+CREATE INDEX [IX_FK_ProjectItemCost_Manufacturers]
+ON [dbo].[ProjectItemCost]
+    ([ManufacturersId]);
+GO
+
+-- Creating foreign key on [RefId] in table 'WorkShops'
+ALTER TABLE [dbo].[WorkShops]
+ADD CONSTRAINT [FK_WorkShops_Manufacturers]
+    FOREIGN KEY ([RefId])
+    REFERENCES [dbo].[Manufacturers]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_WorkShops_Manufacturers'
+CREATE INDEX [IX_FK_WorkShops_Manufacturers]
+ON [dbo].[WorkShops]
+    ([RefId]);
 GO
 
 -- Creating foreign key on [MaterialCategoriesId] in table 'ManufacturersBussinessItems'
@@ -1254,6 +1182,333 @@ GO
 CREATE INDEX [IX_FK_ManufacturersBussinessItems_TicketTypes]
 ON [dbo].[ManufacturersBussinessItems]
     ([TicketTypeId]);
+GO
+
+-- Creating foreign key on [MaterialCategoryId] in table 'Materials'
+ALTER TABLE [dbo].[Materials]
+ADD CONSTRAINT [FK_Materials_MaterialCategories]
+    FOREIGN KEY ([MaterialCategoryId])
+    REFERENCES [dbo].[MaterialCategories]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_Materials_MaterialCategories'
+CREATE INDEX [IX_FK_Materials_MaterialCategories]
+ON [dbo].[Materials]
+    ([MaterialCategoryId]);
+GO
+
+-- Creating foreign key on [MaterialCategoryId] in table 'MoldsInProjects'
+ALTER TABLE [dbo].[MoldsInProjects]
+ADD CONSTRAINT [FK_MoldsInProjects_MaterialCategories]
+    FOREIGN KEY ([MaterialCategoryId])
+    REFERENCES [dbo].[MaterialCategories]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_MoldsInProjects_MaterialCategories'
+CREATE INDEX [IX_FK_MoldsInProjects_MaterialCategories]
+ON [dbo].[MoldsInProjects]
+    ([MaterialCategoryId]);
+GO
+
+-- Creating foreign key on [MaterialCategoriesId] in table 'ProjectItemCost'
+ALTER TABLE [dbo].[ProjectItemCost]
+ADD CONSTRAINT [FK_ProjectItemCost_MaterialCategories]
+    FOREIGN KEY ([MaterialCategoriesId])
+    REFERENCES [dbo].[MaterialCategories]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ProjectItemCost_MaterialCategories'
+CREATE INDEX [IX_FK_ProjectItemCost_MaterialCategories]
+ON [dbo].[ProjectItemCost]
+    ([MaterialCategoriesId]);
+GO
+
+-- Creating foreign key on [CreateUserId] in table 'Materials'
+ALTER TABLE [dbo].[Materials]
+ADD CONSTRAINT [FK_Materials_Users]
+    FOREIGN KEY ([CreateUserId])
+    REFERENCES [dbo].[Users]
+        ([UserId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_Materials_Users'
+CREATE INDEX [IX_FK_Materials_Users]
+ON [dbo].[Materials]
+    ([CreateUserId]);
+GO
+
+-- Creating foreign key on [MaterialId] in table 'Molds'
+ALTER TABLE [dbo].[Molds]
+ADD CONSTRAINT [FK_Molds_Materials]
+    FOREIGN KEY ([MaterialId])
+    REFERENCES [dbo].[Materials]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_Molds_Materials'
+CREATE INDEX [IX_FK_Molds_Materials]
+ON [dbo].[Molds]
+    ([MaterialId]);
+GO
+
+-- Creating foreign key on [MoldUseStatusId] in table 'Molds'
+ALTER TABLE [dbo].[Molds]
+ADD CONSTRAINT [FK_Molds_MoldUseStatus]
+    FOREIGN KEY ([MoldUseStatusId])
+    REFERENCES [dbo].[MoldUseStatus]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_Molds_MoldUseStatus'
+CREATE INDEX [IX_FK_Molds_MoldUseStatus]
+ON [dbo].[Molds]
+    ([MoldUseStatusId]);
+GO
+
+-- Creating foreign key on [CreateUserId] in table 'Molds'
+ALTER TABLE [dbo].[Molds]
+ADD CONSTRAINT [FK_Molds_Users]
+    FOREIGN KEY ([CreateUserId])
+    REFERENCES [dbo].[Users]
+        ([UserId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_Molds_Users'
+CREATE INDEX [IX_FK_Molds_Users]
+ON [dbo].[Molds]
+    ([CreateUserId]);
+GO
+
+-- Creating foreign key on [MoldId] in table 'MoldsInProjects'
+ALTER TABLE [dbo].[MoldsInProjects]
+ADD CONSTRAINT [FK_MoldsInProjects_Molds]
+    FOREIGN KEY ([MoldId])
+    REFERENCES [dbo].[Molds]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_MoldsInProjects_Molds'
+CREATE INDEX [IX_FK_MoldsInProjects_Molds]
+ON [dbo].[MoldsInProjects]
+    ([MoldId]);
+GO
+
+-- Creating foreign key on [ProjectId] in table 'MoldsInProjects'
+ALTER TABLE [dbo].[MoldsInProjects]
+ADD CONSTRAINT [FK_MoldsInProjects_Projects]
+    FOREIGN KEY ([ProjectId])
+    REFERENCES [dbo].[Projects]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_MoldsInProjects_Projects'
+CREATE INDEX [IX_FK_MoldsInProjects_Projects]
+ON [dbo].[MoldsInProjects]
+    ([ProjectId]);
+GO
+
+-- Creating foreign key on [ProjectId] in table 'ProjectContract'
+ALTER TABLE [dbo].[ProjectContract]
+ADD CONSTRAINT [FK_ProjectContract_Projects]
+    FOREIGN KEY ([ProjectId])
+    REFERENCES [dbo].[Projects]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ProjectContract_Projects'
+CREATE INDEX [IX_FK_ProjectContract_Projects]
+ON [dbo].[ProjectContract]
+    ([ProjectId]);
+GO
+
+-- Creating foreign key on [CreateUserId] in table 'ProjectContract'
+ALTER TABLE [dbo].[ProjectContract]
+ADD CONSTRAINT [FK_ProjectContract_Users]
+    FOREIGN KEY ([CreateUserId])
+    REFERENCES [dbo].[Users]
+        ([UserId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ProjectContract_Users'
+CREATE INDEX [IX_FK_ProjectContract_Users]
+ON [dbo].[ProjectContract]
+    ([CreateUserId]);
+GO
+
+-- Creating foreign key on [ProjectContractId] in table 'PromissoryNoteManagement'
+ALTER TABLE [dbo].[PromissoryNoteManagement]
+ADD CONSTRAINT [FK_PromissoryNoteManagement_ProjectContract]
+    FOREIGN KEY ([ProjectContractId])
+    REFERENCES [dbo].[ProjectContract]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PromissoryNoteManagement_ProjectContract'
+CREATE INDEX [IX_FK_PromissoryNoteManagement_ProjectContract]
+ON [dbo].[PromissoryNoteManagement]
+    ([ProjectContractId]);
+GO
+
+-- Creating foreign key on [CreateUserId] in table 'ProjectItemCost'
+ALTER TABLE [dbo].[ProjectItemCost]
+ADD CONSTRAINT [FK_ProjectItemCost_Users]
+    FOREIGN KEY ([CreateUserId])
+    REFERENCES [dbo].[Users]
+        ([UserId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ProjectItemCost_Users'
+CREATE INDEX [IX_FK_ProjectItemCost_Users]
+ON [dbo].[ProjectItemCost]
+    ([CreateUserId]);
+GO
+
+-- Creating foreign key on [State] in table 'Projects'
+ALTER TABLE [dbo].[Projects]
+ADD CONSTRAINT [FK_Projects_States]
+    FOREIGN KEY ([State])
+    REFERENCES [dbo].[States]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_Projects_States'
+CREATE INDEX [IX_FK_Projects_States]
+ON [dbo].[Projects]
+    ([State]);
+GO
+
+-- Creating foreign key on [TicketTypeId] in table 'PromissoryNoteManagement'
+ALTER TABLE [dbo].[PromissoryNoteManagement]
+ADD CONSTRAINT [FK_PromissoryNoteManagement_TicketTypes]
+    FOREIGN KEY ([TicketTypeId])
+    REFERENCES [dbo].[TicketTypes]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PromissoryNoteManagement_TicketTypes'
+CREATE INDEX [IX_FK_PromissoryNoteManagement_TicketTypes]
+ON [dbo].[PromissoryNoteManagement]
+    ([TicketTypeId]);
+GO
+
+-- Creating foreign key on [CreateUserId] in table 'PromissoryNoteManagement'
+ALTER TABLE [dbo].[PromissoryNoteManagement]
+ADD CONSTRAINT [FK_PromissoryNoteManagement_Users]
+    FOREIGN KEY ([CreateUserId])
+    REFERENCES [dbo].[Users]
+        ([UserId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PromissoryNoteManagement_Users'
+CREATE INDEX [IX_FK_PromissoryNoteManagement_Users]
+ON [dbo].[PromissoryNoteManagement]
+    ([CreateUserId]);
+GO
+
+-- Creating foreign key on [ShopFlowId] in table 'ShopFlowDetail'
+ALTER TABLE [dbo].[ShopFlowDetail]
+ADD CONSTRAINT [FK_ShopFlowDetail_ShopFlow]
+    FOREIGN KEY ([ShopFlowId])
+    REFERENCES [dbo].[ShopFlow]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ShopFlowDetail_ShopFlow'
+CREATE INDEX [IX_FK_ShopFlowDetail_ShopFlow]
+ON [dbo].[ShopFlowDetail]
+    ([ShopFlowId]);
+GO
+
+-- Creating foreign key on [Clients_Id] in table 'ClientsInProjects'
+ALTER TABLE [dbo].[ClientsInProjects]
+ADD CONSTRAINT [FK_ClientsInProjects_Manufacturers]
+    FOREIGN KEY ([Clients_Id])
+    REFERENCES [dbo].[Manufacturers]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [ClientForProjects_Id] in table 'ClientsInProjects'
+ALTER TABLE [dbo].[ClientsInProjects]
+ADD CONSTRAINT [FK_ClientsInProjects_Projects]
+    FOREIGN KEY ([ClientForProjects_Id])
+    REFERENCES [dbo].[Projects]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ClientsInProjects_Projects'
+CREATE INDEX [IX_FK_ClientsInProjects_Projects]
+ON [dbo].[ClientsInProjects]
+    ([ClientForProjects_Id]);
+GO
+
+-- Creating foreign key on [Contacts_Id] in table 'ContractsInManufacturers'
+ALTER TABLE [dbo].[ContractsInManufacturers]
+ADD CONSTRAINT [FK_ContractsInManufacturers_Contacts]
+    FOREIGN KEY ([Contacts_Id])
+    REFERENCES [dbo].[Contacts]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Manufacturers_Id] in table 'ContractsInManufacturers'
+ALTER TABLE [dbo].[ContractsInManufacturers]
+ADD CONSTRAINT [FK_ContractsInManufacturers_Manufacturers]
+    FOREIGN KEY ([Manufacturers_Id])
+    REFERENCES [dbo].[Manufacturers]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ContractsInManufacturers_Manufacturers'
+CREATE INDEX [IX_FK_ContractsInManufacturers_Manufacturers]
+ON [dbo].[ContractsInManufacturers]
+    ([Manufacturers_Id]);
+GO
+
+-- Creating foreign key on [Suppliers_Id] in table 'Suppliers'
+ALTER TABLE [dbo].[Suppliers]
+ADD CONSTRAINT [FK_Suppliers_Manufacturers]
+    FOREIGN KEY ([Suppliers_Id])
+    REFERENCES [dbo].[Manufacturers]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [ProjectSuppliers_Id] in table 'Suppliers'
+ALTER TABLE [dbo].[Suppliers]
+ADD CONSTRAINT [FK_Suppliers_Projects]
+    FOREIGN KEY ([ProjectSuppliers_Id])
+    REFERENCES [dbo].[Projects]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_Suppliers_Projects'
+CREATE INDEX [IX_FK_Suppliers_Projects]
+ON [dbo].[Suppliers]
+    ([ProjectSuppliers_Id]);
 GO
 
 -- --------------------------------------------------

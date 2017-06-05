@@ -59,7 +59,7 @@
     <Compile Include="ProjectContractController.cs" />
     <Compile Include="ProjectManagerViewController.cs" />
     <Compile Include="Shared\BaseController.cs" />
-    <Compile Include="Contacts\ContactController.cs" />
+    <Compile Include="Contacts\ContactPersonManageController.cs" />
     <Compile Include="Manufacturers\ManufacturersManageController.cs" />
     <Compile Include="Projects\ProjectsController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -47,8 +47,6 @@ namespace TokikuNew
         {
             try
             {
-
-
                 if (e.Source is TabItem)
                 {
                     TabItem currentworking = (TabItem)e.Source;
@@ -59,9 +57,8 @@ namespace TokikuNew
                         {
 
                             Workspaces.Items.Remove(currentworking);
-                            ((MainViewModel)DataContext).Projects = controller.QueryAll();
-                            ((MainViewModel)DataContext).Manufacturers = mc.QueryAll();
-                            ((MainViewModel)DataContext).Clients = clientcontroller.QueryAll();
+                            ((MainViewModel)DataContext).Refresh();
+                          
                             ((MainViewModel)DataContext).CurrentProject = null;
                         }
                     }

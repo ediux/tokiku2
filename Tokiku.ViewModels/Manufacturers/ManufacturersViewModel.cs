@@ -44,9 +44,9 @@ namespace Tokiku.ViewModels
 
         public ManufacturersViewModel()
         {
-            Projects = new ProjectsViewModelCollection();
-
+           
         }
+
         public static readonly DependencyProperty IdProperty = DependencyProperty.Register("Id",
             typeof(Guid), typeof(ManufacturersViewModel), new PropertyMetadata(Guid.NewGuid(), new PropertyChangedCallback(DefaultFieldChanged)));
 
@@ -333,6 +333,12 @@ namespace Tokiku.ViewModels
                 throw;
             }
 
+        }
+
+        public override void Initialized()
+        {
+            base.Initialized();
+            Projects = new ProjectsViewModelCollection();
         }
 
         public override void Query<T>(Expression<Func<T, bool>> filiter)

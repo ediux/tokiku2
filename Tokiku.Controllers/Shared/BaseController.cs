@@ -17,89 +17,7 @@ namespace Tokiku.Controllers
 
         protected IUnitOfWork database;
 
-        /// <summary>
-        /// 將錯誤訊息寫到檢視模型中以利顯示。
-        /// </summary>
-        /// <param name="model">檢視模型型別。</param>
-        /// <param name="ex">例外錯誤狀況執行個體。</param>
-        protected static void setErrortoModel(ExecuteResultEntity model, Exception ex)
-        {
 
-            if (model == null)
-                model = new ExecuteResultEntity();
-
-            if (model.Errors == null)
-                model.Errors = new string[] { }.AsEnumerable();
-
-            if (ex is DbEntityValidationException)
-            {
-                DbEntityValidationException dbex = (DbEntityValidationException)ex;
-
-                List<string> msg = new List<string>(model.Errors);
-
-                foreach (var err in dbex.EntityValidationErrors)
-                {
-                    foreach (var errb in err.ValidationErrors)
-                    {
-#if DEBUG
-                        Debug.WriteLine(errb.ErrorMessage);
-#endif
-                        msg.Add(errb.ErrorMessage);
-                    }
-                }
-
-                model.Errors = msg.AsEnumerable();
-
-            }
-            else
-            {
-                if (ex is DbUpdateException)
-                {
-                    DbUpdateException efex = (DbUpdateException)ex;
-
-                    List<string> msg = new List<string>();
-
-                    ScanErrorMessage(efex, msg);
-
-                    model.Errors = msg.AsEnumerable();
-                }
-                else
-                {
-                    model.Errors = new string[] { ex.Message, ex.StackTrace };
-                }
-
-            }
-
-        }
-
-        /// <summary>
-        /// 將錯誤訊息寫到檢視模型中以利顯示。
-        /// </summary>
-        /// <param name="model"></param>
-        /// <param name="Message"></param>
-        protected static void setErrortoModel(ExecuteResultEntity model, string Message)
-        {
-
-            if (model == null)
-                model = (ExecuteResultEntity)Activator.CreateInstance(model.GetType());
-
-            if (model.Errors == null)
-                model.Errors = new string[] { }.AsEnumerable();
-
-            model.Errors = new string[] { Message };
-        }
-
-
-        private static void ScanErrorMessage(Exception ex, List<string> messageQueue)
-        {
-            if (ex.InnerException != null)
-            {
-                ScanErrorMessage(ex.InnerException, messageQueue);
-            }
-
-            messageQueue.Add(ex.Message);
-
-        }
 
         #region IDisposable Support
         private bool disposedValue = false; // 偵測多餘的呼叫
@@ -142,8 +60,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                using ((TokikuEntities)database)
-                {
+          
                     string loweredUserName = model.UserName.ToLowerInvariant();
                     _CurrentLoginedUserStorage = (from q in RepositoryHelper.GetUsersRepository(database).All()
                                                   where q.LoweredUserName == loweredUserName
@@ -155,17 +72,14 @@ namespace Tokiku.Controllers
                         return new ExecuteResultEntity<Users>() { Result = _CurrentLoginedUserStorage };
                     }
 
-                    ExecuteResultEntity<Users> error = new ExecuteResultEntity<Users>();
-                    setErrortoModel(error, "登入失敗!");
+                    ExecuteResultEntity<Users> error = ExecuteResultEntity<Users>.CreateErrorResultEntity("登入失敗!");
+
                     return error;
-                }
+               
             }
             catch (Exception ex)
             {
-                ExecuteResultEntity<Users> error = new ExecuteResultEntity<Users>();
-
-                setErrortoModel(error, ex);
-
+                ExecuteResultEntity<Users> error = ExecuteResultEntity<Users>.CreateErrorResultEntity(ex);
                 return error;
             }
 
@@ -186,9 +100,8 @@ namespace Tokiku.Controllers
             }
             catch (Exception ex)
             {
-                ExecuteResultEntity<Users> error = new ExecuteResultEntity<Users>();
-                error.Errors = new string[] { ex.Message };
-                return error;
+
+                return ExecuteResultEntity<Users>.CreateErrorResultEntity(ex);
             }
         }
 
@@ -228,9 +141,7 @@ namespace Tokiku.Controllers
             }
             catch (Exception ex)
             {
-                ExecuteResultEntity<Users> model = new ExecuteResultEntity<Users>();
-                setErrortoModel(model, ex);
-                return model;
+                return ExecuteResultEntity<Users>.CreateErrorResultEntity(ex);
             }
         }
 
@@ -311,12 +222,7 @@ namespace Tokiku.Controllers
             }
             catch (Exception ex)
             {
-                if (model == null)
-                {
-                    model = ExecuteResultEntity<T>.CreateErrorResultEntity(ex);
-                }
-                setErrortoModel(model, ex);
-                return model;
+                return ExecuteResultEntity<T>.CreateErrorResultEntity(ex);
             }
         }
 
@@ -325,24 +231,26 @@ namespace Tokiku.Controllers
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public virtual ExecuteResultEntity Add(T entity)
+        public virtual ExecuteResultEntity Add(T entity, bool isLastRecord = true)
         {
             try
             {
                 using (IRepositoryBase<T> repo = GetRepository())
                 {
                     repo.Add(entity);
-                    repo.UnitOfWork.Commit();
-                    entity = repo.Reload(entity);
+
+                    if (isLastRecord)
+                    {
+                        repo.UnitOfWork.Commit();
+                        entity = repo.Reload(entity);
+                    }
+
                     return ExecuteResultEntity<T>.CreateResultEntity(entity);
                 }
-
             }
             catch (Exception ex)
             {
-                var model = ExecuteResultEntity<T>.CreateErrorResultEntity(ex);
-                setErrortoModel(model, ex);
-                return model;
+                return ExecuteResultEntity.CreateErrorResultEntity(ex);
             }
         }
 

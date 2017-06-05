@@ -14,7 +14,7 @@ namespace TokikuNew.Frame
     /// </summary>
     public partial class StartUpWindow : Window
     {
-        
+
 
         public static readonly DependencyProperty ModelProperty = DependencyProperty.Register("Model", typeof(LoginViewModel), typeof(StartUpWindow), new PropertyMetadata(default(LoginViewModel)));
 
@@ -35,7 +35,8 @@ namespace TokikuNew.Frame
             tblkMessage.Foreground = new SolidColorBrush(Colors.Black);
             Model.Password = pwdBox.Password;
 
-            var loginedUser = controller.Login(Model);
+
+            var loginedUser = Model.Login();
 
             if (loginedUser.HasError)
             {
@@ -49,7 +50,7 @@ namespace TokikuNew.Frame
                     tblkMessage.Text = "登入成功!";
                     MainWindowController mc = App.Resolve<MainWindowController>();
 
-                 var mainwin=   App.Navigate<MainWindow, MainViewModel>(mc.Index());
+                    var mainwin = App.Navigate<MainWindow, MainViewModel>(new MainViewModel(App.Resolve<ProjectsController>()));
 
 
                     mainwin.Closed += Mainwin_Closed;
@@ -66,7 +67,7 @@ namespace TokikuNew.Frame
                     tblkMessage.Foreground = new SolidColorBrush(Colors.Red);
                 }
             }
-         
+
         }
 
         private void Mainwin_Closed(object sender, EventArgs e)
@@ -110,7 +111,7 @@ namespace TokikuNew.Frame
 
         private void window_Initialized(object sender, EventArgs e)
         {
-            Model = new LoginViewModel();
+            Model = new LoginViewModel(App.Resolve<StartUpWindowController>());
         }
 
         private void window_Loaded(object sender, RoutedEventArgs e)

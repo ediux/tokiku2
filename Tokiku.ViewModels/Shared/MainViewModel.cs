@@ -5,18 +5,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
     public class MainViewModel : WithLoginUserBaseViewModel, IBaseViewModelWithLoginedUser
     {
-        public MainViewModel()
+        private Controllers.ProjectsController _projects_controller;
+
+        public MainViewModel(Controllers.ProjectsController projects_controller)
         {
+            _projects_controller = projects_controller;
+
             Status = new DocumentStatusViewModel();
             Projects = new ProjectListViewModelCollection();
             Manufacturers = new ObservableCollection<ManufacturersViewModel>();
             Clients = new ClientViewModelCollection();
             ToolBarButtons = new ToolbarButtonsViewModel();
+            StartUp_Query();
         }
 
         #region 目前選定的專案
@@ -106,8 +112,23 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for ToolBarButtons.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ToolBarButtonsProperty =
-            DependencyProperty.Register("ToolBarButtons", typeof(ToolbarButtonsViewModel), typeof(MainViewModel), new PropertyMetadata(default(ToolbarButtonsViewModel))); 
+            DependencyProperty.Register("ToolBarButtons", typeof(ToolbarButtonsViewModel), typeof(MainViewModel), new PropertyMetadata(default(ToolbarButtonsViewModel)));
         #endregion
 
+        public override void StartUp_Query()
+        {
+            LoginedUser = BindingFromModel<UserViewModel, Users>(_projects_controller.GetCurrentLoginUser().Result);
+            //((MainViewModel)DataContext).Projects = controller.QueryAll();
+            //((MainViewModel)DataContext).Manufacturers = mc.QueryAll();
+            //((MainViewModel)DataContext).Clients = clientcontroller.QueryAll();
+        }
+
+        public override void Refresh()
+        {
+            //重新整理檢視模型
+            //((MainViewModel)DataContext).Projects = controller.QueryAll();
+            //((MainViewModel)DataContext).Manufacturers = mc.QueryAll();
+            //((MainViewModel)DataContext).Clients = clientcontroller.QueryAll();
+        }
     }
 }

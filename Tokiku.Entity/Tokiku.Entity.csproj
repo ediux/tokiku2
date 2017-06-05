@@ -123,7 +123,7 @@
     <Compile Include="IUnitOfWork.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
-    <Compile Include="MainWindowEntity.cs" />
+    <Compile Include="ViewTables\MainWindowEntity.cs" />
     <Compile Include="Manufacturers.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
@@ -232,6 +232,7 @@
     <Compile Include="ProjectItemCostRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewTables\ProjectListEntity.cs" />
     <Compile Include="Projects.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
@@ -380,8 +381,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewTables\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

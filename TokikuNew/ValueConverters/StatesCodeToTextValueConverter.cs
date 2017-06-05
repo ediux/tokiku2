@@ -23,8 +23,8 @@ namespace TokikuNew.ValueConverters
 
                         var result = controller.Query(q => q.Id == (byte)value);
 
-                        if (result != null)
-                            return result.StateName;
+                        if (result.Result != null && result.HasError == false)
+                            return result.Result.Single().StateName;
                         else
                             return string.Empty;
                     }
@@ -52,7 +52,7 @@ namespace TokikuNew.ValueConverters
                     var result = controller.Query(q => q.StateName == (string)value);
 
                     if (result != null)
-                        return result.Id;
+                        return result.Result.Single().Id;
 
                     return default(byte?);
                 }

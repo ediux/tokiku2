@@ -51,12 +51,12 @@ namespace TokikuNew.Views
 
         private void sSearchBar_ResetSearch(object sender, RoutedEventArgs e)
         {
-            ClientList.ItemsSource = controller.QueryAll();
+            //ClientList.ItemsSource = controller.QueryAll();
         }
 
         private void sSearchBar_Search(object sender, RoutedEventArgs e)
         {
-            ClientList.ItemsSource = controller.SearchByText((string)e.OriginalSource);
+            //ClientList.ItemsSource = controller.SearchByText((string)e.OriginalSource);
         }
 
         private void ClientList_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)

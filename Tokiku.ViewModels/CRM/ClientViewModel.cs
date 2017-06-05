@@ -41,6 +41,10 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty ProjectContractProperty =
             DependencyProperty.Register("ProjectContract", typeof(ProjectContractViewModelCollection), typeof(ClientViewModel), new PropertyMetadata(default(ProjectContractViewModelCollection)));
 
+        public override void Initialized()
+        {
+            base.Initialized();
 
+        }
     }
 }

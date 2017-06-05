@@ -15,20 +15,21 @@ namespace TokikuNew
     /// </summary>
     public partial class App : Application
     {
-        private static Collection<BaseController> _IoC;
+        private static Collection<object> _IoC;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             try
             {
-                _IoC = new Collection<BaseController>();
+                _IoC = new Collection<object>();
 
                 _IoC.Add(new ClientController());
                 _IoC.Add(new ProjectsController());
                 _IoC.Add(new StartUpWindowController());
                 _IoC.Add(new ManufacturersManageController());
                 _IoC.Add(new SystemController());
-                _IoC.Add(new MainWindowController(Resolve<ProjectsController>(), Resolve<ManufacturersManageController>(), Resolve<ClientController>()));
+                _IoC.Add(new MainWindowController());
+                _IoC.Add(new PaymentTypesManageController());
 
                 Tokiku.Controllers.SystemController.StartUp();
             }
@@ -39,7 +40,7 @@ namespace TokikuNew
             }
         }
 
-        public static TController Resolve<TController>() where TController : BaseController
+        public static TController Resolve<TController>() where TController : class
         {
             try
             {

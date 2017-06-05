@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Tokiku.Controllers;
+using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
@@ -31,5 +32,19 @@ namespace Tokiku.ViewModels
         /// 登入密碼
         /// </summary>
         public string Password { get { return (string)GetValue(PasswordProperty); } set { SetValue(PasswordProperty, value); RaisePropertyChanged("Password"); } }
+
+        public UserViewModel Login()
+        {
+            var reult = _controller.Login(UserName, Password);
+            if (!reult.HasError)
+            {
+                return BindingFromModel<UserViewModel, Users>(reult.Result);
+            }
+            return new UserViewModel()
+            {
+                Errors = reult.Errors,
+                HasError = reult.HasError 
+            };
+        }
     }
 }

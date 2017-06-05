@@ -29,7 +29,7 @@ namespace TokikuNew.Views
         }
 
         private Tokiku.Controllers.ClientController controller = new Tokiku.Controllers.ClientController();
-        private Tokiku.Controllers.ContactController contactcontroller = new Tokiku.Controllers.ContactController();
+        private Tokiku.Controllers.ContactPersonManageController contactcontroller = new Tokiku.Controllers.ContactPersonManageController();
 
         public DocumentLifeCircle Mode
         {
@@ -151,7 +151,7 @@ namespace TokikuNew.Views
                         if (SelectedManufacturers.Materials == null)
                             SelectedManufacturers.Materials = new MaterialsViewModelCollection();
 
-                        controller.SaveModel(SelectedManufacturers);
+                        //controller.CreateOrUpdate(SelectedManufacturers);
 
                         if (SelectedManufacturers.HasError)
                         {

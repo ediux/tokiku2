@@ -10,9 +10,6 @@ namespace Tokiku.Controllers
 {
     public class PaymentTypesManageController : BaseController<PaymentTypes>
     {
-        public override PaymentTypesManageViewModel Query(Expression<Func<PaymentTypes, bool>> filiter)
-        {
-            return base.Query(filiter);
-        }
+      
     }
 }

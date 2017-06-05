@@ -14,11 +14,12 @@ namespace Tokiku.Controllers
     public class ManufacturersManageController : BaseController<Manufacturers>
     {
         private ManufacturersRepository ManufacturersRepository;
-
+        private ManufacturersBussinessItemsRepository BussinessItemsRepo;
 
         public ManufacturersManageController()
         {
             ManufacturersRepository = RepositoryHelper.GetManufacturersRepository(database);
+            BussinessItemsRepo = RepositoryHelper.GetManufacturersBussinessItemsRepository(database);
         }
 
         /// <summary>
@@ -29,7 +30,10 @@ namespace Tokiku.Controllers
         private string GetNextProjectSerialNumber()
         {
             string Code = string.Empty;
-            var lastitem = QueryAll().OrderByDescending(s => s.Code).FirstOrDefault();
+            var lastitem = ManufacturersRepository.All()
+                .OrderByDescending(s => s.Code)
+                .FirstOrDefault();
+
             if (lastitem != null)
             {
                 int numif = 0;
@@ -138,165 +142,154 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var result = database.Manufacturers
+                var result = ManufacturersRepository
                     .Where(filiter)
                     .Where(w => w.Void == false)
                     .OrderBy(p => p.Code)
-                    .SingleOrDefault();
+                    .ToList();
 
-                ManufacturersViewModel model = ResultBindingToViewModel(result);
+                ExecuteResultEntity<ICollection<Manufacturers>> model = ExecuteResultEntity<ICollection<Manufacturers>>
+                    .CreateResultEntity(new Collection<Manufacturers>(result));
 
                 return model;
             }
             catch (Exception ex)
             {
-                var model = new ManufacturersViewModel();
-                setErrortoModel(model, ex);
-                return model;
+                return ExecuteResultEntity<ICollection<Manufacturers>>.CreateErrorResultEntity(ex);
             }
         }
 
 
         public ExecuteResultEntity<ICollection<Manufacturers>> QueryAll()
         {
-            ManufacturersViewModelCollection rtn = new ManufacturersViewModelCollection();
+            ExecuteResultEntity<ICollection<Manufacturers>> rtn;
 
             try
             {
                 using (database)
                 {
-                    var result = from p in database.Manufacturers
+                    var result = from p in ManufacturersRepository.All()
                                  where p.Void == false && p.IsClient == false
                                  orderby p.Code ascending
                                  select p;
 
-                    ResultBindingToViewModelCollection(rtn, result);
+                    rtn = ExecuteResultEntity<ICollection<Manufacturers>>.CreateResultEntity(
+                        new Collection<Manufacturers>(result.ToList()));
 
                     return rtn;
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
+                rtn = ExecuteResultEntity<ICollection<Manufacturers>>.CreateErrorResultEntity(ex);
                 return rtn;
             }
-            finally
-            {
-                database = new TokikuEntities();
-            }
+
         }
 
-        private void ResultBindingToViewModelCollection(ManufacturersViewModelCollection rtn, IQueryable<Manufacturers> result)
-        {
-            if (result.Any())
-            {
-                foreach (var item in result)
-                {
-                    ManufacturersViewModel model = ResultBindingToViewModel(item);
+        //private void ResultBindingToViewModelCollection(ManufacturersViewModelCollection rtn, IQueryable<Manufacturers> result)
+        //{
+        //    if (result.Any())
+        //    {
+        //        foreach (var item in result)
+        //        {
+        //            ManufacturersViewModel model = ResultBindingToViewModel(item);
 
-                    rtn.Add(model);
-                }
-            }
-            else
-            {
-                rtn = new ManufacturersViewModelCollection();
-            }
-        }
+        //            rtn.Add(model);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        rtn = new ManufacturersViewModelCollection();
+        //    }
+        //}
 
-        private ManufacturersViewModel ResultBindingToViewModel(Manufacturers item)
-        {
-            ManufacturersViewModel model = BindingFromModel(item);
+        //private ManufacturersViewModel ResultBindingToViewModel(Manufacturers item)
+        //{
+        //    ManufacturersViewModel model = BindingFromModel(item);
 
-            model.Contracts = new ContactsViewModelCollection();
+        //    model.Contracts = new ContactsViewModelCollection();
 
-            if (item.Contacts.Any())
-            {
-                foreach (var row in item.Contacts)
-                {
-                    model.Contracts.Add(BindingFromModel<ContactsViewModel, Contacts>(row));
-                }
-            }
+        //    if (item.Contacts.Any())
+        //    {
+        //        foreach (var row in item.Contacts)
+        //        {
+        //            model.Contracts.Add(BindingFromModel<ContactsViewModel, Contacts>(row));
+        //        }
+        //    }
 
-            if (model.Engineerings == null)
-                model.Engineerings = new EngineeringViewModelCollection();
+        //    if (model.Engineerings == null)
+        //        model.Engineerings = new EngineeringViewModelCollection();
 
-            model.PaymentTypes = new ObservableCollection<PaymentTypeViewModel>();
+        //    model.PaymentTypes = new ObservableCollection<PaymentTypeViewModel>();
 
-            if (database.PaymentTypes.Any())
-            {
-                foreach (var paytype in database.PaymentTypes.ToArray())
-                {
-                    model.PaymentTypes.Add(new PaymentTypeViewModel { Id = paytype.Id, PaymentTypeName = paytype.PaymentTypeName });
-                }
-            }
+        //    if (database.PaymentTypes.Any())
+        //    {
+        //        foreach (var paytype in database.PaymentTypes.ToArray())
+        //        {
+        //            model.PaymentTypes.Add(new PaymentTypeViewModel { Id = paytype.Id, PaymentTypeName = paytype.PaymentTypeName });
+        //        }
+        //    }
 
-            return model;
-        }
+        //    return model;
+        //}
 
         public override ExecuteResultEntity<Manufacturers> CreateNew()
         {
             try
             {
                 StartUpWindowController uc = new StartUpWindowController();
-                var model = new ManufacturersViewModel()
+                var model = new Manufacturers()
                 {
                     Id = Guid.NewGuid(),
                     Code = GetNextProjectSerialNumber(),
-                    Contracts = new ContactsViewModelCollection(),
-                    Engineerings = new EngineeringViewModelCollection()
+                    Contacts = new Collection<Contacts>()
                 };
-                return model;
+                return ExecuteResultEntity<Manufacturers>.CreateResultEntity(model);
             }
             catch (Exception ex)
             {
-                ManufacturersViewModel m = new ManufacturersViewModel();
-                m.Errors = new string[] { ex.Message, ex.StackTrace };
-                return m;
+                return ExecuteResultEntity<Manufacturers>.CreateErrorResultEntity(ex);
             }
         }
 
-        public override ExecuteResultEntity Add(Manufacturers entity)
+        public override ExecuteResultEntity Add(Manufacturers entity, bool isLastRecord = true)
         {
             try
             {
-                using (database)
+
+                var dbm = new Manufacturers();
+
+
+                if (entity.Contacts.Any())
                 {
-                    var dbm = new Manufacturers();
-                    CopyToModel(dbm, model);
-
-                    if (model.Contracts.Any())
+                    foreach (var item in entity.Contacts)
                     {
-                        foreach (var item in model.Contracts)
-                        {
-                            Contacts newContacts = new Contacts();
-                            CopyToModel(newContacts, item);
-                            dbm.Contacts.Add(newContacts);
-                        }
+                        Contacts newContacts = new Contacts();
+                        //CopyToModel(newContacts, item);
+                        dbm.Contacts.Add(newContacts);
                     }
-
-                    if (model.Materials.Any())
-                    {
-                        foreach (var item in model.Materials)
-                        {
-                            Materials newContacts = new Materials();
-                            CopyToModel(newContacts, item);
-
-                        }
-                    }
-
-                    database.Manufacturers.Add(dbm);
-                    database.SaveChanges();
                 }
+
+                //if (entity.Any())
+                //{
+                //    foreach (var item in model.Materials)
+                //    {
+                //        Materials newContacts = new Materials();
+                //        //CopyToModel(newContacts, item);
+
+                //    }
+                //}
+                //ManufacturersRepository.Add(dbm);
+                //ManufacturersRepository.UnitOfWork.Commit();
+
+                return ExecuteResultEntity.CreateResultEntity();
             }
             catch (Exception ex)
             {
-                setErrortoModel(model, ex);
+                return ExecuteResultEntity.CreateErrorResultEntity(ex);
             }
-            finally
-            {
-                database = new TokikuEntities();
-            }
-
         }
 
         public override ExecuteResultEntity<Manufacturers> Update(Manufacturers fromModel, bool isLastRecord = true)
@@ -305,25 +298,25 @@ namespace Tokiku.Controllers
             {
                 using (database)
                 {
-                    StartUpWindowController uc = new StartUpWindowController();
-                    var LoginedUser = uc.GetCurrentLoginUser();
-                    var dbm = (from q in database.Manufacturers
-                               where q.Id == model.Id && q.Void == false
+
+                    var LoginedUser = GetCurrentLoginUser();
+                    var dbm = (from q in ManufacturersRepository.All()
+                               where q.Id == fromModel.Id && q.Void == false
                                select q).SingleOrDefault();
 
                     if (dbm != null)
                     {
-                        CopyToModel(dbm, model);
 
-                        if (model.Contracts.Any())
+
+                        if (fromModel.Contacts.Any())
                         {
-                            foreach (var item in model.Contracts)
+                            foreach (var item in fromModel.Contacts)
                             {
                                 Stack<Contacts> removeStack = new Stack<Contacts>();
 
                                 foreach (var rowindb in dbm.Contacts)
                                 {
-                                    if (model.Contracts.Where(w => w.Id == rowindb.Id).Any() == false)
+                                    if (fromModel.Contacts.Where(w => w.Id == rowindb.Id).Any() == false)
                                     {
                                         //remove(指資料真的被移除了)
                                         removeStack.Push(rowindb);
@@ -338,19 +331,19 @@ namespace Tokiku.Controllers
                                     }
                                 }
 
-                                foreach (var row in model.Contracts)
+                                foreach (var row in fromModel.Contacts)
                                 {
                                     if (dbm.Contacts.Where(w => w.Id == row.Id).Any())
                                     {
                                         var foundinoriginal = dbm.Contacts.Where(w => w.Id == row.Id).Single();
-                                        CopyToModel(foundinoriginal, row);
+                                        //CopyToModel(foundinoriginal, row);
                                         //  database.Entry(foundinoriginal).State = System.Data.Entity.EntityState.Modified;
                                     }
                                     else
                                     {
                                         Contacts newData = new Contacts();
-                                        CopyToModel(newData, row);
-                                        newData.CreateUserId = LoginedUser.UserId;
+                                        //CopyToModel(newData, row);
+                                        newData.CreateUserId = LoginedUser.Result.UserId;
                                         dbm.Contacts.Add(newData);
                                     }
                                 }
@@ -358,21 +351,19 @@ namespace Tokiku.Controllers
                         }
                     }
                     //database.Entry(dbm).State = System.Data.Entity.EntityState.Modified;
-                    database.SaveChanges();
+                    ManufacturersRepository.UnitOfWork.Commit();
 
-                    return Query(w => w.Id == model.Id);
+                    var rtn = Query(w => w.Id == fromModel.Id);
+                    return ExecuteResultEntity<Manufacturers>.CreateResultEntity(rtn.Result.SingleOrDefault());
                 }
 
             }
             catch (Exception ex)
             {
-                setErrortoModel(model, ex);
-                return model;
+
+                return ExecuteResultEntity<Manufacturers>.CreateErrorResultEntity(ex);
             }
-            finally
-            {
-                database = new TokikuEntities();
-            }
+
 
         }
 
@@ -380,25 +371,24 @@ namespace Tokiku.Controllers
         {
             try
             {
-                StartUpWindowController controller = new StartUpWindowController();
 
-                var result = from p in database.Manufacturers
-                             where p.Id == model.Id && p.Void == false
-                             select p;
+                var result = ManufacturersRepository
+                    .Where(condtion)
+                    .Where(p => p.Void == false);
 
                 if (result.Any())
                 {
                     var data = result.Single();
                     data.Void = true;
 
-                    database.AccessLog.Add(new AccessLog() { ActionCode = 3, CreateTime = DateTime.Now, DataId = model.Id, UserId = controller.GetCurrentLoginUser().UserId });
-                    database.SaveChanges();
+                    return ExecuteResultEntity.CreateResultEntity();
                 }
 
+                return ExecuteResultEntity.CreateErrorResultEntity("Data not found.");
             }
             catch (Exception ex)
             {
-                setErrortoModel(model, ex);
+                return ExecuteResultEntity.CreateErrorResultEntity(ex);
             }
         }
 
@@ -406,7 +396,7 @@ namespace Tokiku.Controllers
 
 
 
-        public override bool IsExists(Expression<Func<Manufacturers, bool>> filiter)        
+        public override bool IsExists(Expression<Func<Manufacturers, bool>> filiter)
         {
             try
             {

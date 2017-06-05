@@ -15,7 +15,7 @@ namespace Tokiku.ViewModels
     {
         public BaseViewModel()
         {
-            Status = new DocumentStatusViewModel();
+            Initialized();
         }
 
         /// <summary>
@@ -247,7 +247,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for HasError.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty HasErrorProperty =
-            DependencyProperty.Register("HasError", typeof(bool), typeof(BaseViewModel), new PropertyMetadata(false)); 
+            DependencyProperty.Register("HasError", typeof(bool), typeof(BaseViewModel), new PropertyMetadata(false));
         #endregion
 
         /// <summary>
@@ -281,16 +281,29 @@ namespace Tokiku.ViewModels
 
         }
 
+        /// <summary>
+        /// 檢視模型初始化作業
+        /// </summary>
+        public virtual void Initialized()
+        {
+            Errors = null;
+            HasError = false;
+            Status = new DocumentStatusViewModel();
+        }
+
+        /// <summary>
+        /// 當啟動時的地一次查詢作業
+        /// </summary>
         public virtual void StartUp_Query()
         {
-            throw new NotImplementedException();
+            
         }
 
         public virtual void Query<T>(Expression<Func<T, bool>> filiter) where T : class
         {
-            throw new NotImplementedException();
+            
         }
-        
+
         public virtual void SaveModel()
         {
             throw new NotImplementedException();
@@ -298,7 +311,7 @@ namespace Tokiku.ViewModels
 
         public virtual void Refresh()
         {
-            throw new NotImplementedException();
+            
         }
 
     }

@@ -18,11 +18,6 @@ namespace Tokiku.ViewModels
 
         }
 
-        private IEnumerable<string> _Errors;
-        public IEnumerable<string> Errors { get => _Errors; set => _Errors = value; }
-        private bool _HasError = false;
-        public bool HasError { get => _HasError; set => _HasError = value; }
-
         public override void StartUp_Query()
         {
             throw new NotImplementedException();

@@ -4,7 +4,6 @@
                     xmlns:controllers="clr-namespace:Tokiku.Controllers;assembly=Tokiku.Controllers"
                     xmlns:viewmodels="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
                     xmlns:ValueConverters="clr-namespace:TokikuNew.ValueConverters">
-    <viewmodels:MainViewModel x:Key="MainViewModel" />
     <ValueConverters:NOTGateValueConverter x:Key="NOTGateValueConverter"/>
     <ValueConverters:RadioButtonSwitchValueConverter x:Key="RadioButtonSwitchValueConverter" />
     <ValueConverters:BooleanToVisibilityValueConveter x:Key="BooleanToVisibilityValueConveter"/>

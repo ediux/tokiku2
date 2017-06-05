@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Tokiku.Controllers;
 
 namespace Tokiku.ViewModels
 {
@@ -27,9 +28,11 @@ namespace Tokiku.ViewModels
 
     public class PaymentTypesManageViewModel : BaseViewModel
     {
+        PaymentTypesManageController _controller;
+
         public PaymentTypesManageViewModel(PaymentTypesManageController controller)
         {
-
+            _controller = controller;
         }
         /// <summary>
         /// 編號
@@ -64,9 +67,21 @@ namespace Tokiku.ViewModels
         /// </summary>
         /// <param name="Key"></param>
         /// <returns></returns>
-        public static PaymentTypeViewModel Query(Guid Key)
+        public PaymentTypeViewModel Query(byte Key)
         {
+            var result = _controller.Query(w => w.Id == Key);
+            if (!result.HasError)
+            {
+                var k = result.Result.SingleOrDefault();
 
+                return new PaymentTypeViewModel()
+                {
+                    Id = k.Id,
+                    PaymentTypeName = k.PaymentTypeName
+                };
+            }
+
+            return new PaymentTypeViewModel();
         }
     }
 }

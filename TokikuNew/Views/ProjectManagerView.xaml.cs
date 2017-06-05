@@ -90,7 +90,8 @@ namespace TokikuNew.Views
 
             if (SelectedProject.ClientId.HasValue)
             {
-                SelectedClient = clientcontroller.Query(s => s.Id == SelectedProject.ClientId.Value);
+                SelectedClient.Refresh();
+                //SelectedClient = clientcontroller.Query(s => s.Id == SelectedProject.ClientId.Value);
             }
 
         }
@@ -134,7 +135,8 @@ namespace TokikuNew.Views
 
                     case DocumentLifeCircle.Create:
 
-                        DataContext = SelectedProject = controller.CreateNew();
+                        //DataContext = SelectedProject = controller.CreateNew().Result;
+                        SelectedProject.Initialized();
                         SelectedProject.CreateUserId = LoginedUser.UserId;
 
 
@@ -165,7 +167,7 @@ namespace TokikuNew.Views
                             SelectedProject.ClientId = SelectedClient.Id;
 
 
-                        controller.SaveModel(SelectedProject);
+                        //controller.SaveModel(SelectedProject);
 
                         if (SelectedProject.HasError)
                         {
@@ -214,7 +216,7 @@ namespace TokikuNew.Views
             if (e.OriginalSource is ProjectContractViewModel)
             {
                 ProjectContractViewModel disableContract = (ProjectContractViewModel)e.OriginalSource;
-                projectcontroll.Delete(disableContract);
+                //projectcontroll.Delete(disableContract);
                 UpdateLayout();                
             }
         }

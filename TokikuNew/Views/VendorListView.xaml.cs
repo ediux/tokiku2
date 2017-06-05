@@ -55,12 +55,12 @@ namespace TokikuNew.Views
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //搜尋框
-            VendorList.ItemsSource = controller.SearchByText((string)e.OriginalSource);
+            VendorList.ItemsSource = controller.SearchByText((string)e.OriginalSource).Result;
         }
 
         private void sSearchBar_ResetSearch(object sender, RoutedEventArgs e)
         {
-            VendorList.ItemsSource = controller.QueryAll();
+            VendorList.ItemsSource = controller.QueryAll().Result;
         }
 
         private void btnNew_Click(object sender, RoutedEventArgs e)

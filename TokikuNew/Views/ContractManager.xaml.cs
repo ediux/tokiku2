@@ -113,7 +113,7 @@ namespace TokikuNew.Views
 
                     case DocumentLifeCircle.Create:
                         ProjectContractViewModel model1 = (ProjectContractViewModel)DataContext;
-                        SelectedEngineering = controller.CreateNew();
+                        SelectedEngineering.Initialized();
                         SelectedEngineering.CreateUserId = LoginedUser.UserId;
                         model1.Engineerings.Add(SelectedEngineering);
 
@@ -168,7 +168,7 @@ namespace TokikuNew.Views
                             }
                         }
 
-                        controller.SaveModel(SelectedEngineering);
+                        //controller.SaveModel(SelectedEngineering);
 
                         if (SelectedEngineering.HasError)
                         {
@@ -217,7 +217,9 @@ namespace TokikuNew.Views
             SelectedEngineering = (EngineeringViewModel)EngCaseList.SelectedItem;
             if (SelectedEngineering != null)
             {
-                SelectedEngineering = controller.Query(q => q.Id == SelectedEngineering.Id);
+                //SelectedEngineering = controller.Query(q => q.Id == SelectedEngineering.Id);
+                SelectedEngineering.Refresh();
+
                 if (SelectedEngineering != null)
                 {
                     com1.ItemsSource = SelectedEngineering.Compositions;
