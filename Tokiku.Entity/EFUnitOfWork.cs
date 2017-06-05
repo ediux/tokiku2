@@ -6,17 +6,18 @@ namespace Tokiku.Entity
 	public partial class EFUnitOfWork : IUnitOfWork
 	{
 		private DbContext _context;
-		public DbContext Context { get{ return _context;} set{ _context=value;} }
+		public DbContext Context { get{ return _context;} set{ _context=value; } }
 
 		public EFUnitOfWork()
 		{
-			Context = new TokikuEntities();
+            _context = new TokikuEntities();
 		}
 
 		public void Commit()
 		{
 			Context.SaveChanges();
-		}
+
+        }
 		
 		public async Task CommitAsync()
         {

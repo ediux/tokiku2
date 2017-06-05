@@ -116,6 +116,8 @@ namespace TokikuNew.Frame
 
         private void window_Loaded(object sender, RoutedEventArgs e)
         {
+            Model = new LoginViewModel(App.Resolve<StartUpWindowController>());
+            Model.Initialized();
             DataContext = Model;
         }
     }

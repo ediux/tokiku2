@@ -170,7 +170,7 @@ namespace TokikuNew.Views
 
                         if (SelectedProject.HasError)
                         {
-                            MessageBox.Show(string.Join("\n", SelectedProject.Errors.ToArray()));
+                            MessageBox.Show(string.Join("\n", SelectedProject.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK , MessageBoxOptions.DefaultDesktopOnly);
                             SelectedProject.Errors = null;
                             Mode = dockBar.LastState;
                             break;
@@ -197,7 +197,7 @@ namespace TokikuNew.Views
             }
             catch (Exception ex)
             {
-                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);         
             }
         }
 

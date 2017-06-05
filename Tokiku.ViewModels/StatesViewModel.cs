@@ -49,7 +49,6 @@ namespace Tokiku.ViewModels
         // Using a DependencyProperty as the backing store for StateName.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty StateNameProperty =
             DependencyProperty.Register("StateName", typeof(string), typeof(StatesViewModel), new PropertyMetadata(string.Empty));
-
-
+       
     }
 }

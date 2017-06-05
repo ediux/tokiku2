@@ -173,7 +173,7 @@ namespace Tokiku.Controllers
         protected object[] IdentifyPrimaryKey(T entity)
         {
 
-            ObjectContext objectContext = ((IObjectContextAdapter)database).ObjectContext;
+            ObjectContext objectContext = ((IObjectContextAdapter)database.Context).ObjectContext;
             ObjectSet<T> set = objectContext.CreateObjectSet<T>();
             IEnumerable<string> keyNames = set.EntitySet.ElementType
                                                         .KeyMembers
@@ -197,9 +197,14 @@ namespace Tokiku.Controllers
 
             if (RepositoryType != null)
             {
-                MethodInfo GetRepositoryMethod = RepositoryType.GetMethod(string.Format("{0}Repository"), System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Instance);
+                MethodInfo GetRepositoryMethod = RepositoryType.GetMethod(string.Format("Get{0}Repository", type.Name), new Type[] { typeof(IUnitOfWork) });
 
-                return (IRepositoryBase<T>)GetRepositoryMethod.Invoke(null, new object[] { database });
+                database = RepositoryHelper.GetUnitOfWork();
+
+                if (GetRepositoryMethod != null)
+                    return (IRepositoryBase<T>)GetRepositoryMethod.Invoke(null, new object[] { database });
+                else
+                    throw new NotImplementedException(string.Format("Function of Get{0}Repository not found or not implemented.", type.Name));
             }
 
             return default(IRepositoryBase<T>);
@@ -236,6 +241,9 @@ namespace Tokiku.Controllers
             {
                 using (IRepositoryBase<T> repo = GetRepository())
                 {
+                    if (repo == null)
+                        return ExecuteResultEntity.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
+
                     repo.Add(entity);
 
                     if (isLastRecord)
@@ -244,7 +252,7 @@ namespace Tokiku.Controllers
                         entity = repo.Reload(entity);
                     }
 
-                    return ExecuteResultEntity<T>.CreateResultEntity(entity);
+                    return ExecuteResultEntity.CreateResultEntity();
                 }
             }
             catch (Exception ex)
@@ -267,6 +275,9 @@ namespace Tokiku.Controllers
             {
                 using (var repo = GetRepository())
                 {
+                    if (repo == null)
+                        return ExecuteResultEntity<ICollection<T>>.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
+
                     var result = repo.Where(filiter);
 
                     if (result.Any())
@@ -298,6 +309,9 @@ namespace Tokiku.Controllers
             {
                 using (var repo = GetRepository())
                 {
+                    if (repo == null)
+                        return ExecuteResultEntity<T>.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
+
                     T findresult = repo.Get(IdentifyPrimaryKey(fromModel));
 
                     if (findresult != null)
@@ -306,6 +320,17 @@ namespace Tokiku.Controllers
 
                         foreach (var prop in findresult.GetType().GetProperties())
                         {
+                            if (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition().Name == (typeof(ICollection<>).Name))
+                            {
+                                continue;
+                            }
+
+
+                            if (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition().Name == (typeof(ObservableCollection<>).Name))
+                            {
+                                continue;
+                            }
+
                             var OldValue = prop.GetValue(findresult);
                             var NewValue = fromSource.GetProperty(prop.Name).GetValue(fromModel);
 
@@ -360,6 +385,9 @@ namespace Tokiku.Controllers
             {
                 using (var repo = GetRepository())
                 {
+                    if (repo == null)
+                        return ExecuteResultEntity.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
+
                     var findresult = repo.Where(condtion);
 
                     if (findresult.Any())
@@ -394,13 +422,30 @@ namespace Tokiku.Controllers
             {
                 using (var repo = GetRepository())
                 {
-                    if (repo.Get(entity) != null)
+                    if (repo == null)
+                        return ExecuteResultEntity<T>.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
+
+                    if (repo.Get(IdentifyPrimaryKey(entity)) != null)
                     {
-                        Update(entity);
+                        var update_result = Update(entity);
+
+                        if (update_result.HasError)
+                        {
+                            update_result.Result = entity;
+                            return update_result;
+                        }
                     }
                     else
                     {
-                        Add(entity);
+                        var add_result = Add(entity);
+                        if (add_result.HasError)
+                        {
+                            return new ExecuteResultEntity<T>()
+                            {
+                                Errors = add_result.Errors,
+                                Result = entity
+                            };
+                        }
                     }
 
                     return ExecuteResultEntity<T>.CreateResultEntity(repo.Get(IdentifyPrimaryKey(entity)));
