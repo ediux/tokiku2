@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 
 namespace Tokiku.ViewModels
 {
-    public class ShopFlowHistoryViewModelCollection : ObservableCollection<ShopFlowHistoryViewModel>, IBaseViewModel
+    public class ShopFlowHistoryViewModelCollection : BaseViewModelCollection<ShopFlowHistoryViewModel>
     {
         public ShopFlowHistoryViewModelCollection()
         {
@@ -17,8 +17,6 @@ namespace Tokiku.ViewModels
         {
 
         }
-        public IEnumerable<string> Errors { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public bool HasError { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 
 

@@ -289,8 +289,9 @@ namespace TokikuNew
 
                        
                         ProjectsViewModel source = new ProjectsViewModel(App.Resolve<ProjectsController>());
+                        
                         source.Id = ProjectSelectionPage.SelectedProject.Id;
-                        source.Query();
+                        source.StartUp_Query();
                         vm.DataContext = source;
                         vm.Mode = DocumentLifeCircle.Read;
 

@@ -19,13 +19,7 @@ using WinForm = System.Windows.Forms;
 
 namespace TokikuNew.Views
 {
-    public partial class test : ERPDocumentViewerControlBase
-    {
-        public test()
-        {
 
-        }
-    }
     /// <summary>
     /// ProjectViewer.xaml 的互動邏輯
     /// </summary>
@@ -138,18 +132,17 @@ namespace TokikuNew.Views
                     ProjectContractViewModel model = (ProjectContractViewModel)e.OriginalSource;
                     SharedModel = model;
                     Header = string.Format("合約-{0}[{1}]", model.Projects.ShortName, model.ContractNumber);
+                    addWorkarea = new ClosableTabItem() { Header = Header };
                 }
-
-                
 
                 bool isExisted = false;
 
-                foreach (TabItem item in InnerWorkspaces.Items)
+                foreach (ClosableTabItem item in InnerWorkspaces.Items.OfType<ClosableTabItem>())
                 {
                     if (item.Header.Equals(addWorkarea.Header))
                     {
                         isExisted = true;
-                        addWorkarea = (ClosableTabItem)item;
+                        addWorkarea = item;
                         break;
                     }
                 }
@@ -160,18 +153,35 @@ namespace TokikuNew.Views
                     {
                         var vm = new ManufacturersManageView() { Margin = new Thickness(0) };
                         vm.DataContext = SharedModel;
-                        vm.LoginedUser = ((MainViewModel)DataContext).LoginedUser;
+                        vm.LoginedUser = LoginedUser;
 
                         vm.Mode = DocumentLifeCircle.Read;
 
                         addWorkarea.Content = vm;
                         addWorkarea.Margin = new Thickness(0);
 
-                      
+                        InnerWorkspaces.Items.Add(addWorkarea);
+                        InnerWorkspaces.SelectedItem = addWorkarea;
+                        return;
                     }
 
-                    InnerWorkspaces.Items.Add(addWorkarea);
-                    InnerWorkspaces.SelectedItem = addWorkarea;
+                 
+                    if(e.OriginalSource != null && e.OriginalSource is ProjectContractViewModel)
+                    {
+                        var vm = new ContractManager () { Margin = new Thickness(0) };
+                        vm.DataContext = SharedModel;
+                        vm.LoginedUser = LoginedUser;
+
+                        vm.Mode = DocumentLifeCircle.Read;
+
+                        addWorkarea.Content = vm;
+                        addWorkarea.Margin = new Thickness(0);
+
+                        InnerWorkspaces.Items.Add(addWorkarea);
+                        InnerWorkspaces.SelectedItem = addWorkarea;
+                        return;
+                    }
+
                 }
             }
             catch (Exception ex)

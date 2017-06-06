@@ -28,11 +28,7 @@ namespace Tokiku.ViewModels
             Query();
         }
 
-        public override void Query(Expression<Func<ContactsViewModel, bool>> filiter)
-        {
-            throw new NotImplementedException();
-        }
-
+    
         public override void Query()
         {
             

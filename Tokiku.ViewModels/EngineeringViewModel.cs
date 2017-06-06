@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace Tokiku.ViewModels
 {
-    public class EngineeringViewModelCollection : ObservableCollection<EngineeringViewModel>, IBaseViewModel
+    public class EngineeringViewModelCollection : BaseViewModelCollection<EngineeringViewModel>
     {
         public EngineeringViewModelCollection()
         {
@@ -19,8 +19,20 @@ namespace Tokiku.ViewModels
 
         }
 
-        public IEnumerable<string> Errors { get; set; }
-        public bool HasError { get; set; }
+        public override void Query()
+        {
+           
+        }
+
+        public override void Refresh()
+        {
+            
+        }
+
+        public override void StartUp_Query()
+        {
+            
+        }
     }
 
     public class EngineeringViewModel : BaseViewModel
@@ -127,22 +139,6 @@ namespace Tokiku.ViewModels
         // Using a DependencyProperty as the backing store for State.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty StateProperty =
             DependencyProperty.Register("State", typeof(byte?), typeof(EngineeringViewModel), new PropertyMetadata(default(byte?)));
-
-
-
-
-
-        public DateTime? WarrantyDate
-        {
-            get { return (DateTime?)GetValue(WarrantyDateProperty); }
-            set { SetValue(WarrantyDateProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for WarrantyDate.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty WarrantyDateProperty =
-            DependencyProperty.Register("WarrantyDate", typeof(DateTime?), typeof(EngineeringViewModel), new PropertyMetadata(default(DateTime?)));
-
-
 
 
         public DateTime CreateTime

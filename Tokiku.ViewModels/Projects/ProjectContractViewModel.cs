@@ -60,8 +60,12 @@ namespace Tokiku.ViewModels
         }
     }
 
+    /// <summary>
+    /// 專案合約檢視模型
+    /// </summary>
     public class ProjectContractViewModel : BaseViewModel, IBaseViewModel
     {
+        #region Id
         /// <summary>
         /// 編號
         /// </summary>
@@ -76,7 +80,9 @@ namespace Tokiku.ViewModels
             DependencyProperty.Register("Id", typeof(Guid), typeof(ProjectContractViewModel), new PropertyMetadata(Guid.NewGuid(),
                 new PropertyChangedCallback(DefaultFieldChanged)));
 
+        #endregion
 
+        #region ProjectId
         /// <summary>
         /// 所屬專案ID
         /// </summary>
@@ -90,8 +96,24 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty ProjectIdProperty =
             DependencyProperty.Register("ProjectId", typeof(Guid?), typeof(ProjectContractViewModel), new PropertyMetadata(default(Guid?),
                 new PropertyChangedCallback(DefaultFieldChanged)));
+        #endregion
+
+        #region Name
 
 
+        public string Name
+        {
+            get { return (string)GetValue(NameProperty); }
+            set { SetValue(NameProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Name.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty NameProperty =
+            DependencyProperty.Register("Name", typeof(string), typeof(ProjectContractViewModel), new PropertyMetadata(string.Empty));
+
+        #endregion
+
+        #region ContractNumber
         /// <summary>
         /// 合約編號
         /// </summary>
@@ -104,7 +126,9 @@ namespace Tokiku.ViewModels
         // Using a DependencyProperty as the backing store for ContractNumber.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ContractNumberProperty =
             DependencyProperty.Register("ContractNumber", typeof(string), typeof(ProjectContractViewModel), new PropertyMetadata(string.Empty));
+        #endregion
 
+        #region IsAppend
         /// <summary>
         /// 此合約是追加合約
         /// </summary>
@@ -117,8 +141,24 @@ namespace Tokiku.ViewModels
         // Using a DependencyProperty as the backing store for IsAppend.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsAppendProperty =
             DependencyProperty.Register("IsAppend", typeof(bool?), typeof(ProjectContractViewModel), new PropertyMetadata(default(bool?)));
+        #endregion
 
+        #region IsRepair
+        /// <summary>
+        /// 是否為修繕合約
+        /// </summary>
+        public bool? IsRepair
+        {
+            get { return (bool?)GetValue(IsRepairProperty); }
+            set { SetValue(IsRepairProperty, value); }
+        }
 
+        // Using a DependencyProperty as the backing store for IsRepair.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsRepairProperty =
+            DependencyProperty.Register("IsRepair", typeof(bool?), typeof(ProjectContractViewModel), new PropertyMetadata(default(bool?)));
+        #endregion
+
+        #region CreateTime
         /// <summary>
         /// 建立日期
         /// </summary>
@@ -131,7 +171,9 @@ namespace Tokiku.ViewModels
         // Using a DependencyProperty as the backing store for CreateTime.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CreateTimeProperty =
             DependencyProperty.Register("CreateTime", typeof(DateTime), typeof(ProjectContractViewModel), new PropertyMetadata(DateTime.Today));
+        #endregion
 
+        #region CreateUserId
         /// <summary>
         /// 建立人員
         /// </summary>
@@ -144,38 +186,11 @@ namespace Tokiku.ViewModels
         // Using a DependencyProperty as the backing store for CreateUserId.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CreateUserIdProperty =
             DependencyProperty.Register("CreateUserId", typeof(Guid), typeof(ProjectContractViewModel), new PropertyMetadata(Guid.Empty));
+        #endregion
 
+        #region Projects
         /// <summary>
-        /// 進度代碼
-        /// </summary>
-        public byte? State
-        {
-            get { return (byte?)GetValue(StateProperty); }
-            set { SetValue(StateProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for State.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty StateProperty =
-            DependencyProperty.Register("State", typeof(byte?), typeof(ProjectContractViewModel), new PropertyMetadata(default(byte?)));
-
-
-        /// <summary>
-        /// 進度文字
-        /// </summary>
-        public string StateText
-        {
-            get { return (string)GetValue(StateTextProperty); }
-            set { SetValue(StateTextProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for StateText.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty StateTextProperty =
-            DependencyProperty.Register("StateText", typeof(string), typeof(ProjectContractViewModel), new PropertyMetadata(string.Empty));
-
-
-
-        /// <summary>
-        /// 目前專案列表
+        /// 所屬專案
         /// </summary>
         public ProjectsViewModel Projects
         {
@@ -186,8 +201,9 @@ namespace Tokiku.ViewModels
         // Using a DependencyProperty as the backing store for Projects.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ProjectsProperty =
             DependencyProperty.Register("Projects", typeof(ProjectsViewModel), typeof(ProjectContractViewModel), new PropertyMetadata(default(ProjectsViewModel)));
+        #endregion
 
-
+        #region CreateUser
         /// <summary>
         /// 建立人員名稱
         /// </summary>
@@ -201,7 +217,9 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty CreateUserProperty =
             DependencyProperty.Register("CreateUser", typeof(string), typeof(ProjectContractViewModel), new PropertyMetadata(string.Empty));
 
+        #endregion
 
+        #region LastUpdateUser
         /// <summary>
         /// 最後異動人員名稱
         /// </summary>
@@ -214,50 +232,9 @@ namespace Tokiku.ViewModels
         // Using a DependencyProperty as the backing store for LastUpdateUser.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty LastUpdateUserProperty =
             DependencyProperty.Register("LastUpdateUser", typeof(string), typeof(ProjectContractViewModel), new PropertyMetadata(string.Empty));
+        #endregion
 
-
-        /// <summary>
-        /// 付款條件: 結帳日
-        /// </summary>
-        public byte CheckoutDay
-        {
-            get { return (byte)GetValue(CheckoutDayProperty); }
-            set { SetValue(CheckoutDayProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for CheckoutDay.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CheckoutDayProperty =
-            DependencyProperty.Register("CheckoutDay", typeof(byte), typeof(ProjectContractViewModel), new PropertyMetadata((byte)0));
-
-
-
-        /// <summary>
-        /// 付款條件: 付款日
-        /// </summary>
-        public byte PaymentDay
-        {
-            get { return (byte)GetValue(PaymentDayProperty); }
-            set { SetValue(PaymentDayProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for PaymentDay.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty PaymentDayProperty =
-            DependencyProperty.Register("PaymentDay", typeof(byte), typeof(ProjectContractViewModel), new PropertyMetadata((byte)0));
-
-
-        /// <summary>
-        /// 是否為修繕合約
-        /// </summary>
-        public bool? IsRepair
-        {
-            get { return (bool?)GetValue(IsRepairProperty); }
-            set { SetValue(IsRepairProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for IsRepair.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty IsRepairProperty =
-            DependencyProperty.Register("IsRepair", typeof(bool?), typeof(ProjectContractViewModel), new PropertyMetadata(default(bool?)));
-
+        #region Engineerings
         /// <summary>
         /// 工程項目列表(清單)
         /// </summary>
@@ -271,8 +248,9 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty EngineeringsProperty =
             DependencyProperty.Register("Engineerings", typeof(EngineeringViewModelCollection), typeof(ProjectContractViewModel), new PropertyMetadata(default(EngineeringViewModelCollection)));
 
+        #endregion
 
-
+        #region PromissoryNoteManagement
         /// <summary>
         /// 本票管理
         /// </summary>
@@ -286,10 +264,45 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty PromissoryNoteManagementProperty =
             DependencyProperty.Register("PromissoryNoteManagement", typeof(PromissoryNoteManagementViewModelCollection), typeof(ProjectContractViewModel), new PropertyMetadata(default(PromissoryNoteManagementViewModelCollection)));
 
+        #endregion
 
-        //public virtual ProjectBaseViewModel Projects { get; set; }
-        //public virtual UserViewModel CreateUser { get; set; }
+        private ProjectContractController controller;
 
-        //public virtual ICollection<PromissoryNoteManagementViewModel> PromissoryNoteManagement { get; set; }
+        public override void Initialized()
+        {
+            base.Initialized();
+            controller = new ProjectContractController();
+            Engineerings = new EngineeringViewModelCollection();
+            CreateUser = "";
+            LastUpdateUser = "";
+            PromissoryNoteManagement = new PromissoryNoteManagementViewModelCollection();
+            Projects = new ProjectsViewModel(new ProjectsController());
+        }
+
+        public override void StartUp_Query()
+        {
+            if (controller == null)
+                return;
+
+            if (Id != Guid.Empty)
+            {
+                var result = controller.Query(p => p.Id == Id);
+
+                if (!result.HasError)
+                {
+                    Entity.ProjectContract data = result.Result.Single();
+                    BindingFromModel(data, this);
+                    CreateUser = data.CreateUser.UserName;
+
+                }
+            }
+
+        }
+
+        public override void Query()
+        {
+            base.Query();
+        }
+
     }
 }

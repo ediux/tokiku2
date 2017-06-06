@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace Tokiku.ViewModels
 {
-    public class CompositionsViewModelCollection : ObservableCollection<CompositionsViewModel>, IBaseViewModel
+    public class CompositionsViewModelCollection : BaseViewModelCollection<CompositionsViewModel>
     {
         public CompositionsViewModelCollection()
         {
@@ -18,9 +18,6 @@ namespace Tokiku.ViewModels
         {
 
         }
-
-        public IEnumerable<string> Errors { get; set; }
-        public bool HasError { get; set; }
     }
 
     /// <summary>

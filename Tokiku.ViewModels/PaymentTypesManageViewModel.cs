@@ -10,7 +10,7 @@ using Tokiku.Controllers;
 
 namespace Tokiku.ViewModels
 {
-    public class PaymentTypesManageViewModelCollection : ObservableCollection<PaymentTypesManageViewModel>, IBaseViewModel
+    public class PaymentTypesManageViewModelCollection : BaseViewModelCollection<PaymentTypesManageViewModel>
     {
         public PaymentTypesManageViewModelCollection()
         {
@@ -22,8 +22,7 @@ namespace Tokiku.ViewModels
 
         }
 
-        public IEnumerable<string> Errors { get; set; }
-        public bool HasError { get; set; }
+     
     }
 
     public class PaymentTypesManageViewModel : BaseViewModel

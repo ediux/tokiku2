@@ -18,7 +18,16 @@ namespace Tokiku.ViewModels
         /// 指出是否發生錯誤
         /// </summary>
         bool HasError { get; set; }
-   
+
+        void Query();
+
+        void Initialized();
+
+        void StartUp_Query();
+
+        void Refresh();
+
+        void SaveModel();
     }
 
 

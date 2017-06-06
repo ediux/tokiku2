@@ -292,10 +292,8 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty AreaProperty =
             DependencyProperty.Register("Area", typeof(float?), typeof(ProjectContractViewModel), new PropertyMetadata(default(float?)));
 
-        #endregion
 
-
-
+        #region Client
         /// <summary>
         /// 客戶列表
         /// </summary>
@@ -308,8 +306,12 @@ namespace Tokiku.ViewModels
         // Using a DependencyProperty as the backing store for Clients.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ClientsProperty =
             DependencyProperty.Register("Client", typeof(ClientViewModel), typeof(ProjectsViewModel), new PropertyMetadata(default(ClientViewModel)));
+        #endregion
 
-
+        #region States
+        /// <summary>
+        /// 狀態清單        
+        /// </summary>
         public StatesViewModelCollection States
         {
             get { return (StatesViewModelCollection)GetValue(StatesProperty); }
@@ -319,9 +321,12 @@ namespace Tokiku.ViewModels
         // Using a DependencyProperty as the backing store for States.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty StatesProperty =
             DependencyProperty.Register("States", typeof(StatesViewModelCollection), typeof(ProjectsViewModel), new PropertyMetadata(default(StatesViewModelCollection)));
+        #endregion
 
-
-
+        #region CheckoutDay
+        /// <summary>
+        /// 付款條件: 結帳日
+        /// </summary>
         public byte CheckoutDay
         {
             get { return (byte)GetValue(CheckoutDayProperty); }
@@ -330,12 +335,13 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for CheckoutDay.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CheckoutDayProperty =
-            DependencyProperty.Register("CheckoutDay", typeof(byte), typeof(ProjectsViewModel), new PropertyMetadata((byte)1)
-                );
+            DependencyProperty.Register("CheckoutDay", typeof(byte), typeof(ProjectsViewModel), new PropertyMetadata((byte)1));
+        #endregion
 
-
-
-
+        #region PaymentDay
+        /// <summary>
+        /// 付款條件: 付款日
+        /// </summary>
         public byte PaymentDay
         {
             get { return (byte)GetValue(PaymentDayProperty); }
@@ -345,10 +351,13 @@ namespace Tokiku.ViewModels
         // Using a DependencyProperty as the backing store for PaymentDay.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PaymentDayProperty =
             DependencyProperty.Register("PaymentDay", typeof(byte), typeof(ProjectsViewModel), new PropertyMetadata((byte)1));
+        #endregion
 
         #region 供應商
 
-
+        /// <summary>
+        /// 供應商清單        
+        /// </summary>
         public ManufacturersViewModelCollection Suppliers
         {
             get { return (ManufacturersViewModelCollection)GetValue(SuppliersProperty); }
@@ -378,6 +387,9 @@ namespace Tokiku.ViewModels
                 ), new PropertyMetadata(default(ProjectContractViewModelCollection), new PropertyChangedCallback(DefaultFieldChanged)));
         #endregion
 
+        #endregion
+
+        #region 模型命令方法
         public override void StartUp_Query()
         {
 
@@ -433,15 +445,24 @@ namespace Tokiku.ViewModels
                 }
             }
 
-          
+
         }
 
         public override void SaveModel()
         {
             Projects data = new Projects();
             CopyToModel(data, this);
-           
-            
+
+            if (ProjectContract != null)
+            {
+                foreach (ProjectContractViewModel model in ProjectContract)
+                {
+                    if (model != null)
+                    {
+                        model.SaveModel();
+                    }
+                }
+            }
 
             //if (ProjectContract.Count > 0)
             //{
@@ -503,5 +524,7 @@ namespace Tokiku.ViewModels
         {
             Query();
         }
+        #endregion
+
     }
 }

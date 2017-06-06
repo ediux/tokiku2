@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Tokiku.ViewModels
 {
-    public class PromissoryNoteManagementViewModelCollection : ObservableCollection<PromissoryNoteManagementViewModel>, IBaseViewModel
+    public class PromissoryNoteManagementViewModelCollection : BaseViewModelCollection<PromissoryNoteManagementViewModel>
     {
         public PromissoryNoteManagementViewModelCollection()
         {
@@ -18,8 +18,6 @@ namespace Tokiku.ViewModels
 
         }
 
-        public IEnumerable<string> Errors { get; set; }
-        public bool HasError { get; set; }
     }
 
     public class PromissoryNoteManagementViewModel : BaseViewModel

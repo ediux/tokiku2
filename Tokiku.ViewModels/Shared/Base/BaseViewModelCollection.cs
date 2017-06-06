@@ -75,7 +75,10 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 在啟動時的查詢動作
         /// </summary>
-        public abstract void StartUp_Query();
+        public virtual void StartUp_Query()
+        {
+
+        }
 
         /// <summary>
         /// 針對某的特定條件查詢
@@ -92,16 +95,29 @@ namespace Tokiku.ViewModels
                 Add(item);
             }
         }
+        public virtual void SaveModel()
+        {
+            foreach(TView row in Items)
+            {
+                
+            }
+        }
 
         /// <summary>
         /// 查詢全部資料
         /// </summary>
-        public abstract void Query();
+        public virtual void Query()
+        {
+
+        }
 
         /// <summary>
         /// 重新整理檢視模型
         /// </summary>
-        public abstract void Refresh();
+        public virtual void Refresh()
+        {
+            Query();
+        }
 
         /// <summary>
         /// 將來自資料庫的資料實體抄到檢視模型。
