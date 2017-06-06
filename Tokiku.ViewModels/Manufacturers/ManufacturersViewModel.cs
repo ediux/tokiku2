@@ -320,7 +320,7 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 查詢單一個體的檢視資料
         /// </summary>
-        /// <param name="ProjectId"></param>
+        /// <param name="ManufacturersId"></param>
         public void QueryModel(Guid ManufacturersId)
         {
             try

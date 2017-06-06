@@ -29,8 +29,16 @@ namespace Tokiku.ViewModels
 
         public ClientViewModel() : base()
         {
-            IsClient = true;
+
         }
+
+        public ClientViewModel(Guid ProjectId) : base()
+        {
+            QueryCondition_ProjectId = ProjectId;
+        }
+
+        private Guid QueryCondition_ProjectId;
+
         public ProjectContractViewModelCollection ProjectContract
         {
             get { return (ProjectContractViewModelCollection)GetValue(ProjectContractProperty); }
@@ -43,8 +51,15 @@ namespace Tokiku.ViewModels
 
         public override void Initialized()
         {
+            IsClient = true;
             base.Initialized();
+        }
 
+       
+
+        public override void Query()
+        {
+            base.Query();
         }
     }
 }

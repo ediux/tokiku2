@@ -39,10 +39,8 @@ namespace TokikuNew.Views
         {
             add { AddHandler(SelectedClientChangedEvent, value); }
             remove { RemoveHandler(SelectedClientChangedEvent, value); }
-        } 
+        }
         #endregion
-
-       
 
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
@@ -51,6 +49,7 @@ namespace TokikuNew.Views
 
         private void sSearchBar_ResetSearch(object sender, RoutedEventArgs e)
         {
+
             //ClientList.ItemsSource = controller.QueryAll();
         }
 

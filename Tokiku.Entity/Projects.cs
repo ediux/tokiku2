@@ -25,7 +25,7 @@ namespace Tokiku.Entity
     
         public System.Guid Id { get; set; }
         public string Code { get; set; }
-        public string ProjectName { get; set; }
+        public string Name { get; set; }
         public float Area { get; set; }
         public int BuildingHeightAboveground { get; set; }
         public int BuildingHeightUnderground { get; set; }

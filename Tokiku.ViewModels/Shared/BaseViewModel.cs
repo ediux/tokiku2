@@ -327,6 +327,7 @@ namespace Tokiku.ViewModels
             DependencyProperty.Register("HasError", typeof(bool), typeof(BaseViewModel), new PropertyMetadata(false));
         #endregion
 
+        #region 文件狀態
         /// <summary>
         /// 文件狀態
         /// </summary>
@@ -338,7 +339,8 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for Status.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty StatusProperty =
-            DependencyProperty.Register("Status", typeof(DocumentStatusViewModel), typeof(BaseViewModel), new PropertyMetadata(default(DocumentStatusViewModel)));
+            DependencyProperty.Register("Status", typeof(DocumentStatusViewModel), typeof(BaseViewModel), new PropertyMetadata(default(DocumentStatusViewModel))); 
+        #endregion
 
         protected static void DefaultFieldChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

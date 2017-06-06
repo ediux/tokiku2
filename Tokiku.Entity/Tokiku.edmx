@@ -1886,7 +1886,7 @@
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Area" Type="Single" Nullable="false" />
           <Property Name="BuildingHeightAboveground" Type="Int32" Nullable="false" />
           <Property Name="BuildingHeightUnderground" Type="Int32" Nullable="false" />
@@ -2678,7 +2678,7 @@
         <MappingFragment StoreEntitySet="Projects">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Code" ColumnName="Code" />
-          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="Name" ColumnName="ProjectName" />
           <ScalarProperty Name="Area" ColumnName="Area" />
           <ScalarProperty Name="BuildingHeightAboveground" ColumnName="BuildingHeightAboveground" />
           <ScalarProperty Name="BuildingHeightUnderground" ColumnName="BuildingHeightUnderground" />
