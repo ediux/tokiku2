@@ -2,12 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using Tokiku.Entity;
 using Tokiku.Controllers;
 
 namespace Tokiku.ViewModels
@@ -335,9 +330,6 @@ namespace Tokiku.ViewModels
                 typeof(ManufacturersViewModel),
                 new PropertyMetadata(default(EngineeringViewModelCollection),
                     new PropertyChangedCallback(DefaultFieldChanged)));
-
-
-
 
         public bool IsDefault
         {

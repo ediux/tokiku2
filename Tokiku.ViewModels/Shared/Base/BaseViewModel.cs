@@ -378,26 +378,38 @@ namespace Tokiku.ViewModels
         }
 
         /// <summary>
-        /// 當啟動時的地一次查詢作業
+        /// 當啟動時的第一次查詢作業，這通常搭配OnLoad事件使用。
         /// </summary>
         public virtual void StartUp_Query()
         {
 
         }
 
+        /// <summary>
+        /// 立即對資料庫執行預設的查詢動作。
+        /// </summary>
+        /// <remarks>
+        /// 查詢條件依據相依屬性做為資料來源。
+        /// </remarks>
         public virtual void Query()
         {
-
+        
         }
 
+        /// <summary>
+        /// 儲存變更
+        /// </summary>
         public virtual void SaveModel()
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 重新整理檢視模型
+        /// </summary>
         public virtual void Refresh()
         {
-
+            Query();
         }
 
     }
