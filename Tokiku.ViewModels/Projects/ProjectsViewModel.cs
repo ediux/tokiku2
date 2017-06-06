@@ -348,6 +348,18 @@ namespace Tokiku.ViewModels
 
         #region 供應商
 
+
+        public ManufacturersViewModelCollection Suppliers
+        {
+            get { return (ManufacturersViewModelCollection)GetValue(SuppliersProperty); }
+            set { SetValue(SuppliersProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Suppliers.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SuppliersProperty =
+            DependencyProperty.Register("Suppliers", typeof(ManufacturersViewModelCollection), typeof(ProjectsViewModel), new PropertyMetadata(default(ManufacturersViewModelCollection)));
+
+
         #endregion
 
         #region Project Contract
@@ -384,7 +396,8 @@ namespace Tokiku.ViewModels
                 Errors = result.Errors;
                 HasError = result.HasError;
             }
-            
+
+            ProjectContract.ProjectId = Id;
             ProjectContract.StartUp_Query();
 
         }
@@ -392,6 +405,9 @@ namespace Tokiku.ViewModels
         public override void Initialized()
         {
             base.Initialized();
+
+            ProjectContract = new ProjectContractViewModelCollection();
+            Client = new ClientViewModel();
 
             if (_projectcontroller == null)
                 return;
@@ -417,18 +433,15 @@ namespace Tokiku.ViewModels
                 }
             }
 
-            ProjectContract = new ProjectContractViewModelCollection();
-            Client = new ClientViewModel();
+          
         }
 
         public override void SaveModel()
         {
             Projects data = new Projects();
-
-
             CopyToModel(data, this);
-
-
+           
+            
 
             //if (ProjectContract.Count > 0)
             //{
@@ -478,6 +491,10 @@ namespace Tokiku.ViewModels
                         }
                     }
                 }
+
+                ProjectContract.ProjectId = Id;
+                ProjectContract.Query();
+
             }
 
         }
