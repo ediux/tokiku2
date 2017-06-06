@@ -177,7 +177,7 @@
                     <Controls:CustomDataGrid Grid.Row="1" Grid.Column="0" AllowExecuteSystemCommand="True" AutoGenerateColumns="False" 
                                              CanUserDeleteRows="{Binding Path=Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
                                              CanUserAddRows="{Binding Path=Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                             ItemsSource="{Binding SelectedProject.ProjectContract, ElementName=userControl}"
+                                             ItemsSource="{Binding ProjectContract}"
                                              MouseDoubleClick="ContractList_MouseDoubleClick"
                                              DataGridRow.Selected="ContractList_Selected"
                                              x:Name="ContractList"

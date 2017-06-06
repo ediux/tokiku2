@@ -5,11 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Tokiku.Controllers;
 
 namespace Tokiku.ViewModels
 {
     public class ProjectContractViewModelCollection : BaseViewModelCollection<ProjectContractViewModel>
     {
+        private ProjectContractController _controller;
         public ProjectContractViewModelCollection()
         {
 
@@ -19,7 +21,16 @@ namespace Tokiku.ViewModels
         {
 
         }
-        
+
+        public Guid ProjectId
+        {
+            get; set;
+        }
+        public override void Initialized()
+        {
+            base.Initialized();
+            _controller = new ProjectContractController();
+        }
         public override void StartUp_Query()
         {
             Query();
@@ -27,7 +38,20 @@ namespace Tokiku.ViewModels
 
         public override void Query()
         {
-            
+            if (ProjectId != null && ProjectId != Guid.Empty)
+            {
+                var executed_result = _controller.QueryAll(ProjectId);
+
+                if (!executed_result.HasError)
+                {
+                    ClearItems();
+                    foreach (var row in executed_result.Result)
+                    {
+                        Add(BindingFromModel(row));
+                    }
+                }
+            }
+
         }
 
         public override void Refresh()
