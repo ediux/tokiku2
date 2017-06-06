@@ -241,14 +241,17 @@ namespace Tokiku.Controllers
             {
                 using (IRepositoryBase<T> repo = GetRepository())
                 {
+                    database = repo.UnitOfWork;
                     if (repo == null)
                         return ExecuteResultEntity.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
 
-                    repo.Add(entity);
+                    entity = repo.Add(entity);
 
                     if (isLastRecord)
                     {
                         repo.UnitOfWork.Commit();
+                        database = repo.UnitOfWork;
+                        repo.UnitOfWork.Context.Set<T>().Attach(entity);
                         entity = repo.Reload(entity);
                     }
 
@@ -275,6 +278,8 @@ namespace Tokiku.Controllers
             {
                 using (var repo = GetRepository())
                 {
+                    database = repo.UnitOfWork;
+
                     if (repo == null)
                         return ExecuteResultEntity<ICollection<T>>.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
 
@@ -311,6 +316,8 @@ namespace Tokiku.Controllers
                 {
                     if (repo == null)
                         return ExecuteResultEntity<T>.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
+
+                    database = repo.UnitOfWork;
 
                     T findresult = repo.Get(IdentifyPrimaryKey(fromModel));
 
@@ -356,11 +363,12 @@ namespace Tokiku.Controllers
 
                         if (isLastRecord)
                         {
-                            database.Commit();
+                            repo.UnitOfWork.Commit();
+                            database = repo.UnitOfWork;
+                            findresult = repo.Get(IdentifyPrimaryKey(findresult));
                         }
 
-                        fromModel = repo.Reload(fromModel);
-                        return ExecuteResultEntity<T>.CreateResultEntity(fromModel);
+                        return ExecuteResultEntity<T>.CreateResultEntity(findresult);
                     }
 
                     return ExecuteResultEntity<T>.CreateErrorResultEntity("Data not found.");
@@ -387,7 +395,7 @@ namespace Tokiku.Controllers
                 {
                     if (repo == null)
                         return ExecuteResultEntity.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
-
+                    database = repo.UnitOfWork;
                     var findresult = repo.Where(condtion);
 
                     if (findresult.Any())
@@ -425,6 +433,8 @@ namespace Tokiku.Controllers
                     if (repo == null)
                         return ExecuteResultEntity<T>.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
 
+                    database = repo.UnitOfWork;
+
                     if (repo.Get(IdentifyPrimaryKey(entity)) != null)
                     {
                         var update_result = Update(entity);
@@ -434,6 +444,8 @@ namespace Tokiku.Controllers
                             update_result.Result = entity;
                             return update_result;
                         }
+
+                        return ExecuteResultEntity<T>.CreateResultEntity(update_result.Result);
                     }
                     else
                     {
@@ -446,9 +458,10 @@ namespace Tokiku.Controllers
                                 Result = entity
                             };
                         }
+                        return ExecuteResultEntity<T>.CreateResultEntity(entity);
                     }
 
-                    return ExecuteResultEntity<T>.CreateResultEntity(repo.Get(IdentifyPrimaryKey(entity)));
+
                 }
             }
             catch (Exception ex)

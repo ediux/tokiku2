@@ -90,7 +90,9 @@ namespace TokikuNew.Views
 
             if (SelectedProject.ClientId.HasValue)
             {
-                SelectedClient.Refresh();
+                if (SelectedClient != null)
+                    SelectedClient.Refresh();
+
                 //SelectedClient = clientcontroller.Query(s => s.Id == SelectedProject.ClientId.Value);
             }
 
@@ -145,32 +147,18 @@ namespace TokikuNew.Views
 
                         break;
                     case DocumentLifeCircle.Save:
+
                         if (SelectedProject.CreateUserId == Guid.Empty)
-                        {
                             SelectedProject.CreateUserId = LoginedUser.UserId;
-                        }
-                        if (SelectedProject.ProjectContract.Count > 0)
-                        {
-                            foreach (ProjectContractViewModel model in SelectedProject.ProjectContract)
-                            {
-                                if (model.CreateUserId == Guid.Empty)
-                                {
-                                    model.CreateUserId = LoginedUser.UserId;
-                                }
-
-                                model.ProjectId = SelectedProject.Id;
-                            }
-                        }
-
+                      
                         if (SelectedClient != null)
                             SelectedProject.ClientId = SelectedClient.Id;
-
 
                         SelectedProject.SaveModel();
 
                         if (SelectedProject.HasError)
                         {
-                            MessageBox.Show(string.Join("\n", SelectedProject.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK , MessageBoxOptions.DefaultDesktopOnly);
+                            MessageBox.Show(string.Join("\n", SelectedProject.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
                             SelectedProject.Errors = null;
                             Mode = dockBar.LastState;
                             break;
@@ -197,7 +185,7 @@ namespace TokikuNew.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);         
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
         }
 

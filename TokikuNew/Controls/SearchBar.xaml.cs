@@ -82,7 +82,7 @@ namespace TokikuNew.Controls
 
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
-            RaiseEvent(new RoutedEventArgs(RefreshResultEvent, this));
+            RaiseEvent(new RoutedEventArgs(RefreshResultEvent, tbSearchBar.Text));
         }
     }
 }

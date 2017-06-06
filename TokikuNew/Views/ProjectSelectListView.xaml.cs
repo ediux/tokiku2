@@ -41,7 +41,7 @@ namespace TokikuNew.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            //ProjectList.ItemsSource = (ObservableCollection<ProjectBaseViewModel>)DataContext;
+            ((ProjectListViewModelCollection)DataContext).StartUp_Query();
         }
 
         private void ProjectList_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -66,7 +66,7 @@ namespace TokikuNew.Views
         // This method raises the Tap event
         protected void RaiseSelectProjectChangedEvent()
         {
-            RoutedEventArgs newEventArgs = new RoutedEventArgs(ProjectSelectListView.SelectedProjectChangedEvent);
+            RoutedEventArgs newEventArgs = new RoutedEventArgs(SelectedProjectChangedEvent);
             RaiseEvent(newEventArgs);
         }
 
@@ -75,7 +75,8 @@ namespace TokikuNew.Views
             try
             {
                 //搜尋框
-                DataContext = controller.SearchByText((string)e.OriginalSource);
+                ((ProjectListViewModelCollection)DataContext).QueryByText((string)e.OriginalSource);
+                //DataContext = controller.SearchByText((string)e.OriginalSource);
             }
             catch (Exception ex)
             {
@@ -99,7 +100,7 @@ namespace TokikuNew.Views
 
         private void cSearchBar_ResetSearch(object sender, RoutedEventArgs e)
         {
-            DataContext = controller.QueryAll();
+            ((ProjectListViewModelCollection)DataContext).Refresh();
         }
 
         private void ProjectList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -108,6 +109,20 @@ namespace TokikuNew.Views
             {
                 SelectedProject = (ProjectListViewModel)ProjectList.SelectedItem;
                 RaiseEvent(new RoutedEventArgs(SelectedProjectChangedEvent, SelectedProject));
+            }
+        }
+
+        private void cSearchBar_RefreshResult(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //搜尋框
+                ((ProjectListViewModelCollection)DataContext).QueryByText((string)e.OriginalSource);
+                //DataContext = controller.SearchByText((string)e.OriginalSource);
+            }
+            catch (Exception ex)
+            {
+                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
             }
         }
     }

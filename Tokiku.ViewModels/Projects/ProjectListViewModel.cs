@@ -6,11 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Tokiku.Controllers;
+using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class ProjectListViewModelCollection : ObservableCollection<ProjectListViewModel>, IBaseViewModel
+    public class ProjectListViewModelCollection : BaseViewModelCollection<ProjectListViewModel>
     {
+        private ProjectsController _projects_controller;
+
         public ProjectListViewModelCollection() : base()
         {
 
@@ -21,14 +25,58 @@ namespace Tokiku.ViewModels
 
         }
 
-        private IEnumerable<string> _Errors;
-        public IEnumerable<string> Errors { get => _Errors; set => _Errors = value; }
-        private bool _HasError = false;
-        public bool HasError { get => _HasError; set => _HasError = value; }
+        public override void Initialized()
+        {
+            base.Initialized();
+            _projects_controller = new ProjectsController();
+        }
 
+        public override void Query()
+        {
+            var projectResult = _projects_controller.Query(v => v.Void == false);
+            if (!projectResult.HasError)
+            {
+                Clear();
+                var result = projectResult.Result
+                    .Select(s => BindingFromModel(s));
+                foreach (var row in result)
+                {
+                    Add(row);
+                }
+
+            }
+        }
+        public void QueryByText(string text)
+        {
+            var executeresult = _projects_controller.SearchByText(text);
+
+            if (!executeresult.HasError)
+            {
+                Clear();
+                var result = executeresult.Result
+                    .Select(s => BindingFromModel(s));
+                foreach (var row in result)
+                {
+                    Add(row);
+                }
+            }
+        }
+
+        public override void Refresh()
+        {
+            Query();
+        }
+
+        public override void StartUp_Query()
+        {
+            Query();
+        }
     }
     public class ProjectListViewModel : BaseViewModel
     {
+        private ProjectsController _projects_controller;
+
+
         public static readonly DependencyProperty IdProperty = DependencyProperty.Register("Id", typeof(Guid), typeof(ProjectListViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
         public static readonly DependencyProperty CodeProperty = DependencyProperty.Register("Code", typeof(string), typeof(ProjectListViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
@@ -37,7 +85,7 @@ namespace Tokiku.ViewModels
 
         public static readonly DependencyProperty ShortNameProperty = DependencyProperty.Register("ShortName", typeof(string), typeof(ProjectListViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
-        public static readonly DependencyProperty StateProperty = DependencyProperty.Register("State", typeof(string), typeof(ProjectListViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
+        public static readonly DependencyProperty StateProperty = DependencyProperty.Register("State", typeof(byte), typeof(ProjectListViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
         /// <summary>
         /// 編號
@@ -60,7 +108,7 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 專案名稱
         /// </summary>
-        public string ProjectName { get { return (string)GetValue(ProjectNameProperty); } set { SetValue(ProjectNameProperty, value); RaisePropertyChanged("ProjectName"); } }
+        public string Name { get { return (string)GetValue(ProjectNameProperty); } set { SetValue(ProjectNameProperty, value); RaisePropertyChanged("ProjectName"); } }
         /// <summary>
         /// 專案名稱(簡稱)
         /// </summary>
@@ -69,11 +117,11 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 狀態
         /// </summary>
-        public string State { get { return (string)GetValue(StateProperty); } set { SetValue(StateProperty, value); RaisePropertyChanged("State"); } }
+        public byte State { get { return (byte)GetValue(StateProperty); } set { SetValue(StateProperty, value); RaisePropertyChanged("State"); } }
 
         public DateTime? StartDate
         {
-            get { return (DateTime)GetValue(StartDateProperty); }
+            get { return (DateTime?)GetValue(StartDateProperty); }
             set { SetValue(StartDateProperty, value); RaisePropertyChanged("StartDate"); }
         }
 
@@ -85,7 +133,7 @@ namespace Tokiku.ViewModels
 
         public DateTime? CompletionDate
         {
-            get { return (DateTime)GetValue(CompletionDateProperty); }
+            get { return (DateTime?)GetValue(CompletionDateProperty); }
             set { SetValue(CompletionDateProperty, value); }
         }
 
@@ -108,5 +156,33 @@ namespace Tokiku.ViewModels
 
         //public System.DateTime StartDate { get; set; }
         //public System.DateTime CompletionDate { get; set; }
+        public override void Initialized()
+        {
+            base.Initialized();
+            _projects_controller = new ProjectsController();
+        }
+
+        public override void Query()
+        {
+            if (Id == Guid.Empty)
+                return;
+
+            var result = _projects_controller.QuerySingle(Id);
+
+            if (!result.HasError)
+            {
+                BindingFromModel(result.Result, this);
+
+                if (CompletionDate.HasValue == false)
+                {
+                    CompletionDate = DateTime.Today;
+                }
+            }
+            else
+            {
+                Errors = result.Errors;
+                HasError = result.HasError;
+            }
+        }
     }
 }

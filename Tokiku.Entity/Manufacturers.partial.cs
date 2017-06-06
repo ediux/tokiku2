@@ -94,8 +94,8 @@ namespace Tokiku.Entity
         public virtual ICollection<Molds> Molds { get; set; }
         public virtual ICollection<ProjectItemCost> ProjectItemCost { get; set; }
         public virtual ICollection<WorkShops> WorkShops { get; set; }
-        public virtual ICollection<Projects> ClientForProjects { get; set; }
         public virtual ICollection<Contacts> Contacts { get; set; }
-        public virtual ICollection<Projects> ProjectSuppliers { get; set; }
+        public virtual ICollection<Projects> ClientForProjects { get; set; }
+        public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
     }
 }

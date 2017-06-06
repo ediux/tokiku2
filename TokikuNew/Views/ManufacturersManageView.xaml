@@ -109,7 +109,7 @@
                     <RowDefinition Height="50*"/>
                     <RowDefinition Height="50*"/>
                 </Grid.RowDefinitions>
-                <GroupBox Header="交易歷程" Grid.Column="0" Grid.Row="0" Margin="5">
+                <GroupBox Header="交易紀錄" Grid.Column="0" Grid.Row="0" Margin="5">
                     <c:CustomDataGrid CanUserAddRows="False" CanUserDeleteRows="False"
                                        AutoGenerateColumns="False"
                                       IsReadOnly="True"
@@ -117,11 +117,8 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="工程代碼" Binding="{Binding Code}"/>
                             <DataGridTextColumn Header="工程名稱" Binding="{Binding Name}"/>
-                            <DataGridTextColumn Header="起造日期" Binding="{Binding StartDate,StringFormat={}{0:yyyy/MM/dd}}"/>
-                            <DataGridTextColumn Header="完工日期" Binding="{Binding CompletionDate,StringFormat={}{0:yyyy/MM/dd}}"/>
-                            <DataGridTextColumn Header="保固到期日" Binding="{Binding WarrantyDate,StringFormat={}{0:yyyy/MM/dd}}"/>
-                            <DataGridTextColumn Header="建築師" Binding="{Binding WarrantyDate}"/>
-                            <DataGridTextColumn Header="狀態" Binding="{Binding State, Converter={StaticResource StatesCodeToTextValueConverter}}"/>
+                            <DataGridTextColumn Header="交易品項" Binding="{Binding TranscationItemName}"/>
+                            <DataGridTextColumn Header="下單日期" Binding="{Binding StartDate,StringFormat={}{0:yyyy/MM/dd}}"/>
                         </DataGrid.Columns>
                     </c:CustomDataGrid>
                 </GroupBox>

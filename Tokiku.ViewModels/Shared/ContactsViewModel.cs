@@ -20,17 +20,22 @@ namespace Tokiku.ViewModels
 
         public override void StartUp_Query()
         {
-            throw new NotImplementedException();
-        }
-
-        public override void Query<T>(Expression<Func<T, bool>> filiter)
-        {
-            throw new NotImplementedException();
+            Query();
         }
 
         public override void Refresh()
         {
+            Query();
+        }
+
+        public override void Query(Expression<Func<ContactsViewModel, bool>> filiter)
+        {
             throw new NotImplementedException();
+        }
+
+        public override void Query()
+        {
+            
         }
     }
 

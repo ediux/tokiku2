@@ -18,7 +18,7 @@
         <AssociationConnector Association="TokikuModel.FK_ShopFlowHistory_Users" />
         <EntityTypeShape EntityType="TokikuModel.AccessLog" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="TokikuModel.Compositions" Width="1.5" PointX="15.75" PointY="10.625" />
-        <EntityTypeShape EntityType="TokikuModel.CompositionTypes" Width="1.5" PointX="13.5" PointY="8.75" />
+        <EntityTypeShape EntityType="TokikuModel.CompositionTypes" Width="2" PointX="13.5" PointY="8.75" />
         <AssociationConnector Association="TokikuModel.FK_Compositions_CompositionTypes" />
         <EntityTypeShape EntityType="TokikuModel.ShopFlowDetail" Width="1.5" PointX="8.25" PointY="18.375" />
         <EntityTypeShape EntityType="TokikuModel.WorkShops" Width="1.5" PointX="6" PointY="22.875" />
@@ -29,7 +29,6 @@
         <EntityTypeShape EntityType="TokikuModel.Contacts" Width="1.5" PointX="6" PointY="7.75" />
         <EntityTypeShape EntityType="TokikuModel.Engineering" Width="1.5" PointX="10.5" PointY="10.75" />
         <EntityTypeShape EntityType="TokikuModel.Manufacturers" Width="1.5" PointX="8.25" PointY="4.375" />
-        <EntityTypeShape EntityType="TokikuModel.ManufacturersBussinessItems" Width="2.125" PointX="16.5" PointY="6.75" />
         <EntityTypeShape EntityType="TokikuModel.MaterialCategories" Width="1.5" PointX="3" PointY="14.375" />
         <EntityTypeShape EntityType="TokikuModel.Materials" Width="1.5" PointX="5.25" PointY="14.125" />
         <EntityTypeShape EntityType="TokikuModel.Molds" Width="1.5" PointX="10.5" PointY="15.25" />
@@ -38,7 +37,6 @@
         <EntityTypeShape EntityType="TokikuModel.PaymentTypes" Width="1.5" PointX="6" PointY="5.25" />
         <EntityTypeShape EntityType="TokikuModel.ProjectContract" Width="1.5" PointX="8.25" PointY="13.875" />
         <EntityTypeShape EntityType="TokikuModel.ProjectItemCost" Width="1.5" PointX="12.75" PointY="11.25" />
-        <EntityTypeShape EntityType="TokikuModel.Projects" Width="1.5" PointX="13.5" PointY="21.5" />
         <EntityTypeShape EntityType="TokikuModel.PromissoryNoteManagement" Width="1.5" PointX="13.5" PointY="16.25" />
         <EntityTypeShape EntityType="TokikuModel.ShopFlow" Width="1.5" PointX="6" PointY="36.375" />
         <EntityTypeShape EntityType="TokikuModel.TicketTypes" Width="1.5" PointX="11.25" PointY="7.625" />
@@ -51,9 +49,6 @@
         <AssociationConnector Association="TokikuModel.FK_Molds_Manufacturers" />
         <AssociationConnector Association="TokikuModel.FK_ProjectItemCost_Manufacturers" />
         <AssociationConnector Association="TokikuModel.FK_WorkShops_Manufacturers" />
-        <AssociationConnector Association="TokikuModel.FK_ManufacturersBussinessItems_MaterialCategories" />
-        <AssociationConnector Association="TokikuModel.FK_ManufacturersBussinessItems_PaymentTypes" />
-        <AssociationConnector Association="TokikuModel.FK_ManufacturersBussinessItems_TicketTypes" />
         <AssociationConnector Association="TokikuModel.FK_Materials_MaterialCategories" />
         <AssociationConnector Association="TokikuModel.FK_MoldsInProjects_MaterialCategories" />
         <AssociationConnector Association="TokikuModel.FK_ProjectItemCost_MaterialCategories" />
@@ -62,18 +57,26 @@
         <AssociationConnector Association="TokikuModel.FK_Molds_MoldUseStatus" />
         <AssociationConnector Association="TokikuModel.FK_Molds_Users" />
         <AssociationConnector Association="TokikuModel.FK_MoldsInProjects_Molds" />
-        <AssociationConnector Association="TokikuModel.FK_MoldsInProjects_Projects" />
-        <AssociationConnector Association="TokikuModel.FK_ProjectContract_Projects" />
         <AssociationConnector Association="TokikuModel.FK_ProjectContract_Users" />
         <AssociationConnector Association="TokikuModel.FK_PromissoryNoteManagement_ProjectContract" />
         <AssociationConnector Association="TokikuModel.FK_ProjectItemCost_Users" />
-        <AssociationConnector Association="TokikuModel.FK_Projects_States" />
         <AssociationConnector Association="TokikuModel.FK_PromissoryNoteManagement_TicketTypes" />
         <AssociationConnector Association="TokikuModel.FK_PromissoryNoteManagement_Users" />
         <AssociationConnector Association="TokikuModel.FK_ShopFlowDetail_ShopFlow" />
-        <AssociationConnector Association="TokikuModel.ClientsInProjects" />
         <AssociationConnector Association="TokikuModel.ContractsInManufacturers" />
-        <AssociationConnector Association="TokikuModel.Suppliers" />
+        <EntityTypeShape EntityType="TokikuModel.ManufacturersBussinessItems" Width="2.125" PointX="16.5" PointY="6.75" />
+        <EntityTypeShape EntityType="TokikuModel.Projects" Width="2.5" PointX="18.75" PointY="11.625" />
+        <AssociationConnector Association="TokikuModel.FK_ManufacturersBussinessItems_MaterialCategories" />
+        <AssociationConnector Association="TokikuModel.FK_ManufacturersBussinessItems_PaymentTypes" />
+        <AssociationConnector Association="TokikuModel.FK_ManufacturersBussinessItems_TicketTypes" />
+        <AssociationConnector Association="TokikuModel.FK_MoldsInProjects_Projects" />
+        <AssociationConnector Association="TokikuModel.FK_ProjectContract_Projects" />
+        <AssociationConnector Association="TokikuModel.FK_Projects_States" />
+        <AssociationConnector Association="TokikuModel.ClientsInProjects" />
+        <AssociationConnector Association="TokikuModel.FK_ManufacturersBussinessItems_Manufacturers" />
+        <EntityTypeShape EntityType="TokikuModel.SupplierTranscationItem" Width="1.5" PointX="22" PointY="11.625" />
+        <AssociationConnector Association="TokikuModel.FK_SupplierTranscationItem_ManufacturersBussinessItems" />
+        <AssociationConnector Association="TokikuModel.FK_SupplierTranscationItem_Projects" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

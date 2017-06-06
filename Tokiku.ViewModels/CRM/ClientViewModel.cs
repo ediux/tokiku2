@@ -5,14 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Tokiku.Controllers;
 
 namespace Tokiku.ViewModels
 {
-    public class ClientViewModelCollection : ObservableCollection<ClientViewModel>, IBaseViewModel
+    public class ClientViewModelCollection : BaseViewModelCollection<ClientViewModel>
     {
+        private ClientController client_controller;
+
         public ClientViewModelCollection()
         {
-            HasError = false;
         }
 
         public ClientViewModelCollection(IEnumerable<ClientViewModel> source) : base(source)
@@ -20,9 +22,40 @@ namespace Tokiku.ViewModels
 
         }
 
-        public IEnumerable<string> Errors { get; set; }
-        public bool HasError { get; set; }
+        public override void Initialized()
+        {
+            base.Initialized();
+            client_controller = new ClientController();
+        }
+        public override void Query()
+        {
+            var executed_result = client_controller.QueryAll();
 
+            if (!executed_result.HasError)
+            {
+                if (executed_result.Result.Any())
+                {
+                    Clear();
+                    foreach (var item in executed_result.Result)
+                    {
+                        ClientViewModel client = BindingFromModel(item);
+                        Add(client);
+                    }
+                }
+            }
+
+
+        }
+
+        public override void Refresh()
+        {
+            Query();
+        }
+
+        public override void StartUp_Query()
+        {
+            Query();
+        }
     }
     public class ClientViewModel : ManufacturersViewModel
     {
@@ -55,11 +88,19 @@ namespace Tokiku.ViewModels
             base.Initialized();
         }
 
-       
+        public override void StartUp_Query()
+        {
+            Query();
+        }
 
         public override void Query()
         {
-            base.Query();
+
+        }
+
+        public override void Refresh()
+        {
+            Query();
         }
     }
 }

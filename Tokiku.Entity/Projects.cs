@@ -17,10 +17,10 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Projects()
         {
-            this.ProjectMolds = new HashSet<MoldsInProjects>();
+            this.MoldsInProjects = new HashSet<MoldsInProjects>();
             this.ProjectContract = new HashSet<ProjectContract>();
-            this.Clients = new HashSet<Manufacturers>();
-            this.Suppliers = new HashSet<Manufacturers>();
+            this.Manufacturers = new HashSet<Manufacturers>();
+            this.SupplierTranscationItem = new HashSet<SupplierTranscationItem>();
         }
     
         public System.Guid Id { get; set; }
@@ -32,7 +32,7 @@ namespace Tokiku.Entity
         public System.DateTime ProjectSigningDate { get; set; }
         public System.DateTime StartDate { get; set; }
         public byte State { get; set; }
-        public System.Guid ClientId { get; set; }
+        public Nullable<System.Guid> ClientId { get; set; }
         public bool Void { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
@@ -51,13 +51,13 @@ namespace Tokiku.Entity
         public string Comment { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MoldsInProjects> ProjectMolds { get; set; }
+        public virtual ICollection<MoldsInProjects> MoldsInProjects { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectContract> ProjectContract { get; set; }
         public virtual States States { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Manufacturers> Clients { get; set; }
+        public virtual ICollection<Manufacturers> Manufacturers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Manufacturers> Suppliers { get; set; }
+        public virtual ICollection<SupplierTranscationItem> SupplierTranscationItem { get; set; }
     }
 }

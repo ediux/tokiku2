@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace Tokiku.ViewModels
 {
-    public class ProjectContractViewModelCollection : ObservableCollection<ProjectContractViewModel>, IBaseViewModel
+    public class ProjectContractViewModelCollection : BaseViewModelCollection<ProjectContractViewModel>
     {
         public ProjectContractViewModelCollection()
         {
@@ -19,11 +19,21 @@ namespace Tokiku.ViewModels
         {
 
         }
+        
+        public override void StartUp_Query()
+        {
+            Query();
+        }
 
-        private IEnumerable<string> _Errors;
-        public IEnumerable<string> Errors { get => _Errors; set => _Errors = value; }
-        private bool _HasError = false;
-        public bool HasError { get => _HasError; set => _HasError = value; }
+        public override void Query()
+        {
+            
+        }
+
+        public override void Refresh()
+        {
+            Query();
+        }
     }
 
     public class ProjectContractViewModel : BaseViewModel, IBaseViewModel

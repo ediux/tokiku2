@@ -9,11 +9,11 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class ProjectsViewModelCollection : ObservableCollection<ProjectsViewModel>, IBaseViewModel
+    public class ProjectsViewModelCollection : BaseViewModelCollection<ProjectsViewModel>
     {
         public ProjectsViewModelCollection()
         {
-            HasError = false;
+
         }
 
         public ProjectsViewModelCollection(IEnumerable<ProjectsViewModel> source) : base(source)
@@ -21,8 +21,24 @@ namespace Tokiku.ViewModels
 
         }
 
-        public IEnumerable<string> Errors { get; set; }
-        public bool HasError { get; set; }
+        public override void Initialized()
+        {
+            base.Initialized();
+        }
+        public override void Query()
+        {
+
+        }
+
+        public override void Refresh()
+        {
+            Query();
+        }
+
+        public override void StartUp_Query()
+        {
+            Query();
+        }
     }
 
     public class ProjectsViewModel : BaseViewModel, IBaseViewModel
@@ -48,7 +64,7 @@ namespace Tokiku.ViewModels
 
         public static readonly DependencyProperty ProjectSigningDateProperty = DependencyProperty.Register("ProjectSigningDate", typeof(DateTime), typeof(ProjectsViewModel), new PropertyMetadata(DateTime.Today, new PropertyChangedCallback(DefaultFieldChanged)));
 
-        public static readonly DependencyProperty ProjectNameProperty = DependencyProperty.Register("ProjectName", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
+        public static readonly DependencyProperty NameProperty = DependencyProperty.Register("Name", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
         public static readonly DependencyProperty ShortNameProperty = DependencyProperty.Register("ShortName", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
@@ -90,7 +106,7 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 專案名稱
         /// </summary>
-        public string ProjectName { get { return (string)GetValue(ProjectNameProperty); } set { SetValue(ProjectNameProperty, value); } }
+        public string Name { get { return (string)GetValue(NameProperty); } set { SetValue(NameProperty, value); } }
         /// <summary>
         /// 專案名稱(簡稱)
         /// </summary>
@@ -278,6 +294,62 @@ namespace Tokiku.ViewModels
 
         #endregion
 
+
+
+        /// <summary>
+        /// 客戶列表
+        /// </summary>
+        public ClientViewModel Client
+        {
+            get { return (ClientViewModel)GetValue(ClientsProperty); }
+            set { SetValue(ClientsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Clients.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ClientsProperty =
+            DependencyProperty.Register("Client", typeof(ClientViewModel), typeof(ProjectsViewModel), new PropertyMetadata(default(ClientViewModel)));
+
+
+        public StatesViewModelCollection States
+        {
+            get { return (StatesViewModelCollection)GetValue(StatesProperty); }
+            set { SetValue(StatesProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for States.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty StatesProperty =
+            DependencyProperty.Register("States", typeof(StatesViewModelCollection), typeof(ProjectsViewModel), new PropertyMetadata(default(StatesViewModelCollection)));
+
+
+
+        public byte CheckoutDay
+        {
+            get { return (byte)GetValue(CheckoutDayProperty); }
+            set { SetValue(CheckoutDayProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CheckoutDay.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CheckoutDayProperty =
+            DependencyProperty.Register("CheckoutDay", typeof(byte), typeof(ProjectsViewModel), new PropertyMetadata((byte)1)
+                );
+
+
+
+
+        public byte PaymentDay
+        {
+            get { return (byte)GetValue(PaymentDayProperty); }
+            set { SetValue(PaymentDayProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for PaymentDay.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PaymentDayProperty =
+            DependencyProperty.Register("PaymentDay", typeof(byte), typeof(ProjectsViewModel), new PropertyMetadata((byte)1));
+
+        #region 供應商
+
+        #endregion
+
         #region Project Contract
         /// <summary>
         /// 專案合約清單
@@ -294,31 +366,28 @@ namespace Tokiku.ViewModels
                 ), new PropertyMetadata(default(ProjectContractViewModelCollection), new PropertyChangedCallback(DefaultFieldChanged)));
         #endregion
 
-        /// <summary>
-        /// 客戶列表
-        /// </summary>
-        public ClientViewModelCollection Clients
+        public override void StartUp_Query()
         {
-            get { return (ClientViewModelCollection)GetValue(ClientsProperty); }
-            set { SetValue(ClientsProperty, value); }
+
+            if (Id == Guid.Empty)
+                return;
+
+            var result = _projectcontroller.Query(w => w.Id == Id);
+
+            if (!result.HasError)
+            {
+                var rawdata = result.Result.Single();
+                BindingFromModel(rawdata, this);
+            }
+            else
+            {
+                Errors = result.Errors;
+                HasError = result.HasError;
+            }
+            
+            ProjectContract.StartUp_Query();
+
         }
-
-        // Using a DependencyProperty as the backing store for Clients.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ClientsProperty =
-            DependencyProperty.Register("Clients", typeof(ClientViewModelCollection), typeof(ProjectsViewModel), new PropertyMetadata(new ClientViewModelCollection()));
-
-
-        public StatesViewModelCollection States
-        {
-            get { return (StatesViewModelCollection)GetValue(StatesProperty); }
-            set { SetValue(StatesProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for States.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty StatesProperty =
-            DependencyProperty.Register("States", typeof(StatesViewModelCollection), typeof(ProjectsViewModel), new PropertyMetadata(default(StatesViewModelCollection)));
-
-
 
         public override void Initialized()
         {
@@ -346,30 +415,33 @@ namespace Tokiku.ViewModels
                     BindingFromModel(states, state);
                     States.Add(state);
                 }
-
             }
 
             ProjectContract = new ProjectContractViewModelCollection();
-
-            //ProjectContract = new ProjectContractViewModelCollection();
-
-            //newmodel.Clients = ClientController.QueryAll();
-
+            Client = new ClientViewModel();
         }
 
         public override void SaveModel()
         {
-            Projects data = _projectcontroller.QuerySingle(Id).Result;
-            if (data == null)
-            {
-                data = new Projects();
-                CopyToModel(data, this);
+            Projects data = new Projects();
 
-            }
-            else
-            {
-                CopyToModel(data, this);
-            }
+
+            CopyToModel(data, this);
+
+
+
+            //if (ProjectContract.Count > 0)
+            //{
+            //    foreach (ProjectContractViewModel model in ProjectContract)
+            //    {
+            //        if (model.CreateUserId == Guid.Empty)
+            //        {
+            //            model.CreateUserId = _projectcontroller.GetCurrentLoginUser().Result.UserId;
+            //        }
+
+            //        model.ProjectId = Id;
+            //    }
+            //}
 
             var result = _projectcontroller.CreateOrUpdate(data);
 
@@ -383,26 +455,31 @@ namespace Tokiku.ViewModels
 
         public override void Query()
         {
-            var QueryResult = _projectcontroller.Query(p => p.Id == Id && p.Void == false);
-            if (!QueryResult.HasError)
+            if (Id != Guid.Empty)
             {
-                var data = QueryResult.Result.SingleOrDefault();
-                BindingFromModel(data, this);
+                var QueryResult = _projectcontroller.Query(p => p.Id == Id && p.Void == false);
 
-                var result_states = _projectcontroller.GetStates();
-
-                if (!result_states.HasError)
+                if (!QueryResult.HasError)
                 {
-                    States = new StatesViewModelCollection();
+                    var data = QueryResult.Result.SingleOrDefault();
+                    BindingFromModel(data, this);
 
-                    foreach (var states in result_states.Result)
+                    var result_states = _projectcontroller.GetStates();
+
+                    if (!result_states.HasError)
                     {
-                        StatesViewModel state = new StatesViewModel();
-                        BindingFromModel(states, state);
-                        States.Add(state);
+                        States = new StatesViewModelCollection();
+
+                        foreach (var states in result_states.Result)
+                        {
+                            StatesViewModel state = new StatesViewModel();
+                            BindingFromModel(states, state);
+                            States.Add(state);
+                        }
                     }
                 }
             }
+
         }
 
         public override void Refresh()

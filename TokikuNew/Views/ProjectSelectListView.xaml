@@ -25,7 +25,7 @@
                     <ColumnDefinition Width="125*"/>
                     <ColumnDefinition Width="40"/>
                 </Grid.ColumnDefinitions>
-                <controls:SearchBar Grid.Column="0" x:Name="cSearchBar" Search="Button_Click" ResetSearch="cSearchBar_ResetSearch" />
+                <controls:SearchBar Grid.Column="0" x:Name="cSearchBar" Search="Button_Click" ResetSearch="cSearchBar_ResetSearch" RefreshResult="cSearchBar_RefreshResult" />
                 <Button Grid.Column="1" Margin="5,1" Content="新增" Name="btnNew" Click="btnNew_Click"></Button>
             </Grid>
         </Grid>
@@ -38,10 +38,10 @@
                                  AllowExecuteSystemCommand="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="專案代號" Binding="{Binding Code}" Width="100" />
-                <DataGridTextColumn Header="專案名稱" Binding="{Binding ProjectName}" Width="100" />
+                <DataGridTextColumn Header="專案名稱" Binding="{Binding Name}" Width="100" />
                 <DataGridTextColumn Header="起造日期" Width="100" Binding="{Binding StartDate,StringFormat={}{0:yyyy/MM/dd}}"/>
                 <DataGridTextColumn Header="完工日期" Width="70" Binding="{Binding CompletionDate,StringFormat={}{0:yyyy/MM/dd}}" />
-                <DataGridTextColumn Header="狀態列"  Width="70" Binding="{Binding State}" />
+                <DataGridTextColumn Header="狀態列"  Width="70" Binding="{Binding State, Converter={StaticResource StatesCodeToTextValueConverter}}" />
                 <DataGridTextColumn Header="保固到期日" Width="70" Binding="{Binding WarrantyDate,StringFormat={}{0:yyyy/MM/dd}}"/>
             </DataGrid.Columns>
         </controls:CustomDataGrid>

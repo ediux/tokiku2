@@ -16,12 +16,14 @@ namespace Tokiku.Entity
 		public void Commit()
 		{
 			Context.SaveChanges();
-
+            _context = new TokikuEntities();
         }
 		
 		public async Task CommitAsync()
         {
             await Context.SaveChangesAsync();
+            _context = new TokikuEntities();
+
         }
 
 		public bool LazyLoadingEnabled

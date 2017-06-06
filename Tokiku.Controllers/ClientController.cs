@@ -94,16 +94,6 @@ namespace Tokiku.Controllers
                              select q;
 
                 ICollection<Manufacturers> model = new Collection<Manufacturers>();
-
-                //if (result.Any())
-                //{
-                //    foreach (var item in result)
-                //    {
-                //        ClientViewModel client = BindingFromModel(item);
-                //        model.Add(client);
-                //    }
-                //}
-
                 return ExecuteResultEntity<ICollection<Manufacturers>>.CreateResultEntity(model);
             }
             catch (Exception ex)

@@ -257,49 +257,54 @@ namespace TokikuNew
         {
             try
             {
-                ProjectSelectionPage.SelectedProject = e.OriginalSource as ProjectListViewModel;
-
-                string Header = string.Format("專案:{0}-{1}", ProjectSelectionPage.SelectedProject.Code, ProjectSelectionPage.SelectedProject.ShortName);
-
-
-                ClosableTabItem addWorkarea = new ClosableTabItem();
-
-                bool isExisted = false;
-
-                foreach (TabItem item in Workspaces.Items)
+                if (e.OriginalSource != null && e.OriginalSource is ProjectListViewModel)
                 {
-                    if (item is ClosableTabItem)
+                    ProjectListViewModel model = (ProjectListViewModel)e.OriginalSource;
+
+                    string Header = string.Format("專案:{0}-{1}", ProjectSelectionPage.SelectedProject.Code, ProjectSelectionPage.SelectedProject.ShortName);
+                    ClosableTabItem addWorkarea = null;
+                    bool isExisted = false;
+
+                    foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
                     {
                         if (item.Header.Equals(Header))
                         {
                             isExisted = true;
-                            addWorkarea = (ClosableTabItem)item;
+                            addWorkarea = item;
                             break;
                         }
                     }
+
+                    if (!isExisted)
+                    {
+                        addWorkarea = new ClosableTabItem();
+                        addWorkarea.Header = Header;
+                        addWorkarea.IsSelected = true;
+
+                        Workspaces.Items.Add(addWorkarea);
+                        Workspaces.SelectedItem = addWorkarea;
+                        Workspaces.SelectedIndex = Workspaces.Items.IndexOf(addWorkarea);
+
+                        var vm = new ProjectViewer() { Margin = new Thickness(0) };
+
+                       
+                        ProjectsViewModel source = new ProjectsViewModel(App.Resolve<ProjectsController>());
+                        source.Id = ProjectSelectionPage.SelectedProject.Id;
+                        source.Query();
+                        vm.DataContext = source;
+                        vm.Mode = DocumentLifeCircle.Read;
+
+                        Binding bindinglogineduser = new Binding();
+                        bindinglogineduser.Source = ((MainViewModel)DataContext).LoginedUser;
+
+                        vm.SetBinding(ProjectViewer.LoginedUserProperty, bindinglogineduser);
+
+                        addWorkarea.Content = vm;
+                        addWorkarea.Margin = new Thickness(0);
+                    }
+
+                    addWorkarea.Focus();
                 }
-
-                if (!isExisted)
-                {
-                    addWorkarea.Header = Header;
-
-                    var vm = new ProjectViewer() { Margin = new Thickness(0) };
-
-                    vm.DataContext = controller.Query(w => w.Id == ProjectSelectionPage.SelectedProject.Id);
-                    vm.Mode = DocumentLifeCircle.Read;
-
-                    Binding bindinglogineduser = new Binding();
-                    bindinglogineduser.Source = ((MainViewModel)DataContext).LoginedUser;
-
-                    vm.SetBinding(ProjectViewer.LoginedUserProperty, bindinglogineduser);
-
-                    addWorkarea.Content = vm;
-                    addWorkarea.Margin = new Thickness(0);
-
-                    Workspaces.Items.Add(addWorkarea);
-                }
-
-                Workspaces.SelectedItem = addWorkarea;
             }
             catch (Exception ex)
             {

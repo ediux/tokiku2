@@ -8,11 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Tokiku.Entity;
+using Tokiku.Controllers;
 
 namespace Tokiku.ViewModels
 {
     public class ManufacturersViewModelCollection : BaseViewModelCollection<ManufacturersViewModel>
     {
+        private ManufacturersManageController _controller;
+
         public ManufacturersViewModelCollection()
         {
             HasError = false;
@@ -23,28 +26,58 @@ namespace Tokiku.ViewModels
 
         }
 
-        public override void Query<T>(Expression<Func<T, bool>> filiter)
+        public ManufacturersManageController Controller
         {
-            throw new NotImplementedException();
+            get { return _controller; }
+            set
+            {
+                _controller = value;
+            }
+        }
+
+        public override void Initialized()
+        {
+            if (_controller == null)
+                _controller = new ManufacturersManageController();
+
+            base.Initialized();
+        }
+
+        public override void Query()
+        {
+            if (_controller == null)
+                return;
+
+            var queryresult = _controller.QueryAll();
+
+            if (!queryresult.HasError)
+            {
+                Clear();
+
+                foreach (var row in queryresult.Result)
+                {
+                    Add(BindingFromModel(row));
+                }
+            }
         }
 
         public override void Refresh()
         {
-            throw new NotImplementedException();
+            Query();
         }
 
         public override void StartUp_Query()
         {
-            throw new NotImplementedException();
+            Query();
         }
     }
 
     public class ManufacturersViewModel : BaseViewModel, IBaseViewModel
     {
-   
+
         public ManufacturersViewModel()
         {
-           
+
         }
 
         public static readonly DependencyProperty IdProperty = DependencyProperty.Register("Id",
@@ -111,7 +144,7 @@ namespace Tokiku.ViewModels
    typeof(ProjectsViewModelCollection), typeof(ManufacturersViewModel),
    new PropertyMetadata(default(ProjectsViewModelCollection), new PropertyChangedCallback(DefaultFieldChanged)));
 
-        [Display(Name="編號")]
+        [Display(Name = "編號")]
         public System.Guid Id { get { return (Guid)GetValue(IdProperty); } set { SetValue(IdProperty, value); RaisePropertyChanged("Id"); } }
         public string Code { get { return (string)GetValue(CodeProperty); } set { SetValue(CodeProperty, value); RaisePropertyChanged("Code"); } }
         public string Name { get { return (string)GetValue(NameProperty); } set { SetValue(NameProperty, value); RaisePropertyChanged("Name"); } }
@@ -324,8 +357,8 @@ namespace Tokiku.ViewModels
         public void QueryModel(Guid ManufacturersId)
         {
             try
-            {                
-                
+            {
+
             }
             catch (Exception)
             {
@@ -341,6 +374,6 @@ namespace Tokiku.ViewModels
             Projects = new ProjectsViewModelCollection();
         }
 
-       
+
     }
 }

@@ -17,8 +17,8 @@
         </Grid.RowDefinitions>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="50*" />
-                <RowDefinition Height="50*" />
+                <RowDefinition Height="60*" />
+                <RowDefinition Height="40*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50*"/>
@@ -48,7 +48,7 @@
                         <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center" Margin="2" x:Name="lblCode" Text="{Binding Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
                         <TextBlock Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="專案全名" />
-                        <TextBox x:Name="tbName" Grid.Row="1" Grid.Column="1" Margin="2" Text="{Binding Path=ProjectName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="tbName_TextChanged" 
+                        <TextBox x:Name="tbName" Grid.Row="1" Grid.Column="1" Margin="2" Text="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="tbName_TextChanged" 
                              IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
                         <TextBlock Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="專案簡稱:"/>
                         <TextBox Width="40" x:Name="tbShortName" Grid.Row="2" Grid.Column="1" Margin="2" TextAlignment="Left" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -135,9 +135,9 @@
                                     <RowDefinition Height="50*"/>
                                 </Grid.RowDefinitions>
                                 <TextBlock Grid.Column="0" Grid.Row="0" Text="結帳日" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="15"/>
-                                <DatePicker Grid.Column="1" Grid.Row="0" Margin="2" FontSize="15" VerticalAlignment="Center" SelectedDate="{Binding CheckoutDay}" SelectedDateFormat="Short" />
+                                <DatePicker Grid.Column="1" Grid.Row="0" Margin="2" FontSize="15" VerticalAlignment="Center" SelectedDate="{Binding CheckoutDay, Converter={StaticResource Number2DateTimeValueConverter}}" SelectedDateFormat="Short" />
                                 <TextBlock Grid.Column="0" Grid.Row="1" Text="付款日" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="15"/>
-                                <DatePicker Grid.Column="1" Grid.Row="1" Margin="2" FontSize="15" VerticalAlignment="Center" SelectedDate="{Binding PaymentDay}" />
+                                <DatePicker Grid.Column="1" Grid.Row="1" Margin="2" FontSize="15" VerticalAlignment="Center" SelectedDate="{Binding PaymentDay, Converter={StaticResource Number2DateTimeValueConverter}}" />
                             </Grid>
                         </GroupBox>
                     </Grid>

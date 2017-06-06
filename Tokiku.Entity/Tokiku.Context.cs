@@ -40,7 +40,6 @@ namespace Tokiku.Entity
         public virtual DbSet<Contacts> Contacts { get; set; }
         public virtual DbSet<Engineering> Engineering { get; set; }
         public virtual DbSet<Manufacturers> Manufacturers { get; set; }
-        public virtual DbSet<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
         public virtual DbSet<MaterialCategories> MaterialCategories { get; set; }
         public virtual DbSet<Materials> Materials { get; set; }
         public virtual DbSet<Molds> Molds { get; set; }
@@ -49,9 +48,11 @@ namespace Tokiku.Entity
         public virtual DbSet<PaymentTypes> PaymentTypes { get; set; }
         public virtual DbSet<ProjectContract> ProjectContract { get; set; }
         public virtual DbSet<ProjectItemCost> ProjectItemCost { get; set; }
-        public virtual DbSet<Projects> Projects { get; set; }
         public virtual DbSet<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
         public virtual DbSet<ShopFlow> ShopFlow { get; set; }
         public virtual DbSet<TicketTypes> TicketTypes { get; set; }
+        public virtual DbSet<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
+        public virtual DbSet<Projects> Projects { get; set; }
+        public virtual DbSet<SupplierTranscationItem> SupplierTranscationItem { get; set; }
     }
 }

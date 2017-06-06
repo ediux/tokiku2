@@ -19,7 +19,8 @@ namespace Tokiku.ViewModels
 
             Status = new DocumentStatusViewModel();
             Projects = new ProjectListViewModelCollection();
-            Manufacturers = new ObservableCollection<ManufacturersViewModel>();
+            Manufacturers = new ManufacturersViewModelCollection();
+
             Clients = new ClientViewModelCollection();
             ToolBarButtons = new ToolbarButtonsViewModel();
             StartUp_Query();
@@ -69,16 +70,16 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 廠商列表
         /// </summary>
-        public ObservableCollection<ManufacturersViewModel> Manufacturers
+        public ManufacturersViewModelCollection Manufacturers
         {
-            get { return (ObservableCollection<ManufacturersViewModel>)GetValue(ManufacturersProperty); }
+            get { return (ManufacturersViewModelCollection)GetValue(ManufacturersProperty); }
             set { SetValue(ManufacturersProperty, value); RaisePropertyChanged("Manufacturers"); }
         }
 
         // Using a DependencyProperty as the backing store for Manufacturers.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ManufacturersProperty =
-            DependencyProperty.Register("Manufacturers", typeof(ObservableCollection<ManufacturersViewModel>), typeof(MainViewModel),
-                new PropertyMetadata(default(ObservableCollection<ManufacturersViewModel>)));
+            DependencyProperty.Register("Manufacturers", typeof(ManufacturersViewModelCollection), typeof(MainViewModel),
+                new PropertyMetadata(default(ManufacturersViewModelCollection)));
         #endregion
 
         #region 客戶列表
@@ -115,26 +116,44 @@ namespace Tokiku.ViewModels
             DependencyProperty.Register("ToolBarButtons", typeof(ToolbarButtonsViewModel), typeof(MainViewModel), new PropertyMetadata(default(ToolbarButtonsViewModel)));
         #endregion
 
+        public override void Initialized()
+        {
+            base.Initialized();
+
+            if (_projects_controller == null)
+                return;
+
+            Projects = new ProjectListViewModelCollection();
+            Manufacturers = new ManufacturersViewModelCollection();
+            Clients = new ClientViewModelCollection();
+
+        }
         public override void StartUp_Query()
         {
-            LoginedUser = BindingFromModel<UserViewModel, Users>(_projects_controller.GetCurrentLoginUser().Result);
-            var projectResult = _projects_controller.Query(v => v.Void == false);
+            Initialized();
 
-            if (!projectResult.HasError)
-            {
-                Projects = new ProjectListViewModelCollection(projectResult.Result
-                    .Select(s => BindingFromModel<ProjectListViewModel, Projects>(s)));
-            }
+            if (LoginedUser == null && _projects_controller != null)
+                LoginedUser = BindingFromModel<UserViewModel, Users>(_projects_controller.GetCurrentLoginUser().Result);
+
+            Projects.StartUp_Query();
+            Manufacturers.StartUp_Query();
+            Clients.StartUp_Query();
+
             //((MainViewModel)DataContext).Manufacturers = mc.QueryAll();
             //((MainViewModel)DataContext).Clients = clientcontroller.QueryAll();
+        }
+
+        public override void Query()
+        {
+            Projects.Query();
+            Manufacturers.Query();
+            Clients.Query();
         }
 
         public override void Refresh()
         {
             //重新整理檢視模型
-            //((MainViewModel)DataContext).Projects = controller.QueryAll();
-            //((MainViewModel)DataContext).Manufacturers = mc.QueryAll();
-            //((MainViewModel)DataContext).Clients = clientcontroller.QueryAll();
+            Query();
         }
     }
 }

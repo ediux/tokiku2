@@ -19,8 +19,8 @@ namespace Tokiku.Entity
         public string Code { get; set; }
         
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
-        [Required]
-        public string ProjectName { get; set; }
+        [Required(ErrorMessage = "專案名稱不能為空白。")]
+        public string Name { get; set; }
         [Required]
         public float Area { get; set; }
         [Required]
@@ -33,8 +33,7 @@ namespace Tokiku.Entity
         public System.DateTime StartDate { get; set; }
         [Required]
         public byte State { get; set; }
-        [Required]
-        public System.Guid ClientId { get; set; }
+        public Nullable<System.Guid> ClientId { get; set; }
         [Required]
         public bool Void { get; set; }
         [Required]
@@ -73,10 +72,10 @@ namespace Tokiku.Entity
         public string SupervisionUnit { get; set; }
         public string Comment { get; set; }
     
-        public virtual ICollection<MoldsInProjects> ProjectMolds { get; set; }
+        public virtual ICollection<MoldsInProjects> MoldsInProjects { get; set; }
         public virtual ICollection<ProjectContract> ProjectContract { get; set; }
         public virtual States States { get; set; }
-        public virtual ICollection<Manufacturers> Clients { get; set; }
-        public virtual ICollection<Manufacturers> Suppliers { get; set; }
+        public virtual ICollection<Manufacturers> Manufacturers { get; set; }
+        public virtual ICollection<SupplierTranscationItem> SupplierTranscationItem { get; set; }
     }
 }

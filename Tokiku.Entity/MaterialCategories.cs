@@ -17,10 +17,10 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MaterialCategories()
         {
-            this.ManufacturersBussinessItems = new HashSet<ManufacturersBussinessItems>();
             this.Materials = new HashSet<Materials>();
             this.MoldsInProjects = new HashSet<MoldsInProjects>();
             this.ProjectItemCost = new HashSet<ProjectItemCost>();
+            this.ManufacturersBussinessItems = new HashSet<ManufacturersBussinessItems>();
         }
     
         public System.Guid Id { get; set; }
@@ -29,12 +29,12 @@ namespace Tokiku.Entity
         public System.Guid CreateUserId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Materials> Materials { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MoldsInProjects> MoldsInProjects { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectItemCost> ProjectItemCost { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
     }
 }

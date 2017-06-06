@@ -29,7 +29,7 @@ namespace Tokiku.Entity
         /// <summary>
         /// 專案名稱
         /// </summary>
-        public string ProjectName { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// 專案名稱(簡稱)
         /// </summary>

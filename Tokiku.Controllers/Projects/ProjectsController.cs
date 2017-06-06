@@ -201,7 +201,7 @@ namespace Tokiku.Controllers
                                  {
                                      Id = p.Id,
                                      Code = p.Code,
-                                     ProjectName = p.ProjectName,
+                                     Name = p.Name,
                                      ShortName = p.ShortName,
                                      State = p.States.StateName,
                                      StartDate = p.StartDate,
@@ -402,13 +402,13 @@ namespace Tokiku.Controllers
                 if (text != null && text.Length > 0)
                 {
                     var result = projectsrepo.Where(s => s.Code.Contains(text)
-                     || s.ProjectName.Contains(text)
+                     || s.Name.Contains(text)
                     || (s.ShortName != null && s.ShortName.Contains(text)))
                     .Select(s => new ProjectListEntity()
                     {
                         Id = s.Id,
                         Code = s.Code,
-                        ProjectName = s.ProjectName,
+                        Name = s.Name,
                         ShortName = s.ShortName,
                         State = s.States.StateName,
                         StartDate = s.StartDate,

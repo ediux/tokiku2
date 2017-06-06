@@ -20,14 +20,16 @@ namespace Tokiku.Entity
         [Required]
         public string Name { get; set; }
         [Required]
-        public int TranscationId { get; set; }
-        [Required]
         public byte PaymentTypeId { get; set; }
         [Required]
         public byte TicketTypeId { get; set; }
+        [Required]
+        public System.Guid ManufacturersId { get; set; }
     
         public virtual MaterialCategories MaterialCategories { get; set; }
         public virtual PaymentTypes PaymentTypes { get; set; }
         public virtual TicketTypes TicketTypes { get; set; }
+        public virtual Manufacturers Manufacturers { get; set; }
+        public virtual ICollection<SupplierTranscationItem> SupplierTranscationItem { get; set; }
     }
 }

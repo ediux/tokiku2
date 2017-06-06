@@ -29,6 +29,9 @@ namespace Tokiku.ViewModels
 
             try
             {
+                if (entity == null)
+                    return;
+
                 Type t = entity.GetType();
                 Type ct = ViewModel.GetType();
 #if DEBUG

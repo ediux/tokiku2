@@ -14,15 +14,24 @@ namespace Tokiku.Entity
     
     public partial class ManufacturersBussinessItems
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ManufacturersBussinessItems()
+        {
+            this.SupplierTranscationItem = new HashSet<SupplierTranscationItem>();
+        }
+    
         public System.Guid Id { get; set; }
         public System.Guid MaterialCategoriesId { get; set; }
         public string Name { get; set; }
-        public int TranscationId { get; set; }
         public byte PaymentTypeId { get; set; }
         public byte TicketTypeId { get; set; }
+        public System.Guid ManufacturersId { get; set; }
     
         public virtual MaterialCategories MaterialCategories { get; set; }
         public virtual PaymentTypes PaymentTypes { get; set; }
         public virtual TicketTypes TicketTypes { get; set; }
+        public virtual Manufacturers Manufacturers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SupplierTranscationItem> SupplierTranscationItem { get; set; }
     }
 }

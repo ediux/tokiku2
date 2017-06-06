@@ -24,7 +24,7 @@ namespace Tokiku.Entity
         [Required]
         public System.Guid CreateUserId { get; set; }
     
-        public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
         public virtual ICollection<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
+        public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
     }
 }

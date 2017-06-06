@@ -91,6 +91,7 @@
     </Compile>
     <Compile Include="ValueConverters\DocumentLifeCycleStateToVisibilityValueConverter.cs" />
     <Compile Include="ValueConverters\NOTGateValueConverter.cs" />
+    <Compile Include="ValueConverters\Number2DateTimeValueConverter.cs" />
     <Compile Include="ValueConverters\RadioButtonSwitchValueConverter.cs" />
     <Compile Include="ValueConverters\BooleanToVisibilityValueConveter.cs" />
     <Compile Include="ValueConverters\ReadModeToDisabledValueConverter.cs" />
