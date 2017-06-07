@@ -57,6 +57,8 @@ namespace Tokiku.Entity
         public System.Guid CreateUserId { get; set; }
         public string Principal { get; set; }
         public string MainContactPerson { get; set; }
+        public string Mobile { get; set; }
+        public string Extension { get; set; }
     
         public virtual PaymentTypes PaymentTypes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

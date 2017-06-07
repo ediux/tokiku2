@@ -33,13 +33,6 @@ namespace Tokiku.Controllers
                                 orderby q.Code descending
                                 select q).FirstOrDefault();
 
-                //model.Contracts = new ContactsViewModelCollection();
-                //model.ProjectContract = new ProjectContractViewModelCollection();
-                //model.Projects = new ProjectsViewModelCollection();
-                //model.Status.IsNewInstance = true;
-                //model.Status.IsSaved = false;
-                //model.Status.IsModify = false;
-
                 if (findlast != null)
                 {
                     if (findlast.Code.StartsWith("CM"))
@@ -54,6 +47,7 @@ namespace Tokiku.Controllers
                     }
                 }
 
+                model.Id = Guid.NewGuid();
                 model.Code = "CM001";
 
                 return ExecuteResultEntity<Manufacturers>.CreateResultEntity(model);
@@ -196,8 +190,8 @@ namespace Tokiku.Controllers
         //        ClientViewModel rtn = new ClientViewModel();
         //        setErrortoModel(rtn, ex);
         //        return rtn;
-        //    }
         //}
+        //    }
 
         //public override ExecuteResultEntity Add(Manufacturers entity)
         //{

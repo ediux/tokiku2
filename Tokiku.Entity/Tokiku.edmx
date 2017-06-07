@@ -141,6 +141,8 @@
           <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Principal" Type="nvarchar" MaxLength="50" />
           <Property Name="MainContactPerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="10" />
+          <Property Name="Extension" Type="nvarchar" MaxLength="6" />
         </EntityType>
         <EntityType Name="ManufacturersBussinessItems">
           <Key>
@@ -1765,6 +1767,8 @@
           <NavigationProperty Name="Contacts" Relationship="TokikuModel.ContractsInManufacturers" FromRole="Manufacturers" ToRole="Contacts" />
           <NavigationProperty Name="ClientForProjects" Relationship="TokikuModel.ClientsInProjects" FromRole="Manufacturers" ToRole="Projects" />
           <NavigationProperty Name="ManufacturersBussinessItems" Relationship="TokikuModel.FK_ManufacturersBussinessItems_Manufacturers" FromRole="Manufacturers" ToRole="ManufacturersBussinessItems" />
+          <Property Name="Mobile" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Extension" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="MaterialCategories">
           <Key>
@@ -2597,7 +2601,9 @@
     <EntitySetMapping Name="Manufacturers">
       <EntityTypeMapping TypeName="IsTypeOf(TokikuModel.Manufacturers)">
         <MappingFragment StoreEntitySet="Manufacturers">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Extension" ColumnName="Extension" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Code" ColumnName="Code" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="ShortName" ColumnName="ShortName" />

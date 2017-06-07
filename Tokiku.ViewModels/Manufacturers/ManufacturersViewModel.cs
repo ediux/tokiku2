@@ -66,9 +66,23 @@ namespace Tokiku.ViewModels
         {
             Query();
         }
+
+        public void QueryByText(string originalSource)
+        {
+            var executeresult = _controller.SearchByText(originalSource);
+            if (!executeresult.HasError)
+            {
+                var objectdataset = executeresult.Result;
+                ClearItems();
+                foreach (var row in objectdataset)
+                {
+                    Add(BindingFromModel(row));
+                }
+            }
+        }
     }
 
-    public class ManufacturersViewModel : BaseViewModel, IBaseViewModel
+    public class ManufacturersViewModel : BaseViewModel
     {
         private Controllers.ManufacturersManageController controller = new ManufacturersManageController();
         public ManufacturersViewModel()
@@ -116,7 +130,7 @@ namespace Tokiku.ViewModels
          typeof(ManufacturersViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
         public static readonly DependencyProperty MainContactPersonIdProperty = DependencyProperty.Register("MainContactPersonId",
-            typeof(Guid), typeof(ManufacturersViewModel), new PropertyMetadata(Guid.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
+            typeof(string), typeof(ManufacturersViewModel), new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
 
         public static readonly DependencyProperty CommentProperty = DependencyProperty.Register("Comment",
             typeof(string), typeof(ManufacturersViewModel), new PropertyMetadata(string.Empty));
@@ -136,9 +150,7 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty CreateUserProperty = DependencyProperty.Register("CreateUser",
     typeof(UserViewModel), typeof(ManufacturersViewModel), new PropertyMetadata(default(UserViewModel)));
 
-        public static readonly DependencyProperty ProjectsProperty = DependencyProperty.Register("Projects",
-   typeof(ProjectsViewModelCollection), typeof(ManufacturersViewModel),
-   new PropertyMetadata(default(ProjectsViewModelCollection), new PropertyChangedCallback(DefaultFieldChanged)));
+
 
         [Display(Name = "編號")]
         public System.Guid Id { get { return (Guid)GetValue(IdProperty); } set { SetValue(IdProperty, value); RaisePropertyChanged("Id"); } }
@@ -154,7 +166,7 @@ namespace Tokiku.ViewModels
         public string FactoryPhone { get { return (string)GetValue(FactoryPhoneProperty); } set { SetValue(FactoryPhoneProperty, value); RaisePropertyChanged("FactoryPhone"); } }
         public string FactoryFax { get { return (string)GetValue(FactoryFaxProperty); } set { SetValue(FactoryFaxProperty, value); RaisePropertyChanged("FactoryFax"); } }
         public string FactoryAddress { get { return (string)GetValue(FactoryAddressProperty); } set { SetValue(FactoryAddressProperty, value); RaisePropertyChanged("FactoryAddress"); } }
-        public System.Guid MainContactPersonId { get { return (Guid)GetValue(MainContactPersonIdProperty); } set { SetValue(MainContactPersonIdProperty, value); RaisePropertyChanged("MainContactPersonId"); } }
+        public string MainContactPersonId { get { return (string)GetValue(MainContactPersonIdProperty); } set { SetValue(MainContactPersonIdProperty, value); RaisePropertyChanged("MainContactPersonId"); } }
         public string Comment { get { return (string)GetValue(CommentProperty); } set { SetValue(CommentProperty, value); RaisePropertyChanged("Comment"); } }
         public bool Void { get { return (bool)GetValue(VoidProperty); } set { SetValue(VoidProperty, value); RaisePropertyChanged("Void"); } }
         public bool IsClient { get { return (bool)GetValue(IsClientProperty); } set { SetValue(IsClientProperty, value); RaisePropertyChanged("IsClient"); } }
@@ -162,25 +174,9 @@ namespace Tokiku.ViewModels
         public System.Guid CreateUserId { get { return (Guid)GetValue(CreateUserIdProperty); } set { SetValue(CreateUserIdProperty, value); RaisePropertyChanged("CreateUserId"); } }
         public virtual UserViewModel CreateUser { get { return (UserViewModel)GetValue(CreateUserProperty); } set { SetValue(CreateUserProperty, value); RaisePropertyChanged("CreateUser"); } }
 
-        //public virtual ICollection<ProjectContract> ProjectContract { get; set; }
-
-        //public virtual ICollection<Materials> Materials { get; set; }
-
-        public virtual ProjectsViewModelCollection Projects
-        {
-            get
-            {
-                return (ProjectsViewModelCollection)GetValue(ProjectsProperty);
-            }
-            set
-            {
-                SetValue(ProjectsProperty, value);
-                RaisePropertyChanged("Projects");
-            }
-        }
-
-
-
+        /// <summary>
+        /// 會計代碼
+        /// </summary>
         public string AccountingCode
         {
             get { return (string)GetValue(AccountingCodeProperty); }
@@ -194,7 +190,9 @@ namespace Tokiku.ViewModels
                 new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
 
-
+        /// <summary>
+        /// 銀行名稱
+        /// </summary>
         public string BankName
         {
             get { return (string)GetValue(BankNameProperty); }
@@ -206,6 +204,9 @@ namespace Tokiku.ViewModels
             DependencyProperty.Register("BankName", typeof(string), typeof(ManufacturersViewModel),
                 new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
+        /// <summary>
+        /// 銀行帳號
+        /// </summary>
         public string BankAccount
         {
             get { return (string)GetValue(BankAccountProperty); }
@@ -217,8 +218,10 @@ namespace Tokiku.ViewModels
             DependencyProperty.Register("BankAccount", typeof(string), typeof(ManufacturersViewModel),
                 new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
-
-
+        #region BankAccountName
+        /// <summary>
+        /// 銀行帳號名稱
+        /// </summary>
         public string BankAccountName
         {
             get { return (string)GetValue(BankAccountNameProperty); }
@@ -229,9 +232,12 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty BankAccountNameProperty =
             DependencyProperty.Register("BankAccountName", typeof(string), typeof(ManufacturersViewModel),
                 new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
+        #endregion
 
-
-
+        #region PaymentType
+        /// <summary>
+        /// 支付方式
+        /// </summary>
         public byte PaymentType
         {
             get { return (byte)GetValue(PaymentTypeProperty); }
@@ -242,25 +248,30 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty PaymentTypeProperty =
             DependencyProperty.Register("PaymentType", typeof(byte), typeof(ManufacturersViewModel),
                 new PropertyMetadata((byte)0, new PropertyChangedCallback(DefaultFieldChanged)));
+        #endregion
 
-
-
-
-        public ObservableCollection<PaymentTypeViewModel> PaymentTypes
+        #region PaymentTypes
+        /// <summary>
+        /// 支付方式定義表
+        /// </summary>
+        public PaymentTypesManageViewModelCollection PaymentTypes
         {
-            get { return (ObservableCollection<PaymentTypeViewModel>)GetValue(PaymentTypesProperty); }
+            get { return (PaymentTypesManageViewModelCollection)GetValue(PaymentTypesProperty); }
             set { SetValue(PaymentTypesProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for PaymentTypes.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PaymentTypesProperty =
-            DependencyProperty.Register("PaymentTypes", typeof(ObservableCollection<PaymentTypeViewModel>),
+            DependencyProperty.Register("PaymentTypes", typeof(PaymentTypesManageViewModelCollection),
                 typeof(ManufacturersViewModel),
-                new PropertyMetadata(default(ObservableCollection<PaymentTypeViewModel>),
+                new PropertyMetadata(default(PaymentTypesManageViewModelCollection),
                     new PropertyChangedCallback(DefaultFieldChanged)));
+        #endregion
 
-
-
+        #region 支票號碼 CheckNumber
+        /// <summary>
+        /// 支票號碼
+        /// </summary>
         public string CheckNumber
         {
             get { return (string)GetValue(CheckNumberProperty); }
@@ -271,8 +282,12 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty CheckNumberProperty =
             DependencyProperty.Register("CheckNumber", typeof(string),
                 typeof(ManufacturersViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
+        #endregion
 
-
+        #region 聯絡人清單 Contracts
+        /// <summary>
+        /// 聯絡人清單
+        /// </summary>
         public ContactsViewModelCollection Contracts
         {
             get { return (ContactsViewModelCollection)GetValue(ContractsProperty); }
@@ -286,22 +301,12 @@ namespace Tokiku.ViewModels
                 new PropertyMetadata(default(ObservableCollection<ContactsViewModel>),
                     new PropertyChangedCallback(DefaultFieldChanged)));
 
+        #endregion
 
-
-        public MaterialsViewModelCollection Materials
-        {
-            get { return (MaterialsViewModelCollection)GetValue(MaterialsProperty); }
-            set { SetValue(MaterialsProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for Materials.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty MaterialsProperty =
-            DependencyProperty.Register("Materials", typeof(MaterialsViewModelCollection),
-                typeof(ManufacturersViewModel),
-                new PropertyMetadata(default(ObservableCollection<MaterialsViewModel>), new PropertyChangedCallback(DefaultFieldChanged)));
-
-
-
+        #region 選擇的聯絡人
+        /// <summary>
+        /// 選擇的聯絡人
+        /// </summary>
         public ContactsViewModel SelectedContract
         {
             get { return (ContactsViewModel)GetValue(SelectedContractProperty); }
@@ -315,23 +320,9 @@ namespace Tokiku.ViewModels
                 new PropertyMetadata(default(ContactsViewModel),
                     new PropertyChangedCallback(DefaultFieldChanged)));
 
+        #endregion
 
-
-
-        public EngineeringViewModelCollection Engineerings
-        {
-            get { return (EngineeringViewModelCollection)GetValue(EngineeringsProperty); }
-            set { SetValue(EngineeringsProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for Engineerings.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty EngineeringsProperty =
-            DependencyProperty.Register("Engineerings",
-                typeof(EngineeringViewModelCollection),
-                typeof(ManufacturersViewModel),
-                new PropertyMetadata(default(EngineeringViewModelCollection),
-                    new PropertyChangedCallback(DefaultFieldChanged)));
-
+        #region IsDefault
         public bool IsDefault
         {
             get { return (bool)GetValue(IsDefaultProperty); }
@@ -342,7 +333,30 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty IsDefaultProperty =
             DependencyProperty.Register("IsDefault", typeof(bool), typeof(ManufacturersViewModel),
                 new PropertyMetadata(false, new PropertyChangedCallback(DefaultFieldChanged)));
+        #endregion
 
+        #region ManufacturersBussinessItems 營業項目
+
+        /// <summary>
+        /// 營業項目
+        /// </summary>
+        public ManufacturersBussinessItemsViewModelColletion ManufacturersBussinessItems
+        {
+            get { return (ManufacturersBussinessItemsViewModelColletion)GetValue(ManufacturersBussinessItemsProperty); }
+            set { SetValue(ManufacturersBussinessItemsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ManufacturersBussinessItems.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ManufacturersBussinessItemsProperty =
+            DependencyProperty.Register("ManufacturersBussinessItems", typeof(ManufacturersBussinessItemsViewModelColletion), typeof(ManufacturersViewModel), new PropertyMetadata(default(ManufacturersBussinessItemsViewModelColletion)));
+
+        #endregion
+
+
+
+        #region 模型命令
+
+        #region 查詢單一個體的檢視資料
         /// <summary>
         /// 查詢單一個體的檢視資料
         /// </summary>
@@ -360,11 +374,15 @@ namespace Tokiku.ViewModels
             }
 
         }
+        #endregion
 
         public override void Initialized()
         {
             base.Initialized();
-            Projects = new ProjectsViewModelCollection();
+            Id = Guid.NewGuid();
+            Contracts = new ContactsViewModelCollection();
+            PaymentTypes = new PaymentTypesManageViewModelCollection();
+            ManufacturersBussinessItems = new ManufacturersBussinessItemsViewModelColletion();
         }
 
         public override void SaveModel()
@@ -375,8 +393,6 @@ namespace Tokiku.ViewModels
             {
                 CreateUserId = controller.GetCurrentLoginUser().Result.UserId;
             }
-
-            CopyToModel(data, this);
 
             if (Contracts != null)
             {
@@ -395,19 +411,7 @@ namespace Tokiku.ViewModels
                 }
             }
 
-            if (Materials == null)
-                Materials = new MaterialsViewModelCollection();
-
-            if (Engineerings != null)
-            {
-                foreach (EngineeringViewModel model in Engineerings)
-                {
-                    if (model != null)
-                    {
-                        model.SaveModel();
-                    }
-                }
-            }
+            CopyToModel(data, this);
 
             var result = controller.CreateOrUpdate(data);
 
@@ -415,9 +419,18 @@ namespace Tokiku.ViewModels
             {
                 Errors = result.Errors;
                 HasError = result.HasError;
+                Refresh();
+                return;
             }
+
+            if (Contracts != null)
+                Contracts.SaveModel();
 
             Refresh();
         }
+
+        
+        #endregion
+
     }
 }

@@ -102,7 +102,7 @@ namespace TokikuNew.Views
                 {
 
                     case DocumentLifeCircle.Create:
-                        this.DataContext = controller.CreateNew();
+                        DataContext= new ClientViewModel();
                         SelectedManufacturers = (ClientViewModel)DataContext;
                         SelectedManufacturers.CreateUserId = LoginedUser.UserId;
 
@@ -115,43 +115,7 @@ namespace TokikuNew.Views
 
                         break;
                     case DocumentLifeCircle.Save:
-                        if (SelectedManufacturers.CreateUserId == Guid.Empty)
-                        {
-                            SelectedManufacturers.CreateUserId = LoginedUser.UserId;
-                        }
-
-                        if (SelectedManufacturers.Contracts != null)
-                        {
-                            if (SelectedManufacturers.Contracts.Count > 0)
-                            {
-                                foreach (ContactsViewModel model in SelectedManufacturers.Contracts)
-                                {
-                                    model.Id = Guid.NewGuid();
-
-                                    if (model.CreateUserId == Guid.Empty)
-                                    {
-                                        model.CreateUserId = LoginedUser.UserId;
-                                    }
-                                }
-                            }
-                        }
-
-                        if (SelectedManufacturers.Engineerings != null)
-                        {
-                            if (SelectedManufacturers.Engineerings.Count > 0)
-                            {
-                                foreach (EngineeringViewModel model in SelectedManufacturers.Engineerings)
-                                {
-
-                                }
-                            }
-                        }
-                        SelectedManufacturers.IsClient = true;
-
-                        if (SelectedManufacturers.Materials == null)
-                            SelectedManufacturers.Materials = new MaterialsViewModelCollection();
-
-                        //controller.CreateOrUpdate(SelectedManufacturers);
+                        SelectedManufacturers.SaveModel();
 
                         if (SelectedManufacturers.HasError)
                         {

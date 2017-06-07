@@ -44,8 +44,6 @@
                 <DataGridTextColumn Header="eMail" Binding="{Binding EMail}" Width="200" />
                 <DataGridTextColumn Header="部門" Binding="{Binding Dep}" Width="100" />
                 <DataGridTextColumn Header="職稱" Binding="{Binding Title}" Width="100" />
-                <DataGridCheckBoxColumn Header="狀態" Binding="{Binding Void}" Width="30"/>
-                <DataGridTextColumn Header="備註" Binding="{Binding Comment}" Width="200" />
             </DataGrid.Columns>
         </c:CustomDataGrid>
     </Grid>

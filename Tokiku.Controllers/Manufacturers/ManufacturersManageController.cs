@@ -116,8 +116,9 @@ namespace Tokiku.Controllers
             if (originalSource != null && originalSource.Length > 0)
             {
                 var result = (from p in ManufacturersRepository.All()
+                              from b in p.ManufacturersBussinessItems
                               where p.Void == false && p.IsClient == false &&
-                              (p.Code.Contains(originalSource) || p.Name.Contains(originalSource) || p.ShortName.Contains(originalSource))
+                              (p.Name.Contains(originalSource) || p.Principal.Contains(originalSource) || b.Name.Contains(originalSource))
                               orderby p.Code ascending
                               select p);
 

@@ -370,10 +370,8 @@ namespace Tokiku.Controllers
 
                         return ExecuteResultEntity<T>.CreateResultEntity(findresult);
                     }
-
-                    return ExecuteResultEntity<T>.CreateErrorResultEntity("Data not found.");
                 }
-
+                return ExecuteResultEntity<T>.CreateErrorResultEntity("Data not found.");
             }
             catch (Exception ex)
             {

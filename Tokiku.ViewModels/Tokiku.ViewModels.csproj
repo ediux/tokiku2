@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ManufacturersBussinessItemsViewModel.cs" />
+    <Compile Include="MaterialCategoriesViewModel.cs" />
     <Compile Include="Projects\Orders\AluminumExtrusionOrderSheetViewModel.cs" />
     <Compile Include="Projects\CompositionsViewModel.cs" />
     <Compile Include="Projects\CompositionTypesViewModel.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Shared\Base\WithLoginUserBaseViewModel.cs" />
     <Compile Include="MES\ShopFlowHistoryViewModel.cs" />
     <Compile Include="Shared\StatesViewModel.cs" />
+    <Compile Include="TicketTypesViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tokiku.Controllers\Tokiku.Controllers.csproj">

@@ -159,7 +159,7 @@ namespace TokikuNew.Views
 
         private void ContractSearchBar_ResetSearch(object sender, RoutedEventArgs e)
         {
-            ContractList.ItemsSource = controller.QueryAll().Result;
+            ((ContactsViewModelCollection)DataContext).Query(w => w.Name.Contains((string)e.OriginalSource));
         }
 
         private void ContractSearchBar_Search(object sender, RoutedEventArgs e)
@@ -194,7 +194,7 @@ namespace TokikuNew.Views
 
             var founddefuts = ((ManufacturersViewModel)ContractList.DataContext).Contracts
                 .Where(w => w.IsDefault == true
-            && w.Id != currentrow.Id );
+             );
 
             if (founddefuts.Any())
             {
@@ -215,8 +215,6 @@ namespace TokikuNew.Views
                     currentrow.IsDefault = true;
                 }
             }
-          
-            //ContactsViewModel contact = (ContactsViewModel)e.OriginalSource;
 
         }
     }

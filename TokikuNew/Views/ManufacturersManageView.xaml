@@ -93,10 +93,10 @@
                     </Grid>
                 </GroupBox>
                 <GroupBox Grid.Row="1" Grid.Column="0" Header="營業項目" Margin="5">
-                    <c:CustomDataGrid CanUserAddRows="True" CanUserDeleteRows="True">
+                    <c:CustomDataGrid CanUserAddRows="True" CanUserDeleteRows="True" ItemsSource="{Binding ManufacturersBussinessItems}">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="類別"/>
-                            <DataGridTextColumn Header="品項"/>
+                            <DataGridTextColumn Header="類別" Binding="{Binding MaterialCategories.Name}"/>
+                            <DataGridTextColumn Header="品項" Binding="{Binding Name}"/>
                         </DataGrid.Columns>
                     </c:CustomDataGrid>
                 </GroupBox>
@@ -113,12 +113,12 @@
                     <c:CustomDataGrid CanUserAddRows="False" CanUserDeleteRows="False"
                                        AutoGenerateColumns="False"
                                       IsReadOnly="True"
-                                      ItemsSource="{Binding Engineerings}">
+                                      ItemsSource="{Binding ManufacturersBussinessItems}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="工程代碼" Binding="{Binding Code}"/>
                             <DataGridTextColumn Header="工程名稱" Binding="{Binding Name}"/>
                             <DataGridTextColumn Header="交易品項" Binding="{Binding TranscationItemName}"/>
-                            <DataGridTextColumn Header="下單日期" Binding="{Binding StartDate,StringFormat={}{0:yyyy/MM/dd}}"/>
+                            <DataGridTextColumn Header="訂單日期" Binding="{Binding StartDate,StringFormat={}{0:yyyy/MM/dd}}"/>
                         </DataGrid.Columns>
                     </c:CustomDataGrid>
                 </GroupBox>

@@ -77,7 +77,13 @@ namespace TokikuNew.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            SelectedManufacturers = (ManufacturersViewModel)DataContext;
+            Binding BindingDataContext = new Binding();
+            BindingDataContext.Source = DataContext;
+            BindingDataContext.Path = new PropertyPath(DataContextProperty);
+            BindingDataContext.Mode = BindingMode.OneWay;
+            BindingDataContext.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+
+            SetBinding(SelectedManufacturersProperty, BindingDataContext); 
         }
 
         private void tbName_TextChanged(object sender, TextChangedEventArgs e)
@@ -112,7 +118,7 @@ namespace TokikuNew.Views
                     case DocumentLifeCircle.Create:
 
                         DataContext = controller.CreateNew();
-                        SelectedManufacturers = (ManufacturersViewModel)DataContext;
+                        //SelectedManufacturers = (ManufacturersViewModel)DataContext;
                         SelectedManufacturers.CreateUserId = LoginedUser.UserId;
                         if (SelectedManufacturers.HasError)
                         {
@@ -132,26 +138,6 @@ namespace TokikuNew.Views
                             SelectedManufacturers.CreateUserId = LoginedUser.UserId;
                         }
 
-                        if (SelectedManufacturers.Contracts != null)
-                        {
-                            if (SelectedManufacturers.Contracts.Count > 0)
-                            {
-                                foreach (ContactsViewModel model in SelectedManufacturers.Contracts)
-                                {
-
-                                    model.Id = Guid.NewGuid();
-
-                                    if (model.CreateUserId == Guid.Empty)
-                                    {
-                                        model.CreateUserId = LoginedUser.UserId;
-                                    }
-                                }
-                            }
-                        }
-
-                        if (SelectedManufacturers.Materials == null)
-                            SelectedManufacturers.Materials = new MaterialsViewModelCollection();
-
                         ((ManufacturersViewModel)DataContext).SaveModel();
 
                         if (SelectedManufacturers.HasError)
@@ -162,8 +148,6 @@ namespace TokikuNew.Views
                             //DataContext = controller.CreateNew();
                             break;
                         }
-
-
 
                         if (dockBar.LastState == DocumentLifeCircle.Create)
                         {

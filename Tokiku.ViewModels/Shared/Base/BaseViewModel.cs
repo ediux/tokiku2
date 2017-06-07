@@ -21,12 +21,8 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 將來自資料庫的資料實體抄到檢視模型。
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="entity"></param>
         protected void BindingFromModel<TViewB, TB>(TB entity, TViewB ViewModel) where TViewB : IBaseViewModel where TB : class
         {
-
-
             try
             {
                 if (entity == null)
@@ -209,6 +205,12 @@ namespace Tokiku.ViewModels
                             {
                                 continue;
                             }
+
+                            if (ViewModelProperty.PropertyType.BaseType.IsGenericType && ViewModelProperty.PropertyType.BaseType.GetGenericTypeDefinition().Name == (typeof(BaseViewModelCollection<>).Name))
+                            {
+                                continue;
+                            }
+
 #if DEBUG
                             Debug.WriteLine(string.Format("資料實體屬性 {0}({2}) 內容值為 {1}.\n", EntityProperty.Name, entityvalue, EntityProperty.PropertyType.Name));
                             Debug.WriteLine(string.Format("檢視模型屬性 {0}({2}) 內容值為 {1}.\n", ViewModelProperty.Name, value, ViewModelProperty.PropertyType.Name));

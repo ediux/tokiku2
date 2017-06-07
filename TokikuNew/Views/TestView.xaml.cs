@@ -27,7 +27,7 @@ namespace TokikuNew.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            
+           
             TestWorkBook.Sheets[0].DataSource = this.DataContext;
         }
     }

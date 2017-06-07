@@ -15,11 +15,11 @@ namespace Tokiku.Entity
         public System.Guid Id { get; set; }
         
         [StringLength(15, ErrorMessage="欄位長度不得大於 15 個字元")]
-        [Required]
+        [Required(ErrorMessage ="廠商代號/客戶代號為必要項!")]
         public string Code { get; set; }
         
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
-        [Required]
+        [Required(ErrorMessage ="廠商名稱/客戶名稱為必要項!")]
         public string Name { get; set; }
         
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
@@ -89,7 +89,11 @@ namespace Tokiku.Entity
         
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
         public string MainContactPerson { get; set; }
-    
+        [StringLength(10, ErrorMessage = "欄位長度不得大於 50 個字元")]
+        public string Mobile { get; set; }
+        [StringLength(10, ErrorMessage = "欄位長度不得大於 50 個字元")]
+        public string Extension { get; set; }
+
         public virtual PaymentTypes PaymentTypes { get; set; }
         public virtual ICollection<Molds> Molds { get; set; }
         public virtual ICollection<ProjectItemCost> ProjectItemCost { get; set; }

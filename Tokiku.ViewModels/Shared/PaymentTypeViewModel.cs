@@ -7,6 +7,11 @@ using System.Windows;
 
 namespace Tokiku.ViewModels
 {
+    public class PaymentTypeViewModelCollection : BaseViewModelCollection<PaymentTypeViewModel>
+    {
+
+    }
+
     public class PaymentTypeViewModel : BaseViewModel,IBaseViewModel
     {
 

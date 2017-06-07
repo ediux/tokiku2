@@ -96,8 +96,8 @@
                         <TextBlock Text="完工日期:" Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
                         <DatePicker x:Name="CompletionDate" Grid.Row="2" Grid.Column="1" Margin="2" FontSize="12" Text="{Binding CompletionDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat={}{0:yyyy/MM/dd}}" 
                                     IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
-                        <TextBlock Grid.Row="4" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Margin="0,5,0,5" Text="建築師"/>
-                        <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" Text="{Binding Architect, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                        <TextBlock Grid.Row="3" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Margin="0,5,0,5" Text="建築師"/>
+                        <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" Text="{Binding Architect, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                              IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
                         <TextBlock Grid.Row="5" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Margin="0,5,0,5" Text="建築高度:"/>
                         <Grid Grid.Row="5" Grid.Column="1">
@@ -153,8 +153,8 @@
                         <ColumnDefinition Width="10*"/>
                         <ColumnDefinition Width="70*"/>
                     </Grid.ColumnDefinitions>
-                    <local:VendorListView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
-                    <local:BusinessItemListView Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="5">
+                    <local:VendorListView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" DataContext="{Binding Suppliers}" />
+                    <local:BusinessItemListView Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" DataContext="{Binding Suppliers.ManufacturersBussinessItems}" >
                         
                     </local:BusinessItemListView>
 

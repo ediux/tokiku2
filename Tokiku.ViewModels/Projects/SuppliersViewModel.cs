@@ -7,7 +7,7 @@ using System.Windows;
 using Tokiku.Controllers;
 using Tokiku.Entity;
 
-namespace Tokiku.ViewModels.Projects
+namespace Tokiku.ViewModels
 {
     public class SuppliersViewModelCollection : BaseViewModelCollection<SuppliersViewModel>
     {

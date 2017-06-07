@@ -47,12 +47,34 @@ namespace Tokiku.ViewModels
             }
         }
 
+        public void QueryByClient(Guid Client)
+        {
+            var queryresult = _projectcontroller.Query(a => a.Void == false && a.ClientId == Client);
+            if (!queryresult.HasError)
+            {
+                foreach (var row in queryresult.Result)
+                {
+                    ProjectsViewModel model = BindingFromModel(row);
+                    
+                    Add(model);
+                }
+            }
+            else
+            {
+                Errors = queryresult.Errors;
+                HasError = queryresult.HasError;
+            }
+        }
     }
 
     public class ProjectsViewModel : BaseViewModel, IBaseViewModel
     {
         private ProjectsController _projectcontroller;
 
+        public ProjectsViewModel()
+        {
+            _projectcontroller = new ProjectsController();
+        }
         public ProjectsViewModel(ProjectsController projectcontroller)
         {
             _projectcontroller = projectcontroller;

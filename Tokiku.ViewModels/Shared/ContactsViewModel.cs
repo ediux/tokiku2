@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Windows;
 
@@ -10,7 +11,7 @@ namespace Tokiku.ViewModels
     {
         public ContactsViewModelCollection()
         {
-           
+
         }
 
         public ContactsViewModelCollection(IEnumerable<ContactsViewModel> source) : base(source)
@@ -18,20 +19,36 @@ namespace Tokiku.ViewModels
 
         }
 
-        public override void StartUp_Query()
+        public Guid ManufacturersId
         {
-            Query();
+            get;
+            set;
         }
-
-        public override void Refresh()
+        public override void Initialized()
         {
-            Query();
+            base.Initialized();
+            ManufacturersId = Guid.Empty;
         }
-
-    
         public override void Query()
         {
-            
+            if (ManufacturersId != Guid.Empty)
+            {
+                Controllers.ContactPersonManageController controller = new Controllers.ContactPersonManageController();
+                var queryresult = controller.Query(p => p.Manufacturers.Where(s => s.Id == ManufacturersId).Any());
+
+                if (!queryresult.HasError)
+                {
+                    var objectdataset = queryresult.Result;
+                    if (objectdataset.Any())
+                    {
+                        ClearItems();
+                        foreach(var row in objectdataset)
+                        {
+                            Add(BindingFromModel(row));
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -39,7 +56,7 @@ namespace Tokiku.ViewModels
     {
         public ContactsViewModel()
         {
-           
+
         }
 
         public Guid Id
