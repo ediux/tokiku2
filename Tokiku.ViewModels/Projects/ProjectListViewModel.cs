@@ -62,15 +62,6 @@ namespace Tokiku.ViewModels
             }
         }
 
-        public override void Refresh()
-        {
-            Query();
-        }
-
-        public override void StartUp_Query()
-        {
-            Query();
-        }
     }
     public class ProjectListViewModel : BaseViewModel
     {

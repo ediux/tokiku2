@@ -102,7 +102,7 @@ namespace Tokiku.Controllers
             {
                 var result = (from p in ManufacturersRepo.All()
                               where p.Void == false && p.IsClient == true &&
-                              (p.Code.Contains(originalSource) || p.Name.Contains(originalSource) || p.ShortName.Contains(originalSource))
+                              (p.Code.Contains(originalSource) || p.Name.Contains(originalSource) || p.Principal.Contains(originalSource))
                               orderby p.Code ascending
                               select p);
 

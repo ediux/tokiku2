@@ -23,7 +23,7 @@ namespace Tokiku.ViewModels
 
             Clients = new ClientViewModelCollection();
             ToolBarButtons = new ToolbarButtonsViewModel();
-            StartUp_Query();
+           
         }
 
         #region 目前選定的專案
@@ -127,33 +127,13 @@ namespace Tokiku.ViewModels
             Manufacturers = new ManufacturersViewModelCollection();
             Clients = new ClientViewModelCollection();
 
-        }
-        public override void StartUp_Query()
-        {
-            Initialized();
-
-            if (LoginedUser == null && _projects_controller != null)
-                LoginedUser = BindingFromModel<UserViewModel, Users>(_projects_controller.GetCurrentLoginUser().Result);
-
-            Projects.StartUp_Query();
-            Manufacturers.StartUp_Query();
-            Clients.StartUp_Query();
-
-            //((MainViewModel)DataContext).Manufacturers = mc.QueryAll();
-            //((MainViewModel)DataContext).Clients = clientcontroller.QueryAll();
-        }
+        }       
 
         public override void Query()
         {
             Projects.Query();
             Manufacturers.Query();
             Clients.Query();
-        }
-
-        public override void Refresh()
-        {
-            //重新整理檢視模型
-            Query();
-        }
+        }    
     }
 }

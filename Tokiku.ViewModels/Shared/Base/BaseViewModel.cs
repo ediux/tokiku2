@@ -7,6 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Threading;
 
 namespace Tokiku.ViewModels
 {
@@ -18,6 +19,7 @@ namespace Tokiku.ViewModels
             Initialized();
         }
 
+        #region Helper Functions
         /// <summary>
         /// 將來自資料庫的資料實體抄到檢視模型。
         /// </summary>
@@ -79,12 +81,12 @@ namespace Tokiku.ViewModels
 #if DEBUG
                 Debug.WriteLine("結束抄寫.");
 #endif
-               
+
             }
             catch (Exception ex)
             {
                 ViewModel.Errors = new string[] { ex.Message + "," + ex.StackTrace };
-                
+
             }
         }
 
@@ -169,71 +171,83 @@ namespace Tokiku.ViewModels
         {
             try
             {
-
-                Type CurrentViewModelType = ViewModel.GetType();
-                Type TargetEntity = entity.GetType();
-#if DEBUG
-                Debug.WriteLine("CopyToModel");
-                Debug.WriteLine(string.Format("資料實體{0},檢視模型為{1}", TargetEntity.Name, CurrentViewModelType.Name));
-                Debug.WriteLine("開始抄寫.");
-#endif
-                var CurrentViewModel_Property = CurrentViewModelType.GetProperties();
-
-                foreach (var ViewModelProperty in CurrentViewModel_Property)
+                if (!Dispatcher.CheckAccess())
                 {
-                    try
-                    {
-                        var EntityProperty = TargetEntity.GetProperty(ViewModelProperty.Name);
-                        if (EntityProperty != null)
-                        {
-                            var entityvalue = EntityProperty.GetValue(entity);
-                            var value = ViewModelProperty.GetValue(ViewModel);
-
-                            if (EntityProperty.PropertyType.IsGenericType && EntityProperty.PropertyType.GetGenericTypeDefinition().Name == (typeof(ICollection<>).Name))
-                            {
-                                continue;
-                            }
-
-
-
-                            if (ViewModelProperty.PropertyType.IsGenericType && ViewModelProperty.PropertyType.GetGenericTypeDefinition().Name == (typeof(ObservableCollection<>).Name))
-                            {
-                                continue;
-                            }
-
-                            if (ViewModelProperty.PropertyType.BaseType.IsGenericType && ViewModelProperty.PropertyType.BaseType.GetGenericTypeDefinition().Name == (typeof(ObservableCollection<>).Name))
-                            {
-                                continue;
-                            }
-
-                            if (ViewModelProperty.PropertyType.BaseType.IsGenericType && ViewModelProperty.PropertyType.BaseType.GetGenericTypeDefinition().Name == (typeof(BaseViewModelCollection<>).Name))
-                            {
-                                continue;
-                            }
-
-#if DEBUG
-                            Debug.WriteLine(string.Format("資料實體屬性 {0}({2}) 內容值為 {1}.\n", EntityProperty.Name, entityvalue, EntityProperty.PropertyType.Name));
-                            Debug.WriteLine(string.Format("檢視模型屬性 {0}({2}) 內容值為 {1}.\n", ViewModelProperty.Name, value, ViewModelProperty.PropertyType.Name));
-#endif
-                            if (value != null && !value.Equals(entityvalue))
-                            {
-                                EntityProperty.SetValue(entity, value);
-                            }
-#if DEBUG
-                            Debug.WriteLine(string.Format("抄寫後資料實體屬性 {0}({2}) 內容值為 {1}.\n", EntityProperty.Name, EntityProperty.GetValue(entity), EntityProperty.PropertyType.Name));
-#endif
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        setErrortoModel(ViewModel, ex);
-                        continue;
-                    }
-
+                    Dispatcher.Invoke(new Action<TB, TViewB>(CopyToModel), DispatcherPriority.Normal);
                 }
+                else
+                {
+                    if (entity == null)
+                    {
+                        entity = Activator.CreateInstance<TB>();
+                    }
+
+                    Type CurrentViewModelType = ViewModel.GetType();
+                    Type TargetEntity = entity.GetType();
 #if DEBUG
-                Debug.WriteLine("結束抄寫.");
+                    Debug.WriteLine("CopyToModel");
+                    Debug.WriteLine(string.Format("資料實體{0},檢視模型為{1}", TargetEntity.Name, CurrentViewModelType.Name));
+                    Debug.WriteLine("開始抄寫.");
 #endif
+                    var CurrentViewModel_Property = CurrentViewModelType.GetProperties();
+
+                    foreach (var ViewModelProperty in CurrentViewModel_Property)
+                    {
+                        try
+                        {
+                            var EntityProperty = TargetEntity.GetProperty(ViewModelProperty.Name);
+                            if (EntityProperty != null)
+                            {
+                                var entityvalue = EntityProperty.GetValue(entity);
+                                var value = ViewModelProperty.GetValue(ViewModel);
+
+                                if (EntityProperty.PropertyType.IsGenericType && EntityProperty.PropertyType.GetGenericTypeDefinition().Name == (typeof(ICollection<>).Name))
+                                {
+                                    continue;
+                                }
+
+
+
+                                if (ViewModelProperty.PropertyType.IsGenericType && ViewModelProperty.PropertyType.GetGenericTypeDefinition().Name == (typeof(ObservableCollection<>).Name))
+                                {
+                                    continue;
+                                }
+
+                                if (ViewModelProperty.PropertyType.BaseType.IsGenericType && ViewModelProperty.PropertyType.BaseType.GetGenericTypeDefinition().Name == (typeof(ObservableCollection<>).Name))
+                                {
+                                    continue;
+                                }
+
+                                if (ViewModelProperty.PropertyType.BaseType.IsGenericType && ViewModelProperty.PropertyType.BaseType.GetGenericTypeDefinition().Name == (typeof(BaseViewModelCollection<>).Name))
+                                {
+                                    continue;
+                                }
+
+#if DEBUG
+                                Debug.WriteLine(string.Format("資料實體屬性 {0}({2}) 內容值為 {1}.\n", EntityProperty.Name, entityvalue, EntityProperty.PropertyType.Name));
+                                Debug.WriteLine(string.Format("檢視模型屬性 {0}({2}) 內容值為 {1}.\n", ViewModelProperty.Name, value, ViewModelProperty.PropertyType.Name));
+#endif
+                                if (value != null && !value.Equals(entityvalue))
+                                {
+                                    EntityProperty.SetValue(entity, value);
+                                }
+#if DEBUG
+                                Debug.WriteLine(string.Format("抄寫後資料實體屬性 {0}({2}) 內容值為 {1}.\n", EntityProperty.Name, EntityProperty.GetValue(entity), EntityProperty.PropertyType.Name));
+#endif
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            setErrortoModel(ViewModel, ex);
+                            continue;
+                        }
+
+                    }
+#if DEBUG
+                    Debug.WriteLine("結束抄寫.");
+#endif
+                }
+
 
             }
             catch (Exception ex)
@@ -287,6 +301,8 @@ namespace Tokiku.ViewModels
 
         }
 
+        #endregion
+
         #region PropertyChanged 事件
         /// <summary>
         /// 屬性變更事件。
@@ -310,7 +326,10 @@ namespace Tokiku.ViewModels
         public IEnumerable<string> Errors
         {
             get { return (IEnumerable<string>)GetValue(ErrorProperty); }
-            set { SetValue(ErrorProperty, value); if (value != null) { HasError = true; } else { HasError = false; } }
+            set
+            {
+                SetValue(ErrorProperty, value); if (value != null) { HasError = true; } else { HasError = false; }
+            }
         }
 
         // Using a DependencyProperty as the backing store for Error.  This enables animation, styling, binding, etc...
@@ -344,9 +363,10 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for Status.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty StatusProperty =
-            DependencyProperty.Register("Status", typeof(DocumentStatusViewModel), typeof(BaseViewModel), new PropertyMetadata(default(DocumentStatusViewModel))); 
+            DependencyProperty.Register("Status", typeof(DocumentStatusViewModel), typeof(BaseViewModel), new PropertyMetadata(default(DocumentStatusViewModel)));
         #endregion
 
+        #region 相依屬性內容值變更處理委派方法
         protected static void DefaultFieldChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (e.OldValue != null)
@@ -364,12 +384,18 @@ namespace Tokiku.ViewModels
             }
 
         }
+        #endregion
+
 
         /// <summary>
-        /// 檢視模型初始化作業
+        /// 檢視模型初始化作業(建構式會呼叫)
         /// </summary>
         public virtual void Initialized()
         {
+#if DEBUG
+            Debug.WriteLine("BaseViewModel initialized.");
+#endif
+
             Errors = null;
             HasError = false;
 
@@ -380,14 +406,6 @@ namespace Tokiku.ViewModels
         }
 
         /// <summary>
-        /// 當啟動時的第一次查詢作業，這通常搭配OnLoad事件使用。
-        /// </summary>
-        public virtual void StartUp_Query()
-        {
-            Query();
-        }
-
-        /// <summary>
         /// 立即對資料庫執行預設的查詢動作。
         /// </summary>
         /// <remarks>
@@ -395,7 +413,7 @@ namespace Tokiku.ViewModels
         /// </remarks>
         public virtual void Query()
         {
-        
+
         }
 
         /// <summary>
@@ -403,7 +421,7 @@ namespace Tokiku.ViewModels
         /// </summary>
         public virtual void SaveModel()
         {
-            
+
         }
 
         /// <summary>
@@ -414,6 +432,10 @@ namespace Tokiku.ViewModels
             Query();
         }
 
+        public virtual void SetModel(dynamic entity)
+        {
+
+        }
     }
 
 

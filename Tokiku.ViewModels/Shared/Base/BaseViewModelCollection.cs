@@ -73,29 +73,8 @@ namespace Tokiku.ViewModels
         }
 
         /// <summary>
-        /// 在啟動時的查詢動作
+        /// 儲存或更新檢視模型
         /// </summary>
-        public virtual void StartUp_Query()
-        {
-            Query();
-        }
-
-        /// <summary>
-        /// 針對某的特定條件查詢
-        /// </summary>
-        /// <typeparam name="T">資料實體物件型別</typeparam>
-        /// <param name="filiter">Lamba表示式，代表Where查詢條件。</param>
-        public virtual void Query(Expression<Func<TView, bool>> filiter)
-        {
-            var temp = Items.AsQueryable().Where(filiter).ToList();
-            Clear();
-
-            foreach (var item in temp)
-            {
-                Add(item);
-            }
-        }
-
         public virtual void SaveModel()
         {
             foreach (var row in Items)
@@ -351,6 +330,11 @@ namespace Tokiku.ViewModels
                 if (ViewModel != null)
                     ViewModel.Errors = new string[] { ex.Message + "," + ex.StackTrace };
             }
+        }
+
+        public void SetModel(dynamic entity)
+        {
+            throw new NotSupportedException();
         }
     }
 }

@@ -36,15 +36,15 @@
                                  >
             <DataGrid.Columns>
                 <DataGridHyperlinkColumn  Header="客戶代號" Binding="{Binding Code}" Width="100" />
-                <DataGridTextColumn Header="客戶名稱" Binding="{Binding Name}" Width="100" />
-                <DataGridTextColumn Header="客戶簡稱" Binding="{Binding ShortName}" Width="100" />
+                <DataGridTextColumn Header="名稱(全名)" Binding="{Binding Name}" Width="100" />
+                <DataGridTextColumn Header="名稱(簡稱)" Binding="{Binding ShortName}" Width="100" />
                 <DataGridTextColumn Header="負責人" Binding="{Binding Principal}" Width="100" />
                 <DataGridTextColumn Header="統一編號" Binding="{Binding UniformNumbers}" Width="70" />
-                <DataGridTextColumn Header="主要聯絡人" Width="70" Binding="{Binding MainContactPerson}"/>
+                <DataGridTextColumn Header="主要聯絡人" Width="100" Binding="{Binding MainContactPerson}"/>
                 <DataGridTextColumn Header="公司電話" Width="70" Binding="{Binding Phone}"/>
                 <DataGridTextColumn Header="公司地址" Width="70" Binding="{Binding Address}"/>
                 <DataGridTextColumn Header="公司傳真" Width="70" Binding="{Binding Fax}"/>
-                <DataGridCheckBoxColumn Header="狀態" Width="70" Binding="{Binding Void}" />
+                <DataGridTextColumn Header="狀態" Width="70" Binding="{Binding Void, Converter={StaticResource Void2TextValueConvterver}}" />
             </DataGrid.Columns>
         </controls:CustomDataGrid>
     </Grid>

@@ -26,7 +26,7 @@
                                       AutoGenerateColumns="False"
                                       x:Name="ContractList" SelectionChanged="ContractList_SelectionChanged"
                           IsReadOnly="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                          ItemsSource="{Binding Contracts}"
+                          ItemsSource="{Binding}"
                                       >
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn Header="預設"  Binding="{Binding IsDefault}" Width="40">

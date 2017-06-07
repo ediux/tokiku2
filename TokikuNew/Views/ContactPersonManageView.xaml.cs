@@ -159,12 +159,12 @@ namespace TokikuNew.Views
 
         private void ContractSearchBar_ResetSearch(object sender, RoutedEventArgs e)
         {
-            ((ContactsViewModelCollection)DataContext).Query(w => w.Name.Contains((string)e.OriginalSource));
+            ((ContactsViewModelCollection)DataContext).Query((string)e.OriginalSource, SelectedManufacturer.Id, SelectedManufacturer.IsClient);
         }
 
         private void ContractSearchBar_Search(object sender, RoutedEventArgs e)
         {
-            ContractList.ItemsSource = controller.SearchByText((string)e.OriginalSource, SelectedManufacturer.Id, SelectedManufacturer.IsClient).Result;
+            ((ContactsViewModelCollection)DataContext).Query((string)e.OriginalSource, SelectedManufacturer.Id, SelectedManufacturer.IsClient);
         }
 
         private void ContractList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -181,32 +181,52 @@ namespace TokikuNew.Views
             }
         }
 
-        private void DataGridCheckBoxColumn_Selected(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         void OnChecked(object sender, RoutedEventArgs e)
         {
             DataGridCell cell = (DataGridCell)sender;
             CheckBox cb = (CheckBox)e.Source;
             ContactsViewModel currentrow = (ContactsViewModel)cell.DataContext;
 
-            var founddefuts = ((ManufacturersViewModel)ContractList.DataContext).Contracts
-                .Where(w => w.IsDefault == true
-             );
-
-            if (founddefuts.Any())
+            if (ContractList.DataContext is ClientViewModel)
             {
-                if (founddefuts.Count() > 0)
+                var founddefuts = ((ClientViewModel)ContractList.DataContext).Contracts
+               .Where(w => w.IsDefault == true);
+
+                if (founddefuts.Any())
                 {
-                    foreach (var fix in founddefuts)
+                    if (founddefuts.Count() > 0)
                     {
-                        fix.IsDefault = false;
+                        foreach (var fix in founddefuts)
+                        {
+                            fix.IsDefault = false;
+                        }
                     }
                 }
             }
+            else
+            {
+                if(ContractList.DataContext is ManufacturersViewModel)
+                {
+                    var founddefuts = ((ManufacturersViewModel)ContractList.DataContext).Contracts
+              .Where(w => w.IsDefault == true);
 
+                    if (founddefuts.Any())
+                    {
+                        if (founddefuts.Count() > 0)
+                        {
+                            foreach (var fix in founddefuts)
+                            {
+                                fix.IsDefault = false;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    e.Handled = true;
+                    return;
+                }
+            }
 
             if (currentrow.IsDefault == false)
             {

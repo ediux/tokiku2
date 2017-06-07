@@ -102,7 +102,7 @@
                 </GroupBox>
             </Grid>
             <GroupBox Header="相關聯絡人" Grid.Row="12" Grid.Column="0"  Margin="2">
-                <local:ContactPersonManageView Mode="{Binding Path=Mode, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <local:ContactPersonManageView DataContext="{Binding Contracts,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Mode="{Binding Path=Mode, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </GroupBox>
             <Grid Grid.Row="1" Grid.Column="1">
                 <Grid.RowDefinitions>

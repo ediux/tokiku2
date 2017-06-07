@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Windows;
 using Tokiku.Controllers;
 using Tokiku.Entity;
@@ -55,16 +56,6 @@ namespace Tokiku.ViewModels
                     Add(BindingFromModel(row));
                 }
             }
-        }
-
-        public override void Refresh()
-        {
-            Query();
-        }
-
-        public override void StartUp_Query()
-        {
-            Query();
         }
 
         public void QueryByText(string originalSource)
@@ -378,6 +369,9 @@ namespace Tokiku.ViewModels
 
         public override void Initialized()
         {
+#if DEBUG
+            Debug.WriteLine("ManufacturersViewModel initialized.");
+#endif
             base.Initialized();
             Id = Guid.NewGuid();
             Contracts = new ContactsViewModelCollection();

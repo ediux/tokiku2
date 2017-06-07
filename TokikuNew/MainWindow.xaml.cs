@@ -74,8 +74,8 @@ namespace TokikuNew
             AddHandler(ClosableTabItem.SendNewPageRequestEvent, new RoutedEventHandler(Window_AutoOpenNewPage));
             AddHandler(ClosableTabItem.OnPageClosingEvent, new RoutedEventHandler(btnTabClose_Click));
             AddHandler(ClientListView.SelectedClientChangedEvent, new RoutedEventHandler(ClientListView_SelectedClientChanged));
-
-            ((MainViewModel)DataContext).StartUp_Query();
+            AddHandler(ProjectSelectListView.SelectedProjectChangedEvent, new RoutedEventHandler(ProjectSelectionPage_SelectedProjectChanged));
+            ((MainViewModel)DataContext).Query();
         }
 
         private void Window_AutoOpenNewPage(object sender, RoutedEventArgs e)
@@ -250,12 +250,28 @@ namespace TokikuNew
         {
             try
             {
-                if (e.OriginalSource != null && e.OriginalSource is ProjectListViewModel)
+                if (e.OriginalSource != null)
                 {
-                    ProjectListViewModel model = (ProjectListViewModel)e.OriginalSource;
-
-                    string Header = string.Format("專案:{0}-{1}", ProjectSelectionPage.SelectedProject.Code, ProjectSelectionPage.SelectedProject.ShortName);
+                    
                     ClosableTabItem addWorkarea = null;
+                    string Header = string.Empty;
+                    Guid SelectedProjectId = Guid.Empty;
+
+                    if (e.OriginalSource is ProjectListViewModel)
+                    {
+                        ProjectListViewModel model = (ProjectListViewModel)e.OriginalSource;
+                        Header = string.Format("專案:{0}-{1}", model.Code, model.ShortName);
+                        SelectedProjectId = model.Id;
+                    }
+
+                    if (e.OriginalSource is ProjectsViewModel)
+                    {
+                        ProjectsViewModel model = (ProjectsViewModel)e.OriginalSource;
+                        Header = string.Format("專案:{0}-{1}", model.Code, model.ShortName);
+                        SelectedProjectId = model.Id;
+                    }
+                    
+                   
                     bool isExisted = false;
 
                     foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
@@ -280,11 +296,10 @@ namespace TokikuNew
 
                         var vm = new ProjectViewer() { Margin = new Thickness(0) };
 
-                       
                         ProjectsViewModel source = new ProjectsViewModel(App.Resolve<ProjectsController>());
-                        
-                        source.Id = ProjectSelectionPage.SelectedProject.Id;
-                        source.StartUp_Query();
+
+                        source.Id = SelectedProjectId;
+                        source.Query();
                         vm.DataContext = source;
                         vm.Mode = DocumentLifeCircle.Read;
 
@@ -418,7 +433,7 @@ namespace TokikuNew
                     addWorkarea.Content = vm;
                     addWorkarea.Margin = new Thickness(0);
 
-                    Workspaces.Items.Add(addWorkarea);                    
+                    Workspaces.Items.Add(addWorkarea);
                 }
 
                 Workspaces.SelectedItem = addWorkarea;

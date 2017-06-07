@@ -28,9 +28,7 @@ namespace TokikuNew.Views
             InitializeComponent();
         }
 
-        private Tokiku.Controllers.ClientController controller = new Tokiku.Controllers.ClientController();
-        private Tokiku.Controllers.ContactPersonManageController contactcontroller = new Tokiku.Controllers.ContactPersonManageController();
-
+        #region Mode
         public DocumentLifeCircle Mode
         {
             get { return (DocumentLifeCircle)GetValue(ModeProperty); }
@@ -40,9 +38,9 @@ namespace TokikuNew.Views
         // Using a DependencyProperty as the backing store for Mode.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ModeProperty =
             DependencyProperty.Register("Mode", typeof(DocumentLifeCircle), typeof(ClientManageView), new PropertyMetadata(DocumentLifeCircle.Create));
+        #endregion
 
-
-
+        #region LoginedUser
         public UserViewModel LoginedUser
         {
             get { return (UserViewModel)GetValue(LoginedUserProperty); }
@@ -53,41 +51,7 @@ namespace TokikuNew.Views
         public static readonly DependencyProperty LoginedUserProperty =
             DependencyProperty.Register("LoginedUser", typeof(UserViewModel), typeof(ClientManageView), new PropertyMetadata(default(UserViewModel)));
 
-        //private void sSearchBar_Search(object sender, RoutedEventArgs e)
-        //{
-        //    ManufacturersViewModel model = (ManufacturersViewModel)DataContext;
-        //    ContractList.DataContext = contactcontroller.SearchByText((string)e.OriginalSource, model.Id, true);
-        //}
-
-
-
-        //private void sSearchBar_ResetSearch(object sender, RoutedEventArgs e)
-        //{
-        //    ManufacturersViewModel model = (ManufacturersViewModel)DataContext;
-
-        //    ContractList.DataContext = model.Contracts;
-        //}
-
-        private void tbName_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (tbName.Text.Length > 0)
-            {
-                if (tbName.Text.Length >= 2)
-                {
-                    tbShortName.Text = tbName.Text.Substring(0, Math.Min(2, tbName.Text.Length));
-                }
-                else
-                {
-                    tbShortName.Text = tbName.Text;
-                }
-            }
-            else
-            {
-                tbShortName.Text = string.Empty;
-            }
-        }
-
-
+        #endregion
 
         private void dockBar_DocumentModeChanged(object sender, RoutedEventArgs e)
         {
@@ -102,7 +66,7 @@ namespace TokikuNew.Views
                 {
 
                     case DocumentLifeCircle.Create:
-                        DataContext= new ClientViewModel();
+                        DataContext = new ClientViewModel();
                         SelectedManufacturers = (ClientViewModel)DataContext;
                         SelectedManufacturers.CreateUserId = LoginedUser.UserId;
 
@@ -150,11 +114,13 @@ namespace TokikuNew.Views
             }
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private void EngList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
-
-
+            e.Handled = true;
+            if (EngList.SelectedItem != null)
+            {
+                RaiseEvent(new RoutedEventArgs(ProjectSelectListView.SelectedProjectChangedEvent, EngList.SelectedItem));
+            }
         }
     }
 }

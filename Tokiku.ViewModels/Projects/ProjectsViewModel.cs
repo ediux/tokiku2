@@ -420,29 +420,6 @@ namespace Tokiku.ViewModels
         #endregion
 
         #region 模型命令方法
-        public override void StartUp_Query()
-        {
-
-            if (Id == Guid.Empty)
-                return;
-
-            var result = _projectcontroller.Query(w => w.Id == Id);
-
-            if (!result.HasError)
-            {
-                var rawdata = result.Result.Single();
-                BindingFromModel(rawdata, this);
-            }
-            else
-            {
-                Errors = result.Errors;
-                HasError = result.HasError;
-            }
-
-            ProjectContract.ProjectId = Id;
-            ProjectContract.StartUp_Query();
-
-        }
 
         public override void Initialized()
         {

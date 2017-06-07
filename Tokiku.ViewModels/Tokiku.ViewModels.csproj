@@ -60,10 +60,10 @@
     <Compile Include="Manufacturers\ManufacturersViewModel.cs" />
     <Compile Include="MES\MaterialsViewModel.cs" />
     <Compile Include="Shared\Base\BaseViewModel.cs" />
-    <Compile Include="Shared\DocumentStatusViewModel.cs" />
+    <Compile Include="Shared\Base\DocumentStatusViewModel.cs" />
     <Compile Include="Shared\Base\IBaseViewModel.cs" />
     <Compile Include="Shared\Base\IBaseViewModelWithLoginedUser.cs" />
-    <Compile Include="Shared\IToolbarButtonsViewModel.cs" />
+    <Compile Include="Shared\Base\IToolbarButtonsViewModel.cs" />
     <Compile Include="Shared\LoginViewModel.cs" />
     <Compile Include="Main\MainViewModel.cs" />
     <Compile Include="Projects\ProjectsViewModel.cs" />

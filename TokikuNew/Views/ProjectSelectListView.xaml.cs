@@ -41,7 +41,7 @@ namespace TokikuNew.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            ((ProjectListViewModelCollection)DataContext).StartUp_Query();
+            ((ProjectListViewModelCollection)DataContext).Query();
         }
 
         private void ProjectList_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)

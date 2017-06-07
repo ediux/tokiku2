@@ -7,7 +7,7 @@
              xmlns:c="clr-namespace:TokikuNew.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024"
-             Background="{DynamicResource ControlBackgroundBrush}" Loaded="UserControl_Loaded">
+             Background="{DynamicResource ControlBackgroundBrush}">
     <UserControl.Resources>
     </UserControl.Resources>
     <Grid>
@@ -49,11 +49,11 @@
                     <TextBlock Text="客戶代號" Grid.Row="0" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
                     <TextBlock Name="tbCode" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Code,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                     <TextBlock Text="名稱(全名)" Grid.Row="0" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
-                    <TextBox Name="tbName" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" Margin="2" Text="{Binding Path=Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" TextChanged="tbName_TextChanged" IsEnabled="{Binding Path=Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Name="tbName" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" Margin="2" Text="{Binding Path=Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <TextBlock Text="名稱(簡稱)" Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
                     <TextBox Name="tbShortName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding ShortName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
                     <TextBlock Text="負責人" Grid.Row="1" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
-                    <TextBox Name="tbPrincipal" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" Margin="2" Text="{Binding PrincipalName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
+                    <TextBox Name="tbPrincipal" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" Margin="2" Text="{Binding Principal,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
                     <TextBlock Text="統一編號" Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
                     <TextBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding UniformNumbers,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
                     <TextBlock Text="公司電話" Grid.Row="2" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
@@ -78,26 +78,33 @@
                                  CanUserAddRows="False" CanUserDeleteRows="False"
                                   AutoGenerateColumns="False"
                                   IsReadOnly="True"
-                                  Margin="5" ItemsSource="{Binding ClientForProjects}">
+                                  Margin="5" ItemsSource="{Binding ClientForProjects}" MouseDoubleClick="EngList_MouseDoubleClick" >
                     <c:CustomDataGrid.Columns>
-                        <DataGridTextColumn Header="工程代號" Binding="{Binding Code}"/>
+                        <DataGridHyperlinkColumn Header="工程代號" Binding="{Binding Code}" />
                         <DataGridTextColumn Header="工程名稱" Binding="{Binding Name}"/>
                         <DataGridTextColumn Header="面積數(㎡)" Binding="{Binding ShortName}"/>
                         <DataGridTextColumn Header="起造日期" Binding="{Binding ProjectSigningDate,StringFormat={}{0:yyyy/MM/dd}}"/>
                         <DataGridTextColumn Header="完工日期" Binding="{Binding SiteAddress}"/>
                         <DataGridTextColumn Header="狀態列" Binding="{Binding State, Converter={StaticResource StatesCodeToTextValueConverter}}"/>
-                        <DataGridTextColumn Header="保固到期日" Binding="{Binding}"/>
-                        <DataGridTextColumn Header="建築師" Binding="{Binding}"/>
-                        <DataGridTextColumn Header="建築高度" Binding="{Binding}"/>
-                        <DataGridTextColumn Header="營造廠" Binding="{Binding}"/>
-                        <DataGridTextColumn Header="監造單位" Binding="{Binding}"/>
+                        <DataGridTextColumn Header="保固到期日" Binding="{Binding WarrantyDate,StringFormat={}{0:yyyy/MM/dd}}"/>
+                        <DataGridTextColumn Header="建築師" Binding="{Binding Architect}"/>
+                        <DataGridTextColumn Header="建築高度">
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding StringFormat="地上{0}層，地下{1}層">
+                                    <Binding Path="BuildingHeightAboveground"/>
+                                    <Binding Path="BuildingHeightUnderground"/>
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="營造廠" Binding="{Binding BuildingCompany}"/>
+                        <DataGridTextColumn Header="監造單位" Binding="{Binding SupervisionUnit}"/>
                     </c:CustomDataGrid.Columns>
                 </c:CustomDataGrid>
             </GroupBox>
             <GroupBox Header="相關聯絡人" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="4" Margin="2" 
                       >
                 <Grid>
-                    <local:ContactPersonManageView x:Name="ContractList" Mode="{Binding Path=Mode, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <local:ContactPersonManageView x:Name="ContractList" DataContext="{Binding Contracts,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Mode="{Binding Path=Mode, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 </Grid>
             </GroupBox>

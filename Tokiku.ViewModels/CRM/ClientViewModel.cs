@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +26,6 @@ namespace Tokiku.ViewModels
         {
             base.Initialized();
             client_controller = new ClientController();
-
         }
 
         public override void Query()
@@ -43,8 +43,8 @@ namespace Tokiku.ViewModels
                         if (item.Contacts.Any())
                         {
                             client.Contracts = new ContactsViewModelCollection();
-                            
-                            foreach(var row in item.Contacts)
+
+                            foreach (var row in item.Contacts)
                             {
                                 ContactsViewModel contract = new ContactsViewModel();
                                 BindingFromModel(row, contract);
@@ -53,12 +53,9 @@ namespace Tokiku.ViewModels
                         }
                         client.ClientForProjects.QueryByClient(item.Id);
                         Add(client);
-
                     }
                 }
             }
-
-
         }
 
         public void QueryByText(string originalSource)
@@ -109,7 +106,8 @@ namespace Tokiku.ViewModels
 
         public static readonly DependencyProperty ClientForProjectsProperty = DependencyProperty.Register("ClientForProjects",
   typeof(ProjectsViewModelCollection), typeof(ClientViewModel),
-  new PropertyMetadata(default(ProjectsViewModelCollection), new PropertyChangedCallback(DefaultFieldChanged)));
+  new PropertyMetadata(default(ProjectsViewModelCollection),
+      new PropertyChangedCallback(DefaultFieldChanged)));
 
         #endregion
 
@@ -126,7 +124,8 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for Mobile.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MobileProperty =
-            DependencyProperty.Register("Mobile", typeof(string), typeof(ClientViewModel), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("Mobile", typeof(string), typeof(ClientViewModel),
+                new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
 
 
         #endregion
@@ -142,14 +141,17 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for Extension.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ExtensionProperty =
-            DependencyProperty.Register("Extension", typeof(string), typeof(ClientViewModel), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("Extension", typeof(string), typeof(ClientViewModel),
+                new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
 
 
         #endregion
 
         #region MainContactPerson
 
-
+        /// <summary>
+        /// 主要聯絡人
+        /// </summary>
         public string MainContactPerson
         {
             get { return (string)GetValue(MainContactPersonProperty); }
@@ -158,7 +160,9 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for MainContactPerson.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MainContactPersonProperty =
-            DependencyProperty.Register("MainContactPerson", typeof(string), typeof(ClientViewModel), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("MainContactPerson", typeof(string),
+                typeof(ClientViewModel), new PropertyMetadata(string.Empty,
+                    new PropertyChangedCallback(DefaultFieldChanged)));
         #endregion
         private Guid QueryCondition_ProjectId;
 
@@ -168,6 +172,7 @@ namespace Tokiku.ViewModels
             {
                 Id = Guid.NewGuid();
             }
+
             if (Status.IsNewInstance)
             {
                 CreateTime = DateTime.Now;
@@ -180,11 +185,10 @@ namespace Tokiku.ViewModels
                 CreateUserId = LoginedUser.UserId;
             }
 
-
-
             IsClient = true;
 
             Entity.Manufacturers data = new Entity.Manufacturers();
+
             CopyToModel(data, this);
 
             if (Contracts != null)
@@ -193,9 +197,15 @@ namespace Tokiku.ViewModels
                 {
                     data.Contacts = new Collection<Entity.Contacts>();
 
-                    Parallel.ForEach(Contracts, (x) => {
-                        x.Id = Guid.NewGuid();
-                        x.CreateTime = CreateTime;
+                    Parallel.ForEach(Contracts, (x) =>
+                    {
+                        x.Initialized();
+
+                        lock (this)
+                        {
+                            x.CreateTime = CreateTime;
+                        }
+                        
 
                         if (x.CreateUserId == Guid.Empty)
                         {
@@ -203,30 +213,18 @@ namespace Tokiku.ViewModels
                             {
                                 x.CreateUserId = LoginedUser.UserId;
                             }
-                           
+
                         }
 
-                        Entity.Contacts contact = new Entity.Contacts();
+                        Entity.Contacts contact = null;
+
                         CopyToModel(contact, x);
+
                         lock (data)
                         {
                             data.Contacts.Add(contact);
-                        }                      
+                        }
                     });
-
-                    //foreach (ContactsViewModel model in Contracts)
-                    //{
-                    //    model.Id = Guid.NewGuid();
-                    //    model.CreateTime = CreateTime;
-                    //    if (model.CreateUserId == Guid.Empty)
-                    //    {
-                    //        model.CreateUserId = LoginedUser.UserId;
-                    //    }
-
-                    //    Entity.Contacts contact = new Entity.Contacts();
-                    //    CopyToModel(contact, model);
-                    //    data.Contacts.Add(contact);
-                    //}
                 }
             }
 
@@ -246,8 +244,13 @@ namespace Tokiku.ViewModels
 
         public override void Initialized()
         {
-            IsClient = true;
+#if DEBUG
+            Debug.WriteLine("ClientViewModel initialized.");
+#endif
             base.Initialized();
+
+            IsClient = true;
+
             ClientForProjects = new ProjectsViewModelCollection();
             Contracts = new ContactsViewModelCollection();
 
@@ -260,10 +263,7 @@ namespace Tokiku.ViewModels
             }
         }
 
-        public override void StartUp_Query()
-        {
-            Query();
-        }
+       
 
         public override void Query()
         {

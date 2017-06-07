@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Windows;
+using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
@@ -42,10 +43,30 @@ namespace Tokiku.ViewModels
                     if (objectdataset.Any())
                     {
                         ClearItems();
-                        foreach(var row in objectdataset)
+                        foreach (var row in objectdataset)
                         {
                             Add(BindingFromModel(row));
                         }
+                    }
+                }
+            }
+        }
+
+        public void Query(string originalSource, Guid ManufurerterId, bool isClient)
+        {
+            Controllers.ContactPersonManageController controller = new Controllers.ContactPersonManageController();
+            var executeResult = controller.SearchByText(originalSource, ManufurerterId, isClient);
+            if (!executeResult.HasError)
+            {
+                if (executeResult.Result.Any())
+                {
+                    ClearItems();
+
+                    foreach(var row in executeResult.Result)
+                    {
+                        ContactsViewModel model = new ContactsViewModel();
+                        model.SetModel(row);
+                        Add(model);
                     }
                 }
             }
@@ -250,5 +271,10 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty ContractsListProperty =
             DependencyProperty.Register("ContactsList", typeof(ObservableCollection<ContactsViewModel>), typeof(ContactsViewModel), new PropertyMetadata(default(ObservableCollection<ContactsViewModel>), new PropertyChangedCallback(DefaultFieldChanged)));
 
+        public override void SetModel(dynamic entity)
+        {
+            BindingFromModel((Contacts)entity,this);
+            entity = null;
+        }
     }
 }

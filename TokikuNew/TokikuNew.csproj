@@ -98,6 +98,7 @@
     <Compile Include="ValueConverters\ReadModeToEnabledValueConverter.cs" />
     <Compile Include="ValueConverters\ReadModeToVisibilityValueConverter.cs" />
     <Compile Include="ValueConverters\StatesCodeToTextValueConverter.cs" />
+    <Compile Include="ValueConverters\VoidToStateTextValueConverter.cs" />
     <Compile Include="Views\Orders\AluminumExtrusionOrderSheetView.xaml.cs">
       <DependentUpon>AluminumExtrusionOrderSheetView.xaml</DependentUpon>
     </Compile>

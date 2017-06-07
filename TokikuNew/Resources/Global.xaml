@@ -13,6 +13,7 @@
     <ValueConverters:ReadModeToVisibilityValueConverter x:Key="ReadModeToVisibilityValueConverter"/>
     <ValueConverters:ReadModeToEnabledValueConverter x:Key="ReadModeToEnabledValueConverter" />
     <ValueConverters:Number2DateTimeValueConverter x:Key="Number2DateTimeValueConverter"/>
+    <ValueConverters:VoidToStateTextValueConverter x:Key="Void2TextValueConvterver" />
     <RoutedUICommand x:Key="Modify" Text="修改" />
     <RoutedUICommand x:Key="Save" Text="暫存"/>
     <RoutedUICommand x:Key="Query" Text="查詢"/>
