@@ -43,15 +43,17 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AluminumExtrusionOrderSheetViewModel.cs" />
-    <Compile Include="CompositionsViewModel.cs" />
-    <Compile Include="CompositionTypesViewModel.cs" />
+    <Compile Include="ManufacturersBussinessItemsViewModel.cs" />
+    <Compile Include="Projects\Orders\AluminumExtrusionOrderSheetViewModel.cs" />
+    <Compile Include="Projects\CompositionsViewModel.cs" />
+    <Compile Include="Projects\CompositionTypesViewModel.cs" />
     <Compile Include="CRM\ClientViewModel.cs" />
-    <Compile Include="EngineeringViewModel.cs" />
-    <Compile Include="PaymentTypesManageViewModel.cs" />
+    <Compile Include="Projects\EngineeringViewModel.cs" />
+    <Compile Include="Projects\SuppliersViewModel.cs" />
+    <Compile Include="Shared\PaymentTypesManageViewModel.cs" />
     <Compile Include="Projects\ProjectContractViewModel.cs" />
     <Compile Include="Projects\ProjectListViewModel.cs" />
-    <Compile Include="PromissoryNoteManagementViewModel.cs" />
+    <Compile Include="Projects\PromissoryNoteManagementViewModel.cs" />
     <Compile Include="Shared\Base\BaseViewModelCollection.cs" />
     <Compile Include="Shared\ContactsViewModel.cs" />
     <Compile Include="Manufacturers\ManufacturersViewModel.cs" />
@@ -69,8 +71,8 @@
     <Compile Include="Shared\ToolbarButtonsViewModel.cs" />
     <Compile Include="Shared\UserViewModel.cs" />
     <Compile Include="Shared\Base\WithLoginUserBaseViewModel.cs" />
-    <Compile Include="ShopFlowHistoryViewModel.cs" />
-    <Compile Include="StatesViewModel.cs" />
+    <Compile Include="MES\ShopFlowHistoryViewModel.cs" />
+    <Compile Include="Shared\StatesViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tokiku.Controllers\Tokiku.Controllers.csproj">

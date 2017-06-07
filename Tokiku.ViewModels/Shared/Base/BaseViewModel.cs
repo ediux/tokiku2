@@ -382,7 +382,7 @@ namespace Tokiku.ViewModels
         /// </summary>
         public virtual void StartUp_Query()
         {
-
+            Query();
         }
 
         /// <summary>
@@ -401,7 +401,7 @@ namespace Tokiku.ViewModels
         /// </summary>
         public virtual void SaveModel()
         {
-            throw new NotImplementedException();
+            
         }
 
         /// <summary>

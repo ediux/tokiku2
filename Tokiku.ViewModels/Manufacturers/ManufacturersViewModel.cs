@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Windows;
 using Tokiku.Controllers;
+using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
@@ -69,7 +70,7 @@ namespace Tokiku.ViewModels
 
     public class ManufacturersViewModel : BaseViewModel, IBaseViewModel
     {
-
+        private Controllers.ManufacturersManageController controller = new ManufacturersManageController();
         public ManufacturersViewModel()
         {
 
@@ -366,6 +367,57 @@ namespace Tokiku.ViewModels
             Projects = new ProjectsViewModelCollection();
         }
 
+        public override void SaveModel()
+        {
+            Manufacturers data = new Manufacturers();
 
+            if (CreateUserId == Guid.Empty)
+            {
+                CreateUserId = controller.GetCurrentLoginUser().Result.UserId;
+            }
+
+            CopyToModel(data, this);
+
+            if (Contracts != null)
+            {
+                if (Contracts.Count > 0)
+                {
+                    foreach (ContactsViewModel model in Contracts)
+                    {
+
+                        model.Id = Guid.NewGuid();
+
+                        if (model.CreateUserId == Guid.Empty)
+                        {
+                            model.CreateUserId = controller.GetCurrentLoginUser().Result.UserId;
+                        }
+                    }
+                }
+            }
+
+            if (Materials == null)
+                Materials = new MaterialsViewModelCollection();
+
+            if (Engineerings != null)
+            {
+                foreach (EngineeringViewModel model in Engineerings)
+                {
+                    if (model != null)
+                    {
+                        model.SaveModel();
+                    }
+                }
+            }
+
+            var result = controller.CreateOrUpdate(data);
+
+            if (result.HasError)
+            {
+                Errors = result.Errors;
+                HasError = result.HasError;
+            }
+
+            Refresh();
+        }
     }
 }

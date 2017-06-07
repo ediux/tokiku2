@@ -11,6 +11,8 @@ namespace Tokiku.ViewModels
 {
     public class ProjectsViewModelCollection : BaseViewModelCollection<ProjectsViewModel>
     {
+        private ProjectsController _projectcontroller;
+
         public ProjectsViewModelCollection()
         {
 
@@ -24,21 +26,27 @@ namespace Tokiku.ViewModels
         public override void Initialized()
         {
             base.Initialized();
+            _projectcontroller = new ProjectsController();
         }
+
         public override void Query()
         {
+            var queryresult = _projectcontroller.Query(a => a.Void == false);
 
+            if (!queryresult.HasError)
+            {
+                foreach(var row in queryresult.Result)
+                {
+                    Add(BindingFromModel(row));
+                }
+            }
+            else
+            {
+                Errors = queryresult.Errors;
+                HasError = queryresult.HasError;
+            }
         }
 
-        public override void Refresh()
-        {
-            Query();
-        }
-
-        public override void StartUp_Query()
-        {
-            Query();
-        }
     }
 
     public class ProjectsViewModel : BaseViewModel, IBaseViewModel
@@ -450,7 +458,8 @@ namespace Tokiku.ViewModels
 
         public override void SaveModel()
         {
-            Projects data = new Projects();
+            Entity.Projects data = new Entity.Projects();
+
             CopyToModel(data, this);
 
             if (ProjectContract != null)
@@ -459,24 +468,26 @@ namespace Tokiku.ViewModels
                 {
                     if (model != null)
                     {
+                        model.ProjectId = Id;
                         model.SaveModel();
                     }
                 }
             }
 
-            //if (ProjectContract.Count > 0)
-            //{
-            //    foreach (ProjectContractViewModel model in ProjectContract)
-            //    {
-            //        if (model.CreateUserId == Guid.Empty)
-            //        {
-            //            model.CreateUserId = _projectcontroller.GetCurrentLoginUser().Result.UserId;
-            //        }
-
-            //        model.ProjectId = Id;
-            //    }
-            //}
-
+            if (Suppliers != null)
+            {
+                if (Suppliers.Any())
+                {
+                    foreach (ProjectContractViewModel model in ProjectContract)
+                    {
+                        if (model != null)
+                        {
+                            model.ProjectId = Id;
+                            model.SaveModel();
+                        }
+                    }
+                }
+            }
             var result = _projectcontroller.CreateOrUpdate(data);
 
             if (result.HasError)

@@ -93,7 +93,7 @@ namespace Tokiku.Controllers
                              where q.IsClient == true && q.Void == false
                              select q;
 
-                ICollection<Manufacturers> model = new Collection<Manufacturers>();
+                ICollection<Manufacturers> model = new Collection<Manufacturers>(result.ToList());                
                 return ExecuteResultEntity<ICollection<Manufacturers>>.CreateResultEntity(model);
             }
             catch (Exception ex)

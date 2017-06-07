@@ -77,7 +77,7 @@ namespace Tokiku.ViewModels
         /// </summary>
         public virtual void StartUp_Query()
         {
-
+            Query();
         }
 
         /// <summary>
@@ -96,11 +96,7 @@ namespace Tokiku.ViewModels
             }
         }
         public virtual void SaveModel()
-        {
-            foreach(TView row in Items)
-            {
-                
-            }
+        {           
         }
 
         /// <summary>

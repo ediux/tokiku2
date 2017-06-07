@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Tokiku.Controllers;
+using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
@@ -26,14 +27,11 @@ namespace Tokiku.ViewModels
         {
             get; set;
         }
+
         public override void Initialized()
         {
             base.Initialized();
             _controller = new ProjectContractController();
-        }
-        public override void StartUp_Query()
-        {
-            Query();
         }
 
         public override void Query()
@@ -54,10 +52,11 @@ namespace Tokiku.ViewModels
 
         }
 
-        public override void Refresh()
+        public override void SaveModel()
         {
-            Query();
+            
         }
+
     }
 
     /// <summary>
@@ -279,7 +278,7 @@ namespace Tokiku.ViewModels
             Projects = new ProjectsViewModel(new ProjectsController());
         }
 
-        public override void StartUp_Query()
+        public override void Query()
         {
             if (controller == null)
                 return;
@@ -294,14 +293,62 @@ namespace Tokiku.ViewModels
                     BindingFromModel(data, this);
                     CreateUser = data.CreateUser.UserName;
 
+                    if (data.Engineering.Any())
+                    {
+                        foreach (var row in data.Engineering)
+                        {
+                            Engineerings.Add(BindingFromModel<EngineeringViewModel, Engineering>(row));
+                        }
+                    }
+
+                    if (data.PromissoryNoteManagement.Any())
+                    {
+                        foreach (var row in data.PromissoryNoteManagement)
+                        {
+                            PromissoryNoteManagement.Add(BindingFromModel<PromissoryNoteManagementViewModel, PromissoryNoteManagement>(row));
+                        }
+                    }
+                }
+            }
+        }
+
+        public override void SaveModel()
+        {
+            ProjectContract data = new ProjectContract();
+
+            CopyToModel(data, this);
+
+            if (Engineerings != null)
+            {
+                foreach (EngineeringViewModel model in Engineerings)
+                {
+                    if (model != null)
+                    {
+                        model.SaveModel();
+                    }
                 }
             }
 
-        }
+            if (PromissoryNoteManagement.Any())
+            {
+                foreach (PromissoryNoteManagementViewModel model in PromissoryNoteManagement)
+                {
+                    if (model != null)
+                    {
+                        model.SaveModel();
+                    }
+                }
+            }
+          
+            var result = controller.CreateOrUpdate(data);
 
-        public override void Query()
-        {
-            base.Query();
+            if (result.HasError)
+            {
+                Errors = result.Errors;
+                HasError = result.HasError;
+            }
+
+            Refresh();
         }
 
     }

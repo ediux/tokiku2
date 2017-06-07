@@ -87,5 +87,9 @@ namespace Tokiku.Controllers
         //        return rtn;
         //    }
         //}
+        public ExecuteResultEntity<ICollection<Engineering>> QueryAll(Guid projectContractId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

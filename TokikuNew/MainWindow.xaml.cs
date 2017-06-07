@@ -83,6 +83,7 @@ namespace TokikuNew
         {
             AddHandler(ClosableTabItem.SendNewPageRequestEvent, new RoutedEventHandler(Window_AutoOpenNewPage));
             AddHandler(ClosableTabItem.OnPageClosingEvent, new RoutedEventHandler(btnTabClose_Click));
+            AddHandler(ClientListView.SelectedClientChangedEvent, new RoutedEventHandler(ClientListView_SelectedClientChanged));
 
             ((MainViewModel)DataContext).StartUp_Query();
         }
@@ -400,23 +401,24 @@ namespace TokikuNew
                 else
                     return;
 
-                bool isExisted = true;
+                bool isExisted = false;
 
-                foreach (TabItem item in Workspaces.Items)
+                foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
                 {
                     if (item.Header.Equals(addWorkarea.Header))
                     {
                         isExisted = true;
-                        addWorkarea = (ClosableTabItem)item;
+                        addWorkarea = item;
                         break;
                     }
                 }
+
                 if (!isExisted)
                 {
 
                     var vm = new ClientManageView() { Margin = new Thickness(0) };
 
-                    vm.DataContext = mc.Query(q => q.Id == model.Id);
+                    vm.DataContext = model;
                     vm.Mode = DocumentLifeCircle.Read;
                     vm.LoginedUser = ((MainViewModel)DataContext).LoginedUser;
 
@@ -424,10 +426,10 @@ namespace TokikuNew
                     addWorkarea.Content = vm;
                     addWorkarea.Margin = new Thickness(0);
 
-                    Workspaces.Items.Add(addWorkarea);
-                    Workspaces.SelectedItem = addWorkarea;
+                    Workspaces.Items.Add(addWorkarea);                    
                 }
 
+                Workspaces.SelectedItem = addWorkarea;
             }
             catch (Exception ex)
             {

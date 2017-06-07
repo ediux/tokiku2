@@ -152,7 +152,7 @@ namespace TokikuNew.Views
                         if (SelectedManufacturers.Materials == null)
                             SelectedManufacturers.Materials = new MaterialsViewModelCollection();
 
-                        //controller.SaveModel((ManufacturersViewModel)DataContext);
+                        ((ManufacturersViewModel)DataContext).SaveModel();
 
                         if (SelectedManufacturers.HasError)
                         {

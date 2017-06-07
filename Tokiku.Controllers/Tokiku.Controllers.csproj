@@ -64,7 +64,9 @@
     <Compile Include="Projects\ProjectsController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shared\StartUpWindowController.cs" />
+    <Compile Include="ShopFlowController.cs" />
     <Compile Include="StateController.cs" />
+    <Compile Include="SuppliersController.cs" />
     <Compile Include="SystemController.cs" />
   </ItemGroup>
   <ItemGroup>
