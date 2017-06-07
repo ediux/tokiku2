@@ -31,42 +31,52 @@ namespace TokikuNew.Frame
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            tblkMessage.Text = "正在登入...";
-            tblkMessage.Foreground = new SolidColorBrush(Colors.Black);
-            Model.Password = pwdBox.Password;
-
-
-            var loginedUser = Model.Login();
-
-            if (loginedUser.HasError)
+            try
             {
-                tblkMessage.Text = loginedUser.Errors.First();
-                tblkMessage.Foreground = new SolidColorBrush(Colors.Red);
-            }
-            else
-            {
-                if (loginedUser != null)
+                tblkMessage.Text = "正在登入...";
+                tblkMessage.Foreground = new SolidColorBrush(Colors.Black);
+                Model.Password = pwdBox.Password;
+
+
+                var loginedUser = Model.Login();
+
+                if (loginedUser.HasError)
                 {
-                    tblkMessage.Text = "登入成功!";
-                    MainWindowController mc = App.Resolve<MainWindowController>();
-
-                    var mainwin = App.Navigate<MainWindow, MainViewModel>(new MainViewModel(App.Resolve<ProjectsController>()));
-
-
-                    mainwin.Closed += Mainwin_Closed;
-                    mainwin.Show();
-
-                    tblkMessage.Text = "";
-                    tbUserName.Text = "";
-                    pwdBox.Password = "";
-                    Hide();
+                    tblkMessage.Text = loginedUser.Errors.First();
+                    tblkMessage.Foreground = new SolidColorBrush(Colors.Red);
                 }
                 else
                 {
-                    tblkMessage.Text = "登入失敗!";
-                    tblkMessage.Foreground = new SolidColorBrush(Colors.Red);
+                    if (loginedUser != null)
+                    {
+                        tblkMessage.Text = "登入成功!";
+                        MainWindowController mc = App.Resolve<MainWindowController>();
+
+                        var mainwin = App.Navigate<MainWindow, MainViewModel>(new MainViewModel(App.Resolve<ProjectsController>()));
+
+
+                        mainwin.Closed += Mainwin_Closed;
+                        mainwin.Show();
+
+                        tblkMessage.Text = "";
+                        tbUserName.Text = "";
+                        pwdBox.Password = "";
+                        Hide();
+                    }
+                    else
+                    {
+                        tblkMessage.Text = "登入失敗!";
+                        tblkMessage.Foreground = new SolidColorBrush(Colors.Red);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+
 
         }
 
@@ -82,7 +92,17 @@ namespace TokikuNew.Frame
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter & (sender as TextBox).AcceptsReturn == false) MoveToNextUIElement(e);
+            try
+            {
+                if (e.Key == Key.Enter & (sender as TextBox).AcceptsReturn == false) MoveToNextUIElement(e);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+
         }
 
         void MoveToNextUIElement(KeyEventArgs e)
@@ -106,19 +126,49 @@ namespace TokikuNew.Frame
 
         private void pwdBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter) { btnLogin_Click(sender, new RoutedEventArgs(e.RoutedEvent)); }
+            try
+            {
+                if (e.Key == Key.Enter) { btnLogin_Click(sender, new RoutedEventArgs(e.RoutedEvent)); }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+
         }
 
         private void window_Initialized(object sender, EventArgs e)
         {
-            Model = new LoginViewModel(App.Resolve<StartUpWindowController>());
+            try
+            {
+                Model = new LoginViewModel(App.Resolve<StartUpWindowController>());
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+
         }
 
         private void window_Loaded(object sender, RoutedEventArgs e)
         {
-            Model = new LoginViewModel(App.Resolve<StartUpWindowController>());
-            Model.Initialized();
-            DataContext = Model;
+            try
+            {
+                Model = new LoginViewModel(App.Resolve<StartUpWindowController>());
+                Model.Initialized();
+                DataContext = Model;
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+
         }
     }
 }

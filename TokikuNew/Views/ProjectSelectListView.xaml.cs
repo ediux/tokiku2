@@ -41,13 +41,32 @@ namespace TokikuNew.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            ((ProjectListViewModelCollection)DataContext).Query();
+            try
+            {
+                if (DataContext != null)
+                    ((ProjectListViewModelCollection)DataContext).Query();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+
+            }
+
         }
 
         private void ProjectList_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            SelectedProject = (ProjectListViewModel)e.NewValue;
-            RaiseEvent(new RoutedEventArgs(SelectedProjectChangedEvent, SelectedProject));
+            try
+            {
+                SelectedProject = (ProjectListViewModel)e.NewValue;
+                RaiseEvent(new RoutedEventArgs(SelectedProjectChangedEvent, SelectedProject));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+
+            }
+
         }
 
         public static readonly RoutedEvent SelectedProjectChangedEvent = EventManager.RegisterRoutedEvent(
@@ -66,8 +85,16 @@ namespace TokikuNew.Views
         // This method raises the Tap event
         protected void RaiseSelectProjectChangedEvent()
         {
-            RoutedEventArgs newEventArgs = new RoutedEventArgs(SelectedProjectChangedEvent);
-            RaiseEvent(newEventArgs);
+            try
+            {
+                RoutedEventArgs newEventArgs = new RoutedEventArgs(SelectedProjectChangedEvent);
+                RaiseEvent(newEventArgs);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -86,30 +113,69 @@ namespace TokikuNew.Views
 
         private void ProjectList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (e.AddedItems.Count > 0)
+            try
             {
-                var obj = e.AddedItems[0];
-                RaiseEvent(new RoutedEventArgs(SelectedProjectChangedEvent, obj));
+                if (e.AddedItems.Count > 0)
+                {
+                    var obj = e.AddedItems[0];
+                    RaiseEvent(new RoutedEventArgs(SelectedProjectChangedEvent, obj));
+                }
+
             }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
         }
 
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
-            RaiseEvent(new RoutedEventArgs(Controls.ClosableTabItem.SendNewPageRequestEvent, e.OriginalSource));
+            try
+            {
+                RaiseEvent(new RoutedEventArgs(Controls.ClosableTabItem.SendNewPageRequestEvent, e.OriginalSource));
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
         }
 
         private void cSearchBar_ResetSearch(object sender, RoutedEventArgs e)
         {
-            ((ProjectListViewModelCollection)DataContext).Refresh();
+            try
+            {
+                ((ProjectListViewModelCollection)DataContext).Refresh();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+
         }
 
         private void ProjectList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (ProjectList.SelectedItem != null)
+            try
             {
-                SelectedProject = (ProjectListViewModel)ProjectList.SelectedItem;
-                RaiseEvent(new RoutedEventArgs(SelectedProjectChangedEvent, SelectedProject));
+                if (ProjectList.SelectedItem != null)
+                {
+                    SelectedProject = (ProjectListViewModel)ProjectList.SelectedItem;
+                    RaiseEvent(new RoutedEventArgs(SelectedProjectChangedEvent, SelectedProject));
+                }
             }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+
         }
 
         private void cSearchBar_RefreshResult(object sender, RoutedEventArgs e)

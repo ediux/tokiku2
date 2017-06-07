@@ -68,10 +68,18 @@ namespace TokikuNew.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                //註冊一個處理分頁關閉的事件處理器
+                AddHandler(ClosableTabItem.OnPageClosingEvent, new RoutedEventHandler(ProjectViewer_OnPageClosing));
+                AddHandler(ClosableTabItem.SendNewPageRequestEvent, new RoutedEventHandler(ProjectViewer_OpenNewTab));
+            }
+            catch (Exception ex)
+            {
 
-            //註冊一個處理分頁關閉的事件處理器
-            AddHandler(ClosableTabItem.OnPageClosingEvent, new RoutedEventHandler(ProjectViewer_OnPageClosing));
-            AddHandler(ClosableTabItem.SendNewPageRequestEvent, new RoutedEventHandler(ProjectViewer_OpenNewTab));
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
 
         }
 
@@ -165,10 +173,10 @@ namespace TokikuNew.Views
                         return;
                     }
 
-                 
-                    if(e.OriginalSource != null && e.OriginalSource is ProjectContractViewModel)
+
+                    if (e.OriginalSource != null && e.OriginalSource is ProjectContractViewModel)
                     {
-                        var vm = new ContractManager () { Margin = new Thickness(0) };
+                        var vm = new ContractManager() { Margin = new Thickness(0) };
                         vm.DataContext = SharedModel;
                         vm.LoginedUser = LoginedUser;
 

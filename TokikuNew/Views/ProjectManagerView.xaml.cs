@@ -84,17 +84,27 @@ namespace TokikuNew.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Binding selectProjectBinding = new Binding();
-            selectProjectBinding.Source = DataContext;
-            SetBinding(SelectedProjectProperty, selectProjectBinding);
-
-            if (SelectedProject.ClientId.HasValue)
+            try
             {
-                if (SelectedClient != null)
-                    SelectedClient.Refresh();
+                Binding selectProjectBinding = new Binding();
+                selectProjectBinding.Source = DataContext;
+                SetBinding(SelectedProjectProperty, selectProjectBinding);
 
-                //SelectedClient = clientcontroller.Query(s => s.Id == SelectedProject.ClientId.Value);
+                if (SelectedProject.ClientId.HasValue)
+                {
+                    if (SelectedClient != null)
+                        SelectedClient.Refresh();
+
+                    //SelectedClient = clientcontroller.Query(s => s.Id == SelectedProject.ClientId.Value);
+                }
             }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+
 
         }
 
@@ -103,26 +113,46 @@ namespace TokikuNew.Views
         /// </summary>
         private void tbName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (tbName.Text.Length > 0)
+            try
             {
-                if (tbName.Text.Length >= 2)
+                if (tbName.Text.Length > 0)
                 {
-                    tbShortName.Text = tbName.Text.Substring(0, Math.Min(2, tbName.Text.Length));
+                    if (tbName.Text.Length >= 2)
+                    {
+                        tbShortName.Text = tbName.Text.Substring(0, Math.Min(2, tbName.Text.Length));
+                    }
+                    else
+                    {
+                        tbShortName.Text = tbName.Text;
+                    }
                 }
                 else
                 {
-                    tbShortName.Text = tbName.Text;
+                    tbShortName.Text = string.Empty;
                 }
             }
-            else
+            catch (Exception ex)
             {
-                tbShortName.Text = string.Empty;
+
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
+
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, this));
+            try
+            {
+                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, this));
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+
         }
 
         private void DockBar_DocumentModeChanged(object sender, RoutedEventArgs e)
@@ -150,7 +180,7 @@ namespace TokikuNew.Views
 
                         if (SelectedProject.CreateUserId == Guid.Empty)
                             SelectedProject.CreateUserId = LoginedUser.UserId;
-                      
+
                         if (SelectedClient != null)
                             SelectedProject.ClientId = SelectedClient.Id;
 
@@ -191,15 +221,35 @@ namespace TokikuNew.Views
 
         private void btnAddContract_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedProject.ProjectContract == null)
-                SelectedProject.ProjectContract = new ProjectContractViewModelCollection();
+            try
+            {
+                if (SelectedProject.ProjectContract == null)
+                    SelectedProject.ProjectContract = new ProjectContractViewModelCollection();
 
-            SelectedProject.ProjectContract.Add(new ProjectContractViewModel());
-            // UpdateLayout();
+                SelectedProject.ProjectContract.Add(new ProjectContractViewModel());
+                // UpdateLayout();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
             if (e.OriginalSource is ProjectContractViewModel)
             {
                 ProjectContractViewModel disableContract = (ProjectContractViewModel)e.OriginalSource;
@@ -227,25 +277,55 @@ namespace TokikuNew.Views
 
         private void ClientList_SelectedClientChanged(object sender, RoutedEventArgs e)
         {
-            ClientViewModel model = e.OriginalSource as ClientViewModel;
-
-            if (model != null)
+            try
             {
-                SelectedClient = model;
+                ClientViewModel model = e.OriginalSource as ClientViewModel;
 
-                SelectedProject.ClientId = SelectedClient.Id;
+                if (model != null)
+                {
+                    SelectedClient = model;
 
+                    SelectedProject.ClientId = SelectedClient.Id;
+
+                }
             }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+
         }
 
         private void ContractList_Selected(object sender, RoutedEventArgs e)
         {
-            RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, ContractList.SelectedItem));
+            try
+            {
+
+                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, ContractList.SelectedItem));
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
         }
 
         private void ContractList_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, ContractList.SelectedItem));
+            try
+            {
+
+                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, ContractList.SelectedItem));
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
         }
 
         private void ContractList_Selected_1(object sender, RoutedEventArgs e)
