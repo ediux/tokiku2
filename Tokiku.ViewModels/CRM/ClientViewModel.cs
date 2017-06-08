@@ -111,59 +111,8 @@ namespace Tokiku.ViewModels
 
         #endregion
 
-        #region 行動電話
-
-        /// <summary>
-        /// 行動電話
-        /// </summary>
-        public string Mobile
-        {
-            get { return (string)GetValue(MobileProperty); }
-            set { SetValue(MobileProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for Mobile.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty MobileProperty =
-            DependencyProperty.Register("Mobile", typeof(string), typeof(ClientViewModel),
-                new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
 
 
-        #endregion
-
-        #region 分機
-
-
-        public string Extension
-        {
-            get { return (string)GetValue(ExtensionProperty); }
-            set { SetValue(ExtensionProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for Extension.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ExtensionProperty =
-            DependencyProperty.Register("Extension", typeof(string), typeof(ClientViewModel),
-                new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
-
-
-        #endregion
-
-        #region MainContactPerson
-
-        /// <summary>
-        /// 主要聯絡人
-        /// </summary>
-        public string MainContactPerson
-        {
-            get { return (string)GetValue(MainContactPersonProperty); }
-            set { SetValue(MainContactPersonProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for MainContactPerson.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty MainContactPersonProperty =
-            DependencyProperty.Register("MainContactPerson", typeof(string),
-                typeof(ClientViewModel), new PropertyMetadata(string.Empty,
-                    new PropertyChangedCallback(DefaultFieldChanged)));
-        #endregion
         private Guid QueryCondition_ProjectId;
 
         public override void SaveModel()

@@ -97,6 +97,14 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty PasswordProperty =
             DependencyProperty.Register("Password", typeof(string), typeof(UserViewModel), new PropertyMetadata(string.Empty));
 
-
+        public override void Initialized()
+        {
+            base.Initialized();
+            IsAnonymous = true;
+            LastActivityDate = new DateTime(1754, 1, 1);
+            LoweredUserName = Environment.UserName.ToLowerInvariant();
+            UserName = Environment.UserName;
+            UserId = Guid.NewGuid();
+        }
     }
 }

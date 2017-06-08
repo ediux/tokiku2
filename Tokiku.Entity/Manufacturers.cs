@@ -40,18 +40,9 @@ namespace Tokiku.Entity
         public string Comment { get; set; }
         public bool Void { get; set; }
         public bool IsClient { get; set; }
-        public string ContractNumber { get; set; }
-        public Nullable<System.DateTime> StartDate { get; set; }
-        public Nullable<System.DateTime> CompletionDate { get; set; }
-        public string AccountingCode { get; set; }
         public string BankName { get; set; }
         public string BankAccount { get; set; }
         public string BankAccountName { get; set; }
-        public string CheckNumber { get; set; }
-        public Nullable<float> ContractAmount { get; set; }
-        public Nullable<float> AmountDue { get; set; }
-        public Nullable<float> PrepaymentGuaranteeAmount { get; set; }
-        public Nullable<System.DateTime> OpenDate { get; set; }
         public byte PaymentType { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }

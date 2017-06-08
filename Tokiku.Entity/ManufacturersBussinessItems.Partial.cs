@@ -22,14 +22,14 @@ namespace Tokiku.Entity
         [Required]
         public byte PaymentTypeId { get; set; }
         [Required]
-        public byte TicketTypeId { get; set; }
+        public int TicketPeriodId { get; set; }
         [Required]
         public System.Guid ManufacturersId { get; set; }
     
+        public virtual Manufacturers Manufacturers { get; set; }
         public virtual MaterialCategories MaterialCategories { get; set; }
         public virtual PaymentTypes PaymentTypes { get; set; }
-        public virtual TicketTypes TicketTypes { get; set; }
-        public virtual Manufacturers Manufacturers { get; set; }
+        public virtual TicketPeriod TicketPeriod { get; set; }
         public virtual ICollection<SupplierTranscationItem> SupplierTranscationItem { get; set; }
     }
 }

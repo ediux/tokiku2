@@ -153,6 +153,7 @@ namespace Tokiku.ViewModels
                 Debug.WriteLine("結束抄寫.");
 #endif
                 return ViewModel;
+
             }
             catch (Exception ex)
             {
@@ -173,7 +174,7 @@ namespace Tokiku.ViewModels
             {
                 if (!Dispatcher.CheckAccess())
                 {
-                    Dispatcher.Invoke(new Action<TB, TViewB>(CopyToModel), DispatcherPriority.Normal);
+                    Dispatcher.Invoke(new Action<TB, TViewB>(CopyToModel), DispatcherPriority.Normal, entity, ViewModel);
                 }
                 else
                 {
@@ -413,7 +414,9 @@ namespace Tokiku.ViewModels
         /// </remarks>
         public virtual void Query()
         {
-
+            Status.IsNewInstance = false;
+            Status.IsModify = false;
+            Status.IsSaved = false;
         }
 
         /// <summary>
@@ -421,7 +424,9 @@ namespace Tokiku.ViewModels
         /// </summary>
         public virtual void SaveModel()
         {
-
+            Status.IsNewInstance = false;
+            Status.IsModify = false;
+            Status.IsSaved = true;
         }
 
         /// <summary>
@@ -434,7 +439,9 @@ namespace Tokiku.ViewModels
 
         public virtual void SetModel(dynamic entity)
         {
-
+            Status.IsNewInstance = false;
+            Status.IsModify = false;
+            Status.IsSaved = false;
         }
     }
 

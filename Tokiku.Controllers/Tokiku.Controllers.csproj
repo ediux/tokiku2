@@ -50,9 +50,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Finance\TicketPeriodsManagementController.cs" />
     <Compile Include="Orders\AluminumExtrusionOrderSheetViewController.cs" />
     <Compile Include="Manufacturers\ClientController.cs" />
     <Compile Include="Projects\EngineeringController.cs" />
+    <Compile Include="Shared\IBaseController.cs" />
     <Compile Include="Shared\LoginParameter.cs" />
     <Compile Include="Main\MainWindowController.cs" />
     <Compile Include="Finance\PaymentTypesManageController.cs" />

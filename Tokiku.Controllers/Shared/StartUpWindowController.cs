@@ -10,7 +10,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class StartUpWindowController : BaseController< Users>
+    public class StartUpWindowController : BaseController
     {
         public StartUpWindowController()
         {
@@ -93,44 +93,44 @@ namespace Tokiku.Controllers
 
         }
 
-        
 
-       
 
-    //    public override UserViewModel CreateNew()
-    //    {
-    //        return new UserViewModel()
-    //        {
-    //            IsAnonymous = true,
-    //            LastActivityDate = new DateTime(1754, 1, 1),
-    //            LoweredUserName = Environment.UserName.ToLowerInvariant(),
-    //            UserName = Environment.UserName,
-    //            UserId = Guid.NewGuid()
-    //        };
-    //    }
 
-    //    public override void Add(UserViewModel model)
-    //    {
-    //        try
-    //        {
-    //            using (database)
-    //            {
-    //Users newUser = new Users();
-    //            CopyToModel(newUser, model);
-    //            database.Users.Add(newUser);
-    //            database.SaveChanges();
-    //            }
-            
-    //        }
-    //        catch (Exception ex)
-    //        {
-    //            setErrortoModel(model, ex);
-    //        }
-    //        finally
-    //        {
-    //            database = new TokikuEntities();
-    //        }
-    //    }
+
+        //    public override UserViewModel CreateNew()
+        //    {
+        //        return new UserViewModel()
+        //        {
+        //            IsAnonymous = true,
+        //            LastActivityDate = new DateTime(1754, 1, 1),
+        //            LoweredUserName = Environment.UserName.ToLowerInvariant(),
+        //            UserName = Environment.UserName,
+        //            UserId = Guid.NewGuid()
+        //        };
+        //    }
+
+        //    public override void Add(UserViewModel model)
+        //    {
+        //        try
+        //        {
+        //            using (database)
+        //            {
+        //Users newUser = new Users();
+        //            CopyToModel(newUser, model);
+        //            database.Users.Add(newUser);
+        //            database.SaveChanges();
+        //            }
+
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            setErrortoModel(model, ex);
+        //        }
+        //        finally
+        //        {
+        //            database = new TokikuEntities();
+        //        }
+        //    }
 
 
 

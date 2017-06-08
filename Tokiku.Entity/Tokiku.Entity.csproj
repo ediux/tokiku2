@@ -123,59 +123,116 @@
     <Compile Include="IUnitOfWork.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
+    <Compile Include="Manufacturers.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
     <Compile Include="Manufacturers.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ManufacturersBussinessItems.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
     <Compile Include="ManufacturersBussinessItems.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
+    <Compile Include="MaterialCategories.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
     <Compile Include="MaterialCategories.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Materials.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
     <Compile Include="Materials.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
+    <Compile Include="Membership.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
     <Compile Include="Membership.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Molds.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
     <Compile Include="Molds.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
+    <Compile Include="MoldsInProjects.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
     <Compile Include="MoldsInProjects.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MoldUseStatus.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
     <Compile Include="MoldUseStatus.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
+    <Compile Include="PaymentTypes.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
     <Compile Include="PaymentTypes.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Profile.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
     <Compile Include="Profile.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProjectContract.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
     <Compile Include="ProjectContract.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectItemCost.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
     <Compile Include="ProjectItemCost.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
+    <Compile Include="Projects.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
     <Compile Include="Projects.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PromissoryNoteManagement.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
     <Compile Include="PromissoryNoteManagement.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
+    <Compile Include="Roles.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
     <Compile Include="Roles.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ShopFlow.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
     <Compile Include="ShopFlow.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
+    <Compile Include="ShopFlowDetail.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
     <Compile Include="ShopFlowDetail.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
+    <Compile Include="ShopFlowHistory.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
     <Compile Include="ShopFlowHistory.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="States.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
     <Compile Include="States.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
@@ -186,48 +243,45 @@
     <Compile Include="SupplierTranscationItem.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
+    <Compile Include="SupplierTranscationItemRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TicketPeriod.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TicketPeriod.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TicketPeriodRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TicketTypes.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
     <Compile Include="TicketTypes.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Users.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
     <Compile Include="Users.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewTables\MainWindowEntity.cs" />
-    <Compile Include="Manufacturers.cs">
-      <DependentUpon>Tokiku.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ManufacturersBussinessItems.cs">
-      <DependentUpon>Tokiku.tt</DependentUpon>
-    </Compile>
     <Compile Include="ManufacturersBussinessItemsRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
     <Compile Include="ManufacturersRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
-    <Compile Include="MaterialCategories.cs">
-      <DependentUpon>Tokiku.tt</DependentUpon>
-    </Compile>
     <Compile Include="MaterialCategoriesRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Materials.cs">
-      <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
     <Compile Include="MaterialsRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
-    <Compile Include="Membership.cs">
-      <DependentUpon>Tokiku.tt</DependentUpon>
-    </Compile>
     <Compile Include="MembershipRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Molds.cs">
-      <DependentUpon>Tokiku.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MoldsInProjects.cs">
-      <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
     <Compile Include="MoldsInProjectsRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
@@ -235,45 +289,24 @@
     <Compile Include="MoldsRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
-    <Compile Include="MoldUseStatus.cs">
-      <DependentUpon>Tokiku.tt</DependentUpon>
-    </Compile>
     <Compile Include="MoldUseStatusRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PaymentTypes.cs">
-      <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
     <Compile Include="PaymentTypesRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
-    <Compile Include="Profile.cs">
-      <DependentUpon>Tokiku.tt</DependentUpon>
-    </Compile>
     <Compile Include="ProfileRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
-    <Compile Include="ProjectContract.cs">
-      <DependentUpon>Tokiku.tt</DependentUpon>
-    </Compile>
     <Compile Include="ProjectContractRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProjectItemCost.cs">
-      <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
     <Compile Include="ProjectItemCostRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewTables\ProjectListEntity.cs" />
-    <Compile Include="Projects.cs">
-      <DependentUpon>Tokiku.tt</DependentUpon>
-    </Compile>
     <Compile Include="ProjectsRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PromissoryNoteManagement.cs">
-      <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
     <Compile Include="PromissoryNoteManagementRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
@@ -282,23 +315,11 @@
     <Compile Include="RepositoryHelper.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
-    <Compile Include="Roles.cs">
-      <DependentUpon>Tokiku.tt</DependentUpon>
-    </Compile>
     <Compile Include="RolesRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
-    <Compile Include="ShopFlow.cs">
-      <DependentUpon>Tokiku.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ShopFlowDetail.cs">
-      <DependentUpon>Tokiku.tt</DependentUpon>
-    </Compile>
     <Compile Include="ShopFlowDetailRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ShopFlowHistory.cs">
-      <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
     <Compile Include="ShopFlowHistoryRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
@@ -306,14 +327,8 @@
     <Compile Include="ShopFlowRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
-    <Compile Include="States.cs">
-      <DependentUpon>Tokiku.tt</DependentUpon>
-    </Compile>
     <Compile Include="StatesRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TicketTypes.cs">
-      <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
     <Compile Include="TicketTypesRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
@@ -334,9 +349,6 @@
       <DependentUpon>Tokiku.edmx</DependentUpon>
     </Compile>
     <Compile Include="TokikuEntities.cs" />
-    <Compile Include="Users.cs">
-      <DependentUpon>Tokiku.tt</DependentUpon>
-    </Compile>
     <Compile Include="UsersRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>

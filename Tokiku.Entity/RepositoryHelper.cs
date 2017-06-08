@@ -365,6 +365,34 @@ namespace Tokiku.Entity
 			return repository;
 		}		
 
+		public static SupplierTranscationItemRepository GetSupplierTranscationItemRepository()
+		{
+			var repository = new SupplierTranscationItemRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static SupplierTranscationItemRepository GetSupplierTranscationItemRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new SupplierTranscationItemRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
+		public static TicketPeriodRepository GetTicketPeriodRepository()
+		{
+			var repository = new TicketPeriodRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static TicketPeriodRepository GetTicketPeriodRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new TicketPeriodRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
 		public static TicketTypesRepository GetTicketTypesRepository()
 		{
 			var repository = new TicketTypesRepository();

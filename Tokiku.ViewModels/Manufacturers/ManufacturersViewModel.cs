@@ -11,27 +11,38 @@ namespace Tokiku.ViewModels
 {
     public class ManufacturersViewModelCollection : BaseViewModelCollection<ManufacturersViewModel>
     {
+        #region 內部變數
+        /// <summary>
+        /// 廠商管理對應的控制器
+        /// </summary>
         private ManufacturersManageController _controller;
+        #endregion
 
+        #region 建構式
+        /// <summary>
+        /// 預設的建構式
+        /// </summary>
         public ManufacturersViewModelCollection()
         {
-            HasError = false;
+
+        }
+
+        /// <summary>
+        /// 給IoC容器使用的建構式。
+        /// </summary>
+        /// <param name="Controller">廠商管理商業邏輯層控制器</param>
+        public ManufacturersViewModelCollection(ManufacturersManageController Controller)
+        {
+            _controller = Controller;
         }
 
         public ManufacturersViewModelCollection(IEnumerable<ManufacturersViewModel> source) : base(source)
         {
 
         }
+        #endregion
 
-        public ManufacturersManageController Controller
-        {
-            get { return _controller; }
-            set
-            {
-                _controller = value;
-            }
-        }
-
+        #region 模型命令方法
         public override void Initialized()
         {
             if (_controller == null)
@@ -53,7 +64,11 @@ namespace Tokiku.ViewModels
 
                 foreach (var row in queryresult.Result)
                 {
-                    Add(BindingFromModel(row));
+                    var model = BindingFromModel(row);
+                    model.Status.IsNewInstance = false;
+                    model.Status.IsModify = false;
+                    model.Status.IsSaved = false;
+                    Add(model);
                 }
             }
         }
@@ -71,18 +86,32 @@ namespace Tokiku.ViewModels
                 }
             }
         }
+        #endregion
+
     }
 
     public class ManufacturersViewModel : BaseViewModel
     {
-        private Controllers.ManufacturersManageController controller = new ManufacturersManageController();
-        public ManufacturersViewModel()
+        #region 內部變數
+        private ManufacturersManageController controller;
+        #endregion
+
+        #region 建構式
+        public ManufacturersViewModel() : base()
         {
 
         }
 
-        public static readonly DependencyProperty IdProperty = DependencyProperty.Register("Id",
-            typeof(Guid), typeof(ManufacturersViewModel), new PropertyMetadata(Guid.NewGuid(), new PropertyChangedCallback(DefaultFieldChanged)));
+        public ManufacturersViewModel(ManufacturersManageController Controller) : base()
+        {
+            controller = Controller;
+        }
+        #endregion
+
+        #region 屬性
+
+
+
 
         public static readonly DependencyProperty CodeProperty = DependencyProperty.Register("Code",
             typeof(string), typeof(ManufacturersViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
@@ -120,8 +149,7 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty FactoryAddressProperty = DependencyProperty.Register("FactoryAddress", typeof(string),
          typeof(ManufacturersViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
 
-        public static readonly DependencyProperty MainContactPersonIdProperty = DependencyProperty.Register("MainContactPersonId",
-            typeof(string), typeof(ManufacturersViewModel), new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
+
 
         public static readonly DependencyProperty CommentProperty = DependencyProperty.Register("Comment",
             typeof(string), typeof(ManufacturersViewModel), new PropertyMetadata(string.Empty));
@@ -141,10 +169,18 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty CreateUserProperty = DependencyProperty.Register("CreateUser",
     typeof(UserViewModel), typeof(ManufacturersViewModel), new PropertyMetadata(default(UserViewModel)));
 
-
-
+        #region Id
+        /// <summary>
+        /// 編號
+        /// </summary>
         [Display(Name = "編號")]
         public System.Guid Id { get { return (Guid)GetValue(IdProperty); } set { SetValue(IdProperty, value); RaisePropertyChanged("Id"); } }
+        public static readonly DependencyProperty IdProperty = DependencyProperty.Register("Id",
+           typeof(Guid), typeof(ManufacturersViewModel), new PropertyMetadata(Guid.NewGuid(), new PropertyChangedCallback(DefaultFieldChanged)));
+
+        #endregion
+
+
         public string Code { get { return (string)GetValue(CodeProperty); } set { SetValue(CodeProperty, value); RaisePropertyChanged("Code"); } }
         public string Name { get { return (string)GetValue(NameProperty); } set { SetValue(NameProperty, value); RaisePropertyChanged("Name"); } }
         public string ShortName { get { return (string)GetValue(ShortNameProperty); } set { SetValue(ShortNameProperty, value); RaisePropertyChanged("ShortName"); } }
@@ -157,7 +193,7 @@ namespace Tokiku.ViewModels
         public string FactoryPhone { get { return (string)GetValue(FactoryPhoneProperty); } set { SetValue(FactoryPhoneProperty, value); RaisePropertyChanged("FactoryPhone"); } }
         public string FactoryFax { get { return (string)GetValue(FactoryFaxProperty); } set { SetValue(FactoryFaxProperty, value); RaisePropertyChanged("FactoryFax"); } }
         public string FactoryAddress { get { return (string)GetValue(FactoryAddressProperty); } set { SetValue(FactoryAddressProperty, value); RaisePropertyChanged("FactoryAddress"); } }
-        public string MainContactPersonId { get { return (string)GetValue(MainContactPersonIdProperty); } set { SetValue(MainContactPersonIdProperty, value); RaisePropertyChanged("MainContactPersonId"); } }
+
         public string Comment { get { return (string)GetValue(CommentProperty); } set { SetValue(CommentProperty, value); RaisePropertyChanged("Comment"); } }
         public bool Void { get { return (bool)GetValue(VoidProperty); } set { SetValue(VoidProperty, value); RaisePropertyChanged("Void"); } }
         public bool IsClient { get { return (bool)GetValue(IsClientProperty); } set { SetValue(IsClientProperty, value); RaisePropertyChanged("IsClient"); } }
@@ -165,6 +201,25 @@ namespace Tokiku.ViewModels
         public System.Guid CreateUserId { get { return (Guid)GetValue(CreateUserIdProperty); } set { SetValue(CreateUserIdProperty, value); RaisePropertyChanged("CreateUserId"); } }
         public virtual UserViewModel CreateUser { get { return (UserViewModel)GetValue(CreateUserProperty); } set { SetValue(CreateUserProperty, value); RaisePropertyChanged("CreateUser"); } }
 
+        #region MainContactPerson
+
+        /// <summary>
+        /// 主要聯絡人
+        /// </summary>
+        public string MainContactPerson
+        {
+            get { return (string)GetValue(MainContactPersonProperty); }
+            set { SetValue(MainContactPersonProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MainContactPerson.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MainContactPersonProperty =
+            DependencyProperty.Register("MainContactPerson", typeof(string),
+                typeof(ManufacturersViewModel), new PropertyMetadata(string.Empty,
+                    new PropertyChangedCallback(DefaultFieldChanged)));
+        #endregion
+
+        #region AccountingCode
         /// <summary>
         /// 會計代碼
         /// </summary>
@@ -179,8 +234,9 @@ namespace Tokiku.ViewModels
             DependencyProperty.Register("AccountingCode", typeof(string),
                 typeof(ManufacturersViewModel),
                 new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
+        #endregion
 
-
+        #region BankName
         /// <summary>
         /// 銀行名稱
         /// </summary>
@@ -194,7 +250,9 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty BankNameProperty =
             DependencyProperty.Register("BankName", typeof(string), typeof(ManufacturersViewModel),
                 new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
+        #endregion
 
+        #region BankAccount
         /// <summary>
         /// 銀行帳號
         /// </summary>
@@ -208,6 +266,7 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty BankAccountProperty =
             DependencyProperty.Register("BankAccount", typeof(string), typeof(ManufacturersViewModel),
                 new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
+        #endregion
 
         #region BankAccountName
         /// <summary>
@@ -241,39 +300,7 @@ namespace Tokiku.ViewModels
                 new PropertyMetadata((byte)0, new PropertyChangedCallback(DefaultFieldChanged)));
         #endregion
 
-        #region PaymentTypes
-        /// <summary>
-        /// 支付方式定義表
-        /// </summary>
-        public PaymentTypesManageViewModelCollection PaymentTypes
-        {
-            get { return (PaymentTypesManageViewModelCollection)GetValue(PaymentTypesProperty); }
-            set { SetValue(PaymentTypesProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for PaymentTypes.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty PaymentTypesProperty =
-            DependencyProperty.Register("PaymentTypes", typeof(PaymentTypesManageViewModelCollection),
-                typeof(ManufacturersViewModel),
-                new PropertyMetadata(default(PaymentTypesManageViewModelCollection),
-                    new PropertyChangedCallback(DefaultFieldChanged)));
-        #endregion
-
-        #region 支票號碼 CheckNumber
-        /// <summary>
-        /// 支票號碼
-        /// </summary>
-        public string CheckNumber
-        {
-            get { return (string)GetValue(CheckNumberProperty); }
-            set { SetValue(CheckNumberProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for CheckNumber.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CheckNumberProperty =
-            DependencyProperty.Register("CheckNumber", typeof(string),
-                typeof(ManufacturersViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
-        #endregion
+    
 
         #region 聯絡人清單 Contracts
         /// <summary>
@@ -313,19 +340,6 @@ namespace Tokiku.ViewModels
 
         #endregion
 
-        #region IsDefault
-        public bool IsDefault
-        {
-            get { return (bool)GetValue(IsDefaultProperty); }
-            set { SetValue(IsDefaultProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for IsDefault.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty IsDefaultProperty =
-            DependencyProperty.Register("IsDefault", typeof(bool), typeof(ManufacturersViewModel),
-                new PropertyMetadata(false, new PropertyChangedCallback(DefaultFieldChanged)));
-        #endregion
-
         #region ManufacturersBussinessItems 營業項目
 
         /// <summary>
@@ -343,7 +357,82 @@ namespace Tokiku.ViewModels
 
         #endregion
 
+        #region 行動電話
 
+        /// <summary>
+        /// 行動電話
+        /// </summary>
+        public string Mobile
+        {
+            get { return (string)GetValue(MobileProperty); }
+            set { SetValue(MobileProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Mobile.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MobileProperty =
+            DependencyProperty.Register("Mobile", typeof(string), typeof(ManufacturersViewModel),
+                new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
+
+
+        #endregion
+
+        #region 分機
+
+        /// <summary>
+        /// 主要聯絡人分機
+        /// </summary>
+        public string Extension
+        {
+            get { return (string)GetValue(ExtensionProperty); }
+            set { SetValue(ExtensionProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Extension.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ExtensionProperty =
+            DependencyProperty.Register("Extension", typeof(string), typeof(ClientViewModel),
+                new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
+
+
+        #endregion
+
+        #region LastUpdateTime
+        /// <summary>
+        /// 異動時間
+        /// </summary>
+        public DateTime LastUpdateTime
+        {
+            get { return (DateTime)GetValue(LastUpdateTimeProperty); }
+            set { SetValue(LastUpdateTimeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for LastUpdateTime.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty LastUpdateTimeProperty =
+            DependencyProperty.Register("LastUpdateTime", typeof(DateTime), typeof(ManufacturersViewModel), new PropertyMetadata(DateTime.Now
+                , new PropertyChangedCallback(DefaultFieldChanged)));
+
+        #endregion
+
+        #region TicketPeriodId
+
+        /// <summary>
+        /// 票期Id
+        /// </summary>
+        public int TicketPeriodId
+        {
+            get { return (int)GetValue(TicketPeriodIdProperty); }
+            set { SetValue(TicketPeriodIdProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for TicketPeriodId.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TicketPeriodIdProperty =
+            DependencyProperty.Register("TicketPeriodId", typeof(int), typeof(ManufacturersViewModel), new PropertyMetadata(1));
+
+
+        #endregion
+
+     
+
+        #endregion
 
         #region 模型命令
 
@@ -373,10 +462,16 @@ namespace Tokiku.ViewModels
             Debug.WriteLine("ManufacturersViewModel initialized.");
 #endif
             base.Initialized();
+
+            if (controller == null)
+                controller = new ManufacturersManageController();
+
             Id = Guid.NewGuid();
             Contracts = new ContactsViewModelCollection();
-            PaymentTypes = new PaymentTypesManageViewModelCollection();
+            //PaymentTypes = new PaymentTypesManageViewModelCollection();
             ManufacturersBussinessItems = new ManufacturersBussinessItemsViewModelColletion();
+
+            //PaymentTypes.Query();
         }
 
         public override void SaveModel()
@@ -423,7 +518,14 @@ namespace Tokiku.ViewModels
             Refresh();
         }
 
-        
+        public override void SetModel(dynamic entity)
+        {
+            Manufacturers data = (Manufacturers)entity;
+            BindingFromModel(data, this);
+            Status.IsNewInstance = false;
+            Status.IsModify = false;
+            Status.IsSaved = false;
+        }
         #endregion
 
     }

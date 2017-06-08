@@ -43,6 +43,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Finance\TicketPeriodsViewModel.cs" />
     <Compile Include="Manufacturers\ManufacturersBussinessItemsViewModel.cs" />
     <Compile Include="MES\MaterialCategoriesViewModel.cs" />
     <Compile Include="Projects\Orders\AluminumExtrusionOrderSheetViewModel.cs" />

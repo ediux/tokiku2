@@ -109,11 +109,7 @@ namespace TokikuNew.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            AddHandler(DockBar.DocumentModeChangedEvent, new RoutedEventHandler(DockBar_DocumentModeChanged));
-            Binding sourceBinding = new Binding();
-            sourceBinding.Source = DataContext;
-
-            SetBinding(SelectedManufacturerProperty, sourceBinding);
+           
         }
 
         private void DockBar_DocumentModeChanged(object sender, RoutedEventArgs e)
@@ -159,12 +155,19 @@ namespace TokikuNew.Views
 
         private void ContractSearchBar_ResetSearch(object sender, RoutedEventArgs e)
         {
-            ((ContactsViewModelCollection)DataContext).Query((string)e.OriginalSource, SelectedManufacturer.Id, SelectedManufacturer.IsClient);
+            if (DataContext is ContactsViewModelCollection)
+            {
+                ((ContactsViewModelCollection)DataContext).Query((string)e.OriginalSource, SelectedManufacturer.Id, SelectedManufacturer.IsClient);
+            }
+            
         }
 
         private void ContractSearchBar_Search(object sender, RoutedEventArgs e)
         {
-            ((ContactsViewModelCollection)DataContext).Query((string)e.OriginalSource, SelectedManufacturer.Id, SelectedManufacturer.IsClient);
+            if (DataContext is ContactsViewModelCollection)
+            {
+                ((ContactsViewModelCollection)DataContext).Query((string)e.OriginalSource, SelectedManufacturer.Id, SelectedManufacturer.IsClient);
+            }
         }
 
         private void ContractList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -205,7 +208,7 @@ namespace TokikuNew.Views
             }
             else
             {
-                if(ContractList.DataContext is ManufacturersViewModel)
+                if (ContractList.DataContext is ManufacturersViewModel)
                 {
                     var founddefuts = ((ManufacturersViewModel)ContractList.DataContext).Contracts
               .Where(w => w.IsDefault == true);

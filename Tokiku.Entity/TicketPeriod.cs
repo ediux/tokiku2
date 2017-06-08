@@ -12,21 +12,21 @@ namespace Tokiku.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class TicketTypes
+    public partial class TicketPeriod
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TicketTypes()
+        public TicketPeriod()
         {
-            this.PromissoryNoteManagement = new HashSet<PromissoryNoteManagement>();
+            this.ManufacturersBussinessItems = new HashSet<ManufacturersBussinessItems>();
         }
     
-        public byte Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
-        public bool IsPromissoryNote { get; set; }
-        public System.DateTime CreateTime { get; set; }
-        public System.Guid CreateUserId { get; set; }
+        public int DayLimit { get; set; }
+        public Nullable<System.DateTime> CreateTime { get; set; }
+        public Nullable<System.Guid> CreateUserId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
+        public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
     }
 }

@@ -1,17 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Tokiku.Controllers;
 using Tokiku.ViewModels;
 using TokikuNew.Controls;
@@ -74,16 +65,92 @@ namespace TokikuNew.Views
             DependencyProperty.Register("Mode", typeof(DocumentLifeCircle), typeof(ManufacturersManageView), new PropertyMetadata(DocumentLifeCircle.Read));
         #endregion
 
+        #region PaymentTypes
+        /// <summary>
+        /// 支付方式定義表
+        /// </summary>
+        public PaymentTypesManageViewModelCollection PaymentTypes
+        {
+            get { return (PaymentTypesManageViewModelCollection)GetValue(PaymentTypesProperty); }
+            set { SetValue(PaymentTypesProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for PaymentTypes.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PaymentTypesProperty =
+            DependencyProperty.Register("PaymentTypes", typeof(PaymentTypesManageViewModelCollection),
+                typeof(ManufacturersManageView),
+                new PropertyMetadata(default(PaymentTypesManageViewModelCollection)
+                    ));
+        #endregion
+
+        #region MaterialCategories
+        public MaterialCategoriesViewModelCollection MaterialCategories
+        {
+            get { return (MaterialCategoriesViewModelCollection)GetValue(MaterialCategoriesProperty); }
+            set { SetValue(MaterialCategoriesProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MaterialCategories.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MaterialCategoriesProperty =
+            DependencyProperty.Register("MaterialCategories", typeof(MaterialCategoriesViewModelCollection), typeof(ManufacturersManageView), new PropertyMetadata(default(MaterialCategoriesViewModelCollection)));
+
+        #endregion
+
+
+
+        #region TicketPeriods
+
+        public TicketPeriodsViewModelCollection TicketPeriods
+        {
+            get { return (TicketPeriodsViewModelCollection)GetValue(TicketPeriodsProperty); }
+            set { SetValue(TicketPeriodsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for TicketPeriods.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TicketPeriodsProperty =
+            DependencyProperty.Register("TicketPeriods", typeof(TicketPeriodsViewModelCollection), typeof(ManufacturersManageView), new PropertyMetadata(default(TicketPeriodsViewModelCollection)));
+
+
+        #endregion
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Binding BindingDataContext = new Binding();
-            BindingDataContext.Source = DataContext;
-            BindingDataContext.Path = new PropertyPath(DataContextProperty);
-            BindingDataContext.Mode = BindingMode.OneWay;
-            BindingDataContext.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+            try
+            {
+                Binding BindingDataContext = new Binding();
+                BindingDataContext.Source = DataContext;
 
-            SetBinding(SelectedManufacturersProperty, BindingDataContext); 
+                SetBinding(SelectedManufacturersProperty, BindingDataContext);
+
+
+
+                PaymentTypes = new PaymentTypesManageViewModelCollection();
+                PaymentTypes.Query();
+
+                TicketPeriods = new TicketPeriodsViewModelCollection();
+                TicketPeriods.Query();
+
+                if (!((ManufacturersViewModel)DataContext).Status.IsNewInstance)
+                {
+                    //當不是新建模式 則查詢設為預設的聯絡人顯示
+                    var maincontact = ((ManufacturersViewModel)DataContext).Contracts.Where(w => w.IsDefault == true).SingleOrDefault();
+                    if (maincontact != null)
+                    {
+                        ((ManufacturersViewModel)DataContext).MainContactPerson = maincontact.Name;
+                        ((ManufacturersViewModel)DataContext).Extension = maincontact.ExtensionNumber;
+                    }
+                    else
+                    {
+                        ((ManufacturersViewModel)DataContext).MainContactPerson = string.Empty;
+                        ((ManufacturersViewModel)DataContext).Extension = string.Empty;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
         }
 
         private void tbName_TextChanged(object sender, TextChangedEventArgs e)

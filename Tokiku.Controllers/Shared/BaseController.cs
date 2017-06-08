@@ -12,11 +12,25 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public abstract class BaseController : IDisposable
+    public abstract class BaseController : IBaseController
     {
-
         protected IUnitOfWork database;
 
+        public BaseController()
+        {
+            try
+            {
+                database = RepositoryHelper.GetUnitOfWork();
+            }
+            catch
+            {
+#if DEBUG
+                //database = new TokikuEntities("data source=220.130.128.36,1443;initial catalog=Tokiku2;persist security info=True;user id=sa;password=1qaz@WSX;MultipleActiveResultSets=True;App=EntityFramework");
+                database = RepositoryHelper.GetUnitOfWork();
+                database.ConnectionString = "data source = 220.130.128.36,1443; initial catalog = Tokiku2; persist security info = True; user id = sa; password = 1qaz @WSX; MultipleActiveResultSets = True; App = EntityFramework";
+#endif
+            }
+        }
 
 
         #region IDisposable Support
@@ -151,18 +165,7 @@ namespace Tokiku.Controllers
     {
         public BaseController() : base()
         {
-            try
-            {
-                database = RepositoryHelper.GetUnitOfWork();
-            }
-            catch
-            {
-#if DEBUG
-                //database = new TokikuEntities("data source=220.130.128.36,1443;initial catalog=Tokiku2;persist security info=True;user id=sa;password=1qaz@WSX;MultipleActiveResultSets=True;App=EntityFramework");
-                database = RepositoryHelper.GetUnitOfWork();
-                database.ConnectionString = "data source = 220.130.128.36,1443; initial catalog = Tokiku2; persist security info = True; user id = sa; password = 1qaz @WSX; MultipleActiveResultSets = True; App = EntityFramework";
-#endif
-            }
+            
         }
 
         /// <summary>

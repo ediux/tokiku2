@@ -7,6 +7,11 @@ using System.Windows;
 
 namespace Tokiku.ViewModels
 {
+    public class MaterialCategoriesViewModelCollection : BaseViewModelCollection<MaterialCategoriesViewModel>
+    {
+
+    }
+
     public class MaterialCategoriesViewModel : BaseViewModel
     {
         #region Id
