@@ -116,11 +116,32 @@ namespace TokikuNew.Views
 
         private void EngList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            e.Handled = true;
-            if (EngList.SelectedItem != null)
+            try
             {
-                RaiseEvent(new RoutedEventArgs(ProjectSelectListView.SelectedProjectChangedEvent, EngList.SelectedItem));
+                e.Handled = true;
+                if (EngList.SelectedItem != null)
+                {
+                    RaiseEvent(new RoutedEventArgs(ProjectSelectListView.SelectedProjectChangedEvent, EngList.SelectedItem));
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+           
+        }
+
+        private void tbName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                tbShortName.Text = tbName.Text;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
         }
     }
 }

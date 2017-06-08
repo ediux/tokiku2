@@ -24,7 +24,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="支付方式清單" FontSize="17" Margin="2"/>
             <Controls:SearchBar Grid.Column="2" Grid.ColumnSpan="3"/>
-            <Button Content="&#xE109;" Grid.Column="6" Margin="1" FontFamily="Segoe MDL2 Assets" Name="btnNew" Click="btnNew_Click" ToolTip="新增" />
+            <Button Content="&#xE109;" Grid.Column="6" Margin="1" FontFamily="/Resources/#Segoe MDL2 Assets" Name="btnNew" Click="btnNew_Click" ToolTip="新增" />
         </Grid>
         <ss:GcSpreadSheet Grid.Row="1" Margin="2" SheetCount="1" StartSheetIndex="0" Name="PaymentTypesList" AutoClipboard="True">
             <ss:GcSpreadSheet.Sheets>

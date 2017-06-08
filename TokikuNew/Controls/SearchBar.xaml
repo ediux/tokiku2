@@ -12,8 +12,8 @@
         </Grid.ColumnDefinitions>
         <TextBox Name="tbSearchBar" Grid.Column="0" Margin="1" AcceptsReturn="False" KeyDown="SearchBar_KeyDown" />
         <StackPanel Orientation="Horizontal" Grid.Column="1">
-            <Button Content="&#xE11A;" FontFamily="Segoe MDL2 Assets" Grid.Column="1" Margin="1" Width="28" FontSize="10" Click="Button_Click" ToolTip="查詢" />
-            <Button Grid.Column="6" Width="30" Content="&#xE117;" FontFamily="Segoe MDL2 Assets" Margin="1" Name="btnRefresh" Click="btnRefresh_Click" ToolTip="重新整理"/>
+            <Button Content="&#xE11A;" FontFamily="/Resources/#Segoe MDL2 Assets" Grid.Column="1" Margin="1" Width="28" FontSize="10" Click="Button_Click" ToolTip="查詢" />
+            <Button Grid.Column="6" Width="30" Content="&#xE117;" FontFamily="/Resources/#Segoe MDL2 Assets" Margin="1" Name="btnRefresh" Click="btnRefresh_Click" ToolTip="重新整理"/>
         </StackPanel>
     </Grid>
 </UserControl>
