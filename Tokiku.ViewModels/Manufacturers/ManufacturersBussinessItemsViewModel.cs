@@ -255,25 +255,42 @@ namespace Tokiku.ViewModels
 
         public override void SetModel(dynamic entity)
         {
-            ManufacturersBussinessItems data = (ManufacturersBussinessItems)entity;
-            BindingFromModel(data, this);
-            DoEvents();
-            if (data.MaterialCategories != null)
+            if (entity is View_BussinessItemsList)
             {
-                MaterialCategories = data.MaterialCategories.Name;
+                View_BussinessItemsList data = (View_BussinessItemsList)entity;
+                if (data != null)
+                {
+                    BindingFromModel(data, this);
+                }
+                DoEvents();
+
             }
-            if (data.PaymentTypes != null)
+            else
             {
-                PaymentTypeName = data.PaymentTypes.PaymentTypeName;
+                if (entity is ManufacturersBussinessItems)
+                {
+                    ManufacturersBussinessItems data = (ManufacturersBussinessItems)entity;
+                    BindingFromModel(data, this);
+                    DoEvents();
+                    if (data.MaterialCategories != null)
+                    {
+                        MaterialCategories = data.MaterialCategories.Name;
+                    }
+                    if (data.PaymentTypes != null)
+                    {
+                        PaymentTypeName = data.PaymentTypes.PaymentTypeName;
+                    }
+                    if (data.TranscationCategories != null)
+                    {
+                        TranscationCategories = data.TranscationCategories.Name;
+                    }
+                    if (data.TicketPeriod != null)
+                    {
+                        TicketPeriod = data.TicketPeriod.Name;
+                    }
+                }
             }
-            if (data.TranscationCategories != null)
-            {
-                TranscationCategories = data.TranscationCategories.Name;
-            }
-            if (data.TicketPeriod != null)
-            {
-                TicketPeriod = data.TicketPeriod.Name;
-            }
+
         }
     }
 }

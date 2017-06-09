@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 using Tokiku.Controllers;
 using Tokiku.ViewModels;
 using TokikuNew.Controls;
@@ -78,8 +79,14 @@ namespace TokikuNew.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if (DataContext != null)
-                ((ClientViewModelCollection)DataContext).Query();
+            var DataSource = ((ClientViewModelCollection)DataContext);
+
+            if (DataSource != null && DataSource.Count == 0)
+            {
+                Dispatcher.Invoke(DataSource.Query, DispatcherPriority.Background);
+            }
+
+           
         }
     }
 }

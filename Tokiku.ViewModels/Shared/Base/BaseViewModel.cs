@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Threading;
@@ -112,69 +113,28 @@ namespace Tokiku.ViewModels
         /// <param name="entity"></param>
         protected TViewB BindingFromModel<TViewB, TB>(TB entity) where TViewB : IBaseViewModel where TB : class
         {
-            TViewB ViewModel = Activator.CreateInstance<TViewB>();
-
-            try
+            if (!Dispatcher.CheckAccess())
             {
-                Type t = typeof(TB);
-                Type ct = typeof(TViewB);
-#if DEBUG
-                Debug.WriteLine("BindingFromModel");
-                Debug.WriteLine(string.Format("資料實體{0},檢視模型為{1}", t.Name, ct.Name));
-                Debug.WriteLine("開始抄寫.");
-#endif
-                var props = t.GetProperties();
-
-                foreach (var prop in props)
+                TViewB ViewModel = Activator.CreateInstance<TViewB>();
+                Dispatcher.Invoke(new Action<TB, TViewB>(BindingFromModel), DispatcherPriority.Normal, entity, ViewModel);
+                return ViewModel;
+            }
+            else
+            {
+                try
                 {
-                    try
-                    {
-                        var ctProp = ct.GetProperty(prop.Name);
-
-                        if (ctProp != null)
-                        {
-
-                            if (prop.PropertyType == ctProp.PropertyType)
-                            {
-
-                                var entityvalue = prop.GetValue(entity);
-                                var value = ctProp.GetValue(ViewModel);
-
-#if DEBUG
-                                Debug.Write(string.Format("資料實體屬性 {0}({2}) 內容值為 {1}(null).\n", prop.Name, entityvalue, prop.PropertyType.Name));
-                                Debug.Write(string.Format("檢視模型屬性 {0}({2}) 內容值為 {1}(null).\n", ctProp.Name, value, ctProp.PropertyType.Name));
-#endif
-
-                                ctProp.SetValue(ViewModel, entityvalue);
-                            }
-                        }
-                    }
-#if DEBUG
-                    catch (Exception ex)
-#else
-                    catch
-#endif
-
-                    {
-#if DEBUG
-                        Debug.WriteLine(ex.Message);
-
-#endif
-                        continue;
-                    }
-
+                    TViewB ViewModel = Activator.CreateInstance<TViewB>();
+                    BindingFromModel(entity, ViewModel);
+                    return ViewModel;
                 }
-#if DEBUG
-                Debug.WriteLine("結束抄寫.");
-#endif
-                return ViewModel;
+                catch (Exception ex)
+                {
+                    TViewB ViewModel = Activator.CreateInstance<TViewB>();
+                    ViewModel.Errors = new string[] { ex.Message + "," + ex.StackTrace };
+                    return ViewModel;
+                }
+            }
 
-            }
-            catch (Exception ex)
-            {
-                ViewModel.Errors = new string[] { ex.Message + "," + ex.StackTrace };
-                return ViewModel;
-            }
         }
 
         /// <summary>
@@ -406,17 +366,26 @@ namespace Tokiku.ViewModels
         /// </summary>
         public virtual void Initialized()
         {
+            try
+            {
 #if DEBUG
-            Debug.WriteLine("BaseViewModel initialized.");
+                Debug.WriteLine("BaseViewModel initialized.");
 #endif
 
-            Errors = null;
-            HasError = false;
+                Errors = null;
+                HasError = false;
 
-            Status = new DocumentStatusViewModel();
-            Status.IsModify = false;
-            Status.IsSaved = false;
-            Status.IsNewInstance = true;
+                Status = new DocumentStatusViewModel();
+                Status.IsModify = false;
+                Status.IsSaved = false;
+                Status.IsNewInstance = true;
+
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+
         }
 
         /// <summary>
@@ -430,8 +399,17 @@ namespace Tokiku.ViewModels
             Status.IsNewInstance = false;
             Status.IsModify = false;
             Status.IsSaved = false;
+            DoEvents();
         }
 
+        /// <summary>
+        /// 對模型啟用非同步查詢作業。
+        /// </summary>
+        /// <returns></returns>
+        public virtual Task QueryAsync()
+        {
+            return Task.Factory.StartNew(Query);
+        }
         /// <summary>
         /// 儲存變更
         /// </summary>
@@ -440,6 +418,7 @@ namespace Tokiku.ViewModels
             Status.IsNewInstance = false;
             Status.IsModify = false;
             Status.IsSaved = true;
+            DoEvents();
         }
 
         /// <summary>
@@ -447,6 +426,7 @@ namespace Tokiku.ViewModels
         /// </summary>
         public virtual void Refresh()
         {
+            DoEvents();
             Query();
         }
 

@@ -45,6 +45,9 @@ namespace Tokiku.ViewModels
                         ClearItems();
                         foreach (var row in objectdataset)
                         {
+                            ContactsViewModel model = new ContactsViewModel();
+                            model.DoEvents();
+                            model.SetModel(row);
                             Add(BindingFromModel(row));
                         }
                     }

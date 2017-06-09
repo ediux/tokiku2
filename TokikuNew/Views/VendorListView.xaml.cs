@@ -24,7 +24,7 @@ namespace TokikuNew.Views
     /// </summary>
     public partial class VendorListView : UserControl
     {
-        private Tokiku.Controllers.ManufacturersManageController controller = new Tokiku.Controllers.ManufacturersManageController();
+
         public VendorListView()
         {
             InitializeComponent();
@@ -55,55 +55,108 @@ namespace TokikuNew.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                ((ManufacturersViewModelCollection)DataContext).QueryByText((string)e.OriginalSource);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
             //搜尋框
-            //VendorList.ItemsSource = controller.SearchByText((string)e.OriginalSource).Result;
-            ((ManufacturersViewModelCollection)DataContext).QueryByText((string)e.OriginalSource);
+
+
         }
 
         private void sSearchBar_ResetSearch(object sender, RoutedEventArgs e)
         {
-            ((ManufacturersViewModelCollection)DataContext).Query();
+            try
+            {
+                ((ManufacturersViewModelCollection)DataContext).Query();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
         }
 
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
-            RaiseEvent(new RoutedEventArgs(Controls.ClosableTabItem.SendNewPageRequestEvent, this));
+            try
+            {
+
+                RaiseEvent(new RoutedEventArgs(Controls.ClosableTabItem.SendNewPageRequestEvent, this));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
         }
 
         private void VendorList_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
-            if (e.AddedCells.Any())
+            try
             {
-                var obj = e.AddedCells.First().Item;
-                var header = e.AddedCells.First().Column.DisplayIndex;
-
-                if (header == 0)
+                if (e.AddedCells.Any())
                 {
-                    if (obj != null)
+                    var obj = e.AddedCells.First().Item;
+                    var header = e.AddedCells.First().Column.DisplayIndex;
+
+                    if (header == 0)
                     {
-                        SelectedManufacturer = (ManufacturersViewModel)obj;
+                        if (obj != null)
+                        {
+                            SelectedManufacturer = (ManufacturersViewModel)obj;
+                        }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+
 
         }
 
         private void VendorList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (SelectedManufacturer != null)
+            try
             {
-                RaiseEvent(new RoutedEventArgs(SelectedVendorChangedEvent, SelectedManufacturer));
+                if (SelectedManufacturer != null)
+                {
+                    RaiseEvent(new RoutedEventArgs(SelectedVendorChangedEvent, SelectedManufacturer));
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if (DataContext != null)
+            try
             {
-                ManufacturersViewModelCollection DataSource = (ManufacturersViewModelCollection)DataContext;
-                Dispatcher.Invoke(
-                         DataSource.Query, DispatcherPriority.Background);
+                if (DataContext != null)
+                {
+                    ManufacturersViewModelCollection DataSource = (ManufacturersViewModelCollection)DataContext;
+                    if (DataSource != null && DataSource.Count == 0)
+                    {
+                        Dispatcher.Invoke(DataSource.Query, DispatcherPriority.Background);
+                    }
+
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
 
         }
     }

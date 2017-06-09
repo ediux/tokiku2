@@ -93,6 +93,14 @@ namespace Tokiku.ViewModels
         }
 
         /// <summary>
+        /// 查詢全部資料
+        /// </summary>
+        public virtual Task QueryAsync()
+        {
+            return Task.Factory.StartNew(new Action(Query));
+        }
+
+        /// <summary>
         /// 重新整理檢視模型
         /// </summary>
         public virtual void Refresh()

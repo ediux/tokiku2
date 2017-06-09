@@ -30,46 +30,64 @@ namespace Tokiku.ViewModels
 
         public override void Query()
         {
-            var executed_result = client_controller.QueryAll();
-
-            if (!executed_result.HasError)
+            try
             {
-                if (executed_result.Result.Any())
-                {
-                    Clear();
-                    foreach (var item in executed_result.Result)
-                    {
-                        ClientViewModel client = BindingFromModel(item);
-                        if (item.Contacts.Any())
-                        {
-                            client.Contracts = new ContactsViewModelCollection();
+                var executed_result = client_controller.QueryAll();
 
-                            foreach (var row in item.Contacts)
+                if (!executed_result.HasError)
+                {
+                    if (executed_result.Result.Any())
+                    {
+                        Clear();
+                        foreach (var item in executed_result.Result)
+                        {
+                            ClientViewModel client = BindingFromModel(item);
+                            if (item.Contacts.Any())
                             {
-                                ContactsViewModel contract = new ContactsViewModel();
-                                BindingFromModel(row, contract);
-                                client.Contracts.Add(contract);
+                                client.Contracts = new ContactsViewModelCollection();
+
+                                foreach (var row in item.Contacts)
+                                {
+                                    ContactsViewModel contract = new ContactsViewModel();
+                                    BindingFromModel(row, contract);
+                                    client.Contracts.Add(contract);
+                                }
                             }
+                            client.ClientForProjects.QueryByClient(item.Id);
+                            Add(client);
                         }
-                        client.ClientForProjects.QueryByClient(item.Id);
-                        Add(client);
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+
         }
 
         public void QueryByText(string originalSource)
         {
-            var executeresult = client_controller.SearchByText(originalSource);
-            if (!executeresult.HasError)
+            try
             {
-                var objectdataset = executeresult.Result;
-                ClearItems();
-                foreach (var row in objectdataset)
+                var executeresult = client_controller.SearchByText(originalSource);
+                if (!executeresult.HasError)
                 {
-                    Add(BindingFromModel(row));
+                    var objectdataset = executeresult.Result;
+                    ClearItems();
+                    foreach (var row in objectdataset)
+                    {
+                        ClientViewModel model = new ClientViewModel();
+                        model.SetModel(row);
+                        Add(model);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+
         }
     }
 
@@ -111,125 +129,144 @@ namespace Tokiku.ViewModels
 
         #endregion
 
-
-
         private Guid QueryCondition_ProjectId;
 
         public override void SaveModel()
         {
-            if (Status.IsNewInstance)
+            try
             {
-                Id = Guid.NewGuid();
-            }
-
-            if (Status.IsNewInstance)
-            {
-                CreateTime = DateTime.Now;
-            }
-
-            var LoginedUser = controller.GetCurrentLoginUser().Result;
-
-            if (CreateUserId == Guid.Empty)
-            {
-                CreateUserId = LoginedUser.UserId;
-            }
-
-            IsClient = true;
-
-            Entity.Manufacturers data = new Entity.Manufacturers();
-
-            CopyToModel(data, this);
-
-            if (Contracts != null)
-            {
-                if (Contracts.Count > 0)
+                if (Status.IsNewInstance)
                 {
-                    data.Contacts = new Collection<Entity.Contacts>();
+                    Id = Guid.NewGuid();
+                }
 
-                    Parallel.ForEach(Contracts, (x) =>
+                if (Status.IsNewInstance)
+                {
+                    CreateTime = DateTime.Now;
+                }
+
+                var LoginedUser = controller.GetCurrentLoginUser().Result;
+
+                if (CreateUserId == Guid.Empty)
+                {
+                    CreateUserId = LoginedUser.UserId;
+                }
+
+                IsClient = true;
+
+                Entity.Manufacturers data = new Entity.Manufacturers();
+
+                CopyToModel(data, this);
+
+                if (Contracts != null)
+                {
+                    if (Contracts.Count > 0)
                     {
-                        x.Initialized();
+                        data.Contacts = new Collection<Entity.Contacts>();
 
-                        lock (this)
+                        Parallel.ForEach(Contracts, (x) =>
                         {
-                            x.CreateTime = CreateTime;
-                        }
-                        
+                            x.Initialized();
 
-                        if (x.CreateUserId == Guid.Empty)
-                        {
-                            lock (LoginedUser)
+                            lock (this)
                             {
-                                x.CreateUserId = LoginedUser.UserId;
+                                x.CreateTime = CreateTime;
                             }
 
-                        }
 
-                        Entity.Contacts contact = null;
+                            if (x.CreateUserId == Guid.Empty)
+                            {
+                                lock (LoginedUser)
+                                {
+                                    x.CreateUserId = LoginedUser.UserId;
+                                }
 
-                        CopyToModel(contact, x);
+                            }
 
-                        lock (data)
-                        {
-                            data.Contacts.Add(contact);
-                        }
-                    });
+                            Entity.Contacts contact = null;
+
+                            CopyToModel(contact, x);
+
+                            lock (data)
+                            {
+                                data.Contacts.Add(contact);
+                            }
+                        });
+                    }
+                }
+
+                var executeResult = controller.CreateOrUpdate(data);
+
+                if (!executeResult.HasError)
+                {
+                    Refresh();
+                }
+                else
+                {
+                    Errors = executeResult.Errors;
+                    HasError = executeResult.HasError;
                 }
             }
-
-            var executeResult = controller.CreateOrUpdate(data);
-
-            if (!executeResult.HasError)
+            catch (Exception ex)
             {
-                Refresh();
+                setErrortoModel(this, ex);
             }
-            else
-            {
-                Errors = executeResult.Errors;
-                HasError = executeResult.HasError;
-            }
-
         }
 
         public override void Initialized()
         {
-#if DEBUG
-            Debug.WriteLine("ClientViewModel initialized.");
-#endif
-            base.Initialized();
-
-            IsClient = true;
-
-            ClientForProjects = new ProjectsViewModelCollection();
-            Contracts = new ContactsViewModelCollection();
-
-            var createnewresult = controller.CreateNew();
-
-            if (!createnewresult.HasError)
+            try
             {
-                var data = createnewresult.Result;
-                BindingFromModel(data, this);
-            }
-        }
+#if DEBUG
+                Debug.WriteLine("ClientViewModel initialized.");
+#endif
+                base.Initialized();
 
-       
+                IsClient = true;
+
+                ClientForProjects = new ProjectsViewModelCollection();
+                Contracts = new ContactsViewModelCollection();
+
+                var createnewresult = controller.CreateNew();
+
+                if (!createnewresult.HasError)
+                {
+                    var data = createnewresult.Result;
+                    BindingFromModel(data, this);
+                }
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+
+        }
 
         public override void Query()
         {
-            if (Id != Guid.Empty)
+            try
             {
-                ClientController clientclient = new ClientController();
-                var exexuteresult = clientclient.Query(q => q.Id == Id);
-                if (!exexuteresult.HasError)
+                if (Id != Guid.Empty)
                 {
-                    var item = exexuteresult.Result.Single();
+                    ClientController clientclient = new ClientController();
+                    var exexuteresult = clientclient.Query(q => q.Id == Id);
+                    if (!exexuteresult.HasError)
+                    {
+                        var item = exexuteresult.Result.Single();
 
-                    BindingFromModel(item, this);
-                    ClientForProjects.QueryByClient(Id);
-                    Contracts.ManufacturersId = Id;
-                    Contracts.Query();
+                        BindingFromModel(item, this);
+                        ClientForProjects.QueryByClient(Id);
+                        Contracts.ManufacturersId = Id;
+                        Contracts.Query();
+                    }
                 }
+
             }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+
         }
 
         public override void Refresh()

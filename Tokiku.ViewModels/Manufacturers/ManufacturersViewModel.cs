@@ -47,51 +47,72 @@ namespace Tokiku.ViewModels
         #region 模型命令方法
         public override void Initialized()
         {
-            base.Initialized();
+            try
+            {
+                base.Initialized();
 
-            if (_controller == null)
                 _controller = new ManufacturersManageController();
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
 
         }
 
         public override void Query()
         {
-
-            if (_controller == null)
-                return;
-
-            var queryresult = _controller.QueryAll();
-
-            if (!queryresult.HasError)
+            try
             {
-                ClearItems();
+                if (_controller == null)
+                    return;
 
-                foreach (var row in queryresult.Result)
+                var queryresult = _controller.QueryAll();
+
+                if (!queryresult.HasError)
                 {
-                    ManufacturersViewModel model = new ManufacturersViewModel();
-                    model.DoEvents();
-                    model.SetModel(row);
-                    Add(model);
+                    ClearItems();
+
+                    foreach (var row in queryresult.Result)
+                    {
+                        ManufacturersViewModel model = new ManufacturersViewModel();
+                        model.DoEvents();
+                        model.SetModel(row);
+                        Add(model);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+
         }
 
         public void QueryByText(string originalSource)
         {
-            var executeresult = _controller.SearchByText(originalSource);
-
-            if (!executeresult.HasError)
+            try
             {
-                var objectdataset = executeresult.Result;
-                ClearItems();
-                foreach (var row in objectdataset)
+                var executeresult = _controller.SearchByText(originalSource);
+
+                if (!executeresult.HasError)
                 {
-                    ManufacturersViewModel model = new ManufacturersViewModel();
-                    model.DoEvents();
-                    model.SetModel(row);
-                    Add(model);
+                    var objectdataset = executeresult.Result;
+                    ClearItems();
+                    foreach (var row in objectdataset)
+                    {
+                        ManufacturersViewModel model = new ManufacturersViewModel();
+                        model.DoEvents();
+                        model.SetModel(row);
+                        Add(model);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+
         }
         #endregion
 
@@ -559,7 +580,7 @@ namespace Tokiku.ViewModels
 
                 CopyToModel(data, this);
 
-             
+
 
                 if (ManufacturersBussinessItems != null && ManufacturersBussinessItems.Count > 0)
                 {
