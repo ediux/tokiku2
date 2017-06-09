@@ -1,10 +1,12 @@
 ﻿using GrapeCity.Windows.SpreadSheet.Data;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using Tokiku.Controllers;
+using Tokiku.Entity;
 using Tokiku.ViewModels;
 using TokikuNew.Controls;
 using WinForm = System.Windows.Forms;
@@ -66,54 +68,6 @@ namespace TokikuNew.Views
             DependencyProperty.Register("Mode", typeof(DocumentLifeCircle), typeof(ManufacturersManageView), new PropertyMetadata(DocumentLifeCircle.Read));
         #endregion
 
-        #region PaymentTypes
-        /// <summary>
-        /// 支付方式定義表
-        /// </summary>
-        public PaymentTypesManageViewModelCollection PaymentTypes
-        {
-            get { return (PaymentTypesManageViewModelCollection)GetValue(PaymentTypesProperty); }
-            set { SetValue(PaymentTypesProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for PaymentTypes.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty PaymentTypesProperty =
-            DependencyProperty.Register("PaymentTypes", typeof(PaymentTypesManageViewModelCollection),
-                typeof(ManufacturersManageView),
-                new PropertyMetadata(default(PaymentTypesManageViewModelCollection)
-                    ));
-        #endregion
-
-        #region MaterialCategories
-        public MaterialCategoriesViewModelCollection MaterialCategories
-        {
-            get { return (MaterialCategoriesViewModelCollection)GetValue(MaterialCategoriesProperty); }
-            set { SetValue(MaterialCategoriesProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for MaterialCategories.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty MaterialCategoriesProperty =
-            DependencyProperty.Register("MaterialCategories", typeof(MaterialCategoriesViewModelCollection), typeof(ManufacturersManageView), new PropertyMetadata(default(MaterialCategoriesViewModelCollection)));
-
-        #endregion
-
-
-
-        #region TicketPeriods
-
-        public TicketPeriodsViewModelCollection TicketPeriods
-        {
-            get { return (TicketPeriodsViewModelCollection)GetValue(TicketPeriodsProperty); }
-            set { SetValue(TicketPeriodsProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for TicketPeriods.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty TicketPeriodsProperty =
-            DependencyProperty.Register("TicketPeriods", typeof(TicketPeriodsViewModelCollection), typeof(ManufacturersManageView), new PropertyMetadata(default(TicketPeriodsViewModelCollection)));
-
-
-        #endregion
-
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             try
@@ -123,16 +77,7 @@ namespace TokikuNew.Views
 
                 SetBinding(SelectedManufacturersProperty, BindingDataContext);
 
-
-
-                PaymentTypes = new PaymentTypesManageViewModelCollection();
-                PaymentTypes.Query();
-
-                TicketPeriods = new TicketPeriodsViewModelCollection();
-                TicketPeriods.Query();
-
-                if (!((ManufacturersViewModel)DataContext).Status.IsNewInstance)
-                {
+       
                     //當不是新建模式 則查詢設為預設的聯絡人顯示
                     var maincontact = ((ManufacturersViewModel)DataContext).Contracts.Where(w => w.IsDefault == true).SingleOrDefault();
                     if (maincontact != null)
@@ -145,7 +90,7 @@ namespace TokikuNew.Views
                         ((ManufacturersViewModel)DataContext).MainContactPerson = string.Empty;
                         ((ManufacturersViewModel)DataContext).Extension = string.Empty;
                     }
-                }
+                
 
                 //營業項目Sheet顯示
 
@@ -159,7 +104,7 @@ namespace TokikuNew.Views
                 BussinessItemSheet.CanUserEditFormula = false;
                 BussinessItemSheet.CanUserUndo = true;
                 BussinessItemSheet.CanUserZoom = true;
-                
+
                 MaterialCategoriesViewModelCollection MaterialCategories = (MaterialCategoriesViewModelCollection)FindResource("MaterialCategoriesSource");
 
                 if (MaterialCategories != null)
@@ -168,7 +113,7 @@ namespace TokikuNew.Views
                 }
 
                 BISheet.AddRows(0, SelectedManufacturers.ManufacturersBussinessItems.Count);
-                BISheet.Name = "營業項目";                
+                BISheet.Name = "營業項目";
                 BISheet.ColumnHeader.Columns[0].Label = "材料類別";
                 BISheet.ColumnHeader.Columns[1].Label = "交易品項";
                 BISheet.ColumnHeader.Columns[2].Label = "交易類別";
@@ -177,14 +122,14 @@ namespace TokikuNew.Views
 
                 if (SelectedManufacturers.ManufacturersBussinessItems.Any())
                 {
-                    for(int i = 0; i < SelectedManufacturers.ManufacturersBussinessItems.Count; i++)
-                    {                        
+                    for (int i = 0; i < SelectedManufacturers.ManufacturersBussinessItems.Count; i++)
+                    {
                         BISheet.Rows[i].SetText(0, SelectedManufacturers.ManufacturersBussinessItems[i].MaterialCategories);
                         BISheet.Rows[i].SetText(1, SelectedManufacturers.ManufacturersBussinessItems[i].Name);
                         BISheet.Rows[i].SetText(2, SelectedManufacturers.ManufacturersBussinessItems[i].TranscationCategories);
                         BISheet.Rows[i].SetText(3, SelectedManufacturers.ManufacturersBussinessItems[i].PaymentTypeName);
                         BISheet.Rows[i].SetText(4, SelectedManufacturers.ManufacturersBussinessItems[i].TicketPeriod);
-                    }                    
+                    }
                 }
             }
             catch (Exception ex)
@@ -198,14 +143,8 @@ namespace TokikuNew.Views
         {
             if (tbName.Text.Length > 0)
             {
-                if (tbName.Text.Length >= 4)
-                {
-                    tbShortName.Text = tbName.Text.Substring(0, Math.Min(4, tbName.Text.Length));
-                }
-                else
-                {
-                    tbShortName.Text = tbName.Text;
-                }
+                tbShortName.Text = tbName.Text;
+                tbBankAccountName.Text = tbName.Text;
             }
             else
             {
@@ -244,6 +183,75 @@ namespace TokikuNew.Views
                         if (SelectedManufacturers.CreateUserId == Guid.Empty)
                         {
                             SelectedManufacturers.CreateUserId = LoginedUser.UserId;
+                        }
+
+                        MaterialCategoriesViewModelCollection MaterialCategories = (MaterialCategoriesViewModelCollection)FindResource("MaterialCategoriesSource");
+                        TranscationCategoriesViewModelCollection TranscationCategories = (TranscationCategoriesViewModelCollection)FindResource("TranscationCategoriesSource");
+                        PaymentTypesManageViewModelCollection PaymentTypes = (PaymentTypesManageViewModelCollection)FindResource("PaymentTypesSource");
+                        TicketPeriodsViewModelCollection TicketPeriods = (TicketPeriodsViewModelCollection)FindResource("TicketPeriodsSource");
+
+                        Worksheet BISheet = BussinessItemSheet.Sheets[0];
+
+                        ManufacturersBussinessItemsViewModelColletion CurrentSheet = new ManufacturersBussinessItemsViewModelColletion();
+
+                        for (int i = 0; i < SelectedManufacturers.ManufacturersBussinessItems.Count; i++)
+                        {
+                            try
+                            {
+                                ManufacturersBussinessItemsViewModel entity = new ManufacturersBussinessItemsViewModel();
+                                entity.ManufacturersId = SelectedManufacturers.Id;
+
+                                string column_1 = BISheet.Rows[i].GetText(0);
+                                entity.MaterialCategories = column_1;
+                                entity.MaterialCategoriesId = MaterialCategories.Where(w => w.Name == column_1).Single().Id;
+
+                                string column_2 = BISheet.Rows[i].GetText(1);
+
+                                entity.Name = column_2;
+
+                                string column_3 = BISheet.Rows[i].GetText(2);
+                                entity.TranscationCategories = column_3;
+                                entity.TranscationCategoriesId = TranscationCategories.Where(w => w.Name == column_3).Single().Id;
+
+                                string column_4 = BISheet.Rows[i].GetText(3);
+                                entity.PaymentTypeName = column_4;
+                                entity.PaymentTypeId = PaymentTypes.Where(w => w.PaymentTypeName == column_4).Single().Id;
+
+                                string column_5 = BISheet.Rows[i].GetText(4);
+
+                                entity.TicketPeriod = column_5;
+                                entity.TicketPeriodId = TicketPeriods.Where(w => w.Name == column_5).Single().Id;
+
+                                var founditemset = SelectedManufacturers.ManufacturersBussinessItems
+                                    .Where(w => w.ManufacturersId == entity.ManufacturersId &&
+                                    w.MaterialCategoriesId == entity.MaterialCategoriesId
+                                    && w.Name == entity.Name && w.PaymentTypeId == entity.PaymentTypeId
+                                    && w.TicketPeriodId == entity.TicketPeriodId && w.TranscationCategoriesId == entity.TranscationCategoriesId);
+
+                                if (founditemset.Any())
+                                {
+                                    entity.Id = founditemset.Single().Id;
+                                }
+
+                                CurrentSheet.Add(entity);
+                            }
+                            catch
+                            {
+                                continue;
+                            }
+                        }
+
+                        var toAdd = CurrentSheet.Except(SelectedManufacturers.ManufacturersBussinessItems).ToList();
+                        var toDel = SelectedManufacturers.ManufacturersBussinessItems.Except(CurrentSheet).ToList();
+
+                        foreach (var delitem in toDel)
+                        {
+                            SelectedManufacturers.ManufacturersBussinessItems.Remove(delitem);
+                        }
+
+                        foreach (var additem in toAdd)
+                        {
+                            SelectedManufacturers.ManufacturersBussinessItems.Add(additem);
                         }
 
                         ((ManufacturersViewModel)DataContext).SaveModel();
@@ -305,11 +313,6 @@ namespace TokikuNew.Views
                 if (SelectedManufacturers.ManufacturersBussinessItems.Any())
                 {
                     Worksheet BISheet = BussinessItemSheet.Sheets[0];
-
-                    if (BISheet.Rows.Count > 0)
-                        BISheet.RemoveRows(0, BISheet.Rows.Count);
-
-                    BISheet.AddRows(0, SelectedManufacturers.ManufacturersBussinessItems.Count);
 
                     for (int i = 0; i < SelectedManufacturers.ManufacturersBussinessItems.Count; i++)
                     {

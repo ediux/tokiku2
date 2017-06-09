@@ -32,15 +32,33 @@ namespace Tokiku.ViewModels
             //    }
             //}
         }
-        public void Query(Guid ManufacturersId)
+        public async void Query(Guid ManufacturersId)
         {
+            ManufacturersManageController controller = new ManufacturersManageController();
 
+            var queryresult = await controller.QueryBussinessItemsListAsync(ManufacturersId);
+
+            if (!queryresult.HasError)
+            {
+                var objectdataset = queryresult.Result;
+                if (objectdataset.Any())
+                {
+                    ClearItems();
+                    foreach (var row in objectdataset)
+                    {
+                        ManufacturersBussinessItemsViewModel model = new ManufacturersBussinessItemsViewModel();
+                        model.DoEvents();
+                        model.SetModel(row);
+                        Add(model);
+                    }
+                }
+            }
         }
     }
 
     public class ManufacturersBussinessItemsViewModel : BaseViewModel
     {
-      
+
 
         #region Id
 
@@ -69,7 +87,8 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for MaterialCategoriesId.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MaterialCategoriesIdProperty =
-            DependencyProperty.Register("MaterialCategoriesId", typeof(Guid), typeof(ManufacturersBussinessItemsViewModel), new PropertyMetadata(Guid.Empty));
+            DependencyProperty.Register("MaterialCategoriesId", typeof(Guid), typeof(ManufacturersBussinessItemsViewModel), new PropertyMetadata(Guid.Empty
+                , new PropertyChangedCallback(DefaultFieldChanged)));
 
 
         #endregion
@@ -86,7 +105,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for MaterialCategories.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MaterialCategoriesProperty =
-            DependencyProperty.Register("MaterialCategories", typeof(string), typeof(ManufacturersBussinessItemsViewModel), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("MaterialCategories", typeof(string), typeof(ManufacturersBussinessItemsViewModel), new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
 
         #endregion
 
@@ -103,7 +122,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for Name.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty NameProperty =
-            DependencyProperty.Register("Name", typeof(string), typeof(ManufacturersBussinessItemsViewModel), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("Name", typeof(string), typeof(ManufacturersBussinessItemsViewModel), new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
 
 
         #endregion
@@ -119,7 +138,8 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for PaymentTypeId.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PaymentTypeIdProperty =
-            DependencyProperty.Register("PaymentTypeId", typeof(byte), typeof(ManufacturersBussinessItemsViewModel), new PropertyMetadata((byte)0));
+            DependencyProperty.Register("PaymentTypeId", typeof(byte), typeof(ManufacturersBussinessItemsViewModel), new PropertyMetadata((byte)0
+                , new PropertyChangedCallback(DefaultFieldChanged)));
 
 
         #endregion
@@ -135,7 +155,8 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for PaymentTypes.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PaymentTypeNameProperty =
-            DependencyProperty.Register("PaymentTypeName ", typeof(string), typeof(ManufacturersBussinessItemsViewModel), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("PaymentTypeName ", typeof(string), typeof(ManufacturersBussinessItemsViewModel),
+                new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
 
 
         #endregion
@@ -151,7 +172,8 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for TicketTypeId.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TicketPeriodIdProperty =
-            DependencyProperty.Register("TicketPeriodId", typeof(int), typeof(ManufacturersBussinessItemsViewModel), new PropertyMetadata(1));
+            DependencyProperty.Register("TicketPeriodId", typeof(int), typeof(ManufacturersBussinessItemsViewModel),
+                new PropertyMetadata(1, new PropertyChangedCallback(DefaultFieldChanged)));
 
 
         #endregion
@@ -169,7 +191,8 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for TicketTypes.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TicketPeriodProperty =
-            DependencyProperty.Register("TicketPeriod", typeof(string), typeof(ManufacturersBussinessItemsViewModel), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("TicketPeriod", typeof(string), typeof(ManufacturersBussinessItemsViewModel),
+                new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
 
 
         #endregion
@@ -184,7 +207,8 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for ManufacturersId.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ManufacturersIdProperty =
-            DependencyProperty.Register("ManufacturersId", typeof(Guid), typeof(ManufacturersBussinessItemsViewModel), new PropertyMetadata(Guid.Empty));
+            DependencyProperty.Register("ManufacturersId", typeof(Guid), typeof(ManufacturersBussinessItemsViewModel),
+                new PropertyMetadata(Guid.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
 
         #endregion
 
@@ -203,7 +227,9 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TranscationCategoriesIdProperty =
-            DependencyProperty.Register("TranscationCategoriesId", typeof(int), typeof(ManufacturersBussinessItemsViewModel), new PropertyMetadata(0));
+            DependencyProperty.Register("TranscationCategoriesId", typeof(int),
+                typeof(ManufacturersBussinessItemsViewModel), new PropertyMetadata(0, new PropertyChangedCallback(DefaultFieldChanged)
+                    ));
 
 
         #endregion
@@ -221,15 +247,17 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for TranscationCategories.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TranscationCategoriesProperty =
-            DependencyProperty.Register("TranscationCategories", typeof(string), typeof(ManufacturersBussinessItemsViewModel), new PropertyMetadata(string.Empty));
-
+            DependencyProperty.Register("TranscationCategories", typeof(string),
+                typeof(ManufacturersBussinessItemsViewModel), new PropertyMetadata(string.Empty,
+                    new PropertyChangedCallback(DefaultFieldChanged)));
 
         #endregion
-      
+
         public override void SetModel(dynamic entity)
         {
             ManufacturersBussinessItems data = (ManufacturersBussinessItems)entity;
             BindingFromModel(data, this);
+            DoEvents();
             if (data.MaterialCategories != null)
             {
                 MaterialCategories = data.MaterialCategories.Name;

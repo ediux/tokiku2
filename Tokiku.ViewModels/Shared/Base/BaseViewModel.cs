@@ -20,6 +20,21 @@ namespace Tokiku.ViewModels
         }
 
         #region Helper Functions
+        public void DoEvents()
+        {
+            DispatcherFrame frame = new DispatcherFrame();
+            Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Background,
+                                                     new DispatcherOperationCallback(ExitFrame),
+                                                     frame);
+            Dispatcher.PushFrame(frame);
+        }
+
+        private object ExitFrame(object f)
+        {
+            ((DispatcherFrame)f).Continue = false;
+            return null;
+        }
+
         /// <summary>
         /// 將來自資料庫的資料實體抄到檢視模型。
         /// </summary>
@@ -170,14 +185,15 @@ namespace Tokiku.ViewModels
         /// <returns></returns>
         protected void CopyToModel<TViewB, TB>(TB entity, TViewB ViewModel) where TViewB : IBaseViewModel where TB : class
         {
-            try
+            if (!Dispatcher.CheckAccess())
             {
-                if (!Dispatcher.CheckAccess())
+                Dispatcher.Invoke(new Action<TB, TViewB>(CopyToModel), DispatcherPriority.Normal, entity, ViewModel);
+            }
+            else
+            {
+                try
                 {
-                    Dispatcher.Invoke(new Action<TB, TViewB>(CopyToModel), DispatcherPriority.Normal, entity, ViewModel);
-                }
-                else
-                {
+
                     if (entity == null)
                     {
                         entity = Activator.CreateInstance<TB>();
@@ -206,8 +222,6 @@ namespace Tokiku.ViewModels
                                 {
                                     continue;
                                 }
-
-
 
                                 if (ViewModelProperty.PropertyType.IsGenericType && ViewModelProperty.PropertyType.GetGenericTypeDefinition().Name == (typeof(ObservableCollection<>).Name))
                                 {
@@ -247,14 +261,13 @@ namespace Tokiku.ViewModels
 #if DEBUG
                     Debug.WriteLine("結束抄寫.");
 #endif
+
                 }
-
-
-            }
-            catch (Exception ex)
-            {
-                if (ViewModel != null)
-                    ViewModel.Errors = new string[] { ex.Message + "," + ex.StackTrace };
+                catch (Exception ex)
+                {
+                    if (ViewModel != null)
+                        ViewModel.Errors = new string[] { ex.Message + "," + ex.StackTrace };
+                }
             }
         }
 
@@ -442,6 +455,7 @@ namespace Tokiku.ViewModels
             Status.IsNewInstance = false;
             Status.IsModify = false;
             Status.IsSaved = false;
+            DoEvents();
         }
     }
 

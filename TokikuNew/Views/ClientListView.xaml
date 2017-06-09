@@ -7,7 +7,8 @@
              xmlns:controls="clr-namespace:TokikuNew.Controls"
              mc:Ignorable="d" 
              Background="{DynamicResource ControlBackgroundBrush}"
-             d:DesignHeight="768" d:DesignWidth="1024">
+             d:DesignHeight="768" d:DesignWidth="1024"
+             Loaded="UserControl_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>

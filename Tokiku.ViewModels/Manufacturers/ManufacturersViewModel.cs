@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Tokiku.Controllers;
@@ -46,14 +47,16 @@ namespace Tokiku.ViewModels
         #region 模型命令方法
         public override void Initialized()
         {
+            base.Initialized();
+
             if (_controller == null)
                 _controller = new ManufacturersManageController();
 
-            base.Initialized();
         }
 
         public override void Query()
         {
+
             if (_controller == null)
                 return;
 
@@ -61,14 +64,13 @@ namespace Tokiku.ViewModels
 
             if (!queryresult.HasError)
             {
-                Clear();
+                ClearItems();
 
                 foreach (var row in queryresult.Result)
                 {
-                    var model = BindingFromModel(row);
-                    model.Status.IsNewInstance = false;
-                    model.Status.IsModify = false;
-                    model.Status.IsSaved = false;
+                    ManufacturersViewModel model = new ManufacturersViewModel();
+                    model.DoEvents();
+                    model.SetModel(row);
                     Add(model);
                 }
             }
@@ -77,13 +79,17 @@ namespace Tokiku.ViewModels
         public void QueryByText(string originalSource)
         {
             var executeresult = _controller.SearchByText(originalSource);
+
             if (!executeresult.HasError)
             {
                 var objectdataset = executeresult.Result;
                 ClearItems();
                 foreach (var row in objectdataset)
                 {
-                    Add(BindingFromModel(row));
+                    ManufacturersViewModel model = new ManufacturersViewModel();
+                    model.DoEvents();
+                    model.SetModel(row);
+                    Add(model);
                 }
             }
         }
@@ -301,8 +307,6 @@ namespace Tokiku.ViewModels
                 new PropertyMetadata((byte)0, new PropertyChangedCallback(DefaultFieldChanged)));
         #endregion
 
-
-
         #region 聯絡人清單 Contracts
         /// <summary>
         /// 聯絡人清單
@@ -431,7 +435,36 @@ namespace Tokiku.ViewModels
 
         #endregion
 
+        #region 發票地址
 
+
+        public string InvoiceAddress
+        {
+            get { return (string)GetValue(InvoiceAddressProperty); }
+            set { SetValue(InvoiceAddressProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for InvoiceAddress.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty InvoiceAddressProperty =
+            DependencyProperty.Register("InvoiceAddress", typeof(string), typeof(ManufacturersViewModel), new PropertyMetadata(string.Empty));
+
+
+        #endregion
+        #region 交易紀錄
+
+
+        public ManufacturersBussinessTranscationsViewModelCollection TranscationRecords
+        {
+            get { return (ManufacturersBussinessTranscationsViewModelCollection)GetValue(TranscationRecordsProperty); }
+            set { SetValue(TranscationRecordsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for TranscationRecords.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TranscationRecordsProperty =
+            DependencyProperty.Register("TranscationRecords", typeof(ManufacturersBussinessTranscationsViewModelCollection), typeof(ManufacturersViewModel), new PropertyMetadata(default(ManufacturersBussinessTranscationsViewModelCollection)));
+
+
+        #endregion
 
         #endregion
 
@@ -464,126 +497,170 @@ namespace Tokiku.ViewModels
 #endif
             base.Initialized();
 
-            if (controller == null)
-                controller = new ManufacturersManageController();
+            try
+            {
+                if (controller == null)
+                    controller = new ManufacturersManageController();
 
-            Id = Guid.NewGuid();
-            Contracts = new ContactsViewModelCollection();
-            //PaymentTypes = new PaymentTypesManageViewModelCollection();
-            ManufacturersBussinessItems = new ManufacturersBussinessItemsViewModelColletion();
+                Id = Guid.NewGuid();
 
-            //PaymentTypes.Query();
+                var createnewresult = controller.CreateNew();
+
+                if (!createnewresult.HasError)
+                {
+                    var data = createnewresult.Result;
+                    BindingFromModel(data, this);
+                }
+                LastUpdateTime = DateTime.Now;
+                CreateTime = DateTime.Now;
+
+                Contracts = new ContactsViewModelCollection();
+                ManufacturersBussinessItems = new ManufacturersBussinessItemsViewModelColletion();
+                TranscationRecords = new ManufacturersBussinessTranscationsViewModelCollection();
+            }
+            catch (Exception ex)
+            {
+
+                setErrortoModel(this, ex);
+            }
+
+
         }
 
         public override void SaveModel()
         {
-            Manufacturers data = new Manufacturers();
-
-            var LoginedUser = controller.GetCurrentLoginUser().Result;
-
-            if (CreateUserId == Guid.Empty)
+            try
             {
-                CreateUserId = controller.GetCurrentLoginUser().Result.UserId;
-            }
+                Manufacturers data = new Manufacturers();
+                //data.ManufacturersBussinessItems.First().SupplierTranscationItem.First().Projects
+                var LoginedUser = controller.GetCurrentLoginUser().Result;
 
-            if (Contracts != null)
-            {
-                if (Contracts.Count > 0)
+                if (CreateUserId == Guid.Empty)
                 {
-                    foreach (ContactsViewModel model in Contracts)
+                    CreateUserId = controller.GetCurrentLoginUser().Result.UserId;
+                }
+
+                if (Contracts != null)
+                {
+                    if (Contracts.Count > 0)
                     {
-
-                        model.Id = Guid.NewGuid();
-
-                        if (model.CreateUserId == Guid.Empty)
+                        foreach (ContactsViewModel model in Contracts)
                         {
-                            model.CreateUserId = controller.GetCurrentLoginUser().Result.UserId;
+
+                            model.Id = Guid.NewGuid();
+
+                            if (model.CreateUserId == Guid.Empty)
+                            {
+                                model.CreateUserId = controller.GetCurrentLoginUser().Result.UserId;
+                            }
                         }
                     }
                 }
-            }
 
-            CopyToModel(data, this);
+                CopyToModel(data, this);
 
-            if (Contracts != null)
-            {
-                if (Contracts.Count > 0)
+             
+
+                if (ManufacturersBussinessItems != null && ManufacturersBussinessItems.Count > 0)
                 {
-                    data.Contacts = new Collection<Entity.Contacts>();
+                    data.ManufacturersBussinessItems = new Collection<ManufacturersBussinessItems>();
 
-                    Parallel.ForEach(Contracts, (x) =>
+                    foreach (var x in ManufacturersBussinessItems)
                     {
-                        x.Initialized();
 
-                        lock (this)
+                        ManufacturersBussinessItems BItems = new ManufacturersBussinessItems();
+
+
+                        CopyToModel(BItems, x);
+                        BItems.ManufacturersId = Id;
+                        data.ManufacturersBussinessItems.Add(BItems);
+
+                    }
+                }
+
+                var result = controller.CreateOrUpdate(data);
+
+                if (result.HasError)
+                {
+                    Errors = result.Errors;
+                    HasError = result.HasError;
+                    return;
+                }
+
+                if (Contracts != null)
+                {
+                    if (Contracts.Count > 0)
+                    {
+                        data.Contacts = new Collection<Entity.Contacts>();
+
+                        foreach (var x in Contracts)
                         {
+
+
                             x.CreateTime = CreateTime;
-                        }
 
 
-                        if (x.CreateUserId == Guid.Empty)
-                        {
-                            lock (LoginedUser)
+
+                            if (x.CreateUserId == Guid.Empty)
                             {
+
                                 x.CreateUserId = LoginedUser.UserId;
+
+
                             }
 
-                        }
+                            Contacts contact = new Contacts();
 
-                        Contacts contact = null;
+                            CopyToModel(contact, x);
 
-                        CopyToModel(contact, x);
 
-                        lock (data)
-                        {
                             data.Contacts.Add(contact);
+
                         }
-                    });
-                }
-            }
-
-            if (ManufacturersBussinessItems != null && ManufacturersBussinessItems.Count > 0)
-            {
-                data.ManufacturersBussinessItems = new Collection<ManufacturersBussinessItems>();
-
-                Parallel.ForEach(ManufacturersBussinessItems, (x) =>
-                {
-                    x.Initialized();
-
-                    ManufacturersBussinessItems BItems = null;
-
-                    CopyToModel(BItems, x);
-
-                    lock (data)
-                    {
-                        data.ManufacturersBussinessItems.Add(BItems);
                     }
-                });              
-            }
+                }
 
-            var result = controller.CreateOrUpdate(data);
+                var resultsec = controller.CreateOrUpdate(data);
 
-            if (result.HasError)
-            {
-                Errors = result.Errors;
-                HasError = result.HasError;
+                if (resultsec.HasError)
+                {
+                    Errors = resultsec.Errors;
+                    HasError = resultsec.HasError;
+                    return;
+                }
+
                 Refresh();
-                return;
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
             }
 
-            if (Contracts != null)
-                Contracts.SaveModel();
-
-            Refresh();
         }
 
         public override void SetModel(dynamic entity)
         {
-            Manufacturers data = (Manufacturers)entity;
-            BindingFromModel(data, this);
-            Status.IsNewInstance = false;
-            Status.IsModify = false;
-            Status.IsSaved = false;
+            try
+            {
+                Manufacturers data = (Manufacturers)entity;
+                BindingFromModel(data, this);
+                DoEvents();
+                Contracts.ManufacturersId = data.Id;
+                Contracts.Query();
+                DoEvents();
+                ManufacturersBussinessItems.Query(data.Id);
+                DoEvents();
+                TranscationRecords.Query(data.Id);
+                DoEvents();
+                Status.IsNewInstance = false;
+                Status.IsModify = false;
+                Status.IsSaved = false;
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+
         }
         #endregion
 

@@ -51,6 +51,7 @@ namespace Tokiku.Entity
         public string Mobile { get; set; }
         public string Extension { get; set; }
         public Nullable<int> TicketPeriodId { get; set; }
+        public string InvoiceAddress { get; set; }
     
         public virtual PaymentTypes PaymentTypes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -63,8 +64,8 @@ namespace Tokiku.Entity
         public virtual ICollection<Contacts> Contacts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Projects> ClientForProjects { get; set; }
+        public virtual TicketPeriod TicketPeriod { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
-        public virtual TicketPeriod TicketPeriod { get; set; }
     }
 }

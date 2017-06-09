@@ -8,7 +8,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024"
              xmlns:ctrl="clr-namespace:Tokiku.Controllers;assembly=Tokiku.Controllers"
-             Background="{DynamicResource ControlBackgroundBrush}">
+             Background="{DynamicResource ControlBackgroundBrush}"
+             Loaded="UserControl_Loaded">
     <UserControl.Resources>
     </UserControl.Resources>
     <Grid>
@@ -39,8 +40,8 @@
                                  IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridHyperlinkColumn  Header="廠商代號" Binding="{Binding Code}" Width="100" />
-                <DataGridTextColumn Header="廠商名稱" Binding="{Binding Path=Name}" Width="100" />
-                <DataGridTextColumn Header="廠商簡稱" Binding="{Binding ShortName}" Width="100" />
+                <DataGridTextColumn Header="名稱(全名)" Binding="{Binding Path=Name}" Width="100" />
+                <DataGridTextColumn Header="名稱(簡稱)" Binding="{Binding ShortName}" Width="100" />
                 <DataGridTextColumn Header="負責人" Binding="{Binding Principal}" Width="100" />
                 <DataGridTextColumn Header="統一編號" Binding="{Binding UniformNumbers}" Width="70" />
                 <DataGridTextColumn Header="主要聯絡人" Width="70" Binding="{Binding MainContactPerson}"/>
@@ -49,7 +50,7 @@
                 <DataGridTextColumn Header="公司傳真" Width="70" Binding="{Binding Fax}"/>
                 <DataGridTextColumn Header="工廠電話"  Width="70" Binding="{Binding FactoryPhone}"/>
                 <DataGridTextColumn Header="工廠地址" Width="70" Binding="{Binding FactoryAddress}"/>
-                <DataGridCheckBoxColumn Header="狀態" Width="70" Binding="{Binding Void}" />
+                <DataGridTextColumn Header="狀態" Width="70" Binding="{Binding Void, Converter={StaticResource Void2TextValueConvterver}}" />
             </DataGrid.Columns>
         </controls:CustomDataGrid>
     </Grid>

@@ -8,6 +8,7 @@
     <vm:TicketPeriodsViewModelCollection x:Key="TicketPeriodsSource"/>
     <vm:TranscationCategoriesViewModelCollection x:Key="TranscationCategoriesSource"/>
     <vm:PaymentTypesManageViewModelCollection x:Key="PaymentTypesSource"/>
+    <vm:VoidViewModelCollection x:Key="VoidStateListSource"/>
     <ValueConverters:NOTGateValueConverter x:Key="NOTGateValueConverter"/>
     <ValueConverters:RadioButtonSwitchValueConverter x:Key="RadioButtonSwitchValueConverter" />
     <ValueConverters:BooleanToVisibilityValueConveter x:Key="BooleanToVisibilityValueConveter"/>

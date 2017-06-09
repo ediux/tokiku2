@@ -231,13 +231,7 @@ namespace TokikuNew.Views
                 }
             }
 
-            if (currentrow.IsDefault == false)
-            {
-                if (cb.IsChecked.HasValue && cb.IsChecked.Value)
-                {
-                    currentrow.IsDefault = true;
-                }
-            }
+            currentrow.IsDefault = true;
 
         }
     }

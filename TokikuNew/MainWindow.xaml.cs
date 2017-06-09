@@ -75,7 +75,7 @@ namespace TokikuNew
             AddHandler(ClosableTabItem.OnPageClosingEvent, new RoutedEventHandler(btnTabClose_Click));
             AddHandler(ClientListView.SelectedClientChangedEvent, new RoutedEventHandler(ClientListView_SelectedClientChanged));
             AddHandler(ProjectSelectListView.SelectedProjectChangedEvent, new RoutedEventHandler(ProjectSelectionPage_SelectedProjectChanged));
-            ((MainViewModel)DataContext).Query();
+            //((MainViewModel)DataContext).Query();
         }
 
         private void Window_AutoOpenNewPage(object sender, RoutedEventArgs e)

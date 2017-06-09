@@ -21,19 +21,19 @@ namespace Tokiku.Entity
         }
     
         public System.Guid Id { get; set; }
-        public System.Guid MaterialCategoriesId { get; set; }
+        public Nullable<System.Guid> MaterialCategoriesId { get; set; }
         public string Name { get; set; }
-        public byte PaymentTypeId { get; set; }
-        public int TicketPeriodId { get; set; }
-        public System.Guid ManufacturersId { get; set; }
-        public int TranscationCategoriesId { get; set; }
+        public Nullable<byte> PaymentTypeId { get; set; }
+        public Nullable<int> TicketPeriodId { get; set; }
+        public Nullable<System.Guid> ManufacturersId { get; set; }
+        public Nullable<int> TranscationCategoriesId { get; set; }
     
         public virtual Manufacturers Manufacturers { get; set; }
         public virtual MaterialCategories MaterialCategories { get; set; }
         public virtual PaymentTypes PaymentTypes { get; set; }
         public virtual TicketPeriod TicketPeriod { get; set; }
+        public virtual TranscationCategories TranscationCategories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupplierTranscationItem> SupplierTranscationItem { get; set; }
-        public virtual TranscationCategories TranscationCategories { get; set; }
     }
 }

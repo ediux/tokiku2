@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using Tokiku.ViewModels;
 
 namespace TokikuNew.Views
@@ -26,7 +27,7 @@ namespace TokikuNew.Views
         private Tokiku.Controllers.ManufacturersManageController controller = new Tokiku.Controllers.ManufacturersManageController();
         public VendorListView()
         {
-            InitializeComponent();         
+            InitializeComponent();
         }
 
         public static readonly RoutedEvent SelectedVendorChangedEvent = EventManager.RegisterRoutedEvent(
@@ -61,7 +62,7 @@ namespace TokikuNew.Views
 
         private void sSearchBar_ResetSearch(object sender, RoutedEventArgs e)
         {
-            VendorList.ItemsSource = controller.QueryAll().Result;
+            ((ManufacturersViewModelCollection)DataContext).Query();
         }
 
         private void btnNew_Click(object sender, RoutedEventArgs e)
@@ -89,10 +90,21 @@ namespace TokikuNew.Views
 
         private void VendorList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if(SelectedManufacturer!=null)
+            if (SelectedManufacturer != null)
             {
                 RaiseEvent(new RoutedEventArgs(SelectedVendorChangedEvent, SelectedManufacturer));
             }
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext != null)
+            {
+                ManufacturersViewModelCollection DataSource = (ManufacturersViewModelCollection)DataContext;
+                Dispatcher.Invoke(
+                         DataSource.Query, DispatcherPriority.Background);
+            }
+
         }
     }
 }

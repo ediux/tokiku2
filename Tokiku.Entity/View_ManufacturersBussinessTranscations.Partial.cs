@@ -25,5 +25,7 @@ namespace Tokiku.Entity
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
         [Required]
         public string TranscationItemName { get; set; }
+        [Required]
+        public System.Guid ManufacturersId { get; set; }
     }
 }

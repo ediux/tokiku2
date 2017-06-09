@@ -19,7 +19,6 @@ namespace Tokiku.Entity
         public string Name { get; set; }
         
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
-        [Required]
         public string Dep { get; set; }
         
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]

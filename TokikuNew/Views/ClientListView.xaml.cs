@@ -75,5 +75,11 @@ namespace TokikuNew.Views
         {
             ((ClientViewModelCollection)DataContext).QueryByText((string)e.OriginalSource);
         }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext != null)
+                ((ClientViewModelCollection)DataContext).Query();
+        }
     }
 }

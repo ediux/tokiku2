@@ -43,8 +43,7 @@ namespace TokikuNew.Views
         {
             try
             {
-                if (DataContext != null)
-                    ((ProjectListViewModelCollection)DataContext).Query();
+                ((ProjectListViewModelCollection)DataContext).Query();
             }
             catch (Exception ex)
             {

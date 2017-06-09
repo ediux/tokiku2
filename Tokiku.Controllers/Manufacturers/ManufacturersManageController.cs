@@ -115,7 +115,9 @@ namespace Tokiku.Controllers
         {
             if (originalSource != null && originalSource.Length > 0)
             {
-                var result = (from p in ManufacturersRepository.All()
+                ManufacturersRepository repo = RepositoryHelper.GetManufacturersRepository(database);
+
+                var result = (from p in repo.All()
                               from b in p.ManufacturersBussinessItems
                               where p.Void == false && p.IsClient == false &&
                               (p.Name.Contains(originalSource) || p.Principal.Contains(originalSource) || b.Name.Contains(originalSource))
@@ -143,16 +145,20 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var result = ManufacturersRepository
-                    .Where(filiter)
-                    .Where(w => w.Void == false)
-                    .OrderBy(p => p.Code)
-                    .ToList();
+                using (ManufacturersRepository = RepositoryHelper.GetManufacturersRepository())
+                {
+                    var result = ManufacturersRepository
+                                     .Where(filiter)
+                                     .Where(w => w.Void == false)
+                                     .OrderBy(p => p.Code)
+                                     .ToList();
 
-                ExecuteResultEntity<ICollection<Manufacturers>> model = ExecuteResultEntity<ICollection<Manufacturers>>
-                    .CreateResultEntity(new Collection<Manufacturers>(result));
+                    ExecuteResultEntity<ICollection<Manufacturers>> model = ExecuteResultEntity<ICollection<Manufacturers>>
+                        .CreateResultEntity(new Collection<Manufacturers>(result));
 
-                return model;
+                    return model;
+                }
+
             }
             catch (Exception ex)
             {
@@ -160,6 +166,30 @@ namespace Tokiku.Controllers
             }
         }
 
+        public ExecuteResultEntity<ICollection<View_ManufacturersBussinessTranscations>> QueryViewManufacturersBussinessTranscations(Guid ManufacturersId)
+        {
+            ExecuteResultEntity<ICollection<View_ManufacturersBussinessTranscations>> rtn;
+
+            try
+            {
+                View_ManufacturersBussinessTranscationsRepository repo = RepositoryHelper.GetView_ManufacturersBussinessTranscationsRepository(database);
+                var result = repo
+                    .Where(w => w.ManufacturersId == ManufacturersId)
+                    .OrderBy(p => p.Code)
+                    .ToList();
+
+                ExecuteResultEntity<ICollection<View_ManufacturersBussinessTranscations>> model = ExecuteResultEntity<ICollection<View_ManufacturersBussinessTranscations>>
+                    .CreateResultEntity(new Collection<View_ManufacturersBussinessTranscations>(result));
+
+                return model;
+            }
+            catch (Exception ex)
+            {
+
+                rtn = ExecuteResultEntity<ICollection<View_ManufacturersBussinessTranscations>>.CreateErrorResultEntity(ex);
+                return rtn;
+            }
+        }
 
         public ExecuteResultEntity<ICollection<Manufacturers>> QueryAll()
         {
@@ -167,15 +197,15 @@ namespace Tokiku.Controllers
 
             try
             {
-                using (database)
+                using (ManufacturersRepository = RepositoryHelper.GetManufacturersRepository())
                 {
-                    var result = from p in ManufacturersRepository.All()
-                                 where p.Void == false && p.IsClient == false
-                                 orderby p.Code ascending
-                                 select p;
+                    var result = ManufacturersRepository
+                                .Where(p => p.Void == false && p.IsClient == false)
+                                .OrderBy(p => p.Code)
+                                .ToList();
 
                     rtn = ExecuteResultEntity<ICollection<Manufacturers>>.CreateResultEntity(
-                        new Collection<Manufacturers>(result.ToList()));
+                        new Collection<Manufacturers>(result));
 
                     return rtn;
                 }
@@ -214,19 +244,9 @@ namespace Tokiku.Controllers
         {
             try
             {
-
-                var dbm = new Manufacturers();
-
-
-                if (entity.Contacts.Any())
-                {
-                    foreach (var item in entity.Contacts)
-                    {
-                        Contacts newContacts = new Contacts();
-                        dbm.Contacts.Add(newContacts);
-                    }
-                }
-
+                ManufacturersRepository = RepositoryHelper.GetManufacturersRepository();
+                ManufacturersRepository.Add(entity);
+                ManufacturersRepository.UnitOfWork.Commit();
                 return ExecuteResultEntity.CreateResultEntity();
             }
             catch (Exception ex)
@@ -275,7 +295,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                using (database)
+                using (ManufacturersRepository = RepositoryHelper.GetManufacturersRepository(database))
                 {
 
                     var LoginedUser = GetCurrentLoginUser();
@@ -286,48 +306,83 @@ namespace Tokiku.Controllers
                     if (dbm != null)
                     {
 
+                        var toDel = dbm.Contacts.Except(fromModel.Contacts).ToList();
+                        var toAdd = fromModel.Contacts.Except(dbm.Contacts).ToList();
 
-                        if (fromModel.Contacts.Any())
+                        foreach (var delitem in toDel)
                         {
-                            foreach (var item in fromModel.Contacts)
-                            {
-                                Stack<Contacts> removeStack = new Stack<Contacts>();
-
-                                foreach (var rowindb in dbm.Contacts)
-                                {
-                                    if (fromModel.Contacts.Where(w => w.Id == rowindb.Id).Any() == false)
-                                    {
-                                        //remove(指資料真的被移除了)
-                                        removeStack.Push(rowindb);
-                                    }
-                                }
-
-                                if (removeStack.Count > 0)
-                                {
-                                    while (removeStack.Count > 0)
-                                    {
-                                        dbm.Contacts.Remove(removeStack.Pop());
-                                    }
-                                }
-
-                                foreach (var row in fromModel.Contacts)
-                                {
-                                    if (dbm.Contacts.Where(w => w.Id == row.Id).Any())
-                                    {
-                                        var foundinoriginal = dbm.Contacts.Where(w => w.Id == row.Id).Single();
-                                        //CopyToModel(foundinoriginal, row);
-                                        //  database.Entry(foundinoriginal).State = System.Data.Entity.EntityState.Modified;
-                                    }
-                                    else
-                                    {
-                                        Contacts newData = new Contacts();
-                                        //CopyToModel(newData, row);
-                                        newData.CreateUserId = LoginedUser.Result.UserId;
-                                        dbm.Contacts.Add(newData);
-                                    }
-                                }
-                            }
+                            dbm.Contacts.Remove(delitem);
                         }
+
+                        foreach (var additem in toAdd)
+                        {
+                            dbm.Contacts.Add(additem);
+                        }
+
+                        var toDel2 = dbm.ManufacturersBussinessItems.Except(fromModel.ManufacturersBussinessItems).ToList();
+                        var toAdd2 = fromModel.ManufacturersBussinessItems.Except(dbm.ManufacturersBussinessItems).ToList();
+
+                        foreach (var delitem in toDel2)
+                        {
+                            dbm.ManufacturersBussinessItems.Remove(delitem);
+                        }
+
+                        foreach (var additem in toAdd2)
+                        {
+                            dbm.ManufacturersBussinessItems.Add(additem);
+                        }
+
+                        //foreach (var item in fromModel.Contacts)
+                        //{
+                        //    Stack<Contacts> removeStack = new Stack<Contacts>();
+
+                        //    foreach (var rowindb in dbm.Contacts)
+                        //    {
+                        //        if (fromModel.Contacts.Where(w => w.Id == rowindb.Id).Any() == false)
+                        //        {
+                        //            //remove(指資料真的被移除了)
+                        //            removeStack.Push(rowindb);
+                        //        }
+                        //    }
+
+                        //    if (removeStack.Count > 0)
+                        //    {
+                        //        while (removeStack.Count > 0)
+                        //        {
+                        //            dbm.Contacts.Remove(removeStack.Pop());
+                        //        }
+                        //    }
+
+                        //    foreach (var row in fromModel.Contacts)
+                        //    {
+                        //        if (dbm.Contacts.Where(w => w.Id == row.Id).Any())
+                        //        {
+                        //            var foundinoriginal = dbm.Contacts.Where(w => w.Id == row.Id).Single();
+
+                        //            foundinoriginal.Comment = row.Comment;
+                        //            foundinoriginal.Dep = row.Dep;
+                        //            foundinoriginal.EMail = row.EMail;
+                        //            foundinoriginal.ExtensionNumber = row.ExtensionNumber;
+                        //            foundinoriginal.Fax = row.Fax;
+                        //            foundinoriginal.IsDefault = row.IsDefault;
+                        //            foundinoriginal.IsPrincipal = row.IsPrincipal;
+                        //            foundinoriginal.Manufacturers = row.Manufacturers;
+                        //            foundinoriginal.Mobile = row.Mobile;
+                        //            foundinoriginal.Name = row.Name;
+                        //            foundinoriginal.Phone = row.Phone;
+                        //            foundinoriginal.Title = row.Title;
+                        //            foundinoriginal.Void = row.Void;
+
+                        //        }
+                        //        else
+                        //        {
+
+                        //            row.CreateUserId = LoginedUser.Result.UserId;
+                        //            dbm.Contacts.Add(row);
+                        //        }
+                        //    }
+                        //}
+
                     }
                     //database.Entry(dbm).State = System.Data.Entity.EntityState.Modified;
                     ManufacturersRepository.UnitOfWork.Commit();

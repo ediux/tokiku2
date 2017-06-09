@@ -13,15 +13,15 @@ namespace Tokiku.Entity
     {
         [Required]
         public System.Guid Id { get; set; }
-        
-        [StringLength(15, ErrorMessage="欄位長度不得大於 15 個字元")]
+
+        [StringLength(15, ErrorMessage = "欄位長度不得大於 15 個字元")]
         [Required(ErrorMessage = "廠商代號/客戶代號為必要項!")]
         public string Code { get; set; }
-        
-        [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
+
+        [StringLength(50, ErrorMessage = "欄位長度不得大於 50 個字元")]
         [Required(ErrorMessage = "廠商名稱/名稱(全名)為必要項!")]
         public string Name { get; set; }
-        
+
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
         public string ShortName { get; set; }
         
@@ -80,6 +80,10 @@ namespace Tokiku.Entity
         
         [StringLength(6, ErrorMessage="欄位長度不得大於 6 個字元")]
         public string Extension { get; set; }
+        public Nullable<int> TicketPeriodId { get; set; }
+        
+        [StringLength(250, ErrorMessage="欄位長度不得大於 250 個字元")]
+        public string InvoiceAddress { get; set; }
     
         public virtual PaymentTypes PaymentTypes { get; set; }
         public virtual ICollection<Molds> Molds { get; set; }
@@ -88,5 +92,6 @@ namespace Tokiku.Entity
         public virtual ICollection<Contacts> Contacts { get; set; }
         public virtual ICollection<Projects> ClientForProjects { get; set; }
         public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
+        public virtual TicketPeriod TicketPeriod { get; set; }
     }
 }

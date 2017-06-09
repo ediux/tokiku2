@@ -18,5 +18,6 @@ namespace Tokiku.Entity
         public string Code { get; set; }
         public string Name { get; set; }
         public string TranscationItemName { get; set; }
+        public System.Guid ManufacturersId { get; set; }
     }
 }
