@@ -189,52 +189,7 @@ namespace Tokiku.Controllers
 
         }
 
-        //private void ResultBindingToViewModelCollection(ManufacturersViewModelCollection rtn, IQueryable<Manufacturers> result)
-        //{
-        //    if (result.Any())
-        //    {
-        //        foreach (var item in result)
-        //        {
-        //            ManufacturersViewModel model = ResultBindingToViewModel(item);
 
-        //            rtn.Add(model);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        rtn = new ManufacturersViewModelCollection();
-        //    }
-        //}
-
-        //private ManufacturersViewModel ResultBindingToViewModel(Manufacturers item)
-        //{
-        //    ManufacturersViewModel model = BindingFromModel(item);
-
-        //    model.Contracts = new ContactsViewModelCollection();
-
-        //    if (item.Contacts.Any())
-        //    {
-        //        foreach (var row in item.Contacts)
-        //        {
-        //            model.Contracts.Add(BindingFromModel<ContactsViewModel, Contacts>(row));
-        //        }
-        //    }
-
-        //    if (model.Engineerings == null)
-        //        model.Engineerings = new EngineeringViewModelCollection();
-
-        //    model.PaymentTypes = new ObservableCollection<PaymentTypeViewModel>();
-
-        //    if (database.PaymentTypes.Any())
-        //    {
-        //        foreach (var paytype in database.PaymentTypes.ToArray())
-        //        {
-        //            model.PaymentTypes.Add(new PaymentTypeViewModel { Id = paytype.Id, PaymentTypeName = paytype.PaymentTypeName });
-        //        }
-        //    }
-
-        //    return model;
-        //}
 
         public override ExecuteResultEntity<Manufacturers> CreateNew()
         {
@@ -268,28 +223,51 @@ namespace Tokiku.Controllers
                     foreach (var item in entity.Contacts)
                     {
                         Contacts newContacts = new Contacts();
-                        //CopyToModel(newContacts, item);
                         dbm.Contacts.Add(newContacts);
                     }
                 }
-
-                //if (entity.Any())
-                //{
-                //    foreach (var item in model.Materials)
-                //    {
-                //        Materials newContacts = new Materials();
-                //        //CopyToModel(newContacts, item);
-
-                //    }
-                //}
-                //ManufacturersRepository.Add(dbm);
-                //ManufacturersRepository.UnitOfWork.Commit();
 
                 return ExecuteResultEntity.CreateResultEntity();
             }
             catch (Exception ex)
             {
                 return ExecuteResultEntity.CreateErrorResultEntity(ex);
+            }
+        }
+
+        public ExecuteResultEntity<ManufacturersBussinessItems> CreateOrUpdateBussinessItems(ManufacturersBussinessItems entity)
+        {
+            try
+            {
+                ManufacturersBussinessItemsRepository repo = RepositoryHelper.GetManufacturersBussinessItemsRepository(database);
+                var result = from q in repo.All()
+                             where q.Id == entity.Id
+                             select q;
+
+                if (!result.Any())
+                {
+                    repo.Add(entity);
+                    repo.UnitOfWork.Commit();
+                }
+                else
+                {
+                    var dbdata = result.Single();
+                    Update(entity.Manufacturers, true);
+                }
+
+
+                repo.UnitOfWork.Commit();
+
+                var rtn = from q in repo.All()
+                          where q.Id == entity.Id
+                          select q; ;
+
+                return ExecuteResultEntity<ManufacturersBussinessItems>.CreateResultEntity(rtn.SingleOrDefault());
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<ManufacturersBussinessItems>.CreateErrorResultEntity(ex);
+
             }
         }
 
@@ -393,10 +371,6 @@ namespace Tokiku.Controllers
             }
         }
 
-
-
-
-
         public override bool IsExists(Expression<Func<Manufacturers, bool>> filiter)
         {
             try
@@ -410,6 +384,63 @@ namespace Tokiku.Controllers
             }
         }
 
+        public Task<ExecuteResultEntity<ICollection<TranscationCategories>>> GetTranscationCategoriesListAsync()
+        {
+            try
+            {
+                TranscationCategoriesRepository repo = RepositoryHelper.GetTranscationCategoriesRepository(database);
+
+                return Task.FromResult(ExecuteResultEntity<ICollection<TranscationCategories>>.CreateResultEntity(
+                    new Collection<TranscationCategories>(repo.All().ToList())));
+
+            }
+            catch (Exception ex)
+            {
+                return Task.FromResult(ExecuteResultEntity<ICollection<TranscationCategories>>.CreateErrorResultEntity(ex));
+
+
+            }
+        }
+
+        public Task<ExecuteResultEntity<ICollection<MaterialCategories>>> GetMaterialCategoriesListAsync()
+        {
+            try
+            {
+                MaterialCategoriesRepository repo = RepositoryHelper.GetMaterialCategoriesRepository(database);
+
+                var result = from q in repo.All()
+                             select q;
+
+                return Task.FromResult(ExecuteResultEntity<ICollection<MaterialCategories>>.CreateResultEntity(
+                    new Collection<MaterialCategories>(result.ToList())));
+
+            }
+            catch (Exception ex)
+            {
+                return Task.FromResult(ExecuteResultEntity<ICollection<MaterialCategories>>.CreateErrorResultEntity(ex));
+
+
+            }
+        }
+
+        public Task<ExecuteResultEntity<ICollection<View_BussinessItemsList>>> QueryBussinessItemsListAsync(Guid ManufacturersId)
+        {
+            try
+            {
+                View_BussinessItemsListRepository biListRepo = RepositoryHelper.GetView_BussinessItemsListRepository(database);
+
+                var result = (from q in biListRepo.All()
+                              select q).ToList();
+
+                return Task.FromResult(ExecuteResultEntity<ICollection<View_BussinessItemsList>>.CreateResultEntity(new Collection<View_BussinessItemsList>(result)));
+            }
+            catch (Exception ex)
+            {
+                return Task.FromResult(ExecuteResultEntity<ICollection<View_BussinessItemsList>>.CreateErrorResultEntity(ex));
+
+
+            }
+        }
 
     }
 }

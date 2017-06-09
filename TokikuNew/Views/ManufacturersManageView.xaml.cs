@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GrapeCity.Windows.SpreadSheet.Data;
+using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -145,6 +146,46 @@ namespace TokikuNew.Views
                         ((ManufacturersViewModel)DataContext).Extension = string.Empty;
                     }
                 }
+
+                //營業項目Sheet顯示
+
+                //UI設定
+                BussinessItemSheet.StartSheetIndex = 0;
+                BussinessItemSheet.Sheets.Clear();
+
+                Worksheet BISheet = new Worksheet();
+                BISheet.ColumnHeader.AutoText = HeaderAutoText.Letters;
+                BussinessItemSheet.Sheets.Add(BISheet);
+                BussinessItemSheet.CanUserEditFormula = false;
+                BussinessItemSheet.CanUserUndo = true;
+                BussinessItemSheet.CanUserZoom = true;
+                
+                MaterialCategoriesViewModelCollection MaterialCategories = (MaterialCategoriesViewModelCollection)FindResource("MaterialCategoriesSource");
+
+                if (MaterialCategories != null)
+                {
+                    MaterialCategories.Refresh();
+                }
+
+                BISheet.AddRows(0, SelectedManufacturers.ManufacturersBussinessItems.Count);
+                BISheet.Name = "營業項目";                
+                BISheet.ColumnHeader.Columns[0].Label = "材料類別";
+                BISheet.ColumnHeader.Columns[1].Label = "交易品項";
+                BISheet.ColumnHeader.Columns[2].Label = "交易類別";
+                BISheet.ColumnHeader.Columns[3].Label = "支付方式";
+                BISheet.ColumnHeader.Columns[4].Label = "票期設定";
+
+                if (SelectedManufacturers.ManufacturersBussinessItems.Any())
+                {
+                    for(int i = 0; i < SelectedManufacturers.ManufacturersBussinessItems.Count; i++)
+                    {                        
+                        BISheet.Rows[i].SetText(0, SelectedManufacturers.ManufacturersBussinessItems[i].MaterialCategories);
+                        BISheet.Rows[i].SetText(1, SelectedManufacturers.ManufacturersBussinessItems[i].Name);
+                        BISheet.Rows[i].SetText(2, SelectedManufacturers.ManufacturersBussinessItems[i].TranscationCategories);
+                        BISheet.Rows[i].SetText(3, SelectedManufacturers.ManufacturersBussinessItems[i].PaymentTypeName);
+                        BISheet.Rows[i].SetText(4, SelectedManufacturers.ManufacturersBussinessItems[i].TicketPeriod);
+                    }                    
+                }
             }
             catch (Exception ex)
             {
@@ -235,6 +276,50 @@ namespace TokikuNew.Views
                         break;
                 }
                 UpdateLayout();
+            }
+            catch (Exception ex)
+            {
+                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
+            }
+        }
+
+        private void btnAddMBI_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ManufacturersBussinessItemsViewModel newitem = new ManufacturersBussinessItemsViewModel();
+                newitem.Id = Guid.NewGuid();
+                newitem.ManufacturersId = SelectedManufacturers.Id;
+                newitem.MaterialCategoriesId = (Guid)cbMaterialCategoriesList.SelectedValue;
+                newitem.MaterialCategories = ((MaterialCategoriesViewModel)cbMaterialCategoriesList.SelectedItem).Name;
+                newitem.Name = tbTrancationItem.Text;
+                newitem.PaymentTypeId = (byte)cbPaymentTypeBI.SelectedValue;
+                newitem.PaymentTypeName = ((PaymentTypesManageViewModel)cbPaymentTypeBI.SelectedItem).PaymentTypeName;
+                newitem.TicketPeriodId = (int)cbTicketPeriodBI.SelectedValue;
+                newitem.TicketPeriod = ((TicketPeriodsViewModel)cbTicketPeriodBI.SelectedItem).Name;
+                newitem.TranscationCategoriesId = (int)cbTranscationCategories.SelectedValue;
+                newitem.TranscationCategories = ((TranscationCategoriesViewModel)cbTranscationCategories.SelectedItem).Name;
+
+                SelectedManufacturers.ManufacturersBussinessItems.Add(newitem);
+
+                if (SelectedManufacturers.ManufacturersBussinessItems.Any())
+                {
+                    Worksheet BISheet = BussinessItemSheet.Sheets[0];
+
+                    if (BISheet.Rows.Count > 0)
+                        BISheet.RemoveRows(0, BISheet.Rows.Count);
+
+                    BISheet.AddRows(0, SelectedManufacturers.ManufacturersBussinessItems.Count);
+
+                    for (int i = 0; i < SelectedManufacturers.ManufacturersBussinessItems.Count; i++)
+                    {
+                        BISheet.Rows[i].SetText(0, SelectedManufacturers.ManufacturersBussinessItems[i].MaterialCategories);
+                        BISheet.Rows[i].SetText(1, SelectedManufacturers.ManufacturersBussinessItems[i].Name);
+                        BISheet.Rows[i].SetText(2, SelectedManufacturers.ManufacturersBussinessItems[i].TranscationCategories);
+                        BISheet.Rows[i].SetText(3, SelectedManufacturers.ManufacturersBussinessItems[i].PaymentTypeName);
+                        BISheet.Rows[i].SetText(4, SelectedManufacturers.ManufacturersBussinessItems[i].TicketPeriod);
+                    }
+                }
             }
             catch (Exception ex)
             {

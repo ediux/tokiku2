@@ -12,24 +12,18 @@ namespace Tokiku.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class TicketPeriod
+    public partial class TranscationCategories
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TicketPeriod()
+        public TranscationCategories()
         {
             this.ManufacturersBussinessItems = new HashSet<ManufacturersBussinessItems>();
-            this.Manufacturers = new HashSet<Manufacturers>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public int DayLimit { get; set; }
-        public Nullable<System.DateTime> CreateTime { get; set; }
-        public Nullable<System.Guid> CreateUserId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Manufacturers> Manufacturers { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
 using Tokiku.Controllers;
 using Tokiku.Entity;
@@ -300,7 +301,7 @@ namespace Tokiku.ViewModels
                 new PropertyMetadata((byte)0, new PropertyChangedCallback(DefaultFieldChanged)));
         #endregion
 
-    
+
 
         #region 聯絡人清單 Contracts
         /// <summary>
@@ -430,7 +431,7 @@ namespace Tokiku.ViewModels
 
         #endregion
 
-     
+
 
         #endregion
 
@@ -478,6 +479,8 @@ namespace Tokiku.ViewModels
         {
             Manufacturers data = new Manufacturers();
 
+            var LoginedUser = controller.GetCurrentLoginUser().Result;
+
             if (CreateUserId == Guid.Empty)
             {
                 CreateUserId = controller.GetCurrentLoginUser().Result.UserId;
@@ -501,6 +504,62 @@ namespace Tokiku.ViewModels
             }
 
             CopyToModel(data, this);
+
+            if (Contracts != null)
+            {
+                if (Contracts.Count > 0)
+                {
+                    data.Contacts = new Collection<Entity.Contacts>();
+
+                    Parallel.ForEach(Contracts, (x) =>
+                    {
+                        x.Initialized();
+
+                        lock (this)
+                        {
+                            x.CreateTime = CreateTime;
+                        }
+
+
+                        if (x.CreateUserId == Guid.Empty)
+                        {
+                            lock (LoginedUser)
+                            {
+                                x.CreateUserId = LoginedUser.UserId;
+                            }
+
+                        }
+
+                        Contacts contact = null;
+
+                        CopyToModel(contact, x);
+
+                        lock (data)
+                        {
+                            data.Contacts.Add(contact);
+                        }
+                    });
+                }
+            }
+
+            if (ManufacturersBussinessItems != null && ManufacturersBussinessItems.Count > 0)
+            {
+                data.ManufacturersBussinessItems = new Collection<ManufacturersBussinessItems>();
+
+                Parallel.ForEach(ManufacturersBussinessItems, (x) =>
+                {
+                    x.Initialized();
+
+                    ManufacturersBussinessItems BItems = null;
+
+                    CopyToModel(BItems, x);
+
+                    lock (data)
+                    {
+                        data.ManufacturersBussinessItems.Add(BItems);
+                    }
+                });              
+            }
 
             var result = controller.CreateOrUpdate(data);
 

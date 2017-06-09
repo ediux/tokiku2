@@ -4,33 +4,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Tokiku.Controllers;
 using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class MaterialCategoriesViewModelCollection : BaseViewModelCollection<MaterialCategoriesViewModel>
+    public class TranscationCategoriesViewModelCollection : BaseViewModelCollection<TranscationCategoriesViewModel>
     {
-        private ManufacturersManageController controller;
+        private Controllers.ManufacturersManageController controller;
 
         public override void Initialized()
         {
             base.Initialized();
-            controller = new ManufacturersManageController();
+            controller = new Controllers.ManufacturersManageController();
             Query();
         }
 
         public async override void Query()
         {
-            var result = await controller.GetMaterialCategoriesListAsync();
+            var result = await controller.GetTranscationCategoriesListAsync();
+
             if (!result.HasError)
             {
                 if (result.Result.Any())
                 {
                     ClearItems();
-                    foreach(var item in result.Result)
+                    foreach (var item in result.Result)
                     {
-                        MaterialCategoriesViewModel model = new MaterialCategoriesViewModel();
+                        TranscationCategoriesViewModel model = new TranscationCategoriesViewModel();
                         model.SetModel(item);
                         Add(model);
                     }
@@ -44,20 +44,20 @@ namespace Tokiku.ViewModels
         }
     }
 
-    public class MaterialCategoriesViewModel : BaseViewModel
+    public class TranscationCategoriesViewModel : BaseViewModel
     {
         #region Id
 
 
-        public Guid Id
+        public int Id
         {
-            get { return (Guid)GetValue(IdProperty); }
+            get { return (int)GetValue(IdProperty); }
             set { SetValue(IdProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for Id.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IdProperty =
-            DependencyProperty.Register("Id", typeof(Guid), typeof(MaterialCategoriesViewModel), new PropertyMetadata(Guid.NewGuid()));
+            DependencyProperty.Register("Id", typeof(int), typeof(TranscationCategoriesViewModel), new PropertyMetadata(0));
 
 
         #endregion
@@ -73,19 +73,22 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for Name.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty NameProperty =
-            DependencyProperty.Register("Name", typeof(string), typeof(MaterialCategoriesViewModel), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("Name", typeof(string), typeof(TranscationCategoriesViewModel), new PropertyMetadata(string.Empty));
 
 
         #endregion
 
-        
-
         public override void SetModel(dynamic entity)
         {
-            var data = (MaterialCategories)entity;
-            if (data != null)
+            try
             {
+                TranscationCategories data = (TranscationCategories)entity;
                 BindingFromModel(data, this);
+            }
+            catch (Exception ex)
+            {
+
+                setErrortoModel(this, ex);
             }
         }
     }

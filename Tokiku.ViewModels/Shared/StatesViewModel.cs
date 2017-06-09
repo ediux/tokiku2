@@ -5,10 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Collections.ObjectModel;
+using Tokiku.Entity;
+
 namespace Tokiku.ViewModels
 {
     public class StatesViewModelCollection : BaseViewModelCollection<StatesViewModel>
     {
+        private Controllers.StateController controller;
+
         public StatesViewModelCollection()
         {
 
@@ -18,6 +22,38 @@ namespace Tokiku.ViewModels
         {
 
         }
+
+        public override void Initialized()
+        {
+            base.Initialized();
+            controller = new Controllers.StateController();
+            Query();
+        }
+
+        public async override void Query()
+        {
+            var result = await controller.GetStateListAsync();
+
+            if (!result.HasError)
+            {
+                if (result.Result.Any())
+                {
+                    ClearItems();
+                    foreach (var item in result.Result)
+                    {
+                        StatesViewModel model = new StatesViewModel();
+                        model.SetModel(item);
+                        Add(model);
+                    }
+                }
+            }
+            else
+            {
+                Errors = result.Errors;
+                HasError = result.HasError;
+            }
+        }
+
     }
     public class StatesViewModel : BaseViewModel
     {
@@ -44,6 +80,19 @@ namespace Tokiku.ViewModels
         // Using a DependencyProperty as the backing store for StateName.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty StateNameProperty =
             DependencyProperty.Register("StateName", typeof(string), typeof(StatesViewModel), new PropertyMetadata(string.Empty));
-       
+
+        public override void SetModel(dynamic entity)
+        {
+            try
+            {
+                States data = (States)entity;
+                BindingFromModel(data, this);
+            }
+            catch (Exception ex)
+            {
+
+                setErrortoModel(this, ex);
+            }
+        }
     }
 }

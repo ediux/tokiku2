@@ -46,49 +46,67 @@ namespace TokikuNew.Controls
         /// <param name="e"></param>
         protected static void DefaultFieldChanged(DependencyObject source, DependencyPropertyChangedEventArgs e)
         {
-            DockBar src = (DockBar)source;
-            source.SetValue(LastStateProperty, e.OldValue);
-            ChoiceMode((DocumentLifeCircle)e.NewValue, src);
+            try
+            {
+                DockBar src = (DockBar)source;
+                source.SetValue(LastStateProperty, e.OldValue);
+                ChoiceMode((DocumentLifeCircle)e.NewValue, src);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+
         }
 
         private static void ChoiceMode(DocumentLifeCircle mode, DockBar src)
         {
-            switch (mode)
+            try
             {
-                case DocumentLifeCircle.Create:
-                    src.btnF1.IsEnabled = false;
-                    src.btnF2.IsEnabled = false;
-                    src.btnF3.IsEnabled = true;
-                    src.btnF11.IsEnabled = true;
-                    src.btnF12.IsEnabled = true;
-                    src.btnF9.IsEnabled = false;
-                    break;
-                case DocumentLifeCircle.Delete:
-                    src.btnF1.IsEnabled = true;
-                    src.btnF2.IsEnabled = false;
-                    src.btnF3.IsEnabled = false;
-                    src.btnF11.IsEnabled = false;
-                    src.btnF12.IsEnabled = false;
-                    break;
-                case DocumentLifeCircle.Read:
-                    src.btnF1.IsEnabled = true;
-                    src.btnF2.IsEnabled = true;
-                    src.btnF3.IsEnabled = false;
-                    src.btnF11.IsEnabled = true;
-                    src.btnF12.IsEnabled = true;
-                    src.btnF9.IsEnabled = false;
-                    break;
-                case DocumentLifeCircle.Update:
-                    src.btnF1.IsEnabled = true;
-                    src.btnF2.IsEnabled = false;
-                    src.btnF3.IsEnabled = true;
-                    src.btnF11.IsEnabled = false;
-                    src.btnF12.IsEnabled = false;
-                    src.btnF9.IsEnabled = true;
-                    break;
+                switch (mode)
+                {
+                    case DocumentLifeCircle.Create:
+                        src.btnF1.IsEnabled = false;
+                        src.btnF2.IsEnabled = false;
+                        src.btnF3.IsEnabled = true;
+                        src.btnF11.IsEnabled = true;
+                        src.btnF12.IsEnabled = true;
+                        src.btnF9.IsEnabled = false;
+                        break;
+                    case DocumentLifeCircle.Delete:
+                        src.btnF1.IsEnabled = true;
+                        src.btnF2.IsEnabled = false;
+                        src.btnF3.IsEnabled = false;
+                        src.btnF11.IsEnabled = false;
+                        src.btnF12.IsEnabled = false;
+                        break;
+                    case DocumentLifeCircle.Read:
+                        src.btnF1.IsEnabled = true;
+                        src.btnF2.IsEnabled = true;
+                        src.btnF3.IsEnabled = false;
+                        src.btnF11.IsEnabled = true;
+                        src.btnF12.IsEnabled = true;
+                        src.btnF9.IsEnabled = false;
+                        break;
+                    case DocumentLifeCircle.Update:
+                        src.btnF1.IsEnabled = true;
+                        src.btnF2.IsEnabled = false;
+                        src.btnF3.IsEnabled = true;
+                        src.btnF11.IsEnabled = false;
+                        src.btnF12.IsEnabled = false;
+                        src.btnF9.IsEnabled = true;
+                        break;
+                }
+
+                src.UpdateLayout();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
 
-            src.UpdateLayout();
+
         }
 
         #region WPF 事件路由
@@ -139,17 +157,35 @@ namespace TokikuNew.Controls
 
         private void btnF1_Click(object sender, RoutedEventArgs e)
         {
-            DocumentMode = DocumentLifeCircle.Create;
-            RaiseEvent(new RoutedEventArgs(DocumentModeChangedEvent, DocumentMode));
-            e.Handled = true;
+            try
+            {
+                DocumentMode = DocumentLifeCircle.Create;
+                RaiseEvent(new RoutedEventArgs(DocumentModeChangedEvent, DocumentMode));
+                e.Handled = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+
         }
 
         private void btnF2_Click(object sender, RoutedEventArgs e)
         {
-            DocumentMode = DocumentLifeCircle.Update;
-            RaiseEvent(new RoutedEventArgs(DocumentModeChangedEvent, DocumentMode));
-            UpdateLayout();
-            e.Handled = true;
+            try
+            {
+
+                DocumentMode = DocumentLifeCircle.Update;
+                RaiseEvent(new RoutedEventArgs(DocumentModeChangedEvent, DocumentMode));
+                UpdateLayout();
+                e.Handled = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
         }
 
         /// <summary>
@@ -159,7 +195,15 @@ namespace TokikuNew.Controls
         /// <param name="e"></param>
         private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = true;
+            try
+            {
+                e.CanExecute = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
         }
 
         /// <summary>
@@ -169,101 +213,193 @@ namespace TokikuNew.Controls
         /// <param name="e"></param>
         private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (e.Command == ApplicationCommands.New)
+            try
             {
-                //DocumentMode = DocumentLifeCircle.Create;
-                //RaiseEvent(new RoutedEventArgs(DocumentModeChangedEvent, this));
+                if (e.Command == ApplicationCommands.New)
+                {
+                    //DocumentMode = DocumentLifeCircle.Create;
+                    //RaiseEvent(new RoutedEventArgs(DocumentModeChangedEvent, this));
+                }
+
+                if (e.Command == ApplicationCommands.Save)
+                {
+                    //DocumentMode = DocumentLifeCircle.Read;
+                    //RaiseEvent(new RoutedEventArgs(DocumentModeChangedEvent, this));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
 
-            if (e.Command == ApplicationCommands.Save)
-            {
-                //DocumentMode = DocumentLifeCircle.Read;
-                //RaiseEvent(new RoutedEventArgs(DocumentModeChangedEvent, this));
-            }
         }
 
         private void btnF3_Click(object sender, RoutedEventArgs e)
         {
-            DocumentMode = DocumentLifeCircle.Save;
-            e.Handled = true;
-            RaiseEvent(new RoutedEventArgs(DocumentModeChangedEvent, DocumentMode));
+            try
+            {
+
+                DocumentMode = DocumentLifeCircle.Save;
+                e.Handled = true;
+                RaiseEvent(new RoutedEventArgs(DocumentModeChangedEvent, DocumentMode));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
         }
 
         private void btnF4_Click(object sender, RoutedEventArgs e)
         {
-            DocumentMode = DocumentLifeCircle.Read;
-            e.Handled = true;
-            RaiseEvent(new RoutedEventArgs(QueryButtonClickEvent, this));
+            try
+            {
+                DocumentMode = DocumentLifeCircle.Read;
+                e.Handled = true;
+                RaiseEvent(new RoutedEventArgs(QueryButtonClickEvent, this));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+
         }
 
         private void btnF5_Click(object sender, RoutedEventArgs e)
         {
-            e.Handled = true;
-            RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent, this));
+            try
+            {
+
+                e.Handled = true;
+                RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent, this));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
         }
 
         private void btnF6_Click(object sender, RoutedEventArgs e)
         {
-            e.Handled = true;
-            RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent, this));
+            try
+            {
+                e.Handled = true;
+                RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent, this));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
         }
 
         private void btnF7_Click(object sender, RoutedEventArgs e)
         {
-            e.Handled = true;
-            RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent, this));
+            try
+            {
+                e.Handled = true;
+                RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent, this));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+
         }
 
         private void btnF8_Click(object sender, RoutedEventArgs e)
         {
-            e.Handled = true;
-            RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent, this));
+            try
+            {
+                e.Handled = true;
+                RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent, this));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+
         }
 
         private void btnF9_Click(object sender, RoutedEventArgs e)
         {
-            e.Handled = true;
-            DocumentMode = LastState;
-            RaiseEvent(new RoutedEventArgs(DocumentModeChangedEvent, DocumentMode));
+            try
+            {
+                e.Handled = true;
+                DocumentMode = LastState;
+                RaiseEvent(new RoutedEventArgs(DocumentModeChangedEvent, DocumentMode));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+
         }
 
         private void btnF10_Click(object sender, RoutedEventArgs e)
         {
-            e.Handled = true;
-            RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent, this));
+            try
+            {
+                e.Handled = true;
+                RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent, this));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+
         }
 
         private void btnF11_Click(object sender, RoutedEventArgs e)
         {
-            DocumentMode = DocumentLifeCircle.Update;
-            e.Handled = true;
-            RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent, this));
+            try
+            {
+                DocumentMode = DocumentLifeCircle.Update;
+                e.Handled = true;
+                RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent, this));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
         }
 
         private void btnF12_Click(object sender, RoutedEventArgs e)
         {
-            DocumentMode = DocumentLifeCircle.Update;
-            e.Handled = true;
-            RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent, this));
+            try
+            {
+                DocumentMode = DocumentLifeCircle.Update;
+                e.Handled = true;
+                RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent, this));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
         }
 
         private void userControl_Loaded(object sender, RoutedEventArgs e)
         {
-            //RoutedUICommand SaveCommand = (RoutedUICommand)FindResource("Save");
-            //RoutedUICommand QueryCommand = (RoutedUICommand)FindResource("Query");
-            //if (SaveCommand != null)
-            //{
-            //    SaveCommand.CanExecuteChanged += SaveCommand_CanExecuteChanged;
-            //}
+            try
+            {
+                ChoiceMode(this.DocumentMode, this);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
 
-            //if (QueryCommand != null)
-            //{
-            //    QueryCommand.CanExecuteChanged += SaveCommand_CanExecuteChanged;
-            //}
 
-            ChoiceMode(this.DocumentMode, this);
         }
 
-      
+
     }
 }

@@ -141,7 +141,7 @@ namespace TokikuNew
                 ClosableTabItem addWorkarea = new ClosableTabItem();
                 addWorkarea.Header = "新增廠商";
 
-                bool isExisted = true;
+                bool isExisted = false;
 
                 foreach (TabItem item in Workspaces.Items)
                 {
@@ -159,7 +159,8 @@ namespace TokikuNew
                     {
                         var vm = new ManufacturersManageView() { Margin = new Thickness(0) };
                         vm.Mode = DocumentLifeCircle.Create;
-                        vm.DataContext = mc.CreateNew();
+                        var model =new ManufacturersViewModel();
+                        vm.DataContext = model;
 
                         Binding bindinglogineduser = new Binding();
                         bindinglogineduser.Source = ((MainViewModel)DataContext).LoginedUser;

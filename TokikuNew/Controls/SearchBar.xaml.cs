@@ -16,7 +16,15 @@ namespace TokikuNew.Controls
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            RaiseEvent(new RoutedEventArgs(SearchEvent, tbSearchBar.Text));
+            try
+            {
+                RaiseEvent(new RoutedEventArgs(SearchEvent, tbSearchBar.Text));
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
         }
 
         /// <summary>
@@ -66,23 +74,40 @@ namespace TokikuNew.Controls
 
         private void SearchBar_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            try
             {
-                RaiseEvent(new RoutedEventArgs(SearchEvent, tbSearchBar.Text));
-            }
-            else
-            {
-                if (e.Key == Key.Escape)
+                if (e.Key == Key.Enter)
                 {
-                    RaiseEvent(new RoutedEventArgs(ResetSearchEvent, tbSearchBar));
-                    tbSearchBar.Text = "";
+                    RaiseEvent(new RoutedEventArgs(SearchEvent, tbSearchBar.Text));
+                }
+                else
+                {
+                    if (e.Key == Key.Escape)
+                    {
+                        RaiseEvent(new RoutedEventArgs(ResetSearchEvent, tbSearchBar));
+                        tbSearchBar.Text = "";
+                    }
                 }
             }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
         }
 
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
-            RaiseEvent(new RoutedEventArgs(RefreshResultEvent, tbSearchBar.Text));
+            try
+            {
+                RaiseEvent(new RoutedEventArgs(RefreshResultEvent, tbSearchBar.Text));
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
@@ -11,23 +12,41 @@ namespace TokikuNew.Controls
     {
         public ClosableTabItem()
         {
-            //攔截按鈕的上升事件
-            AddHandler(ButtonBase.ClickEvent, new RoutedEventHandler(Headerobj_OnPageClosing));
+            try
+            {
+                //攔截按鈕的上升事件
+                AddHandler(ButtonBase.ClickEvent, new RoutedEventHandler(Headerobj_OnPageClosing));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+
         }
 
         private void Headerobj_OnPageClosing(object sender, RoutedEventArgs e)
         {
-            if (e.OriginalSource is Button)
+            try
             {
-                Button btn = (Button)e.OriginalSource;
-
-                if (btn.Name == "btnTabClose")
+                if (e.OriginalSource is Button)
                 {
-                    e.Handled = true;
-                    RaiseEvent(new RoutedEventArgs(OnPageClosingEvent, this));  //停止關閉按鈕事件上升，並建立真正的分頁關閉上升事件觸發
-                    return;
+                    Button btn = (Button)e.OriginalSource;
+
+                    if (btn.Name == "btnTabClose")
+                    {
+                        e.Handled = true;
+                        RaiseEvent(new RoutedEventArgs(OnPageClosingEvent, this));  //停止關閉按鈕事件上升，並建立真正的分頁關閉上升事件觸發
+                        return;
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+
         }
 
         /// <summary>

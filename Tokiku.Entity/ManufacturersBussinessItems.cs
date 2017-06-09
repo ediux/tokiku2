@@ -26,6 +26,7 @@ namespace Tokiku.Entity
         public byte PaymentTypeId { get; set; }
         public int TicketPeriodId { get; set; }
         public System.Guid ManufacturersId { get; set; }
+        public int TranscationCategoriesId { get; set; }
     
         public virtual Manufacturers Manufacturers { get; set; }
         public virtual MaterialCategories MaterialCategories { get; set; }
@@ -33,5 +34,6 @@ namespace Tokiku.Entity
         public virtual TicketPeriod TicketPeriod { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupplierTranscationItem> SupplierTranscationItem { get; set; }
+        public virtual TranscationCategories TranscationCategories { get; set; }
     }
 }

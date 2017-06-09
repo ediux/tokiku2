@@ -1,6 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
                     xmlns:ValueConverters="clr-namespace:TokikuNew.ValueConverters">
+    <vm:MaterialCategoriesViewModelCollection x:Key="MaterialCategoriesSource" x:Name="MaterialCategoriesSource" />
+    <vm:StatesViewModelCollection x:Key="StatesSource" x:Name="StatesSource"/>
+    <vm:TicketTypesViewModelCollection x:Key="TicketTypesSource"/>
+    <vm:TicketPeriodsViewModelCollection x:Key="TicketPeriodsSource"/>
+    <vm:TranscationCategoriesViewModelCollection x:Key="TranscationCategoriesSource"/>
+    <vm:PaymentTypesManageViewModelCollection x:Key="PaymentTypesSource"/>
     <ValueConverters:NOTGateValueConverter x:Key="NOTGateValueConverter"/>
     <ValueConverters:RadioButtonSwitchValueConverter x:Key="RadioButtonSwitchValueConverter" />
     <ValueConverters:BooleanToVisibilityValueConveter x:Key="BooleanToVisibilityValueConveter"/>

@@ -8,6 +8,9 @@ using Tokiku.Controllers;
 
 namespace Tokiku.ViewModels
 {
+    /// <summary>
+    /// 所有票期設定清單
+    /// </summary>
     public class TicketPeriodsViewModelCollection : BaseViewModelCollection<TicketPeriodsViewModel>
     {
         private TicketPeriodsManagementController controller;
@@ -16,6 +19,7 @@ namespace Tokiku.ViewModels
         {
             base.Initialized();
             controller = new TicketPeriodsManagementController();
+            Query();
         }
         public override void Query()
         {

@@ -16,17 +16,23 @@ namespace TokikuNew.Controls
     {
         public CustomDataGrid()
         {
-            CommandManager.RegisterClassCommandBinding(typeof(CustomDataGrid), new CommandBinding(
-    ApplicationCommands.Paste,
-    new ExecutedRoutedEventHandler(CustomDataGrid_Executed),
-    new CanExecuteRoutedEventHandler(CustomDataGrid_CanExecute)));
+            try
+            {
 
-            CommandManager.RegisterClassCommandBinding(typeof(CustomDataGrid), new CommandBinding(
-    ApplicationCommands.Copy,
-    new ExecutedRoutedEventHandler(CustomDataGrid_Executed),
-    new CanExecuteRoutedEventHandler(CustomDataGrid_CanExecute)));
+                CommandManager.RegisterClassCommandBinding(typeof(CustomDataGrid), new CommandBinding(
+        ApplicationCommands.Paste,
+        new ExecutedRoutedEventHandler(CustomDataGrid_Executed),
+        new CanExecuteRoutedEventHandler(CustomDataGrid_CanExecute)));
 
-            //SetValue(CanUserAddRowsProperty, true);
+                CommandManager.RegisterClassCommandBinding(typeof(CustomDataGrid), new CommandBinding(
+        ApplicationCommands.Copy,
+        new ExecutedRoutedEventHandler(CustomDataGrid_Executed),
+        new CanExecuteRoutedEventHandler(CustomDataGrid_CanExecute)));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
         }
 
         public bool AllowExecuteSystemCommand
@@ -43,97 +49,116 @@ namespace TokikuNew.Controls
 
         private void CustomDataGrid_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            if (e.Command == ApplicationCommands.Paste) { e.CanExecute = (bool)GetValue(AllowExecuteSystemCommandProperty); }
-            if (e.Command == ApplicationCommands.Copy) { e.CanExecute = (bool)GetValue(AllowExecuteSystemCommandProperty); }
+            try
+            {
+                if (e.Command == ApplicationCommands.Paste) { e.CanExecute = (bool)GetValue(AllowExecuteSystemCommandProperty); }
+                if (e.Command == ApplicationCommands.Copy) { e.CanExecute = (bool)GetValue(AllowExecuteSystemCommandProperty); }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+
         }
 
         private void CustomDataGrid_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (e.Command == ApplicationCommands.Paste)
+            try
             {
-                // parse the clipboard data
-                List<string[]> rowData = ClipboardHelper.ParseClipboardData();
-                bool hasAddedNewRow = false;
-
-                // call OnPastingCellClipboardContent for each cell
-                int minRowIndex = Math.Max(Items.IndexOf(CurrentItem), 0);
-                int maxRowIndex = Items.Count - 1;
-                int minColumnDisplayIndex = (SelectionUnit != DataGridSelectionUnit.FullRow) ? Columns.IndexOf(CurrentColumn) : 0;
-                int maxColumnDisplayIndex = Columns.Count - 1;
-
-                int rowDataIndex = 0;
-
-                
-                for (int i = minRowIndex; i <= maxRowIndex && rowDataIndex < rowData.Count; i++, rowDataIndex++)
+                if (e.Command == ApplicationCommands.Paste)
                 {
-                    if (i == maxRowIndex)
+                    // parse the clipboard data
+                    List<string[]> rowData = ClipboardHelper.ParseClipboardData();
+                    bool hasAddedNewRow = false;
+
+                    // call OnPastingCellClipboardContent for each cell
+                    int minRowIndex = Math.Max(Items.IndexOf(CurrentItem), 0);
+                    int maxRowIndex = Items.Count - 1;
+                    int minColumnDisplayIndex = (SelectionUnit != DataGridSelectionUnit.FullRow) ? Columns.IndexOf(CurrentColumn) : 0;
+                    int maxColumnDisplayIndex = Columns.Count - 1;
+
+                    int rowDataIndex = 0;
+
+
+                    for (int i = minRowIndex; i <= maxRowIndex && rowDataIndex < rowData.Count; i++, rowDataIndex++)
                     {
-                        // add a new row to be pasted to
-                        ICollectionView cv = CollectionViewSource.GetDefaultView(Items);
-                        IEditableCollectionView iecv = cv as IEditableCollectionView;
-                        if (iecv != null)
+                        if (i == maxRowIndex)
                         {
-                            hasAddedNewRow = true;
-                            iecv.AddNew();
-                            if (rowDataIndex + 1 < rowData.Count)
+                            // add a new row to be pasted to
+                            ICollectionView cv = CollectionViewSource.GetDefaultView(Items);
+                            IEditableCollectionView iecv = cv as IEditableCollectionView;
+                            if (iecv != null)
                             {
-                                // still has more items to paste, update the maxRowIndex
-                                maxRowIndex = Items.Count - 1;
+                                hasAddedNewRow = true;
+                                iecv.AddNew();
+                                if (rowDataIndex + 1 < rowData.Count)
+                                {
+                                    // still has more items to paste, update the maxRowIndex
+                                    maxRowIndex = Items.Count - 1;
+                                }
+                            }
+                        }
+                        else if (i == maxRowIndex)
+                        {
+                            continue;
+                        }
+
+                        int columnDataIndex = 0;
+                        for (int j = minColumnDisplayIndex; j < maxColumnDisplayIndex && columnDataIndex < rowData[rowDataIndex].Length; j++, columnDataIndex++)
+                        {
+                            DataGridColumn column = ColumnFromDisplayIndex(j);
+                            string propertyName = ((column as DataGridBoundColumn).Binding as Binding).Path.Path;
+                            object item = Items[i];
+                            object value = rowData[rowDataIndex][columnDataIndex];
+                            PropertyInfo pi = item.GetType().GetProperty(propertyName);
+                            if (pi != null)
+                            {
+                                try
+                                {
+
+                                    item.GetType().GetProperty(propertyName).SetValue(item, value, null);
+                                }
+                                catch
+                                {
+                                    //跳過轉型失敗的欄位值
+                                    continue;
+                                }
+
                             }
                         }
                     }
-                    else if (i == maxRowIndex)
-                    {
-                        continue;
-                    }
 
-                    int columnDataIndex = 0;
-                    for (int j = minColumnDisplayIndex; j < maxColumnDisplayIndex && columnDataIndex < rowData[rowDataIndex].Length; j++, columnDataIndex++)
-                    {
-                        DataGridColumn column = ColumnFromDisplayIndex(j);
-                        string propertyName = ((column as DataGridBoundColumn).Binding as Binding).Path.Path;
-                        object item = Items[i];
-                        object value = rowData[rowDataIndex][columnDataIndex];
-                        PropertyInfo pi = item.GetType().GetProperty(propertyName);
-                        if (pi != null)
-                        {
-                            try
-                            {
-                             
-                                item.GetType().GetProperty(propertyName).SetValue(item, value, null);
-                            }
-                            catch
-                            {
-                                //跳過轉型失敗的欄位值
-                                continue;
-                            }
 
-                        }                     
-                    }
                 }
 
-
-            }
-
-            if (e.Command == ApplicationCommands.Copy)
-            {
-                if (this.SelectedItems.Count > 0)
+                if (e.Command == ApplicationCommands.Copy)
                 {
-                    List<string> converttomatrix = new List<string>();
-                    foreach (var row in SelectedItems)
+                    if (this.SelectedItems.Count > 0)
                     {
-                        Type data = row.GetType();
+                        List<string> converttomatrix = new List<string>();
+                        foreach (var row in SelectedItems)
+                        {
+                            Type data = row.GetType();
 
-                        var dataobject_column_values = data.GetProperties()
-                            .Select(s=>string.Format("{0}",s.GetValue(row)))
-                            .ToArray();
+                            var dataobject_column_values = data.GetProperties()
+                                .Select(s => string.Format("{0}", s.GetValue(row)))
+                                .ToArray();
 
-                        converttomatrix.Add(string.Join("\t", dataobject_column_values));
+                            converttomatrix.Add(string.Join("\t", dataobject_column_values));
+                        }
+                        string rawdata = string.Join("\n", converttomatrix.ToArray());
+                        Clipboard.SetText(rawdata);
                     }
-                    string rawdata = string.Join("\n", converttomatrix.ToArray());
-                    Clipboard.SetText(rawdata);
                 }
+
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+
         }
     }
 }

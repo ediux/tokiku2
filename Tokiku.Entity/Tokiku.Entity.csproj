@@ -261,6 +261,15 @@
     <Compile Include="TicketTypes.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
+    <Compile Include="TranscationCategories.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TranscationCategories.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TranscationCategoriesRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
     <Compile Include="Users.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
@@ -350,6 +359,24 @@
     </Compile>
     <Compile Include="TokikuEntities.cs" />
     <Compile Include="UsersRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_BussinessItemsList.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_BussinessItemsList.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_BussinessItemsListRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_ManufacturersBussinessTranscations.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_ManufacturersBussinessTranscations.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_ManufacturersBussinessTranscationsRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
     <Compile Include="WorkShops.cs">

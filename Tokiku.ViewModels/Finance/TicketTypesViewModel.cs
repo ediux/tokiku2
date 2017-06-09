@@ -4,12 +4,44 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
     public class TicketTypesViewModelCollection : BaseViewModelCollection<TicketTypesViewModel>
     {
+        private Controllers.ManufacturersManageController controller;
 
+        public override void Initialized()
+        {
+            base.Initialized();
+            controller = new Controllers.ManufacturersManageController();
+            Query();
+        }
+
+        public async override void Query()
+        {
+            var result = await controller.GetTranscationCategoriesListAsync();
+
+            if (!result.HasError)
+            {
+                if (result.Result.Any())
+                {
+                    ClearItems();
+                    foreach (var item in result.Result)
+                    {
+                        TicketTypesViewModel model = new TicketTypesViewModel();
+                        model.SetModel(item);
+                        Add(model);
+                    }
+                }
+            }
+            else
+            {
+                Errors = result.Errors;
+                HasError = result.HasError;
+            }
+        }
     }
 
     public class TicketTypesViewModel : BaseViewModel
@@ -77,5 +109,18 @@ namespace Tokiku.ViewModels
 
 
         #endregion
+
+        public override void SetModel(dynamic entity)
+        {
+            try
+            {
+                TicketTypes data = (TicketTypes)entity;
+                BindingFromModel(data, this);
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+        }
     }
 }

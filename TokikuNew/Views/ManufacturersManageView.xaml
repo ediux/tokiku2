@@ -204,48 +204,70 @@
                             <RowDefinition Height="27"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <StackPanel Grid.Row="0" VerticalAlignment="Center" Orientation="Horizontal">
-                            <TextBlock Text="材料類別" VerticalAlignment="Center"/>
-                            <ComboBox ItemsSource="{Binding MaterialCategories, ElementName=userControl_ManufacturersManageView}"
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10*"/>
+                            <ColumnDefinition Width="10*"/>
+                            <ColumnDefinition Width="10*"/>
+                            <ColumnDefinition Width="10*"/>
+                            <ColumnDefinition Width="10*"/>
+                            <ColumnDefinition Width="10*"/>
+                            <ColumnDefinition Width="12*"/>
+                            <ColumnDefinition Width="8*"/>
+                            <ColumnDefinition Width="8*"/>
+                            <ColumnDefinition Width="12*"/>
+                            <ColumnDefinition Width="10*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="材料類別" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+                        <ComboBox Name="cbMaterialCategoriesList" ItemsSource="{DynamicResource MaterialCategoriesSource}"
+                                      Grid.Row="0" Grid.Column="1"
                                       IsEnabled="{Binding Mode, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       SelectedValuePath="Id" >
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Name}"/>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                            <TextBlock Text="交易品項" VerticalAlignment="Center"/>
-                            <TextBox Width="100" Margin="2" />
-                            <TextBlock Text="支付方式" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="cbPaymentTypeBI" Width="100" SelectedValuePath="Id"
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <TextBlock Text="交易品項" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2"/>
+                        <TextBox  Margin="2" Grid.Row="0" Grid.Column="3" Name="tbTrancationItem" />
+                         <TextBlock Text="交易類別" VerticalAlignment="Center" Grid.Row="0" Grid.Column="4"/>
+                        <ComboBox Grid.Row="0" Grid.Column="5" SelectedValuePath="Id" Name="cbTranscationCategories"
+                                  ItemsSource="{DynamicResource TranscationCategoriesSource}"
+                                  IsEnabled="{Binding Mode, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  Margin="2"
+                                  >
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <TextBlock Text="支付方式" VerticalAlignment="Center" Grid.Row="0" Grid.Column="6"/>
+                        <ComboBox x:Name="cbPaymentTypeBI"  SelectedValuePath="Id"
+                                      Grid.Row="0" Grid.Column="7"
                               IsEnabled="{Binding Mode, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              ItemsSource="{Binding PaymentTypes, ElementName=userControl_ManufacturersManageView}"                              
+                              ItemsSource="{DynamicResource PaymentTypesSource}"                              
                               Margin="2">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding PaymentTypeName}"/>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                            <TextBlock Text="交易類別" VerticalAlignment="Center"/>
-                            <ComboBox></ComboBox>
-                            <TextBlock Text="票期" Grid.Row="4" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="cbTicketPeriodBI" Grid.Row="4" Grid.Column="3" 
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding PaymentTypeName}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <TextBlock Text="票期" Grid.Row="0" Grid.Column="8" TextAlignment="Right" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbTicketPeriodBI" Grid.Row="0" Grid.Column="9" 
                               SelectedValuePath="Id"
-                              SelectedValue="{Binding TicketPeriodId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               IsEnabled="{Binding Mode, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              ItemsSource="{Binding TicketPeriods, ElementName=userControl_ManufacturersManageView}"
+                              ItemsSource="{DynamicResource TicketPeriodsSource}"
                               Margin="2">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Name}"/>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                            <Button Content="新增" VerticalAlignment="Center" Margin="2"/>
-                        </StackPanel>
-                        <ss:GcSpreadSheet Name="BussinessItemSheet" Grid.Row="1" VerticalAlignment="Top" Margin="0"/>
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <Button x:Name="btnAddMBI" Content="新增" VerticalAlignment="Center" Margin="2" Grid.Row="0" Grid.Column="10" Click="btnAddMBI_Click"/>
+                        <ss:GcSpreadSheet Name="BussinessItemSheet" Grid.Row="1" VerticalAlignment="Top" Margin="0" Grid.ColumnSpan="11"/>
                     </Grid>
 
                 </GroupBox>
@@ -258,11 +280,11 @@
                     <RowDefinition Height="50*"/>
                     <RowDefinition Height="50*"/>
                 </Grid.RowDefinitions>
-                <GroupBox Header="交易紀錄" Grid.Column="0" Grid.Row="0" Margin="5">
+                <GroupBox Header="交易紀錄" Grid.Column="0" Grid.Row="0" Margin="5" Grid.RowSpan="2">
                     <c:CustomDataGrid CanUserAddRows="False" CanUserDeleteRows="False"
                                        AutoGenerateColumns="False"
                                       IsReadOnly="True"
-                                      ItemsSource="{Binding ManufacturersBussinessItems}">
+                                      >
                         <c:CustomDataGrid.Columns>
                             <DataGridTextColumn Header="工程代碼" Binding="{Binding Code}"/>
                             <DataGridTextColumn Header="工程名稱" Binding="{Binding Name}"/>

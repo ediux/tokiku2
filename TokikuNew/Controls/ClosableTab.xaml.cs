@@ -15,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace TokikuNew.Controls
-{   
+{
     /// <summary>
     /// 用來替換Tab控制項的面板用控制項
     /// </summary>
@@ -34,8 +34,18 @@ namespace TokikuNew.Controls
         /// </remarks>
         private void btnTabClose_Click(object sender, RoutedEventArgs e)
         {
-            RoutedEventArgs eu = new RoutedEventArgs(ButtonBase.ClickEvent, btnTabClose);
-            base.RaiseEvent(eu);
+            try
+            {
+                RoutedEventArgs eu = new RoutedEventArgs(ButtonBase.ClickEvent, btnTabClose);
+                base.RaiseEvent(eu);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+
         }
     }
 }

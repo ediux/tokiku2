@@ -65,11 +65,11 @@
     <Compile Include="Shared\Base\IBaseViewModel.cs" />
     <Compile Include="Shared\Base\IBaseViewModelWithLoginedUser.cs" />
     <Compile Include="Shared\Base\IToolbarButtonsViewModel.cs" />
+    <Compile Include="TranscationCategoriesViewModel.cs" />
     <Compile Include="Users\LoginViewModel.cs" />
     <Compile Include="Main\MainViewModel.cs" />
     <Compile Include="Projects\ProjectsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Finance\PaymentTypeViewModel.cs" />
     <Compile Include="Shared\ToolbarButtonsViewModel.cs" />
     <Compile Include="Users\UserViewModel.cs" />
     <Compile Include="Shared\Base\WithLoginUserBaseViewModel.cs" />

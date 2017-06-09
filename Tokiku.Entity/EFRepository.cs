@@ -84,7 +84,7 @@ namespace Tokiku.Entity
             {
                 if (disposing)
                 {
-                    UnitOfWork.Commit();
+                    //UnitOfWork.Commit();
                     UnitOfWork.Context.Dispose();
                 }
 

@@ -28,6 +28,7 @@ namespace Tokiku.ViewModels
         {
             base.Initialized();
             _controller = new PaymentTypesManageController();
+            Query();
         }
         public override void Query()
         {
@@ -65,15 +66,15 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 編號
         /// </summary>
-        public Guid Id
+        public byte Id
         {
-            get { return (Guid)GetValue(IdProperty); }
+            get { return (byte)GetValue(IdProperty); }
             set { SetValue(IdProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for Id.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IdProperty =
-            DependencyProperty.Register("Id", typeof(Guid), typeof(PaymentTypesManageViewModel), new PropertyMetadata(Guid.NewGuid()));
+            DependencyProperty.Register("Id", typeof(byte), typeof(PaymentTypesManageViewModel), new PropertyMetadata((byte)0));
 
 
 
@@ -88,7 +89,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for Name.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PaymentTypeNameProperty =
-            DependencyProperty.Register("PaymentTypeName", typeof(string), typeof(PaymentTypeViewModel), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("PaymentTypeName", typeof(string), typeof(PaymentTypesManageViewModel), new PropertyMetadata(string.Empty));
 
         /// <summary>
         /// 查詢單一資料列
@@ -109,7 +110,7 @@ namespace Tokiku.ViewModels
         {
             if (!Dispatcher.CheckAccess())
             {
-                Dispatcher.Invoke(new Action<dynamic>(SetModel), System.Windows.Threading.DispatcherPriority.Normal);
+                Dispatcher.Invoke(new Action<dynamic>(SetModel), System.Windows.Threading.DispatcherPriority.Normal, entity);
             }
             else
             {
