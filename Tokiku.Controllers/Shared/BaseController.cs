@@ -159,13 +159,62 @@ namespace Tokiku.Controllers
             }
         }
 
+        protected void CheckAndUpdateValue(dynamic source, dynamic target)
+        {
+            if (source == null)
+                throw new ArgumentNullException("source");
+
+            if (target == null)
+                throw new ArgumentNullException("target");
+
+            Type sourcetype = ((object)source).GetType();
+            Type targettype = ((object)target).GetType();
+
+            foreach (var tarprop in targettype.GetProperties())
+            {
+                var sourceprop = sourcetype.GetProperty(tarprop.Name);
+
+                if (sourceprop != null)
+                {
+                    if (sourceprop.PropertyType == tarprop.PropertyType)
+                    {
+                        if(sourceprop.PropertyType.IsGenericType && sourceprop.PropertyType.GetGenericTypeDefinition() == typeof(ICollection<>))
+                        {
+                            continue;
+                        }
+
+                        object sourcevalue = sourceprop.GetValue(source);
+                        object targetvalue = tarprop.GetValue(target);
+
+                        if (targetvalue != null)
+                        {
+                            if (sourcevalue != null && !targetvalue.Equals(sourcevalue))
+                            {
+                                tarprop.SetValue(target, sourcevalue);
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            if (sourcevalue != null)
+                            {
+                                tarprop.SetValue(target, sourcevalue);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
-    public abstract class BaseController<T> : BaseController where T : class
+    public abstract class BaseController<T> : BaseController, IBaseController<T> where T : class
     {
         public BaseController() : base()
         {
-            
+
         }
 
         /// <summary>
@@ -326,43 +375,44 @@ namespace Tokiku.Controllers
 
                     if (findresult != null)
                     {
-                        Type fromSource = fromModel.GetType();
+                        CheckAndUpdateValue(fromModel, findresult);
+                        //Type fromSource = fromModel.GetType();
 
-                        foreach (var prop in findresult.GetType().GetProperties())
-                        {
-                            if (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition().Name == (typeof(ICollection<>).Name))
-                            {
-                                continue;
-                            }
+                        //foreach (var prop in findresult.GetType().GetProperties())
+                        //{
+                        //    if (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition().Name == (typeof(ICollection<>).Name))
+                        //    {
+                        //        continue;
+                        //    }
 
 
-                            if (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition().Name == (typeof(ObservableCollection<>).Name))
-                            {
-                                continue;
-                            }
+                        //    if (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition().Name == (typeof(ObservableCollection<>).Name))
+                        //    {
+                        //        continue;
+                        //    }
 
-                            var OldValue = prop.GetValue(findresult);
-                            var NewValue = fromSource.GetProperty(prop.Name).GetValue(fromModel);
+                        //    var OldValue = prop.GetValue(findresult);
+                        //    var NewValue = fromSource.GetProperty(prop.Name).GetValue(fromModel);
 
-                            if (OldValue != null)
-                            {
-                                if (NewValue != null && !OldValue.Equals(NewValue))
-                                {
-                                    prop.SetValue(findresult, fromSource.GetProperty(prop.Name).GetValue(fromModel));
-                                }
-                                else
-                                {
-                                    continue;
-                                }
-                            }
-                            else
-                            {
-                                if (NewValue != null)
-                                {
-                                    prop.SetValue(findresult, fromSource.GetProperty(prop.Name).GetValue(fromModel));
-                                }
-                            }
-                        }
+                        //    if (OldValue != null)
+                        //    {
+                        //        if (NewValue != null && !OldValue.Equals(NewValue))
+                        //        {
+                        //            prop.SetValue(findresult, fromSource.GetProperty(prop.Name).GetValue(fromModel));
+                        //        }
+                        //        else
+                        //        {
+                        //            continue;
+                        //        }
+                        //    }
+                        //    else
+                        //    {
+                        //        if (NewValue != null)
+                        //        {
+                        //            prop.SetValue(findresult, fromSource.GetProperty(prop.Name).GetValue(fromModel));
+                        //        }
+                        //    }
+                        //}
 
                         if (isLastRecord)
                         {

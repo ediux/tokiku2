@@ -120,6 +120,7 @@
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
     <Compile Include="ExecuteResultEntity.cs" />
+    <Compile Include="IExecuteResultEntity.cs" />
     <Compile Include="IUnitOfWork.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Windows;
+using System.Windows.Threading;
 using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
@@ -48,7 +49,7 @@ namespace Tokiku.ViewModels
                             ContactsViewModel model = new ContactsViewModel();
                             model.DoEvents();
                             model.SetModel(row);
-                            Add(BindingFromModel(row));
+                            Add(model);
                         }
                     }
                 }
@@ -65,9 +66,10 @@ namespace Tokiku.ViewModels
                 {
                     ClearItems();
 
-                    foreach(var row in executeResult.Result)
+                    foreach (var row in executeResult.Result)
                     {
                         ContactsViewModel model = new ContactsViewModel();
+                        model.DoEvents();
                         model.SetModel(row);
                         Add(model);
                     }
@@ -276,8 +278,16 @@ namespace Tokiku.ViewModels
 
         public override void SetModel(dynamic entity)
         {
-            BindingFromModel((Contacts)entity,this);
-            entity = null;
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(DispatcherPriority.Background,
+                    new Action<dynamic>(SetModel), entity);
+            }
+            else
+            {
+                BindingFromModel((Contacts)entity, this);
+            }
+
         }
     }
 }

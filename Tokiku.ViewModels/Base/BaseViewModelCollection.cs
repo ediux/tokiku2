@@ -20,6 +20,7 @@ namespace Tokiku.ViewModels
         {
             Initialized();
         }
+
         /// <summary>
         /// 將錯誤訊息寫到檢視模型中以利顯示。
         /// </summary>
@@ -92,13 +93,6 @@ namespace Tokiku.ViewModels
 
         }
 
-        /// <summary>
-        /// 查詢全部資料
-        /// </summary>
-        public virtual Task QueryAsync()
-        {
-            return Task.Factory.StartNew(new Action(Query));
-        }
 
         /// <summary>
         /// 重新整理檢視模型
@@ -341,6 +335,11 @@ namespace Tokiku.ViewModels
         }
 
         public void SetModel(dynamic entity)
+        {
+            throw new NotSupportedException();
+        }
+
+        public Task QueryAsync()
         {
             throw new NotSupportedException();
         }

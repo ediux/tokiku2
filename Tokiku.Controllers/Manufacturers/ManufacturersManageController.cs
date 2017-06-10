@@ -208,8 +208,10 @@ namespace Tokiku.Controllers
 
             try
             {
-                using (var ManufacturersRepository = RepositoryHelper.GetManufacturersRepository(database))
+                using (var ManufacturersRepository = RepositoryHelper.GetManufacturersRepository())
                 {
+                    database = ManufacturersRepository.UnitOfWork;
+
                     var result = ManufacturersRepository
                                 .Where(p => p.Void == false && p.IsClient == false)
                                 .OrderBy(p => p.Code)
@@ -316,31 +318,74 @@ namespace Tokiku.Controllers
 
                     if (dbm != null)
                     {
+                        CheckAndUpdateValue(fromModel, dbm);
 
-                        var toDel = dbm.Contacts.Except(fromModel.Contacts).ToList();
-                        var toAdd = fromModel.Contacts.Except(dbm.Contacts).ToList();
+                        var toDel = dbm.Contacts.Select(s => s.Id).Except(fromModel.Contacts.Select(s => s.Id)).ToList();
+                        var toAdd = fromModel.Contacts.Select(s => s.Id).Except(dbm.Contacts.Select(s => s.Id)).ToList();
+                        var samerows = dbm.Contacts.Select(s => s.Id).Intersect(fromModel.Contacts.Select(s => s.Id)).ToList();
+
+                        Stack<Contacts> RemoveStack = new Stack<Contacts>();
+                        Stack<Contacts> AddStack = new Stack<Contacts>();
 
                         foreach (var delitem in toDel)
                         {
-                            dbm.Contacts.Remove(delitem);
+                            RemoveStack.Push(dbm.Contacts.Where(w => w.Id == delitem).Single());
                         }
 
                         foreach (var additem in toAdd)
                         {
-                            dbm.Contacts.Add(additem);
+                            AddStack.Push(fromModel.Contacts.Where(w => w.Id == additem).Single());
                         }
 
-                        var toDel2 = dbm.ManufacturersBussinessItems.Except(fromModel.ManufacturersBussinessItems).ToList();
-                        var toAdd2 = fromModel.ManufacturersBussinessItems.Except(dbm.ManufacturersBussinessItems).ToList();
-
-                        foreach (var delitem in toDel2)
+                        while (RemoveStack.Count > 0)
                         {
-                            dbm.ManufacturersBussinessItems.Remove(delitem);
+                            dbm.Contacts.Remove(RemoveStack.Pop());
                         }
 
-                        foreach (var additem in toAdd2)
+                        while (AddStack.Count > 0)
                         {
-                            dbm.ManufacturersBussinessItems.Add(additem);
+                            dbm.Contacts.Add(AddStack.Pop());
+                        }
+
+                        foreach (var sameitem in samerows)
+                        {
+                            Contacts Source = fromModel.Contacts.Where(w => w.Id == sameitem).Single();
+                            Contacts Target = dbm.Contacts.Where(w => w.Id == sameitem).Single();
+                            CheckAndUpdateValue(Source, Target);
+                        }
+
+                        var toDelBI = dbm.ManufacturersBussinessItems.Select(s => s.Id).Except(fromModel.ManufacturersBussinessItems.Select(s => s.Id)).ToList();
+                        var toAddBI = fromModel.ManufacturersBussinessItems.Select(s => s.Id).Except(dbm.ManufacturersBussinessItems.Select(s => s.Id)).ToList();
+                        var samerowsBI = dbm.ManufacturersBussinessItems.Select(s => s.Id).Intersect(fromModel.ManufacturersBussinessItems.Select(s => s.Id)).ToList();
+
+                        Stack<ManufacturersBussinessItems> RemoveStackBI = new Stack<ManufacturersBussinessItems>();
+                        Stack<ManufacturersBussinessItems> AddStackBI = new Stack<ManufacturersBussinessItems>();
+
+                        foreach (var delitem in toDelBI)
+                        {
+                            RemoveStackBI.Push(dbm.ManufacturersBussinessItems.Where(w => w.Id == delitem).Single());
+                        }
+
+                        foreach (var additem in toAddBI)
+                        {
+                            AddStackBI.Push(fromModel.ManufacturersBussinessItems.Where(w => w.Id == additem).Single());
+                        }
+
+                        while (RemoveStackBI.Count > 0)
+                        {
+                            dbm.ManufacturersBussinessItems.Remove(RemoveStackBI.Pop());
+                        }
+
+                        while (AddStackBI.Count > 0)
+                        {
+                            dbm.ManufacturersBussinessItems.Add(AddStackBI.Pop());
+                        }
+
+                        foreach (var sameitem in samerowsBI)
+                        {
+                            ManufacturersBussinessItems Source = fromModel.ManufacturersBussinessItems.Where(w => w.Id == sameitem).Single();
+                            ManufacturersBussinessItems Target = dbm.ManufacturersBussinessItems.Where(w => w.Id == sameitem).Single();
+                            CheckAndUpdateValue(Source, Target);
                         }
 
                     }
@@ -354,7 +399,6 @@ namespace Tokiku.Controllers
             }
             catch (Exception ex)
             {
-
                 return ExecuteResultEntity<Manufacturers>.CreateErrorResultEntity(ex);
             }
 
@@ -402,7 +446,7 @@ namespace Tokiku.Controllers
 
             }
             catch
-            {          
+            {
                 return false;
             }
         }
@@ -453,6 +497,7 @@ namespace Tokiku.Controllers
                 View_BussinessItemsListRepository biListRepo = RepositoryHelper.GetView_BussinessItemsListRepository(database);
 
                 var result = (from q in biListRepo.All()
+                              where q.ManufacturersId == ManufacturersId
                               select q).ToList();
 
                 return Task.FromResult(ExecuteResultEntity<ICollection<View_BussinessItemsList>>.CreateResultEntity(new Collection<View_BussinessItemsList>(result)));

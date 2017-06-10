@@ -31,11 +31,6 @@ namespace Tokiku.ViewModels
             _projects_controller = new ProjectsController();
         }
 
-        public Task QueryAsync()
-        { 
-            return Task.Factory.StartNew(Query);
-        }
-
         public override void Query()
         {
             var projectResult = _projects_controller.Query(v => v.Void == false);

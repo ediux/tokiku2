@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Tokiku.Entity
 {
-    public class ExecuteResultEntity : INotifyPropertyChanged, IDisposable
+    public class ExecuteResultEntity : IExecuteResultEntity
     {
         private IEnumerable<string> _Errors;
         public IEnumerable<string> Errors { get { return _Errors; } set { _Errors = value; if (_Errors != null) { _HasError = true; } else { _HasError = false; } RaisePropertyChanged("Errors"); RaisePropertyChanged("HasError"); } }
@@ -134,7 +134,7 @@ namespace Tokiku.Entity
 
     }
 
-    public class ExecuteResultEntity<TEntity> : ExecuteResultEntity where TEntity : class
+    public class ExecuteResultEntity<TEntity> : ExecuteResultEntity,IExecuteResultEntity<TEntity> where TEntity : class
     {
 
         private TEntity _Result = default(TEntity);

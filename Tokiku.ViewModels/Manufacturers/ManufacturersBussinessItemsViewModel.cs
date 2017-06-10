@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 using Tokiku.Controllers;
 using Tokiku.Entity;
 
@@ -11,48 +12,35 @@ namespace Tokiku.ViewModels
 {
     public class ManufacturersBussinessItemsViewModelColletion : BaseViewModelCollection<ManufacturersBussinessItemsViewModel>
     {
-        public override void Query()
-        {
-            //if (ManufacturersId != Guid.Empty)
-            //{
-            //    ManufacturersManageController controller = new ManufacturersManageController();
-            //    var queryresult = controller.Query(p => p..Where(s => s.Id == ManufacturersId).Any());
-
-            //    if (!queryresult.HasError)
-            //    {
-            //        var objectdataset = queryresult.Result;
-            //        if (objectdataset.Any())
-            //        {
-            //            ClearItems();
-            //            foreach (var row in objectdataset)
-            //            {
-            //                Add(BindingFromModel(row));
-            //            }
-            //        }
-            //    }
-            //}
-        }
         public async void Query(Guid ManufacturersId)
         {
-            ManufacturersManageController controller = new ManufacturersManageController();
-
-            var queryresult = await controller.QueryBussinessItemsListAsync(ManufacturersId);
-
-            if (!queryresult.HasError)
+            try
             {
-                var objectdataset = queryresult.Result;
-                if (objectdataset.Any())
+                ManufacturersManageController controller = new ManufacturersManageController();
+
+                var queryresult = await controller.QueryBussinessItemsListAsync(ManufacturersId);
+
+                if (!queryresult.HasError)
                 {
-                    ClearItems();
-                    foreach (var row in objectdataset)
+                    var objectdataset = queryresult.Result;
+                    if (objectdataset.Any())
                     {
-                        ManufacturersBussinessItemsViewModel model = new ManufacturersBussinessItemsViewModel();
-                        model.DoEvents();
-                        model.SetModel(row);
-                        Add(model);
+                        ClearItems();
+                        foreach (var row in objectdataset)
+                        {
+                            ManufacturersBussinessItemsViewModel model = new ManufacturersBussinessItemsViewModel();
+                            model.DoEvents();
+                            model.SetModel(row);
+                            Add(model);
+                        }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+
         }
     }
 
@@ -212,8 +200,6 @@ namespace Tokiku.ViewModels
 
         #endregion
 
-
-
         #region TranscationCategoriesId
 
         /// <summary>
@@ -255,41 +241,58 @@ namespace Tokiku.ViewModels
 
         public override void SetModel(dynamic entity)
         {
-            if (entity is View_BussinessItemsList)
+            if (!Dispatcher.CheckAccess())
             {
-                View_BussinessItemsList data = (View_BussinessItemsList)entity;
-                if (data != null)
-                {
-                    BindingFromModel(data, this);
-                }
-                DoEvents();
-
+                Dispatcher.Invoke(DispatcherPriority.Background,
+                    new Action<dynamic>(SetModel), entity);
             }
             else
             {
-                if (entity is ManufacturersBussinessItems)
+                try
                 {
-                    ManufacturersBussinessItems data = (ManufacturersBussinessItems)entity;
-                    BindingFromModel(data, this);
-                    DoEvents();
-                    if (data.MaterialCategories != null)
+                    if (entity is View_BussinessItemsList)
                     {
-                        MaterialCategories = data.MaterialCategories.Name;
+                        View_BussinessItemsList data = (View_BussinessItemsList)entity;
+                        if (data != null)
+                        {
+                            BindingFromModel(data, this);
+                        }
+                        DoEvents();
                     }
-                    if (data.PaymentTypes != null)
+                    else
                     {
-                        PaymentTypeName = data.PaymentTypes.PaymentTypeName;
-                    }
-                    if (data.TranscationCategories != null)
-                    {
-                        TranscationCategories = data.TranscationCategories.Name;
-                    }
-                    if (data.TicketPeriod != null)
-                    {
-                        TicketPeriod = data.TicketPeriod.Name;
+                        if (entity is ManufacturersBussinessItems)
+                        {
+                            ManufacturersBussinessItems data = (ManufacturersBussinessItems)entity;
+                            BindingFromModel(data, this);
+                            DoEvents();
+                            if (data.MaterialCategories != null)
+                            {
+                                MaterialCategories = data.MaterialCategories.Name;
+                            }
+                            if (data.PaymentTypes != null)
+                            {
+                                PaymentTypeName = data.PaymentTypes.PaymentTypeName;
+                            }
+                            if (data.TranscationCategories != null)
+                            {
+                                TranscationCategories = data.TranscationCategories.Name;
+                            }
+                            if (data.TicketPeriod != null)
+                            {
+                                TicketPeriod = data.TicketPeriod.Name;
+                            }
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    setErrortoModel(this, ex);
+                }
             }
+
+
+
 
         }
     }

@@ -64,23 +64,31 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                if (_controller == null)
-                    return;
-
-                var queryresult = _controller.QueryAll();
-
-                if (!queryresult.HasError)
+                if (!System.Windows.Threading.Dispatcher.CurrentDispatcher.CheckAccess())
                 {
-                    ClearItems();
+                    System.Windows.Threading.Dispatcher.CurrentDispatcher.Invoke(new Action(Query), System.Windows.Threading.DispatcherPriority.Background);
+                }
+                else
+                {
+                    if (_controller == null)
+                        return;
 
-                    foreach (var row in queryresult.Result)
+                    var queryresult = _controller.QueryAll();
+
+                    if (!queryresult.HasError)
                     {
-                        ManufacturersViewModel model = new ManufacturersViewModel();
-                        model.DoEvents();
-                        model.SetModel(row);
-                        Add(model);
+                        ClearItems();
+
+                        foreach (var row in queryresult.Result)
+                        {
+                            ManufacturersViewModel model = new ManufacturersViewModel();
+                            model.DoEvents();
+                            model.SetModel(row);
+                            Add(model);
+                        }
                     }
                 }
+
             }
             catch (Exception ex)
             {
@@ -334,7 +342,13 @@ namespace Tokiku.ViewModels
         /// </summary>
         public ContactsViewModelCollection Contracts
         {
-            get { return (ContactsViewModelCollection)GetValue(ContractsProperty); }
+            get {
+                var source = (ContactsViewModelCollection)GetValue(ContractsProperty);
+                if (source.Count == 0)
+                {
+                    source.Query();
+                }
+                return source; }
             set { SetValue(ContractsProperty, value); }
         }
 
@@ -373,7 +387,14 @@ namespace Tokiku.ViewModels
         /// </summary>
         public ManufacturersBussinessItemsViewModelColletion ManufacturersBussinessItems
         {
-            get { return (ManufacturersBussinessItemsViewModelColletion)GetValue(ManufacturersBussinessItemsProperty); }
+            get {
+                var model = (ManufacturersBussinessItemsViewModelColletion)GetValue(ManufacturersBussinessItemsProperty);
+                if (model.Count == 0)
+                {
+                    model.Query();
+                }
+                return model;
+            }
             set { SetValue(ManufacturersBussinessItemsProperty, value); }
         }
 
@@ -476,7 +497,12 @@ namespace Tokiku.ViewModels
 
         public ManufacturersBussinessTranscationsViewModelCollection TranscationRecords
         {
-            get { return (ManufacturersBussinessTranscationsViewModelCollection)GetValue(TranscationRecordsProperty); }
+            get { var model= (ManufacturersBussinessTranscationsViewModelCollection)GetValue(TranscationRecordsProperty);
+                if (model.Count==0) {
+                    model.Query();
+                }
+                return model;
+            }
             set { SetValue(TranscationRecordsProperty, value); }
         }
 
@@ -532,6 +558,7 @@ namespace Tokiku.ViewModels
                     var data = createnewresult.Result;
                     BindingFromModel(data, this);
                 }
+
                 LastUpdateTime = DateTime.Now;
                 CreateTime = DateTime.Now;
 
@@ -561,26 +588,12 @@ namespace Tokiku.ViewModels
                     CreateUserId = controller.GetCurrentLoginUser().Result.UserId;
                 }
 
-                if (Contracts != null)
+                if (CreateTime.Year < 1754)
                 {
-                    if (Contracts.Count > 0)
-                    {
-                        foreach (ContactsViewModel model in Contracts)
-                        {
-
-                            model.Id = Guid.NewGuid();
-
-                            if (model.CreateUserId == Guid.Empty)
-                            {
-                                model.CreateUserId = controller.GetCurrentLoginUser().Result.UserId;
-                            }
-                        }
-                    }
+                    CreateTime = DateTime.Now;
                 }
 
                 CopyToModel(data, this);
-
-
 
                 if (ManufacturersBussinessItems != null && ManufacturersBussinessItems.Count > 0)
                 {
@@ -588,24 +601,11 @@ namespace Tokiku.ViewModels
 
                     foreach (var x in ManufacturersBussinessItems)
                     {
-
                         ManufacturersBussinessItems BItems = new ManufacturersBussinessItems();
-
-
                         CopyToModel(BItems, x);
                         BItems.ManufacturersId = Id;
                         data.ManufacturersBussinessItems.Add(BItems);
-
                     }
-                }
-
-                var result = controller.CreateOrUpdate(data);
-
-                if (result.HasError)
-                {
-                    Errors = result.Errors;
-                    HasError = result.HasError;
-                    return;
                 }
 
                 if (Contracts != null)
@@ -616,27 +616,23 @@ namespace Tokiku.ViewModels
 
                         foreach (var x in Contracts)
                         {
-
-
-                            x.CreateTime = CreateTime;
-
-
+                            if (x.Id == Guid.Empty)
+                                x.Id = Guid.NewGuid();
 
                             if (x.CreateUserId == Guid.Empty)
                             {
+                                x.CreateUserId = controller.GetCurrentLoginUser().Result.UserId;
+                            }
 
-                                x.CreateUserId = LoginedUser.UserId;
-
-
+                            if (x.CreateTime.Year < 1754)
+                            {
+                                x.CreateTime = CreateTime;
                             }
 
                             Contacts contact = new Contacts();
-
                             CopyToModel(contact, x);
-
-
+                            //contact.Manufacturers.Add(data);
                             data.Contacts.Add(contact);
-
                         }
                     }
                 }
@@ -667,9 +663,9 @@ namespace Tokiku.ViewModels
                 BindingFromModel(data, this);
                 DoEvents();
                 Contracts.ManufacturersId = data.Id;
-                Contracts.Query();
+                //Contracts.QueryAsync();
                 DoEvents();
-                ManufacturersBussinessItems.Query(data.Id);
+               ManufacturersBussinessItems.Query(data.Id);
                 DoEvents();
                 TranscationRecords.Query(data.Id);
                 DoEvents();

@@ -147,7 +147,8 @@ namespace TokikuNew.Views
                     ManufacturersViewModelCollection DataSource = (ManufacturersViewModelCollection)DataContext;
                     if (DataSource != null && DataSource.Count == 0)
                     {
-                        Dispatcher.Invoke(DataSource.Query, DispatcherPriority.Background);
+                        Dispatcher.Invoke(new Action(DataSource.Query), DispatcherPriority.Background);
+                       
                     }
 
                 }

@@ -289,7 +289,7 @@ namespace Tokiku.ViewModels
 
                 if (!result.HasError)
                 {
-                    Entity.ProjectContract data = result.Result.Single();
+                    ProjectContract data = result.Result.Single();
                     BindingFromModel(data, this);
                     CreateUser = data.CreateUser.UserName;
 
@@ -297,7 +297,10 @@ namespace Tokiku.ViewModels
                     {
                         foreach (var row in data.Engineering)
                         {
-                            Engineerings.Add(BindingFromModel<EngineeringViewModel, Engineering>(row));
+                            EngineeringViewModel model = new EngineeringViewModel();
+                            model.DoEvents();
+                            model.SetModel(row);
+                            Engineerings.Add(model);
                         }
                     }
 
@@ -305,7 +308,10 @@ namespace Tokiku.ViewModels
                     {
                         foreach (var row in data.PromissoryNoteManagement)
                         {
-                            PromissoryNoteManagement.Add(BindingFromModel<PromissoryNoteManagementViewModel, PromissoryNoteManagement>(row));
+                            PromissoryNoteManagementViewModel model = new PromissoryNoteManagementViewModel();
+                            model.DoEvents();
+                            model.SetModel(row);
+                            PromissoryNoteManagement.Add(model);
                         }
                     }
                 }

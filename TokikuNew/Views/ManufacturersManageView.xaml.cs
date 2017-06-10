@@ -77,20 +77,20 @@ namespace TokikuNew.Views
 
                 SetBinding(SelectedManufacturersProperty, BindingDataContext);
 
-       
-                    //當不是新建模式 則查詢設為預設的聯絡人顯示
-                    var maincontact = ((ManufacturersViewModel)DataContext).Contracts.Where(w => w.IsDefault == true).SingleOrDefault();
-                    if (maincontact != null)
-                    {
-                        ((ManufacturersViewModel)DataContext).MainContactPerson = maincontact.Name;
-                        ((ManufacturersViewModel)DataContext).Extension = maincontact.ExtensionNumber;
-                    }
-                    else
-                    {
-                        ((ManufacturersViewModel)DataContext).MainContactPerson = string.Empty;
-                        ((ManufacturersViewModel)DataContext).Extension = string.Empty;
-                    }
-                
+
+                //當不是新建模式 則查詢設為預設的聯絡人顯示
+                var maincontact = ((ManufacturersViewModel)DataContext).Contracts.Where(w => w.IsDefault == true).SingleOrDefault();
+                if (maincontact != null)
+                {
+                    ((ManufacturersViewModel)DataContext).MainContactPerson = maincontact.Name;
+                    ((ManufacturersViewModel)DataContext).Extension = maincontact.ExtensionNumber;
+                }
+                else
+                {
+                    ((ManufacturersViewModel)DataContext).MainContactPerson = string.Empty;
+                    ((ManufacturersViewModel)DataContext).Extension = string.Empty;
+                }
+
 
                 //營業項目Sheet顯示
 
@@ -199,6 +199,8 @@ namespace TokikuNew.Views
                             try
                             {
                                 ManufacturersBussinessItemsViewModel entity = new ManufacturersBussinessItemsViewModel();
+                                entity.Id = Guid.NewGuid();
+
                                 entity.ManufacturersId = SelectedManufacturers.Id;
 
                                 string column_1 = BISheet.Rows[i].GetText(0);
@@ -224,9 +226,9 @@ namespace TokikuNew.Views
 
                                 var founditemset = SelectedManufacturers.ManufacturersBussinessItems
                                     .Where(w => w.ManufacturersId == entity.ManufacturersId &&
-                                    w.MaterialCategoriesId == entity.MaterialCategoriesId
-                                    && w.Name == entity.Name && w.PaymentTypeId == entity.PaymentTypeId
-                                    && w.TicketPeriodId == entity.TicketPeriodId && w.TranscationCategoriesId == entity.TranscationCategoriesId);
+                                    w.MaterialCategories == entity.MaterialCategories
+                                    && w.Name == entity.Name && w.PaymentTypeName == entity.PaymentTypeName
+                                    && w.TicketPeriod == entity.TicketPeriod && w.TranscationCategories == entity.TranscationCategories);
 
                                 if (founditemset.Any())
                                 {
@@ -298,7 +300,7 @@ namespace TokikuNew.Views
                 ManufacturersBussinessItemsViewModel newitem = new ManufacturersBussinessItemsViewModel();
                 newitem.Id = Guid.NewGuid();
                 newitem.ManufacturersId = SelectedManufacturers.Id;
-                newitem.MaterialCategoriesId = (Guid)cbMaterialCategoriesList.SelectedValue;
+                newitem.MaterialCategoriesId = ((MaterialCategoriesViewModel)cbMaterialCategoriesList.SelectedItem).Id;
                 newitem.MaterialCategories = ((MaterialCategoriesViewModel)cbMaterialCategoriesList.SelectedItem).Name;
                 newitem.Name = tbTrancationItem.Text;
                 newitem.PaymentTypeId = (byte)cbPaymentTypeBI.SelectedValue;
@@ -327,6 +329,23 @@ namespace TokikuNew.Views
             catch (Exception ex)
             {
                 WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
+            }
+        }
+
+        private void tbAddress_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                if (!tbInvoiceAddress.IsEnabled)
+                {
+                    tbInvoiceAddress.Text = tbAddress.Text;
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+
             }
         }
     }

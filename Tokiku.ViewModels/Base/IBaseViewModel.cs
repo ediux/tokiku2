@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Tokiku.ViewModels
 {
@@ -20,8 +21,18 @@ namespace Tokiku.ViewModels
         bool HasError { get; set; }
 
         /// <summary>
+        /// 對模型發出查詢命令的非同步方法，將查詢回來的單一列結果抄寫到檢視模型中
+        /// </summary>
+        /// <returns></returns>
+        Task QueryAsync();
+
+        /// <summary>
         /// 對模型發出查詢命令，將查詢回來的單一列結果抄寫到檢視模型中
         /// </summary>
+        /// <remarks>
+        /// 查詢條件就是本身的屬性內容，所以不需要額外參數。
+        /// 如果有屬於特殊條件查詢但不存在於本身的屬性時，請自行宣告方法。
+        /// </remarks>
         void Query();
 
         /// <summary>

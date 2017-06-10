@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using Tokiku.Controllers;
+using Tokiku.ViewModels;
 
 namespace TokikuNew.ValueConverters
 {
@@ -19,14 +20,34 @@ namespace TokikuNew.ValueConverters
                 {
                     if (value.GetType() == typeof(byte))
                     {
-                        StateController controller = new StateController();
+                        if (parameter is StatesViewModelCollection)
+                        {
+                            System.Windows.FrameworkElement frame = new System.Windows.FrameworkElement();
 
-                        var result = controller.Query(q => q.Id == (byte)value);
+                            StatesViewModelCollection source = (StatesViewModelCollection)frame.FindResource("StatesSource");
 
-                        if (result.Result != null && result.HasError == false)
-                            return result.Result.Single().StateName;
+                            if (source.Count == 0)
+                                source.Query();
+
+                            var result = source.Where(q => q.Id == (byte)value).SingleOrDefault();
+
+                            if (result != null)
+                                return result.StateName;
+                            else
+                                return string.Empty;
+                        }
                         else
-                            return string.Empty;
+                        {
+                            StateController controller = new StateController();
+
+                            var result = controller.Query(q => q.Id == (byte)value);
+
+                            if (result.Result != null && result.HasError == false)
+                                return result.Result.Single().StateName;
+                            else
+                                return string.Empty;
+                        }
+
                     }
                 }
 
@@ -47,12 +68,31 @@ namespace TokikuNew.ValueConverters
             {
                 if (value.GetType() == typeof(string))
                 {
-                    StateController controller = new StateController();
+                    if (parameter is StatesViewModelCollection)
+                    {
+                        System.Windows.FrameworkElement frame = new System.Windows.FrameworkElement();
 
-                    var result = controller.Query(q => q.StateName == (string)value);
+                        StatesViewModelCollection source = (StatesViewModelCollection)frame.FindResource("StatesSource");
 
-                    if (result != null)
-                        return result.Result.Single().Id;
+                        if (source.Count == 0)
+                            source.Query();
+
+                        var result = source.Where(q => q.StateName == (string)value).SingleOrDefault();
+
+                        if (result != null)
+                            return result.Id;
+                    }
+                    else
+                    {
+                        StateController controller = new StateController();
+
+                        var result = controller.Query(q => q.StateName == (string)value);
+
+                        if (result != null)
+                            return result.Result.Single().Id;
+
+                    }
+
 
                     return default(byte?);
                 }

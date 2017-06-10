@@ -76,6 +76,8 @@ namespace TokikuNew.Controls
         {
             try
             {
+                e.Handled = true;
+
                 if (e.Key == Key.Enter)
                 {
                     RaiseEvent(new RoutedEventArgs(SearchEvent, tbSearchBar.Text));
@@ -100,6 +102,7 @@ namespace TokikuNew.Controls
         {
             try
             {
+                e.Handled = true;
                 RaiseEvent(new RoutedEventArgs(RefreshResultEvent, tbSearchBar.Text));
             }
             catch (System.Exception ex)

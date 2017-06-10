@@ -36,15 +36,22 @@ namespace Tokiku.ViewModels
         public UserViewModel Login()
         {
             var reult = _controller.Login(UserName, Password);
+
             if (!reult.HasError)
             {
-                return BindingFromModel<UserViewModel, Users>(reult.Result);
+                UserViewModel model = new UserViewModel();
+                BindingFromModel(reult.Result, model);
+                return model;
             }
-            return new UserViewModel()
+            else
             {
-                Errors = reult.Errors,
-                HasError = reult.HasError 
-            };
+                return new UserViewModel()
+                {
+                    Errors = reult.Errors,
+                    HasError = reult.HasError
+                };
+            }
+
         }
     }
 }
