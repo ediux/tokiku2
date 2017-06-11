@@ -12,7 +12,108 @@ namespace Tokiku.ViewModels
 {
     public class ManufacturersBussinessItemsViewModelColletion : BaseViewModelCollection<ManufacturersBussinessItemsViewModel>
     {
-        public async void Query(Guid ManufacturersId)
+        public async void QueryByBusinessItem(Guid MaterialCategoriesId, string BusinessItem, Guid ManufacturersId)
+        {
+            try
+            {
+                ManufacturersManageController controller = new ManufacturersManageController();
+                var queryresult = await controller.GetBussinessItemsListWithMaterialCategoriesAsync(MaterialCategoriesId);
+                if (!queryresult.HasError)
+                {
+                    var objectdataset = queryresult.Result;
+                    if (objectdataset.Any())
+                    {
+                        var bi = (from q in objectdataset
+                                  where q.Name.Contains(BusinessItem) &&
+                                  q.ManufacturersId == ManufacturersId
+                                  select q).ToList();
+
+                        foreach (var row in objectdataset)
+                        {
+                            ManufacturersBussinessItemsViewModel model = new ManufacturersBussinessItemsViewModel();
+                            model.DoEvents();
+                            model.SetModel(row);
+                            Add(model);
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+        }
+
+        public async void QueryByBusinessItem(Guid MaterialCategoriesId, string BusinessItem, Guid ManufacturersId,int TicketPeriodId)
+        {
+            try
+            {
+                ManufacturersManageController controller = new ManufacturersManageController();
+                var queryresult = await controller.GetBussinessItemsListWithMaterialCategoriesAsync(MaterialCategoriesId);
+                if (!queryresult.HasError)
+                {
+                    var objectdataset = queryresult.Result;
+                    if (objectdataset.Any())
+                    {
+                        var bi = (from q in objectdataset
+                                  where q.Name.Contains(BusinessItem) &&
+                                  q.ManufacturersId == ManufacturersId &&
+                                  q.TicketPeriodId == TicketPeriodId
+                                  select q)
+                                  .Distinct()
+                                  .ToList();
+
+                        foreach (var row in bi)
+                        {
+                            ManufacturersBussinessItemsViewModel model = new ManufacturersBussinessItemsViewModel();
+                            model.DoEvents();
+                            model.SetModel(row);
+                            model.MaterialCategories = row.MaterialCategories.Name;
+                            model.PaymentTypeName = row.PaymentTypes.PaymentTypeName;
+                            model.TicketPeriod = row.TicketPeriod.Name;
+                            model.PaymentTypeName = row.PaymentTypes.PaymentTypeName;
+                            model.TranscationCategories = row.TranscationCategories.Name;
+                            
+                            Add(model);
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+        }
+        public async void QueryWithMaterialCategories(Guid MaterialCategoriesId)
+        {
+            try
+            {
+                ManufacturersManageController controller = new ManufacturersManageController();
+                var queryresult = await controller.GetBussinessItemsListWithMaterialCategoriesAsync(MaterialCategoriesId);
+                if (!queryresult.HasError)
+                {
+                    var objectdataset = queryresult.Result;
+                    foreach (var row in objectdataset)
+                    {
+                        if (!Items.Where(w => w.Name == row.Name).Any())
+                        {
+                            ManufacturersBussinessItemsViewModel model = new ManufacturersBussinessItemsViewModel();
+                            model.DoEvents();
+                            model.SetModel(row);
+                            Add(model);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+        }
+
+        public async void QueryAsync(Guid ManufacturersId)
         {
             try
             {
@@ -239,6 +340,20 @@ namespace Tokiku.ViewModels
 
         #endregion
 
+
+
+        public Manufacturers Manufacturers
+        {
+            get { return (Manufacturers)GetValue(ManufacturersProperty); }
+            set { SetValue(ManufacturersProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Manufacturers.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ManufacturersProperty =
+            DependencyProperty.Register("Manufacturers", typeof(Manufacturers), typeof(ManufacturersBussinessItemsViewModel), new PropertyMetadata(default(Manufacturers)));
+
+
+
         public override void SetModel(dynamic entity)
         {
             if (!Dispatcher.CheckAccess())
@@ -265,6 +380,7 @@ namespace Tokiku.ViewModels
                         {
                             ManufacturersBussinessItems data = (ManufacturersBussinessItems)entity;
                             BindingFromModel(data, this);
+                            this.Manufacturers = data.Manufacturers;
                             DoEvents();
                             if (data.MaterialCategories != null)
                             {

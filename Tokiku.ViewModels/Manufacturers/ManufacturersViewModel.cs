@@ -122,6 +122,30 @@ namespace Tokiku.ViewModels
             }
 
         }
+        
+        public async void QueryByBusinessItem(Guid MaterialCategoriesId, string BusinessItem)
+        {
+            try
+            {
+                ManufacturersManageController controller = new ManufacturersManageController();
+                var queryresult = await controller.GetManufacturersWithBusinessItemAsync(MaterialCategoriesId,BusinessItem);
+                if (!queryresult.HasError)
+                {
+                    var objectdataset = queryresult.Result;
+                    foreach (var row in objectdataset)
+                    {
+                        ManufacturersViewModel model = new ManufacturersViewModel();
+                        model.DoEvents();
+                        model.SetModel(row);
+                        Add(model);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+        }
         #endregion
 
     }
@@ -342,13 +366,15 @@ namespace Tokiku.ViewModels
         /// </summary>
         public ContactsViewModelCollection Contracts
         {
-            get {
+            get
+            {
                 var source = (ContactsViewModelCollection)GetValue(ContractsProperty);
                 if (source.Count == 0)
                 {
                     source.Query();
                 }
-                return source; }
+                return source;
+            }
             set { SetValue(ContractsProperty, value); }
         }
 
@@ -387,7 +413,8 @@ namespace Tokiku.ViewModels
         /// </summary>
         public ManufacturersBussinessItemsViewModelColletion ManufacturersBussinessItems
         {
-            get {
+            get
+            {
                 var model = (ManufacturersBussinessItemsViewModelColletion)GetValue(ManufacturersBussinessItemsProperty);
                 if (model.Count == 0)
                 {
@@ -497,8 +524,11 @@ namespace Tokiku.ViewModels
 
         public ManufacturersBussinessTranscationsViewModelCollection TranscationRecords
         {
-            get { var model= (ManufacturersBussinessTranscationsViewModelCollection)GetValue(TranscationRecordsProperty);
-                if (model.Count==0) {
+            get
+            {
+                var model = (ManufacturersBussinessTranscationsViewModelCollection)GetValue(TranscationRecordsProperty);
+                if (model.Count == 0)
+                {
                     model.Query();
                 }
                 return model;
@@ -665,7 +695,7 @@ namespace Tokiku.ViewModels
                 Contracts.ManufacturersId = data.Id;
                 //Contracts.QueryAsync();
                 DoEvents();
-               ManufacturersBussinessItems.Query(data.Id);
+                ManufacturersBussinessItems.QueryAsync(data.Id);
                 DoEvents();
                 TranscationRecords.Query(data.Id);
                 DoEvents();

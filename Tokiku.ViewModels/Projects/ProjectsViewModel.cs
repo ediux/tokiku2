@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using System.Windows;
 using Tokiku.Controllers;
 using Tokiku.Entity;
@@ -35,7 +36,7 @@ namespace Tokiku.ViewModels
 
             if (!queryresult.HasError)
             {
-                foreach(var row in queryresult.Result)
+                foreach (var row in queryresult.Result)
                 {
                     Add(BindingFromModel(row));
                 }
@@ -55,7 +56,7 @@ namespace Tokiku.ViewModels
                 foreach (var row in queryresult.Result)
                 {
                     ProjectsViewModel model = BindingFromModel(row);
-                    
+
                     Add(model);
                 }
             }
@@ -388,20 +389,20 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 供應商清單        
         /// </summary>
-        public ManufacturersViewModelCollection Suppliers
+        public SuppliersViewModelCollection Suppliers
         {
-            get { return (ManufacturersViewModelCollection)GetValue(SuppliersProperty); }
+            get { return (SuppliersViewModelCollection)GetValue(SuppliersProperty); }
             set { SetValue(SuppliersProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for Suppliers.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SuppliersProperty =
-            DependencyProperty.Register("Suppliers", typeof(ManufacturersViewModelCollection), typeof(ProjectsViewModel), new PropertyMetadata(default(ManufacturersViewModelCollection)));
+            DependencyProperty.Register("Suppliers", typeof(SuppliersViewModelCollection), typeof(ProjectsViewModel), new PropertyMetadata(default(SuppliersViewModelCollection)));
 
 
         #endregion
 
-        #region Project Contract
+        #region Project Contract 專案合約
         /// <summary>
         /// 專案合約清單
         /// </summary>
@@ -417,6 +418,57 @@ namespace Tokiku.ViewModels
                 ), new PropertyMetadata(default(ProjectContractViewModelCollection), new PropertyChangedCallback(DefaultFieldChanged)));
         #endregion
 
+
+
+        public string SiteContactPerson
+        {
+            get { return (string)GetValue(SiteContactPersonProperty); }
+            set { SetValue(SiteContactPersonProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SiteContactPerson.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SiteContactPersonProperty =
+            DependencyProperty.Register("SiteContactPerson", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(string.Empty));
+
+
+
+
+        public string SiteContactPersonPhone
+        {
+            get { return (string)GetValue(SiteContactPersonPhoneProperty); }
+            set { SetValue(SiteContactPersonPhoneProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SiteContactPersonPhone.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SiteContactPersonPhoneProperty =
+            DependencyProperty.Register("SiteContactPersonPhone", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(string.Empty));
+
+
+
+
+        public string ArchitectConsultant
+        {
+            get { return (string)GetValue(ArchitectConsultantProperty); }
+            set { SetValue(ArchitectConsultantProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ArchitectConsultant.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ArchitectConsultantProperty =
+            DependencyProperty.Register("ArchitectConsultant", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(string.Empty));
+
+
+
+        public string BuildingCompanyConsultant
+        {
+            get { return (string)GetValue(BuildingCompanyConsultantProperty); }
+            set { SetValue(BuildingCompanyConsultantProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for BuildingCompanyConsultant.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty BuildingCompanyConsultantProperty =
+            DependencyProperty.Register("BuildingCompanyConsultant", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(string.Empty));
+
+
         #endregion
 
         #region 模型命令方法
@@ -427,6 +479,7 @@ namespace Tokiku.ViewModels
 
             ProjectContract = new ProjectContractViewModelCollection();
             Client = new ClientViewModel();
+            Suppliers = new SuppliersViewModelCollection();
 
             if (_projectcontroller == null)
                 return;
@@ -438,27 +491,26 @@ namespace Tokiku.ViewModels
                 BindingFromModel(result.Result, this);
             }
 
-            var result_states = _projectcontroller.GetStates();
+            Id = Guid.NewGuid();
 
-            if (!result_states.HasError)
-            {
-                States = new StatesViewModelCollection();
+            State = 1;
+            CompletionDate = DateTime.Today;
+            BuildingHeightAboveground = 0;
+            BuildingHeightUnderground = 0;
+            CheckoutDay = 1;
+            PaymentDay = 1;
 
-                foreach (var states in result_states.Result)
-                {
-                    StatesViewModel state = new StatesViewModel();
-                    BindingFromModel(states, state);
-                    States.Add(state);
-                }
-            }
-
-
+            ProjectContract.Add(new ProjectContractViewModel() {
+                ContractNumber = Code,
+                Name = Name,
+                SigningDate= ProjectSigningDate
+            });
         }
 
         public override void SaveModel()
         {
-            Entity.Projects data = new Entity.Projects();
-
+            Projects data = new Projects();
+            data.Id = Guid.NewGuid();
             CopyToModel(data, this);
 
             if (ProjectContract != null)
@@ -467,8 +519,9 @@ namespace Tokiku.ViewModels
                 {
                     if (model != null)
                     {
-                        model.ProjectId = Id;
-                        model.SaveModel();
+                        ProjectContract pcdata = new ProjectContract();
+                        CopyToModel(pcdata, model);
+                        data.ProjectContract.Add(pcdata);
                     }
                 }
             }
@@ -477,13 +530,15 @@ namespace Tokiku.ViewModels
             {
                 if (Suppliers.Any())
                 {
-                    foreach (ProjectContractViewModel model in ProjectContract)
+                    foreach (var supplier in Suppliers)
                     {
-                        if (model != null)
-                        {
-                            model.ProjectId = Id;
-                            model.SaveModel();
-                        }
+                        SupplierTranscationItem supplierdata = new SupplierTranscationItem();
+                        supplierdata.PlaceofReceipt = supplier.PlaceofReceipt;
+                        supplierdata.ManufacturersBussinessItemsId = supplier.Id;
+                        supplierdata.ProjectId = data.Id;
+
+                        data.SupplierTranscationItem.Add(supplierdata);
+
                     }
                 }
             }
@@ -494,40 +549,60 @@ namespace Tokiku.ViewModels
                 Errors = result.Errors;
             }
 
-            Refresh();
+            Query(data.Id);
         }
 
-        public override void Query()
+        public void Query(Guid ProjectId)
         {
-            if (Id != Guid.Empty)
+
+            try
             {
-                var QueryResult = _projectcontroller.Query(p => p.Id == Id && p.Void == false);
+                var QueryResult = _projectcontroller.Query(p => p.Id == ProjectId);
 
                 if (!QueryResult.HasError)
                 {
                     var data = QueryResult.Result.SingleOrDefault();
                     BindingFromModel(data, this);
 
-                    var result_states = _projectcontroller.GetStates();
-
-                    if (!result_states.HasError)
+                    if (data.SupplierTranscationItem.Any())
                     {
-                        States = new StatesViewModelCollection();
-
-                        foreach (var states in result_states.Result)
+                        foreach (var row in data.SupplierTranscationItem)
                         {
-                            StatesViewModel state = new StatesViewModel();
-                            BindingFromModel(states, state);
-                            States.Add(state);
+                            SuppliersViewModel model = new SuppliersViewModel();
+                            model.ProjectId = row.ProjectId;
+                            model.PlaceofReceipt = row.PlaceofReceipt;
+                            model.ManufacturersName = row.ManufacturersBussinessItems.Manufacturers.Name;
+                            model.TicketPeriod = row.ManufacturersBussinessItems.TicketPeriod.Name;
+                            model.MaterialCategories = row.ManufacturersBussinessItems.MaterialCategories.Name;
+                            model.PaymentTypeName = row.ManufacturersBussinessItems.PaymentTypes.PaymentTypeName;
+                            model.TranscationCategories = row.ManufacturersBussinessItems.TranscationCategories.Name;
+                            model.SetModel(row.ManufacturersBussinessItems);
+                            Suppliers.Add(model);
+                        }
+                    }
+
+                    if (data.ProjectContract.Any())
+                    {
+                        foreach(var row in data.ProjectContract)
+                        {
+                            ProjectContractViewModel model = new ProjectContractViewModel();
+                            model.SetModel(row);
+                            ProjectContract.Add(model);
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
 
-                ProjectContract.ProjectId = Id;
-                ProjectContract.Query();
+                setErrortoModel(this, ex);
 
             }
+        }
 
+        public override void Query()
+        {
+            throw new NotSupportedException();
         }
 
         public override void Refresh()

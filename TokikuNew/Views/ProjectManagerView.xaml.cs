@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -97,14 +99,14 @@ namespace TokikuNew.Views
 
                     //SelectedClient = clientcontroller.Query(s => s.Id == SelectedProject.ClientId.Value);
                 }
+
+
             }
             catch (Exception ex)
             {
 
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
-
-
 
         }
 
@@ -117,27 +119,21 @@ namespace TokikuNew.Views
             {
                 if (tbName.Text.Length > 0)
                 {
-                    if (tbName.Text.Length >= 2)
-                    {
-                        tbShortName.Text = tbName.Text.Substring(0, Math.Min(2, tbName.Text.Length));
-                    }
-                    else
-                    {
-                        tbShortName.Text = tbName.Text;
-                    }
+                    tbShortName.Text = tbName.Text;
                 }
                 else
                 {
                     tbShortName.Text = string.Empty;
                 }
+
+                var foundcurrentNo = SelectedProject.ProjectContract.Where(w => w.ContractNumber == SelectedProject.Code).Single();
+                foundcurrentNo.Name = tbName.Text;
             }
             catch (Exception ex)
             {
 
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
-
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -151,8 +147,6 @@ namespace TokikuNew.Views
 
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
-
-
         }
 
         private void DockBar_DocumentModeChanged(object sender, RoutedEventArgs e)
@@ -328,8 +322,147 @@ namespace TokikuNew.Views
 
         }
 
-        private void ContractList_Selected_1(object sender, RoutedEventArgs e)
+        private void CBMaterialCategories_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            //
+            Guid CBMaterialCategoriesId = ((MaterialCategoriesViewModel)CBMaterialCategories.SelectedItem).Id;
+            ManufacturersBussinessItemsViewModelColletion biselect = new ManufacturersBussinessItemsViewModelColletion();
+            biselect.QueryWithMaterialCategories(CBMaterialCategoriesId);
+            CBTranscationBusiness.ItemsSource = biselect;
+        }
+
+        private void CBTranscationBusiness_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Guid CBMaterialCategoriesId = ((MaterialCategoriesViewModel)CBMaterialCategories.SelectedItem).Id;
+            if (CBTranscationBusiness.SelectedItem != null)
+            {
+                string TranscationItem = ((ManufacturersBussinessItemsViewModel)CBTranscationBusiness.SelectedItem).Name;
+                ManufacturersViewModelCollection ManufacturersSelect = new ManufacturersViewModelCollection();
+                ManufacturersSelect.QueryByBusinessItem(CBMaterialCategoriesId, TranscationItem);
+                CBManufacturerList.ItemsSource = ManufacturersSelect;
+            }
+
+        }
+
+        private void CBManufacturerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Guid CBMaterialCategoriesId = ((MaterialCategoriesViewModel)CBMaterialCategories.SelectedItem).Id;
+            if (CBTranscationBusiness.SelectedItem != null)
+            {
+                string TranscationItem = ((ManufacturersBussinessItemsViewModel)CBTranscationBusiness.SelectedItem).Name;
+
+                if (CBManufacturerList.SelectedItem != null)
+                {
+                    Guid manuid = ((ManufacturersViewModel)CBManufacturerList.SelectedItem).Id;
+                    TicketPeriodsViewModelCollection ManufacturersSelect = new TicketPeriodsViewModelCollection();
+                    ManufacturersSelect.QueryByManufacturers(CBMaterialCategoriesId, TranscationItem, manuid);
+                    CBTicketPeriods.ItemsSource = ManufacturersSelect;
+                }
+
+            }
+        }
+
+        private void btnAddBI_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                e.Handled = true;
+
+                if (string.IsNullOrEmpty(TBPlaceofReceipt.Text))
+                {
+                    if (MessageBox.Show("請輸入送貨地址!", "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK) == MessageBoxResult.OK)
+                    {
+                        return;
+                    }
+                }
+                else
+                {
+                    Guid CBMaterialCategoriesId = ((MaterialCategoriesViewModel)CBMaterialCategories.SelectedItem).Id;
+                    if (CBTranscationBusiness.SelectedItem != null)
+                    {
+                        string TranscationItem = ((ManufacturersBussinessItemsViewModel)CBTranscationBusiness.SelectedItem).Name;
+
+                        if (CBManufacturerList.SelectedItem != null)
+                        {
+                            Guid manuid = ((ManufacturersViewModel)CBManufacturerList.SelectedItem).Id;
+                            int periodsid = ((TicketPeriodsViewModel)CBTicketPeriods.SelectedItem).Id;
+                            ManufacturersBussinessItemsViewModelColletion bicollection = new ManufacturersBussinessItemsViewModelColletion();
+                            bicollection.QueryByBusinessItem(CBMaterialCategoriesId, TranscationItem, manuid, periodsid);
+                            if (bicollection.Count > 0)
+                            {
+                                foreach (var item in bicollection)
+                                {
+                                    SuppliersViewModel model = new SuppliersViewModel();
+                                    model.SetModel(item);
+                                    model.PlaceofReceipt = TBPlaceofReceipt.Text;
+                                    SelectedProject.Suppliers.Add(model);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+
+        }
+
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            dockBar.QueryFunctionButtonEnabled = true;
+        }
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            dockBar.QueryFunctionButtonEnabled = false;
+        }
+
+        private void TextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.F4)
+            {
+
+            }
+        }
+
+        private Stack<SuppliersViewModel> RemoveItem = new Stack<SuppliersViewModel>();
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            while (RemoveItem.Count > 0)
+            {
+                SelectedProject.Suppliers.Remove(RemoveItem.Pop());
+            }
+        }
+
+        private void BussinessItemsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (BussinessItemsGrid.SelectedItems.Count > 0)
+            {
+                foreach (var row in BussinessItemsGrid.SelectedItems)
+                {
+                    RemoveItem.Push((SuppliersViewModel)row);
+                }
+            }
+        }
+
+        private void ProjectSigningDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (SelectedProject != null)
+                {
+                    var foundcurrentNo = SelectedProject.ProjectContract.Where(w => w.ContractNumber == SelectedProject.Code).Single();
+                    foundcurrentNo.SigningDate = SelectedProject.ProjectSigningDate;
+                }
+            }
+            catch (Exception ex)
+            {
+                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
+            }
 
         }
     }
