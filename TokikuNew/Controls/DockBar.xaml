@@ -44,7 +44,7 @@
                 <TextBlock Text="暫存" TextAlignment="Center"/>
             </StackPanel>
         </Button>
-        <Button Margin="2" Width="48" Name="btnF4" Click="btnF4_Click" Command="{StaticResource Query}"  >
+        <Button Margin="2" Width="48" Name="btnF4" Click="btnF4_Click" IsEnabled="{Binding QueryFunctionButtonEnabled,ElementName=userControl,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" >
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="F4" TextAlignment="Center"/>
                 <TextBlock Text="查詢" TextAlignment="Center"/>

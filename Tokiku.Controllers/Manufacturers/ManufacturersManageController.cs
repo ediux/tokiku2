@@ -232,8 +232,6 @@ namespace Tokiku.Controllers
 
         }
 
-
-
         public override ExecuteResultEntity<Manufacturers> CreateNew()
         {
             try
@@ -401,10 +399,8 @@ namespace Tokiku.Controllers
             {
                 return ExecuteResultEntity<Manufacturers>.CreateErrorResultEntity(ex);
             }
-
-
         }
-
+       
         public override ExecuteResultEntity Delete(Expression<Func<Manufacturers, bool>> condtion)
         {
             try
@@ -508,5 +504,53 @@ namespace Tokiku.Controllers
             }
         }
 
+        /// <summary>
+        /// 連動下拉單查詢交易品項
+        /// </summary>
+        /// <param name="MaterialCategoriesId"></param>
+        /// <returns></returns>
+        public Task<ExecuteResultEntity<ICollection<ManufacturersBussinessItems>>> GetBussinessItemsListWithMaterialCategoriesAsync(Guid MaterialCategoriesId)
+        {
+            //, Guid TranscationCategoriesId, Guid TicketPeriodId
+            try
+            {
+                ManufacturersBussinessItemsRepository repo = RepositoryHelper.GetManufacturersBussinessItemsRepository();
+                database = repo.UnitOfWork;
+
+                var matchedresult = repo
+                    .Where(w => w.MaterialCategoriesId == MaterialCategoriesId)
+                    .Distinct()
+                    .ToList();
+
+                return Task.FromResult(ExecuteResultEntity<ICollection<ManufacturersBussinessItems>>.CreateResultEntity(
+                    new Collection<ManufacturersBussinessItems>(matchedresult)));
+            }
+            catch (Exception ex)
+            {
+                return Task.FromResult(ExecuteResultEntity<ICollection<ManufacturersBussinessItems>>.CreateErrorResultEntity(ex));
+            }
+        }
+
+        public Task<ExecuteResultEntity<ICollection<Manufacturers>>> GetManufacturersWithBusinessItemAsync(Guid MaterialCategoriesId,string BusinessItem)
+        {
+            try
+            {
+                ManufacturersRepository repo = RepositoryHelper.GetManufacturersRepository();
+                database = repo.UnitOfWork;
+
+                var matchedresult = (from q in repo.All()
+                                     from s in q.ManufacturersBussinessItems
+                                     where s.MaterialCategoriesId == MaterialCategoriesId
+                                     && s.Name.Contains(BusinessItem)
+                                     select q).Distinct().ToList();
+
+                return Task.FromResult(ExecuteResultEntity<ICollection<Manufacturers>>.CreateResultEntity(
+                    new Collection<Manufacturers>(matchedresult)));
+            }
+            catch (Exception ex)
+            {
+                return Task.FromResult(ExecuteResultEntity<ICollection<Manufacturers>>.CreateErrorResultEntity(ex));
+            }
+        }
     }
 }

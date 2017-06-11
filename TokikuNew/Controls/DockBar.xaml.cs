@@ -28,6 +28,18 @@ namespace TokikuNew.Controls
 
 
 
+        public bool QueryFunctionButtonEnabled
+        {
+            get { return (bool)GetValue(QueryFunctionButtonEnabledProperty); }
+            set { SetValue(QueryFunctionButtonEnabledProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for QueryFunctionButtonEnabled.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty QueryFunctionButtonEnabledProperty =
+            DependencyProperty.Register("QueryFunctionButtonEnabled", typeof(bool), typeof(DockBar), new PropertyMetadata(false, new PropertyChangedCallback(DefaultFieldChanged)));
+
+
+
         public DocumentLifeCircle LastState
         {
             get { return (DocumentLifeCircle)GetValue(LastStateProperty); }
@@ -48,9 +60,12 @@ namespace TokikuNew.Controls
         {
             try
             {
-                DockBar src = (DockBar)source;
-                source.SetValue(LastStateProperty, e.OldValue);
-                ChoiceMode((DocumentLifeCircle)e.NewValue, src);
+                if (e.Property.PropertyType == typeof(DocumentLifeCircle))
+                {
+                    DockBar src = (DockBar)source;
+                    source.SetValue(LastStateProperty, e.OldValue);
+                    ChoiceMode((DocumentLifeCircle)e.NewValue, src);
+                }
             }
             catch (Exception ex)
             {

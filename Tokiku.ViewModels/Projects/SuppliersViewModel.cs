@@ -11,56 +11,26 @@ namespace Tokiku.ViewModels
 {
     public class SuppliersViewModelCollection : BaseViewModelCollection<SuppliersViewModel>
     {
-        public SuppliersViewModelCollection()
-        {
-
-        }
-
-        public SuppliersViewModelCollection(IEnumerable<SuppliersViewModel> source) : base(source)
-        {
-
-        }
-
-        public override void Query()
-        {
-
-        }
 
     }
 
-    public class SuppliersViewModel : BaseViewModel
+    /// <summary>
+    /// 專案列表-供應商項目檢視模型
+    /// </summary>
+    public class SuppliersViewModel : ManufacturersBussinessItemsViewModel
     {
         #region 內部變數
         private SuppliersController controller;
         #endregion
 
-        #region 建構式
         public SuppliersViewModel() : base()
         {
-            controller = new SuppliersController();
-        }
-        #endregion
 
-        #region 欄位屬性 Fields(DP)
-
-        #region ManufacturersBussinessItemsId
-
-
-        public Guid ManufacturersBussinessItemsId
-        {
-            get { return (Guid)GetValue(ManufacturersBussinessItemsIdProperty); }
-            set { SetValue(ManufacturersBussinessItemsIdProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Id.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ManufacturersBussinessItemsIdProperty =
-            DependencyProperty.Register("ManufacturersBussinessItemsId", typeof(Guid), typeof(SuppliersViewModel), new PropertyMetadata(Guid.Empty));
-
-
-        #endregion
-
-        #region ProjectId
-
+        /// <summary>
+        /// 專案編號
+        /// </summary>
         public Guid ProjectId
         {
             get { return (Guid)GetValue(ProjectIdProperty); }
@@ -71,13 +41,6 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty ProjectIdProperty =
             DependencyProperty.Register("ProjectId", typeof(Guid), typeof(SuppliersViewModel), new PropertyMetadata(Guid.Empty));
 
-        #endregion
-
-        #region PlaceofReceipt
-
-        /// <summary>
-        /// 送貨地址        
-        /// </summary>
         public string PlaceofReceipt
         {
             get { return (string)GetValue(PlaceofReceiptProperty); }
@@ -89,43 +52,25 @@ namespace Tokiku.ViewModels
             DependencyProperty.Register("PlaceofReceipt", typeof(string), typeof(SuppliersViewModel), new PropertyMetadata(string.Empty));
 
 
-        #endregion
 
-        #region 關聯
 
-        #region ManufacturersBussinessItems
-        public ManufacturersBussinessItemsViewModel ManufacturersBussinessItems
+        public string ManufacturersName
         {
-            get { return (ManufacturersBussinessItemsViewModel)GetValue(ManufacturersBussinessItemsProperty); }
-            set { SetValue(ManufacturersBussinessItemsProperty, value); }
+            get { return (string)GetValue(ManufacturersNameProperty); }
+            set { SetValue(ManufacturersNameProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for ManufacturersBussinessItems.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ManufacturersBussinessItemsProperty =
-            DependencyProperty.Register("ManufacturersBussinessItems", typeof(ManufacturersBussinessItemsViewModel), typeof(SuppliersViewModel), new PropertyMetadata(default(ManufacturersBussinessItemsViewModel)));
+        // Using a DependencyProperty as the backing store for Manufacturers.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ManufacturersNameProperty =
+            DependencyProperty.Register("Manufacturers", typeof(string), typeof(SuppliersViewModel), new PropertyMetadata(string.Empty));
 
-        #endregion
-
-        #region Projects
-
-
-        public ProjectsViewModel Projects
-        {
-            get { return (ProjectsViewModel)GetValue(ProjectsProperty); }
-            set { SetValue(ProjectsProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for Projects.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ProjectsProperty =
-            DependencyProperty.Register("Projects", typeof(ProjectsViewModel), typeof(SuppliersViewModel), new PropertyMetadata(default(ProjectsViewModel)));
-
-        #endregion
-
-        #endregion
-
-        #endregion
 
         #region Model Command Functions      
+        public override void Initialized()
+        {
+            base.Initialized();
+            controller = new SuppliersController();
+        }
 
         public override void Query()
         {
@@ -140,13 +85,10 @@ namespace Tokiku.ViewModels
 
                     if (data.ManufacturersBussinessItems != null)
                     {
-                        BindingFromModel(data.ManufacturersBussinessItems, ManufacturersBussinessItems);
+                        BindingFromModel(data.ManufacturersBussinessItems, this);
                     }
 
-                    if (data.Projects != null)
-                    {
-                        BindingFromModel(data.Projects, Projects);
-                    }
+                  
                 }
 
             }
@@ -169,6 +111,36 @@ namespace Tokiku.ViewModels
             Refresh();
 
         }
+
+        public override void SetModel(dynamic entity)
+        {
+            if (entity is ManufacturersBussinessItemsViewModel)
+            {
+                ManufacturersBussinessItemsViewModel model = (ManufacturersBussinessItemsViewModel)entity;
+                BindingFromModel(model, this);
+                ManufacturersName = Manufacturers.Name;
+            }
+            else
+            {
+                if (entity is ManufacturersBussinessItems)
+                {
+                    ManufacturersBussinessItems data = (ManufacturersBussinessItems)entity;
+                    BindingFromModel(data, this);
+                    ManufacturersName = data.Manufacturers.Name;
+
+                }
+                else
+                {
+                    if(entity is SupplierTranscationItem)
+                    {
+                        SupplierTranscationItem data = (SupplierTranscationItem)entity;
+                        BindingFromModel(data, this);
+                        BindingFromModel(data.ManufacturersBussinessItems, this);
+                    }
+                }
+            } 
+        }
         #endregion
+
     }
 }

@@ -297,10 +297,10 @@ namespace TokikuNew
 
                         var vm = new ProjectViewer() { Margin = new Thickness(0) };
 
-                        ProjectsViewModel source = new ProjectsViewModel(App.Resolve<ProjectsController>());
+                        ProjectsViewModel source = new ProjectsViewModel();
 
-                        source.Id = SelectedProjectId;
-                        source.Query();
+                        //source.Id = SelectedProjectId;
+                        source.Query(SelectedProjectId);
                         vm.DataContext = source;
                         vm.Mode = DocumentLifeCircle.Read;
 
@@ -319,7 +319,7 @@ namespace TokikuNew
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
-
+                Workspaces.Items.Remove(Workspaces.SelectedItem);
             }
 
         }

@@ -29,7 +29,26 @@ namespace Tokiku.ViewModels
                 if (result.Result.Any())
                 {
                     ClearItems();
-                    foreach(var entity in result.Result)
+                    foreach (var entity in result.Result)
+                    {
+                        var model = new TicketPeriodsViewModel();
+                        model.SetModel(entity);
+                        Add(model);
+                    }
+                }
+            }
+        }
+
+        public async void QueryByManufacturers(Guid MaterialCategoriesId, string BusinessItem, Guid ManufacturersId)
+        {
+            var result = await controller.QueryForSelectBusinessItemAsync(MaterialCategoriesId, BusinessItem, ManufacturersId);
+
+            if (!result.HasError)
+            {
+                if (result.Result.Any())
+                {
+                    ClearItems();
+                    foreach (var entity in result.Result)
                     {
                         var model = new TicketPeriodsViewModel();
                         model.SetModel(entity);

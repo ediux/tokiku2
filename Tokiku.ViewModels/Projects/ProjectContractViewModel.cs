@@ -13,6 +13,7 @@ namespace Tokiku.ViewModels
     public class ProjectContractViewModelCollection : BaseViewModelCollection<ProjectContractViewModel>
     {
         private ProjectContractController _controller;
+
         public ProjectContractViewModelCollection()
         {
 
@@ -34,27 +35,34 @@ namespace Tokiku.ViewModels
             _controller = new ProjectContractController();
         }
 
-        public override void Query()
+        public void Query(Guid ProjectId)
         {
-            if (ProjectId != null && ProjectId != Guid.Empty)
+            try
             {
                 var executed_result = _controller.QueryAll(ProjectId);
 
                 if (!executed_result.HasError)
                 {
                     ClearItems();
+
                     foreach (var row in executed_result.Result)
                     {
-                        Add(BindingFromModel(row));
+                        ProjectContractViewModel model = new ProjectContractViewModel();
+                        model.SetModel(row);
+                        Add(model);
                     }
                 }
             }
-
+            catch(Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+           
         }
 
-        public override void SaveModel()
+        public override void Query()
         {
-            
+            throw new NotSupportedException();
         }
 
     }
@@ -265,6 +273,18 @@ namespace Tokiku.ViewModels
 
         #endregion
 
+
+        public DateTime SigningDate
+        {
+            get { return (DateTime)GetValue(SigningDateProperty); }
+            set { SetValue(SigningDateProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SigningDate.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SigningDateProperty =
+            DependencyProperty.Register("SigningDate", typeof(DateTime), typeof(ProjectContractViewModel), new PropertyMetadata(DateTime.Today));
+
+
         private ProjectContractController controller;
 
         public override void Initialized()
@@ -357,5 +377,17 @@ namespace Tokiku.ViewModels
             Refresh();
         }
 
+        public override void SetModel(dynamic entity)
+        {
+            try
+            {
+                ProjectContract data = (ProjectContract)entity;
+                BindingFromModel(data, this);
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+        }
     }
 }

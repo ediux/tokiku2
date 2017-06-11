@@ -328,8 +328,8 @@ namespace Tokiku.Controllers
 
             try
             {
-                using (var repo = GetRepository())
-                {
+                var repo = GetRepository();
+                
                     database = repo.UnitOfWork;
 
                     if (repo == null)
@@ -345,7 +345,7 @@ namespace Tokiku.Controllers
 
                     model = ExecuteResultEntity<ICollection<T>>.CreateErrorResultEntity("Not Found!");
                     return model;
-                }
+                
             }
             catch (Exception ex)
             {
