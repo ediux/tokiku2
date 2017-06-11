@@ -18,9 +18,6 @@
         <Label Content="*" HorizontalAlignment="Left" Margin="382,15,0,0" VerticalAlignment="Top" Foreground="#FFF70505"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="550,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="232"/>
         <Button Margin="787,12,379,734" RenderTransformOrigin="1.064,0.545">
-            <StackPanel>
-                <Image Source="application_key.png" Width="20" Height="20" RenderTransformOrigin="1.113,0.527"/>
-            </StackPanel>
         </Button>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="867,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="139"/>
         <Label Content="廠商請款單號:" HorizontalAlignment="Left" Margin="787,15,0,0" VerticalAlignment="Top"/>
