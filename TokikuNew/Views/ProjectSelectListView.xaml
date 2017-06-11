@@ -23,10 +23,10 @@
             <Grid Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="125*"/>
-                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
                 <controls:SearchBar Grid.Column="0" x:Name="cSearchBar" Search="Button_Click" ResetSearch="cSearchBar_ResetSearch" RefreshResult="cSearchBar_RefreshResult" />
-                <Button Grid.Column="1" Margin="5,1" Content="新增" Name="btnNew" Click="btnNew_Click"></Button>
+                <Button Grid.Column="1" Margin="1" Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" Name="btnNew" Click="btnNew_Click" ToolTip="新增"></Button>
             </Grid>
         </Grid>
         <controls:CustomDataGrid x:Name="ProjectList" Grid.Row="1" Margin="5" ItemsSource="{Binding}" 

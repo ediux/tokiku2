@@ -64,13 +64,7 @@
         <AssociationConnector Association="TokikuModel.FK_PromissoryNoteManagement_Users" />
         <AssociationConnector Association="TokikuModel.FK_ShopFlowDetail_ShopFlow" />
         <AssociationConnector Association="TokikuModel.ContractsInManufacturers" />
-        <EntityTypeShape EntityType="TokikuModel.Projects" Width="2.5" PointX="18.75" PointY="11.625" />
-        <AssociationConnector Association="TokikuModel.FK_MoldsInProjects_Projects" />
-        <AssociationConnector Association="TokikuModel.FK_ProjectContract_Projects" />
-        <AssociationConnector Association="TokikuModel.FK_Projects_States" />
-        <AssociationConnector Association="TokikuModel.ClientsInProjects" />
         <EntityTypeShape EntityType="TokikuModel.SupplierTranscationItem" Width="1.5" PointX="22" PointY="11.625" />
-        <AssociationConnector Association="TokikuModel.FK_SupplierTranscationItem_Projects" />
         <EntityTypeShape EntityType="TokikuModel.TicketPeriod" Width="1.5" PointX="0.75" PointY="4.75" />
         <EntityTypeShape EntityType="TokikuModel.View_BussinessItemsList" Width="1.5" PointX="6.375" PointY="0.75" />
         <EntityTypeShape EntityType="TokikuModel.View_ManufacturersBussinessTranscations" Width="1.5" PointX="8.375" PointY="0.75" />
@@ -83,6 +77,12 @@
         <AssociationConnector Association="TokikuModel.FK_ManufacturersBussinessItems_TicketPeriod" />
         <AssociationConnector Association="TokikuModel.FK_ManufacturersBussinessItems_TranscationCategories" />
         <AssociationConnector Association="TokikuModel.FK_SupplierTranscationItem_ManufacturersBussinessItems" />
+        <EntityTypeShape EntityType="TokikuModel.Projects" Width="2.125" PointX="18.5" PointY="12.5" />
+        <AssociationConnector Association="TokikuModel.FK_MoldsInProjects_Projects" />
+        <AssociationConnector Association="TokikuModel.FK_ProjectContract_Projects" />
+        <AssociationConnector Association="TokikuModel.FK_Projects_States" />
+        <AssociationConnector Association="TokikuModel.FK_SupplierTranscationItem_Projects" />
+        <AssociationConnector Association="TokikuModel.ClientsInProjects" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -60,6 +60,45 @@ namespace Tokiku.ViewModels
            
         }
 
+        private List<ProjectContractViewModel> BufferSwap = new List<ProjectContractViewModel>();
+
+        public void Query(string SeatchText)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(SeatchText))
+                {
+                    BufferSwap.Clear();
+                    BufferSwap.AddRange(Items);
+
+                    var result = Items.Where(w => w.ContractNumber.Contains(SeatchText)).ToList();
+                    
+                    if (result.Any())
+                    {
+                        ClearItems();
+                        foreach(var temprow in result)
+                        {
+                            Add(temprow);
+                        }
+                    }
+                }
+                else
+                {
+                    ClearItems();
+
+                    foreach(var restore in BufferSwap)
+                    {
+                        Add(restore);
+                    }
+                }
+             
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+        }
+
         public override void Query()
         {
             throw new NotSupportedException();

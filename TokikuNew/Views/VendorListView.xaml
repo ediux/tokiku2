@@ -26,10 +26,10 @@
             <Grid Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="125*"/>
-                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
                 <controls:SearchBar x:Name="sSearchBar" Search="Button_Click" ResetSearch="sSearchBar_ResetSearch" Grid.Column="0"/>
-                <Button Name="btnNew" Grid.Column="1" Margin="5,1" Content="新增" Click="btnNew_Click" />
+                <Button Name="btnNew" Grid.Column="1" Margin="2,1" Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" Click="btnNew_Click" ToolTip="新增"/>
             </Grid>
         </Grid>
         <controls:CustomDataGrid x:Name="VendorList" AllowExecuteSystemCommand="False" Grid.Row="1" Margin="5"

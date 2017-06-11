@@ -21,8 +21,8 @@ namespace Tokiku.Entity
             this.ProjectItemCost = new HashSet<ProjectItemCost>();
             this.WorkShops = new HashSet<WorkShops>();
             this.Contacts = new HashSet<Contacts>();
-            this.ClientForProjects = new HashSet<Projects>();
             this.ManufacturersBussinessItems = new HashSet<ManufacturersBussinessItems>();
+            this.ClientForProjects = new HashSet<Projects>();
         }
     
         public System.Guid Id { get; set; }
@@ -62,10 +62,10 @@ namespace Tokiku.Entity
         public virtual ICollection<WorkShops> WorkShops { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Contacts> Contacts { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Projects> ClientForProjects { get; set; }
         public virtual TicketPeriod TicketPeriod { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Projects> ClientForProjects { get; set; }
     }
 }

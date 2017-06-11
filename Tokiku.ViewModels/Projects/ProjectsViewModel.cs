@@ -193,7 +193,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for StartDate.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty StartDateProperty =
-            DependencyProperty.Register("StartDate", typeof(DateTime), typeof(ProjectContractViewModel), new PropertyMetadata(DateTime.Today));
+            DependencyProperty.Register("StartDate", typeof(DateTime), typeof(ProjectsViewModel), new PropertyMetadata(DateTime.Today, new PropertyChangedCallback(DefaultFieldChanged)));
 
         /// <summary>
         /// 完工日期
@@ -206,7 +206,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for CompletionDate.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CompletionDateProperty =
-            DependencyProperty.Register("CompletionDate", typeof(DateTime?), typeof(ProjectContractViewModel), new PropertyMetadata(default(DateTime?)));
+            DependencyProperty.Register("CompletionDate", typeof(DateTime?), typeof(ProjectsViewModel), new PropertyMetadata(default(DateTime?), new PropertyChangedCallback(DefaultFieldChanged)));
 
 
         /// <summary>
@@ -220,13 +220,26 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for PaymentType.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PaymentTypeProperty =
-            DependencyProperty.Register("PaymentType", typeof(byte?), typeof(ProjectContractViewModel), new PropertyMetadata(default(byte?)));
+            DependencyProperty.Register("PaymentType", typeof(byte?), typeof(ProjectsViewModel), new PropertyMetadata(default(byte?), new PropertyChangedCallback(DefaultFieldChanged)));
 
 
 
         /// <summary>
         /// 保固日期
         /// </summary>
+        public DateTime? WarrantyStartDate
+        {
+            get { return (DateTime?)GetValue(WarrantyStartDateProperty); }
+            set { SetValue(WarrantyStartDateProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for WarrantyDate.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty WarrantyStartDateProperty =
+            DependencyProperty.Register("WarrantyStartDate", typeof(DateTime?), typeof(ProjectsViewModel), new PropertyMetadata(default(DateTime?), new PropertyChangedCallback(DefaultFieldChanged)));
+
+
+
+
         public DateTime? WarrantyDate
         {
             get { return (DateTime?)GetValue(WarrantyDateProperty); }
@@ -235,7 +248,8 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for WarrantyDate.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty WarrantyDateProperty =
-            DependencyProperty.Register("WarrantyDate", typeof(DateTime?), typeof(ProjectContractViewModel), new PropertyMetadata(default(DateTime?)));
+            DependencyProperty.Register("WarrantyDate", typeof(DateTime?), typeof(ProjectsViewModel), new PropertyMetadata(default(DateTime?), new PropertyChangedCallback(DefaultFieldChanged)));
+
 
 
 
@@ -250,7 +264,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for Architect.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ArchitectProperty =
-            DependencyProperty.Register("Architect", typeof(string), typeof(ProjectContractViewModel), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("Architect", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
 
 
 
@@ -265,7 +279,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for BuildingHeightAboveground.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty BuildingHeightAbovegroundProperty =
-            DependencyProperty.Register("BuildingHeightAboveground", typeof(int?), typeof(ProjectContractViewModel), new PropertyMetadata(default(int?)));
+            DependencyProperty.Register("BuildingHeightAboveground", typeof(int?), typeof(ProjectsViewModel), new PropertyMetadata(default(int?), new PropertyChangedCallback(DefaultFieldChanged)));
 
 
 
@@ -280,7 +294,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for BuildingHeightUnderground.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty BuildingHeightUndergroundProperty =
-            DependencyProperty.Register("BuildingHeightUnderground", typeof(int?), typeof(ProjectContractViewModel), new PropertyMetadata(default(int?)));
+            DependencyProperty.Register("BuildingHeightUnderground", typeof(int?), typeof(ProjectsViewModel), new PropertyMetadata(default(int?), new PropertyChangedCallback(DefaultFieldChanged)));
 
 
         /// <summary>
@@ -294,7 +308,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for BuildingCompany.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty BuildingCompanyProperty =
-            DependencyProperty.Register("BuildingCompany", typeof(string), typeof(ProjectContractViewModel), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("BuildingCompany", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
 
 
         /// <summary>
@@ -308,7 +322,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for BuildingCompany.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SupervisionUnitProperty =
-            DependencyProperty.Register("SupervisionUnit", typeof(string), typeof(ProjectContractViewModel), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("SupervisionUnit", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
 
         /// <summary>
         /// 面積數
@@ -321,7 +335,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for Area.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty AreaProperty =
-            DependencyProperty.Register("Area", typeof(float?), typeof(ProjectContractViewModel), new PropertyMetadata(default(float?)));
+            DependencyProperty.Register("Area", typeof(float?), typeof(ProjectsViewModel), new PropertyMetadata(default(float?), new PropertyChangedCallback(DefaultFieldChanged)));
 
 
         #region Client
@@ -336,7 +350,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for Clients.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ClientsProperty =
-            DependencyProperty.Register("Client", typeof(ClientViewModel), typeof(ProjectsViewModel), new PropertyMetadata(default(ClientViewModel)));
+            DependencyProperty.Register("Client", typeof(ClientViewModel), typeof(ProjectsViewModel), new PropertyMetadata(default(ClientViewModel), new PropertyChangedCallback(DefaultFieldChanged)));
         #endregion
 
         #region States
@@ -351,7 +365,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for States.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty StatesProperty =
-            DependencyProperty.Register("States", typeof(StatesViewModelCollection), typeof(ProjectsViewModel), new PropertyMetadata(default(StatesViewModelCollection)));
+            DependencyProperty.Register("States", typeof(StatesViewModelCollection), typeof(ProjectsViewModel), new PropertyMetadata(default(StatesViewModelCollection), new PropertyChangedCallback(DefaultFieldChanged)));
         #endregion
 
         #region CheckoutDay
@@ -366,7 +380,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for CheckoutDay.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CheckoutDayProperty =
-            DependencyProperty.Register("CheckoutDay", typeof(byte), typeof(ProjectsViewModel), new PropertyMetadata((byte)1));
+            DependencyProperty.Register("CheckoutDay", typeof(byte), typeof(ProjectsViewModel), new PropertyMetadata((byte)1, new PropertyChangedCallback(DefaultFieldChanged)));
         #endregion
 
         #region PaymentDay
@@ -381,7 +395,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for PaymentDay.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PaymentDayProperty =
-            DependencyProperty.Register("PaymentDay", typeof(byte), typeof(ProjectsViewModel), new PropertyMetadata((byte)1));
+            DependencyProperty.Register("PaymentDay", typeof(byte), typeof(ProjectsViewModel), new PropertyMetadata((byte)1, new PropertyChangedCallback(DefaultFieldChanged)));
         #endregion
 
         #region 供應商
@@ -397,7 +411,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for Suppliers.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SuppliersProperty =
-            DependencyProperty.Register("Suppliers", typeof(SuppliersViewModelCollection), typeof(ProjectsViewModel), new PropertyMetadata(default(SuppliersViewModelCollection)));
+            DependencyProperty.Register("Suppliers", typeof(SuppliersViewModelCollection), typeof(ProjectsViewModel), new PropertyMetadata(default(SuppliersViewModelCollection), new PropertyChangedCallback(DefaultFieldChanged)));
 
 
         #endregion
@@ -428,7 +442,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for SiteContactPerson.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SiteContactPersonProperty =
-            DependencyProperty.Register("SiteContactPerson", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("SiteContactPerson", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
 
 
 
@@ -441,7 +455,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for SiteContactPersonPhone.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SiteContactPersonPhoneProperty =
-            DependencyProperty.Register("SiteContactPersonPhone", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("SiteContactPersonPhone", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
 
 
 
@@ -454,7 +468,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for ArchitectConsultant.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ArchitectConsultantProperty =
-            DependencyProperty.Register("ArchitectConsultant", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("ArchitectConsultant", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
 
 
 
@@ -466,7 +480,86 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for BuildingCompanyConsultant.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty BuildingCompanyConsultantProperty =
-            DependencyProperty.Register("BuildingCompanyConsultant", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("BuildingCompanyConsultant", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
+
+
+
+        /// <summary>
+        /// 業主顧問
+        /// </summary>
+        public string OwnerAdvisor
+        {
+            get { return (string)GetValue(OwnerAdvisorProperty); }
+            set { SetValue(OwnerAdvisorProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for OwnerAdvisor.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty OwnerAdvisorProperty =
+            DependencyProperty.Register("OwnerAdvisor", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
+
+
+
+
+        public string SystemType
+        {
+            get { return (string)GetValue(SystemTypeProperty); }
+            set { SetValue(SystemTypeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SystemType.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SystemTypeProperty =
+            DependencyProperty.Register("SystemType", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
+
+
+
+
+        public string SystemDesign
+        {
+            get { return (string)GetValue(SystemDesignProperty); }
+            set { SetValue(SystemDesignProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SystemDesign.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SystemDesignProperty =
+            DependencyProperty.Register("SystemDesign", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
+
+
+
+
+        public DateTime? LastUpdate
+        {
+            get { return (DateTime?)GetValue(LastUpdateProperty); }
+            set { SetValue(LastUpdateProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for LastUpdate.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty LastUpdateProperty =
+            DependencyProperty.Register("LastUpdate", typeof(DateTime?), typeof(ProjectsViewModel), new PropertyMetadata(DateTime.Today, new PropertyChangedCallback(DefaultFieldChanged)));
+
+
+
+
+        public string LastUpdateUserName
+        {
+            get { return (string)GetValue(LastUpdateUserNameProperty); }
+            set { SetValue(LastUpdateUserNameProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for LastUpdateUserName.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty LastUpdateUserNameProperty =
+            DependencyProperty.Register("LastUpdateUserName", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(string.Empty));
+
+
+
+        public string OwnerContractNumber
+        {
+            get { return (string)GetValue(OwnerContractNumberProperty); }
+            set { SetValue(OwnerContractNumberProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for OwnerContractNumber.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty OwnerContractNumberProperty =
+            DependencyProperty.Register("OwnerContractNumber", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(string.Empty));
 
 
         #endregion
@@ -500,10 +593,11 @@ namespace Tokiku.ViewModels
             CheckoutDay = 1;
             PaymentDay = 1;
 
-            ProjectContract.Add(new ProjectContractViewModel() {
+            ProjectContract.Add(new ProjectContractViewModel()
+            {
                 ContractNumber = Code,
                 Name = Name,
-                SigningDate= ProjectSigningDate
+                SigningDate = ProjectSigningDate
             });
         }
 
@@ -564,6 +658,9 @@ namespace Tokiku.ViewModels
                     var data = QueryResult.Result.SingleOrDefault();
                     BindingFromModel(data, this);
 
+                    if (data.ClientId.HasValue)
+                        Client.QueryModel(data.ClientId.Value);
+
                     if (data.SupplierTranscationItem.Any())
                     {
                         foreach (var row in data.SupplierTranscationItem)
@@ -583,7 +680,7 @@ namespace Tokiku.ViewModels
 
                     if (data.ProjectContract.Any())
                     {
-                        foreach(var row in data.ProjectContract)
+                        foreach (var row in data.ProjectContract)
                         {
                             ProjectContractViewModel model = new ProjectContractViewModel();
                             model.SetModel(row);

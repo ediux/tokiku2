@@ -51,12 +51,12 @@ namespace Tokiku.Entity
         public virtual DbSet<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
         public virtual DbSet<ShopFlow> ShopFlow { get; set; }
         public virtual DbSet<TicketTypes> TicketTypes { get; set; }
-        public virtual DbSet<Projects> Projects { get; set; }
         public virtual DbSet<SupplierTranscationItem> SupplierTranscationItem { get; set; }
         public virtual DbSet<TicketPeriod> TicketPeriod { get; set; }
         public virtual DbSet<View_BussinessItemsList> View_BussinessItemsList { get; set; }
         public virtual DbSet<View_ManufacturersBussinessTranscations> View_ManufacturersBussinessTranscations { get; set; }
         public virtual DbSet<TranscationCategories> TranscationCategories { get; set; }
         public virtual DbSet<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
+        public virtual DbSet<Projects> Projects { get; set; }
     }
 }

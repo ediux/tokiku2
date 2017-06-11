@@ -122,13 +122,13 @@ namespace Tokiku.ViewModels
             }
 
         }
-        
+
         public async void QueryByBusinessItem(Guid MaterialCategoriesId, string BusinessItem)
         {
             try
             {
                 ManufacturersManageController controller = new ManufacturersManageController();
-                var queryresult = await controller.GetManufacturersWithBusinessItemAsync(MaterialCategoriesId,BusinessItem);
+                var queryresult = await controller.GetManufacturersWithBusinessItemAsync(MaterialCategoriesId, BusinessItem);
                 if (!queryresult.HasError)
                 {
                     var objectdataset = queryresult.Result;
@@ -556,7 +556,12 @@ namespace Tokiku.ViewModels
         {
             try
             {
-
+                var exeecuteresult = controller.Query(s => s.Id == ManufacturersId);
+                if (!exeecuteresult.HasError)
+                {
+                    var data = exeecuteresult.Result.Single();
+                    BindingFromModel(data, this);
+                }
             }
             catch (Exception)
             {

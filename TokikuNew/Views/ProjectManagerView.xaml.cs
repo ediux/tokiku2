@@ -8,6 +8,7 @@ using System.Windows.Data;
 using Tokiku.Controllers;
 using Tokiku.ViewModels;
 using TokikuNew.Controls;
+using TokikuNew.Frame;
 using WinForm = System.Windows.Forms;
 
 namespace TokikuNew.Views
@@ -100,6 +101,7 @@ namespace TokikuNew.Views
                     //SelectedClient = clientcontroller.Query(s => s.Id == SelectedProject.ClientId.Value);
                 }
 
+                AddHandler(ClientListView.SelectedClientChangedEvent, new RoutedEventHandler(UserControl_OnSelectionClientChanged));
 
             }
             catch (Exception ex)
@@ -108,6 +110,24 @@ namespace TokikuNew.Views
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
 
+        }
+
+        private void UserControl_OnSelectionClientChanged(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (e.OriginalSource is ClientViewModel)
+                {
+                    SelectedClient = (ClientViewModel)e.OriginalSource;
+                    SelectedProject.Client = SelectedClient;
+                    SelectedProject.ClientId = SelectedClient.Id;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
         }
 
         /// <summary>
@@ -125,9 +145,12 @@ namespace TokikuNew.Views
                 {
                     tbShortName.Text = string.Empty;
                 }
+                if (SelectedProject != null)
+                {
+                    var foundcurrentNo = SelectedProject.ProjectContract.Where(w => w.ContractNumber == SelectedProject.Code).Single();
+                    foundcurrentNo.Name = tbName.Text;
+                }
 
-                var foundcurrentNo = SelectedProject.ProjectContract.Where(w => w.ContractNumber == SelectedProject.Code).Single();
-                foundcurrentNo.Name = tbName.Text;
             }
             catch (Exception ex)
             {
@@ -464,6 +487,36 @@ namespace TokikuNew.Views
                 WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
             }
 
+        }
+
+        private void ProjectContactSearchBar_ResetSearch(object sender, RoutedEventArgs e)
+        {
+            if (SelectedProject != null)
+            {
+                SelectedProject.ProjectContract.Query((string)string.Empty);
+            }
+        }
+
+        private void ProjectContactSearchBar_Search(object sender, RoutedEventArgs e)
+        {
+            if (SelectedProject != null)
+            {
+                SelectedProject.ProjectContract.Query((string)e.OriginalSource);
+            }
+        }
+
+        private void btnClientDialog_Click(object sender, RoutedEventArgs e)
+        {
+            ClientSelectionDialog dlg = new ClientSelectionDialog();
+            if (dlg.ShowDialog() == true)
+            {
+                if (dlg.SelectedClient != null)
+                {
+                    ((ProjectsViewModel)DataContext).Client  = dlg.SelectedClient;
+                    ((ProjectsViewModel)DataContext).ClientId = dlg.SelectedClient.Id;
+                    SelectedClient = SelectedProject.Client;
+                }
+            }
         }
     }
 }

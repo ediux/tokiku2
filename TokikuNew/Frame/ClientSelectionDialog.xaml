@@ -1,0 +1,13 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TokikuNew.Frame"
+        xmlns:Views="clr-namespace:TokikuNew.Views" x:Class="TokikuNew.Frame.ClientSelectionDialog"
+        mc:Ignorable="d"
+        Title="選擇客戶" Height="300" Width="500" Loaded="Window_Loaded">
+    <Grid>
+        <Views:ClientListView x:Name="ClientSelectionList" Margin="2" SelectedClientChanged="ClientListView_SelectedClientChanged" />
+    </Grid>
+</Window>

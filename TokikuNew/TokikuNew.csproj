@@ -80,6 +80,9 @@
       <DependentUpon>SearchBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="ERPDocumentViewerControlBase.cs" />
+    <Compile Include="Frame\ClientSelectionDialog.xaml.cs">
+      <DependentUpon>ClientSelectionDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Frame\OptionWindow.xaml.cs">
       <DependentUpon>OptionWindow.xaml</DependentUpon>
     </Compile>
@@ -156,6 +159,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\SearchBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Frame\ClientSelectionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
