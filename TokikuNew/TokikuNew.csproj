@@ -150,7 +150,7 @@
     <Compile Include="Views\VendorListView.xaml.cs">
       <DependentUpon>VendorListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WorkingView.xaml.cs">
+    <Compile Include="Views\WorkingView.xaml.cs">
       <DependentUpon>WorkingView.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\ConstructionView.xaml">
@@ -297,7 +297,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="WorkingView.xaml">
+    <Page Include="Views\WorkingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
