@@ -74,6 +74,10 @@ namespace Tokiku.ViewModels
                         Add(model);
                     }
                 }
+                else
+                {
+                    ClearItems();
+                }
             }
         }
     }

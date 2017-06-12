@@ -58,6 +58,7 @@
     <Compile Include="AccessLogRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
+    <Compile Include="ActionCodes.cs" />
     <Compile Include="BOM.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>

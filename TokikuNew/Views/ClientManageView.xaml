@@ -104,7 +104,7 @@
             <GroupBox Header="相關聯絡人" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="4" Margin="2" 
                       >
                 <Grid>
-                    <local:ContactPersonManageView x:Name="ContractList" DataContext="{Binding Contracts,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Mode="{Binding Path=Mode, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <local:ContactPersonManageView x:Name="ContractList" DataContext="{Binding Contracts,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Mode="{Binding Path=Mode, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedManufacturer="{Binding DataContext, ElementName=userControl}" />
 
                 </Grid>
             </GroupBox>

@@ -80,9 +80,7 @@
             <Label Content="KG" HorizontalAlignment="Left" Height="22" Margin="557,10,0,0" VerticalAlignment="Top" Width="32"/>
         </Grid>
         <Grid HorizontalAlignment="Left" Height="48" Margin="10,480,0,0" VerticalAlignment="Top" Width="1006">
-            <c:DockBar x:Name="dockBar" Grid.Row="1" 
-                   DocumentMode="{Binding Mode, ElementName=userControl_RecvMaterialView, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" 
-                   DocumentModeChanged="DockBar_DocumentModeChanged" />
+            <c:DockBar x:Name="dockBar" Grid.Row="1" DocumentMode="Read"/>
         </Grid>
 
 

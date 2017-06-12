@@ -38,7 +38,12 @@ namespace Tokiku.Entity
         /// <summary>
         /// 狀態
         /// </summary>
-        public string State { get; set; }
+        public byte State { get; set; }
+
+        /// <summary>
+        /// 狀態文字
+        /// </summary>
+        public string StateText { get; set; }
 
         public DateTime? StartDate
         {

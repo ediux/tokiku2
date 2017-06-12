@@ -109,7 +109,7 @@ namespace TokikuNew.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-           
+
         }
 
         private void DockBar_DocumentModeChanged(object sender, RoutedEventArgs e)
@@ -155,18 +155,23 @@ namespace TokikuNew.Views
 
         private void ContractSearchBar_ResetSearch(object sender, RoutedEventArgs e)
         {
-            if (DataContext is ContactsViewModelCollection)
+            if (!SelectedManufacturer.Status.IsNewInstance)
             {
-                ((ContactsViewModelCollection)DataContext).Query((string)e.OriginalSource, SelectedManufacturer.Id, SelectedManufacturer.IsClient);
+                if (DataContext is ContactsViewModelCollection)
+                {
+                    ((ContactsViewModelCollection)DataContext).Query(((TextBox)e.OriginalSource).Text, SelectedManufacturer.Id, SelectedManufacturer.IsClient);
+                }
             }
-            
         }
 
         private void ContractSearchBar_Search(object sender, RoutedEventArgs e)
         {
-            if (DataContext is ContactsViewModelCollection)
+            if (!SelectedManufacturer.Status.IsNewInstance)
             {
-                ((ContactsViewModelCollection)DataContext).Query((string)e.OriginalSource, SelectedManufacturer.Id, SelectedManufacturer.IsClient);
+                if (DataContext is ContactsViewModelCollection)
+                {
+                    ((ContactsViewModelCollection)DataContext).Query((string)e.OriginalSource, SelectedManufacturer.Id, SelectedManufacturer.IsClient);
+                }
             }
         }
 
@@ -190,10 +195,10 @@ namespace TokikuNew.Views
             CheckBox cb = (CheckBox)e.Source;
             ContactsViewModel currentrow = (ContactsViewModel)cell.DataContext;
 
-            if (ContractList.DataContext is ClientViewModel)
+            if (ContractList.DataContext is ContactsViewModelCollection)
             {
-                var founddefuts = ((ClientViewModel)ContractList.DataContext).Contracts
-               .Where(w => w.IsDefault == true);
+                var founddefuts = ((ContactsViewModelCollection)ContractList.DataContext)
+                    .Where(w => w.IsDefault == true && w.Id != currentrow.Id);
 
                 if (founddefuts.Any())
                 {
@@ -231,7 +236,8 @@ namespace TokikuNew.Views
                 }
             }
 
-            currentrow.IsDefault = true;
+            if (currentrow.IsDefault == false)
+                currentrow.IsDefault = true;
 
         }
     }

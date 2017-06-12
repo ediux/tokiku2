@@ -17,8 +17,8 @@
         </Grid.RowDefinitions>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="60*" />
-                <RowDefinition Height="40*" />
+                <RowDefinition Height="73*" />
+                <RowDefinition Height="27*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50*"/>
@@ -316,6 +316,9 @@
                         </Controls:CustomDataGrid.ContextMenu>
                     </Controls:CustomDataGrid>
                 </Grid>
+            </GroupBox>
+            <GroupBox Grid.Column="1" Header="收貨地點" Margin="5" Grid.Row="1">
+                
             </GroupBox>
         </Grid>
         <Controls:DockBar x:Name="dockBar" Grid.Row="1" DocumentMode="{Binding Path=Mode,Mode=TwoWay,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True, ElementName=userControl}" DocumentModeChanged="DockBar_DocumentModeChanged" />

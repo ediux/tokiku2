@@ -76,16 +76,18 @@ namespace TokikuNew.Controls
         {
             try
             {
-                e.Handled = true;
+               
 
                 if (e.Key == Key.Enter)
                 {
+                    e.Handled = true;
                     RaiseEvent(new RoutedEventArgs(SearchEvent, tbSearchBar.Text));
                 }
                 else
                 {
                     if (e.Key == Key.Escape)
                     {
+                        e.Handled = true;
                         RaiseEvent(new RoutedEventArgs(ResetSearchEvent, tbSearchBar));
                         tbSearchBar.Text = "";
                     }

@@ -203,10 +203,10 @@ namespace Tokiku.Controllers
                                      Code = p.Code,
                                      Name = p.Name,
                                      ShortName = p.ShortName,
-                                     State = p.States.StateName,
+                                     State = p.State,
+                                     StateText = p.States.StateName,
                                      StartDate = p.StartDate,
                                      CompletionDate = p.CompletionDate,
-
                                  };
 
                     return ExecuteResultEntity<ICollection<ProjectListEntity>>.CreateResultEntity(
@@ -251,121 +251,107 @@ namespace Tokiku.Controllers
                 return ExecuteResultEntity<ICollection<States>>.CreateErrorResultEntity(ex);
             }
         }
-        //public override ExecuteResultEntity<Projects> Update(Projects fromModel, bool isLastRecord = true)
-        //{
-        //    try
-        //    {
+        public override ExecuteResultEntity<Projects> Update(Projects fromModel, bool isLastRecord = true)
+        {
+            try
+            {
 
+                var repo = RepositoryHelper.GetProjectsRepository();
+                database = repo.UnitOfWork;
 
-        //        using (database)
-        //        {
-        //            var original = (from q in database.Projects
-        //                            where q.Id == updatedProject.Id
-        //                            select q).Single();
+                var original = (from q in repo.All()
+                                where q.Id == fromModel.Id
+                                select q).Single();
 
-        //            if (original != null)
-        //            {
-        //                CopyToModel(original, updatedProject);
-        //                if (updatedProject.ProjectContract.Any())
-        //                {
-        //                    Stack<ProjectContract> removeStack = new Stack<ProjectContract>();
+                if (original != null)
+                {
+                    CheckAndUpdateValue(fromModel, original);
 
-        //                    foreach (var rowindb in original.ProjectContract)
-        //                    {
-        //                        if (updatedProject.ProjectContract.Where(w => w.Id == rowindb.Id).Any() == false)
-        //                        {
-        //                            //remove(指資料真的被移除了)
-        //                            removeStack.Push(rowindb);
-        //                        }
-        //                    }
+                    var toDel = original.ProjectContract.Select(s => s.Id).Except(fromModel.ProjectContract.Select(s => s.Id)).ToList();
+                    var toAdd = fromModel.ProjectContract.Select(s => s.Id).Except(original.ProjectContract.Select(s => s.Id)).ToList();
+                    var samerows = original.ProjectContract.Select(s => s.Id).Intersect(fromModel.ProjectContract.Select(s => s.Id)).ToList();
 
-        //                    if (removeStack.Count > 0)
-        //                    {
-        //                        while (removeStack.Count > 0)
-        //                        {
-        //                            original.ProjectContract.Remove(removeStack.Pop());
-        //                        }
-        //                    }
+                    Stack<ProjectContract> RemoveStack = new Stack<ProjectContract>();
+                    Stack<ProjectContract> AddStack = new Stack<ProjectContract>();
 
-        //                    foreach (var row in updatedProject.ProjectContract)
-        //                    {
-        //                        if (original.ProjectContract.Where(w => w.Id == row.Id).Any())
-        //                        {
-        //                            var foundinoriginal = original.ProjectContract.Where(w => w.Id == row.Id).Single();
-        //                            CopyToModel(foundinoriginal, row);
+                    foreach (var delitem in toDel)
+                    {
+                        RemoveStack.Push(original.ProjectContract.Where(w => w.Id == delitem).Single());
+                    }
 
-        //                        }
-        //                        else
-        //                        {
-        //                            ProjectContract newData = new ProjectContract();
-        //                            CopyToModel(newData, row);
-        //                            newData.ProjectId = original.Id;
-        //                            original.ProjectContract.Add(newData);
-        //                        }
-        //                    }
-        //                }
+                    foreach (var additem in toAdd)
+                    {
+                        AddStack.Push(fromModel.ProjectContract.Where(w => w.Id == additem).Single());
+                    }
 
-        //                database.SaveChanges();
-        //            }
-        //            updatedProject = Query(s => s.Id == updatedProject.Id);
-        //            return updatedProject;
-        //        }
+                    while (RemoveStack.Count > 0)
+                    {
+                        original.ProjectContract.Remove(RemoveStack.Pop());
+                    }
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        setErrortoModel(updatedProject, ex);
-        //        return updatedProject;
-        //    }
-        //    finally
-        //    {
-        //        database = new TokikuEntities();
-        //    }
+                    while (AddStack.Count > 0)
+                    {
+                        original.ProjectContract.Add(AddStack.Pop());
+                    }
 
-        //}
+                    foreach (var sameitem in samerows)
+                    {
+                        ProjectContract Source = fromModel.ProjectContract.Where(w => w.Id == sameitem).Single();
+                        ProjectContract Target = original.ProjectContract.Where(w => w.Id == sameitem).Single();
+                        CheckAndUpdateValue(Source, Target);
+                    }
 
-        //public override ExecuteResultEntity<ICollection<Projects>> Query(Expression<Func<Projects, bool>> filiter)        
-        //{
-        //    try
-        //    {
-        //        var result = database.Projects
-        //            .Where(filiter)
-        //            .Where(w => w.Void == false)
-        //            .OrderBy(s => s.State)
-        //            .OrderBy(p => p.Code)
-        //            .SingleOrDefault();
+                    var toDelBI = original.SupplierTranscationItem.Select(s => new { s.ProjectId, s.ManufacturersBussinessItemsId })
+                        .Except(fromModel.SupplierTranscationItem.Select(s => new { s.ProjectId, s.ManufacturersBussinessItemsId })).ToList();
+                    var toAddBI = fromModel.SupplierTranscationItem.Select(s => new { s.ProjectId, s.ManufacturersBussinessItemsId }).Except(original.SupplierTranscationItem.Select(s => new { s.ProjectId, s.ManufacturersBussinessItemsId })).ToList();
+                    var samerowsBI = original.SupplierTranscationItem.Select(s => new { s.ProjectId, s.ManufacturersBussinessItemsId }).Intersect(fromModel.SupplierTranscationItem.Select(s => new { s.ProjectId, s.ManufacturersBussinessItemsId })).ToList();
 
-        //        ProjectsViewModel model = BindingFromModel(result);
+                    Stack<SupplierTranscationItem> RemoveStackBI = new Stack<SupplierTranscationItem>();
+                    Stack<SupplierTranscationItem> AddStackBI = new Stack<SupplierTranscationItem>();
 
-        //        model.Status.IsNewInstance = false;
+                    foreach (var delitem in toDelBI)
+                    {
+                        RemoveStackBI.Push(original.SupplierTranscationItem.Where(w => w.ProjectId == delitem.ProjectId && w.ManufacturersBussinessItemsId== delitem.ManufacturersBussinessItemsId).Single());
+                    }
 
+                    foreach (var additem in toAddBI)
+                    {
+                        AddStackBI.Push(fromModel.SupplierTranscationItem.Where(w => w.ProjectId == additem.ProjectId && w.ManufacturersBussinessItemsId == additem.ManufacturersBussinessItemsId).Single());
+                    }
 
-        //        model.ProjectContract = new ProjectContractViewModelCollection();
+                    while (RemoveStackBI.Count > 0)
+                    {
+                        original.SupplierTranscationItem.Remove(RemoveStackBI.Pop());
+                    }
 
-        //        if (result.ProjectContract.Any())
-        //        {
-        //            foreach (var row in result.ProjectContract)
-        //            {
-        //                model.ProjectContract.Add(BindingFromModel<ProjectContractViewModel, ProjectContract>(row));
-        //            }
-        //        }
+                    while (AddStackBI.Count > 0)
+                    {
+                        original.SupplierTranscationItem.Add(AddStackBI.Pop());
+                    }
 
-        //        using (ManufacturersManageController mc = new ManufacturersManageController())
-        //        {
-        //            model.Clients = ClientController.QueryAll();
-        //        }
+                    foreach (var sameitem in samerowsBI)
+                    {
+                        SupplierTranscationItem Source = fromModel.SupplierTranscationItem.Where(w => w.ProjectId == sameitem.ProjectId && w.ManufacturersBussinessItemsId == sameitem.ManufacturersBussinessItemsId).Single();
+                        SupplierTranscationItem Target = original.SupplierTranscationItem.Where(w => w.ProjectId == sameitem.ProjectId && w.ManufacturersBussinessItemsId == sameitem.ManufacturersBussinessItemsId).Single();
+                        CheckAndUpdateValue(Source, Target);
+                    }
 
+                    repo.UnitOfWork.Commit();
 
+                }
 
-        //        return model;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        var model = new ProjectsViewModel();
-        //        setErrortoModel(model, ex);
-        //        return model;
-        //    }
-        //}
+                fromModel = repo.Get(original.Id);
+
+                return ExecuteResultEntity<Projects>.CreateResultEntity(fromModel);
+
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<Projects>.CreateErrorResultEntity(ex);
+            }
+
+        }
+     
 
         public void Delete(Guid ProjectId, Guid UserId)
         {
@@ -381,10 +367,7 @@ namespace Tokiku.Controllers
                 {
                     var data = result.Single();
                     data.Void = true;
-
-
-                    //database.AccessLog.Add(new AccessLog() { ActionCode = 3, CreateTime = DateTime.Now, DataId = ProjectId, UserId = UserId });
-                    //database.SaveChanges();
+                    Update(data);
                 }
 
             }
@@ -404,13 +387,16 @@ namespace Tokiku.Controllers
                     var result = projectsrepo.Where(s => s.Code.Contains(text)
                      || s.Name.Contains(text)
                     || (s.ShortName != null && s.ShortName.Contains(text)))
+                    .OrderBy(s=>s.State)
+                    .OrderBy(s=>s.Code)
                     .Select(s => new ProjectListEntity()
                     {
                         Id = s.Id,
                         Code = s.Code,
                         Name = s.Name,
                         ShortName = s.ShortName,
-                        State = s.States.StateName,
+                        State = s.State,
+                        StateText = s.States.StateName,
                         StartDate = s.StartDate,
                         CompletionDate = s.CompletionDate,
                     })

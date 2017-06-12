@@ -119,10 +119,9 @@ namespace Tokiku.Controllers
                 {
                     ManufacturersRepository repo = RepositoryHelper.GetManufacturersRepository();
                     database = repo.UnitOfWork;
-                    var result = (from p in repo.All()
-                                  from b in p.ManufacturersBussinessItems
+                    var result = (from p in repo.All()                                
                                   where p.Void == false && p.IsClient == false &&
-                                  (p.Name.Contains(originalSource) || p.Principal.Contains(originalSource) || b.Name.Contains(originalSource))
+                                  (p.Name.Contains(originalSource) || p.Principal.Contains(originalSource))
                                   orderby p.Code ascending
                                   select p);
 
@@ -306,12 +305,15 @@ namespace Tokiku.Controllers
         {
             try
             {
-                using (var ManufacturersRepository = RepositoryHelper.GetManufacturersRepository(database))
+                using (var ManufacturersRepository = RepositoryHelper.GetManufacturersRepository())
                 {
+                    database = ManufacturersRepository.UnitOfWork;
+
+                    AccessLogRepository accesslog = RepositoryHelper.GetAccessLogRepository(database);
 
                     var LoginedUser = GetCurrentLoginUser();
                     var dbm = (from q in ManufacturersRepository.All()
-                               where q.Id == fromModel.Id && q.Void == false
+                               where q.Id == fromModel.Id
                                select q).SingleOrDefault();
 
                     if (dbm != null)
@@ -389,6 +391,15 @@ namespace Tokiku.Controllers
                     }
 
                     ManufacturersRepository.UnitOfWork.Commit();
+
+                    accesslog.Add(new AccessLog()
+                    {
+                        ActionCode = (Byte)ActionCodes.Update,
+                        CreateTime = DateTime.Now,
+                        DataId = dbm.Id,
+                        Reason = "更新資料",
+                        UserId = LoginedUser.Result.UserId
+                    });
 
                     var rtn = Query(w => w.Id == fromModel.Id);
                     return ExecuteResultEntity<Manufacturers>.CreateResultEntity(rtn.Result.SingleOrDefault());

@@ -316,6 +316,8 @@
           <Property Name="Comment" Type="nvarchar(max)" />
           <Property Name="OwnerAdvisor" Type="nvarchar" MaxLength="250" />
           <Property Name="OwnerContractNumber" Type="nvarchar" MaxLength="250" />
+          <Property Name="SiteContactPerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="SiteContactPersonPhone" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="PromissoryNoteManagement">
           <Key>
@@ -2522,6 +2524,8 @@
           <NavigationProperty Name="States" Relationship="TokikuModel.FK_Projects_States" FromRole="Projects" ToRole="States" />
           <NavigationProperty Name="SupplierTranscationItem" Relationship="TokikuModel.FK_SupplierTranscationItem_Projects" FromRole="Projects" ToRole="SupplierTranscationItem" />
           <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.ClientsInProjects" FromRole="Projects" ToRole="Manufacturers" />
+          <Property Name="SiteContactPersonPhone" Type="String" Nullable="false" />
+          <Property Name="SiteContactPerson" Type="String" Nullable="false" />
         </EntityType>
         <Association Name="FK_MoldsInProjects_Projects">
           <End Type="TokikuModel.Projects" Role="Projects" Multiplicity="1" />
@@ -3036,6 +3040,8 @@
           <EntitySetMapping Name="Projects">
             <EntityTypeMapping TypeName="TokikuModel.Projects">
               <MappingFragment StoreEntitySet="Projects">
+                <ScalarProperty Name="SiteContactPersonPhone" ColumnName="SiteContactPersonPhone" />
+                <ScalarProperty Name="SiteContactPerson" ColumnName="SiteContactPerson" />
                 <ScalarProperty Name="OwnerContractNumber" ColumnName="OwnerContractNumber" />
                 <ScalarProperty Name="OwnerAdvisor" ColumnName="OwnerAdvisor" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />

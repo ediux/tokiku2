@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using Tokiku.Controllers;
 using Tokiku.Entity;
 using Tokiku.ViewModels;
@@ -96,29 +97,23 @@ namespace TokikuNew.Views
 
                 //UI設定
                 BussinessItemSheet.StartSheetIndex = 0;
+                Dictionary<GrapeCity.Windows.SpreadSheet.UI.KeyStroke, GrapeCity.Windows.SpreadSheet.UI.SpreadAction> keyMap = BussinessItemSheet.View.KeyMap;
+                keyMap.Add(new GrapeCity.Windows.SpreadSheet.UI.KeyStroke(Key.F12, ModifierKeys.None), new GrapeCity.Windows.SpreadSheet.UI.SpreadAction(OnInsertSumFormula));
+
+
                 BussinessItemSheet.Sheets.Clear();
+                Worksheet BISheet = BussinessItemSheet.Sheets[0];
 
-                Worksheet BISheet = new Worksheet();
-                BISheet.ColumnHeader.AutoText = HeaderAutoText.Letters;
-                BussinessItemSheet.Sheets.Add(BISheet);
-                BussinessItemSheet.CanUserEditFormula = false;
-                BussinessItemSheet.CanUserUndo = true;
-                BussinessItemSheet.CanUserZoom = true;
-
-                MaterialCategoriesViewModelCollection MaterialCategories = (MaterialCategoriesViewModelCollection)FindResource("MaterialCategoriesSource");
-
-                if (MaterialCategories != null)
-                {
-                    MaterialCategories.Refresh();
-                }
-
-                BISheet.AddRows(0, SelectedManufacturers.ManufacturersBussinessItems.Count);
-                BISheet.Name = "營業項目";
-                BISheet.ColumnHeader.Columns[0].Label = "材料類別";
-                BISheet.ColumnHeader.Columns[1].Label = "交易品項";
-                BISheet.ColumnHeader.Columns[2].Label = "交易類別";
-                BISheet.ColumnHeader.Columns[3].Label = "支付方式";
-                BISheet.ColumnHeader.Columns[4].Label = "票期設定";
+                BussinessItemSheet.Sheets[0].ColumnHeader.Columns[0].Label = "材料類別";
+                BussinessItemSheet.Sheets[0].ColumnHeader.Columns[0].DataField = "MaterialCategories";
+                BussinessItemSheet.Sheets[0].ColumnHeader.Columns[1].Label = "交易品項";
+                BussinessItemSheet.Sheets[0].ColumnHeader.Columns[1].DataField = "Name";
+                BussinessItemSheet.Sheets[0].ColumnHeader.Columns[2].Label = "交易類別";
+                BussinessItemSheet.Sheets[0].ColumnHeader.Columns[2].DataField = "TranscationCategories";
+                BussinessItemSheet.Sheets[0].ColumnHeader.Columns[3].Label = "支付方式";
+                BussinessItemSheet.Sheets[0].ColumnHeader.Columns[3].DataField = "PaymentTypeName";
+                BussinessItemSheet.Sheets[0].ColumnHeader.Columns[4].Label = "票期設定";
+                BussinessItemSheet.Sheets[0].ColumnHeader.Columns[4].DataField = "TicketPeriod";
 
                 if (SelectedManufacturers.ManufacturersBussinessItems.Any())
                 {
@@ -131,12 +126,87 @@ namespace TokikuNew.Views
                         BISheet.Rows[i].SetText(4, SelectedManufacturers.ManufacturersBussinessItems[i].TicketPeriod);
                     }
                 }
+
+                BussinessItemSheet.Invalidate();
+                //if (BussinessItemSheet.SheetCount > 0)
+                //{
+                //    BussinessItemSheet.Sheets[0].Name = "營業項目";
+                //    //BussinessItemSheet.Sheets[0].DataSource = SelectedManufacturers.ManufacturersBussinessItems;
+
+                //    if (BussinessItemSheet.Sheets[0].ColumnCount >= 5)
+                //    {
+                //        int count = BussinessItemSheet.Sheets[0].ColumnCount - 5;
+
+                //        for (int i = 0; i < count; i++)
+                //        {
+                //            BussinessItemSheet.Sheets[0].ColumnHeader.Columns[0].Remove();
+                //        }
+
+                //        //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[1].Remove();
+                //        //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[4].Remove();
+                //        //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[8].IsVisible = false;
+                //        //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[9].IsVisible = false;
+                //        //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[11].IsVisible = false;
+                //        //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[12].IsVisible = false;
+                //        //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[13].IsVisible = false;
+                //        //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[14].IsVisible = false;
+                //        //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[15].IsVisible = false;
+                //        //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[16].IsVisible = false;
+                //        //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[17].IsVisible = false;
+
+                //        //BussinessItemSheet.Sheets[0].BindDataColumn(0, "MaterialCategories");
+                //        //BussinessItemSheet.Sheets[0].BindDataColumn(1, "Name");
+                //        //BussinessItemSheet.Sheets[0].BindDataColumn(2, "MaterialCategories");
+                //        //BussinessItemSheet.Sheets[0].BindDataColumn(3, "MaterialCategories");
+                //        //BussinessItemSheet.Sheets[0].BindDataColumn(4, "MaterialCategories");
+
+
+                //    }
+
+                //}
+
+
+                //Worksheet BISheet = new Worksheet();
+                //BISheet.ColumnHeader.AutoText = HeaderAutoText.Letters;
+                //BussinessItemSheet.Sheets.Add(BISheet);
+                //BussinessItemSheet.CanUserEditFormula = false;
+                //BussinessItemSheet.CanUserUndo = true;
+                //BussinessItemSheet.CanUserZoom = true;
+
+                //MaterialCategoriesViewModelCollection MaterialCategories = (MaterialCategoriesViewModelCollection)FindResource("MaterialCategoriesSource");
+
+                //if (MaterialCategories != null)
+                //{
+                //    MaterialCategories.Refresh();
+                //}
+
+                //BISheet.AddRows(0, SelectedManufacturers.ManufacturersBussinessItems.Count);
+                //BISheet.Name = "營業項目";
+                //BISheet.ColumnHeader.Columns[0].Label = "材料類別";
+                //BISheet.ColumnHeader.Columns[1].Label = "交易品項";
+                //BISheet.ColumnHeader.Columns[2].Label = "交易類別";
+                //BISheet.ColumnHeader.Columns[3].Label = "支付方式";
+                //BISheet.ColumnHeader.Columns[4].Label = "票期設定";
+
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
 
+        }
+
+        private void OnInsertSumFormula(object sender, GrapeCity.Windows.SpreadSheet.UI.ActionEventArgs args)
+        {
+          
+            //BussinessItemSheet.Sheets[0].AddRows(BussinessItemSheet.Sheets[0].RowCount, 1);
+
+            //for (int c = 0; c < 5; c++)
+            //{
+            //    BussinessItemSheet.Sheets[0].AddColumns(c, 1);
+            //}
+         
         }
 
         private void tbName_TextChanged(object sender, TextChangedEventArgs e)
@@ -194,7 +264,7 @@ namespace TokikuNew.Views
 
                         ManufacturersBussinessItemsViewModelColletion CurrentSheet = new ManufacturersBussinessItemsViewModelColletion();
 
-                        for (int i = 0; i < SelectedManufacturers.ManufacturersBussinessItems.Count; i++)
+                        for (int i = 0; i < BussinessItemSheet.Sheets[0].RowCount; i++)
                         {
                             try
                             {
@@ -340,7 +410,7 @@ namespace TokikuNew.Views
                 {
                     tbInvoiceAddress.Text = tbAddress.Text;
                 }
-                
+
             }
             catch (Exception ex)
             {

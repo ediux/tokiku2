@@ -164,34 +164,18 @@ namespace Tokiku.ViewModels
                     {
                         data.Contacts = new Collection<Entity.Contacts>();
 
-                        Parallel.ForEach(Contracts, (x) =>
+                        foreach(var x in Contracts)
                         {
-                            x.Initialized();
-
-                            lock (this)
+                            if (x.Status.IsNewInstance)
                             {
                                 x.CreateTime = CreateTime;
+                                x.CreateUserId = LoginedUser.UserId;
                             }
 
-
-                            if (x.CreateUserId == Guid.Empty)
-                            {
-                                lock (LoginedUser)
-                                {
-                                    x.CreateUserId = LoginedUser.UserId;
-                                }
-
-                            }
-
-                            Entity.Contacts contact = null;
-
+                            Entity.Contacts contact = new Entity.Contacts();
                             CopyToModel(contact, x);
-
-                            lock (data)
-                            {
-                                data.Contacts.Add(contact);
-                            }
-                        });
+                            data.Contacts.Add(contact);
+                        }
                     }
                 }
 

@@ -51,6 +51,8 @@ namespace Tokiku.Entity
         public string Comment { get; set; }
         public string OwnerAdvisor { get; set; }
         public string OwnerContractNumber { get; set; }
+        public string SiteContactPersonPhone { get; set; }
+        public string SiteContactPerson { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MoldsInProjects> MoldsInProjects { get; set; }

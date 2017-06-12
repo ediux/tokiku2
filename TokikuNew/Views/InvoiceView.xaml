@@ -176,9 +176,7 @@
             <TextBox HorizontalAlignment="Left" Height="24" Margin="907,12,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="94"/>
         </Grid>
         <Grid HorizontalAlignment="Left" Height="44" Margin="15,637,0,0" VerticalAlignment="Top" Width="1006">
-            <c:DockBar x:Name="dockBar" Grid.Row="1" 
-                   DocumentMode="{Binding Mode, ElementName=userControl_RecvMaterialView, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" 
-                   DocumentModeChanged="DockBar_DocumentModeChanged" />
+            <c:DockBar x:Name="dockBar" Grid.Row="1" />
         </Grid>
 
 

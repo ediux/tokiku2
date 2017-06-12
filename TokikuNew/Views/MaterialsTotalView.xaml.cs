@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -40,6 +41,15 @@ namespace TokikuNew.Views
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void btnImport_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+            {
+                MoldsWorkBookImports.OpenExcel(openFileDialog.FileName);
+            }
         }
     }
 }

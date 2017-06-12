@@ -52,10 +52,9 @@ namespace Tokiku.Controllers
                 {
                     var result = (from p in repo.All()
                                   from q in p.Manufacturers
-                                  where (p.Void == false && p.Id == ManufactoryId
+                                  where (p.Void == false && q.Id == ManufactoryId
                                   && q.IsClient == isClient) ||
-                                  (p.Name.Contains(filiter) || p.Phone.Contains(filiter)
-                           )
+                                  (p.Name.Contains(filiter) || p.Phone.Contains(filiter))
                                   orderby p.IsDefault ascending, q.Name ascending
                                   select p);
 
@@ -68,7 +67,7 @@ namespace Tokiku.Controllers
                     var result = (from p in repo.All()
                                   from q in p.Manufacturers
                                   where q.Void == false && q.IsClient == isClient
-                                  && p.Id == ManufactoryId
+                                  && q.Id == ManufactoryId
                                   orderby p.IsDefault ascending, p.Name ascending
                                   select p);
 

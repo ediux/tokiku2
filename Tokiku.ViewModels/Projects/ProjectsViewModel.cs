@@ -36,9 +36,12 @@ namespace Tokiku.ViewModels
 
             if (!queryresult.HasError)
             {
+                ClearItems();
                 foreach (var row in queryresult.Result)
                 {
-                    Add(BindingFromModel(row));
+                    ProjectsViewModel model = new ProjectsViewModel();
+                    model.SetModel(row);
+                    Add(model);
                 }
             }
             else
@@ -53,10 +56,11 @@ namespace Tokiku.ViewModels
             var queryresult = _projectcontroller.Query(a => a.Void == false && a.ClientId == Client);
             if (!queryresult.HasError)
             {
+                ClearItems();
                 foreach (var row in queryresult.Result)
                 {
-                    ProjectsViewModel model = BindingFromModel(row);
-
+                    ProjectsViewModel model = new ProjectsViewModel();
+                    model.SetModel(row);
                     Add(model);
                 }
             }
@@ -604,7 +608,10 @@ namespace Tokiku.ViewModels
         public override void SaveModel()
         {
             Projects data = new Projects();
-            data.Id = Guid.NewGuid();
+
+            if (Status.IsNewInstance)
+                data.Id = Guid.NewGuid();
+
             CopyToModel(data, this);
 
             if (ProjectContract != null)
@@ -614,7 +621,9 @@ namespace Tokiku.ViewModels
                     if (model != null)
                     {
                         ProjectContract pcdata = new ProjectContract();
+                   
                         CopyToModel(pcdata, model);
+                        pcdata.ProjectId = data.Id;
                         data.ProjectContract.Add(pcdata);
                     }
                 }
@@ -663,6 +672,7 @@ namespace Tokiku.ViewModels
 
                     if (data.SupplierTranscationItem.Any())
                     {
+                        Suppliers.Clear();
                         foreach (var row in data.SupplierTranscationItem)
                         {
                             SuppliersViewModel model = new SuppliersViewModel();
@@ -680,6 +690,7 @@ namespace Tokiku.ViewModels
 
                     if (data.ProjectContract.Any())
                     {
+                        ProjectContract.Clear();
                         foreach (var row in data.ProjectContract)
                         {
                             ProjectContractViewModel model = new ProjectContractViewModel();
@@ -705,6 +716,30 @@ namespace Tokiku.ViewModels
         public override void Refresh()
         {
             Query();
+        }
+
+        public override void SetModel(dynamic entity)
+        {
+            Projects data = (Projects)entity;
+            BindingFromModel(data, this);
+            ProjectContract.Query(data.Id);
+            
+            if (data.SupplierTranscationItem.Any())
+            {
+                foreach (var row in data.SupplierTranscationItem)
+                {
+                    SuppliersViewModel model = new SuppliersViewModel();
+                    model.ProjectId = row.ProjectId;
+                    model.PlaceofReceipt = row.PlaceofReceipt;
+                    model.ManufacturersName = row.ManufacturersBussinessItems.Manufacturers.Name;
+                    model.TicketPeriod = row.ManufacturersBussinessItems.TicketPeriod.Name;
+                    model.MaterialCategories = row.ManufacturersBussinessItems.MaterialCategories.Name;
+                    model.PaymentTypeName = row.ManufacturersBussinessItems.PaymentTypes.PaymentTypeName;
+                    model.TranscationCategories = row.ManufacturersBussinessItems.TranscationCategories.Name;
+                    model.SetModel(row.ManufacturersBussinessItems);
+                    Suppliers.Add(model);
+                }
+            }
         }
         #endregion
 

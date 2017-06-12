@@ -225,5 +225,34 @@ namespace TokikuNew.Views
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        private void MI_Projects_Order_2_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                InvoiceView WinIV = new InvoiceView();
+                WinIV.ShowDialog();
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void MI_Projects_Order_3_Click(object sender, RoutedEventArgs e)
+        {
+            //RecvMaterialView
+            try
+            {
+                RecvMaterialView WinRMIV = new RecvMaterialView();
+                WinRMIV.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }

@@ -125,18 +125,18 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <TextBlock Text="銀行名稱" Grid.Row="0" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
-                    <TextBox x:Name="tbBankName" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" Margin="2" 
+                    <TextBlock Text="銀行名稱" Grid.Row="4" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBox x:Name="tbBankName" Grid.Row="4" Grid.Column="3" VerticalAlignment="Center" Margin="2" 
                              Text="{Binding BankName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                              IsEnabled="{Binding Mode, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBlock Text="銀行帳號" Grid.Row="1" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
-                    <TextBox x:Name="tbBankAccount" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" Margin="2" Text="{Binding BankAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    <TextBlock Text="銀行帳號" Grid.Row="5" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBox x:Name="tbBankAccount" Grid.Row="5" Grid.Column="3" VerticalAlignment="Center" Margin="2" Text="{Binding BankAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
 					IsEnabled="{Binding Mode, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBlock Text="帳戶名稱" Grid.Row="2" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
-                    <TextBox x:Name="tbBankAccountName" Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" Margin="2" Text="{Binding BankAccountName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    <TextBlock Text="帳戶名稱" Grid.Row="6" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBox x:Name="tbBankAccountName" Grid.Row="6" Grid.Column="3" VerticalAlignment="Center" Margin="2" Text="{Binding BankAccountName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
 					IsEnabled="{Binding Mode, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBlock Text="支付方式" Grid.Row="3" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbPaymentType" Grid.Row="3" Grid.Column="3" SelectedValuePath="Id"
+                    <TextBlock Text="支付方式" Grid.Row="7" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbPaymentType" Grid.Row="7" Grid.Column="3" SelectedValuePath="Id"
                               SelectedValue="{Binding PaymentType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               SelectedIndex="0"
                               IsEnabled="{Binding Mode, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -148,8 +148,8 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <TextBlock Text="票期" Grid.Row="4" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbTicketPeriod" Grid.Row="4" Grid.Column="3" 
+                    <TextBlock Text="票期" Grid.Row="8" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbTicketPeriod" Grid.Row="8" Grid.Column="3" 
                               SelectedValuePath="Id"
                               SelectedIndex="0"
                               SelectedValue="{Binding TicketPeriodId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -162,11 +162,11 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <TextBlock Text="行動電話" Grid.Row="5" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="5" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                    <TextBlock Text="行動電話" Grid.Row="0" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="0" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center" HorizontalAlignment="Stretch"
                             IsEnabled="{Binding Mode, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              MaxLength="10" Text="{Binding Mobile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                    <Grid Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2">
+                    <Grid Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"/>
                             <ColumnDefinition Width="25*"/>
@@ -178,10 +178,10 @@
                         <TextBlock Text="分機" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                         <TextBlock Text="{Binding Extension,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" VerticalAlignment="Center" Margin="2" />
                     </Grid>
-                    <TextBlock Text="e-mail" Grid.Row="7" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="7" Grid.Column="3" VerticalAlignment="Center" Margin="2" Text="{Binding eMail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Mode, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBlock Text="備註" Grid.Row="8" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="8" Grid.Column="3" VerticalAlignment="Stretch" Margin="2" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Mode, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Text="e-mail" Grid.Row="2" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" Margin="2" Text="{Binding eMail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Mode, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Text="備註" Grid.Row="3" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="3" Grid.Column="4" VerticalAlignment="Stretch" Margin="2" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Mode, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <Grid Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"/>
@@ -270,7 +270,11 @@
                         <Button x:Name="btnAddMBI" Content="新增" VerticalAlignment="Center" Margin="2" Grid.Row="2" Grid.Column="3" Click="btnAddMBI_Click"
                               IsEnabled="{Binding Mode, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 />
-                        <ss:GcSpreadSheet Name="BussinessItemSheet" Grid.Row="3" VerticalAlignment="Top" Margin="0" Grid.ColumnSpan="11"/>
+                        <ss:GcSpreadSheet Name="BussinessItemSheet" Grid.Row="3" VerticalAlignment="Top" Margin="0" Grid.ColumnSpan="11"
+                                          StartSheetIndex="0" AutoClipboard="True" AllowDrop="True" CanEditOverflow="True" 
+                                           IsEnabled="{Binding Mode, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                           
+                        </ss:GcSpreadSheet>
                     </Grid>
 
                 </GroupBox>

@@ -45,7 +45,6 @@
                 <DataGridTextColumn Header="公司電話" Width="70" Binding="{Binding Phone}"/>
                 <DataGridTextColumn Header="公司地址" Width="70" Binding="{Binding Address}"/>
                 <DataGridTextColumn Header="公司傳真" Width="70" Binding="{Binding Fax}"/>
-                <DataGridTextColumn Header="狀態" Width="70" Binding="{Binding Void, Converter={StaticResource Void2TextValueConvterver}}" />
             </DataGrid.Columns>
         </controls:CustomDataGrid>
     </Grid>

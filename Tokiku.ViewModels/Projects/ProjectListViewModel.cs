@@ -38,7 +38,19 @@ namespace Tokiku.ViewModels
             {
                 Clear();
                 var result = projectResult.Result
-                    .Select(s => BindingFromModel(s));
+                    .OrderBy(s=>s.State)
+                    .OrderBy(s=>s.Code)
+                    .Select(s => new ProjectListViewModel()
+                    {
+                        Code = s.Code,
+                        CompletionDate = s.CompletionDate,
+                        Id = s.Id,
+                        Name = s.Name,
+                        ShortName = s.ShortName,
+                        StartDate = s.StartDate,
+                        State = s.State
+                    });
+
                 foreach (var row in result)
                 {
                     Add(row);
@@ -48,17 +60,32 @@ namespace Tokiku.ViewModels
         }
         public void QueryByText(string text)
         {
-            var executeresult = _projects_controller.SearchByText(text);
-
-            if (!executeresult.HasError)
+            var projectResult = _projects_controller.SearchByText(text);
+            if (!projectResult.HasError)
             {
                 Clear();
-                var result = executeresult.Result
-                    .Select(s => BindingFromModel(s));
+                var result = projectResult.Result
+                    .Where(s => s.Code.Contains(text)
+                     || s.Name.Contains(text)
+                    || (s.ShortName != null && s.ShortName.Contains(text)))
+                    .OrderBy(s => s.State)
+                    .Select(s => new ProjectListViewModel()
+                    {
+                        Code = s.Code,
+                        CompletionDate = s.CompletionDate,
+                        Id = s.Id,
+                        Name = s.Name,
+                        ShortName = s.ShortName,
+                        StartDate = s.StartDate,
+                        State = s.State
+                        
+                    });
+
                 foreach (var row in result)
                 {
                     Add(row);
                 }
+
             }
         }
 
