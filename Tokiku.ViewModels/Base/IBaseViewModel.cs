@@ -1,8 +1,5 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Collections.ObjectModel;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Tokiku.ViewModels
 {
@@ -19,12 +16,6 @@ namespace Tokiku.ViewModels
         /// 指出是否發生錯誤
         /// </summary>
         bool HasError { get; set; }
-
-        /// <summary>
-        /// 對模型發出查詢命令的非同步方法，將查詢回來的單一列結果抄寫到檢視模型中
-        /// </summary>
-        /// <returns></returns>
-        Task QueryAsync();
 
         /// <summary>
         /// 對模型發出查詢命令，將查詢回來的單一列結果抄寫到檢視模型中

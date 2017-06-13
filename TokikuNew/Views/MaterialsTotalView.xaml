@@ -23,26 +23,7 @@
             <Button x:Name="btnImport" Grid.Row="1" Grid.Column="2"  Width="50" Content="匯入" Margin="2" Click="btnImport_Click"/>
             <Controls:SearchBar Grid.Row="1" Grid.Column="1" Margin="2" />
         </Grid>
-        <Controls:CustomDataGrid Grid.Column="0" Grid.Row="1" Margin="5,5,5,462">
-            <Controls:CustomDataGrid.Columns>
-                <DataGridTextColumn Header=""/>
-                <DataGridTextColumn Header="圖例"/>
-                <DataGridTextColumn Header="使用位置"/>
-                <DataGridTextColumn Header="專案名稱"/>
-                <DataGridTextColumn Header="東菊編號"/>
-                <DataGridTextColumn Header="廠商編號"/>
-                <DataGridTextColumn Header="材質"/>
-                <DataGridTextColumn Header="單位重(KG/M)"/>
-                <DataGridTextColumn Header="表面處理" />
-                <DataGridTextColumn Header="烤漆面積" />
-                <DataGridTextColumn Header="皮膜處理(Kg)" />
-                <DataGridTextColumn Header="最低產量"/>
-                <DataGridTextColumn Header="模具費用"/>
-                <DataGridTextColumn Header="訂單總重量"/>
-                <DataGridTextColumn Header="模具使用狀況"/>
-                <DataGridTextColumn Header="備註"/>
-            </Controls:CustomDataGrid.Columns>
-        </Controls:CustomDataGrid>
+        
         <Controls:DockBar Grid.Row="2"/>
         <ss:GcSpreadSheet x:Name="MoldsWorkBookImports" Margin="5" Grid.Row="1" />
     </Grid>

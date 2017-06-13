@@ -376,43 +376,6 @@ namespace Tokiku.Controllers
                     if (findresult != null)
                     {
                         CheckAndUpdateValue(fromModel, findresult);
-                        //Type fromSource = fromModel.GetType();
-
-                        //foreach (var prop in findresult.GetType().GetProperties())
-                        //{
-                        //    if (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition().Name == (typeof(ICollection<>).Name))
-                        //    {
-                        //        continue;
-                        //    }
-
-
-                        //    if (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition().Name == (typeof(ObservableCollection<>).Name))
-                        //    {
-                        //        continue;
-                        //    }
-
-                        //    var OldValue = prop.GetValue(findresult);
-                        //    var NewValue = fromSource.GetProperty(prop.Name).GetValue(fromModel);
-
-                        //    if (OldValue != null)
-                        //    {
-                        //        if (NewValue != null && !OldValue.Equals(NewValue))
-                        //        {
-                        //            prop.SetValue(findresult, fromSource.GetProperty(prop.Name).GetValue(fromModel));
-                        //        }
-                        //        else
-                        //        {
-                        //            continue;
-                        //        }
-                        //    }
-                        //    else
-                        //    {
-                        //        if (NewValue != null)
-                        //        {
-                        //            prop.SetValue(findresult, fromSource.GetProperty(prop.Name).GetValue(fromModel));
-                        //        }
-                        //    }
-                        //}
 
                         if (isLastRecord)
                         {

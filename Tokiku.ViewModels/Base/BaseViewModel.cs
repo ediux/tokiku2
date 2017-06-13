@@ -4,10 +4,8 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Threading;
 
 namespace Tokiku.ViewModels
@@ -126,7 +124,6 @@ namespace Tokiku.ViewModels
 #if DEBUG
                     Debug.WriteLine("結束抄寫.");
 #endif
-
                 }
                 catch (Exception ex)
                 {
@@ -134,8 +131,6 @@ namespace Tokiku.ViewModels
 
                 }
             }
-
-
         }
 
        
@@ -441,8 +436,6 @@ namespace Tokiku.ViewModels
             DoEvents();
         }
     }
-
-
 }
 
 
