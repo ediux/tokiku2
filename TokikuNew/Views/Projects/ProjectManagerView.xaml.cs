@@ -644,7 +644,17 @@ namespace TokikuNew.Views
         {
             try
             {
+                if (CBVandorSelectionForRecvAddress == null)
+                    return;
+
                 var selectedvalue = (Guid)CBVandorSelectionForRecvAddress.SelectedValue;
+
+                if (selectedvalue == null)
+                    return;
+
+                if (SelectedProject == null)
+                    return;
+
                 var newCBSource = SelectedProject.Suppliers.Where(s => s.ManufacturersId == selectedvalue)
                     .Select(s => new
                     {
@@ -653,14 +663,14 @@ namespace TokikuNew.Views
                         s.ManufacturersName,
                         s.PlaceofReceipt,
                         s.Manufacturers.Contacts.Where(w => w.IsDefault == true).SingleOrDefault()?.Name,
-                        s.Manufacturers.Contacts.Where(w => w.IsDefault == true).SingleOrDefault()?.Phone,
+                        Phone = s.Manufacturers.Contacts.Where(w => w.IsDefault == true).SingleOrDefault()?.Phone ?? s.Manufacturers.Contacts.Where(w => w.IsDefault == true).SingleOrDefault()?.Mobile,
                         s.SiteContactPerson,
                         s.SiteContactPersonPhone,
                         LastUpdateUser = LoginedUser.UserName
                     }).ToList();
 
-                CBRecvPlaceSelection.ItemsSource = newCBSource;
-                CBRecvPlaceSelection.SelectedValuePath = "Id";
+                if (RecvDataGrid == null)
+                    return;
 
                 RecvDataGrid.ItemsSource = newCBSource;
 
@@ -717,8 +727,9 @@ namespace TokikuNew.Views
                     recvdata.SiteContactPerson = TBSiteContactPerson.Text;
                     recvdata.SiteContactPersonPhone = TBSiteContactPersonPhone.Text;
                 }
-                btnAddSiteAddress.IsEnabled = false;
 
+                btnAddSiteAddress.IsEnabled = false;
+                SelectedBIGuid = Guid.Empty;
             }
             catch (Exception ex)
             {

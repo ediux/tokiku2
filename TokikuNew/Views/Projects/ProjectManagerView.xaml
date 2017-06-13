@@ -333,14 +333,6 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <TextBlock Grid.Row="0" Grid.Column="2" Text="地點" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5,0" FontSize="15"/>
-                    <ComboBox x:Name="CBRecvPlaceSelection" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" Margin="2" SelectedValuePath="PlaceofReceipt" >
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding PlaceofReceipt}"/>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
                     <Controls:CustomDataGrid x:Name="RecvDataGrid" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" AutoGenerateColumns="False" SelectionChanged="RecvDataGrid_SelectionChanged">
                         <Controls:CustomDataGrid.Columns>
                             <DataGridTextColumn Header="廠商" Width="100*" Binding="{Binding ManufacturersName}"/>
@@ -372,7 +364,7 @@
                             <TextBlock Text="聯絡人電話" TextWrapping="Wrap" VerticalAlignment="Center" TextAlignment="Center" Grid.Row="12" Grid.Column="0" HorizontalAlignment="Right" FontSize="15"/>
                             <TextBox x:Name="TBSiteContactPersonPhone"  Margin="2" Grid.Row="12" Grid.Column="1"
                                   IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}" Width="106" />
-                            <Button x:Name="btnAddSiteAddress" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Right" Margin="2" Content="&#xE105;" Width="23" FontFamily="/Resources/#Segoe MDL2 Assets" Click="btnAddSiteAddress_Click" IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}" />
+                            <Button x:Name="btnAddSiteAddress" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Right" Margin="2" Content="&#xE105;" Width="23" FontFamily="/Resources/#Segoe MDL2 Assets" Click="btnAddSiteAddress_Click" FontSize="15" />
                         </StackPanel>
                     </Grid>
                 </Grid>
