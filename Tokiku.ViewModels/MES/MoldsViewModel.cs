@@ -157,7 +157,7 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 物料主表
         /// </summary>
-        public MaterialsViewModel Material
+        public MaterialsViewModel Materials
         {
             get { return (MaterialsViewModel)GetValue(MaterialProperty); }
             set { SetValue(MaterialProperty, value); }
@@ -389,24 +389,6 @@ namespace Tokiku.ViewModels
 
         #endregion
 
-        #region Materials
-
-        /// <summary>
-        /// 材質
-        /// </summary>
-        public MaterialsViewModel Materials
-        {
-            get { return (MaterialsViewModel)GetValue(MaterialsProperty); }
-            set { SetValue(MaterialsProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for Materials.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty MaterialsProperty =
-            DependencyProperty.Register("Materials", typeof(MaterialsViewModel), typeof(MoldsViewModel), new PropertyMetadata(0));
-
-
-        #endregion
-
         #region LastUpdateTime
 
 
@@ -459,6 +441,43 @@ namespace Tokiku.ViewModels
 
 
         #endregion
+
+        #region SerialNumber
+
+        /// <summary>
+        /// 大同編號
+        /// </summary>
+        public string SerialNumber
+        {
+            get { return (string)GetValue(SerialNumberProperty); }
+            set { SetValue(SerialNumberProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SerialNumber.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SerialNumberProperty =
+            DependencyProperty.Register("SerialNumber", typeof(string), typeof(MoldsViewModel), new PropertyMetadata(string.Empty));
+
+
+        #endregion
+
+        public override void Initialized()
+        {
+            base.Initialized();
+
+            Id = Guid.NewGuid();
+
+            Controllers.MoldsController moldcontroller = new Controllers.MoldsController();
+            var loginedUser = moldcontroller.GetCurrentLoginUser();
+
+            if (!loginedUser.HasError)
+            {
+                CreateUserId = loginedUser.Result.UserId;
+                CreateUser = new UserViewModel();
+                DoEvents();
+                CreateUser.SetModel(loginedUser.Result);
+            }
+
+        }
 
         //public virtual Manufacturers Manufacturers { get; set; }
         //public virtual Materials Materials { get; set; }

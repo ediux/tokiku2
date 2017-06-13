@@ -21,14 +21,12 @@ namespace Tokiku.Entity
         }
     
         public System.Guid Id { get; set; }
-        public System.Guid MaterialCategoryId { get; set; }
         public System.Guid ManufacturersId { get; set; }
         public string Name { get; set; }
         public float UnitPrice { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
     
-        public virtual MaterialCategories MaterialCategories { get; set; }
         public virtual Users CreateUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Molds> Molds { get; set; }

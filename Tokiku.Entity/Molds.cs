@@ -22,7 +22,7 @@ namespace Tokiku.Entity
     
         public System.Guid Id { get; set; }
         public System.DateTime OpenDate { get; set; }
-        public byte[] LegendMoldReduction { get; set; }
+        public string LegendMoldReduction { get; set; }
         public string UsePosition { get; set; }
         public string Code { get; set; }
         public System.Guid ManufacturersId { get; set; }
@@ -38,6 +38,7 @@ namespace Tokiku.Entity
         public string Comment { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
+        public string SerialNumber { get; set; }
     
         public virtual Manufacturers Manufacturers { get; set; }
         public virtual Materials Materials { get; set; }

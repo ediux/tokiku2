@@ -41,7 +41,7 @@
                 <Views:ClientListView SelectedClientChanged="ClientListView_SelectedClientChanged" DataContext="{Binding Clients}"/>
             </TabItem>
             <TabItem Header="模具總表">
-                  <Views:MaterialsTotalView />
+                  <Views:MaterialsTotalView Mode="Read" />
             </TabItem>
           
         </TabControl>

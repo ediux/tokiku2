@@ -163,7 +163,6 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="MaterialCategoryId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ManufacturersId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UnitPrice" Type="real" Nullable="false" />
@@ -201,7 +200,7 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="OpenDate" Type="datetime" Nullable="false" />
-          <Property Name="LegendMoldReduction" Type="varbinary(max)" />
+          <Property Name="LegendMoldReduction" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="UsePosition" Type="nvarchar" MaxLength="50" />
           <Property Name="Code" Type="nvarchar" MaxLength="50" />
           <Property Name="ManufacturersId" Type="uniqueidentifier" Nullable="false" />
@@ -217,6 +216,7 @@
           <Property Name="Comment" Type="nvarchar" MaxLength="512" />
           <Property Name="CreateTime" Type="datetime" Nullable="false" />
           <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SerialNumber" Type="nvarchar" MaxLength="16" />
         </EntityType>
         <EntityType Name="MoldsInProjects">
           <Key>
@@ -317,7 +317,7 @@
           <Property Name="OwnerAdvisor" Type="nvarchar" MaxLength="250" />
           <Property Name="OwnerContractNumber" Type="nvarchar" MaxLength="250" />
           <Property Name="SiteContactPerson" Type="nvarchar" MaxLength="50" />
-          <Property Name="SiteContactPersonPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="SiteContactPersonPhone" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="PromissoryNoteManagement">
           <Key>
@@ -683,18 +683,6 @@
             </Principal>
             <Dependent Role="ManufacturersBussinessItems">
               <PropertyRef Name="TranscationCategoriesId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Materials_MaterialCategories">
-          <End Role="MaterialCategories" Type="Self.MaterialCategories" Multiplicity="1" />
-          <End Role="Materials" Type="Self.Materials" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaterialCategories">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Materials">
-              <PropertyRef Name="MaterialCategoryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1181,10 +1169,6 @@
             <End Role="TranscationCategories" EntitySet="TranscationCategories" />
             <End Role="ManufacturersBussinessItems" EntitySet="ManufacturersBussinessItems" />
           </AssociationSet>
-          <AssociationSet Name="FK_Materials_MaterialCategories" Association="Self.FK_Materials_MaterialCategories">
-            <End Role="MaterialCategories" EntitySet="MaterialCategories" />
-            <End Role="Materials" EntitySet="Materials" />
-          </AssociationSet>
           <AssociationSet Name="FK_Materials_Users" Association="Self.FK_Materials_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Materials" EntitySet="Materials" />
@@ -1514,10 +1498,6 @@
           <AssociationSet Name="FK_WorkShops_Manufacturers" Association="TokikuModel.FK_WorkShops_Manufacturers">
             <End Role="Manufacturers" EntitySet="Manufacturers" />
             <End Role="WorkShops" EntitySet="WorkShops" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Materials_MaterialCategories" Association="TokikuModel.FK_Materials_MaterialCategories">
-            <End Role="MaterialCategories" EntitySet="MaterialCategories" />
-            <End Role="Materials" EntitySet="Materials" />
           </AssociationSet>
           <AssociationSet Name="FK_MoldsInProjects_MaterialCategories" Association="TokikuModel.FK_MoldsInProjects_MaterialCategories">
             <End Role="MaterialCategories" EntitySet="MaterialCategories" />
@@ -1888,7 +1868,6 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="Materials" Relationship="TokikuModel.FK_Materials_MaterialCategories" FromRole="MaterialCategories" ToRole="Materials" />
           <NavigationProperty Name="MoldsInProjects" Relationship="TokikuModel.FK_MoldsInProjects_MaterialCategories" FromRole="MaterialCategories" ToRole="MoldsInProjects" />
           <NavigationProperty Name="ProjectItemCost" Relationship="TokikuModel.FK_ProjectItemCost_MaterialCategories" FromRole="MaterialCategories" ToRole="ProjectItemCost" />
           <NavigationProperty Name="ManufacturersBussinessItems" Relationship="TokikuModel.FK_ManufacturersBussinessItems_MaterialCategories" FromRole="MaterialCategories" ToRole="ManufacturersBussinessItems" />
@@ -1898,13 +1877,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="MaterialCategoryId" Type="Guid" Nullable="false" />
           <Property Name="ManufacturersId" Type="Guid" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UnitPrice" Type="Single" Nullable="false" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="MaterialCategories" Relationship="TokikuModel.FK_Materials_MaterialCategories" FromRole="Materials" ToRole="MaterialCategories" />
           <NavigationProperty Name="CreateUser" Relationship="TokikuModel.FK_Materials_Users" FromRole="Materials" ToRole="Users" />
           <NavigationProperty Name="Molds" Relationship="TokikuModel.FK_Molds_Materials" FromRole="Materials" ToRole="Molds" />
         </EntityType>
@@ -1914,7 +1891,7 @@
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="OpenDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="LegendMoldReduction" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="LegendMoldReduction" Type="String" Nullable="false" Unicode="true" MaxLength="250" FixedLength="false" />
           <Property Name="UsePosition" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ManufacturersId" Type="Guid" Nullable="false" />
@@ -1935,6 +1912,7 @@
           <NavigationProperty Name="MoldUseStatus" Relationship="TokikuModel.FK_Molds_MoldUseStatus" FromRole="Molds" ToRole="MoldUseStatus" />
           <NavigationProperty Name="CreateUser" Relationship="TokikuModel.FK_Molds_Users" FromRole="Molds" ToRole="Users" />
           <NavigationProperty Name="ProjectMolds" Relationship="TokikuModel.FK_MoldsInProjects_Molds" FromRole="Molds" ToRole="MoldsInProjects" />
+          <Property Name="SerialNumber" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="MoldsInProjects">
           <Key>
@@ -2148,18 +2126,6 @@
             </Principal>
             <Dependent Role="WorkShops">
               <PropertyRef Name="RefId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Materials_MaterialCategories">
-          <End Type="TokikuModel.MaterialCategories" Role="MaterialCategories" Multiplicity="1" />
-          <End Type="TokikuModel.Materials" Role="Materials" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaterialCategories">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Materials">
-              <PropertyRef Name="MaterialCategoryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2524,8 +2490,8 @@
           <NavigationProperty Name="States" Relationship="TokikuModel.FK_Projects_States" FromRole="Projects" ToRole="States" />
           <NavigationProperty Name="SupplierTranscationItem" Relationship="TokikuModel.FK_SupplierTranscationItem_Projects" FromRole="Projects" ToRole="SupplierTranscationItem" />
           <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.ClientsInProjects" FromRole="Projects" ToRole="Manufacturers" />
-          <Property Name="SiteContactPersonPhone" Type="String" Nullable="false" />
-          <Property Name="SiteContactPerson" Type="String" Nullable="false" />
+          <Property Name="SiteContactPersonPhone" Type="String" Unicode="true" FixedLength="false" MaxLength="10" />
+          <Property Name="SiteContactPerson" Type="String" Unicode="true" FixedLength="false" MaxLength="50" />
         </EntityType>
         <Association Name="FK_MoldsInProjects_Projects">
           <End Type="TokikuModel.Projects" Role="Projects" Multiplicity="1" />
@@ -2827,7 +2793,6 @@
       <EntityTypeMapping TypeName="IsTypeOf(TokikuModel.Materials)">
         <MappingFragment StoreEntitySet="Materials">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="MaterialCategoryId" ColumnName="MaterialCategoryId" />
           <ScalarProperty Name="ManufacturersId" ColumnName="ManufacturersId" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
@@ -2839,7 +2804,8 @@
     <EntitySetMapping Name="Molds">
       <EntityTypeMapping TypeName="IsTypeOf(TokikuModel.Molds)">
         <MappingFragment StoreEntitySet="Molds">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="OpenDate" ColumnName="OpenDate" />
           <ScalarProperty Name="LegendMoldReduction" ColumnName="LegendMoldReduction" />
           <ScalarProperty Name="UsePosition" ColumnName="UsePosition" />

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Tokiku.Entity;
@@ -52,6 +53,40 @@ namespace Tokiku.Controllers
             return pkeys.ToArray();
         }
 
+        public Task<ExecuteResultEntity<ICollection<Molds>>> QueryAsync(Expression<Func<Molds, bool>> filiter)
+        {
+            try
+            {
+                var repo = RepositoryHelper.GetMoldsRepository();
+                database = repo.UnitOfWork;
+                return Task.FromResult(
+                    ExecuteResultEntity<ICollection<Molds>>.CreateResultEntity(
+                       new Collection<Molds>(repo.Where(filiter).ToList())));
+            }
+            catch (Exception ex)
+            {
+                return Task.FromResult(
+                    ExecuteResultEntity<ICollection<Molds>>.CreateErrorResultEntity(ex));
+            }
+        }
+
+        public Task<ExecuteResultEntity<ICollection<MoldUseStatus>>> QueryAsync(Expression<Func<MoldUseStatus, bool>> filiter)
+        {
+            try
+            {
+                var repo = RepositoryHelper.GetMoldUseStatusRepository();
+                database = repo.UnitOfWork;
+                return Task.FromResult(
+                    ExecuteResultEntity<ICollection<MoldUseStatus>>.CreateResultEntity(
+                       new Collection<MoldUseStatus>(repo.Where(filiter).ToList())));
+            }
+            catch (Exception ex)
+            {
+                return Task.FromResult(
+                    ExecuteResultEntity<ICollection<MoldUseStatus>>.CreateErrorResultEntity(ex));
+            }
+        }
+
         /// <summary>
         /// 用來作為匯入用的儲存方法
         /// </summary>
@@ -73,7 +108,7 @@ namespace Tokiku.Controllers
                         int c = 1;
                         foreach (var entity in entityCollection)
                         {
-                            if (repo.Get(IdentifyPrimaryKey(entity)) != null)
+                            if (repo.Get(entity.Id) != null)
                             {
                                 var update_result = Update(entity, c == entityCollection.Count);
                                 if (update_result.HasError)
@@ -115,24 +150,24 @@ namespace Tokiku.Controllers
         {
             try
             {
-                using (IRepositoryBase<Molds> repo = RepositoryHelper.GetMoldsRepository())
+
+                var repo = RepositoryHelper.GetMoldsRepository(database);
+                database = repo.UnitOfWork;
+                if (repo == null)
+                    return ExecuteResultEntity.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(Molds).Name));
+
+                entity = repo.Add(entity);
+
+                if (isLastRecord)
                 {
+                    repo.UnitOfWork.Commit();
                     database = repo.UnitOfWork;
-                    if (repo == null)
-                        return ExecuteResultEntity.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(Molds).Name));
-
-                    entity = repo.Add(entity);
-
-                    if (isLastRecord)
-                    {
-                        repo.UnitOfWork.Commit();
-                        database = repo.UnitOfWork;
-                        repo.UnitOfWork.Context.Set<Molds>().Attach(entity);
-                        entity = repo.Reload(entity);
-                    }
-
-                    return ExecuteResultEntity.CreateResultEntity();
+                    repo.UnitOfWork.Context.Set<Molds>().Attach(entity);
+                    entity = repo.Reload(entity);
                 }
+
+                return ExecuteResultEntity.CreateResultEntity();
+
             }
             catch (Exception ex)
             {

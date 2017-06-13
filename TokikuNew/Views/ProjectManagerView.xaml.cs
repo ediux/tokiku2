@@ -518,5 +518,15 @@ namespace TokikuNew.Views
                 }
             }
         }
+
+        private void CBVandorSelectionForRecvAddress_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void CBVandorSelectionForRecvAddress_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

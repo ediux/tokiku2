@@ -85,8 +85,6 @@ namespace TokikuNew.Views
             {
                 Dispatcher.Invoke(DataSource.Query, DispatcherPriority.Background);
             }
-
-           
         }
     }
 }

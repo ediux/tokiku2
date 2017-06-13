@@ -142,16 +142,17 @@ namespace TokikuNew.Views
         {
             try
             {
+              
                 if (DataContext != null)
                 {
                     ManufacturersViewModelCollection DataSource = (ManufacturersViewModelCollection)DataContext;
                     if (DataSource != null && DataSource.Count == 0)
                     {
                         Dispatcher.Invoke(new Action(DataSource.Query), DispatcherPriority.Background);
-                       
                     }
-
                 }
+
+
             }
             catch (Exception ex)
             {

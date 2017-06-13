@@ -43,7 +43,18 @@ namespace TokikuNew.Views
         {
             try
             {
-                ((ProjectListViewModelCollection)DataContext).Query();
+                if (!IsLoaded)
+                {
+                    ((ProjectListViewModelCollection)DataContext).Query();
+                }
+                else
+                {
+                    if (((ProjectListViewModelCollection)DataContext).Count == 0)
+                    {
+                        ((ProjectListViewModelCollection)DataContext).Refresh();
+                    }
+                }
+
             }
             catch (Exception ex)
             {

@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
+using Tokiku.Controllers;
 using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
@@ -96,5 +99,43 @@ namespace Tokiku.ViewModels
             DependencyProperty.Register("CreateUser", typeof(UserViewModel), typeof(MoldUseStatusViewModel), new PropertyMetadata(default(UserViewModel)));
 
         #endregion
+
+        public async void QueryByName(string name)
+        {
+            try
+            {
+
+                MoldsController controller = new MoldsController();
+                ExecuteResultEntity<ICollection<MoldUseStatus>> executrresult = await controller.QueryAsync(p => p.Name == name);
+
+                if (!executrresult.HasError)
+                {
+                    if (executrresult.Result.Any())
+                    {
+                        var data = executrresult.Result.Single();
+                        BindingFromModel(data, this);
+                        CreateUser = new UserViewModel();
+                        BindingFromModel(controller.GetCurrentLoginUser().Result, CreateUser);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+        }
+
+        public override void SetModel(dynamic entity)
+        {
+            try
+            {
+                MoldUseStatus data = (MoldUseStatus)entity;
+                BindingFromModel(data, this);
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+        }
     }
 }

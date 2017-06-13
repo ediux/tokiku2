@@ -297,7 +297,7 @@ namespace TokikuNew
                         Workspaces.SelectedItem = addWorkarea;
                         Workspaces.SelectedIndex = Workspaces.Items.IndexOf(addWorkarea);
 
-                        var vm = new ManufacturersManageView() { Margin = new Thickness(0) };
+                        var vm = new ProjectViewer() { Margin = new Thickness(0) };
 
                         ProjectsViewModel source = new ProjectsViewModel();
 

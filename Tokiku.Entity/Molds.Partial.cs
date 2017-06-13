@@ -50,7 +50,9 @@ namespace Tokiku.Entity
         public System.DateTime CreateTime { get; set; }
         [Required]
         public System.Guid CreateUserId { get; set; }
-    
+
+        public string SerialNumber { get; set; }
+
         public virtual Manufacturers Manufacturers { get; set; }
         public virtual Materials Materials { get; set; }
         public virtual MoldUseStatus MoldUseStatus { get; set; }

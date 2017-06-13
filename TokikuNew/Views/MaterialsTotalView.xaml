@@ -4,15 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
-             xmlns:Controls="clr-namespace:TokikuNew.Controls" xmlns:ss="http://schemas.grapecity.com/windows/spreadsheet/2012" x:Class="TokikuNew.Views.MaterialsTotalView"
+             xmlns:Controls="clr-namespace:TokikuNew.Controls" xmlns:ss="http://schemas.grapecity.com/windows/spreadsheet/2012" x:Name="userControl" x:Class="TokikuNew.Views.MaterialsTotalView"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024"
-             Background="{DynamicResource ControlBackgroundBrush}" Loaded="UserControl_Loaded">
+             Background="{DynamicResource ControlBackgroundBrush}" Loaded="UserControl_Loaded" Initialized="UserControl_Initialized">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="48"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
@@ -20,11 +19,11 @@
                 <ColumnDefinition Width="300"/>
                 <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnImport" Grid.Row="1" Grid.Column="2"  Width="50" Content="匯入" Margin="2" Click="btnImport_Click"/>
-            <Controls:SearchBar Grid.Row="1" Grid.Column="1" Margin="2" />
+            <Button x:Name="btnImport" Grid.Row="1" Grid.Column="2"  Width="50" Content="匯入" Margin="2" Click="btnImport_Click"  IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
+            <Controls:SearchBar Grid.Row="1" Grid.Column="1" Margin="2"  Search="SearchBar_Search" />
         </Grid>
+
         
-        <Controls:DockBar Grid.Row="2"/>
-        <ss:GcSpreadSheet x:Name="MoldsWorkBookImports" Margin="5" Grid.Row="1" />
+        <ss:GcSpreadSheet x:Name="MoldsWorkBookImports" Margin="5" Grid.Row="1"  IsEnabled="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}" />
     </Grid>
 </UserControl>

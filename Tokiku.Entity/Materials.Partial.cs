@@ -14,8 +14,6 @@ namespace Tokiku.Entity
         [Required]
         public System.Guid Id { get; set; }
         [Required]
-        public System.Guid MaterialCategoryId { get; set; }
-        [Required]
         public System.Guid ManufacturersId { get; set; }
         
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
@@ -28,7 +26,6 @@ namespace Tokiku.Entity
         [Required]
         public System.Guid CreateUserId { get; set; }
     
-        public virtual MaterialCategories MaterialCategories { get; set; }
         public virtual Users CreateUser { get; set; }
         public virtual ICollection<Molds> Molds { get; set; }
     }

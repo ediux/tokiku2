@@ -690,6 +690,28 @@ namespace Tokiku.ViewModels
 
         }
 
+        public void QueryByName(string Name)
+        {
+            try
+            {
+                ManufacturersManageController controller = new ManufacturersManageController();
+                var executeresult = controller.Query(p => p.Name == Name);
+
+                if (!executeresult.HasError)
+                {
+                    if (executeresult.Result.Any())
+                    {
+                        var data = executeresult.Result.Single();
+                        BindingFromModel(data, this);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+        }
+
         public override void SetModel(dynamic entity)
         {
             try
