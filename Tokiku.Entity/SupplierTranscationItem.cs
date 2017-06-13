@@ -17,6 +17,8 @@ namespace Tokiku.Entity
         public System.Guid ManufacturersBussinessItemsId { get; set; }
         public System.Guid ProjectId { get; set; }
         public string PlaceofReceipt { get; set; }
+        public string SiteContactPerson { get; set; }
+        public string SiteContactPersonPhone { get; set; }
     
         public virtual ManufacturersBussinessItems ManufacturersBussinessItems { get; set; }
         public virtual Projects Projects { get; set; }

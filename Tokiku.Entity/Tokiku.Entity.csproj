@@ -161,9 +161,6 @@
     <Compile Include="Molds.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
-    <Compile Include="MoldsInProjects.cs">
-      <DependentUpon>Tokiku.tt</DependentUpon>
-    </Compile>
     <Compile Include="MoldsInProjects.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>

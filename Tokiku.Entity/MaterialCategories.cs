@@ -17,7 +17,6 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MaterialCategories()
         {
-            this.MoldsInProjects = new HashSet<MoldsInProjects>();
             this.ProjectItemCost = new HashSet<ProjectItemCost>();
             this.ManufacturersBussinessItems = new HashSet<ManufacturersBussinessItems>();
         }
@@ -27,8 +26,6 @@ namespace Tokiku.Entity
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MoldsInProjects> MoldsInProjects { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectItemCost> ProjectItemCost { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

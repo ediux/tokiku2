@@ -43,7 +43,6 @@ namespace Tokiku.Entity
         public virtual DbSet<MaterialCategories> MaterialCategories { get; set; }
         public virtual DbSet<Materials> Materials { get; set; }
         public virtual DbSet<Molds> Molds { get; set; }
-        public virtual DbSet<MoldsInProjects> MoldsInProjects { get; set; }
         public virtual DbSet<MoldUseStatus> MoldUseStatus { get; set; }
         public virtual DbSet<PaymentTypes> PaymentTypes { get; set; }
         public virtual DbSet<ProjectContract> ProjectContract { get; set; }

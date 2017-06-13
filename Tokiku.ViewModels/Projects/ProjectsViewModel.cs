@@ -436,34 +436,6 @@ namespace Tokiku.ViewModels
                 ), new PropertyMetadata(default(ProjectContractViewModelCollection), new PropertyChangedCallback(DefaultFieldChanged)));
         #endregion
 
-
-
-        public string SiteContactPerson
-        {
-            get { return (string)GetValue(SiteContactPersonProperty); }
-            set { SetValue(SiteContactPersonProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for SiteContactPerson.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SiteContactPersonProperty =
-            DependencyProperty.Register("SiteContactPerson", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
-
-
-
-
-        public string SiteContactPersonPhone
-        {
-            get { return (string)GetValue(SiteContactPersonPhoneProperty); }
-            set { SetValue(SiteContactPersonPhoneProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for SiteContactPersonPhone.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SiteContactPersonPhoneProperty =
-            DependencyProperty.Register("SiteContactPersonPhone", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
-
-
-
-
         public string ArchitectConsultant
         {
             get { return (string)GetValue(ArchitectConsultantProperty); }

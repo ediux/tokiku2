@@ -17,7 +17,6 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Projects()
         {
-            this.MoldsInProjects = new HashSet<MoldsInProjects>();
             this.ProjectContract = new HashSet<ProjectContract>();
             this.SupplierTranscationItem = new HashSet<SupplierTranscationItem>();
             this.Manufacturers = new HashSet<Manufacturers>();
@@ -54,8 +53,6 @@ namespace Tokiku.Entity
         public string SiteContactPersonPhone { get; set; }
         public string SiteContactPerson { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MoldsInProjects> MoldsInProjects { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectContract> ProjectContract { get; set; }
         public virtual States States { get; set; }

@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using Tokiku.Controllers;
+using Tokiku.Entity;
 using Tokiku.ViewModels;
 using TokikuNew.Controls;
 using TokikuNew.Frame;
@@ -512,7 +513,7 @@ namespace TokikuNew.Views
             {
                 if (dlg.SelectedClient != null)
                 {
-                    ((ProjectsViewModel)DataContext).Client  = dlg.SelectedClient;
+                    ((ProjectsViewModel)DataContext).Client = dlg.SelectedClient;
                     ((ProjectsViewModel)DataContext).ClientId = dlg.SelectedClient.Id;
                     SelectedClient = SelectedProject.Client;
                 }
@@ -521,12 +522,37 @@ namespace TokikuNew.Views
 
         private void CBVandorSelectionForRecvAddress_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            try
+            {
+                var selectedvalue = ((Manufacturers)(CBVandorSelectionForRecvAddress.SelectionBoxItem)).Id;
+                var newCBSource = SelectedProject.Suppliers.Select(s => s.ProjectId == SelectedProject.Id
+                && s.ManufacturersId == selectedvalue).ToList();
 
+                CBVandorSelectionForRecvAddress.DataContext = newCBSource;
+                CBVandorSelectionForRecvAddress.SelectedValuePath = "Id";
+
+            }
+            catch (Exception ex)
+            {
+                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
+
+            }
         }
 
         private void CBVandorSelectionForRecvAddress_Loaded(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                var newCBSource = SelectedProject.Suppliers.Select(s => s.Manufacturers).ToList();
+                CBVandorSelectionForRecvAddress.DataContext = newCBSource;
+                CBVandorSelectionForRecvAddress.SelectedValuePath = "Id";
 
+            }
+            catch (Exception ex)
+            {
+                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
+
+            }
         }
     }
 }
