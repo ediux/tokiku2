@@ -57,5 +57,6 @@ namespace Tokiku.Entity
         public virtual DbSet<TranscationCategories> TranscationCategories { get; set; }
         public virtual DbSet<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
         public virtual DbSet<Projects> Projects { get; set; }
+        public virtual DbSet<MoldsInProjects> MoldsInProjects { get; set; }
     }
 }

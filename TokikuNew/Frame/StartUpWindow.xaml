@@ -11,7 +11,7 @@
         ShowInTaskbar="True" 
         DataContext="{Binding Model}" 
         ResizeMode="NoResize" 
-        Icon="../16x16.png" Initialized="window_Initialized" Loaded="window_Loaded">
+        Icon="{DynamicResource Logo}" Initialized="window_Initialized" Loaded="window_Loaded">
     <Window.Resources>
     </Window.Resources>
     <Grid Background="{DynamicResource WindowBackgroundBrush}">
@@ -24,7 +24,7 @@
             <RowDefinition Height="27"/>
             <RowDefinition Height="93*"/>
         </Grid.RowDefinitions>
-        <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Source="/TokikuNew;component/TokikuLogo.gif"></Image>
+        <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Source="{DynamicResource Banner}"></Image>
         <TextBlock Name="tblkMessage" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Text="{Binding Mode=OneWay, Source={StaticResource SystemName}}" TextAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Center" />
         <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Background="{DynamicResource NormalBrush}" Margin="0">
             <Grid.RowDefinitions>

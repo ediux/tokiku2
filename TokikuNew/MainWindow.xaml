@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TokikuNew" 
         xmlns:ctrl="clr-namespace:Tokiku.Controllers;assembly=Tokiku.Controllers"
         mc:Ignorable="d"        
-        Title="東菊金屬 ERP System" Height="768" Width="1024" WindowState="Maximized" Icon="16x16.png" Loaded="Window_Loaded" Background="{DynamicResource WindowBackgroundBrush}">
+        Title="東菊金屬 ERP System" Height="768" Width="1024" WindowState="Maximized" Icon="{DynamicResource Logo}" Loaded="Window_Loaded" Background="{DynamicResource WindowBackgroundBrush}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>

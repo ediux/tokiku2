@@ -24,6 +24,8 @@ namespace TokikuNew.Controls
         public ClosableTab()
         {
             InitializeComponent();
+
+         
         }
 
         /// <summary>

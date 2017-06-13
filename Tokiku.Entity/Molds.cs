@@ -14,6 +14,12 @@ namespace Tokiku.Entity
     
     public partial class Molds
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Molds()
+        {
+            this.MoldsInProjects = new HashSet<MoldsInProjects>();
+        }
+    
         public System.Guid Id { get; set; }
         public System.DateTime OpenDate { get; set; }
         public string LegendMoldReduction { get; set; }
@@ -38,5 +44,7 @@ namespace Tokiku.Entity
         public virtual Materials Materials { get; set; }
         public virtual MoldUseStatus MoldUseStatus { get; set; }
         public virtual Users CreateUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MoldsInProjects> MoldsInProjects { get; set; }
     }
 }

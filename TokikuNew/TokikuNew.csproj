@@ -138,13 +138,13 @@
     <Compile Include="Views\PaymentTypesManageView.xaml.cs">
       <DependentUpon>PaymentTypesManageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ProjectManagerView.xaml.cs">
+    <Compile Include="Views\Projects\ProjectManagerView.xaml.cs">
       <DependentUpon>ProjectManagerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ProjectSelectListView.xaml.cs">
+    <Compile Include="Views\Projects\ProjectSelectListView.xaml.cs">
       <DependentUpon>ProjectSelectListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ProjectViewer.xaml.cs">
+    <Compile Include="Views\Projects\ProjectViewer.xaml.cs">
       <DependentUpon>ProjectViewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TestView.xaml.cs">
@@ -284,15 +284,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ProjectManagerView.xaml">
+    <Page Include="Views\Projects\ProjectManagerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ProjectSelectListView.xaml">
+    <Page Include="Views\Projects\ProjectSelectListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ProjectViewer.xaml">
+    <Page Include="Views\Projects\ProjectViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -355,11 +355,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="TokikuLogo.gif" />
+    <Resource Include="Resources\TokikuLogo.gif" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="16x16.png" />
+    <Resource Include="Resources\16x16.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Manufacturers\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

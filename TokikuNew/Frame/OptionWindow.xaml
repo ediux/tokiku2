@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TokikuNew.Frame"
         mc:Ignorable="d"
+        Icon="{DynamicResource Logo}"
         Title="系統選項" Height="300" Width="300">
     <Grid>
         <Grid.RowDefinitions>

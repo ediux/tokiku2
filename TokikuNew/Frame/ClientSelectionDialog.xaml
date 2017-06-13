@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TokikuNew.Frame"
         xmlns:Views="clr-namespace:TokikuNew.Views" x:Class="TokikuNew.Frame.ClientSelectionDialog"
         mc:Ignorable="d"
-        Title="選擇客戶" Height="300" Width="500" Loaded="Window_Loaded">
+        Title="選擇客戶" Height="300" Width="500" Loaded="Window_Loaded" Icon="{DynamicResource Logo}">
     <Grid>
         <Views:ClientListView x:Name="ClientSelectionList" Margin="2" SelectedClientChanged="ClientListView_SelectedClientChanged" />
     </Grid>

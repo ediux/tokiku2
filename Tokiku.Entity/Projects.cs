@@ -19,6 +19,7 @@ namespace Tokiku.Entity
         {
             this.ProjectContract = new HashSet<ProjectContract>();
             this.SupplierTranscationItem = new HashSet<SupplierTranscationItem>();
+            this.MoldsInProjects = new HashSet<MoldsInProjects>();
             this.Manufacturers = new HashSet<Manufacturers>();
         }
     
@@ -58,6 +59,8 @@ namespace Tokiku.Entity
         public virtual States States { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupplierTranscationItem> SupplierTranscationItem { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MoldsInProjects> MoldsInProjects { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Manufacturers> Manufacturers { get; set; }
     }

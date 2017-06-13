@@ -406,10 +406,6 @@ namespace Tokiku.ViewModels
                     setErrortoModel(this, ex);
                 }
             }
-
-
-
-
         }
     }
 }

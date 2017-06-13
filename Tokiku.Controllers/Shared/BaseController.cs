@@ -178,7 +178,7 @@ namespace Tokiku.Controllers
                 {
                     if (sourceprop.PropertyType == tarprop.PropertyType)
                     {
-                        if(sourceprop.PropertyType.IsGenericType && sourceprop.PropertyType.GetGenericTypeDefinition() == typeof(ICollection<>))
+                        if (sourceprop.PropertyType.IsGenericType && sourceprop.PropertyType.GetGenericTypeDefinition() == typeof(ICollection<>))
                         {
                             continue;
                         }
@@ -329,23 +329,23 @@ namespace Tokiku.Controllers
             try
             {
                 var repo = GetRepository();
-                
-                    database = repo.UnitOfWork;
 
-                    if (repo == null)
-                        return ExecuteResultEntity<ICollection<T>>.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
+                database = repo.UnitOfWork;
 
-                    var result = repo.Where(filiter);
+                if (repo == null)
+                    return ExecuteResultEntity<ICollection<T>>.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
 
-                    if (result.Any())
-                    {
-                        model = ExecuteResultEntity<ICollection<T>>.CreateResultEntity(new Collection<T>(result.ToList()));
-                        return model;
-                    }
+                var result = repo.Where(filiter);
 
-                    model = ExecuteResultEntity<ICollection<T>>.CreateErrorResultEntity("Not Found!");
+                if (result.Any())
+                {
+                    model = ExecuteResultEntity<ICollection<T>>.CreateResultEntity(new Collection<T>(result.ToList()));
                     return model;
-                
+                }
+
+                model = ExecuteResultEntity<ICollection<T>>.CreateErrorResultEntity("Not Found!");
+                return model;
+
             }
             catch (Exception ex)
             {
@@ -442,42 +442,42 @@ namespace Tokiku.Controllers
         {
             try
             {
-                using (var repo = GetRepository())
+                var repo = GetRepository();
+                database = repo.UnitOfWork;
+
+                if (repo == null)
+                    return ExecuteResultEntity<T>.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
+
+
+                if (repo.Get(IdentifyPrimaryKey(entity)) != null)
                 {
-                    if (repo == null)
-                        return ExecuteResultEntity<T>.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
+                    var update_result = Update(entity);
 
-                    database = repo.UnitOfWork;
-
-                    if (repo.Get(IdentifyPrimaryKey(entity)) != null)
+                    if (update_result.HasError)
                     {
-                        var update_result = Update(entity);
-
-                        if (update_result.HasError)
-                        {
-                            update_result.Result = entity;
-                            return update_result;
-                        }
-
-                        return ExecuteResultEntity<T>.CreateResultEntity(update_result.Result);
-                    }
-                    else
-                    {
-                        var add_result = Add(entity);
-                        if (add_result.HasError)
-                        {
-                            return new ExecuteResultEntity<T>()
-                            {
-                                Errors = add_result.Errors,
-                                Result = entity
-                            };
-                        }
-
-                        return ExecuteResultEntity<T>.CreateResultEntity(entity);
+                        update_result.Result = entity;
+                        return update_result;
                     }
 
-
+                    return ExecuteResultEntity<T>.CreateResultEntity(update_result.Result);
                 }
+                else
+                {
+                    var add_result = Add(entity);
+                    if (add_result.HasError)
+                    {
+                        return new ExecuteResultEntity<T>()
+                        {
+                            Errors = add_result.Errors,
+                            Result = entity
+                        };
+                    }
+
+                    return ExecuteResultEntity<T>.CreateResultEntity(entity);
+                }
+
+
+
             }
             catch (Exception ex)
             {

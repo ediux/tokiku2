@@ -611,6 +611,8 @@ namespace Tokiku.ViewModels
                         supplierdata.PlaceofReceipt = supplier.PlaceofReceipt;
                         supplierdata.ManufacturersBussinessItemsId = supplier.Id;
                         supplierdata.ProjectId = data.Id;
+                        supplierdata.SiteContactPerson = supplier.SiteContactPerson;
+                        supplierdata.SiteContactPersonPhone = supplier.SiteContactPersonPhone;
 
                         data.SupplierTranscationItem.Add(supplierdata);
 
@@ -655,7 +657,10 @@ namespace Tokiku.ViewModels
                             model.MaterialCategories = row.ManufacturersBussinessItems.MaterialCategories.Name;
                             model.PaymentTypeName = row.ManufacturersBussinessItems.PaymentTypes.PaymentTypeName;
                             model.TranscationCategories = row.ManufacturersBussinessItems.TranscationCategories.Name;
+                            model.SiteContactPerson = row.SiteContactPerson;
+                            model.SiteContactPersonPhone = row.SiteContactPersonPhone;
                             model.SetModel(row.ManufacturersBussinessItems);
+
                             Suppliers.Add(model);
                         }
                     }

@@ -101,7 +101,7 @@ namespace TokikuNew.Views
                 keyMap.Add(new GrapeCity.Windows.SpreadSheet.UI.KeyStroke(Key.F12, ModifierKeys.None), new GrapeCity.Windows.SpreadSheet.UI.SpreadAction(OnInsertSumFormula));
 
 
-                BussinessItemSheet.Sheets.Clear();
+                //BussinessItemSheet.Sheets.Clear();
                 Worksheet BISheet = BussinessItemSheet.Sheets[0];
 
                 BussinessItemSheet.Sheets[0].ColumnHeader.Columns[0].Label = "材料類別";
