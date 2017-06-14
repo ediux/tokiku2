@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace TokikuNew
 {
     /// <summary>
-    /// InvoiceView.xaml 的互動邏輯
+    /// RecvMaterialView.xaml 的互動邏輯
     /// </summary>
-    public partial class InvoiceView : Window
+    public partial class RecvMaterialView : UserControl
     {
-        public InvoiceView()
+        public RecvMaterialView()
         {
             InitializeComponent();
         }

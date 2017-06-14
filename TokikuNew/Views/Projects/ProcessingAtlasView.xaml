@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="TokikuNew.Views.ProcessingAtlasView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:Controls="clr-namespace:TokikuNew.Controls"
+             mc:Ignorable="d" 
+             Background="{DynamicResource ControlBackgroundBrush}"
+             d:DesignHeight="300" d:DesignWidth="343.632">
+    <GroupBox Header="加工圖集" Grid.Row="1" Grid.Column="1" Margin="5">
+        <Controls:CustomDataGrid x:Name="com2" Margin="5" ItemsSource="{Binding}" 
+                                 CanUserAddRows="True" 
+                                 CanUserDeleteRows="True" 
+                                 AutoGenerateColumns="False"
+                                 MouseDoubleClick="com2_MouseDoubleClick"
+                                 AddingNewItem="com2_AddingNewItem"
+                                 RowEditEnding="com2_RowEditEnding"
+                                 IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}">
+            <Controls:CustomDataGrid.Columns>
+                <DataGridTextColumn Header="順序" Binding="{Binding Order,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="圖集" Binding="{Binding Atlas,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="名稱" Binding="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="更新次數" Binding="{Binding UpdateTimes,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="最新日期" Binding="{Binding LastUpdate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="施工順序異動日期" Binding="{Binding ConstructionOrderChangeDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <Button Content="儲存" x:Name="btnSave" Click="btnSave_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="修改" x:Name="btnModify" Click="btnModify_Click" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </Controls:CustomDataGrid.Columns>
+        </Controls:CustomDataGrid>
+    </GroupBox>
+</UserControl>

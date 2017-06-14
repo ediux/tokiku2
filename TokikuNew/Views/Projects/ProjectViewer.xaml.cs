@@ -202,23 +202,41 @@ namespace TokikuNew.Views
         {
             try
             {
-                ClosableTabItem addWorkarea = new ClosableTabItem();
-                addWorkarea.Header = "鋁擠型";
+                e.Handled = true;
 
-                var vm = new AluminumExtrusionOrderSheetView() { Margin = new Thickness(0) };
-
-                addWorkarea.Content = vm;
-                addWorkarea.Margin = new Thickness(0);
-
-                Binding LoginedUserBinding = new Binding();
-                LoginedUserBinding.Source = LoginedUser;
-
-                vm.SetBinding(AluminumExtrusionOrderSheetView.LoginedUserProperty, LoginedUserBinding);
-
-                InnerWorkspaces.Items.Add(addWorkarea);
-                InnerWorkspaces.SelectedItem = addWorkarea;
+                ClosableTabItem addWorkarea = null;
+                string Header = "鋁擠型訂製單";
+                addWorkarea = new ClosableTabItem() { Header = Header };
 
 
+                bool isExisted = false;
+
+                foreach (ClosableTabItem item in InnerWorkspaces.Items.OfType<ClosableTabItem>())
+                {
+                    if (item.Header.Equals(addWorkarea.Header))
+                    {
+                        isExisted = true;
+                        addWorkarea = item;
+                        break;
+                    }
+                }
+
+                if (!isExisted)
+                {
+                    var vm = new AluminumExtrusionOrderSheetView() { Margin = new Thickness(0) };
+
+                    addWorkarea.Content = vm;
+                    addWorkarea.Margin = new Thickness(0);
+
+                    Binding LoginedUserBinding = new Binding();
+                    LoginedUserBinding.Source = LoginedUser;
+
+                    vm.SetBinding(AluminumExtrusionOrderSheetView.LoginedUserProperty, LoginedUserBinding);
+
+                    InnerWorkspaces.Items.Add(addWorkarea);
+                    InnerWorkspaces.SelectedItem = addWorkarea;
+
+                }
             }
             catch (Exception ex)
             {
@@ -230,10 +248,40 @@ namespace TokikuNew.Views
         {
             try
             {
-                InvoiceView WinIV = new InvoiceView();
-                WinIV.ShowDialog();
+                e.Handled = true;
 
+                ClosableTabItem addWorkarea = null;
+                string Header = "鋁擠型請款單";
+                addWorkarea = new ClosableTabItem() { Header = Header };
 
+                bool isExisted = false;
+
+                foreach (ClosableTabItem item in InnerWorkspaces.Items.OfType<ClosableTabItem>())
+                {
+                    if (item.Header.Equals(addWorkarea.Header))
+                    {
+                        isExisted = true;
+                        addWorkarea = item;
+                        break;
+                    }
+                }
+
+                if (!isExisted)
+                {
+                    var vm = new InvoiceView() { Margin = new Thickness(0) };
+
+                    addWorkarea.Content = vm;
+                    addWorkarea.Margin = new Thickness(0);
+
+                    //Binding LoginedUserBinding = new Binding();
+                    //LoginedUserBinding.Source = LoginedUser;
+
+                    //vm.SetBinding(AluminumExtrusionOrderSheetView.LoginedUserProperty, LoginedUserBinding);
+
+                    InnerWorkspaces.Items.Add(addWorkarea);
+                    InnerWorkspaces.SelectedItem = addWorkarea;
+
+                }
             }
             catch (Exception ex)
             {
@@ -246,8 +294,43 @@ namespace TokikuNew.Views
             //RecvMaterialView
             try
             {
-                RecvMaterialView WinRMIV = new RecvMaterialView();
-                WinRMIV.ShowDialog();
+                e.Handled = true;
+
+                ClosableTabItem addWorkarea = null;
+                string Header = "鋁擠型收料單";
+
+                addWorkarea = new ClosableTabItem() { Header = Header };
+
+                bool isExisted = false;
+
+                foreach (ClosableTabItem item in InnerWorkspaces.Items.OfType<ClosableTabItem>())
+                {
+                    if (item.Header.Equals(addWorkarea.Header))
+                    {
+                        isExisted = true;
+                        addWorkarea = item;
+                        break;
+                    }
+                }
+
+                if (!isExisted)
+                {
+
+                    var vm = new RecvMaterialView() { Margin = new Thickness(0) };
+
+                    addWorkarea.Content = vm;
+                    addWorkarea.Margin = new Thickness(0);
+
+                    //Binding LoginedUserBinding = new Binding();
+                    //LoginedUserBinding.Source = LoginedUser;
+
+                    //vm.SetBinding(AluminumExtrusionOrderSheetView.LoginedUserProperty, LoginedUserBinding);
+
+                    InnerWorkspaces.Items.Add(addWorkarea);
+                    InnerWorkspaces.SelectedItem = addWorkarea;
+
+                }
+
             }
             catch (Exception ex)
             {

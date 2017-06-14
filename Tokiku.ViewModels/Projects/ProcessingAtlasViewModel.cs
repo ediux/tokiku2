@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
@@ -34,6 +35,18 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty ProjectContractIdProperty =
             DependencyProperty.Register("ProjectContractId", typeof(Guid), typeof(ProcessingAtlasViewModel), new PropertyMetadata(Guid.Empty));
 
+
+
+
+        public int Order
+        {
+            get { return (int)GetValue(OrderProperty); }
+            set { SetValue(OrderProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Order.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty OrderProperty =
+            DependencyProperty.Register("Order", typeof(int), typeof(ProcessingAtlasViewModel), new PropertyMetadata(1));
 
 
 
@@ -128,6 +141,29 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty ConstructionOrderChangeDateProperty =
             DependencyProperty.Register("ConstructionOrderChangeDate", typeof(DateTime?), typeof(ProcessingAtlasViewModel), new PropertyMetadata(DateTime.Now));
 
+        public override void Initialized()
+        {
+            base.Initialized();
+            Id = Guid.NewGuid();
+            CreateTime = DateTime.Now;
 
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entity"></param>
+        public override void SetModel(dynamic entity)
+        {
+            try
+            {
+                ProcessingAtlas data = (ProcessingAtlas)entity;
+                BindingFromModel(data, this);
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+        }
     }
 }

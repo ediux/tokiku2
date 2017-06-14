@@ -81,7 +81,7 @@ namespace TokikuNew.Views
         public static readonly DependencyProperty LoginedUserProperty =
             DependencyProperty.Register("LoginedUser", typeof(UserViewModel), typeof(ContractManager), new PropertyMetadata(default(UserViewModel)));
 
-      
+
 
 
 
@@ -129,12 +129,12 @@ namespace TokikuNew.Views
                         {
                             if (SelectedEngineering != null)
                             {
-                                
+
                                 if (SelectedEngineering.CreateUserId == Guid.Empty)
                                 {
                                     SelectedEngineering.CreateUserId = LoginedUser.UserId;
                                 }
-                              
+
                             }
                         }
 
@@ -145,17 +145,19 @@ namespace TokikuNew.Views
 
                         model.SaveModel();
 
-                        if (SelectedEngineering.HasError)
+                        if (SelectedEngineering != null && SelectedEngineering.HasError)
                         {
                             MessageBox.Show(string.Join("\n", SelectedEngineering.Errors.ToArray()));
                             SelectedEngineering.Errors = null;
                             Mode = DocumentLifeCircle.Update;
                             break;
                         }
+
                         if (SelectedEngineering.Status.IsNewInstance)
                         {
                             RaiseEvent(new RoutedEventArgs(ClosableTabItem.OnPageClosingEvent, this.Parent));
                         }
+
                         Mode = DocumentLifeCircle.Read;
                         SelectedEngineering.Status.IsModify = false;
                         SelectedEngineering.Status.IsSaved = true;
@@ -198,7 +200,7 @@ namespace TokikuNew.Views
                 if (SelectedEngineering != null)
                 {
                     //com1.ItemsSource = SelectedEngineering.Compositions;
-                    com2.ItemsSource = SelectedEngineering.Compositions2;
+                    //com2.ItemsSource = SelectedEngineering.Compositions2;
                 }
             }
 

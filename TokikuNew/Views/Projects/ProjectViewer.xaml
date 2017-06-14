@@ -33,10 +33,10 @@
                 <local:ProjectManagerView x:Name="PMV" SelectedProject="{Binding}" Mode="Read"
                                     LoginedUser="{Binding LoginedUser, ElementName=userControl}" />
             </TabItem>
-            <TabItem Header="成本估算">
+            <TabItem Header="成本估算" Visibility="Collapsed">
                 
             </TabItem>
-            <TabItem Header="專案模具">
+            <TabItem Header="專案模具" Visibility="Collapsed">
 
             </TabItem>
         </TabControl>

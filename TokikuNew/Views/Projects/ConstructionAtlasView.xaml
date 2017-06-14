@@ -27,8 +27,9 @@
             </Button>
             <Controls:CustomDataGrid Grid.Row="1" Grid.ColumnSpan="3" Margin="5" VerticalAlignment="Stretch" x:Name="AltasGrid"
                                      ItemsSource="{Binding}"
-                                         AllowExecuteSystemCommand="True"
-                                         AutoGenerateColumns="False">
+                                     IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}"
+                                     AllowExecuteSystemCommand="True"
+                                     AutoGenerateColumns="False">
                 <Controls:CustomDataGrid.ContextMenu>
                     <ContextMenu/>
                 </Controls:CustomDataGrid.ContextMenu>
@@ -50,6 +51,13 @@
                             </MultiBinding>
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="修改" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </Controls:CustomDataGrid.Columns>
             </Controls:CustomDataGrid>
         </Grid>

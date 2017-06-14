@@ -312,6 +312,18 @@ namespace Tokiku.ViewModels
 
 
 
+        public ProcessingAtlasViewModelCollection ProcessingAtlas
+        {
+            get { return (ProcessingAtlasViewModelCollection)GetValue(ProcessingAtlasProperty); }
+            set { SetValue(ProcessingAtlasProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ProcessingAtlas.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ProcessingAtlasProperty =
+            DependencyProperty.Register("ProcessingAtlas", typeof(ProcessingAtlasViewModelCollection), typeof(ProjectContractViewModel), new PropertyMetadata(default(ProcessingAtlasViewModelCollection)));
+
+
+
         #region PromissoryNoteManagement
         /// <summary>
         /// 本票管理
@@ -357,7 +369,7 @@ namespace Tokiku.ViewModels
             PromissoryNoteManagement = new PromissoryNoteManagementViewModelCollection();
             Projects = new ProjectsViewModel(new ProjectsController());
             ConstructionAtlas = new ConstructionAtlasViewModelCollection();
-
+            ProcessingAtlas = new ProcessingAtlasViewModelCollection();
         }
 
         public override void Query()
@@ -373,7 +385,12 @@ namespace Tokiku.ViewModels
                 {
                     ProjectContract data = result.Result.Single();
                     BindingFromModel(data, this);
-                    CreateUser = data.CreateUser.UserName;
+
+                    if (data.CreateUser != null)
+                    {
+                        CreateUser = data.CreateUser.UserName;
+                    }
+                    
 
                     if (data.Engineering.Any())
                     {
@@ -407,6 +424,17 @@ namespace Tokiku.ViewModels
                             ConstructionAtlas.Add(model);
                         }
                     }
+
+                    if (data.ConstructionAtlas.Any())
+                    {
+                        foreach (var row in data.ProcessingAtlas)
+                        {
+                            ProcessingAtlasViewModel model = new ProcessingAtlasViewModel();
+                            model.DoEvents();
+                            model.SetModel(row);
+                            ProcessingAtlas.Add(model);
+                        }
+                    }
                 }
             }
         }
@@ -430,7 +458,9 @@ namespace Tokiku.ViewModels
             {
                 foreach (PromissoryNoteManagementViewModel model in PromissoryNoteManagement)
                 {
-                    
+                    PromissoryNoteManagement entity = new PromissoryNoteManagement();
+                    CopyToModel(entity, model);
+                    data.PromissoryNoteManagement.Add(entity);
                 }
             }
 
@@ -438,10 +468,21 @@ namespace Tokiku.ViewModels
             {
                 foreach(ConstructionAtlasViewModel model in ConstructionAtlas)
                 {
-                    ConstructionAtlas entity = new Entity.ConstructionAtlas();
+                    ConstructionAtlas entity = new ConstructionAtlas();
                     entity.ProjectContractId = data.Id;
                     CopyToModel(entity, model);
                     data.ConstructionAtlas.Add(entity);
+                }
+            }
+
+            if (ConstructionAtlas.Any())
+            {
+                foreach (ProcessingAtlasViewModel model in ProcessingAtlas)
+                {
+                    ProcessingAtlas entity = new ProcessingAtlas();
+                    entity.ProjectContractId = data.Id;
+                    CopyToModel(entity, model);
+                    data.ProcessingAtlas.Add(entity);
                 }
             }
 
