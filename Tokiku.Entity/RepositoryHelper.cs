@@ -29,44 +29,16 @@ namespace Tokiku.Entity
 			return repository;
 		}		
 
-		public static BOMRepository GetBOMRepository()
+		public static ConstructionAtlasRepository GetConstructionAtlasRepository()
 		{
-			var repository = new BOMRepository();
+			var repository = new ConstructionAtlasRepository();
 			repository.UnitOfWork = GetUnitOfWork();
 			return repository;
 		}
 
-		public static BOMRepository GetBOMRepository(IUnitOfWork unitOfWork)
+		public static ConstructionAtlasRepository GetConstructionAtlasRepository(IUnitOfWork unitOfWork)
 		{
-			var repository = new BOMRepository();
-			repository.UnitOfWork = unitOfWork;
-			return repository;
-		}		
-
-		public static CompositionsRepository GetCompositionsRepository()
-		{
-			var repository = new CompositionsRepository();
-			repository.UnitOfWork = GetUnitOfWork();
-			return repository;
-		}
-
-		public static CompositionsRepository GetCompositionsRepository(IUnitOfWork unitOfWork)
-		{
-			var repository = new CompositionsRepository();
-			repository.UnitOfWork = unitOfWork;
-			return repository;
-		}		
-
-		public static CompositionTypesRepository GetCompositionTypesRepository()
-		{
-			var repository = new CompositionTypesRepository();
-			repository.UnitOfWork = GetUnitOfWork();
-			return repository;
-		}
-
-		public static CompositionTypesRepository GetCompositionTypesRepository(IUnitOfWork unitOfWork)
-		{
-			var repository = new CompositionTypesRepository();
+			var repository = new ConstructionAtlasRepository();
 			repository.UnitOfWork = unitOfWork;
 			return repository;
 		}		
@@ -221,6 +193,20 @@ namespace Tokiku.Entity
 		public static PaymentTypesRepository GetPaymentTypesRepository(IUnitOfWork unitOfWork)
 		{
 			var repository = new PaymentTypesRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
+		public static ProcessingAtlasRepository GetProcessingAtlasRepository()
+		{
+			var repository = new ProcessingAtlasRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static ProcessingAtlasRepository GetProcessingAtlasRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new ProcessingAtlasRepository();
 			repository.UnitOfWork = unitOfWork;
 			return repository;
 		}		

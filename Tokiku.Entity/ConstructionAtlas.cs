@@ -12,15 +12,22 @@ namespace Tokiku.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class BOM
+    public partial class ConstructionAtlas
     {
         public System.Guid Id { get; set; }
-        public System.Guid ProjectItemCostId { get; set; }
-        public int Bidders { get; set; }
-        public int NumberTenders { get; set; }
-        public string ItemName { get; set; }
-        public System.Guid ShopFlowId { get; set; }
+        public System.Guid ProjectContractId { get; set; }
+        public string ImageName { get; set; }
+        public int Edition { get; set; }
+        public System.DateTime SubmissionDate { get; set; }
+        public string SubmitCertificateNumber { get; set; }
+        public Nullable<System.DateTime> ReplyDate { get; set; }
+        public string ReplyNumber { get; set; }
+        public int ReplyContent { get; set; }
+        public bool Finalized { get; set; }
+        public string Comment { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
+    
+        public virtual ProjectContract ProjectContract { get; set; }
     }
 }

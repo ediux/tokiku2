@@ -32,11 +32,8 @@ namespace Tokiku.Entity
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<ShopFlowHistory> ShopFlowHistory { get; set; }
         public virtual DbSet<AccessLog> AccessLog { get; set; }
-        public virtual DbSet<Compositions> Compositions { get; set; }
-        public virtual DbSet<CompositionTypes> CompositionTypes { get; set; }
         public virtual DbSet<ShopFlowDetail> ShopFlowDetail { get; set; }
         public virtual DbSet<WorkShops> WorkShops { get; set; }
-        public virtual DbSet<BOM> BOM { get; set; }
         public virtual DbSet<Contacts> Contacts { get; set; }
         public virtual DbSet<Engineering> Engineering { get; set; }
         public virtual DbSet<Manufacturers> Manufacturers { get; set; }
@@ -58,5 +55,7 @@ namespace Tokiku.Entity
         public virtual DbSet<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
         public virtual DbSet<Projects> Projects { get; set; }
         public virtual DbSet<MoldsInProjects> MoldsInProjects { get; set; }
+        public virtual DbSet<ConstructionAtlas> ConstructionAtlas { get; set; }
+        public virtual DbSet<ProcessingAtlas> ProcessingAtlas { get; set; }
     }
 }

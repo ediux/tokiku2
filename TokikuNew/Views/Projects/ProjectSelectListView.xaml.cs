@@ -165,8 +165,6 @@ namespace TokikuNew.Views
 
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
-
-
         }
 
         private void ProjectList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -175,6 +173,7 @@ namespace TokikuNew.Views
             {
                 if (ProjectList.SelectedItem != null)
                 {
+                    e.Handled = true;
                     SelectedProject = (ProjectListViewModel)ProjectList.SelectedItem;
                     RaiseEvent(new RoutedEventArgs(SelectedProjectChangedEvent, SelectedProject));
                 }

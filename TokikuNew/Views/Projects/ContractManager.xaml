@@ -44,7 +44,7 @@
                     </Controls:CustomDataGrid.Columns>
                 </Controls:CustomDataGrid>
             </GroupBox>
-           
+            <local:ConstructionAtlasView Grid.Row="1" Grid.Column="0" DataContext="{Binding ConstructionAtlas}" />
             <GroupBox Header="加工圖集" Grid.Row="1" Grid.Column="1" Margin="5">
                 <Controls:CustomDataGrid x:Name="com2" ItemsSource="{Binding Compositions2}" CanUserAddRows="True" CanUserDeleteRows="True" MouseDoubleClick="CustomDataGrid_MouseDoubleClick_1"
                                          IsEnabled="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}">
@@ -58,7 +58,7 @@
                 </Controls:CustomDataGrid>
             </GroupBox>
         </Grid>
-        <Controls:DockBar x:Name="dockBar"  Grid.Row="1" DocumentMode="{Binding Path=Mode}" />
+        <Controls:DockBar x:Name="dockBar"  Grid.Row="1" DocumentMode="{Binding Path=Mode}" DocumentModeChanged="DockBar_DocumentModeChanged" />
 
     </Grid>
 </UserControl>

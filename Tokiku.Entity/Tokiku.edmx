@@ -16,19 +16,6 @@
           <Property Name="ActionCode" Type="tinyint" Nullable="false" />
           <Property Name="Reason" Type="nvarchar" MaxLength="512" />
         </EntityType>
-        <EntityType Name="BOM">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ProjectItemCostId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Bidders" Type="int" Nullable="false" />
-          <Property Name="NumberTenders" Type="int" Nullable="false" />
-          <Property Name="ItemName" Type="nvarchar" MaxLength="512" />
-          <Property Name="ShopFlowId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CreateTime" Type="datetime" Nullable="false" />
-          <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
-        </EntityType>
         <EntityType Name="ClientsInProjects">
           <Key>
             <PropertyRef Name="Clients_Id" />
@@ -37,31 +24,23 @@
           <Property Name="Clients_Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ClientForProjects_Id" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
-        <EntityType Name="Compositions">
+        <EntityType Name="ConstructionAtlas">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="EngineeringId" Type="uniqueidentifier" />
-          <Property Name="Order" Type="int" Nullable="false" />
-          <Property Name="CompositionTypeId" Type="int" />
-          <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="SpecDesc" Type="nvarchar" MaxLength="512" />
-          <Property Name="Amount" Type="real" Nullable="false" />
-          <Property Name="Reserved1" Type="nvarchar" MaxLength="200" />
-          <Property Name="Reserved2" Type="nvarchar" MaxLength="200" />
-          <Property Name="Reserved3" Type="nvarchar" MaxLength="200" />
-          <Property Name="Reserved4" Type="nvarchar" MaxLength="200" />
-          <Property Name="Reserved5" Type="nvarchar" MaxLength="200" />
-          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="ProjectContractId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ImageName" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Edition" Type="int" Nullable="false" />
+          <Property Name="SubmissionDate" Type="date" Nullable="false" />
+          <Property Name="SubmitCertificateNumber" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="ReplyDate" Type="date" />
+          <Property Name="ReplyNumber" Type="nvarchar" MaxLength="250" />
+          <Property Name="ReplyContent" Type="int" Nullable="false" />
+          <Property Name="Finalized" Type="bit" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="512" />
+          <Property Name="CreateTime" Type="smalldatetime" Nullable="false" />
           <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
-        </EntityType>
-        <EntityType Name="CompositionTypes">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Contacts">
           <Key>
@@ -242,6 +221,17 @@
           </Key>
           <Property Name="Id" Type="tinyint" Nullable="false" />
           <Property Name="PaymentTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProcessingAtlas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProjectContractId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Atlas" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateTime" Type="smalldatetime" Nullable="false" />
+          <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="Profile">
           <Key>
@@ -532,27 +522,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Compositions_CompositionTypes">
-          <End Role="CompositionTypes" Type="Self.CompositionTypes" Multiplicity="0..1" />
-          <End Role="Compositions" Type="Self.Compositions" Multiplicity="*" />
+        <Association Name="FK_ConstructionAtlas_ProjectContract">
+          <End Role="ProjectContract" Type="Self.ProjectContract" Multiplicity="1" />
+          <End Role="ConstructionAtlas" Type="Self.ConstructionAtlas" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CompositionTypes">
+            <Principal Role="ProjectContract">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Compositions">
-              <PropertyRef Name="CompositionTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Compositions_Engineering">
-          <End Role="Engineering" Type="Self.Engineering" Multiplicity="0..1" />
-          <End Role="Compositions" Type="Self.Compositions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Engineering">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Compositions">
-              <PropertyRef Name="EngineeringId" />
+            <Dependent Role="ConstructionAtlas">
+              <PropertyRef Name="ProjectContractId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -781,6 +759,18 @@
             </Principal>
             <Dependent Role="MoldsInProjects">
               <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProcessingAtlas_ProjectContract">
+          <End Role="ProjectContract" Type="Self.ProjectContract" Multiplicity="1" />
+          <End Role="ProcessingAtlas" Type="Self.ProcessingAtlas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectContract">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProcessingAtlas">
+              <PropertyRef Name="ProjectContractId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1050,10 +1040,8 @@
         </Association>
         <EntityContainer Name="TokikuModelStoreContainer">
           <EntitySet Name="AccessLog" EntityType="Self.AccessLog" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="BOM" EntityType="Self.BOM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClientsInProjects" EntityType="Self.ClientsInProjects" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Compositions" EntityType="Self.Compositions" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CompositionTypes" EntityType="Self.CompositionTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConstructionAtlas" EntityType="Self.ConstructionAtlas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contacts" EntityType="Self.Contacts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContractsInManufacturers" EntityType="Self.ContractsInManufacturers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Engineering" EntityType="Self.Engineering" Schema="dbo" store:Type="Tables" />
@@ -1066,6 +1054,7 @@
           <EntitySet Name="MoldsInProjects" EntityType="Self.MoldsInProjects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MoldUseStatus" EntityType="Self.MoldUseStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PaymentTypes" EntityType="Self.PaymentTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProcessingAtlas" EntityType="Self.ProcessingAtlas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Profile" EntityType="Self.Profile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectContract" EntityType="Self.ProjectContract" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectItemCost" EntityType="Self.ProjectItemCost" Schema="dbo" store:Type="Tables" />
@@ -1119,13 +1108,9 @@
             <End Role="Projects" EntitySet="Projects" />
             <End Role="ClientsInProjects" EntitySet="ClientsInProjects" />
           </AssociationSet>
-          <AssociationSet Name="FK_Compositions_CompositionTypes" Association="Self.FK_Compositions_CompositionTypes">
-            <End Role="CompositionTypes" EntitySet="CompositionTypes" />
-            <End Role="Compositions" EntitySet="Compositions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Compositions_Engineering" Association="Self.FK_Compositions_Engineering">
-            <End Role="Engineering" EntitySet="Engineering" />
-            <End Role="Compositions" EntitySet="Compositions" />
+          <AssociationSet Name="FK_ConstructionAtlas_ProjectContract" Association="Self.FK_ConstructionAtlas_ProjectContract">
+            <End Role="ProjectContract" EntitySet="ProjectContract" />
+            <End Role="ConstructionAtlas" EntitySet="ConstructionAtlas" />
           </AssociationSet>
           <AssociationSet Name="FK_ContractsInManufacturers_Contacts" Association="Self.FK_ContractsInManufacturers_Contacts">
             <End Role="Contacts" EntitySet="Contacts" />
@@ -1202,6 +1187,10 @@
           <AssociationSet Name="FK_MoldsInProjects_Projects" Association="Self.FK_MoldsInProjects_Projects">
             <End Role="Projects" EntitySet="Projects" />
             <End Role="MoldsInProjects" EntitySet="MoldsInProjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProcessingAtlas_ProjectContract" Association="Self.FK_ProcessingAtlas_ProjectContract">
+            <End Role="ProjectContract" EntitySet="ProjectContract" />
+            <End Role="ProcessingAtlas" EntitySet="ProcessingAtlas" />
           </AssociationSet>
           <AssociationSet Name="FK_ProjectContract_Projects" Association="Self.FK_ProjectContract_Projects">
             <End Role="Projects" EntitySet="Projects" />
@@ -1430,12 +1419,6 @@
             <End Role="ShopFlowHistory" EntitySet="ShopFlowHistory" />
           </AssociationSet>
           <EntitySet Name="AccessLog" EntityType="TokikuModel.AccessLog" />
-          <EntitySet Name="Compositions" EntityType="TokikuModel.Compositions" />
-          <EntitySet Name="CompositionTypes" EntityType="TokikuModel.CompositionTypes" />
-          <AssociationSet Name="FK_Compositions_CompositionTypes" Association="TokikuModel.FK_Compositions_CompositionTypes">
-            <End Role="CompositionTypes" EntitySet="CompositionTypes" />
-            <End Role="Compositions" EntitySet="Compositions" />
-          </AssociationSet>
           <EntitySet Name="ShopFlowDetail" EntityType="TokikuModel.ShopFlowDetail" />
           <EntitySet Name="WorkShops" EntityType="TokikuModel.WorkShops" />
           <AssociationSet Name="FK_ShopFlowDetail_Users" Association="TokikuModel.FK_ShopFlowDetail_Users">
@@ -1450,7 +1433,6 @@
             <End Role="ShopFlowHistory" EntitySet="ShopFlowHistory" />
             <End Role="ShopFlowHistory1" EntitySet="ShopFlowHistory" />
           </AssociationSet>
-          <EntitySet Name="BOM" EntityType="TokikuModel.BOM" />
           <EntitySet Name="Contacts" EntityType="TokikuModel.Contacts" />
           <EntitySet Name="Engineering" EntityType="TokikuModel.Engineering" />
           <EntitySet Name="Manufacturers" EntityType="TokikuModel.Manufacturers" />
@@ -1464,10 +1446,6 @@
           <EntitySet Name="PromissoryNoteManagement" EntityType="TokikuModel.PromissoryNoteManagement" />
           <EntitySet Name="ShopFlow" EntityType="TokikuModel.ShopFlow" />
           <EntitySet Name="TicketTypes" EntityType="TokikuModel.TicketTypes" />
-          <AssociationSet Name="FK_Compositions_Engineering" Association="TokikuModel.FK_Compositions_Engineering">
-            <End Role="Engineering" EntitySet="Engineering" />
-            <End Role="Compositions" EntitySet="Compositions" />
-          </AssociationSet>
           <AssociationSet Name="FK_Engineering_ProjectContract" Association="TokikuModel.FK_Engineering_ProjectContract">
             <End Role="ProjectContract" EntitySet="ProjectContract" />
             <End Role="Engineering" EntitySet="Engineering" />
@@ -1612,6 +1590,16 @@
             <End Role="Manufacturers" EntitySet="Manufacturers" />
             <End Role="Projects" EntitySet="Projects" />
           </AssociationSet>
+          <EntitySet Name="ConstructionAtlas" EntityType="TokikuModel.ConstructionAtlas" />
+          <AssociationSet Name="FK_ConstructionAtlas_ProjectContract" Association="TokikuModel.FK_ConstructionAtlas_ProjectContract">
+            <End Role="ProjectContract" EntitySet="ProjectContract" />
+            <End Role="ConstructionAtlas" EntitySet="ConstructionAtlas" />
+          </AssociationSet>
+          <EntitySet Name="ProcessingAtlas" EntityType="TokikuModel.ProcessingAtlas" />
+          <AssociationSet Name="FK_ProcessingAtlas_ProjectContract" Association="TokikuModel.FK_ProcessingAtlas_ProjectContract">
+            <End Role="ProjectContract" EntitySet="ProjectContract" />
+            <End Role="ProcessingAtlas" EntitySet="ProcessingAtlas" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="ShopFlowHistory">
           <Key>
@@ -1664,47 +1652,6 @@
           <Property Name="ActionCode" Type="Byte" Nullable="false" />
           <Property Name="Reason" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Compositions">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="EngineeringId" Type="Guid" />
-          <Property Name="Order" Type="Int32" Nullable="false" />
-          <Property Name="CompositionTypeId" Type="Int32" />
-          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SpecDesc" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
-          <Property Name="Amount" Type="Single" Nullable="false" />
-          <Property Name="Reserved1" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Reserved2" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Reserved3" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Reserved4" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Reserved5" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="CompositionTypes" Relationship="TokikuModel.FK_Compositions_CompositionTypes" FromRole="Compositions" ToRole="CompositionTypes" />
-          <NavigationProperty Name="Engineering" Relationship="TokikuModel.FK_Compositions_Engineering" FromRole="Compositions" ToRole="Engineering" />
-        </EntityType>
-        <EntityType Name="CompositionTypes">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Compositions" Relationship="TokikuModel.FK_Compositions_CompositionTypes" FromRole="CompositionTypes" ToRole="Compositions" />
-        </EntityType>
-        <Association Name="FK_Compositions_CompositionTypes">
-          <End Type="TokikuModel.CompositionTypes" Role="CompositionTypes" Multiplicity="0..1" />
-          <End Type="TokikuModel.Compositions" Role="Compositions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CompositionTypes">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Compositions">
-              <PropertyRef Name="CompositionTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="ShopFlowDetail">
           <Key>
             <PropertyRef Name="Id" />
@@ -1769,19 +1716,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="BOM">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="ProjectItemCostId" Type="Guid" Nullable="false" />
-          <Property Name="Bidders" Type="Int32" Nullable="false" />
-          <Property Name="NumberTenders" Type="Int32" Nullable="false" />
-          <Property Name="ItemName" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
-          <Property Name="ShopFlowId" Type="Guid" Nullable="false" />
-          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
-        </EntityType>
         <EntityType Name="Contacts">
           <Key>
             <PropertyRef Name="Id" />
@@ -1816,7 +1750,6 @@
           <Property Name="State" Type="Byte" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="Compositions" Relationship="TokikuModel.FK_Compositions_Engineering" FromRole="Engineering" ToRole="Compositions" />
           <NavigationProperty Name="ProjectContract" Relationship="TokikuModel.FK_Engineering_ProjectContract" FromRole="Engineering" ToRole="ProjectContract" />
           <NavigationProperty Name="States" Relationship="TokikuModel.FK_Engineering_States" FromRole="Engineering" ToRole="States" />
           <NavigationProperty Name="ProjectItemCost" Relationship="TokikuModel.FK_ProjectItemCost_Engineering" FromRole="Engineering" ToRole="ProjectItemCost" />
@@ -1952,6 +1885,8 @@
           <NavigationProperty Name="CreateUser" Relationship="TokikuModel.FK_ProjectContract_Users" FromRole="ProjectContract" ToRole="Users" />
           <NavigationProperty Name="PromissoryNoteManagement" Relationship="TokikuModel.FK_PromissoryNoteManagement_ProjectContract" FromRole="ProjectContract" ToRole="PromissoryNoteManagement" />
           <NavigationProperty Name="Projects" Relationship="TokikuModel.FK_ProjectContract_Projects" FromRole="ProjectContract" ToRole="Projects" />
+          <NavigationProperty Name="ConstructionAtlas" Relationship="TokikuModel.FK_ConstructionAtlas_ProjectContract" FromRole="ProjectContract" ToRole="ConstructionAtlas" />
+          <NavigationProperty Name="ProcessingAtlas" Relationship="TokikuModel.FK_ProcessingAtlas_ProjectContract" FromRole="ProjectContract" ToRole="ProcessingAtlas" />
         </EntityType>
         <EntityType Name="ProjectItemCost">
           <Key>
@@ -2011,18 +1946,6 @@
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="PromissoryNoteManagement" Relationship="TokikuModel.FK_PromissoryNoteManagement_TicketTypes" FromRole="TicketTypes" ToRole="PromissoryNoteManagement" />
         </EntityType>
-        <Association Name="FK_Compositions_Engineering">
-          <End Type="TokikuModel.Engineering" Role="Engineering" Multiplicity="0..1" />
-          <End Type="TokikuModel.Compositions" Role="Compositions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Engineering">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Compositions">
-              <PropertyRef Name="EngineeringId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Engineering_ProjectContract">
           <End Type="TokikuModel.ProjectContract" Role="ProjectContract" Multiplicity="1" />
           <End Type="TokikuModel.Engineering" Role="Engineering" Multiplicity="*" />
@@ -2549,6 +2472,61 @@
           <End Type="TokikuModel.Manufacturers" Role="Manufacturers" Multiplicity="*" />
           <End Type="TokikuModel.Projects" Role="Projects" Multiplicity="*" />
         </Association>
+        <EntityType Name="ConstructionAtlas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ProjectContractId" Type="Guid" Nullable="false" />
+          <Property Name="ImageName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Edition" Type="Int32" Nullable="false" />
+          <Property Name="SubmissionDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="SubmitCertificateNumber" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ReplyDate" Type="DateTime" Precision="0" />
+          <Property Name="ReplyNumber" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ReplyContent" Type="Int32" Nullable="false" />
+          <Property Name="Finalized" Type="Boolean" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="ProjectContract" Relationship="TokikuModel.FK_ConstructionAtlas_ProjectContract" FromRole="ConstructionAtlas" ToRole="ProjectContract" />
+        </EntityType>
+        <Association Name="FK_ConstructionAtlas_ProjectContract">
+          <End Type="TokikuModel.ProjectContract" Role="ProjectContract" Multiplicity="1" />
+          <End Type="TokikuModel.ConstructionAtlas" Role="ConstructionAtlas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectContract">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConstructionAtlas">
+              <PropertyRef Name="ProjectContractId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ProcessingAtlas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ProjectContractId" Type="Guid" Nullable="false" />
+          <Property Name="Atlas" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="ProjectContract" Relationship="TokikuModel.FK_ProcessingAtlas_ProjectContract" FromRole="ProcessingAtlas" ToRole="ProjectContract" />
+        </EntityType>
+        <Association Name="FK_ProcessingAtlas_ProjectContract">
+          <End Type="TokikuModel.ProjectContract" Role="ProjectContract" Multiplicity="1" />
+          <End Type="TokikuModel.ProcessingAtlas" Role="ProcessingAtlas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectContract">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProcessingAtlas">
+              <PropertyRef Name="ProjectContractId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2647,34 +2625,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Compositions">
-      <EntityTypeMapping TypeName="IsTypeOf(TokikuModel.Compositions)">
-        <MappingFragment StoreEntitySet="Compositions">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="EngineeringId" ColumnName="EngineeringId" />
-          <ScalarProperty Name="Order" ColumnName="Order" />
-          <ScalarProperty Name="CompositionTypeId" ColumnName="CompositionTypeId" />
-          <ScalarProperty Name="Code" ColumnName="Code" />
-          <ScalarProperty Name="SpecDesc" ColumnName="SpecDesc" />
-          <ScalarProperty Name="Amount" ColumnName="Amount" />
-          <ScalarProperty Name="Reserved1" ColumnName="Reserved1" />
-          <ScalarProperty Name="Reserved2" ColumnName="Reserved2" />
-          <ScalarProperty Name="Reserved3" ColumnName="Reserved3" />
-          <ScalarProperty Name="Reserved4" ColumnName="Reserved4" />
-          <ScalarProperty Name="Reserved5" ColumnName="Reserved5" />
-          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-          <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="CompositionTypes">
-      <EntityTypeMapping TypeName="IsTypeOf(TokikuModel.CompositionTypes)">
-        <MappingFragment StoreEntitySet="CompositionTypes">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="ShopFlowDetail">
       <EntityTypeMapping TypeName="IsTypeOf(TokikuModel.ShopFlowDetail)">
         <MappingFragment StoreEntitySet="ShopFlowDetail">
@@ -2695,20 +2645,6 @@
           <ScalarProperty Name="Location" ColumnName="Location" />
           <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
           <ScalarProperty Name="Void" ColumnName="Void" />
-          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-          <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="BOM">
-      <EntityTypeMapping TypeName="IsTypeOf(TokikuModel.BOM)">
-        <MappingFragment StoreEntitySet="BOM">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="ProjectItemCostId" ColumnName="ProjectItemCostId" />
-          <ScalarProperty Name="Bidders" ColumnName="Bidders" />
-          <ScalarProperty Name="NumberTenders" ColumnName="NumberTenders" />
-          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
-          <ScalarProperty Name="ShopFlowId" ColumnName="ShopFlowId" />
           <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
           <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
         </MappingFragment>
@@ -3053,6 +2989,37 @@
               <ScalarProperty Name="Id" ColumnName="Clients_Id" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="ConstructionAtlas">
+            <EntityTypeMapping TypeName="TokikuModel.ConstructionAtlas">
+              <MappingFragment StoreEntitySet="ConstructionAtlas">
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Finalized" ColumnName="Finalized" />
+                <ScalarProperty Name="ReplyContent" ColumnName="ReplyContent" />
+                <ScalarProperty Name="ReplyNumber" ColumnName="ReplyNumber" />
+                <ScalarProperty Name="ReplyDate" ColumnName="ReplyDate" />
+                <ScalarProperty Name="SubmitCertificateNumber" ColumnName="SubmitCertificateNumber" />
+                <ScalarProperty Name="SubmissionDate" ColumnName="SubmissionDate" />
+                <ScalarProperty Name="Edition" ColumnName="Edition" />
+                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+                <ScalarProperty Name="ProjectContractId" ColumnName="ProjectContractId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProcessingAtlas">
+            <EntityTypeMapping TypeName="TokikuModel.ProcessingAtlas">
+              <MappingFragment StoreEntitySet="ProcessingAtlas">
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Atlas" ColumnName="Atlas" />
+                <ScalarProperty Name="ProjectContractId" ColumnName="ProjectContractId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

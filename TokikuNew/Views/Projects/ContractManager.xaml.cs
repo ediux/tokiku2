@@ -137,38 +137,13 @@ namespace TokikuNew.Views
                               
                             }
                         }
-                     
 
-
-                        if (SelectedEngineering.Compositions == null)
-                            SelectedEngineering.Compositions = new CompositionsViewModelCollection();
-
-                        if (SelectedEngineering.Compositions2 == null)
-                            SelectedEngineering.Compositions2 = new CompositionsViewModelCollection();
-
-                        if (SelectedEngineering.Compositions.Count > 0)
+                        if (model.ConstructionAtlas.Any())
                         {
-                            foreach (CompositionsViewModel com1 in SelectedEngineering.Compositions)
-                            {
-                                if (com1.CreateUserId == Guid.Empty)
-                                {
-                                    com1.CreateUserId = LoginedUser.UserId;
-                                }
-                            }
+
                         }
 
-                        if (SelectedEngineering.Compositions2.Count > 0)
-                        {
-                            foreach (CompositionsViewModel com2 in SelectedEngineering.Compositions2)
-                            {
-                                if (com2.CreateUserId == Guid.Empty)
-                                {
-                                    com2.CreateUserId = LoginedUser.UserId;
-                                }
-                            }
-                        }
-
-                        //controller.SaveModel(SelectedEngineering);
+                        model.SaveModel();
 
                         if (SelectedEngineering.HasError)
                         {

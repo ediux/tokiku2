@@ -209,15 +209,15 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 施工圖集
         /// </summary>
-        public CompositionsViewModelCollection Compositions
+        public ConstructionAtlasViewModelCollection Compositions
         {
-            get { return (CompositionsViewModelCollection)GetValue(CompositionsProperty); }
+            get { return (ConstructionAtlasViewModelCollection)GetValue(CompositionsProperty); }
             set { SetValue(CompositionsProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for Compositions.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CompositionsProperty =
-            DependencyProperty.Register("Compositions", typeof(CompositionsViewModelCollection), typeof(EngineeringViewModel), new PropertyMetadata(default(CompositionsViewModelCollection)));
+            DependencyProperty.Register("Compositions", typeof(ConstructionAtlasViewModelCollection), typeof(EngineeringViewModel), new PropertyMetadata(default(ConstructionAtlasViewModelCollection)));
 
 
         #endregion
@@ -226,15 +226,15 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 加工圖集
         /// </summary>
-        public CompositionsViewModelCollection Compositions2
+        public ConstructionAtlasViewModelCollection Compositions2
         {
-            get { return (CompositionsViewModelCollection)GetValue(Compositions2Property); }
+            get { return (ConstructionAtlasViewModelCollection)GetValue(Compositions2Property); }
             set { SetValue(Compositions2Property, value); }
         }
 
         // Using a DependencyProperty as the backing store for Compositions2.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty Compositions2Property =
-            DependencyProperty.Register("Compositions2", typeof(CompositionsViewModelCollection), typeof(EngineeringViewModel), new PropertyMetadata(default(CompositionsViewModelCollection)));
+            DependencyProperty.Register("Compositions2", typeof(ConstructionAtlasViewModelCollection), typeof(EngineeringViewModel), new PropertyMetadata(default(ConstructionAtlasViewModelCollection)));
 
         #endregion
 

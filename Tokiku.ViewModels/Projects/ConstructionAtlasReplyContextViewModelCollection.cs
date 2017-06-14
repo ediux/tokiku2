@@ -11,9 +11,10 @@ namespace Tokiku.ViewModels
         public override void Initialized()
         {
             base.Initialized();
-            Add(new ConstructionAtlasReplyContextViewModel() {
-                Value=1,
-                Text= "存查"
+            Add(new ConstructionAtlasReplyContextViewModel()
+            {
+                Value = 1,
+                Text = "存查"
             });
             Add(new ConstructionAtlasReplyContextViewModel()
             {
@@ -34,6 +35,11 @@ namespace Tokiku.ViewModels
             {
                 Value = 5,
                 Text = "退件重新送審"
+            });
+            Add(new ConstructionAtlasReplyContextViewModel()
+            {
+                Value = 6,
+                Text = "其他:輸入文字"
             });
         }
     }

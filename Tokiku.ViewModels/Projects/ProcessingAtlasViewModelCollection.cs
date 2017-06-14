@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tokiku.Entity;
 
-namespace Tokiku.Controllers
+namespace Tokiku.ViewModels
 {
-    public class ProjectManagerViewController : BaseController<Projects>
+    public class ProcessingAtlasViewModelCollection : BaseViewModelCollection<ProcessingAtlasViewModel>
     {
+
     }
 }

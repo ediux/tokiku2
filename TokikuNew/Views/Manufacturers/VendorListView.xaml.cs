@@ -128,6 +128,7 @@ namespace TokikuNew.Views
             {
                 if (SelectedManufacturer != null)
                 {
+                    e.Handled = true;
                     RaiseEvent(new RoutedEventArgs(SelectedVendorChangedEvent, SelectedManufacturer));
                 }
             }

@@ -27,31 +27,35 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TextBlock Text="圖名" Grid.Row="0" Grid.Column="0" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right" Height="19" Margin="0,4" Width="30"/>
-        <TextBox Text="" Grid.Row="0" Grid.Column="1" Margin="2"/>
+        <TextBox Text="{Binding ImageName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1" Margin="2"/>
         <TextBlock Text="版次" Grid.Row="0" Grid.Column="2" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right" Height="19" Margin="0,4" Width="30"/>
-        <TextBox Text="" Grid.Row="0" Grid.Column="3" Margin="2" IsReadOnly="True"/>
+        <TextBox Text="{Binding Edition,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="3" Margin="2" IsReadOnly="True"/>
         <TextBlock Text="送審日期" Grid.Row="1" Grid.Column="0" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right" Height="19" Margin="0,4" Width="60"/>
-        <DatePicker Text="" Grid.Row="1" Grid.Column="1" Margin="2"/>
+        <DatePicker Text="{Binding SubmissionDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" Margin="2"/>
         <TextBlock Text="送審文號" Grid.Row="1" Grid.Column="2" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right" Height="19" Margin="0,4" Width="60"/>
-        <TextBox Text="" Grid.Row="1" Grid.Column="3" Margin="2"/>
+        <TextBox Text="{Binding SubmitCertificateNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="3" Margin="2"/>
         <TextBlock Text="回覆日期" Grid.Row="2" Grid.Column="0" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right" Height="19" Margin="0,4" Width="60"/>
-        <DatePicker Text="" Grid.Row="2" Grid.Column="1" Margin="2"/>
+        <DatePicker Text="{Binding ReplyDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" Margin="2"/>
         <TextBlock Text="回覆文號" Grid.Row="2" Grid.Column="2" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right" Height="19" Margin="0,4" Width="60"/>
-        <TextBox Text="" Grid.Row="2" Grid.Column="3" Margin="2"/>
+        <TextBox Text="{Binding ReplyNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="3" Margin="2"/>
         <TextBlock Text="回覆內容" Grid.Row="3" Grid.Column="0" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right" Height="19" Margin="0,4" Width="60"/>
-        <ComboBox Grid.Row="3" Grid.Column="1" Margin="2" SelectedValuePath="Value" SelectedIndex="0" ItemsSource="{DynamicResource ConstructionAtlasReplySelectList}">
+        <ComboBox Grid.Row="3" Grid.Column="1" Margin="2" SelectedValue="{Binding ReplyContent,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Value" SelectedIndex="0" ItemsSource="{DynamicResource ConstructionAtlasReplySelectList}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Text}"/>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <CheckBox Content="定稿" Grid.Row="3" Grid.Column="3"  FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center" Height="19" Margin="10,4,131,4" Width="52"/>
+        <CheckBox Content="定稿" IsChecked="{Binding Finalized,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Grid.Column="3"  FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center" Height="19" Margin="10,4,131,4" Width="52"/>
 
         <TextBlock Text="備註" Grid.Row="4" Grid.Column="0" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right" Height="19" Margin="0,4" Width="30"/>
-        <TextBox Text="" Grid.Row="4" Grid.Column="1" Margin="2"/>
+        <TextBox Text="{Binding Comment,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" Grid.Column="1" Margin="2"/>
         <TextBlock Text="異動人員/日期" Grid.Row="4" Grid.Column="2" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right" Height="19" Margin="0,4" Width="96"/>
-        <TextBox Text="" Grid.Row="4" Grid.Column="3" Margin="2"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="3" Margin="2" IsEnabled="False" VerticalAlignment="Center">
+            <TextBlock Text="{Binding LastUpdateUser,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" FontSize="15"/>
+            <TextBlock Text="/" FontSize="15"/>
+            <TextBlock Text="{Binding LastUpdateDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" FontSize="15" />
+        </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="3" HorizontalAlignment="Right" Width="148" >
             <Button Width="70" Margin="2" x:Name="btnOK" IsDefault="True" Click="btnOK_Click" >
                 <Button.Content>

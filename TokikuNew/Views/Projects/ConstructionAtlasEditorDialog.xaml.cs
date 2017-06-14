@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Tokiku.ViewModels;
 
 namespace TokikuNew
 {
@@ -26,12 +27,37 @@ namespace TokikuNew
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                if (((ConstructionAtlasViewModel)DataContext).ReplyContent == 6)
+                {
+                    if (string.IsNullOrEmpty(((ConstructionAtlasViewModel)DataContext).Comment))
+                    {
+                        MessageBox.Show("請輸入備註!", "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+                        DialogResult = false;
+                        return;
+                    }
+                }
 
+                DialogResult = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                DialogResult = false;
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

@@ -12,18 +12,15 @@ namespace Tokiku.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class CompositionTypes
+    public partial class ProcessingAtlas
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CompositionTypes()
-        {
-            this.Compositions = new HashSet<Compositions>();
-        }
-    
-        public int Id { get; set; }
+        public System.Guid Id { get; set; }
+        public System.Guid ProjectContractId { get; set; }
+        public int Atlas { get; set; }
         public string Name { get; set; }
+        public System.DateTime CreateTime { get; set; }
+        public System.Guid CreateUserId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Compositions> Compositions { get; set; }
+        public virtual ProjectContract ProjectContract { get; set; }
     }
 }

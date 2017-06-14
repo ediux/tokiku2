@@ -56,10 +56,12 @@
     <Compile Include="Projects\ConstructionAtlasReplyContextViewModel.cs" />
     <Compile Include="Projects\ConstructionAtlasReplyContextViewModelCollection.cs" />
     <Compile Include="Projects\Orders\AluminumExtrusionOrderSheetViewModel.cs" />
-    <Compile Include="Projects\CompositionsViewModel.cs" />
+    <Compile Include="Projects\ConstructionAtlasViewModel.cs" />
     <Compile Include="Projects\CompositionTypesViewModel.cs" />
     <Compile Include="CRM\ClientViewModel.cs" />
     <Compile Include="Projects\EngineeringViewModel.cs" />
+    <Compile Include="Projects\ProcessingAtlasViewModel.cs" />
+    <Compile Include="Projects\ProcessingAtlasViewModelCollection.cs" />
     <Compile Include="Projects\SuppliersViewModel.cs" />
     <Compile Include="Finance\PaymentTypesManageViewModel.cs" />
     <Compile Include="Projects\ProjectContractViewModel.cs" />

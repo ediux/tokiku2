@@ -19,6 +19,8 @@ namespace Tokiku.Entity
         {
             this.Engineering = new HashSet<Engineering>();
             this.PromissoryNoteManagement = new HashSet<PromissoryNoteManagement>();
+            this.ConstructionAtlas = new HashSet<ConstructionAtlas>();
+            this.ProcessingAtlas = new HashSet<ProcessingAtlas>();
         }
     
         public System.Guid Id { get; set; }
@@ -37,5 +39,9 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
         public virtual Projects Projects { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ConstructionAtlas> ConstructionAtlas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProcessingAtlas> ProcessingAtlas { get; set; }
     }
 }
