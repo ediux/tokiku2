@@ -23,7 +23,7 @@ namespace Tokiku.ViewModels
 
             Clients = new ClientViewModelCollection();
             ToolBarButtons = new ToolbarButtonsViewModel();
-           
+
         }
 
         #region 目前選定的專案
@@ -127,13 +127,15 @@ namespace Tokiku.ViewModels
             Manufacturers = new ManufacturersViewModelCollection();
             Clients = new ClientViewModelCollection();
 
-        }       
+        }
 
-        public override void Query()
+        public override async void Query()
         {
-            Projects.Query();
-            Manufacturers.Query();
-            Clients.Query();
-        }    
+            //非同步讀取資料庫
+            await Dispatcher.InvokeAsync(new Action(Projects.Query), System.Windows.Threading.DispatcherPriority.Background);
+            await Dispatcher.InvokeAsync(new Action(Manufacturers.Query), System.Windows.Threading.DispatcherPriority.Background);
+            await Dispatcher.InvokeAsync(new Action(Clients.Query), System.Windows.Threading.DispatcherPriority.Background);
+          
+        }
     }
 }

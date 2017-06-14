@@ -32,32 +32,34 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                var executed_result = client_controller.QueryAll();
+                QueryByText("");
+                //var executed_result = client_controller.QueryAll();
 
-                if (!executed_result.HasError)
-                {
-                    if (executed_result.Result.Any())
-                    {
-                        Clear();
-                        foreach (var item in executed_result.Result)
-                        {
-                            ClientViewModel client = BindingFromModel(item);
-                            if (item.Contacts.Any())
-                            {
-                                client.Contracts = new ContactsViewModelCollection();
+                //if (!executed_result.HasError)
+                //{
+                //    if (executed_result.Result.Any())
+                //    {
+                //        Clear();
+                //        foreach (var item in executed_result.Result)
+                //        {
+                //            ClientViewModel client = BindingFromModel(item);
+                //            if (item.Contacts.Any())
+                //            {
+                //                client.Contracts = new ContactsViewModelCollection();
 
-                                foreach (var row in item.Contacts)
-                                {
-                                    ContactsViewModel contract = new ContactsViewModel();
-                                    BindingFromModel(row, contract);
-                                    client.Contracts.Add(contract);
-                                }
-                            }
-                            client.ClientForProjects.QueryByClient(item.Id);
-                            Add(client);
-                        }
-                    }
-                }
+                //                foreach (var row in item.Contacts)
+                //                {
+                //                    ContactsViewModel contract = new ContactsViewModel();
+                //                    contract.DoEvents();
+                //                    BindingFromModel(row, contract);
+                //                    client.Contracts.Add(contract);
+                //                }
+                //            }
+                //            client.ClientForProjects.QueryByClient(item.Id);
+                //            Add(client);
+                //        }
+                //    }
+                //}
             }
             catch (Exception ex)
             {
@@ -78,6 +80,7 @@ namespace Tokiku.ViewModels
                     foreach (var row in objectdataset)
                     {
                         ClientViewModel model = new ClientViewModel();
+                        model.DoEvents();
                         model.SetModel(row);
                         Add(model);
                     }

@@ -297,6 +297,7 @@
                                              MouseDoubleClick="ContractList_MouseDoubleClick"
                                              DataGridRow.Selected="ContractList_Selected"
                                              x:Name="ContractList"
+                                             AddingNewItem="ContractList_AddingNewItem"
                                              IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}">
                         <Controls:CustomDataGrid.Columns>
                             <DataGridTextColumn Header="合約編號" Binding="{Binding ContractNumber}"/>

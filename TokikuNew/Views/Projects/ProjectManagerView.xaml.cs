@@ -148,8 +148,13 @@ namespace TokikuNew.Views
                 }
                 if (SelectedProject != null)
                 {
-                    var foundcurrentNo = SelectedProject.ProjectContract.Where(w => w.ContractNumber == SelectedProject.Code).Single();
-                    foundcurrentNo.Name = tbName.Text;
+                    if (SelectedProject.ProjectContract.Any())
+                    {
+                        foreach(var foundcurrentNo in SelectedProject.ProjectContract)
+                        {
+                            foundcurrentNo.Name = tbName.Text;
+                        }
+                    }
                 }
 
             }
@@ -195,7 +200,7 @@ namespace TokikuNew.Views
 
                         break;
                     case DocumentLifeCircle.Save:
-                        if (SelectedBIGuid != null || SelectedBIGuid != Guid.Empty)
+                        if (SelectedBIGuid != null && SelectedBIGuid != Guid.Empty)
                         {
                             var recvdata = SelectedProject.Suppliers.Where(w => w.Id == SelectedBIGuid).Single();
                             recvdata.SiteContactPerson = TBSiteContactPerson.Text;
@@ -550,11 +555,17 @@ namespace TokikuNew.Views
         {
             try
             {
+                RemoveItem.Clear();
+
                 if (BussinessItemsGrid.SelectedItems.Count > 0)
                 {
                     foreach (var row in BussinessItemsGrid.SelectedItems)
                     {
-                        RemoveItem.Push((SuppliersViewModel)row);
+                        if (row is SuppliersViewModel)
+                        {
+                            if (!RemoveItem.Contains((SuppliersViewModel)row))
+                                RemoveItem.Push((SuppliersViewModel)row);
+                        }
                     }
                 }
             }
@@ -735,6 +746,54 @@ namespace TokikuNew.Views
             {
                 WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
 
+            }
+        }
+
+        private void ContractList_AddingNewItem(object sender, AddingNewItemEventArgs e)
+        {
+            try
+            {
+                e.NewItem = new ProjectContractViewModel();
+                ((ProjectContractViewModel)e.NewItem).ProjectId = ((ProjectsViewModel)DataContext).Id;
+                ((ProjectContractViewModel)e.NewItem).Initialized();
+                ((ProjectContractViewModel)e.NewItem).Id = Guid.NewGuid();
+                if (string.IsNullOrEmpty(((ProjectContractViewModel)e.NewItem).ContractNumber))
+                {
+                    if (((ProjectsViewModel)DataContext) != null)
+                        ((ProjectContractViewModel)e.NewItem).ContractNumber = ((ProjectsViewModel)DataContext).Code;
+                }
+                ((ProjectContractViewModel)e.NewItem).Name = ((ProjectsViewModel)DataContext).Name;
+                ((ProjectContractViewModel)e.NewItem).SigningDate = ((ProjectsViewModel)DataContext).ProjectSigningDate;
+
+                if (((ProjectsViewModel)DataContext).ProjectContract.Where(w => w.ContractNumber == ((ProjectContractViewModel)e.NewItem).ContractNumber).Any())
+                {
+                    var lastdata = ((ProjectsViewModel)DataContext).ProjectContract
+                        .Where(w => w.ContractNumber.StartsWith(((ProjectContractViewModel)e.NewItem).ContractNumber))
+                        .OrderByDescending(w => w.ContractNumber).FirstOrDefault();
+
+                    if (lastdata != null)
+                    {
+                        int lastnumber = 0;
+
+                        if (lastdata.ContractNumber.Length > 7)
+                        {
+                            if (!int.TryParse(lastdata.ContractNumber.Substring(8), out lastnumber))
+                            {
+                                ((ProjectContractViewModel)e.NewItem).ContractNumber = string.Empty;
+                                return;
+                            }
+                        }
+
+                        lastnumber += 1;
+                        ((ProjectContractViewModel)e.NewItem).ContractNumber = string.Format("{0}-{1}", lastdata.ContractNumber.Substring(0, 7), lastnumber);
+                        return;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
             }
         }
     }

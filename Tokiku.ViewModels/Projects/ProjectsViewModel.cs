@@ -275,30 +275,30 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 建築高度(地上)
         /// </summary>
-        public int? BuildingHeightAboveground
+        public int BuildingHeightAboveground
         {
-            get { return (int?)GetValue(BuildingHeightAbovegroundProperty); }
+            get { return (int)GetValue(BuildingHeightAbovegroundProperty); }
             set { SetValue(BuildingHeightAbovegroundProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for BuildingHeightAboveground.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty BuildingHeightAbovegroundProperty =
-            DependencyProperty.Register("BuildingHeightAboveground", typeof(int?), typeof(ProjectsViewModel), new PropertyMetadata(default(int?), new PropertyChangedCallback(DefaultFieldChanged)));
+            DependencyProperty.Register("BuildingHeightAboveground", typeof(int), typeof(ProjectsViewModel), new PropertyMetadata(0, new PropertyChangedCallback(DefaultFieldChanged)));
 
 
 
         /// <summary>
         /// 建築高度(地下)
         /// </summary>
-        public int? BuildingHeightUnderground
+        public int BuildingHeightUnderground
         {
-            get { return (int?)GetValue(BuildingHeightUndergroundProperty); }
+            get { return (int)GetValue(BuildingHeightUndergroundProperty); }
             set { SetValue(BuildingHeightUndergroundProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for BuildingHeightUnderground.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty BuildingHeightUndergroundProperty =
-            DependencyProperty.Register("BuildingHeightUnderground", typeof(int?), typeof(ProjectsViewModel), new PropertyMetadata(default(int?), new PropertyChangedCallback(DefaultFieldChanged)));
+            DependencyProperty.Register("BuildingHeightUnderground", typeof(int), typeof(ProjectsViewModel), new PropertyMetadata(0, new PropertyChangedCallback(DefaultFieldChanged)));
 
 
         /// <summary>
@@ -331,15 +331,15 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 面積數
         /// </summary>
-        public float? Area
+        public float Area
         {
-            get { return (float?)GetValue(AreaProperty); }
+            get { return (float)GetValue(AreaProperty); }
             set { SetValue(AreaProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for Area.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty AreaProperty =
-            DependencyProperty.Register("Area", typeof(float?), typeof(ProjectsViewModel), new PropertyMetadata(default(float?), new PropertyChangedCallback(DefaultFieldChanged)));
+            DependencyProperty.Register("Area", typeof(float), typeof(ProjectsViewModel), new PropertyMetadata(0F, new PropertyChangedCallback(DefaultFieldChanged)));
 
 
         #region Client

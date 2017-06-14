@@ -16,6 +16,107 @@ namespace Tokiku.Controllers
         {
             repo = RepositoryHelper.GetProjectContractRepository(database);
         }
+        public override ExecuteResultEntity<ProjectContract> CreateNew()
+        {
+            try
+            {
+                ProjectContract data = new ProjectContract();
+                var repo = RepositoryHelper.GetProjectContractRepository();
+                var lastdata = repo.All()
+                    .Where(w => w.ContractNumber.Length > 7)
+                    .OrderByDescending(s => s.ContractNumber)
+                    .FirstOrDefault();
+
+                if (lastdata != null)
+                {
+                    int lastnumber = 0;
+
+                    if (!int.TryParse(lastdata.ContractNumber.Substring(8), out lastnumber))
+                    {
+                        data.ContractNumber = string.Empty;
+                        return ExecuteResultEntity<ProjectContract>.CreateResultEntity(data);
+                    }
+                    lastnumber += 1;
+                    data.ContractNumber = string.Format("{0}-{1}", lastdata.ContractNumber.Substring(0,7),lastnumber);
+                    return ExecuteResultEntity<ProjectContract>.CreateResultEntity(data);
+                }
+                else
+                {
+                    var checkori = repo.All()
+                    .Where(w => w.ContractNumber.Length == 7)
+                    .OrderByDescending(s => s.ContractNumber)
+                    .FirstOrDefault();
+
+                    if (checkori != null)
+                    {
+                        data.ContractNumber = string.Format("{0}-1", checkori.ContractNumber);
+
+                    }
+                    else
+                    {
+                        data.ContractNumber = "";
+                    }
+
+                    return ExecuteResultEntity<ProjectContract>.CreateResultEntity(data);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<ProjectContract>.CreateErrorResultEntity(ex);
+            }
+        }
+
+        public ExecuteResultEntity<ProjectContract> CreateNew(Guid ProjectId)
+        {
+            try
+            {
+                ProjectContract data = new ProjectContract();
+                var repo = RepositoryHelper.GetProjectContractRepository();
+                var lastdata = repo.All()
+                    .Where(w => w.ContractNumber.Length > 7 && w.ProjectId == ProjectId)
+                    .OrderByDescending(s => s.ContractNumber)
+                    .FirstOrDefault();
+
+                if (lastdata != null)
+                {
+                    int lastnumber = 0;
+
+                    if (!int.TryParse(lastdata.ContractNumber.Substring(8), out lastnumber))
+                    {
+                        data.ContractNumber = string.Empty;
+                        return ExecuteResultEntity<ProjectContract>.CreateResultEntity(data);
+                    }
+                    lastnumber += 1;
+                    data.ContractNumber = string.Format("{0}-{1}", lastdata.ContractNumber.Substring(0, 7), lastnumber);
+                    return ExecuteResultEntity<ProjectContract>.CreateResultEntity(data);
+                }
+                else
+                {
+                    var checkori = repo.All()
+                    .Where(w => w.ContractNumber.Length == 7 && w.ProjectId == ProjectId)
+                    .OrderByDescending(s => s.ContractNumber)
+                    .FirstOrDefault();
+
+                    if (checkori != null)
+                    {
+                        data.ContractNumber = string.Format("{0}-1", checkori.ContractNumber);
+
+                    }
+                    else
+                    {
+                        data.ContractNumber = "";
+                    }
+
+                    return ExecuteResultEntity<ProjectContract>.CreateResultEntity(data);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<ProjectContract>.CreateErrorResultEntity(ex);
+            }
+        }
         //public override ExecuteResultEntity<ProjectContract> CreateNew()
         //{
         //    var rtn = new ProjectContractViewModel() { Id = Guid.NewGuid() };

@@ -42,7 +42,7 @@ namespace TokikuNew.Views
 
         private void sSearchBar_ResetSearch(object sender, RoutedEventArgs e)
         {
-            ((ClientViewModelCollection)DataContext).Query();           
+            ((ClientViewModelCollection)DataContext).Query();
         }
 
         private void sSearchBar_Search(object sender, RoutedEventArgs e)
@@ -59,7 +59,7 @@ namespace TokikuNew.Views
 
                 if (header == 0)
                 {
-                    
+
                     if (obj != null)
                         RaiseEvent(new RoutedEventArgs(SelectedClientChangedEvent, ClientList.SelectedItem));
                 }
@@ -77,13 +77,15 @@ namespace TokikuNew.Views
             ((ClientViewModelCollection)DataContext).QueryByText((string)e.OriginalSource);
         }
 
+        private bool IsStartUped = false;
+
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             var DataSource = ((ClientViewModelCollection)DataContext);
-
-            if (DataSource != null && DataSource.Count == 0)
+            if (!IsStartUped)
             {
                 Dispatcher.Invoke(DataSource.Query, DispatcherPriority.Background);
+                IsStartUped = true;
             }
         }
     }

@@ -53,11 +53,11 @@ namespace Tokiku.ViewModels
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 setErrortoModel(this, ex);
             }
-           
+
         }
 
         private List<ProjectContractViewModel> BufferSwap = new List<ProjectContractViewModel>();
@@ -72,11 +72,11 @@ namespace Tokiku.ViewModels
                     BufferSwap.AddRange(Items);
 
                     var result = Items.Where(w => w.ContractNumber.Contains(SeatchText)).ToList();
-                    
+
                     if (result.Any())
                     {
                         ClearItems();
-                        foreach(var temprow in result)
+                        foreach (var temprow in result)
                         {
                             Add(temprow);
                         }
@@ -86,12 +86,12 @@ namespace Tokiku.ViewModels
                 {
                     ClearItems();
 
-                    foreach(var restore in BufferSwap)
+                    foreach (var restore in BufferSwap)
                     {
                         Add(restore);
                     }
                 }
-             
+
             }
             catch (Exception ex)
             {
@@ -330,6 +330,11 @@ namespace Tokiku.ViewModels
         {
             base.Initialized();
             controller = new ProjectContractController();
+            var executeresult = controller.CreateNew(ProjectId.HasValue ? ProjectId.Value : Guid.Empty);
+            if (!executeresult.HasError)
+            {
+                ContractNumber = executeresult.Result.ContractNumber;
+            }
             Engineerings = new EngineeringViewModelCollection();
             CreateUser = "";
             LastUpdateUser = "";
@@ -404,7 +409,7 @@ namespace Tokiku.ViewModels
                     }
                 }
             }
-          
+
             var result = controller.CreateOrUpdate(data);
 
             if (result.HasError)

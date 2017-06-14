@@ -66,8 +66,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ClipboardHelper.cs" />
-    <Compile Include="Views\ConstructionView.xaml.cs">
+    <Compile Include="Helpers\ClipboardHelper.cs" />
+    <Compile Include="Views\Projects\ConstructionView.xaml.cs">
       <DependentUpon>ConstructionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ClosableTab.xaml.cs">
@@ -82,7 +82,7 @@
     <Compile Include="Controls\SearchBar.xaml.cs">
       <DependentUpon>SearchBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ERPDocumentViewerControlBase.cs" />
+    <Compile Include="Base\ERPDocumentViewerControlBase.cs" />
     <Compile Include="Frame\ClientSelectionDialog.xaml.cs">
       <DependentUpon>ClientSelectionDialog.xaml</DependentUpon>
     </Compile>
@@ -95,10 +95,10 @@
     <Compile Include="Frame\StartUpWindow.xaml.cs">
       <DependentUpon>StartUpWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\InvoiceView.xaml.cs">
+    <Compile Include="Views\Projects\InvoiceView.xaml.cs">
       <DependentUpon>InvoiceView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RecvMaterialView.xaml.cs">
+    <Compile Include="Views\Projects\RecvMaterialView.xaml.cs">
       <DependentUpon>RecvMaterialView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValueConverters\DocumentLifeCycleStateToVisibilityValueConverter.cs" />
@@ -111,31 +111,31 @@
     <Compile Include="ValueConverters\ReadModeToVisibilityValueConverter.cs" />
     <Compile Include="ValueConverters\StatesCodeToTextValueConverter.cs" />
     <Compile Include="ValueConverters\VoidToStateTextValueConverter.cs" />
-    <Compile Include="Views\Orders\AluminumExtrusionOrderSheetView.xaml.cs">
+    <Compile Include="Views\Projects\Orders\AluminumExtrusionOrderSheetView.xaml.cs">
       <DependentUpon>AluminumExtrusionOrderSheetView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\BusinessItemListView.xaml.cs">
       <DependentUpon>BusinessItemListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ClientListView.xaml.cs">
+    <Compile Include="Views\CRM\ClientListView.xaml.cs">
       <DependentUpon>ClientListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ClientManageView.xaml.cs">
+    <Compile Include="Views\CRM\ClientManageView.xaml.cs">
       <DependentUpon>ClientManageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ContactPersonManageView.xaml.cs">
+    <Compile Include="Views\ContactPerson\ContactPersonManageView.xaml.cs">
       <DependentUpon>ContactPersonManageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ContractManager.xaml.cs">
+    <Compile Include="Views\Projects\ContractManager.xaml.cs">
       <DependentUpon>ContractManager.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ManufacturersManageView.xaml.cs">
+    <Compile Include="Views\Manufacturers\ManufacturersManageView.xaml.cs">
       <DependentUpon>ManufacturersManageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MaterialsTotalView.xaml.cs">
+    <Compile Include="Views\MES\MaterialsTotalView.xaml.cs">
       <DependentUpon>MaterialsTotalView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PaymentTypesManageView.xaml.cs">
+    <Compile Include="Views\Finance\PaymentTypesManageView.xaml.cs">
       <DependentUpon>PaymentTypesManageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Projects\ProjectManagerView.xaml.cs">
@@ -147,16 +147,13 @@
     <Compile Include="Views\Projects\ProjectViewer.xaml.cs">
       <DependentUpon>ProjectViewer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TestView.xaml.cs">
-      <DependentUpon>TestView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\VendorListView.xaml.cs">
+    <Compile Include="Views\Manufacturers\VendorListView.xaml.cs">
       <DependentUpon>VendorListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WorkingView.xaml.cs">
+    <Compile Include="Views\Projects\WorkingView.xaml.cs">
       <DependentUpon>WorkingView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\ConstructionView.xaml">
+    <Page Include="Views\Projects\ConstructionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -188,7 +185,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\InvoiceView.xaml">
+    <Page Include="Views\Projects\InvoiceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -204,7 +201,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\RecvMaterialView.xaml">
+    <Page Include="Views\Projects\RecvMaterialView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -248,7 +245,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Orders\AluminumExtrusionOrderSheetView.xaml">
+    <Page Include="Views\Projects\Orders\AluminumExtrusionOrderSheetView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -256,31 +253,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ClientListView.xaml">
+    <Page Include="Views\CRM\ClientListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ClientManageView.xaml">
+    <Page Include="Views\CRM\ClientManageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ContactPersonManageView.xaml">
+    <Page Include="Views\ContactPerson\ContactPersonManageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ContractManager.xaml">
+    <Page Include="Views\Projects\ContractManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ManufacturersManageView.xaml">
+    <Page Include="Views\Manufacturers\ManufacturersManageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MaterialsTotalView.xaml">
+    <Page Include="Views\MES\MaterialsTotalView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\PaymentTypesManageView.xaml">
+    <Page Include="Views\Finance\PaymentTypesManageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -296,15 +293,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\TestView.xaml">
+    <Page Include="Views\Manufacturers\VendorListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\VendorListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\WorkingView.xaml">
+    <Page Include="Views\Projects\WorkingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -360,8 +353,6 @@
   <ItemGroup>
     <Resource Include="Resources\16x16.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Manufacturers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -50,7 +50,7 @@ namespace TokikuNew.Frame
                     if (loginedUser != null)
                     {
                         tblkMessage.Text = "登入成功!";
-                        MainWindowController mc = App.Resolve<MainWindowController>();
+                      
 
                         var mainwin = App.Navigate<MainWindow, MainViewModel>(new MainViewModel(App.Resolve<ProjectsController>()));
 
