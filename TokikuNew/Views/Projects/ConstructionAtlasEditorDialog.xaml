@@ -1,0 +1,74 @@
+﻿<Window x:Class="TokikuNew.ConstructionAtlasEditorDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:TokikuNew.Controls"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:TokikuNew"
+        mc:Ignorable="d"
+        Background="{DynamicResource WindowBackgroundBrush}"
+        Icon="{DynamicResource Logo}"
+        Title="施工圖集" Height="198.548" Width="554">
+    <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60*"/>
+            <ColumnDefinition Width="188*"/>
+            <ColumnDefinition Width="98*"/>
+            <ColumnDefinition Width="193*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="27"/>
+            <RowDefinition Height="27"/>
+            <RowDefinition Height="27"/>
+            <RowDefinition Height="27"/>
+            <RowDefinition Height="27"/>
+            <RowDefinition Height="27"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="圖名" Grid.Row="0" Grid.Column="0" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right" Height="19" Margin="0,4" Width="30"/>
+        <TextBox Text="" Grid.Row="0" Grid.Column="1" Margin="2"/>
+        <TextBlock Text="版次" Grid.Row="0" Grid.Column="2" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right" Height="19" Margin="0,4" Width="30"/>
+        <TextBox Text="" Grid.Row="0" Grid.Column="3" Margin="2" IsReadOnly="True"/>
+        <TextBlock Text="送審日期" Grid.Row="1" Grid.Column="0" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right" Height="19" Margin="0,4" Width="60"/>
+        <DatePicker Text="" Grid.Row="1" Grid.Column="1" Margin="2"/>
+        <TextBlock Text="送審文號" Grid.Row="1" Grid.Column="2" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right" Height="19" Margin="0,4" Width="60"/>
+        <TextBox Text="" Grid.Row="1" Grid.Column="3" Margin="2"/>
+        <TextBlock Text="回覆日期" Grid.Row="2" Grid.Column="0" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right" Height="19" Margin="0,4" Width="60"/>
+        <DatePicker Text="" Grid.Row="2" Grid.Column="1" Margin="2"/>
+        <TextBlock Text="回覆文號" Grid.Row="2" Grid.Column="2" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right" Height="19" Margin="0,4" Width="60"/>
+        <TextBox Text="" Grid.Row="2" Grid.Column="3" Margin="2"/>
+        <TextBlock Text="回覆內容" Grid.Row="3" Grid.Column="0" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right" Height="19" Margin="0,4" Width="60"/>
+        <ComboBox Grid.Row="3" Grid.Column="1" Margin="2" SelectedValuePath="Value" SelectedIndex="0" ItemsSource="{DynamicResource ConstructionAtlasReplySelectList}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Text}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <CheckBox Content="定稿" Grid.Row="3" Grid.Column="3"  FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center" Height="19" Margin="10,4,131,4" Width="52"/>
+
+        <TextBlock Text="備註" Grid.Row="4" Grid.Column="0" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right" Height="19" Margin="0,4" Width="30"/>
+        <TextBox Text="" Grid.Row="4" Grid.Column="1" Margin="2"/>
+        <TextBlock Text="異動人員/日期" Grid.Row="4" Grid.Column="2" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right" Height="19" Margin="0,4" Width="96"/>
+        <TextBox Text="" Grid.Row="4" Grid.Column="3" Margin="2"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="3" HorizontalAlignment="Right" Width="148" >
+            <Button Width="70" Margin="2" x:Name="btnOK" IsDefault="True" Click="btnOK_Click" >
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xE10B;" Margin="5,0" FontSize="15" FontWeight="Bold" Foreground="Green" FontFamily="/Resources/#Segoe MDL2 Assets" VerticalAlignment="Center"/>
+                        <TextBlock Text="確定" FontSize="15" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button  Width="70" Margin="2" x:Name="btnCancel" Click="btnCancel_Click">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xE106;" Margin="5,0" FontSize="15" FontWeight="Bold" Foreground="Red" FontFamily="/Resources/#Segoe MDL2 Assets" VerticalAlignment="Center"/>
+                        <TextBlock Text="取消" FontSize="15"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

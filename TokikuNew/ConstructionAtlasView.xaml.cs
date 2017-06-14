@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace TokikuNew
 {
     /// <summary>
-    /// ConstructionView.xaml 的互動邏輯
+    /// ConstructionAtlasView.xaml 的互動邏輯
     /// </summary>
-    public partial class ConstructionView : Window
+    public partial class ConstructionAtlasView : UserControl
     {
-        public ConstructionView()
+        public ConstructionAtlasView()
         {
             InitializeComponent();
         }

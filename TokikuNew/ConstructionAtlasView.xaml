@@ -1,15 +1,27 @@
-﻿<Window x:Class="TokikuNew.ConstructionView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:Controls="clr-namespace:TokikuNew.Controls"
-        xmlns:system="clr-namespace:System;assembly=mscorlib"
-        xmlns:local="clr-namespace:TokikuNew"
-        mc:Ignorable="d"
-        Title="施工圖集" Height="315" Width="554">
+﻿<UserControl x:Class="TokikuNew.ConstructionAtlasView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TokikuNew"
+             xmlns:Controls="clr-namespace:TokikuNew.Controls"
+             mc:Ignorable="d" ToolTip="施工圖集"
+             Background="{DynamicResource ControlBackgroundBrush}"
+             d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <GroupBox Grid.Column="0" Grid.Row="0"  Grid.ColumnSpan="2" Margin="5" Header="施工圖集建置">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="27"/>
+            <ColumnDefinition Width="27"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="27"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" Grid.Column="1" Margin="2" >
+            
+        </Button>
+        <GroupBox Header="施工圖集" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="5">
             <Controls:CustomDataGrid Margin="5" VerticalAlignment="Stretch" 
                                          AllowExecuteSystemCommand="True"
                                          AutoGenerateColumns="False">
@@ -31,4 +43,4 @@
             </Controls:CustomDataGrid>
         </GroupBox>
     </Grid>
-</Window>
+</UserControl>

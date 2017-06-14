@@ -19,11 +19,9 @@
                 <ColumnDefinition Width="300"/>
                 <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnImport" Grid.Row="1" Grid.Column="2"  Width="50" Content="匯入" Margin="2" Click="btnImport_Click"  IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
+            <Button x:Name="btnImport" Grid.Row="1" Grid.Column="2"  Width="50" Content="匯入" Margin="2" Click="btnImport_Click" />
             <Controls:SearchBar Grid.Row="1" Grid.Column="1" Margin="2"  Search="SearchBar_Search" />
         </Grid>
-
-        
-        <ss:GcSpreadSheet x:Name="MoldsWorkBookImports" Margin="5" Grid.Row="1"  IsEnabled="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}" />
+        <ss:GcSpreadSheet x:Name="MoldsWorkBookImports" Margin="5" Grid.Row="1"  />
     </Grid>
 </UserControl>

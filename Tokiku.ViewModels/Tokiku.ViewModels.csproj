@@ -53,6 +53,8 @@
     <Compile Include="MES\MoldsViewModelCollection.cs" />
     <Compile Include="MES\MoldUseStatusViewModel.cs" />
     <Compile Include="MES\MoldUseStatusViewModelCollection.cs" />
+    <Compile Include="Projects\ConstructionAtlasReplyContextViewModel.cs" />
+    <Compile Include="Projects\ConstructionAtlasReplyContextViewModelCollection.cs" />
     <Compile Include="Projects\Orders\AluminumExtrusionOrderSheetViewModel.cs" />
     <Compile Include="Projects\CompositionsViewModel.cs" />
     <Compile Include="Projects\CompositionTypesViewModel.cs" />

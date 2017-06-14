@@ -44,35 +44,16 @@
                     </Controls:CustomDataGrid.Columns>
                 </Controls:CustomDataGrid>
             </GroupBox>
-            <GroupBox Header="施工圖集" Grid.Row="1" Grid.Column="0" Margin="5">
-                <Controls:CustomDataGrid x:Name="com1" ItemsSource="{Binding Compositions}" CanUserAddRows="True" CanUserDeleteRows="True" MouseDoubleClick="CustomDataGrid_MouseDoubleClick"
-                                         IsEnabled="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}">
-                    <Controls:CustomDataGrid.Columns>
-                        <DataGridTextColumn Header="圖集" Binding="{Binding Order}" />
-                        <DataGridTextColumn Header="組合編號" Binding="{Binding Code}" />
-                        <DataGridTextColumn Header="加工編號" Binding="{Binding Reserved1}" />
-                        <DataGridTextColumn Header="擠型編號" Binding="{Binding Reserved2}"/>
-                        <DataGridTextColumn Header="裁切長度" Binding="{Binding Reserved3}"/>
-                        <DataGridTextColumn Header="數量" Binding="{Binding Amount}"/>
-                        <DataGridTextColumn Header="材料說明" Binding="{Binding SpecDesc}"/>
-                        <DataGridTextColumn Header="北棟需求量" Binding="{Binding Reserved4}"/>
-                        <DataGridTextColumn Header="南棟需求量" Binding="{Binding Reserved5}"/>
-                    </Controls:CustomDataGrid.Columns>
-                </Controls:CustomDataGrid>
-            </GroupBox>
+           
             <GroupBox Header="加工圖集" Grid.Row="1" Grid.Column="1" Margin="5">
                 <Controls:CustomDataGrid x:Name="com2" ItemsSource="{Binding Compositions2}" CanUserAddRows="True" CanUserDeleteRows="True" MouseDoubleClick="CustomDataGrid_MouseDoubleClick_1"
                                          IsEnabled="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}">
                     <Controls:CustomDataGrid.Columns>
-                        <DataGridTextColumn Header="圖集" Binding="{Binding Order}" />
-                        <DataGridTextColumn Header="組合編號" Binding="{Binding Code}" />
-                        <DataGridTextColumn Header="施工編號" Binding="{Binding Reserved1}" />
-                        <DataGridTextColumn Header="擠型編號" Binding="{Binding Reserved2}"/>
-                        <DataGridTextColumn Header="裁切長度" Binding="{Binding Reserved3}"/>
-                        <DataGridTextColumn Header="數量" Binding="{Binding Amount}"/>
-                        <DataGridTextColumn Header="材料說明" Binding="{Binding SpecDesc}"/>
-                        <DataGridTextColumn Header="北棟需求量" Binding="{Binding Reserved4}"/>
-                        <DataGridTextColumn Header="南棟需求量" Binding="{Binding Reserved5}"/>
+                        <DataGridTextColumn Header="圖集"/>
+                        <DataGridTextColumn Header="名稱"/>
+                        <DataGridTextColumn Header="更新次數"/>
+                        <DataGridTextColumn Header="最新日期"/>
+                        <DataGridTextColumn Header="施工順序異動日期"/>
                     </Controls:CustomDataGrid.Columns>
                 </Controls:CustomDataGrid>
             </GroupBox>

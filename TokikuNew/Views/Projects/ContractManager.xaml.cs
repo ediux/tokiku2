@@ -222,7 +222,7 @@ namespace TokikuNew.Views
 
                 if (SelectedEngineering != null)
                 {
-                    com1.ItemsSource = SelectedEngineering.Compositions;
+                    //com1.ItemsSource = SelectedEngineering.Compositions;
                     com2.ItemsSource = SelectedEngineering.Compositions2;
                 }
             }

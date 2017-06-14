@@ -66,9 +66,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ConstructionAtlasView.xaml.cs">
+      <DependentUpon>ConstructionAtlasView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\ClipboardHelper.cs" />
-    <Compile Include="Views\Projects\ConstructionView.xaml.cs">
-      <DependentUpon>ConstructionView.xaml</DependentUpon>
+    <Compile Include="Views\Projects\ConstructionAtlasEditorDialog.xaml.cs">
+      <DependentUpon>ConstructionAtlasEditorDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ClosableTab.xaml.cs">
       <DependentUpon>ClosableTab.xaml</DependentUpon>
@@ -153,7 +156,11 @@
     <Compile Include="Views\Projects\WorkingView.xaml.cs">
       <DependentUpon>WorkingView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\Projects\ConstructionView.xaml">
+    <Page Include="ConstructionAtlasView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Projects\ConstructionAtlasEditorDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
