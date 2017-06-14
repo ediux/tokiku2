@@ -15,8 +15,9 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" >
             <MenuItem Header="主檔" Name="MI_Main">
-                <MenuItem Header="廠商主檔" Name="MI_Main_Vendor"/>
-                <MenuItem Header="客戶主檔" Name="MI_Main_Client"/>
+                <MenuItem Header="廠商主檔" Name="MI_Main_Vendor" Click="MI_Main_Vendor_Click"/>
+                <MenuItem Header="客戶主檔" Name="MI_Main_Client" Click="MI_Main_Client_Click"/>
+                <MenuItem Header="模具總表" Name="MI_Main_Molds" Click="MI_Main_Molds_Click"/>
             </MenuItem>
             <MenuItem Header="報表" Name="MI_Reports" Click="MI_Reports_Click"></MenuItem>
             <MenuItem Header="帳務" Name="MI_Finance" Click="MI_Finance_Click">
@@ -34,15 +35,7 @@
             <TabItem Header="專案列表" >
                 <Views:ProjectSelectListView x:Name="ProjectSelectionPage" SelectedProjectChanged="ProjectSelectionPage_SelectedProjectChanged" DataContext="{Binding Projects}"  />
             </TabItem>
-            <TabItem Header="廠商列表" >
-                <Views:VendorListView x:Name="VendorSelection" SelectedVendorChanged="VendorSelection_SelectedVendorChanged" DataContext="{Binding Manufacturers}" />
-            </TabItem>
-            <TabItem Header="客戶列表" >
-                <Views:ClientListView SelectedClientChanged="ClientListView_SelectedClientChanged" DataContext="{Binding Clients}"/>
-            </TabItem>
-            <TabItem Header="模具總表">
-                  <Views:MaterialsTotalView Mode="Read" />
-            </TabItem>
+          
           
         </TabControl>
         <StatusBar Margin="0" Grid.Row="3">

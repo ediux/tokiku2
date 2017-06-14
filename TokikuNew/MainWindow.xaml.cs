@@ -255,7 +255,7 @@ namespace TokikuNew
             {
                 if (e.OriginalSource != null)
                 {
-                    
+
                     ClosableTabItem addWorkarea = null;
                     string Header = string.Empty;
                     Guid SelectedProjectId = Guid.Empty;
@@ -273,8 +273,8 @@ namespace TokikuNew
                         Header = string.Format("專案:{0}-{1}", model.Code, model.ShortName);
                         SelectedProjectId = model.Id;
                     }
-                    
-                   
+
+
                     bool isExisted = false;
 
                     foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
@@ -355,7 +355,7 @@ namespace TokikuNew
                 {
 
                     var vm = new ManufacturersManageView() { Margin = new Thickness(0) };
-                   
+
                     vm.DataContext = model;
                     vm.Mode = DocumentLifeCircle.Read;
                     vm.LoginedUser = ((MainViewModel)DataContext).LoginedUser;
@@ -474,6 +474,135 @@ namespace TokikuNew
 
                 }
 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void MI_Main_Vendor_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ClosableTabItem addWorkarea = new ClosableTabItem();
+
+                ManufacturersViewModelCollection model = ((MainViewModel)DataContext).Manufacturers;
+
+                if (model != null)
+                    addWorkarea.Header = "廠商列表";
+                else
+                    return;
+
+                bool isExisted = false;
+
+                foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
+                {
+                    if (item.Header.Equals(addWorkarea.Header))
+                    {
+                        isExisted = true;
+                        addWorkarea = item;
+                        break;
+                    }
+                }
+
+                if (!isExisted)
+                {
+
+                    var vm = new VendorListView() { Margin = new Thickness(0) };
+
+                    vm.DataContext = model;
+                    vm.SelectedVendorChanged += VendorSelection_SelectedVendorChanged;
+
+                    addWorkarea.Content = vm;
+
+                    Workspaces.Items.Add(addWorkarea);
+                }
+
+                Workspaces.SelectedItem = addWorkarea;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void MI_Main_Client_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ClosableTabItem addWorkarea = new ClosableTabItem();
+
+                ClientViewModelCollection model = ((MainViewModel)DataContext).Clients;
+
+                if (model != null)
+                    addWorkarea.Header = "客戶列表";
+                else
+                    return;
+
+                bool isExisted = false;
+
+                foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
+                {
+                    if (item.Header.Equals(addWorkarea.Header))
+                    {
+                        isExisted = true;
+                        addWorkarea = item;
+                        break;
+                    }
+                }
+
+                if (!isExisted)
+                {
+
+                    var vm = new ClientListView() { Margin = new Thickness(0) };
+
+                    vm.DataContext = model;
+                    vm.SelectedClientChanged += ClientListView_SelectedClientChanged;
+
+                    addWorkarea.Content = vm;
+
+                    Workspaces.Items.Add(addWorkarea);
+                }
+
+                Workspaces.SelectedItem = addWorkarea;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+        }
+
+        private void MI_Main_Molds_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ClosableTabItem addWorkarea = new ClosableTabItem();
+                addWorkarea.Header = "模具總表";
+
+
+                bool isExisted = false;
+
+                foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
+                {
+                    if (item.Header.Equals(addWorkarea.Header))
+                    {
+                        isExisted = true;
+                        addWorkarea = item;
+                        break;
+                    }
+                }
+
+                if (!isExisted)
+                {
+
+                    var vm = new MaterialsTotalView() { Margin = new Thickness(0) };
+                    addWorkarea.Content = vm;
+                    Workspaces.Items.Add(addWorkarea);
+                }
+
+                Workspaces.SelectedItem = addWorkarea;
             }
             catch (Exception ex)
             {
