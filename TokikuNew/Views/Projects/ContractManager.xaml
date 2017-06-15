@@ -44,8 +44,8 @@
                     </Controls:CustomDataGrid.Columns>
                 </Controls:CustomDataGrid>
             </GroupBox>
-            <local:ConstructionAtlasView Grid.Row="1" Grid.Column="0" DataContext="{Binding ConstructionAtlas}" Mode="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" LoginedUser="{Binding LoginedUser, ElementName=userControl}" CurrentProjectContract="{Binding DataContext, ElementName=userControl}" />
-            <local:ProcessingAtlasView Grid.Row="1" Grid.Column="1" DataContext="{Binding ProcessingAtlas}" Mode="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" LoginedUser="{Binding LoginedUser, ElementName=userControl}" />
+            <local:ConstructionAtlasView Grid.Row="1" Grid.Column="0" DataContext="{Binding ConstructionAtlas}" Mode="{Binding DocumentMode, ElementName=dockBar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" LoginedUser="{Binding LoginedUser, ElementName=userControl}"  CurrentProjectContract="{Binding DataContext, ElementName=userControl}" />
+            <local:ProcessingAtlasView Grid.Row="1" Grid.Column="1" DataContext="{Binding ProcessingAtlas}" Mode="{Binding DocumentMode, ElementName=dockBar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" LoginedUser="{Binding LoginedUser, ElementName=userControl}" />
         </Grid>
         <Controls:DockBar x:Name="dockBar"  Grid.Row="1" DocumentMode="{Binding Path=Mode}" DocumentModeChanged="DockBar_DocumentModeChanged" />
 

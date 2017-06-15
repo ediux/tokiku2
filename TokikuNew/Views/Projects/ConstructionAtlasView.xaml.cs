@@ -110,5 +110,30 @@ namespace TokikuNew.Views
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void btnModify_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ConstructionAtlasEditorDialog dialog = new ConstructionAtlasEditorDialog();
+                var dmodel = (ConstructionAtlasViewModel)AltasGrid.SelectedItem;
+                if (CurrentProjectContract != null)
+                {
+                    dmodel.ProjectContractId = CurrentProjectContract.Id;
+                }
+                dialog.DataContext = dmodel;
+                var result = dialog.ShowDialog();
+                if (result.HasValue && result.Value)
+                {
+                    UpdateLayout();
+                    ConstructionAtlasViewModelCollection sourcecollection = (ConstructionAtlasViewModelCollection)AltasGrid.ItemsSource;
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }

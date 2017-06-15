@@ -25,6 +25,12 @@ namespace Tokiku.Entity
         public System.DateTime CreateTime { get; set; }
         [Required]
         public System.Guid CreateUserId { get; set; }
+        [Required]
+        public int Order { get; set; }
+        [Required]
+        public int UpdateTimes { get; set; }
+        public Nullable<System.DateTime> ConstructionOrderChangeDate { get; set; }
+        public Nullable<System.DateTime> LastUpdate { get; set; }
     
         public virtual ProjectContract ProjectContract { get; set; }
     }

@@ -153,14 +153,15 @@ namespace TokikuNew.Views
                             break;
                         }
 
-                        if (SelectedEngineering.Status.IsNewInstance)
+                        if (SelectedEngineering != null && SelectedEngineering.Status.IsNewInstance)
                         {
                             RaiseEvent(new RoutedEventArgs(ClosableTabItem.OnPageClosingEvent, this.Parent));
+                            SelectedEngineering.Status.IsModify = false;
+                            SelectedEngineering.Status.IsSaved = true;
                         }
 
                         Mode = DocumentLifeCircle.Read;
-                        SelectedEngineering.Status.IsModify = false;
-                        SelectedEngineering.Status.IsSaved = true;
+                    
                         break;
                     case DocumentLifeCircle.Update:
                         ProjectContractViewModel model3 = (ProjectContractViewModel)DataContext;

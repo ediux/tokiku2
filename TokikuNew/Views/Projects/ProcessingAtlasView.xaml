@@ -24,18 +24,6 @@
                 <DataGridTextColumn Header="更新次數" Binding="{Binding UpdateTimes,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="最新日期" Binding="{Binding LastUpdate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="施工順序異動日期" Binding="{Binding ConstructionOrderChangeDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTemplateColumn>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <Button Content="儲存" x:Name="btnSave" Click="btnSave_Click"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Content="修改" x:Name="btnModify" Click="btnModify_Click" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
             </Controls:CustomDataGrid.Columns>
         </Controls:CustomDataGrid>
     </GroupBox>

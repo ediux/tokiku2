@@ -179,7 +179,39 @@ namespace Tokiku.Controllers
                         CheckAndUpdateValue(Source, Target);
                     }
 
-                   
+                    var toDel2 = original.ProcessingAtlas.Select(s => s.Id).Except(fromModel.ProcessingAtlas.Select(s => s.Id)).ToList();
+                    var toAdd2 = fromModel.ProcessingAtlas.Select(s => s.Id).Except(original.ProcessingAtlas.Select(s => s.Id)).ToList();
+                    var samerows2 = original.ProcessingAtlas.Select(s => s.Id).Intersect(fromModel.ProcessingAtlas.Select(s => s.Id)).ToList();
+
+                    Stack<ProcessingAtlas> RemoveStack2 = new Stack<ProcessingAtlas>();
+                    Stack<ProcessingAtlas> AddStack2 = new Stack<ProcessingAtlas>();
+
+                    foreach (var delitem in toDel2)
+                    {
+                        RemoveStack2.Push(original.ProcessingAtlas.Where(w => w.Id == delitem).Single());
+                    }
+
+                    foreach (var additem in toAdd2)
+                    {
+                        AddStack2.Push(fromModel.ProcessingAtlas.Where(w => w.Id == additem).Single());
+                    }
+
+                    while (RemoveStack2.Count > 0)
+                    {
+                        original.ProcessingAtlas.Remove(RemoveStack2.Pop());
+                    }
+
+                    while (AddStack2.Count > 0)
+                    {
+                        original.ProcessingAtlas.Add(AddStack2.Pop());
+                    }
+
+                    foreach (var sameitem in samerows2)
+                    {
+                        ProcessingAtlas Source = fromModel.ProcessingAtlas.Where(w => w.Id == sameitem).Single();
+                        ProcessingAtlas Target = original.ProcessingAtlas.Where(w => w.Id == sameitem).Single();
+                        CheckAndUpdateValue(Source, Target);
+                    }
 
                     repo.UnitOfWork.Commit();
 

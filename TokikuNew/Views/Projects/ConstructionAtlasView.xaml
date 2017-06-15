@@ -19,15 +19,18 @@
                 <RowDefinition Height="27"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" Grid.Column="1" Margin="2" x:Name="btnAdd" Click="btnAdd_Click">
+            <Button Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" Grid.Column="1" Margin="2" x:Name="btnAdd" Click="btnAdd_Click"
+                    IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}">
 
             </Button>
-            <Button Content="&#xE108;" FontFamily="/Resources/#Segoe MDL2 Assets" Grid.Column="2" Margin="2" x:Name="btnDelete" Click="btnDelete_Click" >
+            <Button Content="&#xE108;" FontFamily="/Resources/#Segoe MDL2 Assets" Grid.Column="2" Margin="2" x:Name="btnDelete" Click="btnDelete_Click"
+                    IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}">
 
             </Button>
-            <Controls:CustomDataGrid Grid.Row="1" Grid.ColumnSpan="3" Margin="5" VerticalAlignment="Stretch" x:Name="AltasGrid"
+            <Controls:CustomDataGrid Grid.Row="1" Grid.ColumnSpan="3" Margin="5" VerticalAlignment="Stretch" 
+                                     x:Name="AltasGrid"
                                      ItemsSource="{Binding}"
-                                     IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}"
+                                     IsReadOnly="True"
                                      AllowExecuteSystemCommand="True"
                                      AutoGenerateColumns="False">
                 <Controls:CustomDataGrid.ContextMenu>
@@ -54,7 +57,7 @@
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="修改" />
+                                <Button Content="修改" x:Name="btnModify" Click="btnModify_Click" IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

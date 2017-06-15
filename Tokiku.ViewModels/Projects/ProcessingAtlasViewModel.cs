@@ -147,7 +147,9 @@ namespace Tokiku.ViewModels
             base.Initialized();
             Id = Guid.NewGuid();
             CreateTime = DateTime.Now;
-
+            UpdateTimes = 0;
+            ConstructionOrderChangeDate = default(DateTime);
+            LastUpdate = CreateTime;
         }
 
         /// <summary>
@@ -160,12 +162,7 @@ namespace Tokiku.ViewModels
             {
                 ProcessingAtlas data = (ProcessingAtlas)entity;
                 BindingFromModel(data, this);
-                ProcessingAtlasController controller = new ProcessingAtlasController();
-                var detail = controller.GetProcessAtlasUpdateInformation(data);
-                if (!detail.HasError)
-                {
-                    BindingFromModel(detail.Result, this);
-                }
+              
             }
             catch (Exception ex)
             {

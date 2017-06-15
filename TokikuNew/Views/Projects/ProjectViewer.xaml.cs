@@ -160,6 +160,7 @@ namespace TokikuNew.Views
                     if (e.OriginalSource != null && e.OriginalSource is ManufacturersViewModel)
                     {
                         var vm = new ManufacturersManageView() { Margin = new Thickness(0) };
+                      
                         vm.DataContext = SharedModel;
                         vm.LoginedUser = LoginedUser;
 
@@ -177,6 +178,7 @@ namespace TokikuNew.Views
                     if (e.OriginalSource != null && e.OriginalSource is ProjectContractViewModel)
                     {
                         var vm = new ContractManager() { Margin = new Thickness(0) };
+                        ((ProjectContractViewModel)SharedModel).Query();
                         vm.DataContext = SharedModel;
                         vm.LoginedUser = LoginedUser;
 

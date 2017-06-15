@@ -132,15 +132,15 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 所屬專案ID
         /// </summary>
-        public Guid? ProjectId
+        public Guid ProjectId
         {
-            get { return (Guid?)GetValue(ProjectIdProperty); }
+            get { return (Guid)GetValue(ProjectIdProperty); }
             set { SetValue(ProjectIdProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for ProjectId.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ProjectIdProperty =
-            DependencyProperty.Register("ProjectId", typeof(Guid?), typeof(ProjectContractViewModel), new PropertyMetadata(default(Guid?),
+            DependencyProperty.Register("ProjectId", typeof(Guid), typeof(ProjectContractViewModel), new PropertyMetadata(Guid.Empty,
                 new PropertyChangedCallback(DefaultFieldChanged)));
         #endregion
 
@@ -358,7 +358,7 @@ namespace Tokiku.ViewModels
         {
             base.Initialized();
             controller = new ProjectContractController();
-            var executeresult = controller.CreateNew(ProjectId.HasValue ? ProjectId.Value : Guid.Empty);
+            var executeresult = controller.CreateNew(ProjectId);
             if (!executeresult.HasError)
             {
                 ContractNumber = executeresult.Result.ContractNumber;
@@ -390,10 +390,11 @@ namespace Tokiku.ViewModels
                     {
                         CreateUser = data.CreateUser.UserName;
                     }
-                    
+
 
                     if (data.Engineering.Any())
                     {
+                        Engineerings.Clear();
                         foreach (var row in data.Engineering)
                         {
                             EngineeringViewModel model = new EngineeringViewModel();
@@ -405,6 +406,7 @@ namespace Tokiku.ViewModels
 
                     if (data.PromissoryNoteManagement.Any())
                     {
+                        PromissoryNoteManagement.Clear();
                         foreach (var row in data.PromissoryNoteManagement)
                         {
                             PromissoryNoteManagementViewModel model = new PromissoryNoteManagementViewModel();
@@ -416,6 +418,7 @@ namespace Tokiku.ViewModels
 
                     if (data.ConstructionAtlas.Any())
                     {
+                        ConstructionAtlas.Clear();
                         foreach (var row in data.ConstructionAtlas)
                         {
                             ConstructionAtlasViewModel model = new ConstructionAtlasViewModel();
@@ -425,9 +428,10 @@ namespace Tokiku.ViewModels
                         }
                     }
 
-                    if (data.ConstructionAtlas.Any())
+                    if (data.ProcessingAtlas.Any())
                     {
-                        foreach (var row in data.ProcessingAtlas)
+                        ProcessingAtlas.Clear();
+                        foreach (var row in data.ProcessingAtlas.OrderBy(o => o.Order).ToList())
                         {
                             ProcessingAtlasViewModel model = new ProcessingAtlasViewModel();
                             model.DoEvents();
@@ -443,6 +447,11 @@ namespace Tokiku.ViewModels
         {
             ProjectContract data = new ProjectContract();
             CopyToModel(data, this);
+
+            if(data.CreateUserId== Guid.Empty)
+            {
+                data.CreateUserId = controller.GetCurrentLoginUser().Result.UserId;
+            }
 
             if (Engineerings != null)
             {
@@ -460,28 +469,29 @@ namespace Tokiku.ViewModels
                 {
                     PromissoryNoteManagement entity = new PromissoryNoteManagement();
                     CopyToModel(entity, model);
+                    entity.ProjectContractId = data.Id;
                     data.PromissoryNoteManagement.Add(entity);
                 }
             }
 
             if (ConstructionAtlas.Any())
             {
-                foreach(ConstructionAtlasViewModel model in ConstructionAtlas)
+                foreach (ConstructionAtlasViewModel model in ConstructionAtlas)
                 {
                     ConstructionAtlas entity = new ConstructionAtlas();
-                    entity.ProjectContractId = data.Id;
                     CopyToModel(entity, model);
+                    entity.ProjectContractId = data.Id;
                     data.ConstructionAtlas.Add(entity);
                 }
             }
 
-            if (ConstructionAtlas.Any())
+            if (ProcessingAtlas.Any())
             {
                 foreach (ProcessingAtlasViewModel model in ProcessingAtlas)
                 {
                     ProcessingAtlas entity = new ProcessingAtlas();
-                    entity.ProjectContractId = data.Id;
                     CopyToModel(entity, model);
+                    entity.ProjectContractId = data.Id;
                     data.ProcessingAtlas.Add(entity);
                 }
             }

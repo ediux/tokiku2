@@ -228,8 +228,12 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ProjectContractId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
           <Property Name="Atlas" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UpdateTimes" Type="int" Nullable="false" />
+          <Property Name="ConstructionOrderChangeDate" Type="smalldatetime" />
+          <Property Name="LastUpdate" Type="smalldatetime" />
           <Property Name="CreateTime" Type="smalldatetime" Nullable="false" />
           <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
@@ -2514,6 +2518,10 @@
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="ProjectContract" Relationship="TokikuModel.FK_ProcessingAtlas_ProjectContract" FromRole="ProcessingAtlas" ToRole="ProjectContract" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <Property Name="UpdateTimes" Type="Int32" Nullable="false" />
+          <Property Name="ConstructionOrderChangeDate" Type="DateTime" Precision="0" />
+          <Property Name="LastUpdate" Type="DateTime" Precision="0" />
         </EntityType>
         <Association Name="FK_ProcessingAtlas_ProjectContract">
           <End Type="TokikuModel.ProjectContract" Role="ProjectContract" Multiplicity="1" />
@@ -3011,6 +3019,10 @@
           <EntitySetMapping Name="ProcessingAtlas">
             <EntityTypeMapping TypeName="TokikuModel.ProcessingAtlas">
               <MappingFragment StoreEntitySet="ProcessingAtlas">
+                <ScalarProperty Name="LastUpdate" ColumnName="LastUpdate" />
+                <ScalarProperty Name="ConstructionOrderChangeDate" ColumnName="ConstructionOrderChangeDate" />
+                <ScalarProperty Name="UpdateTimes" ColumnName="UpdateTimes" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
