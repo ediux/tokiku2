@@ -167,6 +167,7 @@
     <Compile Include="ProcessingAtlas.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProcessingAtlasDetailEntity.cs" />
     <Compile Include="ProcessingAtlasRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>

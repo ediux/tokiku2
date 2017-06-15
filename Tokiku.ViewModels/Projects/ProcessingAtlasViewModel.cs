@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Tokiku.Controllers;
 using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
@@ -159,6 +160,12 @@ namespace Tokiku.ViewModels
             {
                 ProcessingAtlas data = (ProcessingAtlas)entity;
                 BindingFromModel(data, this);
+                ProcessingAtlasController controller = new ProcessingAtlasController();
+                var detail = controller.GetProcessAtlasUpdateInformation(data);
+                if (!detail.HasError)
+                {
+                    BindingFromModel(detail.Result, this);
+                }
             }
             catch (Exception ex)
             {

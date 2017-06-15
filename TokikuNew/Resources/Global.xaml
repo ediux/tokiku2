@@ -10,6 +10,7 @@
     <vm:PaymentTypesManageViewModelCollection x:Key="PaymentTypesSource"/>
     <vm:VoidViewModelCollection x:Key="VoidStateListSource"/>
     <vm:ConstructionAtlasReplyContextViewModelCollection x:Key="ConstructionAtlasReplySelectList"/>
+    <ValueConverters:ReplyContentValueConverter x:Key="AtlasReplayContents"/>
     <ValueConverters:NOTGateValueConverter x:Key="NOTGateValueConverter"/>
     <ValueConverters:RadioButtonSwitchValueConverter x:Key="RadioButtonSwitchValueConverter" />
     <ValueConverters:BooleanToVisibilityValueConveter x:Key="BooleanToVisibilityValueConveter"/>

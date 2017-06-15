@@ -15,6 +15,7 @@ namespace Tokiku.Entity
         Create = 1,
         Read = 0,
         Update = 2,
-        Delete = 4
+        Delete = 4,
+        ConstructionOrderChange = 8
     }
 }

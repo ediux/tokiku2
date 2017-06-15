@@ -36,11 +36,11 @@
                 <Controls:CustomDataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding ImageName, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="圖名"/>
                     <DataGridTextColumn Binding="{Binding Edition, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="版次"/>
-                    <DataGridTextColumn Binding="{Binding SubmissionDate, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="送審日期"/>
+                    <DataGridTextColumn Binding="{Binding SubmissionDate, Mode=TwoWay, StringFormat=\{0:d\}, UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="送審日期"/>
                     <DataGridTextColumn Binding="{Binding SubmitCertificateNumber, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="送審文號"/>
-                    <DataGridTextColumn Binding="{Binding ReplyDate, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="回覆日期"/>
+                    <DataGridTextColumn Binding="{Binding ReplyDate, Mode=TwoWay, StringFormat=\{0:d\}, UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="回覆日期"/>
                     <DataGridTextColumn Binding="{Binding ReplyNumber, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="回覆文號"/>
-                    <DataGridTextColumn Header="回覆內容" Binding="{Binding ReplyContent}"/>
+                    <DataGridTextColumn Header="回覆內容" Binding="{Binding ReplyContent, Converter={StaticResource AtlasReplayContents}}"/>
                     <DataGridCheckBoxColumn Header="定稿" Binding="{Binding Finalized}"/>
                     <DataGridTextColumn Header="備註" Binding="{Binding Comment,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                     <DataGridTextColumn Header="異動人員/日期">
