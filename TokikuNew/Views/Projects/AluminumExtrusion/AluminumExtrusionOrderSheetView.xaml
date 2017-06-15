@@ -4,14 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
-             xmlns:Controls="clr-namespace:TokikuNew.Controls" x:Name="userControl" x:Class="TokikuNew.Views.AluminumExtrusionOrderSheetView"
+             xmlns:Controls="clr-namespace:TokikuNew.Controls" xmlns:ss="http://schemas.grapecity.com/windows/spreadsheet/2012" x:Name="userControl" x:Class="TokikuNew.Views.AluminumExtrusionOrderSheetView"
              mc:Ignorable="d" 
              Background="{DynamicResource ResourceKey=ControlBackgroundBrush}"
+             Loaded="userControl_Loaded"
              d:DesignHeight="768" d:DesignWidth="1024">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="243"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="27"/>
             <RowDefinition Height="48"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -31,16 +33,12 @@
                 <TextBox Text="5431" IsReadOnly="True" FontSize="15" Margin="2" IsEnabled="False" TextAlignment="Center" VerticalAlignment="Center"/>
                 <TextBlock Text="訂單屬性" FontSize="17"/>
                 <ComboBox Margin="2" Width="100" VerticalAlignment="Center">
-                    <ComboBox.Items>
-                        <ComboBoxItem Content="一般訂製單" IsSelected="True"/>
-                    </ComboBox.Items>
+                    <ComboBoxItem Content="一般訂製單" IsSelected="True"/>
                 </ComboBox>
                 <TextBlock Text="需求單位" FontSize="17" Margin="2,2,0,2" VerticalAlignment="Center"/>
                 <ComboBox Margin="2" Width="100" VerticalAlignment="Center">
-                    <ComboBox.Items>
-                        <ComboBoxItem Content="公司" IsSelected="True"/>
-                        <ComboBoxItem Content="其他"/>
-                    </ComboBox.Items>
+                    <ComboBoxItem Content="公司" IsSelected="True"/>
+                    <ComboBoxItem Content="其他"/>
                 </ComboBox>
                 <TextBlock Text="訂製單號:" FontSize="17" VerticalAlignment="Center" Margin="2"/>
                 <TextBox Width="200" MaxLength="20" VerticalAlignment="Center" FontSize="15" Margin="2"/>
@@ -112,55 +110,11 @@
                 </Grid>
             </GroupBox>
         </Grid>
-        <TabControl Grid.Row="1" TabStripPlacement="Bottom" >
-            <TabItem Header="訂製單">
-                <Grid Background="#FFE5E5E5">
-                    <Controls:CustomDataGrid>
-                        <Controls:CustomDataGrid.Columns>
-                            <DataGridTextColumn Header=""/>
-                            <DataGridTextColumn Header="東菊編號"/>
-                            <DataGridTextColumn Header="大同編號"/>
-                            <DataGridTextColumn Header="材質"/>
-                            <DataGridTextColumn Header="單位重"/>
-                            <DataGridTextColumn Header="訂購長度"/>
-                            <DataGridTextColumn Header="需求數量"/>
-                            <DataGridTextColumn Header="備品數量"/>
-                            <DataGridTextColumn Header="下單數量"/>
-                            <DataGridTextColumn Header="備註"/>
-                        </Controls:CustomDataGrid.Columns>
-                    </Controls:CustomDataGrid>
-                </Grid>
-            </TabItem>
-            <TabItem Header="材質估價">
-                <Grid Background="#FFE5E5E5">
-                    <Controls:CustomDataGrid>
-                        <Controls:CustomDataGrid.Columns>
-                            <DataGridTextColumn Header=""/>
-                            <DataGridTextColumn Header="材質"/>
-                            <DataGridTextColumn Header="kg單價"/>
-                            <DataGridTextColumn Header="重量"/>
-                            <DataGridTextColumn Header="預估總價"/>
-                        </Controls:CustomDataGrid.Columns>
-                    </Controls:CustomDataGrid>
-                </Grid>
-            </TabItem>
-            <TabItem Header="雜項">
-                <Grid Background="#FFE5E5E5">
-                    <Controls:CustomDataGrid>
-                        <Controls:CustomDataGrid.Columns>
-                            <DataGridTextColumn Header=""/>
-                            <DataGridTextColumn Header="東菊編號/項目"/>
-                            <DataGridTextColumn Header="廠商編號"/>
-                            <DataGridTextColumn Header="說明"/>
-                            <DataGridTextColumn Header="單價"/>
-                            <DataGridTextColumn Header="數量"/>
-                            <DataGridTextColumn Header="金額"/>
-                        </Controls:CustomDataGrid.Columns>
-                    </Controls:CustomDataGrid>
+        <StatusBar Grid.Row="2">
+            <StatusBarItem x:Name="SpeardStatusBarItem" Content="就緒" Height="27" VerticalAlignment="Top"/>
 
-                </Grid>
-            </TabItem>
-        </TabControl>
-        <Controls:DockBar Grid.Row="2" DocumentMode="Read"/>
+        </StatusBar>
+        <Controls:DockBar Grid.Row="3" DocumentMode="Read"/>
+        <ss:GcSpreadSheet x:Name="gcSpreadSheet1" Grid.Row="1" Margin="5"/>
     </Grid>
 </UserControl>

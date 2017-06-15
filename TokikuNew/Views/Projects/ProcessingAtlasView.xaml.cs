@@ -66,15 +66,7 @@ namespace TokikuNew.Views
         public static readonly DependencyProperty CurrentProjectContractProperty =
             DependencyProperty.Register("CurrentProjectContract", typeof(ProjectContractViewModel), typeof(ProcessingAtlasView), new PropertyMetadata(default(ProjectContractViewModel)));
 
-        private void btnModify_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
-
-        private void btnSave_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
 
         private void com2_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -85,22 +77,26 @@ namespace TokikuNew.Views
         {
             try
             {
+
                 var model = new ProcessingAtlasViewModel();
                 model.Id = Guid.NewGuid();
+                model.Order = ((ProcessingAtlasViewModelCollection)com2.ItemsSource).Max(p => p.Order) + 1;
                 model.ProjectContractId = (CurrentProjectContract?.Id).HasValue ? (CurrentProjectContract?.Id).Value : Guid.Empty;
+                model.ConstructionOrderChangeDate = new DateTime(1900, 1, 1);
                 e.NewItem = model;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
-                
+
             }
 
         }
 
         private void com2_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
         {
-
+            //var s = (ProcessingAtlasViewModelCollection)com2.ItemsSource;
+            //s = new ProcessingAtlasViewModelCollection(s.OrderBy(p => p.Order).ToList());
         }
     }
 }

@@ -119,11 +119,17 @@ namespace Tokiku.Controllers
                 {
                     ManufacturersRepository repo = RepositoryHelper.GetManufacturersRepository();
                     database = repo.UnitOfWork;
-                    var result = (from p in repo.All()                                
+                    var result = (from p in repo.All()
                                   where p.Void == false && p.IsClient == false &&
                                   (p.Name.Contains(originalSource) || p.Principal.Contains(originalSource))
                                   orderby p.Code ascending
-                                  select p);
+                                  select p).Union(
+                        from p in repo.All()
+                        from q in p.ManufacturersBussinessItems
+                        where q.Name.Contains(originalSource)
+                        select p
+                        ).OrderBy(o => o.Code)
+                        .Distinct().ToList();
 
                     ExecuteResultEntity<ICollection<Manufacturers>> rtn =
                         ExecuteResultEntity<ICollection<Manufacturers>>.CreateResultEntity(new Collection<Manufacturers>(result.ToList()));
@@ -411,7 +417,7 @@ namespace Tokiku.Controllers
                 return ExecuteResultEntity<Manufacturers>.CreateErrorResultEntity(ex);
             }
         }
-       
+
         public override ExecuteResultEntity Delete(Expression<Func<Manufacturers, bool>> condtion)
         {
             try
@@ -542,7 +548,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        public Task<ExecuteResultEntity<ICollection<Manufacturers>>> GetManufacturersWithBusinessItemAsync(Guid MaterialCategoriesId,string BusinessItem)
+        public Task<ExecuteResultEntity<ICollection<Manufacturers>>> GetManufacturersWithBusinessItemAsync(Guid MaterialCategoriesId, string BusinessItem)
         {
             try
             {

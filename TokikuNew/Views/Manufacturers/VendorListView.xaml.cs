@@ -57,6 +57,7 @@ namespace TokikuNew.Views
         {
             try
             {
+                e.Handled = true;
                 ((ManufacturersViewModelCollection)DataContext).QueryByText((string)e.OriginalSource);
             }
             catch (Exception ex)
@@ -72,7 +73,8 @@ namespace TokikuNew.Views
         {
             try
             {
-                ((ManufacturersViewModelCollection)DataContext).Query();
+                e.Handled = true;
+                ((ManufacturersViewModelCollection)DataContext).QueryByText("");
             }
             catch (Exception ex)
             {
@@ -85,7 +87,7 @@ namespace TokikuNew.Views
         {
             try
             {
-
+                e.Handled = true;
                 RaiseEvent(new RoutedEventArgs(Controls.ClosableTabItem.SendNewPageRequestEvent, this));
             }
             catch (Exception ex)
@@ -126,6 +128,7 @@ namespace TokikuNew.Views
         {
             try
             {
+                e.Handled = true;
                 if (SelectedManufacturer != null)
                 {
                     e.Handled = true;
@@ -143,7 +146,7 @@ namespace TokikuNew.Views
         {
             try
             {
-              
+                e.Handled = true;
                 if (DataContext != null)
                 {
                     ManufacturersViewModelCollection DataSource = (ManufacturersViewModelCollection)DataContext;
@@ -161,6 +164,19 @@ namespace TokikuNew.Views
             }
 
 
+        }
+
+        private void sSearchBar_RefreshResult(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                e.Handled = true;
+                ((ManufacturersViewModelCollection)DataContext).QueryByText((string)e.OriginalSource);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
         }
     }
 }
