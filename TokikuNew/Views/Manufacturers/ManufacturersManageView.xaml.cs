@@ -97,8 +97,7 @@ namespace TokikuNew.Views
 
                 //UI設定
                 BussinessItemSheet.StartSheetIndex = 0;
-                Dictionary<GrapeCity.Windows.SpreadSheet.UI.KeyStroke, GrapeCity.Windows.SpreadSheet.UI.SpreadAction> keyMap = BussinessItemSheet.View.KeyMap;
-                keyMap.Add(new GrapeCity.Windows.SpreadSheet.UI.KeyStroke(Key.F12, ModifierKeys.None), new GrapeCity.Windows.SpreadSheet.UI.SpreadAction(OnInsertSumFormula));
+               
 
 
                 //BussinessItemSheet.Sheets.Clear();
@@ -417,6 +416,12 @@ namespace TokikuNew.Views
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
 
             }
+        }
+
+        private void userControl_ManufacturersManageView_Initialized(object sender, EventArgs e)
+        {
+            Dictionary<GrapeCity.Windows.SpreadSheet.UI.KeyStroke, GrapeCity.Windows.SpreadSheet.UI.SpreadAction> keyMap = BussinessItemSheet.View.KeyMap;
+            keyMap.Add(new GrapeCity.Windows.SpreadSheet.UI.KeyStroke(Key.F12, ModifierKeys.None), new GrapeCity.Windows.SpreadSheet.UI.SpreadAction(OnInsertSumFormula));
         }
     }
 }

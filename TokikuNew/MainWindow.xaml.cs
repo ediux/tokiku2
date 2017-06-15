@@ -47,7 +47,7 @@ namespace TokikuNew
                         {
 
                             Workspaces.Items.Remove(currentworking);
-                            ((MainViewModel)DataContext).Refresh();
+
 
                             ((MainViewModel)DataContext).CurrentProject = null;
                         }

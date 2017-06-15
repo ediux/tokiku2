@@ -712,29 +712,33 @@ namespace Tokiku.ViewModels
             }
         }
 
-        public override void SetModel(dynamic entity)
+        public async override void SetModel(dynamic entity)
         {
             try
             {
                 Manufacturers data = (Manufacturers)entity;
                 BindingFromModel(data, this);
                 DoEvents();
-                Contracts.ManufacturersId = data.Id;
-                //Contracts.QueryAsync();
-                DoEvents();
-                ManufacturersBussinessItems.QueryAsync(data.Id);
-                DoEvents();
-                TranscationRecords.Query(data.Id);
-                DoEvents();
                 Status.IsNewInstance = false;
                 Status.IsModify = false;
                 Status.IsSaved = false;
+                await Dispatcher.InvokeAsync(new Action(QueryDetails), System.Windows.Threading.DispatcherPriority.Background);                
             }
             catch (Exception ex)
             {
                 setErrortoModel(this, ex);
             }
 
+        }
+        public void QueryDetails()
+        {
+            Contracts.ManufacturersId = Id;
+            //Contracts.QueryAsync();
+            
+            ManufacturersBussinessItems.QueryAsync(Id);
+          
+            TranscationRecords.Query(Id);
+          
         }
         #endregion
 
