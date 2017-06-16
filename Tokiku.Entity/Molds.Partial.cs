@@ -13,7 +13,7 @@ namespace Tokiku.Entity
     {
         [Required]
         public System.Guid Id { get; set; }
-        [Required]
+
         public System.DateTime OpenDate { get; set; }
         public byte[] LegendMoldReduction { get; set; }
         

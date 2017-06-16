@@ -8,25 +8,35 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Tokiku.Entity;
+using Tokiku.Entity.ViewTables;
 
 namespace Tokiku.Controllers
 {
     public class MoldsController : BaseController
     {
-        public Task<ExecuteResultEntity<ICollection<Molds>>> Query()
+        private String sql;
+
+        public Task<ExecuteResultEntity<ICollection<MoldsEnter>>> Query()
         {
+            sql = " select LegendMoldReduction, UsePosition, Code, SerialNumber, " +
+                         " b.Name as Name1, UnitWeight, SurfaceTreatment, PaintArea, " +
+                         " MembraneTreatment, MinimumYield, ProductionIngot, " +
+                         " TotalOrderWeight, c.Name as Name2, Comment " +
+                    " from Molds a left join materials b on a.Id = b.Id " +
+                                 " left join MoldUseStatus c on c.Id = a.MoldUseStatusId ";
+
             try
             {
                 var repo = RepositoryHelper.GetMoldsRepository();
-                database = repo.UnitOfWork;
+                var queryresult = repo.UnitOfWork.Context.Database.SqlQuery<MoldsEnter>(sql);
                 return Task.FromResult(
-                    ExecuteResultEntity<ICollection<Molds>>.CreateResultEntity(
-                        new Collection<Molds>(repo.All().ToList())));
+                    ExecuteResultEntity<ICollection<MoldsEnter>>.CreateResultEntity(
+                        new Collection<MoldsEnter>(queryresult.ToList())));
 
             }
             catch (Exception ex)
             {
-                return Task.FromResult(ExecuteResultEntity<ICollection<Molds>>.CreateErrorResultEntity(ex));
+                return Task.FromResult(ExecuteResultEntity<ICollection<MoldsEnter>>.CreateErrorResultEntity(ex));
             }
         }
 

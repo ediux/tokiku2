@@ -94,7 +94,7 @@ namespace TokikuNew.Views
                 MoldsWorkBookImports.Sheets[0].SetText(rowi, 2, row.ProjectName);
                 MoldsWorkBookImports.Sheets[0].SetText(rowi, 3, row.Code);
                 MoldsWorkBookImports.Sheets[0].SetText(rowi, 4, row.SerialNumber);
-                MoldsWorkBookImports.Sheets[0].SetText(rowi, 5, row.Materials.Name);
+                MoldsWorkBookImports.Sheets[0].SetText(rowi, 5, row.Name1);
                 MoldsWorkBookImports.Sheets[0].SetValue(rowi, 6, row.UnitWeight);
                 MoldsWorkBookImports.Sheets[0].SetValue(rowi, 7, row.SurfaceTreatment);
                 MoldsWorkBookImports.Sheets[0].SetValue(rowi, 8, row.PaintArea);
@@ -102,7 +102,7 @@ namespace TokikuNew.Views
                 MoldsWorkBookImports.Sheets[0].SetValue(rowi, 10, row.MinimumYield);
                 MoldsWorkBookImports.Sheets[0].SetValue(rowi, 11, row.ProductionIngot);
                 MoldsWorkBookImports.Sheets[0].SetValue(rowi, 12, row.TotalOrderWeight);
-                MoldsWorkBookImports.Sheets[0].SetText(rowi, 13, row.MoldUseStatus.Name);
+                MoldsWorkBookImports.Sheets[0].SetText(rowi, 13, row.Name2);
                 MoldsWorkBookImports.Sheets[0].SetText(rowi, 14, row.Comment);
                 rowi++;
             }
