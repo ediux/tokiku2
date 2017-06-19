@@ -9,13 +9,13 @@
              d:DesignHeight="768" d:DesignWidth="1024" Loaded="UserControl_Loaded"  >
     <Grid Background="{DynamicResource ControlBackgroundBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="27"/>
+            <RowDefinition Height="19"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Menu Grid.Row="0" Grid.Column="0">
+        <Menu Grid.Row="0" Grid.Column="0" FontSize="9">
             <MenuItem Header="用料需求"/>
             <MenuItem Header="鋁擠型" >
                 <MenuItem Header="訂製單" Name="MI_Projects_Order_1" Click="MI_Projects_Order_1_Click"/>
@@ -28,16 +28,14 @@
             <MenuItem Header="鐵件"/>
             <MenuItem Header="其他材料"/>
         </Menu>
-        <TabControl Grid.Row="1" TabStripPlacement="Top" Name="InnerWorkspaces">
+        <TabControl Grid.Row="1" TabStripPlacement="Top" Name="InnerWorkspaces" FontSize="9">
             <TabItem Header="專案主檔">
                 <local:ProjectManagerView x:Name="PMV" SelectedProject="{Binding}" Mode="Read"
                                     LoginedUser="{Binding LoginedUser, ElementName=userControl}" />
             </TabItem>
             <TabItem Header="成本估算" Visibility="Collapsed">
-                
             </TabItem>
             <TabItem Header="專案模具" Visibility="Collapsed">
-
             </TabItem>
         </TabControl>
     </Grid>
