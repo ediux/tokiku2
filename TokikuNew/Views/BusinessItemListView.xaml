@@ -22,10 +22,10 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="" Width="20"/>
-                    <GridViewColumn Header="材料類別" Width="100"/>
+                    <GridViewColumn Header="材料類別" Width="auto"/>
                     <GridViewColumn Header="交易品項" Width="auto"/>
-                    <GridViewColumn Header="交易類別" Width="100"/>
-                    <GridViewColumn Header="票期" Width="150"/>
+                    <GridViewColumn Header="交易類別" Width="auto"/>
+                    <GridViewColumn Header="票期" Width="auto"/>
                 </GridView>
             </ListView.View>
             <ListView.ItemTemplate>

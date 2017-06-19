@@ -307,6 +307,7 @@
     <Compile Include="ProjectItemCostRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewTables\ManufacturersEnter.cs" />
     <Compile Include="ViewTables\MoldsEnter.cs" />
     <Compile Include="ViewTables\ProjectListEntity.cs" />
     <Compile Include="ProjectsRepository.cs">

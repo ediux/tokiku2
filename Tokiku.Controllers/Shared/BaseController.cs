@@ -12,8 +12,14 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
+    /// <summary>
+    /// 商業邏輯層控制器基底類別。
+    /// </summary>
     public abstract class BaseController : IBaseController
     {
+        /// <summary>
+        /// 統一資料庫連線物件。
+        /// </summary>
         protected IUnitOfWork database;
 
         public BaseController()
@@ -69,7 +75,11 @@ namespace Tokiku.Controllers
         #endregion
 
 
-
+        /// <summary>
+        /// 登入系統。
+        /// </summary>
+        /// <param name="model">登入畫面的檢視模型物件。</param>
+        /// <returns>傳回登入結果。</returns>
         public ExecuteResultEntity<Users> Login(LoginParameter model)
         {
             try
@@ -101,6 +111,10 @@ namespace Tokiku.Controllers
 
         protected static Users _CurrentLoginedUserStorage;
 
+        /// <summary>
+        /// 取得目前登入的使用者資訊物件。
+        /// </summary>
+        /// <returns>傳回目前已經登入的使用者資訊物件。</returns>
         public ExecuteResultEntity<Users> GetCurrentLoginUser()
         {
             try
@@ -159,6 +173,11 @@ namespace Tokiku.Controllers
             }
         }
 
+        /// <summary>
+        /// 檢查並更新來自資料庫的資料實體內容。
+        /// </summary>
+        /// <param name="source">來源資料實體物件(通常來自於前端UI的變更後資料內容)</param>
+        /// <param name="target">目的資料實體物件(一定是來自資料庫的資料實體)</param>
         protected void CheckAndUpdateValue(dynamic source, dynamic target)
         {
             if (source == null)
@@ -210,6 +229,10 @@ namespace Tokiku.Controllers
         }
     }
 
+    /// <summary>
+    /// 針對指定實體類別<typeparamref name="T"/>的商業邏輯控制器。
+    /// </summary>
+    /// <typeparam name="T">對應的資料表實體物件。</typeparam>
     public abstract class BaseController<T> : BaseController, IBaseController<T> where T : class
     {
         public BaseController() : base()
@@ -230,7 +253,7 @@ namespace Tokiku.Controllers
             IEnumerable<string> keyNames = set.EntitySet.ElementType
                                                         .KeyMembers
                                                         .Select(k => k.Name);
-
+            
             Type entityreflection = typeof(T);
 
             var pkeys = entityreflection.GetProperties()
@@ -240,6 +263,10 @@ namespace Tokiku.Controllers
             return pkeys.ToArray();
         }
 
+        /// <summary>
+        /// 取得資料庫儲存庫物件。
+        /// </summary>
+        /// <returns><回傳指定資料表的儲存庫物件。</returns>
         private IRepositoryBase<T> GetRepository()
         {
             Type type = typeof(T);
@@ -264,9 +291,9 @@ namespace Tokiku.Controllers
         }
 
         /// <summary>
-        /// 預設的建立檢視模型執行個體的方法。
+        /// 建立預設的資料實體物件執行個體的方法。
         /// </summary>
-        /// <returns>傳回初始化的檢視模型。</returns>
+        /// <returns>傳回初始化的資料實體物件。</returns>
         public virtual ExecuteResultEntity<T> CreateNew()
         {
             ExecuteResultEntity<T> model = null;
@@ -285,7 +312,7 @@ namespace Tokiku.Controllers
         /// <summary>
         /// 加入單一資料列到資料庫。
         /// </summary>
-        /// <param name="entity"></param>
+        /// <param name="entity">要插入到資料庫的檢視資料實體模型。</param>
         /// <returns></returns>
         public virtual ExecuteResultEntity Add(T entity, bool isLastRecord = true)
         {
@@ -328,6 +355,7 @@ namespace Tokiku.Controllers
 
             try
             {
+              
                 var repo = GetRepository();
 
                 database = repo.UnitOfWork;
@@ -356,9 +384,9 @@ namespace Tokiku.Controllers
         }
 
         /// <summary>
-        /// 
+        /// 更新資料庫。
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="model">來自前端UI且綁定的資料實體物件執行個體。</param>
         /// <returns></returns>
         public virtual ExecuteResultEntity<T> Update(T fromModel, bool isLastRecord = true)
         {
@@ -435,9 +463,9 @@ namespace Tokiku.Controllers
         }
 
         /// <summary>
-        /// 儲存或更新資料庫
+        /// 新增或更新資料至資料庫。
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="model">已經變更的資料實體物件(來自UI)</param>
         public virtual ExecuteResultEntity<T> CreateOrUpdate(T entity)
         {
             try
@@ -448,7 +476,7 @@ namespace Tokiku.Controllers
                 if (repo == null)
                     return ExecuteResultEntity<T>.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
 
-
+                //檢查資料庫資料是否存在?
                 if (repo.Get(IdentifyPrimaryKey(entity)) != null)
                 {
                     var update_result = Update(entity);
@@ -475,9 +503,6 @@ namespace Tokiku.Controllers
 
                     return ExecuteResultEntity<T>.CreateResultEntity(entity);
                 }
-
-
-
             }
             catch (Exception ex)
             {
@@ -501,8 +526,5 @@ namespace Tokiku.Controllers
                 throw;
             }
         }
-
-
-
     }
 }

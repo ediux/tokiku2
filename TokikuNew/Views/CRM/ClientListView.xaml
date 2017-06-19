@@ -36,15 +36,15 @@
                                  IsReadOnly="True"
                                  >
             <DataGrid.Columns>
-                <DataGridHyperlinkColumn  Header="客戶代號" Binding="{Binding Code}" Width="100" />
-                <DataGridTextColumn Header="名稱(全名)" Binding="{Binding Name}" Width="100" />
-                <DataGridTextColumn Header="名稱(簡稱)" Binding="{Binding ShortName}" Width="100" />
-                <DataGridTextColumn Header="負責人" Binding="{Binding Principal}" Width="100" />
-                <DataGridTextColumn Header="統一編號" Binding="{Binding UniformNumbers}" Width="70" />
-                <DataGridTextColumn Header="主要聯絡人" Width="100" Binding="{Binding MainContactPerson}"/>
-                <DataGridTextColumn Header="公司電話" Width="70" Binding="{Binding Phone}"/>
-                <DataGridTextColumn Header="公司地址" Width="70" Binding="{Binding Address}"/>
-                <DataGridTextColumn Header="公司傳真" Width="70" Binding="{Binding Fax}"/>
+                <DataGridHyperlinkColumn  Header="客戶代號" Binding="{Binding Code}" Width="auto" />
+                <DataGridTextColumn Header="名稱(全名)" Binding="{Binding Name}" Width="auto" />
+                <DataGridTextColumn Header="名稱(簡稱)" Binding="{Binding ShortName}" Width="auto" />
+                <DataGridTextColumn Header="負責人" Binding="{Binding Principal}" Width="auto" />
+                <DataGridTextColumn Header="統一編號" Binding="{Binding UniformNumbers}" Width="auto" />
+                <DataGridTextColumn Header="主要聯絡人" Width="auto" Binding="{Binding MainContactPerson}"/>
+                <DataGridTextColumn Header="公司電話" Width="auto" Binding="{Binding Phone}"/>
+                <DataGridTextColumn Header="公司地址" Width="auto" Binding="{Binding Address}"/>
+                <DataGridTextColumn Header="公司傳真" Width="auto" Binding="{Binding Fax}"/>
             </DataGrid.Columns>
         </controls:CustomDataGrid>
     </Grid>

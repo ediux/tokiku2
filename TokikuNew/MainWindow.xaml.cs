@@ -583,7 +583,7 @@ namespace TokikuNew
 
 
                 bool isExisted = false;
-
+                // 檢查是否重複開啟
                 foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
                 {
                     if (item.Header.Equals(addWorkarea.Header))
@@ -596,7 +596,7 @@ namespace TokikuNew
 
                 if (!isExisted)
                 {
-
+                    // 內容
                     var vm = new MaterialsTotalView() { Margin = new Thickness(0) };
                     addWorkarea.Content = vm;
                     Workspaces.Items.Add(addWorkarea);

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Tokiku.Controllers;
+using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
@@ -259,6 +260,24 @@ namespace Tokiku.ViewModels
         public override void Refresh()
         {
             Query();
+        }
+
+        public async override void SetModel(dynamic entity)
+        {
+            try
+            {
+                Manufacturers data = (Manufacturers)entity;
+                BindingFromModel(data, this);
+                DoEvents();
+                Status.IsNewInstance = false;
+                Status.IsModify = false;
+                Status.IsSaved = false;
+                await Dispatcher.InvokeAsync(new Action(QueryDetails), System.Windows.Threading.DispatcherPriority.Background);
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
         }
     }
 }

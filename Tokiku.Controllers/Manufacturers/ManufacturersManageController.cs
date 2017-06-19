@@ -8,12 +8,15 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Tokiku.Entity;
+using Tokiku.Entity.ViewTables;
 
 namespace Tokiku.Controllers
 {
     public class ManufacturersManageController : BaseController<Manufacturers>
     {
         private ManufacturersBussinessItemsRepository BussinessItemsRepo;
+
+        private String sql;
 
         public ManufacturersManageController()
         {
@@ -111,41 +114,43 @@ namespace Tokiku.Controllers
             return string.Format("{0:00}", Code);
         }
 
-        public ExecuteResultEntity<ICollection<Manufacturers>> SearchByText(string originalSource)
+        public ExecuteResultEntity<ICollection<ManufacturersEnter>> SearchByText(string originalSource)
         {
+            sql = " select distinct a.Id as Id, Code, a.Name as Name, Principal, UniformNumbers, " +
+                         " MainContactPerson, Phone, Address, Fax, FactoryPhone, FactoryAddress, " +
+                         " case when Void = 0 then '啟用' when Void = 1 then '停用' end as Void " +
+                    " from Manufacturers a " +
+               " left join ManufacturersBussinessItems b on a.Id = b.ManufacturersId " +
+                   " where IsClient = 0 and (a.Name like '%'+@p0+'%' " +
+                                       " or b.Name like '%'+@p0+'%' " +
+                                       " or Principal like '%'+@p0+'%') " +
+                " order by Code ";
+
+            ExecuteResultEntity<ICollection<ManufacturersEnter>> rtn;
             try
             {
+                object[] obj = new object[] { originalSource };
                 if (originalSource != null && originalSource.Length > 0)
                 {
-                    ManufacturersRepository repo = RepositoryHelper.GetManufacturersRepository();
-                    database = repo.UnitOfWork;
-                    var result = (from p in repo.All()                                
-                                  where p.Void == false && p.IsClient == false &&
-                                  (p.Name.Contains(originalSource) || p.Principal.Contains(originalSource))
-                                  orderby p.Code ascending
-                                  select p);
 
-                    ExecuteResultEntity<ICollection<Manufacturers>> rtn =
-                        ExecuteResultEntity<ICollection<Manufacturers>>.CreateResultEntity(new Collection<Manufacturers>(result.ToList()));
+                    using (var ManufacturersRepository = RepositoryHelper.GetManufacturersRepository())
+                    {
+                        var queryresult = ManufacturersRepository.UnitOfWork.Context.Database.SqlQuery<ManufacturersEnter>(sql, obj);
 
-                    return rtn;
+                        rtn = ExecuteResultEntity<ICollection<ManufacturersEnter>>.CreateResultEntity(
+                            new Collection<ManufacturersEnter>(queryresult.ToList()));
+
+                        return rtn;
+                    }
                 }
                 else
                 {
-                    ManufacturersRepository repo = RepositoryHelper.GetManufacturersRepository();
-                    database = repo.UnitOfWork;
-                    var result = (from p in repo.All()
-                                  where p.Void == false && p.IsClient == false
-                                  orderby p.Code ascending
-                                  select p);
-
-                    ExecuteResultEntity<ICollection<Manufacturers>> rtn = ExecuteResultEntity<ICollection<Manufacturers>>.CreateResultEntity(new Collection<Manufacturers>(result.ToList()));
-                    return rtn;
+                    return QueryAll();
                 }
             }
             catch (Exception ex)
             {
-                return ExecuteResultEntity<ICollection<Manufacturers>>.CreateErrorResultEntity(ex);
+                return ExecuteResultEntity<ICollection<ManufacturersEnter>>.CreateErrorResultEntity(ex);
             }
 
         }
@@ -201,23 +206,23 @@ namespace Tokiku.Controllers
             }
         }
 
-        public ExecuteResultEntity<ICollection<Manufacturers>> QueryAll()
+        public ExecuteResultEntity<ICollection<ManufacturersEnter>> QueryAll()
         {
-            ExecuteResultEntity<ICollection<Manufacturers>> rtn;
+            sql = " select Id, Code, Name, ShortName, Principal, UniformNumbers, MainContactPerson, " +
+                         " Phone, Address, Fax, FactoryPhone, FactoryAddress, " +
+                         " case when Void = 0 then '啟用' when Void = 1 then '停用' end as Void " +
+                    " from Manufacturers where IsClient = 0 order by Code ";
+
+            ExecuteResultEntity<ICollection<ManufacturersEnter>> rtn;
 
             try
             {
                 using (var ManufacturersRepository = RepositoryHelper.GetManufacturersRepository())
                 {
-                    database = ManufacturersRepository.UnitOfWork;
-
-                    var result = ManufacturersRepository
-                                .Where(p => p.Void == false && p.IsClient == false)
-                                .OrderBy(p => p.Code)
-                                .ToList();
-
-                    rtn = ExecuteResultEntity<ICollection<Manufacturers>>.CreateResultEntity(
-                        new Collection<Manufacturers>(result));
+                    var queryresult = ManufacturersRepository.UnitOfWork.Context.Database.SqlQuery<ManufacturersEnter>(sql);
+                    
+                    rtn = ExecuteResultEntity<ICollection<ManufacturersEnter>>.CreateResultEntity(
+                        new Collection<ManufacturersEnter>(queryresult.ToList()));
 
                     return rtn;
                 }
@@ -225,7 +230,7 @@ namespace Tokiku.Controllers
             }
             catch (Exception ex)
             {
-                rtn = ExecuteResultEntity<ICollection<Manufacturers>>.CreateErrorResultEntity(ex);
+                rtn = ExecuteResultEntity<ICollection<ManufacturersEnter>>.CreateErrorResultEntity(ex);
                 return rtn;
             }
 
@@ -411,7 +416,7 @@ namespace Tokiku.Controllers
                 return ExecuteResultEntity<Manufacturers>.CreateErrorResultEntity(ex);
             }
         }
-       
+
         public override ExecuteResultEntity Delete(Expression<Func<Manufacturers, bool>> condtion)
         {
             try
@@ -542,7 +547,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        public Task<ExecuteResultEntity<ICollection<Manufacturers>>> GetManufacturersWithBusinessItemAsync(Guid MaterialCategoriesId,string BusinessItem)
+        public Task<ExecuteResultEntity<ICollection<Manufacturers>>> GetManufacturersWithBusinessItemAsync(Guid MaterialCategoriesId, string BusinessItem)
         {
             try
             {
