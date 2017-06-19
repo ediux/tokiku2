@@ -80,10 +80,6 @@ namespace TokikuNew.Views
 
 
                 //當不是新建模式 則查詢設為預設的聯絡人顯示
-                if (((ManufacturersViewModel)DataContext) != null && !((ManufacturersViewModel)DataContext).Contracts.Any())
-                {
-                    ((ManufacturersViewModel)DataContext).Contracts.Query("", ((ManufacturersViewModel)DataContext).Id, false);
-                }
                 var maincontact = ((ManufacturersViewModel)DataContext).Contracts.Where(w => w.IsDefault == true).SingleOrDefault();
                 if (maincontact != null)
                 {
