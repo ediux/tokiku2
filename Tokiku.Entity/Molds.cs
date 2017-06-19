@@ -21,7 +21,7 @@ namespace Tokiku.Entity
         }
     
         public System.Guid Id { get; set; }
-        public System.DateTime OpenDate { get; set; }
+        public Nullable<System.DateTime> OpenDate { get; set; }
         public string LegendMoldReduction { get; set; }
         public string UsePosition { get; set; }
         public string Code { get; set; }

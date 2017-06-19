@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Tokiku.Entity;
+using Tokiku.Entity.ViewTables;
 
 namespace Tokiku.ViewModels
 {
-    public class MoldsViewModel : BaseViewModelWithPOCOClass<Molds>
+    public class MoldsViewModel : BaseViewModelWithPOCOClass<MoldsEnter>
     {
 
         #region Id
@@ -458,6 +459,34 @@ namespace Tokiku.ViewModels
             DependencyProperty.Register("SerialNumber", typeof(string), typeof(MoldsViewModel), new PropertyMetadata(string.Empty));
 
 
+        #endregion
+
+        #region Name1
+
+        public String Name1
+        {
+            get { return (String)GetValue(Name1Property); }
+            set { SetValue(Name1Property, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Name1.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty Name1Property =
+            DependencyProperty.Register("Name1", typeof(String), typeof(MoldsViewModel), new PropertyMetadata(""));
+
+        #endregion
+
+        #region Name2
+
+        public string Name2
+        {
+            get { return (string)GetValue(Name2Property); }
+            set { SetValue(Name2Property, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Name2.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty Name2Property =
+            DependencyProperty.Register("Name2", typeof(string), typeof(MoldsViewModel), new PropertyMetadata(""));
+        
         #endregion
 
         public override void Initialized()

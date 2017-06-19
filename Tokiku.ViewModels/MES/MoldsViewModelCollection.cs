@@ -26,12 +26,12 @@ namespace Tokiku.ViewModels
                         {
                             MoldsViewModel model = new MoldsViewModel();
                             model.SetModel(entity);
-                            model.Manufacturers = new ManufacturersViewModel();
-                            model.Manufacturers.SetModel(entity.Manufacturers);
-                            model.Materials = new MaterialsViewModel();
-                            model.Materials.SetModel(entity.Materials);
-                            model.MoldUseStatus = new MoldUseStatusViewModel();
-                            model.MoldUseStatus.SetModel(entity.MoldUseStatus);
+                            //model.Manufacturers = new ManufacturersViewModel();
+                            ////model.Manufacturers.SetModel(entity.Manufacturers);
+                            //model.Materials = new MaterialsViewModel();
+                            ////model.Materials.SetModel(entity.Materials);
+                            //model.MoldUseStatus = new MoldUseStatusViewModel();
+                            //model.MoldUseStatus.SetModel(entity.MoldUseStatus);
                             Add(model);
                         }
                     }

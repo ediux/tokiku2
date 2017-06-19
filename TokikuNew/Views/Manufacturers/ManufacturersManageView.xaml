@@ -8,7 +8,7 @@
              xmlns:ss="http://schemas.grapecity.com/windows/spreadsheet/2012" x:Name="userControl_ManufacturersManageView" x:Class="TokikuNew.Views.ManufacturersManageView"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024" Background="{DynamicResource ControlBackgroundBrush}" 
-             Loaded="UserControl_Loaded"
+             Loaded="UserControl_Loaded" Initialized="userControl_ManufacturersManageView_Initialized"   
              >
     <Grid>
         <Grid.RowDefinitions>

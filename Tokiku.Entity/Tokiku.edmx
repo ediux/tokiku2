@@ -178,7 +178,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="OpenDate" Type="datetime" Nullable="false" />
+          <Property Name="OpenDate" Type="datetime" />
           <Property Name="LegendMoldReduction" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="UsePosition" Type="nvarchar" MaxLength="50" />
           <Property Name="Code" Type="nvarchar" MaxLength="50" />
@@ -1829,7 +1829,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="OpenDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OpenDate" Type="DateTime" Precision="3" />
           <Property Name="LegendMoldReduction" Type="String" Nullable="false" Unicode="true" MaxLength="250" FixedLength="false" />
           <Property Name="UsePosition" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />

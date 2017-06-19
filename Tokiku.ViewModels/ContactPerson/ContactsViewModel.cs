@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Threading;
+using Tokiku.Controllers;
 using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
@@ -280,6 +281,13 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty ContractsListProperty =
             DependencyProperty.Register("ContactsList", typeof(ObservableCollection<ContactsViewModel>), typeof(ContactsViewModel), new PropertyMetadata(default(ObservableCollection<ContactsViewModel>), new PropertyChangedCallback(DefaultFieldChanged)));
 
+        public override void Initialized()
+        {
+            base.Initialized();
+            Id = Guid.NewGuid();
+            ContactPersonManageController controller = new ContactPersonManageController();
+            CreateUserId = controller.GetCurrentLoginUser().Result.UserId;
+        }
         public override void SetModel(dynamic entity)
         {
             if (!Dispatcher.CheckAccess())
