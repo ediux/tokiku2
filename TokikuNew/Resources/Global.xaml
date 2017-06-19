@@ -15,7 +15,7 @@
     <ValueConverters:RadioButtonSwitchValueConverter x:Key="RadioButtonSwitchValueConverter" />
     <ValueConverters:BooleanToVisibilityValueConveter x:Key="BooleanToVisibilityValueConveter"/>
     <ValueConverters:DocumentLifeCycleStateToVisibilityValueConverter x:Key="DocumentLifeCycleStateToVisibilityValueConverter"/>
-    <ValueConverters:ReadModeToDisabledValueConverter x:Key="ReadModeToDisabledControllerValueConverter"/>
+    <ValueConverters:ReadModeToDisabledValueConverter x:Key="ReadModeToDisabledValueConverter"/>
     <ValueConverters:StatesCodeToTextValueConverter x:Key="StatesCodeToTextValueConverter"/>
     <ValueConverters:ReadModeToVisibilityValueConverter x:Key="ReadModeToVisibilityValueConverter"/>
     <ValueConverters:ReadModeToEnabledValueConverter x:Key="ReadModeToEnabledValueConverter" />
