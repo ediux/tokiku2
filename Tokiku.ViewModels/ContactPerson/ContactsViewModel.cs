@@ -59,7 +59,7 @@ namespace Tokiku.ViewModels
 
         public void Query(string originalSource, Guid ManufurerterId, bool isClient)
         {
-            Controllers.ContactPersonManageController controller = new Controllers.ContactPersonManageController();
+            Controllers.ContactPersonManageController controller = new ContactPersonManageController();
             var executeResult = controller.SearchByText(originalSource, ManufurerterId, isClient);
             if (!executeResult.HasError)
             {
@@ -70,7 +70,7 @@ namespace Tokiku.ViewModels
                     foreach (var row in executeResult.Result)
                     {
                         ContactsViewModel model = new ContactsViewModel();
-                        model.DoEvents();
+                    
                         model.SetModel(row);
                         Add(model);
                     }

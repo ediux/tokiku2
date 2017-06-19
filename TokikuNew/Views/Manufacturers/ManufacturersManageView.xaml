@@ -49,7 +49,7 @@
                     <TextBlock Text="廠商代號" Grid.Row="0" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
                     <TextBlock x:Name="tbCode" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <TextBlock Text="名稱(全名)" Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-                    <TextBox x:Name="tbName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="tbName_TextChanged" IsReadOnly="{Binding Path=Mode, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox x:Name="tbName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="tbName_TextChanged" IsReadOnly="{Binding Path=Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBlock Text="名稱(簡稱)" Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
                     <TextBox x:Name="tbShortName" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=Mode, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <TextBlock Text="負責人"   Grid.Row="3" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
@@ -294,10 +294,10 @@
                                       ItemsSource="{Binding TranscationRecords}"
                                       >
                         <c:CustomDataGrid.Columns>
-                            <DataGridTextColumn Header="工程代碼" Binding="{Binding Code}"/>
-                            <DataGridTextColumn Header="工程名稱" Binding="{Binding Name}"/>
-                            <DataGridTextColumn Header="交易品項" Binding="{Binding TranscationItemName}"/>
-                            <DataGridTextColumn Header="訂單日期" Binding="{Binding StartDate, StringFormat=\{0:yyyy/MM/dd\}}"/>
+                            <DataGridTextColumn Header="工程代碼" Binding="{Binding Code}" Width="auto"/>
+                            <DataGridTextColumn Header="工程名稱" Binding="{Binding Name}" Width="auto"/>
+                            <DataGridTextColumn Header="交易品項" Binding="{Binding TranscationItemName}" Width="auto"/>
+                            <DataGridTextColumn Header="訂單日期" Binding="{Binding StartDate, StringFormat=\{0:yyyy/MM/dd\}}" Width="auto"/>
                         </c:CustomDataGrid.Columns>
                     </c:CustomDataGrid>
                 </GroupBox>
