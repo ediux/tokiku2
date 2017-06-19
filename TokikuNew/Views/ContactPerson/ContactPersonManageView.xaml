@@ -28,21 +28,21 @@
                           ItemsSource="{Binding}"
                                       >
             <DataGrid.Columns>
-                <DataGridCheckBoxColumn Header="預設"  Binding="{Binding IsDefault}" Width="40">
+                <DataGridCheckBoxColumn Header="預設"  Binding="{Binding IsDefault}" Width="auto">
                     <DataGridCheckBoxColumn.CellStyle>
                         <Style>
                             <EventSetter Event="CheckBox.Checked" Handler="OnChecked"/>
                         </Style>
                     </DataGridCheckBoxColumn.CellStyle>
                 </DataGridCheckBoxColumn>
-                <DataGridTextColumn Header="姓名" Binding="{Binding Name}" Width="100"  />
-                <DataGridTextColumn Header="行動電話" Binding="{Binding Mobile}" Width="70" />
-                <DataGridTextColumn Header="電話" Binding="{Binding Phone}" Width="70" />
-                <DataGridTextColumn Header="分機" Binding="{Binding ExtensionNumber}" Width="70" />
-                <DataGridTextColumn Header="傳真" Binding="{Binding Fax}" Width="70"/>
-                <DataGridTextColumn Header="eMail" Binding="{Binding EMail}" Width="200" />
-                <DataGridTextColumn Header="部門" Binding="{Binding Dep}" Width="100" />
-                <DataGridTextColumn Header="職稱" Binding="{Binding Title}" Width="100" />
+                <DataGridTextColumn Header="姓名" Binding="{Binding Name}" Width="auto"  />
+                <DataGridTextColumn Header="行動電話" Binding="{Binding Mobile}" Width="auto" />
+                <DataGridTextColumn Header="電話" Binding="{Binding Phone}" Width="auto" />
+                <DataGridTextColumn Header="分機" Binding="{Binding ExtensionNumber}" Width="auto" />
+                <DataGridTextColumn Header="傳真" Binding="{Binding Fax}" Width="auto"/>
+                <DataGridTextColumn Header="eMail" Binding="{Binding EMail}" Width="auto" />
+                <DataGridTextColumn Header="部門" Binding="{Binding Dep}" Width="auto" />
+                <DataGridTextColumn Header="職稱" Binding="{Binding Title}" Width="auto" />
             </DataGrid.Columns>
         </c:CustomDataGrid>
     </Grid>
