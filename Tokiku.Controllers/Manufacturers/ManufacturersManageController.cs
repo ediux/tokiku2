@@ -212,7 +212,7 @@ namespace Tokiku.Controllers
 
         public ExecuteResultEntity<ICollection<ManufacturersEnter>> QueryAll()
         {
-            sql = " select Code, Name, ShortName, Principal, UniformNumbers, MainContactPerson, " +
+            sql = " select Id, Code, Name, ShortName, Principal, UniformNumbers, MainContactPerson, " +
                          " Phone, Address, Fax, FactoryPhone, FactoryAddress, " +
                          " case when Void = 0 then '啟用' when Void = 1 then '停用' end as Void " +
                     " from Manufacturers where IsClient = 0 order by Code ";
