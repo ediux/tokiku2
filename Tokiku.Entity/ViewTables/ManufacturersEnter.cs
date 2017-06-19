@@ -8,6 +8,7 @@ namespace Tokiku.Entity.ViewTables
 {
     public class ManufacturersEnter
     {
+        public Guid Id { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
         public string ShortName { get; set; }

@@ -114,47 +114,43 @@ namespace Tokiku.Controllers
             return string.Format("{0:00}", Code);
         }
 
-        public ExecuteResultEntity<ICollection<Manufacturers>> SearchByText(string originalSource)
+        public ExecuteResultEntity<ICollection<ManufacturersEnter>> SearchByText(string originalSource)
         {
+            sql = " select distinct a.Id as Id, Code, a.Name as Name, Principal, UniformNumbers, " +
+                         " MainContactPerson, Phone, Address, Fax, FactoryPhone, FactoryAddress, " +
+                         " case when Void = 0 then '啟用' when Void = 1 then '停用' end as Void " +
+                    " from Manufacturers a " +
+               " left join ManufacturersBussinessItems b on a.Id = b.ManufacturersId " +
+                   " where IsClient = 0 and (a.Name like '%'+@p0+'%' " +
+                                       " or b.Name like '%'+@p0+'%' " +
+                                       " or Principal like '%'+@p0+'%') " +
+                " order by Code ";
+
+            ExecuteResultEntity<ICollection<ManufacturersEnter>> rtn;
             try
             {
+                object[] obj = new object[] { originalSource };
                 if (originalSource != null && originalSource.Length > 0)
                 {
-                    ManufacturersRepository repo = RepositoryHelper.GetManufacturersRepository();
-                    database = repo.UnitOfWork;
-                    var result = (from p in repo.All()
-                                  where p.Void == false && p.IsClient == false &&
-                                  (p.Name.Contains(originalSource) || p.Principal.Contains(originalSource))
-                                  orderby p.Code ascending
-                                  select p).Union(
-                        from p in repo.All()
-                        from q in p.ManufacturersBussinessItems
-                        where q.Name.Contains(originalSource)
-                        select p
-                        ).OrderBy(o => o.Code)
-                        .Distinct().ToList();
 
-                    ExecuteResultEntity<ICollection<Manufacturers>> rtn =
-                        ExecuteResultEntity<ICollection<Manufacturers>>.CreateResultEntity(new Collection<Manufacturers>(result.ToList()));
+                    using (var ManufacturersRepository = RepositoryHelper.GetManufacturersRepository())
+                    {
+                        var queryresult = ManufacturersRepository.UnitOfWork.Context.Database.SqlQuery<ManufacturersEnter>(sql, obj);
 
-                    return rtn;
+                        rtn = ExecuteResultEntity<ICollection<ManufacturersEnter>>.CreateResultEntity(
+                            new Collection<ManufacturersEnter>(queryresult.ToList()));
+
+                        return rtn;
+                    }
                 }
                 else
                 {
-                    ManufacturersRepository repo = RepositoryHelper.GetManufacturersRepository();
-                    database = repo.UnitOfWork;
-                    var result = (from p in repo.All()
-                                  where p.Void == false && p.IsClient == false
-                                  orderby p.Code ascending
-                                  select p);
-
-                    ExecuteResultEntity<ICollection<Manufacturers>> rtn = ExecuteResultEntity<ICollection<Manufacturers>>.CreateResultEntity(new Collection<Manufacturers>(result.ToList()));
-                    return rtn;
+                    return QueryAll();
                 }
             }
             catch (Exception ex)
             {
-                return ExecuteResultEntity<ICollection<Manufacturers>>.CreateErrorResultEntity(ex);
+                return ExecuteResultEntity<ICollection<ManufacturersEnter>>.CreateErrorResultEntity(ex);
             }
 
         }
@@ -212,7 +208,7 @@ namespace Tokiku.Controllers
 
         public ExecuteResultEntity<ICollection<ManufacturersEnter>> QueryAll()
         {
-            sql = " select Code, Name, ShortName, Principal, UniformNumbers, MainContactPerson, " +
+            sql = " select Id, Code, Name, ShortName, Principal, UniformNumbers, MainContactPerson, " +
                          " Phone, Address, Fax, FactoryPhone, FactoryAddress, " +
                          " case when Void = 0 then '啟用' when Void = 1 then '停用' end as Void " +
                     " from Manufacturers where IsClient = 0 order by Code ";
