@@ -16,10 +16,11 @@ namespace Tokiku.Controllers
             try
             {
                 PaymentTypesRepository repo = RepositoryHelper.GetPaymentTypesRepository(database);
-
+                
                 var queryresult = from q in repo.All()
                                   orderby q.Id ascending
                                   select q;
+
                 return ExecuteResultEntity<ICollection<PaymentTypes>>.CreateResultEntity(new Collection<PaymentTypes>(queryresult.ToList()));
             }
             catch (Exception ex)
