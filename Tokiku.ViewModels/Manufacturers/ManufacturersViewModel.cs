@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Tokiku.Controllers;
 using Tokiku.Entity;
+using Tokiku.Entity.ViewTables;
 
 namespace Tokiku.ViewModels
 {
@@ -716,7 +717,7 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                Manufacturers data = (Manufacturers)entity;
+                ManufacturersEnter data = (ManufacturersEnter)entity;
                 BindingFromModel(data, this);
                 DoEvents();
                 Status.IsNewInstance = false;

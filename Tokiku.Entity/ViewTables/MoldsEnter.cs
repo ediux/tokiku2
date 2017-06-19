@@ -8,12 +8,6 @@ namespace Tokiku.Entity.ViewTables
 {
     public class MoldsEnter
     {
-        /*
-         LegendMoldReduction, UsePosition, Code, SerialNumber, " +
-                         " b.Name as Name1, UnitWeight, SurfaceTreatment, PaintArea, " +
-                         " MembraneTreatment, MinimumYield, ProductionIngot, " +
-                         " TotalOrderWeight, c.Name as Name2, Comment
-         */
         public String LegendMoldReduction { get; set; }
         public String UsePosition { get; set; }
         public String Code { get; set; }

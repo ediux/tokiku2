@@ -8,12 +8,15 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Tokiku.Entity;
+using Tokiku.Entity.ViewTables;
 
 namespace Tokiku.Controllers
 {
     public class ManufacturersManageController : BaseController<Manufacturers>
     {
         private ManufacturersBussinessItemsRepository BussinessItemsRepo;
+
+        private String sql;
 
         public ManufacturersManageController()
         {
@@ -207,23 +210,23 @@ namespace Tokiku.Controllers
             }
         }
 
-        public ExecuteResultEntity<ICollection<Manufacturers>> QueryAll()
+        public ExecuteResultEntity<ICollection<ManufacturersEnter>> QueryAll()
         {
-            ExecuteResultEntity<ICollection<Manufacturers>> rtn;
+            sql = " select Code, Name, ShortName, Principal, UniformNumbers, MainContactPerson, " +
+                         " Phone, Address, Fax, FactoryPhone, FactoryAddress, " +
+                         " case when Void = 0 then '啟用' when Void = 1 then '停用' end as Void " +
+                    " from Manufacturers where IsClient = 0 order by Code ";
+
+            ExecuteResultEntity<ICollection<ManufacturersEnter>> rtn;
 
             try
             {
                 using (var ManufacturersRepository = RepositoryHelper.GetManufacturersRepository())
                 {
-                    database = ManufacturersRepository.UnitOfWork;
-
-                    var result = ManufacturersRepository
-                                .Where(p => p.Void == false && p.IsClient == false)
-                                .OrderBy(p => p.Code)
-                                .ToList();
-
-                    rtn = ExecuteResultEntity<ICollection<Manufacturers>>.CreateResultEntity(
-                        new Collection<Manufacturers>(result));
+                    var queryresult = ManufacturersRepository.UnitOfWork.Context.Database.SqlQuery<ManufacturersEnter>(sql);
+                    
+                    rtn = ExecuteResultEntity<ICollection<ManufacturersEnter>>.CreateResultEntity(
+                        new Collection<ManufacturersEnter>(queryresult.ToList()));
 
                     return rtn;
                 }
@@ -231,7 +234,7 @@ namespace Tokiku.Controllers
             }
             catch (Exception ex)
             {
-                rtn = ExecuteResultEntity<ICollection<Manufacturers>>.CreateErrorResultEntity(ex);
+                rtn = ExecuteResultEntity<ICollection<ManufacturersEnter>>.CreateErrorResultEntity(ex);
                 return rtn;
             }
 
