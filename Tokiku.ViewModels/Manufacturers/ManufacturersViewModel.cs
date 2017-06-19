@@ -734,7 +734,7 @@ namespace Tokiku.ViewModels
         public void QueryDetails()
         {
             Contracts.ManufacturersId = Id;
-            //Contracts.QueryAsync();
+            Contracts.Query("", Id, IsClient);
             
             ManufacturersBussinessItems.QueryAsync(Id);
           

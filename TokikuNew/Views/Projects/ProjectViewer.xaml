@@ -34,10 +34,8 @@
                                     LoginedUser="{Binding LoginedUser, ElementName=userControl}" />
             </TabItem>
             <TabItem Header="成本估算" Visibility="Collapsed">
-                
             </TabItem>
             <TabItem Header="專案模具" Visibility="Collapsed">
-
             </TabItem>
         </TabControl>
     </Grid>
