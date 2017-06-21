@@ -8,7 +8,7 @@
     x:Name="userControl" x:Class="TokikuNew.Views.ProjectManagerView"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024" Loaded="UserControl_Loaded" 
-              >
+             Initialized="userControl_Initialized" >
     <Grid Background="{DynamicResource ControlBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

@@ -14,10 +14,6 @@
             <RowDefinition Height="48"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="512*"/>
-                <ColumnDefinition Width="512*"/>
-            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="128*"/>
                 <RowDefinition Height="128*"/>
@@ -45,7 +41,7 @@
                 </Controls:CustomDataGrid>
             </GroupBox>
             <local:ConstructionAtlasView Grid.Row="1" Grid.Column="0" DataContext="{Binding ConstructionAtlas}" Mode="{Binding DocumentMode, ElementName=dockBar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" LoginedUser="{Binding LoginedUser, ElementName=userControl}"  CurrentProjectContract="{Binding DataContext, ElementName=userControl}" />
-            <local:ProcessingAtlasView Grid.Row="1" Grid.Column="1" DataContext="{Binding ProcessingAtlas}" Mode="{Binding DocumentMode, ElementName=dockBar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" LoginedUser="{Binding LoginedUser, ElementName=userControl}" />
+           
         </Grid>
         <Controls:DockBar x:Name="dockBar"  Grid.Row="1" DocumentMode="{Binding Path=Mode}" DocumentModeChanged="DockBar_DocumentModeChanged" />
 

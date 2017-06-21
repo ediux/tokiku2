@@ -5,75 +5,25 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="48" d:DesignWidth="1024"
+             d:DesignHeight="27" d:DesignWidth="1024"
               Loaded="userControl_Loaded" >
-    <UserControl.CommandBindings>
-        <CommandBinding Command="New" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed"/>
-        <CommandBinding Command="{StaticResource Modify}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed"/>
-    </UserControl.CommandBindings>
-    <UserControl.InputBindings>
-        <KeyBinding Command="New" Key="F1"/>
-        <KeyBinding Command="{StaticResource Modify}" Key="F2"/>
-        <KeyBinding Command="{StaticResource Save}" Key="F3" />
-        <KeyBinding Command="{StaticResource Query}" Key="F4"/>
-        <KeyBinding Command="{StaticResource Commit}" Key="F5"/>
-        <KeyBinding Command="{StaticResource Features}" Key="F6"/>
-        <KeyBinding Command="{StaticResource RunExcel}" Key="F7"/>
-        <KeyBinding Command="Print" Key="F8"/>
-        <KeyBinding Command="{StaticResource Cancel}" Key="F9"/>
-        <KeyBinding Command="Close" Key="F10"/>
-        <KeyBinding Command="{StaticResource AddColumn}" Key="F11"/>
-        <KeyBinding Command="{StaticResource AddRow}" Key="F12"/>
-    </UserControl.InputBindings>
     <StackPanel Grid.Row="1" Orientation="Horizontal" >
-        <Button Margin="2" Width="48" x:Name="btnF1"   Click="btnF1_Click">
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="F1" TextAlignment="Center"/>
-                <TextBlock Text="新增" TextAlignment="Center"/>
-            </StackPanel>
+        <Button Margin="2" Width="27" x:Name="btnF1" FontSize="15" Content="&#xE7C3;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="新增"  Click="btnF1_Click">
+            
         </Button>
-        <Button Margin="2" Width="48"   Name="btnF2" Click="btnF2_Click">
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="F2" TextAlignment="Center"/>
-                <TextBlock Text="修改" TextAlignment="Center"/>
-            </StackPanel>
+        <Button Margin="2" Width="27" x:Name="btnF2" FontSize="15" Content="&#xE104;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="修改" Click="btnF2_Click">
+          
         </Button>
-        <Button Margin="2" Width="48" Name="btnF3" Click="btnF3_Click">
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="F3" TextAlignment="Center"/>
-                <TextBlock Text="暫存" TextAlignment="Center"/>
-            </StackPanel>
+        <Button Margin="2" Width="27" Name="btnF3" FontSize="15" Content="&#xE105;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="儲存" Click="btnF3_Click">
+          
         </Button>
-        <Button Margin="2" Width="48" Name="btnF4" Click="btnF4_Click" IsEnabled="{Binding QueryFunctionButtonEnabled,ElementName=userControl,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" >
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="F4" TextAlignment="Center"/>
-                <TextBlock Text="查詢" TextAlignment="Center"/>
-            </StackPanel>
+        <Button Margin="2" Width="27" Name="btnF4" FontSize="15" Content="&#xE11A;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="儲存" Click="btnF4_Click" IsEnabled="{Binding QueryFunctionButtonEnabled,ElementName=userControl,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+        <Button Margin="2" Width="27" Name="btnF5" FontSize="15" Content="&#xE120;" FontFamily="/Resources/#Segoe MDL2 Assets" Click="btnF5_Click" Command="{StaticResource Commit}" Visibility="Collapsed" >
+
         </Button>
-        <Button Margin="2" Width="48" Name="btnF5" Click="btnF5_Click" Command="{StaticResource Commit}" >
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="F5" TextAlignment="Center"/>
-                <TextBlock Text="確認" FontSize="10" TextAlignment="Center"/>
-                <TextBlock Text="送出" FontSize="10" TextAlignment="Center"/>
-            </StackPanel>
-        </Button>
-        <Button Margin="2" Width="48" Name="btnF6" Click="btnF6_Click" Command="{StaticResource Features}">
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="F6" TextAlignment="Center"/>
-                <TextBlock Text="功能" TextAlignment="Center"/>
-            </StackPanel>
-        </Button>
-        <Button Margin="2" Width="48" Name="btnF7" Click="btnF7_Click" Command="{StaticResource RunExcel}">
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="F7" TextAlignment="Center"/>
-                <TextBlock Text="Excel" TextAlignment="Center"/>
-            </StackPanel>
-        </Button>
-        <Button Margin="2" Width="48" Name="btnF8" Click="btnF8_Click" Command="Print" >
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="F8" TextAlignment="Center"/>
-                <TextBlock Text="列印" TextAlignment="Center"/>
-            </StackPanel>
+
+        <Button Margin="2" Width="27" Name="btnF8" FontSize="15" Content="&#xE2F6;" FontFamily="/Resources/#Segoe MDL2 Assets" Click="btnF8_Click" Command="Print" >
+           
         </Button>
         <Button Margin="2" Width="48" Name="btnF9" Click="btnF9_Click" >
             <StackPanel Orientation="Vertical">

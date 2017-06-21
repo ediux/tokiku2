@@ -137,9 +137,6 @@
     <Compile Include="Views\Projects\AluminumExtrusion\AluminumExtrusionOrderSheetView.xaml.cs">
       <DependentUpon>AluminumExtrusionOrderSheetView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\BusinessItemListView.xaml.cs">
-      <DependentUpon>BusinessItemListView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\CRM\ClientListView.xaml.cs">
       <DependentUpon>ClientListView.xaml</DependentUpon>
     </Compile>
@@ -173,7 +170,7 @@
     <Compile Include="Views\Manufacturers\VendorListView.xaml.cs">
       <DependentUpon>VendorListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SupplierForProjects.xaml.cs">
+    <Compile Include="Views\Projects\SupplierForProjects.xaml.cs">
       <DependentUpon>SupplierForProjects.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\Projects\ConstructionAtlasView.xaml">
@@ -280,10 +277,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\BusinessItemListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\CRM\ClientListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -328,7 +321,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SupplierForProjects.xaml">
+    <Page Include="Views\Projects\SupplierForProjects.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -19,9 +19,9 @@ namespace TokikuNew.Views
     /// </summary>
     public partial class ProjectManagerView : UserControl
     {
-        private ProjectsController controller = App.Resolve<ProjectsController>();
-        private ProjectContractController projectcontroll = App.Resolve<ProjectContractController>();
-        private ClientController clientcontroller = App.Resolve<ClientController>();
+        private ProjectsController controller;
+        private ProjectContractController projectcontroll;
+        private ClientController clientcontroller;
 
         public ProjectManagerView()
         {
@@ -150,7 +150,7 @@ namespace TokikuNew.Views
                 {
                     if (SelectedProject.ProjectContract.Any())
                     {
-                        foreach(var foundcurrentNo in SelectedProject.ProjectContract)
+                        foreach (var foundcurrentNo in SelectedProject.ProjectContract)
                         {
                             foundcurrentNo.Name = tbName.Text;
                         }
@@ -357,12 +357,6 @@ namespace TokikuNew.Views
 
         }
 
-       
-
-       
-
-     
-
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             try
@@ -416,12 +410,6 @@ namespace TokikuNew.Views
             }
 
         }
-
-       
-
-     
-
-        
 
         private void ProjectSigningDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -639,6 +627,21 @@ namespace TokikuNew.Views
             {
                 WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
             }
+        }
+
+        private void userControl_Initialized(object sender, EventArgs e)
+        {
+            try
+            {
+                controller = App.Resolve<ProjectsController>();
+                projectcontroll = App.Resolve<ProjectContractController>();
+                clientcontroller = App.Resolve<ClientController>();
+            }
+            catch (Exception ex)
+            {
+                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
+            }
+
         }
     }
 }
