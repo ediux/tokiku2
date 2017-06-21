@@ -172,6 +172,9 @@
     <Compile Include="Views\Manufacturers\VendorListView.xaml.cs">
       <DependentUpon>VendorListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Finance\本票管理UC.xaml.cs">
+      <DependentUpon>本票管理UC.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\Projects\ConstructionAtlasView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -321,6 +324,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Manufacturers\VendorListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Finance\本票管理UC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
