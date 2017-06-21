@@ -14,8 +14,6 @@ namespace TokikuNew.Frame
     /// </summary>
     public partial class StartUpWindow : Window
     {
-
-
         public static readonly DependencyProperty ModelProperty = DependencyProperty.Register("Model", typeof(LoginViewModel), typeof(StartUpWindow), new PropertyMetadata(default(LoginViewModel)));
 
         public LoginViewModel Model

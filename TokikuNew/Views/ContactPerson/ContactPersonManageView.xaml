@@ -20,8 +20,8 @@
         <TextBlock Grid.Row="0" Grid.Column="0" Text="搜尋" VerticalAlignment="Center" HorizontalAlignment="Right" />
         <c:SearchBar x:Name="ContractSearchBar" Grid.Column="1" Grid.Row="0" ResetSearch="ContractSearchBar_ResetSearch" Search="ContractSearchBar_Search" />
         <c:CustomDataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" 
-                                      CanUserAddRows="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}" 
-                                      CanUserDeleteRows="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledControllerValueConverter}, ElementName=userControl}" 
+                                      CanUserAddRows="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl}" 
+                                      CanUserDeleteRows="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl}" 
                                       AutoGenerateColumns="False" 
                                       x:Name="ContractList" SelectionChanged="ContractList_SelectionChanged"
                           IsReadOnly="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

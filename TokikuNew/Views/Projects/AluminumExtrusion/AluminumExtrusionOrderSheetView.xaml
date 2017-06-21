@@ -11,22 +11,15 @@
              d:DesignHeight="768" d:DesignWidth="1024">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="221"/>
+            <RowDefinition Height="218"/>
             <RowDefinition/>
-            <RowDefinition Height="27"/>
             <RowDefinition Height="48"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Height="221" VerticalAlignment="Top">
+        <Grid Grid.Row="0" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="27"/>
-                <RowDefinition Height="27"/>
-                <RowDefinition Height="27"/>
-                <RowDefinition Height="27"/>
-                <RowDefinition Height="27"/>
-                <RowDefinition Height="27"/>
-                <RowDefinition Height="27"/>
-                <RowDefinition Height="27"/>
-                <RowDefinition Height="27"/>
+                <RowDefinition Height="74"/>
+                <RowDefinition Height="111"/>
             </Grid.RowDefinitions>
             <WrapPanel Orientation="Horizontal" Grid.Row="0">
                 <TextBlock Text="ID"  Margin="2,2,0,2" VerticalAlignment="Center" />
@@ -47,7 +40,7 @@
                 <TextBlock Text="預估交期:" VerticalAlignment="Center" Margin="2"/>
                 <DatePicker Width="200" VerticalAlignment="Center" Margin="2"/>
             </WrapPanel>
-            <GroupBox Header="此訂製單已收料,不可異動" Foreground="Red" Grid.Row="1" Grid.RowSpan="3" Margin="5">
+            <GroupBox Header="此訂製單已收料,不可異動" Foreground="Red" Grid.Row="1" Margin="2">
                 <WrapPanel  Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left">
                     <TextBlock Foreground="Black" Text="輸入人員" VerticalAlignment="Center" />
                     <TextBox Foreground="Black" Text="{Binding LoginedUser.UserName, ElementName=userControl}" Width="100" IsReadOnly="True" IsEnabled="False" TextAlignment="Center" VerticalAlignment="Center"/>
@@ -61,12 +54,12 @@
                     <TextBox Foreground="Black" Width="200" MaxLength="20" VerticalAlignment="Center" Margin="2"/>
                 </WrapPanel>
             </GroupBox>
-            <GroupBox Header="廠商" Grid.Row="4" Grid.RowSpan="5" MinHeight="75" >
-                <Grid Margin="0,0,0,14">
+            <GroupBox Header="廠商" Grid.Row="2">
+                <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
+                        <RowDefinition Height="27" />
+                        <RowDefinition Height="27" />
+                        <RowDefinition Height="27" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="25*"/>
@@ -85,7 +78,7 @@
                     </StackPanel>
                     <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" Grid.RowSpan="3">
                         <TextBlock Foreground="Green" Text="送貨地址" VerticalAlignment="Top" Margin="2,5"/>
-                        <TextBox Width="auto" MinWidth="170" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2"/>
+                        <TextBox MinWidth="170" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2"/>
                     </StackPanel>
                     <StackPanel Grid.Row="0" Grid.Column="4" Orientation="Horizontal" Grid.RowSpan="3">
                         <TextBlock Foreground="Green" Text="備註" VerticalAlignment="Top" Margin="5"/>
@@ -110,11 +103,11 @@
                 </Grid>
             </GroupBox>
         </Grid>
+        <ss:GcSpreadSheet x:Name="gcSpreadSheet1" Grid.Row="1" Margin="5"/>
         <StatusBar Grid.Row="2">
             <StatusBarItem x:Name="SpeardStatusBarItem" Content="就緒" Height="27" VerticalAlignment="Top"/>
-
         </StatusBar>
-        <Controls:DockBar Grid.Row="3" DocumentMode="Read" Margin="0,0,0,-2"/>
-        <ss:GcSpreadSheet x:Name="gcSpreadSheet1" Grid.Row="1" Margin="5"/>
+
+        <Controls:DockBar Grid.Row="2" DocumentMode="Read" Margin="0,0,0,-2"/>
     </Grid>
 </UserControl>

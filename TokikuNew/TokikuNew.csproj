@@ -82,6 +82,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helpers\ClipboardHelper.cs" />
+    <Compile Include="Helpers\ThemeManager.cs" />
     <Compile Include="ValueConverters\ReplyContentValueConverter.cs" />
     <Compile Include="Views\Projects\ConstructionAtlasView.xaml.cs">
       <DependentUpon>ConstructionAtlasView.xaml</DependentUpon>
@@ -171,6 +172,9 @@
     </Compile>
     <Compile Include="Views\Manufacturers\VendorListView.xaml.cs">
       <DependentUpon>VendorListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SupplierForProjects.xaml.cs">
+      <DependentUpon>SupplierForProjects.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Finance\本票管理UC.xaml.cs">
       <DependentUpon>本票管理UC.xaml</DependentUpon>
@@ -324,6 +328,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Manufacturers\VendorListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SupplierForProjects.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

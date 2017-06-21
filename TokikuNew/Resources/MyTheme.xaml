@@ -167,4 +167,63 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style TargetType="{x:Type TextBox}" x:Key="ReadModeSwitch" BasedOn="{StaticResource  {x:Type TextBox}}">
+        <Setter Property="BorderBrush" Value="{DynamicResource TextControlBorderBrush}"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=userControl}" Value="Read">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=userControl}" Value="Update">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Read">
+                <Setter Property="IsReadOnly" Value="True" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Update">
+                <Setter Property="IsReadOnly" Value="False" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="{x:Type ComboBox}" x:Key="ReadModeSwitch_ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=userControl}" Value="Read">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=userControl}" Value="Update">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Read">
+                <Setter Property="IsReadOnly" Value="True" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Update">
+                <Setter Property="IsReadOnly" Value="False" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="{x:Type DatePicker}" x:Key="ReadModeSwitch_DatePicker" BasedOn="{StaticResource {x:Type DatePicker}}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Read">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Update">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Read">
+                <Setter Property="IsEnabled" Value="False"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Update">
+                <Setter Property="IsEnabled" Value="True" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="{x:Type TextBlock}" x:Key="ReadModeSwitch_TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Read">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Update">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

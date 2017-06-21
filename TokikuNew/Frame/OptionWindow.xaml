@@ -6,6 +6,8 @@
         xmlns:local="clr-namespace:TokikuNew.Frame"
         mc:Ignorable="d"
         Icon="{DynamicResource Logo}"
+        Initialized="Window_Initialized"
+        Loaded="Window_Loaded"
         Title="系統選項" Height="300" Width="300">
     <Grid>
         <Grid.RowDefinitions>
@@ -19,15 +21,11 @@
         </Grid.ColumnDefinitions>
         <TextBlock Text="主題" Grid.Row="0" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" FontSize="15" Margin="5"/>
         <ComboBox Name="ThemeSelection" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="2" SelectionChanged="ThemeSelection_SelectionChanged">
-            <ComboBox.Items>
-                <ComboBoxItem Content="BureauBlack" Tag="Themes\BureauBlack.xaml" />
-                <ComboBoxItem Content="BureauBlue" Tag="Themes\BureauBlue.xaml" Selector.IsSelected="True"/>
-                <ComboBoxItem Content="ExpressionDark" Tag="Themes\ExpressionDark.xaml" />
-                <ComboBoxItem Content="ExpressionLight" Tag="Themes\ExpressionLight.xaml" />
-                <ComboBoxItem Content="ShinyBlue" Tag="Themes\ShinyBlue.xaml" />
-                <ComboBoxItem Content="ShinyRed" Tag="Themes\ShinyRed.xaml" />
-                <ComboBoxItem Content="WhistlerBlue" Tag="Themes\WhistlerBlue.xaml" />
-            </ComboBox.Items>
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=Key}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
         </ComboBox>
     </Grid>
 </Window>

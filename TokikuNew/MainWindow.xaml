@@ -6,16 +6,17 @@
         xmlns:local="clr-namespace:TokikuNew" 
         xmlns:ctrl="clr-namespace:Tokiku.Controllers;assembly=Tokiku.Controllers"
         mc:Ignorable="d"        
-        Title="東菊金屬 ERP System" WindowState="Maximized" Icon="{DynamicResource Logo}" Loaded="Window_Loaded" Background="{DynamicResource WindowBackgroundBrush}">
-    <Viewbox Stretch="Fill" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        Title="東菊金屬 ERP System" Height="768" Width="1024" WindowState="Maximized" Icon="{DynamicResource Logo}" Loaded="Window_Loaded" Background="{DynamicResource WindowBackgroundBrush}">
+    <Viewbox Stretch="Fill"
+             Margin="0" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" >
         <Grid Width="1024" Height="768">
             <Grid.RowDefinitions>
                 <RowDefinition Height="27"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="27"/>
             </Grid.RowDefinitions>
-            <Menu Grid.Row="0" >
-                <MenuItem Header="主檔" Name="MI_Main">
+            <Menu Grid.Row="0">
+                <MenuItem Header="主檔" Name="MI_Main" >
                     <MenuItem Header="廠商主檔" Name="MI_Main_Vendor" Click="MI_Main_Vendor_Click"/>
                     <MenuItem Header="客戶主檔" Name="MI_Main_Client" Click="MI_Main_Client_Click"/>
                     <MenuItem Header="模具總表" Name="MI_Main_Molds" Click="MI_Main_Molds_Click"/>
@@ -33,7 +34,7 @@
                     <MenuItem Header="結束程式" Name="ExitApp" Click="ExitApp_Click"></MenuItem>
                 </MenuItem>
             </Menu>
-            <TabControl Grid.Row="1" Margin="0,0,0,0" x:Name="Workspaces">
+            <TabControl Grid.Row="1" Margin="0,0,0,0" x:Name="Workspaces" FontSize="9">
                 <TabItem Header="專案列表" >
                     <Views:ProjectSelectListView x:Name="ProjectSelectionPage" SelectedProjectChanged="ProjectSelectionPage_SelectedProjectChanged" DataContext="{Binding Projects}"  />
                 </TabItem>

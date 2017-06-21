@@ -713,17 +713,31 @@ namespace Tokiku.ViewModels
             }
         }
 
-        public async override void SetModel(dynamic entity)
+        public override void SetModel(dynamic entity)
         {
             try
             {
-                ManufacturersEnter data = (ManufacturersEnter)entity;
-                BindingFromModel(data, this);
-                DoEvents();
-                Status.IsNewInstance = false;
-                Status.IsModify = false;
-                Status.IsSaved = false;
-                await Dispatcher.InvokeAsync(new Action(QueryDetails), System.Windows.Threading.DispatcherPriority.Background);                
+                if (entity is ManufacturersEnter)
+                {
+                    ManufacturersEnter data = (ManufacturersEnter)entity;
+                    BindingFromModel(data, this);
+                    DoEvents();
+                    Status.IsNewInstance = false;
+                    Status.IsModify = false;
+                    Status.IsSaved = false;
+                }
+
+                if (entity is Manufacturers)
+                {
+                    Manufacturers data = (Manufacturers)entity;
+                    BindingFromModel(data, this);
+                    DoEvents();
+                    Status.IsNewInstance = false;
+                    Status.IsModify = false;
+                    Status.IsSaved = false;
+                }
+
+                //await Dispatcher.InvokeAsync(new Action(QueryDetails), System.Windows.Threading.DispatcherPriority.Background);                
             }
             catch (Exception ex)
             {
@@ -735,11 +749,11 @@ namespace Tokiku.ViewModels
         {
             Contracts.ManufacturersId = Id;
             Contracts.Query("", Id, IsClient);
-            
+
             ManufacturersBussinessItems.QueryAsync(Id);
-          
+
             TranscationRecords.Query(Id);
-          
+
         }
         #endregion
 
