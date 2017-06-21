@@ -62,25 +62,37 @@ namespace TokikuNew.Views
 
         private void InitSample()
         {
-            this.gcSpreadSheet1.AutoRefresh = false;
-            this.gcSpreadSheet1.SuspendEvent();
-
-            var sheet = this.gcSpreadSheet1.ActiveSheet;
-
-            // fill table styles
-            var properties = typeof(TableStyles).GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static);
-            foreach (var property in properties)
+            try
             {
-                //this.cboTableStyle.Items.Add(property.Name);
+                this.gcSpreadSheet1.AutoRefresh = false;
+                this.gcSpreadSheet1.SuspendEvent();
+
+                var sheet = this.gcSpreadSheet1.ActiveSheet;
+
+                // fill table styles
+                var properties = typeof(TableStyles).GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static);
+                foreach (var property in properties)
+                {
+                    //this.cboTableStyle.Items.Add(property.Name);
+                }
+                //cboTableStyle.SelectedIndex = 0;
+
+                if (sheet.FindTable("sampleTable1") == null)
+                    sheet.AddTable("sampleTable1", 0, 0, 10, 10, TableStyles.Medium3);
+                if (sheet.FindTable("sampleTable2") == null)
+                    sheet.AddTable("sampleTable2", 12, 1, 6, 4, TableStyles.Medium4);
+                if (sheet.FindTable("sampleTable3") == null)
+                    sheet.AddTable("sampleTable3", 12, 7, 6, 4, TableStyles.Medium5);
+
+                this.gcSpreadSheet1.ResumeEvent();
+                this.gcSpreadSheet1.AutoRefresh = true;
             }
-            //cboTableStyle.SelectedIndex = 0;
+            catch (Exception ex)
+            {
 
-            sheet.AddTable("sampleTable1", 0, 0, 10, 10, TableStyles.Medium3);
-            sheet.AddTable("sampleTable2", 12, 1, 6, 4, TableStyles.Medium4);
-            sheet.AddTable("sampleTable3", 12, 7, 6, 4, TableStyles.Medium5);
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
 
-            this.gcSpreadSheet1.ResumeEvent();
-            this.gcSpreadSheet1.AutoRefresh = true;
         }
 
         private void userControl_Loaded(object sender, RoutedEventArgs e)
@@ -93,40 +105,51 @@ namespace TokikuNew.Views
 
         private void InitUI()
         {
-            //this.actionAndSettings.Text = SpreadSheetDemoExplorer.Properties.Resources.ActionsAndSettings;
-            //this.addGroup.Content = SpreadSheetDemoExplorer.Properties.Resources.Group;
-            //this.removeGroup.Content = SpreadSheetDemoExplorer.Properties.Resources.Ungroup;
-            //this.showDetail.Content = SpreadSheetDemoExplorer.Properties.Resources.ShowDetail;
-            //this.hideDetail.Content = SpreadSheetDemoExplorer.Properties.Resources.HideDetail;
-            //this.summaryRow.Content = SpreadSheetDemoExplorer.Properties.Resources.SummaryRowsBelowDetail;
-            //this.summaryColumn.Content = SpreadSheetDemoExplorer.Properties.Resources.SummaryColumnsToRightOfDetail;
-            //this.backgroundText.Text = SpreadSheetDemoExplorer.Properties.Resources.background;
-            //this.borderBrushText.Text = SpreadSheetDemoExplorer.Properties.Resources.setBorderBrush;
-            //this.lineStrokeText.Text = SpreadSheetDemoExplorer.Properties.Resources.setLineStroke;
+            try
+            {
+                //this.actionAndSettings.Text = SpreadSheetDemoExplorer.Properties.Resources.ActionsAndSettings;
+                //this.addGroup.Content = SpreadSheetDemoExplorer.Properties.Resources.Group;
+                //this.removeGroup.Content = SpreadSheetDemoExplorer.Properties.Resources.Ungroup;
+                //this.showDetail.Content = SpreadSheetDemoExplorer.Properties.Resources.ShowDetail;
+                //this.hideDetail.Content = SpreadSheetDemoExplorer.Properties.Resources.HideDetail;
+                //this.summaryRow.Content = SpreadSheetDemoExplorer.Properties.Resources.SummaryRowsBelowDetail;
+                //this.summaryColumn.Content = SpreadSheetDemoExplorer.Properties.Resources.SummaryColumnsToRightOfDetail;
+                //this.backgroundText.Text = SpreadSheetDemoExplorer.Properties.Resources.background;
+                //this.borderBrushText.Text = SpreadSheetDemoExplorer.Properties.Resources.setBorderBrush;
+                //this.lineStrokeText.Text = SpreadSheetDemoExplorer.Properties.Resources.setLineStroke;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+
+            }
+
         }
         private void InitializeSample()
         {
-            // Range group
-            this.gcSpreadSheet1.AutoRefresh = false;
-            this.gcSpreadSheet1.SuspendEvent();
+            try
+            {
+                // Range group
+                this.gcSpreadSheet1.AutoRefresh = false;
+                this.gcSpreadSheet1.SuspendEvent();
 
-            Worksheet sheet = this.gcSpreadSheet1.Sheets[0];
-            sheet.Name = "訂製單";
-            sheet.ColumnCount = 9;
-            sheet.RowCount = 34;
-            sheet.Columns[0].Width = sheet.Columns[1].Width = 80;
-            sheet.Columns[2].Width = 110;
-            sheet.AddSelection(0, 0, 1, 1);
+                Worksheet sheet = this.gcSpreadSheet1.Sheets[0];
+                sheet.Name = "訂製單";
+                sheet.ColumnCount = 9;
+                sheet.RowCount = 34;
+                sheet.Columns[0].Width = sheet.Columns[1].Width = 80;
+                sheet.Columns[2].Width = 110;
+                sheet.AddSelection(0, 0, 1, 1);
 
-            Worksheet sheet2 = new Worksheet("材質估價");
-            gcSpreadSheet1.Sheets.Add(sheet2);
+                Worksheet sheet2 = new Worksheet("材質估價");
+                gcSpreadSheet1.Sheets.Add(sheet2);
 
-            Worksheet sheet3 = new Worksheet("雜項");
-            gcSpreadSheet1.Sheets.Add(sheet3);
+                Worksheet sheet3 = new Worksheet("雜項");
+                gcSpreadSheet1.Sheets.Add(sheet3);
 
-            // set value
-            var t = new object[,]
-                             {
+                // set value
+                var t = new object[,]
+                                 {
                                {"= Eastern ==========", "", "", 0, 0, "", 0},
                                {"Eastern", "Atlantic", "Celtics", 57, 19, "-", 0.750},
                                {"Eastern", "Atlantic", "76ers", 38, 35, 17.5, 0.521},
@@ -161,127 +184,151 @@ namespace TokikuNew.Views
                                {"Western", "Southwest", "Mavericks", 45, 30, 3.5, 0.600},
                                {"Western", "Southwest", "Grizzlies", 20, 54, 28, 0.270},
                                {"= Total ==========", "", "", 0, 0, "", 0},
-                             };
+                                 };
 
-            for (int r = 0; r <= t.GetUpperBound(0); r++)
-            {
-                for (int c = 0; c <= t.GetUpperBound(1); c++)
+                for (int r = 0; r <= t.GetUpperBound(0); r++)
                 {
-                    sheet.SetValue(r, c, t[r, c]);
+                    for (int c = 0; c <= t.GetUpperBound(1); c++)
+                    {
+                        sheet.SetValue(r, c, t[r, c]);
+                    }
                 }
+                sheet.Cells[0, 0].ColumnSpan = 7;
+                sheet.Cells[16, 0].ColumnSpan = 3;
+                sheet.Cells[17, 0].ColumnSpan = 7;
+                sheet.Cells[33, 0].ColumnSpan = 3;
+                sheet.ColumnHeader.RowCount = 2;
+                sheet.ColumnHeader.AutoTextIndex = 1;
+                sheet.ColumnHeader.Cells[0, 0].Value = "2008-09 NBA Regular Season Standings";
+                sheet.ColumnHeader.Cells[0, 0].ColumnSpan = 9;
+                sheet.ColumnHeader.Cells[0, 0].FontFamily = new FontFamily("Arial");
+                sheet.ColumnHeader.Cells[0, 0].FontSize = 14;
+                sheet.ColumnHeader.Cells[0, 0].HorizontalAlignment = CellHorizontalAlignment.Center;
+                sheet.ColumnHeader.Cells[0, 0].VerticalAlignment = CellVerticalAlignment.Center;
+                sheet.ColumnHeader.Cells[0, 0].Foreground = new SolidColorBrush(Colors.Gray);
+                sheet.ColumnHeader.Rows[0].Height = 30;
+
+                sheet.Columns[2].Foreground = new SolidColorBrush(Colors.Blue);
+                sheet.Cells[19, 2].Foreground = new SolidColorBrush(Colors.Blue);
+                sheet.Columns[0].Label = "東菊編號";
+                sheet.Columns[1].Label = "大同編號";
+                sheet.Columns[2].Label = "材質";
+                sheet.Columns[3].Label = "單位重";
+                sheet.Columns[4].Label = "訂購長度";
+                sheet.Columns[5].Label = "需求數量";
+                sheet.Columns[6].Label = "備品數量";
+                sheet.Columns[7].Label = "下單數量";
+                sheet.Columns[8].Label = "備註";
+
+                // set row range group
+                sheet.RowRangeGroup.Group(1, 15); // eastern
+                sheet.RowRangeGroup.Group(1, 4);
+                sheet.RowRangeGroup.Group(6, 4);
+                sheet.RowRangeGroup.Group(11, 4);
+                sheet.RowRangeGroup.Group(18, 15); // western
+                sheet.RowRangeGroup.Group(18, 4);
+                sheet.RowRangeGroup.Group(23, 4);
+                sheet.RowRangeGroup.Group(28, 4);
+                // set column group
+                sheet.ColumnRangeGroup.Group(2, 1);
+                // sheet.RowRangeGroup.Expand(1, false);
+
+                InitializeComboBox();
+
+                //this.background.SelectionChanged += background_SelectionChanged;
+                //this.borderBrush.SelectionChanged += borderBrush_SelectionChanged;
+                //this.lineStroke.SelectionChanged += lineStroke_SelectionChanged;
+                sheet.SelectionChanged += Sheet_SelectionChanged;
+                sheet.CellChanged += Sheet_CellChanged;
+
+                gcSpreadSheet1.CellClick += GcSpreadSheet1_CellClick;
+                this.gcSpreadSheet1.ResumeEvent();
+                this.gcSpreadSheet1.AutoRefresh = true;
+                //summaryRow.IsChecked = true;
+                //summaryColumn.IsChecked = true;
             }
-            sheet.Cells[0, 0].ColumnSpan = 7;
-            sheet.Cells[16, 0].ColumnSpan = 3;
-            sheet.Cells[17, 0].ColumnSpan = 7;
-            sheet.Cells[33, 0].ColumnSpan = 3;
-            sheet.ColumnHeader.RowCount = 2;
-            sheet.ColumnHeader.AutoTextIndex = 1;
-            sheet.ColumnHeader.Cells[0, 0].Value = "2008-09 NBA Regular Season Standings";
-            sheet.ColumnHeader.Cells[0, 0].ColumnSpan = 9;
-            sheet.ColumnHeader.Cells[0, 0].FontFamily = new FontFamily("Arial");
-            sheet.ColumnHeader.Cells[0, 0].FontSize = 14;
-            sheet.ColumnHeader.Cells[0, 0].HorizontalAlignment = CellHorizontalAlignment.Center;
-            sheet.ColumnHeader.Cells[0, 0].VerticalAlignment = CellVerticalAlignment.Center;
-            sheet.ColumnHeader.Cells[0, 0].Foreground = new SolidColorBrush(Colors.Gray);
-            sheet.ColumnHeader.Rows[0].Height = 30;
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
 
-            sheet.Columns[2].Foreground = new SolidColorBrush(Colors.Blue);
-            sheet.Cells[19, 2].Foreground = new SolidColorBrush(Colors.Blue);
-            sheet.Columns[0].Label = "東菊編號";
-            sheet.Columns[1].Label = "大同編號";
-            sheet.Columns[2].Label = "材質";
-            sheet.Columns[3].Label = "單位重";
-            sheet.Columns[4].Label = "訂購長度";
-            sheet.Columns[5].Label = "需求數量";
-            sheet.Columns[6].Label = "備品數量";
-            sheet.Columns[7].Label = "下單數量";
-            sheet.Columns[8].Label = "備註";
+            }
 
-            // set row range group
-            sheet.RowRangeGroup.Group(1, 15); // eastern
-            sheet.RowRangeGroup.Group(1, 4);
-            sheet.RowRangeGroup.Group(6, 4);
-            sheet.RowRangeGroup.Group(11, 4);
-            sheet.RowRangeGroup.Group(18, 15); // western
-            sheet.RowRangeGroup.Group(18, 4);
-            sheet.RowRangeGroup.Group(23, 4);
-            sheet.RowRangeGroup.Group(28, 4);
-            // set column group
-            sheet.ColumnRangeGroup.Group(2, 1);
-            // sheet.RowRangeGroup.Expand(1, false);
-
-            InitializeComboBox();
-
-            //this.background.SelectionChanged += background_SelectionChanged;
-            //this.borderBrush.SelectionChanged += borderBrush_SelectionChanged;
-            //this.lineStroke.SelectionChanged += lineStroke_SelectionChanged;
-            sheet.SelectionChanged += Sheet_SelectionChanged;
-            sheet.CellChanged += Sheet_CellChanged;
-
-            gcSpreadSheet1.CellClick += GcSpreadSheet1_CellClick;
-            this.gcSpreadSheet1.ResumeEvent();
-            this.gcSpreadSheet1.AutoRefresh = true;
-            //summaryRow.IsChecked = true;
-            //summaryColumn.IsChecked = true;
         }
 
         private void Sheet_CellChanged(object sender, CellChangedEventArgs e)
         {
-           
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+
+            }
         }
 
         private void GcSpreadSheet1_CellClick(object sender, GrapeCity.Windows.SpreadSheet.UI.CellClickEventArgs e)
         {
-            //Double sum = 0;
-            //int count = 0, avgCount = 0;
-            
-            //if (gcSpreadSheet1.ActiveSheet.Rows.RowHeader == true)
-            //{
-            //    for (int i = 0; i <= fpSpread1.ActiveSheet.GetLastNonEmptyColumn(FarPoint.Win.Spread.NonEmptyItemFlag.Data); i++)
-            //    {
-            //        try
-            //        {
-            //            if (fpSpread1.ActiveSheet.Cells[e.Row, i].Text != string.Empty)
-            //            {
-            //                sum = sum + Double.Parse(fpSpread1.ActiveSheet.Cells[e.Row, i].Text);
-            //                avgCount++;
-            //                count++;
-            //            }
-            //        }
-            //        catch
-            //        {
-            //            if (fpSpread1.ActiveSheet.Cells[e.Row, i].Text != string.Empty)
-            //                count++;
-            //        }
-            //    }
-            //}
-            //else if (e.ColumnHeader == true)
-            //{
-            //    for (int i = 0; i <= fpSpread1.ActiveSheet.GetLastNonEmptyRow(FarPoint.Win.Spread.NonEmptyItemFlag.Data); i++)
-            //    {
-            //        try
-            //        {
-            //            if (fpSpread1.ActiveSheet.Cells[i, e.Column].Text != string.Empty)
-            //            {
-            //                sum = sum + Double.Parse(fpSpread1.ActiveSheet.Cells[i, e.Column].Text);
-            //                avgCount++;
-            //                count++;
-            //            }
-            //        }
+            try
+            {
+                //Double sum = 0;
+                //int count = 0, avgCount = 0;
 
-            //        catch
-            //        {
-            //            if (fpSpread1.ActiveSheet.Cells[i, e.Column].Text != string.Empty)
-            //                count++;
-            //        }
-            //    }
-            //}
-            //LblSum.Text = "Sum: " + sum;
-            //if (avgCount > 0)
-            //    LblAVG.Text = "Average: " + (sum / (Double)avgCount);
-            //else
-            //    LblAVG.Text = "Average: 0";
-            //LblCNT.Text = "Count: " + count;
+                //if (gcSpreadSheet1.ActiveSheet.Rows.RowHeader == true)
+                //{
+                //    for (int i = 0; i <= fpSpread1.ActiveSheet.GetLastNonEmptyColumn(FarPoint.Win.Spread.NonEmptyItemFlag.Data); i++)
+                //    {
+                //        try
+                //        {
+                //            if (fpSpread1.ActiveSheet.Cells[e.Row, i].Text != string.Empty)
+                //            {
+                //                sum = sum + Double.Parse(fpSpread1.ActiveSheet.Cells[e.Row, i].Text);
+                //                avgCount++;
+                //                count++;
+                //            }
+                //        }
+                //        catch
+                //        {
+                //            if (fpSpread1.ActiveSheet.Cells[e.Row, i].Text != string.Empty)
+                //                count++;
+                //        }
+                //    }
+                //}
+                //else if (e.ColumnHeader == true)
+                //{
+                //    for (int i = 0; i <= fpSpread1.ActiveSheet.GetLastNonEmptyRow(FarPoint.Win.Spread.NonEmptyItemFlag.Data); i++)
+                //    {
+                //        try
+                //        {
+                //            if (fpSpread1.ActiveSheet.Cells[i, e.Column].Text != string.Empty)
+                //            {
+                //                sum = sum + Double.Parse(fpSpread1.ActiveSheet.Cells[i, e.Column].Text);
+                //                avgCount++;
+                //                count++;
+                //            }
+                //        }
+
+                //        catch
+                //        {
+                //            if (fpSpread1.ActiveSheet.Cells[i, e.Column].Text != string.Empty)
+                //                count++;
+                //        }
+                //    }
+                //}
+                //LblSum.Text = "Sum: " + sum;
+                //if (avgCount > 0)
+                //    LblAVG.Text = "Average: " + (sum / (Double)avgCount);
+                //else
+                //    LblAVG.Text = "Average: 0";
+                //LblCNT.Text = "Count: " + count;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+
+            }
+
         }
 
         int _iRowCount;
@@ -423,7 +470,7 @@ namespace TokikuNew.Views
 
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK);
             }
@@ -519,31 +566,67 @@ namespace TokikuNew.Views
 
         private void summaryRow_Checked(object sender, RoutedEventArgs e)
         {
-            //this.gcSpreadSheet1.ActiveSheet.RowRangeGroup.Direction = this.summaryRow.IsChecked == true ? RangeGroupDirection.Forward : RangeGroupDirection.Backward;
+            try
+            {
+                //this.gcSpreadSheet1.ActiveSheet.RowRangeGroup.Direction = this.summaryRow.IsChecked == true ? RangeGroupDirection.Forward : RangeGroupDirection.Backward;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+
+            }
+
         }
 
         private void summaryColumn_Checked(object sender, RoutedEventArgs e)
         {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+
+            }
             //this.gcSpreadSheet1.ActiveSheet.ColumnRangeGroup.Direction = this.summaryColumn.IsChecked == true ? RangeGroupDirection.Forward : RangeGroupDirection.Backward;
         }
 
         private void InitializeComboBox()
         {
-            System.Reflection.PropertyInfo[] properties = typeof(Colors).GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static);
-            //foreach (var property in properties)
-            //{
-            //    this.background.Items.Add(property.Name);
-            //    this.borderBrush.Items.Add(property.Name);
-            //    this.lineStroke.Items.Add(property.Name);
-            //}
-            //this.background.SelectedIndex = 0;
-            //this.borderBrush.SelectedIndex = 0;
-            //this.lineStroke.SelectedIndex = 0;
+            try
+            {
+                System.Reflection.PropertyInfo[] properties = typeof(Colors).GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static);
+                //foreach (var property in properties)
+                //{
+                //    this.background.Items.Add(property.Name);
+                //    this.borderBrush.Items.Add(property.Name);
+                //    this.lineStroke.Items.Add(property.Name);
+                //}
+                //this.background.SelectedIndex = 0;
+                //this.borderBrush.SelectedIndex = 0;
+                //this.lineStroke.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+
+            }
+
         }
 
         private Color getSelectedColor(string name)
         {
-            return (Color)typeof(Colors).GetProperty(name).GetValue(null, null);
+            try
+            {
+                return (Color)typeof(Colors).GetProperty(name).GetValue(null, null);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                throw ex;
+            }
+
         }
     }
 }

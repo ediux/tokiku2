@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Tokiku.Controllers;
 using Tokiku.Entity;
+using Tokiku.Entity.ViewTables;
 
 namespace Tokiku.ViewModels
 {
@@ -168,7 +169,7 @@ namespace Tokiku.ViewModels
                     {
                         data.Contacts = new Collection<Entity.Contacts>();
 
-                        foreach(var x in Contracts)
+                        foreach (var x in Contracts)
                         {
                             if (x.Status.IsNewInstance)
                             {
@@ -262,17 +263,31 @@ namespace Tokiku.ViewModels
             Query();
         }
 
-        public async override void SetModel(dynamic entity)
+        public override void SetModel(dynamic entity)
         {
             try
             {
-                Manufacturers data = (Manufacturers)entity;
-                BindingFromModel(data, this);
-                DoEvents();
-                Status.IsNewInstance = false;
-                Status.IsModify = false;
-                Status.IsSaved = false;
-                await Dispatcher.InvokeAsync(new Action(QueryDetails), System.Windows.Threading.DispatcherPriority.Background);
+                if (entity is Manufacturers)
+                {
+                    Manufacturers data = (Manufacturers)entity;
+                    BindingFromModel(data, this);
+                    DoEvents();
+                    Status.IsNewInstance = false;
+                    Status.IsModify = false;
+                    Status.IsSaved = false;
+                }
+
+                if(entity is ManufacturersEnter)
+                {
+                    ManufacturersEnter data = (ManufacturersEnter)entity;
+                    BindingFromModel(data, this);
+                    DoEvents();
+                    Status.IsNewInstance = false;
+                    Status.IsModify = false;
+                    Status.IsSaved = false;
+                }
+
+                //await Dispatcher.InvokeAsync(new Action(QueryDetails), System.Windows.Threading.DispatcherPriority.Background);
             }
             catch (Exception ex)
             {
