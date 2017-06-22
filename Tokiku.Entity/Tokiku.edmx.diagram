@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2389002a12914c48b97a044932513ea4" Name="Diagram1">
+      <Diagram DiagramId="2389002a12914c48b97a044932513ea4" Name="Diagram1" ZoomLevel="61">
         <EntityTypeShape EntityType="TokikuModel.Membership" Width="1.5" PointX="5.25" PointY="27" IsExpanded="true" />
         <EntityTypeShape EntityType="TokikuModel.Profile" Width="1.5" PointX="5.25" PointY="32.625" IsExpanded="true" />
         <EntityTypeShape EntityType="TokikuModel.Roles" Width="1.5" PointX="0.75" PointY="18.625" IsExpanded="true" />
@@ -35,7 +35,6 @@
         <EntityTypeShape EntityType="TokikuModel.PromissoryNoteManagement" Width="1.5" PointX="13.5" PointY="16.25" />
         <EntityTypeShape EntityType="TokikuModel.ShopFlow" Width="1.5" PointX="6" PointY="36.375" />
         <EntityTypeShape EntityType="TokikuModel.TicketTypes" Width="1.5" PointX="11.25" PointY="7.625" />
-        <AssociationConnector Association="TokikuModel.FK_Engineering_ProjectContract" />
         <AssociationConnector Association="TokikuModel.FK_Engineering_States" />
         <AssociationConnector Association="TokikuModel.FK_ProjectItemCost_Engineering" />
         <AssociationConnector Association="TokikuModel.FK_ShopFlowHistory_Engineering" />
@@ -78,16 +77,48 @@
         <AssociationConnector Association="TokikuModel.FK_MoldsInProjects_Projects" />
         <AssociationConnector Association="TokikuModel.ClientsInProjects" />
         <EntityTypeShape EntityType="TokikuModel.ConstructionAtlas" Width="1.5" PointX="10.5" PointY="26.875" />
-        <AssociationConnector Association="TokikuModel.FK_ConstructionAtlas_ProjectContract" />
         <EntityTypeShape EntityType="TokikuModel.ProcessingAtlas" Width="1.5" PointX="10.5" PointY="31.625" />
         <AssociationConnector Association="TokikuModel.FK_ProcessingAtlas_ProjectContract" />
+        <EntityTypeShape EntityType="TokikuModel.FormDetails" Width="1.5" PointX="15.25" PointY="9.125" />
+        <EntityTypeShape EntityType="TokikuModel.Forms" Width="1.5" PointX="13" PointY="20.375" />
+        <EntityTypeShape EntityType="TokikuModel.MaterialEstimation" Width="1.5" PointX="17.5" PointY="8.375" />
+        <EntityTypeShape EntityType="TokikuModel.PurchasingOrder" Width="1.5" PointX="21.5" PointY="18.875" />
+        <AssociationConnector Association="TokikuModel.FK_Engineering_Projects" />
+        <AssociationConnector Association="TokikuModel.FK_FormDetails_Forms" />
+        <AssociationConnector Association="TokikuModel.FK_FormDetails_Manufacturers" />
+        <AssociationConnector Association="TokikuModel.FK_FormDetails_Users_CreateUser" />
+        <AssociationConnector Association="TokikuModel.FK_FormDetails_Users_MakingUser" />
+        <AssociationConnector Association="TokikuModel.FK_MaterialEstimation_FormDetails" />
+        <AssociationConnector Association="TokikuModel.FK_PurchasingOrder_FormDetails" />
+        <AssociationConnector Association="TokikuModel.FK_MaterialEstimation_Users" />
+        <AssociationConnector Association="TokikuModel.FK_PurchasingOrder_Materials" />
+        <AssociationConnector Association="TokikuModel.FK_PurchasingOrder_Users" />
+        <EntityTypeShape EntityType="TokikuModel.BOM" Width="1.5" PointX="13.75" PointY="23.625" />
+        <AssociationConnector Association="TokikuModel.FK_BOM_MaterialCategories" />
+        <AssociationConnector Association="TokikuModel.FK_BOM_ShopFlow" />
+        <AssociationConnector Association="TokikuModel.FK_BOM_Users" />
+        <AssociationConnector Association="TokikuModel.FK_ConstructionAtlas_Projects" />
+        <AssociationConnector Association="TokikuModel.FK_BOM_ProcessingAtlas" />
         </Diagram>
-      <Diagram DiagramId="da028285ff1d445f8957817e8b05eec6" Name="專案主檔" >
-        <EntityTypeShape EntityType="TokikuModel.Projects" Width="1.5" PointX="0.75" PointY="1.25" />
-        <EntityTypeShape EntityType="TokikuModel.ProjectContract" Width="1.5" PointX="3" PointY="1.625" />
+      <Diagram DiagramId="da028285ff1d445f8957817e8b05eec6" Name="專案主檔" ZoomLevel="92" >
+        <EntityTypeShape EntityType="TokikuModel.Projects" Width="1.5" PointX="3" PointY="4.75" />
+        <EntityTypeShape EntityType="TokikuModel.ProjectContract" Width="1.5" PointX="5.25" PointY="2.625" />
         <AssociationConnector Association="TokikuModel.FK_ProjectContract_Projects" />
-        <EntityTypeShape EntityType="TokikuModel.SupplierTranscationItem" Width="1.5" PointX="3" PointY="5.75" />
+        <EntityTypeShape EntityType="TokikuModel.SupplierTranscationItem" Width="1.5" PointX="8.25" PointY="12.125" />
         <AssociationConnector Association="TokikuModel.FK_SupplierTranscationItem_Projects" />
+        <EntityTypeShape EntityType="TokikuModel.Engineering" Width="1.5" PointX="5.25" PointY="12.25" />
+        <AssociationConnector Association="TokikuModel.FK_Engineering_Projects" />
+        <EntityTypeShape EntityType="TokikuModel.ConstructionAtlas" Width="1.5" PointX="5.25" PointY="7.75" />
+        <AssociationConnector Association="TokikuModel.FK_ConstructionAtlas_Projects" />
+        <EntityTypeShape EntityType="TokikuModel.ProcessingAtlas" Width="1.5" PointX="7.5" PointY="2.75" />
+        <AssociationConnector Association="TokikuModel.FK_ProcessingAtlas_ProjectContract" />
+        <EntityTypeShape EntityType="TokikuModel.BOM" Width="1.5" PointX="9.75" PointY="1.75" />
+        <AssociationConnector Association="TokikuModel.FK_BOM_ProcessingAtlas" />
+        <EntityTypeShape EntityType="TokikuModel.ManufacturersBussinessItems" Width="1.5" PointX="3" PointY="16.375" />
+        <AssociationConnector Association="TokikuModel.FK_SupplierTranscationItem_ManufacturersBussinessItems" />
+        <EntityTypeShape EntityType="TokikuModel.Manufacturers" Width="1.5" PointX="0.75" PointY="6.875" />
+        <AssociationConnector Association="TokikuModel.FK_ManufacturersBussinessItems_Manufacturers" />
+        <AssociationConnector Association="TokikuModel.ClientsInProjects" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

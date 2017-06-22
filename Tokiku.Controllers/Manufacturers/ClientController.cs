@@ -187,7 +187,7 @@ namespace Tokiku.Controllers
                     {
                         ActionCode = (Byte)ActionCodes.Update,
                         CreateTime = DateTime.Now,
-                        DataId = dbm.Id,
+                        DataId = dbm.Id.ToString("N"),
                         Reason = "更新資料",
                         UserId = LoginedUser.Result.UserId
                     });

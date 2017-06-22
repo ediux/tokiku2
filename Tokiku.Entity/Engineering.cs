@@ -22,7 +22,6 @@ namespace Tokiku.Entity
         }
     
         public System.Guid Id { get; set; }
-        public System.Guid ProjectContractId { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
         public System.DateTime StartDate { get; set; }
@@ -30,12 +29,13 @@ namespace Tokiku.Entity
         public Nullable<byte> State { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
+        public System.Guid ProjectId { get; set; }
     
-        public virtual ProjectContract ProjectContract { get; set; }
         public virtual States States { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectItemCost> ProjectItemCost { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShopFlowHistory> ShopFlowHistory { get; set; }
+        public virtual Projects Projects { get; set; }
     }
 }

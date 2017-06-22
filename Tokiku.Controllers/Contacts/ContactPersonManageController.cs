@@ -205,7 +205,7 @@ namespace Tokiku.Controllers
                     {
                         ActionCode = 2,
                         CreateTime = DateTime.Now,
-                        DataId = result.Result.Id,
+                        DataId = result.Result.Id.ToString("N"),
                         UserId = loginedresult.HasError == false ? GetCurrentLoginUser().Result.UserId : Guid.Empty
                     });
                 }

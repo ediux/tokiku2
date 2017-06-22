@@ -21,6 +21,8 @@ namespace Tokiku.Entity
             this.SupplierTranscationItem = new HashSet<SupplierTranscationItem>();
             this.MoldsInProjects = new HashSet<MoldsInProjects>();
             this.Manufacturers = new HashSet<Manufacturers>();
+            this.Engineering = new HashSet<Engineering>();
+            this.ConstructionAtlas = new HashSet<ConstructionAtlas>();
         }
     
         public System.Guid Id { get; set; }
@@ -63,5 +65,9 @@ namespace Tokiku.Entity
         public virtual ICollection<MoldsInProjects> MoldsInProjects { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Manufacturers> Manufacturers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Engineering> Engineering { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ConstructionAtlas> ConstructionAtlas { get; set; }
     }
 }

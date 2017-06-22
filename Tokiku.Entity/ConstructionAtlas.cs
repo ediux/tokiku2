@@ -15,7 +15,7 @@ namespace Tokiku.Entity
     public partial class ConstructionAtlas
     {
         public System.Guid Id { get; set; }
-        public System.Guid ProjectContractId { get; set; }
+        public Nullable<System.Guid> ProjectContractId { get; set; }
         public string ImageName { get; set; }
         public int Edition { get; set; }
         public System.DateTime SubmissionDate { get; set; }
@@ -27,7 +27,8 @@ namespace Tokiku.Entity
         public string Comment { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
+        public Nullable<System.Guid> ProjectId { get; set; }
     
-        public virtual ProjectContract ProjectContract { get; set; }
+        public virtual Projects Projects { get; set; }
     }
 }

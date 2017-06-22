@@ -57,5 +57,10 @@ namespace Tokiku.Entity
         public virtual DbSet<MoldsInProjects> MoldsInProjects { get; set; }
         public virtual DbSet<ConstructionAtlas> ConstructionAtlas { get; set; }
         public virtual DbSet<ProcessingAtlas> ProcessingAtlas { get; set; }
+        public virtual DbSet<FormDetails> FormDetails { get; set; }
+        public virtual DbSet<Forms> Forms { get; set; }
+        public virtual DbSet<MaterialEstimation> MaterialEstimation { get; set; }
+        public virtual DbSet<PurchasingOrder> PurchasingOrder { get; set; }
+        public virtual DbSet<BOM> BOM { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace Tokiku.Entity
         [Required]
         public long Id { get; set; }
         [Required]
-        public System.Guid DataId { get; set; }
+        public string DataId { get; set; }
         [Required]
         public System.DateTime CreateTime { get; set; }
         [Required]
@@ -24,5 +24,9 @@ namespace Tokiku.Entity
         
         [StringLength(512, ErrorMessage="欄位長度不得大於 512 個字元")]
         public string Reason { get; set; }
+        
+        [StringLength(256, ErrorMessage="欄位長度不得大於 256 個字元")]
+        [Required]
+        public string DataTableName { get; set; }
     }
 }

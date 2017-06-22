@@ -145,39 +145,7 @@ namespace Tokiku.Controllers
                 {
                     CheckAndUpdateValue(fromModel, original);
 
-                    var toDel = original.ConstructionAtlas.Select(s => s.Id).Except(fromModel.ConstructionAtlas.Select(s => s.Id)).ToList();
-                    var toAdd = fromModel.ConstructionAtlas.Select(s => s.Id).Except(original.ConstructionAtlas.Select(s => s.Id)).ToList();
-                    var samerows = original.ConstructionAtlas.Select(s => s.Id).Intersect(fromModel.ConstructionAtlas.Select(s => s.Id)).ToList();
-
-                    Stack<ConstructionAtlas> RemoveStack = new Stack<ConstructionAtlas>();
-                    Stack<ConstructionAtlas> AddStack = new Stack<ConstructionAtlas>();
-
-                    foreach (var delitem in toDel)
-                    {
-                        RemoveStack.Push(original.ConstructionAtlas.Where(w => w.Id == delitem).Single());
-                    }
-
-                    foreach (var additem in toAdd)
-                    {
-                        AddStack.Push(fromModel.ConstructionAtlas.Where(w => w.Id == additem).Single());
-                    }
-
-                    while (RemoveStack.Count > 0)
-                    {
-                        original.ConstructionAtlas.Remove(RemoveStack.Pop());
-                    }
-
-                    while (AddStack.Count > 0)
-                    {
-                        original.ConstructionAtlas.Add(AddStack.Pop());
-                    }
-
-                    foreach (var sameitem in samerows)
-                    {
-                        ConstructionAtlas Source = fromModel.ConstructionAtlas.Where(w => w.Id == sameitem).Single();
-                        ConstructionAtlas Target = original.ConstructionAtlas.Where(w => w.Id == sameitem).Single();
-                        CheckAndUpdateValue(Source, Target);
-                    }
+                   
 
                     var toDel2 = original.ProcessingAtlas.Select(s => s.Id).Except(fromModel.ProcessingAtlas.Select(s => s.Id)).ToList();
                     var toAdd2 = fromModel.ProcessingAtlas.Select(s => s.Id).Except(original.ProcessingAtlas.Select(s => s.Id)).ToList();

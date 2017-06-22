@@ -25,6 +25,11 @@ namespace Tokiku.Entity
             this.ProjectContract = new HashSet<ProjectContract>();
             this.ProjectItemCost = new HashSet<ProjectItemCost>();
             this.PromissoryNoteManagement = new HashSet<PromissoryNoteManagement>();
+            this.FormDetails = new HashSet<FormDetails>();
+            this.FormDetails1 = new HashSet<FormDetails>();
+            this.MaterialEstimation = new HashSet<MaterialEstimation>();
+            this.PurchasingOrder = new HashSet<PurchasingOrder>();
+            this.BOM = new HashSet<BOM>();
         }
     
         public System.Guid UserId { get; set; }
@@ -52,5 +57,15 @@ namespace Tokiku.Entity
         public virtual ICollection<ProjectItemCost> ProjectItemCost { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FormDetails> FormDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FormDetails> FormDetails1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MaterialEstimation> MaterialEstimation { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PurchasingOrder> PurchasingOrder { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BOM> BOM { get; set; }
     }
 }

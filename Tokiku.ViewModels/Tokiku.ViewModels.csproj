@@ -30,6 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -48,6 +49,8 @@
     <Compile Include="ManufacturersBussinessTranscationsViewModel.cs" />
     <Compile Include="ManufacturersBussinessTranscationsViewModelCollection.cs" />
     <Compile Include="Manufacturers\ManufacturersBussinessItemsViewModel.cs" />
+    <Compile Include="MES\BOMViewModel.cs" />
+    <Compile Include="MES\BOMViewModelCollection.cs" />
     <Compile Include="MES\MaterialCategoriesViewModel.cs" />
     <Compile Include="MES\MoldsViewModel.cs" />
     <Compile Include="MES\MoldsViewModelCollection.cs" />

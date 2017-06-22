@@ -336,6 +336,42 @@ namespace Tokiku.Controllers
                         CheckAndUpdateValue(Source, Target);
                     }
 
+                    #region 施工圖集
+                    var toDel3 = original.ConstructionAtlas.Select(s => s.Id).Except(fromModel.ConstructionAtlas.Select(s => s.Id)).ToList();
+                    var toAdd3 = fromModel.ConstructionAtlas.Select(s => s.Id).Except(original.ConstructionAtlas.Select(s => s.Id)).ToList();
+                    var samerows3 = original.ConstructionAtlas.Select(s => s.Id).Intersect(fromModel.ConstructionAtlas.Select(s => s.Id)).ToList();
+
+                    Stack<ConstructionAtlas> RemoveStack3 = new Stack<ConstructionAtlas>();
+                    Stack<ConstructionAtlas> AddStack3 = new Stack<ConstructionAtlas>();
+
+                    foreach (var delitem in toDel3)
+                    {
+                        RemoveStack3.Push(original.ConstructionAtlas.Where(w => w.Id == delitem).Single());
+                    }
+
+                    foreach (var additem in toAdd3)
+                    {
+                        AddStack3.Push(fromModel.ConstructionAtlas.Where(w => w.Id == additem).Single());
+                    }
+
+                    while (RemoveStack3.Count > 0)
+                    {
+                        original.ConstructionAtlas.Remove(RemoveStack3.Pop());
+                    }
+
+                    while (AddStack3.Count > 0)
+                    {
+                        original.ConstructionAtlas.Add(AddStack3.Pop());
+                    }
+
+                    foreach (var sameitem in samerows)
+                    {
+                        ConstructionAtlas Source = fromModel.ConstructionAtlas.Where(w => w.Id == sameitem).Single();
+                        ConstructionAtlas Target = original.ConstructionAtlas.Where(w => w.Id == sameitem).Single();
+                        CheckAndUpdateValue(Source, Target);
+                    }
+                    #endregion
+
                     repo.UnitOfWork.Commit();
 
                 }

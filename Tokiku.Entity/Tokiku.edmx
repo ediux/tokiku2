@@ -10,11 +10,36 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DataId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DataId" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DataTableName" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="CreateTime" Type="datetime" Nullable="false" />
           <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ActionCode" Type="tinyint" Nullable="false" />
           <Property Name="Reason" Type="nvarchar" MaxLength="512" />
+        </EntityType>
+        <EntityType Name="BOM">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProcessingAtlasId" Type="uniqueidentifier" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CombinationNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaterialCategoriesId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProcessingNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CrowdedNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaterialDescription" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="CutLength" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="SingleNumber" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="Unit" Type="nvarchar" MaxLength="50" />
+          <Property Name="TotalDemand" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="ShopFlowId" Type="uniqueidentifier" />
+          <Property Name="NorthTowerDemand" Type="int" />
+          <Property Name="SouthTowerDemand" Type="int" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="Postion" Type="nvarchar(max)" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="ClientsInProjects">
           <Key>
@@ -29,7 +54,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ProjectContractId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProjectContractId" Type="uniqueidentifier" />
+          <Property Name="ProjectId" Type="uniqueidentifier" />
           <Property Name="ImageName" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="Edition" Type="int" Nullable="false" />
           <Property Name="SubmissionDate" Type="date" Nullable="false" />
@@ -75,13 +101,50 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ProjectContractId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProjectId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Code" Type="nvarchar" MaxLength="15" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="StartDate" Type="datetime" Nullable="false" />
           <Property Name="CompletionDate" Type="datetime" Nullable="false" />
           <Property Name="State" Type="tinyint" />
           <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FormDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FormId" Type="uniqueidentifier" />
+          <Property Name="DemandUnit" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FormNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BatchNumber" Type="int" Nullable="false" />
+          <Property Name="ExpectedDelivery" Type="smalldatetime" />
+          <Property Name="ActualDelivery" Type="smalldatetime" />
+          <Property Name="MakingFormDate" Type="smalldatetime" Nullable="false" />
+          <Property Name="MakingUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ManufacturersId" Type="uniqueidentifier" />
+          <Property Name="ReservedPercentage" Type="float" />
+          <Property Name="ReservedField1" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReservedField2" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReservedField3" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReservedField4" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReservedField5" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReservedField6" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReservedField7" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReservedField8" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReservedField9" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReservedField10" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="smalldatetime" Nullable="false" />
+          <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Forms">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateTime" Type="smalldatetime" Nullable="false" />
           <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="Manufacturers">
@@ -135,6 +198,19 @@
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MaterialEstimation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UnitPrice" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="Weight" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="FormDetailId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreateTime" Type="smalldatetime" Nullable="false" />
           <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="Materials">
@@ -326,6 +402,23 @@
           <Property Name="CreateTime" Type="datetime" Nullable="false" />
           <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
+        <EntityType Name="PurchasingOrder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FormDetailId" Type="uniqueidentifier" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MaterialId" Type="uniqueidentifier" />
+          <Property Name="UnitWeight" Type="float" Nullable="false" />
+          <Property Name="OrderLength" Type="float" Nullable="false" />
+          <Property Name="RequiredQuantity" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="SparePartsNumber" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="OrderQuantity" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="CreateTime" Type="smalldatetime" Nullable="false" />
+          <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
         <EntityType Name="Roles">
           <Key>
             <PropertyRef Name="RoleId" />
@@ -502,6 +595,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_BOM_MaterialCategories">
+          <End Role="MaterialCategories" Type="Self.MaterialCategories" Multiplicity="1" />
+          <End Role="BOM" Type="Self.BOM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaterialCategories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BOM">
+              <PropertyRef Name="MaterialCategoriesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BOM_ProcessingAtlas">
+          <End Role="ProcessingAtlas" Type="Self.ProcessingAtlas" Multiplicity="0..1" />
+          <End Role="BOM" Type="Self.BOM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProcessingAtlas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BOM">
+              <PropertyRef Name="ProcessingAtlasId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BOM_ShopFlow">
+          <End Role="ShopFlow" Type="Self.ShopFlow" Multiplicity="0..1" />
+          <End Role="BOM" Type="Self.BOM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShopFlow">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BOM">
+              <PropertyRef Name="ShopFlowId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BOM_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="BOM" Type="Self.BOM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="BOM">
+              <PropertyRef Name="CreateUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ClientsInProjects_Manufacturers">
           <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
           <End Role="ClientsInProjects" Type="Self.ClientsInProjects" Multiplicity="*" />
@@ -526,15 +667,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ConstructionAtlas_ProjectContract">
-          <End Role="ProjectContract" Type="Self.ProjectContract" Multiplicity="1" />
+        <Association Name="FK_ConstructionAtlas_Projects">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="0..1" />
           <End Role="ConstructionAtlas" Type="Self.ConstructionAtlas" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ProjectContract">
+            <Principal Role="Projects">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ConstructionAtlas">
-              <PropertyRef Name="ProjectContractId" />
+              <PropertyRef Name="ProjectId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -562,27 +703,63 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Engineering_ProjectContract">
-          <End Role="ProjectContract" Type="Self.ProjectContract" Multiplicity="1" />
+        <Association Name="FK_Engineering_Projects">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="1" />
           <End Role="Engineering" Type="Self.Engineering" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ProjectContract">
+            <Principal Role="Projects">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Engineering">
-              <PropertyRef Name="ProjectContractId" />
+              <PropertyRef Name="ProjectId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Engineering_States">
-          <End Role="States" Type="Self.States" Multiplicity="0..1" />
-          <End Role="Engineering" Type="Self.Engineering" Multiplicity="*" />
+        <Association Name="FK_FormDetails_Forms">
+          <End Role="Forms" Type="Self.Forms" Multiplicity="0..1" />
+          <End Role="FormDetails" Type="Self.FormDetails" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="States">
+            <Principal Role="Forms">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Engineering">
-              <PropertyRef Name="State" />
+            <Dependent Role="FormDetails">
+              <PropertyRef Name="FormId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FormDetails_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="0..1" />
+          <End Role="FormDetails" Type="Self.FormDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FormDetails">
+              <PropertyRef Name="ManufacturersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FormDetails_Users_CreateUser">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="FormDetails" Type="Self.FormDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="FormDetails">
+              <PropertyRef Name="CreateUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FormDetails_Users_MakingUser">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="FormDetails" Type="Self.FormDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="FormDetails">
+              <PropertyRef Name="MakingUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -667,6 +844,30 @@
             </Principal>
             <Dependent Role="ManufacturersBussinessItems">
               <PropertyRef Name="TranscationCategoriesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaterialEstimation_FormDetails">
+          <End Role="FormDetails" Type="Self.FormDetails" Multiplicity="1" />
+          <End Role="MaterialEstimation" Type="Self.MaterialEstimation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MaterialEstimation">
+              <PropertyRef Name="FormDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaterialEstimation_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="MaterialEstimation" Type="Self.MaterialEstimation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="MaterialEstimation">
+              <PropertyRef Name="CreateUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -898,6 +1099,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PurchasingOrder_FormDetails">
+          <End Role="FormDetails" Type="Self.FormDetails" Multiplicity="0..1" />
+          <End Role="PurchasingOrder" Type="Self.PurchasingOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PurchasingOrder">
+              <PropertyRef Name="FormDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchasingOrder_Materials">
+          <End Role="Materials" Type="Self.Materials" Multiplicity="0..1" />
+          <End Role="PurchasingOrder" Type="Self.PurchasingOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materials">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PurchasingOrder">
+              <PropertyRef Name="MaterialId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchasingOrder_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="PurchasingOrder" Type="Self.PurchasingOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="PurchasingOrder">
+              <PropertyRef Name="CreateUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ShopFlowDetail_ShopFlow">
           <End Role="ShopFlow" Type="Self.ShopFlow" Multiplicity="0..1" />
           <End Role="ShopFlowDetail" Type="Self.ShopFlowDetail" Multiplicity="*" />
@@ -931,18 +1168,6 @@
             </Principal>
             <Dependent Role="ShopFlowDetail">
               <PropertyRef Name="WorkShopId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShopFlowHistory_Engineering">
-          <End Role="Engineering" Type="Self.Engineering" Multiplicity="1" />
-          <End Role="ShopFlowHistory" Type="Self.ShopFlowHistory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Engineering">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ShopFlowHistory">
-              <PropertyRef Name="EngineeringId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1044,14 +1269,18 @@
         </Association>
         <EntityContainer Name="TokikuModelStoreContainer">
           <EntitySet Name="AccessLog" EntityType="Self.AccessLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BOM" EntityType="Self.BOM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClientsInProjects" EntityType="Self.ClientsInProjects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ConstructionAtlas" EntityType="Self.ConstructionAtlas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contacts" EntityType="Self.Contacts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContractsInManufacturers" EntityType="Self.ContractsInManufacturers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Engineering" EntityType="Self.Engineering" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FormDetails" EntityType="Self.FormDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Forms" EntityType="Self.Forms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Manufacturers" EntityType="Self.Manufacturers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ManufacturersBussinessItems" EntityType="Self.ManufacturersBussinessItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MaterialCategories" EntityType="Self.MaterialCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MaterialEstimation" EntityType="Self.MaterialEstimation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Materials" EntityType="Self.Materials" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Membership" EntityType="Self.Membership" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Molds" EntityType="Self.Molds" Schema="dbo" store:Type="Tables" />
@@ -1064,6 +1293,7 @@
           <EntitySet Name="ProjectItemCost" EntityType="Self.ProjectItemCost" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PromissoryNoteManagement" EntityType="Self.PromissoryNoteManagement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PurchasingOrder" EntityType="Self.PurchasingOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShopFlow" EntityType="Self.ShopFlow" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShopFlowDetail" EntityType="Self.ShopFlowDetail" Schema="dbo" store:Type="Tables" />
@@ -1104,6 +1334,22 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Profile" EntitySet="Profile" />
           </AssociationSet>
+          <AssociationSet Name="FK_BOM_MaterialCategories" Association="Self.FK_BOM_MaterialCategories">
+            <End Role="MaterialCategories" EntitySet="MaterialCategories" />
+            <End Role="BOM" EntitySet="BOM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BOM_ProcessingAtlas" Association="Self.FK_BOM_ProcessingAtlas">
+            <End Role="ProcessingAtlas" EntitySet="ProcessingAtlas" />
+            <End Role="BOM" EntitySet="BOM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BOM_ShopFlow" Association="Self.FK_BOM_ShopFlow">
+            <End Role="ShopFlow" EntitySet="ShopFlow" />
+            <End Role="BOM" EntitySet="BOM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BOM_Users" Association="Self.FK_BOM_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="BOM" EntitySet="BOM" />
+          </AssociationSet>
           <AssociationSet Name="FK_ClientsInProjects_Manufacturers" Association="Self.FK_ClientsInProjects_Manufacturers">
             <End Role="Manufacturers" EntitySet="Manufacturers" />
             <End Role="ClientsInProjects" EntitySet="ClientsInProjects" />
@@ -1112,8 +1358,8 @@
             <End Role="Projects" EntitySet="Projects" />
             <End Role="ClientsInProjects" EntitySet="ClientsInProjects" />
           </AssociationSet>
-          <AssociationSet Name="FK_ConstructionAtlas_ProjectContract" Association="Self.FK_ConstructionAtlas_ProjectContract">
-            <End Role="ProjectContract" EntitySet="ProjectContract" />
+          <AssociationSet Name="FK_ConstructionAtlas_Projects" Association="Self.FK_ConstructionAtlas_Projects">
+            <End Role="Projects" EntitySet="Projects" />
             <End Role="ConstructionAtlas" EntitySet="ConstructionAtlas" />
           </AssociationSet>
           <AssociationSet Name="FK_ContractsInManufacturers_Contacts" Association="Self.FK_ContractsInManufacturers_Contacts">
@@ -1124,13 +1370,25 @@
             <End Role="Manufacturers" EntitySet="Manufacturers" />
             <End Role="ContractsInManufacturers" EntitySet="ContractsInManufacturers" />
           </AssociationSet>
-          <AssociationSet Name="FK_Engineering_ProjectContract" Association="Self.FK_Engineering_ProjectContract">
-            <End Role="ProjectContract" EntitySet="ProjectContract" />
+          <AssociationSet Name="FK_Engineering_Projects" Association="Self.FK_Engineering_Projects">
+            <End Role="Projects" EntitySet="Projects" />
             <End Role="Engineering" EntitySet="Engineering" />
           </AssociationSet>
-          <AssociationSet Name="FK_Engineering_States" Association="Self.FK_Engineering_States">
-            <End Role="States" EntitySet="States" />
-            <End Role="Engineering" EntitySet="Engineering" />
+          <AssociationSet Name="FK_FormDetails_Forms" Association="Self.FK_FormDetails_Forms">
+            <End Role="Forms" EntitySet="Forms" />
+            <End Role="FormDetails" EntitySet="FormDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FormDetails_Manufacturers" Association="Self.FK_FormDetails_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="FormDetails" EntitySet="FormDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FormDetails_Users_CreateUser" Association="Self.FK_FormDetails_Users_CreateUser">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="FormDetails" EntitySet="FormDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FormDetails_Users_MakingUser" Association="Self.FK_FormDetails_Users_MakingUser">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="FormDetails" EntitySet="FormDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_Manufacturers_PaymentTypes" Association="Self.FK_Manufacturers_PaymentTypes">
             <End Role="PaymentTypes" EntitySet="PaymentTypes" />
@@ -1159,6 +1417,14 @@
           <AssociationSet Name="FK_ManufacturersBussinessItems_TranscationCategories" Association="Self.FK_ManufacturersBussinessItems_TranscationCategories">
             <End Role="TranscationCategories" EntitySet="TranscationCategories" />
             <End Role="ManufacturersBussinessItems" EntitySet="ManufacturersBussinessItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialEstimation_FormDetails" Association="Self.FK_MaterialEstimation_FormDetails">
+            <End Role="FormDetails" EntitySet="FormDetails" />
+            <End Role="MaterialEstimation" EntitySet="MaterialEstimation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialEstimation_Users" Association="Self.FK_MaterialEstimation_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MaterialEstimation" EntitySet="MaterialEstimation" />
           </AssociationSet>
           <AssociationSet Name="FK_Materials_Users" Association="Self.FK_Materials_Users">
             <End Role="Users" EntitySet="Users" />
@@ -1236,6 +1502,18 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="PromissoryNoteManagement" EntitySet="PromissoryNoteManagement" />
           </AssociationSet>
+          <AssociationSet Name="FK_PurchasingOrder_FormDetails" Association="Self.FK_PurchasingOrder_FormDetails">
+            <End Role="FormDetails" EntitySet="FormDetails" />
+            <End Role="PurchasingOrder" EntitySet="PurchasingOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchasingOrder_Materials" Association="Self.FK_PurchasingOrder_Materials">
+            <End Role="Materials" EntitySet="Materials" />
+            <End Role="PurchasingOrder" EntitySet="PurchasingOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchasingOrder_Users" Association="Self.FK_PurchasingOrder_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PurchasingOrder" EntitySet="PurchasingOrder" />
+          </AssociationSet>
           <AssociationSet Name="FK_ShopFlowDetail_ShopFlow" Association="Self.FK_ShopFlowDetail_ShopFlow">
             <End Role="ShopFlow" EntitySet="ShopFlow" />
             <End Role="ShopFlowDetail" EntitySet="ShopFlowDetail" />
@@ -1247,10 +1525,6 @@
           <AssociationSet Name="FK_ShopFlowDetail_WorkShops" Association="Self.FK_ShopFlowDetail_WorkShops">
             <End Role="WorkShops" EntitySet="WorkShops" />
             <End Role="ShopFlowDetail" EntitySet="ShopFlowDetail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShopFlowHistory_Engineering" Association="Self.FK_ShopFlowHistory_Engineering">
-            <End Role="Engineering" EntitySet="Engineering" />
-            <End Role="ShopFlowHistory" EntitySet="ShopFlowHistory" />
           </AssociationSet>
           <AssociationSet Name="FK_ShopFlowHistory_ShopFlowHistory" Association="Self.FK_ShopFlowHistory_ShopFlowHistory">
             <End Role="ShopFlowHistory" EntitySet="ShopFlowHistory" />
@@ -1366,6 +1640,11 @@
           <NavigationProperty Name="ProjectContract" Relationship="TokikuModel.FK_ProjectContract_Users" FromRole="Users" ToRole="ProjectContract" />
           <NavigationProperty Name="ProjectItemCost" Relationship="TokikuModel.FK_ProjectItemCost_Users" FromRole="Users" ToRole="ProjectItemCost" />
           <NavigationProperty Name="PromissoryNoteManagement" Relationship="TokikuModel.FK_PromissoryNoteManagement_Users" FromRole="Users" ToRole="PromissoryNoteManagement" />
+          <NavigationProperty Name="FormDetails" Relationship="TokikuModel.FK_FormDetails_Users_CreateUser" FromRole="Users" ToRole="FormDetails" />
+          <NavigationProperty Name="FormDetails1" Relationship="TokikuModel.FK_FormDetails_Users_MakingUser" FromRole="Users" ToRole="FormDetails" />
+          <NavigationProperty Name="MaterialEstimation" Relationship="TokikuModel.FK_MaterialEstimation_Users" FromRole="Users" ToRole="MaterialEstimation" />
+          <NavigationProperty Name="PurchasingOrder" Relationship="TokikuModel.FK_PurchasingOrder_Users" FromRole="Users" ToRole="PurchasingOrder" />
+          <NavigationProperty Name="BOM" Relationship="TokikuModel.FK_BOM_Users" FromRole="Users" ToRole="BOM" />
         </EntityType>
         <Association Name="FK__aspnet_Me__UserI__164452B1">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
@@ -1450,10 +1729,6 @@
           <EntitySet Name="PromissoryNoteManagement" EntityType="TokikuModel.PromissoryNoteManagement" />
           <EntitySet Name="ShopFlow" EntityType="TokikuModel.ShopFlow" />
           <EntitySet Name="TicketTypes" EntityType="TokikuModel.TicketTypes" />
-          <AssociationSet Name="FK_Engineering_ProjectContract" Association="TokikuModel.FK_Engineering_ProjectContract">
-            <End Role="ProjectContract" EntitySet="ProjectContract" />
-            <End Role="Engineering" EntitySet="Engineering" />
-          </AssociationSet>
           <AssociationSet Name="FK_Engineering_States" Association="TokikuModel.FK_Engineering_States">
             <End Role="States" EntitySet="States" />
             <End Role="Engineering" EntitySet="Engineering" />
@@ -1595,14 +1870,75 @@
             <End Role="Projects" EntitySet="Projects" />
           </AssociationSet>
           <EntitySet Name="ConstructionAtlas" EntityType="TokikuModel.ConstructionAtlas" />
-          <AssociationSet Name="FK_ConstructionAtlas_ProjectContract" Association="TokikuModel.FK_ConstructionAtlas_ProjectContract">
-            <End Role="ProjectContract" EntitySet="ProjectContract" />
-            <End Role="ConstructionAtlas" EntitySet="ConstructionAtlas" />
-          </AssociationSet>
           <EntitySet Name="ProcessingAtlas" EntityType="TokikuModel.ProcessingAtlas" />
           <AssociationSet Name="FK_ProcessingAtlas_ProjectContract" Association="TokikuModel.FK_ProcessingAtlas_ProjectContract">
             <End Role="ProjectContract" EntitySet="ProjectContract" />
             <End Role="ProcessingAtlas" EntitySet="ProcessingAtlas" />
+          </AssociationSet>
+          <EntitySet Name="FormDetails" EntityType="TokikuModel.FormDetails" />
+          <EntitySet Name="Forms" EntityType="TokikuModel.Forms" />
+          <EntitySet Name="MaterialEstimation" EntityType="TokikuModel.MaterialEstimation" />
+          <EntitySet Name="PurchasingOrder" EntityType="TokikuModel.PurchasingOrder" />
+          <AssociationSet Name="FK_Engineering_Projects" Association="TokikuModel.FK_Engineering_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="Engineering" EntitySet="Engineering" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FormDetails_Forms" Association="TokikuModel.FK_FormDetails_Forms">
+            <End Role="Forms" EntitySet="Forms" />
+            <End Role="FormDetails" EntitySet="FormDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FormDetails_Manufacturers" Association="TokikuModel.FK_FormDetails_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="FormDetails" EntitySet="FormDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FormDetails_Users_CreateUser" Association="TokikuModel.FK_FormDetails_Users_CreateUser">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="FormDetails" EntitySet="FormDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FormDetails_Users_MakingUser" Association="TokikuModel.FK_FormDetails_Users_MakingUser">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="FormDetails" EntitySet="FormDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialEstimation_FormDetails" Association="TokikuModel.FK_MaterialEstimation_FormDetails">
+            <End Role="FormDetails" EntitySet="FormDetails" />
+            <End Role="MaterialEstimation" EntitySet="MaterialEstimation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchasingOrder_FormDetails" Association="TokikuModel.FK_PurchasingOrder_FormDetails">
+            <End Role="FormDetails" EntitySet="FormDetails" />
+            <End Role="PurchasingOrder" EntitySet="PurchasingOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialEstimation_Users" Association="TokikuModel.FK_MaterialEstimation_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MaterialEstimation" EntitySet="MaterialEstimation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchasingOrder_Materials" Association="TokikuModel.FK_PurchasingOrder_Materials">
+            <End Role="Materials" EntitySet="Materials" />
+            <End Role="PurchasingOrder" EntitySet="PurchasingOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchasingOrder_Users" Association="TokikuModel.FK_PurchasingOrder_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PurchasingOrder" EntitySet="PurchasingOrder" />
+          </AssociationSet>
+          <EntitySet Name="BOM" EntityType="TokikuModel.BOM" />
+          <AssociationSet Name="FK_BOM_MaterialCategories" Association="TokikuModel.FK_BOM_MaterialCategories">
+            <End Role="MaterialCategories" EntitySet="MaterialCategories" />
+            <End Role="BOM" EntitySet="BOM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BOM_ShopFlow" Association="TokikuModel.FK_BOM_ShopFlow">
+            <End Role="ShopFlow" EntitySet="ShopFlow" />
+            <End Role="BOM" EntitySet="BOM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BOM_Users" Association="TokikuModel.FK_BOM_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="BOM" EntitySet="BOM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConstructionAtlas_Projects" Association="TokikuModel.FK_ConstructionAtlas_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="ConstructionAtlas" EntitySet="ConstructionAtlas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BOM_ProcessingAtlas" Association="TokikuModel.FK_BOM_ProcessingAtlas">
+            <End Role="ProcessingAtlas" EntitySet="ProcessingAtlas" />
+            <End Role="BOM" EntitySet="BOM" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="ShopFlowHistory">
@@ -1650,11 +1986,12 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DataId" Type="Guid" Nullable="false" />
+          <Property Name="DataId" Type="String" Nullable="false" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UserId" Type="Guid" Nullable="false" />
           <Property Name="ActionCode" Type="Byte" Nullable="false" />
           <Property Name="Reason" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="DataTableName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ShopFlowDetail">
           <Key>
@@ -1746,7 +2083,6 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="ProjectContractId" Type="Guid" Nullable="false" />
           <Property Name="Code" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
@@ -1754,10 +2090,11 @@
           <Property Name="State" Type="Byte" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="ProjectContract" Relationship="TokikuModel.FK_Engineering_ProjectContract" FromRole="Engineering" ToRole="ProjectContract" />
           <NavigationProperty Name="States" Relationship="TokikuModel.FK_Engineering_States" FromRole="Engineering" ToRole="States" />
           <NavigationProperty Name="ProjectItemCost" Relationship="TokikuModel.FK_ProjectItemCost_Engineering" FromRole="Engineering" ToRole="ProjectItemCost" />
           <NavigationProperty Name="ShopFlowHistory" Relationship="TokikuModel.FK_ShopFlowHistory_Engineering" FromRole="Engineering" ToRole="ShopFlowHistory" />
+          <Property Name="ProjectId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Projects" Relationship="TokikuModel.FK_Engineering_Projects" FromRole="Engineering" ToRole="Projects" />
         </EntityType>
         <EntityType Name="Manufacturers">
           <Key>
@@ -1798,6 +2135,7 @@
           <Property Name="InvoiceAddress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ManufacturersBussinessItems" Relationship="TokikuModel.FK_ManufacturersBussinessItems_Manufacturers" FromRole="Manufacturers" ToRole="ManufacturersBussinessItems" />
           <NavigationProperty Name="ClientForProjects" Relationship="TokikuModel.ClientsInProjects" FromRole="Manufacturers" ToRole="Projects" />
+          <NavigationProperty Name="FormDetails" Relationship="TokikuModel.FK_FormDetails_Manufacturers" FromRole="Manufacturers" ToRole="FormDetails" />
         </EntityType>
         <EntityType Name="MaterialCategories">
           <Key>
@@ -1810,6 +2148,7 @@
           <NavigationProperty Name="ProjectItemCost" Relationship="TokikuModel.FK_ProjectItemCost_MaterialCategories" FromRole="MaterialCategories" ToRole="ProjectItemCost" />
           <NavigationProperty Name="ManufacturersBussinessItems" Relationship="TokikuModel.FK_ManufacturersBussinessItems_MaterialCategories" FromRole="MaterialCategories" ToRole="ManufacturersBussinessItems" />
           <NavigationProperty Name="MoldsInProjects" Relationship="TokikuModel.FK_MoldsInProjects_MaterialCategories" FromRole="MaterialCategories" ToRole="MoldsInProjects" />
+          <NavigationProperty Name="BOM" Relationship="TokikuModel.FK_BOM_MaterialCategories" FromRole="MaterialCategories" ToRole="BOM" />
         </EntityType>
         <EntityType Name="Materials">
           <Key>
@@ -1823,6 +2162,7 @@
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="CreateUser" Relationship="TokikuModel.FK_Materials_Users" FromRole="Materials" ToRole="Users" />
           <NavigationProperty Name="Molds" Relationship="TokikuModel.FK_Molds_Materials" FromRole="Materials" ToRole="Molds" />
+          <NavigationProperty Name="PurchasingOrder" Relationship="TokikuModel.FK_PurchasingOrder_Materials" FromRole="Materials" ToRole="PurchasingOrder" />
         </EntityType>
         <EntityType Name="Molds">
           <Key>
@@ -1885,11 +2225,9 @@
           <Property Name="IsRepair" Type="Boolean" Nullable="false" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="Engineering" Relationship="TokikuModel.FK_Engineering_ProjectContract" FromRole="ProjectContract" ToRole="Engineering" />
           <NavigationProperty Name="CreateUser" Relationship="TokikuModel.FK_ProjectContract_Users" FromRole="ProjectContract" ToRole="Users" />
           <NavigationProperty Name="PromissoryNoteManagement" Relationship="TokikuModel.FK_PromissoryNoteManagement_ProjectContract" FromRole="ProjectContract" ToRole="PromissoryNoteManagement" />
           <NavigationProperty Name="Projects" Relationship="TokikuModel.FK_ProjectContract_Projects" FromRole="ProjectContract" ToRole="Projects" />
-          <NavigationProperty Name="ConstructionAtlas" Relationship="TokikuModel.FK_ConstructionAtlas_ProjectContract" FromRole="ProjectContract" ToRole="ConstructionAtlas" />
           <NavigationProperty Name="ProcessingAtlas" Relationship="TokikuModel.FK_ProcessingAtlas_ProjectContract" FromRole="ProjectContract" ToRole="ProcessingAtlas" />
         </EntityType>
         <EntityType Name="ProjectItemCost">
@@ -1938,6 +2276,7 @@
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="ShopFlowDetail" Relationship="TokikuModel.FK_ShopFlowDetail_ShopFlow" FromRole="ShopFlow" ToRole="ShopFlowDetail" />
+          <NavigationProperty Name="BOM" Relationship="TokikuModel.FK_BOM_ShopFlow" FromRole="ShopFlow" ToRole="BOM" />
         </EntityType>
         <EntityType Name="TicketTypes">
           <Key>
@@ -1950,18 +2289,6 @@
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="PromissoryNoteManagement" Relationship="TokikuModel.FK_PromissoryNoteManagement_TicketTypes" FromRole="TicketTypes" ToRole="PromissoryNoteManagement" />
         </EntityType>
-        <Association Name="FK_Engineering_ProjectContract">
-          <End Type="TokikuModel.ProjectContract" Role="ProjectContract" Multiplicity="1" />
-          <End Type="TokikuModel.Engineering" Role="Engineering" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectContract">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Engineering">
-              <PropertyRef Name="ProjectContractId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Engineering_States">
           <End Type="TokikuModel.States" Role="States" Multiplicity="0..1" />
           <End Type="TokikuModel.Engineering" Role="Engineering" Multiplicity="*" />
@@ -2387,6 +2714,8 @@
           <Property Name="SiteContactPerson" Type="String" Unicode="true" FixedLength="false" MaxLength="50" />
           <NavigationProperty Name="MoldsInProjects" Relationship="TokikuModel.FK_MoldsInProjects_Projects" FromRole="Projects" ToRole="MoldsInProjects" />
           <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.ClientsInProjects" FromRole="Projects" ToRole="Manufacturers" />
+          <NavigationProperty Name="Engineering" Relationship="TokikuModel.FK_Engineering_Projects" FromRole="Projects" ToRole="Engineering" />
+          <NavigationProperty Name="ConstructionAtlas" Relationship="TokikuModel.FK_ConstructionAtlas_Projects" FromRole="Projects" ToRole="ConstructionAtlas" />
         </EntityType>
         <Association Name="FK_ProjectContract_Projects">
           <End Type="TokikuModel.Projects" Role="Projects" Multiplicity="1" />
@@ -2481,7 +2810,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="ProjectContractId" Type="Guid" Nullable="false" />
+          <Property Name="ProjectContractId" Type="Guid" />
           <Property Name="ImageName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Edition" Type="Int32" Nullable="false" />
           <Property Name="SubmissionDate" Type="DateTime" Nullable="false" Precision="0" />
@@ -2493,20 +2822,9 @@
           <Property Name="Comment" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="ProjectContract" Relationship="TokikuModel.FK_ConstructionAtlas_ProjectContract" FromRole="ConstructionAtlas" ToRole="ProjectContract" />
+          <Property Name="ProjectId" Type="Guid" />
+          <NavigationProperty Name="Projects" Relationship="TokikuModel.FK_ConstructionAtlas_Projects" FromRole="ConstructionAtlas" ToRole="Projects" />
         </EntityType>
-        <Association Name="FK_ConstructionAtlas_ProjectContract">
-          <End Type="TokikuModel.ProjectContract" Role="ProjectContract" Multiplicity="1" />
-          <End Type="TokikuModel.ConstructionAtlas" Role="ConstructionAtlas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectContract">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ConstructionAtlas">
-              <PropertyRef Name="ProjectContractId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="ProcessingAtlas">
           <Key>
             <PropertyRef Name="Id" />
@@ -2522,6 +2840,7 @@
           <Property Name="UpdateTimes" Type="Int32" Nullable="false" />
           <Property Name="ConstructionOrderChangeDate" Type="DateTime" Precision="0" />
           <Property Name="LastUpdate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="BOM" Relationship="TokikuModel.FK_BOM_ProcessingAtlas" FromRole="ProcessingAtlas" ToRole="BOM" />
         </EntityType>
         <Association Name="FK_ProcessingAtlas_ProjectContract">
           <End Type="TokikuModel.ProjectContract" Role="ProjectContract" Multiplicity="1" />
@@ -2532,6 +2851,293 @@
             </Principal>
             <Dependent Role="ProcessingAtlas">
               <PropertyRef Name="ProjectContractId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="FormDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="FormId" Type="Guid" />
+          <Property Name="DemandUnit" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FormNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BatchNumber" Type="Int32" Nullable="false" />
+          <Property Name="ExpectedDelivery" Type="DateTime" Precision="0" />
+          <Property Name="ActualDelivery" Type="DateTime" Precision="0" />
+          <Property Name="MakingFormDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="MakingUserId" Type="Guid" Nullable="false" />
+          <Property Name="ManufacturersId" Type="Guid" />
+          <Property Name="ReservedPercentage" Type="Double" />
+          <Property Name="ReservedField1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReservedField2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReservedField3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReservedField4" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReservedField5" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReservedField6" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReservedField7" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReservedField8" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReservedField9" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReservedField10" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Forms" Relationship="TokikuModel.FK_FormDetails_Forms" FromRole="FormDetails" ToRole="Forms" />
+          <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_FormDetails_Manufacturers" FromRole="FormDetails" ToRole="Manufacturers" />
+          <NavigationProperty Name="Users" Relationship="TokikuModel.FK_FormDetails_Users_CreateUser" FromRole="FormDetails" ToRole="Users" />
+          <NavigationProperty Name="Users1" Relationship="TokikuModel.FK_FormDetails_Users_MakingUser" FromRole="FormDetails" ToRole="Users" />
+          <NavigationProperty Name="MaterialEstimation" Relationship="TokikuModel.FK_MaterialEstimation_FormDetails" FromRole="FormDetails" ToRole="MaterialEstimation" />
+          <NavigationProperty Name="PurchasingOrder" Relationship="TokikuModel.FK_PurchasingOrder_FormDetails" FromRole="FormDetails" ToRole="PurchasingOrder" />
+        </EntityType>
+        <EntityType Name="Forms">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="FormDetails" Relationship="TokikuModel.FK_FormDetails_Forms" FromRole="Forms" ToRole="FormDetails" />
+        </EntityType>
+        <EntityType Name="MaterialEstimation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="Weight" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="FormDetailId" Type="Guid" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="FormDetails" Relationship="TokikuModel.FK_MaterialEstimation_FormDetails" FromRole="MaterialEstimation" ToRole="FormDetails" />
+          <NavigationProperty Name="Users" Relationship="TokikuModel.FK_MaterialEstimation_Users" FromRole="MaterialEstimation" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="PurchasingOrder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="FormDetailId" Type="Guid" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaterialId" Type="Guid" />
+          <Property Name="UnitWeight" Type="Double" Nullable="false" />
+          <Property Name="OrderLength" Type="Double" Nullable="false" />
+          <Property Name="RequiredQuantity" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="SparePartsNumber" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="OrderQuantity" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="FormDetails" Relationship="TokikuModel.FK_PurchasingOrder_FormDetails" FromRole="PurchasingOrder" ToRole="FormDetails" />
+          <NavigationProperty Name="Materials" Relationship="TokikuModel.FK_PurchasingOrder_Materials" FromRole="PurchasingOrder" ToRole="Materials" />
+          <NavigationProperty Name="Users" Relationship="TokikuModel.FK_PurchasingOrder_Users" FromRole="PurchasingOrder" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_Engineering_Projects">
+          <End Type="TokikuModel.Projects" Role="Projects" Multiplicity="1" />
+          <End Type="TokikuModel.Engineering" Role="Engineering" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Engineering">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FormDetails_Forms">
+          <End Type="TokikuModel.Forms" Role="Forms" Multiplicity="0..1" />
+          <End Type="TokikuModel.FormDetails" Role="FormDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Forms">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FormDetails">
+              <PropertyRef Name="FormId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FormDetails_Manufacturers">
+          <End Type="TokikuModel.Manufacturers" Role="Manufacturers" Multiplicity="0..1" />
+          <End Type="TokikuModel.FormDetails" Role="FormDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FormDetails">
+              <PropertyRef Name="ManufacturersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FormDetails_Users_CreateUser">
+          <End Type="TokikuModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="TokikuModel.FormDetails" Role="FormDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="FormDetails">
+              <PropertyRef Name="CreateUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FormDetails_Users_MakingUser">
+          <End Type="TokikuModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="TokikuModel.FormDetails" Role="FormDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="FormDetails">
+              <PropertyRef Name="MakingUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaterialEstimation_FormDetails">
+          <End Type="TokikuModel.FormDetails" Role="FormDetails" Multiplicity="1" />
+          <End Type="TokikuModel.MaterialEstimation" Role="MaterialEstimation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MaterialEstimation">
+              <PropertyRef Name="FormDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchasingOrder_FormDetails">
+          <End Type="TokikuModel.FormDetails" Role="FormDetails" Multiplicity="0..1" />
+          <End Type="TokikuModel.PurchasingOrder" Role="PurchasingOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PurchasingOrder">
+              <PropertyRef Name="FormDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaterialEstimation_Users">
+          <End Type="TokikuModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="TokikuModel.MaterialEstimation" Role="MaterialEstimation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="MaterialEstimation">
+              <PropertyRef Name="CreateUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchasingOrder_Materials">
+          <End Type="TokikuModel.Materials" Role="Materials" Multiplicity="0..1" />
+          <End Type="TokikuModel.PurchasingOrder" Role="PurchasingOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materials">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PurchasingOrder">
+              <PropertyRef Name="MaterialId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchasingOrder_Users">
+          <End Type="TokikuModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="TokikuModel.PurchasingOrder" Role="PurchasingOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="PurchasingOrder">
+              <PropertyRef Name="CreateUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="BOM">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ProcessingAtlasId" Type="Guid" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CombinationNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaterialCategoriesId" Type="Guid" Nullable="false" />
+          <Property Name="ProcessingNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CrowdedNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaterialDescription" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="CutLength" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="SingleNumber" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TotalDemand" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="ShopFlowId" Type="Guid" />
+          <Property Name="NorthTowerDemand" Type="Int32" />
+          <Property Name="SouthTowerDemand" Type="Int32" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Postion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="MaterialCategories" Relationship="TokikuModel.FK_BOM_MaterialCategories" FromRole="BOM" ToRole="MaterialCategories" />
+          <NavigationProperty Name="ShopFlow" Relationship="TokikuModel.FK_BOM_ShopFlow" FromRole="BOM" ToRole="ShopFlow" />
+          <NavigationProperty Name="Users" Relationship="TokikuModel.FK_BOM_Users" FromRole="BOM" ToRole="Users" />
+          <NavigationProperty Name="ProcessingAtlas" Relationship="TokikuModel.FK_BOM_ProcessingAtlas" FromRole="BOM" ToRole="ProcessingAtlas" />
+        </EntityType>
+        <Association Name="FK_BOM_MaterialCategories">
+          <End Type="TokikuModel.MaterialCategories" Role="MaterialCategories" Multiplicity="1" />
+          <End Type="TokikuModel.BOM" Role="BOM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaterialCategories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BOM">
+              <PropertyRef Name="MaterialCategoriesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BOM_ShopFlow">
+          <End Type="TokikuModel.ShopFlow" Role="ShopFlow" Multiplicity="0..1" />
+          <End Type="TokikuModel.BOM" Role="BOM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShopFlow">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BOM">
+              <PropertyRef Name="ShopFlowId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BOM_Users">
+          <End Type="TokikuModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="TokikuModel.BOM" Role="BOM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="BOM">
+              <PropertyRef Name="CreateUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConstructionAtlas_Projects">
+          <End Type="TokikuModel.Projects" Role="Projects" Multiplicity="0..1" />
+          <End Type="TokikuModel.ConstructionAtlas" Role="ConstructionAtlas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConstructionAtlas">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BOM_ProcessingAtlas">
+          <End Type="TokikuModel.ProcessingAtlas" Role="ProcessingAtlas" Multiplicity="0..1" />
+          <End Type="TokikuModel.BOM" Role="BOM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProcessingAtlas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BOM">
+              <PropertyRef Name="ProcessingAtlasId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2624,7 +3230,8 @@
     <EntitySetMapping Name="AccessLog">
       <EntityTypeMapping TypeName="IsTypeOf(TokikuModel.AccessLog)">
         <MappingFragment StoreEntitySet="AccessLog">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DataTableName" ColumnName="DataTableName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="DataId" ColumnName="DataId" />
           <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -2682,8 +3289,8 @@
     <EntitySetMapping Name="Engineering">
       <EntityTypeMapping TypeName="IsTypeOf(TokikuModel.Engineering)">
         <MappingFragment StoreEntitySet="Engineering">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="ProjectContractId" ColumnName="ProjectContractId" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Code" ColumnName="Code" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="StartDate" ColumnName="StartDate" />
@@ -3000,6 +3607,7 @@
           <EntitySetMapping Name="ConstructionAtlas">
             <EntityTypeMapping TypeName="TokikuModel.ConstructionAtlas">
               <MappingFragment StoreEntitySet="ConstructionAtlas">
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
@@ -3028,6 +3636,102 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Atlas" ColumnName="Atlas" />
                 <ScalarProperty Name="ProjectContractId" ColumnName="ProjectContractId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FormDetails">
+            <EntityTypeMapping TypeName="TokikuModel.FormDetails">
+              <MappingFragment StoreEntitySet="FormDetails">
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="ReservedField10" ColumnName="ReservedField10" />
+                <ScalarProperty Name="ReservedField9" ColumnName="ReservedField9" />
+                <ScalarProperty Name="ReservedField8" ColumnName="ReservedField8" />
+                <ScalarProperty Name="ReservedField7" ColumnName="ReservedField7" />
+                <ScalarProperty Name="ReservedField6" ColumnName="ReservedField6" />
+                <ScalarProperty Name="ReservedField5" ColumnName="ReservedField5" />
+                <ScalarProperty Name="ReservedField4" ColumnName="ReservedField4" />
+                <ScalarProperty Name="ReservedField3" ColumnName="ReservedField3" />
+                <ScalarProperty Name="ReservedField2" ColumnName="ReservedField2" />
+                <ScalarProperty Name="ReservedField1" ColumnName="ReservedField1" />
+                <ScalarProperty Name="ReservedPercentage" ColumnName="ReservedPercentage" />
+                <ScalarProperty Name="ManufacturersId" ColumnName="ManufacturersId" />
+                <ScalarProperty Name="MakingUserId" ColumnName="MakingUserId" />
+                <ScalarProperty Name="MakingFormDate" ColumnName="MakingFormDate" />
+                <ScalarProperty Name="ActualDelivery" ColumnName="ActualDelivery" />
+                <ScalarProperty Name="ExpectedDelivery" ColumnName="ExpectedDelivery" />
+                <ScalarProperty Name="BatchNumber" ColumnName="BatchNumber" />
+                <ScalarProperty Name="FormNumber" ColumnName="FormNumber" />
+                <ScalarProperty Name="DemandUnit" ColumnName="DemandUnit" />
+                <ScalarProperty Name="FormId" ColumnName="FormId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Forms">
+            <EntityTypeMapping TypeName="TokikuModel.Forms">
+              <MappingFragment StoreEntitySet="Forms">
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MaterialEstimation">
+            <EntityTypeMapping TypeName="TokikuModel.MaterialEstimation">
+              <MappingFragment StoreEntitySet="MaterialEstimation">
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="FormDetailId" ColumnName="FormDetailId" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchasingOrder">
+            <EntityTypeMapping TypeName="TokikuModel.PurchasingOrder">
+              <MappingFragment StoreEntitySet="PurchasingOrder">
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="OrderQuantity" ColumnName="OrderQuantity" />
+                <ScalarProperty Name="SparePartsNumber" ColumnName="SparePartsNumber" />
+                <ScalarProperty Name="RequiredQuantity" ColumnName="RequiredQuantity" />
+                <ScalarProperty Name="OrderLength" ColumnName="OrderLength" />
+                <ScalarProperty Name="UnitWeight" ColumnName="UnitWeight" />
+                <ScalarProperty Name="MaterialId" ColumnName="MaterialId" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="FormDetailId" ColumnName="FormDetailId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BOM">
+            <EntityTypeMapping TypeName="TokikuModel.BOM">
+              <MappingFragment StoreEntitySet="BOM">
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Postion" ColumnName="Postion" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="SouthTowerDemand" ColumnName="SouthTowerDemand" />
+                <ScalarProperty Name="NorthTowerDemand" ColumnName="NorthTowerDemand" />
+                <ScalarProperty Name="ShopFlowId" ColumnName="ShopFlowId" />
+                <ScalarProperty Name="TotalDemand" ColumnName="TotalDemand" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="SingleNumber" ColumnName="SingleNumber" />
+                <ScalarProperty Name="CutLength" ColumnName="CutLength" />
+                <ScalarProperty Name="MaterialDescription" ColumnName="MaterialDescription" />
+                <ScalarProperty Name="CrowdedNumber" ColumnName="CrowdedNumber" />
+                <ScalarProperty Name="ProcessingNumber" ColumnName="ProcessingNumber" />
+                <ScalarProperty Name="MaterialCategoriesId" ColumnName="MaterialCategoriesId" />
+                <ScalarProperty Name="CombinationNumber" ColumnName="CombinationNumber" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProcessingAtlasId" ColumnName="ProcessingAtlasId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -13,8 +13,7 @@ namespace Tokiku.Entity
     {
         [Required]
         public System.Guid Id { get; set; }
-        [Required]
-        public System.Guid ProjectContractId { get; set; }
+        public Nullable<System.Guid> ProjectContractId { get; set; }
         
         [StringLength(250, ErrorMessage="欄位長度不得大於 250 個字元")]
         [Required]
@@ -42,7 +41,8 @@ namespace Tokiku.Entity
         public System.DateTime CreateTime { get; set; }
         [Required]
         public System.Guid CreateUserId { get; set; }
+        public Nullable<System.Guid> ProjectId { get; set; }
     
-        public virtual ProjectContract ProjectContract { get; set; }
+        public virtual Projects Projects { get; set; }
     }
 }

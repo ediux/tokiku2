@@ -138,10 +138,7 @@ namespace TokikuNew.Views
                             }
                         }
 
-                        if (model.ConstructionAtlas.Any())
-                        {
-
-                        }
+                      
 
                         model.SaveModel();
 

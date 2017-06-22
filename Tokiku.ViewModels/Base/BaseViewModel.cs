@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -103,7 +104,7 @@ namespace Tokiku.ViewModels
                                     ctProp.SetValue(ViewModel, entityvalue);
                                 }
 
-                                
+
                             }
                         }
 #if DEBUG
@@ -133,7 +134,7 @@ namespace Tokiku.ViewModels
             }
         }
 
-       
+
 
         /// <summary>
         /// 將檢視模型的內容抄寫到非資料實體模型物件。
@@ -434,6 +435,34 @@ namespace Tokiku.ViewModels
             Status.IsModify = false;
             Status.IsSaved = false;
             DoEvents();
+        }
+
+        public static void BindToDataGridView<T>(System.Windows.Controls.DataGrid Grid) where T : IBaseViewModel
+        {
+            if (Grid != null)
+            {
+                foreach(var col in Grid.Columns)
+                {
+                    col.Visibility = Visibility.Collapsed;
+                }
+
+                Type type = typeof(T);
+                var props = type.GetProperties();
+                if (props.Any())
+                {
+                    foreach (var prop in props)
+                    {
+                        DisplayAttribute dispalyattr = prop.PropertyType.GetCustomAttributes(true).OfType<DisplayAttribute>().SingleOrDefault();
+
+                        if (dispalyattr != null)
+                        {
+                            Grid.Columns[dispalyattr.Order].Header = dispalyattr.Name;
+                            Grid.Columns[dispalyattr.Order].DisplayIndex = dispalyattr.Order;
+                            Grid.Columns[dispalyattr.Order].Visibility = Visibility.Visible;
+                        }
+                    }
+                }
+            }
         }
     }
 }

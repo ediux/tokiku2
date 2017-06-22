@@ -297,20 +297,7 @@ namespace Tokiku.ViewModels
         #endregion
 
 
-        /// <summary>
-        /// 施工圖集
-        /// </summary>
-        public ConstructionAtlasViewModelCollection ConstructionAtlas
-        {
-            get { return (ConstructionAtlasViewModelCollection)GetValue(ConstructionAtlasProperty); }
-            set { SetValue(ConstructionAtlasProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for ConstructionAtlas.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ConstructionAtlasProperty =
-            DependencyProperty.Register("ConstructionAtlas", typeof(ConstructionAtlasViewModelCollection), typeof(ProjectContractViewModel), new PropertyMetadata(default(ConstructionAtlasViewModelCollection)));
-
-
+       
 
         public ProcessingAtlasViewModelCollection ProcessingAtlas
         {
@@ -368,7 +355,7 @@ namespace Tokiku.ViewModels
             LastUpdateUser = "";
             PromissoryNoteManagement = new PromissoryNoteManagementViewModelCollection();
             Projects = new ProjectsViewModel(new ProjectsController());
-            ConstructionAtlas = new ConstructionAtlasViewModelCollection();
+          
             ProcessingAtlas = new ProcessingAtlasViewModelCollection();
         }
 
@@ -392,17 +379,7 @@ namespace Tokiku.ViewModels
                     }
 
 
-                    if (data.Engineering.Any())
-                    {
-                        Engineerings.Clear();
-                        foreach (var row in data.Engineering)
-                        {
-                            EngineeringViewModel model = new EngineeringViewModel();
-                            model.DoEvents();
-                            model.SetModel(row);
-                            Engineerings.Add(model);
-                        }
-                    }
+                  
 
                     if (data.PromissoryNoteManagement.Any())
                     {
@@ -416,17 +393,7 @@ namespace Tokiku.ViewModels
                         }
                     }
 
-                    if (data.ConstructionAtlas.Any())
-                    {
-                        ConstructionAtlas.Clear();
-                        foreach (var row in data.ConstructionAtlas)
-                        {
-                            ConstructionAtlasViewModel model = new ConstructionAtlasViewModel();
-                            model.DoEvents();
-                            model.SetModel(row);
-                            ConstructionAtlas.Add(model);
-                        }
-                    }
+                   
 
                     if (data.ProcessingAtlas.Any())
                     {
@@ -453,15 +420,7 @@ namespace Tokiku.ViewModels
                 data.CreateUserId = controller.GetCurrentLoginUser().Result.UserId;
             }
 
-            if (Engineerings != null)
-            {
-                foreach (EngineeringViewModel model in Engineerings)
-                {
-                    Engineering entity = new Engineering();
-                    CopyToModel(entity, model);
-                    data.Engineering.Add(entity);
-                }
-            }
+            
 
             if (PromissoryNoteManagement.Any())
             {
@@ -474,16 +433,7 @@ namespace Tokiku.ViewModels
                 }
             }
 
-            if (ConstructionAtlas.Any())
-            {
-                foreach (ConstructionAtlasViewModel model in ConstructionAtlas)
-                {
-                    ConstructionAtlas entity = new ConstructionAtlas();
-                    CopyToModel(entity, model);
-                    entity.ProjectContractId = data.Id;
-                    data.ConstructionAtlas.Add(entity);
-                }
-            }
+          
 
             if (ProcessingAtlas.Any())
             {

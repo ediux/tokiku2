@@ -12,7 +12,6 @@ namespace Tokiku.Entity
     public partial class MembershipMetaData
     {
         [Required]
-        [Display(Name="編號")]
         public System.Guid UserId { get; set; }
         
         [StringLength(128, ErrorMessage="欄位長度不得大於 128 個字元")]

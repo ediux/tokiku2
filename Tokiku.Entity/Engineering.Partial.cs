@@ -13,8 +13,6 @@ namespace Tokiku.Entity
     {
         [Required]
         public System.Guid Id { get; set; }
-        [Required]
-        public System.Guid ProjectContractId { get; set; }
         
         [StringLength(15, ErrorMessage="欄位長度不得大於 15 個字元")]
         [Required]
@@ -32,10 +30,12 @@ namespace Tokiku.Entity
         public System.DateTime CreateTime { get; set; }
         [Required]
         public System.Guid CreateUserId { get; set; }
+        [Required]
+        public System.Guid ProjectId { get; set; }
     
-        public virtual ProjectContract ProjectContract { get; set; }
         public virtual States States { get; set; }
         public virtual ICollection<ProjectItemCost> ProjectItemCost { get; set; }
         public virtual ICollection<ShopFlowHistory> ShopFlowHistory { get; set; }
+        public virtual Projects Projects { get; set; }
     }
 }

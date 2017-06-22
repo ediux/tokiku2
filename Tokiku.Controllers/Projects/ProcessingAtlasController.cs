@@ -33,14 +33,15 @@ namespace Tokiku.Controllers
             {
                 var accesslogrepo = RepositoryHelper.GetAccessLogRepository();
                 var procdatarepo = RepositoryHelper.GetProcessingAtlasRepository(accesslogrepo.UnitOfWork);
+                string ID = data.Id.ToString("N");
 
                 var queryupdatecount = (from q in accesslogrepo.All()
-                                        where q.ActionCode == (int)ActionCodes.Update && q.DataId == data.Id
+                                        where q.ActionCode == (int)ActionCodes.Update && q.DataId == ID 
                                         orderby q.CreateTime descending
                                         select q).ToList();
 
                 var querylastupdate = (from q in accesslogrepo.All()
-                                       where q.ActionCode == (int)ActionCodes.ConstructionOrderChange && q.DataId == data.Id
+                                       where q.ActionCode == (int)ActionCodes.ConstructionOrderChange && q.DataId == ID
                                        orderby q.CreateTime descending
                                        select q).FirstOrDefault();
 
