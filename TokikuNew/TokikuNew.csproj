@@ -121,6 +121,9 @@
     <Compile Include="Views\Projects\AluminumExtrusion\InvoiceView.xaml.cs">
       <DependentUpon>InvoiceView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Projects\本約工程ViewUC.xaml.cs">
+      <DependentUpon>本約工程ViewUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Projects\ProcessingAtlasView.xaml.cs">
       <DependentUpon>ProcessingAtlasView.xaml</DependentUpon>
     </Compile>
@@ -179,9 +182,30 @@
     <Compile Include="Views\Finance\本票管理UC.xaml.cs">
       <DependentUpon>本票管理UC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Projects\追加工程ViewUC.xaml.cs">
+      <DependentUpon>追加工程ViewUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Projects\修繕工程ViewUC.xaml.cs">
+      <DependentUpon>修繕工程ViewUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Projects\本約工程標單項目ViewUC.xaml.cs">
+      <DependentUpon>本約工程標單項目ViewUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Projects\本約工程實際成本ViewUC.xaml.cs">
+      <DependentUpon>本約工程實際成本ViewUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Projects\追加工程標單項目ViewUC.xaml.cs">
+      <DependentUpon>追加工程標單項目ViewUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Projects\追加工程實際成本ViewUC.xaml.cs">
+      <DependentUpon>追加工程實際成本ViewUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Projects\修繕工程實際成本ViewUC.xaml.cs">
+      <DependentUpon>修繕工程實際成本ViewUC.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\BOMDataImportsView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Projects\ConstructionAtlasView.xaml">
       <SubType>Designer</SubType>
@@ -235,6 +259,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Projects\本約工程ViewUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Projects\ProcessingAtlasView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -336,6 +364,34 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Finance\本票管理UC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Projects\追加工程ViewUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Projects\修繕工程ViewUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Projects\本約工程標單項目ViewUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Projects\本約工程實際成本ViewUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Projects\追加工程標單項目ViewUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Projects\追加工程實際成本ViewUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Projects\修繕工程實際成本ViewUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -4,65 +4,144 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:Controls="clr-namespace:TokikuNew.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="768" d:DesignWidth="1024">
-    <GroupBox Header="本票管理" HorizontalAlignment="Left" VerticalAlignment="Top" Height="600" Width="400">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="27"/>
-                <RowDefinition Height="27"/>
-                <RowDefinition Height="27"/>
-                <RowDefinition Height="27"/>
-                <RowDefinition Height="27"/>
-                <RowDefinition Height="27"/>
-                <RowDefinition Height="27"/>
-                <RowDefinition Height="27"/>
-                <RowDefinition Height="27"/>
-                <RowDefinition Height="27"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="50*"/>
-            </Grid.ColumnDefinitions>
-            <Label Content="預付款保證票金額：" Grid.RowSpan="2" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-            <Grid Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="197">
+             d:DesignHeight="768" d:DesignWidth="1024" Loaded="本票管理UC_Loaded">
+    <Grid>
+        <GroupBox Header="本票管理" VerticalAlignment="Top" Height="468" x:Name="UC">
+            <Controls:CustomDataGrid x:Name="BussinessItemsGrid" AutoGenerateColumns="False" 
+                                     IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}"
+                                     ItemsSource="{Binding}"
+                                     SelectionChanged="BussinessItemsGrid_SelectionChanged" Margin="0,0,-2,0">
+                <Controls:CustomDataGrid.Columns>
+                    <DataGridTemplateColumn Header="本票種類" Width="auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox Margin="2" IsReadOnly="False"
+                                          ItemsSource="{DynamicResource 預付款保證票清單}" DisplayMemberPath="Name" 
+                                          SelectedValuePath="Name"
+                                          SelectedValue="{Binding Path=Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                          SelectionChanged="CBMaterialCategories_SelectionChanged" IsEditable="True">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}"/>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="本票金額" Width="auto"/>
+                    <DataGridTemplateColumn Header="開立日期">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <DatePicker Width="auto"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="取回日期">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <DatePicker Width="auto"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="保固票" Width="auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox Margin="2" IsReadOnly="False"
+                                          ItemsSource="{DynamicResource 保固票清單}" DisplayMemberPath="Name"
+                                          SelectedValuePath="Id"
+                                          SelectedValue="{Binding Path=Id,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                          SelectionChanged="CBMaterialCategories_SelectionChanged" IsEditable="True">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}"/>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="保固票金額" Width="auto" />
+                    <DataGridTemplateColumn Header="開立日期">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <DatePicker Width="auto"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="取回日期">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <DatePicker Width="auto"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    
+                    <DataGridTextColumn Header="異動人員" Width="auto" />
+                    <DataGridTextColumn Header="承攬總價" Width="auto" Binding="{Binding PlaceofReceipt}"/>
+                </Controls:CustomDataGrid.Columns>
+            </Controls:CustomDataGrid>
+        </GroupBox>
+        <!-- GroupBox Header="本票管理" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="300" Width="400">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="27"/>
+                    <RowDefinition Height="27"/>
+                    <RowDefinition Height="27"/>
+                    <RowDefinition Height="27"/>
+                    <RowDefinition Height="27"/>
+                    <RowDefinition Height="27"/>
+                    <RowDefinition Height="27"/>
+                    <RowDefinition Height="27"/>
+                    <RowDefinition Height="27"/>
+                    <RowDefinition Height="27"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="50*"/>
                     <ColumnDefinition Width="50*"/>
                 </Grid.ColumnDefinitions>
-                <CheckBox Content="銀行本票" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                <CheckBox Content="公司本票" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Label Content="預付款保證票金額：" Grid.RowSpan="2" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <Grid Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="197">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="27"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox Content="銀行本票" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <CheckBox Content="公司本票" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                </Grid>
+                <TextBox Text="" Name="本票金額" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center" Width="197"/>
+                <Label Content="開立日期：" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                <DatePicker Name="本票開立日期" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="197"/>
+                <Label Content="取回日期：" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                <DatePicker Name="本票取回日期" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Width="197"/>
+                <Label Content="保固票：" Grid.RowSpan="2" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <Grid Grid.Column="1" Grid.Row="4" VerticalAlignment="Top" HorizontalAlignment="Left" Width="197">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="27"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="55*"/>
+                        <ColumnDefinition Width="45*"/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox Content="預付款轉保固票" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <CheckBox Content="開立保固票" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                </Grid>
+                <TextBox Text="" Name="保固票金額" Grid.Column="1" Grid.Row="5" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center" Width="197"/>
+                <Label Content="開立日期：" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                <DatePicker Name="保固票開立日期" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center" Width="197"/>
+                <Label Content="取回日期：" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                <DatePicker Name="保固票取回日期" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Center" Width="197"/>
+                <Label Content="異動人員：" Grid.Column="0" Grid.Row="8" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                <TextBox Text="" Name="異動人員" Grid.Column="1" Grid.Row="8" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center" Width="197"/>
+                <Label Content="承攬總價：" Grid.Column="0" Grid.Row="9" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                <TextBox Text="" Name="承攬總價" Grid.Column="1" Grid.Row="9" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center" Width="197"/>
             </Grid>
-            <TextBox Text="" Name="本票金額" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center" Width="197"/>
-            <Label Content="開立日期：" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-            <DatePicker Name="本票開立日期" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="197"/>
-            <Label Content="取回日期：" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-            <DatePicker Name="本票取回日期" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Width="197"/>
-            <Label Content="保固票：" Grid.RowSpan="2" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-            <Grid Grid.Column="1" Grid.Row="4" VerticalAlignment="Top" HorizontalAlignment="Left" Width="197">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="27"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="55*"/>
-                    <ColumnDefinition Width="45*"/>
-                </Grid.ColumnDefinitions>
-                <CheckBox Content="預付款轉保固票" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                <CheckBox Content="開立保固票" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            </Grid>
-            <TextBox Text="" Name="保固票金額" Grid.Column="1" Grid.Row="5" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center" Width="197"/>
-            <Label Content="開立日期：" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-            <DatePicker Name="保固票開立日期" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center" Width="197"/>
-            <Label Content="取回日期：" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-            <DatePicker Name="保固票取回日期" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Center" Width="197"/>
-            <Label Content="異動人員：" Grid.Column="0" Grid.Row="8" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-            <TextBox Text="" Name="異動人員" Grid.Column="1" Grid.Row="8" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center" Width="197"/>
-            <Label Content="承攬總價：" Grid.Column="0" Grid.Row="9" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-            <TextBox Text="" Name="承攬總價" Grid.Column="1" Grid.Row="9" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center" Width="197"/>
-        </Grid>
-    </GroupBox>
+        </GroupBox -->
+    </Grid>
 </UserControl>

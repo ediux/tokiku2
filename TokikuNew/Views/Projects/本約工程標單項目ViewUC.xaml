@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="TokikuNew.Views.本約工程標單項目ViewUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TokikuNew.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="1024">
+    <Grid>
+        <GroupBox Header="本約工程標單項目" VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="UC" Height="300" Width="1024">
+            <DataGrid>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="項次"/>
+                    <DataGridTextColumn Header="材料分類"/>
+                    <DataGridTextColumn Header="廠商"/>
+                    <DataGridTextColumn Header="預算項目"/>
+                    <DataGridTextColumn Header="規格"/>
+                    <DataGridTextColumn Header="單位"/>
+                    <DataGridTextColumn Header="單價"/>
+                    <DataGridTextColumn Header="數量"/>
+                    <DataGridTextColumn Header="金額"/>
+                    <DataGridTextColumn Header="投標單位"/>
+                    <DataGridTextColumn Header="投標數量"/>
+                    <DataGridTextColumn Header="投標單位"/>
+                    <DataGridTextColumn Header="投標數量"/>
+                </DataGrid.Columns>
+
+            </DataGrid>
+        </GroupBox>
+    </Grid>
+</UserControl>
