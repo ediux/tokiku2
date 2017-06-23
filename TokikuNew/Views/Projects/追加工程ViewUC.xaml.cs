@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace TokikuNew.Views
 {
     /// <summary>
-    /// EngineeringImportViewUC.xaml 的互動邏輯
+    /// 追加程ViewUC.xaml 的互動邏輯
     /// </summary>
-    public partial class EngineeringImportViewUC : UserControl
+    public partial class 追加工程ViewUC : UserControl
     {
-        public EngineeringImportViewUC()
+        public 追加工程ViewUC()
         {
             InitializeComponent();
         }
