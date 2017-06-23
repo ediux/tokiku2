@@ -24,5 +24,20 @@ namespace TokikuNew.Views
         {
             InitializeComponent();
         }
+
+        private void BussinessItemsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void CBMaterialCategories_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void 本票管理UC_Loaded(object sender, RoutedEventArgs e)
+        {
+            UC.DataContext = new Tokiku.ViewModels.PromissoryNoteManagementViewModelCollection();
+        }
     }
 }

@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="Base\BaseViewModelWithPOCOClass.cs" />
     <Compile Include="Finance\TicketPeriodsViewModel.cs" />
+    <Compile Include="Finance\保固票ViewModel.cs" />
+    <Compile Include="Finance\預付款保證票ViewModel.cs" />
     <Compile Include="ManufacturersBussinessTranscationsViewModel.cs" />
     <Compile Include="ManufacturersBussinessTranscationsViewModelCollection.cs" />
     <Compile Include="Manufacturers\ManufacturersBussinessItemsViewModel.cs" />
