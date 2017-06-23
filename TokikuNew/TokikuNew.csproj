@@ -188,6 +188,12 @@
     <Compile Include="Views\Projects\修繕工程ViewUC.xaml.cs">
       <DependentUpon>修繕工程ViewUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Projects\本約工程標單項目ViewUC.xaml.cs">
+      <DependentUpon>本約工程標單項目ViewUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Projects\本約工程實際成本ViewUC.xaml.cs">
+      <DependentUpon>本約工程實際成本ViewUC.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\BOMDataImportsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -357,6 +363,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Projects\修繕工程ViewUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Projects\本約工程標單項目ViewUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Projects\本約工程實際成本ViewUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
