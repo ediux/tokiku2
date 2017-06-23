@@ -219,7 +219,7 @@ namespace TokikuNew.Views
                         {
                             MessageBox.Show(string.Join("\n", SelectedProject.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
                             SelectedProject.Errors = null;
-                            Mode = dockBar.LastState;
+                            //Mode = dockBar.LastState;
                             break;
                         }
 
@@ -361,7 +361,7 @@ namespace TokikuNew.Views
         {
             try
             {
-                dockBar.QueryFunctionButtonEnabled = true;
+                //dockBar.QueryFunctionButtonEnabled = true;
             }
             catch (Exception ex)
             {
@@ -376,7 +376,7 @@ namespace TokikuNew.Views
         {
             try
             {
-                dockBar.QueryFunctionButtonEnabled = false;
+                //dockBar.QueryFunctionButtonEnabled = false;
             }
             catch (Exception ex)
             {
