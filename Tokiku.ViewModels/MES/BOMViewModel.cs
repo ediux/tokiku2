@@ -50,7 +50,10 @@ namespace Tokiku.ViewModels
 
         #region 名稱
 
-        [Display(Name = "名稱")]
+        /// <summary>
+        /// 名稱
+        /// </summary>
+        [Display(Name = "名稱", Order = 1)]
         public string Name
         {
             get { return (string)GetValue(NameProperty); }
@@ -67,9 +70,9 @@ namespace Tokiku.ViewModels
         #region Combination Number
 
         /// <summary>
-        /// 
+        /// 組合編號
         /// </summary>
-        [Display(Name = "組合編號")]
+        [Display(Name = "組合編號", Order = 2)]
         public string CombinationNumber
         {
             get { return (string)GetValue(CombinationNumberProperty); }
@@ -106,6 +109,7 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 材料類別(名稱)
         /// </summary>
+        [Display(Name = "材料屬性", Order = 5)]
         public string MaterialCategories
         {
             get { return (string)GetValue(MaterialCategoriesProperty); }
@@ -124,6 +128,7 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 加工編號
         /// </summary>
+        [Display(Name = "加工編號", Order = 6)]
         public string ProcessingNumber
         {
             get { return (string)GetValue(ProcessingNumberProperty); }
@@ -141,6 +146,7 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 擠型編號
         /// </summary>
+        [Display(Name = "擠型編號", Order = 7)]
         public string CrowdedNumber
         {
             get { return (string)GetValue(CrowdedNumberProperty); }
@@ -159,6 +165,7 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 材料說明
         /// </summary>
+        [Display(Name = "材料說明", Order = 8)]
         public string MaterialDescription
         {
             get { return (string)GetValue(MaterialDescriptionProperty); }
@@ -178,23 +185,26 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 裁切長度
         /// </summary>
-        [Display(Name = "裁切長度")]
-        public decimal CutLength
+        [Display(Name = "裁切長度", Order = 9)]
+        public string CutLength
         {
-            get { return (decimal)GetValue(CutLengthProperty); }
+            get { return (string)GetValue(CutLengthProperty); }
             set { SetValue(CutLengthProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for CutLength.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CutLengthProperty =
-            DependencyProperty.Register("CutLength", typeof(decimal), typeof(BOMViewModel), new PropertyMetadata(0));
+            DependencyProperty.Register("CutLength", typeof(string), typeof(BOMViewModel), new PropertyMetadata(string.Empty));
 
 
         #endregion
 
         #region Single Number 單樘數量
 
-
+        /// <summary>
+        /// 擠型編號
+        /// </summary>
+        [Display(Name = "單樘數量", Order = 10)]
         public decimal SingleNumber
         {
             get { return (decimal)GetValue(SingleNumberProperty); }
@@ -203,14 +213,17 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for SingleNumber.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SingleNumberProperty =
-            DependencyProperty.Register("SingleNumber", typeof(decimal), typeof(BOMViewModel), new PropertyMetadata(0));
+            DependencyProperty.Register("SingleNumber", typeof(decimal), typeof(BOMViewModel), new PropertyMetadata((decimal)0));
 
 
         #endregion
 
         #region TotalDemand 總需求量
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        [Display(Name = "總需求量", Order = 11)]
         public decimal TotalDemand
         {
             get { return (decimal)GetValue(TotalDemandProperty); }
@@ -219,7 +232,39 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for TotalDemand.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TotalDemandProperty =
-            DependencyProperty.Register("TotalDemand", typeof(decimal), typeof(BOMViewModel), new PropertyMetadata(0));
+            DependencyProperty.Register("TotalDemand", typeof(decimal), typeof(BOMViewModel), new PropertyMetadata((decimal)0));
+
+
+        #endregion
+
+        #region 備註
+
+        [Display(Name = "備註", Order = 12)]
+        public string Comment
+        {
+            get { return (string)GetValue(CommentProperty); }
+            set { SetValue(CommentProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Comment.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CommentProperty =
+            DependencyProperty.Register("Comment", typeof(string), typeof(BOMViewModel), new PropertyMetadata(string.Empty));
+
+
+        #endregion
+
+        #region 位置
+
+        [Display(Name = "位置", Order = 13)]
+        public string Postion
+        {
+            get { return (string)GetValue(PostionProperty); }
+            set { SetValue(PostionProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Postion.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PostionProperty =
+            DependencyProperty.Register("Postion", typeof(string), typeof(BOMViewModel), new PropertyMetadata(string.Empty));
 
 
         #endregion
@@ -229,6 +274,7 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 北塔需求量
         /// </summary>
+        [Display(Name = "北塔需求量", Order = 3)]
         public int NorthTowerDemand
         {
             get { return (int)GetValue(NorthTowerDemandProperty); }
@@ -247,7 +293,7 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 南塔需求量
         /// </summary>
-        [Display(Name ="")]
+        [Display(Name = "南塔需求量", Order = 4)]
         public int SouthTowerDemand
         {
             get { return (int)GetValue(SouthTowerDemandProperty); }
@@ -263,7 +309,7 @@ namespace Tokiku.ViewModels
 
         #region 異動時間
 
-
+        //[Display(Name = "異動時間", Order = 14)]
         public DateTime? LastUpdateTime
         {
             get { return (DateTime?)GetValue(LastUpdateTimeProperty); }
@@ -279,7 +325,7 @@ namespace Tokiku.ViewModels
 
         #region 異動人員
 
-
+        //[Display(Name = "異動人員", Order = 15)]
         public string LastUpdateUser
         {
             get { return (string)GetValue(LastUpdateUserProperty); }
@@ -297,7 +343,7 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                if(entity is BOM)
+                if (entity is BOM)
                 {
                     BOM data = (BOM)entity;
                     BindingFromModel(data, this);

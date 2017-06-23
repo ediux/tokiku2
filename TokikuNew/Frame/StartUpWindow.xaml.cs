@@ -48,7 +48,7 @@ namespace TokikuNew.Frame
                     if (loginedUser != null)
                     {
                         tblkMessage.Text = "登入成功!";
-                      
+
 
                         var mainwin = App.Navigate<MainWindow, MainViewModel>(new MainViewModel(App.Resolve<ProjectsController>()));
 
@@ -105,21 +105,30 @@ namespace TokikuNew.Frame
 
         void MoveToNextUIElement(KeyEventArgs e)
         {
-            // Creating a FocusNavigationDirection object and setting it to a
-            // local field that contains the direction selected.
-            FocusNavigationDirection focusDirection = FocusNavigationDirection.Next;
-
-            // MoveFocus takes a TraveralReqest as its argument.
-            TraversalRequest request = new TraversalRequest(focusDirection);
-
-            // Gets the element with keyboard focus.
-            UIElement elementWithFocus = Keyboard.FocusedElement as UIElement;
-
-            // Change keyboard focus.
-            if (elementWithFocus != null)
+            try
             {
-                if (elementWithFocus.MoveFocus(request)) e.Handled = true;
+                // Creating a FocusNavigationDirection object and setting it to a
+                // local field that contains the direction selected.
+                FocusNavigationDirection focusDirection = FocusNavigationDirection.Next;
+
+                // MoveFocus takes a TraveralReqest as its argument.
+                TraversalRequest request = new TraversalRequest(focusDirection);
+
+                // Gets the element with keyboard focus.
+                UIElement elementWithFocus = Keyboard.FocusedElement as UIElement;
+
+                // Change keyboard focus.
+                if (elementWithFocus != null)
+                {
+                    if (elementWithFocus.MoveFocus(request)) e.Handled = true;
+                }
             }
+            catch
+            {
+
+
+            }
+
         }
 
         private void pwdBox_KeyDown(object sender, KeyEventArgs e)
@@ -156,7 +165,6 @@ namespace TokikuNew.Frame
         {
             try
             {
-                Model = new LoginViewModel(App.Resolve<StartUpWindowController>());
                 Model.Initialized();
                 DataContext = Model;
             }

@@ -6,10 +6,12 @@
         xmlns:local="clr-namespace:TokikuNew" 
         xmlns:ctrl="clr-namespace:Tokiku.Controllers;assembly=Tokiku.Controllers"
         mc:Ignorable="d"        
-        Title="東菊金屬 ERP System" Height="768" Width="1024" WindowState="Maximized" Icon="{DynamicResource Logo}" Loaded="Window_Loaded" Background="{DynamicResource WindowBackgroundBrush}">
+        Title="東菊金屬 ERP System" Height="768" Width="1366" WindowState="Maximized" Icon="{DynamicResource Logo}"
+        Loaded="Window_Loaded" Background="{DynamicResource WindowBackgroundBrush}"
+        Initialized="Window_Initialized">
     <Viewbox Stretch="Fill"
              Margin="0" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" >
-        <Grid Width="1024" Height="768">
+        <Grid Width="1366" Height="768">
             <Grid.RowDefinitions>
                 <RowDefinition Height="27"/>
                 <RowDefinition Height="*"/>

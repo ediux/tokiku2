@@ -10,7 +10,7 @@ namespace Tokiku.Entity
         bool HasError { get; set; }
     }
 
-    public interface IExecuteResultEntity<T> : IExecuteResultEntity where T : class
+    public interface IExecuteResultEntity<T> : IExecuteResultEntity 
     {
         T Result { get; set; }
     }

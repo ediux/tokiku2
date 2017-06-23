@@ -134,7 +134,7 @@ namespace Tokiku.Entity
 
     }
 
-    public class ExecuteResultEntity<TEntity> : ExecuteResultEntity,IExecuteResultEntity<TEntity> where TEntity : class
+    public class ExecuteResultEntity<TEntity> : ExecuteResultEntity, IExecuteResultEntity<TEntity>
     {
 
         private TEntity _Result = default(TEntity);
@@ -148,7 +148,7 @@ namespace Tokiku.Entity
         public new static ExecuteResultEntity<TEntity> CreateErrorResultEntity(Exception ex)
         {
             var error = ExecuteResultEntity.CreateErrorResultEntity(ex);
-            return new ExecuteResultEntity<TEntity>() { Errors = error.Errors, Result = null };
+            return new ExecuteResultEntity<TEntity>() { Errors = error.Errors, Result = default(TEntity) };
         }
 
         public new static ExecuteResultEntity<TEntity> CreateErrorResultEntity(string ErrorMessage)
@@ -162,7 +162,7 @@ namespace Tokiku.Entity
         {
             if (disposing)
             {
-                _Result = null;
+                _Result = default(TEntity);
             }
         }
 

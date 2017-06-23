@@ -26,11 +26,11 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CombinationNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="MaterialCategoriesId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ProcessingNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProcessingNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="CrowdedNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="MaterialDescription" Type="nvarchar" MaxLength="512" Nullable="false" />
-          <Property Name="CutLength" Type="decimal" Precision="18" Scale="3" Nullable="false" />
-          <Property Name="SingleNumber" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="CutLength" Type="nvarchar" MaxLength="50" />
+          <Property Name="SingleNumber" Type="decimal" Precision="18" Scale="3" />
           <Property Name="Unit" Type="nvarchar" MaxLength="50" />
           <Property Name="TotalDemand" Type="decimal" Precision="18" Scale="3" Nullable="false" />
           <Property Name="ShopFlowId" Type="uniqueidentifier" />
@@ -1919,9 +1919,17 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="PurchasingOrder" EntitySet="PurchasingOrder" />
           </AssociationSet>
+          <AssociationSet Name="FK_ConstructionAtlas_Projects" Association="TokikuModel.FK_ConstructionAtlas_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="ConstructionAtlas" EntitySet="ConstructionAtlas" />
+          </AssociationSet>
           <EntitySet Name="BOM" EntityType="TokikuModel.BOM" />
           <AssociationSet Name="FK_BOM_MaterialCategories" Association="TokikuModel.FK_BOM_MaterialCategories">
             <End Role="MaterialCategories" EntitySet="MaterialCategories" />
+            <End Role="BOM" EntitySet="BOM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BOM_ProcessingAtlas" Association="TokikuModel.FK_BOM_ProcessingAtlas">
+            <End Role="ProcessingAtlas" EntitySet="ProcessingAtlas" />
             <End Role="BOM" EntitySet="BOM" />
           </AssociationSet>
           <AssociationSet Name="FK_BOM_ShopFlow" Association="TokikuModel.FK_BOM_ShopFlow">
@@ -1930,14 +1938,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_BOM_Users" Association="TokikuModel.FK_BOM_Users">
             <End Role="Users" EntitySet="Users" />
-            <End Role="BOM" EntitySet="BOM" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ConstructionAtlas_Projects" Association="TokikuModel.FK_ConstructionAtlas_Projects">
-            <End Role="Projects" EntitySet="Projects" />
-            <End Role="ConstructionAtlas" EntitySet="ConstructionAtlas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BOM_ProcessingAtlas" Association="TokikuModel.FK_BOM_ProcessingAtlas">
-            <End Role="ProcessingAtlas" EntitySet="ProcessingAtlas" />
             <End Role="BOM" EntitySet="BOM" />
           </AssociationSet>
           </EntityContainer>
@@ -1986,7 +1986,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DataId" Type="String" Nullable="false" />
+          <Property Name="DataId" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UserId" Type="Guid" Nullable="false" />
           <Property Name="ActionCode" Type="Byte" Nullable="false" />
@@ -3053,6 +3053,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ConstructionAtlas_Projects">
+          <End Type="TokikuModel.Projects" Role="Projects" Multiplicity="0..1" />
+          <End Type="TokikuModel.ConstructionAtlas" Role="ConstructionAtlas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConstructionAtlas">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="BOM">
           <Key>
             <PropertyRef Name="Id" />
@@ -3062,11 +3074,11 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CombinationNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MaterialCategoriesId" Type="Guid" Nullable="false" />
-          <Property Name="ProcessingNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProcessingNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CrowdedNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MaterialDescription" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
-          <Property Name="CutLength" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
-          <Property Name="SingleNumber" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="CutLength" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SingleNumber" Type="Decimal" Precision="18" Scale="3" />
           <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TotalDemand" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
           <Property Name="ShopFlowId" Type="Guid" />
@@ -3077,9 +3089,9 @@
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="MaterialCategories" Relationship="TokikuModel.FK_BOM_MaterialCategories" FromRole="BOM" ToRole="MaterialCategories" />
+          <NavigationProperty Name="ProcessingAtlas" Relationship="TokikuModel.FK_BOM_ProcessingAtlas" FromRole="BOM" ToRole="ProcessingAtlas" />
           <NavigationProperty Name="ShopFlow" Relationship="TokikuModel.FK_BOM_ShopFlow" FromRole="BOM" ToRole="ShopFlow" />
           <NavigationProperty Name="Users" Relationship="TokikuModel.FK_BOM_Users" FromRole="BOM" ToRole="Users" />
-          <NavigationProperty Name="ProcessingAtlas" Relationship="TokikuModel.FK_BOM_ProcessingAtlas" FromRole="BOM" ToRole="ProcessingAtlas" />
         </EntityType>
         <Association Name="FK_BOM_MaterialCategories">
           <End Type="TokikuModel.MaterialCategories" Role="MaterialCategories" Multiplicity="1" />
@@ -3090,6 +3102,18 @@
             </Principal>
             <Dependent Role="BOM">
               <PropertyRef Name="MaterialCategoriesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BOM_ProcessingAtlas">
+          <End Type="TokikuModel.ProcessingAtlas" Role="ProcessingAtlas" Multiplicity="0..1" />
+          <End Type="TokikuModel.BOM" Role="BOM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProcessingAtlas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BOM">
+              <PropertyRef Name="ProcessingAtlasId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3114,30 +3138,6 @@
             </Principal>
             <Dependent Role="BOM">
               <PropertyRef Name="CreateUserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ConstructionAtlas_Projects">
-          <End Type="TokikuModel.Projects" Role="Projects" Multiplicity="0..1" />
-          <End Type="TokikuModel.ConstructionAtlas" Role="ConstructionAtlas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Projects">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ConstructionAtlas">
-              <PropertyRef Name="ProjectId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_BOM_ProcessingAtlas">
-          <End Type="TokikuModel.ProcessingAtlas" Role="ProcessingAtlas" Multiplicity="0..1" />
-          <End Type="TokikuModel.BOM" Role="BOM" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProcessingAtlas">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="BOM">
-              <PropertyRef Name="ProcessingAtlasId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

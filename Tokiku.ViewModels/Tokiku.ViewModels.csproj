@@ -30,11 +30,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GrapeCity.WPF.CalcEngine, Version=10.40.20171.0, Culture=neutral, PublicKeyToken=3ef656c0a61aba3a, processorArchitecture=MSIL" />
+    <Reference Include="GrapeCity.WPF.Excel, Version=10.40.20171.0, Culture=neutral, PublicKeyToken=3ef656c0a61aba3a, processorArchitecture=MSIL" />
+    <Reference Include="GrapeCity.WPF.PDF, Version=10.40.20171.0, Culture=neutral, PublicKeyToken=3ef656c0a61aba3a, processorArchitecture=MSIL" />
+    <Reference Include="GrapeCity.WPF.SpreadSheet.Data, Version=10.40.20171.0, Culture=neutral, PublicKeyToken=3ef656c0a61aba3a, processorArchitecture=MSIL" />
+    <Reference Include="GrapeCity.WPF.SpreadSheet.UI, Version=10.40.20171.0, Culture=neutral, PublicKeyToken=3ef656c0a61aba3a, processorArchitecture=MSIL" />
+    <Reference Include="GrapeCity.WPF.SpreadSheet.UI.VisualStudio.Design, Version=10.40.20171.0, Culture=neutral, PublicKeyToken=3ef656c0a61aba3a, processorArchitecture=MSIL" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />

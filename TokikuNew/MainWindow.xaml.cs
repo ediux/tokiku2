@@ -15,13 +15,9 @@ namespace TokikuNew
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow(ManufacturersManageController _mc, ClientController _clientcontroller, ProjectsController _controller)
+        public MainWindow()
         {
             InitializeComponent();
-
-            mc = _mc;
-            clientcontroller = _clientcontroller;
-            controller = _controller;
         }
 
         ManufacturersManageController mc;
@@ -639,6 +635,20 @@ namespace TokikuNew
                 Workspaces.SelectedItem = addWorkarea; // 指定當前顯示頁
             }
             catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void Window_Initialized(object sender, EventArgs e)
+        {
+            try
+            {
+                mc = App.Resolve<ManufacturersManageController>();
+                clientcontroller = App.Resolve<ClientController>();
+                controller = App.Resolve<ProjectsController>();
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
             }

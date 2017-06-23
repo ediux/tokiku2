@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Finance\TicketPeriodsManagementController.cs" />
+    <Compile Include="MES\BOMController.cs" />
     <Compile Include="MES\MaterialManagementController.cs" />
     <Compile Include="MES\MoldsController.cs" />
     <Compile Include="Orders\AluminumExtrusionOrderSheetViewController.cs" />
