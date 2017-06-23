@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="1024">
     <Grid>
-        <GroupBox Header="本約工程" VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="UC" Height="300" Width="300">
+        <GroupBox Header="本約工程" VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="UC" Height="300" Width="1024">
             <DataGrid >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="項次"/>
