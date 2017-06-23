@@ -190,6 +190,23 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
+    <Style TargetType="{x:Type RichTextBox}" x:Key="RichReadModeSwitch" BasedOn="{StaticResource  {x:Type RichTextBox}}">
+        <Setter Property="BorderBrush" Value="{DynamicResource TextControlBorderBrush}"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=userControl}" Value="Read">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=userControl}" Value="Update">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Read">
+                <Setter Property="IsReadOnly" Value="True" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Update">
+                <Setter Property="IsReadOnly" Value="False" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
     <Style TargetType="{x:Type ComboBox}" x:Key="ReadModeSwitch_ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
         <Style.Triggers>
             <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Read">
