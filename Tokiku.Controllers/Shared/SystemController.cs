@@ -9,7 +9,7 @@ namespace Tokiku.Controllers
 {
     public class SystemController : BaseController
     {
-        public static void AddLogRecord(Guid DataId, Guid UserId, byte ActionCode)
+        public static void AddLogRecord(Guid DataId, Guid UserId, byte ActionCode, string TableName = "", string ActionReason = "")
         {
             try
             {
@@ -17,11 +17,13 @@ namespace Tokiku.Controllers
                 {
                     ActionCode = ActionCode,
                     CreateTime = DateTime.Now,
-                    DataId = DataId,
-                    UserId = UserId
+                    DataId = DataId.ToString("N"),
+                    UserId = UserId,
+                    DataTableName = TableName,
+                    Reason = ActionReason
                 };
 
-                using(var db = new TokikuEntities())
+                using (var db = new TokikuEntities())
                 {
                     db.AccessLog.Add(newLogData);
                     db.SaveChanges();

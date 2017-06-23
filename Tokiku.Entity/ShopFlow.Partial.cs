@@ -23,5 +23,6 @@ namespace Tokiku.Entity
         public System.Guid CreateUserId { get; set; }
     
         public virtual ICollection<ShopFlowDetail> ShopFlowDetail { get; set; }
+        public virtual ICollection<BOM> BOM { get; set; }
     }
 }

@@ -30,6 +30,7 @@
             </Grid>
         </Grid>
         <controls:CustomDataGrid x:Name="ProjectList" Grid.Row="1" Margin="5" ItemsSource="{Binding}" 
+                                 FontSize="15"
                                  AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto" 
                                  CanUserAddRows="False"
                                  CanUserDeleteRows="False"

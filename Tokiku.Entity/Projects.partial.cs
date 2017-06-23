@@ -15,10 +15,11 @@ namespace Tokiku.Entity
         public System.Guid Id { get; set; }
 
         [StringLength(50, ErrorMessage = "欄位長度不得大於 50 個字元")]
-        [Required]
+        [Required(ErrorMessage = "專案代號為必要項!")]
         public string Code { get; set; }
+
         [StringLength(50, ErrorMessage = "欄位長度不得大於 50 個字元")]
-        [Required(ErrorMessage = "專案名稱不能為空白。")]
+        [Required(ErrorMessage = "專案全名為必要項!")]
         public string Name { get; set; }
         [Required]
         public float Area { get; set; }
@@ -77,15 +78,18 @@ namespace Tokiku.Entity
         [StringLength(250, ErrorMessage = "欄位長度不得大於 250 個字元")]
         public string OwnerContractNumber { get; set; }
 
-        [StringLength(50, ErrorMessage = "欄位長度不得大於 50 個字元")]
+        [StringLength(10, ErrorMessage = "欄位長度不得大於 10 個字元")]
         public string SiteContactPersonPhone { get; set; }
+
         [StringLength(50, ErrorMessage = "欄位長度不得大於 50 個字元")]
         public string SiteContactPerson { get; set; }
 
-        public virtual ICollection<MoldsInProjects> MoldsInProjects { get; set; }
         public virtual ICollection<ProjectContract> ProjectContract { get; set; }
         public virtual States States { get; set; }
         public virtual ICollection<SupplierTranscationItem> SupplierTranscationItem { get; set; }
+        public virtual ICollection<MoldsInProjects> MoldsInProjects { get; set; }
         public virtual ICollection<Manufacturers> Manufacturers { get; set; }
+        public virtual ICollection<Engineering> Engineering { get; set; }
+        public virtual ICollection<ConstructionAtlas> ConstructionAtlas { get; set; }
     }
 }

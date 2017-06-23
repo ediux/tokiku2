@@ -14,6 +14,12 @@ namespace Tokiku.Entity
     
     public partial class ProcessingAtlas
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ProcessingAtlas()
+        {
+            this.BOM = new HashSet<BOM>();
+        }
+    
         public System.Guid Id { get; set; }
         public System.Guid ProjectContractId { get; set; }
         public int Atlas { get; set; }
@@ -26,5 +32,7 @@ namespace Tokiku.Entity
         public Nullable<System.DateTime> LastUpdate { get; set; }
     
         public virtual ProjectContract ProjectContract { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BOM> BOM { get; set; }
     }
 }

@@ -34,7 +34,12 @@ namespace TokikuNew.Views
                 Guid CBMaterialCategoriesId = ((MaterialCategoriesViewModel)((ComboBox)sender).SelectedItem).Id;
                 ManufacturersBussinessItemsViewModelColletion biselect = new ManufacturersBussinessItemsViewModelColletion();
                 biselect.QueryWithMaterialCategories(CBMaterialCategoriesId);
-                CBTranscationBusiness.ItemsSource = biselect;
+                var CBTranscationBusiness = (ComboBox)BussinessItemsGrid.Columns[1].HeaderTemplate.FindName("CBTranscationBusiness", BussinessItemsGrid);
+                if (CBTranscationBusiness != null)
+                {
+                    CBTranscationBusiness.ItemsSource = biselect;
+                }
+
 
             }
             catch (Exception ex)
@@ -51,13 +56,14 @@ namespace TokikuNew.Views
             try
             {
                 Guid CBMaterialCategoriesId = ((MaterialCategoriesViewModel)CBMaterialCategories.SelectedItem).Id;
-                if (CBTranscationBusiness.SelectedItem != null)
-                {
-                    string TranscationItem = ((ManufacturersBussinessItemsViewModel)CBTranscationBusiness.SelectedItem).Name;
-                    ManufacturersViewModelCollection ManufacturersSelect = new ManufacturersViewModelCollection();
-                    ManufacturersSelect.QueryByBusinessItem(CBMaterialCategoriesId, TranscationItem);
-                    CBManufacturerList.ItemsSource = ManufacturersSelect;
-                }
+
+                //if (CBTranscationBusiness.SelectedItem != null)
+                //{
+                //    string TranscationItem = ((ManufacturersBussinessItemsViewModel)CBTranscationBusiness.SelectedItem).Name;
+                //    ManufacturersViewModelCollection ManufacturersSelect = new ManufacturersViewModelCollection();
+                //    ManufacturersSelect.QueryByBusinessItem(CBMaterialCategoriesId, TranscationItem);
+                //    var CBManufacturerList = (ComboBox)BussinessItemsGrid.Columns[2].HeaderTemplate.FindName("CBManufacturerList", BussinessItemsGrid); CBManufacturerList.ItemsSource = ManufacturersSelect;
+                //}
             }
             catch (Exception ex)
             {
@@ -74,19 +80,19 @@ namespace TokikuNew.Views
             try
             {
                 Guid CBMaterialCategoriesId = ((MaterialCategoriesViewModel)CBMaterialCategories.SelectedItem).Id;
-                if (CBTranscationBusiness.SelectedItem != null)
-                {
-                    string TranscationItem = ((ManufacturersBussinessItemsViewModel)CBTranscationBusiness.SelectedItem).Name;
+                //if (CBTranscationBusiness.SelectedItem != null)
+                //{
+                //    string TranscationItem = ((ManufacturersBussinessItemsViewModel)CBTranscationBusiness.SelectedItem).Name;
 
-                    if (CBManufacturerList.SelectedItem != null)
-                    {
-                        Guid manuid = ((ManufacturersViewModel)CBManufacturerList.SelectedItem).Id;
-                        TicketPeriodsViewModelCollection ManufacturersSelect = new TicketPeriodsViewModelCollection();
-                        ManufacturersSelect.QueryByManufacturers(CBMaterialCategoriesId, TranscationItem, manuid);
-                        CBTicketPeriods.ItemsSource = ManufacturersSelect;
-                    }
+                //    //if (CBManufacturerList.SelectedItem != null)
+                //    //{
+                //    //    Guid manuid = ((ManufacturersViewModel)CBManufacturerList.SelectedItem).Id;
+                //    //    TicketPeriodsViewModelCollection ManufacturersSelect = new TicketPeriodsViewModelCollection();
+                //    //    ManufacturersSelect.QueryByManufacturers(CBMaterialCategoriesId, TranscationItem, manuid);
+                //    //    CBTicketPeriods.ItemsSource = ManufacturersSelect;
+                //    //}
 
-                }
+                //}
             }
             catch (Exception ex)
             {
@@ -112,28 +118,28 @@ namespace TokikuNew.Views
                 else
                 {
                     Guid CBMaterialCategoriesId = ((MaterialCategoriesViewModel)CBMaterialCategories.SelectedItem).Id;
-                    if (CBTranscationBusiness.SelectedItem != null)
-                    {
-                        string TranscationItem = ((ManufacturersBussinessItemsViewModel)CBTranscationBusiness.SelectedItem).Name;
+                    //if (CBTranscationBusiness.SelectedItem != null)
+                    //{
+                    //    string TranscationItem = ((ManufacturersBussinessItemsViewModel)CBTranscationBusiness.SelectedItem).Name;
 
-                        if (CBManufacturerList.SelectedItem != null)
-                        {
-                            Guid manuid = ((ManufacturersViewModel)CBManufacturerList.SelectedItem).Id;
-                            int periodsid = ((TicketPeriodsViewModel)CBTicketPeriods.SelectedItem).Id;
-                            ManufacturersBussinessItemsViewModelColletion bicollection = new ManufacturersBussinessItemsViewModelColletion();
-                            bicollection.QueryByBusinessItem(CBMaterialCategoriesId, TranscationItem, manuid, periodsid);
-                            if (bicollection.Count > 0)
-                            {
-                                foreach (var item in bicollection)
-                                {
-                                    SuppliersViewModel model = new SuppliersViewModel();
-                                    model.SetModel(item);
-                                    model.PlaceofReceipt = TBPlaceofReceipt.Text;
-                                    //SelectedProject.Suppliers.Add(model);
-                                }
-                            }
-                        }
-                    }
+                    //    //if (CBManufacturerList.SelectedItem != null)
+                    //    //{
+                    //    //    Guid manuid = ((ManufacturersViewModel)CBManufacturerList.SelectedItem).Id;
+                    //    //    int periodsid = ((TicketPeriodsViewModel)CBTicketPeriods.SelectedItem).Id;
+                    //    //    ManufacturersBussinessItemsViewModelColletion bicollection = new ManufacturersBussinessItemsViewModelColletion();
+                    //    //    bicollection.QueryByBusinessItem(CBMaterialCategoriesId, TranscationItem, manuid, periodsid);
+                    //    //    if (bicollection.Count > 0)
+                    //    //    {
+                    //    //        foreach (var item in bicollection)
+                    //    //        {
+                    //    //            SuppliersViewModel model = new SuppliersViewModel();
+                    //    //            model.SetModel(item);
+                    //    //            model.PlaceofReceipt = TBPlaceofReceipt.Text;
+                    //    //            //SelectedProject.Suppliers.Add(model);
+                    //    //        }
+                    //    //    }
+                    //    //}
+                    //}
 
                     //CBVandorSelectionForRecvAddress_Loaded(sender, e);
                 }
@@ -167,8 +173,8 @@ namespace TokikuNew.Views
             catch (Exception ex)
             {
 
-               MessageBox.Show(ex.Message, "錯誤",  MessageBoxButton.OK,  MessageBoxImage.Error,
-                    MessageBoxResult.OK,  MessageBoxOptions.DefaultDesktopOnly);
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error,
+                     MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
 
             }
 

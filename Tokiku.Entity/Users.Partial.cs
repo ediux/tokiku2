@@ -39,5 +39,10 @@ namespace Tokiku.Entity
         public virtual ICollection<ProjectContract> ProjectContract { get; set; }
         public virtual ICollection<ProjectItemCost> ProjectItemCost { get; set; }
         public virtual ICollection<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
+        public virtual ICollection<FormDetails> FormDetails { get; set; }
+        public virtual ICollection<FormDetails> FormDetails1 { get; set; }
+        public virtual ICollection<MaterialEstimation> MaterialEstimation { get; set; }
+        public virtual ICollection<PurchasingOrder> PurchasingOrder { get; set; }
+        public virtual ICollection<BOM> BOM { get; set; }
     }
 }

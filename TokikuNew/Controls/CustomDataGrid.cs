@@ -116,7 +116,6 @@ namespace TokikuNew.Controls
                             {
                                 try
                                 {
-
                                     item.GetType().GetProperty(propertyName).SetValue(item, value, null);
                                 }
                                 catch
@@ -128,8 +127,6 @@ namespace TokikuNew.Controls
                             }
                         }
                     }
-
-
                 }
 
                 if (e.Command == ApplicationCommands.Copy)

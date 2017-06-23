@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="27" d:DesignWidth="1024"
+             d:DesignHeight="27" d:DesignWidth="160"
+             Background="{DynamicResource ControlBackgroundBrush}"
               Loaded="userControl_Loaded" >
     <StackPanel Grid.Row="1" Orientation="Horizontal" >
         <Button Margin="2" Width="27" x:Name="btnF1" FontSize="15" Content="&#xE7C3;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="新增"  Click="btnF1_Click">
@@ -19,35 +20,8 @@
         </Button>
         <Button Margin="2" Width="27" Name="btnF4" FontSize="15" Content="&#xE11A;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="儲存" Click="btnF4_Click" IsEnabled="{Binding QueryFunctionButtonEnabled,ElementName=userControl,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
         <Button Margin="2" Width="27" Name="btnF5" FontSize="15" Content="&#xE120;" FontFamily="/Resources/#Segoe MDL2 Assets" Click="btnF5_Click" Command="{StaticResource Commit}" Visibility="Collapsed" >
-
         </Button>
-
         <Button Margin="2" Width="27" Name="btnF8" FontSize="15" Content="&#xE2F6;" FontFamily="/Resources/#Segoe MDL2 Assets" Click="btnF8_Click" Command="Print" >
-           
-        </Button>
-        <Button Margin="2" Width="48" Name="btnF9" Click="btnF9_Click" >
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="F9" TextAlignment="Center"/>
-                <TextBlock Text="取消" TextAlignment="Center"/>
-            </StackPanel>
-        </Button>
-        <Button Margin="2" Width="48" Name="btnF10" Click="btnF10_Click" Command="Close" >
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="F10" TextAlignment="Center"/>
-                <TextBlock Text="結束" TextAlignment="Center"/>
-            </StackPanel>
-        </Button>
-        <Button Margin="2" Width="48" Name="btnF11" Click="btnF11_Click" Command="{StaticResource AddColumn}">
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="F11" TextAlignment="Center"/>
-                <TextBlock Text="新增行" TextAlignment="Center"/>
-            </StackPanel>
-        </Button>
-        <Button Margin="2" Width="48" Name="btnF12" Click="btnF12_Click" Command="{StaticResource AddRow}">
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="F12" TextAlignment="Center"/>
-                <TextBlock Text="刪除列" TextAlignment="Center"/>
-            </StackPanel>
         </Button>
     </StackPanel>
 </UserControl>

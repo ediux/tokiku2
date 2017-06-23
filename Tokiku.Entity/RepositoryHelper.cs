@@ -29,6 +29,20 @@ namespace Tokiku.Entity
 			return repository;
 		}		
 
+		public static BOMRepository GetBOMRepository()
+		{
+			var repository = new BOMRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static BOMRepository GetBOMRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new BOMRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
 		public static ConstructionAtlasRepository GetConstructionAtlasRepository()
 		{
 			var repository = new ConstructionAtlasRepository();
@@ -71,6 +85,34 @@ namespace Tokiku.Entity
 			return repository;
 		}		
 
+		public static FormDetailsRepository GetFormDetailsRepository()
+		{
+			var repository = new FormDetailsRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static FormDetailsRepository GetFormDetailsRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new FormDetailsRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
+		public static FormsRepository GetFormsRepository()
+		{
+			var repository = new FormsRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static FormsRepository GetFormsRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new FormsRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
 		public static ManufacturersRepository GetManufacturersRepository()
 		{
 			var repository = new ManufacturersRepository();
@@ -109,6 +151,20 @@ namespace Tokiku.Entity
 		public static MaterialCategoriesRepository GetMaterialCategoriesRepository(IUnitOfWork unitOfWork)
 		{
 			var repository = new MaterialCategoriesRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
+		public static MaterialEstimationRepository GetMaterialEstimationRepository()
+		{
+			var repository = new MaterialEstimationRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static MaterialEstimationRepository GetMaterialEstimationRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new MaterialEstimationRepository();
 			repository.UnitOfWork = unitOfWork;
 			return repository;
 		}		
@@ -277,6 +333,20 @@ namespace Tokiku.Entity
 		public static PromissoryNoteManagementRepository GetPromissoryNoteManagementRepository(IUnitOfWork unitOfWork)
 		{
 			var repository = new PromissoryNoteManagementRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
+		public static PurchasingOrderRepository GetPurchasingOrderRepository()
+		{
+			var repository = new PurchasingOrderRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static PurchasingOrderRepository GetPurchasingOrderRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new PurchasingOrderRepository();
 			repository.UnitOfWork = unitOfWork;
 			return repository;
 		}		

@@ -30,5 +30,9 @@ namespace Tokiku.Entity
         public string TicketPeriod { get; set; }
         [Required]
         public System.Guid ManufacturersId { get; set; }
+        
+        [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
+        [Required]
+        public string TranscationCategories { get; set; }
     }
 }

@@ -84,33 +84,22 @@ namespace TokikuNew.Controls
                     case DocumentLifeCircle.Create:
                         src.btnF1.IsEnabled = false;
                         src.btnF2.IsEnabled = false;
-                        src.btnF3.IsEnabled = true;
-                        src.btnF11.IsEnabled = true;
-                        src.btnF12.IsEnabled = true;
-                        src.btnF9.IsEnabled = false;
+                        src.btnF3.IsEnabled = true; 
                         break;
                     case DocumentLifeCircle.Delete:
                         src.btnF1.IsEnabled = true;
                         src.btnF2.IsEnabled = false;
                         src.btnF3.IsEnabled = false;
-                        src.btnF11.IsEnabled = false;
-                        src.btnF12.IsEnabled = false;
                         break;
                     case DocumentLifeCircle.Read:
                         src.btnF1.IsEnabled = true;
                         src.btnF2.IsEnabled = true;
                         src.btnF3.IsEnabled = false;
-                        src.btnF11.IsEnabled = true;
-                        src.btnF12.IsEnabled = true;
-                        src.btnF9.IsEnabled = false;
                         break;
                     case DocumentLifeCircle.Update:
                         src.btnF1.IsEnabled = true;
                         src.btnF2.IsEnabled = false;
                         src.btnF3.IsEnabled = true;
-                        src.btnF11.IsEnabled = false;
-                        src.btnF12.IsEnabled = false;
-                        src.btnF9.IsEnabled = true;
                         break;
                 }
 

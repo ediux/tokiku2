@@ -525,6 +525,19 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty LastUpdateUserNameProperty =
             DependencyProperty.Register("LastUpdateUserName", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(string.Empty));
 
+        /// <summary>
+        /// 施工圖集
+        /// </summary>
+        public ConstructionAtlasViewModelCollection ConstructionAtlas
+        {
+            get { return (ConstructionAtlasViewModelCollection)GetValue(ConstructionAtlasProperty); }
+            set { SetValue(ConstructionAtlasProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ConstructionAtlas.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ConstructionAtlasProperty =
+            DependencyProperty.Register("ConstructionAtlas", typeof(ProjectsViewModel), typeof(ProjectContractViewModel), new PropertyMetadata(default(ConstructionAtlasViewModelCollection)));
+
 
 
         public string OwnerContractNumber
@@ -549,6 +562,7 @@ namespace Tokiku.ViewModels
             ProjectContract = new ProjectContractViewModelCollection();
             Client = new ClientViewModel();
             Suppliers = new SuppliersViewModelCollection();
+            ConstructionAtlas = new ConstructionAtlasViewModelCollection();
 
             if (_projectcontroller == null)
                 return;
@@ -598,6 +612,17 @@ namespace Tokiku.ViewModels
                         pcdata.ProjectId = data.Id;
                         data.ProjectContract.Add(pcdata);
                     }
+                }
+            }
+
+            if (ConstructionAtlas.Any())
+            {
+                foreach (ConstructionAtlasViewModel model in ConstructionAtlas)
+                {
+                    ConstructionAtlas entity = new ConstructionAtlas();
+                    CopyToModel(entity, model);
+                    entity.ProjectContractId = data.Id;
+                    data.ConstructionAtlas.Add(entity);
                 }
             }
 
