@@ -339,5 +339,56 @@ namespace TokikuNew.Views
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        private void MI_Projects_BOMImports_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                e.Handled = true;
+
+                ClosableTabItem addWorkarea = null;
+                string Header = "用料需求資料匯入";
+                addWorkarea = new ClosableTabItem() { Header = Header };
+
+                bool isExisted = false;
+
+                foreach (ClosableTabItem item in InnerWorkspaces.Items.OfType<ClosableTabItem>())
+                {
+                    if (item.Header.Equals(addWorkarea.Header))
+                    {
+                        isExisted = true;
+                        addWorkarea = item;
+                        break;
+                    }
+                }
+
+                if (!isExisted)
+                {
+                    var vm = new BOMDataImportsView() { Margin = new Thickness(0) };
+                    
+
+                    addWorkarea.Content = vm;
+                    addWorkarea.Margin = new Thickness(0);
+
+                    Binding LoginedUserBinding = new Binding();
+                    LoginedUserBinding.Source = LoginedUser;
+
+                    vm.SetBinding(BOMDataImportsView.LoginedUserProperty, LoginedUserBinding);
+
+                    vm.CurrentProject = (ProjectsViewModel)DataContext;
+                    InnerWorkspaces.Items.Add(addWorkarea);
+                    InnerWorkspaces.SelectedItem = addWorkarea;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void MI_Projects_BOMQuery_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

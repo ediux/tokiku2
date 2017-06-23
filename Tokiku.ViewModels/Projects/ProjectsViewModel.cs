@@ -536,7 +536,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for ConstructionAtlas.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ConstructionAtlasProperty =
-            DependencyProperty.Register("ConstructionAtlas", typeof(ProjectsViewModel), typeof(ProjectContractViewModel), new PropertyMetadata(default(ConstructionAtlasViewModelCollection)));
+            DependencyProperty.Register("ConstructionAtlas", typeof(ConstructionAtlasViewModelCollection), typeof(ProjectsViewModel), new PropertyMetadata(default(ConstructionAtlasViewModelCollection)));
 
 
 

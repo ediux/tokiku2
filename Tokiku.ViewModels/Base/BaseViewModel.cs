@@ -7,6 +7,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Threading;
 
 namespace Tokiku.ViewModels
@@ -437,13 +439,77 @@ namespace Tokiku.ViewModels
             DoEvents();
         }
 
-        public static void BindToDataGridView<T>(System.Windows.Controls.DataGrid Grid) where T : IBaseViewModel
+        public static void BindToDataGridView<T, TCollection>(TCollection source, System.Windows.Controls.DataGrid Grid) where T : IBaseViewModel where TCollection : BaseViewModelCollection<T>
         {
             if (Grid != null)
             {
-                foreach(var col in Grid.Columns)
+                Grid.Columns.Clear();
+                Grid.ItemsSource = source;
+
+
+
+                Type type = typeof(T);
+                var props = type.GetProperties();
+                if (props.Any())
                 {
-                    col.Visibility = Visibility.Collapsed;
+                    foreach (var prop in props)
+                    {
+                        DisplayAttribute dispalyattr = prop.GetCustomAttributes(true).OfType<DisplayAttribute>().SingleOrDefault();
+
+                        if (dispalyattr != null)
+                        {
+                            Binding fieldbinding = new Binding();
+                            //fieldbinding.Source = prop.GetValue(source);
+                            fieldbinding.Mode = BindingMode.TwoWay;
+                            fieldbinding.Path = new PropertyPath(prop.Name);
+                            fieldbinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+
+                            DataGridTextColumn column = new DataGridTextColumn()
+                            {
+                                Header = dispalyattr.Name,
+                                Visibility = Visibility.Visible,
+                                Binding = fieldbinding
+                            };
+                            Grid.Columns.Add(column);
+
+                            //column.DisplayIndex = dispalyattr.Order;
+                            //Grid.Columns[dispalyattr.Order].Header = dispalyattr.Name;
+                            //Grid.Columns[dispalyattr.Order].DisplayIndex = dispalyattr.Order;
+                            //Grid.Columns[dispalyattr.Order].Visibility = Visibility.Visible;
+                        }
+                    }
+
+                    foreach (var prop in props)
+                    {
+                        try
+                        {
+                            DisplayAttribute dispalyattr = prop.GetCustomAttributes(true).OfType<DisplayAttribute>().SingleOrDefault();
+
+                            if (dispalyattr != null)
+                            {
+                                var field = Grid.Columns.Where(w => w.Header.Equals(dispalyattr.Name)).Single();
+                                field.DisplayIndex = dispalyattr.Order;
+                            }
+                        }
+                        catch
+                        {
+                            continue;
+                        }
+                    }
+                }
+
+
+            }
+        }
+
+        public static void BindToGCSheet<T, TCollection>(TCollection source, GrapeCity.Windows.SpreadSheet.UI.GcSpreadSheet sheet) where T : IBaseViewModel where TCollection : BaseViewModelCollection<T>
+        {
+            if (sheet != null)
+            {
+                sheet.ActiveSheet.DataSource = source;
+                for (int x = 0; x < sheet.ActiveSheet.Columns.Count; x++)
+                {
+                    sheet.ActiveSheet.Columns[x].IsVisible = false;
                 }
 
                 Type type = typeof(T);
@@ -456,9 +522,11 @@ namespace Tokiku.ViewModels
 
                         if (dispalyattr != null)
                         {
-                            Grid.Columns[dispalyattr.Order].Header = dispalyattr.Name;
-                            Grid.Columns[dispalyattr.Order].DisplayIndex = dispalyattr.Order;
-                            Grid.Columns[dispalyattr.Order].Visibility = Visibility.Visible;
+                            sheet.ActiveSheet.Columns[dispalyattr.Order].IsVisible = true;
+                            sheet.ActiveSheet.Columns[dispalyattr.Order].Label = dispalyattr.Name;
+                            //Grid.Columns[dispalyattr.Order].Header = dispalyattr.Name;
+                            //Grid.Columns[dispalyattr.Order].DisplayIndex = dispalyattr.Order;
+                            //Grid.Columns[dispalyattr.Order].Visibility = Visibility.Visible;
                         }
                     }
                 }

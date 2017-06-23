@@ -9,11 +9,14 @@
              d:DesignHeight="768" d:DesignWidth="1024" Loaded="UserControl_Loaded"  >
     <Grid Background="{DynamicResource ControlBackgroundBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="27"/>
+            <RowDefinition Height="36"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0" Grid.Column="0">
-            <MenuItem Header="用料需求"/>
+        <Menu Grid.Row="0" Grid.Column="0" Background="{DynamicResource WindowBackgroundBrush}">
+            <MenuItem Header="用料需求">
+                <MenuItem Header="資料匯入" x:Name="MI_Projects_BOMImports" Click="MI_Projects_BOMImports_Click"/>
+                <MenuItem Header="查閱資料" x:Name="MI_Projects_BOMQuery" Click="MI_Projects_BOMQuery_Click"/>
+            </MenuItem>
             <MenuItem Header="鋁擠型" >
                 <MenuItem Header="訂製單" Name="MI_Projects_Order_1" Click="MI_Projects_Order_1_Click"/>
                 <MenuItem Header="請款單" Name="MI_Projects_Order_2" Click="MI_Projects_Order_2_Click"/>
@@ -23,8 +26,13 @@
             <MenuItem Header="玻璃"/>
             <MenuItem Header="鋁板"/>
             <MenuItem Header="鐵件"/>
-            <MenuItem Header="其他材料"/>
-            <Controls:DockBar Grid.Row="0" Grid.Column="1" Background="Transparent" />
+            <MenuItem Header="其他材料" VerticalAlignment="Center" FontSize="17"/>
+            <MenuItem HorizontalContentAlignment="Right" HorizontalAlignment="Right" Width="437" >
+                <MenuItem.Header>
+                    <Controls:DockBar VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="0" Margin="0" Grid.Column="1" Background="Transparent" />
+                </MenuItem.Header>
+            </MenuItem>
+           
         </Menu>
         <TabControl Grid.Row="1" TabStripPlacement="Top" Name="InnerWorkspaces" Grid.ColumnSpan="2">
             <TabItem Header="專案主檔">
@@ -36,6 +44,6 @@
             <TabItem Header="專案模具" Visibility="Collapsed">
             </TabItem>
         </TabControl>
-       
+
     </Grid>
 </UserControl>

@@ -84,7 +84,11 @@ namespace TokikuNew.Views
             var DataSource = ((ClientViewModelCollection)DataContext);
             if (!IsStartUped)
             {
-                Dispatcher.Invoke(DataSource.Query, DispatcherPriority.Background);
+                if (DataSource != null)
+                {
+                    Dispatcher.Invoke(DataSource.Query, DispatcherPriority.Background);
+                }
+
                 IsStartUped = true;
             }
         }

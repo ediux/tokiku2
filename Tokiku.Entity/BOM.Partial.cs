@@ -25,7 +25,6 @@ namespace Tokiku.Entity
         public System.Guid MaterialCategoriesId { get; set; }
         
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
-        [Required]
         public string ProcessingNumber { get; set; }
         
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
@@ -34,10 +33,10 @@ namespace Tokiku.Entity
         [StringLength(512, ErrorMessage="欄位長度不得大於 512 個字元")]
         [Required]
         public string MaterialDescription { get; set; }
-        [Required]
-        public decimal CutLength { get; set; }
-        [Required]
-        public decimal SingleNumber { get; set; }
+        
+        [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
+        public string CutLength { get; set; }
+        public Nullable<decimal> SingleNumber { get; set; }
         
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
         public string Unit { get; set; }
@@ -54,8 +53,8 @@ namespace Tokiku.Entity
         public System.Guid CreateUserId { get; set; }
     
         public virtual MaterialCategories MaterialCategories { get; set; }
+        public virtual ProcessingAtlas ProcessingAtlas { get; set; }
         public virtual ShopFlow ShopFlow { get; set; }
         public virtual Users Users { get; set; }
-        public virtual ProcessingAtlas ProcessingAtlas { get; set; }
     }
 }

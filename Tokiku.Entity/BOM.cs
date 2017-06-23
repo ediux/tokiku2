@@ -22,8 +22,8 @@ namespace Tokiku.Entity
         public string ProcessingNumber { get; set; }
         public string CrowdedNumber { get; set; }
         public string MaterialDescription { get; set; }
-        public decimal CutLength { get; set; }
-        public decimal SingleNumber { get; set; }
+        public string CutLength { get; set; }
+        public Nullable<decimal> SingleNumber { get; set; }
         public string Unit { get; set; }
         public decimal TotalDemand { get; set; }
         public Nullable<System.Guid> ShopFlowId { get; set; }
@@ -35,8 +35,8 @@ namespace Tokiku.Entity
         public System.Guid CreateUserId { get; set; }
     
         public virtual MaterialCategories MaterialCategories { get; set; }
+        public virtual ProcessingAtlas ProcessingAtlas { get; set; }
         public virtual ShopFlow ShopFlow { get; set; }
         public virtual Users Users { get; set; }
-        public virtual ProcessingAtlas ProcessingAtlas { get; set; }
     }
 }

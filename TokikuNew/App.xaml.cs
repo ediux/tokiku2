@@ -31,7 +31,7 @@ namespace TokikuNew
                 _IoC.Add(new MainWindowController());
                 _IoC.Add(new PaymentTypesManageController());
 
-                SystemController.StartUp();
+               
             }
             catch
             {
@@ -53,8 +53,8 @@ namespace TokikuNew
             }
             catch
             {
+                return default(TController);
 
-                throw;
             }
         }
 
@@ -75,23 +75,26 @@ namespace TokikuNew
                         var parameters = ctor.GetParameters();
 
                         Type[] inParamArrayTypes = parameters.Select(s => s.ParameterType).ToArray();
-                        object[] inParamArray = (object[])Array.CreateInstance(typeof(object), inParamArrayTypes.Length);
+                        if (inParamArrayTypes != null)
+                        {
+                            object[] inParamArray = (object[])Array.CreateInstance(typeof(object), inParamArrayTypes.Length);
 
 
-                        for (int i = 0; i < inParamArray.Length; i++)
-                        {
-                            var result = _IoC.Where(w => inParamArrayTypes[i] == w.GetType());
-                            inParamArray[i] = result.SingleOrDefault();
-                        }
+                            for (int i = 0; i < inParamArray.Length; i++)
+                            {
+                                var result = _IoC.Where(w => inParamArrayTypes[i] == w.GetType());
+                                inParamArray[i] = result.SingleOrDefault();
+                            }
 
-                        try
-                        {
-                            window = (TWin)Activator.CreateInstance(windowType, inParamArray);
-                            break;
-                        }
-                        catch
-                        {
-                            continue;
+                            try
+                            {
+                                window = (TWin)Activator.CreateInstance(windowType, inParamArray);
+                                break;
+                            }
+                            catch
+                            {
+                                continue;
+                            }
                         }
                     }
                 }
