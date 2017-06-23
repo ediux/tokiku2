@@ -84,6 +84,9 @@
     <Compile Include="Helpers\ClipboardHelper.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
     <Compile Include="ValueConverters\ReplyContentValueConverter.cs" />
+    <Compile Include="Views\Projects\EngineeringImportViewUC.xaml.cs">
+      <DependentUpon>EngineeringImportViewUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BOMDataImportsView.xaml.cs">
       <DependentUpon>BOMDataImportsView.xaml</DependentUpon>
     </Compile>
@@ -179,10 +182,6 @@
     <Compile Include="Views\Finance\本票管理UC.xaml.cs">
       <DependentUpon>本票管理UC.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\BOMDataImportsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Projects\ConstructionAtlasView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
