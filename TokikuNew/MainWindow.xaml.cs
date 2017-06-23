@@ -353,7 +353,7 @@ namespace TokikuNew
                     var vm = new ManufacturersManageView() { Margin = new Thickness(0) };
 
                     vm.DataContext = model;
-                    vm.Mode = DocumentLifeCircle.Read;
+                  
                     vm.LoginedUser = ((MainViewModel)DataContext).LoginedUser;
 
 

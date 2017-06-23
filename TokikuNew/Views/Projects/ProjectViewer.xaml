@@ -9,7 +9,7 @@
              d:DesignHeight="768" d:DesignWidth="1024" Loaded="UserControl_Loaded"  >
     <Grid Background="{DynamicResource ControlBackgroundBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="36"/>
+            <RowDefinition Height="27"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" Grid.Column="0" Background="{DynamicResource WindowBackgroundBrush}">
@@ -26,17 +26,13 @@
             <MenuItem Header="玻璃"/>
             <MenuItem Header="鋁板"/>
             <MenuItem Header="鐵件"/>
-            <MenuItem Header="其他材料" VerticalAlignment="Center" FontSize="17"/>
-            <MenuItem HorizontalContentAlignment="Right" HorizontalAlignment="Right" Width="437" >
-                <MenuItem.Header>
-                    <Controls:DockBar VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="0" Margin="0" Grid.Column="1" Background="Transparent" />
-                </MenuItem.Header>
-            </MenuItem>
+            <MenuItem Header="其他材料" VerticalAlignment="Center" />
            
+
         </Menu>
         <TabControl Grid.Row="1" TabStripPlacement="Top" Name="InnerWorkspaces" Grid.ColumnSpan="2">
             <TabItem Header="專案主檔">
-                <local:ProjectManagerView x:Name="PMV" SelectedProject="{Binding}" Mode="Read"
+                <local:ProjectManagerView x:Name="PMV" SelectedProject="{Binding}" Mode="{Binding Path=Mode, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     LoginedUser="{Binding LoginedUser, ElementName=userControl}" />
             </TabItem>
             <TabItem Header="成本估算" Visibility="Collapsed">

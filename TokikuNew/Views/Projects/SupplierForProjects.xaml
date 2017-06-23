@@ -27,7 +27,7 @@
             <TextBlock Grid.Column="0" Grid.Row="0" Text="材料類別"  VerticalAlignment="Center" TextAlignment="Right" Margin="2"/>
             <ComboBox x:Name="CBMaterialCategories" Grid.Column="1" Grid.Row="0" Margin="2"
                              IsReadOnly="False"
-                             ItemsSource="{DynamicResource MaterialCategoriesSource}" SelectionChanged="CBMaterialCategories_SelectionChanged" IsEditable="True">
+                              ItemsSource="{DynamicResource MaterialCategoriesSource}" SelectionChanged="CBMaterialCategories_SelectionChanged" IsEditable="True">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}"/>
@@ -35,9 +35,25 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <TextBlock Grid.Column="2" Grid.Row="0" Text="交易品項"  VerticalAlignment="Center" TextAlignment="Right" Margin="2"/>
-
+            <ComboBox x:Name="CBTranscationBusiness" Grid.Column="3" Grid.Row="0" Margin="2"
+                              IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}"
+                              SelectionChanged="CBTranscationBusiness_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
             <TextBlock Grid.Column="0" Grid.Row="1" Text="廠商"  VerticalAlignment="Center" TextAlignment="Right" Margin="2"/>
-
+            <ComboBox x:Name="CBManufacturerList" Grid.Column="1" Grid.Row="1" Margin="2" 
+                              IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}"
+                              SelectionChanged="CBManufacturerList_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
             <TextBlock Grid.Column="2" Grid.Row="1" Text="票期"  VerticalAlignment="Center" TextAlignment="Right" Margin="2"/>
             <ComboBox x:Name="CBTicketPeriods" Grid.Column="3" Grid.Row="1" Margin="2"
                               IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}"
@@ -57,11 +73,10 @@
                                                  ItemsSource="{Binding}" SelectionChanged="BussinessItemsGrid_SelectionChanged">
                 <Controls:CustomDataGrid.Columns>
                     <DataGridTemplateColumn Header="材料類別" Width="100">
-                        <DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <ComboBox Margin="2" IsReadOnly="False"
-                                          ItemsSource="{DynamicResource MaterialCategoriesSource}" 
-                                          DisplayMemberPath="Name" 
+                                          ItemsSource="{DynamicResource MaterialCategoriesSource}" DisplayMemberPath="Name" 
                                           SelectedValuePath="Id"
                                           SelectedValue="{Binding MaterialCategoriesId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                           SelectionChanged="CBMaterialCategories_SelectionChanged" IsEditable="True">
@@ -72,42 +87,10 @@
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
                             </DataTemplate>
-                        </DataGridTemplateColumn.HeaderTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="交易品項">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <ComboBox x:Name="CBTranscationBusiness" Grid.Column="3" Grid.Row="0" Margin="2"
-                                          SelectedValuePath="Name"
-                                          SelectedItem="{Binding Name}"
-                                          IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}"
-                                          SelectionChanged="CBTranscationBusiness_SelectionChanged">
-                                    <ComboBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Name}"/>
-                                        </DataTemplate>
-                                    </ComboBox.ItemTemplate>
-                                </ComboBox>
-                            </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                   
-                    <DataGridComboBoxColumn Header="廠商" Width="200">
-                        <DataGridComboBoxColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <ComboBox x:Name="CBManufacturerList" Grid.Column="1" Grid.Row="1" Margin="2" 
-                                     SelectedIndex="0"
-                                      IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}"
-                                      SelectionChanged="CBManufacturerList_SelectionChanged">
-                                    <ComboBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Name}"/>
-                                        </DataTemplate>
-                                    </ComboBox.ItemTemplate>
-                                </ComboBox>
-                            </DataTemplate>
-                        </DataGridComboBoxColumn.HeaderTemplate>
-                    </DataGridComboBoxColumn>
+                    <DataGridTextColumn Header="交易品項" Binding="{Binding Name}" />
+                    <DataGridHyperlinkColumn Header="廠商" Width="100*" Binding="{Binding ManufacturersName}"/>
                     <DataGridTextColumn Header="票期" Binding="{Binding TicketPeriod}" />
                     <DataGridTextColumn Header="送貨地點" Binding="{Binding PlaceofReceipt}"/>
                 </Controls:CustomDataGrid.Columns>

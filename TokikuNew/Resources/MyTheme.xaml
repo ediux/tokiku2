@@ -170,10 +170,16 @@
     <Style TargetType="{x:Type TextBox}" x:Key="ReadModeSwitch" BasedOn="{StaticResource  {x:Type TextBox}}">
         <Setter Property="BorderBrush" Value="{DynamicResource TextControlBorderBrush}"/>
         <Style.Triggers>
-            <DataTrigger Binding="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=userControl}" Value="Read">
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Read">
                 <Setter Property="Visibility" Value="Collapsed"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=userControl}" Value="Update">
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Save">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Create">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Update">
                 <Setter Property="Visibility" Value="Visible"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Read">
@@ -186,10 +192,16 @@
     </Style>
     <Style TargetType="{x:Type ComboBox}" x:Key="ReadModeSwitch_ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
         <Style.Triggers>
-            <DataTrigger Binding="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=userControl}" Value="Read">
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Read">
                 <Setter Property="Visibility" Value="Collapsed"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=userControl}" Value="Update">
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Save">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Create">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Update">
                 <Setter Property="Visibility" Value="Visible"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Read">
@@ -204,6 +216,12 @@
         <Style.Triggers>
             <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Read">
                 <Setter Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Save">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Create">
+                <Setter Property="Visibility" Value="Visible"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Update">
                 <Setter Property="Visibility" Value="Visible"/>
@@ -220,6 +238,12 @@
         <Style.Triggers>
             <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Read">
                 <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Save">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Create">
+                <Setter Property="Visibility" Value="Collapsed"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Update">
                 <Setter Property="Visibility" Value="Collapsed"/>

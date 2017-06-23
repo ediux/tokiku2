@@ -60,6 +60,19 @@ namespace TokikuNew.Views
         }
         #endregion
 
+        #region DocumentModeChanged 事件
+
+        public static readonly RoutedEvent DocumentModeChangedEvent =
+            EventManager.RegisterRoutedEvent("DocumentModeChanged", RoutingStrategy.Tunnel, typeof(RoutedEventHandler), typeof(ProjectViewer));
+        /// <summary>
+        /// 新增文件模式變更的路由事件。
+        /// </summary>
+        public event RoutedEventHandler DocumentModeChanged
+        {
+            add { AddHandler(DocumentModeChangedEvent, value); }
+            remove { RemoveHandler(DocumentModeChangedEvent, value); }
+        }
+        #endregion
 
         public ProjectViewer()
         {
@@ -160,7 +173,7 @@ namespace TokikuNew.Views
                     if (e.OriginalSource != null && e.OriginalSource is ManufacturersViewModel)
                     {
                         var vm = new ManufacturersManageView() { Margin = new Thickness(0) };
-                      
+
                         vm.DataContext = SharedModel;
                         vm.LoginedUser = LoginedUser;
 
@@ -365,7 +378,7 @@ namespace TokikuNew.Views
                 if (!isExisted)
                 {
                     var vm = new BOMDataImportsView() { Margin = new Thickness(0) };
-                    
+
 
                     addWorkarea.Content = vm;
                     addWorkarea.Margin = new Thickness(0);
@@ -389,6 +402,45 @@ namespace TokikuNew.Views
         private void MI_Projects_BOMQuery_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void DockBar_DocumentModeChanged(object sender, RoutedEventArgs e)
+        {
+            //e.Handled = true;
+            //Mode = ((DockBar)sender).DocumentMode;
+            Mode = (DocumentLifeCircle)e.OriginalSource;
+
+            if (Mode == DocumentLifeCircle.Save)
+                Mode = DocumentLifeCircle.Read;
+            
+            //switch (Mode)
+            //{
+
+            //    case DocumentLifeCircle.Create:
+            //        //SelectedProject = new ProjectsViewModel(App.Resolve<ProjectsController>());
+
+            //        //SelectedProject.Initialized();
+            //        //SelectedProject.CreateUserId = LoginedUser.UserId;
+
+            //        //SelectedProject.Status.IsModify = false;
+            //        //SelectedProject.Status.IsSaved = false;
+            //        //SelectedProject.Status.IsNewInstance = true;
+
+            //        break;
+            //    case DocumentLifeCircle.Save:
+                   
+
+            //        //Mode = ((DockBar)e.OriginalSource).DocumentMode;
+            //        //RaiseEvent(new RoutedEventArgs(DockBar.DocumentModeChangedEvent, this));
+                  
+            //        break;
+            //    case DocumentLifeCircle.Update:
+            //        SelectedProject.Status.IsModify = false;
+            //        SelectedProject.Status.IsSaved = false;
+            //        SelectedProject.Status.IsNewInstance = false;
+            //        break;
+            //}
+            //RaiseEvent(new RoutedEventArgs(DocumentModeChangedEvent, e.OriginalSource));
         }
     }
 }

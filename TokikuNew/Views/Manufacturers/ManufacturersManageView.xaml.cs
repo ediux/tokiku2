@@ -73,60 +73,60 @@ namespace TokikuNew.Views
         {
             try
             {
-                Binding BindingDataContext = new Binding();
-                BindingDataContext.Source = DataContext;
+                //Binding BindingDataContext = new Binding();
+                //BindingDataContext.Source = DataContext;
 
-                SetBinding(SelectedManufacturersProperty, BindingDataContext);
-
-
-                //當不是新建模式 則查詢設為預設的聯絡人顯示
-                var maincontact = ((ManufacturersViewModel)DataContext).Contracts.Where(w => w.IsDefault == true).SingleOrDefault();
-                if (maincontact != null)
-                {
-                    ((ManufacturersViewModel)DataContext).MainContactPerson = maincontact.Name;
-                    ((ManufacturersViewModel)DataContext).Extension = maincontact.ExtensionNumber;
-                }
-                else
-                {
-                    ((ManufacturersViewModel)DataContext).MainContactPerson = string.Empty;
-                    ((ManufacturersViewModel)DataContext).Extension = string.Empty;
-                }
+                //SetBinding(SelectedManufacturersProperty, BindingDataContext);
 
 
-                //營業項目Sheet顯示
+                ////當不是新建模式 則查詢設為預設的聯絡人顯示
+                //var maincontact = ((ManufacturersViewModel)DataContext).Contracts.Where(w => w.IsDefault == true).SingleOrDefault();
+                //if (maincontact != null)
+                //{
+                //    ((ManufacturersViewModel)DataContext).MainContactPerson = maincontact.Name;
+                //    ((ManufacturersViewModel)DataContext).Extension = maincontact.ExtensionNumber;
+                //}
+                //else
+                //{
+                //    ((ManufacturersViewModel)DataContext).MainContactPerson = string.Empty;
+                //    ((ManufacturersViewModel)DataContext).Extension = string.Empty;
+                //}
 
-                //UI設定
-                BussinessItemSheet.StartSheetIndex = 0;
+
+                ////營業項目Sheet顯示
+
+                ////UI設定
+                //BussinessItemSheet.StartSheetIndex = 0;
                
 
 
-                //BussinessItemSheet.Sheets.Clear();
-                Worksheet BISheet = BussinessItemSheet.Sheets[0];
+                ////BussinessItemSheet.Sheets.Clear();
+                //Worksheet BISheet = BussinessItemSheet.Sheets[0];
 
-                BussinessItemSheet.Sheets[0].ColumnHeader.Columns[0].Label = "材料類別";
-                BussinessItemSheet.Sheets[0].ColumnHeader.Columns[0].DataField = "MaterialCategories";
-                BussinessItemSheet.Sheets[0].ColumnHeader.Columns[1].Label = "交易品項";
-                BussinessItemSheet.Sheets[0].ColumnHeader.Columns[1].DataField = "Name";
-                BussinessItemSheet.Sheets[0].ColumnHeader.Columns[2].Label = "交易類別";
-                BussinessItemSheet.Sheets[0].ColumnHeader.Columns[2].DataField = "TranscationCategories";
-                BussinessItemSheet.Sheets[0].ColumnHeader.Columns[3].Label = "支付方式";
-                BussinessItemSheet.Sheets[0].ColumnHeader.Columns[3].DataField = "PaymentTypeName";
-                BussinessItemSheet.Sheets[0].ColumnHeader.Columns[4].Label = "票期設定";
-                BussinessItemSheet.Sheets[0].ColumnHeader.Columns[4].DataField = "TicketPeriod";
+                //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[0].Label = "材料類別";
+                //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[0].DataField = "MaterialCategories";
+                //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[1].Label = "交易品項";
+                //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[1].DataField = "Name";
+                //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[2].Label = "交易類別";
+                //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[2].DataField = "TranscationCategories";
+                //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[3].Label = "支付方式";
+                //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[3].DataField = "PaymentTypeName";
+                //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[4].Label = "票期設定";
+                //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[4].DataField = "TicketPeriod";
 
-                if (SelectedManufacturers.ManufacturersBussinessItems.Any())
-                {
-                    for (int i = 0; i < SelectedManufacturers.ManufacturersBussinessItems.Count; i++)
-                    {
-                        BISheet.Rows[i].SetText(0, SelectedManufacturers.ManufacturersBussinessItems[i].MaterialCategories);
-                        BISheet.Rows[i].SetText(1, SelectedManufacturers.ManufacturersBussinessItems[i].Name);
-                        BISheet.Rows[i].SetText(2, SelectedManufacturers.ManufacturersBussinessItems[i].TranscationCategories);
-                        BISheet.Rows[i].SetText(3, SelectedManufacturers.ManufacturersBussinessItems[i].PaymentTypeName);
-                        BISheet.Rows[i].SetText(4, SelectedManufacturers.ManufacturersBussinessItems[i].TicketPeriod);
-                    }
-                }
+                //if (SelectedManufacturers.ManufacturersBussinessItems.Any())
+                //{
+                //    for (int i = 0; i < SelectedManufacturers.ManufacturersBussinessItems.Count; i++)
+                //    {
+                //        BISheet.Rows[i].SetText(0, SelectedManufacturers.ManufacturersBussinessItems[i].MaterialCategories);
+                //        BISheet.Rows[i].SetText(1, SelectedManufacturers.ManufacturersBussinessItems[i].Name);
+                //        BISheet.Rows[i].SetText(2, SelectedManufacturers.ManufacturersBussinessItems[i].TranscationCategories);
+                //        BISheet.Rows[i].SetText(3, SelectedManufacturers.ManufacturersBussinessItems[i].PaymentTypeName);
+                //        BISheet.Rows[i].SetText(4, SelectedManufacturers.ManufacturersBussinessItems[i].TicketPeriod);
+                //    }
+                //}
 
-                BussinessItemSheet.Invalidate();
+                //BussinessItemSheet.Invalidate();
                 //if (BussinessItemSheet.SheetCount > 0)
                 //{
                 //    BussinessItemSheet.Sheets[0].Name = "營業項目";
@@ -210,151 +210,151 @@ namespace TokikuNew.Views
 
         private void tbName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (tbName.Text.Length > 0)
-            {
-                tbShortName.Text = tbName.Text;
-                tbBankAccountName.Text = tbName.Text;
-            }
-            else
-            {
-                tbShortName.Text = string.Empty;
-            }
+            //if (tbName.Text.Length > 0)
+            //{
+            //    tbShortName.Text = tbName.Text;
+            //    tbBankAccountName.Text = tbName.Text;
+            //}
+            //else
+            //{
+            //    tbShortName.Text = string.Empty;
+            //}
         }
 
         private void DockBar_DocumentModeChanged(object sender, RoutedEventArgs e)
         {
             try
             {
-                e.Handled = true;
+                //e.Handled = true;
 
-                Mode = (DocumentLifeCircle)e.OriginalSource;
+                //Mode = (DocumentLifeCircle)e.OriginalSource;
 
-                switch (Mode)
-                {
-                    case DocumentLifeCircle.Create:
+                //switch (Mode)
+                //{
+                //    case DocumentLifeCircle.Create:
 
-                        DataContext = controller.CreateNew();
-                        //SelectedManufacturers = (ManufacturersViewModel)DataContext;
-                        SelectedManufacturers.CreateUserId = LoginedUser.UserId;
-                        if (SelectedManufacturers.HasError)
-                        {
-                            MessageBox.Show(string.Join("\n", SelectedManufacturers.Errors.ToArray()));
-                            SelectedManufacturers.Errors = null;
-                            dockBar.DocumentMode = DocumentLifeCircle.Read;
-                            break;
-                        }
-                        SelectedManufacturers.Status.IsModify = false;
-                        SelectedManufacturers.Status.IsSaved = false;
-                        SelectedManufacturers.Status.IsNewInstance = true;
+                //        DataContext = controller.CreateNew();
+                //        //SelectedManufacturers = (ManufacturersViewModel)DataContext;
+                //        SelectedManufacturers.CreateUserId = LoginedUser.UserId;
+                //        if (SelectedManufacturers.HasError)
+                //        {
+                //            MessageBox.Show(string.Join("\n", SelectedManufacturers.Errors.ToArray()));
+                //            SelectedManufacturers.Errors = null;
+                //            dockBar.DocumentMode = DocumentLifeCircle.Read;
+                //            break;
+                //        }
+                //        SelectedManufacturers.Status.IsModify = false;
+                //        SelectedManufacturers.Status.IsSaved = false;
+                //        SelectedManufacturers.Status.IsNewInstance = true;
 
-                        break;
-                    case DocumentLifeCircle.Save:
-                        if (SelectedManufacturers.CreateUserId == Guid.Empty)
-                        {
-                            SelectedManufacturers.CreateUserId = LoginedUser.UserId;
-                        }
+                //        break;
+                //    case DocumentLifeCircle.Save:
+                //        if (SelectedManufacturers.CreateUserId == Guid.Empty)
+                //        {
+                //            SelectedManufacturers.CreateUserId = LoginedUser.UserId;
+                //        }
 
-                        MaterialCategoriesViewModelCollection MaterialCategories = (MaterialCategoriesViewModelCollection)FindResource("MaterialCategoriesSource");
-                        TranscationCategoriesViewModelCollection TranscationCategories = (TranscationCategoriesViewModelCollection)FindResource("TranscationCategoriesSource");
-                        PaymentTypesManageViewModelCollection PaymentTypes = (PaymentTypesManageViewModelCollection)FindResource("PaymentTypesSource");
-                        TicketPeriodsViewModelCollection TicketPeriods = (TicketPeriodsViewModelCollection)FindResource("TicketPeriodsSource");
+                //        MaterialCategoriesViewModelCollection MaterialCategories = (MaterialCategoriesViewModelCollection)FindResource("MaterialCategoriesSource");
+                //        TranscationCategoriesViewModelCollection TranscationCategories = (TranscationCategoriesViewModelCollection)FindResource("TranscationCategoriesSource");
+                //        PaymentTypesManageViewModelCollection PaymentTypes = (PaymentTypesManageViewModelCollection)FindResource("PaymentTypesSource");
+                //        TicketPeriodsViewModelCollection TicketPeriods = (TicketPeriodsViewModelCollection)FindResource("TicketPeriodsSource");
 
-                        Worksheet BISheet = BussinessItemSheet.Sheets[0];
+                //        Worksheet BISheet = BussinessItemSheet.Sheets[0];
 
-                        ManufacturersBussinessItemsViewModelColletion CurrentSheet = new ManufacturersBussinessItemsViewModelColletion();
+                //        ManufacturersBussinessItemsViewModelColletion CurrentSheet = new ManufacturersBussinessItemsViewModelColletion();
 
-                        for (int i = 0; i < BussinessItemSheet.Sheets[0].RowCount; i++)
-                        {
-                            try
-                            {
-                                ManufacturersBussinessItemsViewModel entity = new ManufacturersBussinessItemsViewModel();
-                                entity.Id = Guid.NewGuid();
+                //        for (int i = 0; i < BussinessItemSheet.Sheets[0].RowCount; i++)
+                //        {
+                //            try
+                //            {
+                //                ManufacturersBussinessItemsViewModel entity = new ManufacturersBussinessItemsViewModel();
+                //                entity.Id = Guid.NewGuid();
 
-                                entity.ManufacturersId = SelectedManufacturers.Id;
+                //                entity.ManufacturersId = SelectedManufacturers.Id;
 
-                                string column_1 = BISheet.Rows[i].GetText(0);
-                                entity.MaterialCategories = column_1;
-                                entity.MaterialCategoriesId = MaterialCategories.Where(w => w.Name == column_1).Single().Id;
+                //                string column_1 = BISheet.Rows[i].GetText(0);
+                //                entity.MaterialCategories = column_1;
+                //                entity.MaterialCategoriesId = MaterialCategories.Where(w => w.Name == column_1).Single().Id;
 
-                                string column_2 = BISheet.Rows[i].GetText(1);
+                //                string column_2 = BISheet.Rows[i].GetText(1);
 
-                                entity.Name = column_2;
+                //                entity.Name = column_2;
 
-                                string column_3 = BISheet.Rows[i].GetText(2);
-                                entity.TranscationCategories = column_3;
-                                entity.TranscationCategoriesId = TranscationCategories.Where(w => w.Name == column_3).Single().Id;
+                //                string column_3 = BISheet.Rows[i].GetText(2);
+                //                entity.TranscationCategories = column_3;
+                //                entity.TranscationCategoriesId = TranscationCategories.Where(w => w.Name == column_3).Single().Id;
 
-                                string column_4 = BISheet.Rows[i].GetText(3);
-                                entity.PaymentTypeName = column_4;
-                                entity.PaymentTypeId = PaymentTypes.Where(w => w.PaymentTypeName == column_4).Single().Id;
+                //                string column_4 = BISheet.Rows[i].GetText(3);
+                //                entity.PaymentTypeName = column_4;
+                //                entity.PaymentTypeId = PaymentTypes.Where(w => w.PaymentTypeName == column_4).Single().Id;
 
-                                string column_5 = BISheet.Rows[i].GetText(4);
+                //                string column_5 = BISheet.Rows[i].GetText(4);
 
-                                entity.TicketPeriod = column_5;
-                                entity.TicketPeriodId = TicketPeriods.Where(w => w.Name == column_5).Single().Id;
+                //                entity.TicketPeriod = column_5;
+                //                entity.TicketPeriodId = TicketPeriods.Where(w => w.Name == column_5).Single().Id;
 
-                                var founditemset = SelectedManufacturers.ManufacturersBussinessItems
-                                    .Where(w => w.ManufacturersId == entity.ManufacturersId &&
-                                    w.MaterialCategories == entity.MaterialCategories
-                                    && w.Name == entity.Name && w.PaymentTypeName == entity.PaymentTypeName
-                                    && w.TicketPeriod == entity.TicketPeriod && w.TranscationCategories == entity.TranscationCategories);
+                //                var founditemset = SelectedManufacturers.ManufacturersBussinessItems
+                //                    .Where(w => w.ManufacturersId == entity.ManufacturersId &&
+                //                    w.MaterialCategories == entity.MaterialCategories
+                //                    && w.Name == entity.Name && w.PaymentTypeName == entity.PaymentTypeName
+                //                    && w.TicketPeriod == entity.TicketPeriod && w.TranscationCategories == entity.TranscationCategories);
 
-                                if (founditemset.Any())
-                                {
-                                    entity.Id = founditemset.Single().Id;
-                                }
+                //                if (founditemset.Any())
+                //                {
+                //                    entity.Id = founditemset.Single().Id;
+                //                }
 
-                                CurrentSheet.Add(entity);
-                            }
-                            catch
-                            {
-                                continue;
-                            }
-                        }
+                //                CurrentSheet.Add(entity);
+                //            }
+                //            catch
+                //            {
+                //                continue;
+                //            }
+                //        }
 
-                        var toAdd = CurrentSheet.Except(SelectedManufacturers.ManufacturersBussinessItems).ToList();
-                        var toDel = SelectedManufacturers.ManufacturersBussinessItems.Except(CurrentSheet).ToList();
+                //        var toAdd = CurrentSheet.Except(SelectedManufacturers.ManufacturersBussinessItems).ToList();
+                //        var toDel = SelectedManufacturers.ManufacturersBussinessItems.Except(CurrentSheet).ToList();
 
-                        foreach (var delitem in toDel)
-                        {
-                            SelectedManufacturers.ManufacturersBussinessItems.Remove(delitem);
-                        }
+                //        foreach (var delitem in toDel)
+                //        {
+                //            SelectedManufacturers.ManufacturersBussinessItems.Remove(delitem);
+                //        }
 
-                        foreach (var additem in toAdd)
-                        {
-                            SelectedManufacturers.ManufacturersBussinessItems.Add(additem);
-                        }
+                //        foreach (var additem in toAdd)
+                //        {
+                //            SelectedManufacturers.ManufacturersBussinessItems.Add(additem);
+                //        }
 
-                        ((ManufacturersViewModel)DataContext).SaveModel();
+                //        ((ManufacturersViewModel)DataContext).SaveModel();
 
-                        if (SelectedManufacturers.HasError)
-                        {
-                            MessageBox.Show(string.Join("\n", SelectedManufacturers.Errors.ToArray()));
-                            Mode = dockBar.LastState;
-                            SelectedManufacturers.Errors = null;
-                            //DataContext = controller.CreateNew();
-                            break;
-                        }
+                //        if (SelectedManufacturers.HasError)
+                //        {
+                //            MessageBox.Show(string.Join("\n", SelectedManufacturers.Errors.ToArray()));
+                //            Mode = dockBar.LastState;
+                //            SelectedManufacturers.Errors = null;
+                //            //DataContext = controller.CreateNew();
+                //            break;
+                //        }
 
-                        if (dockBar.LastState == DocumentLifeCircle.Create)
-                        {
-                            RaiseEvent(new RoutedEventArgs(ClosableTabItem.OnPageClosingEvent, this.Parent));
-                        }
+                //        if (dockBar.LastState == DocumentLifeCircle.Create)
+                //        {
+                //            RaiseEvent(new RoutedEventArgs(ClosableTabItem.OnPageClosingEvent, this.Parent));
+                //        }
 
-                        Mode = DocumentLifeCircle.Read;
+                //        Mode = DocumentLifeCircle.Read;
 
-                        SelectedManufacturers.Status.IsModify = false;
-                        SelectedManufacturers.Status.IsSaved = true;
-                        SelectedManufacturers.Status.IsNewInstance = false;
+                //        SelectedManufacturers.Status.IsModify = false;
+                //        SelectedManufacturers.Status.IsSaved = true;
+                //        SelectedManufacturers.Status.IsNewInstance = false;
 
-                        break;
-                    case DocumentLifeCircle.Update:
-                        SelectedManufacturers.Status.IsModify = false;
-                        SelectedManufacturers.Status.IsSaved = false;
-                        SelectedManufacturers.Status.IsNewInstance = false;
-                        break;
-                }
-                UpdateLayout();
+                //        break;
+                //    case DocumentLifeCircle.Update:
+                //        SelectedManufacturers.Status.IsModify = false;
+                //        SelectedManufacturers.Status.IsSaved = false;
+                //        SelectedManufacturers.Status.IsNewInstance = false;
+                //        break;
+                //}
+                //UpdateLayout();
             }
             catch (Exception ex)
             {
@@ -366,34 +366,34 @@ namespace TokikuNew.Views
         {
             try
             {
-                ManufacturersBussinessItemsViewModel newitem = new ManufacturersBussinessItemsViewModel();
-                newitem.Id = Guid.NewGuid();
-                newitem.ManufacturersId = SelectedManufacturers.Id;
-                newitem.MaterialCategoriesId = ((MaterialCategoriesViewModel)cbMaterialCategoriesList.SelectedItem).Id;
-                newitem.MaterialCategories = ((MaterialCategoriesViewModel)cbMaterialCategoriesList.SelectedItem).Name;
-                newitem.Name = tbTrancationItem.Text;
-                newitem.PaymentTypeId = (byte)cbPaymentTypeBI.SelectedValue;
-                newitem.PaymentTypeName = ((PaymentTypesManageViewModel)cbPaymentTypeBI.SelectedItem).PaymentTypeName;
-                newitem.TicketPeriodId = (int)cbTicketPeriodBI.SelectedValue;
-                newitem.TicketPeriod = ((TicketPeriodsViewModel)cbTicketPeriodBI.SelectedItem).Name;
-                newitem.TranscationCategoriesId = (int)cbTranscationCategories.SelectedValue;
-                newitem.TranscationCategories = ((TranscationCategoriesViewModel)cbTranscationCategories.SelectedItem).Name;
+                //ManufacturersBussinessItemsViewModel newitem = new ManufacturersBussinessItemsViewModel();
+                //newitem.Id = Guid.NewGuid();
+                //newitem.ManufacturersId = SelectedManufacturers.Id;
+                //newitem.MaterialCategoriesId = ((MaterialCategoriesViewModel)cbMaterialCategoriesList.SelectedItem).Id;
+                //newitem.MaterialCategories = ((MaterialCategoriesViewModel)cbMaterialCategoriesList.SelectedItem).Name;
+                //newitem.Name = tbTrancationItem.Text;
+                //newitem.PaymentTypeId = (byte)cbPaymentTypeBI.SelectedValue;
+                //newitem.PaymentTypeName = ((PaymentTypesManageViewModel)cbPaymentTypeBI.SelectedItem).PaymentTypeName;
+                //newitem.TicketPeriodId = (int)cbTicketPeriodBI.SelectedValue;
+                //newitem.TicketPeriod = ((TicketPeriodsViewModel)cbTicketPeriodBI.SelectedItem).Name;
+                //newitem.TranscationCategoriesId = (int)cbTranscationCategories.SelectedValue;
+                //newitem.TranscationCategories = ((TranscationCategoriesViewModel)cbTranscationCategories.SelectedItem).Name;
 
-                SelectedManufacturers.ManufacturersBussinessItems.Add(newitem);
+                //SelectedManufacturers.ManufacturersBussinessItems.Add(newitem);
 
-                if (SelectedManufacturers.ManufacturersBussinessItems.Any())
-                {
-                    Worksheet BISheet = BussinessItemSheet.Sheets[0];
+                //if (SelectedManufacturers.ManufacturersBussinessItems.Any())
+                //{
+                //    Worksheet BISheet = BussinessItemSheet.Sheets[0];
 
-                    for (int i = 0; i < SelectedManufacturers.ManufacturersBussinessItems.Count; i++)
-                    {
-                        BISheet.Rows[i].SetText(0, SelectedManufacturers.ManufacturersBussinessItems[i].MaterialCategories);
-                        BISheet.Rows[i].SetText(1, SelectedManufacturers.ManufacturersBussinessItems[i].Name);
-                        BISheet.Rows[i].SetText(2, SelectedManufacturers.ManufacturersBussinessItems[i].TranscationCategories);
-                        BISheet.Rows[i].SetText(3, SelectedManufacturers.ManufacturersBussinessItems[i].PaymentTypeName);
-                        BISheet.Rows[i].SetText(4, SelectedManufacturers.ManufacturersBussinessItems[i].TicketPeriod);
-                    }
-                }
+                //    for (int i = 0; i < SelectedManufacturers.ManufacturersBussinessItems.Count; i++)
+                //    {
+                //        BISheet.Rows[i].SetText(0, SelectedManufacturers.ManufacturersBussinessItems[i].MaterialCategories);
+                //        BISheet.Rows[i].SetText(1, SelectedManufacturers.ManufacturersBussinessItems[i].Name);
+                //        BISheet.Rows[i].SetText(2, SelectedManufacturers.ManufacturersBussinessItems[i].TranscationCategories);
+                //        BISheet.Rows[i].SetText(3, SelectedManufacturers.ManufacturersBussinessItems[i].PaymentTypeName);
+                //        BISheet.Rows[i].SetText(4, SelectedManufacturers.ManufacturersBussinessItems[i].TicketPeriod);
+                //    }
+                //}
             }
             catch (Exception ex)
             {
@@ -405,10 +405,10 @@ namespace TokikuNew.Views
         {
             try
             {
-                if (!tbInvoiceAddress.IsEnabled)
-                {
-                    tbInvoiceAddress.Text = tbAddress.Text;
-                }
+                //if (!tbInvoiceAddress.IsEnabled)
+                //{
+                //    tbInvoiceAddress.Text = tbAddress.Text;
+                //}
 
             }
             catch (Exception ex)
@@ -420,8 +420,8 @@ namespace TokikuNew.Views
 
         private void userControl_ManufacturersManageView_Initialized(object sender, EventArgs e)
         {
-            Dictionary<GrapeCity.Windows.SpreadSheet.UI.KeyStroke, GrapeCity.Windows.SpreadSheet.UI.SpreadAction> keyMap = BussinessItemSheet.View.KeyMap;
-            keyMap.Add(new GrapeCity.Windows.SpreadSheet.UI.KeyStroke(Key.F12, ModifierKeys.None), new GrapeCity.Windows.SpreadSheet.UI.SpreadAction(OnInsertSumFormula));
+            //Dictionary<GrapeCity.Windows.SpreadSheet.UI.KeyStroke, GrapeCity.Windows.SpreadSheet.UI.SpreadAction> keyMap = BussinessItemSheet.View.KeyMap;
+            //keyMap.Add(new GrapeCity.Windows.SpreadSheet.UI.KeyStroke(Key.F12, ModifierKeys.None), new GrapeCity.Windows.SpreadSheet.UI.SpreadAction(OnInsertSumFormula));
         }
     }
 }

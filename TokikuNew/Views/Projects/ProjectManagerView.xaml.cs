@@ -103,7 +103,7 @@ namespace TokikuNew.Views
                 }
 
                 AddHandler(ClientListView.SelectedClientChangedEvent, new RoutedEventHandler(UserControl_OnSelectionClientChanged));
-
+                AddHandler(DockBar.DocumentModeChangedEvent, new RoutedEventHandler(DockBar_DocumentModeChanged));
             }
             catch (Exception ex)
             {
@@ -228,8 +228,8 @@ namespace TokikuNew.Views
                             RaiseEvent(new RoutedEventArgs(ClosableTabItem.OnPageClosingEvent, this));
                         }
 
-                        Mode = DocumentLifeCircle.Read;
-
+                        //Mode = ((DockBar)e.OriginalSource).DocumentMode;
+                        //RaiseEvent(new RoutedEventArgs(DockBar.DocumentModeChangedEvent, this));
                         SelectedProject.Status.IsModify = false;
                         SelectedProject.Status.IsSaved = true;
                         SelectedProject.Status.IsNewInstance = false;
@@ -641,6 +641,21 @@ namespace TokikuNew.Views
             {
                 WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
             }
+
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnProcessAltas_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnEngItem_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }
