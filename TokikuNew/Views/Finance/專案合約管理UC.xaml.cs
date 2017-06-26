@@ -37,7 +37,7 @@ namespace TokikuNew.Views
 
         private void 專案合約管理UC_Loaded(object sender, RoutedEventArgs e)
         {
-            //UC.DataContext = new Tokiku.ViewModels.專案合約管理ViewModelCollection();
+            UC.DataContext = new Tokiku.ViewModels.PromissoryNoteManagementViewModelCollection();
         }
     }
 }

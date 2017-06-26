@@ -402,7 +402,6 @@
     <Compile Include="UsersRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewTables\本票管理Entity.cs" />
     <Compile Include="View_BussinessItemsList.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
