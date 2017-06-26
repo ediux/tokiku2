@@ -114,14 +114,18 @@ namespace TokikuNew.Views
 
                             if (contextObject.DataContext != null)
                             {
-                                BaseViewModel vmodel = (BaseViewModel)contextObject.DataContext;
-                                if (vmodel.Status.IsModify && vmodel.Status.IsSaved == false)
+                                if (contextObject.DataContext is BaseViewModel)
                                 {
-                                    if (MessageBox.Show("您尚未儲存，要繼續嗎?", "關閉前確認", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                                    BaseViewModel vmodel = (BaseViewModel)contextObject.DataContext;
+                                    if (vmodel.Status.IsModify && vmodel.Status.IsSaved == false)
                                     {
-                                        return;
+                                        if (MessageBox.Show("您尚未儲存，要繼續嗎?", "關閉前確認", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                                        {
+                                            return;
+                                        }
                                     }
                                 }
+
                             }
 
                             InnerWorkspaces.Items.Remove(currentworking);
@@ -173,11 +177,19 @@ namespace TokikuNew.Views
                     addWorkarea = new ClosableTabItem() { Header = Header };
                 }
 
-                if(e.OriginalSource is EngineeringViewModelCollection)
+                if (e.OriginalSource is EngineeringViewModelCollection)
                 {
-
+                    EngineeringViewModelCollection model = (EngineeringViewModelCollection)e.OriginalSource;
+                    SharedModel = model;
+                    Header = "工程項目";
+                    addWorkarea = new ClosableTabItem() { Header = Header };
                 }
 
+                if(e.OriginalSource is AssemblyTableView)
+                {
+                    Header = "組裝總表";
+                    addWorkarea = new ClosableTabItem() { Header = Header };
+                }
                 bool isExisted = false;
 
                 foreach (ClosableTabItem item in InnerWorkspaces.Items.OfType<ClosableTabItem>())
@@ -210,7 +222,6 @@ namespace TokikuNew.Views
                         return;
                     }
 
-
                     if (e.OriginalSource != null && e.OriginalSource is ProjectContractViewModel)
                     {
                         var vm = new ContractManager() { Margin = new Thickness(0) };
@@ -229,14 +240,13 @@ namespace TokikuNew.Views
                         return;
                     }
 
-
                     if (e.OriginalSource != null && e.OriginalSource is ConstructionAtlasViewModelCollection)
                     {
 
                         var vm = new ConstructionAtlasView() { Margin = new Thickness(0) };
                         if (SharedModel != null)
                             ((ConstructionAtlasViewModelCollection)e.OriginalSource).Query();
-                       
+
                         vm.DataContext = SharedModel;
                         vm.LoginedUser = LoginedUser;
 
@@ -251,7 +261,6 @@ namespace TokikuNew.Views
                         return;
                     }
 
-
                     if (e.OriginalSource != null && e.OriginalSource is ProcessingAtlasViewModelCollection)
                     {
 
@@ -262,6 +271,41 @@ namespace TokikuNew.Views
                         vm.LoginedUser = LoginedUser;
 
                         vm.Mode = DocumentLifeCircle.Read;
+
+                        //addWorkarea = new ClosableTabItem() { Header = Header };
+                        addWorkarea.Content = vm;
+                        addWorkarea.Margin = new Thickness(0);
+
+                        InnerWorkspaces.Items.Add(addWorkarea);
+                        InnerWorkspaces.SelectedItem = addWorkarea;
+                        return;
+                    }
+
+                    if (e.OriginalSource != null && e.OriginalSource is EngineeringViewModelCollection)
+                    {
+
+                        var vm = new ContractManager() { Margin = new Thickness(0) };
+                        if (SharedModel != null)
+                            ((EngineeringViewModelCollection)SharedModel).Query();
+
+                        vm.DataContext = SharedModel;
+                        vm.LoginedUser = LoginedUser;
+
+                        vm.Mode = DocumentLifeCircle.Read;
+
+                        //addWorkarea = new ClosableTabItem() { Header = Header };
+                        addWorkarea.Content = vm;
+                        addWorkarea.Margin = new Thickness(0);
+
+                        InnerWorkspaces.Items.Add(addWorkarea);
+                        InnerWorkspaces.SelectedItem = addWorkarea;
+                        return;
+                    }
+
+                    if(e.OriginalSource !=null && e.OriginalSource is AssemblyTableView)
+                    {
+                        var vm = new AssemblyTableView() { Margin = new Thickness(0) };
+                      
 
                         //addWorkarea = new ClosableTabItem() { Header = Header };
                         addWorkarea.Content = vm;
@@ -283,197 +327,7 @@ namespace TokikuNew.Views
             }
         }
 
-        private void MI_Projects_Order_1_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                e.Handled = true;
-
-                ClosableTabItem addWorkarea = null;
-                string Header = "鋁擠型訂製單";
-                addWorkarea = new ClosableTabItem() { Header = Header };
-
-
-                bool isExisted = false;
-
-                foreach (ClosableTabItem item in InnerWorkspaces.Items.OfType<ClosableTabItem>())
-                {
-                    if (item.Header.Equals(addWorkarea.Header))
-                    {
-                        isExisted = true;
-                        addWorkarea = item;
-                        break;
-                    }
-                }
-
-                if (!isExisted)
-                {
-                    var vm = new AluminumExtrusionOrderSheetView() { Margin = new Thickness(0) };
-
-                    addWorkarea.Content = vm;
-                    addWorkarea.Margin = new Thickness(0);
-
-                    Binding LoginedUserBinding = new Binding();
-                    LoginedUserBinding.Source = LoginedUser;
-
-                    vm.SetBinding(AluminumExtrusionOrderSheetView.LoginedUserProperty, LoginedUserBinding);
-
-                    InnerWorkspaces.Items.Add(addWorkarea);
-                    InnerWorkspaces.SelectedItem = addWorkarea;
-
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void MI_Projects_Order_2_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                e.Handled = true;
-
-                ClosableTabItem addWorkarea = null;
-                string Header = "鋁擠型請款單";
-                addWorkarea = new ClosableTabItem() { Header = Header };
-
-                bool isExisted = false;
-
-                foreach (ClosableTabItem item in InnerWorkspaces.Items.OfType<ClosableTabItem>())
-                {
-                    if (item.Header.Equals(addWorkarea.Header))
-                    {
-                        isExisted = true;
-                        addWorkarea = item;
-                        break;
-                    }
-                }
-
-                if (!isExisted)
-                {
-                    var vm = new InvoiceView() { Margin = new Thickness(0) };
-
-                    addWorkarea.Content = vm;
-                    addWorkarea.Margin = new Thickness(0);
-
-                    //Binding LoginedUserBinding = new Binding();
-                    //LoginedUserBinding.Source = LoginedUser;
-
-                    //vm.SetBinding(AluminumExtrusionOrderSheetView.LoginedUserProperty, LoginedUserBinding);
-
-                    InnerWorkspaces.Items.Add(addWorkarea);
-                    InnerWorkspaces.SelectedItem = addWorkarea;
-
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void MI_Projects_Order_3_Click(object sender, RoutedEventArgs e)
-        {
-            //RecvMaterialView
-            try
-            {
-                e.Handled = true;
-
-                ClosableTabItem addWorkarea = null;
-                string Header = "鋁擠型收料單";
-
-                addWorkarea = new ClosableTabItem() { Header = Header };
-
-                bool isExisted = false;
-
-                foreach (ClosableTabItem item in InnerWorkspaces.Items.OfType<ClosableTabItem>())
-                {
-                    if (item.Header.Equals(addWorkarea.Header))
-                    {
-                        isExisted = true;
-                        addWorkarea = item;
-                        break;
-                    }
-                }
-
-                if (!isExisted)
-                {
-
-                    var vm = new RecvMaterialView() { Margin = new Thickness(0) };
-
-                    addWorkarea.Content = vm;
-                    addWorkarea.Margin = new Thickness(0);
-
-                    //Binding LoginedUserBinding = new Binding();
-                    //LoginedUserBinding.Source = LoginedUser;
-
-                    //vm.SetBinding(AluminumExtrusionOrderSheetView.LoginedUserProperty, LoginedUserBinding);
-
-                    InnerWorkspaces.Items.Add(addWorkarea);
-                    InnerWorkspaces.SelectedItem = addWorkarea;
-
-                }
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void MI_Projects_BOMImports_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                e.Handled = true;
-
-                ClosableTabItem addWorkarea = null;
-                string Header = "用料需求資料匯入";
-                addWorkarea = new ClosableTabItem() { Header = Header };
-
-                bool isExisted = false;
-
-                foreach (ClosableTabItem item in InnerWorkspaces.Items.OfType<ClosableTabItem>())
-                {
-                    if (item.Header.Equals(addWorkarea.Header))
-                    {
-                        isExisted = true;
-                        addWorkarea = item;
-                        break;
-                    }
-                }
-
-                if (!isExisted)
-                {
-                    var vm = new BOMDataImportsView() { Margin = new Thickness(0) };
-
-
-                    addWorkarea.Content = vm;
-                    addWorkarea.Margin = new Thickness(0);
-
-                    Binding LoginedUserBinding = new Binding();
-                    LoginedUserBinding.Source = LoginedUser;
-
-                    vm.SetBinding(BOMDataImportsView.LoginedUserProperty, LoginedUserBinding);
-
-                    vm.CurrentProject = (ProjectsViewModel)DataContext;
-                    InnerWorkspaces.Items.Add(addWorkarea);
-                    InnerWorkspaces.SelectedItem = addWorkarea;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void MI_Projects_BOMQuery_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
+   
         private void DockBar_DocumentModeChanged(object sender, RoutedEventArgs e)
         {
             //e.Handled = true;

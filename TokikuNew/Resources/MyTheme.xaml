@@ -278,4 +278,20 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
+    <Style TargetType="Button" x:Key="ReadModeSwitch_Button" BasedOn="{StaticResource {x:Type Button}}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Read">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Save">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Create">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Update">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>
