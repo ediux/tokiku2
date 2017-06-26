@@ -112,6 +112,7 @@
                                  />
                         <TextBlock Grid.Row="6" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="系統開發設計：" />
                         <TextBox Grid.Row="6" Grid.Column="1" Margin="2" TextAlignment="Left" VerticalAlignment="Center" Text="{Binding SystemDesign, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{DynamicResource ReadModeSwitch}"
                                  IsReadOnly="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBlock Grid.Row="7" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="簽約日期：" />
                         <TextBlock Grid.Row="7" Grid.Column="1" Margin="1" Style="{DynamicResource ReadModeSwitch_TextBlock}" Text="{Binding ProjectSigningDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=\{0:yyyy/MM/dd\}}" />
@@ -193,7 +194,7 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <TextBlock Text="業主合約編號：" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"  Margin="1"/>
-                        <TextBox Grid.Column="1" Grid.Row="0"  Margin="2" Text="{Binding OwnerContractNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                        <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Column="1" Grid.Row="0"  Margin="2" Text="{Binding OwnerContractNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                  IsReadOnly="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock Text="客戶名稱(業主)：" Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"  Margin="2,5"/>
                         <Grid Grid.Row="1" Grid.Column="1">
@@ -206,16 +207,16 @@
                             <Button x:Name="btnClientDialog" Margin="2" Grid.Column="1" Content="&#xE10C;" FontFamily="/Resources/#Segoe MDL2 Assets" Click="btnClientDialog_Click" IsEnabled="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </Grid>
                         <TextBlock Text="業主顧問：" Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"  Margin="2,5" />
-                        <TextBox Grid.Row="2" Grid.Column="1" Margin="2" Text="{Binding OwnerAdvisor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                        <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="2" Grid.Column="1" Margin="2" Text="{Binding OwnerAdvisor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                              IsReadOnly="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBlock Grid.Row="3" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"  Text="建築師："  />
                         <TextBox Grid.Row="3" Grid.Column="1" Margin="2" Text="{Binding Architect, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                              IsReadOnly="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBlock Grid.Row="4" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"  Text="建築師顧問："  />
-                        <TextBox Grid.Row="4" Grid.Column="1" Margin="2" Text="{Binding ArchitectConsultant, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                        <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="4" Grid.Column="1" Margin="2" Text="{Binding ArchitectConsultant, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                              IsReadOnly="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBlock Text="營造廠：" Grid.Row="5" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"    />
-                        <TextBox Grid.Row="5" Grid.Column="1" Margin="2" Text="{Binding BuildingCompany, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                        <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="5" Grid.Column="1" Margin="2" Text="{Binding BuildingCompany, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                              IsReadOnly="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBlock Text="營造廠顧問：" Grid.Row="6" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"   />
                         <TextBox Grid.Row="6" Grid.Column="1"  Margin="2" Text="{Binding BuildingCompanyConsultant, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
