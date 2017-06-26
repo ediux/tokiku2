@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="1024">
+             d:DesignHeight="300" d:DesignWidth="1024" Loaded="修繕工程ViewUC_Loaded">
     <Grid>
         <GroupBox Header="修繕工程" VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="UC" Height="300" Width="1024">
             <DataGrid>

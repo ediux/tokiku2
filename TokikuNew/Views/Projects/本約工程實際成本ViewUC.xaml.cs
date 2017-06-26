@@ -24,5 +24,10 @@ namespace TokikuNew.Views
         {
             InitializeComponent();
         }
+
+        private void 本約工程實際成本ViewUC_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
