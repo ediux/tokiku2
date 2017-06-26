@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
-             xmlns:ss="http://schemas.grapecity.com/windows/spreadsheet/2012" xmlns:Controls="clr-namespace:TokikuNew.Controls" x:Class="TokikuNew.Views.PaymentTypesManageView"
+             xmlns:Controls="clr-namespace:TokikuNew.Controls" x:Class="TokikuNew.Views.PaymentTypesManageView"
              mc:Ignorable="d" 
              Background="{DynamicResource ResourceKey=ControlBackgroundBrush}"
              d:DesignHeight="768" d:DesignWidth="1024" Loaded="UserControl_Loaded">
@@ -26,11 +26,11 @@
             <Controls:SearchBar Grid.Column="2" Grid.ColumnSpan="3"/>
             <Button Content="&#xE109;" Grid.Column="6" Margin="1" FontFamily="/Resources/#Segoe MDL2 Assets" Name="btnNew" Click="btnNew_Click" ToolTip="新增" />
         </Grid>
-        <ss:GcSpreadSheet Grid.Row="1" Margin="2" SheetCount="1" StartSheetIndex="0" Name="PaymentTypesList" AutoClipboard="True">
+        <!--<ss:GcSpreadSheet Grid.Row="1" Margin="2" SheetCount="1" StartSheetIndex="0" Name="PaymentTypesList" AutoClipboard="True">
             <ss:GcSpreadSheet.Sheets>
                 <ss:Worksheet Name="支付方式" AutoGenerateColumns="False" />
             </ss:GcSpreadSheet.Sheets>
-        </ss:GcSpreadSheet>
+        </ss:GcSpreadSheet>-->
 
     </Grid>
 </UserControl>

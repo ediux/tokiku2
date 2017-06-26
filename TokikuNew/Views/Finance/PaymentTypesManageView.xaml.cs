@@ -34,13 +34,13 @@ namespace TokikuNew.Views
         {
             if (DataContext != null)
             {                
-                var sheet = PaymentTypesList.Sheets[0];
+                //var sheet = PaymentTypesList.Sheets[0];
 
-                if (sheet != null)
-                {
-                    sheet.AutoGenerateColumns = false;
+                //if (sheet != null)
+                //{
+                //    sheet.AutoGenerateColumns = false;
                     
-                }
+                //}
             }
         }
     }

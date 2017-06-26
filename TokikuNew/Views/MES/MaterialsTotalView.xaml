@@ -1,10 +1,10 @@
 ﻿<UserControl
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:TokikuNew.Views"
-             xmlns:Controls="clr-namespace:TokikuNew.Controls" xmlns:ss="http://schemas.grapecity.com/windows/spreadsheet/2012" x:Name="userControl" x:Class="TokikuNew.Views.MaterialsTotalView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Controls="clr-namespace:TokikuNew.Controls"
+    x:Name="userControl" x:Class="TokikuNew.Views.MaterialsTotalView"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024"
              Background="{DynamicResource ControlBackgroundBrush}" Loaded="UserControl_Loaded" Initialized="UserControl_Initialized">
@@ -22,6 +22,6 @@
             <Button x:Name="btnImport" Grid.Row="1" Grid.Column="2"  Width="50" Content="匯入" Margin="2" Click="btnImport_Click" />
             <Controls:SearchBar Grid.Row="1" Grid.Column="1" Margin="2"  Search="SearchBar_Search" />
         </Grid>
-        <ss:GcSpreadSheet x:Name="MoldsWorkBookImports" Margin="5" Grid.Row="1"  />
+        
     </Grid>
 </UserControl>

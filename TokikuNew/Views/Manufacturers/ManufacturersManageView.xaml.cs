@@ -1,13 +1,7 @@
-﻿using GrapeCity.Windows.SpreadSheet.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Input;
 using Tokiku.Controllers;
-using Tokiku.Entity;
 using Tokiku.ViewModels;
 using TokikuNew.Controls;
 using WinForm = System.Windows.Forms;
@@ -196,17 +190,7 @@ namespace TokikuNew.Views
 
         }
 
-        private void OnInsertSumFormula(object sender, GrapeCity.Windows.SpreadSheet.UI.ActionEventArgs args)
-        {
-          
-            //BussinessItemSheet.Sheets[0].AddRows(BussinessItemSheet.Sheets[0].RowCount, 1);
-
-            //for (int c = 0; c < 5; c++)
-            //{
-            //    BussinessItemSheet.Sheets[0].AddColumns(c, 1);
-            //}
-         
-        }
+    
 
         private void tbName_TextChanged(object sender, TextChangedEventArgs e)
         {

@@ -502,36 +502,36 @@ namespace Tokiku.ViewModels
             }
         }
 
-        public static void BindToGCSheet<T, TCollection>(TCollection source, GrapeCity.Windows.SpreadSheet.UI.GcSpreadSheet sheet) where T : IBaseViewModel where TCollection : BaseViewModelCollection<T>
-        {
-            if (sheet != null)
-            {
-                sheet.ActiveSheet.DataSource = source;
-                for (int x = 0; x < sheet.ActiveSheet.Columns.Count; x++)
-                {
-                    sheet.ActiveSheet.Columns[x].IsVisible = false;
-                }
+        //public static void BindToGCSheet<T, TCollection>(TCollection source, GrapeCity.Windows.SpreadSheet.UI.GcSpreadSheet sheet) where T : IBaseViewModel where TCollection : BaseViewModelCollection<T>
+        //{
+        //    if (sheet != null)
+        //    {
+        //        sheet.ActiveSheet.DataSource = source;
+        //        for (int x = 0; x < sheet.ActiveSheet.Columns.Count; x++)
+        //        {
+        //            sheet.ActiveSheet.Columns[x].IsVisible = false;
+        //        }
 
-                Type type = typeof(T);
-                var props = type.GetProperties();
-                if (props.Any())
-                {
-                    foreach (var prop in props)
-                    {
-                        DisplayAttribute dispalyattr = prop.PropertyType.GetCustomAttributes(true).OfType<DisplayAttribute>().SingleOrDefault();
+        //        Type type = typeof(T);
+        //        var props = type.GetProperties();
+        //        if (props.Any())
+        //        {
+        //            foreach (var prop in props)
+        //            {
+        //                DisplayAttribute dispalyattr = prop.PropertyType.GetCustomAttributes(true).OfType<DisplayAttribute>().SingleOrDefault();
 
-                        if (dispalyattr != null)
-                        {
-                            sheet.ActiveSheet.Columns[dispalyattr.Order].IsVisible = true;
-                            sheet.ActiveSheet.Columns[dispalyattr.Order].Label = dispalyattr.Name;
-                            //Grid.Columns[dispalyattr.Order].Header = dispalyattr.Name;
-                            //Grid.Columns[dispalyattr.Order].DisplayIndex = dispalyattr.Order;
-                            //Grid.Columns[dispalyattr.Order].Visibility = Visibility.Visible;
-                        }
-                    }
-                }
-            }
-        }
+        //                if (dispalyattr != null)
+        //                {
+        //                    sheet.ActiveSheet.Columns[dispalyattr.Order].IsVisible = true;
+        //                    sheet.ActiveSheet.Columns[dispalyattr.Order].Label = dispalyattr.Name;
+        //                    //Grid.Columns[dispalyattr.Order].Header = dispalyattr.Name;
+        //                    //Grid.Columns[dispalyattr.Order].DisplayIndex = dispalyattr.Order;
+        //                    //Grid.Columns[dispalyattr.Order].Visibility = Visibility.Visible;
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
     }
 }
 

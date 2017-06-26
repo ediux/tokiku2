@@ -87,65 +87,65 @@ namespace TokikuNew.Views
 
         private void btnImport_Click(object sender, RoutedEventArgs e)
         {
-            GrapeCity.Windows.SpreadSheet.UI.GcSpreadSheet sheet = new GrapeCity.Windows.SpreadSheet.UI.GcSpreadSheet();
+            //GrapeCity.Windows.SpreadSheet.UI.GcSpreadSheet sheet = new GrapeCity.Windows.SpreadSheet.UI.GcSpreadSheet();
 
-            Microsoft.Win32.OpenFileDialog opendialog = new Microsoft.Win32.OpenFileDialog();
-            var dialogresult = opendialog.ShowDialog();
-            if (dialogresult.HasValue && dialogresult.Value)
-            {
-                sheet.OpenExcel(opendialog.FileName);
-                //BaseViewModel.BindToGCSheet<BOMViewModel, BOMViewModelCollection>(BOMImports, sheet);
+            //Microsoft.Win32.OpenFileDialog opendialog = new Microsoft.Win32.OpenFileDialog();
+            //var dialogresult = opendialog.ShowDialog();
+            //if (dialogresult.HasValue && dialogresult.Value)
+            //{
+            //    sheet.OpenExcel(opendialog.FileName);
+            //    //BaseViewModel.BindToGCSheet<BOMViewModel, BOMViewModelCollection>(BOMImports, sheet);
 
-                if (sheet.Sheets.Count > 0)
-                {
-                    Type MType = typeof(BOMViewModel);
+            //    if (sheet.Sheets.Count > 0)
+            //    {
+            //        Type MType = typeof(BOMViewModel);
 
-                    var Props = MType.GetProperties()
-                        .Select(w => new
-                        {
-                            DisplayMapping = (DisplayAttribute)w.GetCustomAttributes(typeof(DisplayAttribute), true).SingleOrDefault(),
-                            Name = w.Name,
+            //        var Props = MType.GetProperties()
+            //            .Select(w => new
+            //            {
+            //                DisplayMapping = (DisplayAttribute)w.GetCustomAttributes(typeof(DisplayAttribute), true).SingleOrDefault(),
+            //                Name = w.Name,
 
-                        }).ToArray();
+            //            }).ToArray();
 
-                    for (int row = 1; row < sheet.ActiveSheet.Rows.Count; row++)
-                    {
-                        BOMViewModel model = new BOMViewModel();
+            //        for (int row = 1; row < sheet.ActiveSheet.Rows.Count; row++)
+            //        {
+            //            BOMViewModel model = new BOMViewModel();
 
-                        foreach (var prop in Props)
-                        {
-                            if (prop.DisplayMapping == null)
-                                continue;
+            //            foreach (var prop in Props)
+            //            {
+            //                if (prop.DisplayMapping == null)
+            //                    continue;
 
-                            for (int c = 0; c < sheet.ActiveSheet.Columns.Count; c++)
-                            {
-                                if (prop.DisplayMapping.Order == c)
-                                {
-                                    var value = sheet.ActiveSheet.GetText(row, c);
+            //                for (int c = 0; c < sheet.ActiveSheet.Columns.Count; c++)
+            //                {
+            //                    if (prop.DisplayMapping.Order == c)
+            //                    {
+            //                        var value = sheet.ActiveSheet.GetText(row, c);
 
-                                    if (string.IsNullOrEmpty(value))
-                                        continue;
+            //                        if (string.IsNullOrEmpty(value))
+            //                            continue;
 
-                                    Type FT = model.GetType();
-                                    var datafield = FT.GetProperty(prop.Name);
-                                    datafield.SetValue(model, Convert.ChangeType(value, datafield.PropertyType));
+            //                        Type FT = model.GetType();
+            //                        var datafield = FT.GetProperty(prop.Name);
+            //                        datafield.SetValue(model, Convert.ChangeType(value, datafield.PropertyType));
 
-                                }
-                            }
+            //                    }
+            //                }
 
-                        }
+            //            }
 
-                        BOMImports.Add(model);
-                    }
+            //            BOMImports.Add(model);
+            //        }
 
-                    BOMImports.SaveModel();
+            //        BOMImports.SaveModel();
 
-                    if (BOMImports.HasError)
-                    {
-                        MessageBox.Show(string.Join("\n", BOMImports.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                }
-            }
+            //        if (BOMImports.HasError)
+            //        {
+            //            MessageBox.Show(string.Join("\n", BOMImports.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+            //        }
+            //    }
+            //}
 
 
         }

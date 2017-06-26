@@ -156,7 +156,7 @@ namespace TokikuNew.Views
                     addWorkarea = new ClosableTabItem() { Header = Header };
                 }
 
-                if(e.OriginalSource is ConstructionAtlasViewModelCollection)
+                if (e.OriginalSource is ConstructionAtlasViewModelCollection)
                 {
                     ConstructionAtlasViewModelCollection model = (ConstructionAtlasViewModelCollection)e.OriginalSource;
                     SharedModel = model;
@@ -165,6 +165,18 @@ namespace TokikuNew.Views
 
                 }
 
+                if (e.OriginalSource is ProcessingAtlasViewModelCollection)
+                {
+                    ProcessingAtlasViewModelCollection model = (ProcessingAtlasViewModelCollection)e.OriginalSource;
+                    SharedModel = model;
+                    Header = "加工圖集";
+                    addWorkarea = new ClosableTabItem() { Header = Header };
+                }
+
+                if(e.OriginalSource is EngineeringViewModelCollection)
+                {
+
+                }
 
                 bool isExisted = false;
 
@@ -218,15 +230,16 @@ namespace TokikuNew.Views
                     }
 
 
-                    if(e.OriginalSource != null && e.OriginalSource is ConstructionAtlasViewModelCollection)
+                    if (e.OriginalSource != null && e.OriginalSource is ConstructionAtlasViewModelCollection)
                     {
 
                         var vm = new ConstructionAtlasView() { Margin = new Thickness(0) };
-                        ((ConstructionAtlasViewModelCollection)e.OriginalSource).Query();
-                        SharedModel = (ConstructionAtlasViewModelCollection)e.OriginalSource;
+                        if (SharedModel != null)
+                            ((ConstructionAtlasViewModelCollection)e.OriginalSource).Query();
+                       
                         vm.DataContext = SharedModel;
                         vm.LoginedUser = LoginedUser;
-                        
+
                         vm.Mode = DocumentLifeCircle.Read;
 
                         //addWorkarea = new ClosableTabItem() { Header = Header };
@@ -237,6 +250,31 @@ namespace TokikuNew.Views
                         InnerWorkspaces.SelectedItem = addWorkarea;
                         return;
                     }
+
+
+                    if (e.OriginalSource != null && e.OriginalSource is ProcessingAtlasViewModelCollection)
+                    {
+
+                        var vm = new ProcessingAtlasView() { Margin = new Thickness(0) };
+                        if (SharedModel != null)
+                            ((ProcessingAtlasViewModelCollection)SharedModel).Query();
+                        vm.DataContext = SharedModel;
+                        vm.LoginedUser = LoginedUser;
+
+                        vm.Mode = DocumentLifeCircle.Read;
+
+                        //addWorkarea = new ClosableTabItem() { Header = Header };
+                        addWorkarea.Content = vm;
+                        addWorkarea.Margin = new Thickness(0);
+
+                        InnerWorkspaces.Items.Add(addWorkarea);
+                        InnerWorkspaces.SelectedItem = addWorkarea;
+                        return;
+                    }
+                }
+                else
+                {
+                    InnerWorkspaces.SelectedItem = addWorkarea;
                 }
             }
             catch (Exception ex)
@@ -444,7 +482,7 @@ namespace TokikuNew.Views
 
             if (Mode == DocumentLifeCircle.Save)
                 Mode = DocumentLifeCircle.Read;
-            
+
             //switch (Mode)
             //{
 
@@ -460,11 +498,11 @@ namespace TokikuNew.Views
 
             //        break;
             //    case DocumentLifeCircle.Save:
-                   
+
 
             //        //Mode = ((DockBar)e.OriginalSource).DocumentMode;
             //        //RaiseEvent(new RoutedEventArgs(DockBar.DocumentModeChangedEvent, this));
-                  
+
             //        break;
             //    case DocumentLifeCircle.Update:
             //        SelectedProject.Status.IsModify = false;
