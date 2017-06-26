@@ -4,8 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:c="clr-namespace:TokikuNew.Controls"
-        xmlns:local="clr-namespace:TokikuNew"
-        xmlns:ss="http://schemas.grapecity.com/windows/spreadsheet/2012" x:Class="TokikuNew.InvoiceView"
+  x:Class="TokikuNew.InvoiceView"
         mc:Ignorable="d"
         Background="{DynamicResource ControlBackgroundBrush}"
         ToolTip="鋁擠型請款單" Height="756.849" Width="1024">
@@ -71,7 +70,7 @@
                     <StackPanel Margin="0,206,34,132" Width="104" HorizontalAlignment="Right">
                         <Button Content="拋     轉" Height="55"/>
                     </StackPanel>
-                    <ss:GcSpreadSheet HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="829" Name="gcMaterialList"/>
+                    <!--<ss:GcSpreadSheet HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="829" Name="gcMaterialList"/>-->
                 </Grid>
                 <!--<Grid Background="#FFE5E5E5">
                     <DataGrid Height="401" Margin="0,0,175,0" VerticalAlignment="Top">
@@ -116,7 +115,7 @@
                             <DataGridTextColumn Header="2016-10-12"/>
                         </DataGrid.Columns>
                     </DataGrid>-->
-                    <ss:GcSpreadSheet HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="996" Name="gcMaterialDetail"/>
+                    <!--<ss:GcSpreadSheet HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="996" Name="gcMaterialDetail"/>-->
                 </Grid>
 
             </TabItem>
@@ -132,7 +131,7 @@
                             <DataGridTextColumn Header="數量"/>
                         </DataGrid.Columns>
                     </DataGrid>-->
-                    <ss:GcSpreadSheet HorizontalAlignment="Left" VerticalAlignment="Top" Name="gcMaterialMoney"/>
+                    <!--<ss:GcSpreadSheet HorizontalAlignment="Left" VerticalAlignment="Top" Name="gcMaterialMoney"/>-->
                 </Grid>
             </TabItem>
             <TabItem Header="雜項款" Background="#FFF327A9" Margin="0,2,0,-2">
@@ -151,7 +150,7 @@
                             <DataGridTextColumn Header="本次請款"/>
                         </DataGrid.Columns>
                     </DataGrid>-->
-                    <ss:GcSpreadSheet HorizontalAlignment="Left" VerticalAlignment="Top" Name="gcOtherMoney"/>
+                    <!--<ss:GcSpreadSheet HorizontalAlignment="Left" VerticalAlignment="Top" Name="gcOtherMoney"/>-->
                 </Grid>
             </TabItem>
             <TabItem Header="保留款" Background="#FF099B3E">
@@ -165,7 +164,7 @@
                             <DataGridTextColumn Header="本次請款"/>
                         </DataGrid.Columns>
                     </DataGrid>-->
-                    <ss:GcSpreadSheet HorizontalAlignment="Left" VerticalAlignment="Top" Name="gcReserveMoney"/>
+                    <!--<ss:GcSpreadSheet HorizontalAlignment="Left" VerticalAlignment="Top" Name="gcReserveMoney"/>-->
                 </Grid>
             </TabItem>
             <TabItem Header="預付款" Background="#FFF56E2F">
@@ -177,10 +176,10 @@
                             <DataGridTextColumn Header="已沖銷金額"/>
                         </DataGrid.Columns>
                     </DataGrid>-->
-                    <ss:GcSpreadSheet HorizontalAlignment="Left" VerticalAlignment="Top" Name="gcPrepayments"/>
+                    <!--<ss:GcSpreadSheet HorizontalAlignment="Left" VerticalAlignment="Top" Name="gcPrepayments"/>-->
                 </Grid>
             </TabItem>
-            <ss:GcSpreadSheet Height="100" Width="100"/>
+            <!--<ss:GcSpreadSheet Height="100" Width="100"/>-->
         </TabControl>
         <Grid HorizontalAlignment="Left" Height="46" Margin="5,681,0,0" VerticalAlignment="Top" Width="1011">
             <Button Content="顯示總計" Height="36" VerticalAlignment="Bottom" Width="75" Margin="5,0,0,0" HorizontalAlignment="Left" HorizontalContentAlignment="Center"/>

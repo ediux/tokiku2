@@ -658,7 +658,7 @@ namespace TokikuNew.Views
         {
             try
             {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, ((Button)sender).DataContext));
+                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, ((ProjectContractViewModel)((Button)sender).DataContext).Engineerings));
             }
             catch (Exception ex)
             {
