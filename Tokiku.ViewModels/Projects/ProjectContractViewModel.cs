@@ -313,7 +313,7 @@ namespace Tokiku.ViewModels
 
         #region PromissoryNoteManagement
         /// <summary>
-        /// 本票管理
+        /// 專案合約管理
         /// </summary>
         public PromissoryNoteManagementViewModelCollection PromissoryNoteManagement
         {

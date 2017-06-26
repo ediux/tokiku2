@@ -11,11 +11,12 @@ namespace Tokiku.Controllers
     public class PromissoryNoteManagementViewModelController : BaseController
     {
         public string sql;
-
+        /*
         public ExecuteResultEntity<ICollection<本票管理Entity>> QuerAll()
         {
             return null;
         }
+        // */
 
     }
 }
