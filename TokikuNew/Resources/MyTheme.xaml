@@ -175,10 +175,11 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate>
-                            <TextBlock Text="{Binding}"/>
+                            <TextBlock Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}"/>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
+                <Setter Property="IsReadOnly" Value="True" />
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Save">
                 <Setter Property="Visibility" Value="Collapsed"/>
@@ -188,11 +189,6 @@
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Update">
                 <Setter Property="Visibility" Value="Visible"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Read">
-                <Setter Property="IsReadOnly" Value="True" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Update">
                 <Setter Property="IsReadOnly" Value="False" />
             </DataTrigger>
         </Style.Triggers>
@@ -275,6 +271,34 @@
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Update">
                 <Setter Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="Button" x:Key="ReadModeSwitch_Button" BasedOn="{StaticResource {x:Type Button}}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Read">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Save">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Create">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Update">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=DocumentMode,ElementName=userControl}" Value="Read">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=DocumentMode,ElementName=userControl}" Value="Save">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=DocumentMode,ElementName=userControl}" Value="Create">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=DocumentMode,ElementName=userControl}" Value="Update">
+                <Setter Property="Visibility" Value="Visible"/>
             </DataTrigger>
         </Style.Triggers>
     </Style>

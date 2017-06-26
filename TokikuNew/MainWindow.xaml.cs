@@ -606,7 +606,7 @@ namespace TokikuNew
             }
         }
 
-        private void 專案合約管理_Click(object sender, RoutedEventArgs e)
+        private void PromissoryNoteManagement_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -627,7 +627,7 @@ namespace TokikuNew
                 // 內容
                 if (!isExisted)
                 {
-                    var vm = new 專案合約管理UC() { Margin = new Thickness(0) };
+                    var vm = new PromissoryNoteManagementUC() { Margin = new Thickness(0) };
                     addWorkarea.Content = vm;
                     Workspaces.Items.Add(addWorkarea);
                 }

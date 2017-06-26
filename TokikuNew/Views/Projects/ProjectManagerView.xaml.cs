@@ -651,7 +651,15 @@ namespace TokikuNew.Views
 
         private void btnProcessAltas_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, ((ProjectContractViewModel)((Button)sender).DataContext).ProcessingAtlas));
+            }
+            catch (Exception ex)
+            {
 
+                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
+            }
         }
 
         private void btnEngItem_Click(object sender, RoutedEventArgs e)
@@ -682,7 +690,16 @@ namespace TokikuNew.Views
 
         private void BtnAssemblyTable_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                //目前專案的管控總表(需求/組裝總表)
+                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, new AssemblyTableView()));
+            }
+            catch (Exception ex)
+            {
 
+                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
+            }
         }
     }
 }

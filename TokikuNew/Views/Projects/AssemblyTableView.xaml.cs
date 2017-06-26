@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace TokikuNew.Views
 {
     /// <summary>
-    /// 修繕工程實際成本ViewUC.xaml 的互動邏輯
+    /// AssemblyTableView.xaml 的互動邏輯
     /// </summary>
-    public partial class 修繕工程實際成本ViewUC : UserControl
+    public partial class AssemblyTableView : UserControl
     {
-        public 修繕工程實際成本ViewUC()
+        public AssemblyTableView()
         {
             InitializeComponent();
-        }
-
-        private void 修繕工程實際成本ViewUC_Loaded(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

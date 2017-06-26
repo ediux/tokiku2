@@ -98,5 +98,221 @@ namespace TokikuNew.Views
             //var s = (ProcessingAtlasViewModelCollection)com2.ItemsSource;
             //s = new ProcessingAtlasViewModelCollection(s.OrderBy(p => p.Order).ToList());
         }
+
+        private void MI_Projects_Order_1_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                e.Handled = true;
+
+                ClosableTabItem addWorkarea = null;
+                string Header = "鋁擠型訂製單";
+                addWorkarea = new ClosableTabItem() { Header = Header };
+
+
+                bool isExisted = false;
+
+                //foreach (ClosableTabItem item in InnerWorkspaces.Items.OfType<ClosableTabItem>())
+                //{
+                //    if (item.Header.Equals(addWorkarea.Header))
+                //    {
+                //        isExisted = true;
+                //        addWorkarea = item;
+                //        break;
+                //    }
+                //}
+
+                //if (!isExisted)
+                //{
+                //    var vm = new AluminumExtrusionOrderSheetView() { Margin = new Thickness(0) };
+
+                //    addWorkarea.Content = vm;
+                //    addWorkarea.Margin = new Thickness(0);
+
+                //    Binding LoginedUserBinding = new Binding();
+                //    LoginedUserBinding.Source = LoginedUser;
+
+                //    vm.SetBinding(AluminumExtrusionOrderSheetView.LoginedUserProperty, LoginedUserBinding);
+
+                //    InnerWorkspaces.Items.Add(addWorkarea);
+                //    InnerWorkspaces.SelectedItem = addWorkarea;
+
+                //}
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void MI_Projects_Order_2_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                e.Handled = true;
+
+                ClosableTabItem addWorkarea = null;
+                string Header = "鋁擠型請款單";
+                addWorkarea = new ClosableTabItem() { Header = Header };
+
+                bool isExisted = false;
+
+                //foreach (ClosableTabItem item in InnerWorkspaces.Items.OfType<ClosableTabItem>())
+                //{
+                //    if (item.Header.Equals(addWorkarea.Header))
+                //    {
+                //        isExisted = true;
+                //        addWorkarea = item;
+                //        break;
+                //    }
+                //}
+
+                //if (!isExisted)
+                //{
+                //    var vm = new InvoiceView() { Margin = new Thickness(0) };
+
+                //    addWorkarea.Content = vm;
+                //    addWorkarea.Margin = new Thickness(0);
+
+                //    //Binding LoginedUserBinding = new Binding();
+                //    //LoginedUserBinding.Source = LoginedUser;
+
+                //    //vm.SetBinding(AluminumExtrusionOrderSheetView.LoginedUserProperty, LoginedUserBinding);
+
+                //    InnerWorkspaces.Items.Add(addWorkarea);
+                //    InnerWorkspaces.SelectedItem = addWorkarea;
+
+                //}
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void MI_Projects_Order_3_Click(object sender, RoutedEventArgs e)
+        {
+            //RecvMaterialView
+            try
+            {
+                e.Handled = true;
+
+                ClosableTabItem addWorkarea = null;
+                string Header = "鋁擠型收料單";
+
+                addWorkarea = new ClosableTabItem() { Header = Header };
+
+                bool isExisted = false;
+
+                //foreach (ClosableTabItem item in InnerWorkspaces.Items.OfType<ClosableTabItem>())
+                //{
+                //    if (item.Header.Equals(addWorkarea.Header))
+                //    {
+                //        isExisted = true;
+                //        addWorkarea = item;
+                //        break;
+                //    }
+                //}
+
+                //if (!isExisted)
+                //{
+
+                //    var vm = new RecvMaterialView() { Margin = new Thickness(0) };
+
+                //    addWorkarea.Content = vm;
+                //    addWorkarea.Margin = new Thickness(0);
+
+                //    //Binding LoginedUserBinding = new Binding();
+                //    //LoginedUserBinding.Source = LoginedUser;
+
+                //    //vm.SetBinding(AluminumExtrusionOrderSheetView.LoginedUserProperty, LoginedUserBinding);
+
+                //    InnerWorkspaces.Items.Add(addWorkarea);
+                //    InnerWorkspaces.SelectedItem = addWorkarea;
+
+                //}
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void MI_Projects_BOMImports_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                e.Handled = true;
+
+                ClosableTabItem addWorkarea = null;
+                string Header = "用料需求資料匯入";
+                addWorkarea = new ClosableTabItem() { Header = Header };
+
+                bool isExisted = false;
+
+                //foreach (ClosableTabItem item in InnerWorkspaces.Items.OfType<ClosableTabItem>())
+                //{
+                //    if (item.Header.Equals(addWorkarea.Header))
+                //    {
+                //        isExisted = true;
+                //        addWorkarea = item;
+                //        break;
+                //    }
+                //}
+
+                //if (!isExisted)
+                //{
+                //    var vm = new BOMDataImportsView() { Margin = new Thickness(0) };
+
+
+                //    addWorkarea.Content = vm;
+                //    addWorkarea.Margin = new Thickness(0);
+
+                //    Binding LoginedUserBinding = new Binding();
+                //    LoginedUserBinding.Source = LoginedUser;
+
+                //    vm.SetBinding(BOMDataImportsView.LoginedUserProperty, LoginedUserBinding);
+
+                //    vm.CurrentProject = (ProjectsViewModel)DataContext;
+                //    InnerWorkspaces.Items.Add(addWorkarea);
+                //    InnerWorkspaces.SelectedItem = addWorkarea;
+                //}
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void MI_Projects_BOMQuery_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnAluminumExtrusion_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnGlass_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnAluminumPlate_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnIronPieces_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnOthers_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
