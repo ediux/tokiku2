@@ -27,7 +27,7 @@ namespace TokikuNew.Views
 
         private void 本約工程ViewUC_Loaded(object sender, RoutedEventArgs e)
         {
-
+            //UC.DataContext = new Tokiku.ViewModels.本約工程ViewModelCollection();
         }
     }
 }

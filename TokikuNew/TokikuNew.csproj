@@ -176,8 +176,8 @@
     <Compile Include="Views\Projects\SupplierForProjects.xaml.cs">
       <DependentUpon>SupplierForProjects.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Finance\本票管理UC.xaml.cs">
-      <DependentUpon>本票管理UC.xaml</DependentUpon>
+    <Compile Include="Views\Finance\專案合約管理UC.xaml.cs">
+      <DependentUpon>專案合約管理UC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Projects\追加工程ViewUC.xaml.cs">
       <DependentUpon>追加工程ViewUC.xaml</DependentUpon>
@@ -373,7 +373,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Finance\本票管理UC.xaml">
+    <Page Include="Views\Finance\專案合約管理UC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

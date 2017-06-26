@@ -606,12 +606,12 @@ namespace TokikuNew
             }
         }
 
-        private void 本票管理_Click(object sender, RoutedEventArgs e)
+        private void 專案合約管理_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 ClosableTabItem addWorkarea = new ClosableTabItem();
-                addWorkarea.Header = "本票管理";
+                addWorkarea.Header = "專案合約管理";
 
                 bool isExisted = false;
                 // 檢查是否重複開啟
@@ -627,292 +627,12 @@ namespace TokikuNew
                 // 內容
                 if (!isExisted)
                 {
-                    var vm = new 本票管理UC() { Margin = new Thickness(0) };
+                    var vm = new 專案合約管理UC() { Margin = new Thickness(0) };
                     addWorkarea.Content = vm;
                     Workspaces.Items.Add(addWorkarea);
                 }
 
                 Workspaces.SelectedItem = addWorkarea; // 指定當前顯示頁
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void 本約工程_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                ClosableTabItem addWorkarea = new ClosableTabItem();
-                addWorkarea.Header = "本約工程";
-
-                bool isExisted = false;
-                // 檢查是否重複開啟
-                foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
-                {
-                    if (item.Header.Equals(addWorkarea.Header))
-                    {
-                        isExisted = true;
-                        addWorkarea = item;
-                        break;
-                    }
-                }
-                // 內容
-                if (!isExisted)
-                {
-                    var vm = new 本約工程ViewUC() { Margin = new Thickness(0) };
-                    addWorkarea.Content = vm;
-                    Workspaces.Items.Add(addWorkarea);
-                }
-
-                Workspaces.SelectedItem = addWorkarea; // 指定當前顯示頁
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void 追加工程_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                ClosableTabItem addWorkarea = new ClosableTabItem();
-                addWorkarea.Header = "追加工程";
-
-                bool isExisted = false;
-                // 檢查是否重複開啟
-                foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
-                {
-                    if (item.Header.Equals(addWorkarea.Header))
-                    {
-                        isExisted = true;
-                        addWorkarea = item;
-                        break;
-                    }
-                }
-                // 內容
-                if (!isExisted)
-                {
-                    var vm = new 追加工程ViewUC() { Margin = new Thickness(0) };
-                    addWorkarea.Content = vm;
-                    Workspaces.Items.Add(addWorkarea);
-                }
-
-                Workspaces.SelectedItem = addWorkarea; // 指定當前顯示頁
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void 修繕工程_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                ClosableTabItem addWorkarea = new ClosableTabItem();
-                addWorkarea.Header = "修繕工程";
-
-                bool isExisted = false;
-                // 檢查是否重複開啟
-                foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
-                {
-                    if (item.Header.Equals(addWorkarea.Header))
-                    {
-                        isExisted = true;
-                        addWorkarea = item;
-                        break;
-                    }
-                }
-                // 內容
-                if (!isExisted)
-                {
-                    var vm = new 修繕工程ViewUC() { Margin = new Thickness(0) };
-                    addWorkarea.Content = vm;
-                    Workspaces.Items.Add(addWorkarea);
-                }
-
-                Workspaces.SelectedItem = addWorkarea; // 指定當前顯示頁
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void 本約工程標單項目_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                ClosableTabItem addWorkarea = new ClosableTabItem();
-                addWorkarea.Header = "本約工程標單項目";
-
-                bool isExisted = false;
-                // 檢查是否重複開啟
-                foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
-                {
-                    if (item.Header.Equals(addWorkarea.Header))
-                    {
-                        isExisted = true;
-                        addWorkarea = item;
-                        break;
-                    }
-                }
-                // 內容
-                if (!isExisted)
-                {
-                    var vm = new 本約工程標單項目ViewUC() { Margin = new Thickness(0) };
-                    addWorkarea.Content = vm;
-                    Workspaces.Items.Add(addWorkarea);
-                }
-
-                Workspaces.SelectedItem = addWorkarea; // 指定當前顯示頁
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void 本約工程實際成本_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                ClosableTabItem addWorkarea = new ClosableTabItem();
-                addWorkarea.Header = "本約工程實際成本";
-
-                bool isExisted = false;
-                // 檢查是否重複開啟
-                foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
-                {
-                    if (item.Header.Equals(addWorkarea.Header))
-                    {
-                        isExisted = true;
-                        addWorkarea = item;
-                        break;
-                    }
-                }
-                // 內容
-                if (!isExisted)
-                {
-                    var vm = new 本約工程實際成本ViewUC() { Margin = new Thickness(0) };
-                    addWorkarea.Content = vm;
-                    Workspaces.Items.Add(addWorkarea);
-                }
-
-                Workspaces.SelectedItem = addWorkarea; // 指定當前顯示頁
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void 追加工程標單項目_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                ClosableTabItem addWorkarea = new ClosableTabItem();
-                addWorkarea.Header = "追加工程標單項目";
-
-                bool isExisted = false;
-                // 檢查是否重複開啟
-                foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
-                {
-                    if (item.Header.Equals(addWorkarea.Header))
-                    {
-                        isExisted = true;
-                        addWorkarea = item;
-                        break;
-                    }
-                }
-                // 內容
-                if (!isExisted)
-                {
-                    var vm = new 追加工程標單項目ViewUC() { Margin = new Thickness(0) };
-                    addWorkarea.Content = vm;
-                    Workspaces.Items.Add(addWorkarea);
-                }
-
-                Workspaces.SelectedItem = addWorkarea; // 指定當前顯示頁
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void 追加工程實際成本_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                ClosableTabItem addWorkarea = new ClosableTabItem();
-                addWorkarea.Header = "追加工程實際成本";
-
-                bool isExisted = false;
-                // 檢查是否重複開啟
-                foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
-                {
-                    if (item.Header.Equals(addWorkarea.Header))
-                    {
-                        isExisted = true;
-                        addWorkarea = item;
-                        break;
-                    }
-                }
-                // 內容
-                if (!isExisted)
-                {
-                    var vm = new 追加工程實際成本ViewUC() { Margin = new Thickness(0) };
-                    addWorkarea.Content = vm;
-                    Workspaces.Items.Add(addWorkarea);
-                }
-
-                Workspaces.SelectedItem = addWorkarea; // 指定當前顯示頁
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void 修繕工程實際成本_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                ClosableTabItem addWorkarea = new ClosableTabItem();
-                addWorkarea.Header = "修繕工程實際成本";
-
-                bool isExisted = false;
-                // 檢查是否重複開啟
-                foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
-                {
-                    if (item.Header.Equals(addWorkarea.Header))
-                    {
-                        isExisted = true;
-                        addWorkarea = item;
-                        break;
-                    }
-                }
-                // 內容
-                if (!isExisted)
-                {
-                    var vm = new 修繕工程實際成本ViewUC() { Margin = new Thickness(0) };
-                    addWorkarea.Content = vm;
-                    Workspaces.Items.Add(addWorkarea);
-                }
-
-                Workspaces.SelectedItem = addWorkarea; // 指定當前顯示頁
-
             }
             catch (Exception ex)
             {
@@ -933,6 +653,6 @@ namespace TokikuNew
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        
     }
 }
