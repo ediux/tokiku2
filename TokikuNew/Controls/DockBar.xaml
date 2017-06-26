@@ -23,7 +23,7 @@
         </Button>
         <Button Margin="2" Width="27" Name="btnF8" FontSize="15" Content="&#xE2F6;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="列印" Click="btnF8_Click" Command="Print" >
         </Button>
-        <Button Margin="2" Width="27" Name="btnF9" FontSize="15" Content="&#xE106;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="取消" Click="btnF9_Click" >
+        <Button Margin="2" Width="27" Name="btnF9" FontSize="15" Content="&#xE106;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="取消" Click="btnF9_Click" Style="{DynamicResource ReadModeSwitch_Button}" >
         </Button>
     </StackPanel>
 </UserControl>
