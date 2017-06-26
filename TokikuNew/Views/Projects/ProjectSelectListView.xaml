@@ -30,15 +30,15 @@
             </Grid>
         </Grid>
         <controls:CustomDataGrid x:Name="ProjectList" Grid.Row="1" Margin="5" ItemsSource="{Binding}" 
-                                 FontSize="15"
-                                 AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto" 
+                                 FontSize="30" MinRowHeight="80" CellStyle="{StaticResource DataGrid_Centering}"
+                                 AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto"
                                  CanUserAddRows="False"
                                  CanUserDeleteRows="False"
                                  IsReadOnly="True"
                                  MouseDoubleClick="ProjectList_MouseDoubleClick"
                                  AllowExecuteSystemCommand="False">
             <DataGrid.Columns>
-                <DataGridHyperlinkColumn Header="專案代號" Binding="{Binding Code}" Width="auto" />
+                <DataGridTextColumn Header="專案代號" Binding="{Binding Code}" Width="auto" />
                 <DataGridTextColumn Header="專案名稱" Binding="{Binding Name}" Width="auto" />
                 <DataGridTextColumn Header="起造日期" Width="auto" Binding="{Binding StartDate,StringFormat={}{0:yyyy/MM/dd}}"/>
                 <DataGridTextColumn Header="完工日期" Width="auto" Binding="{Binding CompletionDate,StringFormat={}{0:yyyy/MM/dd}}" />
