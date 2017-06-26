@@ -72,25 +72,9 @@
                                                  IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}"
                                                  ItemsSource="{Binding}" SelectionChanged="BussinessItemsGrid_SelectionChanged">
                 <Controls:CustomDataGrid.Columns>
-                    <DataGridTemplateColumn Header="材料類別" Width="100">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <ComboBox Margin="2" IsReadOnly="False"
-                                          ItemsSource="{DynamicResource MaterialCategoriesSource}" DisplayMemberPath="Name" 
-                                          SelectedValuePath="Id"
-                                          SelectedValue="{Binding MaterialCategoriesId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                          SelectionChanged="CBMaterialCategories_SelectionChanged" IsEditable="True">
-                                    <ComboBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Name}"/>
-                                        </DataTemplate>
-                                    </ComboBox.ItemTemplate>
-                                </ComboBox>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="材料類別" Width="auto" Binding="{Binding MaterialCategories,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                     <DataGridTextColumn Header="交易品項" Binding="{Binding Name}" />
-                    <DataGridHyperlinkColumn Header="廠商" Width="100*" Binding="{Binding ManufacturersName}"/>
+                    <DataGridHyperlinkColumn Header="廠商" Width="auto" Binding="{Binding ManufacturersName}"/>
                     <DataGridTextColumn Header="票期" Binding="{Binding TicketPeriod}" />
                     <DataGridTextColumn Header="送貨地點" Binding="{Binding PlaceofReceipt}"/>
                 </Controls:CustomDataGrid.Columns>

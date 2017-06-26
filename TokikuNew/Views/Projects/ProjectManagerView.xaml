@@ -7,14 +7,15 @@
     xmlns:local="clr-namespace:TokikuNew.Views"
     x:Name="userControl" x:Class="TokikuNew.Views.ProjectManagerView"
              mc:Ignorable="d" 
-             d:DesignHeight="768" d:DesignWidth="1024" Loaded="UserControl_Loaded" 
+             d:DesignHeight="768" d:DesignWidth="1366" Loaded="UserControl_Loaded" 
              Initialized="userControl_Initialized" >
     <Grid Background="{DynamicResource ControlBackgroundBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition/>
+           
             <RowDefinition Height="27"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50*"/>
                 <ColumnDefinition Width="50*"/>
@@ -86,15 +87,15 @@
                                         <TextBlock Text="地上" VerticalAlignment="Center" />
                                         <TextBox Style="{DynamicResource ReadModeSwitch}" MinWidth="30" Margin="2" Text="{Binding BuildingHeightAboveground, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                               />
-                                        <TextBlock Style="{DynamicResource ReadModeSwitch_TextBlock}" MinWidth="30" Margin="2" Text="{Binding BuildingHeightAboveground, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                        <TextBlock Style="{DynamicResource ReadModeSwitch_TextBlock}" Margin="2" Text="{Binding BuildingHeightAboveground, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                              />
                                         <TextBlock Text="層" VerticalAlignment="Center" />
                                     </StackPanel>
                                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                                         <TextBlock Text="地下" VerticalAlignment="Center" />
                                         <TextBox  MinWidth="30" Margin="2" Text="{Binding BuildingHeightUnderground, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                             IsReadOnly="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                        <TextBlock Style="{DynamicResource ReadModeSwitch_TextBlock}" MinWidth="30" Margin="2" Text="{Binding BuildingHeightUnderground, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            Style="{DynamicResource ReadModeSwitch}"/>
+                                        <TextBlock Style="{DynamicResource ReadModeSwitch_TextBlock}" Margin="2" Text="{Binding BuildingHeightUnderground, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                                         <TextBlock Text="層" VerticalAlignment="Center" />
                                     </StackPanel>
@@ -109,15 +110,13 @@
                             <TextBox Grid.Row="6" Grid.Column="1" Margin="2" TextAlignment="Left" VerticalAlignment="Center" Text="{Binding SystemDesign, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  IsReadOnly="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             <TextBlock Grid.Row="7" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="簽約日期：" />
-                            <TextBlock Grid.Row="7" Grid.Column="1" Margin="1" Style="{DynamicResource ReadModeSwitch_TextBlock}" Text="{Binding ProjectSigningDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Grid.Row="7" Grid.Column="1" Margin="1" Style="{DynamicResource ReadModeSwitch_TextBlock}" Text="{Binding ProjectSigningDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=\{0:yyyy/MM/dd\}}" />
                             <DatePicker x:Name="ProjectSigningDate" Grid.Row="7" Grid.Column="1" Margin="1" Text="{Binding ProjectSigningDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                         Style="{DynamicResource ReadModeSwitch_DatePicker}"
                                         IsEnabled="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedDateChanged="ProjectSigningDate_SelectedDateChanged"/>
                             <TextBlock Text="起造日期：" Grid.Row="8" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" />
-                            <DatePicker x:Name="StartDate" Grid.Row="8" Grid.Column="1" Margin="1"  Text="{Binding StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=\{0:yyyy年MM月dd日\}}" Style="{DynamicResource ReadModeSwitch_DatePicker}">
-
-
-                            </DatePicker>
+                            <TextBlock  Grid.Row="8" Grid.Column="1" Margin="1" Text="{Binding StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=\{0:yyyy/MM/dd\}}" Style="{DynamicResource ReadModeSwitch_TextBlock}"/>
+                            <DatePicker x:Name="StartDate" Grid.Row="8" Grid.Column="1" Margin="1"  Text="{Binding StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=\{0:yyyy年MM月dd日\}}" Style="{DynamicResource ReadModeSwitch_DatePicker}"/>
                             <TextBlock Text="完工日期：" Grid.Row="9" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" />
                             <DatePicker x:Name="CompletionDate" Grid.Row="9" Grid.Column="1" Margin="1"  Text="{Binding CompletionDate, Mode=TwoWay, StringFormat=\{0:yyyy/MM/dd\}, UpdateSourceTrigger=PropertyChanged}" 
                                      IsEnabled="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=\{0:yyy/MM/dd\}}"/>
@@ -229,8 +228,8 @@
                             <TextBlock Grid.Row="12" Grid.Column="1" Text="{Binding LoginedUser.UserName, ElementName=userControl}" VerticalAlignment="Center" />
                             <TextBlock Grid.Row="13" Grid.Column="0" Text="異動日期：" VerticalAlignment="Center" HorizontalAlignment="Right" />
                             <TextBlock Grid.Row="13" Grid.Column="1" Text="{Binding LastUpdate, StringFormat=\{0:yyyy/MM/dd\}}" VerticalAlignment="Center" />
-                            <Button Content="施工圖集" Grid.Row="15" Grid.Column="1" Margin="2"/>
-                            <Button Content="組裝總表" Grid.Row="16" Grid.Column="1" Margin="2"/>
+                            <Button x:Name="btnConstructionAtlasView" Content="施工圖集" Grid.Row="15" Grid.Column="1" Margin="2" Click="btnConstructionAtlasView_Click"/>
+                            <Button x:Name="BtnAssemblyTable" Content="組裝總表" Grid.Row="16" Grid.Column="1" Margin="2" Click="BtnAssemblyTable_Click"/>
 
                             <TextBlock Grid.Row="8" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Margin="0,0,0,0" Text="備註："  Height="18"/>
                             <TextBox Grid.Row="8" Grid.Column="1" Grid.RowSpan="2" Margin="2,2,2,2.5" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
@@ -246,8 +245,7 @@
                     <RowDefinition Height="50*" />
                 </Grid.RowDefinitions>
 
-                <GroupBox Header="合約列表" Grid.Row="1" Grid.Column="0" 
-                      Margin="5">
+                <GroupBox Header="合約列表" Grid.Row="1" Grid.Column="0" Margin="5">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="20"/>
@@ -291,10 +289,10 @@
                         </Controls:CustomDataGrid>
                     </Grid>
                 </GroupBox>
-                <local:SupplierForProjects HorizontalAlignment="Left" Grid.Row="0" DataContext="{Binding Suppliers}"/>
+                <local:SupplierForProjects Grid.Row="0" DataContext="{Binding Suppliers}"/>
             </Grid>
         </Grid>
-        <Controls:DockBar Grid.Row="1" DocumentModeChanged="DockBar_DocumentModeChanged" DocumentMode="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=userControl}"/>
+        <Controls:DockBar Grid.Row="0" Background="Transparent" HorizontalAlignment="Right" DocumentModeChanged="DockBar_DocumentModeChanged" DocumentMode="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=userControl}"/>
 
     </Grid>
 </UserControl>

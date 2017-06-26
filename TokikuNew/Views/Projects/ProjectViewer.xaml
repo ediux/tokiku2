@@ -27,8 +27,6 @@
             <MenuItem Header="鋁板"/>
             <MenuItem Header="鐵件"/>
             <MenuItem Header="其他材料" VerticalAlignment="Center" />
-           
-
         </Menu>
         <TabControl Grid.Row="1" TabStripPlacement="Top" Name="InnerWorkspaces" Grid.ColumnSpan="2">
             <TabItem Header="專案主檔">

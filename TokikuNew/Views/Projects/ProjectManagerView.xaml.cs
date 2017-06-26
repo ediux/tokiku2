@@ -271,7 +271,12 @@ namespace TokikuNew.Views
         {
             try
             {
-
+                if (e.OriginalSource is ProjectContractViewModel)
+                {
+                    ProjectContractViewModel disableContract = (ProjectContractViewModel)e.OriginalSource;
+                    //projectcontroll.Delete(disableContract);
+                    UpdateLayout();
+                }
             }
             catch (Exception ex)
             {
@@ -279,12 +284,7 @@ namespace TokikuNew.Views
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
 
-            if (e.OriginalSource is ProjectContractViewModel)
-            {
-                ProjectContractViewModel disableContract = (ProjectContractViewModel)e.OriginalSource;
-                //projectcontroll.Delete(disableContract);
-                UpdateLayout();
-            }
+
         }
 
         private void btnShowClientSelection_Click(object sender, RoutedEventArgs e)
@@ -655,6 +655,24 @@ namespace TokikuNew.Views
         }
 
         private void btnEngItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnConstructionAtlasView_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, SelectedProject.ConstructionAtlas));
+            }
+            catch (Exception ex)
+            {
+
+                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
+            }
+        }
+
+        private void BtnAssemblyTable_Click(object sender, RoutedEventArgs e)
         {
 
         }

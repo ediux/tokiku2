@@ -81,7 +81,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\SwitchField.xaml.cs">
+      <DependentUpon>SwitchField.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\ClipboardHelper.cs" />
+    <Compile Include="Helpers\SwitchFieldMode.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
     <Compile Include="ValueConverters\ReplyContentValueConverter.cs" />
     <Compile Include="Views\BOMDataImportsView.xaml.cs">
@@ -212,6 +216,10 @@
     <Compile Include="Views\Projects\修繕工程工程項目ViewUC.xaml.cs">
       <DependentUpon>修繕工程工程項目ViewUC.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\SwitchField.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\BOMDataImportsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

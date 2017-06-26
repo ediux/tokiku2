@@ -156,6 +156,16 @@ namespace TokikuNew.Views
                     addWorkarea = new ClosableTabItem() { Header = Header };
                 }
 
+                if(e.OriginalSource is ConstructionAtlasViewModelCollection)
+                {
+                    ConstructionAtlasViewModelCollection model = (ConstructionAtlasViewModelCollection)e.OriginalSource;
+                    SharedModel = model;
+                    Header = "施工圖集";
+                    addWorkarea = new ClosableTabItem() { Header = Header };
+
+                }
+
+
                 bool isExisted = false;
 
                 foreach (ClosableTabItem item in InnerWorkspaces.Items.OfType<ClosableTabItem>())
@@ -179,6 +189,7 @@ namespace TokikuNew.Views
 
                         vm.Mode = DocumentLifeCircle.Read;
 
+                        addWorkarea = new ClosableTabItem() { Header = Header };
                         addWorkarea.Content = vm;
                         addWorkarea.Margin = new Thickness(0);
 
@@ -197,6 +208,7 @@ namespace TokikuNew.Views
 
                         vm.Mode = DocumentLifeCircle.Read;
 
+                        addWorkarea = new ClosableTabItem() { Header = Header };
                         addWorkarea.Content = vm;
                         addWorkarea.Margin = new Thickness(0);
 
@@ -205,6 +217,26 @@ namespace TokikuNew.Views
                         return;
                     }
 
+
+                    if(e.OriginalSource != null && e.OriginalSource is ConstructionAtlasViewModelCollection)
+                    {
+
+                        var vm = new ConstructionAtlasView() { Margin = new Thickness(0) };
+                        ((ConstructionAtlasViewModelCollection)e.OriginalSource).Query();
+                        SharedModel = (ConstructionAtlasViewModelCollection)e.OriginalSource;
+                        vm.DataContext = SharedModel;
+                        vm.LoginedUser = LoginedUser;
+                        
+                        vm.Mode = DocumentLifeCircle.Read;
+
+                        //addWorkarea = new ClosableTabItem() { Header = Header };
+                        addWorkarea.Content = vm;
+                        addWorkarea.Margin = new Thickness(0);
+
+                        InnerWorkspaces.Items.Add(addWorkarea);
+                        InnerWorkspaces.SelectedItem = addWorkarea;
+                        return;
+                    }
                 }
             }
             catch (Exception ex)
