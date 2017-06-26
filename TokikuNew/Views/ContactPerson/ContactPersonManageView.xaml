@@ -19,7 +19,7 @@
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" Text="搜尋" VerticalAlignment="Center" HorizontalAlignment="Right" />
         <c:SearchBar x:Name="ContractSearchBar" Grid.Column="1" Grid.Row="0" ResetSearch="ContractSearchBar_ResetSearch" Search="ContractSearchBar_Search" />
-        <c:CustomDataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" 
+        <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" 
                                       CanUserAddRows="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl}" 
                                       CanUserDeleteRows="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl}" 
                                       AutoGenerateColumns="False" 
@@ -44,6 +44,6 @@
                 <DataGridTextColumn Header="部門" Binding="{Binding Dep}" Width="auto" />
                 <DataGridTextColumn Header="職稱" Binding="{Binding Title}" Width="auto" />
             </DataGrid.Columns>
-        </c:CustomDataGrid>
+        </DataGrid>
     </Grid>
 </UserControl>

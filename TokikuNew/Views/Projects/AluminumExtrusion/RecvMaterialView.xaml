@@ -83,7 +83,7 @@
             <c:DockBar x:Name="dockBar" Grid.Row="1" DocumentMode="Read"/>
         </Grid>
         <Grid HorizontalAlignment="Left" Height="301" Margin="10,174,0,0" VerticalAlignment="Top" Width="1006">
-            <!--<ss:GcSpreadSheet HorizontalAlignment="Left" VerticalAlignment="Top" Name="gcRecvMaterial"/>-->
+          
         </Grid>
 
 
