@@ -24,5 +24,10 @@ namespace TokikuNew.Views
         {
             InitializeComponent();
         }
+
+        private void 追加工程標單項目ViewUC_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

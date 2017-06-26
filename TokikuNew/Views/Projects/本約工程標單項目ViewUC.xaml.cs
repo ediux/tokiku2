@@ -24,5 +24,10 @@ namespace TokikuNew.Views
         {
             InitializeComponent();
         }
+
+        private void 本約工程標單項目ViewUC_Loaded(object sender, RoutedEventArgs e)
+        {
+            // UC.DataContext = new Tokiku.ViewModels.本約工程標單項目ViewModelCollection();
+        }
     }
 }
