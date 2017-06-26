@@ -26,11 +26,7 @@
             <Controls:SearchBar Grid.Column="2" Grid.ColumnSpan="3"/>
             <Button Content="&#xE109;" Grid.Column="6" Margin="1" FontFamily="/Resources/#Segoe MDL2 Assets" Name="btnNew" Click="btnNew_Click" ToolTip="新增" />
         </Grid>
-        <!--<ss:GcSpreadSheet Grid.Row="1" Margin="2" SheetCount="1" StartSheetIndex="0" Name="PaymentTypesList" AutoClipboard="True">
-            <ss:GcSpreadSheet.Sheets>
-                <ss:Worksheet Name="支付方式" AutoGenerateColumns="False" />
-            </ss:GcSpreadSheet.Sheets>
-        </ss:GcSpreadSheet>-->
+
 
     </Grid>
 </UserControl>

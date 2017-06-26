@@ -274,11 +274,7 @@
                         <Button x:Name="btnAddMBI" Content="新增" VerticalAlignment="Center" Margin="2" Grid.Row="2" Grid.Column="3" Click="btnAddMBI_Click"
                               IsEnabled="{Binding Mode, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 />
-                        <!--<ss:GcSpreadSheet Name="BussinessItemSheet" Grid.Row="3" VerticalAlignment="Top" Margin="0" Grid.ColumnSpan="11"
-                                          StartSheetIndex="0" AutoClipboard="True" AllowDrop="True" CanEditOverflow="True" 
-                                          IsEnabled="{Binding Mode, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
-                        </ss:GcSpreadSheet>-->
                     </Grid>
                 </GroupBox>
                 <GroupBox Header="交易紀錄" Grid.Row="1" Margin="5" Grid.RowSpan="2">
