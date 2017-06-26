@@ -176,20 +176,21 @@ namespace TokikuNew.Views
             }
         }
 
-        private void CustomDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
+        //private void CustomDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        //{
 
-        }
+        //}
 
-        private void CustomDataGrid_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
-        {
+        //private void CustomDataGrid_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
+        //{
 
-        }
+        //}
 
         private void EngCaseList_Selected(object sender, MouseButtonEventArgs e)
         {
             //選擇合約項目
             SelectedEngineering = (EngineeringViewModel)EngCaseList.SelectedItem;
+
             if (SelectedEngineering != null)
             {
                 //SelectedEngineering = controller.Query(q => q.Id == SelectedEngineering.Id);

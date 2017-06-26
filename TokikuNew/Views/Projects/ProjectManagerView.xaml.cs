@@ -169,7 +169,7 @@ namespace TokikuNew.Views
         {
             try
             {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, this));
+                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, ((Button)sender).DataContext));
             }
             catch (Exception ex)
             {
@@ -656,7 +656,15 @@ namespace TokikuNew.Views
 
         private void btnEngItem_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, ((Button)sender).DataContext));
+            }
+            catch (Exception ex)
+            {
 
+                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
+            }
         }
 
         private void btnConstructionAtlasView_Click(object sender, RoutedEventArgs e)

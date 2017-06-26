@@ -188,13 +188,6 @@
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Update">
                 <Setter Property="Visibility" Value="Visible"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate>
-                            <TextBlock Text="{Binding}"/>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Read">
                 <Setter Property="IsReadOnly" Value="True" />

@@ -9,17 +9,14 @@
              d:DesignHeight="768" d:DesignWidth="1024" Background="{DynamicResource ControlBackgroundBrush}"
              Loaded="UserControl_Loaded">
     <Grid>
+
         <Grid.RowDefinitions>
+            <RowDefinition Height="27"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="48"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="128*"/>
-                <RowDefinition Height="128*"/>
-            </Grid.RowDefinitions>
-            <GroupBox Grid.Column="0" Grid.Row="0"  Grid.ColumnSpan="2" Margin="5" Header="合約項目(工程項目)">
-                <Controls:CustomDataGrid Margin="5" VerticalAlignment="Stretch" 
+        <Controls:DockBar x:Name="dockBar"  Grid.Row="0" DocumentMode="{Binding Path=Mode}" DocumentModeChanged="DockBar_DocumentModeChanged" />
+        <GroupBox Grid.Column="0" Grid.Row="1"  Grid.ColumnSpan="2" Margin="5" Header="合約項目(工程項目)">
+            <Controls:CustomDataGrid Margin="5" VerticalAlignment="Stretch" 
                                          AllowExecuteSystemCommand="True"
                                          AutoGenerateColumns="False"
                                          CanUserAddRows="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,  ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl}"
@@ -28,22 +25,17 @@
                                          IsReadOnly="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}"
                                          x:Name="EngCaseList"
                                          MouseDoubleClick="EngCaseList_Selected">
-                    <Controls:CustomDataGrid.Columns>
-                        <DataGridTextColumn Header=""/>
-                        <DataGridTextColumn Header="工程代碼" Binding="{Binding Code}"/>
-                        <DataGridTextColumn Header="工程名稱" Binding="{Binding Name}"/>
-                        <DataGridTextColumn Header="起造日期" Binding="{Binding StartDate,StringFormat={}{0:yyyy/MM/dd}}"/>
-                        <DataGridTextColumn Header="完工日期" Binding="{Binding CompletionDate,StringFormat={}{0:yyyy/MM/dd}}"/>
-                        <DataGridTextColumn Header="保固到期日" Binding="{Binding WarrantyDate,StringFormat={}{0:yyyy/MM/dd}}"/>
-                        <DataGridTextColumn Header="建築師" Binding="{Binding Architect}"/>
-                        <DataGridTextColumn Header="狀態" Binding="{Binding State, Converter={StaticResource StatesCodeToTextValueConverter}}"/>
-                    </Controls:CustomDataGrid.Columns>
-                </Controls:CustomDataGrid>
-            </GroupBox>
-            <local:ConstructionAtlasView Grid.Row="1" Grid.Column="0" DataContext="{Binding ConstructionAtlas}" Mode="{Binding DocumentMode, ElementName=dockBar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" LoginedUser="{Binding LoginedUser, ElementName=userControl}"  CurrentProjectContract="{Binding DataContext, ElementName=userControl}" />
-           
-        </Grid>
-        <Controls:DockBar x:Name="dockBar"  Grid.Row="1" DocumentMode="{Binding Path=Mode}" DocumentModeChanged="DockBar_DocumentModeChanged" />
-
+                <Controls:CustomDataGrid.Columns>
+                    <DataGridTextColumn Header=""/>
+                    <DataGridTextColumn Header="工程代碼" Binding="{Binding Code}"/>
+                    <DataGridTextColumn Header="工程名稱" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="起造日期" Binding="{Binding StartDate,StringFormat={}{0:yyyy/MM/dd}}"/>
+                    <DataGridTextColumn Header="完工日期" Binding="{Binding CompletionDate,StringFormat={}{0:yyyy/MM/dd}}"/>
+                    <DataGridTextColumn Header="保固到期日" Binding="{Binding WarrantyDate,StringFormat={}{0:yyyy/MM/dd}}"/>
+                    <DataGridTextColumn Header="建築師" Binding="{Binding Architect}"/>
+                    <DataGridTextColumn Header="狀態" Binding="{Binding State, Converter={StaticResource StatesCodeToTextValueConverter}}"/>
+                </Controls:CustomDataGrid.Columns>
+            </Controls:CustomDataGrid>
+        </GroupBox>
     </Grid>
 </UserControl>
