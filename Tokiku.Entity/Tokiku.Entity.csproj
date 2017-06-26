@@ -429,6 +429,7 @@
     <Compile Include="WorkShopsRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewTables\PromissoryNoteManagementEntity.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Tokiku.edmx">

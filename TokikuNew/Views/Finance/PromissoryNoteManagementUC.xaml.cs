@@ -18,9 +18,9 @@ namespace TokikuNew.Views
     /// <summary>
     /// 本票管理UC.xaml 的互動邏輯
     /// </summary>
-    public partial class 專案合約管理UC : UserControl
+    public partial class PromissoryNoteManagementUC : UserControl
     {
-        public 專案合約管理UC()
+        public PromissoryNoteManagementUC()
         {
             InitializeComponent();
         }
@@ -35,7 +35,7 @@ namespace TokikuNew.Views
 
         }
 
-        private void 專案合約管理UC_Loaded(object sender, RoutedEventArgs e)
+        private void PromissoryNoteManagementUC_Loaded(object sender, RoutedEventArgs e)
         {
             UC.DataContext = new Tokiku.ViewModels.PromissoryNoteManagementViewModelCollection();
         }

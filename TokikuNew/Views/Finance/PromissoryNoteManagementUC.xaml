@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="TokikuNew.Views.專案合約管理UC"
+﻿<UserControl x:Class="TokikuNew.Views.PromissoryNoteManagementUC"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:TokikuNew.Views"
              xmlns:Controls="clr-namespace:TokikuNew.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="768" d:DesignWidth="1024" Loaded="專案合約管理UC_Loaded">
+             d:DesignHeight="768" d:DesignWidth="1024" Loaded="PromissoryNoteManagementUC_Loaded">
     <Grid>
         <GroupBox Header="專案合約管理" VerticalAlignment="Top" Height="468" x:Name="UC">
             <Controls:CustomDataGrid x:Name="BussinessItemsGrid" AutoGenerateColumns="False" 
