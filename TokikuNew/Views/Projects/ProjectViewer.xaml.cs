@@ -193,8 +193,13 @@ namespace TokikuNew.Views
 
                 if (e.OriginalSource is ControlTableViewUC)
                 {
-                    Header = "管控表";
+                    Header = "鋁擠型管控表";
                     addWorkarea = new ClosableTabItem() { Header = Header };
+                }
+
+                if(e.OriginalSource is ControlTableViewUC)
+                {
+                    Header = "鋁擠型訂製單";
                 }
                 bool isExisted = false;
 

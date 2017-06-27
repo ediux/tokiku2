@@ -81,6 +81,9 @@
     <Compile Include="Helpers\SwitchFieldMode.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
     <Compile Include="ValueConverters\ReplyContentValueConverter.cs" />
+    <Compile Include="Views\AluminumExtrusionOrderListView.xaml.cs">
+      <DependentUpon>AluminumExtrusionOrderListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ContractManagementViewUC.xaml.cs">
       <DependentUpon>ContractManagementViewUC.xaml</DependentUpon>
     </Compile>
@@ -186,6 +189,10 @@
       <DependentUpon>PromissoryNoteManagementUC.xaml</DependentUpon>
     </Compile>
     <Page Include="Controls\SwitchField.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AluminumExtrusionOrderListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -423,6 +430,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Forms\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

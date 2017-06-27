@@ -200,7 +200,7 @@
                 <RowDefinition Height="50*" />
                 <RowDefinition Height="50*" />
             </Grid.RowDefinitions>
-            <GroupBox Header="合約列表" Grid.Row="1" Grid.Column="0" Margin="5">
+            <GroupBox Header="合約列表" Grid.Row="1" Grid.Column="0" Margin="5" Style="{DynamicResource GroupBox_ListEditor}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="20"/>

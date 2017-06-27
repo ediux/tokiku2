@@ -5,9 +5,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
              mc:Ignorable="d" 
+             Background="{DynamicResource ControlBackgroundBrush}"
              d:DesignHeight="768" d:DesignWidth="1366">
     <Grid>
-        <GroupBox Header="管控表" Margin="2" x:Name="UC">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="27"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="0" >
+            <Button Content="產生鋁擠型訂製單" Margin="2" Click="Button_Click" />
+            <Button Content="鋁擠型訂製單列表" Margin="2" />
+        </StackPanel>
+        <GroupBox Header="鋁擠型管控表" Grid.Row="1" Margin="2" x:Name="UC">
             <DataGrid>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="加工編號" Width="auto" />
@@ -20,7 +29,7 @@
                     <DataGridTextColumn Header="原裁切長度" Width="auto" />
                     <DataGridTextColumn Header="原數量" Width="auto" />
                     <DataGridTextColumn Header="修改日期" Width="auto" />
-                    
+
                 </DataGrid.Columns>
 
             </DataGrid>
