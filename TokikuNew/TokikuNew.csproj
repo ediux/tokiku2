@@ -81,11 +81,20 @@
     <Compile Include="Helpers\SwitchFieldMode.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
     <Compile Include="ValueConverters\ReplyContentValueConverter.cs" />
+    <Compile Include="Views\AluminumPlateViewUC.xaml.cs">
+      <DependentUpon>AluminumPlateViewUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ContractManagementViewUC.xaml.cs">
       <DependentUpon>ContractManagementViewUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ControlTableViewUC.xaml.cs">
       <DependentUpon>ControlTableViewUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GlassViewUC.xaml.cs">
+      <DependentUpon>GlassViewUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HardwareViewUC.xaml.cs">
+      <DependentUpon>HardwareViewUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Projects\AssemblyTableView.xaml.cs">
       <DependentUpon>AssemblyTableView.xaml</DependentUpon>
@@ -189,11 +198,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AluminumPlateViewUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ContractManagementViewUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ControlTableViewUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GlassViewUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HardwareViewUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
