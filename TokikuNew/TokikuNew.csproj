@@ -81,6 +81,9 @@
     <Compile Include="Helpers\SwitchFieldMode.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
     <Compile Include="ValueConverters\ReplyContentValueConverter.cs" />
+    <Compile Include="Views\ContractManagementViewUC.xaml.cs">
+      <DependentUpon>ContractManagementViewUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ControlTableViewUC.xaml.cs">
       <DependentUpon>ControlTableViewUC.xaml</DependentUpon>
     </Compile>
@@ -183,6 +186,10 @@
       <DependentUpon>PromissoryNoteManagementUC.xaml</DependentUpon>
     </Compile>
     <Page Include="Controls\SwitchField.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ContractManagementViewUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

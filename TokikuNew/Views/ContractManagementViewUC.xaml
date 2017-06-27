@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="TokikuNew.Views.ContractManagementViewUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TokikuNew.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="1024">
+    <Grid>
+        <GroupBox Header="專案合約管理" VerticalAlignment="Top" Height="468" x:Name="UC">
+            <DataGrid>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="項次" Width="auto" />
+                    <DataGridTextColumn Header="工程項目" Width="auto" />
+                    <DataGridTextColumn Header="追加(減)工程項目" Width="auto" />
+                    <DataGridTextColumn Header="單位" Width="auto" />
+                    <DataGridTextColumn Header="數量" Width="auto" />
+                    <DataGridTextColumn Header="單價" Width="auto" />
+                    <DataGridTextColumn Header="金額" Width="auto" />
+                    <DataGridTextColumn Header="追加(減)數量" Width="auto" />
+                    <DataGridTextColumn Header="追加(減)單價" Width="auto" />
+                    <DataGridTextColumn Header="追加(減)金額" Width="auto" />
+                    <DataGridTextColumn Header="追加減後數量" Width="auto" />
+                    <DataGridTextColumn Header="追加減後單價" Width="auto" />
+                    <DataGridTextColumn Header="追加減後總金額" Width="auto" />
+                    <DataGridTextColumn Header="異動人員" Width="auto" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+            
+    </Grid>
+</UserControl>

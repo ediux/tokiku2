@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tokiku.ViewModels;
+using TokikuNew.Controls;
 
 namespace TokikuNew.Views
 {
@@ -42,10 +43,17 @@ namespace TokikuNew.Views
             UC.DataContext = ctrl;
             ctrl.Query();
         }
-
-        private void 合約管理_Click(object sender, RoutedEventArgs e)
+        // 合約管理按鈕觸發事件
+        private void ContractManagement_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                //RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, ((PromissoryNoteManagementViewModel)((Button)sender).DataContext).ContractNumber));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
         }
     }
 }
