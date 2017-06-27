@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tokiku.ViewModels;
 
 namespace TokikuNew.Views
 {
@@ -37,7 +38,9 @@ namespace TokikuNew.Views
 
         private void PromissoryNoteManagementUC_Loaded(object sender, RoutedEventArgs e)
         {
-            UC.DataContext = new Tokiku.ViewModels.PromissoryNoteManagementViewModelCollection();
+            PromissoryNoteManagementViewModelCollection ctrl = new Tokiku.ViewModels.PromissoryNoteManagementViewModelCollection();
+            UC.DataContext = ctrl;
+            ctrl.Query();
         }
 
         private void 合約管理_Click(object sender, RoutedEventArgs e)
