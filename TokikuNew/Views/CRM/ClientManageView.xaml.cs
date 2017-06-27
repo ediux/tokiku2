@@ -64,7 +64,7 @@ namespace TokikuNew.Views
                         {
                             MessageBox.Show(string.Join("\n", SelectedManufacturers.Errors.ToArray()));
                             SelectedManufacturers.Errors = null;
-                            dockBar.DocumentMode = DocumentLifeCircle.Read;
+                            //dockBar.DocumentMode = DocumentLifeCircle.Read;
                         }
 
                         break;
@@ -75,7 +75,7 @@ namespace TokikuNew.Views
                         {
                             MessageBox.Show(string.Join("\n", SelectedManufacturers.Errors.ToArray()));
                             SelectedManufacturers.Errors = null;
-                            Mode = dockBar.LastState;
+                            //Mode = dockBar.LastState;
                             break;
                         }
 
@@ -132,6 +132,11 @@ namespace TokikuNew.Views
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
 
+        }
+
+        private void userControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            AddHandler(DockBar.DocumentModeChangedEvent, new RoutedEventHandler(dockBar_DocumentModeChanged));
         }
     }
 }
