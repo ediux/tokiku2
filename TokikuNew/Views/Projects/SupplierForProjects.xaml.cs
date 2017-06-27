@@ -26,19 +26,74 @@ namespace TokikuNew.Views
             InitializeComponent();
         }
 
+
+
+        public ManufacturersBussinessItemsViewModelColletion BussinessItemsByCategories
+        {
+            get { return (ManufacturersBussinessItemsViewModelColletion)GetValue(BussinessItemsByCategoriesProperty); }
+            set { SetValue(BussinessItemsByCategoriesProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for BussinessItemsByCategories.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty BussinessItemsByCategoriesProperty =
+            DependencyProperty.Register("BussinessItemsByCategories", typeof(ManufacturersBussinessItemsViewModelColletion), typeof(SupplierForProjects), new PropertyMetadata(default(ManufacturersBussinessItemsViewModelColletion)));
+
+
+
+
+        public ManufacturersViewModelCollection ManufacturerListByBussinessItems
+        {
+            get { return (ManufacturersViewModelCollection)GetValue(ManufacturerListByBussinessItemsProperty); }
+            set { SetValue(ManufacturerListByBussinessItemsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ManufacturerListByBussinessItems.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ManufacturerListByBussinessItemsProperty =
+            DependencyProperty.Register("ManufacturerListByBussinessItems", typeof(ManufacturersViewModelCollection), typeof(SupplierForProjects), new PropertyMetadata(default(ManufacturersViewModelCollection)));
+
+
+
+
+        public Guid CBMaterialCategoriesId
+        {
+            get { return (Guid)GetValue(CBMaterialCategoriesIdProperty); }
+            set { SetValue(CBMaterialCategoriesIdProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CBMaterialCategoriesId.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CBMaterialCategoriesIdProperty =
+            DependencyProperty.Register("CBMaterialCategoriesId", typeof(Guid), typeof(SupplierForProjects), new PropertyMetadata(Guid.Empty));
+
+
+
+
+        public TicketPeriodsViewModelCollection TicketPeriodsByManufacturers
+        {
+            get { return (TicketPeriodsViewModelCollection)GetValue(TicketPeriodsByManufacturersProperty); }
+            set { SetValue(TicketPeriodsByManufacturersProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for TicketPeriodsByManufacturers.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TicketPeriodsByManufacturersProperty =
+            DependencyProperty.Register("TicketPeriodsByManufacturers", typeof(TicketPeriodsViewModelCollection), typeof(SupplierForProjects), new PropertyMetadata(default(TicketPeriodsViewModelCollection)));
+
+
+
+
         private void CBMaterialCategories_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
             {
                 //
-                Guid CBMaterialCategoriesId = ((MaterialCategoriesViewModel)((ComboBox)sender).SelectedItem).Id;
-                ManufacturersBussinessItemsViewModelColletion biselect = new ManufacturersBussinessItemsViewModelColletion();
-                biselect.QueryWithMaterialCategories(CBMaterialCategoriesId);
-                var CBTranscationBusiness = (ComboBox)BussinessItemsGrid.Columns[1].HeaderTemplate.FindName("CBTranscationBusiness", BussinessItemsGrid);
-                if (CBTranscationBusiness != null)
-                {
-                    CBTranscationBusiness.ItemsSource = biselect;
-                }
+
+                CBMaterialCategoriesId = ((MaterialCategoriesViewModel)((ComboBox)sender).SelectedItem).Id;
+                BussinessItemsByCategories = new ManufacturersBussinessItemsViewModelColletion();
+                BussinessItemsByCategories.QueryWithMaterialCategories(CBMaterialCategoriesId);
+                //var CBTranscationBusiness = (ComboBox)((DataGridTemplateColumn)BussinessItemsGrid.Columns[1]).CellTemplate.FindName("CBTranscationBusiness", BussinessItemsGrid);
+                //if (CBTranscationBusiness != null)
+                //{
+                //    CBTranscationBusiness.ItemsSource = biselect;
+                //}
 
 
             }
@@ -55,21 +110,18 @@ namespace TokikuNew.Views
         {
             try
             {
-                Guid CBMaterialCategoriesId = ((MaterialCategoriesViewModel)CBMaterialCategories.SelectedItem).Id;
+                ComboBox CBTranscationBusiness = (ComboBox)sender;
 
-                //if (CBTranscationBusiness.SelectedItem != null)
-                //{
-                //    string TranscationItem = ((ManufacturersBussinessItemsViewModel)CBTranscationBusiness.SelectedItem).Name;
-                //    ManufacturersViewModelCollection ManufacturersSelect = new ManufacturersViewModelCollection();
-                //    ManufacturersSelect.QueryByBusinessItem(CBMaterialCategoriesId, TranscationItem);
-                //    var CBManufacturerList = (ComboBox)BussinessItemsGrid.Columns[2].HeaderTemplate.FindName("CBManufacturerList", BussinessItemsGrid); CBManufacturerList.ItemsSource = ManufacturersSelect;
-                //}
+                if (CBTranscationBusiness != null && CBTranscationBusiness.SelectedItem != null)
+                {
+                    string TranscationItem = ((ManufacturersBussinessItemsViewModel)CBTranscationBusiness.SelectedItem).Name;
+                    ManufacturerListByBussinessItems = new ManufacturersViewModelCollection();
+                    ManufacturerListByBussinessItems.QueryByBusinessItem(CBMaterialCategoriesId, TranscationItem);
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-
-
             }
 
 
@@ -79,20 +131,22 @@ namespace TokikuNew.Views
         {
             try
             {
-                Guid CBMaterialCategoriesId = ((MaterialCategoriesViewModel)CBMaterialCategories.SelectedItem).Id;
-                //if (CBTranscationBusiness.SelectedItem != null)
-                //{
-                //    string TranscationItem = ((ManufacturersBussinessItemsViewModel)CBTranscationBusiness.SelectedItem).Name;
 
-                //    //if (CBManufacturerList.SelectedItem != null)
-                //    //{
-                //    //    Guid manuid = ((ManufacturersViewModel)CBManufacturerList.SelectedItem).Id;
-                //    //    TicketPeriodsViewModelCollection ManufacturersSelect = new TicketPeriodsViewModelCollection();
-                //    //    ManufacturersSelect.QueryByManufacturers(CBMaterialCategoriesId, TranscationItem, manuid);
-                //    //    CBTicketPeriods.ItemsSource = ManufacturersSelect;
-                //    //}
+                ComboBox CBTranscationBusiness = (ComboBox)sender;
 
-                //}
+                if (CBTranscationBusiness != null && CBTranscationBusiness.SelectedItem != null)
+                {
+                    string TranscationItem = ((ManufacturersBussinessItemsViewModel)CBTranscationBusiness.SelectedItem).Name;
+
+                    //if (CBManufacturerList.SelectedItem != null)
+                    //{
+                    //    Guid manuid = ((ManufacturersViewModel)CBManufacturerList.SelectedItem).Id;
+                    //    TicketPeriodsViewModelCollection ManufacturersSelect = new TicketPeriodsViewModelCollection();
+                    //    ManufacturersSelect.QueryByManufacturers(CBMaterialCategoriesId, TranscationItem, manuid);
+                    //    CBTicketPeriods.ItemsSource = ManufacturersSelect;
+                    //}
+
+                }
             }
             catch (Exception ex)
             {
@@ -117,7 +171,17 @@ namespace TokikuNew.Views
                 }
                 else
                 {
-                    Guid CBMaterialCategoriesId = ((MaterialCategoriesViewModel)CBMaterialCategories.SelectedItem).Id;
+                    DataGridTemplateColumn cell = ((DataGridTemplateColumn)BussinessItemsGrid.Columns[0]);
+                    if (cell != null)
+                    {
+                        ComboBox CBMaterialCategories = (ComboBox)cell.CellTemplate.FindName("CBMaterialCategories", BussinessItemsGrid);
+
+                        if (CBMaterialCategories != null)
+                        {
+                            Guid CBMaterialCategoriesId = ((MaterialCategoriesViewModel)CBMaterialCategories.SelectedItem).Id;
+                        }
+                    }
+
                     //if (CBTranscationBusiness.SelectedItem != null)
                     //{
                     //    string TranscationItem = ((ManufacturersBussinessItemsViewModel)CBTranscationBusiness.SelectedItem).Name;

@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using Tokiku.Controllers;
-using Tokiku.Entity;
 using Tokiku.ViewModels;
 using TokikuNew.Controls;
 using TokikuNew.Frame;
@@ -25,7 +22,7 @@ namespace TokikuNew.Views
 
         public ProjectManagerView()
         {
-            InitializeComponent(); 
+            InitializeComponent();
         }
 
         #region SelectedProject
@@ -86,6 +83,15 @@ namespace TokikuNew.Views
 
         #endregion
 
+        public static readonly RoutedEvent NewDocumentPageEvent =
+EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ProjectManagerView));
+
+        public event RoutedEventHandler NewDocumentPage
+        {
+            add { AddHandler(NewDocumentPageEvent, value); }
+            remove { RemoveHandler(NewDocumentPageEvent, value); }
+        }
+
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             try
@@ -94,20 +100,21 @@ namespace TokikuNew.Views
                 selectProjectBinding.Source = DataContext;
                 SetBinding(SelectedProjectProperty, selectProjectBinding);
 
-                if (SelectedProject.ClientId.HasValue)
+                if (SelectedProject != null)
                 {
-                    if (SelectedClient != null)
-                        SelectedClient.Refresh();
-
-                    //SelectedClient = clientcontroller.Query(s => s.Id == SelectedProject.ClientId.Value);
+                    if (SelectedProject.ClientId.HasValue)
+                    {
+                        if (SelectedClient != null)
+                            SelectedClient.Refresh();
+                    }
                 }
+
 
                 AddHandler(ClientListView.SelectedClientChangedEvent, new RoutedEventHandler(UserControl_OnSelectionClientChanged));
                 AddHandler(DockBar.DocumentModeChangedEvent, new RoutedEventHandler(DockBar_DocumentModeChanged));
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
 
@@ -148,7 +155,7 @@ namespace TokikuNew.Views
                 }
                 if (SelectedProject != null)
                 {
-                    if (SelectedProject.ProjectContract.Any())
+                    if (SelectedProject.ProjectContract != null && SelectedProject.ProjectContract.Any())
                     {
                         foreach (var foundcurrentNo in SelectedProject.ProjectContract)
                         {
@@ -157,19 +164,6 @@ namespace TokikuNew.Views
                     }
                 }
 
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, ((Button)sender).DataContext));
             }
             catch (Exception ex)
             {
@@ -189,7 +183,13 @@ namespace TokikuNew.Views
                 {
 
                     case DocumentLifeCircle.Create:
-                        //SelectedProject = new ProjectsViewModel(App.Resolve<ProjectsController>());
+                        if (SelectedProject.Status.IsNewInstance == false)
+                        {
+                            RaiseEvent(new RoutedEventArgs(NewDocumentPageEvent, this));
+                            break;
+                        }
+
+                        SelectedProject = new ProjectsViewModel();
 
                         SelectedProject.Initialized();
                         SelectedProject.CreateUserId = LoginedUser.UserId;

@@ -8,7 +8,7 @@
     <vm:TicketPeriodsViewModelCollection x:Key="TicketPeriodsSource"/>
     <vm:TranscationCategoriesViewModelCollection x:Key="TranscationCategoriesSource"/>
     <vm:PaymentTypesManageViewModelCollection x:Key="PaymentTypesSource"/>
-    <vm:VoidViewModelCollection x:Key="VoidStateListSource"/>
+    <vm:VoidViewModelCollection x:Key="VoidStateListSource" />
     <vm:ConstructionAtlasReplyContextViewModelCollection x:Key="ConstructionAtlasReplySelectList"/>
     <vm:預付款保證票ViewModelCollection x:Key="預付款保證票清單"/>
     <vm:保固票ViewModelCollection x:Key="保固票清單"/>

@@ -9,13 +9,13 @@
              Background="Transparent"
               Loaded="userControl_Loaded" >
     <StackPanel Grid.Row="1" Orientation="Horizontal" >
-        <Button Margin="2" Width="27" Name="btnF9" FontSize="15" Content="&#xE10E;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="取消" Click="btnF9_Click" Style="{DynamicResource ReadModeSwitch_Button}" >
+        <Button Margin="2" Width="22" Name="btnF9" FontSize="15" Content="&#xE10E;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="取消" Click="btnF9_Click" Style="{DynamicResource ReadModeSwitch_Button}" >
         </Button>
-        <Button Margin="2" Width="27" x:Name="btnF1" FontSize="15" Content="&#xE7C3;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="新增"  Click="btnF1_Click" Style="{DynamicResource ReadModeSwitch_ModifyButton}">
+        <Button Margin="2" Width="22" x:Name="btnF1" FontSize="15" Content="&#xE7C3;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="新增"  Click="btnF1_Click" Style="{DynamicResource ReadModeSwitch_ModifyButton}">
             
         </Button>
-        <Button Margin="2" Width="27" x:Name="btnF2" FontSize="15" Content="&#xE104;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="修改" Click="btnF2_Click" Style="{DynamicResource ReadModeSwitch_ModifyButton}"/>
-        <Button Style="{DynamicResource ReadModeSwitch_SaveButton}" Margin="2" Width="27" Name="btnF3" FontSize="15" Content="&#xE105;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="儲存" Click="btnF3_Click" >
+        <Button Margin="2" Width="22" x:Name="btnF2" FontSize="15" Content="&#xE104;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="修改" Click="btnF2_Click" Style="{DynamicResource ReadModeSwitch_ModifyButton}"/>
+        <Button Style="{DynamicResource ReadModeSwitch_SaveButton}" Margin="2" Width="22" Name="btnF3" FontSize="15" Content="&#xE105;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="儲存" Click="btnF3_Click" >
         </Button>
     </StackPanel>
 </UserControl>
