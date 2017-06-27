@@ -42,127 +42,186 @@ namespace Tokiku.ViewModels
 
     public class PromissoryNoteManagementViewModel : BaseViewModel
     {
-        // propdp=>[tab]=>[tab]
-        public string 保證票Name
+        // 工程代號
+        public string ContractNumber
         {
-            get { return (string)GetValue(保證票NameProperty); }
-            set { SetValue(保證票NameProperty, value); }
+            get { return (string)GetValue(ContractNumberProperty); }
+            set { SetValue(ContractNumberProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for 保證票Name.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty 保證票NameProperty =
-            DependencyProperty.Register("保證票Name", typeof(string), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(string.Empty));
-        
-        public Nullable<int> 保證票Id
+        // Using a DependencyProperty as the backing store for ContractNumber.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ContractNumberProperty =
+            DependencyProperty.Register("ContractNumber", typeof(string), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(string.Empty));
+
+
+        // 專案名稱
+        public string ProjectName
         {
-            get { return (Nullable<int>)GetValue(保證票IdProperty); }
-            set { SetValue(保證票IdProperty, value); }
+            get { return (string)GetValue(ProjectNameProperty); }
+            set { SetValue(ProjectNameProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for 保證票Id.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty 保證票IdProperty =
-            DependencyProperty.Register("保證票Id", typeof(Nullable<int>), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(null));
-        
-        public int 保證票金額
+        // Using a DependencyProperty as the backing store for ProjectName.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ProjectNameProperty =
+            DependencyProperty.Register("ProjectName", typeof(string), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(string.Empty));
+
+
+        // 本票代號
+        public Nullable<int> PromissoryId
         {
-            get { return (int)GetValue(保證票金額Property); }
-            set { SetValue(保證票金額Property, value); }
+            get { return (Nullable<int>)GetValue(PromissoryIdProperty); }
+            set { SetValue(PromissoryIdProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for 保證票金額.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty 保證票金額Property =
-            DependencyProperty.Register("保證票金額", typeof(int), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(0));
-        
-        public Nullable<DateTime> 保證票開立日期
+        // Using a DependencyProperty as the backing store for PromissoryId.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PromissoryIdProperty =
+            DependencyProperty.Register("PromissoryId", typeof(Nullable<int>), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(default(Nullable<int>)));
+
+
+        // 本票名稱
+        public string PromissoryName
         {
-            get { return (Nullable<DateTime>)GetValue(保證票開立日期Property); }
-            set { SetValue(保證票開立日期Property, value); }
+            get { return (string)GetValue(PromissoryNameProperty); }
+            set { SetValue(PromissoryNameProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for 保證票開立日期.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty 保證票開立日期Property =
-            DependencyProperty.Register("保證票開立日期", typeof(Nullable<DateTime>), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(default(Nullable<DateTime>)));
-        
-        public DateTime 保證票取回日期
+        // Using a DependencyProperty as the backing store for PromissoryName.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PromissoryNameProperty =
+            DependencyProperty.Register("PromissoryName", typeof(string), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(string.Empty));
+
+
+        // 本票票據金額
+        public Nullable<int> PromissoryAmount
         {
-            get { return (DateTime)GetValue(保證票取回日期Property); }
-            set { SetValue(保證票取回日期Property, value); }
+            get { return (Nullable<int>)GetValue(PromissoryAmountProperty); }
+            set { SetValue(PromissoryAmountProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for 保證票取回日期.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty 保證票取回日期Property =
-            DependencyProperty.Register("保證票取回日期", typeof(Nullable<DateTime>), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(default(Nullable<DateTime>)));
-        
-        public Nullable<int> 保固票Id
+        // Using a DependencyProperty as the backing store for PromissoryAmount.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PromissoryAmountProperty =
+            DependencyProperty.Register("PromissoryAmount", typeof(Nullable<int>), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(default(Nullable<int>)));
+
+
+        // 本票開立日期
+        public DateTime PromissoryOpenDate
         {
-            get { return (Nullable<int>)GetValue(保固票IdProperty); }
-            set { SetValue(保固票IdProperty, value); }
+            get { return (DateTime)GetValue(PromissoryOpenDateProperty); }
+            set { SetValue(PromissoryOpenDateProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for 保固票Id.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty 保固票IdProperty =
-            DependencyProperty.Register("保固票Id", typeof(Nullable<int>), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(default(Nullable<int>)));
-        
-        public string 保固票Name
+        // Using a DependencyProperty as the backing store for PromissoryOpenDate.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PromissoryOpenDateProperty =
+            DependencyProperty.Register("PromissoryOpenDate", typeof(DateTime), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(default(Nullable<DateTime>)));
+
+
+        // 本票取回日期
+        public DateTime PromissoryRecoveryDate
         {
-            get { return (string)GetValue(保固票NameProperty); }
-            set { SetValue(保固票NameProperty, value); }
+            get { return (DateTime)GetValue(PromissoryRecoveryDateProperty); }
+            set { SetValue(PromissoryRecoveryDateProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for 保固票Name.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty 保固票NameProperty =
-            DependencyProperty.Register("保固票Name", typeof(string), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(string.Empty));
-        
-        public Nullable<int> 保固票金額
+        // Using a DependencyProperty as the backing store for PromissoryRecoveryDate.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PromissoryRecoveryDateProperty =
+            DependencyProperty.Register("PromissoryRecoveryDate", typeof(DateTime), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(default(Nullable<DateTime>)));
+
+
+        // 保固票代號
+        public Nullable<int> WarrantyId
         {
-            get { return (Nullable<int>)GetValue(保固票金額Property); }
-            set { SetValue(保固票金額Property, value); }
+            get { return (Nullable<int>)GetValue(WarrantyIdProperty); }
+            set { SetValue(WarrantyIdProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for 保固票金額.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty 保固票金額Property =
-            DependencyProperty.Register("保固票金額", typeof(Nullable<int>), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(default(Nullable<int>)));
-        
-        public Nullable<DateTime> 保固票開立日期
+        // Using a DependencyProperty as the backing store for WarrantyId.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty WarrantyIdProperty =
+            DependencyProperty.Register("WarrantyId", typeof(Nullable<int>), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(default(Nullable<DateTime>)));
+
+
+        // 保固票名稱
+        public string WarrantyName
         {
-            get { return (Nullable<DateTime>)GetValue(保固票開立日期Property); }
-            set { SetValue(保固票開立日期Property, value); }
+            get { return (string)GetValue(WarrantyNameProperty); }
+            set { SetValue(WarrantyNameProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for 保固票開立日期.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty 保固票開立日期Property =
-            DependencyProperty.Register("保固票開立日期", typeof(Nullable<DateTime>), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(default(Nullable<DateTime>)));
-        
-        public Nullable<DateTime> 保固票取回日期
+        // Using a DependencyProperty as the backing store for WarrantyName.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty WarrantyNameProperty =
+            DependencyProperty.Register("WarrantyName", typeof(string), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(string.Empty));
+
+
+        // 保固票票據金額
+        public Nullable<int> WarrantyAmount
         {
-            get { return (Nullable<DateTime>)GetValue(保固票取回日期Property); }
-            set { SetValue(保固票取回日期Property, value); }
+            get { return (Nullable<int>)GetValue(WarrantyAmountProperty); }
+            set { SetValue(WarrantyAmountProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for 保固票取回日期.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty 保固票取回日期Property =
-            DependencyProperty.Register("保固票取回日期", typeof(Nullable<DateTime>), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(default(Nullable<DateTime>)));
-        
-        public Nullable<int> 異動人員Id
+        // Using a DependencyProperty as the backing store for WarrantyAmount.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty WarrantyAmountProperty =
+            DependencyProperty.Register("WarrantyAmount", typeof(Nullable<int>), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(default(Nullable<int>)));
+
+
+        // 保固票開立日期
+        public DateTime WarrantyOpenDate
         {
-            get { return (Nullable<int>)GetValue(異動人員IdProperty); }
-            set { SetValue(異動人員IdProperty, value); }
+            get { return (DateTime)GetValue(WarrantyOpenDateProperty); }
+            set { SetValue(WarrantyOpenDateProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for 異動人員Id.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty 異動人員IdProperty =
-            DependencyProperty.Register("異動人員Id", typeof(Nullable<int>), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(default(Nullable<int>)));
-        
-        public string 異動人員Name
+        // Using a DependencyProperty as the backing store for WarrantyOpenDate.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty WarrantyOpenDateProperty =
+            DependencyProperty.Register("WarrantyOpenDate", typeof(DateTime), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(default(Nullable<int>)));
+
+
+        // 保固票取回日期
+        public DateTime WarrantyRecoveryDate
         {
-            get { return (string)GetValue(異動人員NameProperty); }
-            set { SetValue(異動人員NameProperty, value); }
+            get { return (DateTime)GetValue(WarrantyRecoveryDateProperty); }
+            set { SetValue(WarrantyRecoveryDateProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for 異動人員Name.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty 異動人員NameProperty =
-            DependencyProperty.Register("異動人員Name", typeof(string), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(string.Empty));
-        
+        // Using a DependencyProperty as the backing store for WarrantyRecoveryDate.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty WarrantyRecoveryDateProperty =
+            DependencyProperty.Register("WarrantyRecoveryDate", typeof(DateTime), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(default(Nullable<DateTime>)));
+
+
+        // 異動人員代號
+        public Guid CreateUserId
+        {
+            get { return (Guid)GetValue(CreateUserIdProperty); }
+            set { SetValue(CreateUserIdProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CreateUserId.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CreateUserIdProperty =
+            DependencyProperty.Register("CreateUserId", typeof(Guid), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(Guid.Empty));
+
+
+        // 異動人員
+        public string CreateUser
+        {
+            get { return (string)GetValue(CreateUserProperty); }
+            set { SetValue(CreateUserProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CreateUser.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CreateUserProperty =
+            DependencyProperty.Register("CreateUser", typeof(string), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(string.Empty));
+
+
+        // 異動時間
+        public DateTime CreateTime
+        {
+            get { return (DateTime)GetValue(CreateTimeProperty); }
+            set { SetValue(CreateTimeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CreateTime.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CreateTimeProperty =
+            DependencyProperty.Register("CreateTime", typeof(DateTime), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(default(Nullable<DateTime>)));
+
+        /*/ 承攬總價
         public Nullable<int> 承攬總價
         {
             get { return (Nullable<int>)GetValue(承攬總價Property); }
@@ -172,7 +231,7 @@ namespace Tokiku.ViewModels
         // Using a DependencyProperty as the backing store for 承攬總價.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty 承攬總價Property =
             DependencyProperty.Register("承攬總價", typeof(Nullable<int>), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(default(Nullable<int>)));
-
+        // */
 
     }
 

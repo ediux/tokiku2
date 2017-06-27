@@ -39,5 +39,10 @@ namespace TokikuNew.Views
         {
             UC.DataContext = new Tokiku.ViewModels.PromissoryNoteManagementViewModelCollection();
         }
+
+        private void 合約管理_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
