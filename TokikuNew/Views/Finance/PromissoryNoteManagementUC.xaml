@@ -92,7 +92,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" DataContext="{Binding}">
-                                    <Button Content="合約管理" Click="合約管理_Click" Margin="5,0" />
+                                    <Button Content="合約管理" Click="ContractManagement_Click" Margin="5,0" />
                                     <!-- Button Content="加工圖集" x:Name="btnProcessAltas" Click="btnProcessAltas_Click" Margin="5,0" / -->
                                 </StackPanel>
                             </DataTemplate>

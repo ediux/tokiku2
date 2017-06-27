@@ -10,16 +10,16 @@
         <GroupBox Header="管控表" VerticalAlignment="Top" Height="468" x:Name="UC">
             <DataGrid>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="項次" Width="auto" />
-                    <DataGridTextColumn Header="圖集" Width="auto" />
-                    <DataGridTextColumn Header="製單" Width="auto" />
                     <DataGridTextColumn Header="加工編號" Width="auto" />
-                    <DataGridTextColumn Header="東菊編號" Width="auto" />
-                    <DataGridTextColumn Header="單元編號" Width="auto" />
-                    <DataGridTextColumn Header="材質及表面處理" Width="auto" />
-                    <DataGridTextColumn Header="尺寸" Width="auto" />
-                    <DataGridTextColumn Header="需求數量" Width="auto" />
-                    <DataGridTextColumn Header="小計" Width="auto" />
+                    <DataGridTextColumn Header="擠型編號" Width="auto" />
+                    <DataGridTextColumn Header="裁切長度" Width="auto" />
+                    <DataGridTextColumn Header="材料說明" Width="auto" />
+                    <DataGridTextColumn Header="圖集" Width="auto" />
+                    <DataGridTextColumn Header="合計" Width="auto" />
+                    <DataGridTextColumn Header="原擠型編號" Width="auto" />
+                    <DataGridTextColumn Header="原裁切長度" Width="auto" />
+                    <DataGridTextColumn Header="原數量" Width="auto" />
+                    <DataGridTextColumn Header="修改日期" Width="auto" />
                     
                 </DataGrid.Columns>
 
