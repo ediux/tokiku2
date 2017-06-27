@@ -14,9 +14,10 @@
                                      ItemsSource="{Binding}"
                                      SelectionChanged="BussinessItemsGrid_SelectionChanged" Margin="0,0,-2,0">
                 <Controls:CustomDataGrid.Columns>
-                    <DataGridTextColumn Header="專案代號" Width="auto" />
-                    <DataGridTextColumn Header="專案名稱" Width="auto" />
-                    <DataGridTemplateColumn Header="本票種類" Width="auto">
+                    <DataGridTextColumn Header="工程代號" Binding="{Binding ContractNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
+                    <DataGridTextColumn Header="專案名稱" Binding="{Binding ProjectName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
+                    <DataGridTextColumn Header="本票名稱" Binding="{Binding PromissoryName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
+                    <!-- DataGridTemplateColumn Header="本票種類" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <ComboBox Margin="2" IsReadOnly="False"
@@ -32,23 +33,26 @@
                                 </ComboBox>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="本票金額" Width="auto"/>
-                    <DataGridTemplateColumn Header="開立日期">
+                    </DataGridTemplateColumn -->
+                    <DataGridTextColumn Header="本票金額" Binding="{Binding PromissoryAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto"/>
+                    <DataGridTextColumn Header="本票開立日期" Binding="{Binding PromissoryOpenDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto"/>
+                    <!-- DataGridTemplateColumn Header="開立日期">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <DatePicker Width="auto"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="取回日期">
+                    </DataGridTemplateColumn -->
+                    <DataGridTextColumn Header="本票取回日期" Binding="{Binding PromissoryRecoveryDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto"/>
+                    <!-- DataGridTemplateColumn Header="取回日期">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <DatePicker Width="auto"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="保固票" Width="auto">
+                    </DataGridTemplateColumn -->
+                    <DataGridTextColumn Header="保固票名稱" Binding="{Binding WarrantyName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
+                    <!-- DataGridTemplateColumn Header="保固票" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <ComboBox Margin="2" IsReadOnly="False"
@@ -64,26 +68,36 @@
                                 </ComboBox>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="保固票金額" Width="auto" />
-                    <DataGridTemplateColumn Header="開立日期">
+                    </DataGridTemplateColumn -->
+                    <DataGridTextColumn Header="保固票金額" Binding="{Binding WarrantyAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
+                    <DataGridTextColumn Header="保固票開立日期" Binding="{Binding WarrantyOpenDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
+                    <!-- DataGridTemplateColumn Header="開立日期">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <DatePicker Width="auto"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="取回日期">
+                    </DataGridTemplateColumn -->
+                    <DataGridTextColumn Header="保固票取回日期" Binding="{Binding WarrantyRecoveryDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
+                    <!-- DataGridTemplateColumn Header="取回日期">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <DatePicker Width="auto"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn -->
+                    <DataGridTextColumn Header="異動人員" Binding="{Binding CreateUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
+                    <DataGridTextColumn Header="承攬總價" Width="auto" />
+                    <DataGridTemplateColumn Width="auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" DataContext="{Binding}">
+                                    <Button Content="合約管理" Click="合約管理_Click" Margin="5,0" />
+                                    <!-- Button Content="加工圖集" x:Name="btnProcessAltas" Click="btnProcessAltas_Click" Margin="5,0" / -->
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    
-                    <DataGridTextColumn Header="異動人員" Width="auto" />
-                    <DataGridTextColumn Header="承攬總價" Width="auto" Binding="{Binding PlaceofReceipt}"/>
-                    
                 </Controls:CustomDataGrid.Columns>
             </Controls:CustomDataGrid>
         </GroupBox>
