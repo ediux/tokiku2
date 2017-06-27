@@ -292,7 +292,7 @@
                 <Setter Property="Visibility" Value="Collapsed"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Save">
-                <Setter Property="Visibility" Value="Visible"/>
+                <Setter Property="Visibility" Value="Collapsed"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Create">
                 <Setter Property="Visibility" Value="Visible"/>
@@ -304,7 +304,7 @@
                 <Setter Property="Visibility" Value="Collapsed"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=DocumentMode,ElementName=userControl}" Value="Save">
-                <Setter Property="Visibility" Value="Visible"/>
+                <Setter Property="Visibility" Value="Collapsed"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=DocumentMode,ElementName=userControl}" Value="Create">
                 <Setter Property="Visibility" Value="Visible"/>
@@ -320,7 +320,7 @@
                 <Setter Property="Visibility" Value="Visible"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=DocumentMode,ElementName=userControl}" Value="Save">
-                <Setter Property="Visibility" Value="Collapsed"/>
+                <Setter Property="Visibility" Value="Visible"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=DocumentMode,ElementName=userControl}" Value="Create">
                 <Setter Property="Visibility" Value="Collapsed"/>
@@ -336,7 +336,7 @@
                 <Setter Property="Visibility" Value="Collapsed"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=DocumentMode,ElementName=userControl}" Value="Save">
-                <Setter Property="Visibility" Value="Visible"/>
+                <Setter Property="Visibility" Value="Collapsed"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=DocumentMode,ElementName=userControl}" Value="Create">
                 <Setter Property="Visibility" Value="Visible"/>
