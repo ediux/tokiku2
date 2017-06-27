@@ -94,5 +94,10 @@ namespace Tokiku.ViewModels
                 setErrortoModel(this, ex);
             }
         }
+
+        public override string ToString()
+        {
+            return this.StateName;
+        }
     }
 }

@@ -5,25 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="27" d:DesignWidth="190"
-             Background="{DynamicResource ControlBackgroundBrush}"
+             d:DesignHeight="27" d:DesignWidth="130"
+             Background="Transparent"
               Loaded="userControl_Loaded" >
     <StackPanel Grid.Row="1" Orientation="Horizontal" >
-        <Button Margin="2" Width="27" x:Name="btnF1" FontSize="15" Content="&#xE7C3;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="新增"  Click="btnF1_Click">
+        <Button Margin="2" Width="27" Name="btnF9" FontSize="15" Content="&#xE10E;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="取消" Click="btnF9_Click" Style="{DynamicResource ReadModeSwitch_Button}" >
+        </Button>
+        <Button Margin="2" Width="27" x:Name="btnF1" FontSize="15" Content="&#xE7C3;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="新增"  Click="btnF1_Click" Style="{DynamicResource ReadModeSwitch_ModifyButton}">
             
         </Button>
-        <Button Margin="2" Width="27" x:Name="btnF2" FontSize="15" Content="&#xE104;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="修改" Click="btnF2_Click">
-          
-        </Button>
-        <Button Margin="2" Width="27" Name="btnF3" FontSize="15" Content="&#xE105;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="儲存" Click="btnF3_Click" Style="{DynamicResource ReadModeSwitch_Button}">
-          
-        </Button>
-        <Button Margin="2" Width="27" Name="btnF4" FontSize="15" Content="&#xE11A;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="查詢" Click="btnF4_Click" Style="{DynamicResource ReadModeSwitch_Button}" IsEnabled="{Binding QueryFunctionButtonEnabled,ElementName=userControl,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-        <Button Margin="2" Width="27" Name="btnF5" FontSize="15" Content="&#xE120;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="送出/提交" Click="btnF5_Click" Style="{DynamicResource ReadModeSwitch_Button}" Command="{StaticResource Commit}" Visibility="Collapsed" >
-        </Button>
-        <Button Margin="2" Width="27" Name="btnF8" FontSize="15" Content="&#xE2F6;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="列印" Click="btnF8_Click" Command="Print" >
-        </Button>
-        <Button Margin="2" Width="27" Name="btnF9" FontSize="15" Content="&#xE106;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="取消" Click="btnF9_Click" Style="{DynamicResource ReadModeSwitch_Button}" >
+        <Button Margin="2" Width="27" x:Name="btnF2" FontSize="15" Content="&#xE104;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="修改" Click="btnF2_Click" Style="{DynamicResource ReadModeSwitch_ModifyButton}"/>
+        <Button Style="{DynamicResource ReadModeSwitch_SaveButton}" Margin="2" Width="27" Name="btnF3" FontSize="15" Content="&#xE105;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="儲存" Click="btnF3_Click" >
         </Button>
     </StackPanel>
 </UserControl>
