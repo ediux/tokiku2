@@ -194,6 +194,12 @@
     <Compile Include="Views\Finance\PromissoryNoteManagementViewUC.xaml.cs">
       <DependentUpon>PromissoryNoteManagementViewUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ReturnMaterialViewUC.xaml.cs">
+      <DependentUpon>ReturnMaterialViewUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ShippingMaterialViewUC.xaml.cs">
+      <DependentUpon>ShippingMaterialViewUC.xaml</DependentUpon>
+    </Compile>
     <Page Include="Controls\SwitchField.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -379,6 +385,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Finance\PromissoryNoteManagementViewUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ReturnMaterialViewUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ShippingMaterialViewUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
