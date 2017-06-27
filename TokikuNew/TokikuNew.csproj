@@ -81,6 +81,9 @@
     <Compile Include="Helpers\SwitchFieldMode.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
     <Compile Include="ValueConverters\ReplyContentValueConverter.cs" />
+    <Compile Include="Views\AluminumExtrusionOrderListView.xaml.cs">
+      <DependentUpon>AluminumExtrusionOrderListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ContractManagementViewUC.xaml.cs">
       <DependentUpon>ContractManagementViewUC.xaml</DependentUpon>
     </Compile>

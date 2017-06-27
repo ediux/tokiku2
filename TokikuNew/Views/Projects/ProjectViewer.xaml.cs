@@ -197,9 +197,51 @@ namespace TokikuNew.Views
                     addWorkarea = new ClosableTabItem() { Header = Header };
                 }
 
-                if(e.OriginalSource is ControlTableViewUC)
+                if (e.OriginalSource is string)
                 {
-                    Header = "鋁擠型訂製單";
+                    string btn = (string)e.OriginalSource;
+
+                    if (btn == "產生鋁擠型訂製單")
+                    {
+                        Header = "鋁擠型訂製單";
+                        addWorkarea = new ClosableTabItem() { Header = Header };
+                    }
+
+                    if (btn == "鋁擠型訂製單列表")
+                    {
+                        Header = "鋁擠型訂製單列表";
+                        addWorkarea = new ClosableTabItem() { Header = Header };
+                    }
+
+                    if (btn == "產生退貨單")
+                    {
+                        Header = "退貨單";
+                        addWorkarea = new ClosableTabItem() { Header = Header };
+                    }
+
+                    if (btn == "請款單列表")
+                    {
+                        Header = "請款單列表";
+                        addWorkarea = new ClosableTabItem() { Header = Header };
+                    }
+
+                    if (btn == "產生請款單")
+                    {
+                        Header = "鋁擠型訂製單列表";
+                        addWorkarea = new ClosableTabItem() { Header = Header };
+                    }
+
+                    if (btn == "請款單列表")
+                    {
+                        Header = "請款單";
+                        addWorkarea = new ClosableTabItem() { Header = Header };
+                    }
+
+                    if (btn == "出貨單列表")
+                    {
+                        Header = "出貨單列表";
+                        addWorkarea = new ClosableTabItem() { Header = Header };
+                    }
                 }
                 bool isExisted = false;
 
@@ -327,10 +369,10 @@ namespace TokikuNew.Views
                         return;
                     }
 
-                    if (e.OriginalSource !=null && e.OriginalSource is ControlTableViewUC)
+                    if (e.OriginalSource != null && e.OriginalSource is ControlTableViewUC)
                     {
                         var vm = new ControlTableViewUC() { Margin = new Thickness(0) };
-                      
+
 
                         //addWorkarea = new ClosableTabItem() { Header = Header };
                         addWorkarea.Content = vm;
@@ -339,6 +381,95 @@ namespace TokikuNew.Views
                         InnerWorkspaces.Items.Add(addWorkarea);
                         InnerWorkspaces.SelectedItem = addWorkarea;
                         return;
+                    }
+
+                    if (e.OriginalSource is string)
+                    {
+                        string btnContext = (string)e.OriginalSource;
+
+                        if (btnContext == "產生鋁擠型訂製單")
+                        {
+                            var vm = new AluminumExtrusionOrderSheetView() { Margin = new Thickness(0) };
+
+                            addWorkarea.Content = vm;
+                            addWorkarea.Margin = new Thickness(0);
+
+                            InnerWorkspaces.Items.Add(addWorkarea);
+                            InnerWorkspaces.SelectedItem = addWorkarea;
+                            return;
+                        }
+
+                        if(btnContext== "鋁擠型訂製單列表")
+                        {
+                            var vm = new AluminumExtrusionOrderListView() { Margin = new Thickness(0) };
+                            vm.DataContext = new ProjectListViewModelCollection(); 
+                            addWorkarea.Content = vm;
+                            addWorkarea.Margin = new Thickness(0);
+
+                            InnerWorkspaces.Items.Add(addWorkarea);
+                            InnerWorkspaces.SelectedItem = addWorkarea;
+                            return;
+                        }
+
+                        if (btnContext == "產生退貨單")
+                        {
+                            var vm = new AluminumExtrusionOrderListView() { Margin = new Thickness(0) };
+                            vm.DataContext = new ProjectListViewModelCollection();
+                            addWorkarea.Content = vm;
+                            addWorkarea.Margin = new Thickness(0);
+
+                            InnerWorkspaces.Items.Add(addWorkarea);
+                            InnerWorkspaces.SelectedItem = addWorkarea;
+                            return;
+                        }
+
+                        if (btnContext == "請款單列表")
+                        {
+                            var vm = new AluminumExtrusionOrderListView() { Margin = new Thickness(0) };
+                            vm.DataContext = new ProjectListViewModelCollection();
+                            addWorkarea.Content = vm;
+                            addWorkarea.Margin = new Thickness(0);
+
+                            InnerWorkspaces.Items.Add(addWorkarea);
+                            InnerWorkspaces.SelectedItem = addWorkarea;
+                            return;
+                        }
+
+                        if (btnContext == "產生請款單")
+                        {
+                            var vm = new AluminumExtrusionOrderListView() { Margin = new Thickness(0) };
+                            vm.DataContext = new ProjectListViewModelCollection();
+                            addWorkarea.Content = vm;
+                            addWorkarea.Margin = new Thickness(0);
+
+                            InnerWorkspaces.Items.Add(addWorkarea);
+                            InnerWorkspaces.SelectedItem = addWorkarea;
+                            return;
+                        }
+
+                        if (btnContext == "產生出貨單")
+                        {
+                            var vm = new AluminumExtrusionOrderListView() { Margin = new Thickness(0) };
+                            vm.DataContext = new ProjectListViewModelCollection();
+                            addWorkarea.Content = vm;
+                            addWorkarea.Margin = new Thickness(0);
+
+                            InnerWorkspaces.Items.Add(addWorkarea);
+                            InnerWorkspaces.SelectedItem = addWorkarea;
+                            return;
+                        }
+
+                        if (btnContext == "出貨單列表")
+                        {
+                            var vm = new AluminumExtrusionOrderListView() { Margin = new Thickness(0) };
+                            vm.DataContext = new ProjectListViewModelCollection();
+                            addWorkarea.Content = vm;
+                            addWorkarea.Margin = new Thickness(0);
+
+                            InnerWorkspaces.Items.Add(addWorkarea);
+                            InnerWorkspaces.SelectedItem = addWorkarea;
+                            return;
+                        }
                     }
                 }
                 else
@@ -352,7 +483,7 @@ namespace TokikuNew.Views
             }
         }
 
-   
+
         private void DockBar_DocumentModeChanged(object sender, RoutedEventArgs e)
         {
             //e.Handled = true;

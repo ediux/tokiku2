@@ -8,106 +8,62 @@
              mc:Ignorable="d" 
              Background="{DynamicResource ResourceKey=ControlBackgroundBrush}"
              Loaded="userControl_Loaded"
-             d:DesignHeight="768" d:DesignWidth="1024">
+             d:DesignHeight="768" d:DesignWidth="1366">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="218"/>
-            <RowDefinition/>
-            <RowDefinition Height="48"/>
+            <RowDefinition Height="27"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="27"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Grid.RowSpan="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="27"/>
-                <RowDefinition Height="74"/>
-                <RowDefinition Height="111"/>
-            </Grid.RowDefinitions>
-            <WrapPanel Orientation="Horizontal" Grid.Row="0">
-                <TextBlock Text="ID"  Margin="2,2,0,2" VerticalAlignment="Center" />
-                <TextBox Text="5431" IsReadOnly="True"  Margin="2" TextAlignment="Center" VerticalAlignment="Center"/>
-                <TextBlock Text="訂單屬性" VerticalAlignment="Center"/>
-                <ComboBox Margin="2" Width="100" VerticalAlignment="Center">
-                    <ComboBoxItem Content="一般訂製單" IsSelected="True"/>
-                </ComboBox>
-                <TextBlock Text="需求單位"  Margin="2,2,0,2" VerticalAlignment="Center"/>
-                <ComboBox Margin="2" Width="100" VerticalAlignment="Center">
-                    <ComboBoxItem Content="公司" IsSelected="True"/>
-                    <ComboBoxItem Content="其他"/>
-                </ComboBox>
-                <TextBlock Text="訂製單號:" VerticalAlignment="Center" Margin="2"/>
-                <TextBox Width="200" MaxLength="20" VerticalAlignment="Center"  Margin="2"/>
-                <TextBlock Text="批號:" VerticalAlignment="Center" Margin="2"/>
-                <TextBox Width="100" MaxLength="20" VerticalAlignment="Center"  Margin="2"/>
-                <TextBlock Text="預估交期:" VerticalAlignment="Center" Margin="2"/>
-                <DatePicker Width="200" VerticalAlignment="Center" Margin="2"/>
-            </WrapPanel>
-            <GroupBox Header="此訂製單已收料,不可異動" Foreground="Red" Grid.Row="1" Margin="2">
-                <WrapPanel  Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left">
-                    <TextBlock Foreground="Black" Text="輸入人員" VerticalAlignment="Center" />
-                    <TextBox Foreground="Black" Text="{Binding LoginedUser.UserName, ElementName=userControl}" Width="100" IsReadOnly="True" IsEnabled="False" TextAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Foreground="Black" Text="建檔日期:" VerticalAlignment="Center"/>
-                    <DatePicker Foreground="Black" Width="200" VerticalAlignment="Center"/>
-                    <TextBlock Foreground="Black" Text="製單人員:" VerticalAlignment="Center" />
-                    <TextBox Foreground="Black" Text="{Binding LoginedUser.UserName, ElementName=userControl}" Width="100" IsReadOnly="True" Margin="2" TextAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Foreground="Black" Text="製單日期:" VerticalAlignment="Center" Margin="2"/>
-                    <DatePicker Foreground="Black" Width="200" VerticalAlignment="Center"  Margin="2"/>
-                    <TextBlock Foreground="Black" Text="連絡電話:"  VerticalAlignment="Center" Margin="2"/>
-                    <TextBox Foreground="Black" Width="200" MaxLength="20" VerticalAlignment="Center" Margin="2"/>
-                </WrapPanel>
-            </GroupBox>
-            <GroupBox Header="廠商" Grid.Row="2">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="27" />
-                        <RowDefinition Height="27" />
-                        <RowDefinition Height="27" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="25*"/>
-                        <ColumnDefinition Width="25*"/>
-                        <ColumnDefinition Width="25*"/>
-                        <ColumnDefinition Width="25*"/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-                        <TextBlock Foreground="Green" Text="材料廠商" VerticalAlignment="Center"/>
-                        <TextBox Width="50" VerticalAlignment="Center" Margin="2"/>
-                        <TextBox Width="auto" MinWidth="125" HorizontalAlignment="Stretch" Margin="2" />
-                    </StackPanel>
-                    <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
-                        <TextBlock Foreground="Green" Text="聯絡人" VerticalAlignment="Center"/>
-                        <TextBox Width="auto" MinWidth="200" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" Grid.RowSpan="3">
-                        <TextBlock Foreground="Green" Text="送貨地址" VerticalAlignment="Top" Margin="2,5"/>
-                        <TextBox MinWidth="170" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="0" Grid.Column="4" Orientation="Horizontal" Grid.RowSpan="3">
-                        <TextBlock Foreground="Green" Text="備註" VerticalAlignment="Top" Margin="5"/>
-                        <TextBox Width="auto" MinWidth="170" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="4"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
-                        <TextBlock Foreground="Green" Text="連絡電話" VerticalAlignment="Center"/>
-                        <TextBox Width="auto" MinWidth="180" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <TextBlock Foreground="Green" Text="Fax" HorizontalAlignment="Right" MinWidth="40" VerticalAlignment="Center"/>
-                        <TextBox Width="auto" MinWidth="200" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
-                        <TextBlock Foreground="Green" Text="保留數" HorizontalAlignment="Right" MinWidth="40" VerticalAlignment="Center"/>
-                        <TextBox Width="auto" MinWidth="200" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
-                        <TextBlock Foreground="Green" Text="施工位置/加工圖" HorizontalAlignment="Right" MinWidth="40" VerticalAlignment="Center"/>
-                        <TextBox Width="130" MinWidth="130" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2"/>
-                    </StackPanel>
-                </Grid>
-            </GroupBox>
-        </Grid>
-       
+        <Canvas Grid.Row="0" Panel.ZIndex="500" Width="{Binding ActualWidth, ElementName=userControl}">
+            <Expander Canvas.Left="0" VerticalAlignment="Stretch" ExpandDirection="Down" Header="功能區" IsExpanded="False">
+                <Expander.ContentTemplate>
+                    <DataTemplate>
+                        <WrapPanel Height="72" Orientation="Horizontal" MaxWidth="1366" Width="1359">
+                            <TextBlock Text="ID"  Margin="2,2,0,2" VerticalAlignment="Center" />
+                            <TextBox Text="5431" IsReadOnly="True"  Margin="2" TextAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Text="訂單屬性" VerticalAlignment="Center"/>
+                            <ComboBox Margin="2" Width="100" VerticalAlignment="Center">
+                                <ComboBoxItem Content="一般訂製單" IsSelected="True"/>
+                            </ComboBox>
+                            <TextBlock Text="需求單位"  Margin="2,2,0,2" VerticalAlignment="Center"/>
+                            <ComboBox Margin="2" Width="100" VerticalAlignment="Center">
+                                <ComboBoxItem Content="公司" IsSelected="True"/>
+                                <ComboBoxItem Content="其他"/>
+                            </ComboBox>
+                            <TextBlock Text="訂製單號:" VerticalAlignment="Center" Margin="2"/>
+                            <TextBox Width="200" MaxLength="20" VerticalAlignment="Center"  Margin="2"/>
+                            <TextBlock Text="批號:" VerticalAlignment="Center" Margin="2"/>
+                            <TextBox Width="100" MaxLength="20" VerticalAlignment="Center"  Margin="2"/>
+                            <TextBlock Text="預估交期:" VerticalAlignment="Center" Margin="2"/>
+                            <DatePicker Width="200" VerticalAlignment="Center" Margin="2"/>
+                            <TextBlock Foreground="Black" Text="輸入人員" VerticalAlignment="Center" />
+                            <TextBox Foreground="Black" Text="{Binding LoginedUser.UserName, ElementName=userControl}" Width="100" IsReadOnly="True" IsEnabled="False" TextAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Foreground="Black" Text="建檔日期:" VerticalAlignment="Center"/>
+                            <DatePicker Foreground="Black" Width="200" VerticalAlignment="Center"/>
+                            <TextBlock Foreground="Black" Text="製單人員:" VerticalAlignment="Center" />
+                            <TextBox Foreground="Black" Text="{Binding LoginedUser.UserName, ElementName=userControl}" Width="100" IsReadOnly="True" Margin="2" TextAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Foreground="Black" Text="製單日期:" VerticalAlignment="Center" Margin="2"/>
+                            <DatePicker Foreground="Black" Width="200" VerticalAlignment="Center"  Margin="2"/>
+                            <TextBlock Foreground="Black" Text="連絡電話:"  VerticalAlignment="Center" Margin="2"/>
+                            <TextBox Foreground="Black" Width="200" MaxLength="20" VerticalAlignment="Center" Margin="2"/>
+                            <TextBlock Foreground="Black" Text="廠商:"  VerticalAlignment="Center" Margin="2"/>
+                            <ComboBox Width="100" />
+                        </WrapPanel>
+                    </DataTemplate>
+                </Expander.ContentTemplate>
+            </Expander>
+        </Canvas>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="2" VerticalAlignment="Center">
+            <Button Content="產生退貨單" x:Name="btn1"/>
+            <Button Content="請款單列表" x:Name="btn2"/>
+            <Button Content="產生請款單" x:Name="btn3"/>
+            <Button Content="產生出貨單" x:Name="btn4"/>
+            <Button Content="出貨單列表" x:Name="btn5"/>
+        </StackPanel>
+        <DataGrid Margin="5" AutoGenerateColumns="False" Grid.Row="1"></DataGrid>
         <StatusBar Grid.Row="2">
             <StatusBarItem x:Name="SpeardStatusBarItem" Content="就緒" Height="27" VerticalAlignment="Top"/>
         </StatusBar>
-
-        <Controls:DockBar Grid.Row="2" DocumentMode="Read" Margin="0,0,0,-2"/>
     </Grid>
 </UserControl>

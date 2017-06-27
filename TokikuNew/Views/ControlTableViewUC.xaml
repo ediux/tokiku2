@@ -14,7 +14,7 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="0" >
             <Button Content="產生鋁擠型訂製單" Margin="2" Click="Button_Click" />
-            <Button Content="鋁擠型訂製單列表" Margin="2" />
+            <Button Content="鋁擠型訂製單列表" Margin="2" Click="Button_Click_1" />
         </StackPanel>
         <GroupBox Header="鋁擠型管控表" Grid.Row="1" Margin="2" x:Name="UC">
             <DataGrid>

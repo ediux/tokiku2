@@ -9,22 +9,19 @@
              Background="{DynamicResource ControlBackgroundBrush}"
              d:DesignHeight="768" d:DesignWidth="1366">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="27"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50"/>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="350"/>
-        </Grid.ColumnDefinitions>
-       
-        <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+        <DataGrid CanUserAddRows="True" ItemsSource="{Binding}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="訂單編號"/>
                 <DataGridTextColumn Header="名稱"/>
                 <DataGridTextColumn Header="廠商"/>
                 <DataGridTextColumn Header="下單日期"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="開啟訂製單" Click="Button_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
