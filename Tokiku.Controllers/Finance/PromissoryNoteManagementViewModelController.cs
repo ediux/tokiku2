@@ -18,22 +18,22 @@ namespace Tokiku.Controllers
             sql = " select c.ContractNumber as ContractNumber, c.Name as ProjectName, " +
                          " x.PromissoryId, x.PromissoryName, x.PromissoryAmount, x.PromissoryOpenDate, x.PromissoryRecoveryDate, " +
                          " z.WarrantyId, z.WarrantyName, z.WarrantyAmount, z.WarrantyOpenDate, z.WarrantyRecoveryDate, " +
-                         " e.UserId as CreateUserId e.UserName as CreateUser, d.CreateTime as CreateTime " +
-                    " from (select ProjectContractId, b.Id as PromissoryId, b.Name as PromissoryName, " +
+                         " x.CreateUserId as CreateUserId, a.UserName as CreateUser, d.CreateTime as CreateTime " +
+                    " from Users a " +
+               " left join (select a.CreateUserId, a.ProjectContractId, b.Id as PromissoryId, b.Name as PromissoryName, " +
                                  " Amount as PromissoryAmount, OpenDate as PromissoryOpenDate, RecoveryDate as PromissoryRecoveryDate " +
                             " from PromissoryNoteManagement a " +
                        " left join TicketTypes b on b.Id = a.TicketTypeId " +
                        " left join ProjectContract c on c.Id = a.ProjectContractId " +
-                           " where b.IsPromissoryNote = 0) x " +
-               " left join (select ProjectContractId, b.Id as WarrantyId, b.Name as WarrantyName, " +
+                           " where b.IsPromissoryNote = 0) x on x.CreateUserId = a.UserId " +
+               " left join (select a.CreateUserId, a.ProjectContractId, b.Id as WarrantyId, b.Name as WarrantyName, " +
                                  " Amount as WarrantyAmount, OpenDate as WarrantyOpenDate, RecoveryDate as WarrantyRecoveryDate " +
                             " from PromissoryNoteManagement a " +
                        " left join TicketTypes b on b.Id = a.TicketTypeId " +
                        " left join ProjectContract c on c.Id = a.ProjectContractId " +
-                           " where b.IsPromissoryNote = 1) z on z.ProjectContractId = x.ProjectContractId " + // 專案合約代碼需相同
+                           " where b.IsPromissoryNote = 1) z on z.CreateUserId = a.UserId and z.ProjectContractId = x.ProjectContractId " + // 專案合約代碼需相同
                " left join ProjectContract c on c.Id = x.ProjectContractId " +
-               " left join Projects d on d.Id = c.ProjectId " +
-               " left join Users e on c.CreateUserId = e.UserId ";
+               " left join Projects d on d.Id = c.ProjectId ";
 
             ExecuteResultEntity<ICollection<PromissoryNoteManagementEntity>> rtn;
 
