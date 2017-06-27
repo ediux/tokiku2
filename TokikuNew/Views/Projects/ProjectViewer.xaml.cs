@@ -185,9 +185,15 @@ namespace TokikuNew.Views
                     addWorkarea = new ClosableTabItem() { Header = Header };
                 }
 
-                if(e.OriginalSource is AssemblyTableView)
+                if (e.OriginalSource is AssemblyTableView)
                 {
                     Header = "組裝總表";
+                    addWorkarea = new ClosableTabItem() { Header = Header };
+                }
+
+                if (e.OriginalSource is ControlTableViewUC)
+                {
+                    Header = "管控表";
                     addWorkarea = new ClosableTabItem() { Header = Header };
                 }
                 bool isExisted = false;
@@ -302,9 +308,23 @@ namespace TokikuNew.Views
                         return;
                     }
 
-                    if(e.OriginalSource !=null && e.OriginalSource is AssemblyTableView)
+                    if (e.OriginalSource != null && e.OriginalSource is AssemblyTableView)
                     {
                         var vm = new AssemblyTableView() { Margin = new Thickness(0) };
+
+
+                        //addWorkarea = new ClosableTabItem() { Header = Header };
+                        addWorkarea.Content = vm;
+                        addWorkarea.Margin = new Thickness(0);
+
+                        InnerWorkspaces.Items.Add(addWorkarea);
+                        InnerWorkspaces.SelectedItem = addWorkarea;
+                        return;
+                    }
+
+                    if (e.OriginalSource !=null && e.OriginalSource is ControlTableViewUC)
+                    {
+                        var vm = new ControlTableViewUC() { Margin = new Thickness(0) };
                       
 
                         //addWorkarea = new ClosableTabItem() { Header = Header };

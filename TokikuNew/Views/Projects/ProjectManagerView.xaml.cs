@@ -200,6 +200,7 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
 
                         break;
                     case DocumentLifeCircle.Save:
+
                         if (SelectedBIGuid != null && SelectedBIGuid != Guid.Empty)
                         {
                             var recvdata = SelectedProject.Suppliers.Where(w => w.Id == SelectedBIGuid).Single();
@@ -228,8 +229,8 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
                             RaiseEvent(new RoutedEventArgs(ClosableTabItem.OnPageClosingEvent, this));
                         }
 
-                        //Mode = ((DockBar)e.OriginalSource).DocumentMode;
-                        //RaiseEvent(new RoutedEventArgs(DockBar.DocumentModeChangedEvent, this));
+                        Mode = DocumentLifeCircle.Read;
+                       
                         SelectedProject.Status.IsModify = false;
                         SelectedProject.Status.IsSaved = true;
                         SelectedProject.Status.IsNewInstance = false;

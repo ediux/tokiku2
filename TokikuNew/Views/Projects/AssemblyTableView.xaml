@@ -7,6 +7,20 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
+        <DataGrid>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="圖集"/>
+                <DataGridTextColumn Header="組合編號"/>
+                <DataGridTextColumn Header="加工編號"/>
+                <DataGridTextColumn Header="擠型編號"/>
+                <DataGridTextColumn Header="裁切長度"/>
+
+                <DataGridTextColumn Header="數量"/>
+                <DataGridTextColumn Header="材料說明"/>
+
+                <DataGridTextColumn Header="總需求量"/>
             
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

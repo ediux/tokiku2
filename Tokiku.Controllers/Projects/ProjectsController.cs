@@ -311,7 +311,7 @@ namespace Tokiku.Controllers
 
                     foreach (var delitem in toDelBI)
                     {
-                        RemoveStackBI.Push(original.SupplierTranscationItem.Where(w => w.ProjectId == delitem.ProjectId && w.ManufacturersBussinessItemsId== delitem.ManufacturersBussinessItemsId).Single());
+                        RemoveStackBI.Push(original.SupplierTranscationItem.Where(w => w.ProjectId == delitem.ProjectId && w.ManufacturersBussinessItemsId == delitem.ManufacturersBussinessItemsId).Single());
                     }
 
                     foreach (var additem in toAddBI)
@@ -366,9 +366,18 @@ namespace Tokiku.Controllers
 
                     foreach (var sameitem in samerows)
                     {
-                        ConstructionAtlas Source = fromModel.ConstructionAtlas.Where(w => w.Id == sameitem).Single();
-                        ConstructionAtlas Target = original.ConstructionAtlas.Where(w => w.Id == sameitem).Single();
-                        CheckAndUpdateValue(Source, Target);
+                        try
+                        {
+                            ConstructionAtlas Source = fromModel.ConstructionAtlas.Where(w => w.Id == sameitem).Single();
+                            ConstructionAtlas Target = original.ConstructionAtlas.Where(w => w.Id == sameitem).Single();
+                            CheckAndUpdateValue(Source, Target);
+
+                        }
+                        catch
+                        {
+                            continue;
+                        }
+
                     }
                     #endregion
 
@@ -387,7 +396,7 @@ namespace Tokiku.Controllers
             }
 
         }
-     
+
 
         public void Delete(Guid ProjectId, Guid UserId)
         {
@@ -423,8 +432,8 @@ namespace Tokiku.Controllers
                     var result = projectsrepo.Where(s => s.Code.Contains(text)
                      || s.Name.Contains(text)
                     || (s.ShortName != null && s.ShortName.Contains(text)))
-                    .OrderBy(s=>s.State)
-                    .OrderBy(s=>s.Code)
+                    .OrderBy(s => s.State)
+                    .OrderBy(s => s.Code)
                     .Select(s => new ProjectListEntity()
                     {
                         Id = s.Id,
