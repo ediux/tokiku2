@@ -292,7 +292,15 @@ namespace TokikuNew.Views
 
         private void BtnAluminumExtrusion_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, new ControlTableViewUC()));
+            }
+            catch (Exception ex)
+            {
 
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
         }
 
         private void BtnGlass_Click(object sender, RoutedEventArgs e)
