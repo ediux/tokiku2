@@ -37,9 +37,9 @@ namespace Tokiku.ViewModels
             if (!projectResult.HasError)
             {
                 Clear();
-                var result = projectResult.Result
-                    .OrderBy(s=>s.State)
-                    .OrderBy(s=>s.Code)
+                var result = projectResult.Result 
+                    .OrderByDescending(s=>s.Code)
+                    .OrderBy(s => s.State)
                     .Select(s => new ProjectListViewModel()
                     {
                         Code = s.Code,

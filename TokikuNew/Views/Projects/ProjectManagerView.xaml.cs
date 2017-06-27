@@ -25,7 +25,7 @@ namespace TokikuNew.Views
 
         public ProjectManagerView()
         {
-            InitializeComponent();
+            InitializeComponent(); 
         }
 
         #region SelectedProject
