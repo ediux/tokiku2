@@ -47,18 +47,21 @@
                             <RowDefinition Height="27"/>
                             <RowDefinition Height="27"/>
                         </Grid.RowDefinitions>
-                        <TextBlock Text="廠商代號" Grid.Row="0" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+                        <TextBlock Text="廠商代號：" Grid.Row="0" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
                         <TextBlock x:Name="tbCode" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBlock Text="名稱(全名)" Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-                        <TextBox Style="{DynamicResource ReadModeSwitch}" x:Name="tbName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="tbName_TextChanged"  />
-                        <TextBlock Style="{DynamicResource ReadModeSwitch_TextBlock}"  Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <TextBlock Text="名稱(簡稱)" Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-                        <TextBox x:Name="tbShortName" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Path=Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBlock Text="負責人"   Grid.Row="3" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-                        <TextBox x:Name="tbPrincipal" MaxLength="6" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Principal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Path=Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBlock Text="統一編號" Grid.Row="4" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-                        <TextBox Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding UniformNumbers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock Text="名稱(全名)：" Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+                        <TextBox Style="{DynamicResource ReadModeSwitch}" x:Name="tbName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="tbName_TextChanged"  />
+
+                        <TextBlock Text="名稱(簡稱)：" Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+                        <TextBox Style="{DynamicResource ReadModeSwitch}" x:Name="tbShortName" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Path=Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <TextBlock Text="負責人："   Grid.Row="3" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+                        <TextBox Style="{DynamicResource ReadModeSwitch}" x:Name="tbPrincipal" MaxLength="6" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Principal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Path=Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                        <TextBlock Text="統一編號：" Grid.Row="4" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+                        <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding UniformNumbers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        
                         <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="25*"/>
@@ -66,15 +69,17 @@
                                 <ColumnDefinition Width="20*"/>
                                 <ColumnDefinition Width="30*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="公司電話" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-                            <TextBox Grid.Row="5" MaxLength="10" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            <TextBlock Text="公司傳真" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
-                            <TextBox Grid.Row="5" MaxLength="10" Grid.Column="3" VerticalAlignment="Center" Margin="2" Text="{Binding Fax, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Text="公司電話：" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+                            <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="5" MaxLength="10" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                            <TextBlock Text="公司傳真：" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
+                            <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="5" MaxLength="10" Grid.Column="3" VerticalAlignment="Center" Margin="2" Text="{Binding Fax, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </Grid>
 
-                        <TextBlock Text="公司地址" Grid.Row="6" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-                        <TextBox x:Name="tbAddress" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="tbAddress_TextChanged"/>
-                        <TextBlock Text="發票地址" Grid.Row="7" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+                        <TextBlock Text="公司地址：" Grid.Row="6" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+                        <TextBox Style="{DynamicResource ReadModeSwitch}" x:Name="tbAddress" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="tbAddress_TextChanged"/>
+
+                        <TextBlock Text="發票地址：" Grid.Row="7" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
                         <Grid Grid.Row="7" Grid.Column="1" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="50"/>
@@ -83,8 +88,8 @@
                             <CheckBox Grid.Column="0" x:Name="checkcopyaddress" Margin="2" 
                                   Content="同上" VerticalAlignment="Center"
                                   IsEnabled="{Binding Mode, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <TextBox Grid.Column="1" Name="tbInvoiceAddress" VerticalAlignment="Center" Text="{Binding InvoiceAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
-                                <TextBox.Style>
+                            <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Column="1" Name="tbInvoiceAddress" VerticalAlignment="Center" Text="{Binding InvoiceAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                                <!-- TextBox.Style>
                                     <Style TargetType="{x:Type TextBox}">
                                         <Setter Property="BorderBrush" Value="{DynamicResource TextControlBorderBrush}" />
                                         <Style.Triggers>
@@ -97,7 +102,7 @@
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
-                                </TextBox.Style>
+                                </TextBox.Style -->
                             </TextBox>
                         </Grid>
                         <Grid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2">
@@ -107,15 +112,17 @@
                                 <ColumnDefinition Width="20*"/>
                                 <ColumnDefinition Width="30*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="工廠電話" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-                            <TextBox MaxLength="10" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding FactoryPhone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            <TextBlock Text="工廠傳真" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
-                            <TextBox MaxLength="10" Grid.Column="3" VerticalAlignment="Center" Margin="2" Text="{Binding FactoryFax, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Text="工廠電話：" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+                            <TextBox Style="{DynamicResource ReadModeSwitch}" MaxLength="10" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding FactoryPhone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                            <TextBlock Text="工廠傳真：" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
+                            <TextBox Style="{DynamicResource ReadModeSwitch}" MaxLength="10" Grid.Column="3" VerticalAlignment="Center" Margin="2" Text="{Binding FactoryFax, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </Grid>
-                        <TextBlock Text="工廠地址" Grid.Row="9" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-                        <TextBox Grid.Row="9" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding FactoryAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBlock Text="狀態" Grid.Row="10" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-                        <ComboBox Grid.Row="10" Grid.Column="1" VerticalAlignment="Center" 
+                        <TextBlock Text="工廠地址：" Grid.Row="9" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+                        <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="9" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding FactoryAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <TextBlock Text="狀態：" Grid.Row="10" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+                        <ComboBox Style="{DynamicResource ReadModeSwitch_ComboBox}" Grid.Row="10" Grid.Column="1" VerticalAlignment="Center" 
                               Margin="2"  
                               SelectedValuePath="Value"
                               SelectedValue="{Binding Void, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -128,18 +135,22 @@
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-                        <TextBlock Text="銀行名稱" Grid.Row="4" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
-                        <TextBox x:Name="tbBankName" Grid.Row="4" Grid.Column="3" VerticalAlignment="Center" Margin="2" 
+
+                        <TextBlock Text="銀行名稱：" Grid.Row="4" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
+                        <TextBox Style="{DynamicResource ReadModeSwitch}" x:Name="tbBankName" Grid.Row="4" Grid.Column="3" VerticalAlignment="Center" Margin="2" 
                              Text="{Binding BankName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                              IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBlock Text="銀行帳號" Grid.Row="5" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
-                        <TextBox x:Name="tbBankAccount" Grid.Row="5" Grid.Column="3" VerticalAlignment="Center" Margin="2" Text="{Binding BankAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+
+                        <TextBlock Text="銀行帳號：" Grid.Row="5" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
+                        <TextBox Style="{DynamicResource ReadModeSwitch}" x:Name="tbBankAccount" Grid.Row="5" Grid.Column="3" VerticalAlignment="Center" Margin="2" Text="{Binding BankAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
 					IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBlock Text="帳戶名稱" Grid.Row="6" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
-                        <TextBox x:Name="tbBankAccountName" Grid.Row="6" Grid.Column="3" VerticalAlignment="Center" Margin="2" Text="{Binding BankAccountName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+
+                        <TextBlock Text="帳戶名稱：" Grid.Row="6" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
+                        <TextBox Style="{DynamicResource ReadModeSwitch}" x:Name="tbBankAccountName" Grid.Row="6" Grid.Column="3" VerticalAlignment="Center" Margin="2" Text="{Binding BankAccountName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
 					IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBlock Text="支付方式" Grid.Row="7" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
-                        <ComboBox x:Name="cbPaymentType" Grid.Row="7" Grid.Column="3" SelectedValuePath="Id"
+
+                        <TextBlock Text="支付方式：" Grid.Row="7" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
+                        <ComboBox Style="{DynamicResource ReadModeSwitch_ComboBox}" x:Name="cbPaymentType" Grid.Row="7" Grid.Column="3" SelectedValuePath="Id"
                               SelectedValue="{Binding PaymentType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               SelectedIndex="0"
                               IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -151,8 +162,9 @@
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-                        <TextBlock Text="票期" Grid.Row="8" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
-                        <ComboBox x:Name="cbTicketPeriod" Grid.Row="8" Grid.Column="3" 
+
+                        <TextBlock Text="票期：" Grid.Row="8" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
+                        <ComboBox Style="{DynamicResource ReadModeSwitch_ComboBox}" x:Name="cbTicketPeriod" Grid.Row="8" Grid.Column="3" 
                               SelectedValuePath="Id"
                               SelectedIndex="0"
                               SelectedValue="{Binding TicketPeriodId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -165,8 +177,9 @@
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-                        <TextBlock Text="行動電話" Grid.Row="0" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
-                        <TextBox Grid.Row="0" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+
+                        <TextBlock Text="行動電話：" Grid.Row="0" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
+                        <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="0" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center" HorizontalAlignment="Stretch"
                             IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              MaxLength="10" Text="{Binding Mobile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         <Grid Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2">
@@ -176,15 +189,18 @@
                                 <ColumnDefinition Width="20*"/>
                                 <ColumnDefinition Width="30*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="主要聯絡人" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                            <TextBlock Text="主要聯絡人：" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                             <TextBlock Text="{Binding MainContactPerson,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" VerticalAlignment="Center" Margin="2" />
-                            <TextBlock Text="分機" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                            <TextBlock Text="分機：" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                             <TextBlock Text="{Binding Extension,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" VerticalAlignment="Center" Margin="2" />
                         </Grid>
-                        <TextBlock Text="e-mail" Grid.Row="2" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
-                        <TextBox Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" Margin="2" Text="{Binding eMail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <TextBlock Text="e-mail：" Grid.Row="2" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
+                        <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" Margin="2" Text="{Binding eMail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        
                         <TextBlock Text="備註" Grid.Row="3" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
-                        <TextBox Grid.Row="3" Grid.Column="4" VerticalAlignment="Stretch" Margin="2" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="3" Grid.Column="4" VerticalAlignment="Stretch" Margin="2" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        
                         <Grid Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="25*"/>
@@ -192,9 +208,9 @@
                                 <ColumnDefinition Width="20*"/>
                                 <ColumnDefinition Width="30*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="異動人員" Grid.Column="0" VerticalAlignment="Center" TextAlignment="Right"/>
+                            <TextBlock Text="異動人員：" Grid.Column="0" VerticalAlignment="Center" TextAlignment="Right"/>
                             <TextBlock Text="{Binding LoginedUser.UserName, ElementName=userControl_ManufacturersManageView}" Grid.Column="1" VerticalAlignment="Center" TextAlignment="Left"/>
-                            <TextBlock Text="異動日期" Grid.Column="2" VerticalAlignment="Center" TextAlignment="Right"/>
+                            <TextBlock Text="異動日期：" Grid.Column="2" VerticalAlignment="Center" TextAlignment="Right"/>
                             <TextBlock Text="{Binding LastUpdateTime, StringFormat=\{0:d\}}" Grid.Column="3" VerticalAlignment="Center" TextAlignment="Left" />
                         </Grid>
                     </Grid>
@@ -222,8 +238,8 @@
                             <ColumnDefinition Width="25*"/>
                             <ColumnDefinition Width="25*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="材料類別" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="0"/>
-                        <ComboBox Name="cbMaterialCategoriesList" ItemsSource="{DynamicResource MaterialCategoriesSource}"
+                        <TextBlock Text="材料類別：" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="0"/>
+                        <ComboBox Style="{DynamicResource ReadModeSwitch_ComboBox}" Name="cbMaterialCategoriesList" ItemsSource="{DynamicResource MaterialCategoriesSource}"
                                       Grid.Row="0" Grid.Column="1"
                                       IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       SelectedValuePath="Id" Margin="2" >
@@ -233,10 +249,12 @@
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-                        <TextBlock Text="交易品項" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" />
-                        <TextBox  Margin="2" Grid.Row="0" Grid.Column="3" Name="tbTrancationItem" IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBlock Text="交易類別" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"/>
-                        <ComboBox Grid.Row="1" Grid.Column="1" SelectedValuePath="Id" Name="cbTranscationCategories"
+                        
+                        <TextBlock Text="交易品項：" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" />
+                        <TextBox Style="{DynamicResource ReadModeSwitch}" Margin="2" Grid.Row="0" Grid.Column="3" Name="tbTrancationItem" IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        
+                        <TextBlock Text="交易類別：" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"/>
+                        <ComboBox Style="{DynamicResource ReadModeSwitch_ComboBox}" Grid.Row="1" Grid.Column="1" SelectedValuePath="Id" Name="cbTranscationCategories"
                                   ItemsSource="{DynamicResource TranscationCategoriesSource}"
                                   IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                   Margin="2"
@@ -247,8 +265,9 @@
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-                        <TextBlock Text="支付方式" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right"/>
-                        <ComboBox x:Name="cbPaymentTypeBI"  SelectedValuePath="Id"
+                        
+                        <TextBlock Text="支付方式：" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right"/>
+                        <ComboBox Style="{DynamicResource ReadModeSwitch_ComboBox}" x:Name="cbPaymentTypeBI"  SelectedValuePath="Id"
                                       Grid.Row="1" Grid.Column="3"
                               IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               ItemsSource="{DynamicResource PaymentTypesSource}"                              
@@ -259,8 +278,9 @@
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-                        <TextBlock Text="票期" Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                        <ComboBox x:Name="cbTicketPeriodBI" Grid.Row="2" Grid.Column="1" 
+                        
+                        <TextBlock Text="票期：" Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                        <ComboBox Style="{DynamicResource ReadModeSwitch_ComboBox}" x:Name="cbTicketPeriodBI" Grid.Row="2" Grid.Column="1" 
                               SelectedValuePath="Id"
                               IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               ItemsSource="{DynamicResource TicketPeriodsSource}"
@@ -271,6 +291,7 @@
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
+                        
                         <Button x:Name="btnAddMBI" Content="新增" VerticalAlignment="Center" Margin="2" Grid.Row="2" Grid.Column="3" Click="btnAddMBI_Click"
                               IsEnabled="{Binding Mode, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 />

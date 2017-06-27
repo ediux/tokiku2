@@ -49,8 +49,9 @@ namespace TokikuNew.Views
         {
             try
             {
-                //RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, ((PromissoryNoteManagementViewModel)((Button)sender).DataContext).ContractNumber));
-                
+                //ContractManagementViewUC view = new ContractManagementViewUC();
+                //RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, view));
+
             }
             catch (Exception ex)
             {
