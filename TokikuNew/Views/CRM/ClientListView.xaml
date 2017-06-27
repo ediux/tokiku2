@@ -31,7 +31,8 @@
         </Grid>
         <controls:CustomDataGrid x:Name="ClientList" AllowExecuteSystemCommand="False" Grid.Row="1" Margin="5"
                                  ItemsSource="{Binding}" CanUserDeleteRows="False"  CanUserAddRows="False"
-                                 AutoGenerateColumns="False"  
+                                 AutoGenerateColumns="False"  FontSize="20"
+                                 CellStyle="{DynamicResource DataGrid_Centering}"
                                  MouseDoubleClick="ClientList_MouseDoubleClick"
                                  IsReadOnly="True"
                                  >

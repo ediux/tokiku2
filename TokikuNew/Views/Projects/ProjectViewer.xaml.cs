@@ -219,21 +219,27 @@ namespace TokikuNew.Views
                         addWorkarea = new ClosableTabItem() { Header = Header };
                     }
 
+                    if (btn == "退貨單列表")
+                    {
+                        Header = "退貨單列表";
+                        addWorkarea = new ClosableTabItem() { Header = Header };
+                    }
+
+                    if (btn == "產生請款單")
+                    {
+                        Header = "請款單";
+                        addWorkarea = new ClosableTabItem() { Header = Header };
+                    }
+
                     if (btn == "請款單列表")
                     {
                         Header = "請款單列表";
                         addWorkarea = new ClosableTabItem() { Header = Header };
                     }
 
-                    if (btn == "產生請款單")
+                    if (btn == "產生出貨單")
                     {
-                        Header = "鋁擠型訂製單列表";
-                        addWorkarea = new ClosableTabItem() { Header = Header };
-                    }
-
-                    if (btn == "請款單列表")
-                    {
-                        Header = "請款單";
+                        Header = "出貨單";
                         addWorkarea = new ClosableTabItem() { Header = Header };
                     }
 
@@ -413,8 +419,8 @@ namespace TokikuNew.Views
 
                         if (btnContext == "產生退貨單")
                         {
-                            var vm = new AluminumExtrusionOrderListView() { Margin = new Thickness(0) };
-                            vm.DataContext = new ProjectListViewModelCollection();
+                            var vm = new ReturnMaterialViewUC() { Margin = new Thickness(0) };
+                          
                             addWorkarea.Content = vm;
                             addWorkarea.Margin = new Thickness(0);
 
@@ -437,8 +443,8 @@ namespace TokikuNew.Views
 
                         if (btnContext == "產生請款單")
                         {
-                            var vm = new AluminumExtrusionOrderListView() { Margin = new Thickness(0) };
-                            vm.DataContext = new ProjectListViewModelCollection();
+                            var vm = new InvoiceView() { Margin = new Thickness(0) };
+                          
                             addWorkarea.Content = vm;
                             addWorkarea.Margin = new Thickness(0);
 
@@ -449,8 +455,8 @@ namespace TokikuNew.Views
 
                         if (btnContext == "產生出貨單")
                         {
-                            var vm = new AluminumExtrusionOrderListView() { Margin = new Thickness(0) };
-                            vm.DataContext = new ProjectListViewModelCollection();
+                            var vm = new ShippingMaterialViewUC() { Margin = new Thickness(0) };
+                           
                             addWorkarea.Content = vm;
                             addWorkarea.Margin = new Thickness(0);
 

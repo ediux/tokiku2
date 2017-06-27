@@ -34,6 +34,7 @@
         </Grid>
         <controls:CustomDataGrid x:Name="VendorList" AllowExecuteSystemCommand="False" Grid.Row="1" Margin="5"
                                  ItemsSource="{Binding}" ClipboardCopyMode="IncludeHeader" 
+                                 CellStyle="{StaticResource DataGrid_Centering}" FontSize="20"
                                  SelectedCellsChanged="VendorList_SelectedCellsChanged" AutoGenerateColumns="False" 
                                   MouseDoubleClick="VendorList_MouseDoubleClick"
                                  HorizontalScrollBarVisibility="Auto" CanUserAddRows="True"
