@@ -37,23 +37,26 @@ namespace TokikuNew.Views
 
         }
 
-        private void PromissoryNoteManagementUC_Loaded(object sender, RoutedEventArgs e)
+        private void PromissoryNoteManagementViewUC_Loaded(object sender, RoutedEventArgs e)
         {
-            PromissoryNoteManagementViewModelCollection ctrl = new Tokiku.ViewModels.PromissoryNoteManagementViewModelCollection();
+            PromissoryNoteManagementViewModelCollection ctrl = new PromissoryNoteManagementViewModelCollection();
             UC.DataContext = ctrl;
             ctrl.Query();
         }
+        
         // 合約管理按鈕觸發事件
         private void ContractManagement_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 //RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, ((PromissoryNoteManagementViewModel)((Button)sender).DataContext).ContractNumber));
+                
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
         }
+
     }
 }

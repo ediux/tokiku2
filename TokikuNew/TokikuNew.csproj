@@ -191,8 +191,8 @@
     <Compile Include="Views\Projects\SupplierForProjects.xaml.cs">
       <DependentUpon>SupplierForProjects.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Finance\PromissoryNoteManagementUC.xaml.cs">
-      <DependentUpon>PromissoryNoteManagementUC.xaml</DependentUpon>
+    <Compile Include="Views\Finance\PromissoryNoteManagementViewUC.xaml.cs">
+      <DependentUpon>PromissoryNoteManagementViewUC.xaml</DependentUpon>
     </Compile>
     <Page Include="Controls\SwitchField.xaml">
       <SubType>Designer</SubType>
@@ -378,7 +378,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Finance\PromissoryNoteManagementUC.xaml">
+    <Page Include="Views\Finance\PromissoryNoteManagementViewUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
