@@ -162,51 +162,51 @@ namespace TokikuNew.Views
             {
                 e.Handled = true;
 
-                if (string.IsNullOrEmpty(TBPlaceofReceipt.Text))
-                {
-                    if (MessageBox.Show("請輸入送貨地址!", "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK) == MessageBoxResult.OK)
-                    {
-                        return;
-                    }
-                }
-                else
-                {
-                    DataGridTemplateColumn cell = ((DataGridTemplateColumn)BussinessItemsGrid.Columns[0]);
-                    if (cell != null)
-                    {
-                        ComboBox CBMaterialCategories = (ComboBox)cell.CellTemplate.FindName("CBMaterialCategories", BussinessItemsGrid);
+                //if (string.IsNullOrEmpty(TBPlaceofReceipt.Text))
+                //{
+                //    if (MessageBox.Show("請輸入送貨地址!", "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK) == MessageBoxResult.OK)
+                //    {
+                //        return;
+                //    }
+                //}
+                //else
+                //{
+                //    DataGridTemplateColumn cell = ((DataGridTemplateColumn)BussinessItemsGrid.Columns[0]);
+                //    if (cell != null)
+                //    {
+                //        ComboBox CBMaterialCategories = (ComboBox)cell.CellTemplate.FindName("CBMaterialCategories", BussinessItemsGrid);
 
-                        if (CBMaterialCategories != null)
-                        {
-                            Guid CBMaterialCategoriesId = ((MaterialCategoriesViewModel)CBMaterialCategories.SelectedItem).Id;
-                        }
-                    }
+                //        if (CBMaterialCategories != null)
+                //        {
+                //            Guid CBMaterialCategoriesId = ((MaterialCategoriesViewModel)CBMaterialCategories.SelectedItem).Id;
+                //        }
+                //    }
 
-                    //if (CBTranscationBusiness.SelectedItem != null)
-                    //{
-                    //    string TranscationItem = ((ManufacturersBussinessItemsViewModel)CBTranscationBusiness.SelectedItem).Name;
+                //    //if (CBTranscationBusiness.SelectedItem != null)
+                //    //{
+                //    //    string TranscationItem = ((ManufacturersBussinessItemsViewModel)CBTranscationBusiness.SelectedItem).Name;
 
-                    //    //if (CBManufacturerList.SelectedItem != null)
-                    //    //{
-                    //    //    Guid manuid = ((ManufacturersViewModel)CBManufacturerList.SelectedItem).Id;
-                    //    //    int periodsid = ((TicketPeriodsViewModel)CBTicketPeriods.SelectedItem).Id;
-                    //    //    ManufacturersBussinessItemsViewModelColletion bicollection = new ManufacturersBussinessItemsViewModelColletion();
-                    //    //    bicollection.QueryByBusinessItem(CBMaterialCategoriesId, TranscationItem, manuid, periodsid);
-                    //    //    if (bicollection.Count > 0)
-                    //    //    {
-                    //    //        foreach (var item in bicollection)
-                    //    //        {
-                    //    //            SuppliersViewModel model = new SuppliersViewModel();
-                    //    //            model.SetModel(item);
-                    //    //            model.PlaceofReceipt = TBPlaceofReceipt.Text;
-                    //    //            //SelectedProject.Suppliers.Add(model);
-                    //    //        }
-                    //    //    }
-                    //    //}
-                    //}
+                //    //    //if (CBManufacturerList.SelectedItem != null)
+                //    //    //{
+                //    //    //    Guid manuid = ((ManufacturersViewModel)CBManufacturerList.SelectedItem).Id;
+                //    //    //    int periodsid = ((TicketPeriodsViewModel)CBTicketPeriods.SelectedItem).Id;
+                //    //    //    ManufacturersBussinessItemsViewModelColletion bicollection = new ManufacturersBussinessItemsViewModelColletion();
+                //    //    //    bicollection.QueryByBusinessItem(CBMaterialCategoriesId, TranscationItem, manuid, periodsid);
+                //    //    //    if (bicollection.Count > 0)
+                //    //    //    {
+                //    //    //        foreach (var item in bicollection)
+                //    //    //        {
+                //    //    //            SuppliersViewModel model = new SuppliersViewModel();
+                //    //    //            model.SetModel(item);
+                //    //    //            model.PlaceofReceipt = TBPlaceofReceipt.Text;
+                //    //    //            //SelectedProject.Suppliers.Add(model);
+                //    //    //        }
+                //    //    //    }
+                //    //    //}
+                //    //}
 
-                    //CBVandorSelectionForRecvAddress_Loaded(sender, e);
-                }
+                //    //CBVandorSelectionForRecvAddress_Loaded(sender, e);
+                //}
             }
             catch (Exception ex)
             {
