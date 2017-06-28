@@ -86,22 +86,29 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="專案工程資料" Grid.Row="0" Grid.Column="1" Margin="5">
+            <GroupBox Header="相關聯絡人" Grid.Row="0" Grid.Column="1" Margin="5">
+                <Grid>
+                    <local:ContactPersonManageView x:Name="ContractList" DataContext="{Binding Contracts,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Mode="{Binding Path=Mode, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedManufacturer="{Binding DataContext, ElementName=userControl}" />
+
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="專案工程資料" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="4" Margin="2">
+
                 <c:CustomDataGrid x:Name="EngList" HorizontalScrollBarVisibility="Auto"
                                  CanUserAddRows="False" CanUserDeleteRows="False"
                                   AutoGenerateColumns="False"
                                   IsReadOnly="True"
                                   Margin="5" ItemsSource="{Binding ClientForProjects}" MouseDoubleClick="EngList_MouseDoubleClick" >
                     <c:CustomDataGrid.Columns>
-                        <DataGridHyperlinkColumn Header="工程代號" Binding="{Binding Code}" />
-                        <DataGridTextColumn Header="工程名稱" Binding="{Binding Name}"/>
-                        <DataGridTextColumn Header="面積數(㎡)" Binding="{Binding Area}"/>
-                        <DataGridTextColumn Header="起造日期" Binding="{Binding StartDate,StringFormat={}{0:yyyy/MM/dd}}"/>
-                        <DataGridTextColumn Header="完工日期" Binding="{Binding CompletionDate,StringFormat={}{0:yyyy/MM/dd}}"/>
-                        <DataGridTextColumn Header="狀態列" Binding="{Binding State, Converter={StaticResource StatesCodeToTextValueConverter}}"/>
-                        <DataGridTextColumn Header="保固到期日" Binding="{Binding WarrantyDate,StringFormat={}{0:yyyy/MM/dd}}"/>
-                        <DataGridTextColumn Header="建築師" Binding="{Binding Architect}"/>
-                        <DataGridTextColumn Header="建築高度" >
+                        <DataGridTextColumn Header="工程代號" Binding="{Binding Code}" Width="auto"/>
+                        <DataGridTextColumn Header="工程名稱" Binding="{Binding Name}" Width="250"/>
+                        <DataGridTextColumn Header="面積數(㎡)" Binding="{Binding Area}" Width="100"/>
+                        <DataGridTextColumn Header="起造日期" Binding="{Binding StartDate,StringFormat={}{0:yyyy/MM/dd}}" Width="100"/>
+                        <DataGridTextColumn Header="完工日期" Binding="{Binding CompletionDate,StringFormat={}{0:yyyy/MM/dd}}" Width="100"/>
+                        <DataGridTextColumn Header="狀態列" Binding="{Binding State, Converter={StaticResource StatesCodeToTextValueConverter}}" Width="50"/>
+                        <DataGridTextColumn Header="保固到期日" Binding="{Binding WarrantyDate,StringFormat={}{0:yyyy/MM/dd}}" Width="100"/>
+                        <DataGridTextColumn Header="建築師" Binding="{Binding Architect}" Width="100"/>
+                        <DataGridTextColumn Header="建築高度" Width="150" >
                             <DataGridTextColumn.Binding>
                                 <MultiBinding StringFormat="地上{0:d}層，地下{1}層">
                                     <Binding Path="BuildingHeightAboveground"/>
@@ -109,17 +116,10 @@
                                 </MultiBinding>
                             </DataGridTextColumn.Binding>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="營造廠" Binding="{Binding BuildingCompany}"/>
-                        <DataGridTextColumn Header="監造單位" Binding="{Binding SupervisionUnit}"/>
+                        <DataGridTextColumn Header="營造廠" Binding="{Binding BuildingCompany}" Width="200"/>
+                        <DataGridTextColumn Header="監造單位" Binding="{Binding SupervisionUnit}" Width="*"/>
                     </c:CustomDataGrid.Columns>
                 </c:CustomDataGrid>
-            </GroupBox>
-            <GroupBox Header="相關聯絡人" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="4" Margin="2" 
-                      >
-                <Grid>
-                    <local:ContactPersonManageView x:Name="ContractList" DataContext="{Binding Contracts,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Mode="{Binding Path=Mode, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedManufacturer="{Binding DataContext, ElementName=userControl}" />
-
-                </Grid>
             </GroupBox>
         </Grid>
         <!--<c:DockBar Grid.Row="1" x:Name="dockBar" 
