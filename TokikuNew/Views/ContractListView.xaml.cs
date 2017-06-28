@@ -27,6 +27,17 @@ namespace TokikuNew.Views
             InitializeComponent();
         }
 
+        public ProjectsViewModel CurrentProject
+        {
+            get { return (ProjectsViewModel)GetValue(CurrentProjectProperty); }
+            set { SetValue(CurrentProjectProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CurrentProject.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CurrentProjectProperty =
+            DependencyProperty.Register("CurrentProject", typeof(ProjectsViewModel), typeof(ContractListView), new PropertyMetadata(default(ProjectsViewModel)));
+
+
         #region Document Mode
 
 
@@ -125,20 +136,20 @@ namespace TokikuNew.Views
             try
             {
                 e.NewItem = new ProjectContractViewModel();
-                ((ProjectContractViewModel)e.NewItem).ProjectId = ((ProjectsViewModel)DataContext).Id;
+                ((ProjectContractViewModel)e.NewItem).ProjectId = CurrentProject.Id;
                 ((ProjectContractViewModel)e.NewItem).Initialized();
                 ((ProjectContractViewModel)e.NewItem).Id = Guid.NewGuid();
                 if (string.IsNullOrEmpty(((ProjectContractViewModel)e.NewItem).ContractNumber))
                 {
-                    if (((ProjectsViewModel)DataContext) != null)
-                        ((ProjectContractViewModel)e.NewItem).ContractNumber = ((ProjectsViewModel)DataContext).Code;
+                    if (CurrentProject != null)
+                        ((ProjectContractViewModel)e.NewItem).ContractNumber = CurrentProject.Code;
                 }
-                ((ProjectContractViewModel)e.NewItem).Name = ((ProjectsViewModel)DataContext).Name;
-                ((ProjectContractViewModel)e.NewItem).SigningDate = ((ProjectsViewModel)DataContext).ProjectSigningDate;
+                ((ProjectContractViewModel)e.NewItem).Name = CurrentProject.Name;
+                ((ProjectContractViewModel)e.NewItem).SigningDate = CurrentProject.ProjectSigningDate;
 
-                if (((ProjectsViewModel)DataContext).ProjectContract.Where(w => w.ContractNumber == ((ProjectContractViewModel)e.NewItem).ContractNumber).Any())
+                if (CurrentProject.ProjectContract.Where(w => w.ContractNumber == ((ProjectContractViewModel)e.NewItem).ContractNumber).Any())
                 {
-                    var lastdata = ((ProjectsViewModel)DataContext).ProjectContract
+                    var lastdata = CurrentProject.ProjectContract
                         .Where(w => w.ContractNumber.StartsWith(((ProjectContractViewModel)e.NewItem).ContractNumber))
                         .OrderByDescending(w => w.ContractNumber).FirstOrDefault();
 

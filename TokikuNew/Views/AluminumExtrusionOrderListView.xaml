@@ -18,7 +18,7 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="開啟訂製單" Click="Button_Click"/>
+                            <Button Content="開啟出貨單" Click="Button_Click"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

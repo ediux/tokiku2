@@ -106,7 +106,24 @@ namespace Tokiku.ViewModels
 
         public override void SaveModel()
         {
-            
+            try
+            {
+                ProjectContractController controller = new ProjectContractController();
+                if (Items.Any())
+                {
+                    foreach (var item in Items)
+                    {
+                        ProjectContract data = new ProjectContract();
+                        CopyToModel(data, item);                     
+                        data.ProjectId = item.ProjectId;
+                        controller.CreateOrUpdate(data);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
         }
     }
 

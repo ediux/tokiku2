@@ -607,7 +607,7 @@ namespace Tokiku.ViewModels
                     if (model != null)
                     {
                         ProjectContract pcdata = new ProjectContract();
-                   
+
                         CopyToModel(pcdata, model);
                         pcdata.ProjectId = data.Id;
                         data.ProjectContract.Add(pcdata);
@@ -675,18 +675,27 @@ namespace Tokiku.ViewModels
                         foreach (var row in data.SupplierTranscationItem)
                         {
                             SuppliersViewModel model = new SuppliersViewModel();
-                            model.ProjectId = row.ProjectId;
-                            model.PlaceofReceipt = row.PlaceofReceipt;
-                            model.ManufacturersName = row.ManufacturersBussinessItems.Manufacturers.Name;
-                            model.TicketPeriod = row.ManufacturersBussinessItems.TicketPeriod.Name;
-                            model.MaterialCategories = row.ManufacturersBussinessItems.MaterialCategories.Name;
-                            model.PaymentTypeName = row.ManufacturersBussinessItems.PaymentTypes.PaymentTypeName;
-                            model.TranscationCategories = row.ManufacturersBussinessItems.TranscationCategories.Name;
-                            model.SiteContactPerson = row.SiteContactPerson;
-                            model.SiteContactPersonPhone = row.SiteContactPersonPhone;
-                            model.SetModel(row.ManufacturersBussinessItems);
+                            try
+                            {
 
-                            Suppliers.Add(model);
+                                model.ProjectId = row.ProjectId;
+                                model.PlaceofReceipt = row.PlaceofReceipt;
+                                model.ManufacturersName = row.ManufacturersBussinessItems.Manufacturers.Name;
+                                model.TicketPeriod = row.ManufacturersBussinessItems.TicketPeriod.Name;
+                                model.MaterialCategories = row.ManufacturersBussinessItems.MaterialCategories.Name;
+                                model.PaymentTypeName = row.ManufacturersBussinessItems.PaymentTypes.PaymentTypeName;
+                                model.TranscationCategories = row.ManufacturersBussinessItems.TranscationCategories.Name;
+                                model.SiteContactPerson = row.SiteContactPerson;
+                                model.SiteContactPersonPhone = row.SiteContactPersonPhone;
+                                model.SetModel(row.ManufacturersBussinessItems);
+                            }
+                            catch (Exception ex)
+                            {
+                                setErrortoModel(model, ex);
+                            }
+
+                            if (!model.HasError)
+                                Suppliers.Add(model);
                         }
                     }
 
@@ -725,7 +734,7 @@ namespace Tokiku.ViewModels
             Projects data = (Projects)entity;
             BindingFromModel(data, this);
             ProjectContract.Query(data.Id);
-            
+
             if (data.SupplierTranscationItem.Any())
             {
                 foreach (var row in data.SupplierTranscationItem)

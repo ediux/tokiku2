@@ -219,6 +219,12 @@ namespace TokikuNew.Views
                         addWorkarea = new ClosableTabItem() { Header = Header };
                     }
 
+                    if (btn == "開啟退貨單")
+                    {
+                        Header = "退貨單";
+                        addWorkarea = new ClosableTabItem() { Header = Header };
+                    }
+
                     if (btn == "退貨單列表")
                     {
                         Header = "退貨單列表";
@@ -231,7 +237,7 @@ namespace TokikuNew.Views
                         addWorkarea = new ClosableTabItem() { Header = Header };
                     }
 
-                    if(btn== "開啟請款單")
+                    if (btn == "開啟請款單")
                     {
                         Header = "請款單";
                         addWorkarea = new ClosableTabItem() { Header = Header };
@@ -242,7 +248,7 @@ namespace TokikuNew.Views
                         addWorkarea = new ClosableTabItem() { Header = Header };
                     }
 
-                    if (btn == "產生出貨單")
+                    if (btn == "產生出貨單" || btn == "開啟出貨單")
                     {
                         Header = "出貨單";
                         addWorkarea = new ClosableTabItem() { Header = Header };
@@ -251,6 +257,24 @@ namespace TokikuNew.Views
                     if (btn == "出貨單列表")
                     {
                         Header = "出貨單列表";
+                        addWorkarea = new ClosableTabItem() { Header = Header };
+                    }
+
+                    if (btn == "產生收料單")
+                    {
+                        Header = "收料單";
+                        addWorkarea = new ClosableTabItem() { Header = Header };
+                    }
+
+                    if(btn== "產生加工訂製單")
+                    {
+                        Header = "加工訂製單";
+                        addWorkarea = new ClosableTabItem() { Header = Header };
+                    }
+
+                    if(btn== "玻璃管控表")
+                    {
+                        Header = "玻璃";
                         addWorkarea = new ClosableTabItem() { Header = Header };
                     }
                 }
@@ -434,10 +458,22 @@ namespace TokikuNew.Views
                             return;
                         }
 
+                        if (btnContext == "開啟退貨單")
+                        {
+                            var vm = new ReturnMaterialViewUC() { Margin = new Thickness(0) };
+
+                            addWorkarea.Content = vm;
+                            addWorkarea.Margin = new Thickness(0);
+
+                            InnerWorkspaces.Items.Add(addWorkarea);
+                            InnerWorkspaces.SelectedItem = addWorkarea;
+                            return;
+                        }
+
                         if (btnContext == "退貨單列表")
                         {
                             var vm = new ReturnMaterialListViewUC() { Margin = new Thickness(0) };
-
+                            vm.DataContext = new ProjectListViewModelCollection();
                             addWorkarea.Content = vm;
                             addWorkarea.Margin = new Thickness(0);
 
@@ -494,10 +530,57 @@ namespace TokikuNew.Views
                             return;
                         }
 
+                        if (btnContext == "開啟出貨單")
+                        {
+                            var vm = new ShippingMaterialViewUC() { Margin = new Thickness(0) };
+
+                            addWorkarea.Content = vm;
+                            addWorkarea.Margin = new Thickness(0);
+
+                            InnerWorkspaces.Items.Add(addWorkarea);
+                            InnerWorkspaces.SelectedItem = addWorkarea;
+                            return;
+                        }
                         if (btnContext == "出貨單列表")
                         {
                             var vm = new AluminumExtrusionOrderListView() { Margin = new Thickness(0) };
                             vm.DataContext = new ProjectListViewModelCollection();
+                            addWorkarea.Content = vm;
+                            addWorkarea.Margin = new Thickness(0);
+
+                            InnerWorkspaces.Items.Add(addWorkarea);
+                            InnerWorkspaces.SelectedItem = addWorkarea;
+                            return;
+                        }
+
+                        if (btnContext == "產生收料單")
+                        {
+                            var vm = new RecvMaterialView() { Margin = new Thickness(0) };
+                            vm.DataContext = new ProjectListViewModelCollection();
+                            addWorkarea.Content = vm;
+                            addWorkarea.Margin = new Thickness(0);
+
+                            InnerWorkspaces.Items.Add(addWorkarea);
+                            InnerWorkspaces.SelectedItem = addWorkarea;
+                            return;
+                        }
+
+                        if(btnContext== "產生加工訂製單")
+                        {
+                            var vm = new AluminumExtrusionOrderSheetView() { Margin = new Thickness(0) };
+
+                            addWorkarea.Content = vm;
+                            addWorkarea.Margin = new Thickness(0);
+
+                            InnerWorkspaces.Items.Add(addWorkarea);
+                            InnerWorkspaces.SelectedItem = addWorkarea;
+                            return;
+                        }
+
+                        if (btnContext == "玻璃管控表")
+                        {
+                            var vm = new GlassViewUC() { Margin = new Thickness(0) };
+
                             addWorkarea.Content = vm;
                             addWorkarea.Margin = new Thickness(0);
 

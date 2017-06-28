@@ -12,7 +12,6 @@
     <Grid>
         <GroupBox Header="合約列表" Grid.Row="1" Grid.Column="0" Margin="5" Style="{DynamicResource GroupBox_DocumentEditor}">
             <Grid>
-
                 <DataGrid Grid.Row="1" Grid.Column="0" AutoGenerateColumns="False" 
                                              CanUserDeleteRows="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
                                              CanUserAddRows="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 

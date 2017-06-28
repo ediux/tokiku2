@@ -17,7 +17,7 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="開啟請款單" x:Name="BtnOpen" Click="BtnOpen_Click"/>
+                            <Button Content="開啟退貨單" x:Name="BtnOpen" Click="BtnOpen_Click"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

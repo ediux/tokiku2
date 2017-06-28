@@ -25,6 +25,7 @@ namespace Tokiku.Controllers
                 if (original != null)
                 {
                     CheckAndUpdateValue(fromModel, original);
+                   
                     if (isLastRecord)
                     {
                         repo.UnitOfWork.Commit();
