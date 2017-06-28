@@ -84,6 +84,9 @@
     <Compile Include="Views\AluminumExtrusionOrderListView.xaml.cs">
       <DependentUpon>AluminumExtrusionOrderListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AluminumPlateViewUC.xaml.cs">
+      <DependentUpon>AluminumPlateViewUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ContractListView.xaml.cs">
       <DependentUpon>ContractListView.xaml</DependentUpon>
     </Compile>

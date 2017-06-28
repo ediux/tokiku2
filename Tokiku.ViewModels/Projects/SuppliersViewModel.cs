@@ -15,7 +15,16 @@ namespace Tokiku.ViewModels
         {
             try
             {
-
+                SuppliersController controller = new SuppliersController();
+                if (Items.Any())
+                {
+                    foreach(var item in Items)
+                    {
+                        SupplierTranscationItem data = new SupplierTranscationItem();
+                        CopyToModel(data, item);
+                        controller.CreateOrUpdate(data);
+                    }
+                }
             }
             catch (Exception ex)
             {

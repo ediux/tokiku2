@@ -55,5 +55,10 @@ namespace Tokiku.ViewModels
                 Text = "啟用";
             }
         }
+
+        public override string ToString()
+        {
+            return Text;
+        }
     }
 }

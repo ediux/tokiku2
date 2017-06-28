@@ -169,7 +169,7 @@ namespace TokikuNew.Controls
 
                 DocumentMode = DocumentLifeCircle.Update;
                 RaiseEvent(new RoutedEventArgs(DocumentModeChangedEvent, DocumentMode));
-                UpdateLayout();
+                //UpdateLayout();
                 e.Handled = true;
             }
             catch (Exception ex)

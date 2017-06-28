@@ -434,6 +434,18 @@ namespace TokikuNew.Views
                             return;
                         }
 
+                        if (btnContext == "退貨單列表")
+                        {
+                            var vm = new ReturnMaterialListViewUC() { Margin = new Thickness(0) };
+
+                            addWorkarea.Content = vm;
+                            addWorkarea.Margin = new Thickness(0);
+
+                            InnerWorkspaces.Items.Add(addWorkarea);
+                            InnerWorkspaces.SelectedItem = addWorkarea;
+                            return;
+                        }
+
                         if (btnContext == "請款單列表")
                         {
                             var vm = new InvoiceViewListView() { Margin = new Thickness(0) };

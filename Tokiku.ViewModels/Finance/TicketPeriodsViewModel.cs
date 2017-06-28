@@ -149,5 +149,9 @@ namespace Tokiku.ViewModels
             BindingFromModel(data, this);
             Status.IsNewInstance = false;
         }
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

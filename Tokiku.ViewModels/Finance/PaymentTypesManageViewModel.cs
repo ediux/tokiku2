@@ -119,5 +119,9 @@ namespace Tokiku.ViewModels
             }
 
         }
+        public override string ToString()
+        {
+            return PaymentTypeName;
+        }
     }
 }
