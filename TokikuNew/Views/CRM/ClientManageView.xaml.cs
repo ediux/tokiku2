@@ -137,6 +137,8 @@ namespace TokikuNew.Views
         private void userControl_Loaded(object sender, RoutedEventArgs e)
         {
             AddHandler(DockBar.DocumentModeChangedEvent, new RoutedEventHandler(dockBar_DocumentModeChanged));
+            ClientViewModel SelectedManufacturers = (ClientViewModel)DataContext;
+            SelectedManufacturers.ClientForProjects.QueryByClient(SelectedManufacturers.Id);
         }
     }
 }

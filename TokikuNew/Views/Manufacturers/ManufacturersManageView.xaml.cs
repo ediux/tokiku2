@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using Tokiku.Controllers;
 using Tokiku.ViewModels;
 using TokikuNew.Controls;
@@ -70,11 +71,12 @@ namespace TokikuNew.Views
             {
                 AddHandler(DockBar.DocumentModeChangedEvent, new RoutedEventHandler(DockBar_DocumentModeChanged));
 
-                //Binding BindingDataContext = new Binding();
-                //BindingDataContext.Source = DataContext;
+                Binding BindingDataContext = new Binding();
+                BindingDataContext.Source = DataContext;
 
-                //SetBinding(SelectedManufacturersProperty, BindingDataContext);
+                SetBinding(SelectedManufacturersProperty, BindingDataContext);
 
+                SelectedManufacturers.ManufacturersBussinessItems.QueryAsync(SelectedManufacturers.Id);
 
                 ////當不是新建模式 則查詢設為預設的聯絡人顯示
                 //var maincontact = ((ManufacturersViewModel)DataContext).Contracts.Where(w => w.IsDefault == true).SingleOrDefault();
@@ -232,6 +234,7 @@ namespace TokikuNew.Views
                         }
                         break;
                     case DocumentLifeCircle.Save:
+
                         SelectedManufacturers.SaveModel();
 
                         if (SelectedManufacturers.HasError)

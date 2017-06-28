@@ -244,6 +244,7 @@ namespace Tokiku.ViewModels
                         var item = exexuteresult.Result.Single();
 
                         BindingFromModel(item, this);
+                        Phone = item.Phone;
                         ClientForProjects.QueryByClient(Id);
                         Contracts.ManufacturersId = Id;
                         Contracts.Query();

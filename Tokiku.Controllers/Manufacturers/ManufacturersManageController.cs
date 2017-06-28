@@ -220,7 +220,7 @@ namespace Tokiku.Controllers
                 using (var ManufacturersRepository = RepositoryHelper.GetManufacturersRepository())
                 {
                     var queryresult = ManufacturersRepository.UnitOfWork.Context.Database.SqlQuery<ManufacturersEnter>(sql);
-                    
+
                     rtn = ExecuteResultEntity<ICollection<ManufacturersEnter>>.CreateResultEntity(
                         new Collection<ManufacturersEnter>(queryresult.ToList()));
 
@@ -310,105 +310,135 @@ namespace Tokiku.Controllers
         {
             try
             {
-                using (var ManufacturersRepository = RepositoryHelper.GetManufacturersRepository())
+                var ManufacturersRepository = RepositoryHelper.GetManufacturersRepository();
+
+
+                AccessLogRepository accesslog = RepositoryHelper.GetAccessLogRepository(database);
+
+                //var LoginedUser = GetCurrentLoginUser();
+
+                var dbm = (from q in ManufacturersRepository.All()
+                           where q.Id == fromModel.Id
+                           select q).SingleOrDefault();
+
+                if (dbm != null)
                 {
-                    database = ManufacturersRepository.UnitOfWork;
+                    CheckAndUpdateValue(fromModel, dbm);
 
-                    AccessLogRepository accesslog = RepositoryHelper.GetAccessLogRepository(database);
+                    var toDel = dbm.Contacts.Select(s => s.Id).Except(fromModel.Contacts.Select(s => s.Id)).ToList();
+                    var toAdd = fromModel.Contacts.Select(s => s.Id).Except(dbm.Contacts.Select(s => s.Id)).ToList();
+                    var samerows = dbm.Contacts.Select(s => s.Id).Intersect(fromModel.Contacts.Select(s => s.Id)).ToList();
 
-                    var LoginedUser = GetCurrentLoginUser();
-                    var dbm = (from q in ManufacturersRepository.All()
-                               where q.Id == fromModel.Id
-                               select q).SingleOrDefault();
+                    Stack<Contacts> RemoveStack = new Stack<Contacts>();
+                    Stack<Contacts> AddStack = new Stack<Contacts>();
 
-                    if (dbm != null)
+                    foreach (var delitem in toDel)
                     {
-                        CheckAndUpdateValue(fromModel, dbm);
+                        RemoveStack.Push(dbm.Contacts.Where(w => w.Id == delitem).Single());
+                    }
 
-                        var toDel = dbm.Contacts.Select(s => s.Id).Except(fromModel.Contacts.Select(s => s.Id)).ToList();
-                        var toAdd = fromModel.Contacts.Select(s => s.Id).Except(dbm.Contacts.Select(s => s.Id)).ToList();
-                        var samerows = dbm.Contacts.Select(s => s.Id).Intersect(fromModel.Contacts.Select(s => s.Id)).ToList();
+                    foreach (var additem in toAdd)
+                    {
+                        AddStack.Push(fromModel.Contacts.Where(w => w.Id == additem).Single());
+                    }
 
-                        Stack<Contacts> RemoveStack = new Stack<Contacts>();
-                        Stack<Contacts> AddStack = new Stack<Contacts>();
+                    while (RemoveStack.Count > 0)
+                    {
+                        dbm.Contacts.Remove(RemoveStack.Pop());
+                    }
 
-                        foreach (var delitem in toDel)
+                    while (AddStack.Count > 0)
+                    {
+                        dbm.Contacts.Add(AddStack.Pop());
+                    }
+
+                    foreach (var sameitem in samerows)
+                    {
+                        Contacts Source = fromModel.Contacts.Where(w => w.Id == sameitem).Single();
+                        Contacts Target = dbm.Contacts.Where(w => w.Id == sameitem).Single();
+                        CheckAndUpdateValue(Source, Target);
+                    }
+
+                    var repo2 = RepositoryHelper.GetManufacturersBussinessItemsRepository();
+
+                    var toDelBI = repo2.Where(w => w.ManufacturersId == dbm.Id).Select(s => s.Id).Except(fromModel.ManufacturersBussinessItems.Select(s => s.Id)).ToList();
+                    var toAddBI = fromModel.ManufacturersBussinessItems.Select(s => s.Id).Except(repo2.Where(w => w.ManufacturersId == dbm.Id).Select(s => s.Id)).ToList();
+                    var samerowsBI = dbm.ManufacturersBussinessItems.Select(s => s.Id).Intersect(fromModel.ManufacturersBussinessItems.Select(s => s.Id)).ToList();
+
+
+                    Stack<ManufacturersBussinessItems> RemoveStackBI = new Stack<ManufacturersBussinessItems>();
+                    Stack<ManufacturersBussinessItems> AddStackBI = new Stack<ManufacturersBussinessItems>();
+
+                    bool isuserepo2 = false;
+
+                    foreach (var delitem in toDelBI)
+                    {
+
+                        RemoveStackBI.Push(repo2.Where(w => w.Id == delitem).Single());
+                    }
+
+                    foreach (var additem in toAddBI)
+                    {
+                        AddStackBI.Push(fromModel.ManufacturersBussinessItems.Where(w => w.Id == additem).ToList().Single());
+                    }
+
+                    while (RemoveStackBI.Count > 0)
+                    {
+                        isuserepo2 = true;
+                        repo2.Delete(RemoveStackBI.Pop());
+                        //dbm.ManufacturersBussinessItems.Remove();
+                    }
+
+                    while (AddStackBI.Count > 0)
+                    {
+                        isuserepo2 = true;
+                        var en = AddStackBI.Pop();
+                        repo2.Add(new ManufacturersBussinessItems()
                         {
-                            RemoveStack.Push(dbm.Contacts.Where(w => w.Id == delitem).Single());
-                        }
+                            Id = en.Id,
+                            ManufacturersId = en.ManufacturersId,
+                            MaterialCategoriesId = en.MaterialCategoriesId,
+                            PaymentTypeId = en.PaymentTypeId,
+                            Name = en.Name,
+                            TicketPeriodId = en.TicketPeriodId,
+                            TranscationCategoriesId = en.TranscationCategoriesId
+                        });
+                        //dbm.ManufacturersBussinessItems.Add(AddStackBI.Pop());
+                    }
 
-                        foreach (var additem in toAdd)
-                        {
-                            AddStack.Push(fromModel.Contacts.Where(w => w.Id == additem).Single());
-                        }
+                    if (isuserepo2)
+                        repo2.UnitOfWork.Commit();
 
-                        while (RemoveStack.Count > 0)
-                        {
-                            dbm.Contacts.Remove(RemoveStack.Pop());
-                        }
-
-                        while (AddStack.Count > 0)
-                        {
-                            dbm.Contacts.Add(AddStack.Pop());
-                        }
-
-                        foreach (var sameitem in samerows)
-                        {
-                            Contacts Source = fromModel.Contacts.Where(w => w.Id == sameitem).Single();
-                            Contacts Target = dbm.Contacts.Where(w => w.Id == sameitem).Single();
-                            CheckAndUpdateValue(Source, Target);
-                        }
-
-                        var toDelBI = dbm.ManufacturersBussinessItems.Select(s => s.Id).Except(fromModel.ManufacturersBussinessItems.Select(s => s.Id)).ToList();
-                        var toAddBI = fromModel.ManufacturersBussinessItems.Select(s => s.Id).Except(dbm.ManufacturersBussinessItems.Select(s => s.Id)).ToList();
-                        var samerowsBI = dbm.ManufacturersBussinessItems.Select(s => s.Id).Intersect(fromModel.ManufacturersBussinessItems.Select(s => s.Id)).ToList();
-
-                        Stack<ManufacturersBussinessItems> RemoveStackBI = new Stack<ManufacturersBussinessItems>();
-                        Stack<ManufacturersBussinessItems> AddStackBI = new Stack<ManufacturersBussinessItems>();
-
-                        foreach (var delitem in toDelBI)
-                        {
-                            RemoveStackBI.Push(dbm.ManufacturersBussinessItems.Where(w => w.Id == delitem).Single());
-                        }
-
-                        foreach (var additem in toAddBI)
-                        {
-                            AddStackBI.Push(fromModel.ManufacturersBussinessItems.Where(w => w.Id == additem).Single());
-                        }
-
-                        while (RemoveStackBI.Count > 0)
-                        {
-                            dbm.ManufacturersBussinessItems.Remove(RemoveStackBI.Pop());
-                        }
-
-                        while (AddStackBI.Count > 0)
-                        {
-                            dbm.ManufacturersBussinessItems.Add(AddStackBI.Pop());
-                        }
-
-                        foreach (var sameitem in samerowsBI)
-                        {
-                            ManufacturersBussinessItems Source = fromModel.ManufacturersBussinessItems.Where(w => w.Id == sameitem).Single();
-                            ManufacturersBussinessItems Target = dbm.ManufacturersBussinessItems.Where(w => w.Id == sameitem).Single();
-                            CheckAndUpdateValue(Source, Target);
-                        }
+                    foreach (var sameitem in samerowsBI)
+                    {
+                        ManufacturersBussinessItems Source = fromModel.ManufacturersBussinessItems.Where(w => w.Id == sameitem).Single();
+                        ManufacturersBussinessItems Target = dbm.ManufacturersBussinessItems.Where(w => w.Id == sameitem).Single();
+                        Target.ManufacturersId = Source.ManufacturersId;
+                        Target.MaterialCategoriesId = Source.MaterialCategoriesId;
+                        Target.Name = Source.Name;
+                        Target.PaymentTypeId = Source.PaymentTypeId;
+                        Target.TicketPeriodId = Source.TicketPeriodId;
+                        Target.TranscationCategoriesId = Source.TranscationCategoriesId;
 
                     }
 
-                    ManufacturersRepository.UnitOfWork.Commit();
 
-                    accesslog.Add(new AccessLog()
-                    {
-                        ActionCode = (Byte)ActionCodes.Update,
-                        CreateTime = DateTime.Now,
-                        DataId = dbm.Id.ToString("N"),
-                        Reason = "更新資料",
-                        UserId = LoginedUser.Result.UserId
-                    });
-
-                    var rtn = Query(w => w.Id == fromModel.Id);
-                    return ExecuteResultEntity<Manufacturers>.CreateResultEntity(rtn.Result.SingleOrDefault());
                 }
+
+                ManufacturersRepository.UnitOfWork.Commit();
+
+                //accesslog.Add(new AccessLog()
+                //{
+                //    ActionCode = (Byte)ActionCodes.Update,
+                //    CreateTime = DateTime.Now,
+                //    DataId = dbm.Id.ToString("N"),
+                //    Reason = "更新資料",
+                //    UserId = LoginedUser.Result.UserId
+                //});
+
+                var rtn = Query(w => w.Id == fromModel.Id);
+                return ExecuteResultEntity<Manufacturers>.CreateResultEntity(rtn.Result.SingleOrDefault());
+
 
             }
             catch (Exception ex)
@@ -502,21 +532,21 @@ namespace Tokiku.Controllers
             }
         }
 
-        public Task<ExecuteResultEntity<ICollection<View_BussinessItemsList>>> QueryBussinessItemsListAsync(Guid ManufacturersId)
+        public Task<ExecuteResultEntity<ICollection<ManufacturersBussinessItems>>> QueryBussinessItemsListAsync(Guid ManufacturersId)
         {
             try
             {
-                View_BussinessItemsListRepository biListRepo = RepositoryHelper.GetView_BussinessItemsListRepository(database);
+                var biListRepo = RepositoryHelper.GetManufacturersBussinessItemsRepository(database);
 
                 var result = (from q in biListRepo.All()
                               where q.ManufacturersId == ManufacturersId
                               select q).ToList();
 
-                return Task.FromResult(ExecuteResultEntity<ICollection<View_BussinessItemsList>>.CreateResultEntity(new Collection<View_BussinessItemsList>(result)));
+                return Task.FromResult(ExecuteResultEntity<ICollection<ManufacturersBussinessItems>>.CreateResultEntity(new Collection<ManufacturersBussinessItems>(result)));
             }
             catch (Exception ex)
             {
-                return Task.FromResult(ExecuteResultEntity<ICollection<View_BussinessItemsList>>.CreateErrorResultEntity(ex));
+                return Task.FromResult(ExecuteResultEntity<ICollection<ManufacturersBussinessItems>>.CreateErrorResultEntity(ex));
             }
         }
 

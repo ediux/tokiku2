@@ -52,7 +52,6 @@ namespace Tokiku.Entity
         public virtual DbSet<View_BussinessItemsList> View_BussinessItemsList { get; set; }
         public virtual DbSet<View_ManufacturersBussinessTranscations> View_ManufacturersBussinessTranscations { get; set; }
         public virtual DbSet<TranscationCategories> TranscationCategories { get; set; }
-        public virtual DbSet<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
         public virtual DbSet<Projects> Projects { get; set; }
         public virtual DbSet<MoldsInProjects> MoldsInProjects { get; set; }
         public virtual DbSet<ConstructionAtlas> ConstructionAtlas { get; set; }
@@ -62,5 +61,6 @@ namespace Tokiku.Entity
         public virtual DbSet<MaterialEstimation> MaterialEstimation { get; set; }
         public virtual DbSet<PurchasingOrder> PurchasingOrder { get; set; }
         public virtual DbSet<BOM> BOM { get; set; }
+        public virtual DbSet<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
     }
 }

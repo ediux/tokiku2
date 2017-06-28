@@ -188,7 +188,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PaymentTypeId" Type="tinyint" />
           <Property Name="TicketPeriodId" Type="int" />
-          <Property Name="ManufacturersId" Type="uniqueidentifier" />
+          <Property Name="ManufacturersId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="TranscationCategoriesId" Type="int" />
         </EntityType>
         <EntityType Name="MaterialCategories">
@@ -788,7 +788,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ManufacturersBussinessItems_Manufacturers">
-          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="0..1" />
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
           <End Role="ManufacturersBussinessItems" Type="Self.ManufacturersBussinessItems" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Manufacturers">
@@ -1814,31 +1814,6 @@
             <End Role="Manufacturers" EntitySet="Manufacturers" />
           </AssociationSet>
           <EntitySet Name="TranscationCategories" EntityType="TokikuModel.TranscationCategories" />
-          <EntitySet Name="ManufacturersBussinessItems" EntityType="TokikuModel.ManufacturersBussinessItems" />
-          <AssociationSet Name="FK_ManufacturersBussinessItems_Manufacturers" Association="TokikuModel.FK_ManufacturersBussinessItems_Manufacturers">
-            <End Role="Manufacturers" EntitySet="Manufacturers" />
-            <End Role="ManufacturersBussinessItems" EntitySet="ManufacturersBussinessItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ManufacturersBussinessItems_MaterialCategories" Association="TokikuModel.FK_ManufacturersBussinessItems_MaterialCategories">
-            <End Role="MaterialCategories" EntitySet="MaterialCategories" />
-            <End Role="ManufacturersBussinessItems" EntitySet="ManufacturersBussinessItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ManufacturersBussinessItems_PaymentTypes" Association="TokikuModel.FK_ManufacturersBussinessItems_PaymentTypes">
-            <End Role="PaymentTypes" EntitySet="PaymentTypes" />
-            <End Role="ManufacturersBussinessItems" EntitySet="ManufacturersBussinessItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ManufacturersBussinessItems_TicketPeriod" Association="TokikuModel.FK_ManufacturersBussinessItems_TicketPeriod">
-            <End Role="TicketPeriod" EntitySet="TicketPeriod" />
-            <End Role="ManufacturersBussinessItems" EntitySet="ManufacturersBussinessItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ManufacturersBussinessItems_TranscationCategories" Association="TokikuModel.FK_ManufacturersBussinessItems_TranscationCategories">
-            <End Role="TranscationCategories" EntitySet="TranscationCategories" />
-            <End Role="ManufacturersBussinessItems" EntitySet="ManufacturersBussinessItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SupplierTranscationItem_ManufacturersBussinessItems" Association="TokikuModel.FK_SupplierTranscationItem_ManufacturersBussinessItems">
-            <End Role="ManufacturersBussinessItems" EntitySet="ManufacturersBussinessItems" />
-            <End Role="SupplierTranscationItem" EntitySet="SupplierTranscationItem" />
-          </AssociationSet>
           <EntitySet Name="Projects" EntityType="TokikuModel.Projects" />
           <AssociationSet Name="FK_ProjectContract_Projects" Association="TokikuModel.FK_ProjectContract_Projects">
             <End Role="Projects" EntitySet="Projects" />
@@ -1939,6 +1914,31 @@
           <AssociationSet Name="FK_BOM_Users" Association="TokikuModel.FK_BOM_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="BOM" EntitySet="BOM" />
+          </AssociationSet>
+          <EntitySet Name="ManufacturersBussinessItems" EntityType="TokikuModel.ManufacturersBussinessItems" />
+          <AssociationSet Name="FK_ManufacturersBussinessItems_MaterialCategories" Association="TokikuModel.FK_ManufacturersBussinessItems_MaterialCategories">
+            <End Role="MaterialCategories" EntitySet="MaterialCategories" />
+            <End Role="ManufacturersBussinessItems" EntitySet="ManufacturersBussinessItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManufacturersBussinessItems_PaymentTypes" Association="TokikuModel.FK_ManufacturersBussinessItems_PaymentTypes">
+            <End Role="PaymentTypes" EntitySet="PaymentTypes" />
+            <End Role="ManufacturersBussinessItems" EntitySet="ManufacturersBussinessItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManufacturersBussinessItems_TicketPeriod" Association="TokikuModel.FK_ManufacturersBussinessItems_TicketPeriod">
+            <End Role="TicketPeriod" EntitySet="TicketPeriod" />
+            <End Role="ManufacturersBussinessItems" EntitySet="ManufacturersBussinessItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManufacturersBussinessItems_TranscationCategories" Association="TokikuModel.FK_ManufacturersBussinessItems_TranscationCategories">
+            <End Role="TranscationCategories" EntitySet="TranscationCategories" />
+            <End Role="ManufacturersBussinessItems" EntitySet="ManufacturersBussinessItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupplierTranscationItem_ManufacturersBussinessItems" Association="TokikuModel.FK_SupplierTranscationItem_ManufacturersBussinessItems">
+            <End Role="ManufacturersBussinessItems" EntitySet="ManufacturersBussinessItems" />
+            <End Role="SupplierTranscationItem" EntitySet="SupplierTranscationItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManufacturersBussinessItems_Manufacturers" Association="TokikuModel.FK_ManufacturersBussinessItems_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="ManufacturersBussinessItems" EntitySet="ManufacturersBussinessItems" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="ShopFlowHistory">
@@ -2133,9 +2133,9 @@
           <Property Name="TicketPeriodId" Type="Int32" />
           <NavigationProperty Name="TicketPeriod" Relationship="TokikuModel.FK_Manufacturers_TicketPeriod" FromRole="Manufacturers" ToRole="TicketPeriod" />
           <Property Name="InvoiceAddress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ManufacturersBussinessItems" Relationship="TokikuModel.FK_ManufacturersBussinessItems_Manufacturers" FromRole="Manufacturers" ToRole="ManufacturersBussinessItems" />
           <NavigationProperty Name="ClientForProjects" Relationship="TokikuModel.ClientsInProjects" FromRole="Manufacturers" ToRole="Projects" />
           <NavigationProperty Name="FormDetails" Relationship="TokikuModel.FK_FormDetails_Manufacturers" FromRole="Manufacturers" ToRole="FormDetails" />
+          <NavigationProperty Name="ManufacturersBussinessItems" Relationship="TokikuModel.FK_ManufacturersBussinessItems_Manufacturers" FromRole="Manufacturers" ToRole="ManufacturersBussinessItems" />
         </EntityType>
         <EntityType Name="MaterialCategories">
           <Key>
@@ -2146,9 +2146,9 @@
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="ProjectItemCost" Relationship="TokikuModel.FK_ProjectItemCost_MaterialCategories" FromRole="MaterialCategories" ToRole="ProjectItemCost" />
-          <NavigationProperty Name="ManufacturersBussinessItems" Relationship="TokikuModel.FK_ManufacturersBussinessItems_MaterialCategories" FromRole="MaterialCategories" ToRole="ManufacturersBussinessItems" />
           <NavigationProperty Name="MoldsInProjects" Relationship="TokikuModel.FK_MoldsInProjects_MaterialCategories" FromRole="MaterialCategories" ToRole="MoldsInProjects" />
           <NavigationProperty Name="BOM" Relationship="TokikuModel.FK_BOM_MaterialCategories" FromRole="MaterialCategories" ToRole="BOM" />
+          <NavigationProperty Name="ManufacturersBussinessItems" Relationship="TokikuModel.FK_ManufacturersBussinessItems_MaterialCategories" FromRole="MaterialCategories" ToRole="ManufacturersBussinessItems" />
         </EntityType>
         <EntityType Name="Materials">
           <Key>
@@ -2517,10 +2517,10 @@
           <Property Name="ManufacturersBussinessItemsId" Type="Guid" Nullable="false" />
           <Property Name="ProjectId" Type="Guid" Nullable="false" />
           <Property Name="PlaceofReceipt" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ManufacturersBussinessItems" Relationship="TokikuModel.FK_SupplierTranscationItem_ManufacturersBussinessItems" FromRole="SupplierTranscationItem" ToRole="ManufacturersBussinessItems" />
           <NavigationProperty Name="Projects" Relationship="TokikuModel.FK_SupplierTranscationItem_Projects" FromRole="SupplierTranscationItem" ToRole="Projects" />
           <Property Name="SiteContactPerson" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SiteContactPersonPhone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ManufacturersBussinessItems" Relationship="TokikuModel.FK_SupplierTranscationItem_ManufacturersBussinessItems" FromRole="SupplierTranscationItem" ToRole="ManufacturersBussinessItems" />
         </EntityType>
         <EntityType Name="TicketPeriod">
           <Key>
@@ -2585,96 +2585,6 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ManufacturersBussinessItems" Relationship="TokikuModel.FK_ManufacturersBussinessItems_TranscationCategories" FromRole="TranscationCategories" ToRole="ManufacturersBussinessItems" />
         </EntityType>
-        <EntityType Name="ManufacturersBussinessItems">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="MaterialCategoriesId" Type="Guid" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PaymentTypeId" Type="Byte" />
-          <Property Name="TicketPeriodId" Type="Int32" />
-          <Property Name="ManufacturersId" Type="Guid" />
-          <Property Name="TranscationCategoriesId" Type="Int32" />
-          <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_ManufacturersBussinessItems_Manufacturers" FromRole="ManufacturersBussinessItems" ToRole="Manufacturers" />
-          <NavigationProperty Name="MaterialCategories" Relationship="TokikuModel.FK_ManufacturersBussinessItems_MaterialCategories" FromRole="ManufacturersBussinessItems" ToRole="MaterialCategories" />
-          <NavigationProperty Name="PaymentTypes" Relationship="TokikuModel.FK_ManufacturersBussinessItems_PaymentTypes" FromRole="ManufacturersBussinessItems" ToRole="PaymentTypes" />
-          <NavigationProperty Name="TicketPeriod" Relationship="TokikuModel.FK_ManufacturersBussinessItems_TicketPeriod" FromRole="ManufacturersBussinessItems" ToRole="TicketPeriod" />
-          <NavigationProperty Name="TranscationCategories" Relationship="TokikuModel.FK_ManufacturersBussinessItems_TranscationCategories" FromRole="ManufacturersBussinessItems" ToRole="TranscationCategories" />
-          <NavigationProperty Name="SupplierTranscationItem" Relationship="TokikuModel.FK_SupplierTranscationItem_ManufacturersBussinessItems" FromRole="ManufacturersBussinessItems" ToRole="SupplierTranscationItem" />
-        </EntityType>
-        <Association Name="FK_ManufacturersBussinessItems_Manufacturers">
-          <End Type="TokikuModel.Manufacturers" Role="Manufacturers" Multiplicity="0..1" />
-          <End Type="TokikuModel.ManufacturersBussinessItems" Role="ManufacturersBussinessItems" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Manufacturers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ManufacturersBussinessItems">
-              <PropertyRef Name="ManufacturersId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ManufacturersBussinessItems_MaterialCategories">
-          <End Type="TokikuModel.MaterialCategories" Role="MaterialCategories" Multiplicity="0..1" />
-          <End Type="TokikuModel.ManufacturersBussinessItems" Role="ManufacturersBussinessItems" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaterialCategories">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ManufacturersBussinessItems">
-              <PropertyRef Name="MaterialCategoriesId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ManufacturersBussinessItems_PaymentTypes">
-          <End Type="TokikuModel.PaymentTypes" Role="PaymentTypes" Multiplicity="0..1" />
-          <End Type="TokikuModel.ManufacturersBussinessItems" Role="ManufacturersBussinessItems" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PaymentTypes">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ManufacturersBussinessItems">
-              <PropertyRef Name="PaymentTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ManufacturersBussinessItems_TicketPeriod">
-          <End Type="TokikuModel.TicketPeriod" Role="TicketPeriod" Multiplicity="0..1" />
-          <End Type="TokikuModel.ManufacturersBussinessItems" Role="ManufacturersBussinessItems" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TicketPeriod">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ManufacturersBussinessItems">
-              <PropertyRef Name="TicketPeriodId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ManufacturersBussinessItems_TranscationCategories">
-          <End Type="TokikuModel.TranscationCategories" Role="TranscationCategories" Multiplicity="0..1" />
-          <End Type="TokikuModel.ManufacturersBussinessItems" Role="ManufacturersBussinessItems" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TranscationCategories">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ManufacturersBussinessItems">
-              <PropertyRef Name="TranscationCategoriesId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SupplierTranscationItem_ManufacturersBussinessItems">
-          <End Type="TokikuModel.ManufacturersBussinessItems" Role="ManufacturersBussinessItems" Multiplicity="1" />
-          <End Type="TokikuModel.SupplierTranscationItem" Role="SupplierTranscationItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ManufacturersBussinessItems">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SupplierTranscationItem">
-              <PropertyRef Name="ManufacturersBussinessItemsId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Projects">
           <Key>
             <PropertyRef Name="Id" />
@@ -3141,6 +3051,96 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ManufacturersBussinessItems">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="MaterialCategoriesId" Type="Guid" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentTypeId" Type="Byte" />
+          <Property Name="TicketPeriodId" Type="Int32" />
+          <Property Name="ManufacturersId" Type="Guid" Nullable="false" />
+          <Property Name="TranscationCategoriesId" Type="Int32" />
+          <NavigationProperty Name="MaterialCategories" Relationship="TokikuModel.FK_ManufacturersBussinessItems_MaterialCategories" FromRole="ManufacturersBussinessItems" ToRole="MaterialCategories" />
+          <NavigationProperty Name="PaymentTypes" Relationship="TokikuModel.FK_ManufacturersBussinessItems_PaymentTypes" FromRole="ManufacturersBussinessItems" ToRole="PaymentTypes" />
+          <NavigationProperty Name="TicketPeriod" Relationship="TokikuModel.FK_ManufacturersBussinessItems_TicketPeriod" FromRole="ManufacturersBussinessItems" ToRole="TicketPeriod" />
+          <NavigationProperty Name="TranscationCategories" Relationship="TokikuModel.FK_ManufacturersBussinessItems_TranscationCategories" FromRole="ManufacturersBussinessItems" ToRole="TranscationCategories" />
+          <NavigationProperty Name="SupplierTranscationItem" Relationship="TokikuModel.FK_SupplierTranscationItem_ManufacturersBussinessItems" FromRole="ManufacturersBussinessItems" ToRole="SupplierTranscationItem" />
+          <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_ManufacturersBussinessItems_Manufacturers" FromRole="ManufacturersBussinessItems" ToRole="Manufacturers" />
+        </EntityType>
+        <Association Name="FK_ManufacturersBussinessItems_MaterialCategories">
+          <End Type="TokikuModel.MaterialCategories" Role="MaterialCategories" Multiplicity="0..1" />
+          <End Type="TokikuModel.ManufacturersBussinessItems" Role="ManufacturersBussinessItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaterialCategories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ManufacturersBussinessItems">
+              <PropertyRef Name="MaterialCategoriesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManufacturersBussinessItems_PaymentTypes">
+          <End Type="TokikuModel.PaymentTypes" Role="PaymentTypes" Multiplicity="0..1" />
+          <End Type="TokikuModel.ManufacturersBussinessItems" Role="ManufacturersBussinessItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ManufacturersBussinessItems">
+              <PropertyRef Name="PaymentTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManufacturersBussinessItems_TicketPeriod">
+          <End Type="TokikuModel.TicketPeriod" Role="TicketPeriod" Multiplicity="0..1" />
+          <End Type="TokikuModel.ManufacturersBussinessItems" Role="ManufacturersBussinessItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TicketPeriod">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ManufacturersBussinessItems">
+              <PropertyRef Name="TicketPeriodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManufacturersBussinessItems_TranscationCategories">
+          <End Type="TokikuModel.TranscationCategories" Role="TranscationCategories" Multiplicity="0..1" />
+          <End Type="TokikuModel.ManufacturersBussinessItems" Role="ManufacturersBussinessItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TranscationCategories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ManufacturersBussinessItems">
+              <PropertyRef Name="TranscationCategoriesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupplierTranscationItem_ManufacturersBussinessItems">
+          <End Type="TokikuModel.ManufacturersBussinessItems" Role="ManufacturersBussinessItems" Multiplicity="1" />
+          <End Type="TokikuModel.SupplierTranscationItem" Role="SupplierTranscationItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManufacturersBussinessItems">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SupplierTranscationItem">
+              <PropertyRef Name="ManufacturersBussinessItemsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManufacturersBussinessItems_Manufacturers">
+          <End Type="TokikuModel.Manufacturers" Role="Manufacturers" Multiplicity="1" />
+          <End Type="TokikuModel.ManufacturersBussinessItems" Role="ManufacturersBussinessItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ManufacturersBussinessItems">
+              <PropertyRef Name="ManufacturersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3537,19 +3537,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ManufacturersBussinessItems">
-            <EntityTypeMapping TypeName="TokikuModel.ManufacturersBussinessItems">
-              <MappingFragment StoreEntitySet="ManufacturersBussinessItems">
-                <ScalarProperty Name="TranscationCategoriesId" ColumnName="TranscationCategoriesId" />
-                <ScalarProperty Name="ManufacturersId" ColumnName="ManufacturersId" />
-                <ScalarProperty Name="TicketPeriodId" ColumnName="TicketPeriodId" />
-                <ScalarProperty Name="PaymentTypeId" ColumnName="PaymentTypeId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="MaterialCategoriesId" ColumnName="MaterialCategoriesId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Projects">
             <EntityTypeMapping TypeName="TokikuModel.Projects">
               <MappingFragment StoreEntitySet="Projects">
@@ -3732,6 +3719,19 @@
                 <ScalarProperty Name="CombinationNumber" ColumnName="CombinationNumber" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ProcessingAtlasId" ColumnName="ProcessingAtlasId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ManufacturersBussinessItems">
+            <EntityTypeMapping TypeName="TokikuModel.ManufacturersBussinessItems">
+              <MappingFragment StoreEntitySet="ManufacturersBussinessItems">
+                <ScalarProperty Name="TranscationCategoriesId" ColumnName="TranscationCategoriesId" />
+                <ScalarProperty Name="ManufacturersId" ColumnName="ManufacturersId" />
+                <ScalarProperty Name="TicketPeriodId" ColumnName="TicketPeriodId" />
+                <ScalarProperty Name="PaymentTypeId" ColumnName="PaymentTypeId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MaterialCategoriesId" ColumnName="MaterialCategoriesId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

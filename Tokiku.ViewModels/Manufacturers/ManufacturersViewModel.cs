@@ -640,6 +640,7 @@ namespace Tokiku.ViewModels
                         ManufacturersBussinessItems BItems = new ManufacturersBussinessItems();
                         CopyToModel(BItems, x);
                         BItems.ManufacturersId = Id;
+                        BItems.Id = Guid.NewGuid();
                         data.ManufacturersBussinessItems.Add(BItems);
                     }
                 }

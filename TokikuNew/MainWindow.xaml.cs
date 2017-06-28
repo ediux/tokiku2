@@ -152,7 +152,7 @@ namespace TokikuNew
                 var vm = new ProjectManagerView() { Margin = new Thickness(0) };
                 vm.DataContext = new ProjectsViewModel(App.Resolve<ProjectsController>());
                 ((ProjectsViewModel)vm.DataContext).Initialized();
-                vm.Mode = DocumentLifeCircle.Create;
+                vm.Mode = DocumentLifeCircle.Update;
 
                 Binding bindinglogineduser = new Binding();
                 bindinglogineduser.Source = ((MainViewModel)DataContext).LoginedUser;

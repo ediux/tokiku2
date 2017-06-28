@@ -742,11 +742,16 @@ namespace Tokiku.ViewModels
                     SuppliersViewModel model = new SuppliersViewModel();
                     model.ProjectId = row.ProjectId;
                     model.PlaceofReceipt = row.PlaceofReceipt;
-                    model.ManufacturersName = row.ManufacturersBussinessItems.Manufacturers.Name;
-                    model.TicketPeriod = row.ManufacturersBussinessItems.TicketPeriod.Name;
-                    model.MaterialCategories = row.ManufacturersBussinessItems.MaterialCategories.Name;
-                    model.PaymentTypeName = row.ManufacturersBussinessItems.PaymentTypes.PaymentTypeName;
-                    model.TranscationCategories = row.ManufacturersBussinessItems.TranscationCategories.Name;
+
+                    if (row.ManufacturersBussinessItems != null)
+                    {
+                        model.ManufacturersName = row.ManufacturersBussinessItems.Manufacturers.Name;
+                        model.TicketPeriod = row.ManufacturersBussinessItems.TicketPeriod.Name;
+                        model.MaterialCategories = row.ManufacturersBussinessItems.MaterialCategories.Name;
+                        model.PaymentTypeName = row.ManufacturersBussinessItems.PaymentTypes.PaymentTypeName;
+                        model.TranscationCategories = row.ManufacturersBussinessItems.TranscationCategories.Name;
+                    }
+
                     model.SetModel(row.ManufacturersBussinessItems);
                     Suppliers.Add(model);
                 }
