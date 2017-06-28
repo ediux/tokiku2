@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="TokikuNew.Views.InvoiceViewListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TokikuNew.Views"
+             mc:Ignorable="d" 
+             Background="{DynamicResource ControlBackgroundBrush}"
+             d:DesignHeight="768" d:DesignWidth="1366">
+    <Grid>
+        <DataGrid AutoGenerateColumns="False" Margin="5" ItemsSource="{Binding}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="請款單號"/>
+                <DataGridTextColumn Header="收料單號"/>
+                <DataGridTextColumn Header="廠商來料單號"/>
+                <DataGridTextColumn Header="建單日期"/>
+                <DataGridTextColumn Header="建單人員"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="開啟請款單" x:Name="BtnOpen" Click="BtnOpen_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

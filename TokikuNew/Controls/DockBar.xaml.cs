@@ -337,7 +337,7 @@ namespace TokikuNew.Controls
             try
             {
                 e.Handled = true;
-                DocumentMode = LastState;
+                DocumentMode = DocumentLifeCircle.Read;
                 RaiseEvent(new RoutedEventArgs(DocumentModeChangedEvent, DocumentMode));
             }
             catch (Exception ex)

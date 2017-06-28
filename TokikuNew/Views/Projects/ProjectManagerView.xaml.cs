@@ -241,7 +241,7 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
                         SelectedProject.Status.IsNewInstance = false;
                         break;
                 }
-
+                SelectedProject.Refresh();
             }
             catch (Exception ex)
             {

@@ -717,7 +717,7 @@ namespace Tokiku.ViewModels
 
         public override void Refresh()
         {
-            Query();
+            Query(Id);
         }
 
         public override void SetModel(dynamic entity)

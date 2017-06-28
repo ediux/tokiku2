@@ -231,6 +231,11 @@ namespace TokikuNew.Views
                         addWorkarea = new ClosableTabItem() { Header = Header };
                     }
 
+                    if(btn== "開啟請款單")
+                    {
+                        Header = "請款單";
+                        addWorkarea = new ClosableTabItem() { Header = Header };
+                    }
                     if (btn == "請款單列表")
                     {
                         Header = "請款單列表";
@@ -405,31 +410,7 @@ namespace TokikuNew.Views
                             return;
                         }
 
-                        if(btnContext== "鋁擠型訂製單列表")
-                        {
-                            var vm = new AluminumExtrusionOrderListView() { Margin = new Thickness(0) };
-                            vm.DataContext = new ProjectListViewModelCollection(); 
-                            addWorkarea.Content = vm;
-                            addWorkarea.Margin = new Thickness(0);
-
-                            InnerWorkspaces.Items.Add(addWorkarea);
-                            InnerWorkspaces.SelectedItem = addWorkarea;
-                            return;
-                        }
-
-                        if (btnContext == "產生退貨單")
-                        {
-                            var vm = new ReturnMaterialViewUC() { Margin = new Thickness(0) };
-                          
-                            addWorkarea.Content = vm;
-                            addWorkarea.Margin = new Thickness(0);
-
-                            InnerWorkspaces.Items.Add(addWorkarea);
-                            InnerWorkspaces.SelectedItem = addWorkarea;
-                            return;
-                        }
-
-                        if (btnContext == "請款單列表")
+                        if (btnContext == "鋁擠型訂製單列表")
                         {
                             var vm = new AluminumExtrusionOrderListView() { Margin = new Thickness(0) };
                             vm.DataContext = new ProjectListViewModelCollection();
@@ -441,10 +422,46 @@ namespace TokikuNew.Views
                             return;
                         }
 
+                        if (btnContext == "產生退貨單")
+                        {
+                            var vm = new ReturnMaterialViewUC() { Margin = new Thickness(0) };
+
+                            addWorkarea.Content = vm;
+                            addWorkarea.Margin = new Thickness(0);
+
+                            InnerWorkspaces.Items.Add(addWorkarea);
+                            InnerWorkspaces.SelectedItem = addWorkarea;
+                            return;
+                        }
+
+                        if (btnContext == "請款單列表")
+                        {
+                            var vm = new InvoiceViewListView() { Margin = new Thickness(0) };
+                            vm.DataContext = new ProjectListViewModelCollection();
+                            addWorkarea.Content = vm;
+                            addWorkarea.Margin = new Thickness(0);
+
+                            InnerWorkspaces.Items.Add(addWorkarea);
+                            InnerWorkspaces.SelectedItem = addWorkarea;
+                            return;
+                        }
+
+                        if (btnContext == "開啟請款單")
+                        {
+                            var vm = new InvoiceView() { Margin = new Thickness(0) };
+
+                            addWorkarea.Content = vm;
+                            addWorkarea.Margin = new Thickness(0);
+
+                            InnerWorkspaces.Items.Add(addWorkarea);
+                            InnerWorkspaces.SelectedItem = addWorkarea;
+                            return;
+                        }
+
                         if (btnContext == "產生請款單")
                         {
                             var vm = new InvoiceView() { Margin = new Thickness(0) };
-                          
+
                             addWorkarea.Content = vm;
                             addWorkarea.Margin = new Thickness(0);
 
@@ -456,7 +473,7 @@ namespace TokikuNew.Views
                         if (btnContext == "產生出貨單")
                         {
                             var vm = new ShippingMaterialViewUC() { Margin = new Thickness(0) };
-                           
+
                             addWorkarea.Content = vm;
                             addWorkarea.Margin = new Thickness(0);
 

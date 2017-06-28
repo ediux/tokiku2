@@ -96,6 +96,9 @@
     <Compile Include="Views\HardwareViewUC.xaml.cs">
       <DependentUpon>HardwareViewUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\InvoiceViewListView.xaml.cs">
+      <DependentUpon>InvoiceViewListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Projects\AssemblyTableView.xaml.cs">
       <DependentUpon>AssemblyTableView.xaml</DependentUpon>
     </Compile>
@@ -225,6 +228,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\HardwareViewUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InvoiceViewListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
