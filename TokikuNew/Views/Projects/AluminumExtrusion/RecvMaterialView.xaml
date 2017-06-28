@@ -18,10 +18,10 @@
         <TextBox HorizontalAlignment="Left" Height="24" Margin="198,8,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160"/>
         <Label Content="來料廠商:" HorizontalAlignment="Left" Height="22" Margin="377,11,0,0" VerticalAlignment="Top" Width="54"/>
         <TextBox HorizontalAlignment="Left" Height="24" Margin="431,7,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="88"/>
-        <TextBox HorizontalAlignment="Left" Height="24" Margin="524,7,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="241"/>
-        <Label Content="*" HorizontalAlignment="Left" Height="13" Margin="775,12,0,0" VerticalAlignment="Top" Width="12 " Foreground="#FF0000"/>
-        <Label Content="來料單號:" HorizontalAlignment="Left" Height="22" Margin="787,10,0,0" VerticalAlignment="Top" Width="54"/>
-        <TextBox HorizontalAlignment="Left" Height="24" Margin="846,7,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160"/>
+        <TextBox HorizontalAlignment="Left" Height="24" Margin="524,7,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="127"/>
+        <Label Content="*" HorizontalAlignment="Left" Height="13" Margin="668,13,0,0" VerticalAlignment="Top" Width="12 " Foreground="#FF0000"/>
+        <Label Content="來料單號:" HorizontalAlignment="Left" Height="22" Margin="680,11,0,0" VerticalAlignment="Top" Width="54"/>
+        <TextBox HorizontalAlignment="Left" Height="24" Margin="739,8,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="169"/>
         <GroupBox Header="[相關人員]" HorizontalAlignment="Left" Height="63" Margin="10,38,0,0" VerticalAlignment="Top" Width="1006" Foreground="#FF0D14A6" Grid.ColumnSpan="4">
             <Grid HorizontalAlignment="Left" Height="33" VerticalAlignment="Top" Width="996" Margin="0,0,-2,0">
 
@@ -83,8 +83,9 @@
             <c:DockBar x:Name="dockBar" Grid.Row="1" DocumentMode="Read"/>
         </Grid>
         <Grid HorizontalAlignment="Left" Height="301" Margin="10,174,0,0" VerticalAlignment="Top" Width="1006">
-          
+
         </Grid>
+        <Button x:Name="BtnAddNewForm" Content="產生加工訂製單" HorizontalAlignment="Left" Margin="913,12,0,0" VerticalAlignment="Top" Width="101" Click="BtnAddNewForm_Click"/>
 
 
 

@@ -200,8 +200,8 @@
                 <RowDefinition Height="50*" />
                 <RowDefinition Height="50*" />
             </Grid.RowDefinitions>
-            <local:ContractListView Grid.Row="1" Grid.Column="1" DataContext="{Binding ProjectContract}"/>
-            <local:SupplierForProjects Grid.Row="0" DataContext="{Binding Suppliers}"/>
+            <local:ContractListView Grid.Row="1" Grid.Column="1" DataContext="{Binding ProjectContract}" CurrentProject="{Binding SelectedProject,ElementName=userControl}"/>
+            <local:SupplierForProjects Grid.Row="0" DataContext="{Binding Suppliers}" CurrentProject="{Binding SelectedProject,ElementName=userControl}"/>
         </Grid>
 
     </Grid>

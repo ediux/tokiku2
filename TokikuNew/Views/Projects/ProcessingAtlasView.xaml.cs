@@ -305,7 +305,15 @@ namespace TokikuNew.Views
 
         private void BtnGlass_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "玻璃管控表"));
+            }
+            catch (Exception ex)
+            {
 
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
         }
 
         private void BtnAluminumPlate_Click(object sender, RoutedEventArgs e)

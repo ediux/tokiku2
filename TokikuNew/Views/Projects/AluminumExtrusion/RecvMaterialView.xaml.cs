@@ -1,4 +1,7 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows;
+using System.Windows.Controls;
+using TokikuNew.Controls;
 
 namespace TokikuNew
 {
@@ -57,6 +60,19 @@ namespace TokikuNew
             //RMSheet.Columns[11].Width = 100;
             //RMSheet.Columns[12].Width = 100;
             //RMSheet.Columns[13].Width = 100;
+        }
+
+        private void BtnAddNewForm_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            try
+            {
+                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "產生加工訂製單"));
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
         }
     }
 }

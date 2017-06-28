@@ -28,6 +28,11 @@
                     <DataGridTemplateColumn Header="材料類別" Width="auto" >
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
+                                <TextBlock Text="{Binding MaterialCategories}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
                                 <ComboBox x:Name="CBMaterialCategories" Grid.Column="1" Grid.Row="0" Margin="2" IsReadOnly="False"
                                           Text="{Binding MaterialCategories}"
                                           ItemsSource="{DynamicResource MaterialCategoriesSource}" 
@@ -42,10 +47,15 @@
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
                             </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="交易品項">
                         <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=Name}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
                                 <ComboBox x:Name="CBTranscationBusiness" Grid.Column="3" Grid.Row="0" Margin="2"
                                           IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}"
@@ -60,10 +70,15 @@
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
                             </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="廠商" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ManufacturersName}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
                                 <ComboBox x:Name="CBManufacturerList" Grid.Column="1" Grid.Row="1" Margin="2" 
                                           IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}"
@@ -78,15 +93,21 @@
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
                             </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="票期">
                         <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding TicketPeriod}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
                                 <ComboBox x:Name="CBTicketPeriods" Grid.Column="3" Grid.Row="1" Margin="2"
                                           ItemsSource="{Binding TicketPeriodsByManufacturers,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=userControl}"
                                           SelectedValuePath="Id"
                                           SelectedValue="{Binding TicketPeriodId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                        SelectionChanged="CBTicketPeriods_SelectionChanged"
                                           IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
@@ -95,13 +116,43 @@
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
                             </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="送貨地點" Binding="{Binding PlaceofReceipt}"/>
-                    <DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="送貨地點">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Style="{DynamicResource NormalButtonStyle}" x:Name="btnDelete" Grid.Row="0" Grid.Column="4" Content="&#xE108;" FontFamily="/Resources/#Segoe MDL2 Assets" Margin="2" Width="23" Click="btnDelete_Click"  DataContext="{Binding}"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding PlaceofReceipt}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <ComboBox ItemsSource="{Binding NextStop,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=userControl}"  
+                                          SelectedValue="{Binding PlaceofReceipt, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                          SelectedValuePath="Address">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Address}"/>
+                                                <TextBlock Text="{Binding Name,StringFormat=(\{0\})}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBlock Text=""/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="btnDelete" Grid.Row="0" Grid.Column="4" Content="&#xE108;" FontFamily="/Resources/#Segoe MDL2 Assets" Margin="2" Width="23" Click="btnDelete_Click"  DataContext="{Binding}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

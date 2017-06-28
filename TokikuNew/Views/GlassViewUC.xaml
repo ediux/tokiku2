@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="1024">
+             d:DesignHeight="768" d:DesignWidth="1024">
     <Grid>
-        <GroupBox Header="管控表" VerticalAlignment="Top" Height="468" Margin="2" x:Name="UC">
+        <GroupBox Header="管控表" Margin="2" x:Name="UC">
             <DataGrid>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="加工編號" Width="auto" />
@@ -17,10 +17,10 @@
                     <DataGridTextColumn Header="合計" Width="auto" />
                     <DataGridTextColumn Header="原長度" Width="auto" />
                     <DataGridTextColumn Header="修改日期" Width="auto" />
-                    
+
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>
-            
+
     </Grid>
 </UserControl>

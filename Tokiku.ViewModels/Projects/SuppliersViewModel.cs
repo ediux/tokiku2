@@ -22,6 +22,9 @@ namespace Tokiku.ViewModels
                     {
                         SupplierTranscationItem data = new SupplierTranscationItem();
                         CopyToModel(data, item);
+                        data.ManufacturersBussinessItemsId = item.Id;
+                        data.PlaceofReceipt = item.PlaceofReceipt;
+                        data.ProjectId = item.ProjectId;
                         controller.CreateOrUpdate(data);
                     }
                 }

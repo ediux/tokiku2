@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TokikuNew.Controls;
 
 namespace TokikuNew.Views
 {
@@ -23,6 +24,19 @@ namespace TokikuNew.Views
         public ShippingMaterialViewUC()
         {
             InitializeComponent();
+        }
+
+        private void btnAddNewForm_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "產生收料單"));
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
         }
     }
 }
