@@ -446,5 +446,6 @@ namespace TokikuNew.Views
             //Dictionary<GrapeCity.Windows.SpreadSheet.UI.KeyStroke, GrapeCity.Windows.SpreadSheet.UI.SpreadAction> keyMap = BussinessItemSheet.View.KeyMap;
             //keyMap.Add(new GrapeCity.Windows.SpreadSheet.UI.KeyStroke(Key.F12, ModifierKeys.None), new GrapeCity.Windows.SpreadSheet.UI.SpreadAction(OnInsertSumFormula));
         }
+        
     }
 }

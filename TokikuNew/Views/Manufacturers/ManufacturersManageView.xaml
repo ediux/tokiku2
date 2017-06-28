@@ -295,6 +295,16 @@
                         <Button x:Name="btnAddMBI" Content="新增" VerticalAlignment="Center" Margin="2" Grid.Row="2" Grid.Column="3" Click="btnAddMBI_Click"
                               IsEnabled="{Binding Mode, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 />
+                        
+                        <DataGrid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Margin="2">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="材料類別" Width="auto" />
+                                <DataGridTextColumn Header="交易品項" Width="auto" />
+                                <DataGridTextColumn Header="交易類別" Width="auto" />
+                                <DataGridTextColumn Header="支付方式" Width="auto" />
+                                <DataGridTextColumn Header="票期" Width="auto" />
+                            </DataGrid.Columns>
+                        </DataGrid>
 
                     </Grid>
                 </GroupBox>
