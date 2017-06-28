@@ -153,27 +153,27 @@ namespace TokikuNew.Views
             }
         }
 
-        private void ContractSearchBar_ResetSearch(object sender, RoutedEventArgs e)
-        {
-            if (!SelectedManufacturer.Status.IsNewInstance)
-            {
-                if (DataContext is ContactsViewModelCollection)
-                {
-                    ((ContactsViewModelCollection)DataContext).Query(((TextBox)e.OriginalSource).Text, SelectedManufacturer.Id, SelectedManufacturer.IsClient);
-                }
-            }
-        }
+        //private void ContractSearchBar_ResetSearch(object sender, RoutedEventArgs e)
+        //{
+        //    if (!SelectedManufacturer.Status.IsNewInstance)
+        //    {
+        //        if (DataContext is ContactsViewModelCollection)
+        //        {
+        //            ((ContactsViewModelCollection)DataContext).Query(((TextBox)e.OriginalSource).Text, SelectedManufacturer.Id, SelectedManufacturer.IsClient);
+        //        }
+        //    }
+        //}
 
-        private void ContractSearchBar_Search(object sender, RoutedEventArgs e)
-        {
-            if (!SelectedManufacturer.Status.IsNewInstance)
-            {
-                if (DataContext is ContactsViewModelCollection)
-                {
-                    ((ContactsViewModelCollection)DataContext).Query((string)e.OriginalSource, SelectedManufacturer.Id, SelectedManufacturer.IsClient);
-                }
-            }
-        }
+        //private void ContractSearchBar_Search(object sender, RoutedEventArgs e)
+        //{
+        //    if (!SelectedManufacturer.Status.IsNewInstance)
+        //    {
+        //        if (DataContext is ContactsViewModelCollection)
+        //        {
+        //            ((ContactsViewModelCollection)DataContext).Query((string)e.OriginalSource, SelectedManufacturer.Id, SelectedManufacturer.IsClient);
+        //        }
+        //    }
+        //}
 
         private void ContractList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
