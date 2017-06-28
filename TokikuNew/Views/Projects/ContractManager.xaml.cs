@@ -112,10 +112,10 @@ namespace TokikuNew.Views
                 {
 
                     case DocumentLifeCircle.Create:
-                        ProjectContractViewModel model1 = (ProjectContractViewModel)DataContext;
+                        EngineeringViewModelCollection model1 = (EngineeringViewModelCollection)DataContext;
                         SelectedEngineering.Initialized();
                         SelectedEngineering.CreateUserId = LoginedUser.UserId;
-                        model1.Engineerings.Add(SelectedEngineering);
+                        model1.Add(SelectedEngineering);
 
                         if (SelectedEngineering.HasError)
                         {
@@ -123,7 +123,7 @@ namespace TokikuNew.Views
                         }
                         break;
                     case DocumentLifeCircle.Save:
-                        ProjectContractViewModel model = (ProjectContractViewModel)DataContext;
+                        EngineeringViewModelCollection model = (EngineeringViewModelCollection)DataContext;
 
                         if (model != null)
                         {
@@ -161,10 +161,8 @@ namespace TokikuNew.Views
                     
                         break;
                     case DocumentLifeCircle.Update:
-                        ProjectContractViewModel model3 = (ProjectContractViewModel)DataContext;
-                        model3.Status.IsModify = false;
-                        model3.Status.IsSaved = false;
-                        model3.Status.IsNewInstance = false;
+                        EngineeringViewModelCollection model3 = (EngineeringViewModelCollection)DataContext;
+                    
                         break;
                 }
                 //Mode = dockBar.DocumentMode;

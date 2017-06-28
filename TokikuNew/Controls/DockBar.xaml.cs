@@ -48,7 +48,7 @@ namespace TokikuNew.Controls
 
         // Using a DependencyProperty as the backing store for LastState.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty LastStateProperty =
-            DependencyProperty.Register("LastState", typeof(DocumentLifeCircle), typeof(DockBar), new PropertyMetadata(DocumentLifeCircle.Read));
+            DependencyProperty.Register("LastState", typeof(DocumentLifeCircle), typeof(DockBar), new PropertyMetadata(DocumentLifeCircle.Create));
 
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace TokikuNew.Controls
 
         // Using a DependencyProperty as the backing store for DocumentMode.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DocumentModeProperty =
-            DependencyProperty.Register("DocumentMode", typeof(DocumentLifeCircle), typeof(DockBar), new PropertyMetadata(DocumentLifeCircle.Read, new PropertyChangedCallback(DefaultFieldChanged)));
+            DependencyProperty.Register("DocumentMode", typeof(DocumentLifeCircle), typeof(DockBar));
 
         #endregion
 
@@ -379,18 +379,7 @@ namespace TokikuNew.Controls
 
         private void userControl_Loaded(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                ChoiceMode(this.DocumentMode, this);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
-
-
+            //ChoiceMode(DocumentMode, this);
         }
-
-
     }
 }

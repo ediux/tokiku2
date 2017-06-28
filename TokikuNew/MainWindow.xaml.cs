@@ -153,6 +153,7 @@ namespace TokikuNew
                 vm.DataContext = new ProjectsViewModel(App.Resolve<ProjectsController>());
                 ((ProjectsViewModel)vm.DataContext).Initialized();
                 vm.Mode = DocumentLifeCircle.Update;
+                //SetValue(DockBar.DocumentModeProperty, DocumentLifeCircle.Create);
 
                 Binding bindinglogineduser = new Binding();
                 bindinglogineduser.Source = ((MainViewModel)DataContext).LoginedUser;
@@ -250,6 +251,7 @@ namespace TokikuNew
 
                         var vm = new ClientManageView() { Margin = new Thickness(0) };
                         ClientViewModel model = new ClientViewModel();
+                        model.Id = Guid.NewGuid();
 
                         vm.DataContext = model;
                         vm.Mode = DocumentLifeCircle.Create;
@@ -598,6 +600,7 @@ namespace TokikuNew
                     var vm = new ClientListView() { Margin = new Thickness(0) };
 
                     vm.DataContext = model;
+                    
                     vm.SelectedClientChanged += ClientListView_SelectedClientChanged;
 
                     addWorkarea.Content = vm;

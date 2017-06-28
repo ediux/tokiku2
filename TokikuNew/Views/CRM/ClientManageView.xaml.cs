@@ -59,16 +59,19 @@ namespace TokikuNew.Views
                         DataContext = new ClientViewModel();
                         SelectedManufacturers = (ClientViewModel)DataContext;
                         SelectedManufacturers.CreateUserId = LoginedUser.UserId;
-
+                        SelectedManufacturers.CreateTime = DateTime.Now;
                         if (SelectedManufacturers.HasError)
                         {
                             MessageBox.Show(string.Join("\n", SelectedManufacturers.Errors.ToArray()));
                             SelectedManufacturers.Errors = null;
                             //dockBar.DocumentMode = DocumentLifeCircle.Read;
                         }
-
+                        SelectedManufacturers.Status.IsNewInstance = true;
+                        SelectedManufacturers.Status.IsModify = false;
+                        SelectedManufacturers.Status.IsSaved = false;
                         break;
                     case DocumentLifeCircle.Save:
+                        
                         SelectedManufacturers.SaveModel();
 
                         if (SelectedManufacturers.HasError)

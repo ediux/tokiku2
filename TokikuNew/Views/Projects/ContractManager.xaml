@@ -9,19 +9,13 @@
              d:DesignHeight="768" d:DesignWidth="1024" Background="{DynamicResource ControlBackgroundBrush}"
              Loaded="UserControl_Loaded">
     <Grid>
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="27"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Controls:DockBar x:Name="dockBar"  Grid.Row="0" DocumentMode="{Binding Path=Mode}" DocumentModeChanged="DockBar_DocumentModeChanged" />
-        <GroupBox Grid.Column="0" Grid.Row="1"  Grid.ColumnSpan="2" Margin="5" Header="合約項目(工程項目)">
+        <GroupBox Grid.Column="0" Grid.Row="1"  Grid.ColumnSpan="2" Margin="5" Header="合約項目(工程項目)" Style="{DynamicResource GroupBox_DocumentEditor}" >
             <Controls:CustomDataGrid Margin="5" VerticalAlignment="Stretch" 
                                          AllowExecuteSystemCommand="True"
                                          AutoGenerateColumns="False"
                                          CanUserAddRows="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,  ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl}"
                                          CanUserDeleteRows="{Binding Path=Mode,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl}"
-                                         ItemsSource="{Binding Engineerings}"
+                                         ItemsSource="{Binding}"
                                          IsReadOnly="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}"
                                          x:Name="EngCaseList"
                                          MouseDoubleClick="EngCaseList_Selected">

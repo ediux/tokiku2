@@ -160,7 +160,7 @@ namespace Tokiku.ViewModels
                 IsClient = true;
 
                 Entity.Manufacturers data = new Entity.Manufacturers();
-
+             
                 CopyToModel(data, this);
 
                 if (Contracts != null)
@@ -278,7 +278,7 @@ namespace Tokiku.ViewModels
                     Status.IsSaved = false;
                 }
 
-                if(entity is ManufacturersEnter)
+                if (entity is ManufacturersEnter)
                 {
                     ManufacturersEnter data = (ManufacturersEnter)entity;
                     BindingFromModel(data, this);

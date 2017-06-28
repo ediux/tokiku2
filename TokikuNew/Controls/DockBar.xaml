@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:TokikuNew.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="27" d:DesignWidth="130"
-             Background="Transparent"
-              Loaded="userControl_Loaded" >
+             Loaded="userControl_Loaded"
+             Background="Transparent" >
     <StackPanel Grid.Row="1" Orientation="Horizontal" >
         <Button Margin="2" Width="22" Name="btnF9" FontSize="15" Content="&#xE10E;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="取消" Click="btnF9_Click" Style="{DynamicResource ReadModeSwitch_Button}" >
         </Button>
