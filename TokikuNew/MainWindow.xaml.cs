@@ -91,6 +91,50 @@ namespace TokikuNew
                 {
                     MI_CreateNew_Customers_Click(sender, e);
                 }
+
+                if (e.OriginalSource is string)
+                {
+                    ClosableTabItem addWorkarea = null;
+                    string Header = string.Empty;
+
+                    if (((string)e.OriginalSource) == "合約管理")
+                    {
+                        Header = "合約管理";
+                        addWorkarea = new ClosableTabItem() { Header = Header };
+                    }
+
+                    bool isExisted = false;
+
+                    foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
+                    {
+                        if (item.Header.Equals(addWorkarea.Header))
+                        {
+                            isExisted = true;
+                            addWorkarea = item;
+                            break;
+                        }
+                    }
+
+                    if (!isExisted)
+                    {
+                        if (e.OriginalSource is string)
+                        {
+                            string btnContext = (string)e.OriginalSource;
+
+                            if (btnContext == "合約管理")
+                            {
+                                var vm = new ContractManagementViewUC () { Margin = new Thickness(0) };
+
+                                addWorkarea.Content = vm;
+                                addWorkarea.Margin = new Thickness(0);
+
+                                Workspaces.Items.Add(addWorkarea);
+                                Workspaces.SelectedItem = addWorkarea;
+                                return;
+                            }
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -353,7 +397,7 @@ namespace TokikuNew
                     var vm = new ManufacturersManageView() { Margin = new Thickness(0) };
 
                     vm.DataContext = model;
-                  
+
                     vm.LoginedUser = ((MainViewModel)DataContext).LoginedUser;
 
 
@@ -653,6 +697,6 @@ namespace TokikuNew
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        
+
     }
 }

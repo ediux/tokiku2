@@ -10,7 +10,7 @@
     <Grid>
         <GroupBox Header="專案合約管理" VerticalAlignment="Top" Height="468" Margin="2" x:Name="UC">
             <Controls:CustomDataGrid x:Name="BussinessItemsGrid" AutoGenerateColumns="False" 
-                                     IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}"
+                                     CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"
                                      ItemsSource="{Binding}"
                                      SelectionChanged="BussinessItemsGrid_SelectionChanged" Margin="0,0,-2,0">
                 <Controls:CustomDataGrid.Columns>
