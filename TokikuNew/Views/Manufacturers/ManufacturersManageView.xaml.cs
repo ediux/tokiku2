@@ -255,7 +255,9 @@ namespace TokikuNew.Views
                         SelectedManufacturers.Status.IsSaved = true;
                         break;
                     case DocumentLifeCircle.Update:
-
+                        SelectedManufacturers.Status.IsNewInstance = false;
+                        SelectedManufacturers.Status.IsModify = false;
+                        SelectedManufacturers.Status.IsSaved = false;
                         break;
                 }
 
