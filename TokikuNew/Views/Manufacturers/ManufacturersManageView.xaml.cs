@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Tokiku.Controllers;
@@ -67,6 +68,8 @@ namespace TokikuNew.Views
         {
             try
             {
+                AddHandler(DockBar.DocumentModeChangedEvent, new RoutedEventHandler(DockBar_DocumentModeChanged));
+
                 //Binding BindingDataContext = new Binding();
                 //BindingDataContext.Source = DataContext;
 
@@ -91,7 +94,7 @@ namespace TokikuNew.Views
 
                 ////UI設定
                 //BussinessItemSheet.StartSheetIndex = 0;
-               
+
 
 
                 ////BussinessItemSheet.Sheets.Clear();
@@ -209,30 +212,64 @@ namespace TokikuNew.Views
         {
             try
             {
-                //e.Handled = true;
+                e.Handled = true;
 
-                //Mode = (DocumentLifeCircle)e.OriginalSource;
+                ManufacturersViewModel SelectedManufacturers = (ManufacturersViewModel)DataContext;
+                Mode = (DocumentLifeCircle)e.OriginalSource;
 
-                //switch (Mode)
-                //{
-                //    case DocumentLifeCircle.Create:
+                switch (Mode)
+                {
+                    case DocumentLifeCircle.Create:
+                        DataContext = new ManufacturersViewModel();
+                        SelectedManufacturers = (ManufacturersViewModel)DataContext;
+                        SelectedManufacturers.CreateUserId = LoginedUser.UserId;
 
-                //        DataContext = controller.CreateNew();
-                //        //SelectedManufacturers = (ManufacturersViewModel)DataContext;
-                //        SelectedManufacturers.CreateUserId = LoginedUser.UserId;
-                //        if (SelectedManufacturers.HasError)
-                //        {
-                //            MessageBox.Show(string.Join("\n", SelectedManufacturers.Errors.ToArray()));
+                        if (SelectedManufacturers.HasError)
+                        {
+                            MessageBox.Show(string.Join("\n", SelectedManufacturers.Errors.ToArray()));
+                            SelectedManufacturers.Errors = null;
+
+                        }
+                        break;
+                    case DocumentLifeCircle.Save:
+                        SelectedManufacturers.SaveModel();
+
+                        if (SelectedManufacturers.HasError)
+                        {
+                            MessageBox.Show(string.Join("\n", SelectedManufacturers.Errors.ToArray()));
+                            SelectedManufacturers.Errors = null;
+
+                            break;
+                        }
+
+                        if (SelectedManufacturers.Status.IsNewInstance)
+                        {
+                            RaiseEvent(new RoutedEventArgs(ClosableTabItem.OnPageClosingEvent, this));
+
+                        }
+
+                        Mode = DocumentLifeCircle.Read;
+
+                        SelectedManufacturers.Status.IsNewInstance = false;
+                        SelectedManufacturers.Status.IsModify = false;
+                        SelectedManufacturers.Status.IsSaved = true;
+                        break;
+                    case DocumentLifeCircle.Update:
+
+                        break;
+                }
+
+
                 //            SelectedManufacturers.Errors = null;
                 //            dockBar.DocumentMode = DocumentLifeCircle.Read;
                 //            break;
-                //        }
+
                 //        SelectedManufacturers.Status.IsModify = false;
                 //        SelectedManufacturers.Status.IsSaved = false;
                 //        SelectedManufacturers.Status.IsNewInstance = true;
 
                 //        break;
-                //    case DocumentLifeCircle.Save:
+
                 //        if (SelectedManufacturers.CreateUserId == Guid.Empty)
                 //        {
                 //            SelectedManufacturers.CreateUserId = LoginedUser.UserId;
