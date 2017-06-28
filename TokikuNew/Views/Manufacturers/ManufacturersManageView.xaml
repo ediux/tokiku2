@@ -227,9 +227,6 @@
                 <GroupBox Grid.Row="0" Header="營業項目" Margin="5" MinHeight="297">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="27"/>
-                            <RowDefinition Height="27"/>
-                            <RowDefinition Height="27"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
@@ -238,6 +235,7 @@
                             <ColumnDefinition Width="25*"/>
                             <ColumnDefinition Width="25*"/>
                         </Grid.ColumnDefinitions>
+                        <!--
                         <TextBlock Text="材料類別：" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="0"/>
                         <ComboBox Style="{DynamicResource ReadModeSwitch_ComboBox}" Name="cbMaterialCategoriesList" ItemsSource="{DynamicResource MaterialCategoriesSource}"
                                       Grid.Row="0" Grid.Column="1"
@@ -295,6 +293,90 @@
                         <Button x:Name="btnAddMBI" Content="新增" VerticalAlignment="Center" Margin="2" Grid.Row="2" Grid.Column="3" Click="btnAddMBI_Click"
                               IsEnabled="{Binding Mode, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 />
+                        -->
+                        <DataGrid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Margin="2" AutoGenerateColumns="False"
+                                  IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  x:Name="BusinessProjectDataGrid" ItemsSource="{Binding ManufacturersBussinessItems}">
+                            <DataGrid.Columns>
+                                <!-- DataGridTextColumn Header="材料類別" Width="auto" Binding="{Binding MaterialCategories}" / -->
+                                <DataGridTemplateColumn Header="材料類別" Width="auto" >
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox x:Name="CBMaterialCategories" Grid.Column="1" Grid.Row="0" Margin="2" IsReadOnly="False"
+                                          Text="{Binding MaterialCategories}"
+                                          ItemsSource="{DynamicResource MaterialCategoriesSource}" 
+                                          SelectedValuePath="Id" DisplayMemberPath="Name" 
+                                          SelectedValue="{Binding MaterialCategoriesId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=userControl}" 
+                                          IsEditable="True">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Name}"/>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="交易品項" Width="auto" Binding="{Binding Name}" />
+                                <!-- DataGridTextColumn Header="交易類別" Width="auto" Binding="{Binding TranscationCategories}" / -->
+                                <DataGridTemplateColumn Header="交易類別" Width="auto" >
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox x:Name="cbTranscationCategories" Grid.Column="1" Grid.Row="0" Margin="2" IsReadOnly="False"
+                                          Text="{Binding TranscationCategories}"
+                                          ItemsSource="{DynamicResource TranscationCategoriesSource}" 
+                                          SelectedValuePath="Id" DisplayMemberPath="Name" 
+                                          SelectedValue="{Binding TranscationCategoriesId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=userControl}" 
+                                          IsEditable="True">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Name}"/>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <!-- DataGridTextColumn Header="支付方式" Width="auto" Binding="{Binding PaymentTypeName}" / -->
+                                <DataGridTemplateColumn Header="支付方式" Width="auto" >
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox x:Name="cbPaymentTypeBI" Grid.Column="1" Grid.Row="0" Margin="2" IsReadOnly="False"
+                                          Text="{Binding PaymentTypeName}"
+                                          ItemsSource="{DynamicResource PaymentTypesSource}" 
+                                          SelectedValuePath="Id" DisplayMemberPath="PaymentTypeName" 
+                                          SelectedValue="{Binding PaymentTypeId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=userControl}" 
+                                          IsEditable="True">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding PaymentTypeName}"/>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <!-- DataGridTextColumn Header="票期" Width="auto" Binding="{Binding TicketPeriod}" / -->
+                                <DataGridTemplateColumn Header="票期" Width="auto" >
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox x:Name="cbTicketPeriodBI" Grid.Column="1" Grid.Row="0" Margin="2" IsReadOnly="False"
+                                          Text="{Binding TicketPeriod}"
+                                          ItemsSource="{DynamicResource TicketPeriodsSource}" 
+                                          SelectedValuePath="Id" DisplayMemberPath="Name" 
+                                          SelectedValue="{Binding TicketPeriodId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=userControl}" 
+                                          IsEditable="True">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Name}"/>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
 
                     </Grid>
                 </GroupBox>
