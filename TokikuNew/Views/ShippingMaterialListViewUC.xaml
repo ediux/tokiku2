@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="TokikuNew.Views.ShippingMaterialListViewUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TokikuNew.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1024">
+    <Grid>
+        <DataGrid AutoGenerateColumns="False" Margin="5" ItemsSource="{Binding}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="收款單號"/>
+                <DataGridTextColumn Header="出貨單號"/>
+                <DataGridTextColumn Header="廠商收料單號"/>
+                <DataGridTextColumn Header="建單日期"/>
+                <DataGridTextColumn Header="建單人員"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="開啟收款單" x:Name="BtnOpen" Click="BtnOpen_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+            
+    </Grid>
+</UserControl>

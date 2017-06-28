@@ -49,8 +49,7 @@ namespace TokikuNew.Views
         {
             try
             {
-                //ContractManagementViewUC view = new ContractManagementViewUC();
-                //RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, view));
+                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "合約管理"));
 
             }
             catch (Exception ex)

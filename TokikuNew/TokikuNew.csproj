@@ -200,8 +200,14 @@
     <Compile Include="Views\Finance\PromissoryNoteManagementViewUC.xaml.cs">
       <DependentUpon>PromissoryNoteManagementViewUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ReturnMaterialListViewUC.xaml.cs">
+      <DependentUpon>ReturnMaterialListViewUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ReturnMaterialViewUC.xaml.cs">
       <DependentUpon>ReturnMaterialViewUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ShippingMaterialListViewUC.xaml.cs">
+      <DependentUpon>ShippingMaterialListViewUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ShippingMaterialViewUC.xaml.cs">
       <DependentUpon>ShippingMaterialViewUC.xaml</DependentUpon>
@@ -406,7 +412,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ReturnMaterialListViewUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ReturnMaterialViewUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ShippingMaterialListViewUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
