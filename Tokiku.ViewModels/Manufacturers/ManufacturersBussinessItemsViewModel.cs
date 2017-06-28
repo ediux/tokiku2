@@ -86,6 +86,7 @@ namespace Tokiku.ViewModels
                 setErrortoModel(this, ex);
             }
         }
+
         public async void QueryWithMaterialCategories(Guid MaterialCategoriesId)
         {
             try
