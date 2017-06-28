@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="TokikuNew.Views.ContractListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TokikuNew.Views"
+             mc:Ignorable="d" 
+             x:Name="userControl"
+             Initialized="userControl_Initialized"
+             Loaded="userControl_Loaded"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <GroupBox Header="合約列表" Grid.Row="1" Grid.Column="0" Margin="5" Style="{DynamicResource GroupBox_DocumentEditor}">
+            <Grid>
+
+                <DataGrid Grid.Row="1" Grid.Column="0" AutoGenerateColumns="False" 
+                                             CanUserDeleteRows="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                                             CanUserAddRows="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                             ItemsSource="{Binding}"
+                                             MouseDoubleClick="ContractList_MouseDoubleClick"
+                                             DataGridRow.Selected="ContractList_Selected"
+                                             x:Name="ContractList"
+                                             AddingNewItem="ContractList_AddingNewItem"
+                                             IsReadOnly="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="合約編號" Binding="{Binding ContractNumber}" Width="auto"/>
+                        <DataGridTextColumn Header="專案全名" Binding="{Binding Name}" Width="auto"/>
+                        <DataGridTextColumn Header="簽約日期" Binding="{Binding SigningDate, StringFormat=\{0:yyyy/MM/dd\}}" Width="auto"/>
+                        <DataGridTemplateColumn Width="auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" DataContext="{Binding}">
+                                        <Button Content="工程項目" x:Name="btnEngItem" Click="btnEngItem_Click" Margin="5,0" />
+                                        <Button Content="加工圖集" x:Name="btnProcessAltas" Click="btnProcessAltas_Click" Margin="5,0" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="停用" Click="MenuItem_Click" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

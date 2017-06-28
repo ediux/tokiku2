@@ -7,14 +7,11 @@
              xmlns:local="clr-namespace:TokikuNew.Views"
              xmlns:Controls="clr-namespace:TokikuNew.Controls"
              mc:Ignorable="d" Background="Transparent"
+             Initialized="userControl_Initialized"
+             Loaded="userControl_Loaded"
              d:DesignHeight="300" d:DesignWidth="512">
-    <GroupBox Header="供應商" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" Style="{DynamicResource GroupBox_ListEditor}">
+    <GroupBox Header="供應商" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" Style="{DynamicResource GroupBox_DocumentEditor}">
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="27"/>
-
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25*"/>
                 <ColumnDefinition Width="25*"/>
@@ -22,8 +19,8 @@
                 <ColumnDefinition Width="25*"/>
                 <ColumnDefinition Width="27"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnAddBI" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Right" Margin="2" Content="&#xE109;" Width="23" FontFamily="/Resources/#Segoe MDL2 Assets" Click="btnAddBI_Click" IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl}" />
-            <Controls:CustomDataGrid x:Name="BussinessItemsGrid" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="5" 
+            <Controls:CustomDataGrid x:Name="BussinessItemsGrid" Grid.ColumnSpan="5" 
+                                     Margin="2"
                                                  AutoGenerateColumns="False" 
                                                  IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}"
                                                  ItemsSource="{Binding}" SelectionChanged="BussinessItemsGrid_SelectionChanged">
@@ -94,9 +91,15 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTextColumn Header="送貨地點" Binding="{Binding PlaceofReceipt}"/>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Style="{DynamicResource NormalButtonStyle}" x:Name="btnDelete" Grid.Row="0" Grid.Column="4" Content="&#xE108;" FontFamily="/Resources/#Segoe MDL2 Assets" Margin="2" Width="23" Click="btnDelete_Click"  DataContext="{Binding}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </Controls:CustomDataGrid.Columns>
             </Controls:CustomDataGrid>
-            <Button x:Name="btnDelete" Grid.Row="0" Grid.Column="4" Content="&#xE108;" FontFamily="/Resources/#Segoe MDL2 Assets" Margin="2" Width="23" Click="btnDelete_Click" IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl}"/>
         </Grid>
     </GroupBox>
 </UserControl>

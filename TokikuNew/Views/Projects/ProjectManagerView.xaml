@@ -200,50 +200,7 @@
                 <RowDefinition Height="50*" />
                 <RowDefinition Height="50*" />
             </Grid.RowDefinitions>
-            <GroupBox Header="合約列表" Grid.Row="1" Grid.Column="0" Margin="5" Style="{DynamicResource GroupBox_ListEditor}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="20"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">
-                        <Controls:SearchBar x:Name="ProjectContactSearchBar" Width="250" ResetSearch="ProjectContactSearchBar_ResetSearch" Search="ProjectContactSearchBar_Search" />
-                    </StackPanel>
-                    <Controls:CustomDataGrid Grid.Row="1" Grid.Column="0" AllowExecuteSystemCommand="True" AutoGenerateColumns="False" 
-                                             CanUserDeleteRows="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
-                                             CanUserAddRows="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                             ItemsSource="{Binding ProjectContract, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                             MouseDoubleClick="ContractList_MouseDoubleClick"
-                                             DataGridRow.Selected="ContractList_Selected"
-                                             x:Name="ContractList"
-                                             AddingNewItem="ContractList_AddingNewItem"
-                                             IsReadOnly="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                        <Controls:CustomDataGrid.Columns>
-                            <DataGridTextColumn Header="合約編號" Binding="{Binding ContractNumber}" Width="auto"/>
-                            <DataGridTextColumn Header="專案全名" Binding="{Binding Name}" Width="auto"/>
-                            <DataGridTextColumn Header="簽約日期" Binding="{Binding SigningDate, StringFormat=\{0:yyyy/MM/dd\}}" Width="auto"/>
-                            <DataGridTemplateColumn Width="auto">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" DataContext="{Binding}">
-                                            <Button Content="工程項目" x:Name="btnEngItem" Click="btnEngItem_Click" Margin="5,0" />
-                                            <Button Content="加工圖集" x:Name="btnProcessAltas" Click="btnProcessAltas_Click" Margin="5,0" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </Controls:CustomDataGrid.Columns>
-                        <Controls:CustomDataGrid.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem Header="停用" Click="MenuItem_Click" />
-                            </ContextMenu>
-                        </Controls:CustomDataGrid.ContextMenu>
-                    </Controls:CustomDataGrid>
-                </Grid>
-            </GroupBox>
+            <local:ContractListView Grid.Row="1" Grid.Column="1" DataContext="{Binding ProjectContract}"/>
             <local:SupplierForProjects Grid.Row="0" DataContext="{Binding Suppliers}"/>
         </Grid>
 

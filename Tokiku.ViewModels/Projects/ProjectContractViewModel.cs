@@ -104,6 +104,10 @@ namespace Tokiku.ViewModels
             throw new NotSupportedException();
         }
 
+        public override void SaveModel()
+        {
+            
+        }
     }
 
     /// <summary>

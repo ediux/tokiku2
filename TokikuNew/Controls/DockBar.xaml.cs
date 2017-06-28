@@ -162,22 +162,6 @@ namespace TokikuNew.Controls
 
         #endregion
 
-        private void btnF1_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                DocumentMode = DocumentLifeCircle.Create;
-                RaiseEvent(new RoutedEventArgs(DocumentModeChangedEvent, DocumentMode));
-                e.Handled = true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
-
-
-        }
-
         private void btnF2_Click(object sender, RoutedEventArgs e)
         {
             try

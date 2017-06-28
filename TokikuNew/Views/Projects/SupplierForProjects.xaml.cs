@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tokiku.ViewModels;
+using TokikuNew.Controls;
 
 namespace TokikuNew.Views
 {
@@ -78,7 +79,19 @@ namespace TokikuNew.Views
             DependencyProperty.Register("TicketPeriodsByManufacturers", typeof(TicketPeriodsViewModelCollection), typeof(SupplierForProjects), new PropertyMetadata(default(TicketPeriodsViewModelCollection)));
 
 
+        #region Document Mode
 
+
+        public DocumentLifeCircle Mode
+        {
+            get { return (DocumentLifeCircle)GetValue(ModeProperty); }
+            set { SetValue(ModeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Mode.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ModeProperty =
+            DependencyProperty.Register("Mode", typeof(DocumentLifeCircle), typeof(SupplierForProjects));
+        #endregion
 
         private void CBMaterialCategories_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -215,7 +228,9 @@ namespace TokikuNew.Views
 
 
         }
+
         private Stack<SuppliersViewModel> RemoveItem = new Stack<SuppliersViewModel>();
+
         private void BussinessItemsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
@@ -247,7 +262,85 @@ namespace TokikuNew.Views
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                Button btn = (Button)sender;
+                SuppliersViewModel data = (SuppliersViewModel)btn.DataContext;
+                ((SuppliersViewModelCollection)DataContext).Remove(data);
+                ((SuppliersViewModelCollection)DataContext).SaveModel();
+                ((SuppliersViewModelCollection)DataContext).Refresh();
+            }
+            catch (Exception ex)
+            {
 
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+
+            }
+        }
+
+        private void userControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                AddHandler(DockBar.DocumentModeChangedEvent, new RoutedEventHandler(DockBar_DocumentModeChanged));
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+
+            }
+        }
+        private void DockBar_DocumentModeChanged(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                e.Handled = true;
+                Mode = (DocumentLifeCircle)e.OriginalSource;
+
+                switch (Mode)
+                {
+                  
+                    case DocumentLifeCircle.Save:
+                        var dataset = (SuppliersViewModelCollection)DataContext;
+
+                        dataset.SaveModel();
+
+                        if (dataset.HasError)
+                        {
+                            MessageBox.Show(string.Join("\n", dataset.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                            dataset.Errors = null;
+                            //Mode = dockBar.LastState;
+                            break;
+                        }
+
+                        Mode = DocumentLifeCircle.Read;
+
+                        break;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+
+            }
+
+        }
+
+        private void userControl_Initialized(object sender, EventArgs e)
+        {
+            try
+            {
+                Mode = DocumentLifeCircle.Read;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+
+            }
         }
     }
 }

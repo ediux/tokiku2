@@ -11,7 +11,17 @@ namespace Tokiku.ViewModels
 {
     public class SuppliersViewModelCollection : BaseViewModelCollection<SuppliersViewModel>
     {
+        public override void SaveModel()
+        {
+            try
+            {
 
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+        }
     }
 
     /// <summary>
