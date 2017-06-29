@@ -24,34 +24,5 @@ namespace Tokiku.Controllers
                 throw;
             }
         }
-        //public StatesViewModelCollection QueryAll()
-        //{
-        //    try
-        //    {
-        //        var result = from s in database.States
-        //                     select s;
-
-        //        StatesViewModelCollection rtn = new StatesViewModelCollection();
-
-        //        if (result.Any())
-        //        {
-        //            foreach (var row in result)
-        //            {
-        //                StatesViewModel model = new StatesViewModel();
-        //                model = BindingFromModel(row);
-        //                rtn.Add(model);
-        //            }
-        //        }
-
-        //        return rtn;
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        StatesViewModelCollection rtn = new StatesViewModelCollection();
-        //        setErrortoModel(rtn, ex);
-        //        return rtn;
-        //    }
-        //}
     }
 }
