@@ -121,27 +121,27 @@ namespace Tokiku.ViewModels
 
 
         // 本票開立日期
-        public Nullable<DateTime> PromissoryOpenDate
+        public string PromissoryOpenDate
         {
-            get { return (Nullable<DateTime>)GetValue(PromissoryOpenDateProperty); }
+            get { return (string)GetValue(PromissoryOpenDateProperty); }
             set { SetValue(PromissoryOpenDateProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for PromissoryOpenDate.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PromissoryOpenDateProperty =
-            DependencyProperty.Register("PromissoryOpenDate", typeof(Nullable<DateTime>), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(default(Nullable<DateTime>)));
+            DependencyProperty.Register("PromissoryOpenDate", typeof(string), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(string.Empty));
 
 
         // 本票取回日期
-        public Nullable<DateTime> PromissoryRecoveryDate
+        public string PromissoryRecoveryDate
         {
-            get { return (Nullable<DateTime>)GetValue(PromissoryRecoveryDateProperty); }
+            get { return (string)GetValue(PromissoryRecoveryDateProperty); }
             set { SetValue(PromissoryRecoveryDateProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for PromissoryRecoveryDate.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PromissoryRecoveryDateProperty =
-            DependencyProperty.Register("PromissoryRecoveryDate", typeof(Nullable<DateTime>), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(default(Nullable<DateTime>)));
+            DependencyProperty.Register("PromissoryRecoveryDate", typeof(string), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(string.Empty));
 
 
         // 保固票代號
@@ -181,27 +181,27 @@ namespace Tokiku.ViewModels
 
 
         // 保固票開立日期
-        public Nullable<DateTime> WarrantyOpenDate
+        public string WarrantyOpenDate
         {
-            get { return (Nullable<DateTime>)GetValue(WarrantyOpenDateProperty); }
+            get { return (string)GetValue(WarrantyOpenDateProperty); }
             set { SetValue(WarrantyOpenDateProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for WarrantyOpenDate.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty WarrantyOpenDateProperty =
-            DependencyProperty.Register("WarrantyOpenDate", typeof(Nullable<DateTime>), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(default(Nullable<DateTime>)));
+            DependencyProperty.Register("WarrantyOpenDate", typeof(string), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(string.Empty));
 
 
         // 保固票取回日期
-        public Nullable<DateTime> WarrantyRecoveryDate
+        public string WarrantyRecoveryDate
         {
-            get { return (Nullable<DateTime>)GetValue(WarrantyRecoveryDateProperty); }
+            get { return (string)GetValue(WarrantyRecoveryDateProperty); }
             set { SetValue(WarrantyRecoveryDateProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for WarrantyRecoveryDate.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty WarrantyRecoveryDateProperty =
-            DependencyProperty.Register("WarrantyRecoveryDate", typeof(Nullable<DateTime>), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(default(Nullable<DateTime>)));
+            DependencyProperty.Register("WarrantyRecoveryDate", typeof(string), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(string.Empty));
 
 
         // 異動人員代號
@@ -229,15 +229,15 @@ namespace Tokiku.ViewModels
 
 
         // 異動時間
-        public Nullable<DateTime> CreateTime
+        public string CreateTime
         {
-            get { return (Nullable<DateTime>)GetValue(CreateTimeProperty); }
+            get { return (string)GetValue(CreateTimeProperty); }
             set { SetValue(CreateTimeProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for CreateTime.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CreateTimeProperty =
-            DependencyProperty.Register("CreateTime", typeof(Nullable<DateTime>), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(default(Nullable<DateTime>)));
+            DependencyProperty.Register("CreateTime", typeof(string), typeof(PromissoryNoteManagementViewModel), new PropertyMetadata(string.Empty));
 
         /*/ 承攬總價
         public Nullable<int> 承攬總價
