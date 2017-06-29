@@ -17,11 +17,11 @@ using TokikuNew.Controls;
 namespace TokikuNew.Views
 {
     /// <summary>
-    /// ControlTableViewUC.xaml 的互動邏輯
+    /// ControlTableView.xaml 的互動邏輯
     /// </summary>
-    public partial class ControlTableViewUC : UserControl
+    public partial class ControlTableView : UserControl
     {
-        public ControlTableViewUC()
+        public ControlTableView()
         {
             InitializeComponent();
         }

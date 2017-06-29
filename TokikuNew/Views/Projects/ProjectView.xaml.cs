@@ -191,7 +191,7 @@ namespace TokikuNew.Views
                     addWorkarea = new ClosableTabItem() { Header = Header };
                 }
 
-                if (e.OriginalSource is ControlTableViewUC)
+                if (e.OriginalSource is ControlTableView)
                 {
                     Header = "鋁擠型管控表";
                     addWorkarea = new ClosableTabItem() { Header = Header };
@@ -404,9 +404,9 @@ namespace TokikuNew.Views
                         return;
                     }
 
-                    if (e.OriginalSource != null && e.OriginalSource is ControlTableViewUC)
+                    if (e.OriginalSource != null && e.OriginalSource is ControlTableView)
                     {
-                        var vm = new ControlTableViewUC() { Margin = new Thickness(0) };
+                        var vm = new ControlTableView() { Margin = new Thickness(0) };
 
 
                         //addWorkarea = new ClosableTabItem() { Header = Header };
