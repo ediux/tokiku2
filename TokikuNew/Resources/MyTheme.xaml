@@ -248,12 +248,12 @@
                 <Setter Property="Visibility" Value="Visible"/>
                 <Setter Property="Template">
                     <Setter.Value>
-                        <ControlTemplate>
-                            <TextBlock Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}"/>
+                        <ControlTemplate TargetType="DatePicker">
+                            <ContentPresenter ContentSource="Text" />
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
-                 <Setter Property="IsEnabled" Value="False"/>               
+                <Setter Property="IsEnabled" Value="False"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Save">
                 <Setter Property="Visibility" Value="Collapsed"/>

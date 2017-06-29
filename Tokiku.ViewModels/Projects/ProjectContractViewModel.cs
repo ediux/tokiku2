@@ -286,20 +286,7 @@ namespace Tokiku.ViewModels
 
         #endregion
 
-        #region LastUpdateUser
-        /// <summary>
-        /// 最後異動人員名稱
-        /// </summary>
-        public string LastUpdateUser
-        {
-            get { return (string)GetValue(LastUpdateUserProperty); }
-            set { SetValue(LastUpdateUserProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for LastUpdateUser.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty LastUpdateUserProperty =
-            DependencyProperty.Register("LastUpdateUser", typeof(string), typeof(ProjectContractViewModel), new PropertyMetadata(string.Empty));
-        #endregion
+     
 
         #region Engineerings
         /// <summary>

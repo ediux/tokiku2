@@ -104,7 +104,7 @@
         <EntityTypeShape EntityType="TokikuModel.Projects" Width="1.5" PointX="3" PointY="4.75" />
         <EntityTypeShape EntityType="TokikuModel.ProjectContract" Width="1.5" PointX="5.25" PointY="2.625" />
         <AssociationConnector Association="TokikuModel.FK_ProjectContract_Projects" />
-        <EntityTypeShape EntityType="TokikuModel.SupplierTranscationItem" Width="1.5" PointX="8.25" PointY="12.125" />
+        <EntityTypeShape EntityType="TokikuModel.SupplierTranscationItem" Width="2" PointX="8.25" PointY="12.125" />
         <AssociationConnector Association="TokikuModel.FK_SupplierTranscationItem_Projects" />
         <EntityTypeShape EntityType="TokikuModel.Engineering" Width="1.5" PointX="5.25" PointY="12.25" />
         <AssociationConnector Association="TokikuModel.FK_Engineering_Projects" />

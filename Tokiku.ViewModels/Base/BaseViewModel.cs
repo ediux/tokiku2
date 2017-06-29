@@ -11,6 +11,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Threading;
+using Tokiku.Controllers;
+using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
@@ -105,7 +107,7 @@ namespace Tokiku.ViewModels
                                     ctProp.SetValue(ViewModel, entityvalue);
                                 }
                             }
-                            
+
                         }
 #if DEBUG
                         catch (Exception ex)
@@ -274,6 +276,113 @@ namespace Tokiku.ViewModels
 
         }
 
+        public static void BindToDataGridView<T, TCollection>(TCollection source, DataGrid Grid) where T : IBaseViewModel where TCollection : BaseViewModelCollection<T>
+        {
+            if (Grid != null)
+            {
+                Grid.Columns.Clear();
+                Grid.ItemsSource = source;
+
+
+
+                Type type = typeof(T);
+                var props = type.GetProperties();
+                if (props.Any())
+                {
+                    foreach (var prop in props)
+                    {
+                        DisplayAttribute dispalyattr = prop.GetCustomAttributes(true).OfType<DisplayAttribute>().SingleOrDefault();
+
+                        if (dispalyattr != null)
+                        {
+                            Binding fieldbinding = new Binding();
+                            //fieldbinding.Source = prop.GetValue(source);
+                            fieldbinding.Mode = BindingMode.TwoWay;
+                            fieldbinding.Path = new PropertyPath(prop.Name);
+                            fieldbinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+
+                            DataGridTextColumn column = new DataGridTextColumn()
+                            {
+                                Header = dispalyattr.Name,
+                                Visibility = Visibility.Visible,
+                                Binding = fieldbinding
+                            };
+                            Grid.Columns.Add(column);
+
+                            //column.DisplayIndex = dispalyattr.Order;
+                            //Grid.Columns[dispalyattr.Order].Header = dispalyattr.Name;
+                            //Grid.Columns[dispalyattr.Order].DisplayIndex = dispalyattr.Order;
+                            //Grid.Columns[dispalyattr.Order].Visibility = Visibility.Visible;
+                        }
+                    }
+
+                    foreach (var prop in props)
+                    {
+                        try
+                        {
+                            DisplayAttribute dispalyattr = prop.GetCustomAttributes(true).OfType<DisplayAttribute>().SingleOrDefault();
+
+                            if (dispalyattr != null)
+                            {
+                                var field = Grid.Columns.Where(w => w.Header.Equals(dispalyattr.Name)).Single();
+                                field.DisplayIndex = dispalyattr.Order;
+                            }
+                        }
+                        catch
+                        {
+                            continue;
+                        }
+                    }
+                }
+
+
+            }
+        }
+
+
+        private void GetLastUpdateTime()
+        {
+            try
+            {
+                Type CurrentViewModelType = this.GetType();
+
+                var repo = RepositoryHelper.GetAccessLogRepository();
+
+                var props = CurrentViewModelType.GetProperties();
+
+                if (props.Any())
+                {
+                    List<object> MutliPrimaryKey = new List<object>();
+
+                    foreach (var prop in props)
+                    {
+                        KeyAttribute foundkey = prop.GetCustomAttributes(true).OfType<KeyAttribute>().SingleOrDefault();
+
+                        if (foundkey != null)
+                        {
+                            MutliPrimaryKey.Add(prop.GetValue(this));
+                        }
+                    }
+
+                    string DataId = string.Join(",", MutliPrimaryKey.Select(s => s.ToString()));
+
+                    var queryresult = repo.Where(w => w.DataId == DataId).OrderByDescending(o => o.CreateTime).Select(s => s.CreateTime).Take(1).ToList().FirstOrDefault();
+
+                    if (queryresult != null)
+                    {
+                        LastUpdateTime = queryresult;
+                        return;
+                    }
+
+                }
+
+                LastUpdateTime = DateTime.Now;
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+        }
         #endregion
 
         #region PropertyChanged 事件
@@ -349,8 +458,12 @@ namespace Tokiku.ViewModels
                     if (d.GetType().GetInterface("IBaseViewModel") == typeof(IBaseViewModel))
                     {
                         BaseViewModel model = ((BaseViewModel)d);
+                        if (model.Status == null)
+                            model.Status = new DocumentStatusViewModel();
+
                         model.Status.IsModify = true;
                         model.Status.IsSaved = false;
+
                         model.PropertyChanged?.Invoke(model, new PropertyChangedEventArgs(e.Property.Name));
                     }
                 }
@@ -370,6 +483,21 @@ namespace Tokiku.ViewModels
 #if DEBUG
                 Debug.WriteLine("BaseViewModel initialized.");
 #endif
+                GetLastUpdateTime();
+
+                var execresult = SystemController.GetCurrentLoginUser();
+
+                if (!execresult.HasError)
+                {
+                    if (execresult.Result != null)
+                        LastUpdateUser = execresult.Result.UserName;
+                    else
+                        LastUpdateUser = "Anonymous";
+                }
+                else
+                {
+                    LastUpdateUser = "Anonymous";
+                }
 
                 Errors = null;
                 HasError = false;
@@ -438,83 +566,12 @@ namespace Tokiku.ViewModels
             DoEvents();
         }
 
-        public static void BindToDataGridView<T, TCollection>(TCollection source, DataGrid Grid) where T : IBaseViewModel where TCollection : BaseViewModelCollection<T>
-        {
-            if (Grid != null)
-            {
-                Grid.Columns.Clear();
-                Grid.ItemsSource = source;
 
-
-
-                Type type = typeof(T);
-                var props = type.GetProperties();
-                if (props.Any())
-                {
-                    foreach (var prop in props)
-                    {
-                        DisplayAttribute dispalyattr = prop.GetCustomAttributes(true).OfType<DisplayAttribute>().SingleOrDefault();
-
-                        if (dispalyattr != null)
-                        {
-                            Binding fieldbinding = new Binding();
-                            //fieldbinding.Source = prop.GetValue(source);
-                            fieldbinding.Mode = BindingMode.TwoWay;
-                            fieldbinding.Path = new PropertyPath(prop.Name);
-                            fieldbinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-
-                            DataGridTextColumn column = new DataGridTextColumn()
-                            {
-                                Header = dispalyattr.Name,
-                                Visibility = Visibility.Visible,
-                                Binding = fieldbinding
-                            };
-                            Grid.Columns.Add(column);
-
-                            //column.DisplayIndex = dispalyattr.Order;
-                            //Grid.Columns[dispalyattr.Order].Header = dispalyattr.Name;
-                            //Grid.Columns[dispalyattr.Order].DisplayIndex = dispalyattr.Order;
-                            //Grid.Columns[dispalyattr.Order].Visibility = Visibility.Visible;
-                        }
-                    }
-
-                    foreach (var prop in props)
-                    {
-                        try
-                        {
-                            DisplayAttribute dispalyattr = prop.GetCustomAttributes(true).OfType<DisplayAttribute>().SingleOrDefault();
-
-                            if (dispalyattr != null)
-                            {
-                                var field = Grid.Columns.Where(w => w.Header.Equals(dispalyattr.Name)).Single();
-                                field.DisplayIndex = dispalyattr.Order;
-                            }
-                        }
-                        catch
-                        {
-                            continue;
-                        }
-                    }
-                }
-
-
-            }
-        }
-
-        private void GetLastUpdateTime()
-        {
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-
-                setErrortoModel(this, ex);
-            }
-        }
 
         #region 最後更新時間
+
+
+
         /// <summary>
         /// 最後更新時間
         /// </summary>

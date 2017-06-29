@@ -84,6 +84,9 @@ namespace Tokiku.Entity
         [StringLength(50, ErrorMessage = "欄位長度不得大於 50 個字元")]
         public string SiteContactPerson { get; set; }
 
+        [StringLength(10, ErrorMessage = "欄位長度不得大於 10 個字元")]
+        public string SitePhone { get; set; }
+
         public virtual ICollection<ProjectContract> ProjectContract { get; set; }
         public virtual States States { get; set; }
         public virtual ICollection<SupplierTranscationItem> SupplierTranscationItem { get; set; }

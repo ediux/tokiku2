@@ -390,24 +390,7 @@ namespace Tokiku.ViewModels
 
         #endregion
 
-        #region LastUpdateTime
-
-
-        /// <summary>
-        /// 異動時間
-        /// </summary>
-        public DateTime? LastUpdateTime
-        {
-            get { return (DateTime?)GetValue(LastUpdateTimeProperty); }
-            set { SetValue(LastUpdateTimeProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for LastUpdateTime.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty LastUpdateTimeProperty =
-            DependencyProperty.Register("LastUpdateTime", typeof(DateTime?), typeof(MoldsViewModel), new PropertyMetadata(DateTime.Now));
-
-
-        #endregion
+       
 
         #region MoldUseStatus
 

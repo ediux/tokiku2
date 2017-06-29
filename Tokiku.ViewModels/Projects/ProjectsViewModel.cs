@@ -550,6 +550,41 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty OwnerContractNumberProperty =
             DependencyProperty.Register("OwnerContractNumber", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(string.Empty));
 
+        public string SiteContactPerson
+        {
+            get { return (string)GetValue(SiteContactPersonProperty); }
+            set { SetValue(SiteContactPersonProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SiteContactPerson.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SiteContactPersonProperty =
+            DependencyProperty.Register("SiteContactPerson", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
+
+
+
+
+        public string SiteContactPersonPhone
+        {
+            get { return (string)GetValue(SiteContactPersonPhoneProperty); }
+            set { SetValue(SiteContactPersonPhoneProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SiteContactPersonPhone.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SiteContactPersonPhoneProperty =
+            DependencyProperty.Register("SiteContactPersonPhone", typeof(string), typeof(ProjectsViewModel), new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
+
+
+
+
+        public string SitePhone
+        {
+            get { return (string)GetValue(SitePhoneProperty); }
+            set { SetValue(SitePhoneProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SitePhone.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SitePhoneProperty =
+            RegisterDP<string, ProjectsViewModel>("SitePhone", string.Empty);          
 
         #endregion
 
@@ -636,8 +671,6 @@ namespace Tokiku.ViewModels
                         supplierdata.PlaceofReceipt = supplier.PlaceofReceipt;
                         supplierdata.ManufacturersBussinessItemsId = supplier.Id;
                         supplierdata.ProjectId = data.Id;
-                        supplierdata.SiteContactPerson = supplier.SiteContactPerson;
-                        supplierdata.SiteContactPersonPhone = supplier.SiteContactPersonPhone;
 
                         data.SupplierTranscationItem.Add(supplierdata);
 
@@ -685,8 +718,6 @@ namespace Tokiku.ViewModels
                                 model.MaterialCategories = row.ManufacturersBussinessItems.MaterialCategories.Name;
                                 model.PaymentTypeName = row.ManufacturersBussinessItems.PaymentTypes.PaymentTypeName;
                                 model.TranscationCategories = row.ManufacturersBussinessItems.TranscationCategories.Name;
-                                model.SiteContactPerson = row.SiteContactPerson;
-                                model.SiteContactPersonPhone = row.SiteContactPersonPhone;
                                 model.SetModel(row.ManufacturersBussinessItems);
                             }
                             catch (Exception ex)
