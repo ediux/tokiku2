@@ -73,7 +73,7 @@
     <Compile Include="Finance\PaymentTypesManageViewModel.cs" />
     <Compile Include="Projects\ProjectContractViewModel.cs" />
     <Compile Include="Projects\ProjectListViewModel.cs" />
-    <Compile Include="Projects\PromissoryNoteManagementViewModel.cs" />
+    <Compile Include="Finance\PromissoryNoteManagementViewModel.cs" />
     <Compile Include="Base\BaseViewModelCollection.cs" />
     <Compile Include="ContactPerson\ContactsViewModel.cs" />
     <Compile Include="Manufacturers\ManufacturersViewModel.cs" />
