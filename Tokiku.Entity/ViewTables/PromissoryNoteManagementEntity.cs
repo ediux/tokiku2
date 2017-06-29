@@ -22,9 +22,9 @@ namespace Tokiku.Entity
         // 本票票據金額
         public Nullable<float> PromissoryAmount { get; set; }
         // 本票開立日期
-        public Nullable<DateTime> PromissoryOpenDate { get; set; }
+        public string PromissoryOpenDate { get; set; }
         // 本票取回日期
-        public Nullable<DateTime> PromissoryRecoveryDate { get; set; }
+        public string PromissoryRecoveryDate { get; set; }
         // 保固票代號
         public Nullable<byte> WarrantyId { get; set; }
         // 保固票名稱
@@ -32,15 +32,15 @@ namespace Tokiku.Entity
         // 保固票票據金額
         public Nullable<float> WarrantyAmount { get; set; }
         // 保固票開立日期
-        public Nullable<DateTime> WarrantyOpenDate { get; set; }
+        public string WarrantyOpenDate { get; set; }
         // 保固票取回日期
-        public Nullable<DateTime> WarrantyRecoveryDate { get; set; }
+        public string WarrantyRecoveryDate { get; set; }
         // 異動人員代號
         public Nullable<Guid> CreateUserId { get; set; }
         // 異動人員
         public string CreateUser { get; set; }
         // 異動時間
-        public Nullable<DateTime> CreateTime { get; set; }
+        public string CreateTime { get; set; }
 
     }
 }

@@ -18,16 +18,18 @@ namespace Tokiku.Controllers
             sql = " select c.ContractNumber as ContractNumber, c.Name as ProjectName, " +
                          " x.PromissoryId, x.PromissoryName, x.PromissoryAmount, x.PromissoryOpenDate, x.PromissoryRecoveryDate, " +
                          " z.WarrantyId, z.WarrantyName, z.WarrantyAmount, z.WarrantyOpenDate, z.WarrantyRecoveryDate, " +
-                         " x.CreateUserId as CreateUserId, a.UserName as CreateUser, d.CreateTime as CreateTime " +
+                         " x.CreateUserId as CreateUserId, a.UserName as CreateUser, convert(varchar(19),d.CreateTime,120) as CreateTime " +
                     " from Users a " +
                " left join (select a.CreateUserId, a.ProjectContractId, b.Id as PromissoryId, b.Name as PromissoryName, " +
-                                 " Amount as PromissoryAmount, OpenDate as PromissoryOpenDate, RecoveryDate as PromissoryRecoveryDate " +
+                                 " Amount as PromissoryAmount, convert(varchar(19),OpenDate,120) as PromissoryOpenDate, " +
+                                 " convert(varchar(19),RecoveryDate,120) as PromissoryRecoveryDate " +
                             " from PromissoryNoteManagement a " +
                        " left join TicketTypes b on b.Id = a.TicketTypeId " +
                        " left join ProjectContract c on c.Id = a.ProjectContractId " +
                            " where b.IsPromissoryNote = 0) x on x.CreateUserId = a.UserId " +
                " left join (select a.CreateUserId, a.ProjectContractId, b.Id as WarrantyId, b.Name as WarrantyName, " +
-                                 " Amount as WarrantyAmount, OpenDate as WarrantyOpenDate, RecoveryDate as WarrantyRecoveryDate " +
+                                 " Amount as WarrantyAmount, convert(varchar(19),OpenDate,120) as WarrantyOpenDate, " +
+                                 " convert(varchar(19),RecoveryDate,120) as WarrantyRecoveryDate " +
                             " from PromissoryNoteManagement a " +
                        " left join TicketTypes b on b.Id = a.TicketTypeId " +
                        " left join ProjectContract c on c.Id = a.ProjectContractId " +
