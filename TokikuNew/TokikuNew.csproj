@@ -74,9 +74,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controls\SwitchField.xaml.cs">
-      <DependentUpon>SwitchField.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Helpers\ClipboardHelper.cs" />
     <Compile Include="Helpers\SwitchFieldMode.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
@@ -128,11 +125,10 @@
     <Compile Include="Controls\DockBar.xaml.cs">
       <DependentUpon>DockBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\DocumentLifeCircle.cs" />
+    <Compile Include="Helpers\DocumentLifeCircle.cs" />
     <Compile Include="Controls\SearchBar.xaml.cs">
       <DependentUpon>SearchBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Base\ERPDocumentViewerControlBase.cs" />
     <Compile Include="Frame\ClientSelectionDialog.xaml.cs">
       <DependentUpon>ClientSelectionDialog.xaml</DependentUpon>
     </Compile>
@@ -218,10 +214,6 @@
     <Compile Include="Views\ControlTables\ShippingView.xaml.cs">
       <DependentUpon>ShippingView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Controls\SwitchField.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\AluminumExtrusion\AluminumExtrusionOrderListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -502,6 +494,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Base\" />
     <Folder Include="Views\Forms\" />
   </ItemGroup>
   <ItemGroup>
