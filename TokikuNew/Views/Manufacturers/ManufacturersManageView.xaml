@@ -216,7 +216,7 @@
                     </Grid>
                 </GroupBox>
                 <GroupBox Header="相關聯絡人" Grid.Row="1" Margin="2">
-                    <local:ContactPersonManageView DataContext="{Binding Contracts}" SelectedManufacturer="{Binding DataContext, ElementName=userControl_ManufacturersManageView}"  Mode="{Binding Mode, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <local:ContactPersonManageView DataContext="{Binding Contracts}" SelectedManufacturer="{Binding DataContext, ElementName=userControl_ManufacturersManageView}"  Mode="{Binding Path=Mode, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </GroupBox>
             </Grid>
             <Grid Grid.Column="1">

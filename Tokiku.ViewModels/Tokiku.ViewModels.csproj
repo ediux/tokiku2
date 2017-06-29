@@ -45,6 +45,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessLogViewModel.cs" />
+    <Compile Include="AccessLogViewModelCollection.cs" />
     <Compile Include="Base\BaseViewModelWithPOCOClass.cs" />
     <Compile Include="ContractManagementViewModel.cs" />
     <Compile Include="Finance\TicketPeriodsViewModel.cs" />

@@ -9,44 +9,29 @@ namespace Tokiku.Controllers
 {
     public class SystemController : BaseController
     {
-        public static void AddLogRecord(Guid DataId, Guid UserId, byte ActionCode, string TableName = "", string ActionReason = "")
+        public static ExecuteResultEntity<ICollection<AccessLog>> QueryAccessLog(string DataId)
         {
             try
             {
-                AccessLog newLogData = new AccessLog()
-                {
-                    ActionCode = ActionCode,
-                    CreateTime = DateTime.Now,
-                    DataId = DataId.ToString("N"),
-                    UserId = UserId,
-                    DataTableName = TableName,
-                    Reason = ActionReason
-                };
-
-                using (var db = new TokikuEntities())
-                {
-                    db.AccessLog.Add(newLogData);
-                    db.SaveChanges();
-                }
+                var Repo = RepositoryHelper.GetAccessLogRepository();
+                var queryresult = Repo.Where(w => w.DataId == DataId).OrderByDescending(o => o.CreateTime);
+                return ExecuteResultEntity<ICollection<AccessLog>>.CreateResultEntity(queryresult.ToList());
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                return ExecuteResultEntity<ICollection<AccessLog>>.CreateErrorResultEntity(ex);
             }
         }
-
-        public static void StartUp()
+        public static ExecuteResultEntity StartUp()
         {
             try
             {
                 TokikuEntities.StartUp();
-
+                return ExecuteResultEntity.CreateResultEntity();
             }
-            catch
+            catch (Exception ex)
             {
-
-
+                return ExecuteResultEntity.CreateErrorResultEntity(ex);
             }
 
         }

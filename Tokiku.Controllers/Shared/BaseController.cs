@@ -227,6 +227,35 @@ namespace Tokiku.Controllers
                 }
             }
         }
+
+        public static ExecuteResultEntity AddLogRecord(string DataId, Guid UserId, byte ActionCode, string TableName = "", string ActionReason = "")
+        {
+            try
+            {
+                AccessLog newLogData = new AccessLog()
+                {
+                    ActionCode = ActionCode,
+                    CreateTime = DateTime.Now,
+                    DataId = DataId,
+                    UserId = UserId,
+                    DataTableName = TableName,
+                    Reason = ActionReason
+                };
+
+                using (var db = RepositoryHelper.GetAccessLogRepository())
+                {
+                    db.Add(newLogData);
+                    db.UnitOfWork.Commit();
+                }
+
+                return ExecuteResultEntity.CreateResultEntity();
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity.CreateErrorResultEntity(ex);
+            }
+        }
+
     }
 
     /// <summary>

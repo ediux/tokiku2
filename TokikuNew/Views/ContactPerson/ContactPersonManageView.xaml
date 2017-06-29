@@ -24,7 +24,7 @@
                                       CanUserDeleteRows="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl}" 
                                       AutoGenerateColumns="False" 
                                       x:Name="ContractList" SelectionChanged="ContractList_SelectionChanged"
-                          IsReadOnly="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          IsReadOnly="{Binding Path=Mode, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           ItemsSource="{Binding}"
                                       >
             <DataGrid.Columns>

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace TokikuNew.Views
 {
     /// <summary>
-    /// AluminumPlateViewUC.xaml 的互動邏輯
+    /// HardwareViewUC.xaml 的互動邏輯
     /// </summary>
-    public partial class AluminumPlateViewUC : UserControl
+    public partial class HardwareViewUC : UserControl
     {
-        public AluminumPlateViewUC()
+        public HardwareViewUC()
         {
             InitializeComponent();
         }

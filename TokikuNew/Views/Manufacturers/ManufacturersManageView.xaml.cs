@@ -78,18 +78,19 @@ namespace TokikuNew.Views
 
                 SelectedManufacturers.ManufacturersBussinessItems.QueryAsync(SelectedManufacturers.Id);
 
-                ////當不是新建模式 則查詢設為預設的聯絡人顯示
-                //var maincontact = ((ManufacturersViewModel)DataContext).Contracts.Where(w => w.IsDefault == true).SingleOrDefault();
-                //if (maincontact != null)
-                //{
-                //    ((ManufacturersViewModel)DataContext).MainContactPerson = maincontact.Name;
-                //    ((ManufacturersViewModel)DataContext).Extension = maincontact.ExtensionNumber;
-                //}
-                //else
-                //{
-                //    ((ManufacturersViewModel)DataContext).MainContactPerson = string.Empty;
-                //    ((ManufacturersViewModel)DataContext).Extension = string.Empty;
-                //}
+                //當不是新建模式 則查詢設為預設的聯絡人顯示
+                ((ManufacturersViewModel)DataContext).Contracts.Query("", SelectedManufacturers.Id, false);
+                var maincontact = ((ManufacturersViewModel)DataContext).Contracts.Where(w => w.IsDefault == true).SingleOrDefault();
+                if (maincontact != null)
+                {
+                    ((ManufacturersViewModel)DataContext).MainContactPerson = maincontact.Name;
+                    ((ManufacturersViewModel)DataContext).Extension = maincontact.ExtensionNumber;
+                }
+                else
+                {
+                    ((ManufacturersViewModel)DataContext).MainContactPerson = string.Empty;
+                    ((ManufacturersViewModel)DataContext).Extension = string.Empty;
+                }
 
 
                 ////營業項目Sheet顯示

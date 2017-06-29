@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -90,8 +91,6 @@ namespace Tokiku.ViewModels
 
                             if (ctProp != null)
                             {
-
-
                                 if (prop.PropertyType == ctProp.PropertyType)
                                 {
 
@@ -105,9 +104,8 @@ namespace Tokiku.ViewModels
 
                                     ctProp.SetValue(ViewModel, entityvalue);
                                 }
-
-
                             }
+                            
                         }
 #if DEBUG
                         catch (Exception ex)
@@ -361,7 +359,7 @@ namespace Tokiku.ViewModels
         }
         #endregion
 
-
+        #region 檢視模型初始化作業(建構式會呼叫)
         /// <summary>
         /// 檢視模型初始化作業(建構式會呼叫)
         /// </summary>
@@ -388,6 +386,7 @@ namespace Tokiku.ViewModels
             }
 
         }
+        #endregion
 
         /// <summary>
         /// 立即對資料庫執行預設的查詢動作。
@@ -439,7 +438,7 @@ namespace Tokiku.ViewModels
             DoEvents();
         }
 
-        public static void BindToDataGridView<T, TCollection>(TCollection source, System.Windows.Controls.DataGrid Grid) where T : IBaseViewModel where TCollection : BaseViewModelCollection<T>
+        public static void BindToDataGridView<T, TCollection>(TCollection source, DataGrid Grid) where T : IBaseViewModel where TCollection : BaseViewModelCollection<T>
         {
             if (Grid != null)
             {
@@ -502,36 +501,66 @@ namespace Tokiku.ViewModels
             }
         }
 
-        //public static void BindToGCSheet<T, TCollection>(TCollection source, GrapeCity.Windows.SpreadSheet.UI.GcSpreadSheet sheet) where T : IBaseViewModel where TCollection : BaseViewModelCollection<T>
-        //{
-        //    if (sheet != null)
-        //    {
-        //        sheet.ActiveSheet.DataSource = source;
-        //        for (int x = 0; x < sheet.ActiveSheet.Columns.Count; x++)
-        //        {
-        //            sheet.ActiveSheet.Columns[x].IsVisible = false;
-        //        }
+        private void GetLastUpdateTime()
+        {
+            try
+            {
 
-        //        Type type = typeof(T);
-        //        var props = type.GetProperties();
-        //        if (props.Any())
-        //        {
-        //            foreach (var prop in props)
-        //            {
-        //                DisplayAttribute dispalyattr = prop.PropertyType.GetCustomAttributes(true).OfType<DisplayAttribute>().SingleOrDefault();
+            }
+            catch (Exception ex)
+            {
 
-        //                if (dispalyattr != null)
-        //                {
-        //                    sheet.ActiveSheet.Columns[dispalyattr.Order].IsVisible = true;
-        //                    sheet.ActiveSheet.Columns[dispalyattr.Order].Label = dispalyattr.Name;
-        //                    //Grid.Columns[dispalyattr.Order].Header = dispalyattr.Name;
-        //                    //Grid.Columns[dispalyattr.Order].DisplayIndex = dispalyattr.Order;
-        //                    //Grid.Columns[dispalyattr.Order].Visibility = Visibility.Visible;
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
+                setErrortoModel(this, ex);
+            }
+        }
+
+        #region 最後更新時間
+        /// <summary>
+        /// 最後更新時間
+        /// </summary>
+        public DateTime LastUpdateTime
+        {
+            get { return (DateTime)GetValue(LastUpdateTimeProperty); }
+            set { SetValue(LastUpdateTimeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for LastUpdateTime.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty LastUpdateTimeProperty =
+            RegisterDP<DateTime, BaseViewModel>("LastUpdateTime", DateTime.Now);
+
+        #endregion
+
+        #region 異動人員
+
+
+        public string LastUpdateUser
+        {
+            get { return (string)GetValue(LastUpdateUserProperty); }
+            set { SetValue(LastUpdateUserProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for LastUpdateUser.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty LastUpdateUserProperty =
+            RegisterDP<string, BaseViewModel>("LastUpdateUser", string.Empty);
+
+        #endregion
+
+        #region 異動歷程
+
+
+
+
+        #endregion
+
+        #region 共用的相依性註冊方法
+        protected static DependencyProperty RegisterDP<T, TView>(string PropertyName, object defaultValue = null) where TView : IBaseViewModel
+        {
+            if (defaultValue == null)
+                return DependencyProperty.Register(PropertyName, typeof(T), typeof(TView), new PropertyMetadata(default(T), new PropertyChangedCallback(DefaultFieldChanged)));
+            else
+                return DependencyProperty.Register(PropertyName, typeof(T), typeof(TView), new PropertyMetadata((T)defaultValue, new PropertyChangedCallback(DefaultFieldChanged)));
+        }
+        #endregion
     }
 }
 

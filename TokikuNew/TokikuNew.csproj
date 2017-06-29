@@ -81,35 +81,38 @@
     <Compile Include="Helpers\SwitchFieldMode.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
     <Compile Include="ValueConverters\ReplyContentValueConverter.cs" />
-    <Compile Include="Views\AluminumExtrusionOrderListView.xaml.cs">
+    <Compile Include="Views\AluminumExtrusion\AluminumExtrusionOrderListView.xaml.cs">
       <DependentUpon>AluminumExtrusionOrderListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AluminumPlateViewUC.xaml.cs">
-      <DependentUpon>AluminumPlateViewUC.xaml</DependentUpon>
+    <Compile Include="Views\ControlTables\AluminumPlateView.xaml.cs">
+      <DependentUpon>AluminumPlateView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ContractListView.xaml.cs">
+    <Compile Include="Views\ControlTables\IronPartsView.xaml.cs">
+      <DependentUpon>IronPartsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Projects\ContractListView.xaml.cs">
       <DependentUpon>ContractListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ContractManagementViewUC.xaml.cs">
-      <DependentUpon>ContractManagementViewUC.xaml</DependentUpon>
+    <Compile Include="Views\Finance\CostEstimateView.xaml.cs">
+      <DependentUpon>CostEstimateView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ControlTableViewUC.xaml.cs">
-      <DependentUpon>ControlTableViewUC.xaml</DependentUpon>
+    <Compile Include="Views\ControlTables\ControlTableView.xaml.cs">
+      <DependentUpon>ControlTableView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\GlassViewUC.xaml.cs">
-      <DependentUpon>GlassViewUC.xaml</DependentUpon>
+    <Compile Include="Views\ControlTables\GlassView.xaml.cs">
+      <DependentUpon>GlassView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\HardwareViewUC.xaml.cs">
-      <DependentUpon>HardwareViewUC.xaml</DependentUpon>
+    <Compile Include="Views\ControlTables\HardwareView.xaml.cs">
+      <DependentUpon>HardwareView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\InvoiceViewListView.xaml.cs">
+    <Compile Include="Views\ControlTables\InvoiceViewListView.xaml.cs">
       <DependentUpon>InvoiceViewListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Projects\AssemblyTableView.xaml.cs">
       <DependentUpon>AssemblyTableView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\BOMDataImportsView.xaml.cs">
-      <DependentUpon>BOMDataImportsView.xaml</DependentUpon>
+    <Compile Include="Views\AluminumExtrusion\ProcessingAtlasDetailView.xaml.cs">
+      <DependentUpon>ProcessingAtlasDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Projects\ConstructionAtlasView.xaml.cs">
       <DependentUpon>ConstructionAtlasView.xaml</DependentUpon>
@@ -142,13 +145,13 @@
     <Compile Include="Frame\StartUpWindow.xaml.cs">
       <DependentUpon>StartUpWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Projects\AluminumExtrusion\InvoiceView.xaml.cs">
+    <Compile Include="Views\AluminumExtrusion\InvoiceView.xaml.cs">
       <DependentUpon>InvoiceView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Projects\ProcessingAtlasView.xaml.cs">
       <DependentUpon>ProcessingAtlasView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Projects\AluminumExtrusion\RecvMaterialView.xaml.cs">
+    <Compile Include="Views\AluminumExtrusion\RecvMaterialView.xaml.cs">
       <DependentUpon>RecvMaterialView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValueConverters\DocumentLifeCycleStateToVisibilityValueConverter.cs" />
@@ -161,7 +164,7 @@
     <Compile Include="ValueConverters\ReadModeToVisibilityValueConverter.cs" />
     <Compile Include="ValueConverters\StatesCodeToTextValueConverter.cs" />
     <Compile Include="ValueConverters\VoidToStateTextValueConverter.cs" />
-    <Compile Include="Views\Projects\AluminumExtrusion\AluminumExtrusionOrderSheetView.xaml.cs">
+    <Compile Include="Views\AluminumExtrusion\AluminumExtrusionOrderSheetView.xaml.cs">
       <DependentUpon>AluminumExtrusionOrderSheetView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CRM\ClientListView.xaml.cs">
@@ -173,8 +176,8 @@
     <Compile Include="Views\ContactPerson\ContactPersonManageView.xaml.cs">
       <DependentUpon>ContactPersonManageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Projects\ContractManager.xaml.cs">
-      <DependentUpon>ContractManager.xaml</DependentUpon>
+    <Compile Include="Views\Projects\WorkItemListView.xaml.cs">
+      <DependentUpon>WorkItemListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Manufacturers\ManufacturersManageView.xaml.cs">
       <DependentUpon>ManufacturersManageView.xaml</DependentUpon>
@@ -188,11 +191,11 @@
     <Compile Include="Views\Projects\ProjectManagerView.xaml.cs">
       <DependentUpon>ProjectManagerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Projects\ProjectSelectListView.xaml.cs">
-      <DependentUpon>ProjectSelectListView.xaml</DependentUpon>
+    <Compile Include="Views\Projects\ProjectListView.xaml.cs">
+      <DependentUpon>ProjectListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Projects\ProjectViewer.xaml.cs">
-      <DependentUpon>ProjectViewer.xaml</DependentUpon>
+    <Compile Include="Views\Projects\ProjectView.xaml.cs">
+      <DependentUpon>ProjectView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Manufacturers\VendorListView.xaml.cs">
       <DependentUpon>VendorListView.xaml</DependentUpon>
@@ -203,51 +206,55 @@
     <Compile Include="Views\Finance\PromissoryNoteManagementViewUC.xaml.cs">
       <DependentUpon>PromissoryNoteManagementViewUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ReturnMaterialListViewUC.xaml.cs">
-      <DependentUpon>ReturnMaterialListViewUC.xaml</DependentUpon>
+    <Compile Include="Views\ControlTables\ReturnListView.xaml.cs">
+      <DependentUpon>ReturnListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ReturnMaterialViewUC.xaml.cs">
-      <DependentUpon>ReturnMaterialViewUC.xaml</DependentUpon>
+    <Compile Include="Views\ControlTables\ReturnView.xaml.cs">
+      <DependentUpon>ReturnView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ShippingMaterialListViewUC.xaml.cs">
-      <DependentUpon>ShippingMaterialListViewUC.xaml</DependentUpon>
+    <Compile Include="Views\ControlTables\ShippingListView.xaml.cs">
+      <DependentUpon>ShippingListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ShippingMaterialViewUC.xaml.cs">
-      <DependentUpon>ShippingMaterialViewUC.xaml</DependentUpon>
+    <Compile Include="Views\ControlTables\ShippingView.xaml.cs">
+      <DependentUpon>ShippingView.xaml</DependentUpon>
     </Compile>
     <Page Include="Controls\SwitchField.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AluminumPlateViewUC.xaml">
+    <Page Include="Views\AluminumExtrusion\AluminumExtrusionOrderListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AluminumExtrusionOrderListView.xaml">
+    <Page Include="Views\ControlTables\AluminumPlateView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ControlTables\IronPartsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Projects\ContractListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ContractListView.xaml">
+    <Page Include="Views\Finance\CostEstimateView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ContractManagementViewUC.xaml">
+    <Page Include="Views\ControlTables\ControlTableView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ControlTableViewUC.xaml">
+    <Page Include="Views\ControlTables\GlassView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\GlassViewUC.xaml">
+    <Page Include="Views\ControlTables\HardwareView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\HardwareViewUC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\InvoiceViewListView.xaml">
+    <Page Include="Views\ControlTables\InvoiceViewListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -255,7 +262,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\BOMDataImportsView.xaml">
+    <Page Include="Views\AluminumExtrusion\ProcessingAtlasDetailView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -295,7 +302,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Projects\AluminumExtrusion\InvoiceView.xaml">
+    <Page Include="Views\AluminumExtrusion\InvoiceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -315,7 +322,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Projects\AluminumExtrusion\RecvMaterialView.xaml">
+    <Page Include="Views\AluminumExtrusion\RecvMaterialView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -359,7 +366,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Projects\AluminumExtrusion\AluminumExtrusionOrderSheetView.xaml">
+    <Page Include="Views\AluminumExtrusion\AluminumExtrusionOrderSheetView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -375,7 +382,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Projects\ContractManager.xaml">
+    <Page Include="Views\Projects\WorkItemListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -395,11 +402,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Projects\ProjectSelectListView.xaml">
+    <Page Include="Views\Projects\ProjectListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Projects\ProjectViewer.xaml">
+    <Page Include="Views\Projects\ProjectView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -415,19 +422,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ReturnMaterialListViewUC.xaml">
+    <Page Include="Views\ControlTables\ReturnListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ReturnMaterialViewUC.xaml">
+    <Page Include="Views\ControlTables\ReturnView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ShippingMaterialListViewUC.xaml">
+    <Page Include="Views\ControlTables\ShippingListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ShippingMaterialViewUC.xaml">
+    <Page Include="Views\ControlTables\ShippingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -496,6 +503,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Forms\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
