@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="683" d:DesignWidth="1362" Loaded="AluminumExtrusionOrderMiscellaneousView_Loaded">
     <Grid>
-        <DataGrid Margin="5" AutoGenerateColumns="False">
+        <DataGrid x:Name="雜項DG" Margin="5" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="*東菊編號/項目*" Width="auto" />
                 <DataGridTextColumn Header="廠商編號" Width="auto" />

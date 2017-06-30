@@ -14,7 +14,8 @@ namespace Tokiku.Controllers
 
         public ExecuteResultEntity<ICollection<AluminumExtrusionOrderMaterialValuationEntity>> QuerAll()
         {
-            sql = "";
+            sql = " select Material, UnitPrice, Weight, TotalPrice " +
+                    " from TABL2 ";
 
             ExecuteResultEntity<ICollection<AluminumExtrusionOrderMaterialValuationEntity>> rtn;
 
