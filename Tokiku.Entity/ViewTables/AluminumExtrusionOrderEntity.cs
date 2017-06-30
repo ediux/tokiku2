@@ -6,7 +6,7 @@ namespace Tokiku.Entity
     {
         // "*東菊編號*"
         public string TokikuId { get; set; }
-        // "*大同編號*"
+        // "*廠商編號*"
         public string ManufacturersId { get; set; }
         // "*材質*"
         public string Material { get; set; }

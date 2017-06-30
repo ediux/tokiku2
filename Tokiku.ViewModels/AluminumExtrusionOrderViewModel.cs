@@ -69,7 +69,7 @@ namespace Tokiku.ViewModels
             DependencyProperty.Register("TokikuId", typeof(string), typeof(AluminumExtrusionOrderViewModel), new PropertyMetadata(string.Empty));
 
 
-        // "*大同編號*"
+        // "*廠商編號*"
         public string ManufacturersId
         {
             get { return (string)GetValue(ManufacturersIdProperty); }
