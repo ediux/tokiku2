@@ -47,10 +47,10 @@
 	Views
 		AluminumExtrusion - 鋁擠型加工相關表單
 			AluminumExtrusionOrderListView.xaml - 鋁擠型訂製單列表
+			AluminumExtrusionOrderSheetView.xaml - 鋁擠型訂製單
 				├ AluminumExtrusionOrderView.xaml - 鋁擠型訂製單
 				├ AluminumExtrusionOrderMaterialValuationView.xaml - 鋁擠型材質估價
 				└ AluminumExtrusionOrderMiscellaneousView.xaml - 鋁擠型雜項
-			AluminumExtrusionOrderSheetView.xaml - 鋁擠型訂製單
 			ProcessingAtlasDetailView.xaml - 鋁擠型加工圖集明細表
 			InvoiceView.xaml - 請款單
 			RecvMaterialView.xaml - 收料單
