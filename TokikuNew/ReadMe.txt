@@ -7,11 +7,11 @@
 		DockBar.xaml - 操作文件檢視模式的工具列
 		SearchBar.xaml - 共用的搜尋框
 	Frame - 對話框與獨立視窗功能
-		ClientSelectionDialog.xaml
-		ConstructionAtlasEditorDialog.xaml
-		OptionWindow.xaml
-		ProjectSelectionWindow.xaml
-		StartUpWindow.xaml
+		ClientSelectionDialog.xaml - 客戶選擇對話框
+		ConstructionAtlasEditorDialog.xaml - 施工圖集資料編輯對話框
+		OptionWindow.xaml - 系統設定對話框
+		ProjectSelectionWindow.xaml - 專案列表對話框(?)
+		StartUpWindow.xaml - 系統登入對話框
 	Helpers - 自定義工具類別
 		ClipboardHelper.cs - 操作Windows剪貼簿工具類別
 		DocumentLifeCircle.cs - 文件生命週期代碼列舉
