@@ -9,10 +9,10 @@
     <Grid>
         <DataGrid Margin="5" AutoGenerateColumns="False" x:Name="材質估價DG">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="材質" Width="auto" />
-                <DataGridTextColumn Header="*kg單價*" Width="auto" />
-                <DataGridTextColumn Header="重量" Width="auto" />
-                <DataGridTextColumn Header="預估總價" Width="auto" />
+                <DataGridTextColumn Header="材質" Binding="{Binding Material, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
+                <DataGridTextColumn Header="*kg單價*" Binding="{Binding UnitPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
+                <DataGridTextColumn Header="重量" Binding="{Binding Weight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
+                <DataGridTextColumn Header="預估總價" Binding="{Binding TotalPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
             </DataGrid.Columns>
         </DataGrid>
 
