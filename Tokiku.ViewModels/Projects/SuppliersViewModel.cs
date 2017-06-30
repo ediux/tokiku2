@@ -86,30 +86,7 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty ManufacturersNameProperty =
             DependencyProperty.Register("Manufacturers", typeof(string), typeof(SuppliersViewModel), new PropertyMetadata(string.Empty));
 
-        public string SiteContactPerson
-        {
-            get { return (string)GetValue(SiteContactPersonProperty); }
-            set { SetValue(SiteContactPersonProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for SiteContactPerson.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SiteContactPersonProperty =
-            DependencyProperty.Register("SiteContactPerson", typeof(string), typeof(SuppliersViewModel), new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
-
-
-
-
-        public string SiteContactPersonPhone
-        {
-            get { return (string)GetValue(SiteContactPersonPhoneProperty); }
-            set { SetValue(SiteContactPersonPhoneProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for SiteContactPersonPhone.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SiteContactPersonPhoneProperty =
-            DependencyProperty.Register("SiteContactPersonPhone", typeof(string), typeof(SuppliersViewModel), new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
-
-
+        
         #region Model Command Functions      
         public override void Initialized()
         {

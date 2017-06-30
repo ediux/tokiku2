@@ -76,7 +76,7 @@ namespace TokikuNew.Views
 
         // Using a DependencyProperty as the backing store for Mode.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ModeProperty =
-            DependencyProperty.Register("Mode", typeof(DocumentLifeCircle), typeof(ProjectManagerView));
+            DependencyProperty.Register("Mode", typeof(DocumentLifeCircle), typeof(ProjectManagerView), new PropertyMetadata(DocumentLifeCircle.Read));
         #endregion
 
         #region IsShowClientSelection
@@ -272,7 +272,7 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
 
         }
 
-        
+
 
         private void btnShowClientSelection_Click(object sender, RoutedEventArgs e)
         {
@@ -486,6 +486,10 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
                 controller = App.Resolve<ProjectsController>();
                 projectcontroll = App.Resolve<ProjectContractController>();
                 clientcontroller = App.Resolve<ClientController>();
+                if (Mode == default(DocumentLifeCircle))
+                {
+                    Mode = DocumentLifeCircle.Read;
+                }
             }
             catch (Exception ex)
             {

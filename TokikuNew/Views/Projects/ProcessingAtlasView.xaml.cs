@@ -294,7 +294,7 @@ namespace TokikuNew.Views
         {
             try
             {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, new ControlTableViewUC()));
+                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, new ControlTableView()));
             }
             catch (Exception ex)
             {

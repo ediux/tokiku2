@@ -1,10 +1,10 @@
-﻿<UserControl x:Class="TokikuNew.Views.ControlTableViewUC"
+﻿<UserControl x:Class="TokikuNew.Views.ControlTableView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" x:Name="userControl"
              Background="{DynamicResource ControlBackgroundBrush}"
              d:DesignHeight="768" d:DesignWidth="1366">
     <Grid>
@@ -16,7 +16,7 @@
             <Button Content="產生鋁擠型訂製單" Margin="2" Click="Button_Click" />
             <Button Content="鋁擠型訂製單列表" Margin="2" Click="Button_Click_1" />
         </StackPanel>
-        <GroupBox Header="鋁擠型管控表" Grid.Row="1" Margin="2" x:Name="UC">
+        <GroupBox Header="鋁擠型管控表" Grid.Row="1" Margin="2" Style="{DynamicResource GroupBox_DocumentEditor}">
             <DataGrid>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="加工編號" Width="auto" />

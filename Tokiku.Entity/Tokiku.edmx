@@ -388,6 +388,7 @@
           <Property Name="OwnerContractNumber" Type="nvarchar" MaxLength="250" />
           <Property Name="SiteContactPerson" Type="nvarchar" MaxLength="50" />
           <Property Name="SiteContactPersonPhone" Type="nvarchar" MaxLength="10" />
+          <Property Name="SitePhone" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="PromissoryNoteManagement">
           <Key>
@@ -2626,6 +2627,7 @@
           <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.ClientsInProjects" FromRole="Projects" ToRole="Manufacturers" />
           <NavigationProperty Name="Engineering" Relationship="TokikuModel.FK_Engineering_Projects" FromRole="Projects" ToRole="Engineering" />
           <NavigationProperty Name="ConstructionAtlas" Relationship="TokikuModel.FK_ConstructionAtlas_Projects" FromRole="Projects" ToRole="ConstructionAtlas" />
+          <Property Name="SitePhone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_ProjectContract_Projects">
           <End Type="TokikuModel.Projects" Role="Projects" Multiplicity="1" />
@@ -3540,6 +3542,7 @@
           <EntitySetMapping Name="Projects">
             <EntityTypeMapping TypeName="TokikuModel.Projects">
               <MappingFragment StoreEntitySet="Projects">
+                <ScalarProperty Name="SitePhone" ColumnName="SitePhone" />
                 <ScalarProperty Name="SiteContactPersonPhone" ColumnName="SiteContactPersonPhone" />
                 <ScalarProperty Name="SiteContactPerson" ColumnName="SiteContactPerson" />
                 <ScalarProperty Name="OwnerContractNumber" ColumnName="OwnerContractNumber" />

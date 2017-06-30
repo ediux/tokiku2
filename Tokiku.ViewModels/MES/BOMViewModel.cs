@@ -307,38 +307,6 @@ namespace Tokiku.ViewModels
 
         #endregion
 
-        #region 異動時間
-
-        //[Display(Name = "異動時間", Order = 14)]
-        public DateTime? LastUpdateTime
-        {
-            get { return (DateTime?)GetValue(LastUpdateTimeProperty); }
-            set { SetValue(LastUpdateTimeProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for LastUpdateTime.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty LastUpdateTimeProperty =
-            DependencyProperty.Register("LastUpdateTime", typeof(DateTime?), typeof(BOMViewModel), new PropertyMetadata(new DateTime(1900, 1, 1)));
-
-
-        #endregion
-
-        #region 異動人員
-
-        //[Display(Name = "異動人員", Order = 15)]
-        public string LastUpdateUser
-        {
-            get { return (string)GetValue(LastUpdateUserProperty); }
-            set { SetValue(LastUpdateUserProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for LastUpdateUser.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty LastUpdateUserProperty =
-            DependencyProperty.Register("LastUpdateUser", typeof(string), typeof(BOMViewModel), new PropertyMetadata(string.Empty));
-
-
-        #endregion
-
         public override void SetModel(dynamic entity)
         {
             try

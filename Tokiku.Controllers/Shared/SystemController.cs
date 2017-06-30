@@ -9,6 +9,11 @@ namespace Tokiku.Controllers
 {
     public class SystemController : BaseController
     {
+        public new static ExecuteResultEntity<Users> GetCurrentLoginUser()
+        {
+            return ExecuteResultEntity<Users>.CreateResultEntity(_CurrentLoginedUserStorage);
+        }
+
         public static ExecuteResultEntity<ICollection<AccessLog>> QueryAccessLog(string DataId)
         {
             try

@@ -235,15 +235,7 @@ namespace Tokiku.ViewModels
 
 
 
-        public string LastUpdateUser
-        {
-            get { return (string)GetValue(LastUpdateUserProperty); }
-            set { SetValue(LastUpdateUserProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for LastUpdateUser.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty LastUpdateUserProperty =
-            DependencyProperty.Register("LastUpdateUser", typeof(string), typeof(ConstructionAtlasViewModel), new PropertyMetadata(string.Empty));
+     
 
 
 
