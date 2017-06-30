@@ -55,7 +55,7 @@ namespace Tokiku.Controllers
                                   where (p.Void == false && q.Id == ManufactoryId
                                   && q.IsClient == isClient) ||
                                   (p.Name.Contains(filiter) || p.Phone.Contains(filiter))
-                                  orderby p.IsDefault ascending, q.Name ascending
+                                  orderby q.Name ascending, p.IsDefault descending
                                   select p);
 
                     var rtn = ExecuteResultEntity<ICollection<Contacts>>.CreateResultEntity(new Collection<Contacts>(result.ToList()));
@@ -68,7 +68,7 @@ namespace Tokiku.Controllers
                                   from q in p.Manufacturers
                                   where q.Void == false && q.IsClient == isClient
                                   && q.Id == ManufactoryId
-                                  orderby p.IsDefault ascending, p.Name ascending
+                                  orderby p.Name ascending, p.IsDefault descending
                                   select p);
 
                     var rtn = ExecuteResultEntity<ICollection<Contacts>>.CreateResultEntity(new Collection<Contacts>(result.ToList()));

@@ -90,7 +90,7 @@
                                  Style="{DynamicResource ReadModeSwitch}"
                                  IsReadOnly="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBlock Grid.Row="7" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="簽約日期：" />
-                        <DatePicker x:Name="ProjectSigningDate" Grid.Row="7" Grid.Column="1" Margin="1" Text="{Binding ProjectSigningDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=\{0:yyyy年MM月dd日\}}" 
+                        <DatePicker x:Name="ProjectSigningDate" Grid.Row="7" Grid.Column="1" Margin="1" SelectedDate="{Binding ProjectSigningDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=\{0:yyyy年MM月dd日\}}" Text="{Binding ProjectSigningDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=\{0:yyyy年MM月dd日\}}" 
                                         Style="{DynamicResource ReadModeSwitch_DatePicker}"
                                         SelectedDateChanged="ProjectSigningDate_SelectedDateChanged"/>
                         <TextBlock Text="起造日期：" Grid.Row="8" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" />

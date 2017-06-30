@@ -7,11 +7,11 @@
 		DockBar.xaml - 操作文件檢視模式的工具列
 		SearchBar.xaml - 共用的搜尋框
 	Frame - 對話框與獨立視窗功能
-		ClientSelectionDialog.xaml
-		ConstructionAtlasEditorDialog.xaml
-		OptionWindow.xaml
-		ProjectSelectionWindow.xaml
-		StartUpWindow.xaml
+		ClientSelectionDialog.xaml - 客戶選擇對話框
+		ConstructionAtlasEditorDialog.xaml - 施工圖集資料編輯對話框
+		OptionWindow.xaml - 系統設定對話框
+		ProjectSelectionWindow.xaml - 專案列表對話框(?)
+		StartUpWindow.xaml - 系統登入對話框
 	Helpers - 自定義工具類別
 		ClipboardHelper.cs - 操作Windows剪貼簿工具類別
 		DocumentLifeCircle.cs - 文件生命週期代碼列舉
@@ -34,6 +34,7 @@
 		WhistlerBlue.xaml - 主題檔
 	ValueConverters - WPF內容值轉換類別
 		BooleanToVisibilityValueConveter.cs - 將布林值與可視視覺狀態值做轉換
+		DateTime2StringFormatingValueConverter.cs - 將日期轉換成指定顯示格式文字字串類別
 		DocumentLifeCycleStateToVisibilityValueConverter.cs - 將文件生命週期列舉轉換為可視視覺狀態列舉值
 		NOTGateValueConverter.cs - 將布林型態內容值做NOT運算
 		Number2DateTimeValueConverter.cs - 將常整數轉換為日期時間

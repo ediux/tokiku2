@@ -13,6 +13,7 @@
     <vm:預付款保證票ViewModelCollection x:Key="預付款保證票清單"/>
     <vm:保固票ViewModelCollection x:Key="保固票清單"/>
     <vm:PromissoryNoteManagementViewModelCollection x:Key="PromissoryNoteManagementSource"/>
+    <ValueConverters:DateTime2StringFormatingValueConverter x:Key="FormatedDatetime"/>
     <ValueConverters:ReplyContentValueConverter x:Key="AtlasReplayContents"/>
     <ValueConverters:NOTGateValueConverter x:Key="NOTGateValueConverter"/>
     <ValueConverters:RadioButtonSwitchValueConverter x:Key="RadioButtonSwitchValueConverter" />

@@ -216,7 +216,7 @@
                     </Grid>
                 </GroupBox>
                 <GroupBox Header="相關聯絡人" Grid.Row="1" Margin="2">
-                    <local:ContactPersonManageView DataContext="{Binding Contracts}" SelectedManufacturer="{Binding DataContext, ElementName=userControl_ManufacturersManageView}"  Mode="{Binding Path=Mode, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <local:ContactPersonManageView DataContext="{Binding Contracts}" SelectedManufacturer="{Binding DataContext, ElementName=userControl_ManufacturersManageView}"  Mode="{Binding Path=Mode, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </GroupBox>
             </Grid>
             <Grid Grid.Column="1">
@@ -302,7 +302,7 @@
                                 <DataGridTemplateColumn Header="材料類別" Width="auto" >
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding MaterialCategories}"></TextBlock>
+                                            <TextBlock Text="{Binding MaterialCategories,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                     <DataGridTemplateColumn.CellEditingTemplate>
@@ -325,7 +325,7 @@
                                 <DataGridTemplateColumn Header="交易品項" Width="auto">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Name}" />
+                                            <TextBlock Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                     <DataGridTemplateColumn.CellEditingTemplate>
@@ -338,7 +338,7 @@
                                 <DataGridTemplateColumn Header="交易類別" Width="auto" >
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding TranscationCategories}"/>
+                                            <TextBlock Text="{Binding TranscationCategories,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                     <DataGridTemplateColumn.CellEditingTemplate>
@@ -362,7 +362,7 @@
                                 <DataGridTemplateColumn Header="支付方式" Width="auto" >
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding PaymentTypeName}"/>
+                                            <TextBlock Text="{Binding PaymentTypeName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                     <DataGridTemplateColumn.CellEditingTemplate>
@@ -386,7 +386,7 @@
                                 <DataGridTemplateColumn Header="票期" Width="auto" >
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding TicketPeriod}"/>
+                                            <TextBlock Text="{Binding TicketPeriod,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                     <DataGridTemplateColumn.CellEditingTemplate>

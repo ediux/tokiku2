@@ -640,6 +640,8 @@ namespace Tokiku.ViewModels
                             if (x.Id == Guid.Empty)
                                 x.Id = Guid.NewGuid();
 
+                            
+
                             if (x.CreateUserId == Guid.Empty)
                             {
                                 x.CreateUserId = controller.GetCurrentLoginUser().Result.UserId;
@@ -651,8 +653,7 @@ namespace Tokiku.ViewModels
                             }
 
                             Contacts contact = new Contacts();
-                            CopyToModel(contact, x);
-                            //contact.Manufacturers.Add(data);
+                            CopyToModel(contact, x);                         
                             data.Contacts.Add(contact);
                         }
                     }

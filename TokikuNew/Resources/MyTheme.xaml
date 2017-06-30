@@ -244,12 +244,23 @@
     </Style>
     <Style TargetType="{x:Type DatePicker}" x:Key="ReadModeSwitch_DatePicker" BasedOn="{StaticResource {x:Type DatePicker}}">
         <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="{x:Null}">
+                <Setter Property="Visibility" Value="Visible"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="DatePicker">
+                            <TextBlock Text="{TemplateBinding Text}" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="IsEnabled" Value="False"/>
+            </DataTrigger>
             <DataTrigger Binding="{Binding Path=Mode,ElementName=userControl}" Value="Read">
                 <Setter Property="Visibility" Value="Visible"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="DatePicker">
-                            <ContentPresenter ContentSource="Text" />
+                            <TextBlock Text="{TemplateBinding Text}" />
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
