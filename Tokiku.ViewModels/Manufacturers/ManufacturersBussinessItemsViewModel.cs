@@ -127,11 +127,11 @@ namespace Tokiku.ViewModels
                     var objectdataset = queryresult.Result;
                     if (objectdataset.Any())
                     {
+                        
                         ClearItems();
                         foreach (var row in objectdataset)
                         {
                             ManufacturersBussinessItemsViewModel model = new ManufacturersBussinessItemsViewModel();
-                            model.DoEvents();
                             model.SetModel(row);
                             Add(model);
                         }
@@ -373,7 +373,7 @@ namespace Tokiku.ViewModels
                         {
                             BindingFromModel(data, this);
                         }
-                        DoEvents();
+                        
                     }
                     else
                     {
@@ -382,8 +382,8 @@ namespace Tokiku.ViewModels
                             ManufacturersBussinessItems data = (ManufacturersBussinessItems)entity;
                             BindingFromModel(data, this);
                             this.Manufacturers = data.Manufacturers;
-                            DoEvents();
-                            if (data.MaterialCategories != null)
+                           
+                            if (data.Manufacturers != null)
                             {
                                 MaterialCategories = data.MaterialCategories.Name;
                             }

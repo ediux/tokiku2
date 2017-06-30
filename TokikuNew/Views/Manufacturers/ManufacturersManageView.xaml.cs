@@ -73,9 +73,9 @@ namespace TokikuNew.Views
 
                 Binding BindingDataContext = new Binding();
                 BindingDataContext.Source = DataContext;
-
                 SetBinding(SelectedManufacturersProperty, BindingDataContext);
 
+                //查詢營業項目
                 SelectedManufacturers.ManufacturersBussinessItems.QueryAsync(SelectedManufacturers.Id);
 
                 //當不是新建模式 則查詢設為預設的聯絡人顯示
@@ -93,101 +93,7 @@ namespace TokikuNew.Views
                 }
 
 
-                ////營業項目Sheet顯示
-
-                ////UI設定
-                //BussinessItemSheet.StartSheetIndex = 0;
-
-
-
-                ////BussinessItemSheet.Sheets.Clear();
-                //Worksheet BISheet = BussinessItemSheet.Sheets[0];
-
-                //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[0].Label = "材料類別";
-                //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[0].DataField = "MaterialCategories";
-                //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[1].Label = "交易品項";
-                //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[1].DataField = "Name";
-                //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[2].Label = "交易類別";
-                //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[2].DataField = "TranscationCategories";
-                //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[3].Label = "支付方式";
-                //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[3].DataField = "PaymentTypeName";
-                //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[4].Label = "票期設定";
-                //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[4].DataField = "TicketPeriod";
-
-                //if (SelectedManufacturers.ManufacturersBussinessItems.Any())
-                //{
-                //    for (int i = 0; i < SelectedManufacturers.ManufacturersBussinessItems.Count; i++)
-                //    {
-                //        BISheet.Rows[i].SetText(0, SelectedManufacturers.ManufacturersBussinessItems[i].MaterialCategories);
-                //        BISheet.Rows[i].SetText(1, SelectedManufacturers.ManufacturersBussinessItems[i].Name);
-                //        BISheet.Rows[i].SetText(2, SelectedManufacturers.ManufacturersBussinessItems[i].TranscationCategories);
-                //        BISheet.Rows[i].SetText(3, SelectedManufacturers.ManufacturersBussinessItems[i].PaymentTypeName);
-                //        BISheet.Rows[i].SetText(4, SelectedManufacturers.ManufacturersBussinessItems[i].TicketPeriod);
-                //    }
-                //}
-
-                //BussinessItemSheet.Invalidate();
-                //if (BussinessItemSheet.SheetCount > 0)
-                //{
-                //    BussinessItemSheet.Sheets[0].Name = "營業項目";
-                //    //BussinessItemSheet.Sheets[0].DataSource = SelectedManufacturers.ManufacturersBussinessItems;
-
-                //    if (BussinessItemSheet.Sheets[0].ColumnCount >= 5)
-                //    {
-                //        int count = BussinessItemSheet.Sheets[0].ColumnCount - 5;
-
-                //        for (int i = 0; i < count; i++)
-                //        {
-                //            BussinessItemSheet.Sheets[0].ColumnHeader.Columns[0].Remove();
-                //        }
-
-                //        //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[1].Remove();
-                //        //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[4].Remove();
-                //        //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[8].IsVisible = false;
-                //        //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[9].IsVisible = false;
-                //        //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[11].IsVisible = false;
-                //        //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[12].IsVisible = false;
-                //        //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[13].IsVisible = false;
-                //        //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[14].IsVisible = false;
-                //        //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[15].IsVisible = false;
-                //        //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[16].IsVisible = false;
-                //        //BussinessItemSheet.Sheets[0].ColumnHeader.Columns[17].IsVisible = false;
-
-                //        //BussinessItemSheet.Sheets[0].BindDataColumn(0, "MaterialCategories");
-                //        //BussinessItemSheet.Sheets[0].BindDataColumn(1, "Name");
-                //        //BussinessItemSheet.Sheets[0].BindDataColumn(2, "MaterialCategories");
-                //        //BussinessItemSheet.Sheets[0].BindDataColumn(3, "MaterialCategories");
-                //        //BussinessItemSheet.Sheets[0].BindDataColumn(4, "MaterialCategories");
-
-
-                //    }
-
-                //}
-
-
-                //Worksheet BISheet = new Worksheet();
-                //BISheet.ColumnHeader.AutoText = HeaderAutoText.Letters;
-                //BussinessItemSheet.Sheets.Add(BISheet);
-                //BussinessItemSheet.CanUserEditFormula = false;
-                //BussinessItemSheet.CanUserUndo = true;
-                //BussinessItemSheet.CanUserZoom = true;
-
-                //MaterialCategoriesViewModelCollection MaterialCategories = (MaterialCategoriesViewModelCollection)FindResource("MaterialCategoriesSource");
-
-                //if (MaterialCategories != null)
-                //{
-                //    MaterialCategories.Refresh();
-                //}
-
-                //BISheet.AddRows(0, SelectedManufacturers.ManufacturersBussinessItems.Count);
-                //BISheet.Name = "營業項目";
-                //BISheet.ColumnHeader.Columns[0].Label = "材料類別";
-                //BISheet.ColumnHeader.Columns[1].Label = "交易品項";
-                //BISheet.ColumnHeader.Columns[2].Label = "交易類別";
-                //BISheet.ColumnHeader.Columns[3].Label = "支付方式";
-                //BISheet.ColumnHeader.Columns[4].Label = "票期設定";
-
-
+               
             }
             catch (Exception ex)
             {

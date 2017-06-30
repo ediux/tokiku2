@@ -59,7 +59,7 @@ namespace Tokiku.ViewModels
 
         public void Query(string originalSource, Guid ManufurerterId, bool isClient)
         {
-            Controllers.ContactPersonManageController controller = new ContactPersonManageController();
+            ContactPersonManageController controller = new ContactPersonManageController();
             var executeResult = controller.SearchByText(originalSource, ManufurerterId, isClient);
             if (!executeResult.HasError)
             {
@@ -78,6 +78,7 @@ namespace Tokiku.ViewModels
                 else
                 {
                     ClearItems();
+                    
                 }
             }
         }
@@ -298,6 +299,7 @@ namespace Tokiku.ViewModels
             else
             {
                 BindingFromModel((Contacts)entity, this);
+                
             }
 
         }
