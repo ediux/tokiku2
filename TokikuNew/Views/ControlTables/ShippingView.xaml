@@ -64,7 +64,6 @@
         <Grid HorizontalAlignment="Left" Height="384" Margin="10,174,0,0" VerticalAlignment="Top" Width="1006">
             <DataGrid AutoGenerateColumns="False"/>
         </Grid>
-        <Button x:Name="btnAddNewForm" Content="產生收料單" HorizontalAlignment="Left" Margin="939,10,0,0" VerticalAlignment="Top" Width="75" Click="btnAddNewForm_Click"/>
 
 
     </Grid>

@@ -9,6 +9,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Tokiku.Entity;
 using Tokiku.Entity.ViewTables;
+using NPOI;
+using NPOI.XSSF;
+using NPOI.XSSF.UserModel;
+using NPOI.SS.UserModel;
+using System.IO;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Tokiku.Controllers
 {
@@ -272,6 +278,154 @@ namespace Tokiku.Controllers
             catch (Exception ex)
             {
                 return ExecuteResultEntity<Molds>.CreateErrorResultEntity(ex);
+            }
+        }
+
+        public ExecuteResultEntity<ICollection<Molds>> ImportsMoldsFromExecl(string filename)
+        {
+            try
+            {
+                Collection<Molds> DestTarget = new Collection<Molds>();
+                Dictionary<int, string> ColumnMapping = new Dictionary<int, string>();
+                XSSFWorkbook workbook;
+                using (FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.ReadWrite))
+                {
+                    workbook = new XSSFWorkbook(fs);
+                    XSSFSheet xsheet = (XSSFSheet)workbook.GetSheetAt(0);
+                    var firstrow = xsheet.GetRow(0);
+
+                    for (int coli = 0; coli < firstrow.LastCellNum; coli++)
+                    {
+                        ICell HeaderCell = firstrow.GetCell(coli);
+                        if (HeaderCell.CellType == CellType.String)
+                        {
+                            switch (HeaderCell.StringCellValue.ToLowerInvariant())
+                            {
+                                case "專案名稱":
+                                    ColumnMapping.Add(HeaderCell.ColumnIndex, "MoldsInProjects.Projects.Name");
+                                    break;
+                                case "開模日期":
+                                    ColumnMapping.Add(HeaderCell.ColumnIndex, "OpenDate");
+                                    break;
+                                case "圖例":
+                                case "圖例               模具縮小圖":
+                                    ColumnMapping.Add(HeaderCell.ColumnIndex, "LegendMoldReduction");
+                                    break;
+                                case "使用位置":
+                                    ColumnMapping.Add(HeaderCell.ColumnIndex, "UsePosition");
+                                    break;
+                                case "東菊編號":
+                                    ColumnMapping.Add(HeaderCell.ColumnIndex, "Code");
+                                    break;
+                                case "廠商":
+                                    ColumnMapping.Add(HeaderCell.ColumnIndex, "Manufacturers.Name");
+                                    break;
+                                case "廠商編號":
+                                    ColumnMapping.Add(HeaderCell.ColumnIndex, "Manufacturers.Code");
+                                    break;
+                                case "材質":
+                                    ColumnMapping.Add(HeaderCell.ColumnIndex, "Materials.Name");
+                                    break;
+                                case "單位重(kg/M)":
+                                    ColumnMapping.Add(HeaderCell.ColumnIndex, "UnitWeight");
+                                    break;
+                                case "表面處理":
+                                    ColumnMapping.Add(HeaderCell.ColumnIndex, "SurfaceTreatment");
+                                    break;
+                                case "烤漆面積(㎡)":
+                                    ColumnMapping.Add(HeaderCell.ColumnIndex, "PaintArea");
+                                    break;
+                                case "皮膜處理(kg)":
+                                    ColumnMapping.Add(HeaderCell.ColumnIndex, "MembraneTreatment");
+                                    break;
+                                case "最低產量":
+                                    ColumnMapping.Add(HeaderCell.ColumnIndex, "MinimumYield");
+                                    break;
+                                case "生產錠徑":
+                                    ColumnMapping.Add(HeaderCell.ColumnIndex, "ProductionIngot");
+                                    break;
+                                case "模具費用":
+                                    ColumnMapping.Add(HeaderCell.ColumnIndex, "");
+                                    break;
+                                case "訂單總重量":
+                                    ColumnMapping.Add(HeaderCell.ColumnIndex, "TotalOrderWeight");
+                                    break;
+                                case "模具使用狀況":
+                                    ColumnMapping.Add(HeaderCell.ColumnIndex, "MoldUseStatus.Name");
+                                    break;
+                                case "備註":
+                                    ColumnMapping.Add(HeaderCell.ColumnIndex, "Comment");
+                                    break;
+                                default:
+                                    continue;
+                            }
+                        }
+
+                    }
+
+                    int ColumnCount = firstrow.LastCellNum; //取得欄位數
+                    int RowCount = xsheet.LastRowNum;   //取得資料列數
+
+                    for (int rowi = 1; rowi < RowCount; rowi++)
+                    {
+                        var datarow = xsheet.GetRow(rowi);
+
+                        Molds fromFileData = new Molds();
+
+                        fromFileData.Id = Guid.NewGuid();
+                        fromFileData.CreateTime = DateTime.Now;
+                        fromFileData.CreateUser = GetCurrentLoginUser().Result;
+                        fromFileData.CreateUserId = fromFileData.CreateUser.UserId;
+
+                        Type dataTypeRef = fromFileData.GetType();
+                        for (int coli = 0; coli < ColumnCount; coli++)
+                        {
+                            ICell cell = datarow.GetCell(coli);
+
+                            switch (cell.CellType)
+                            {
+                                case CellType.Blank:
+                                    continue;
+                                case CellType.Boolean:
+                                    var prop_bool = dataTypeRef.GetProperty(ColumnMapping[cell.ColumnIndex]);
+
+                                    if (prop_bool != null && prop_bool.PropertyType == typeof(bool))
+                                    {
+                                        prop_bool.SetValue(fromFileData, cell.BooleanCellValue);
+                                    }
+                                    break;
+                                case CellType.Error:
+                                    break;
+                                case CellType.Formula:
+                                    break;
+                                case CellType.Numeric:
+                                    var prop_Numeric = dataTypeRef.GetProperty(ColumnMapping[cell.ColumnIndex]);
+
+                                    if (prop_Numeric != null && 
+                                        (prop_Numeric.PropertyType == typeof(double)))
+                                    {
+                                        //prop_bool.SetValue(fromFileData, cell.BooleanCellValue);
+                                    }
+                                    break;
+                                case CellType.String:
+                                    break;
+                                case CellType.Unknown:
+                                    break;
+                            }
+                        }
+                    }
+
+                }
+
+                var repo = RepositoryHelper.GetMoldsRepository();
+                database = repo.UnitOfWork;
+                Collection<Molds> MoldsSource = new Collection<Molds>(repo.All().ToList());
+                return ExecuteResultEntity<ICollection<Molds>>.CreateResultEntity(MoldsSource);
+            }
+            catch (Exception ex)
+            {
+
+                return ExecuteResultEntity<ICollection<Molds>>.CreateErrorResultEntity(ex);
             }
         }
 

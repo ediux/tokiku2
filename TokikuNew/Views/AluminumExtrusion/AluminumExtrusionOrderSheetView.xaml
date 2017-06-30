@@ -55,15 +55,7 @@
                 </Expander.ContentTemplate>
             </Expander>
         </Canvas>
-        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="2" VerticalAlignment="Center">
-            <Button Content="產生退貨單" x:Name="btn1" Margin="5,0" Click="btn1_Click"/>
-            <Button Content="退貨單列表" x:Name="btn2" Margin="5,0" Click="btn2_Click"/>
-            <Button Content="產生請款單" x:Name="btn3" Margin="5,0" Click="btn3_Click"/>
-            <Button Content="請款單列表" x:Name="btn4" Margin="5,0" Click="btn4_Click"/>
-            <Button Content="產生出貨單" x:Name="btn5" Margin="5,0" Click="btn5_Click"/>
-            <Button Content="出貨單列表" x:Name="btn6" Margin="5,0" Click="btn6_Click"/>
 
-        </StackPanel>
         <StackPanel x:Name="訂製單內容" Grid.Row="1" Margin="2">
             <!-- 透過程式指定選定頁籤的內容 -->
         </StackPanel>

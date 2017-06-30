@@ -31,11 +31,8 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Button Content="鋁擠型" x:Name="BtnAluminumExtrusion" Click="BtnAluminumExtrusion_Click" DataContext="{Binding}" Margin="5,0"/>
-                                <Button Content="玻璃" x:Name="BtnGlass" Click="BtnGlass_Click" DataContext="{Binding}" Margin="5,0"/>
-                                <Button Content="鋁板" x:Name="BtnAluminumPlate" Click="BtnAluminumPlate_Click" DataContext="{Binding}" Margin="5,0"/>
-                                <Button Content="鐵件" x:Name="BtnIronPieces" Click="BtnIronPieces_Click" DataContext="{Binding}" Margin="5,0"/>
-                                <Button Content="其他材料" x:Name="BtnOthers" Click="BtnOthers_Click" DataContext="{Binding}" Margin="5,0"/>
+                                <Button Content="異動紀錄" x:Name="BtnWorkOrder" />
+                               
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
