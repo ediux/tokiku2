@@ -50,6 +50,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AluminumExtrusionOrderController.cs" />
+    <Compile Include="AluminumExtrusionOrderMaterialValuationController.cs" />
     <Compile Include="Finance\PromissoryNoteManagementViewModelController.cs" />
     <Compile Include="Finance\TicketPeriodsManagementController.cs" />
     <Compile Include="MES\BOMController.cs" />

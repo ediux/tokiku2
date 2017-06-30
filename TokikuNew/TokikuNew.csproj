@@ -81,6 +81,15 @@
     <Compile Include="Helpers\SwitchFieldMode.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
     <Compile Include="ValueConverters\ReplyContentValueConverter.cs" />
+    <Compile Include="Views\AluminumExtrusion\AluminumExtrusionOrderMiscellaneousView.xaml.cs">
+      <DependentUpon>AluminumExtrusionOrderMiscellaneousView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AluminumExtrusion\AluminumExtrusionOrderMaterialValuationView.xaml.cs">
+      <DependentUpon>AluminumExtrusionOrderMaterialValuationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AluminumExtrusion\AluminumExtrusionOrderView.xaml.cs">
+      <DependentUpon>AluminumExtrusionOrderView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AluminumExtrusion\AluminumExtrusionOrderListView.xaml.cs">
       <DependentUpon>AluminumExtrusionOrderListView.xaml</DependentUpon>
     </Compile>
@@ -219,6 +228,18 @@
       <DependentUpon>ShippingView.xaml</DependentUpon>
     </Compile>
     <Page Include="Controls\SwitchField.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AluminumExtrusion\AluminumExtrusionOrderMiscellaneousView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AluminumExtrusion\AluminumExtrusionOrderMaterialValuationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AluminumExtrusion\AluminumExtrusionOrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024" Loaded="PromissoryNoteManagementViewUC_Loaded">
     <Grid>
-        <GroupBox Header="專案合約管理" VerticalAlignment="Top" Height="468" Margin="2" x:Name="UC">
+        <GroupBox Header="專案合約管理" VerticalAlignment="Top" Height="468" Margin="2" x:Name="專案合約管理GB">
             <Controls:CustomDataGrid x:Name="BussinessItemsGrid" AutoGenerateColumns="False" 
                                      CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"
                                      ItemsSource="{Binding}"

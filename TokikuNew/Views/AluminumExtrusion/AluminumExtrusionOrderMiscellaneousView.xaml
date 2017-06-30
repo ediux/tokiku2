@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="TokikuNew.Views.AluminumExtrusionOrderMiscellaneousView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TokikuNew.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="683" d:DesignWidth="1362" Loaded="AluminumExtrusionOrderMiscellaneousView_Loaded">
+    <Grid>
+        <DataGrid Margin="5" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="*東菊編號/項目*" Width="auto" />
+                <DataGridTextColumn Header="廠商編號" Width="auto" />
+                <DataGridTextColumn Header="*說明*" Width="auto" />
+                <DataGridTextColumn Header="*單價*" Width="auto" />
+                <DataGridTextColumn Header="*數量*" Width="auto" />
+                <DataGridTextColumn Header="*金額*" Width="auto" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</UserControl>

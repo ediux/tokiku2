@@ -40,7 +40,7 @@ namespace TokikuNew.Views
         private void PromissoryNoteManagementViewUC_Loaded(object sender, RoutedEventArgs e)
         {
             PromissoryNoteManagementViewModelCollection ctrl = new PromissoryNoteManagementViewModelCollection();
-            UC.DataContext = ctrl;
+            專案合約管理GB.DataContext = ctrl;
             ctrl.Query();
         }
         

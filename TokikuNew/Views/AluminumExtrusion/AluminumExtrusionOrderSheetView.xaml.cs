@@ -22,10 +22,14 @@ namespace TokikuNew.Views
     /// </summary>
     public partial class AluminumExtrusionOrderSheetView : UserControl
     {
+        private UserControl uc = null; // 顯示頁籤內容的變數
+
         public AluminumExtrusionOrderSheetView()
         {
             InitializeComponent();
 
+            uc = new AluminumExtrusionOrderView();
+            this.訂製單內容.Children.Add(uc); // 頁籤初始內容設定
         }
 
         #region Document Mode
@@ -705,5 +709,29 @@ namespace TokikuNew.Views
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
         }
+
+        // ========== 頁籤切換顯示內容功能 ==========↓
+        private void 訂製單_Click(object sender, RoutedEventArgs e)
+        {
+            this.訂製單內容.Children.Remove(uc); // 移除現有內容元素
+            uc = new AluminumExtrusionOrderView();
+            this.訂製單內容.Children.Add(uc); // 顯示鋁擠型訂製單
+        }
+
+        private void 材質估價_Click(object sender, RoutedEventArgs e)
+        {
+            this.訂製單內容.Children.Remove(uc); // 移除現有內容元素
+            uc = new AluminumExtrusionOrderMaterialValuationView();
+            this.訂製單內容.Children.Add(uc); // 顯示鋁擠型訂製單材質估價
+        }
+
+        private void 雜項_Click(object sender, RoutedEventArgs e)
+        {
+            this.訂製單內容.Children.Remove(uc); // 移除現有內容元素
+            uc = new AluminumExtrusionOrderMiscellaneousView();
+            this.訂製單內容.Children.Add(uc); // 顯示鋁擠型訂製單雜項
+        }
+        // ========== 頁籤切換顯示內容功能 ==========↑
+
     }
 }
