@@ -45,8 +45,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccessLogViewModel.cs" />
-    <Compile Include="AccessLogViewModelCollection.cs" />
     <Compile Include="AluminumExtrusionOrderMaterialValuationViewModel.cs" />
     <Compile Include="AluminumExtrusionOrderViewModel.cs" />
     <Compile Include="Base\BaseViewModelWithPOCOClass.cs" />
@@ -88,6 +86,8 @@
     <Compile Include="Base\IBaseViewModelWithLoginedUser.cs" />
     <Compile Include="Base\IToolbarButtonsViewModel.cs" />
     <Compile Include="Manufacturers\TranscationCategoriesViewModel.cs" />
+    <Compile Include="Shared\AccessLogViewModel.cs" />
+    <Compile Include="Shared\AccessLogViewModelCollection.cs" />
     <Compile Include="Users\LoginViewModel.cs" />
     <Compile Include="Main\MainViewModel.cs" />
     <Compile Include="Projects\ProjectsViewModel.cs" />
