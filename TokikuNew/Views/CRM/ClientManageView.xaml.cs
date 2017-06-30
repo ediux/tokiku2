@@ -77,8 +77,7 @@ namespace TokikuNew.Views
                         if (SelectedManufacturers.HasError)
                         {
                             MessageBox.Show(string.Join("\n", SelectedManufacturers.Errors.ToArray()));
-                            SelectedManufacturers.Errors = null;
-                            //Mode = dockBar.LastState;
+                            SelectedManufacturers.Errors = null;                      
                             break;
                         }
 
@@ -142,6 +141,7 @@ namespace TokikuNew.Views
             AddHandler(DockBar.DocumentModeChangedEvent, new RoutedEventHandler(dockBar_DocumentModeChanged));
             ClientViewModel SelectedManufacturers = (ClientViewModel)DataContext;
             SelectedManufacturers.ClientForProjects.QueryByClient(SelectedManufacturers.Id);
+            SelectedManufacturers.Contracts.Query("", SelectedManufacturers.Id, SelectedManufacturers.IsClient);
         }
     }
 }
