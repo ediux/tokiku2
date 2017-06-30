@@ -223,10 +223,6 @@
     <Compile Include="Views\ControlTables\ShippingView.xaml.cs">
       <DependentUpon>ShippingView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Controls\SwitchField.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\AluminumExtrusion\AluminumExtrusionOrderMiscellaneousView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
