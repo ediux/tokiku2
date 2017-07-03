@@ -19,9 +19,15 @@ namespace Tokiku.Entity
         public Nullable<System.Guid> WorkShopId { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
+        public System.Guid ProcessingAtlasId { get; set; }
+        public System.Guid CurrentManufacturersId { get; set; }
+        public System.Guid NextManufacturerId { get; set; }
     
         public virtual Users CreateUser { get; set; }
         public virtual WorkShops WorkShops { get; set; }
         public virtual ShopFlow ShopFlow { get; set; }
+        public virtual Manufacturers Manufacturers { get; set; }
+        public virtual Manufacturers Manufacturers1 { get; set; }
+        public virtual ProcessingAtlas ProcessingAtlas { get; set; }
     }
 }

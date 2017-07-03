@@ -21,6 +21,9 @@ namespace Tokiku.Entity
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
         public Nullable<System.Guid> ShopFlowId { get; set; }
+        public Nullable<System.Guid> ShopFlowDetailId { get; set; }
+        public System.DateTime StartTime { get; set; }
+        public Nullable<System.DateTime> EndTime { get; set; }
     
         public virtual States States { get; set; }
         public virtual Users CreateUser { get; set; }

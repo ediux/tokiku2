@@ -15,6 +15,12 @@ namespace Tokiku.Controllers
         
         public ExecuteResultEntity<ICollection<PromissoryNoteManagementEntity>> QuerAll()
         {
+            //var repo1 = RepositoryHelper.GetPromissoryNoteManagementRepository();
+            
+            //database = repo1.UnitOfWork;
+            //var queryresult = from q in repo1.All()
+            //                  select q;
+
             sql = " select c.ContractNumber as ContractNumber, c.Name as ProjectName, " +
                          " x.PromissoryId, x.PromissoryName, x.PromissoryAmount, x.PromissoryOpenDate, x.PromissoryRecoveryDate, " +
                          " z.WarrantyId, z.WarrantyName, z.WarrantyAmount, z.WarrantyOpenDate, z.WarrantyRecoveryDate, " +

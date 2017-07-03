@@ -12,6 +12,8 @@ namespace Tokiku.Entity
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class TokikuEntities : DbContext
     {
@@ -62,5 +64,10 @@ namespace Tokiku.Entity
         public virtual DbSet<PurchasingOrder> PurchasingOrder { get; set; }
         public virtual DbSet<BOM> BOM { get; set; }
         public virtual DbSet<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
+    
+        public virtual ObjectResult<GetPromissoryNote_Result> GetPromissoryNote()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPromissoryNote_Result>("GetPromissoryNote");
+        }
     }
 }
