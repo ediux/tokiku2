@@ -65,9 +65,5 @@ namespace Tokiku.Entity
         public virtual DbSet<BOM> BOM { get; set; }
         public virtual DbSet<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
     
-        public virtual ObjectResult<GetPromissoryNote_Result> GetPromissoryNote()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPromissoryNote_Result>("GetPromissoryNote");
-        }
     }
 }

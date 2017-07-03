@@ -13,10 +13,10 @@ namespace Tokiku.Controllers
     {
         public string sql;
 
-        public ExecuteResultEntity<ICollection<GetPromissoryNote_Result>> QuerAll()
+        public ExecuteResultEntity<ICollection<PromissoryNoteManagementEntity>> QuerAll()
         {
-            TokikuEntities db = (TokikuEntities)RepositoryHelper.GetUnitOfWork().Context;
-            var queryresult = db.GetPromissoryNote();
+            //TokikuEntities db = (TokikuEntities)RepositoryHelper.GetUnitOfWork().Context;
+            //var queryresult = db.GetPromissoryNote();
 
             //var repo1 = RepositoryHelper.GetPromissoryNoteManagementRepository();
             //GetPromissoryNote_Result
@@ -46,16 +46,16 @@ namespace Tokiku.Controllers
                " left join ProjectContract c on c.Id = x.ProjectContractId " +
                " left join Projects d on d.Id = c.ProjectId ";
 
-            ExecuteResultEntity<ICollection<GetPromissoryNote_Result>> rtn;
+            ExecuteResultEntity<ICollection<PromissoryNoteManagementEntity>> rtn;
 
             try
             {
                 using (var ManufacturersRepository = RepositoryHelper.GetManufacturersRepository())
                 {
-                    //var queryresult = ManufacturersRepository.UnitOfWork.Context.Database.SqlQuery<GetPromissoryNote_Result>(sql);
+                    var queryresult = ManufacturersRepository.UnitOfWork.Context.Database.SqlQuery<PromissoryNoteManagementEntity>(sql);
 
-                    rtn = ExecuteResultEntity<ICollection<GetPromissoryNote_Result>>.CreateResultEntity(
-                        new Collection<GetPromissoryNote_Result>(queryresult.ToList()));
+                    rtn = ExecuteResultEntity<ICollection<PromissoryNoteManagementEntity>>.CreateResultEntity(
+                        new Collection<PromissoryNoteManagementEntity>(queryresult.ToList()));
 
                     return rtn;
                 }
@@ -63,7 +63,7 @@ namespace Tokiku.Controllers
             }
             catch (Exception ex)
             {
-                rtn = ExecuteResultEntity<ICollection<GetPromissoryNote_Result>>.CreateErrorResultEntity(ex);
+                rtn = ExecuteResultEntity<ICollection<PromissoryNoteManagementEntity>>.CreateErrorResultEntity(ex);
                 return rtn;
             }
 

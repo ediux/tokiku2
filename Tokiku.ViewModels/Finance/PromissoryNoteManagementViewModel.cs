@@ -27,7 +27,7 @@ namespace Tokiku.ViewModels
         public override void Query()
         {
             PromissoryNoteManagementViewModelController ctrl = new PromissoryNoteManagementViewModelController();
-            ExecuteResultEntity<ICollection<GetPromissoryNote_Result>> ere = ctrl.QuerAll();
+            ExecuteResultEntity<ICollection<PromissoryNoteManagementEntity>> ere = ctrl.QuerAll();
             if (!ere.HasError)
             {
                 PromissoryNoteManagementViewModel vm = new PromissoryNoteManagementViewModel();
@@ -46,9 +46,9 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                if (entity is GetPromissoryNote_Result)
+                if (entity is PromissoryNoteManagementEntity)
                 {
-                    GetPromissoryNote_Result data = (GetPromissoryNote_Result)entity;
+                    PromissoryNoteManagementEntity data = (PromissoryNoteManagementEntity)entity;
                     BindingFromModel(data, this);
                 }
             }
