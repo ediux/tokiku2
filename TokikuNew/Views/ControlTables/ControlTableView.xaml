@@ -24,19 +24,55 @@
             <Button Content="訂製單" Margin="5,0,0,0" Click="Button_Click" />
             <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="加工訂製單列表" Margin="0,0,5,0"  />
         </StackPanel>
-        <GroupBox Header="鋁擠型管控表" Grid.Row="1" Margin="2" Style="{DynamicResource GroupBox_DocumentEditor}">
+        <GroupBox Header="鋁擠型需求" Grid.Row="1" Margin="2" Style="{DynamicResource GroupBox_DocumentEditor}">
             <DataGrid>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="加工編號" Width="auto" />
-                    <DataGridTextColumn Header="擠型編號" Width="auto" />
-                    <DataGridTextColumn Header="裁切長度" Width="auto" />
-                    <DataGridTextColumn Header="材料說明" Width="auto" />
-                    <DataGridTextColumn Header="圖集" Width="auto" />
-                    <DataGridTextColumn Header="合計" Width="auto" />
-                    <DataGridTextColumn Header="原擠型編號" Width="auto" />
-                    <DataGridTextColumn Header="原裁切長度" Width="auto" />
-                    <DataGridTextColumn Header="原數量" Width="auto" />
-                    <DataGridTextColumn Header="修改日期" Width="auto" />
+                    <DataGridTextColumn Header="項次" Width="auto" />
+                    <DataGridTextColumn Header="東菊編號" Width="auto" />
+                    <DataGridTextColumn Header="廠商" Width="auto" />
+                    <DataGridTextColumn Header="廠商編號" Width="auto" />
+                    <DataGridTextColumn Header="材質" Width="auto" />
+                    <DataGridTextColumn Header="單位重量(kg/m)" Width="auto" />
+                    <DataGridTextColumn Header="訂購長度(mm)" Width="auto" />
+                    <DataGridTemplateColumn >
+                        
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20"/>
+                                        <RowDefinition Height="32"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="60"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border Margin="-5,-5,-5,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0.5" BorderBrush="LightGray" Background="Pink">
+                                        <TextBlock Text="需求數量" Margin="0" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="-5,0,0,-5" Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
+                                        <TextBlock FontSize="10" Text="數量小計     (單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="0,0,0,-5" Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
+                                        <TextBlock FontSize="10" Text="重量小計     (單位:kg)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="0,0,-5,-5" Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
+                                        <TextBlock  FontSize="10" Text="未下訂單數量      (單位:支)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                                    </Border>
+
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="數量小計(單位:支)" Width="auto" />
 
                 </DataGrid.Columns>
 

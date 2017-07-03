@@ -31,7 +31,7 @@
                                     <StackPanel Orientation="Horizontal" DataContext="{Binding}">
                                         <Button Content="工程項目" x:Name="btnEngItem" Click="btnEngItem_Click" Margin="5,0" />
                                         <Button Content="加工圖集" x:Name="btnProcessAltas" Click="btnProcessAltas_Click" Margin="5,0" />
-                                        <Button Content="鋁擠型材料" Margin="5,0" />
+                                        <Button Content="鋁擠型材料" Margin="5,0" Click="Button_Click" />
 
                                     </StackPanel>
                                 </DataTemplate>

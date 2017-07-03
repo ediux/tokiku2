@@ -480,9 +480,6 @@ namespace Tokiku.ViewModels
         {
             try
             {
-#if DEBUG
-                Debug.WriteLine("BaseViewModel initialized.");
-#endif
                 GetLastUpdateTime();
 
                 var execresult = SystemController.GetCurrentLoginUser();

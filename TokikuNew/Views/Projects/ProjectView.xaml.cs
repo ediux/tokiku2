@@ -193,13 +193,37 @@ namespace TokikuNew.Views
 
                 if (e.OriginalSource is ControlTableView)
                 {
-                    Header = "鋁擠型管控表";
+                    Header = "鋁擠型加工管控表";
                     addWorkarea = new ClosableTabItem() { Header = Header };
                 }
 
                 if (e.OriginalSource is string)
                 {
                     string btn = (string)e.OriginalSource;
+
+                    if (btn == "鋁擠型材料")
+                    {
+                        Header = "鋁擠型材料";
+                        addWorkarea = new ClosableTabItem() { Header = Header };
+                    }
+
+                    if (btn == "鋁擠型材料總表")
+                    {
+                        Header = "鋁擠型材料總表";
+                        addWorkarea = new ClosableTabItem() { Header = Header };
+                    }
+
+                    if (btn == "異動紀錄")
+                    {
+                        Header = "異動紀錄";
+                        addWorkarea = new ClosableTabItem() { Header = Header };
+                    }
+
+                    if (btn == "加工圖集總表")
+                    {
+                        Header = "加工圖集總表";
+                        addWorkarea = new ClosableTabItem() { Header = Header };
+                    }
 
                     if (btn == "產生鋁擠型訂製單")
                     {
@@ -266,13 +290,13 @@ namespace TokikuNew.Views
                         addWorkarea = new ClosableTabItem() { Header = Header };
                     }
 
-                    if(btn== "產生加工訂製單")
+                    if (btn == "產生加工訂製單")
                     {
                         Header = "加工訂製單";
                         addWorkarea = new ClosableTabItem() { Header = Header };
                     }
 
-                    if(btn== "玻璃管控表")
+                    if (btn == "玻璃管控表")
                     {
                         Header = "玻璃";
                         addWorkarea = new ClosableTabItem() { Header = Header };
@@ -422,6 +446,56 @@ namespace TokikuNew.Views
                     {
                         string btnContext = (string)e.OriginalSource;
 
+                        if(btnContext== "鋁擠型材料")
+                        {
+                            var vm = new BOMDataImportsView() { Margin = new Thickness(0) };
+
+                            addWorkarea.Content = vm;
+                            InnerWorkspaces.Items.Add(addWorkarea);
+                            InnerWorkspaces.SelectedItem = addWorkarea;
+                            return;
+                        }
+
+                        if (btnContext == "鋁擠型材料總表")
+                        {
+                            var vm = new ControlTableView() { Margin = new Thickness(0) };
+                            addWorkarea.Content = vm;
+                            InnerWorkspaces.Items.Add(addWorkarea);
+                            InnerWorkspaces.SelectedItem = addWorkarea;
+                            return;
+                        }
+                        if(btnContext == "異動紀錄")
+                        {
+                            var vm = new ProcessingChangeLogView() { Margin = new Thickness(0) };
+                          
+                            //addWorkarea = new ClosableTabItem() { Header = Header };
+                            addWorkarea.Content = vm;
+                            addWorkarea.Margin = new Thickness(0);
+
+                            InnerWorkspaces.Items.Add(addWorkarea);
+                            InnerWorkspaces.SelectedItem = addWorkarea;
+                            return;
+                        }
+
+                        if (btnContext == "加工圖集總表")
+                        {
+                            var vm = new ProcessingAtlasView() { Margin = new Thickness(0) };
+                            if (SharedModel != null)
+                                ((ProcessingAtlasViewModelCollection)SharedModel).Query();
+                            vm.DataContext = SharedModel;
+                            vm.LoginedUser = LoginedUser;
+
+                            vm.Mode = DocumentLifeCircle.Read;
+
+                            //addWorkarea = new ClosableTabItem() { Header = Header };
+                            addWorkarea.Content = vm;
+                            addWorkarea.Margin = new Thickness(0);
+
+                            InnerWorkspaces.Items.Add(addWorkarea);
+                            InnerWorkspaces.SelectedItem = addWorkarea;
+                            return;
+                        }
+
                         if (btnContext == "產生鋁擠型訂製單")
                         {
                             var vm = new AluminumExtrusionOrderSheetView() { Margin = new Thickness(0) };
@@ -565,7 +639,7 @@ namespace TokikuNew.Views
                             return;
                         }
 
-                        if(btnContext== "產生加工訂製單")
+                        if (btnContext == "產生加工訂製單")
                         {
                             var vm = new AluminumExtrusionOrderSheetView() { Margin = new Thickness(0) };
 

@@ -23,7 +23,11 @@
             <Button x:Name="btnImport" Grid.Row="1" Grid.Column="2"  Width="50" Content="匯入" Margin="2" Click="btnImport_Click" />
             <Controls:SearchBar Grid.Row="1" Grid.Column="1" Margin="2" x:Name="SearchBox" ResetSearch="SearchBox_ResetSearch" />
         </Grid>
-        <DataGrid x:Name="BOMGrid" Grid.Row="1" AutoGenerateColumns="False"/>
+        <DataGrid x:Name="BOMGrid" Grid.Row="1" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header=""/>
+            </DataGrid.Columns>
+        </DataGrid>
 
     </Grid>
 </UserControl>

@@ -19,15 +19,21 @@
             <ColumnDefinition Width="50*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5,0" VerticalAlignment="Center">
-            <Button x:Name="btnConstructionAtlasView" Content="施工圖集" Grid.Row="15" Grid.Column="1" Margin="5,0" />
-            <Button x:Name="BtnAssemblyTable" Content="組裝總表" Grid.Row="16" Grid.Column="1" Margin="5,0" />
-            <Button x:Name="Btn2" Content="鋁擠型管控表" Grid.Row="17" Grid.Column="1" Margin="5,0" />
-            <Button Content="加工管控表" x:Name="BtnAluminumExtrusion"  DataContext="{Binding}" Margin="5,0"/>
-            <Button Content="玻璃管控表" x:Name="BtnGlass" DataContext="{Binding}" Margin="5,0"/>
-            <Button Content="鋁板管控表" x:Name="BtnAluminumPlate"  DataContext="{Binding}" Margin="5,0"/>
-            <Button Content="鐵件管控表" x:Name="BtnIronPieces" DataContext="{Binding}" Margin="5,0"/>
-            <Button Content="其他材料管控表" x:Name="BtnOthers"  DataContext="{Binding}" Margin="5,0"/>
-           
+            <Button x:Name="btnConstructionAtlasView" Content="施工圖集" Grid.Row="15" Grid.Column="1" Margin="5,0" Click="btnConstructionAtlasView_Click"/>
+            <Button x:Name="BtnAssemblyTable" Content="組裝總表" Grid.Row="16" Grid.Column="1" Margin="5,0" Click="BtnAssemblyTable_Click" />
+            <Button  Content="加工圖集總表" Grid.Row="16" Grid.Column="1" Margin="5,0" Click="btnProcessAltas_Click"  />
+
+            <Button x:Name="Btn2" Content="鋁擠型需求" Grid.Row="17" Grid.Column="1" Margin="5,0" Click="Btn2_Click" />
+            <Button Content="鋁擠型加工" x:Name="BtnAluminumExtrusion"  DataContext="{Binding}" Margin="5,0" Click="BtnAluminumExtrusion_Click"/>
+            <Button Content="玻璃" x:Name="BtnGlass" DataContext="{Binding}" Margin="5,0" Click="BtnGlass_Click"/>
+            <Button Content="鋁板" x:Name="BtnAluminumPlate"  DataContext="{Binding}" Margin="5,0"/>
+            <Button Content="不鏽鋼板" DataContext="{Binding}" Margin="5,0"/>
+            <Button Content="鐵件" x:Name="BtnIronPieces" DataContext="{Binding}" Margin="5,0"/>
+            <Button Content="石材" DataContext="{Binding}" Margin="5,0"/>
+            <Button Content="輔助材料" DataContext="{Binding}" Margin="5,0"/>
+            <Button Content="其他費用" DataContext="{Binding}" Margin="5,0"/>
+            <Button Content="組裝" DataContext="{Binding}" Margin="5,0"/>
+            <Button Content="安裝" DataContext="{Binding}" Margin="5,0"/>
         </StackPanel>
 
         <Grid Grid.Row="1">

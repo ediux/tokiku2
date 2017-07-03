@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="1024">
     <Grid>
-        <GroupBox Header="合約管理" VerticalAlignment="Top" Height="468" x:Name="UC">
+        <GroupBox Header="成本估算" VerticalAlignment="Top" Height="468" x:Name="UC">
             <DataGrid>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="項次" Width="auto" />

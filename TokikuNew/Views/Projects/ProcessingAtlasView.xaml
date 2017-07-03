@@ -22,6 +22,7 @@
                                  IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}">
             <Controls:CustomDataGrid.Columns>
                 <DataGridTextColumn Header="順序" Binding="{Binding Order,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="合約編號" />
                 <DataGridTextColumn Header="圖集" Binding="{Binding Atlas,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="名稱" Binding="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="更新次數" Binding="{Binding UpdateTimes,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
@@ -31,7 +32,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Button Content="異動紀錄" x:Name="BtnWorkOrder" />
+                                <Button Content="異動紀錄" x:Name="BtnWorkOrder" Click="BtnWorkOrder_Click" />
                                
                             </StackPanel>
                         </DataTemplate>

@@ -239,5 +239,20 @@ namespace TokikuNew.Views
 
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //鋁擠型材料
+            try
+            {
+                e.Handled = true;
+                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "鋁擠型材料"));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+
+            }
+        }
     }
 }

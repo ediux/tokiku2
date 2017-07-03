@@ -77,8 +77,12 @@
     <Compile Include="Helpers\ClipboardHelper.cs" />
     <Compile Include="Helpers\SwitchFieldMode.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
+    <Compile Include="Commands\OpenNewPageContentCommand.cs" />
     <Compile Include="ValueConverters\DateTime2StringFormatingValueConverter.cs" />
     <Compile Include="ValueConverters\ReplyContentValueConverter.cs" />
+    <Compile Include="Views\AluminumExtrusionProcessingView.xaml.cs">
+      <DependentUpon>AluminumExtrusionProcessingView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AluminumExtrusion\AluminumExtrusionOrderMiscellaneousView.xaml.cs">
       <DependentUpon>AluminumExtrusionOrderMiscellaneousView.xaml</DependentUpon>
     </Compile>
@@ -227,6 +231,10 @@
     <Compile Include="Views\ControlTables\ShippingView.xaml.cs">
       <DependentUpon>ShippingView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\AluminumExtrusionProcessingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AluminumExtrusion\AluminumExtrusionOrderMiscellaneousView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

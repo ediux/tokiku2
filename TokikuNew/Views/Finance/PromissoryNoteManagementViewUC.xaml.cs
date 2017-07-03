@@ -40,10 +40,10 @@ namespace TokikuNew.Views
         private void PromissoryNoteManagementViewUC_Loaded(object sender, RoutedEventArgs e)
         {
             PromissoryNoteManagementViewModelCollection ctrl = new PromissoryNoteManagementViewModelCollection();
-            專案合約管理GB.DataContext = ctrl;
+            CheckGrid.DataContext = ctrl;
             ctrl.Query();
         }
-        
+
         // 合約管理按鈕觸發事件
         private void ContractManagement_Click(object sender, RoutedEventArgs e)
         {
