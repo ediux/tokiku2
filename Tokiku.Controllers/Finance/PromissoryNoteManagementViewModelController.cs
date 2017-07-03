@@ -12,9 +12,18 @@ namespace Tokiku.Controllers
     public class PromissoryNoteManagementViewModelController : BaseController
     {
         public string sql;
-        
-        public ExecuteResultEntity<ICollection<PromissoryNoteManagementEntity>> QuerAll()
+
+        public ExecuteResultEntity<ICollection<GetPromissoryNote_Result>> QuerAll()
         {
+            TokikuEntities db = (TokikuEntities)RepositoryHelper.GetUnitOfWork().Context;
+            var queryresult = db.GetPromissoryNote();
+
+            //var repo1 = RepositoryHelper.GetPromissoryNoteManagementRepository();
+            //GetPromissoryNote_Result
+            //database = repo1.UnitOfWork;
+            //var queryresult = from q in repo1.All()
+            //                  select q;
+
             sql = " select c.ContractNumber as ContractNumber, c.Name as ProjectName, " +
                          " x.PromissoryId, x.PromissoryName, x.PromissoryAmount, x.PromissoryOpenDate, x.PromissoryRecoveryDate, " +
                          " z.WarrantyId, z.WarrantyName, z.WarrantyAmount, z.WarrantyOpenDate, z.WarrantyRecoveryDate, " +
@@ -37,16 +46,16 @@ namespace Tokiku.Controllers
                " left join ProjectContract c on c.Id = x.ProjectContractId " +
                " left join Projects d on d.Id = c.ProjectId ";
 
-            ExecuteResultEntity<ICollection<PromissoryNoteManagementEntity>> rtn;
+            ExecuteResultEntity<ICollection<GetPromissoryNote_Result>> rtn;
 
             try
             {
                 using (var ManufacturersRepository = RepositoryHelper.GetManufacturersRepository())
                 {
-                    var queryresult = ManufacturersRepository.UnitOfWork.Context.Database.SqlQuery<PromissoryNoteManagementEntity>(sql);
+                    //var queryresult = ManufacturersRepository.UnitOfWork.Context.Database.SqlQuery<GetPromissoryNote_Result>(sql);
 
-                    rtn = ExecuteResultEntity<ICollection<PromissoryNoteManagementEntity>>.CreateResultEntity(
-                        new Collection<PromissoryNoteManagementEntity>(queryresult.ToList()));
+                    rtn = ExecuteResultEntity<ICollection<GetPromissoryNote_Result>>.CreateResultEntity(
+                        new Collection<GetPromissoryNote_Result>(queryresult.ToList()));
 
                     return rtn;
                 }
@@ -54,7 +63,7 @@ namespace Tokiku.Controllers
             }
             catch (Exception ex)
             {
-                rtn = ExecuteResultEntity<ICollection<PromissoryNoteManagementEntity>>.CreateErrorResultEntity(ex);
+                rtn = ExecuteResultEntity<ICollection<GetPromissoryNote_Result>>.CreateErrorResultEntity(ex);
                 return rtn;
             }
 

@@ -59,6 +59,9 @@
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
     <Compile Include="ActionCodes.cs" />
+    <Compile Include="GetPromissoryNote_Result.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewTables\AluminumExtrusionOrderMiscellaneousEntity.cs" />
     <Compile Include="BOM.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>

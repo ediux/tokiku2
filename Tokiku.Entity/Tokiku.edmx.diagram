@@ -99,6 +99,11 @@
         <AssociationConnector Association="TokikuModel.FK_ManufacturersBussinessItems_TranscationCategories" />
         <AssociationConnector Association="TokikuModel.FK_SupplierTranscationItem_ManufacturersBussinessItems" />
         <AssociationConnector Association="TokikuModel.FK_ManufacturersBussinessItems_Manufacturers" />
+        <AssociationConnector Association="TokikuModel.FK_Engineering_ProjectContract" />
+        <AssociationConnector Association="TokikuModel.FK_ShopFlowDetail_CurrentManufacturers" />
+        <AssociationConnector Association="TokikuModel.FK_ShopFlowDetail_NextManufacturers" />
+        <AssociationConnector Association="TokikuModel.FK_SupplierTranscationItem_NextManufacturers" />
+        <AssociationConnector Association="TokikuModel.FK_ShopFlowDetail_ProcessingAtlas" />
         </Diagram>
       <Diagram DiagramId="da028285ff1d445f8957817e8b05eec6" Name="專案主檔" ZoomLevel="92" >
         <EntityTypeShape EntityType="TokikuModel.Projects" Width="1.5" PointX="3" PointY="4.75" />
@@ -114,6 +119,8 @@
         <AssociationConnector Association="TokikuModel.FK_ProcessingAtlas_ProjectContract" />
         <EntityTypeShape EntityType="TokikuModel.Manufacturers" Width="1.5" PointX="0.75" PointY="6.875" />
         <AssociationConnector Association="TokikuModel.ClientsInProjects" />
+        <AssociationConnector Association="TokikuModel.FK_Engineering_ProjectContract" />
+        <AssociationConnector Association="TokikuModel.FK_SupplierTranscationItem_NextManufacturers" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
