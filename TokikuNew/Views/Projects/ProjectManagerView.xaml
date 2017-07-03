@@ -10,11 +10,27 @@
              d:DesignHeight="768" d:DesignWidth="1366" Loaded="UserControl_Loaded" 
              Initialized="userControl_Initialized" >
     <Grid Background="{DynamicResource ControlBackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="27"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50*"/>
             <ColumnDefinition Width="50*"/>
         </Grid.ColumnDefinitions>
-        <Grid>
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5,0" VerticalAlignment="Center">
+            <Button x:Name="btnConstructionAtlasView" Content="施工圖集" Grid.Row="15" Grid.Column="1" Margin="5,0" />
+            <Button x:Name="BtnAssemblyTable" Content="組裝總表" Grid.Row="16" Grid.Column="1" Margin="5,0" />
+            <Button x:Name="Btn2" Content="鋁擠型管控表" Grid.Row="17" Grid.Column="1" Margin="5,0" />
+            <Button Content="加工管控表" x:Name="BtnAluminumExtrusion"  DataContext="{Binding}" Margin="5,0"/>
+            <Button Content="玻璃管控表" x:Name="BtnGlass" DataContext="{Binding}" Margin="5,0"/>
+            <Button Content="鋁板管控表" x:Name="BtnAluminumPlate"  DataContext="{Binding}" Margin="5,0"/>
+            <Button Content="鐵件管控表" x:Name="BtnIronPieces" DataContext="{Binding}" Margin="5,0"/>
+            <Button Content="其他材料管控表" x:Name="BtnOthers"  DataContext="{Binding}" Margin="5,0"/>
+           
+        </StackPanel>
+
+        <Grid Grid.Row="1">
             <GroupBox Header="基本資料" Style="{DynamicResource GroupBox_DocumentEditor}">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -187,15 +203,15 @@
                         <TextBlock Grid.Row="12" Grid.Column="1" Text="{Binding LoginedUser.UserName, ElementName=userControl}" VerticalAlignment="Center" />
                         <TextBlock Grid.Row="13" Grid.Column="0" Text="異動日期：" VerticalAlignment="Center" HorizontalAlignment="Right" />
                         <TextBlock Grid.Row="13" Grid.Column="1" Text="{Binding LastUpdate, StringFormat=\{0:yyyy/MM/dd\}}" VerticalAlignment="Center" />
-                        <Button x:Name="btnConstructionAtlasView" Content="施工圖集" Grid.Row="15" Grid.Column="1" Margin="2" Click="btnConstructionAtlasView_Click"/>
-                        <Button x:Name="BtnAssemblyTable" Content="組裝總表" Grid.Row="16" Grid.Column="1" Margin="2" Click="BtnAssemblyTable_Click"/>
+                     
+
                         <TextBlock Grid.Row="8" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Margin="0,0,0,0" Text="備註："  Height="18"/>
                         <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="8" Grid.Column="1" Grid.RowSpan="2" Margin="2,2,2,2.5" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
                 </Grid>
             </GroupBox>
         </Grid>
-        <Grid Grid.Column="1">
+        <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50*" />
                 <RowDefinition Height="50*" />

@@ -10,7 +10,7 @@
              Initialized="userControl_Initialized"
              Loaded="userControl_Loaded"
              d:DesignHeight="300" d:DesignWidth="512">
-    <GroupBox Header="供應商" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" Style="{DynamicResource GroupBox_DocumentEditor}">
+    <GroupBox Header="供應商" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Style="{DynamicResource GroupBox_DocumentEditor}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25*"/>

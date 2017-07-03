@@ -8,9 +8,9 @@
              x:Name="userControl"
              Initialized="userControl_Initialized"
              Loaded="userControl_Loaded"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="385.836">
     <Grid>
-        <GroupBox Header="合約列表" Grid.Row="1" Grid.Column="0" Margin="5" Style="{DynamicResource GroupBox_DocumentEditor}">
+        <GroupBox Header="合約列表" Grid.Row="1" Grid.Column="0" Style="{DynamicResource GroupBox_DocumentEditor}">
             <Grid>
                 <DataGrid Grid.Row="1" Grid.Column="0" AutoGenerateColumns="False" 
                                              CanUserDeleteRows="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
@@ -31,6 +31,8 @@
                                     <StackPanel Orientation="Horizontal" DataContext="{Binding}">
                                         <Button Content="工程項目" x:Name="btnEngItem" Click="btnEngItem_Click" Margin="5,0" />
                                         <Button Content="加工圖集" x:Name="btnProcessAltas" Click="btnProcessAltas_Click" Margin="5,0" />
+                                        <Button Content="鋁擠型材料" Margin="5,0" />
+
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>

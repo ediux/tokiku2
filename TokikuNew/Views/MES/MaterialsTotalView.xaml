@@ -22,6 +22,38 @@
             <Button x:Name="btnImport" Grid.Row="1" Grid.Column="2"  Width="50" Content="匯入" Margin="2" Click="btnImport_Click" />
             <Controls:SearchBar Grid.Row="1" Grid.Column="1" Margin="2"  Search="SearchBar_Search" />
         </Grid>
-        
+        <DataGrid Grid.Row="1" Grid.Column="0" 
+                  BorderBrush="{DynamicResource ControlBorderBrush}"
+                  BorderThickness="2"
+                  Margin="1"
+            AutoGenerateColumns="False" x:Name="MoldTotalGrid">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="auto">
+                    <DataGridTextColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="&#xF169;"  FontFamily="/Resources/#Segoe MDL2 Assets"/>
+                        </DataTemplate>
+                    </DataGridTextColumn.HeaderTemplate>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="圖例" Width="auto"/>
+                <DataGridTextColumn Header="使用位置" Width="auto"/>
+                <DataGridTextColumn Header="東菊編號" Width="auto"/>
+                <DataGridTextColumn Header="廠商" Width="auto"/>
+                <DataGridTextColumn Header="廠商編號" Width="auto"/>
+                <DataGridTextColumn Header="材質" Width="auto"/>
+                <DataGridTextColumn Header="單位重(kg/M)" Width="auto"/>
+                <DataGridTextColumn Header="表面處理" Width="auto"/>
+                <DataGridTextColumn Header="烤漆面積(㎡)" Width="auto"/>
+                <DataGridTextColumn Header="皮膜處理(kg)" Width="auto"/>
+                <DataGridTextColumn Header="最低產量" Width="auto"/>
+                <DataGridTextColumn Header="生產錠徑" Width="auto"/>
+                <DataGridTextColumn Header="模具費用" Width="auto"/>
+                <DataGridTextColumn Header="訂單總重量" Width="auto"/>
+                <DataGridTextColumn Header="模具使用狀況" Width="auto"/>
+                <DataGridTextColumn Header="備註" Width="auto"/>
+                <DataGridTextColumn Header="異動人員" Width="auto"/>
+                <DataGridTextColumn Header="異動日期" Width="auto"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>
