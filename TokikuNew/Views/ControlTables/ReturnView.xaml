@@ -9,49 +9,74 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1024">
     <Grid>
-
-        <Label Content="ID:                " HorizontalAlignment="Left" Height="14" Margin="10,10,0,0" VerticalAlignment="Top" Width="20"/>
-        <Label Content="*" HorizontalAlignment="Left" Height="13" Margin="131,11,0,0" VerticalAlignment="Top" Width="11" RenderTransformOrigin="-7,-2.538" Foreground="#FF0000"/>
-        <Label Content="退料單號:" HorizontalAlignment="Left" Height="22" Margin="142,10,0,0" VerticalAlignment="Top" Width="51"/>
-        <Label Content="*" HorizontalAlignment="Left" Height="13" Margin="368,12,0,0" VerticalAlignment="Top" Width="14" Foreground="#FF0000"/>
-        <TextBox HorizontalAlignment="Left" Height="24" Margin="35,8,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="88" Grid.ColumnSpan="2"/>
-        <TextBox HorizontalAlignment="Left" Height="24" Margin="198,8,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160"/>
-        <Label Content="來料廠商:" HorizontalAlignment="Left" Height="22" Margin="377,11,0,0" VerticalAlignment="Top" Width="54"/>
-        <TextBox HorizontalAlignment="Left" Height="24" Margin="431,7,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="88"/>
-        <TextBox HorizontalAlignment="Left" Height="24" Margin="524,7,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="241"/>
-        <Label Content="*" HorizontalAlignment="Left" Height="13" Margin="775,12,0,0" VerticalAlignment="Top" Width="12 " Foreground="#FF0000"/>
-        <Label Content="來料單號:" HorizontalAlignment="Left" Height="22" Margin="787,10,0,0" VerticalAlignment="Top" Width="54"/>
-        <TextBox HorizontalAlignment="Left" Height="24" Margin="846,7,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160"/>
-        <GroupBox Header="[相關人員]" HorizontalAlignment="Left" Height="63" Margin="10,38,0,0" VerticalAlignment="Top" Width="1006" Foreground="#FF0D14A6" Grid.ColumnSpan="4">
-            <Grid HorizontalAlignment="Left" Height="33" VerticalAlignment="Top" Width="996" Margin="0,0,-2,0">
-
-                <Label Content="輸入人員:" HorizontalAlignment="Left" Height="14" Margin="2,10,0,0" VerticalAlignment="Top" Width="59" Foreground="#FF0D14A6" Grid.ColumnSpan="3" Grid.Column="1"/>
-                <TextBox HorizontalAlignment="Left" Height="25" Margin="61,4,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="83"/>
-                <TextBox HorizontalAlignment="Left" Height="25" Margin="208,4,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="206"/>
-                <Label Content="建檔日期:" HorizontalAlignment="Left" Height="14" Margin="149,9,0,0" VerticalAlignment="Top" Width="59" Foreground="#FF0D14A6" Grid.Column="3"/>
-                <Label Content="*" HorizontalAlignment="Left" Margin="419,12,0,13" Width="12 " Foreground="#FF0000"/>
-                <Label Content="製單人員:" HorizontalAlignment="Left" Height="14" Margin="431,9,0,0" VerticalAlignment="Top" Foreground="#FF0D14A6" Width="59"/>
-                <TextBox HorizontalAlignment="Left" Height="25" Margin="495,4,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="106"/>
-                <Label Content="*" HorizontalAlignment="Left" Height="14" Margin="606,0,0,10" VerticalAlignment="Bottom" Width="12 " Foreground="#FF0000" RenderTransformOrigin="-1.083,0.429"/>
-                <Label Content="製單日期:" HorizontalAlignment="Left" Height="14" Margin="618,9,0,0" VerticalAlignment="Top" Foreground="#FF0D14A6" Width="59"/>
-                <TextBox HorizontalAlignment="Left" Height="25" Margin="682,4,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="102"/>
-                <Label Content="連絡電話:" HorizontalAlignment="Left" Height="14" Margin="789,10,0,0" VerticalAlignment="Top" Foreground="#FF0D14A6" Width="59"/>
-                <TextBox HorizontalAlignment="Left" Height="25" Margin="848,4,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="138"/>
-            </Grid>
-        </GroupBox>
-        <GroupBox Header="[退料單位]" HorizontalAlignment="Left" Height="63" Margin="10,106,0,0" VerticalAlignment="Top" Width="1006" Foreground="#FF036808" Grid.ColumnSpan="4">
-            <Grid HorizontalAlignment="Left" Height="53" VerticalAlignment="Top" Width="996" Margin="0,0,-2,-20">
-                <Label Content="*" HorizontalAlignment="Left" Margin="10,10,0,15" Width="12 " Foreground="#FF0000" Grid.Column="1"/>
-                <Label Content="倉別:" HorizontalAlignment="Left" Height="14" Margin="22,7,0,0" VerticalAlignment="Top" Width="29" Foreground="#FF036808"/>
-                <TextBox HorizontalAlignment="Left" Height="25" Margin="56,4,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="112"/>
-
-                <Label Content="備註:" HorizontalAlignment="Left" Height="14" Margin="460,10,0,0" VerticalAlignment="Top" Width="33" Foreground="#FF036808"/>
-                <TextBox HorizontalAlignment="Left" Height="25" Margin="173,4,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="271"/>
-                <TextBox HorizontalAlignment="Left" Height="25" Margin="498,4,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="496"/>
-
-            </Grid>
-        </GroupBox>
-        <Grid HorizontalAlignment="Left" Height="31" Margin="10,0,0,6" VerticalAlignment="Bottom" Width="1006">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="27" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="27" />
+        </Grid.RowDefinitions>
+        <Canvas Grid.Row="0" Panel.ZIndex="500">
+            <Expander Canvas.Left="0" VerticalAlignment="Stretch" ExpandDirection="Down" Header="功能區" IsExpanded="False">
+                <Expander.ContentTemplate>
+                    <DataTemplate>
+                        <WrapPanel Height="82" Orientation="Horizontal" MaxWidth="1014" Width="1014">
+                            <TextBlock Text="ID" Margin="2,2,0,2" VerticalAlignment="Center" />
+                            <TextBox Text="54321" IsReadOnly="True" Margin="2" TextAlignment="Center" VerticalAlignment="Center" />
+                            <TextBlock Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                            <TextBlock Text="退料單號" VerticalAlignment="Center" />
+                            <TextBox Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                            <TextBlock Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                            <TextBlock Text="來料廠商" VerticalAlignment="Center" />
+                            <TextBox Width="88" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                            <TextBox Width="165" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                            <TextBlock Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                            <TextBlock Text="來料單號" VerticalAlignment="Center" />
+                            <TextBox Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                            <TextBlock Text="輸入人員" VerticalAlignment="Center" />
+                            <TextBox Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                            <TextBlock Text="建檔日期" VerticalAlignment="Center" />
+                            <DatePicker Width="200" VerticalAlignment="Center" Margin="2" />
+                            <TextBlock Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                            <TextBlock Text="製單人員" VerticalAlignment="Center" />
+                            <TextBox Width="100" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                            <TextBlock Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                            <TextBlock Text="製單日期" VerticalAlignment="Center" />
+                            <DatePicker Width="200" VerticalAlignment="Center" Margin="2" />
+                            <TextBlock Text="連絡電話" VerticalAlignment="Center" />
+                            <TextBox Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                            <TextBlock Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                            <TextBlock Text="倉別" VerticalAlignment="Center" Foreground="#FF036808" />
+                            <TextBox Width="110" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                            <TextBox Width="220" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                            <TextBlock Text="備註" VerticalAlignment="Center" Foreground="#FF036808" />
+                            <TextBox Width="500" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                        </WrapPanel>
+                    </DataTemplate>
+                </Expander.ContentTemplate>
+            </Expander>
+        </Canvas>
+        
+        <Grid Grid.Row="1" HorizontalAlignment="Left" Height="540" Margin="10,0,0,0" VerticalAlignment="Top" Width="1006">
+            <DataGrid>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="單號" Width="auto" />
+                    <DataGridTextColumn Header="批號" Width="auto" />
+                    <DataGridTextColumn Header="項次" Width="auto" />
+                    <DataGridTextColumn Header="東菊編號" Width="auto" />
+                    <DataGridTextColumn Header="廠商編號" Width="auto" />
+                    <DataGridTextColumn Header="材質" Width="auto" />
+                    <DataGridTextColumn Header="單位重(kg/m)" Width="auto" />
+                    <DataGridTextColumn Header="訂購長度(mm)" Width="auto" />
+                    <DataGridTextColumn Header="下單數量" Width="auto" />
+                    <DataGridTextColumn Header="出貨順序" Width="auto" />
+                    <DataGridTextColumn Header="重量" Width="auto" />
+                    <DataGridTextColumn Header="缺料" Width="auto" />
+                    <DataGridTextColumn Header="收料量" Width="auto" />
+                    <DataGridTextColumn Header="備註" Width="auto" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        
+        <Grid Grid.Row="2" HorizontalAlignment="Left" Height="31" Margin="10,0,0,6" VerticalAlignment="Bottom" Width="1006">
             <Label Content="退料筆數:" HorizontalAlignment="Left" Height="22" Margin="10,10,0,0" VerticalAlignment="Top" Width="51" Grid.Column="1"/>
             <TextBox HorizontalAlignment="Left" Height="24" Margin="66,8,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="65"/>
             <Label Content="合計:" HorizontalAlignment="Left" Height="22" Margin="149,10,0,0" VerticalAlignment="Top" Width="32"/>
@@ -61,8 +86,5 @@
             <Label Content="KG" HorizontalAlignment="Left" Height="22" Margin="557,10,0,0" VerticalAlignment="Top" Width="32"/>
         </Grid>
        
-
-
-
     </Grid>
 </UserControl>
