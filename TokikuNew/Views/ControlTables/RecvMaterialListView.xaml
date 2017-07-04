@@ -9,15 +9,15 @@
     <Grid>
         <DataGrid AutoGenerateColumns="False" Margin="5" ItemsSource="{Binding}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="請款單號"/>
                 <DataGridTextColumn Header="收料單號"/>
+                <DataGridTextColumn Header="退料單號"/>
                 <DataGridTextColumn Header="廠商來料單號"/>
                 <DataGridTextColumn Header="建單日期"/>
                 <DataGridTextColumn Header="建單人員"/>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="開啟請款單" x:Name="BtnOpen" Click="BtnOpen_Click"/>
+                            <Button Content="開啟收料單" x:Name="BtnOpen" Click="BtnOpen_Click"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
