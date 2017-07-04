@@ -123,7 +123,7 @@ namespace TokikuNew
 
                             if (btnContext == "合約管理")
                             {
-                                var vm = new ContractManagementViewUC () { Margin = new Thickness(0) };
+                                var vm = new ContractManagementView() { Margin = new Thickness(0) };
 
                                 addWorkarea.Content = vm;
                                 addWorkarea.Margin = new Thickness(0);

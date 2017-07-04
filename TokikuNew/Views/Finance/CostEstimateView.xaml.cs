@@ -18,9 +18,9 @@ namespace TokikuNew.Views
     /// <summary>
     /// ContractManagementViewUC.xaml 的互動邏輯
     /// </summary>
-    public partial class ContractManagementViewUC : UserControl
+    public partial class CostEstimateView : UserControl
     {
-        public ContractManagementViewUC()
+        public CostEstimateView()
         {
             InitializeComponent();
         }
