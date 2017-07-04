@@ -290,6 +290,14 @@ namespace TokikuNew.Views
                         addWorkarea = new ClosableTabItem() { Header = Header };
                     }
 
+
+                    if (btn == "收料單列表")
+                    {
+                        Header = "收料單列表";
+                        addWorkarea = new ClosableTabItem() { Header = Header };
+                    }
+
+
                     if (btn == "產生加工訂製單")
                     {
                         Header = "加工訂製單";
@@ -630,6 +638,18 @@ namespace TokikuNew.Views
                         if (btnContext == "產生收料單")
                         {
                             var vm = new RecvMaterialView() { Margin = new Thickness(0) };
+                            vm.DataContext = new ProjectListViewModelCollection();
+                            addWorkarea.Content = vm;
+                            addWorkarea.Margin = new Thickness(0);
+
+                            InnerWorkspaces.Items.Add(addWorkarea);
+                            InnerWorkspaces.SelectedItem = addWorkarea;
+                            return;
+                        }
+
+                        if (btnContext == "收料單列表")
+                        {
+                            var vm = new RecvMaterialListView() { Margin = new Thickness(0) };
                             vm.DataContext = new ProjectListViewModelCollection();
                             addWorkarea.Content = vm;
                             addWorkarea.Margin = new Thickness(0);
