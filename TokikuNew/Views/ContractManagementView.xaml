@@ -1,0 +1,124 @@
+﻿<UserControl x:Class="TokikuNew.Views.ContractManagementView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TokikuNew.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1024">
+    <Grid>
+        <GroupBox Header="合約管理" VerticalAlignment="Top" Height="468" x:Name="UC">
+            <DataGrid>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="項次" Width="auto" />
+                    <DataGridTextColumn Header="工程項目" Width="auto" />
+                    <DataGridTextColumn Header="追加(減)工程項目" Width="auto" />
+                    <DataGridTextColumn Header="單位" Width="auto" />
+                    <DataGridTextColumn Header="數量" Width="auto" />
+                    <DataGridTextColumn Header="合約單價" Width="auto" />
+                    <DataGridTextColumn Header="合約金額" Width="auto" />
+                    <DataGridTextColumn Header="追加(減)數量" Width="auto" />
+                    <DataGridTextColumn Header="追加(減)單價" Width="auto" />
+                    <DataGridTextColumn Header="追加(減)金額" Width="auto" />
+                    <DataGridTextColumn Header="追加減後數量" Width="auto" />
+                    <DataGridTextColumn Header="追加減後單價" Width="auto" />
+                    <DataGridTextColumn Header="追加減後總金額" Width="auto" />
+                    <DataGridTextColumn Header="異動人員" Width="auto" />
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20" />
+                                        <RowDefinition Height="40" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border Margin="0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0.5" BorderBrush="LightGray">
+                                        <TextBlock Text="工程收款進度" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                    <Border Margin="0" Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray">
+                                        <DataGrid>
+                                            <DataGrid.Columns>
+                                                <DataGridTemplateColumn>
+                                                    <DataGridTemplateColumn.HeaderTemplate>
+                                                        <DataTemplate>
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="20" />
+                                                                    <RowDefinition Height="20" />
+                                                                </Grid.RowDefinitions>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="auto" />
+                                                                    <ColumnDefinition Width="auto" />
+                                                                    <ColumnDefinition Width="auto" />
+                                                                    <ColumnDefinition Width="auto" />
+                                                                </Grid.ColumnDefinitions>
+                                                                <Border Margin="0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="0.5" BorderBrush="LightGray">
+                                                                    <TextBlock Text="未請款" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                                </Border>
+                                                                <Border Margin="0" Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray">
+                                                                    <TextBlock Text="數量" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                                </Border>
+                                                                <Border Margin="0" Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray">
+                                                                    <TextBlock Text="金額" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                                </Border>
+
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.HeaderTemplate>
+                                                </DataGridTemplateColumn>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </Border>
+                                    <Border Margin="0" Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray">
+                                        <DataGrid>
+                                            <DataGrid.Columns>
+                                                <DataGridTemplateColumn>
+                                                    <DataGridTemplateColumn.HeaderTemplate>
+                                                        <DataTemplate>
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="20" />
+                                                                    <RowDefinition Height="20" />
+                                                                </Grid.RowDefinitions>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="auto" />
+                                                                    <ColumnDefinition Width="auto" />
+                                                                    <ColumnDefinition Width="auto" />
+                                                                    <ColumnDefinition Width="auto" />
+                                                                </Grid.ColumnDefinitions>
+                                                                <Border Margin="0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="0.5" BorderBrush="LightGray">
+                                                                    <TextBlock Text="已請款" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                                </Border>
+                                                                <Border Margin="0" Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray">
+                                                                    <TextBlock Text="數量" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                                </Border>
+                                                                <Border Margin="0" Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray">
+                                                                    <TextBlock Text="金額" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                                </Border>
+
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.HeaderTemplate>
+                                                </DataGridTemplateColumn>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </Border>
+                                    <Border Margin="0" Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray">
+                                        <TextBlock Text="已收款%" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+    </Grid>
+</UserControl>

@@ -80,6 +80,9 @@
     <Compile Include="Commands\OpenNewPageContentCommand.cs" />
     <Compile Include="ValueConverters\DateTime2StringFormatingValueConverter.cs" />
     <Compile Include="ValueConverters\ReplyContentValueConverter.cs" />
+    <Compile Include="Views\Finance\ActualCostsView.xaml.cs">
+      <DependentUpon>ActualCostsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AluminumExtrusionProcessingView.xaml.cs">
       <DependentUpon>AluminumExtrusionProcessingView.xaml</DependentUpon>
     </Compile>
@@ -94,6 +97,9 @@
     </Compile>
     <Compile Include="Views\AluminumExtrusion\AluminumExtrusionOrderListView.xaml.cs">
       <DependentUpon>AluminumExtrusionOrderListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ContractManagementView.xaml.cs">
+      <DependentUpon>ContractManagementView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ControlTables\AluminumPlateView.xaml.cs">
       <DependentUpon>AluminumPlateView.xaml</DependentUpon>
@@ -231,6 +237,10 @@
     <Compile Include="Views\ControlTables\ShippingView.xaml.cs">
       <DependentUpon>ShippingView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\Finance\ActualCostsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AluminumExtrusionProcessingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -248,6 +258,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AluminumExtrusion\AluminumExtrusionOrderListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ContractManagementView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
