@@ -26,7 +26,7 @@ namespace TokikuNew.Views
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Order_Click(object sender, RoutedEventArgs e)
         {
             try
             {
