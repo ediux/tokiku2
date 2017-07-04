@@ -21,7 +21,7 @@
                 <Expander.ContentTemplate>
                     <DataTemplate>
                         <WrapPanel Height="72" Orientation="Horizontal" MaxWidth="1366" Width="1359">
-                            <TextBlock Text="ID"  Margin="2,2,0,2" VerticalAlignment="Center" />
+                            <TextBlock Text="ID" Margin="2,2,0,2" VerticalAlignment="Center" />
                             <TextBox Text="5431" IsReadOnly="True"  Margin="2" TextAlignment="Center" VerticalAlignment="Center"/>
                             <TextBlock Text="訂單屬性" VerticalAlignment="Center"/>
                             <ComboBox Margin="2" Width="100" VerticalAlignment="Center">

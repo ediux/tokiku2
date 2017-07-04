@@ -9,24 +9,22 @@
              d:DesignHeight="768" d:DesignWidth="1024" Loaded="UserControl_Loaded"
     Background="{DynamicResource ControlBackgroundBrush}">
     <Grid>
-        <Grid.RowDefinitions>
+        <!-- Grid.RowDefinitions -->
             <!--<RowDefinition Height="17"/>-->
-            <RowDefinition Height="*"/>
+            <!-- RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50*"/>
             <ColumnDefinition Width="50*"/>
-        </Grid.ColumnDefinitions>
+        </Grid.ColumnDefinitions -->
         <!--<TextBlock Grid.Row="0" Grid.Column="0" Text="搜尋" VerticalAlignment="Center" HorizontalAlignment="Right" />
         <c:SearchBar x:Name="ContractSearchBar" Grid.Column="1" Grid.Row="0" ResetSearch="ContractSearchBar_ResetSearch" Search="ContractSearchBar_Search" />-->
-        <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" 
-                                      CanUserAddRows="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl}" 
-                                      CanUserDeleteRows="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl}" 
-                                      AutoGenerateColumns="False" 
-                                      x:Name="ContractList" SelectionChanged="ContractList_SelectionChanged"
-                          IsReadOnly="{Binding Path=Mode, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                          ItemsSource="{Binding}"
-                                      >
+        <DataGrid CanUserAddRows="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl}" 
+                  CanUserDeleteRows="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl}" 
+                  AutoGenerateColumns="False" 
+                  x:Name="ContractList" SelectionChanged="ContractList_SelectionChanged"
+                  IsReadOnly="{Binding Path=Mode, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding}">
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn Header="預設"  Binding="{Binding IsDefault}" Width="auto">
                     <DataGridCheckBoxColumn.CellStyle>
@@ -35,7 +33,7 @@
                         </Style>
                     </DataGridCheckBoxColumn.CellStyle>
                 </DataGridCheckBoxColumn>
-                <DataGridTextColumn Header="姓名" Binding="{Binding Name}" Width="*" />
+                <DataGridTextColumn Header="姓名" Binding="{Binding Name}" Width="auto" />
                 <DataGridTextColumn Header="行動電話" Binding="{Binding Mobile}" Width="auto" />
                 <DataGridTextColumn Header="電話" Binding="{Binding Phone}" Width="auto" />
                 <DataGridTextColumn Header="分機" Binding="{Binding ExtensionNumber}" Width="auto" />

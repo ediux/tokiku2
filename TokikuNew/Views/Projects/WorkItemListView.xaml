@@ -21,13 +21,13 @@
                                          MouseDoubleClick="EngCaseList_Selected">
                 <Controls:CustomDataGrid.Columns>
                     <DataGridTextColumn Header=""/>
-                    <DataGridTextColumn Header="工程代碼" Binding="{Binding Code}"/>
-                    <DataGridTextColumn Header="工程名稱" Binding="{Binding Name}"/>
-                    <DataGridTextColumn Header="起造日期" Binding="{Binding StartDate,StringFormat={}{0:yyyy/MM/dd}}"/>
-                    <DataGridTextColumn Header="完工日期" Binding="{Binding CompletionDate,StringFormat={}{0:yyyy/MM/dd}}"/>
-                    <DataGridTextColumn Header="保固到期日" Binding="{Binding WarrantyDate,StringFormat={}{0:yyyy/MM/dd}}"/>
-                    <DataGridTextColumn Header="建築師" Binding="{Binding Architect}"/>
-                    <DataGridTextColumn Header="狀態" Binding="{Binding State, Converter={StaticResource StatesCodeToTextValueConverter}}"/>
+                    <DataGridTextColumn Header="項目" Binding="{Binding Code}"/>
+                    <DataGridTextColumn Header="工程項目" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="本約追加(減)工程項目" Binding="{Binding StartDate,StringFormat={}{0:yyyy/MM/dd}}"/>
+                    <DataGridTextColumn Header="單位" Binding="{Binding CompletionDate,StringFormat={}{0:yyyy/MM/dd}}"/>
+                    <DataGridTextColumn Header="追加減後總數量" Binding="{Binding WarrantyDate,StringFormat={}{0:yyyy/MM/dd}}"/>
+                    <DataGridTextColumn Header="" Binding="{Binding Architect}"/>
+                    <DataGridTextColumn Header="" Binding="{Binding State, Converter={StaticResource StatesCodeToTextValueConverter}}"/>
                 </Controls:CustomDataGrid.Columns>
             </Controls:CustomDataGrid>
         </GroupBox>
