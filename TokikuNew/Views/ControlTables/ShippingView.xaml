@@ -20,7 +20,7 @@
                     <DataTemplate>
                         <WrapPanel Height="82" Orientation="Horizontal" MaxWidth="1014" Width="1014">
                             <TextBlock Text="ID" Margin="2,2,0,2" VerticalAlignment="Center" />
-                            <TextBox Text="5431" IsReadOnly="True" Margin="2" TextAlignment="Center" VerticalAlignment="Center" />
+                            <TextBox Text="54321" IsReadOnly="True" Margin="2" TextAlignment="Center" VerticalAlignment="Center" />
                             <TextBlock Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
                             <TextBlock Text="出料單號" VerticalAlignment="Center" />
                             <TextBox Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
@@ -56,7 +56,24 @@
         </Canvas>
 
         <Grid Grid.Row="1" HorizontalAlignment="Left" Height="540" Margin="10,0,0,0" VerticalAlignment="Top" Width="1006">
-            <DataGrid AutoGenerateColumns="False"/>
+            <DataGrid>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="單號" Width="auto" />
+                    <DataGridTextColumn Header="批號" Width="auto" />
+                    <DataGridTextColumn Header="項次" Width="auto" />
+                    <DataGridTextColumn Header="東菊編號" Width="auto" />
+                    <DataGridTextColumn Header="廠商編號" Width="auto" />
+                    <DataGridTextColumn Header="材質" Width="auto" />
+                    <DataGridTextColumn Header="單位重(kg/m)" Width="auto" />
+                    <DataGridTextColumn Header="訂購長度(mm)" Width="auto" />
+                    <DataGridTextColumn Header="下單數量" Width="auto" />
+                    <DataGridTextColumn Header="出貨順序" Width="auto" />
+                    <DataGridTextColumn Header="重量" Width="auto" />
+                    <DataGridTextColumn Header="缺料" Width="auto" />
+                    <DataGridTextColumn Header="收料量" Width="auto" />
+                    <DataGridTextColumn Header="備註" Width="auto" />
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
         
         <Grid Grid.Row="2" HorizontalAlignment="Left" Height="31" Margin="10,0,0,6" VerticalAlignment="Bottom" Width="1006">
