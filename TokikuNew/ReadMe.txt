@@ -53,8 +53,6 @@
 				├ AluminumExtrusionOrderMaterialValuationView.xaml - 鋁擠型材質估價
 				└ AluminumExtrusionOrderMiscellaneousView.xaml - 鋁擠型雜項
 			ProcessingAtlasDetailView.xaml - 鋁擠型加工圖集明細表
-			InvoiceView.xaml - 請款單
-			RecvMaterialView.xaml - 收料單
 		ContactPerson
 			ContactPersonManageView.xaml - 聯絡人管理
 		ControlTables - 管控表
@@ -62,6 +60,9 @@
 			GlassView.xaml - 玻璃管控表
 			HardwareView.xaml - 五金管控表(其他材料)
 			InvoiceViewListView.xaml - 請款單列表
+			InvoiceView.xaml - 請款單
+			RecvMaterialListView.xaml - 收料單列表
+			RecvMaterialView.xaml - 收料單
 			ReturnListView.xaml - 退貨單列表
 			ReturnView.xaml - 退貨單
 			ShippingListView.xaml - 出貨單列表
