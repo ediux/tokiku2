@@ -80,6 +80,9 @@
     <Compile Include="Commands\OpenNewPageContentCommand.cs" />
     <Compile Include="ValueConverters\DateTime2StringFormatingValueConverter.cs" />
     <Compile Include="ValueConverters\ReplyContentValueConverter.cs" />
+    <Compile Include="Views\ControlTables\RecvMaterialListView.xaml.cs">
+      <DependentUpon>RecvMaterialListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Finance\ActualCostsView.xaml.cs">
       <DependentUpon>ActualCostsView.xaml</DependentUpon>
     </Compile>
@@ -164,14 +167,8 @@
     <Compile Include="Frame\StartUpWindow.xaml.cs">
       <DependentUpon>StartUpWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AluminumExtrusion\InvoiceView.xaml.cs">
-      <DependentUpon>InvoiceView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Projects\ProcessingAtlasView.xaml.cs">
       <DependentUpon>ProcessingAtlasView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\AluminumExtrusion\RecvMaterialView.xaml.cs">
-      <DependentUpon>RecvMaterialView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValueConverters\DocumentLifeCycleStateToVisibilityValueConverter.cs" />
     <Compile Include="ValueConverters\NOTGateValueConverter.cs" />
@@ -237,6 +234,10 @@
     <Compile Include="Views\ControlTables\ShippingView.xaml.cs">
       <DependentUpon>ShippingView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\ControlTables\RecvMaterialListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Finance\ActualCostsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -345,10 +346,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AluminumExtrusion\InvoiceView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -362,10 +359,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\Projects\ProcessingAtlasView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\AluminumExtrusion\RecvMaterialView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
