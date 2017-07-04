@@ -164,13 +164,13 @@
     <Compile Include="Frame\StartUpWindow.xaml.cs">
       <DependentUpon>StartUpWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AluminumExtrusion\InvoiceView.xaml.cs">
+    <Compile Include="Views\ControlTables\InvoiceView.xaml.cs">
       <DependentUpon>InvoiceView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Projects\ProcessingAtlasView.xaml.cs">
       <DependentUpon>ProcessingAtlasView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AluminumExtrusion\RecvMaterialView.xaml.cs">
+    <Compile Include="Views\ControlTables\RecvMaterialView.xaml.cs">
       <DependentUpon>RecvMaterialView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValueConverters\DocumentLifeCycleStateToVisibilityValueConverter.cs" />
@@ -345,7 +345,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AluminumExtrusion\InvoiceView.xaml">
+    <Page Include="Views\ControlTables\InvoiceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -365,7 +365,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AluminumExtrusion\RecvMaterialView.xaml">
+    <Page Include="Views\ControlTables\RecvMaterialView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
