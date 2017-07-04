@@ -13,16 +13,16 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right">
-            <Button Content="請款單" x:Name="btn3" Margin="5,0,0,0" />
-            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="請款單列表" x:Name="btn4" Margin="0,0,5,0" />
-            <Button Content="退貨單" x:Name="btn1" Margin="5,0,0,0" />
-            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="退貨單列表" x:Name="btn2" Margin="0,0,5,0" />
-            <Button x:Name="btnAddNewForm" Margin="5,0,0,0" Content="收料單" />
-            <Button Content="&#xE179;" ToolTip="收料單列表" FontFamily="/Resources/#Segoe MDL2 Assets" Margin="0,0,5,0" />
-            <Button Content="出貨單" x:Name="btn5" Margin="5,0,0,0" />
-            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="出貨單列表" x:Name="btn6" Margin="0,0,5,0"/>
+            <Button Content="請款單" x:Name="btn3" Margin="5,0,0,0" Click="Payment_Click" />
+            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="請款單列表" x:Name="btn4" Margin="0,0,5,0"  Click="PaymentList_Click"/>
+            <Button Content="退貨單" x:Name="btn1" Margin="5,0,0,0" Click="Return_Click" />
+            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="退貨單列表" x:Name="btn2" Margin="0,0,5,0"  Click="ReturnList_Click"/>
+            <Button x:Name="btnAddNewForm" Margin="5,0,0,0" Content="收料單" Click="Receive_Click"/>
+            <Button Content="&#xE179;" ToolTip="收料單列表" FontFamily="/Resources/#Segoe MDL2 Assets" Margin="0,0,5,0" Click="ReceiveList_Click"/>
+            <Button Content="出貨單" x:Name="btn5" Margin="5,0,0,0" Click="Shipping_Click"/>
+            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="出貨單列表" x:Name="btn6" Margin="0,0,5,0" Click="ShippingList_Click"/>
             <Button Content="訂製單" Margin="5,0,0,0" Click="Order_Click" />
-            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="加工訂製單列表" Margin="0,0,5,0"  />
+            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="加工訂製單列表" Margin="0,0,5,0"  Click="OrderList_Click" />
         </StackPanel>
         <GroupBox Header="鋁擠型需求" Grid.Row="1" Style="{DynamicResource GroupBox_DocumentEditor}">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
