@@ -14,32 +14,37 @@ namespace Tokiku.ViewModels
             Add(new ConstructionAtlasReplyContextViewModel()
             {
                 Value = 1,
-                Text = "存查"
+                Text = ""
             });
             Add(new ConstructionAtlasReplyContextViewModel()
             {
                 Value = 2,
-                Text = "同意"
+                Text = "存查"
             });
             Add(new ConstructionAtlasReplyContextViewModel()
             {
                 Value = 3,
-                Text = "修正後同意"
+                Text = "同意"
             });
             Add(new ConstructionAtlasReplyContextViewModel()
             {
                 Value = 4,
-                Text = "修正後送審"
+                Text = "修正後同意"
             });
             Add(new ConstructionAtlasReplyContextViewModel()
             {
                 Value = 5,
-                Text = "退件重新送審"
+                Text = "修正後送審"
             });
             Add(new ConstructionAtlasReplyContextViewModel()
             {
                 Value = 6,
-                Text = "其他:輸入文字"
+                Text = "退件重新送審"
+            });
+            Add(new ConstructionAtlasReplyContextViewModel()
+            {
+                Value = 7,
+                Text = "其他"
             });
         }
     }

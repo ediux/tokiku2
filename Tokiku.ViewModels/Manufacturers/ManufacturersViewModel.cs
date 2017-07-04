@@ -557,43 +557,43 @@ namespace Tokiku.ViewModels
         }
         #endregion
 
-        public override void Initialized()
-        {
-#if DEBUG
-            Debug.WriteLine("ManufacturersViewModel initialized.");
-#endif
-            base.Initialized();
+//        public override void Initialized()
+//        {
+//#if DEBUG
+//            Debug.WriteLine("ManufacturersViewModel initialized.");
+//#endif
+//            base.Initialized();
 
-            try
-            {
-                if (controller == null)
-                    controller = new ManufacturersManageController();
+//            try
+//            {
+//                if (controller == null)
+//                    controller = new ManufacturersManageController();
 
-                Id = Guid.NewGuid();
+//                Id = Guid.NewGuid();
 
-                var createnewresult = controller.CreateNew();
+//                var createnewresult = controller.CreateNew();
 
-                if (!createnewresult.HasError)
-                {
-                    var data = createnewresult.Result;
-                    BindingFromModel(data, this);
-                }
+//                if (!createnewresult.HasError)
+//                {
+//                    var data = createnewresult.Result;
+//                    BindingFromModel(data, this);
+//                }
 
-                LastUpdateTime = DateTime.Now;
-                CreateTime = DateTime.Now;
+//                LastUpdateTime = DateTime.Now;
+//                CreateTime = DateTime.Now;
 
-                Contracts = new ContactsViewModelCollection();
-                ManufacturersBussinessItems = new ManufacturersBussinessItemsViewModelColletion();
-                TranscationRecords = new ManufacturersBussinessTranscationsViewModelCollection();
-            }
-            catch (Exception ex)
-            {
+//                Contracts = new ContactsViewModelCollection();
+//                ManufacturersBussinessItems = new ManufacturersBussinessItemsViewModelColletion();
+//                TranscationRecords = new ManufacturersBussinessTranscationsViewModelCollection();
+//            }
+//            catch (Exception ex)
+//            {
 
-                setErrortoModel(this, ex);
-            }
+//                setErrortoModel(this, ex);
+//            }
 
 
-        }
+//        }
 
         public override void SaveModel()
         {
@@ -731,16 +731,16 @@ namespace Tokiku.ViewModels
             }
 
         }
-        public void QueryDetails()
-        {
-            Contracts.ManufacturersId = Id;
-            Contracts.Query("", Id, IsClient);
+        //public void QueryDetails()
+        //{
+        //    Contracts.ManufacturersId = Id;
+        //    Contracts.Query("", Id, IsClient);
 
-            ManufacturersBussinessItems.QueryAsync(Id);
+        //    ManufacturersBussinessItems.QueryAsync(Id);
 
-            TranscationRecords.Query(Id);
+        //    TranscationRecords.Query(Id);
 
-        }
+        //}
         #endregion
 
     }
