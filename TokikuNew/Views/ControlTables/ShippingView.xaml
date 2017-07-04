@@ -70,7 +70,7 @@
                     <DataGridTextColumn Header="出貨順序" Width="auto" />
                     <DataGridTextColumn Header="重量" Width="auto" />
                     <DataGridTextColumn Header="缺料" Width="auto" />
-                    <DataGridTextColumn Header="收料量" Width="auto" />
+                    <DataGridTextColumn Header="出料量" Width="auto" />
                     <DataGridTextColumn Header="備註" Width="auto" />
                 </DataGrid.Columns>
             </DataGrid>
