@@ -5,24 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1024">
+             d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <DataGrid AutoGenerateColumns="False" Margin="5" ItemsSource="{Binding}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="收料單號"/>
-                <DataGridTextColumn Header="出貨單號"/>
-                <DataGridTextColumn Header="廠商收料單號"/>
-                <DataGridTextColumn Header="建單日期"/>
-                <DataGridTextColumn Header="建單人員"/>
-                <DataGridTemplateColumn>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Content="開啟收料單" x:Name="BtnOpen" Click="BtnOpen_Click"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
             
     </Grid>
 </UserControl>

@@ -237,6 +237,9 @@
     <Compile Include="Views\ControlTables\ShippingView.xaml.cs">
       <DependentUpon>ShippingView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ControlTables\RecvMaterialListView.xaml.cs">
+      <DependentUpon>RecvMaterialListView.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\Finance\ActualCostsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -478,6 +481,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ControlTables\ShippingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ControlTables\RecvMaterialListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
