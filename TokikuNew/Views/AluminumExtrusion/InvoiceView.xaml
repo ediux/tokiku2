@@ -4,56 +4,59 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:c="clr-namespace:TokikuNew.Controls"
-  x:Class="TokikuNew.InvoiceView"
+        x:Class="TokikuNew.InvoiceView"
         mc:Ignorable="d"
         Background="{DynamicResource ControlBackgroundBrush}"
-        ToolTip="鋁擠型請款單" Height="756.849" Width="1024">
-    <Grid Margin="0,0,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Left">
-        <Label Content="ID:" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="246,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label Content="請款單號:" HorizontalAlignment="Left" Margin="180,15,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="40,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label Content="*" HorizontalAlignment="Left" Margin="172,15,0,0" VerticalAlignment="Top" Foreground="#FFF70505"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="446,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="99"/>
-        <Label Content="請款廠商:" HorizontalAlignment="Left" Margin="390,15,0,0" VerticalAlignment="Top"/>
-        <Label Content="*" HorizontalAlignment="Left" Margin="382,15,0,0" VerticalAlignment="Top" Foreground="#FFF70505"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="550,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="232"/>
-        <Button Margin="787,12,379,734" RenderTransformOrigin="1.064,0.545"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="867,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="139"/>
-        <Label Content="廠商請款單號:" HorizontalAlignment="Left" Margin="787,15,0,0" VerticalAlignment="Top"/>
-        <GroupBox Header="[相關人員]" HorizontalAlignment="Left" Height="72" Margin="5,42,0,0" VerticalAlignment="Top" Width="1006" Foreground="#FF0D14A6">
-            <Grid HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="996" Margin="0,0,-2,0">
-                <Label Content="輸入人員:" HorizontalAlignment="Left"  Height="22" Margin="2,12,0,0" VerticalAlignment="Top" Foreground="#FF0D14A6"/>
-                <TextBox HorizontalAlignment="Left" Height="24" Margin="59,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
-                <Label Content="建檔日期:" HorizontalAlignment="Left" Margin="157,12,0,0" VerticalAlignment="Top" Foreground="#FF0D14A6"/>
-                <TextBox HorizontalAlignment="Left" Height="24" Margin="214,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="165"/>
-                <Label Content="*" HorizontalAlignment="Left" Margin="384,12,0,0" VerticalAlignment="Top" Foreground="#FFF70505"/>
-                <Label Content="請款人員:" HorizontalAlignment="Left" Margin="393,12,0,0" VerticalAlignment="Top" Foreground="#FF0D14A6"/>
-                <TextBox HorizontalAlignment="Left" Height="24" Margin="450,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
-                <Label Content="*" HorizontalAlignment="Left" Margin="547,12,0,0" VerticalAlignment="Top" Foreground="#FFF70505"/>
-                <Label Content="請款日期:" HorizontalAlignment="Left" Margin="556,13,0,0" VerticalAlignment="Top" Foreground="#FF0D14A6"/>
-                <TextBox HorizontalAlignment="Left" Height="24" Margin="613,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="123"/>
-                <Label Content="*" HorizontalAlignment="Left" Margin="741,12,0,0" VerticalAlignment="Top" Foreground="#FFF70505"/>
-                <Label Content="預計付款日期:" HorizontalAlignment="Left" Margin="750,12,0,0" VerticalAlignment="Top" Foreground="#FF0D14A6"/>
-                <TextBox HorizontalAlignment="Left" Margin="831,8,0,10" TextWrapping="Wrap" Width="155"/>
-            </Grid>
-        </GroupBox>
-        <GroupBox Header="[請款內容]" HorizontalAlignment="Left" Height="72" Margin="5,120,0,0" VerticalAlignment="Top" Width="1006" Foreground="#FF036808">
-            <Grid HorizontalAlignment="Left" Height="33" VerticalAlignment="Top" Width="996" Margin="0,0,-2,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="7*"/>
-                    <ColumnDefinition Width="325*"/>
-                </Grid.ColumnDefinitions>
-                <Label Content="備註:" HorizontalAlignment="Left" Margin="81,12,0,0" VerticalAlignment="Top" Foreground="#FF036808" Grid.Column="1"/>
-                <TextBox HorizontalAlignment="Left" Height="23" Margin="114,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="851" Grid.Column="1"/>
-                <CheckBox Content="預付款專用" HorizontalAlignment="Left" Margin="2,12,0,0" VerticalAlignment="Top" Foreground="#FF036808" Grid.ColumnSpan="2"/>
-            </Grid>
-        </GroupBox>
-        <TabControl Height="435" Margin="0,197,0,0" VerticalAlignment="Top" TabStripPlacement="Bottom" HorizontalContentAlignment="Stretch">
+        ToolTip="鋁擠型請款單" Height="600" Width="1024">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="27" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <Canvas Grid.Row="0" Panel.ZIndex="500">
+            <Expander Canvas.Left="0" VerticalAlignment="Stretch" ExpandDirection="Down" Header="功能區" IsExpanded="False">
+                <Expander.ContentTemplate>
+                    <DataTemplate>
+                        <WrapPanel Height="82" Orientation="Horizontal" MaxWidth="1014" Width="1014">
+                            <TextBlock Text="ID" Margin="2,2,0,2" VerticalAlignment="Center" />
+                            <TextBox Text="54321" IsReadOnly="True" Margin="2" TextAlignment="Center" VerticalAlignment="Center" />
+                            <TextBlock Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                            <TextBlock Text="請款單號" VerticalAlignment="Center" />
+                            <TextBox Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                            <TextBlock Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                            <TextBlock Text="請款廠商" VerticalAlignment="Center" />
+                            <TextBox Width="88" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                            <TextBox Width="165" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                            <TextBlock Text="廠商請款單號" VerticalAlignment="Center" />
+                            <TextBox Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                            <TextBlock Text="輸入人員" VerticalAlignment="Center" />
+                            <TextBox Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                            <TextBlock Text="建檔日期" VerticalAlignment="Center" />
+                            <DatePicker Width="200" VerticalAlignment="Center" Margin="2" />
+                            <TextBlock Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                            <TextBlock Text="請款人員" VerticalAlignment="Center" />
+                            <TextBox Width="100" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                            <TextBlock Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                            <TextBlock Text="請款日期" VerticalAlignment="Center" />
+                            <DatePicker Width="200" VerticalAlignment="Center" Margin="2" />
+                            <TextBlock Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                            <TextBlock Text="預計付款日期" VerticalAlignment="Center" />
+                            <DatePicker Width="200" VerticalAlignment="Center" Margin="2" />
+                            <CheckBox Content="預付款專用" Margin="2,2,4,2" VerticalAlignment="Center" Foreground="#FF036808" />
+                            <TextBlock Text="備註" VerticalAlignment="Center" Foreground="#FF036808" />
+                            <TextBox Width="500" MaxLength="20" VerticalAlignment="Center" Margin="4,2,2,2" />
+                        </WrapPanel>
+                    </DataTemplate>
+                </Expander.ContentTemplate>
+            </Expander>
+        </Canvas>
+
+        <TabControl Grid.Row="1" Height="520" Margin="0,0,0,0" VerticalAlignment="Top" TabStripPlacement="Bottom" HorizontalContentAlignment="Stretch">
             <TabItem Header="收料單勾選" Background="#FFA309BB" Height="30" VerticalAlignment="Top">
 
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid Height="401" Margin="0,0,175,0" VerticalAlignment="Top">
+                    <DataGrid Height="478" Margin="0,0,175,0" VerticalAlignment="Top">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="收料日期"/>
                             <DataGridTextColumn Header="收料單號"/>
@@ -160,7 +163,8 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <Grid HorizontalAlignment="Left" Height="46" Margin="5,681,0,0" VerticalAlignment="Top" Width="1011">
+        
+        <Grid Grid.Row="2" HorizontalAlignment="Left" Height="46" Margin="5,0,0,0" VerticalAlignment="Top" Width="1011">
             <Button Content="顯示總計" Height="36" VerticalAlignment="Bottom" Width="75" Margin="5,0,0,0" HorizontalAlignment="Left" HorizontalContentAlignment="Center"/>
             <Button Content="篩選功能" Height="36" VerticalAlignment="Bottom" Width="75" Margin="85,0,0,0" HorizontalAlignment="Left" HorizontalContentAlignment="Center"/>
             <Label Content="材料 ( " HorizontalAlignment="Left" Height="17" Margin="163,17,0,0" VerticalAlignment="Top" Width="44"/>

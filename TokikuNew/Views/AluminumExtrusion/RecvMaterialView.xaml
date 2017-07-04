@@ -6,8 +6,7 @@
     xmlns:c="clr-namespace:TokikuNew.Controls"
     x:Class="TokikuNew.RecvMaterialView"
         mc:Ignorable="d" Background="{DynamicResource ControlBackgroundBrush}"
-        ToolTip="鋁擠型收料單" Height="600" Width="1024
-        ">
+        ToolTip="鋁擠型收料單" Height="600" Width="1024">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27" />
@@ -91,7 +90,7 @@
         <Grid HorizontalAlignment="Left" Height="301" Margin="10,174,0,0" VerticalAlignment="Top" Width="1006">
 
         </Grid -->
-        <Button x:Name="BtnAddNewForm" Content="產生加工訂製單" HorizontalAlignment="Left" Margin="913,12,0,0" VerticalAlignment="Top" Width="101" Click="BtnAddNewForm_Click"/>
+        <Button x:Name="BtnAddNewForm" Content="產生加工訂製單" HorizontalAlignment="Left" Margin="913,4,0,0" VerticalAlignment="Top" Width="101" Click="BtnAddNewForm_Click"/>
 
 
 
