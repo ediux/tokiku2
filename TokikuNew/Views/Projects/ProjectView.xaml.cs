@@ -207,9 +207,15 @@ namespace TokikuNew.Views
                         addWorkarea = new ClosableTabItem() { Header = Header };
                     }
 
-                    if (btn == "鋁擠型材料總表")
+                    if (btn == "鋁擠型需求")
                     {
-                        Header = "鋁擠型材料總表";
+                        Header = "鋁擠型需求";
+                        addWorkarea = new ClosableTabItem() { Header = Header };
+                    }
+
+                    if (btn == "鋁擠型加工")
+                    {
+                        Header = "鋁擠型加工";
                         addWorkarea = new ClosableTabItem() { Header = Header };
                     }
 
@@ -464,7 +470,7 @@ namespace TokikuNew.Views
                             return;
                         }
 
-                        if (btnContext == "鋁擠型材料總表")
+                        if (btnContext == "鋁擠型需求")
                         {
                             var vm = new ControlTableView() { Margin = new Thickness(0) };
                             addWorkarea.Content = vm;
@@ -472,7 +478,18 @@ namespace TokikuNew.Views
                             InnerWorkspaces.SelectedItem = addWorkarea;
                             return;
                         }
-                        if(btnContext == "異動紀錄")
+
+                        if (btnContext == "鋁擠型加工")
+                        {
+                            var vm = new ControlTableView() { Margin = new Thickness(0) };
+                            addWorkarea.Content = vm;
+                            InnerWorkspaces.Items.Add(addWorkarea);
+                            InnerWorkspaces.SelectedItem = addWorkarea;
+                            return;
+                        }
+
+
+                        if (btnContext == "異動紀錄")
                         {
                             var vm = new ProcessingChangeLogView() { Margin = new Thickness(0) };
                           
