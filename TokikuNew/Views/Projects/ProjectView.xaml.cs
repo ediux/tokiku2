@@ -653,7 +653,7 @@ namespace TokikuNew.Views
                             return;
                         }
 
-                        if (btnContext == "產生收料單")
+                        if (btnContext == "產生收料單" || btnContext == "開啟收料單")
                         {
                             var vm = new RecvMaterialView() { Margin = new Thickness(0) };
                             vm.DataContext = new RecvMaterialViewModelCollection();
