@@ -15,16 +15,16 @@ namespace Tokiku.Entity
     public partial class PromissoryNoteManagement
     {
         public System.Guid Id { get; set; }
-        public Nullable<System.Guid> ProjectContractId { get; set; }
         public byte TicketTypeId { get; set; }
         public float Amount { get; set; }
         public System.DateTime OpenDate { get; set; }
         public Nullable<System.DateTime> RecoveryDate { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
+        public Nullable<System.Guid> ProjectId { get; set; }
     
-        public virtual ProjectContract ProjectContract { get; set; }
         public virtual TicketTypes TicketTypes { get; set; }
         public virtual Users CreateUser { get; set; }
+        public virtual Projects Projects { get; set; }
     }
 }

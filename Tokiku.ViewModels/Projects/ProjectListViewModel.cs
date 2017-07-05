@@ -43,12 +43,13 @@ namespace Tokiku.ViewModels
                     .Select(s => new ProjectListViewModel()
                     {
                         Code = s.Code,
-                        CompletionDate = s.CompletionDate,
+                        CompletionDate = s.PromissoryNoteManagement.Where(k => k.TicketTypeId == 3 || k.TicketTypeId == 4).OrderByDescending(w => w.OpenDate).FirstOrDefault()?.OpenDate,
                         Id = s.Id,
                         Name = s.Name,
                         ShortName = s.ShortName,
                         StartDate = s.StartDate,
-                        State = s.State
+                        State = s.State,
+                        WarrantyDate = s.PromissoryNoteManagement.Where(k => k.TicketTypeId == 3 || k.TicketTypeId == 4).OrderByDescending(w => w.RecoveryDate).FirstOrDefault()?.RecoveryDate
                     });
 
                 foreach (var row in result)
@@ -78,7 +79,8 @@ namespace Tokiku.ViewModels
                         Name = s.Name,
                         ShortName = s.ShortName,
                         StartDate = s.StartDate,
-                        State = s.State
+                        State = s.State,
+                        WarrantyDate = s.WarrantyDate
                     });
 
                 foreach (var row in result)

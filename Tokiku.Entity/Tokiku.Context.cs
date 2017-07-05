@@ -12,8 +12,6 @@ namespace Tokiku.Entity
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Data.Entity.Core.Objects;
-    using System.Linq;
     
     public partial class TokikuEntities : DbContext
     {
@@ -32,9 +30,7 @@ namespace Tokiku.Entity
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<States> States { get; set; }
         public virtual DbSet<Users> Users { get; set; }
-        public virtual DbSet<ShopFlowHistory> ShopFlowHistory { get; set; }
         public virtual DbSet<AccessLog> AccessLog { get; set; }
-        public virtual DbSet<ShopFlowDetail> ShopFlowDetail { get; set; }
         public virtual DbSet<WorkShops> WorkShops { get; set; }
         public virtual DbSet<Contacts> Contacts { get; set; }
         public virtual DbSet<Engineering> Engineering { get; set; }
@@ -64,6 +60,7 @@ namespace Tokiku.Entity
         public virtual DbSet<PurchasingOrder> PurchasingOrder { get; set; }
         public virtual DbSet<BOM> BOM { get; set; }
         public virtual DbSet<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
-    
+        public virtual DbSet<ShopFlowHistory> ShopFlowHistory { get; set; }
+        public virtual DbSet<ShopFlowDetail> ShopFlowDetail { get; set; }
     }
 }

@@ -118,7 +118,7 @@
                         <TextBlock Text="起造日期：" Grid.Row="8" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" />
                         <DatePicker x:Name="StartDate" Grid.Row="8" Grid.Column="1" Margin="1"  Text="{Binding StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=\{0:yyyy年MM月dd日\}}" Style="{DynamicResource ReadModeSwitch_DatePicker}"/>
                         <TextBlock Text="完工日期：" Grid.Row="9" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" />
-                        <DatePicker Style="{DynamicResource ReadModeSwitch_DatePicker}" x:Name="CompletionDate" Grid.Row="9" Grid.Column="1" Margin="1"  Text="{Binding CompletionDate, Mode=TwoWay, StringFormat=\{0:yyyy年MM月dd日\}, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock x:Name="CompletionDate" Grid.Row="9" Grid.Column="1" Margin="1" Text="{Binding CompletionDate, Mode=TwoWay, StringFormat=\{0:yyyy年MM月dd日\}, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBlock Grid.Row="10" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Text="狀態："  Margin="2"/>
                         <ComboBox Style="{DynamicResource ReadModeSwitch_ComboBox}" Grid.Row="10" Grid.Column="1" Margin="2" ItemsSource="{DynamicResource StatesSource}"
                                   SelectedIndex="0"

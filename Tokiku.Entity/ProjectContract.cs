@@ -17,7 +17,6 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ProjectContract()
         {
-            this.PromissoryNoteManagement = new HashSet<PromissoryNoteManagement>();
             this.ProcessingAtlas = new HashSet<ProcessingAtlas>();
             this.Engineering = new HashSet<Engineering>();
         }
@@ -33,8 +32,6 @@ namespace Tokiku.Entity
         public System.Guid CreateUserId { get; set; }
     
         public virtual Users CreateUser { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
         public virtual Projects Projects { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProcessingAtlas> ProcessingAtlas { get; set; }

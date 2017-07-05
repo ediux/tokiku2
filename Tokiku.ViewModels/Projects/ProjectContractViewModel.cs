@@ -389,17 +389,17 @@ namespace Tokiku.ViewModels
 
                   
 
-                    if (data.PromissoryNoteManagement.Any())
-                    {
-                        PromissoryNoteManagement.Clear();
-                        foreach (var row in data.PromissoryNoteManagement)
-                        {
-                            PromissoryNoteManagementViewModel model = new PromissoryNoteManagementViewModel();
-                            model.DoEvents();
-                            model.SetModel(row);
-                            PromissoryNoteManagement.Add(model);
-                        }
-                    }
+                    //if (data.PromissoryNoteManagement.Any())
+                    //{
+                    //    PromissoryNoteManagement.Clear();
+                    //    foreach (var row in data.PromissoryNoteManagement)
+                    //    {
+                    //        PromissoryNoteManagementViewModel model = new PromissoryNoteManagementViewModel();
+                    //        model.DoEvents();
+                    //        model.SetModel(row);
+                    //        PromissoryNoteManagement.Add(model);
+                    //    }
+                    //}
 
                    
 
@@ -427,21 +427,6 @@ namespace Tokiku.ViewModels
             {
                 data.CreateUserId = controller.GetCurrentLoginUser().Result.UserId;
             }
-
-            
-
-            if (PromissoryNoteManagement.Any())
-            {
-                foreach (PromissoryNoteManagementViewModel model in PromissoryNoteManagement)
-                {
-                    PromissoryNoteManagement entity = new PromissoryNoteManagement();
-                    CopyToModel(entity, model);
-                    entity.ProjectContractId = data.Id;
-                    data.PromissoryNoteManagement.Add(entity);
-                }
-            }
-
-          
 
             if (ProcessingAtlas.Any())
             {
