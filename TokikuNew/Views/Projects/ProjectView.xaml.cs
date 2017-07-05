@@ -290,7 +290,7 @@ namespace TokikuNew.Views
                         addWorkarea = new ClosableTabItem() { Header = Header };
                     }
 
-                    if (btn == "產生收料單")
+                    if (btn == "產生收料單" || btn == "開啟收料單")
                     {
                         Header = "收料單";
                         addWorkarea = new ClosableTabItem() { Header = Header };
