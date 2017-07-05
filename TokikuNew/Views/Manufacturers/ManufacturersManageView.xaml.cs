@@ -147,7 +147,7 @@ namespace TokikuNew.Views
                         }
                         break;
                     case DocumentLifeCircle.Save:
-                        if (!SelectedManufacturers.Contracts.Where(w => w.IsDefault == true).Any())
+                        if (SelectedManufacturers.Contracts.Count>0 && !SelectedManufacturers.Contracts.Where(w => w.IsDefault == true).Any())
                         {
                             MessageBox.Show("請勾選預設聯絡人!", "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
                             SelectedManufacturers.Errors = null;
