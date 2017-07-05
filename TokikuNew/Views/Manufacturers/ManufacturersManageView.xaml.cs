@@ -93,7 +93,7 @@ namespace TokikuNew.Views
                 }
 
 
-               
+
             }
             catch (Exception ex)
             {
@@ -102,7 +102,7 @@ namespace TokikuNew.Views
 
         }
 
-    
+
 
         private void tbName_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -357,6 +357,15 @@ namespace TokikuNew.Views
             //Dictionary<GrapeCity.Windows.SpreadSheet.UI.KeyStroke, GrapeCity.Windows.SpreadSheet.UI.SpreadAction> keyMap = BussinessItemSheet.View.KeyMap;
             //keyMap.Add(new GrapeCity.Windows.SpreadSheet.UI.KeyStroke(Key.F12, ModifierKeys.None), new GrapeCity.Windows.SpreadSheet.UI.SpreadAction(OnInsertSumFormula));
         }
-        
+
+        private void checkcopyaddress_Checked(object sender, RoutedEventArgs e)
+        {
+            tbInvoiceAddress.Text = tbAddress.Text;
+        }
+
+        private void checkcopyaddress_Unchecked(object sender, RoutedEventArgs e)
+        {
+            tbInvoiceAddress.Text = string.Empty;
+        }
     }
 }
