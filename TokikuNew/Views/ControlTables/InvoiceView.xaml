@@ -108,11 +108,11 @@
             </Expander>
         </Canvas>
 
-        <TabControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Height="520" Margin="0,0,0,0" VerticalAlignment="Top" TabStripPlacement="Bottom" HorizontalContentAlignment="Stretch">
+        <TabControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Height="560" Margin="0,0,0,0" VerticalAlignment="Top" TabStripPlacement="Bottom" HorizontalContentAlignment="Stretch">
             <TabItem Header="收料單勾選" Background="#FFA309BB" Height="30" VerticalAlignment="Top">
 
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid Height="478" Margin="0,0,175,0" VerticalAlignment="Top">
+                    <DataGrid Height="520" Margin="0,0,175,0" VerticalAlignment="Top">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="收料日期"/>
                             <DataGridTextColumn Header="收料單號"/>
