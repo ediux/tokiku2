@@ -643,7 +643,7 @@ namespace TokikuNew.Views
                         }
                         if (btnContext == "出貨單列表")
                         {
-                            var vm = new AluminumExtrusionOrderListView() { Margin = new Thickness(0) };
+                            var vm = new ShippingMaterialListViewUC() { Margin = new Thickness(0) };
                             vm.DataContext = new ProjectListViewModelCollection();
                             addWorkarea.Content = vm;
                             addWorkarea.Margin = new Thickness(0);
