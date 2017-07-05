@@ -94,6 +94,15 @@ namespace TokikuNew.Views
         }
         #endregion
 
+        public static readonly RoutedEvent DefaultContactChangedEvent = EventManager.RegisterRoutedEvent(
+         "DefaultContactChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ContactPersonManageView));
+
+        public event RoutedEventHandler DefaultContactChanged
+        {
+            add { AddHandler(DefaultContactChangedEvent, value); }
+            remove { RemoveHandler(DefaultContactChangedEvent, value); }
+        }
+
         #region 資料來源副本(廠商/聯絡人)
         public ManufacturersViewModel SelectedManufacturer
         {
@@ -237,7 +246,11 @@ namespace TokikuNew.Views
             }
 
             if (currentrow.IsDefault == false)
+            {
                 currentrow.IsDefault = true;
+                RaiseEvent(new RoutedEventArgs(DefaultContactChangedEvent, currentrow));
+            }
+
 
         }
     }

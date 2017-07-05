@@ -27,6 +27,20 @@ namespace TokikuNew.Views
             InitializeComponent();
         }
 
+        #region Document Mode
+
+
+        public DocumentLifeCircle Mode
+        {
+            get { return (DocumentLifeCircle)GetValue(ModeProperty); }
+            set { SetValue(ModeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Mode.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ModeProperty =
+            DependencyProperty.Register("Mode", typeof(DocumentLifeCircle), typeof(ControlTableView), new PropertyMetadata(DocumentLifeCircle.Read));
+        #endregion
+
         private void Order_Click(object sender, RoutedEventArgs e)
         {
             try

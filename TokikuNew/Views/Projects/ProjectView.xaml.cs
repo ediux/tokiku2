@@ -473,6 +473,7 @@ namespace TokikuNew.Views
                         if (btnContext == "鋁擠型需求")
                         {
                             var vm = new ControlTableView() { Margin = new Thickness(0) };
+                            
                             addWorkarea.Content = vm;
                             InnerWorkspaces.Items.Add(addWorkarea);
                             InnerWorkspaces.SelectedItem = addWorkarea;
