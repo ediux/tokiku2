@@ -16,8 +16,12 @@
             <RowDefinition Height="27"/>
             <RowDefinition Height="27"/>
         </Grid.RowDefinitions>
-        <Canvas Grid.Row="0" Panel.ZIndex="500" Width="{Binding ActualWidth, ElementName=userControl}">
-            <Expander Canvas.Left="0" VerticalAlignment="Stretch" ExpandDirection="Down" Header="功能區" IsExpanded="False">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50*" />
+            <ColumnDefinition Width="50*" />
+        </Grid.ColumnDefinitions>
+        <Canvas Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Panel.ZIndex="500" Width="{Binding ActualWidth, ElementName=userControl}">
+            <Expander Canvas.Left="0" VerticalAlignment="Stretch" ExpandDirection="Down" Header="表頭" IsExpanded="False">
                 <Expander.ContentTemplate>
                     <DataTemplate>
                         <WrapPanel Height="72" Orientation="Horizontal" MaxWidth="1366" Width="1359">
@@ -56,13 +60,67 @@
             </Expander>
         </Canvas>
 
-        <StackPanel x:Name="訂製單內容" Grid.Row="1" Margin="2">
+        <Canvas Grid.Row="0" Grid.Column="1" Panel.ZIndex="499">
+            <Expander Canvas.Right="0" VerticalAlignment="Stretch" ExpandDirection="Left" Header="項目選單" IsExpanded="False">
+                <Expander.ContentTemplate>
+                    <DataTemplate>
+                        <WrapPanel Height="600" Orientation="Horizontal" MaxWidth="600" Width="600">
+                            <DataGrid>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="項次" Width="auto" />
+                                    <DataGridTextColumn Header="東菊編號" Width="auto" />
+                                    <DataGridTextColumn Header="廠商" Width="auto" />
+                                    <DataGridTextColumn Header="廠商編號" Width="auto" />
+                                    <DataGridTextColumn Header="材質" Width="auto" />
+                                    <DataGridTextColumn Header="單位重量(kg/m)" Width="auto" />
+                                    <DataGridTextColumn Header="訂購長度(mm)" Width="auto" />
+                                    <DataGridTemplateColumn >
+                                        <DataGridTemplateColumn.HeaderTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="40"/>
+                                                        <RowDefinition Height="32"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="55"/>
+                                                        <ColumnDefinition Width="55"/>
+                                                        <ColumnDefinition Width="65"/>
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <Border Margin="-5,-5,-5,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0.5" BorderBrush="LightGray" Background="Pink">
+                                                        <TextBlock Text="需求數量" Margin="0" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+                                                    </Border>
+                                                    <Border Margin="-5,0,0,-5" Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
+                                                        <TextBlock FontSize="11" Text="數量小計     (單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                                                    </Border>
+                                                    <Border Margin="0,0,0,-5" Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
+                                                        <TextBlock FontSize="11" Text="重量小計     (單位:kg)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                    <Border Margin="0,0,-5,-5" Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
+                                                        <TextBlock  FontSize="11" Text="未下訂單數量      (單位:支)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.HeaderTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </WrapPanel>
+                    </DataTemplate>
+                </Expander.ContentTemplate>
+            </Expander>
+        </Canvas>
+
+        <StackPanel x:Name="訂製單內容" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="2">
             <!-- 透過程式指定選定頁籤的內容 -->
         </StackPanel>
-        <Button Content="訂製單" Click="訂製單_Click" HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="100" Height="27" Grid.Row="2" Margin="0" />
-        <Button Content="材質估價" Click="材質估價_Click" HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="100" Height="27" Grid.Row="2" Margin="100,0,0,0" />
-        <Button Content="雜項" Click="雜項_Click" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="100" Height="27" Grid.Row="2" Margin="200,0,0,0" />
-        <StatusBar Grid.Row="3">
+        <WrapPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="0">
+            <Button Content="訂製單" Click="訂製單_Click" Width="100" Height="27" />
+            <Button Content="材質估價" Click="材質估價_Click" Width="100" Height="27" />
+            <Button Content="雜項" Click="雜項_Click" Width="100" Height="27" />
+        </WrapPanel>
+        <StatusBar Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
             <StatusBarItem x:Name="SpeardStatusBarItem" Content="就緒" Height="27" VerticalAlignment="Top"/>
         </StatusBar>
     </Grid>
