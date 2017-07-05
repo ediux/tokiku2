@@ -687,6 +687,19 @@ namespace TokikuNew
             }
         }
 
+        // 合約管理按鈕觸發事件
+        private void ContractManagement_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "合約管理"));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+        }
+
         private void Window_Initialized(object sender, EventArgs e)
         {
             try
