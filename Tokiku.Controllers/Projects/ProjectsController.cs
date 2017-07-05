@@ -443,7 +443,8 @@ namespace Tokiku.Controllers
                         State = s.State,
                         StateText = s.States.StateName,
                         StartDate = s.StartDate,
-                        CompletionDate = s.CompletionDate,
+                        CompletionDate = s.PromissoryNoteManagement.Where(k => k.TicketTypeId == 3 || k.TicketTypeId == 4).OrderByDescending(w => w.RecoveryDate).FirstOrDefault().OpenDate,
+                        WarrantyDate = s.PromissoryNoteManagement.Where(k => k.TicketTypeId == 3 || k.TicketTypeId == 4).OrderByDescending(w => w.RecoveryDate).FirstOrDefault().RecoveryDate
                     })
                     .ToList();
 

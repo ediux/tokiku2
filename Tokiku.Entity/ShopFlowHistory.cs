@@ -15,19 +15,13 @@ namespace Tokiku.Entity
     public partial class ShopFlowHistory
     {
         public System.Guid Id { get; set; }
-        public System.Guid EngineeringId { get; set; }
-        public Nullable<System.Guid> ShopId { get; set; }
-        public byte State { get; set; }
-        public System.DateTime CreateTime { get; set; }
-        public System.Guid CreateUserId { get; set; }
-        public Nullable<System.Guid> ShopFlowId { get; set; }
         public Nullable<System.Guid> ShopFlowDetailId { get; set; }
+        public byte State { get; set; }
         public System.DateTime StartTime { get; set; }
         public Nullable<System.DateTime> EndTime { get; set; }
+        public System.Guid CreateUserId { get; set; }
     
         public virtual States States { get; set; }
-        public virtual Users CreateUser { get; set; }
-        public virtual ShopFlowHistory ShopFlowHistory1 { get; set; }
-        public virtual Engineering Engineering { get; set; }
+        public virtual Users Users { get; set; }
     }
 }

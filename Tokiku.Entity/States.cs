@@ -17,19 +17,19 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public States()
         {
-            this.ShopFlowHistory = new HashSet<ShopFlowHistory>();
             this.Engineering = new HashSet<Engineering>();
             this.Projects = new HashSet<Projects>();
+            this.ShopFlowHistory = new HashSet<ShopFlowHistory>();
         }
     
         public byte Id { get; set; }
         public string StateName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ShopFlowHistory> ShopFlowHistory { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Engineering> Engineering { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Projects> Projects { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ShopFlowHistory> ShopFlowHistory { get; set; }
     }
 }

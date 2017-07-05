@@ -14,12 +14,6 @@ namespace Tokiku.Entity
     
     public partial class WorkShops
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public WorkShops()
-        {
-            this.ShopFlowDetail = new HashSet<ShopFlowDetail>();
-        }
-    
         public System.Guid Id { get; set; }
         public string Name { get; set; }
         public Nullable<System.Guid> RefId { get; set; }
@@ -29,8 +23,6 @@ namespace Tokiku.Entity
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ShopFlowDetail> ShopFlowDetail { get; set; }
         public virtual Manufacturers Manufacturers { get; set; }
     }
 }

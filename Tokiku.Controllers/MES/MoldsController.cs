@@ -401,18 +401,32 @@ namespace Tokiku.Controllers
                                 case CellType.Numeric:
                                     var prop_Numeric = dataTypeRef.GetProperty(ColumnMapping[cell.ColumnIndex]);
 
-                                    if (prop_Numeric != null && 
+                                    if (prop_Numeric != null &&
                                         (prop_Numeric.PropertyType == typeof(double)))
                                     {
-                                        //prop_bool.SetValue(fromFileData, cell.BooleanCellValue);
+                                        prop_Numeric.SetValue(fromFileData, cell.NumericCellValue);
+                                    }
+
+                                    if (prop_Numeric != null && (prop_Numeric.PropertyType == typeof(int)))
+                                    {
+                                        prop_Numeric.SetValue(fromFileData, (int)cell.NumericCellValue);
                                     }
                                     break;
                                 case CellType.String:
+                                    var prop_String = dataTypeRef.GetProperty(ColumnMapping[cell.ColumnIndex]);
+
+                                    if (prop_String != null &&
+                                        (prop_String.PropertyType == typeof(string)))
+                                    {
+                                        prop_String.SetValue(fromFileData, cell.StringCellValue);
+                                    }
                                     break;
                                 case CellType.Unknown:
                                     break;
                             }
                         }
+
+                        DestTarget.Add(fromFileData);
                     }
 
                 }
@@ -420,6 +434,52 @@ namespace Tokiku.Controllers
                 var repo = RepositoryHelper.GetMoldsRepository();
                 database = repo.UnitOfWork;
                 Collection<Molds> MoldsSource = new Collection<Molds>(repo.All().ToList());
+
+                var oriMolds = MoldsSource.Select(s => new { s.OpenDate, s.LegendMoldReduction, s.Code, s.ManufacturersId, s.MaterialId, s.UnitWeight });
+                var targetDatabase = MoldsSource.Select(s => new { s.OpenDate, s.LegendMoldReduction, s.Code, s.ManufacturersId, s.MaterialId, s.UnitWeight });
+
+                var toDelBI = oriMolds.Except(targetDatabase).ToList();
+                var toAddBI = targetDatabase.Except(oriMolds).ToList();
+                var samerowsBI = oriMolds.Intersect(targetDatabase).ToList();
+
+
+                Stack<Molds> RemoveStackBI = new Stack<Molds>();
+                Stack<Molds> AddStackBI = new Stack<Molds>();
+
+                bool isuserepo2 = false;
+
+                foreach (var delitem in toDelBI)
+                {
+                    RemoveStackBI.Push(repo.Where(w => w.OpenDate == delitem.OpenDate && w.LegendMoldReduction == delitem.LegendMoldReduction &&
+                    w.Code == delitem.Code && w.ManufacturersId == delitem.ManufacturersId && w.MaterialId == delitem.MaterialId
+                    && w.UnitWeight == delitem.UnitWeight).Single());
+                }
+
+                foreach (var additem in toAddBI)
+                {
+                    AddStackBI.Push(repo.Where(w => w.OpenDate == additem.OpenDate && w.LegendMoldReduction == additem.LegendMoldReduction &&
+                    w.Code == additem.Code && w.ManufacturersId == additem.ManufacturersId && w.MaterialId == additem.MaterialId
+                    && w.UnitWeight == additem.UnitWeight).Single());
+                }
+
+                while (RemoveStackBI.Count > 0)
+                {
+                    isuserepo2 = true;
+                    repo.Delete(RemoveStackBI.Pop());
+                    //dbm.ManufacturersBussinessItems.Remove();
+                }
+
+                while (AddStackBI.Count > 0)
+                {
+                    isuserepo2 = true;
+                    var en = AddStackBI.Pop();
+                    repo.Add(en);
+                    //dbm.ManufacturersBussinessItems.Add(AddStackBI.Pop());
+                }
+
+                if (isuserepo2)
+                    repo.UnitOfWork.Commit();
+                
                 return ExecuteResultEntity<ICollection<Molds>>.CreateResultEntity(MoldsSource);
             }
             catch (Exception ex)

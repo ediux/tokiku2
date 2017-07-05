@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TokikuModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TokikuModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AccessLog">
           <Key>
             <PropertyRef Name="Id" />
@@ -101,12 +101,15 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ProjectId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Code" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="ProjectContractId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LastEngineeringId" Type="uniqueidentifier" />
+          <Property Name="Code" Type="nvarchar" MaxLength="15" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="StartDate" Type="datetime" Nullable="false" />
-          <Property Name="CompletionDate" Type="datetime" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="CompletionDate" Type="datetime" />
           <Property Name="State" Type="tinyint" />
+          <Property Name="Amount" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="Unit" Type="nvarchar" MaxLength="50" />
           <Property Name="CreateTime" Type="datetime" Nullable="false" />
           <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
@@ -395,7 +398,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ProjectContractId" Type="uniqueidentifier" />
+          <Property Name="ProjectId" Type="uniqueidentifier" />
           <Property Name="TicketTypeId" Type="tinyint" Nullable="false" />
           <Property Name="Amount" Type="real" Nullable="false" />
           <Property Name="OpenDate" Type="datetime" Nullable="false" />
@@ -444,7 +447,9 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ShopFlowId" Type="uniqueidentifier" />
-          <Property Name="WorkShopId" Type="uniqueidentifier" />
+          <Property Name="ProcessingAtlasId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CurrentManufacturersId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NextManufacturerId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CreateTime" Type="datetime" Nullable="false" />
           <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
@@ -453,12 +458,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="EngineeringId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ShopId" Type="uniqueidentifier" />
+          <Property Name="ShopFlowDetailId" Type="uniqueidentifier" />
           <Property Name="State" Type="tinyint" Nullable="false" />
-          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="StartTime" Type="datetime" Nullable="false" />
+          <Property Name="EndTime" Type="datetime" />
           <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ShopFlowId" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="States">
           <Key>
@@ -471,12 +475,14 @@
           <Key>
             <PropertyRef Name="ManufacturersBussinessItemsId" />
             <PropertyRef Name="ProjectId" />
+            <PropertyRef Name="NextManufacturersId" />
           </Key>
           <Property Name="ManufacturersBussinessItemsId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ProjectId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="PlaceofReceipt" Type="nvarchar" MaxLength="512" />
           <Property Name="SiteContactPerson" Type="nvarchar" MaxLength="50" />
           <Property Name="SiteContactPersonPhone" Type="nvarchar" MaxLength="10" />
+          <Property Name="NextManufacturersId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="TicketPeriod">
           <Key>
@@ -704,15 +710,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Engineering_Projects">
-          <End Role="Projects" Type="Self.Projects" Multiplicity="1" />
+        <Association Name="FK_Engineering_ProjectContract">
+          <End Role="ProjectContract" Type="Self.ProjectContract" Multiplicity="1" />
           <End Role="Engineering" Type="Self.Engineering" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Projects">
+            <Principal Role="ProjectContract">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Engineering">
-              <PropertyRef Name="ProjectId" />
+              <PropertyRef Name="ProjectContractId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1064,15 +1070,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PromissoryNoteManagement_ProjectContract">
-          <End Role="ProjectContract" Type="Self.ProjectContract" Multiplicity="0..1" />
+        <Association Name="FK_PromissoryNoteManagement_Projects">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="0..1" />
           <End Role="PromissoryNoteManagement" Type="Self.PromissoryNoteManagement" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ProjectContract">
+            <Principal Role="Projects">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="PromissoryNoteManagement">
-              <PropertyRef Name="ProjectContractId" />
+              <PropertyRef Name="ProjectId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1136,6 +1142,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ShopFlowDetail_CurrentManufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="ShopFlowDetail" Type="Self.ShopFlowDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ShopFlowDetail">
+              <PropertyRef Name="CurrentManufacturersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShopFlowDetail_NextManufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="ShopFlowDetail" Type="Self.ShopFlowDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ShopFlowDetail">
+              <PropertyRef Name="NextManufacturerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShopFlowDetail_ProcessingAtlas">
+          <End Role="ProcessingAtlas" Type="Self.ProcessingAtlas" Multiplicity="1" />
+          <End Role="ShopFlowDetail" Type="Self.ShopFlowDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProcessingAtlas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ShopFlowDetail">
+              <PropertyRef Name="ProcessingAtlasId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ShopFlowDetail_ShopFlow">
           <End Role="ShopFlow" Type="Self.ShopFlow" Multiplicity="0..1" />
           <End Role="ShopFlowDetail" Type="Self.ShopFlowDetail" Multiplicity="*" />
@@ -1157,30 +1199,6 @@
             </Principal>
             <Dependent Role="ShopFlowDetail">
               <PropertyRef Name="CreateUserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShopFlowDetail_WorkShops">
-          <End Role="WorkShops" Type="Self.WorkShops" Multiplicity="0..1" />
-          <End Role="ShopFlowDetail" Type="Self.ShopFlowDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="WorkShops">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ShopFlowDetail">
-              <PropertyRef Name="WorkShopId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShopFlowHistory_ShopFlowHistory">
-          <End Role="ShopFlowHistory" Type="Self.ShopFlowHistory" Multiplicity="1" />
-          <End Role="ShopFlowHistory1" Type="Self.ShopFlowHistory" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="ShopFlowHistory">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ShopFlowHistory1">
-              <PropertyRef Name="Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1217,6 +1235,18 @@
             </Principal>
             <Dependent Role="SupplierTranscationItem">
               <PropertyRef Name="ManufacturersBussinessItemsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupplierTranscationItem_NextManufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="SupplierTranscationItem" Type="Self.SupplierTranscationItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SupplierTranscationItem">
+              <PropertyRef Name="NextManufacturersId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1308,28 +1338,24 @@
           <EntitySet Name="UsersInRoles" EntityType="Self.UsersInRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkShops" EntityType="Self.WorkShops" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="View_BussinessItemsList" EntityType="Self.View_BussinessItemsList" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>
-              SELECT
-              [View_BussinessItemsList].[Id] AS [Id],
-              [View_BussinessItemsList].[MaterialCategories] AS [MaterialCategories],
-              [View_BussinessItemsList].[Name] AS [Name],
-              [View_BussinessItemsList].[PaymentTypeName] AS [PaymentTypeName],
-              [View_BussinessItemsList].[TicketPeriod] AS [TicketPeriod],
-              [View_BussinessItemsList].[TranscationCategories] AS [TranscationCategories],
-              [View_BussinessItemsList].[ManufacturersId] AS [ManufacturersId]
-              FROM [dbo].[View_BussinessItemsList] AS [View_BussinessItemsList]
-            </DefiningQuery>
+            <DefiningQuery>SELECT 
+    [View_BussinessItemsList].[Id] AS [Id], 
+    [View_BussinessItemsList].[MaterialCategories] AS [MaterialCategories], 
+    [View_BussinessItemsList].[Name] AS [Name], 
+    [View_BussinessItemsList].[PaymentTypeName] AS [PaymentTypeName], 
+    [View_BussinessItemsList].[TicketPeriod] AS [TicketPeriod], 
+    [View_BussinessItemsList].[TranscationCategories] AS [TranscationCategories], 
+    [View_BussinessItemsList].[ManufacturersId] AS [ManufacturersId]
+    FROM [dbo].[View_BussinessItemsList] AS [View_BussinessItemsList]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="View_ManufacturersBussinessTranscations" EntityType="Self.View_ManufacturersBussinessTranscations" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>
-              SELECT
-              [View_ManufacturersBussinessTranscations].[Id] AS [Id],
-              [View_ManufacturersBussinessTranscations].[Code] AS [Code],
-              [View_ManufacturersBussinessTranscations].[Name] AS [Name],
-              [View_ManufacturersBussinessTranscations].[TranscationItemName] AS [TranscationItemName],
-              [View_ManufacturersBussinessTranscations].[ManufacturersId] AS [ManufacturersId]
-              FROM [dbo].[View_ManufacturersBussinessTranscations] AS [View_ManufacturersBussinessTranscations]
-            </DefiningQuery>
+            <DefiningQuery>SELECT 
+    [View_ManufacturersBussinessTranscations].[Id] AS [Id], 
+    [View_ManufacturersBussinessTranscations].[Code] AS [Code], 
+    [View_ManufacturersBussinessTranscations].[Name] AS [Name], 
+    [View_ManufacturersBussinessTranscations].[TranscationItemName] AS [TranscationItemName], 
+    [View_ManufacturersBussinessTranscations].[ManufacturersId] AS [ManufacturersId]
+    FROM [dbo].[View_ManufacturersBussinessTranscations] AS [View_ManufacturersBussinessTranscations]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK__aspnet_Me__UserI__164452B1" Association="Self.FK__aspnet_Me__UserI__164452B1">
             <End Role="Users" EntitySet="Users" />
@@ -1375,8 +1401,8 @@
             <End Role="Manufacturers" EntitySet="Manufacturers" />
             <End Role="ContractsInManufacturers" EntitySet="ContractsInManufacturers" />
           </AssociationSet>
-          <AssociationSet Name="FK_Engineering_Projects" Association="Self.FK_Engineering_Projects">
-            <End Role="Projects" EntitySet="Projects" />
+          <AssociationSet Name="FK_Engineering_ProjectContract" Association="Self.FK_Engineering_ProjectContract">
+            <End Role="ProjectContract" EntitySet="ProjectContract" />
             <End Role="Engineering" EntitySet="Engineering" />
           </AssociationSet>
           <AssociationSet Name="FK_FormDetails_Forms" Association="Self.FK_FormDetails_Forms">
@@ -1495,8 +1521,8 @@
             <End Role="States" EntitySet="States" />
             <End Role="Projects" EntitySet="Projects" />
           </AssociationSet>
-          <AssociationSet Name="FK_PromissoryNoteManagement_ProjectContract" Association="Self.FK_PromissoryNoteManagement_ProjectContract">
-            <End Role="ProjectContract" EntitySet="ProjectContract" />
+          <AssociationSet Name="FK_PromissoryNoteManagement_Projects" Association="Self.FK_PromissoryNoteManagement_Projects">
+            <End Role="Projects" EntitySet="Projects" />
             <End Role="PromissoryNoteManagement" EntitySet="PromissoryNoteManagement" />
           </AssociationSet>
           <AssociationSet Name="FK_PromissoryNoteManagement_TicketTypes" Association="Self.FK_PromissoryNoteManagement_TicketTypes">
@@ -1519,6 +1545,18 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="PurchasingOrder" EntitySet="PurchasingOrder" />
           </AssociationSet>
+          <AssociationSet Name="FK_ShopFlowDetail_CurrentManufacturers" Association="Self.FK_ShopFlowDetail_CurrentManufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="ShopFlowDetail" EntitySet="ShopFlowDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShopFlowDetail_NextManufacturers" Association="Self.FK_ShopFlowDetail_NextManufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="ShopFlowDetail" EntitySet="ShopFlowDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShopFlowDetail_ProcessingAtlas" Association="Self.FK_ShopFlowDetail_ProcessingAtlas">
+            <End Role="ProcessingAtlas" EntitySet="ProcessingAtlas" />
+            <End Role="ShopFlowDetail" EntitySet="ShopFlowDetail" />
+          </AssociationSet>
           <AssociationSet Name="FK_ShopFlowDetail_ShopFlow" Association="Self.FK_ShopFlowDetail_ShopFlow">
             <End Role="ShopFlow" EntitySet="ShopFlow" />
             <End Role="ShopFlowDetail" EntitySet="ShopFlowDetail" />
@@ -1526,14 +1564,6 @@
           <AssociationSet Name="FK_ShopFlowDetail_Users" Association="Self.FK_ShopFlowDetail_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="ShopFlowDetail" EntitySet="ShopFlowDetail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShopFlowDetail_WorkShops" Association="Self.FK_ShopFlowDetail_WorkShops">
-            <End Role="WorkShops" EntitySet="WorkShops" />
-            <End Role="ShopFlowDetail" EntitySet="ShopFlowDetail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShopFlowHistory_ShopFlowHistory" Association="Self.FK_ShopFlowHistory_ShopFlowHistory">
-            <End Role="ShopFlowHistory" EntitySet="ShopFlowHistory" />
-            <End Role="ShopFlowHistory1" EntitySet="ShopFlowHistory" />
           </AssociationSet>
           <AssociationSet Name="FK_ShopFlowHistory_States" Association="Self.FK_ShopFlowHistory_States">
             <End Role="States" EntitySet="States" />
@@ -1545,6 +1575,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_SupplierTranscationItem_ManufacturersBussinessItems" Association="Self.FK_SupplierTranscationItem_ManufacturersBussinessItems">
             <End Role="ManufacturersBussinessItems" EntitySet="ManufacturersBussinessItems" />
+            <End Role="SupplierTranscationItem" EntitySet="SupplierTranscationItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupplierTranscationItem_NextManufacturers" Association="Self.FK_SupplierTranscationItem_NextManufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
             <End Role="SupplierTranscationItem" EntitySet="SupplierTranscationItem" />
           </AssociationSet>
           <AssociationSet Name="FK_SupplierTranscationItem_Projects" Association="Self.FK_SupplierTranscationItem_Projects">
@@ -1564,8 +1598,7 @@
             <End Role="WorkShops" EntitySet="WorkShops" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TokikuModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1622,9 +1655,9 @@
           </Key>
           <Property Name="Id" Type="Byte" Nullable="false" />
           <Property Name="StateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="ShopFlowHistory" Relationship="TokikuModel.FK_ShopFlowHistory_States" FromRole="States" ToRole="ShopFlowHistory" />
           <NavigationProperty Name="Engineering" Relationship="TokikuModel.FK_Engineering_States" FromRole="States" ToRole="Engineering" />
           <NavigationProperty Name="Projects" Relationship="TokikuModel.FK_Projects_States" FromRole="States" ToRole="Projects" />
+          <NavigationProperty Name="ShopFlowHistory" Relationship="TokikuModel.FK_ShopFlowHistory_States" FromRole="States" ToRole="ShopFlowHistory" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -1639,8 +1672,6 @@
           <NavigationProperty Name="Membership" Relationship="Self.FK__aspnet_Me__UserI__164452B1" FromRole="Users" ToRole="Membership" />
           <NavigationProperty Name="Profile" Relationship="Self.FK__aspnet_Pr__UserI__1FCDBCEB" FromRole="Users" ToRole="Profile" />
           <NavigationProperty Name="Roles" Relationship="Self.UsersInRoles" FromRole="Users" ToRole="Roles" />
-          <NavigationProperty Name="ShopFlowHistory" Relationship="TokikuModel.FK_ShopFlowHistory_Users" FromRole="Users" ToRole="ShopFlowHistory" />
-          <NavigationProperty Name="ShopFlowDetail" Relationship="TokikuModel.FK_ShopFlowDetail_Users" FromRole="Users" ToRole="ShopFlowDetail" />
           <NavigationProperty Name="Materials" Relationship="TokikuModel.FK_Materials_Users" FromRole="Users" ToRole="Materials" />
           <NavigationProperty Name="Molds" Relationship="TokikuModel.FK_Molds_Users" FromRole="Users" ToRole="Molds" />
           <NavigationProperty Name="ProjectContract" Relationship="TokikuModel.FK_ProjectContract_Users" FromRole="Users" ToRole="ProjectContract" />
@@ -1651,6 +1682,8 @@
           <NavigationProperty Name="MaterialEstimation" Relationship="TokikuModel.FK_MaterialEstimation_Users" FromRole="Users" ToRole="MaterialEstimation" />
           <NavigationProperty Name="PurchasingOrder" Relationship="TokikuModel.FK_PurchasingOrder_Users" FromRole="Users" ToRole="PurchasingOrder" />
           <NavigationProperty Name="BOM" Relationship="TokikuModel.FK_BOM_Users" FromRole="Users" ToRole="BOM" />
+          <NavigationProperty Name="ShopFlowHistory" Relationship="TokikuModel.FK_ShopFlowHistory_Users" FromRole="Users" ToRole="ShopFlowHistory" />
+          <NavigationProperty Name="ShopFlowDetail" Relationship="TokikuModel.FK_ShopFlowDetail_Users" FromRole="Users" ToRole="ShopFlowDetail" />
         </EntityType>
         <Association Name="FK__aspnet_Me__UserI__164452B1">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
@@ -1698,30 +1731,8 @@
             <End Role="Roles" EntitySet="Roles" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
-          <EntitySet Name="ShopFlowHistory" EntityType="TokikuModel.ShopFlowHistory" />
-          <AssociationSet Name="FK_ShopFlowHistory_States" Association="TokikuModel.FK_ShopFlowHistory_States">
-            <End Role="States" EntitySet="States" />
-            <End Role="ShopFlowHistory" EntitySet="ShopFlowHistory" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShopFlowHistory_Users" Association="TokikuModel.FK_ShopFlowHistory_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="ShopFlowHistory" EntitySet="ShopFlowHistory" />
-          </AssociationSet>
           <EntitySet Name="AccessLog" EntityType="TokikuModel.AccessLog" />
-          <EntitySet Name="ShopFlowDetail" EntityType="TokikuModel.ShopFlowDetail" />
           <EntitySet Name="WorkShops" EntityType="TokikuModel.WorkShops" />
-          <AssociationSet Name="FK_ShopFlowDetail_Users" Association="TokikuModel.FK_ShopFlowDetail_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="ShopFlowDetail" EntitySet="ShopFlowDetail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShopFlowDetail_WorkShops" Association="TokikuModel.FK_ShopFlowDetail_WorkShops">
-            <End Role="WorkShops" EntitySet="WorkShops" />
-            <End Role="ShopFlowDetail" EntitySet="ShopFlowDetail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShopFlowHistory_ShopFlowHistory" Association="TokikuModel.FK_ShopFlowHistory_ShopFlowHistory">
-            <End Role="ShopFlowHistory" EntitySet="ShopFlowHistory" />
-            <End Role="ShopFlowHistory1" EntitySet="ShopFlowHistory" />
-          </AssociationSet>
           <EntitySet Name="Contacts" EntityType="TokikuModel.Contacts" />
           <EntitySet Name="Engineering" EntityType="TokikuModel.Engineering" />
           <EntitySet Name="Manufacturers" EntityType="TokikuModel.Manufacturers" />
@@ -1742,10 +1753,6 @@
           <AssociationSet Name="FK_ProjectItemCost_Engineering" Association="TokikuModel.FK_ProjectItemCost_Engineering">
             <End Role="Engineering" EntitySet="Engineering" />
             <End Role="ProjectItemCost" EntitySet="ProjectItemCost" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShopFlowHistory_Engineering" Association="TokikuModel.FK_ShopFlowHistory_Engineering">
-            <End Role="Engineering" EntitySet="Engineering" />
-            <End Role="ShopFlowHistory" EntitySet="ShopFlowHistory" />
           </AssociationSet>
           <AssociationSet Name="FK_Manufacturers_PaymentTypes" Association="TokikuModel.FK_Manufacturers_PaymentTypes">
             <End Role="PaymentTypes" EntitySet="PaymentTypes" />
@@ -1787,10 +1794,6 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="ProjectContract" EntitySet="ProjectContract" />
           </AssociationSet>
-          <AssociationSet Name="FK_PromissoryNoteManagement_ProjectContract" Association="TokikuModel.FK_PromissoryNoteManagement_ProjectContract">
-            <End Role="ProjectContract" EntitySet="ProjectContract" />
-            <End Role="PromissoryNoteManagement" EntitySet="PromissoryNoteManagement" />
-          </AssociationSet>
           <AssociationSet Name="FK_ProjectItemCost_Users" Association="TokikuModel.FK_ProjectItemCost_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="ProjectItemCost" EntitySet="ProjectItemCost" />
@@ -1802,10 +1805,6 @@
           <AssociationSet Name="FK_PromissoryNoteManagement_Users" Association="TokikuModel.FK_PromissoryNoteManagement_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="PromissoryNoteManagement" EntitySet="PromissoryNoteManagement" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShopFlowDetail_ShopFlow" Association="TokikuModel.FK_ShopFlowDetail_ShopFlow">
-            <End Role="ShopFlow" EntitySet="ShopFlow" />
-            <End Role="ShopFlowDetail" EntitySet="ShopFlowDetail" />
           </AssociationSet>
           <AssociationSet Name="ContractsInManufacturers" Association="TokikuModel.ContractsInManufacturers">
             <End Role="Contacts" EntitySet="Contacts" />
@@ -1860,10 +1859,6 @@
           <EntitySet Name="Forms" EntityType="TokikuModel.Forms" />
           <EntitySet Name="MaterialEstimation" EntityType="TokikuModel.MaterialEstimation" />
           <EntitySet Name="PurchasingOrder" EntityType="TokikuModel.PurchasingOrder" />
-          <AssociationSet Name="FK_Engineering_Projects" Association="TokikuModel.FK_Engineering_Projects">
-            <End Role="Projects" EntitySet="Projects" />
-            <End Role="Engineering" EntitySet="Engineering" />
-          </AssociationSet>
           <AssociationSet Name="FK_FormDetails_Forms" Association="TokikuModel.FK_FormDetails_Forms">
             <End Role="Forms" EntitySet="Forms" />
             <End Role="FormDetails" EntitySet="FormDetails" />
@@ -1946,47 +1941,49 @@
             <End Role="Manufacturers" EntitySet="Manufacturers" />
             <End Role="ManufacturersBussinessItems" EntitySet="ManufacturersBussinessItems" />
           </AssociationSet>
+          <AssociationSet Name="FK_Engineering_ProjectContract" Association="TokikuModel.FK_Engineering_ProjectContract">
+            <End Role="ProjectContract" EntitySet="ProjectContract" />
+            <End Role="Engineering" EntitySet="Engineering" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupplierTranscationItem_NextManufacturers" Association="TokikuModel.FK_SupplierTranscationItem_NextManufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="SupplierTranscationItem" EntitySet="SupplierTranscationItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PromissoryNoteManagement_Projects" Association="TokikuModel.FK_PromissoryNoteManagement_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="PromissoryNoteManagement" EntitySet="PromissoryNoteManagement" />
+          </AssociationSet>
+          <EntitySet Name="ShopFlowHistory" EntityType="TokikuModel.ShopFlowHistory" />
+          <AssociationSet Name="FK_ShopFlowHistory_States" Association="TokikuModel.FK_ShopFlowHistory_States">
+            <End Role="States" EntitySet="States" />
+            <End Role="ShopFlowHistory" EntitySet="ShopFlowHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShopFlowHistory_Users" Association="TokikuModel.FK_ShopFlowHistory_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ShopFlowHistory" EntitySet="ShopFlowHistory" />
+          </AssociationSet>
+          <EntitySet Name="ShopFlowDetail" EntityType="TokikuModel.ShopFlowDetail" />
+          <AssociationSet Name="FK_ShopFlowDetail_CurrentManufacturers" Association="TokikuModel.FK_ShopFlowDetail_CurrentManufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="ShopFlowDetail" EntitySet="ShopFlowDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShopFlowDetail_NextManufacturers" Association="TokikuModel.FK_ShopFlowDetail_NextManufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="ShopFlowDetail" EntitySet="ShopFlowDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShopFlowDetail_ProcessingAtlas" Association="TokikuModel.FK_ShopFlowDetail_ProcessingAtlas">
+            <End Role="ProcessingAtlas" EntitySet="ProcessingAtlas" />
+            <End Role="ShopFlowDetail" EntitySet="ShopFlowDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShopFlowDetail_ShopFlow" Association="TokikuModel.FK_ShopFlowDetail_ShopFlow">
+            <End Role="ShopFlow" EntitySet="ShopFlow" />
+            <End Role="ShopFlowDetail" EntitySet="ShopFlowDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShopFlowDetail_Users" Association="TokikuModel.FK_ShopFlowDetail_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ShopFlowDetail" EntitySet="ShopFlowDetail" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="ShopFlowHistory">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="EngineeringId" Type="Guid" Nullable="false" />
-          <Property Name="ShopId" Type="Guid" />
-          <Property Name="State" Type="Byte" Nullable="false" />
-          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="States" Relationship="TokikuModel.FK_ShopFlowHistory_States" FromRole="ShopFlowHistory" ToRole="States" />
-          <NavigationProperty Name="CreateUser" Relationship="TokikuModel.FK_ShopFlowHistory_Users" FromRole="ShopFlowHistory" ToRole="Users" />
-          <Property Name="ShopFlowId" Type="Guid" />
-          <NavigationProperty Name="ShopFlowHistory1" Relationship="TokikuModel.FK_ShopFlowHistory_ShopFlowHistory" FromRole="ShopFlowHistory" ToRole="ShopFlowHistory1" />
-          <NavigationProperty Name="Engineering" Relationship="TokikuModel.FK_ShopFlowHistory_Engineering" FromRole="ShopFlowHistory" ToRole="Engineering" />
-        </EntityType>
-        <Association Name="FK_ShopFlowHistory_States">
-          <End Type="TokikuModel.States" Role="States" Multiplicity="1" />
-          <End Type="TokikuModel.ShopFlowHistory" Role="ShopFlowHistory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="States">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ShopFlowHistory">
-              <PropertyRef Name="State" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShopFlowHistory_Users">
-          <End Type="TokikuModel.Users" Role="Users" Multiplicity="1" />
-          <End Type="TokikuModel.ShopFlowHistory" Role="ShopFlowHistory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="ShopFlowHistory">
-              <PropertyRef Name="CreateUserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="AccessLog">
           <Key>
             <PropertyRef Name="Id" />
@@ -1998,19 +1995,6 @@
           <Property Name="ActionCode" Type="Byte" Nullable="false" />
           <Property Name="Reason" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
           <Property Name="DataTableName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="ShopFlowDetail">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="ShopFlowId" Type="Guid" />
-          <Property Name="WorkShopId" Type="Guid" />
-          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="CreateUser" Relationship="TokikuModel.FK_ShopFlowDetail_Users" FromRole="ShopFlowDetail" ToRole="Users" />
-          <NavigationProperty Name="WorkShops" Relationship="TokikuModel.FK_ShopFlowDetail_WorkShops" FromRole="ShopFlowDetail" ToRole="WorkShops" />
-          <NavigationProperty Name="ShopFlow" Relationship="TokikuModel.FK_ShopFlowDetail_ShopFlow" FromRole="ShopFlowDetail" ToRole="ShopFlow" />
         </EntityType>
         <EntityType Name="WorkShops">
           <Key>
@@ -2024,45 +2008,8 @@
           <Property Name="Void" Type="Boolean" Nullable="false" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="ShopFlowDetail" Relationship="TokikuModel.FK_ShopFlowDetail_WorkShops" FromRole="WorkShops" ToRole="ShopFlowDetail" />
           <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_WorkShops_Manufacturers" FromRole="WorkShops" ToRole="Manufacturers" />
         </EntityType>
-        <Association Name="FK_ShopFlowDetail_Users">
-          <End Type="TokikuModel.Users" Role="Users" Multiplicity="1" />
-          <End Type="TokikuModel.ShopFlowDetail" Role="ShopFlowDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="ShopFlowDetail">
-              <PropertyRef Name="CreateUserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShopFlowDetail_WorkShops">
-          <End Type="TokikuModel.WorkShops" Role="WorkShops" Multiplicity="0..1" />
-          <End Type="TokikuModel.ShopFlowDetail" Role="ShopFlowDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="WorkShops">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ShopFlowDetail">
-              <PropertyRef Name="WorkShopId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShopFlowHistory_ShopFlowHistory">
-          <End Type="TokikuModel.ShopFlowHistory" Role="ShopFlowHistory" Multiplicity="1" />
-          <End Type="TokikuModel.ShopFlowHistory" Role="ShopFlowHistory1" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="ShopFlowHistory">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ShopFlowHistory1">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Contacts">
           <Key>
             <PropertyRef Name="Id" />
@@ -2089,18 +2036,20 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="Code" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CompletionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="CompletionDate" Type="DateTime" Precision="3" />
           <Property Name="State" Type="Byte" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="States" Relationship="TokikuModel.FK_Engineering_States" FromRole="Engineering" ToRole="States" />
           <NavigationProperty Name="ProjectItemCost" Relationship="TokikuModel.FK_ProjectItemCost_Engineering" FromRole="Engineering" ToRole="ProjectItemCost" />
-          <NavigationProperty Name="ShopFlowHistory" Relationship="TokikuModel.FK_ShopFlowHistory_Engineering" FromRole="Engineering" ToRole="ShopFlowHistory" />
-          <Property Name="ProjectId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="Projects" Relationship="TokikuModel.FK_Engineering_Projects" FromRole="Engineering" ToRole="Projects" />
+          <Property Name="ProjectContractId" Type="Guid" Nullable="false" />
+          <Property Name="LastEngineeringId" Type="Guid" />
+          <Property Name="Amount" Type="Decimal" Precision="15" Scale="3" />
+          <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProjectContract" Relationship="TokikuModel.FK_Engineering_ProjectContract" FromRole="Engineering" ToRole="ProjectContract" />
         </EntityType>
         <EntityType Name="Manufacturers">
           <Key>
@@ -2142,6 +2091,9 @@
           <NavigationProperty Name="ClientForProjects" Relationship="TokikuModel.ClientsInProjects" FromRole="Manufacturers" ToRole="Projects" />
           <NavigationProperty Name="FormDetails" Relationship="TokikuModel.FK_FormDetails_Manufacturers" FromRole="Manufacturers" ToRole="FormDetails" />
           <NavigationProperty Name="ManufacturersBussinessItems" Relationship="TokikuModel.FK_ManufacturersBussinessItems_Manufacturers" FromRole="Manufacturers" ToRole="ManufacturersBussinessItems" />
+          <NavigationProperty Name="SupplierTranscationItem" Relationship="TokikuModel.FK_SupplierTranscationItem_NextManufacturers" FromRole="Manufacturers" ToRole="SupplierTranscationItem" />
+          <NavigationProperty Name="ShopFlowDetail" Relationship="TokikuModel.FK_ShopFlowDetail_CurrentManufacturers" FromRole="Manufacturers" ToRole="ShopFlowDetail" />
+          <NavigationProperty Name="ShopFlowDetail1" Relationship="TokikuModel.FK_ShopFlowDetail_NextManufacturers" FromRole="Manufacturers" ToRole="ShopFlowDetail" />
         </EntityType>
         <EntityType Name="MaterialCategories">
           <Key>
@@ -2232,9 +2184,9 @@
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="CreateUser" Relationship="TokikuModel.FK_ProjectContract_Users" FromRole="ProjectContract" ToRole="Users" />
-          <NavigationProperty Name="PromissoryNoteManagement" Relationship="TokikuModel.FK_PromissoryNoteManagement_ProjectContract" FromRole="ProjectContract" ToRole="PromissoryNoteManagement" />
           <NavigationProperty Name="Projects" Relationship="TokikuModel.FK_ProjectContract_Projects" FromRole="ProjectContract" ToRole="Projects" />
           <NavigationProperty Name="ProcessingAtlas" Relationship="TokikuModel.FK_ProcessingAtlas_ProjectContract" FromRole="ProjectContract" ToRole="ProcessingAtlas" />
+          <NavigationProperty Name="Engineering" Relationship="TokikuModel.FK_Engineering_ProjectContract" FromRole="ProjectContract" ToRole="Engineering" />
         </EntityType>
         <EntityType Name="ProjectItemCost">
           <Key>
@@ -2262,16 +2214,16 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="ProjectContractId" Type="Guid" />
           <Property Name="TicketTypeId" Type="Byte" Nullable="false" />
           <Property Name="Amount" Type="Single" Nullable="false" />
           <Property Name="OpenDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RecoveryDate" Type="DateTime" Precision="3" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="ProjectContract" Relationship="TokikuModel.FK_PromissoryNoteManagement_ProjectContract" FromRole="PromissoryNoteManagement" ToRole="ProjectContract" />
           <NavigationProperty Name="TicketTypes" Relationship="TokikuModel.FK_PromissoryNoteManagement_TicketTypes" FromRole="PromissoryNoteManagement" ToRole="TicketTypes" />
           <NavigationProperty Name="CreateUser" Relationship="TokikuModel.FK_PromissoryNoteManagement_Users" FromRole="PromissoryNoteManagement" ToRole="Users" />
+          <Property Name="ProjectId" Type="Guid" />
+          <NavigationProperty Name="Projects" Relationship="TokikuModel.FK_PromissoryNoteManagement_Projects" FromRole="PromissoryNoteManagement" ToRole="Projects" />
         </EntityType>
         <EntityType Name="ShopFlow">
           <Key>
@@ -2281,8 +2233,8 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="ShopFlowDetail" Relationship="TokikuModel.FK_ShopFlowDetail_ShopFlow" FromRole="ShopFlow" ToRole="ShopFlowDetail" />
           <NavigationProperty Name="BOM" Relationship="TokikuModel.FK_BOM_ShopFlow" FromRole="ShopFlow" ToRole="BOM" />
+          <NavigationProperty Name="ShopFlowDetail" Relationship="TokikuModel.FK_ShopFlowDetail_ShopFlow" FromRole="ShopFlow" ToRole="ShopFlowDetail" />
         </EntityType>
         <EntityType Name="TicketTypes">
           <Key>
@@ -2315,18 +2267,6 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ProjectItemCost">
-              <PropertyRef Name="EngineeringId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShopFlowHistory_Engineering">
-          <End Type="TokikuModel.Engineering" Role="Engineering" Multiplicity="1" />
-          <End Type="TokikuModel.ShopFlowHistory" Role="ShopFlowHistory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Engineering">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ShopFlowHistory">
               <PropertyRef Name="EngineeringId" />
             </Dependent>
           </ReferentialConstraint>
@@ -2451,18 +2391,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PromissoryNoteManagement_ProjectContract">
-          <End Type="TokikuModel.ProjectContract" Role="ProjectContract" Multiplicity="0..1" />
-          <End Type="TokikuModel.PromissoryNoteManagement" Role="PromissoryNoteManagement" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectContract">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PromissoryNoteManagement">
-              <PropertyRef Name="ProjectContractId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ProjectItemCost_Users">
           <End Type="TokikuModel.Users" Role="Users" Multiplicity="1" />
           <End Type="TokikuModel.ProjectItemCost" Role="ProjectItemCost" Multiplicity="*" />
@@ -2499,18 +2427,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ShopFlowDetail_ShopFlow">
-          <End Type="TokikuModel.ShopFlow" Role="ShopFlow" Multiplicity="0..1" />
-          <End Type="TokikuModel.ShopFlowDetail" Role="ShopFlowDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ShopFlow">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ShopFlowDetail">
-              <PropertyRef Name="ShopFlowId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="ContractsInManufacturers">
           <End Type="TokikuModel.Contacts" Role="Contacts" Multiplicity="*" />
           <End Type="TokikuModel.Manufacturers" Role="Manufacturers" Multiplicity="*" />
@@ -2519,6 +2435,7 @@
           <Key>
             <PropertyRef Name="ManufacturersBussinessItemsId" />
             <PropertyRef Name="ProjectId" />
+            <PropertyRef Name="NextManufacturersId" />
           </Key>
           <Property Name="ManufacturersBussinessItemsId" Type="Guid" Nullable="false" />
           <Property Name="ProjectId" Type="Guid" Nullable="false" />
@@ -2527,6 +2444,8 @@
           <Property Name="SiteContactPerson" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SiteContactPersonPhone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ManufacturersBussinessItems" Relationship="TokikuModel.FK_SupplierTranscationItem_ManufacturersBussinessItems" FromRole="SupplierTranscationItem" ToRole="ManufacturersBussinessItems" />
+          <Property Name="NextManufacturersId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_SupplierTranscationItem_NextManufacturers" FromRole="SupplierTranscationItem" ToRole="Manufacturers" />
         </EntityType>
         <EntityType Name="TicketPeriod">
           <Key>
@@ -2630,9 +2549,9 @@
           <Property Name="SiteContactPerson" Type="String" Unicode="true" FixedLength="false" MaxLength="50" />
           <NavigationProperty Name="MoldsInProjects" Relationship="TokikuModel.FK_MoldsInProjects_Projects" FromRole="Projects" ToRole="MoldsInProjects" />
           <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.ClientsInProjects" FromRole="Projects" ToRole="Manufacturers" />
-          <NavigationProperty Name="Engineering" Relationship="TokikuModel.FK_Engineering_Projects" FromRole="Projects" ToRole="Engineering" />
           <NavigationProperty Name="ConstructionAtlas" Relationship="TokikuModel.FK_ConstructionAtlas_Projects" FromRole="Projects" ToRole="ConstructionAtlas" />
           <Property Name="SitePhone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PromissoryNoteManagement" Relationship="TokikuModel.FK_PromissoryNoteManagement_Projects" FromRole="Projects" ToRole="PromissoryNoteManagement" />
         </EntityType>
         <Association Name="FK_ProjectContract_Projects">
           <End Type="TokikuModel.Projects" Role="Projects" Multiplicity="1" />
@@ -2758,6 +2677,7 @@
           <Property Name="ConstructionOrderChangeDate" Type="DateTime" Precision="0" />
           <Property Name="LastUpdate" Type="DateTime" Precision="0" />
           <NavigationProperty Name="BOM" Relationship="TokikuModel.FK_BOM_ProcessingAtlas" FromRole="ProcessingAtlas" ToRole="BOM" />
+          <NavigationProperty Name="ShopFlowDetail" Relationship="TokikuModel.FK_ShopFlowDetail_ProcessingAtlas" FromRole="ProcessingAtlas" ToRole="ShopFlowDetail" />
         </EntityType>
         <Association Name="FK_ProcessingAtlas_ProjectContract">
           <End Type="TokikuModel.ProjectContract" Role="ProjectContract" Multiplicity="1" />
@@ -2850,18 +2770,6 @@
           <NavigationProperty Name="Materials" Relationship="TokikuModel.FK_PurchasingOrder_Materials" FromRole="PurchasingOrder" ToRole="Materials" />
           <NavigationProperty Name="Users" Relationship="TokikuModel.FK_PurchasingOrder_Users" FromRole="PurchasingOrder" ToRole="Users" />
         </EntityType>
-        <Association Name="FK_Engineering_Projects">
-          <End Type="TokikuModel.Projects" Role="Projects" Multiplicity="1" />
-          <End Type="TokikuModel.Engineering" Role="Engineering" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Projects">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Engineering">
-              <PropertyRef Name="ProjectId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_FormDetails_Forms">
           <End Type="TokikuModel.Forms" Role="Forms" Multiplicity="0..1" />
           <End Type="TokikuModel.FormDetails" Role="FormDetails" Multiplicity="*" />
@@ -3148,6 +3056,156 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Engineering_ProjectContract">
+          <End Type="TokikuModel.ProjectContract" Role="ProjectContract" Multiplicity="1" />
+          <End Type="TokikuModel.Engineering" Role="Engineering" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectContract">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Engineering">
+              <PropertyRef Name="ProjectContractId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupplierTranscationItem_NextManufacturers">
+          <End Type="TokikuModel.Manufacturers" Role="Manufacturers" Multiplicity="1" />
+          <End Type="TokikuModel.SupplierTranscationItem" Role="SupplierTranscationItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SupplierTranscationItem">
+              <PropertyRef Name="NextManufacturersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PromissoryNoteManagement_Projects">
+          <End Type="TokikuModel.Projects" Role="Projects" Multiplicity="0..1" />
+          <End Type="TokikuModel.PromissoryNoteManagement" Role="PromissoryNoteManagement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PromissoryNoteManagement">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ShopFlowHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ShopFlowDetailId" Type="Guid" />
+          <Property Name="State" Type="Byte" Nullable="false" />
+          <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndTime" Type="DateTime" Precision="3" />
+          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="States" Relationship="TokikuModel.FK_ShopFlowHistory_States" FromRole="ShopFlowHistory" ToRole="States" />
+          <NavigationProperty Name="Users" Relationship="TokikuModel.FK_ShopFlowHistory_Users" FromRole="ShopFlowHistory" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_ShopFlowHistory_States">
+          <End Type="TokikuModel.States" Role="States" Multiplicity="1" />
+          <End Type="TokikuModel.ShopFlowHistory" Role="ShopFlowHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="States">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ShopFlowHistory">
+              <PropertyRef Name="State" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShopFlowHistory_Users">
+          <End Type="TokikuModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="TokikuModel.ShopFlowHistory" Role="ShopFlowHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ShopFlowHistory">
+              <PropertyRef Name="CreateUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ShopFlowDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ShopFlowId" Type="Guid" />
+          <Property Name="ProcessingAtlasId" Type="Guid" Nullable="false" />
+          <Property Name="CurrentManufacturersId" Type="Guid" Nullable="false" />
+          <Property Name="NextManufacturerId" Type="Guid" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_ShopFlowDetail_CurrentManufacturers" FromRole="ShopFlowDetail" ToRole="Manufacturers" />
+          <NavigationProperty Name="Manufacturers1" Relationship="TokikuModel.FK_ShopFlowDetail_NextManufacturers" FromRole="ShopFlowDetail" ToRole="Manufacturers" />
+          <NavigationProperty Name="ProcessingAtlas" Relationship="TokikuModel.FK_ShopFlowDetail_ProcessingAtlas" FromRole="ShopFlowDetail" ToRole="ProcessingAtlas" />
+          <NavigationProperty Name="ShopFlow" Relationship="TokikuModel.FK_ShopFlowDetail_ShopFlow" FromRole="ShopFlowDetail" ToRole="ShopFlow" />
+          <NavigationProperty Name="Users" Relationship="TokikuModel.FK_ShopFlowDetail_Users" FromRole="ShopFlowDetail" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_ShopFlowDetail_CurrentManufacturers">
+          <End Type="TokikuModel.Manufacturers" Role="Manufacturers" Multiplicity="1" />
+          <End Type="TokikuModel.ShopFlowDetail" Role="ShopFlowDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ShopFlowDetail">
+              <PropertyRef Name="CurrentManufacturersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShopFlowDetail_NextManufacturers">
+          <End Type="TokikuModel.Manufacturers" Role="Manufacturers" Multiplicity="1" />
+          <End Type="TokikuModel.ShopFlowDetail" Role="ShopFlowDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ShopFlowDetail">
+              <PropertyRef Name="NextManufacturerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShopFlowDetail_ProcessingAtlas">
+          <End Type="TokikuModel.ProcessingAtlas" Role="ProcessingAtlas" Multiplicity="1" />
+          <End Type="TokikuModel.ShopFlowDetail" Role="ShopFlowDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProcessingAtlas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ShopFlowDetail">
+              <PropertyRef Name="ProcessingAtlasId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShopFlowDetail_ShopFlow">
+          <End Type="TokikuModel.ShopFlow" Role="ShopFlow" Multiplicity="0..1" />
+          <End Type="TokikuModel.ShopFlowDetail" Role="ShopFlowDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShopFlow">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ShopFlowDetail">
+              <PropertyRef Name="ShopFlowId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShopFlowDetail_Users">
+          <End Type="TokikuModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="TokikuModel.ShopFlowDetail" Role="ShopFlowDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ShopFlowDetail">
+              <PropertyRef Name="CreateUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3221,19 +3279,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ShopFlowHistory">
-            <EntityTypeMapping TypeName="IsTypeOf(TokikuModel.ShopFlowHistory)">
-              <MappingFragment StoreEntitySet="ShopFlowHistory">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="EngineeringId" ColumnName="EngineeringId" />
-                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
-                <ScalarProperty Name="ShopFlowId" ColumnName="ShopFlowId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AccessLog">
             <EntityTypeMapping TypeName="IsTypeOf(TokikuModel.AccessLog)">
               <MappingFragment StoreEntitySet="AccessLog">
@@ -3244,17 +3289,6 @@
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="ActionCode" ColumnName="ActionCode" />
                 <ScalarProperty Name="Reason" ColumnName="Reason" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ShopFlowDetail">
-            <EntityTypeMapping TypeName="IsTypeOf(TokikuModel.ShopFlowDetail)">
-              <MappingFragment StoreEntitySet="ShopFlowDetail">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ShopFlowId" ColumnName="ShopFlowId" />
-                <ScalarProperty Name="WorkShopId" ColumnName="WorkShopId" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3296,7 +3330,10 @@
           <EntitySetMapping Name="Engineering">
             <EntityTypeMapping TypeName="IsTypeOf(TokikuModel.Engineering)">
               <MappingFragment StoreEntitySet="Engineering">
-                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="LastEngineeringId" ColumnName="LastEngineeringId" />
+                <ScalarProperty Name="ProjectContractId" ColumnName="ProjectContractId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -3442,8 +3479,8 @@
           <EntitySetMapping Name="PromissoryNoteManagement">
             <EntityTypeMapping TypeName="IsTypeOf(TokikuModel.PromissoryNoteManagement)">
               <MappingFragment StoreEntitySet="PromissoryNoteManagement">
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ProjectContractId" ColumnName="ProjectContractId" />
                 <ScalarProperty Name="TicketTypeId" ColumnName="TicketTypeId" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="OpenDate" ColumnName="OpenDate" />
@@ -3493,6 +3530,7 @@
           <EntitySetMapping Name="SupplierTranscationItem">
             <EntityTypeMapping TypeName="TokikuModel.SupplierTranscationItem">
               <MappingFragment StoreEntitySet="SupplierTranscationItem">
+                <ScalarProperty Name="NextManufacturersId" ColumnName="NextManufacturersId" />
                 <ScalarProperty Name="SiteContactPersonPhone" ColumnName="SiteContactPersonPhone" />
                 <ScalarProperty Name="SiteContactPerson" ColumnName="SiteContactPerson" />
                 <ScalarProperty Name="PlaceofReceipt" ColumnName="PlaceofReceipt" />
@@ -3740,6 +3778,31 @@
                 <ScalarProperty Name="PaymentTypeId" ColumnName="PaymentTypeId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="MaterialCategoriesId" ColumnName="MaterialCategoriesId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShopFlowHistory">
+            <EntityTypeMapping TypeName="TokikuModel.ShopFlowHistory">
+              <MappingFragment StoreEntitySet="ShopFlowHistory">
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="ShopFlowDetailId" ColumnName="ShopFlowDetailId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShopFlowDetail">
+            <EntityTypeMapping TypeName="TokikuModel.ShopFlowDetail">
+              <MappingFragment StoreEntitySet="ShopFlowDetail">
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="NextManufacturerId" ColumnName="NextManufacturerId" />
+                <ScalarProperty Name="CurrentManufacturersId" ColumnName="CurrentManufacturersId" />
+                <ScalarProperty Name="ProcessingAtlasId" ColumnName="ProcessingAtlasId" />
+                <ScalarProperty Name="ShopFlowId" ColumnName="ShopFlowId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -18,7 +18,6 @@ namespace Tokiku.Entity
         public Engineering()
         {
             this.ProjectItemCost = new HashSet<ProjectItemCost>();
-            this.ShopFlowHistory = new HashSet<ShopFlowHistory>();
         }
     
         public System.Guid Id { get; set; }
@@ -29,7 +28,6 @@ namespace Tokiku.Entity
         public Nullable<byte> State { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
-        public System.Guid ProjectId { get; set; }
         public System.Guid ProjectContractId { get; set; }
         public Nullable<System.Guid> LastEngineeringId { get; set; }
         public Nullable<decimal> Amount { get; set; }
@@ -38,9 +36,6 @@ namespace Tokiku.Entity
         public virtual States States { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectItemCost> ProjectItemCost { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ShopFlowHistory> ShopFlowHistory { get; set; }
-        public virtual Projects Projects { get; set; }
         public virtual ProjectContract ProjectContract { get; set; }
     }
 }
