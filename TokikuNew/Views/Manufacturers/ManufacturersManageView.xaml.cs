@@ -158,6 +158,21 @@ namespace TokikuNew.Views
                             break;
                         }
 
+                        var maincontact = SelectedManufacturers.Contracts.Where(w => w.IsDefault == true).SingleOrDefault();
+                        if (maincontact != null)
+                        {
+                            tblMainContractPerson.Text = maincontact.Name;
+                            tblExt.Text = maincontact.ExtensionNumber;
+                            tbMobile.Text = maincontact.Mobile;
+                        }
+                        else
+                        {
+                            tblMainContractPerson.Text = string.Empty;
+                            tblExt.Text = string.Empty;
+                            tbMobile.Text = string.Empty;
+
+                        }
+
                         if (SelectedManufacturers.Status.IsNewInstance)
                         {
                             RaiseEvent(new RoutedEventArgs(ClosableTabItem.OnPageClosingEvent, this));
