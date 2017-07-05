@@ -88,16 +88,15 @@
                     </DataGridTemplateColumn -->
                     <DataGridTextColumn Header="異動人員" Binding="{Binding CreateUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
                     <DataGridTextColumn Header="承攬總價" Width="auto" />
-                    <DataGridTemplateColumn Width="auto">
+                    <!-- DataGridTemplateColumn Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" DataContext="{Binding}">
                                     <Button Content="合約管理" Click="ContractManagement_Click" Margin="5,0" />
-                                    <!-- Button Content="加工圖集" x:Name="btnProcessAltas" Click="btnProcessAltas_Click" Margin="5,0" / -->
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                    </DataGridTemplateColumn -->
                 </Controls:CustomDataGrid.Columns>
             </Controls:CustomDataGrid>
         </GroupBox>
