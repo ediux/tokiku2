@@ -201,6 +201,7 @@
 
                     <TextBlock Text="行動電話：" Grid.Row="0" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
                     <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="0" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                             x:Name="tbMobile"
                             IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              MaxLength="10" Text="{Binding Mobile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <Grid Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2">
@@ -211,13 +212,13 @@
                             <ColumnDefinition Width="30*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="主要聯絡人：" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                        <TextBlock Text="{Binding MainContactPerson,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" VerticalAlignment="Center" Margin="2" />
+                        <TextBlock x:Name="tblMainContractPerson" Grid.Column="1" VerticalAlignment="Center" Margin="2" />
                         <TextBlock Text="分機：" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                        <TextBlock Text="{Binding Extension,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" VerticalAlignment="Center" Margin="2" />
+                        <TextBlock x:Name="tblExt" Grid.Column="3" VerticalAlignment="Center" Margin="2" />
                     </Grid>
 
                     <TextBlock Text="e-mail：" Grid.Row="2" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
-                    <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" Margin="2" Text="{Binding eMail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Style="{DynamicResource ReadModeSwitch}" x:Name="TBEmail" Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" Margin="2" Text="{Binding eMail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <TextBlock Text="備註" Grid.Row="3" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
                     <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="3" Grid.Column="4" VerticalAlignment="Stretch" Margin="2" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
@@ -237,7 +238,7 @@
                 </Grid>
             </GroupBox>
             <GroupBox Header="相關聯絡人" Grid.Row="1" Margin="2">
-                <local:ContactPersonManageView DataContext="{Binding Contracts}" SelectedManufacturer="{Binding DataContext, ElementName=userControl_ManufacturersManageView}"  Mode="{Binding Path=Mode, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <local:ContactPersonManageView DataContext="{Binding Contracts}" SelectedManufacturer="{Binding DataContext, ElementName=userControl_ManufacturersManageView}"  Mode="{Binding Path=Mode, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DefaultContactChanged="ContactPersonManageView_DefaultContactChanged" />
             </GroupBox>
         </Grid>
         <Grid Grid.Column="1">

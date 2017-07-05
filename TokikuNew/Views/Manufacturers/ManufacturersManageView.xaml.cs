@@ -83,13 +83,19 @@ namespace TokikuNew.Views
                 var maincontact = ((ManufacturersViewModel)DataContext).Contracts.Where(w => w.IsDefault == true).SingleOrDefault();
                 if (maincontact != null)
                 {
-                    ((ManufacturersViewModel)DataContext).MainContactPerson = maincontact.Name;
-                    ((ManufacturersViewModel)DataContext).Extension = maincontact.ExtensionNumber;
+                    tblMainContractPerson.Text = maincontact.Name;
+                    tblExt.Text = maincontact.ExtensionNumber;
+                    tbMobile.Text = maincontact.Mobile;
+                    TBEmail.Text = maincontact.EMail;
+                    //((ManufacturersViewModel)DataContext).MainContactPerson = maincontact.Name;
+                    //((ManufacturersViewModel)DataContext).Extension = maincontact.ExtensionNumber;
                 }
                 else
                 {
-                    ((ManufacturersViewModel)DataContext).MainContactPerson = string.Empty;
-                    ((ManufacturersViewModel)DataContext).Extension = string.Empty;
+                    tblMainContractPerson.Text = string.Empty ;
+                    tblExt.Text = string.Empty;
+                    tbMobile.Text = string.Empty;
+                    TBEmail.Text = string.Empty;
                 }
 
 
@@ -366,6 +372,19 @@ namespace TokikuNew.Views
         private void checkcopyaddress_Unchecked(object sender, RoutedEventArgs e)
         {
             tbInvoiceAddress.Text = string.Empty;
+        }
+
+        private void ContactPersonManageView_DefaultContactChanged(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
+            ContactsViewModel defaultcontractperson = (ContactsViewModel)e.OriginalSource;
+            if (defaultcontractperson != null)
+            {
+                tblMainContractPerson.Text = defaultcontractperson.Name;
+                tblExt.Text = defaultcontractperson.ExtensionNumber;
+                tbMobile.Text = defaultcontractperson.Mobile;
+                TBEmail.Text = defaultcontractperson.EMail;
+            }
         }
     }
 }
