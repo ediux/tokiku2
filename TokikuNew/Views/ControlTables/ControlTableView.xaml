@@ -27,6 +27,9 @@
         <GroupBox Header="{Binding Path=Header, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabItem}}}" Grid.Row="1" Style="{DynamicResource GroupBox_DocumentEditor}">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                 <DataGrid>
+                    <DataGrid.Resources>
+                        <local:ColumnVisibilityConverter x:Key="ColumnVisibilityConverter"/>
+                    </DataGrid.Resources>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="項次" Width="auto" />
                         <DataGridTextColumn Header="東菊編號" Width="auto" />
@@ -35,11 +38,10 @@
                         <DataGridTextColumn Header="材質" Width="auto" />
                         <DataGridTextColumn Header="單位重量(kg/m)" Width="auto" />
                         <DataGridTextColumn Header="訂購長度(mm)" Width="auto"/>
-                        <DataGridTemplateColumn>
+                        <DataGridTemplateColumn Visibility="{Binding Path=Header, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabItem}}, Converter={StaticResource ColumnVisibilityConverter}}">
                             <DataGridTemplateColumn.HeaderTemplate>
                                 <DataTemplate>
                                     <Grid>
-                                       
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="40"/>
                                             <RowDefinition Height="32"/>
