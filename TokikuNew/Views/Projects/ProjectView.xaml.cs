@@ -644,7 +644,7 @@ namespace TokikuNew.Views
                         if (btnContext == "出貨單列表")
                         {
                             var vm = new ShippingMaterialListViewUC() { Margin = new Thickness(0) };
-                            vm.DataContext = new ProjectListViewModelCollection();
+                            vm.DataContext = new ShippingMaterialListViewModelCollection();
                             addWorkarea.Content = vm;
                             addWorkarea.Margin = new Thickness(0);
 
@@ -656,7 +656,7 @@ namespace TokikuNew.Views
                         if (btnContext == "產生收料單")
                         {
                             var vm = new RecvMaterialView() { Margin = new Thickness(0) };
-                            vm.DataContext = new ProjectListViewModelCollection();
+                            vm.DataContext = new RecvMaterialViewModelCollection();
                             addWorkarea.Content = vm;
                             addWorkarea.Margin = new Thickness(0);
 
@@ -668,7 +668,7 @@ namespace TokikuNew.Views
                         if (btnContext == "收料單列表")
                         {
                             var vm = new RecvMaterialListView() { Margin = new Thickness(0) };
-                            vm.DataContext = new ProjectListViewModelCollection();
+                            vm.DataContext = new RecvMaterialListViewModelCollection();
                             addWorkarea.Content = vm;
                             addWorkarea.Margin = new Thickness(0);
 
