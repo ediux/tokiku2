@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AluminumExtrusionOrderController.cs" />
+    <Compile Include="AluminumExtrusionOrderListController.cs" />
     <Compile Include="AluminumExtrusionOrderMaterialValuationController.cs" />
     <Compile Include="AluminumExtrusionOrderMiscellaneousController.cs" />
     <Compile Include="Finance\PromissoryNoteManagementViewModelController.cs" />
@@ -77,6 +78,8 @@
     <Compile Include="Manufacturers\ClientController.cs" />
     <Compile Include="Projects\ProcessingAtlasController.cs" />
     <Compile Include="Projects\EngineeringController.cs" />
+    <Compile Include="RecvMaterialController.cs" />
+    <Compile Include="RecvMaterialListController.cs" />
     <Compile Include="Shared\IBaseController.cs" />
     <Compile Include="Shared\LoginParameter.cs" />
     <Compile Include="Main\MainWindowController.cs" />
@@ -93,6 +96,7 @@
     <Compile Include="Shared\StateController.cs" />
     <Compile Include="Projects\SuppliersController.cs" />
     <Compile Include="Shared\SystemController.cs" />
+    <Compile Include="ShippingMaterialListController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

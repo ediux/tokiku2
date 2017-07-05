@@ -97,7 +97,6 @@ namespace TokikuNew.Views
                         {
                             MessageBox.Show(string.Join("\n", dataset.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
                             dataset.Errors = null;
-                            //Mode = dockBar.LastState;
                             break;
                         }
 
@@ -227,7 +226,6 @@ namespace TokikuNew.Views
                 if (e.OriginalSource is ProjectContractViewModel)
                 {
                     ProjectContractViewModel disableContract = (ProjectContractViewModel)e.OriginalSource;
-                    //projectcontroll.Delete(disableContract);
                     UpdateLayout();
                 }
             }

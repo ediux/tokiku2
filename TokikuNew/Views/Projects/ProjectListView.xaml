@@ -35,6 +35,7 @@
                                  AlternatingRowBackground="AliceBlue"  AlternationCount="2"
                                  CanUserAddRows="False"
                                  CanUserDeleteRows="False"
+                                 CanUserSortColumns="False"                                 
                                  IsReadOnly="True"
                                  MouseDoubleClick="ProjectList_MouseDoubleClick"
                                  AllowExecuteSystemCommand="False">

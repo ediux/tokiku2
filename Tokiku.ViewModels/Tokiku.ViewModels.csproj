@@ -45,6 +45,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AluminumExtrusionOrderListViewModel.cs" />
     <Compile Include="AluminumExtrusionOrderMaterialValuationViewModel.cs" />
     <Compile Include="AluminumExtrusionOrderMiscellaneousViewModel.cs" />
     <Compile Include="AluminumExtrusionOrderViewModel.cs" />
@@ -87,8 +88,11 @@
     <Compile Include="Base\IBaseViewModelWithLoginedUser.cs" />
     <Compile Include="Base\IToolbarButtonsViewModel.cs" />
     <Compile Include="Manufacturers\TranscationCategoriesViewModel.cs" />
+    <Compile Include="RecvMaterialListViewModel.cs" />
+    <Compile Include="RecvMaterialViewModel.cs" />
     <Compile Include="Shared\AccessLogViewModel.cs" />
     <Compile Include="Shared\AccessLogViewModelCollection.cs" />
+    <Compile Include="ShippingMaterialListViewModel.cs" />
     <Compile Include="Users\LoginViewModel.cs" />
     <Compile Include="Main\MainViewModel.cs" />
     <Compile Include="Projects\ProjectsViewModel.cs" />
