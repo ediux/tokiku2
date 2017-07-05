@@ -697,7 +697,11 @@ namespace Tokiku.ViewModels
                 if (!QueryResult.HasError)
                 {
                     var data = QueryResult.Result.SingleOrDefault();
+
                     BindingFromModel(data, this);
+                    CompletionDate = data.PromissoryNoteManagement.Where(w => w.TicketTypeId == 3 || w.TicketTypeId == 4).OrderBy(o=>o.OpenDate).FirstOrDefault()?.OpenDate;
+                    WarrantyStartDate = data.PromissoryNoteManagement.Where(w => w.TicketTypeId == 3 || w.TicketTypeId == 4).OrderByDescending(o=>o.OpenDate).FirstOrDefault()?.OpenDate;
+                    WarrantyDate = data.PromissoryNoteManagement.Where(w => w.TicketTypeId == 3 || w.TicketTypeId == 4).OrderByDescending(o => o.RecoveryDate).FirstOrDefault()?.RecoveryDate;
 
                     if (data.ClientId.HasValue)
                         Client.QueryModel(data.ClientId.Value);

@@ -192,6 +192,7 @@ namespace Tokiku.ViewModels
             if (!result.HasError)
             {
                 BindingFromModel(result.Result, this);
+               
 
                 if (CompletionDate.HasValue == false)
                 {
