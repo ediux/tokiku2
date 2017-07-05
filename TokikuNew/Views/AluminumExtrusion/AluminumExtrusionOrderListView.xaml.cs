@@ -30,7 +30,7 @@ namespace TokikuNew.Views
         {
             try
             {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "開啟出貨單"));
+                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "開啟訂製單"));
             }
             catch (Exception ex)
             {
