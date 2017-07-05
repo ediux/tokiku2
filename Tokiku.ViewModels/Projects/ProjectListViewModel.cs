@@ -37,8 +37,8 @@ namespace Tokiku.ViewModels
             if (!projectResult.HasError)
             {
                 Clear();
-                var result = projectResult.Result 
-                    .OrderByDescending(s=>s.Code)
+                var result = projectResult.Result
+                    .OrderByDescending(s => s.Code)
                     .OrderBy(s => s.State)
                     .Select(s => new ProjectListViewModel()
                     {
@@ -66,8 +66,9 @@ namespace Tokiku.ViewModels
                 Clear();
                 var result = projectResult.Result
                     .Where(s => s.Code.Contains(text)
-                     || s.Name.Contains(text)
+                    || s.Name.Contains(text)
                     || (s.ShortName != null && s.ShortName.Contains(text)))
+                    .OrderByDescending(s => s.Code)
                     .OrderBy(s => s.State)
                     .Select(s => new ProjectListViewModel()
                     {
@@ -78,7 +79,6 @@ namespace Tokiku.ViewModels
                         ShortName = s.ShortName,
                         StartDate = s.StartDate,
                         State = s.State
-                        
                     });
 
                 foreach (var row in result)
