@@ -90,8 +90,6 @@
         <AssociationConnector Association="TokikuModel.FK_ManufacturersBussinessItems_Manufacturers" />
         <AssociationConnector Association="TokikuModel.FK_Engineering_ProjectContract" />
         <AssociationConnector Association="TokikuModel.FK_SupplierTranscationItem_NextManufacturers" />
-        <AssociationConnector Association="TokikuModel.FK_Engineering_ProjectContract" />
-        <AssociationConnector Association="TokikuModel.FK_SupplierTranscationItem_NextManufacturers" />
         <AssociationConnector Association="TokikuModel.FK_PromissoryNoteManagement_Projects" />
         <EntityTypeShape EntityType="TokikuModel.ShopFlowHistory" Width="1.5" PointX="16.5" PointY="21.5" />
         <AssociationConnector Association="TokikuModel.FK_ShopFlowHistory_States" />

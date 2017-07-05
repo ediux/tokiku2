@@ -171,7 +171,6 @@
     <Compile Include="Users.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewTables\AluminumExtrusionOrderMiscellaneousEntity.cs" />
     <Compile Include="BOM.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
