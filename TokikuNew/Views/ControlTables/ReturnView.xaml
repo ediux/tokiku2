@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:c="clr-namespace:TokikuNew.Controls"
              xmlns:local="clr-namespace:TokikuNew.Views"
-             Background="{DynamicResource ControlBackgroundBrush}"
              mc:Ignorable="d" 
+             Background="{DynamicResource ControlBackgroundBrush}"
              d:DesignHeight="600" d:DesignWidth="1024">
     <Grid>
         <Grid.RowDefinitions>
