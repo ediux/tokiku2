@@ -7,6 +7,9 @@
         Background="{DynamicResource WindowBackgroundBrush}"
         Icon="{DynamicResource Logo}"
         Title="施工圖集" Height="250" Width="554">
+    <Window.Resources>
+        
+    </Window.Resources>
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100*"/>

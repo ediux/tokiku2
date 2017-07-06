@@ -49,6 +49,8 @@
     <Compile Include="AluminumExtrusionOrderMaterialValuationViewModel.cs" />
     <Compile Include="AluminumExtrusionOrderMiscellaneousViewModel.cs" />
     <Compile Include="AluminumExtrusionOrderViewModel.cs" />
+    <Compile Include="AssemblyTableViewModel.cs" />
+    <Compile Include="AssemblyTableViewModelCollection.cs" />
     <Compile Include="Base\BaseViewModelWithPOCOClass.cs" />
     <Compile Include="Projects\ContractManagementViewModel.cs" />
     <Compile Include="Finance\TicketPeriodsViewModel.cs" />
