@@ -613,7 +613,6 @@ namespace TokikuNew.Views
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-
             }
 
         }
@@ -640,7 +639,6 @@ namespace TokikuNew.Views
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
         }
@@ -653,7 +651,6 @@ namespace TokikuNew.Views
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
         }
@@ -666,7 +663,6 @@ namespace TokikuNew.Views
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
         }
@@ -679,7 +675,6 @@ namespace TokikuNew.Views
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
         }
@@ -692,7 +687,6 @@ namespace TokikuNew.Views
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
         }
@@ -705,9 +699,13 @@ namespace TokikuNew.Views
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
+        }
+
+        private void btnNew_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         // ========== 頁籤切換顯示內容功能 ==========↓
