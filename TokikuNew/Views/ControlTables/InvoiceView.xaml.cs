@@ -238,5 +238,10 @@ namespace TokikuNew
             //PMSheet.Columns[2].Width = 120;
 
         }
+
+        private void btnNew_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

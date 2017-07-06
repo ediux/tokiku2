@@ -22,34 +22,75 @@
             <Expander Canvas.Left="0" VerticalAlignment="Stretch" ExpandDirection="Down" Header="表頭" IsExpanded="False">
                 <Expander.ContentTemplate>
                     <DataTemplate>
-                        <WrapPanel Height="82" Orientation="Horizontal" MaxWidth="1014" Width="1014">
-                            <TextBlock Text="ID" Margin="2,2,0,2" VerticalAlignment="Center" />
-                            <TextBox Text="54321" IsReadOnly="True" Margin="2" TextAlignment="Center" VerticalAlignment="Center" />
-                            <TextBlock Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
-                            <TextBlock Text="請款單號" VerticalAlignment="Center" />
-                            <TextBox Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
-                            <TextBlock Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
-                            <TextBlock Text="請款廠商" VerticalAlignment="Center" />
-                            <TextBox Width="88" MaxLength="20" VerticalAlignment="Center" Margin="2" />
-                            <TextBox Width="165" MaxLength="20" VerticalAlignment="Center" Margin="2" />
-                            <TextBlock Text="廠商請款單號" VerticalAlignment="Center" />
-                            <TextBox Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
-                            <TextBlock Text="輸入人員" VerticalAlignment="Center" />
-                            <TextBox Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
-                            <TextBlock Text="建檔日期" VerticalAlignment="Center" />
-                            <DatePicker Width="200" VerticalAlignment="Center" Margin="2" />
-                            <TextBlock Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
-                            <TextBlock Text="請款人員" VerticalAlignment="Center" />
-                            <TextBox Width="100" MaxLength="20" VerticalAlignment="Center" Margin="2" />
-                            <TextBlock Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
-                            <TextBlock Text="請款日期" VerticalAlignment="Center" />
-                            <DatePicker Width="200" VerticalAlignment="Center" Margin="2" />
-                            <TextBlock Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
-                            <TextBlock Text="預計付款日期" VerticalAlignment="Center" />
-                            <DatePicker Width="200" VerticalAlignment="Center" Margin="2" />
-                            <CheckBox Content="預付款專用" Margin="2,2,4,2" VerticalAlignment="Center" Foreground="#FF036808" />
-                            <TextBlock Text="備註" VerticalAlignment="Center" Foreground="#FF036808" />
-                            <TextBox Width="500" MaxLength="20" VerticalAlignment="Center" Margin="4,2,2,2" />
+                        <WrapPanel Height="81" Orientation="Horizontal" MaxWidth="1310" Width="1310">
+                            <Grid Width="1310">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="ID" Margin="2,2,0,2" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="1" Text="54321" IsReadOnly="True" Margin="2" TextAlignment="Center" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="2" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                                <TextBlock Grid.Column="3" Text="請款單號" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="4" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                                <TextBlock Grid.Column="5" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                                <TextBlock Grid.Column="6" Text="請款廠商" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="7" Width="88" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                                <TextBox Grid.Column="8" Width="165" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                                <TextBlock Grid.Column="9" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                                <TextBlock Grid.Column="10" Text="廠商請款單號" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="11" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                                <TextBlock Grid.Column="12" Text="輸入人員" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="13" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                            </Grid>
+                            <Grid Width="1310">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="建檔日期" VerticalAlignment="Center" />
+                                <DatePicker Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="2" />
+                                <TextBlock Grid.Column="2" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                                <TextBlock Grid.Column="3" Text="請款人員" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="4" Width="100" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                                <TextBlock Grid.Column="5" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                                <TextBlock Grid.Column="6" Text="請款日期" VerticalAlignment="Center" />
+                                <DatePicker Grid.Column="7" Width="200" VerticalAlignment="Center" Margin="2" />
+                                <TextBlock Grid.Column="8" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                                <TextBlock Grid.Column="9" Text="預計付款日期" VerticalAlignment="Center" />
+                                <DatePicker Grid.Column="10" Width="200" VerticalAlignment="Center" Margin="2" />
+                            </Grid>
+                            <Grid Width="1310">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <CheckBox Grid.Column="0" Content="預付款專用" Margin="2,2,4,2" VerticalAlignment="Center" Foreground="#FF036808" />
+                                <TextBlock Grid.Column="1" Text="備註" VerticalAlignment="Center" Foreground="#FF036808" />
+                                <TextBox Grid.Column="2" Width="500" MaxLength="20" VerticalAlignment="Center" Margin="4,2,2,2" />
+                            </Grid>
                         </WrapPanel>
                     </DataTemplate>
                 </Expander.ContentTemplate>
@@ -61,47 +102,61 @@
                 <Expander.ContentTemplate>
                     <DataTemplate>
                         <WrapPanel Height="600" Orientation="Horizontal" MaxWidth="600" Width="600">
-                            <DataGrid>
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="項次" Width="auto" />
-                                    <DataGridTextColumn Header="東菊編號" Width="auto" />
-                                    <DataGridTextColumn Header="廠商" Width="auto" />
-                                    <DataGridTextColumn Header="廠商編號" Width="auto" />
-                                    <DataGridTextColumn Header="材質" Width="auto" />
-                                    <DataGridTextColumn Header="單位重量(kg/m)" Width="auto" />
-                                    <DataGridTextColumn Header="訂購長度(mm)" Width="auto" />
-                                    <DataGridTemplateColumn >
-                                        <DataGridTemplateColumn.HeaderTemplate>
-                                            <DataTemplate>
-                                                <Grid>
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="40"/>
-                                                        <RowDefinition Height="32"/>
-                                                    </Grid.RowDefinitions>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="55"/>
-                                                        <ColumnDefinition Width="55"/>
-                                                        <ColumnDefinition Width="65"/>
-                                                    </Grid.ColumnDefinitions>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="27" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="350" />
+                                    <ColumnDefinition Width="30" />
+                                </Grid.ColumnDefinitions>
+                                <c:SearchBar Grid.Row="0" Grid.Column="1" x:Name="sSearchBar" />
+                                <Button Name="btnNew" Grid.Row="0" Grid.Column="2" Margin="1" Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" Click="btnNew_Click" />
+                                <DataGrid Grid.Row="1" Grid.ColumnSpan="3">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="" Width="auto" />
+                                        <DataGridTextColumn Header="項次" Width="auto" />
+                                        <DataGridTextColumn Header="東菊編號" Width="auto" />
+                                        <DataGridTextColumn Header="廠商" Width="auto" />
+                                        <DataGridTextColumn Header="廠商編號" Width="auto" />
+                                        <DataGridTextColumn Header="材質" Width="auto" />
+                                        <DataGridTextColumn Header="單位重量(kg/m)" Width="auto" />
+                                        <DataGridTextColumn Header="訂購長度(mm)" Width="auto" />
+                                        <DataGridTemplateColumn >
+                                            <DataGridTemplateColumn.HeaderTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="40"/>
+                                                            <RowDefinition Height="32"/>
+                                                        </Grid.RowDefinitions>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="55"/>
+                                                            <ColumnDefinition Width="55"/>
+                                                            <ColumnDefinition Width="65"/>
+                                                        </Grid.ColumnDefinitions>
 
-                                                    <Border Margin="-5,-5,-5,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0.5" BorderBrush="LightGray" Background="Pink">
-                                                        <TextBlock Text="需求數量" Margin="0" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
-                                                    </Border>
-                                                    <Border Margin="-5,0,0,-5" Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
-                                                        <TextBlock FontSize="11" Text="數量小計     (單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-                                                    </Border>
-                                                    <Border Margin="0,0,0,-5" Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
-                                                        <TextBlock FontSize="11" Text="重量小計     (單位:kg)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                    </Border>
-                                                    <Border Margin="0,0,-5,-5" Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
-                                                        <TextBlock  FontSize="11" Text="未下訂單數量      (單位:支)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                    </Border>
-                                                </Grid>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.HeaderTemplate>
-                                    </DataGridTemplateColumn>
-                                </DataGrid.Columns>
-                            </DataGrid>
+                                                        <Border Margin="-5,-5,-5,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0.5" BorderBrush="LightGray" Background="Pink">
+                                                            <TextBlock Text="需求數量" Margin="0" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+                                                        </Border>
+                                                        <Border Margin="-5,0,0,-5" Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
+                                                            <TextBlock FontSize="11" Text="數量小計     (單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                                                        </Border>
+                                                        <Border Margin="0,0,0,-5" Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
+                                                            <TextBlock FontSize="11" Text="重量小計     (單位:kg)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                        <Border Margin="0,0,-5,-5" Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
+                                                            <TextBlock  FontSize="11" Text="未下訂單數量      (單位:支)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.HeaderTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
                         </WrapPanel>
                     </DataTemplate>
                 </Expander.ContentTemplate>
