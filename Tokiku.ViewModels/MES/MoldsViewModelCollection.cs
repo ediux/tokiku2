@@ -21,19 +21,7 @@ namespace Tokiku.ViewModels
                 {
                     if (executeresult.Result.Result.Any())
                     {
-                        ClearItems();
-                        foreach (var entity in executeresult.Result.Result)
-                        {
-                            MoldsViewModel model = new MoldsViewModel();
-                            model.SetModel(entity);
-                            //model.Manufacturers = new ManufacturersViewModel();
-                            ////model.Manufacturers.SetModel(entity.Manufacturers);
-                            //model.Materials = new MaterialsViewModel();
-                            ////model.Materials.SetModel(entity.Materials);
-                            //model.MoldUseStatus = new MoldUseStatusViewModel();
-                            //model.MoldUseStatus.SetModel(entity.MoldUseStatus);
-                            Add(model);
-                        }
+
                     }
                 }
             }
@@ -42,6 +30,30 @@ namespace Tokiku.ViewModels
                 setErrortoModel(this, ex);
             }
         }
+
+        public static MoldsViewModelCollection ImportFromExcel(string filename)
+        {
+            MoldsViewModelCollection result = new MoldsViewModelCollection();
+
+            try
+            {
+                MoldsController controller = new MoldsController();
+                var executeresult = controller.ImportsMoldsFromExecl(filename);
+                if (!executeresult.HasError)
+                {
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+
+                setErrortoModel(result, ex);
+            }
+
+            return result;
+
+        }
+
         public async override void SaveModel()
         {
             try

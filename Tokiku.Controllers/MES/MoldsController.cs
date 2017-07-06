@@ -285,6 +285,8 @@ namespace Tokiku.Controllers
         {
             try
             {
+                var ProjectRepo = RepositoryHelper.GetProjectsRepository();
+                var Manufacturer = RepositoryHelper.GetManufacturersRepository(ProjectRepo.UnitOfWork);
                 Collection<Molds> DestTarget = new Collection<Molds>();
                 Dictionary<int, string> ColumnMapping = new Dictionary<int, string>();
                 XSSFWorkbook workbook;
@@ -382,6 +384,32 @@ namespace Tokiku.Controllers
                         {
                             ICell cell = datarow.GetCell(coli);
 
+                            string Header = xsheet.GetRow(0).Cells[coli].StringCellValue;
+                            if (string.IsNullOrEmpty(Header))
+                            {
+                                continue;
+                            }
+
+                            switch (Header)
+                            {
+                                case "專案名稱":
+                                    if(cell.CellType == CellType.String)
+                                    {
+                                        string ProjectName = cell.StringCellValue;
+                                        var foundProject = (from q in ProjectRepo.All()
+                                                            where q.Name.Equals(ProjectName)
+                                                            select q).SingleOrDefault();
+                                        
+                                    }
+                                    
+                                    break;
+                                case "廠商":
+                                    break;
+                                case "廠商編號":
+                                    break;
+                                case "材質":
+                                    break;
+                            }
                             switch (cell.CellType)
                             {
                                 case CellType.Blank:

@@ -113,6 +113,7 @@ namespace TokikuNew.Views
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
             {
+                MoldsViewModelCollection.ImportFromExcel(openFileDialog.FileName);
                 //    MoldsWorkBookImports.OpenExcel(openFileDialog.FileName);
                 //    MoldsWorkBookImports.Sheets[0].SetColumnLabel(0, 0, "圖例");
 
@@ -233,15 +234,14 @@ namespace TokikuNew.Views
             }
         }
 
-        private MoldsViewModelCollection datasource;
+        MoldsViewModelCollection datasource;
 
         private void UserControl_Initialized(object sender, EventArgs e)
         {
-            datasource = new MoldsViewModelCollection();
+            datasource = (MoldsViewModelCollection)FindResource("MoldListItems");
         }
 
-        
-
+       
         private void SearchBar_Search(object sender, RoutedEventArgs e)
         {
             int rowi=0;

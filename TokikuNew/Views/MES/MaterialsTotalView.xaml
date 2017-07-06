@@ -4,10 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Controls="clr-namespace:TokikuNew.Controls"
+    xmlns:viewmodels="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
     x:Name="userControl" x:Class="TokikuNew.Views.MaterialsTotalView"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024"
              Background="{DynamicResource ControlBackgroundBrush}" Loaded="UserControl_Loaded" Initialized="UserControl_Initialized">
+    <UserControl.Resources>
+        <viewmodels:MoldsViewModelCollection x:Name="datasource" x:Key="MoldListItems" />
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>
