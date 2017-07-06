@@ -204,22 +204,22 @@ namespace TokikuNew.Views
         }
     }
 
-    public class ColumnVisibilityConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            var vis = Visibility.Hidden;
-            if (value.ToString().Equals("鋁擠型需求"))
-            {
-                vis = Visibility.Visible;
-            }
-            return vis;
-        }
+    //public class ColumnVisibilityConverter : IValueConverter
+    //{
+    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        var vis = Visibility.Hidden;
+    //        if (value.ToString().Equals("鋁擠型需求"))
+    //        {
+    //            vis = Visibility.Visible;
+    //        }
+    //        return vis;
+    //    }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
+    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
 
-    }
+    //}
 }
