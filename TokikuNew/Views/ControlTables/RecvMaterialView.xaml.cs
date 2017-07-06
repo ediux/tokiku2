@@ -74,5 +74,10 @@ namespace TokikuNew
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
         }
+
+        private void btnNew_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

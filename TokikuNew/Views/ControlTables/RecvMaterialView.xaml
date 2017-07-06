@@ -64,47 +64,56 @@
                 <Expander.ContentTemplate>
                     <DataTemplate>
                         <WrapPanel Height="600" Orientation="Horizontal" MaxWidth="600" Width="600">
-                            <DataGrid>
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="項次" Width="auto" />
-                                    <DataGridTextColumn Header="東菊編號" Width="auto" />
-                                    <DataGridTextColumn Header="廠商" Width="auto" />
-                                    <DataGridTextColumn Header="廠商編號" Width="auto" />
-                                    <DataGridTextColumn Header="材質" Width="auto" />
-                                    <DataGridTextColumn Header="單位重量(kg/m)" Width="auto" />
-                                    <DataGridTextColumn Header="訂購長度(mm)" Width="auto" />
-                                    <DataGridTemplateColumn >
-                                        <DataGridTemplateColumn.HeaderTemplate>
-                                            <DataTemplate>
-                                                <Grid>
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="40"/>
-                                                        <RowDefinition Height="32"/>
-                                                    </Grid.RowDefinitions>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="55"/>
-                                                        <ColumnDefinition Width="55"/>
-                                                        <ColumnDefinition Width="65"/>
-                                                    </Grid.ColumnDefinitions>
-
-                                                    <Border Margin="-5,-5,-5,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0.5" BorderBrush="LightGray" Background="Pink">
-                                                        <TextBlock Text="需求數量" Margin="0" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
-                                                    </Border>
-                                                    <Border Margin="-5,0,0,-5" Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
-                                                        <TextBlock FontSize="11" Text="數量小計     (單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-                                                    </Border>
-                                                    <Border Margin="0,0,0,-5" Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
-                                                        <TextBlock FontSize="11" Text="重量小計     (單位:kg)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                    </Border>
-                                                    <Border Margin="0,0,-5,-5" Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
-                                                        <TextBlock  FontSize="11" Text="未下訂單數量      (單位:支)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                    </Border>
-                                                </Grid>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.HeaderTemplate>
-                                    </DataGridTemplateColumn>
-                                </DataGrid.Columns>
-                            </DataGrid>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="27" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="350" />
+                                    <ColumnDefinition Width="30" />
+                                </Grid.ColumnDefinitions>
+                                <c:SearchBar Grid.Row="0" Grid.Column="1" x:Name="sSearchBar" />
+                                <Button Name="btnNew" Grid.Row="0" Grid.Column="2" Margin="1" Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" Click="btnNew_Click" />
+                                <DataGrid Grid.Row="1" Grid.ColumnSpan="3">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="" Width="auto" />
+                                        <DataGridTextColumn Header="項次" Width="auto" />
+                                        <DataGridTextColumn Header="東菊編號" Width="auto" />
+                                        <DataGridTextColumn Header="廠商" Width="auto" />
+                                        <DataGridTextColumn Header="廠商編號" Width="auto" />
+                                        <DataGridTextColumn Header="材質" Width="auto" />
+                                        <DataGridTextColumn Header="單位重量(kg/m)" Width="auto" />
+                                        <DataGridTextColumn Header="訂購長度(mm)" Width="auto" />
+                                        <DataGridTemplateColumn >
+                                            <DataGridTemplateColumn.HeaderTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="40"/>
+                                                            <RowDefinition Height="32"/>
+                                                        </Grid.RowDefinitions>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="55"/>
+                                                            <ColumnDefinition Width="55"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Border Margin="-5,-5,-5,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="0.5" BorderBrush="LightGray" Background="#A9D0F5">
+                                                            <TextBlock Text="領料狀況(所有倉別庫存彙總)" TextWrapping="WrapWithOverflow" Margin="0" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+                                                        </Border>
+                                                        <Border Margin="-5,0,0,-5" Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="#A9D0F5">
+                                                            <TextBlock FontSize="11" Text="數量小計     (單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                                                        </Border>
+                                                        <Border Margin="0,0,-5,-5" Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="#A9D0F5">
+                                                            <TextBlock FontSize="11" Text="重量小計     (單位:kg)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.HeaderTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
                         </WrapPanel>
                     </DataTemplate>
                 </Expander.ContentTemplate>
