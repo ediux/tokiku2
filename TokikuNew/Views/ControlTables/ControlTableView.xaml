@@ -6,7 +6,10 @@
              xmlns:local="clr-namespace:TokikuNew.Views"
              mc:Ignorable="d" x:Name="userControl"             
              Background="{DynamicResource ControlBackgroundBrush}"
+             Loaded="userControl_Loaded"
              d:DesignHeight="768" d:DesignWidth="1366">
+    <UserControl.Resources>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>
@@ -24,9 +27,9 @@
             <Button Content="訂製單" Margin="5,0,0,0" Click="Order_Click" />
             <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="加工訂製單列表" Margin="0,0,5,0"  Click="OrderList_Click" />
         </StackPanel>
-        <GroupBox Header="{Binding Path=Header, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabItem}}}" Grid.Row="1" Style="{DynamicResource GroupBox_DocumentEditor}">
+        <GroupBox x:Name="groupBox" Header="{Binding Path=Header, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabItem}}}" Grid.Row="1" Style="{DynamicResource GroupBox_DocumentEditor}">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                <DataGrid>
+                <DataGrid x:Name="dg" >
                     <DataGrid.Resources>
                         <local:ColumnVisibilityConverter x:Key="ColumnVisibilityConverter"/>
                     </DataGrid.Resources>
@@ -38,7 +41,7 @@
                         <DataGridTextColumn Header="材質" Width="auto" />
                         <DataGridTextColumn Header="單位重量(kg/m)" Width="auto" />
                         <DataGridTextColumn Header="訂購長度(mm)" Width="auto"/>
-                        <DataGridTemplateColumn Visibility="{Binding Path=Header, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabItem}}, Converter={StaticResource ColumnVisibilityConverter}}">
+                        <DataGridTemplateColumn>
                             <DataGridTemplateColumn.HeaderTemplate>
                                 <DataTemplate>
                                     <Grid>

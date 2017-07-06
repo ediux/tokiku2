@@ -41,6 +41,21 @@ namespace TokikuNew.Views
             DependencyProperty.Register("Mode", typeof(DocumentLifeCircle), typeof(ControlTableView), new PropertyMetadata(DocumentLifeCircle.Read));
         #endregion
 
+
+
+        public string FormName
+        {
+            get { return (string)GetValue(FormNameProperty); }
+            set { SetValue(FormNameProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for FormName.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FormNameProperty =
+            DependencyProperty.Register("FormName", typeof(string), typeof(ControlTableView), new PropertyMetadata(string.Empty));
+
+
+
+
         private void Order_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -170,19 +185,38 @@ namespace TokikuNew.Views
             }
         }
 
-
+        private void userControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(FormName))
+            {
+                switch (FormName)
+                {
+                    case "鋁擠型需求":
+                        dg.Columns[7].Visibility = Visibility.Visible;
+                        break;
+                    default:
+                        dg.Columns[7].Visibility = Visibility.Collapsed;
+                        break;
+                }
+            }
+        }
     }
 
     public class ColumnVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var vis = Visibility.Hidden;
-            if (value.ToString().Equals("鋁擠型需求"))
+            if (value != null)
             {
-                vis = Visibility.Visible;
+                var vis = Visibility.Collapsed;
+                if (value.ToString().Equals("鋁擠型需求"))
+                {
+                    vis = Visibility.Visible;
+                }
+                return vis;
             }
-            return vis;
+
+            return value;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
