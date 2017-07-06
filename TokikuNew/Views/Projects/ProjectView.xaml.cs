@@ -445,7 +445,7 @@ namespace TokikuNew.Views
                     if (e.OriginalSource != null && e.OriginalSource is ControlTableView)
                     {
                         var vm = new ControlTableView() { Margin = new Thickness(0) };
-
+                        vm.FormName = "鋁擠型需求";
 
                         //addWorkarea = new ClosableTabItem() { Header = Header };
                         addWorkarea.Content = vm;
@@ -473,7 +473,7 @@ namespace TokikuNew.Views
                         if (btnContext == "鋁擠型需求")
                         {
                             var vm = new ControlTableView() { Margin = new Thickness(0) };
-                            
+                            vm.FormName = "鋁擠型需求";
                             addWorkarea.Content = vm;
                             InnerWorkspaces.Items.Add(addWorkarea);
                             InnerWorkspaces.SelectedItem = addWorkarea;
@@ -483,6 +483,7 @@ namespace TokikuNew.Views
                         if (btnContext == "鋁擠型加工")
                         {
                             var vm = new ControlTableView() { Margin = new Thickness(0) };
+                            vm.FormName = "鋁擠型加工";
                             addWorkarea.Content = vm;
                             InnerWorkspaces.Items.Add(addWorkarea);
                             InnerWorkspaces.SelectedItem = addWorkarea;

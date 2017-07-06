@@ -41,6 +41,22 @@ namespace TokikuNew.Views
             DependencyProperty.Register("Mode", typeof(DocumentLifeCircle), typeof(ControlTableView), new PropertyMetadata(DocumentLifeCircle.Read));
         #endregion
 
+        #region 指出目前顯示的單據類型名稱
+
+
+        public string FormName
+        {
+            get { return (string)GetValue(FormNameProperty); }
+            set { SetValue(FormNameProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for FormName.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FormNameProperty =
+            DependencyProperty.Register("FormName", typeof(string), typeof(ControlTableView), new PropertyMetadata(string.Empty));
+
+
+
+        #endregion
         private void Order_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -170,7 +186,22 @@ namespace TokikuNew.Views
             }
         }
 
-
+        private void userControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(FormName))
+            {
+                switch (FormName)
+                {
+                    case "鋁擠型需求":
+                        dg.Columns[7].Visibility = Visibility.Visible;
+                        break;
+                    default:
+                        dg.Columns[7].Visibility = Visibility.Collapsed;
+                        break;
+                        
+                }
+            }
+        }
     }
 
     public class ColumnVisibilityConverter : IValueConverter
