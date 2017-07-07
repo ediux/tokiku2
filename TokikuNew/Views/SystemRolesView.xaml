@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="TokikuNew.Views.SystemRolesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:Controls="clr-namespace:TokikuNew.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1024">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="27" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="350" />
+        </Grid.ColumnDefinitions>
+        <Controls:SearchBar Grid.Row="0" Grid.Column="1" x:Name="sSearchBar" />
+        <GroupBox Style="{DynamicResource GroupBox_DocumentEditor}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Header="角色管理">
+            <DataGrid>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="" Width="auto" />
+                    <DataGridTextColumn Header="項次" Width="auto" />
+                    <DataGridTextColumn Header="部門" Width="auto" />
+                    <DataGridTextColumn Header="群組" Width="auto" />
+                    <DataGridTextColumn Header="權限等級" Width="auto" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+        
+    </Grid>
+</UserControl>

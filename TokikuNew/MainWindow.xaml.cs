@@ -92,6 +92,7 @@ namespace TokikuNew
                     MI_CreateNew_Customers_Click(sender, e);
                 }
 
+                /*
                 if (e.OriginalSource is string)
                 {
                     ClosableTabItem addWorkarea = null;
@@ -134,7 +135,7 @@ namespace TokikuNew
                             }
                         }
                     }
-                }
+                } // */
             }
             catch (Exception ex)
             {
@@ -432,12 +433,70 @@ namespace TokikuNew
 
         private void MI_System_Members_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                ClosableTabItem addWorkarea = new ClosableTabItem();
+                addWorkarea.Header = "人員管理";
 
+                bool isExisted = false;
+                // 檢查是否重複開啟
+                foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
+                {
+                    if (item.Header.Equals(addWorkarea.Header))
+                    {
+                        isExisted = true;
+                        addWorkarea = item;
+                        break;
+                    }
+                }
+                // 內容
+                if (!isExisted)
+                {
+                    var vm = new SystemMembersView() { Margin = new Thickness(0) };
+                    addWorkarea.Content = vm;
+                    Workspaces.Items.Add(addWorkarea);
+                }
+
+                Workspaces.SelectedItem = addWorkarea; // 指定當前顯示頁
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void MI_System_Roles_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                ClosableTabItem addWorkarea = new ClosableTabItem();
+                addWorkarea.Header = "角色管理";
 
+                bool isExisted = false;
+                // 檢查是否重複開啟
+                foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
+                {
+                    if (item.Header.Equals(addWorkarea.Header))
+                    {
+                        isExisted = true;
+                        addWorkarea = item;
+                        break;
+                    }
+                }
+                // 內容
+                if (!isExisted)
+                {
+                    var vm = new SystemRolesView() { Margin = new Thickness(0) };
+                    addWorkarea.Content = vm;
+                    Workspaces.Items.Add(addWorkarea);
+                }
+
+                Workspaces.SelectedItem = addWorkarea; // 指定當前顯示頁
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void ClientListView_SelectedClientChanged(object sender, RoutedEventArgs e)
@@ -692,11 +751,33 @@ namespace TokikuNew
         {
             try
             {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "合約管理"));
+                ClosableTabItem addWorkarea = new ClosableTabItem();
+                addWorkarea.Header = "合約管理";
+
+                bool isExisted = false;
+                // 檢查是否重複開啟
+                foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
+                {
+                    if (item.Header.Equals(addWorkarea.Header))
+                    {
+                        isExisted = true;
+                        addWorkarea = item;
+                        break;
+                    }
+                }
+                // 內容
+                if (!isExisted)
+                {
+                    var vm = new ContractManagementView() { Margin = new Thickness(0) };
+                    addWorkarea.Content = vm;
+                    Workspaces.Items.Add(addWorkarea);
+                }
+
+                Workspaces.SelectedItem = addWorkarea; // 指定當前顯示頁
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

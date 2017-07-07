@@ -48,5 +48,10 @@ namespace TokikuNew.Views
         {
 
         }
+
+        private void ContractManagement_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

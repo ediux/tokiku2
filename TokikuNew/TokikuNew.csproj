@@ -240,6 +240,12 @@
     <Compile Include="Views\ControlTables\RecvMaterialListView.xaml.cs">
       <DependentUpon>RecvMaterialListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SystemMembersView.xaml.cs">
+      <DependentUpon>SystemMembersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SystemRolesView.xaml.cs">
+      <DependentUpon>SystemRolesView.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\Finance\ActualCostsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -485,6 +491,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ControlTables\RecvMaterialListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SystemMembersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SystemRolesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
