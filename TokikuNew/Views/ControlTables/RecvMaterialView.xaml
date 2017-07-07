@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:TokikuNew.Views"
              mc:Ignorable="d"
              Background="{DynamicResource ControlBackgroundBrush}"
-             d:DesignHeight="600" d:DesignWidth="1024">
+             d:DesignHeight="600" d:DesignWidth="1024" Loaded="RecvMaterialView_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27" />
