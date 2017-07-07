@@ -21,6 +21,38 @@ namespace Tokiku.ViewModels
             
         }
 
+        public static AluminumExtrusionOrderMaterialValuationViewModelCollection Query(Guid ProjectId,Guid FormDetailId)
+        {
+            AluminumExtrusionOrderMaterialValuationViewModelCollection returnSet = null;
+            try
+            {
+                AluminumExtrusionOrderMaterialValuationController ctrl = new AluminumExtrusionOrderMaterialValuationController();
+
+                ExecuteResultEntity<ICollection<AluminumExtrusionOrderMaterialValuationEntity>> ere = ctrl.Query(ProjectId, FormDetailId);
+
+                if (!ere.HasError)
+                {
+                    returnSet = new AluminumExtrusionOrderMaterialValuationViewModelCollection(ere.Result.ToList()
+                        .ConvertAll(c => new AluminumExtrusionOrderMaterialValuationViewModel()
+                        {
+                           
+                        }));
+                }
+
+                return new AluminumExtrusionOrderMaterialValuationViewModelCollection();
+            }
+            catch (Exception ex)
+            {
+                if (returnSet == null)
+                    returnSet = new AluminumExtrusionOrderMaterialValuationViewModelCollection();
+
+                returnSet.Errors = new string[] { ex.Message };
+                returnSet.HasError = true;
+
+                return returnSet;
+            }
+        }
+
         public override void Query()
         {
             AluminumExtrusionOrderMaterialValuationController ctrl = new AluminumExtrusionOrderMaterialValuationController();

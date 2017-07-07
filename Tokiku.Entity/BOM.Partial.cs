@@ -43,14 +43,14 @@ namespace Tokiku.Entity
         [Required]
         public decimal TotalDemand { get; set; }
         public Nullable<System.Guid> ShopFlowId { get; set; }
-        public Nullable<int> NorthTowerDemand { get; set; }
-        public Nullable<int> SouthTowerDemand { get; set; }
         public string Comment { get; set; }
         public string Postion { get; set; }
         [Required]
         public System.DateTime CreateTime { get; set; }
         [Required]
         public System.Guid CreateUserId { get; set; }
+        public Nullable<int> OrderLength { get; set; }
+        public Nullable<decimal> UnitWeight { get; set; }
     
         public virtual MaterialCategories MaterialCategories { get; set; }
         public virtual ProcessingAtlas ProcessingAtlas { get; set; }

@@ -162,15 +162,17 @@
                 </Expander.ContentTemplate>
             </Expander>
         </Canvas>
-
-        <StackPanel x:Name="訂製單內容" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="2">
-            <!-- 透過程式指定選定頁籤的內容 -->
-        </StackPanel>
-        <WrapPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="0">
-            <Button Content="訂製單" Click="訂製單_Click" Width="100" Height="27" />
-            <Button Content="材質估價" Click="材質估價_Click" Width="100" Height="27" />
-            <Button Content="雜項" Click="雜項_Click" Width="100" Height="27" />
-        </WrapPanel>
+        <TabControl Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" TabStripPlacement="Bottom">
+            <TabItem Header="訂製單">
+                <local:AluminumExtrusionOrderView/>
+            </TabItem>
+            <TabItem Header="材質估價">
+                <local:AluminumExtrusionOrderMaterialValuationView />
+            </TabItem>
+            <TabItem Header="雜項">
+                <local:AluminumExtrusionOrderMiscellaneousView/>
+            </TabItem>
+        </TabControl>
         <StatusBar Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
             <StatusBarItem x:Name="SpeardStatusBarItem" Content="就緒" Height="27" VerticalAlignment="Top"/>
         </StatusBar>

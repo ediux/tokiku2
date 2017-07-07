@@ -19,6 +19,8 @@ namespace Tokiku.Entity
         {
             this.MaterialEstimation = new HashSet<MaterialEstimation>();
             this.PurchasingOrder = new HashSet<PurchasingOrder>();
+            this.OrderMiscellaneous = new HashSet<OrderMiscellaneous>();
+            this.MaterialValuation = new HashSet<MaterialValuation>();
         }
     
         public System.Guid Id { get; set; }
@@ -44,14 +46,20 @@ namespace Tokiku.Entity
         public string ReservedField10 { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
+        public Nullable<System.Guid> ProjectId { get; set; }
     
         public virtual Forms Forms { get; set; }
         public virtual Manufacturers Manufacturers { get; set; }
-        public virtual Users Users { get; set; }
-        public virtual Users Users1 { get; set; }
+        public virtual Users CreateUser { get; set; }
+        public virtual Users MakingUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MaterialEstimation> MaterialEstimation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PurchasingOrder> PurchasingOrder { get; set; }
+        public virtual Projects Projects { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderMiscellaneous> OrderMiscellaneous { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MaterialValuation> MaterialValuation { get; set; }
     }
 }

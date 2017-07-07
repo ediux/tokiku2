@@ -66,12 +66,14 @@ namespace Tokiku.Entity
         public System.DateTime CreateTime { get; set; }
         [Required]
         public System.Guid CreateUserId { get; set; }
+        public Nullable<System.Guid> ProjectId { get; set; }
     
         public virtual Forms Forms { get; set; }
         public virtual Manufacturers Manufacturers { get; set; }
-        public virtual Users Users { get; set; }
-        public virtual Users Users1 { get; set; }
+        public virtual Users CreateUser { get; set; }
+        public virtual Users MakingUser { get; set; }
         public virtual ICollection<MaterialEstimation> MaterialEstimation { get; set; }
         public virtual ICollection<PurchasingOrder> PurchasingOrder { get; set; }
+        public virtual Projects Projects { get; set; }
     }
 }

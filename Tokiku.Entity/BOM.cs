@@ -27,12 +27,12 @@ namespace Tokiku.Entity
         public string Unit { get; set; }
         public decimal TotalDemand { get; set; }
         public Nullable<System.Guid> ShopFlowId { get; set; }
-        public Nullable<int> NorthTowerDemand { get; set; }
-        public Nullable<int> SouthTowerDemand { get; set; }
         public string Comment { get; set; }
         public string Postion { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
+        public Nullable<int> OrderLength { get; set; }
+        public Nullable<decimal> UnitWeight { get; set; }
     
         public virtual MaterialCategories MaterialCategories { get; set; }
         public virtual ProcessingAtlas ProcessingAtlas { get; set; }

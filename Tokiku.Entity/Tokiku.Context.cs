@@ -62,5 +62,7 @@ namespace Tokiku.Entity
         public virtual DbSet<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
         public virtual DbSet<ShopFlowHistory> ShopFlowHistory { get; set; }
         public virtual DbSet<ShopFlowDetail> ShopFlowDetail { get; set; }
+        public virtual DbSet<OrderMiscellaneous> OrderMiscellaneous { get; set; }
+        public virtual DbSet<MaterialValuation> MaterialValuation { get; set; }
     }
 }

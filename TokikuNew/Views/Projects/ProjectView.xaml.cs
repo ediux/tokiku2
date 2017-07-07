@@ -526,7 +526,7 @@ namespace TokikuNew.Views
                         if (btnContext == "產生鋁擠型訂製單")
                         {
                             var vm = new AluminumExtrusionOrderSheetView() { Margin = new Thickness(0) };
-
+                            
                             addWorkarea.Content = vm;
                             addWorkarea.Margin = new Thickness(0);
 

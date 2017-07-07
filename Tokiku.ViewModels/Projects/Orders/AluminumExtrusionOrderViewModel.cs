@@ -22,6 +22,45 @@ namespace Tokiku.ViewModels
 
         }
 
+        public static AluminumExtrusionOrderViewModelCollection Query(Guid ProjectId, Guid FormDetailId)
+        {
+            AluminumExtrusionOrderViewModelCollection returnSet = null;
+            try
+            {
+                AluminumExtrusionOrderController ctrl = new AluminumExtrusionOrderController();
+
+                ExecuteResultEntity<ICollection<AluminumExtrusionOrderEntity>> ere = ctrl.Query(ProjectId, FormDetailId);
+                if (!ere.HasError)
+                {
+                    returnSet = new AluminumExtrusionOrderViewModelCollection(ere.Result.ToList()
+                        .ConvertAll(c => new AluminumExtrusionOrderViewModel()
+                        {
+                            ManufacturersId = c.ManufacturersId,
+                            Material = c.Material,
+                            Note = c.Note,
+                            OrderLength = c.OrderLength,
+                            PlaceAnOrderQuantity = c.PlaceAnOrderQuantity,
+                            RequiredQuantity = c.RequiredQuantity,
+                            SparePartsQuantity = c.SparePartsQuantity,
+                            TokikuId = c.TokikuId,
+                            UnitWeight = c.UnitWeight
+                        }));
+                }
+
+                return new AluminumExtrusionOrderViewModelCollection();
+            }
+            catch (Exception ex)
+            {
+                if (returnSet == null)
+                    returnSet = new AluminumExtrusionOrderViewModelCollection();
+
+                returnSet.Errors = new string[] { ex.Message };
+                returnSet.HasError = true;
+
+                return returnSet;
+            }
+        }
+
         public override void Query()
         {
             AluminumExtrusionOrderController ctrl = new AluminumExtrusionOrderController();

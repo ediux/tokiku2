@@ -27,13 +27,45 @@ namespace TokikuNew.Views
             
         }
 
+        #region SelectedProject
+        public ProjectsViewModel SelectedProject
+        {
+            get { return (ProjectsViewModel)GetValue(ProjectManagerView.SelectedProjectProperty); }
+            set { SetValue(ProjectManagerView.SelectedProjectProperty, value); }
+        }
+
+        //// Using a DependencyProperty as the backing store for SelectedProject.  This enables animation, styling, binding, etc...
+        //public static readonly DependencyProperty SelectedProjectProperty =
+        //    DependencyProperty.Register("SelectedProject", typeof(ProjectsViewModel), typeof(ProjectManagerView), new PropertyMetadata(default(ProjectsViewModel)));
+
+        #endregion
+
+
+
+        public Guid FormDetailId
+        {
+            get { return (Guid)GetValue(FormDetailIdProperty); }
+            set { SetValue(FormDetailIdProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for FormDetailId.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FormDetailIdProperty =
+            DependencyProperty.Register("FormDetailId", typeof(Guid), typeof(AluminumExtrusionOrderView), new PropertyMetadata(Guid.NewGuid()));
+
+
         private void AluminumExtrusionOrderView_Loaded(object sender, RoutedEventArgs e)
         {
             try {
-                AluminumExtrusionOrderViewModelCollection coll = new AluminumExtrusionOrderViewModelCollection();
-                鋁擠型訂製單DG.DataContext = coll;
-                coll.Query();
-            }catch (Exception ex) {
+                AluminumExtrusionOrderViewModelCollection coll = (AluminumExtrusionOrderViewModelCollection)FindResource("AluminumExtrusionOrderSource");
+                if (coll != null)
+                {
+                    coll = AluminumExtrusionOrderViewModelCollection.Query(SelectedProject.Id, FormDetailId);
+                }
+                //AluminumExtrusionOrderViewModelCollection coll = new AluminumExtrusionOrderViewModelCollection();
+                //鋁擠型訂製單DG.DataContext = coll;
+                //coll.Query();
+            }
+            catch (Exception ex) {
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

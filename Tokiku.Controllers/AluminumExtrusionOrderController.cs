@@ -12,6 +12,31 @@ namespace Tokiku.Controllers
     {
         private string sql;
 
+        public ExecuteResultEntity<ICollection<AluminumExtrusionOrderEntity>> Query(Guid ProjectId, Guid FormDetilId)
+        {
+            try
+            {
+                var repo = RepositoryHelper.GetPurchasingOrderRepository();
+
+                database = repo.UnitOfWork;
+                var queryresult = (from q in repo.All()
+                                   where q.FormDetails.ProjectId == ProjectId && q.FormDetailId == FormDetilId
+                                   select new AluminumExtrusionOrderEntity() { });
+
+                if (queryresult.Any())
+                {
+                    return ExecuteResultEntity<ICollection<AluminumExtrusionOrderEntity>>.CreateResultEntity(new Collection<AluminumExtrusionOrderEntity>(queryresult.ToList()));
+                }
+
+                return ExecuteResultEntity<ICollection<AluminumExtrusionOrderEntity>>.CreateResultEntity(new Collection<AluminumExtrusionOrderEntity>());
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<ICollection<AluminumExtrusionOrderEntity>>.CreateErrorResultEntity(ex);
+            }
+        }
+
+     
         public ExecuteResultEntity<ICollection<AluminumExtrusionOrderEntity>> QuerAll()
         {
             sql = " select TokikuId, ManufacturersId, Material, UnitWeight, OrderLength, " +

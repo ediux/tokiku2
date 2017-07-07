@@ -34,10 +34,10 @@
           <Property Name="Unit" Type="nvarchar" MaxLength="50" />
           <Property Name="TotalDemand" Type="decimal" Precision="18" Scale="3" Nullable="false" />
           <Property Name="ShopFlowId" Type="uniqueidentifier" />
-          <Property Name="NorthTowerDemand" Type="int" />
-          <Property Name="SouthTowerDemand" Type="int" />
           <Property Name="Comment" Type="nvarchar(max)" />
           <Property Name="Postion" Type="nvarchar(max)" />
+          <Property Name="OrderLength" Type="int" />
+          <Property Name="UnitWeight" Type="decimal" Precision="18" Scale="3" />
           <Property Name="CreateTime" Type="datetime" Nullable="false" />
           <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
@@ -119,6 +119,7 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="FormId" Type="uniqueidentifier" />
+          <Property Name="ProjectId" Type="uniqueidentifier" />
           <Property Name="DemandUnit" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="FormNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="BatchNumber" Type="int" Nullable="false" />
@@ -227,6 +228,18 @@
           <Property Name="CreateTime" Type="datetime" Nullable="false" />
           <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
+        <EntityType Name="MaterialValuation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FormDetailId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Material" Type="nvarchar" MaxLength="50" />
+          <Property Name="UnitPrice" Type="int" />
+          <Property Name="Weight" Type="float" />
+          <Property Name="TotalPrice" Type="int" />
+        </EntityType>
         <EntityType Name="Membership">
           <Key>
             <PropertyRef Name="UserId" />
@@ -293,6 +306,19 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreateTime" Type="datetime" Nullable="false" />
           <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderMiscellaneous">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FormDetailId" Type="uniqueidentifier" />
+          <Property Name="CodeOrItem" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ManufacturersId" Type="uniqueidentifier" />
+          <Property Name="Description" Type="nvarchar" MaxLength="512" />
+          <Property Name="UnitPrice" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="3" Nullable="false" />
         </EntityType>
         <EntityType Name="PaymentTypes">
           <Key>
@@ -746,6 +772,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FormDetails_Projects">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="0..1" />
+          <End Role="FormDetails" Type="Self.FormDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FormDetails">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FormDetails_Users_CreateUser">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="FormDetails" Type="Self.FormDetails" Multiplicity="*" />
@@ -890,6 +928,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MaterialValuation_FormDetails">
+          <End Role="FormDetails" Type="Self.FormDetails" Multiplicity="1" />
+          <End Role="MaterialValuation" Type="Self.MaterialValuation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MaterialValuation">
+              <PropertyRef Name="FormDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Molds_Manufacturers">
           <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
           <End Role="Molds" Type="Self.Molds" Multiplicity="*" />
@@ -971,6 +1021,18 @@
             </Principal>
             <Dependent Role="MoldsInProjects">
               <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderMiscellaneous_OrderMiscellaneous">
+          <End Role="FormDetails" Type="Self.FormDetails" Multiplicity="0..1" />
+          <End Role="OrderMiscellaneous" Type="Self.OrderMiscellaneous" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderMiscellaneous">
+              <PropertyRef Name="FormDetailId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1313,10 +1375,12 @@
           <EntitySet Name="MaterialCategories" EntityType="Self.MaterialCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MaterialEstimation" EntityType="Self.MaterialEstimation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Materials" EntityType="Self.Materials" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MaterialValuation" EntityType="Self.MaterialValuation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Membership" EntityType="Self.Membership" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Molds" EntityType="Self.Molds" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MoldsInProjects" EntityType="Self.MoldsInProjects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MoldUseStatus" EntityType="Self.MoldUseStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderMiscellaneous" EntityType="Self.OrderMiscellaneous" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PaymentTypes" EntityType="Self.PaymentTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProcessingAtlas" EntityType="Self.ProcessingAtlas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Profile" EntityType="Self.Profile" Schema="dbo" store:Type="Tables" />
@@ -1413,6 +1477,10 @@
             <End Role="Manufacturers" EntitySet="Manufacturers" />
             <End Role="FormDetails" EntitySet="FormDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_FormDetails_Projects" Association="Self.FK_FormDetails_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="FormDetails" EntitySet="FormDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_FormDetails_Users_CreateUser" Association="Self.FK_FormDetails_Users_CreateUser">
             <End Role="Users" EntitySet="Users" />
             <End Role="FormDetails" EntitySet="FormDetails" />
@@ -1461,6 +1529,10 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Materials" EntitySet="Materials" />
           </AssociationSet>
+          <AssociationSet Name="FK_MaterialValuation_FormDetails" Association="Self.FK_MaterialValuation_FormDetails">
+            <End Role="FormDetails" EntitySet="FormDetails" />
+            <End Role="MaterialValuation" EntitySet="MaterialValuation" />
+          </AssociationSet>
           <AssociationSet Name="FK_Molds_Manufacturers" Association="Self.FK_Molds_Manufacturers">
             <End Role="Manufacturers" EntitySet="Manufacturers" />
             <End Role="Molds" EntitySet="Molds" />
@@ -1488,6 +1560,10 @@
           <AssociationSet Name="FK_MoldsInProjects_Projects" Association="Self.FK_MoldsInProjects_Projects">
             <End Role="Projects" EntitySet="Projects" />
             <End Role="MoldsInProjects" EntitySet="MoldsInProjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderMiscellaneous_OrderMiscellaneous" Association="Self.FK_OrderMiscellaneous_OrderMiscellaneous">
+            <End Role="FormDetails" EntitySet="FormDetails" />
+            <End Role="OrderMiscellaneous" EntitySet="OrderMiscellaneous" />
           </AssociationSet>
           <AssociationSet Name="FK_ProcessingAtlas_ProjectContract" Association="Self.FK_ProcessingAtlas_ProjectContract">
             <End Role="ProjectContract" EntitySet="ProjectContract" />
@@ -1982,6 +2058,20 @@
           <AssociationSet Name="FK_ShopFlowDetail_Users" Association="TokikuModel.FK_ShopFlowDetail_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="ShopFlowDetail" EntitySet="ShopFlowDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FormDetails_Projects" Association="TokikuModel.FK_FormDetails_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="FormDetails" EntitySet="FormDetails" />
+          </AssociationSet>
+          <EntitySet Name="OrderMiscellaneous" EntityType="TokikuModel.OrderMiscellaneous" />
+          <AssociationSet Name="FK_OrderMiscellaneous_OrderMiscellaneous" Association="TokikuModel.FK_OrderMiscellaneous_OrderMiscellaneous">
+            <End Role="FormDetails" EntitySet="FormDetails" />
+            <End Role="OrderMiscellaneous" EntitySet="OrderMiscellaneous" />
+          </AssociationSet>
+          <EntitySet Name="MaterialValuation" EntityType="TokikuModel.MaterialValuation" />
+          <AssociationSet Name="FK_MaterialValuation_FormDetails" Association="TokikuModel.FK_MaterialValuation_FormDetails">
+            <End Role="FormDetails" EntitySet="FormDetails" />
+            <End Role="MaterialValuation" EntitySet="MaterialValuation" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="AccessLog">
@@ -2552,6 +2642,7 @@
           <NavigationProperty Name="ConstructionAtlas" Relationship="TokikuModel.FK_ConstructionAtlas_Projects" FromRole="Projects" ToRole="ConstructionAtlas" />
           <Property Name="SitePhone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="PromissoryNoteManagement" Relationship="TokikuModel.FK_PromissoryNoteManagement_Projects" FromRole="Projects" ToRole="PromissoryNoteManagement" />
+          <NavigationProperty Name="FormDetails" Relationship="TokikuModel.FK_FormDetails_Projects" FromRole="Projects" ToRole="FormDetails" />
         </EntityType>
         <Association Name="FK_ProjectContract_Projects">
           <End Type="TokikuModel.Projects" Role="Projects" Multiplicity="1" />
@@ -2720,10 +2811,14 @@
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Forms" Relationship="TokikuModel.FK_FormDetails_Forms" FromRole="FormDetails" ToRole="Forms" />
           <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_FormDetails_Manufacturers" FromRole="FormDetails" ToRole="Manufacturers" />
-          <NavigationProperty Name="Users" Relationship="TokikuModel.FK_FormDetails_Users_CreateUser" FromRole="FormDetails" ToRole="Users" />
-          <NavigationProperty Name="Users1" Relationship="TokikuModel.FK_FormDetails_Users_MakingUser" FromRole="FormDetails" ToRole="Users" />
+          <NavigationProperty Name="CreateUser" Relationship="TokikuModel.FK_FormDetails_Users_CreateUser" FromRole="FormDetails" ToRole="Users" />
+          <NavigationProperty Name="MakingUser" Relationship="TokikuModel.FK_FormDetails_Users_MakingUser" FromRole="FormDetails" ToRole="Users" />
           <NavigationProperty Name="MaterialEstimation" Relationship="TokikuModel.FK_MaterialEstimation_FormDetails" FromRole="FormDetails" ToRole="MaterialEstimation" />
           <NavigationProperty Name="PurchasingOrder" Relationship="TokikuModel.FK_PurchasingOrder_FormDetails" FromRole="FormDetails" ToRole="PurchasingOrder" />
+          <Property Name="ProjectId" Type="Guid" />
+          <NavigationProperty Name="Projects" Relationship="TokikuModel.FK_FormDetails_Projects" FromRole="FormDetails" ToRole="Projects" />
+          <NavigationProperty Name="OrderMiscellaneous" Relationship="TokikuModel.FK_OrderMiscellaneous_OrderMiscellaneous" FromRole="FormDetails" ToRole="OrderMiscellaneous" />
+          <NavigationProperty Name="MaterialValuation" Relationship="TokikuModel.FK_MaterialValuation_FormDetails" FromRole="FormDetails" ToRole="MaterialValuation" />
         </EntityType>
         <EntityType Name="Forms">
           <Key>
@@ -2907,8 +3002,6 @@
           <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TotalDemand" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
           <Property Name="ShopFlowId" Type="Guid" />
-          <Property Name="NorthTowerDemand" Type="Int32" />
-          <Property Name="SouthTowerDemand" Type="Int32" />
           <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Postion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
@@ -2917,6 +3010,8 @@
           <NavigationProperty Name="ProcessingAtlas" Relationship="TokikuModel.FK_BOM_ProcessingAtlas" FromRole="BOM" ToRole="ProcessingAtlas" />
           <NavigationProperty Name="ShopFlow" Relationship="TokikuModel.FK_BOM_ShopFlow" FromRole="BOM" ToRole="ShopFlow" />
           <NavigationProperty Name="Users" Relationship="TokikuModel.FK_BOM_Users" FromRole="BOM" ToRole="Users" />
+          <Property Name="OrderLength" Type="Int32" />
+          <Property Name="UnitWeight" Type="Decimal" Precision="18" Scale="3" />
         </EntityType>
         <Association Name="FK_BOM_MaterialCategories">
           <End Type="TokikuModel.MaterialCategories" Role="MaterialCategories" Multiplicity="1" />
@@ -3203,6 +3298,69 @@
             </Principal>
             <Dependent Role="ShopFlowDetail">
               <PropertyRef Name="CreateUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FormDetails_Projects">
+          <End Type="TokikuModel.Projects" Role="Projects" Multiplicity="0..1" />
+          <End Type="TokikuModel.FormDetails" Role="FormDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FormDetails">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="OrderMiscellaneous">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="FormDetailId" Type="Guid" />
+          <Property Name="CodeOrItem" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ManufacturersId" Type="Guid" />
+          <Property Name="Description" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="UnitPrice" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="TotalPrice" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <NavigationProperty Name="FormDetails" Relationship="TokikuModel.FK_OrderMiscellaneous_OrderMiscellaneous" FromRole="OrderMiscellaneous" ToRole="FormDetails" />
+        </EntityType>
+        <Association Name="FK_OrderMiscellaneous_OrderMiscellaneous">
+          <End Type="TokikuModel.FormDetails" Role="FormDetails" Multiplicity="0..1" />
+          <End Type="TokikuModel.OrderMiscellaneous" Role="OrderMiscellaneous" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderMiscellaneous">
+              <PropertyRef Name="FormDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MaterialValuation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="FormDetailId" Type="Guid" Nullable="false" />
+          <Property Name="ItemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Material" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UnitPrice" Type="Int32" />
+          <Property Name="Weight" Type="Double" />
+          <Property Name="TotalPrice" Type="Int32" />
+          <NavigationProperty Name="FormDetails" Relationship="TokikuModel.FK_MaterialValuation_FormDetails" FromRole="MaterialValuation" ToRole="FormDetails" />
+        </EntityType>
+        <Association Name="FK_MaterialValuation_FormDetails">
+          <End Type="TokikuModel.FormDetails" Role="FormDetails" Multiplicity="1" />
+          <End Type="TokikuModel.MaterialValuation" Role="MaterialValuation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MaterialValuation">
+              <PropertyRef Name="FormDetailId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3676,6 +3834,7 @@
           <EntitySetMapping Name="FormDetails">
             <EntityTypeMapping TypeName="TokikuModel.FormDetails">
               <MappingFragment StoreEntitySet="FormDetails">
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
                 <ScalarProperty Name="ReservedField10" ColumnName="ReservedField10" />
@@ -3747,12 +3906,12 @@
           <EntitySetMapping Name="BOM">
             <EntityTypeMapping TypeName="TokikuModel.BOM">
               <MappingFragment StoreEntitySet="BOM">
+                <ScalarProperty Name="UnitWeight" ColumnName="UnitWeight" />
+                <ScalarProperty Name="OrderLength" ColumnName="OrderLength" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
                 <ScalarProperty Name="Postion" ColumnName="Postion" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="SouthTowerDemand" ColumnName="SouthTowerDemand" />
-                <ScalarProperty Name="NorthTowerDemand" ColumnName="NorthTowerDemand" />
                 <ScalarProperty Name="ShopFlowId" ColumnName="ShopFlowId" />
                 <ScalarProperty Name="TotalDemand" ColumnName="TotalDemand" />
                 <ScalarProperty Name="Unit" ColumnName="Unit" />
@@ -3803,6 +3962,33 @@
                 <ScalarProperty Name="CurrentManufacturersId" ColumnName="CurrentManufacturersId" />
                 <ScalarProperty Name="ProcessingAtlasId" ColumnName="ProcessingAtlasId" />
                 <ScalarProperty Name="ShopFlowId" ColumnName="ShopFlowId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderMiscellaneous">
+            <EntityTypeMapping TypeName="TokikuModel.OrderMiscellaneous">
+              <MappingFragment StoreEntitySet="OrderMiscellaneous">
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ManufacturersId" ColumnName="ManufacturersId" />
+                <ScalarProperty Name="CodeOrItem" ColumnName="CodeOrItem" />
+                <ScalarProperty Name="FormDetailId" ColumnName="FormDetailId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MaterialValuation">
+            <EntityTypeMapping TypeName="TokikuModel.MaterialValuation">
+              <MappingFragment StoreEntitySet="MaterialValuation">
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Material" ColumnName="Material" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="FormDetailId" ColumnName="FormDetailId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

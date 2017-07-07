@@ -183,6 +183,20 @@ namespace Tokiku.Entity
 			return repository;
 		}		
 
+		public static MaterialValuationRepository GetMaterialValuationRepository()
+		{
+			var repository = new MaterialValuationRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static MaterialValuationRepository GetMaterialValuationRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new MaterialValuationRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
 		public static MembershipRepository GetMembershipRepository()
 		{
 			var repository = new MembershipRepository();
@@ -235,6 +249,20 @@ namespace Tokiku.Entity
 		public static MoldUseStatusRepository GetMoldUseStatusRepository(IUnitOfWork unitOfWork)
 		{
 			var repository = new MoldUseStatusRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
+		public static OrderMiscellaneousRepository GetOrderMiscellaneousRepository()
+		{
+			var repository = new OrderMiscellaneousRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static OrderMiscellaneousRepository GetOrderMiscellaneousRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new OrderMiscellaneousRepository();
 			repository.UnitOfWork = unitOfWork;
 			return repository;
 		}		

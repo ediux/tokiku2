@@ -59,6 +59,30 @@
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
     <Compile Include="ActionCodes.cs" />
+    <Compile Include="BOM.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FormDetails.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MaterialValuation.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MaterialValuation.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MaterialValuationRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderMiscellaneous.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderMiscellaneous.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderMiscellaneousRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
     <Compile Include="Projects.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
@@ -174,9 +198,6 @@
     <Compile Include="Users.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
-    <Compile Include="BOM.Partial.cs">
-      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
-    </Compile>
     <Compile Include="BOMRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
@@ -215,9 +236,6 @@
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
     <Compile Include="ExecuteResultEntity.cs" />
-    <Compile Include="FormDetails.Partial.cs">
-      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
-    </Compile>
     <Compile Include="FormDetailsRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>

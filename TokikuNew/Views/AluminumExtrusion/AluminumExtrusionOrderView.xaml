@@ -4,10 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
-             mc:Ignorable="d" 
+             xmlns:viewmodels="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+             mc:Ignorable="d"              
              d:DesignHeight="683" d:DesignWidth="1362" Loaded="AluminumExtrusionOrderView_Loaded">
+    <UserControl.Resources>
+        <viewmodels:AluminumExtrusionOrderViewModelCollection x:Key="AluminumExtrusionOrderSource" />
+    </UserControl.Resources>
     <Grid>
-        <DataGrid Margin="5" AutoGenerateColumns="False" x:Name="鋁擠型訂製單DG">
+        <DataGrid Margin="5" AutoGenerateColumns="False" x:Name="鋁擠型訂製單DG" ItemsSource="{DynamicResource AluminumExtrusionOrderSource}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="*東菊編號*" Binding="{Binding TokikuId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
                 <DataGridTextColumn Header="*廠商編號*" Binding="{Binding ManufacturersId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
