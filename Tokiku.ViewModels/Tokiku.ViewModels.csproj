@@ -52,6 +52,7 @@
     <Compile Include="AssemblyTableViewModel.cs" />
     <Compile Include="AssemblyTableViewModelCollection.cs" />
     <Compile Include="Base\BaseViewModelWithPOCOClass.cs" />
+    <Compile Include="ControlTableViewModel.cs" />
     <Compile Include="Projects\ContractManagementViewModel.cs" />
     <Compile Include="Finance\TicketPeriodsViewModel.cs" />
     <Compile Include="Finance\保固票ViewModel.cs" />
