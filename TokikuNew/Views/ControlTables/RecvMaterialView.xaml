@@ -22,37 +22,79 @@
             <Expander Canvas.Left="0" VerticalAlignment="Stretch" ExpandDirection="Down" Header="表頭" IsExpanded="False">
                 <Expander.ContentTemplate>
                     <DataTemplate>
-                        <WrapPanel Height="82" Orientation="Horizontal" MaxWidth="1014" Width="1014">
-                            <TextBlock Text="ID" Margin="2,2,0,2" VerticalAlignment="Center" />
-                            <TextBox Text="54321" IsReadOnly="True" Margin="2" TextAlignment="Center" VerticalAlignment="Center" />
-                            <TextBlock Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
-                            <TextBlock Text="收料單號" VerticalAlignment="Center" />
-                            <TextBox Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
-                            <TextBlock Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
-                            <TextBlock Text="來料廠商" VerticalAlignment="Center" />
-                            <TextBox Width="88" MaxLength="20" VerticalAlignment="Center" Margin="2" />
-                            <TextBox Width="165" MaxLength="20" VerticalAlignment="Center" Margin="2" />
-                            <TextBlock Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
-                            <TextBlock Text="來料單號" VerticalAlignment="Center" />
-                            <TextBox Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
-                            <TextBlock Text="輸入人員" VerticalAlignment="Center" />
-                            <TextBox Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
-                            <TextBlock Text="建檔日期" VerticalAlignment="Center" />
-                            <DatePicker Width="200" VerticalAlignment="Center" Margin="2" />
-                            <TextBlock Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
-                            <TextBlock Text="製單人員" VerticalAlignment="Center" />
-                            <TextBox Width="100" MaxLength="20" VerticalAlignment="Center" Margin="2" />
-                            <TextBlock Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
-                            <TextBlock Text="製單日期" VerticalAlignment="Center" />
-                            <DatePicker Width="200" VerticalAlignment="Center" Margin="2" />
-                            <TextBlock Text="連絡電話" VerticalAlignment="Center" />
-                            <TextBox Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
-                            <TextBlock Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
-                            <TextBlock Text="倉別" VerticalAlignment="Center" Foreground="#FF036808" />
-                            <TextBox Width="110" MaxLength="20" VerticalAlignment="Center" Margin="2" />
-                            <TextBox Width="220" MaxLength="20" VerticalAlignment="Center" Margin="2" />
-                            <TextBlock Text="備註" VerticalAlignment="Center" Foreground="#FF036808" />
-                            <TextBox Width="500" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                        <WrapPanel Height="81" Orientation="Horizontal" MaxWidth="1310" Width="1310">
+                            <Grid Width="1310">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="ID" Margin="2,2,0,2" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="1" Text="54321" IsReadOnly="True" Margin="2" TextAlignment="Center" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="2" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                                <TextBlock Grid.Column="3" Text="收料單號" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="4" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                                <TextBlock Grid.Column="5" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                                <TextBlock Grid.Column="6" Text="來料廠商" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="7" Width="88" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                                <TextBox Grid.Column="8" Width="165" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                                <TextBlock Grid.Column="9" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                                <TextBlock Grid.Column="10" Text="來料單號" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="11" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                                <TextBlock Grid.Column="12" Text="輸入人員" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="13" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                            </Grid>
+                            <Grid Width="1310">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="建檔日期" VerticalAlignment="Center" />
+                                <DatePicker Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="2" />
+                                <TextBlock Grid.Column="2" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                                <TextBlock Grid.Column="3" Text="製單人員" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="4" Width="100" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                                <TextBlock Grid.Column="5" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                                <TextBlock Grid.Column="6" Text="製單日期" VerticalAlignment="Center" />
+                                <DatePicker Grid.Column="7" Width="200" VerticalAlignment="Center" Margin="2" />
+                                <TextBlock Grid.Column="8" Text="連絡電話" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="9" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                            </Grid>
+                            <Grid Width="1310">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                                <TextBlock Grid.Column="1" Text="倉別" VerticalAlignment="Center" Foreground="#FF036808" />
+                                <TextBox Grid.Column="2" Width="110" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                                <TextBox Grid.Column="3" Width="220" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                                <TextBlock Grid.Column="4" Text="備註" VerticalAlignment="Center" Foreground="#FF036808" />
+                                <TextBox Grid.Column="5" Width="500" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                            </Grid>
                         </WrapPanel>
                     </DataTemplate>
                 </Expander.ContentTemplate>

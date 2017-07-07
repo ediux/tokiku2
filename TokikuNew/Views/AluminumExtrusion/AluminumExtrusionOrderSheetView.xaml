@@ -1,14 +1,14 @@
-﻿<UserControl
+﻿<UserControl x:Class="TokikuNew.Views.AluminumExtrusionOrderSheetView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
-             xmlns:c="clr-namespace:TokikuNew.Controls" x:Name="userControl" x:Class="TokikuNew.Views.AluminumExtrusionOrderSheetView"
+             xmlns:c="clr-namespace:TokikuNew.Controls" x:Name="userControl"
              mc:Ignorable="d" 
              Background="{DynamicResource ResourceKey=ControlBackgroundBrush}"
              Loaded="userControl_Loaded"
-             d:DesignHeight="768" d:DesignWidth="1366">
+             d:DesignHeight="600" d:DesignWidth="1024">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>
@@ -24,36 +24,74 @@
             <Expander Canvas.Left="0" VerticalAlignment="Stretch" ExpandDirection="Down" Header="表頭" IsExpanded="False">
                 <Expander.ContentTemplate>
                     <DataTemplate>
-                        <WrapPanel Height="72" Orientation="Horizontal" MaxWidth="1366" Width="1359">
-                            <TextBlock Text="ID" Margin="2,2,0,2" VerticalAlignment="Center" />
-                            <TextBox Text="5431" IsReadOnly="True"  Margin="2" TextAlignment="Center" VerticalAlignment="Center"/>
-                            <TextBlock Text="訂單屬性" VerticalAlignment="Center"/>
-                            <ComboBox Margin="2" Width="100" VerticalAlignment="Center">
-                                <ComboBoxItem Content="一般訂製單" IsSelected="True"/>
-                            </ComboBox>
-                            <TextBlock Text="需求單位"  Margin="2,2,0,2" VerticalAlignment="Center"/>
-                            <ComboBox Margin="2" Width="100" VerticalAlignment="Center">
-                                <ComboBoxItem Content="公司" IsSelected="True"/>
-                                <ComboBoxItem Content="其他"/>
-                            </ComboBox>
-                            <TextBlock Text="訂製單號:" VerticalAlignment="Center" Margin="2"/>
-                            <TextBox Width="200" MaxLength="20" VerticalAlignment="Center"  Margin="2"/>
-                            <TextBlock Text="批號:" VerticalAlignment="Center" Margin="2"/>
-                            <TextBox Width="100" MaxLength="20" VerticalAlignment="Center"  Margin="2"/>
-                            <TextBlock Text="預估交期:" VerticalAlignment="Center" Margin="2"/>
-                            <DatePicker Width="200" VerticalAlignment="Center" Margin="2"/>
-                            <TextBlock Foreground="Black" Text="輸入人員" VerticalAlignment="Center" />
-                            <TextBox Foreground="Black" Text="{Binding LoginedUser.UserName, ElementName=userControl}" Width="100" IsReadOnly="True" IsEnabled="False" TextAlignment="Center" VerticalAlignment="Center"/>
-                            <TextBlock Foreground="Black" Text="建檔日期:" VerticalAlignment="Center"/>
-                            <DatePicker Foreground="Black" Width="200" VerticalAlignment="Center"/>
-                            <TextBlock Foreground="Black" Text="製單人員:" VerticalAlignment="Center" />
-                            <TextBox Foreground="Black" Text="{Binding LoginedUser.UserName, ElementName=userControl}" Width="100" IsReadOnly="True" Margin="2" TextAlignment="Center" VerticalAlignment="Center"/>
-                            <TextBlock Foreground="Black" Text="製單日期:" VerticalAlignment="Center" Margin="2"/>
-                            <DatePicker Foreground="Black" Width="200" VerticalAlignment="Center"  Margin="2"/>
-                            <TextBlock Foreground="Black" Text="連絡電話:"  VerticalAlignment="Center" Margin="2"/>
-                            <TextBox Foreground="Black" Width="200" MaxLength="20" VerticalAlignment="Center" Margin="2"/>
-                            <TextBlock Foreground="Black" Text="廠商:"  VerticalAlignment="Center" Margin="2"/>
-                            <ComboBox Width="100" />
+                        <WrapPanel Height="81" Orientation="Horizontal" MaxWidth="1310" Width="1310">
+                            <Grid Width="1310">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="ID" Margin="2,2,0,2" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="1" Text="5431" IsReadOnly="True"  Margin="2" TextAlignment="Center" VerticalAlignment="Center"/>
+                                <TextBlock Grid.Column="2" Text="訂單屬性" VerticalAlignment="Center"/>
+                                <ComboBox Grid.Column="3" Margin="2" Width="100" VerticalAlignment="Center">
+                                    <ComboBoxItem Content="一般訂製單" IsSelected="True"/>
+                                </ComboBox>
+                                <TextBlock Grid.Column="4" Text="需求單位"  Margin="2,2,0,2" VerticalAlignment="Center"/>
+                                <ComboBox Grid.Column="5" Margin="2" Width="100" VerticalAlignment="Center">
+                                    <ComboBoxItem Content="公司" IsSelected="True"/>
+                                    <ComboBoxItem Content="其他"/>
+                                </ComboBox>
+                                <TextBlock Grid.Column="6" Text="訂製單號:" VerticalAlignment="Center" Margin="2"/>
+                                <TextBox Grid.Column="7" Width="200" MaxLength="20" VerticalAlignment="Center"  Margin="2"/>
+                                <TextBlock Grid.Column="8" Text="批號:" VerticalAlignment="Center" Margin="2"/>
+                                <TextBox Grid.Column="9" Width="100" MaxLength="20" VerticalAlignment="Center"  Margin="2"/>
+                                <TextBlock Grid.Column="10" Text="預估交期:" VerticalAlignment="Center" Margin="2"/>
+                                <DatePicker Grid.Column="11" Width="200" VerticalAlignment="Center" Margin="2"/>
+                            </Grid>
+                            <Grid Width="1310">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Foreground="Black" Text="輸入人員" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="1" Foreground="Black" Text="{Binding LoginedUser.UserName, ElementName=userControl}" Width="100" IsReadOnly="True" IsEnabled="False" TextAlignment="Center" VerticalAlignment="Center"/>
+                                <TextBlock Grid.Column="2" Foreground="Black" Text="連絡電話:"  VerticalAlignment="Center" Margin="2"/>
+                                <TextBox Grid.Column="3" Foreground="Black" Width="200" MaxLength="20" VerticalAlignment="Center" Margin="2"/>
+                                <TextBlock Grid.Column="4" Foreground="Black" Text="建檔日期:" VerticalAlignment="Center"/>
+                                <DatePicker Grid.Column="5" Foreground="Black" Width="200" VerticalAlignment="Center"/>
+                                <TextBlock Grid.Column="6" Foreground="Black" Text="製單人員:" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="7" Foreground="Black" Text="{Binding LoginedUser.UserName, ElementName=userControl}" Width="100" IsReadOnly="True" Margin="2" TextAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="1310">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Foreground="Black" Text="製單日期:" VerticalAlignment="Center" Margin="2"/>
+                                <DatePicker Grid.Column="1" Foreground="Black" Width="200" VerticalAlignment="Center"  Margin="2"/>
+                                <TextBlock Grid.Column="2" Foreground="Black" Text="廠商:"  VerticalAlignment="Center" Margin="2"/>
+                                <ComboBox Grid.Column="3" Margin="2" Width="150" VerticalAlignment="Center">
+                                    <ComboBoxItem Content="公司" IsSelected="True"/>
+                                </ComboBox>
+                            </Grid>
                         </WrapPanel>
                     </DataTemplate>
                 </Expander.ContentTemplate>
