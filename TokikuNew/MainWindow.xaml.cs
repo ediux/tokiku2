@@ -658,7 +658,7 @@ namespace TokikuNew
             try
             {
                 ClosableTabItem addWorkarea = new ClosableTabItem();
-                addWorkarea.Header = "專案合約管理";
+                addWorkarea.Header = "本票管理";
 
                 bool isExisted = false;
                 // 檢查是否重複開啟
