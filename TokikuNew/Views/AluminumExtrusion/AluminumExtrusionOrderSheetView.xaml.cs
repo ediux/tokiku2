@@ -63,6 +63,33 @@ namespace TokikuNew.Views
         }
         #endregion
 
+        #region SelectedProject
+        public ProjectsViewModel SelectedProject
+        {
+            get { return (ProjectsViewModel)GetValue(SelectedProjectProperty); }
+            set { SetValue(SelectedProjectProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectedProject.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedProjectProperty =
+            DependencyProperty.Register("SelectedProject", typeof(ProjectsViewModel), typeof(AluminumExtrusionOrderSheetView), new PropertyMetadata(default(ProjectsViewModel)));
+
+        #endregion
+
+
+
+        public Guid FormDetailId
+        {
+            get { return (Guid)GetValue(FormDetailIdProperty); }
+            set { SetValue(FormDetailIdProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for FormDetailId.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FormDetailIdProperty =
+            DependencyProperty.Register("FormDetailId", typeof(Guid), typeof(AluminumExtrusionOrderSheetView), new PropertyMetadata(Guid.Empty));
+
+
+
         private void InitSample()
         {
             try
@@ -101,9 +128,21 @@ namespace TokikuNew.Views
         private void userControl_Loaded(object sender, RoutedEventArgs e)
         {
 
-            //InitSample();
-            //InitUI();
-            //InitializeSample();
+            try
+            {
+                Binding datasourcebinding = new Binding();
+                datasourcebinding.Source = DataContext;
+                datasourcebinding.Mode = BindingMode.TwoWay;
+                datasourcebinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+                datasourcebinding.Path = new PropertyPath(DataContext);
+
+                SetBinding(SelectedProjectProperty, datasourcebinding);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+
+            }
         }
 
         private void InitUI()

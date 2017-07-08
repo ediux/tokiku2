@@ -40,5 +40,21 @@ namespace Tokiku.Controllers
             }
 
         }
+
+        public static ExecuteResultEntity<Users> GetUserById(Guid UserId)
+        {
+            try
+            {
+                var repo = RepositoryHelper.GetUsersRepository();
+                var result = (from q in repo.All()
+                              where q.UserId == UserId
+                              select q).SingleOrDefault();
+                return ExecuteResultEntity<Users>.CreateResultEntity(result);
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<Users>.CreateErrorResultEntity(ex);
+            }
+        }
     }
 }

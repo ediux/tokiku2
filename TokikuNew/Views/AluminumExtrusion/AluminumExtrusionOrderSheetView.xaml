@@ -164,7 +164,7 @@
         </Canvas>
         <TabControl Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" TabStripPlacement="Bottom">
             <TabItem Header="訂製單">
-                <local:AluminumExtrusionOrderView/>
+                <local:AluminumExtrusionOrderView SelectedProject="{Binding}" />
             </TabItem>
             <TabItem Header="材質估價">
                 <local:AluminumExtrusionOrderMaterialValuationView />

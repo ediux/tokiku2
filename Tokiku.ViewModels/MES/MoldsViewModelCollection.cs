@@ -67,24 +67,24 @@ namespace Tokiku.ViewModels
                     foreach (var model in Items)
                     {
                         Molds data = new Molds();
-                        model.DoEvents();
+                        
                         CopyToModel(data, model);
                         dataset.Add(data);
-                        if (model.Materials.Status.IsNewInstance)
-                        {
-                            model.DoEvents();
-                            MMcontroller.Add(new Materials()
-                            {
-                                CreateTime = DateTime.Now,
-                                CreateUser = logineduser,
-                                CreateUserId = logineduser.UserId,
-                                Id = Guid.NewGuid(),
-                                ManufacturersId = model.ManufacturersId,
-                                Name = model.Materials.Name,
-                                UnitPrice = 0F
-                            });
+                        //if (model..Status.IsNewInstance)
+                        //{
+                           
+                        //    //MMcontroller.Add(new Materials()
+                        //    //{
+                        //    //    CreateTime = DateTime.Now,
+                        //    //    CreateUser = logineduser,
+                        //    //    CreateUserId = logineduser.UserId,
+                        //    //    Id = Guid.NewGuid(),
+                        //    //    ManufacturersId = model.ManufacturersId,
+                        //    //    Name = model.Materials.Name,
+                        //    //    UnitPrice = 0F
+                        //    //});
 
-                        }
+                        //}
                     }
                 }
                 await controller.CreateOrUpdateAsync(dataset);

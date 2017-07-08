@@ -34,9 +34,9 @@ namespace TokikuNew.Views
             set { SetValue(ProjectManagerView.SelectedProjectProperty, value); }
         }
 
-        //// Using a DependencyProperty as the backing store for SelectedProject.  This enables animation, styling, binding, etc...
-        //public static readonly DependencyProperty SelectedProjectProperty =
-        //    DependencyProperty.Register("SelectedProject", typeof(ProjectsViewModel), typeof(ProjectManagerView), new PropertyMetadata(default(ProjectsViewModel)));
+        // Using a DependencyProperty as the backing store for SelectedProject.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedProjectProperty =
+            DependencyProperty.Register("SelectedProject", typeof(ProjectsViewModel), typeof(AluminumExtrusionOrderView), new PropertyMetadata(default(ProjectsViewModel)));
 
         #endregion
 
