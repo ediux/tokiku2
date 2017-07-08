@@ -20,6 +20,7 @@ namespace Tokiku.Entity
         public string Name { get; set; }
         
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
+        [Required]
         public string CombinationNumber { get; set; }
         [Required]
         public System.Guid MaterialCategoriesId { get; set; }
@@ -51,6 +52,10 @@ namespace Tokiku.Entity
         public System.Guid CreateUserId { get; set; }
         public Nullable<int> OrderLength { get; set; }
         public Nullable<decimal> UnitWeight { get; set; }
+        
+        [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
+        [Required]
+        public string Code { get; set; }
     
         public virtual MaterialCategories MaterialCategories { get; set; }
         public virtual ProcessingAtlas ProcessingAtlas { get; set; }

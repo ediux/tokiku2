@@ -23,8 +23,9 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ProcessingAtlasId" Type="uniqueidentifier" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="CombinationNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="CombinationNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="MaterialCategoriesId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ProcessingNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="CrowdedNumber" Type="nvarchar" MaxLength="50" />
@@ -2992,7 +2993,7 @@
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="ProcessingAtlasId" Type="Guid" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CombinationNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CombinationNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MaterialCategoriesId" Type="Guid" Nullable="false" />
           <Property Name="ProcessingNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CrowdedNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -3012,6 +3013,7 @@
           <NavigationProperty Name="Users" Relationship="TokikuModel.FK_BOM_Users" FromRole="BOM" ToRole="Users" />
           <Property Name="OrderLength" Type="Int32" />
           <Property Name="UnitWeight" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_BOM_MaterialCategories">
           <End Type="TokikuModel.MaterialCategories" Role="MaterialCategories" Multiplicity="1" />
@@ -3906,6 +3908,7 @@
           <EntitySetMapping Name="BOM">
             <EntityTypeMapping TypeName="TokikuModel.BOM">
               <MappingFragment StoreEntitySet="BOM">
+                <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="UnitWeight" ColumnName="UnitWeight" />
                 <ScalarProperty Name="OrderLength" ColumnName="OrderLength" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />

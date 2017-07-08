@@ -33,6 +33,7 @@ namespace Tokiku.Entity
         public System.Guid CreateUserId { get; set; }
         public Nullable<int> OrderLength { get; set; }
         public Nullable<decimal> UnitWeight { get; set; }
+        public string Code { get; set; }
     
         public virtual MaterialCategories MaterialCategories { get; set; }
         public virtual ProcessingAtlas ProcessingAtlas { get; set; }

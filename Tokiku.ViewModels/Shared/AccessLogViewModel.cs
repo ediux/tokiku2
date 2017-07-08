@@ -129,9 +129,6 @@ namespace Tokiku.ViewModels
             }
         }
 
-
-
-
         /// <summary>
         /// 紀錄說明(變更原因說明)
         /// </summary>
@@ -141,9 +138,6 @@ namespace Tokiku.ViewModels
             get { return CopyofPOCOInstance.Reason; }
             set { CopyofPOCOInstance.Reason = value; RaisePropertyChanged("Description"); }
         }
-
-
-
 
         public override void SetModel(dynamic entity)
         {
