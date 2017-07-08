@@ -79,5 +79,10 @@ namespace TokikuNew
         {
 
         }
+
+        private void RecvMaterialView_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
