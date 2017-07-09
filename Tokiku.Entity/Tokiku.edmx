@@ -235,6 +235,7 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="FormDetailId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BOMId" Type="uniqueidentifier" />
           <Property Name="ItemName" Type="nvarchar" MaxLength="50" />
           <Property Name="Material" Type="nvarchar" MaxLength="50" />
           <Property Name="UnitPrice" Type="int" />
@@ -314,6 +315,7 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="FormDetailId" Type="uniqueidentifier" />
+          <Property Name="BOMId" Type="uniqueidentifier" />
           <Property Name="CodeOrItem" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ManufacturersId" Type="uniqueidentifier" />
           <Property Name="Description" Type="nvarchar" MaxLength="512" />
@@ -447,6 +449,7 @@
           <Property Name="SparePartsNumber" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="OrderQuantity" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="BOMId" Type="uniqueidentifier" />
           <Property Name="CreateTime" Type="smalldatetime" Nullable="false" />
           <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
@@ -929,6 +932,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MaterialValuation_BOM">
+          <End Role="BOM" Type="Self.BOM" Multiplicity="0..1" />
+          <End Role="MaterialValuation" Type="Self.MaterialValuation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BOM">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MaterialValuation">
+              <PropertyRef Name="BOMId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_MaterialValuation_FormDetails">
           <End Role="FormDetails" Type="Self.FormDetails" Multiplicity="1" />
           <End Role="MaterialValuation" Type="Self.MaterialValuation" Multiplicity="*" />
@@ -1022,6 +1037,18 @@
             </Principal>
             <Dependent Role="MoldsInProjects">
               <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderMiscellaneous_BOM">
+          <End Role="BOM" Type="Self.BOM" Multiplicity="0..1" />
+          <End Role="OrderMiscellaneous" Type="Self.OrderMiscellaneous" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BOM">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderMiscellaneous">
+              <PropertyRef Name="BOMId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1166,6 +1193,18 @@
             </Principal>
             <Dependent Role="PromissoryNoteManagement">
               <PropertyRef Name="CreateUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchasingOrder_BOM">
+          <End Role="BOM" Type="Self.BOM" Multiplicity="0..1" />
+          <End Role="PurchasingOrder" Type="Self.PurchasingOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BOM">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PurchasingOrder">
+              <PropertyRef Name="BOMId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1530,6 +1569,10 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Materials" EntitySet="Materials" />
           </AssociationSet>
+          <AssociationSet Name="FK_MaterialValuation_BOM" Association="Self.FK_MaterialValuation_BOM">
+            <End Role="BOM" EntitySet="BOM" />
+            <End Role="MaterialValuation" EntitySet="MaterialValuation" />
+          </AssociationSet>
           <AssociationSet Name="FK_MaterialValuation_FormDetails" Association="Self.FK_MaterialValuation_FormDetails">
             <End Role="FormDetails" EntitySet="FormDetails" />
             <End Role="MaterialValuation" EntitySet="MaterialValuation" />
@@ -1561,6 +1604,10 @@
           <AssociationSet Name="FK_MoldsInProjects_Projects" Association="Self.FK_MoldsInProjects_Projects">
             <End Role="Projects" EntitySet="Projects" />
             <End Role="MoldsInProjects" EntitySet="MoldsInProjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderMiscellaneous_BOM" Association="Self.FK_OrderMiscellaneous_BOM">
+            <End Role="BOM" EntitySet="BOM" />
+            <End Role="OrderMiscellaneous" EntitySet="OrderMiscellaneous" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderMiscellaneous_OrderMiscellaneous" Association="Self.FK_OrderMiscellaneous_OrderMiscellaneous">
             <End Role="FormDetails" EntitySet="FormDetails" />
@@ -1609,6 +1656,10 @@
           <AssociationSet Name="FK_PromissoryNoteManagement_Users" Association="Self.FK_PromissoryNoteManagement_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="PromissoryNoteManagement" EntitySet="PromissoryNoteManagement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchasingOrder_BOM" Association="Self.FK_PurchasingOrder_BOM">
+            <End Role="BOM" EntitySet="BOM" />
+            <End Role="PurchasingOrder" EntitySet="PurchasingOrder" />
           </AssociationSet>
           <AssociationSet Name="FK_PurchasingOrder_FormDetails" Association="Self.FK_PurchasingOrder_FormDetails">
             <End Role="FormDetails" EntitySet="FormDetails" />
@@ -2073,6 +2124,18 @@
           <AssociationSet Name="FK_MaterialValuation_FormDetails" Association="TokikuModel.FK_MaterialValuation_FormDetails">
             <End Role="FormDetails" EntitySet="FormDetails" />
             <End Role="MaterialValuation" EntitySet="MaterialValuation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchasingOrder_BOM" Association="TokikuModel.FK_PurchasingOrder_BOM">
+            <End Role="BOM" EntitySet="BOM" />
+            <End Role="PurchasingOrder" EntitySet="PurchasingOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialValuation_BOM" Association="TokikuModel.FK_MaterialValuation_BOM">
+            <End Role="BOM" EntitySet="BOM" />
+            <End Role="MaterialValuation" EntitySet="MaterialValuation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderMiscellaneous_BOM" Association="TokikuModel.FK_OrderMiscellaneous_BOM">
+            <End Role="BOM" EntitySet="BOM" />
+            <End Role="OrderMiscellaneous" EntitySet="OrderMiscellaneous" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="AccessLog">
@@ -2865,6 +2928,8 @@
           <NavigationProperty Name="FormDetails" Relationship="TokikuModel.FK_PurchasingOrder_FormDetails" FromRole="PurchasingOrder" ToRole="FormDetails" />
           <NavigationProperty Name="Materials" Relationship="TokikuModel.FK_PurchasingOrder_Materials" FromRole="PurchasingOrder" ToRole="Materials" />
           <NavigationProperty Name="Users" Relationship="TokikuModel.FK_PurchasingOrder_Users" FromRole="PurchasingOrder" ToRole="Users" />
+          <Property Name="BOMId" Type="Guid" />
+          <NavigationProperty Name="BOM" Relationship="TokikuModel.FK_PurchasingOrder_BOM" FromRole="PurchasingOrder" ToRole="BOM" />
         </EntityType>
         <Association Name="FK_FormDetails_Forms">
           <End Type="TokikuModel.Forms" Role="Forms" Multiplicity="0..1" />
@@ -3014,6 +3079,9 @@
           <Property Name="OrderLength" Type="Int32" />
           <Property Name="UnitWeight" Type="Decimal" Precision="18" Scale="3" />
           <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PurchasingOrder" Relationship="TokikuModel.FK_PurchasingOrder_BOM" FromRole="BOM" ToRole="PurchasingOrder" />
+          <NavigationProperty Name="MaterialValuation" Relationship="TokikuModel.FK_MaterialValuation_BOM" FromRole="BOM" ToRole="MaterialValuation" />
+          <NavigationProperty Name="OrderMiscellaneous" Relationship="TokikuModel.FK_OrderMiscellaneous_BOM" FromRole="BOM" ToRole="OrderMiscellaneous" />
         </EntityType>
         <Association Name="FK_BOM_MaterialCategories">
           <End Type="TokikuModel.MaterialCategories" Role="MaterialCategories" Multiplicity="1" />
@@ -3328,6 +3396,8 @@
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="TotalPrice" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
           <NavigationProperty Name="FormDetails" Relationship="TokikuModel.FK_OrderMiscellaneous_OrderMiscellaneous" FromRole="OrderMiscellaneous" ToRole="FormDetails" />
+          <Property Name="BOMId" Type="Guid" />
+          <NavigationProperty Name="BOM" Relationship="TokikuModel.FK_OrderMiscellaneous_BOM" FromRole="OrderMiscellaneous" ToRole="BOM" />
         </EntityType>
         <Association Name="FK_OrderMiscellaneous_OrderMiscellaneous">
           <End Type="TokikuModel.FormDetails" Role="FormDetails" Multiplicity="0..1" />
@@ -3353,6 +3423,8 @@
           <Property Name="Weight" Type="Double" />
           <Property Name="TotalPrice" Type="Int32" />
           <NavigationProperty Name="FormDetails" Relationship="TokikuModel.FK_MaterialValuation_FormDetails" FromRole="MaterialValuation" ToRole="FormDetails" />
+          <Property Name="BOMId" Type="Guid" />
+          <NavigationProperty Name="BOM" Relationship="TokikuModel.FK_MaterialValuation_BOM" FromRole="MaterialValuation" ToRole="BOM" />
         </EntityType>
         <Association Name="FK_MaterialValuation_FormDetails">
           <End Type="TokikuModel.FormDetails" Role="FormDetails" Multiplicity="1" />
@@ -3363,6 +3435,42 @@
             </Principal>
             <Dependent Role="MaterialValuation">
               <PropertyRef Name="FormDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchasingOrder_BOM">
+          <End Type="TokikuModel.BOM" Role="BOM" Multiplicity="0..1" />
+          <End Type="TokikuModel.PurchasingOrder" Role="PurchasingOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BOM">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PurchasingOrder">
+              <PropertyRef Name="BOMId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaterialValuation_BOM">
+          <End Type="TokikuModel.BOM" Role="BOM" Multiplicity="0..1" />
+          <End Type="TokikuModel.MaterialValuation" Role="MaterialValuation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BOM">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MaterialValuation">
+              <PropertyRef Name="BOMId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderMiscellaneous_BOM">
+          <End Type="TokikuModel.BOM" Role="BOM" Multiplicity="0..1" />
+          <End Type="TokikuModel.OrderMiscellaneous" Role="OrderMiscellaneous" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BOM">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderMiscellaneous">
+              <PropertyRef Name="BOMId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3890,6 +3998,7 @@
           <EntitySetMapping Name="PurchasingOrder">
             <EntityTypeMapping TypeName="TokikuModel.PurchasingOrder">
               <MappingFragment StoreEntitySet="PurchasingOrder">
+                <ScalarProperty Name="BOMId" ColumnName="BOMId" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
@@ -3972,6 +4081,7 @@
           <EntitySetMapping Name="OrderMiscellaneous">
             <EntityTypeMapping TypeName="TokikuModel.OrderMiscellaneous">
               <MappingFragment StoreEntitySet="OrderMiscellaneous">
+                <ScalarProperty Name="BOMId" ColumnName="BOMId" />
                 <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
@@ -3986,6 +4096,7 @@
           <EntitySetMapping Name="MaterialValuation">
             <EntityTypeMapping TypeName="TokikuModel.MaterialValuation">
               <MappingFragment StoreEntitySet="MaterialValuation">
+                <ScalarProperty Name="BOMId" ColumnName="BOMId" />
                 <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
                 <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />

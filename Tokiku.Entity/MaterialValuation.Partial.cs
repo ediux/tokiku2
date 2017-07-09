@@ -24,7 +24,9 @@ namespace Tokiku.Entity
         public Nullable<int> UnitPrice { get; set; }
         public Nullable<double> Weight { get; set; }
         public Nullable<int> TotalPrice { get; set; }
+        public Nullable<System.Guid> BOMId { get; set; }
     
         public virtual FormDetails FormDetails { get; set; }
+        public virtual BOM BOM { get; set; }
     }
 }

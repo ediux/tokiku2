@@ -86,6 +86,9 @@
     <Compile Include="Projects.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
+    <Compile Include="PurchasingOrder.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewTables\AluminumExtrusionOrderListEntity.cs" />
     <Compile Include="ViewTables\AluminumExtrusionOrderMiscellaneousEntity.cs" />
     <Compile Include="BOM.cs">
@@ -296,9 +299,6 @@
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
     <Compile Include="ProjectItemCost.Partial.cs">
-      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PurchasingOrder.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
     <Compile Include="PurchasingOrderRepository.cs">

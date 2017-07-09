@@ -22,7 +22,9 @@ namespace Tokiku.Entity
         public int UnitPrice { get; set; }
         public int Quantity { get; set; }
         public decimal TotalPrice { get; set; }
+        public Nullable<System.Guid> BOMId { get; set; }
     
         public virtual FormDetails FormDetails { get; set; }
+        public virtual BOM BOM { get; set; }
     }
 }

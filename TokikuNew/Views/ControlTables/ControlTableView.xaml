@@ -33,7 +33,6 @@
                         <DataGridTextColumn Header="製單" Width="auto"/>
                         <DataGridTextColumn Header="加工編號" Width="auto" />
                         <DataGridTextColumn Header="東菊編號" Width="auto" />
-                        <DataGridTextColumn Header="材質" Width="auto" />
                         <DataGridTextColumn Header="尺寸" Width="auto" />
                         <DataGridTextColumn Header="廠商" Width="auto" />
                         <DataGridTextColumn Header="廠商編號" Width="auto" />
@@ -228,7 +227,7 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Visibility="Collapsed">
+                        <DataGridTemplateColumn>
                             <DataGridTemplateColumn.HeaderTemplate>
                                 <DataTemplate>
                                     <Grid>
@@ -258,7 +257,7 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Visibility="Collapsed">
+                        <DataGridTemplateColumn>
                             <DataGridTemplateColumn.HeaderTemplate>
                                 <DataTemplate>
                                     <Grid>

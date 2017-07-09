@@ -188,15 +188,37 @@ namespace TokikuNew.Views
 
         private void userControl_Loaded(object sender, RoutedEventArgs e)
         {
+            for(int i=0;i< dg.Columns.Count; i++)
+            {
+                dg.Columns[i].Visibility = Visibility.Visible;
+            }
+
             if (!string.IsNullOrEmpty(FormName))
             {
                 switch (FormName)
                 {
                     case "鋁擠型需求":
+                        dg.Columns[1].Visibility = Visibility.Collapsed;
+                        dg.Columns[2].Visibility = Visibility.Collapsed;
+                        dg.Columns[4].Visibility = Visibility.Collapsed;
                         dg.Columns[7].Visibility = Visibility.Visible;
                         break;
+
                     default:
+                        dg.Columns[1].Visibility = Visibility.Visible;
+                        dg.Columns[2].Visibility = Visibility.Visible;
+                        dg.Columns[4].Visibility = Visibility.Visible;
+                        dg.Columns[5].Visibility = Visibility.Collapsed;
+                        dg.Columns[6].Visibility = Visibility.Collapsed;
                         dg.Columns[7].Visibility = Visibility.Collapsed;
+                        dg.Columns[8].Visibility = Visibility.Collapsed;
+                        dg.Columns[9].Visibility = Visibility.Collapsed;
+                        dg.Columns[11].Visibility = Visibility.Collapsed;
+                        dg.Columns[12].Visibility = Visibility.Collapsed;
+                        dg.Columns[13].Visibility = Visibility.Collapsed;
+                        dg.Columns[14].Visibility = Visibility.Collapsed;
+                        dg.Columns[15].Visibility = Visibility.Collapsed;
+                        dg.Columns[16].Visibility = Visibility.Collapsed;
                         break;
                         
                 }
