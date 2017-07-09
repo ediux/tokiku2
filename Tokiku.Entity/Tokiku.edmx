@@ -2186,6 +2186,10 @@
           <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.ContractsInManufacturers" FromRole="Contacts" ToRole="Manufacturers" />
         </EntityType>
         <EntityType Name="Engineering">
+          <Documentation>
+            <Summary>工程項目</Summary>
+            <LongDescription>工程項目</LongDescription>
+          </Documentation>
           <Key>
             <PropertyRef Name="Id" />
           </Key>

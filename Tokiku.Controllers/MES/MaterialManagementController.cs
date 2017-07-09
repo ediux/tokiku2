@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -21,6 +22,24 @@ namespace Tokiku.Controllers
         public virtual Task<ExecuteResultEntity<ICollection<Materials>>> QueryAsync(Expression<Func<Materials, bool>> filiter)
         {
             return Task.FromResult(Query(filiter));
+        }
+
+        public ExecuteResultEntity<ICollection<MaterialCategories>> FindMaterialCategoriesByName(string Name)
+        {
+            try
+            {
+                var repo = RepositoryHelper.GetMaterialCategoriesRepository();
+                database = repo.UnitOfWork;
+                var result = from q in repo.All()
+                             where q.Name.Contains(Name)
+                             select q;
+                return ExecuteResultEntity<ICollection<MaterialCategories>>.CreateResultEntity(new Collection<MaterialCategories>(result.ToList()));
+
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<ICollection<MaterialCategories>>.CreateErrorResultEntity(ex);
+            }
         }
     }
 }
