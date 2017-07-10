@@ -8,25 +8,25 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class ShippingMaterialListViewModelCollection : BaseViewModelCollection<ShippingMaterialListViewModel>
+    public class ShippingMaterialViewModelCollection : BaseViewModelCollection<ShippingMaterialViewModel>
     {
-        public ShippingMaterialListViewModelCollection()
+        public ShippingMaterialViewModelCollection()
         {
             HasError = false;
         }
 
-        public ShippingMaterialListViewModelCollection(IEnumerable<ShippingMaterialListViewModel> source) : base(source)
+        public ShippingMaterialViewModelCollection(IEnumerable<ShippingMaterialViewModel> source) : base(source)
         {
-            
+
         }
 
         public override void Query()
         {
-            ShippingMaterialListController ctrl = new ShippingMaterialListController();
-            ExecuteResultEntity<ICollection<ShippingMaterialListEntity>> ere = ctrl.QuerAll();
+            ShippingMaterialController ctrl = new ShippingMaterialController();
+            ExecuteResultEntity<ICollection<ShippingMaterialEntity>> ere = ctrl.QuerAll();
             if (!ere.HasError)
             {
-                ShippingMaterialListViewModel vm = new ShippingMaterialListViewModel();
+                ShippingMaterialViewModel vm = new ShippingMaterialViewModel();
                 foreach (var item in ere.Result)
                 {
                     vm.SetModel(item);
@@ -37,15 +37,15 @@ namespace Tokiku.ViewModels
 
     }
 
-    public class ShippingMaterialListViewModel : BaseViewModel
+    public class ShippingMaterialViewModel : BaseViewModel
     {
         public override void SetModel(dynamic entity)
         {
             try
             {
-                if (entity is ShippingMaterialListEntity)
+                if (entity is ShippingMaterialEntity)
                 {
-                    ShippingMaterialListEntity data = (ShippingMaterialListEntity)entity;
+                    ShippingMaterialEntity data = (ShippingMaterialEntity)entity;
                     BindingFromModel(data, this);
                 }
             }

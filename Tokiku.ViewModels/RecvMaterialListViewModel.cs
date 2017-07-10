@@ -40,6 +40,22 @@ namespace Tokiku.ViewModels
 
     public class RecvMaterialListViewModel : BaseViewModel
     {
+        public override void SetModel(dynamic entity)
+        {
+            try
+            {
+                if (entity is RecvMaterialListEntity)
+                {
+                    RecvMaterialListEntity data = (RecvMaterialListEntity)entity;
+                    BindingFromModel(data, this);
+                }
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+                throw;
+            }
+        }
 
     }
 }

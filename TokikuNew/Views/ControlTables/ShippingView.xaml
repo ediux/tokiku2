@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:TokikuNew.Views"
              mc:Ignorable="d" 
              Background="{DynamicResource ControlBackgroundBrush}"
-             d:DesignHeight="600" d:DesignWidth="1024">
+             d:DesignHeight="600" d:DesignWidth="1024" Loaded="ShippingMaterialView_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27" />
@@ -171,7 +171,7 @@
             </Expander>
         </Canvas>
 
-        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="570" Margin="10,0,0,0" VerticalAlignment="Top" Width="1326">
+        <Grid x:Name="CheckGrid" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="570" Margin="10,0,0,0" VerticalAlignment="Top" Width="1326">
             <DataGrid>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="單號" Width="auto" />
