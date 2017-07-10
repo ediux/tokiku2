@@ -30,8 +30,8 @@ namespace TokikuNew.Views
         #region SelectedProject
         public ProjectsViewModel SelectedProject
         {
-            get { return (ProjectsViewModel)GetValue(ProjectManagerView.SelectedProjectProperty); }
-            set { SetValue(ProjectManagerView.SelectedProjectProperty, value); }
+            get { return (ProjectsViewModel)GetValue(SelectedProjectProperty); }
+            set { SetValue(SelectedProjectProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for SelectedProject.  This enables animation, styling, binding, etc...

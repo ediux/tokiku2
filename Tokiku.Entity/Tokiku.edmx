@@ -24,21 +24,40 @@
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ProcessingAtlasId" Type="uniqueidentifier" />
           <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="CombinationNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ManufacturersId" Type="uniqueidentifier" />
+          <Property Name="FactoryNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="MaterialCategoriesId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UnitWeight" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="OrderLength" Type="int" />
+          <Property Name="RequiredQuantity" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="RequiredQuantitySubtotal" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="RequiredQuantityWeightSummary" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="NumberofOrdersNotPlaced" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="QuantityofOrderSummary" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="PrepareSubtotal" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="TotalWeightofOrder" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="ArrivalCondition_QuantitySubtotal" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="ArrivalCondition_WeightSubtotal" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="ArrivalCondition_OutofStock" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="ReturnStatus_QuantitySubtotal" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="ReturnStatus_WeightSubtotal" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="ReturnStatus_Receipt_QuantitySubtotal" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="ReturnStatus_Receipt_WeightSubtotal" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="ReturnStatus_Charge_QuantitySubtotal" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="ReturnStatus_Charge_WeightSubtotal" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="PickingCondition_QuantitySubtotal" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="PickingCondition_WeightSubtotal" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="InventoryMargin_LossAdjustment_QuantitySubtotal" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="InventoryMargin_LossAdjustment_WeightSubtotal" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="InventoryStatus_QuantitySubtotal" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="InventoryStatus_WeightSubtotal" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="PurchasingOrderId" Type="uniqueidentifier" />
           <Property Name="ProcessingNumber" Type="nvarchar" MaxLength="50" />
-          <Property Name="CrowdedNumber" Type="nvarchar" MaxLength="50" />
-          <Property Name="MaterialDescription" Type="nvarchar" MaxLength="512" Nullable="false" />
-          <Property Name="CutLength" Type="nvarchar" MaxLength="50" />
-          <Property Name="SingleNumber" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="MaterialAndSurfaceTreatment" Type="nvarchar" MaxLength="512" Nullable="false" />
           <Property Name="Unit" Type="nvarchar" MaxLength="50" />
-          <Property Name="TotalDemand" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="Size" Type="nvarchar" MaxLength="50" />
           <Property Name="ShopFlowId" Type="uniqueidentifier" />
           <Property Name="Comment" Type="nvarchar(max)" />
-          <Property Name="Postion" Type="nvarchar(max)" />
-          <Property Name="OrderLength" Type="int" />
-          <Property Name="UnitWeight" Type="decimal" Precision="18" Scale="3" />
           <Property Name="CreateTime" Type="datetime" Nullable="false" />
           <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
@@ -449,7 +468,6 @@
           <Property Name="SparePartsNumber" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="OrderQuantity" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Comment" Type="nvarchar(max)" />
-          <Property Name="BOMId" Type="uniqueidentifier" />
           <Property Name="CreateTime" Type="smalldatetime" Nullable="false" />
           <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
@@ -632,6 +650,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_BOM_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="0..1" />
+          <End Role="BOM" Type="Self.BOM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BOM">
+              <PropertyRef Name="ManufacturersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_BOM_MaterialCategories">
           <End Role="MaterialCategories" Type="Self.MaterialCategories" Multiplicity="1" />
           <End Role="BOM" Type="Self.BOM" Multiplicity="*" />
@@ -653,6 +683,18 @@
             </Principal>
             <Dependent Role="BOM">
               <PropertyRef Name="ProcessingAtlasId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BOM_PurchasingOrder">
+          <End Role="PurchasingOrder" Type="Self.PurchasingOrder" Multiplicity="0..1" />
+          <End Role="BOM" Type="Self.BOM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchasingOrder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BOM">
+              <PropertyRef Name="PurchasingOrderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1196,18 +1238,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PurchasingOrder_BOM">
-          <End Role="BOM" Type="Self.BOM" Multiplicity="0..1" />
-          <End Role="PurchasingOrder" Type="Self.PurchasingOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BOM">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PurchasingOrder">
-              <PropertyRef Name="BOMId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_PurchasingOrder_FormDetails">
           <End Role="FormDetails" Type="Self.FormDetails" Multiplicity="0..1" />
           <End Role="PurchasingOrder" Type="Self.PurchasingOrder" Multiplicity="*" />
@@ -1469,12 +1499,20 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Profile" EntitySet="Profile" />
           </AssociationSet>
+          <AssociationSet Name="FK_BOM_Manufacturers" Association="Self.FK_BOM_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="BOM" EntitySet="BOM" />
+          </AssociationSet>
           <AssociationSet Name="FK_BOM_MaterialCategories" Association="Self.FK_BOM_MaterialCategories">
             <End Role="MaterialCategories" EntitySet="MaterialCategories" />
             <End Role="BOM" EntitySet="BOM" />
           </AssociationSet>
           <AssociationSet Name="FK_BOM_ProcessingAtlas" Association="Self.FK_BOM_ProcessingAtlas">
             <End Role="ProcessingAtlas" EntitySet="ProcessingAtlas" />
+            <End Role="BOM" EntitySet="BOM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BOM_PurchasingOrder" Association="Self.FK_BOM_PurchasingOrder">
+            <End Role="PurchasingOrder" EntitySet="PurchasingOrder" />
             <End Role="BOM" EntitySet="BOM" />
           </AssociationSet>
           <AssociationSet Name="FK_BOM_ShopFlow" Association="Self.FK_BOM_ShopFlow">
@@ -1657,10 +1695,6 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="PromissoryNoteManagement" EntitySet="PromissoryNoteManagement" />
           </AssociationSet>
-          <AssociationSet Name="FK_PurchasingOrder_BOM" Association="Self.FK_PurchasingOrder_BOM">
-            <End Role="BOM" EntitySet="BOM" />
-            <End Role="PurchasingOrder" EntitySet="PurchasingOrder" />
-          </AssociationSet>
           <AssociationSet Name="FK_PurchasingOrder_FormDetails" Association="Self.FK_PurchasingOrder_FormDetails">
             <End Role="FormDetails" EntitySet="FormDetails" />
             <End Role="PurchasingOrder" EntitySet="PurchasingOrder" />
@@ -1809,9 +1843,9 @@
           <NavigationProperty Name="FormDetails1" Relationship="TokikuModel.FK_FormDetails_Users_MakingUser" FromRole="Users" ToRole="FormDetails" />
           <NavigationProperty Name="MaterialEstimation" Relationship="TokikuModel.FK_MaterialEstimation_Users" FromRole="Users" ToRole="MaterialEstimation" />
           <NavigationProperty Name="PurchasingOrder" Relationship="TokikuModel.FK_PurchasingOrder_Users" FromRole="Users" ToRole="PurchasingOrder" />
-          <NavigationProperty Name="BOM" Relationship="TokikuModel.FK_BOM_Users" FromRole="Users" ToRole="BOM" />
           <NavigationProperty Name="ShopFlowHistory" Relationship="TokikuModel.FK_ShopFlowHistory_Users" FromRole="Users" ToRole="ShopFlowHistory" />
           <NavigationProperty Name="ShopFlowDetail" Relationship="TokikuModel.FK_ShopFlowDetail_Users" FromRole="Users" ToRole="ShopFlowDetail" />
+          <NavigationProperty Name="BOM" Relationship="TokikuModel.FK_BOM_Users" FromRole="Users" ToRole="BOM" />
         </EntityType>
         <Association Name="FK__aspnet_Me__UserI__164452B1">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
@@ -2027,23 +2061,6 @@
             <End Role="Projects" EntitySet="Projects" />
             <End Role="ConstructionAtlas" EntitySet="ConstructionAtlas" />
           </AssociationSet>
-          <EntitySet Name="BOM" EntityType="TokikuModel.BOM" />
-          <AssociationSet Name="FK_BOM_MaterialCategories" Association="TokikuModel.FK_BOM_MaterialCategories">
-            <End Role="MaterialCategories" EntitySet="MaterialCategories" />
-            <End Role="BOM" EntitySet="BOM" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BOM_ProcessingAtlas" Association="TokikuModel.FK_BOM_ProcessingAtlas">
-            <End Role="ProcessingAtlas" EntitySet="ProcessingAtlas" />
-            <End Role="BOM" EntitySet="BOM" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BOM_ShopFlow" Association="TokikuModel.FK_BOM_ShopFlow">
-            <End Role="ShopFlow" EntitySet="ShopFlow" />
-            <End Role="BOM" EntitySet="BOM" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BOM_Users" Association="TokikuModel.FK_BOM_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="BOM" EntitySet="BOM" />
-          </AssociationSet>
           <EntitySet Name="ManufacturersBussinessItems" EntityType="TokikuModel.ManufacturersBussinessItems" />
           <AssociationSet Name="FK_ManufacturersBussinessItems_MaterialCategories" Association="TokikuModel.FK_ManufacturersBussinessItems_MaterialCategories">
             <End Role="MaterialCategories" EntitySet="MaterialCategories" />
@@ -2125,9 +2142,22 @@
             <End Role="FormDetails" EntitySet="FormDetails" />
             <End Role="MaterialValuation" EntitySet="MaterialValuation" />
           </AssociationSet>
-          <AssociationSet Name="FK_PurchasingOrder_BOM" Association="TokikuModel.FK_PurchasingOrder_BOM">
+          <EntitySet Name="BOM" EntityType="TokikuModel.BOM" />
+          <AssociationSet Name="FK_BOM_MaterialCategories" Association="TokikuModel.FK_BOM_MaterialCategories">
+            <End Role="MaterialCategories" EntitySet="MaterialCategories" />
             <End Role="BOM" EntitySet="BOM" />
-            <End Role="PurchasingOrder" EntitySet="PurchasingOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BOM_ProcessingAtlas" Association="TokikuModel.FK_BOM_ProcessingAtlas">
+            <End Role="ProcessingAtlas" EntitySet="ProcessingAtlas" />
+            <End Role="BOM" EntitySet="BOM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BOM_ShopFlow" Association="TokikuModel.FK_BOM_ShopFlow">
+            <End Role="ShopFlow" EntitySet="ShopFlow" />
+            <End Role="BOM" EntitySet="BOM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BOM_Users" Association="TokikuModel.FK_BOM_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="BOM" EntitySet="BOM" />
           </AssociationSet>
           <AssociationSet Name="FK_MaterialValuation_BOM" Association="TokikuModel.FK_MaterialValuation_BOM">
             <End Role="BOM" EntitySet="BOM" />
@@ -2137,7 +2167,15 @@
             <End Role="BOM" EntitySet="BOM" />
             <End Role="OrderMiscellaneous" EntitySet="OrderMiscellaneous" />
           </AssociationSet>
-        </EntityContainer>
+          <AssociationSet Name="FK_BOM_Manufacturers" Association="TokikuModel.FK_BOM_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="BOM" EntitySet="BOM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BOM_PurchasingOrder" Association="TokikuModel.FK_BOM_PurchasingOrder">
+            <End Role="PurchasingOrder" EntitySet="PurchasingOrder" />
+            <End Role="BOM" EntitySet="BOM" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="AccessLog">
           <Key>
             <PropertyRef Name="Id" />
@@ -2252,6 +2290,7 @@
           <NavigationProperty Name="SupplierTranscationItem" Relationship="TokikuModel.FK_SupplierTranscationItem_NextManufacturers" FromRole="Manufacturers" ToRole="SupplierTranscationItem" />
           <NavigationProperty Name="ShopFlowDetail" Relationship="TokikuModel.FK_ShopFlowDetail_CurrentManufacturers" FromRole="Manufacturers" ToRole="ShopFlowDetail" />
           <NavigationProperty Name="ShopFlowDetail1" Relationship="TokikuModel.FK_ShopFlowDetail_NextManufacturers" FromRole="Manufacturers" ToRole="ShopFlowDetail" />
+          <NavigationProperty Name="BOM" Relationship="TokikuModel.FK_BOM_Manufacturers" FromRole="Manufacturers" ToRole="BOM" />
         </EntityType>
         <EntityType Name="MaterialCategories">
           <Key>
@@ -2263,8 +2302,8 @@
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="ProjectItemCost" Relationship="TokikuModel.FK_ProjectItemCost_MaterialCategories" FromRole="MaterialCategories" ToRole="ProjectItemCost" />
           <NavigationProperty Name="MoldsInProjects" Relationship="TokikuModel.FK_MoldsInProjects_MaterialCategories" FromRole="MaterialCategories" ToRole="MoldsInProjects" />
-          <NavigationProperty Name="BOM" Relationship="TokikuModel.FK_BOM_MaterialCategories" FromRole="MaterialCategories" ToRole="BOM" />
           <NavigationProperty Name="ManufacturersBussinessItems" Relationship="TokikuModel.FK_ManufacturersBussinessItems_MaterialCategories" FromRole="MaterialCategories" ToRole="ManufacturersBussinessItems" />
+          <NavigationProperty Name="BOM" Relationship="TokikuModel.FK_BOM_MaterialCategories" FromRole="MaterialCategories" ToRole="BOM" />
         </EntityType>
         <EntityType Name="Materials">
           <Key>
@@ -2391,8 +2430,8 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="BOM" Relationship="TokikuModel.FK_BOM_ShopFlow" FromRole="ShopFlow" ToRole="BOM" />
           <NavigationProperty Name="ShopFlowDetail" Relationship="TokikuModel.FK_ShopFlowDetail_ShopFlow" FromRole="ShopFlow" ToRole="ShopFlowDetail" />
+          <NavigationProperty Name="BOM" Relationship="TokikuModel.FK_BOM_ShopFlow" FromRole="ShopFlow" ToRole="BOM" />
         </EntityType>
         <EntityType Name="TicketTypes">
           <Key>
@@ -2835,8 +2874,8 @@
           <Property Name="UpdateTimes" Type="Int32" Nullable="false" />
           <Property Name="ConstructionOrderChangeDate" Type="DateTime" Precision="0" />
           <Property Name="LastUpdate" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="BOM" Relationship="TokikuModel.FK_BOM_ProcessingAtlas" FromRole="ProcessingAtlas" ToRole="BOM" />
           <NavigationProperty Name="ShopFlowDetail" Relationship="TokikuModel.FK_ShopFlowDetail_ProcessingAtlas" FromRole="ProcessingAtlas" ToRole="ShopFlowDetail" />
+          <NavigationProperty Name="BOM" Relationship="TokikuModel.FK_BOM_ProcessingAtlas" FromRole="ProcessingAtlas" ToRole="BOM" />
         </EntityType>
         <Association Name="FK_ProcessingAtlas_ProjectContract">
           <End Type="TokikuModel.ProjectContract" Role="ProjectContract" Multiplicity="1" />
@@ -2932,8 +2971,7 @@
           <NavigationProperty Name="FormDetails" Relationship="TokikuModel.FK_PurchasingOrder_FormDetails" FromRole="PurchasingOrder" ToRole="FormDetails" />
           <NavigationProperty Name="Materials" Relationship="TokikuModel.FK_PurchasingOrder_Materials" FromRole="PurchasingOrder" ToRole="Materials" />
           <NavigationProperty Name="Users" Relationship="TokikuModel.FK_PurchasingOrder_Users" FromRole="PurchasingOrder" ToRole="Users" />
-          <Property Name="BOMId" Type="Guid" />
-          <NavigationProperty Name="BOM" Relationship="TokikuModel.FK_PurchasingOrder_BOM" FromRole="PurchasingOrder" ToRole="BOM" />
+          <NavigationProperty Name="BOM" Relationship="TokikuModel.FK_BOM_PurchasingOrder" FromRole="PurchasingOrder" ToRole="BOM" />
         </EntityType>
         <Association Name="FK_FormDetails_Forms">
           <End Type="TokikuModel.Forms" Role="Forms" Multiplicity="0..1" />
@@ -3052,86 +3090,6 @@
             </Principal>
             <Dependent Role="ConstructionAtlas">
               <PropertyRef Name="ProjectId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="BOM">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="ProcessingAtlasId" Type="Guid" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CombinationNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MaterialCategoriesId" Type="Guid" Nullable="false" />
-          <Property Name="ProcessingNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CrowdedNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MaterialDescription" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
-          <Property Name="CutLength" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SingleNumber" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TotalDemand" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
-          <Property Name="ShopFlowId" Type="Guid" />
-          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Postion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="MaterialCategories" Relationship="TokikuModel.FK_BOM_MaterialCategories" FromRole="BOM" ToRole="MaterialCategories" />
-          <NavigationProperty Name="ProcessingAtlas" Relationship="TokikuModel.FK_BOM_ProcessingAtlas" FromRole="BOM" ToRole="ProcessingAtlas" />
-          <NavigationProperty Name="ShopFlow" Relationship="TokikuModel.FK_BOM_ShopFlow" FromRole="BOM" ToRole="ShopFlow" />
-          <NavigationProperty Name="Users" Relationship="TokikuModel.FK_BOM_Users" FromRole="BOM" ToRole="Users" />
-          <Property Name="OrderLength" Type="Int32" />
-          <Property Name="UnitWeight" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="PurchasingOrder" Relationship="TokikuModel.FK_PurchasingOrder_BOM" FromRole="BOM" ToRole="PurchasingOrder" />
-          <NavigationProperty Name="MaterialValuation" Relationship="TokikuModel.FK_MaterialValuation_BOM" FromRole="BOM" ToRole="MaterialValuation" />
-          <NavigationProperty Name="OrderMiscellaneous" Relationship="TokikuModel.FK_OrderMiscellaneous_BOM" FromRole="BOM" ToRole="OrderMiscellaneous" />
-        </EntityType>
-        <Association Name="FK_BOM_MaterialCategories">
-          <End Type="TokikuModel.MaterialCategories" Role="MaterialCategories" Multiplicity="1" />
-          <End Type="TokikuModel.BOM" Role="BOM" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaterialCategories">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="BOM">
-              <PropertyRef Name="MaterialCategoriesId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_BOM_ProcessingAtlas">
-          <End Type="TokikuModel.ProcessingAtlas" Role="ProcessingAtlas" Multiplicity="0..1" />
-          <End Type="TokikuModel.BOM" Role="BOM" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProcessingAtlas">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="BOM">
-              <PropertyRef Name="ProcessingAtlasId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_BOM_ShopFlow">
-          <End Type="TokikuModel.ShopFlow" Role="ShopFlow" Multiplicity="0..1" />
-          <End Type="TokikuModel.BOM" Role="BOM" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ShopFlow">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="BOM">
-              <PropertyRef Name="ShopFlowId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_BOM_Users">
-          <End Type="TokikuModel.Users" Role="Users" Multiplicity="1" />
-          <End Type="TokikuModel.BOM" Role="BOM" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="BOM">
-              <PropertyRef Name="CreateUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3442,15 +3400,103 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PurchasingOrder_BOM">
-          <End Type="TokikuModel.BOM" Role="BOM" Multiplicity="0..1" />
-          <End Type="TokikuModel.PurchasingOrder" Role="PurchasingOrder" Multiplicity="*" />
+        <EntityType Name="BOM">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ProcessingAtlasId" Type="Guid" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ManufacturersId" Type="Guid" />
+          <Property Name="FactoryNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaterialCategoriesId" Type="Guid" Nullable="false" />
+          <Property Name="UnitWeight" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="OrderLength" Type="Int32" />
+          <Property Name="RequiredQuantity" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="RequiredQuantitySubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="RequiredQuantityWeightSummary" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="NumberofOrdersNotPlaced" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="QuantityofOrderSummary" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="PrepareSubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="TotalWeightofOrder" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="ArrivalCondition_QuantitySubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="ArrivalCondition_WeightSubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="ArrivalCondition_OutofStock" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="ReturnStatus_QuantitySubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="ReturnStatus_WeightSubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="ReturnStatus_Receipt_QuantitySubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="ReturnStatus_Receipt_WeightSubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="ReturnStatus_Charge_QuantitySubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="ReturnStatus_Charge_WeightSubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="PickingCondition_QuantitySubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="PickingCondition_WeightSubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="InventoryMargin_LossAdjustment_QuantitySubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="InventoryMargin_LossAdjustment_WeightSubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="InventoryStatus_QuantitySubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="InventoryStatus_WeightSubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="PurchasingOrderId" Type="Guid" />
+          <Property Name="ProcessingNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaterialAndSurfaceTreatment" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShopFlowId" Type="Guid" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="MaterialCategories" Relationship="TokikuModel.FK_BOM_MaterialCategories" FromRole="BOM" ToRole="MaterialCategories" />
+          <NavigationProperty Name="ProcessingAtlas" Relationship="TokikuModel.FK_BOM_ProcessingAtlas" FromRole="BOM" ToRole="ProcessingAtlas" />
+          <NavigationProperty Name="ShopFlow" Relationship="TokikuModel.FK_BOM_ShopFlow" FromRole="BOM" ToRole="ShopFlow" />
+          <NavigationProperty Name="Users" Relationship="TokikuModel.FK_BOM_Users" FromRole="BOM" ToRole="Users" />
+          <NavigationProperty Name="MaterialValuation" Relationship="TokikuModel.FK_MaterialValuation_BOM" FromRole="BOM" ToRole="MaterialValuation" />
+          <NavigationProperty Name="OrderMiscellaneous" Relationship="TokikuModel.FK_OrderMiscellaneous_BOM" FromRole="BOM" ToRole="OrderMiscellaneous" />
+          <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_BOM_Manufacturers" FromRole="BOM" ToRole="Manufacturers" />
+          <NavigationProperty Name="PurchasingOrder" Relationship="TokikuModel.FK_BOM_PurchasingOrder" FromRole="BOM" ToRole="PurchasingOrder" />
+          <Property Name="Size" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_BOM_MaterialCategories">
+          <End Type="TokikuModel.MaterialCategories" Role="MaterialCategories" Multiplicity="1" />
+          <End Type="TokikuModel.BOM" Role="BOM" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="BOM">
+            <Principal Role="MaterialCategories">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="PurchasingOrder">
-              <PropertyRef Name="BOMId" />
+            <Dependent Role="BOM">
+              <PropertyRef Name="MaterialCategoriesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BOM_ProcessingAtlas">
+          <End Type="TokikuModel.ProcessingAtlas" Role="ProcessingAtlas" Multiplicity="0..1" />
+          <End Type="TokikuModel.BOM" Role="BOM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProcessingAtlas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BOM">
+              <PropertyRef Name="ProcessingAtlasId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BOM_ShopFlow">
+          <End Type="TokikuModel.ShopFlow" Role="ShopFlow" Multiplicity="0..1" />
+          <End Type="TokikuModel.BOM" Role="BOM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShopFlow">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BOM">
+              <PropertyRef Name="ShopFlowId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BOM_Users">
+          <End Type="TokikuModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="TokikuModel.BOM" Role="BOM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="BOM">
+              <PropertyRef Name="CreateUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3478,7 +3524,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="FK_BOM_Manufacturers">
+          <End Type="TokikuModel.Manufacturers" Role="Manufacturers" Multiplicity="0..1" />
+          <End Type="TokikuModel.BOM" Role="BOM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BOM">
+              <PropertyRef Name="ManufacturersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BOM_PurchasingOrder">
+          <End Type="TokikuModel.PurchasingOrder" Role="PurchasingOrder" Multiplicity="0..1" />
+          <End Type="TokikuModel.BOM" Role="BOM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchasingOrder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BOM">
+              <PropertyRef Name="PurchasingOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -4002,7 +4072,6 @@
           <EntitySetMapping Name="PurchasingOrder">
             <EntityTypeMapping TypeName="TokikuModel.PurchasingOrder">
               <MappingFragment StoreEntitySet="PurchasingOrder">
-                <ScalarProperty Name="BOMId" ColumnName="BOMId" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
@@ -4014,32 +4083,6 @@
                 <ScalarProperty Name="MaterialId" ColumnName="MaterialId" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="FormDetailId" ColumnName="FormDetailId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="BOM">
-            <EntityTypeMapping TypeName="TokikuModel.BOM">
-              <MappingFragment StoreEntitySet="BOM">
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="UnitWeight" ColumnName="UnitWeight" />
-                <ScalarProperty Name="OrderLength" ColumnName="OrderLength" />
-                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="Postion" ColumnName="Postion" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="ShopFlowId" ColumnName="ShopFlowId" />
-                <ScalarProperty Name="TotalDemand" ColumnName="TotalDemand" />
-                <ScalarProperty Name="Unit" ColumnName="Unit" />
-                <ScalarProperty Name="SingleNumber" ColumnName="SingleNumber" />
-                <ScalarProperty Name="CutLength" ColumnName="CutLength" />
-                <ScalarProperty Name="MaterialDescription" ColumnName="MaterialDescription" />
-                <ScalarProperty Name="CrowdedNumber" ColumnName="CrowdedNumber" />
-                <ScalarProperty Name="ProcessingNumber" ColumnName="ProcessingNumber" />
-                <ScalarProperty Name="MaterialCategoriesId" ColumnName="MaterialCategoriesId" />
-                <ScalarProperty Name="CombinationNumber" ColumnName="CombinationNumber" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ProcessingAtlasId" ColumnName="ProcessingAtlasId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -4107,6 +4150,51 @@
                 <ScalarProperty Name="Material" ColumnName="Material" />
                 <ScalarProperty Name="ItemName" ColumnName="ItemName" />
                 <ScalarProperty Name="FormDetailId" ColumnName="FormDetailId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BOM">
+            <EntityTypeMapping TypeName="TokikuModel.BOM">
+              <MappingFragment StoreEntitySet="BOM">
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="ShopFlowId" ColumnName="ShopFlowId" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="MaterialAndSurfaceTreatment" ColumnName="MaterialAndSurfaceTreatment" />
+                <ScalarProperty Name="ProcessingNumber" ColumnName="ProcessingNumber" />
+                <ScalarProperty Name="PurchasingOrderId" ColumnName="PurchasingOrderId" />
+                <ScalarProperty Name="InventoryStatus_WeightSubtotal" ColumnName="InventoryStatus_WeightSubtotal" />
+                <ScalarProperty Name="InventoryStatus_QuantitySubtotal" ColumnName="InventoryStatus_QuantitySubtotal" />
+                <ScalarProperty Name="InventoryMargin_LossAdjustment_WeightSubtotal" ColumnName="InventoryMargin_LossAdjustment_WeightSubtotal" />
+                <ScalarProperty Name="InventoryMargin_LossAdjustment_QuantitySubtotal" ColumnName="InventoryMargin_LossAdjustment_QuantitySubtotal" />
+                <ScalarProperty Name="PickingCondition_WeightSubtotal" ColumnName="PickingCondition_WeightSubtotal" />
+                <ScalarProperty Name="PickingCondition_QuantitySubtotal" ColumnName="PickingCondition_QuantitySubtotal" />
+                <ScalarProperty Name="ReturnStatus_Charge_WeightSubtotal" ColumnName="ReturnStatus_Charge_WeightSubtotal" />
+                <ScalarProperty Name="ReturnStatus_Charge_QuantitySubtotal" ColumnName="ReturnStatus_Charge_QuantitySubtotal" />
+                <ScalarProperty Name="ReturnStatus_Receipt_WeightSubtotal" ColumnName="ReturnStatus_Receipt_WeightSubtotal" />
+                <ScalarProperty Name="ReturnStatus_Receipt_QuantitySubtotal" ColumnName="ReturnStatus_Receipt_QuantitySubtotal" />
+                <ScalarProperty Name="ReturnStatus_WeightSubtotal" ColumnName="ReturnStatus_WeightSubtotal" />
+                <ScalarProperty Name="ReturnStatus_QuantitySubtotal" ColumnName="ReturnStatus_QuantitySubtotal" />
+                <ScalarProperty Name="ArrivalCondition_OutofStock" ColumnName="ArrivalCondition_OutofStock" />
+                <ScalarProperty Name="ArrivalCondition_WeightSubtotal" ColumnName="ArrivalCondition_WeightSubtotal" />
+                <ScalarProperty Name="ArrivalCondition_QuantitySubtotal" ColumnName="ArrivalCondition_QuantitySubtotal" />
+                <ScalarProperty Name="TotalWeightofOrder" ColumnName="TotalWeightofOrder" />
+                <ScalarProperty Name="PrepareSubtotal" ColumnName="PrepareSubtotal" />
+                <ScalarProperty Name="QuantityofOrderSummary" ColumnName="QuantityofOrderSummary" />
+                <ScalarProperty Name="NumberofOrdersNotPlaced" ColumnName="NumberofOrdersNotPlaced" />
+                <ScalarProperty Name="RequiredQuantityWeightSummary" ColumnName="RequiredQuantityWeightSummary" />
+                <ScalarProperty Name="RequiredQuantitySubtotal" ColumnName="RequiredQuantitySubtotal" />
+                <ScalarProperty Name="RequiredQuantity" ColumnName="RequiredQuantity" />
+                <ScalarProperty Name="OrderLength" ColumnName="OrderLength" />
+                <ScalarProperty Name="UnitWeight" ColumnName="UnitWeight" />
+                <ScalarProperty Name="MaterialCategoriesId" ColumnName="MaterialCategoriesId" />
+                <ScalarProperty Name="FactoryNumber" ColumnName="FactoryNumber" />
+                <ScalarProperty Name="ManufacturersId" ColumnName="ManufacturersId" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="ProcessingAtlasId" ColumnName="ProcessingAtlasId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

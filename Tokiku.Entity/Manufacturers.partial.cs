@@ -70,7 +70,6 @@ namespace Tokiku.Entity
         public System.Guid CreateUserId { get; set; }
         
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
-        [Required]
         public string Principal { get; set; }
         
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
@@ -92,8 +91,12 @@ namespace Tokiku.Entity
         public virtual ICollection<WorkShops> WorkShops { get; set; }
         public virtual ICollection<Contacts> Contacts { get; set; }
         public virtual TicketPeriod TicketPeriod { get; set; }
-        public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
         public virtual ICollection<Projects> ClientForProjects { get; set; }
         public virtual ICollection<FormDetails> FormDetails { get; set; }
+        public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
+        public virtual ICollection<SupplierTranscationItem> SupplierTranscationItem { get; set; }
+        public virtual ICollection<ShopFlowDetail> ShopFlowDetail { get; set; }
+        public virtual ICollection<ShopFlowDetail> ShopFlowDetail1 { get; set; }
+        public virtual ICollection<BOM> BOM { get; set; }
     }
 }

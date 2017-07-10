@@ -32,8 +32,6 @@ namespace Tokiku.Entity
         public virtual Membership Membership { get; set; }
         public virtual Profile Profile { get; set; }
         public virtual ICollection<Roles> Roles { get; set; }
-        public virtual ICollection<ShopFlowHistory> ShopFlowHistory { get; set; }
-        public virtual ICollection<ShopFlowDetail> ShopFlowDetail { get; set; }
         public virtual ICollection<Materials> Materials { get; set; }
         public virtual ICollection<Molds> Molds { get; set; }
         public virtual ICollection<ProjectContract> ProjectContract { get; set; }
@@ -43,6 +41,8 @@ namespace Tokiku.Entity
         public virtual ICollection<FormDetails> FormDetails1 { get; set; }
         public virtual ICollection<MaterialEstimation> MaterialEstimation { get; set; }
         public virtual ICollection<PurchasingOrder> PurchasingOrder { get; set; }
+        public virtual ICollection<ShopFlowHistory> ShopFlowHistory { get; set; }
+        public virtual ICollection<ShopFlowDetail> ShopFlowDetail { get; set; }
         public virtual ICollection<BOM> BOM { get; set; }
     }
 }

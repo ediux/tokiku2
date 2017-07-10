@@ -17,8 +17,8 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ProcessingAtlas()
         {
-            this.BOM = new HashSet<BOM>();
             this.ShopFlowDetail = new HashSet<ShopFlowDetail>();
+            this.BOM = new HashSet<BOM>();
         }
     
         public System.Guid Id { get; set; }
@@ -34,8 +34,8 @@ namespace Tokiku.Entity
     
         public virtual ProjectContract ProjectContract { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BOM> BOM { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShopFlowDetail> ShopFlowDetail { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BOM> BOM { get; set; }
     }
 }

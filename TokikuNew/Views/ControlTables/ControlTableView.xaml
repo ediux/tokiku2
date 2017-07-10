@@ -29,7 +29,7 @@
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                 <DataGrid x:Name="dg" >
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="項次" Width="auto" />
+                        <DataGridTextColumn Header="項次" Width="auto" Binding="{Binding RowIndex,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                         <DataGridTextColumn Header="製單" Width="auto"/>
                         <DataGridTextColumn Header="加工編號" Width="auto" />
                         <DataGridTextColumn Header="東菊編號" Width="auto" />

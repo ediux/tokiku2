@@ -56,10 +56,10 @@ namespace Tokiku.ViewModels
         [Display(Name = "名稱", Order = 1)]
         public string Name
         {
-            get { return CopyofPOCOInstance.Name; }
+            get { return ""; }
             set
             {
-                CopyofPOCOInstance.Name = value;
+                
                 RaisePropertyChanged("Name");
             }
         }
@@ -76,10 +76,10 @@ namespace Tokiku.ViewModels
         [Display(Name = "組合編號", Order = 2)]
         public string CombinationNumber
         {
-            get { return CopyofPOCOInstance.CombinationNumber; }
+            get { return ""; }
             set
             {
-                CopyofPOCOInstance.CombinationNumber = value;
+                //CopyofPOCOInstance.CombinationNumber = value;
                 RaisePropertyChanged("CombinationNumber");
             }
         }
@@ -141,8 +141,8 @@ namespace Tokiku.ViewModels
         [Display(Name = "擠型編號", Order = 7)]
         public string CrowdedNumber
         {
-            get { return CopyofPOCOInstance.CrowdedNumber; }
-            set { CopyofPOCOInstance.CrowdedNumber = value; RaisePropertyChanged("CrowdedNumber"); }
+            get { return ""; }
+            set {  RaisePropertyChanged("CrowdedNumber"); }
         }
 
 
@@ -157,10 +157,10 @@ namespace Tokiku.ViewModels
         [Display(Name = "材料說明", Order = 8)]
         public string MaterialDescription
         {
-            get { return CopyofPOCOInstance.MaterialDescription; }
+            get { return CopyofPOCOInstance.Comment; }
             set
             {
-                CopyofPOCOInstance.MaterialDescription = value;
+                CopyofPOCOInstance.Comment = value;
                 RaisePropertyChanged("MaterialDescription");
             }
         }
@@ -175,8 +175,8 @@ namespace Tokiku.ViewModels
         [Display(Name = "裁切長度", Order = 9)]
         public string CutLength
         {
-            get { return CopyofPOCOInstance.CutLength; }
-            set { CopyofPOCOInstance.CutLength = value;
+            get { return CopyofPOCOInstance.Size; }
+            set { CopyofPOCOInstance.Size = value;
                 RaisePropertyChanged("CutLength");
             }
         }
@@ -193,7 +193,7 @@ namespace Tokiku.ViewModels
         [Display(Name = "單樘數量", Order = 10)]
         public decimal? SingleNumber
         {
-            get { return CopyofPOCOInstance.SingleNumber; }
+            get { return 0; }
             set { SingleNumber = value; RaisePropertyChanged("SingleNumber"); }
         }
 
@@ -207,8 +207,8 @@ namespace Tokiku.ViewModels
         [Display(Name = "總需求量", Order = 11)]
         public decimal TotalDemand
         {
-            get { return CopyofPOCOInstance.TotalDemand; }
-            set { CopyofPOCOInstance.TotalDemand = value; RaisePropertyChanged("TotalDemand"); }
+            get { return CopyofPOCOInstance.RequiredQuantitySubtotal.HasValue? CopyofPOCOInstance.RequiredQuantitySubtotal.Value: 0; }
+            set { CopyofPOCOInstance.RequiredQuantitySubtotal = value; RaisePropertyChanged("TotalDemand"); }
         }
 
      
@@ -236,8 +236,8 @@ namespace Tokiku.ViewModels
         [Display(Name = "位置", Order = 13)]
         public string Postion
         {
-            get { return CopyofPOCOInstance.Postion; }
-            set { CopyofPOCOInstance.Postion = value;
+            get { return ""; }
+            set { 
                 RaisePropertyChanged("Postion");
             }
         }

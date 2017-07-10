@@ -134,7 +134,7 @@ namespace TokikuNew.Views
                 datasourcebinding.Source = DataContext;
                 datasourcebinding.Mode = BindingMode.TwoWay;
                 datasourcebinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-                datasourcebinding.Path = new PropertyPath(DataContext);
+                datasourcebinding.Path = new PropertyPath(DataContextProperty);
 
                 SetBinding(SelectedProjectProperty, datasourcebinding);
             }

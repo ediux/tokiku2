@@ -27,9 +27,9 @@ namespace Tokiku.Entity
             this.FormDetails1 = new HashSet<FormDetails>();
             this.MaterialEstimation = new HashSet<MaterialEstimation>();
             this.PurchasingOrder = new HashSet<PurchasingOrder>();
-            this.BOM = new HashSet<BOM>();
             this.ShopFlowHistory = new HashSet<ShopFlowHistory>();
             this.ShopFlowDetail = new HashSet<ShopFlowDetail>();
+            this.BOM = new HashSet<BOM>();
         }
     
         public System.Guid UserId { get; set; }
@@ -62,10 +62,10 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PurchasingOrder> PurchasingOrder { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BOM> BOM { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShopFlowHistory> ShopFlowHistory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShopFlowDetail> ShopFlowDetail { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BOM> BOM { get; set; }
     }
 }

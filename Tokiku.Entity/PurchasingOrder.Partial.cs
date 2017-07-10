@@ -34,11 +34,10 @@ namespace Tokiku.Entity
         public System.DateTime CreateTime { get; set; }
         [Required]
         public System.Guid CreateUserId { get; set; }
-        public Nullable<System.Guid> BOMId { get; set; }
     
         public virtual FormDetails FormDetails { get; set; }
         public virtual Materials Materials { get; set; }
         public virtual Users Users { get; set; }
-        public virtual BOM BOM { get; set; }
+        public virtual ICollection<BOM> BOM { get; set; }
     }
 }

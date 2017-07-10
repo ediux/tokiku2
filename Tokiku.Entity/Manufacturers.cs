@@ -27,6 +27,7 @@ namespace Tokiku.Entity
             this.SupplierTranscationItem = new HashSet<SupplierTranscationItem>();
             this.ShopFlowDetail = new HashSet<ShopFlowDetail>();
             this.ShopFlowDetail1 = new HashSet<ShopFlowDetail>();
+            this.BOM = new HashSet<BOM>();
         }
     
         public System.Guid Id { get; set; }
@@ -79,5 +80,7 @@ namespace Tokiku.Entity
         public virtual ICollection<ShopFlowDetail> ShopFlowDetail { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShopFlowDetail> ShopFlowDetail1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BOM> BOM { get; set; }
     }
 }

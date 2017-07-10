@@ -14,6 +14,12 @@ namespace Tokiku.Entity
     
     public partial class PurchasingOrder
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PurchasingOrder()
+        {
+            this.BOM = new HashSet<BOM>();
+        }
+    
         public System.Guid Id { get; set; }
         public Nullable<System.Guid> FormDetailId { get; set; }
         public string Code { get; set; }
@@ -26,11 +32,11 @@ namespace Tokiku.Entity
         public string Comment { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
-        public Nullable<System.Guid> BOMId { get; set; }
     
         public virtual FormDetails FormDetails { get; set; }
         public virtual Materials Materials { get; set; }
         public virtual Users Users { get; set; }
-        public virtual BOM BOM { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BOM> BOM { get; set; }
     }
 }

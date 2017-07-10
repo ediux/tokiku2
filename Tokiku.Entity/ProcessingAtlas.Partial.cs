@@ -33,6 +33,7 @@ namespace Tokiku.Entity
         public Nullable<System.DateTime> LastUpdate { get; set; }
     
         public virtual ProjectContract ProjectContract { get; set; }
+        public virtual ICollection<ShopFlowDetail> ShopFlowDetail { get; set; }
         public virtual ICollection<BOM> BOM { get; set; }
     }
 }
