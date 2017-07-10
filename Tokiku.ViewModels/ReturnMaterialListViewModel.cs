@@ -3,30 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tokiku.Controllers;
 using Tokiku.Entity;
+using Tokiku.Controllers;
 
 namespace Tokiku.ViewModels
 {
-    public class ShippingMaterialListViewModelCollection : BaseViewModelCollection<ShippingMaterialListViewModel>
+    public class ReturnMaterialListViewModelCollection : BaseViewModelCollection<ReturnMaterialListViewModel>
     {
-        public ShippingMaterialListViewModelCollection()
+        public ReturnMaterialListViewModelCollection()
         {
             HasError = false;
         }
 
-        public ShippingMaterialListViewModelCollection(IEnumerable<ShippingMaterialListViewModel> source) : base(source)
+        public ReturnMaterialListViewModelCollection(IEnumerable<ReturnMaterialListViewModel> source) : base(source)
         {
-            
+
         }
 
         public override void Query()
         {
-            ShippingMaterialListController ctrl = new ShippingMaterialListController();
-            ExecuteResultEntity<ICollection<ShippingMaterialListEntity>> ere = ctrl.QuerAll();
+            ReturnMaterialListController ctrl = new ReturnMaterialListController();
+            ExecuteResultEntity<ICollection<ReturnMaterialListEntity>> ere = ctrl.QuerAll();
             if (!ere.HasError)
             {
-                ShippingMaterialListViewModel vm = new ShippingMaterialListViewModel();
+                ReturnMaterialListViewModel vm = new ReturnMaterialListViewModel();
                 foreach (var item in ere.Result)
                 {
                     vm.SetModel(item);
@@ -37,15 +37,15 @@ namespace Tokiku.ViewModels
 
     }
 
-    public class ShippingMaterialListViewModel : BaseViewModel
+    public class ReturnMaterialListViewModel : BaseViewModel
     {
         public override void SetModel(dynamic entity)
         {
             try
             {
-                if (entity is ShippingMaterialListEntity)
+                if (entity is ReturnMaterialListEntity)
                 {
-                    ShippingMaterialListEntity data = (ShippingMaterialListEntity)entity;
+                    ReturnMaterialListEntity data = (ReturnMaterialListEntity)entity;
                     BindingFromModel(data, this);
                 }
             }

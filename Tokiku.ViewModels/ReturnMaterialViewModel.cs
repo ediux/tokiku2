@@ -8,25 +8,25 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class ShippingMaterialListViewModelCollection : BaseViewModelCollection<ShippingMaterialListViewModel>
+    public class ReturnMaterialViewModelCollection : BaseViewModelCollection<ReturnMaterialViewModel>
     {
-        public ShippingMaterialListViewModelCollection()
+        public ReturnMaterialViewModelCollection()
         {
             HasError = false;
         }
 
-        public ShippingMaterialListViewModelCollection(IEnumerable<ShippingMaterialListViewModel> source) : base(source)
+        public ReturnMaterialViewModelCollection(IEnumerable<ReturnMaterialViewModel> source) : base(source)
         {
-            
+
         }
 
         public override void Query()
         {
-            ShippingMaterialListController ctrl = new ShippingMaterialListController();
-            ExecuteResultEntity<ICollection<ShippingMaterialListEntity>> ere = ctrl.QuerAll();
+            ReturnMaterialController ctrl = new ReturnMaterialController();
+            ExecuteResultEntity<ICollection<ReturnMaterialEntity>> ere = ctrl.QuerAll();
             if (!ere.HasError)
             {
-                ShippingMaterialListViewModel vm = new ShippingMaterialListViewModel();
+                ReturnMaterialViewModel vm = new ReturnMaterialViewModel();
                 foreach (var item in ere.Result)
                 {
                     vm.SetModel(item);
@@ -37,15 +37,15 @@ namespace Tokiku.ViewModels
 
     }
 
-    public class ShippingMaterialListViewModel : BaseViewModel
+    public class ReturnMaterialViewModel : BaseViewModel
     {
         public override void SetModel(dynamic entity)
         {
             try
             {
-                if (entity is ShippingMaterialListEntity)
+                if (entity is ReturnMaterialEntity)
                 {
-                    ShippingMaterialListEntity data = (ShippingMaterialListEntity)entity;
+                    ReturnMaterialEntity data = (ReturnMaterialEntity)entity;
                     BindingFromModel(data, this);
                 }
             }

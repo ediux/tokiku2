@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1024">
+             d:DesignHeight="600" d:DesignWidth="1024" Loaded="ShippingMaterialListViewUC_Loaded">
     <Grid>
-        <DataGrid AutoGenerateColumns="False" Margin="5" ItemsSource="{Binding}">
+        <DataGrid x:Name="CheckGrid" AutoGenerateColumns="False" Margin="5" ItemsSource="{Binding}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="出貨單號"/>
                 <DataGridTextColumn Header="收料單號"/>

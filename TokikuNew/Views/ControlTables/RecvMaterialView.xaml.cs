@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using Tokiku.ViewModels;
 using TokikuNew.Controls;
 
 namespace TokikuNew
@@ -15,6 +16,13 @@ namespace TokikuNew
             InitializeComponent();
 
             InitialSpreadRecvMaterial();
+        }
+
+        private void RecvMaterialView_Loaded(object sender, RoutedEventArgs e)
+        {
+            RecvMaterialViewModelCollection ctrl = new RecvMaterialViewModelCollection();
+            CheckGrid.DataContext = ctrl;
+            ctrl.Query();
         }
 
         private void InitialSpreadRecvMaterial()
@@ -80,9 +88,5 @@ namespace TokikuNew
 
         }
 
-        private void RecvMaterialView_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

@@ -80,6 +80,8 @@
     <Compile Include="Projects\EngineeringController.cs" />
     <Compile Include="RecvMaterialController.cs" />
     <Compile Include="RecvMaterialListController.cs" />
+    <Compile Include="ReturnMaterialController.cs" />
+    <Compile Include="ReturnMaterialListController.cs" />
     <Compile Include="Shared\IBaseController.cs" />
     <Compile Include="Shared\LoginParameter.cs" />
     <Compile Include="Main\MainWindowController.cs" />
@@ -96,6 +98,7 @@
     <Compile Include="Shared\StateController.cs" />
     <Compile Include="Projects\SuppliersController.cs" />
     <Compile Include="Shared\SystemController.cs" />
+    <Compile Include="ShippingMaterialController.cs" />
     <Compile Include="ShippingMaterialListController.cs" />
   </ItemGroup>
   <ItemGroup>
