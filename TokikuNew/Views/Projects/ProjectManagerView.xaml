@@ -139,24 +139,24 @@
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-                        <TextBlock Grid.Row="14" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"  Text="工地地址：" />
-                        <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="14" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" Text="{Binding SiteAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBlock Grid.Row="16" Grid.Column="0" VerticalAlignment="Center" Text="工地聯絡電話：" HorizontalAlignment="Right"/>
-                        <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="16" Grid.Column="1" Margin="2" TextAlignment="Left" VerticalAlignment="Center" Text="{Binding SitePhone,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBlock Grid.Row="15" Grid.Column="0" VerticalAlignment="Center" Text="工地聯絡人：" HorizontalAlignment="Right"/>
-                        <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="15" Grid.Column="1" Margin="2" TextAlignment="Left" VerticalAlignment="Center" Text="{Binding SiteContactPerson, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBlock Grid.Row="15" Grid.Column="2" VerticalAlignment="Center" Text="聯絡人行動電話：" HorizontalAlignment="Right"/>
-                        <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="15" Grid.Column="3" Margin="2" TextAlignment="Left" VerticalAlignment="Center" Text="{Binding SiteContactPersonPhone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBlock Grid.Row="18" Text="結帳日：" VerticalAlignment="Center" HorizontalAlignment="Right" />
-                        <StackPanel Grid.Column="1" Grid.Row="18" Orientation="Horizontal" Margin="1" HorizontalAlignment="Stretch">
+                        <TextBlock Grid.Row="15" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"  Text="工地地址：" />
+                        <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="15" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" Text="{Binding SiteAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock Grid.Row="16" Grid.Column="0" VerticalAlignment="Center" Text="工地聯絡人：" HorizontalAlignment="Right"/>
+                        <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="16" Grid.Column="1" Margin="2" TextAlignment="Left" VerticalAlignment="Center" Text="{Binding SiteContactPerson, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock Grid.Row="16" Grid.Column="2" VerticalAlignment="Center" Text="聯絡人行動電話：" HorizontalAlignment="Right"/>
+                        <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="16" Grid.Column="3" Margin="2" TextAlignment="Left" VerticalAlignment="Center" Text="{Binding SiteContactPersonPhone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock Grid.Row="17" Grid.Column="0" VerticalAlignment="Center" Text="工地聯絡電話：" HorizontalAlignment="Right"/>
+                        <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="17" Grid.Column="1" Margin="2" TextAlignment="Left" VerticalAlignment="Center" Text="{Binding SitePhone,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock Grid.Row="19" Text="結帳日：" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                        <StackPanel Grid.Column="1" Grid.Row="19" Orientation="Horizontal" Margin="1" HorizontalAlignment="Stretch">
                             <TextBlock Text="每月" VerticalAlignment="Center" />
-                            <TextBox Style="{DynamicResource ReadModeSwitch}" Width="30" Margin="2" Text="{Binding CheckoutDay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox Style="{DynamicResource ReadModeSwitch}" TextAlignment="Center" Width="30" Margin="2" Text="{Binding CheckoutDay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <TextBlock Text="日" VerticalAlignment="Center" />
                         </StackPanel>
-                        <TextBlock Grid.Row="18" Grid.Column="2" Text="付款日：" VerticalAlignment="Center" HorizontalAlignment="Right" />
-                        <StackPanel Grid.Column="3" Grid.Row="18" Orientation="Horizontal" Margin="1" HorizontalAlignment="Stretch">
+                        <TextBlock Grid.Row="19" Grid.Column="2" Text="付款日：" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                        <StackPanel Grid.Column="3" Grid.Row="19" Orientation="Horizontal" Margin="1" HorizontalAlignment="Stretch">
                             <TextBlock Text="每月" VerticalAlignment="Center" />
-                            <TextBox Style="{DynamicResource ReadModeSwitch}" Width="30" Margin="2" Text="{Binding PaymentDay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox Style="{DynamicResource ReadModeSwitch}" TextAlignment="Center" Width="30" Margin="2" Text="{Binding PaymentDay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <TextBlock Text="日" VerticalAlignment="Center" />
                         </StackPanel>
                         <TextBlock Text="業主合約編號：" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center"  Margin="1"/>
@@ -184,8 +184,8 @@
                         <TextBlock Grid.Row="11" Grid.Column="3" Text="{Binding LastUpdate, StringFormat=\{0:yyyy/MM/dd\}}" VerticalAlignment="Center" />
 
 
-                        <TextBlock Grid.Row="19" TextAlignment="Right" VerticalAlignment="Center" Text="備註："  Height="18"/>
-                        <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="19" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Grid.Row="13" TextAlignment="Right" VerticalAlignment="Center" Text="備註："/>
+                        <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="3" Margin="2" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
                 </Grid>
             </GroupBox>
