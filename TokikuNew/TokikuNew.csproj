@@ -230,8 +230,8 @@
     <Compile Include="ValueConverters\ReadModeToVisibilityValueConverter.cs" />
     <Compile Include="ValueConverters\StatesCodeToTextValueConverter.cs" />
     <Compile Include="ValueConverters\VoidToStateTextValueConverter.cs" />
-    <Compile Include="Views\AluminumExtrusion\AluminumExtrusionOrderSheetView.xaml.cs">
-      <DependentUpon>AluminumExtrusionOrderSheetView.xaml</DependentUpon>
+    <Compile Include="Views\AluminumExtrusion\OrderSheetView.xaml.cs">
+      <DependentUpon>OrderSheetView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CRM\ClientListView.xaml.cs">
       <DependentUpon>ClientListView.xaml</DependentUpon>
@@ -469,7 +469,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\AluminumExtrusion\AluminumExtrusionOrderSheetView.xaml">
+    <Page Include="Views\AluminumExtrusion\OrderSheetView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
