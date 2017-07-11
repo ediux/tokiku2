@@ -100,6 +100,8 @@
     <Compile Include="Shared\SystemController.cs" />
     <Compile Include="ShippingMaterialController.cs" />
     <Compile Include="ShippingMaterialListController.cs" />
+    <Compile Include="SystemMembersController.cs" />
+    <Compile Include="SystemRolesController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
