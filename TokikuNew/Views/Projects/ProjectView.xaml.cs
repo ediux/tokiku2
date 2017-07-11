@@ -278,15 +278,15 @@ namespace TokikuNew.Views
                         addWorkarea = new ClosableTabItem() { Header = Header };
                     }
 
-                    if (btn == "產生出貨單" || btn == "開啟出貨單")
+                    if (btn == "產生領料單" || btn == "開啟領料單")
                     {
-                        Header = "出貨單";
+                        Header = "領料單";
                         addWorkarea = new ClosableTabItem() { Header = Header };
                     }
 
-                    if (btn == "出貨單列表")
+                    if (btn == "領料單列表")
                     {
-                        Header = "出貨單列表";
+                        Header = "領料單列表";
                         addWorkarea = new ClosableTabItem() { Header = Header };
                     }
 
@@ -619,7 +619,7 @@ namespace TokikuNew.Views
                             return;
                         }
 
-                        if (btnContext == "產生出貨單")
+                        if (btnContext == "產生領料單")
                         {
                             var vm = new ShippingMaterialViewUC() { Margin = new Thickness(0) };
 
@@ -631,7 +631,7 @@ namespace TokikuNew.Views
                             return;
                         }
 
-                        if (btnContext == "開啟出貨單")
+                        if (btnContext == "開啟領料單")
                         {
                             var vm = new ShippingMaterialViewUC() { Margin = new Thickness(0) };
 
@@ -642,7 +642,7 @@ namespace TokikuNew.Views
                             InnerWorkspaces.SelectedItem = addWorkarea;
                             return;
                         }
-                        if (btnContext == "出貨單列表")
+                        if (btnContext == "領料單列表")
                         {
                             var vm = new ShippingMaterialListViewUC() { Margin = new Thickness(0) };
                             vm.DataContext = new ShippingMaterialListViewModelCollection();
