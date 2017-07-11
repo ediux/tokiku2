@@ -25,7 +25,7 @@
                 </MenuItem>
                 <MenuItem Header="報表" Name="MI_Reports" Click="MI_Reports_Click"></MenuItem>
                 <MenuItem Header="帳務" Name="MI_Finance" Click="MI_Finance_Click">
-                    <MenuItem Header="本票管理" Name="MI_Finance_TicketManagement" Click="PromissoryNoteManagement_Click" />
+                    <MenuItem Header="本票管理" Name="本票管理" Click="PromissoryNoteManagement_Click" />
                     <MenuItem Header="合約管理" Name="合約管理" Click="ContractManagement_Click" />
                     <!-- MenuItem Header="專案合約管理">
                         <MenuItem Header="本約工程" Name="本約工程" Click="本約工程_Click" />
