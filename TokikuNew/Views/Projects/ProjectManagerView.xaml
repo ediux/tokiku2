@@ -23,7 +23,7 @@
             <Button x:Name="BtnAssemblyTable" Content="組裝總表" Grid.Row="16" Grid.Column="1" Margin="5,0" Click="BtnAssemblyTable_Click" />
             <Button  Content="加工圖集總表" Grid.Row="16" Grid.Column="1" Margin="5,0" Click="btnProcessAltas_Click"  />
 
-            <Button x:Name="Btn2" Content="鋁擠型需求" Grid.Row="17" Grid.Column="1" Margin="5,0" Click="BtnAluminumExtrusion_Click" />
+            <Button x:Name="Btn2" Content="鋁擠型材料" Grid.Row="17" Grid.Column="1" Margin="5,0" Click="BtnAluminumExtrusion_Click" />
             <Button Content="鋁擠型加工" x:Name="BtnAluminumProcessing"  DataContext="{Binding}" Margin="5,0" Click="BtnAluminumProcessing_Click"/>
             <Button Content="玻璃" x:Name="BtnGlass" DataContext="{Binding}" Margin="5,0" Click="BtnGlass_Click"/>
             <Button Content="鋁板" x:Name="BtnAluminumPlate"  DataContext="{Binding}" Margin="5,0"/>

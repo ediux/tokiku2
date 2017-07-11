@@ -36,6 +36,7 @@
     <RoutedUICommand x:Key="Cancel" Text="查詢"/>
     <RoutedUICommand x:Key="AddColumn" Text="新增行"/>
     <RoutedUICommand x:Key="AddRow" Text="新增列"/>
+    <RoutedUICommand x:Key="OpenNewTabItem" Text="開新分頁" />
     <Style TargetType="TextBlock">
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="VerticalAlignment" Value="Center"/>

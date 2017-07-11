@@ -460,7 +460,7 @@ namespace TokikuNew.Views
                     {
                         string btnContext = (string)e.OriginalSource;
 
-                        if(btnContext== "鋁擠型材料")
+                        if (btnContext == "鋁擠型材料")
                         {
                             var vm = new BOMDataImportsView() { Margin = new Thickness(0) };
 
@@ -494,7 +494,7 @@ namespace TokikuNew.Views
                         if (btnContext == "異動紀錄")
                         {
                             var vm = new ProcessingChangeLogView() { Margin = new Thickness(0) };
-                          
+
                             //addWorkarea = new ClosableTabItem() { Header = Header };
                             addWorkarea.Content = vm;
                             addWorkarea.Margin = new Thickness(0);
@@ -752,6 +752,300 @@ namespace TokikuNew.Views
             //        break;
             //}
             //RaiseEvent(new RoutedEventArgs(DocumentModeChangedEvent, e.OriginalSource));
+        }
+
+        private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            if (e.Parameter != null)
+            {
+                if(e.OriginalSource is Button)
+                {
+                    ((Button)e.OriginalSource).IsEnabled = true;
+                }
+
+                if(e.Source is Button)
+                {
+                    ((Button)e.Source).IsEnabled = true;
+                }
+                e.Handled = true;
+                e.ContinueRouting = false;
+                e.CanExecute = true;
+                return;
+            }
+            else
+            {
+                e.ContinueRouting = true;
+                e.CanExecute = false;
+            }
+        }
+
+        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            try
+            {
+                e.Handled = true;
+
+                ClosableTabItem addWorkarea = null;
+                string Header = string.Empty;
+
+                object SharedModel = null;
+                string ViewType = "";
+                
+                if (e.Parameter is string)
+                {
+                    string rawParamters = (string)e.Parameter;
+
+                    if (!string.IsNullOrEmpty(rawParamters))
+                    {
+                        string[] CommandParamters = rawParamters.Split(',');
+
+                        if (CommandParamters != null && CommandParamters.Length >= 2)
+                        {
+                            Header = CommandParamters[0];
+                            ViewType = CommandParamters[1];
+
+                            if (CommandParamters.Length >= 3)
+                            {
+                                SharedModel = Activator.CreateInstance(Type.GetType(CommandParamters[2]));
+                            }
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                else
+                {
+                    return;
+                }
+
+
+                addWorkarea = new ClosableTabItem() { Header = Header };
+
+                //if (e.OriginalSource is ProjectContractViewModel)
+                //{
+                //    ProjectContractViewModel model = (ProjectContractViewModel)e.OriginalSource;
+                //    SharedModel = model;
+                //    Header = string.Format("合約-{0}[{1}]", model.Projects.ShortName, model.ContractNumber);
+                //    addWorkarea = new ClosableTabItem() { Header = Header };
+                //}
+
+                //if (e.OriginalSource is ConstructionAtlasViewModelCollection)
+                //{
+                //    ConstructionAtlasViewModelCollection model = (ConstructionAtlasViewModelCollection)e.OriginalSource;
+                //    SharedModel = model;
+                //    Header = "施工圖集";
+                //    addWorkarea = new ClosableTabItem() { Header = Header };
+
+                //}
+
+                //if (e.OriginalSource is ProcessingAtlasViewModelCollection)
+                //{
+                //    ProcessingAtlasViewModelCollection model = (ProcessingAtlasViewModelCollection)e.OriginalSource;
+                //    SharedModel = model;
+                //    Header = "加工圖集";
+                //    addWorkarea = new ClosableTabItem() { Header = Header };
+                //}
+
+                //if (e.OriginalSource is EngineeringViewModelCollection)
+                //{
+                //    EngineeringViewModelCollection model = (EngineeringViewModelCollection)e.OriginalSource;
+                //    SharedModel = model;
+                //    Header = "工程項目";
+                //    addWorkarea = new ClosableTabItem() { Header = Header };
+                //}
+
+                //if (e.OriginalSource is AssemblyTableView)
+                //{
+                //    Header = "組裝總表";
+                //    addWorkarea = new ClosableTabItem() { Header = Header };
+                //}
+
+                //if (e.OriginalSource is ControlTableView)
+                //{
+                //    Header = "鋁擠型加工管控表";
+                //    addWorkarea = new ClosableTabItem() { Header = Header };
+                //}
+
+                //if (e.OriginalSource is string)
+                //{
+                //    string btn = (string)e.OriginalSource;
+
+                //    if (btn == "鋁擠型材料")
+                //    {
+                //        Header = "鋁擠型材料";
+                //        addWorkarea = new ClosableTabItem() { Header = Header };
+                //    }
+
+                //    if (btn == "鋁擠型需求")
+                //    {
+                //        Header = "鋁擠型需求";
+                //        addWorkarea = new ClosableTabItem() { Header = Header };
+                //    }
+
+                //    if (btn == "鋁擠型加工")
+                //    {
+                //        Header = "鋁擠型加工";
+                //        addWorkarea = new ClosableTabItem() { Header = Header };
+                //    }
+
+                //    if (btn == "異動紀錄")
+                //    {
+                //        Header = "異動紀錄";
+                //        addWorkarea = new ClosableTabItem() { Header = Header };
+                //    }
+
+                //    if (btn == "加工圖集總表")
+                //    {
+                //        Header = "加工圖集總表";
+                //        addWorkarea = new ClosableTabItem() { Header = Header };
+                //    }
+
+                //    if (btn == "產生鋁擠型訂製單")
+                //    {
+                //        Header = "鋁擠型訂製單";
+                //        addWorkarea = new ClosableTabItem() { Header = Header };
+                //    }
+
+                //    if (btn == "鋁擠型訂製單列表")
+                //    {
+                //        Header = "鋁擠型訂製單列表";
+                //        addWorkarea = new ClosableTabItem() { Header = Header };
+                //    }
+
+                //    if (btn == "產生退貨單")
+                //    {
+                //        Header = "退貨單";
+                //        addWorkarea = new ClosableTabItem() { Header = Header };
+                //    }
+
+                //    if (btn == "開啟退貨單")
+                //    {
+                //        Header = "退貨單";
+                //        addWorkarea = new ClosableTabItem() { Header = Header };
+                //    }
+
+                //    if (btn == "退貨單列表")
+                //    {
+                //        Header = "退貨單列表";
+                //        addWorkarea = new ClosableTabItem() { Header = Header };
+                //    }
+
+                //    if (btn == "產生請款單")
+                //    {
+                //        Header = "請款單";
+                //        addWorkarea = new ClosableTabItem() { Header = Header };
+                //    }
+
+                //    if (btn == "開啟請款單")
+                //    {
+                //        Header = "請款單";
+                //        addWorkarea = new ClosableTabItem() { Header = Header };
+                //    }
+                //    if (btn == "請款單列表")
+                //    {
+                //        Header = "請款單列表";
+                //        addWorkarea = new ClosableTabItem() { Header = Header };
+                //    }
+
+                //    if (btn == "產生出貨單" || btn == "開啟出貨單")
+                //    {
+                //        Header = "出貨單";
+                //        addWorkarea = new ClosableTabItem() { Header = Header };
+                //    }
+
+                //    if (btn == "出貨單列表")
+                //    {
+                //        Header = "出貨單列表";
+                //        addWorkarea = new ClosableTabItem() { Header = Header };
+                //    }
+
+                //    if (btn == "產生收料單" || btn == "開啟收料單")
+                //    {
+                //        Header = "收料單";
+                //        addWorkarea = new ClosableTabItem() { Header = Header };
+                //    }
+
+
+                //    if (btn == "收料單列表")
+                //    {
+                //        Header = "收料單列表";
+                //        addWorkarea = new ClosableTabItem() { Header = Header };
+                //    }
+
+
+                //    if (btn == "產生加工訂製單")
+                //    {
+                //        Header = "加工訂製單";
+                //        addWorkarea = new ClosableTabItem() { Header = Header };
+                //    }
+
+                //    if (btn == "玻璃管控表")
+                //    {
+                //        Header = "玻璃";
+                //        addWorkarea = new ClosableTabItem() { Header = Header };
+                //    }
+
+                //    if (btn == "需求單")
+                //    {
+                //        Header = "需求單";
+                //        addWorkarea = new ClosableTabItem() { Header = Header };
+                //    }
+                //}
+                bool isExisted = false;
+
+                foreach (ClosableTabItem item in InnerWorkspaces.Items.OfType<ClosableTabItem>())
+                {
+                    if (item.Header.Equals(addWorkarea.Header))
+                    {
+                        isExisted = true;
+                        addWorkarea = item;
+                        break;
+                    }
+                }
+
+                if (!isExisted)
+                {
+                    Type ViewTypeRef = Type.GetType(ViewType);
+                    var vm = Activator.CreateInstance(ViewTypeRef);
+
+                    if (vm != null)
+                    {
+                        ViewTypeRef.GetProperty("DataContext").SetValue(vm, SharedModel);
+                        if (ViewTypeRef.GetProperty("LoginedUser") != null)
+                        {
+                            ViewTypeRef.GetProperty("LoginedUser").SetValue(vm, LoginedUser);
+                        }
+                        if (ViewTypeRef.GetProperty("Mode") != null)
+                        {
+                            ViewTypeRef.GetProperty("Mode").SetValue(vm, DocumentLifeCircle.Read);
+                        }
+                    }
+
+                    addWorkarea = new ClosableTabItem() { Header = Header };
+                    addWorkarea.Content = vm;
+                    addWorkarea.Margin = new Thickness(0);
+
+                    InnerWorkspaces.Items.Add(addWorkarea);
+                    InnerWorkspaces.SelectedItem = addWorkarea;
+                    return;
+
+                
+                }
+                else
+                {
+                    InnerWorkspaces.SelectedItem = addWorkarea;
+                }
+            }
+            catch (Exception ex)
+            {
+                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
+            }
         }
     }
 }

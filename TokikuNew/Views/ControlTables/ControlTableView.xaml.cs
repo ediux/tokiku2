@@ -57,6 +57,7 @@ namespace TokikuNew.Views
 
 
         #endregion
+
         private void Order_Click(object sender, RoutedEventArgs e)
         {
             try
