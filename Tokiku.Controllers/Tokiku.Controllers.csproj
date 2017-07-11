@@ -75,6 +75,7 @@
     <Compile Include="MES\BOMController.cs" />
     <Compile Include="MES\MaterialManagementController.cs" />
     <Compile Include="MES\MoldsController.cs" />
+    <Compile Include="OrderControlTableController.cs" />
     <Compile Include="Orders\AluminumExtrusionOrderSheetViewController.cs" />
     <Compile Include="Manufacturers\ClientController.cs" />
     <Compile Include="Projects\ProcessingAtlasController.cs" />

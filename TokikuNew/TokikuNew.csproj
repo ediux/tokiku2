@@ -151,6 +151,9 @@
     <Compile Include="Views\ControlTables\IronPartsView.xaml.cs">
       <DependentUpon>IronPartsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\OrderControlTableView.xaml.cs">
+      <DependentUpon>OrderControlTableView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Projects\ProcessingChangeLogView.xaml.cs">
       <DependentUpon>ProcessingChangeLogView.xaml</DependentUpon>
     </Compile>
@@ -325,6 +328,10 @@
     <Page Include="Views\ControlTables\IronPartsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\OrderControlTableView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Projects\ProcessingChangeLogView.xaml">
       <SubType>Designer</SubType>
