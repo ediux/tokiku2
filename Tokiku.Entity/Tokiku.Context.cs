@@ -45,7 +45,6 @@ namespace Tokiku.Entity
         public virtual DbSet<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
         public virtual DbSet<ShopFlow> ShopFlow { get; set; }
         public virtual DbSet<TicketTypes> TicketTypes { get; set; }
-        public virtual DbSet<SupplierTranscationItem> SupplierTranscationItem { get; set; }
         public virtual DbSet<TicketPeriod> TicketPeriod { get; set; }
         public virtual DbSet<View_BussinessItemsList> View_BussinessItemsList { get; set; }
         public virtual DbSet<View_ManufacturersBussinessTranscations> View_ManufacturersBussinessTranscations { get; set; }
@@ -64,5 +63,6 @@ namespace Tokiku.Entity
         public virtual DbSet<OrderMiscellaneous> OrderMiscellaneous { get; set; }
         public virtual DbSet<MaterialValuation> MaterialValuation { get; set; }
         public virtual DbSet<BOM> BOM { get; set; }
+        public virtual DbSet<SupplierTranscationItem> SupplierTranscationItem { get; set; }
     }
 }

@@ -24,10 +24,10 @@ namespace Tokiku.Entity
             this.ClientForProjects = new HashSet<Projects>();
             this.FormDetails = new HashSet<FormDetails>();
             this.ManufacturersBussinessItems = new HashSet<ManufacturersBussinessItems>();
-            this.SupplierTranscationItem = new HashSet<SupplierTranscationItem>();
             this.ShopFlowDetail = new HashSet<ShopFlowDetail>();
             this.ShopFlowDetail1 = new HashSet<ShopFlowDetail>();
             this.BOM = new HashSet<BOM>();
+            this.SupplierTranscationItem = new HashSet<SupplierTranscationItem>();
         }
     
         public System.Guid Id { get; set; }
@@ -75,12 +75,12 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SupplierTranscationItem> SupplierTranscationItem { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShopFlowDetail> ShopFlowDetail { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShopFlowDetail> ShopFlowDetail1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BOM> BOM { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SupplierTranscationItem> SupplierTranscationItem { get; set; }
     }
 }

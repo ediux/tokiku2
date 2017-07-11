@@ -51,8 +51,8 @@ namespace TokikuNew.Controls
         {
             try
             {
-                if (e.Command == ApplicationCommands.Paste) { e.CanExecute = (bool)GetValue(AllowExecuteSystemCommandProperty); }
-                if (e.Command == ApplicationCommands.Copy) { e.CanExecute = (bool)GetValue(AllowExecuteSystemCommandProperty); }
+                if (e.Command == ApplicationCommands.Paste) { e.CanExecute = (bool)GetValue(AllowExecuteSystemCommandProperty); e.ContinueRouting = !e.CanExecute; }
+                if (e.Command == ApplicationCommands.Copy) { e.CanExecute = (bool)GetValue(AllowExecuteSystemCommandProperty); e.ContinueRouting = !e.CanExecute; }
             }
             catch (Exception ex)
             {
