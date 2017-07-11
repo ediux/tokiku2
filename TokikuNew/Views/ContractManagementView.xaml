@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:TokikuNew.Views"
              xmlns:Controls="clr-namespace:TokikuNew.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1024">
+             d:DesignHeight="600" d:DesignWidth="1024" Loaded="ContractManagementView_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27" />
@@ -17,7 +17,7 @@
             <ColumnDefinition Width="350" />
         </Grid.ColumnDefinitions>
         <Controls:SearchBar Grid.Row="0" Grid.Column="1" x:Name="sSearchBar" />
-        <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource GroupBox_DocumentEditor}" Header="合約管理" VerticalAlignment="Top" Height="468" x:Name="UC">
+        <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource GroupBox_DocumentEditor}" Header="合約管理" VerticalAlignment="Top" Height="468" x:Name="CheckGrid">
             <DataGrid>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="項次" Width="auto" />

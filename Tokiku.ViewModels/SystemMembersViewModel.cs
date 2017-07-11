@@ -5,29 +5,29 @@ using System.Text;
 using System.Threading.Tasks;
 using Tokiku.Controllers;
 using Tokiku.Entity;
+using Tokiku.Entity.ViewTables;
 
 namespace Tokiku.ViewModels
 {
-    public class ContractManagementViewModelCollection : BaseViewModelCollection<ContractManagementViewModel>
+    public class SystemMembersViewModelCollection : BaseViewModelCollection<SystemMembersViewModel>
     {
-        public ContractManagementViewModelCollection()
+        public SystemMembersViewModelCollection()
         {
             HasError = false;
         }
 
-        public ContractManagementViewModelCollection(IEnumerable<ContractManagementViewModel> source) : base(source)
+        public SystemMembersViewModelCollection(IEnumerable<SystemMembersViewModel> source) : base(source)
         {
-
 
         }
 
         public override void Query()
         {
-            ContractManagementController ctrl = new ContractManagementController();
-            ExecuteResultEntity<ICollection<ContractManagementEntity>> ere = ctrl.QuerAll();
+            SystemMembersController ctrl = new SystemMembersController();
+            ExecuteResultEntity<ICollection<SystemMembersEntity>> ere = ctrl.QuerAll();
             if (!ere.HasError)
             {
-                ContractManagementViewModel vm = new ContractManagementViewModel();
+                SystemMembersViewModel vm = new SystemMembersViewModel();
                 foreach (var item in ere.Result)
                 {
                     vm.SetModel(item);
@@ -38,15 +38,15 @@ namespace Tokiku.ViewModels
 
     }
 
-    public class ContractManagementViewModel : BaseViewModel
+    public class SystemMembersViewModel : BaseViewModel
     {
         public override void SetModel(dynamic entity)
         {
             try
             {
-                if (entity is ContractManagementEntity)
+                if (entity is SystemMembersEntity)
                 {
-                    ContractManagementEntity data = (ContractManagementEntity)entity;
+                    SystemMembersEntity data = (SystemMembersEntity)entity;
                     BindingFromModel(data, this);
                 }
             }

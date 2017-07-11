@@ -69,6 +69,7 @@
     <Compile Include="AluminumExtrusionOrderListController.cs" />
     <Compile Include="AluminumExtrusionOrderMaterialValuationController.cs" />
     <Compile Include="AluminumExtrusionOrderMiscellaneousController.cs" />
+    <Compile Include="ContractManagementController.cs" />
     <Compile Include="Finance\PromissoryNoteManagementViewModelController.cs" />
     <Compile Include="Finance\TicketPeriodsManagementController.cs" />
     <Compile Include="MES\BOMController.cs" />
@@ -100,6 +101,8 @@
     <Compile Include="Shared\SystemController.cs" />
     <Compile Include="ShippingMaterialController.cs" />
     <Compile Include="ShippingMaterialListController.cs" />
+    <Compile Include="SystemMembersController.cs" />
+    <Compile Include="SystemRolesController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

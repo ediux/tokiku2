@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tokiku.ViewModels;
 
 namespace TokikuNew.Views
 {
@@ -24,5 +25,13 @@ namespace TokikuNew.Views
         {
             InitializeComponent();
         }
+
+        private void SystemMembersView_Loaded(object sender, RoutedEventArgs e)
+        {
+            SystemMembersViewModelCollection ctrl = new SystemMembersViewModelCollection();
+            CheckGrid.DataContext = ctrl;
+            ctrl.Query();
+        }
+
     }
 }

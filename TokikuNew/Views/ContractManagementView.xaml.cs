@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tokiku.ViewModels;
 
 namespace TokikuNew.Views
 {
@@ -23,6 +24,13 @@ namespace TokikuNew.Views
         public ContractManagementView()
         {
             InitializeComponent();
+        }
+
+        private void ContractManagementView_Loaded(object sender, RoutedEventArgs e)
+        {
+            ContractManagementViewModelCollection ctrl = new ContractManagementViewModelCollection();
+            CheckGrid.DataContext = ctrl;
+            ctrl.Query();
         }
     }
 }

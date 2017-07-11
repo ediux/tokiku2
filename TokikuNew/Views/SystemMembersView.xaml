@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:TokikuNew.Views"
              xmlns:Controls="clr-namespace:TokikuNew.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1024">
+             d:DesignHeight="600" d:DesignWidth="1024" Loaded="SystemMembersView_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27" />
@@ -17,7 +17,7 @@
             <ColumnDefinition Width="350" />
         </Grid.ColumnDefinitions>
         <Controls:SearchBar Grid.Row="0" Grid.Column="1" x:Name="sSearchBar" />
-        <GroupBox Style="{DynamicResource GroupBox_DocumentEditor}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Header="人員管理">
+        <GroupBox x:Name="CheckGrid" Style="{DynamicResource GroupBox_DocumentEditor}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Header="人員管理">
             <DataGrid>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="" Width="auto" />

@@ -100,6 +100,8 @@
     <Compile Include="Shared\AccessLogViewModelCollection.cs" />
     <Compile Include="ShippingMaterialListViewModel.cs" />
     <Compile Include="ShippingMaterialViewModel.cs" />
+    <Compile Include="SystemMembersViewModel.cs" />
+    <Compile Include="SystemRolesViewModel.cs" />
     <Compile Include="Users\LoginViewModel.cs" />
     <Compile Include="Main\MainViewModel.cs" />
     <Compile Include="Projects\ProjectsViewModel.cs" />

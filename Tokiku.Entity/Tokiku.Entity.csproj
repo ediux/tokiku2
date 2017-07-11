@@ -342,6 +342,7 @@
     </Compile>
     <Compile Include="ViewTables\AluminumExtrusionOrderEntity.cs" />
     <Compile Include="ViewTables\AluminumExtrusionOrderMaterialValuationEntity.cs" />
+    <Compile Include="ViewTables\ContractManagementEntity.cs" />
     <Compile Include="ViewTables\MainWindowEntity.cs" />
     <Compile Include="ManufacturersBussinessItemsRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
@@ -430,6 +431,8 @@
     <Compile Include="ViewTables\ReturnMaterialListEntity.cs" />
     <Compile Include="ViewTables\ShippingMaterialEntity.cs" />
     <Compile Include="ViewTables\ShippingMaterialListEntity.cs" />
+    <Compile Include="ViewTables\SystemMembersEntity.cs" />
+    <Compile Include="ViewTables\SystemRolesEntity.cs" />
     <Compile Include="View_BussinessItemsList.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>

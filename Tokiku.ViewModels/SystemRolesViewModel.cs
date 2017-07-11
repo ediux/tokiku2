@@ -8,26 +8,25 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class ContractManagementViewModelCollection : BaseViewModelCollection<ContractManagementViewModel>
+    public class SystemRolesViewModelCollection : BaseViewModelCollection<SystemRolesViewModel>
     {
-        public ContractManagementViewModelCollection()
+        public SystemRolesViewModelCollection()
         {
             HasError = false;
         }
 
-        public ContractManagementViewModelCollection(IEnumerable<ContractManagementViewModel> source) : base(source)
+        public SystemRolesViewModelCollection(IEnumerable<SystemRolesViewModel> source) : base(source)
         {
-
 
         }
 
         public override void Query()
         {
-            ContractManagementController ctrl = new ContractManagementController();
-            ExecuteResultEntity<ICollection<ContractManagementEntity>> ere = ctrl.QuerAll();
+            SystemRolesController ctrl = new SystemRolesController();
+            ExecuteResultEntity<ICollection<SystemRolesEntity>> ere = ctrl.QuerAll();
             if (!ere.HasError)
             {
-                ContractManagementViewModel vm = new ContractManagementViewModel();
+                SystemRolesViewModel vm = new SystemRolesViewModel();
                 foreach (var item in ere.Result)
                 {
                     vm.SetModel(item);
@@ -38,15 +37,15 @@ namespace Tokiku.ViewModels
 
     }
 
-    public class ContractManagementViewModel : BaseViewModel
+    public class SystemRolesViewModel : BaseViewModel
     {
         public override void SetModel(dynamic entity)
         {
             try
             {
-                if (entity is ContractManagementEntity)
+                if (entity is SystemRolesEntity)
                 {
-                    ContractManagementEntity data = (ContractManagementEntity)entity;
+                    SystemRolesEntity data = (SystemRolesEntity)entity;
                     BindingFromModel(data, this);
                 }
             }

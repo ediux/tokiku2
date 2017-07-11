@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tokiku.ViewModels;
 
 namespace TokikuNew.Views
 {
@@ -23,6 +24,13 @@ namespace TokikuNew.Views
         public SystemRolesView()
         {
             InitializeComponent();
+        }
+
+        private void SystemRolesView_Loaded(object sender, RoutedEventArgs e)
+        {
+            SystemRolesViewModelCollection ctrl = new SystemRolesViewModelCollection();
+            CheckGrid.DataContext = ctrl;
+            ctrl.Query();
         }
     }
 }
