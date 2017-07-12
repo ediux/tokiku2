@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tokiku.ViewModels;
+using TokikuNew.Controls;
 
 namespace TokikuNew.Views
 {
@@ -35,7 +36,14 @@ namespace TokikuNew.Views
 
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "產生需求單"));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
         }
     }
 }

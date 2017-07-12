@@ -14,8 +14,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Left">
-            <Button Content="需求單" Margin="0" Command="{DynamicResource OpenNewTabItem}" CommandParameter="需求單,TokikuNew.Views.ReturnMaterialViewUC" IsEnabled="True" Click="Required_Click"/>
-            <Button Content="訂製單管控表" Margin="5,0,0,0"/>
+            <Button Content="需求單" Margin="0" Command="{DynamicResource OpenNewTabItem}" CommandParameter="需求單,TokikuNew.Views.ReturnMaterialViewUC" IsEnabled="True" Click="Required_Click" />
+            <Button Content="訂製單管控表" Margin="5,0,0,0" Click="OrderControlTableView_Click" />
             <Button Content="訂製單" Margin="5,0,0,0" Click="Order_Click" />
             <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="加工訂製單列表" Margin="0,0,5,0"  Click="OrderList_Click" />
             <Button Content="盤點單" Margin="5,0,0,0"/>
