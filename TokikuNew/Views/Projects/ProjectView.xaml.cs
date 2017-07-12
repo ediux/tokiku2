@@ -243,9 +243,21 @@ namespace TokikuNew.Views
                         addWorkarea = new ClosableTabItem() { Header = Header };
                     }
 
+                    if (btn == "產生訂製單管控表")
+                    {
+                        Header = "訂製單管控表";
+                        addWorkarea = new ClosableTabItem() { Header = Header };
+                    }
+
                     if (btn == "產生需求單")
                     {
                         Header = "需求單";
+                        addWorkarea = new ClosableTabItem() { Header = Header };
+                    }
+
+                    if (btn == "產生盤點單")
+                    {
+                        Header = "盤點單";
                         addWorkarea = new ClosableTabItem() { Header = Header };
                     }
 
@@ -553,9 +565,33 @@ namespace TokikuNew.Views
                             return;
                         }
 
+                        if (btnContext == "產生訂製單管控表")
+                        {
+                            var vm = new OrderControlTableView() { Margin = new Thickness(0) };
+                            vm.DataContext = DataContext;
+                            addWorkarea.Content = vm;
+                            addWorkarea.Margin = new Thickness(0);
+
+                            InnerWorkspaces.Items.Add(addWorkarea);
+                            InnerWorkspaces.SelectedItem = addWorkarea;
+                            return;
+                        }
+
                         if (btnContext == "產生需求單")
                         {
                             var vm = new RequiredView() { Margin = new Thickness(0) };
+
+                            addWorkarea.Content = vm;
+                            addWorkarea.Margin = new Thickness(0);
+
+                            InnerWorkspaces.Items.Add(addWorkarea);
+                            InnerWorkspaces.SelectedItem = addWorkarea;
+                            return;
+                        }
+
+                        if (btnContext == "產生盤點單")
+                        {
+                            var vm = new InventoryView() { Margin = new Thickness(0) };
 
                             addWorkarea.Content = vm;
                             addWorkarea.Margin = new Thickness(0);

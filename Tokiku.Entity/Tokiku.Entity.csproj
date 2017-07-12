@@ -481,6 +481,8 @@
     <Compile Include="ViewTables\AluminumExtrusionOrderEntity.cs" />
     <Compile Include="ViewTables\AluminumExtrusionOrderMaterialValuationEntity.cs" />
     <Compile Include="ViewTables\ContractManagementEntity.cs" />
+    <Compile Include="ViewTables\InventoryEntity.cs" />
+    <Compile Include="ViewTables\InventoryListEntity.cs" />
     <Compile Include="ViewTables\MainWindowEntity.cs" />
     <Compile Include="ManufacturersBussinessItemsRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>

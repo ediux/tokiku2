@@ -13,37 +13,30 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tokiku.ViewModels;
-using TokikuNew.Controls;
 
 namespace TokikuNew.Views
 {
     /// <summary>
-    /// RequiredView.xaml 的互動邏輯
+    /// InventoryView.xaml 的互動邏輯
     /// </summary>
-    public partial class RequiredView : UserControl
+    public partial class InventoryView : UserControl
     {
-        public RequiredView()
+        public InventoryView()
         {
             InitializeComponent();
         }
-
-        private void RequiredView_Loaded(object sender, RoutedEventArgs e)
+        
+        private void InventoryView_Loaded(object sender, RoutedEventArgs e)
         {
-            RequiredViewModelCollection ctrl = new RequiredViewModelCollection();
+            InventoryViewModelCollection ctrl = new InventoryViewModelCollection();
             CheckGrid.DataContext = ctrl;
             ctrl.Query();
         }
 
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "產生需求單"));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
+
         }
+
     }
 }
