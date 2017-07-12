@@ -71,9 +71,6 @@ namespace Tokiku.Entity
         public virtual ProcessingAtlas ProcessingAtlas { get; set; }
         public virtual ShopFlow ShopFlow { get; set; }
         public virtual Users Users { get; set; }
-        public virtual ICollection<MaterialValuation> MaterialValuation { get; set; }
-        public virtual ICollection<OrderMiscellaneous> OrderMiscellaneous { get; set; }
         public virtual Manufacturers Manufacturers { get; set; }
-        public virtual PurchasingOrder PurchasingOrder { get; set; }
     }
 }

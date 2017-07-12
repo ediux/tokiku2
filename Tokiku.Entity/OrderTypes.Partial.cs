@@ -4,12 +4,12 @@ namespace Tokiku.Entity
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     
-    [MetadataType(typeof(FormsMetaData))]
-    public partial class Forms
+    [MetadataType(typeof(OrderTypesMetaData))]
+    public partial class OrderTypes
     {
     }
     
-    public partial class FormsMetaData
+    public partial class OrderTypesMetaData
     {
         [Required]
         public System.Guid Id { get; set; }
@@ -22,6 +22,6 @@ namespace Tokiku.Entity
         [Required]
         public System.Guid CreateUserId { get; set; }
     
-        public virtual ICollection<FormDetails> FormDetails { get; set; }
+        public virtual ICollection<Orders> Orders { get; set; }
     }
 }

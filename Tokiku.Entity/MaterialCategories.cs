@@ -19,8 +19,10 @@ namespace Tokiku.Entity
         {
             this.ProjectItemCost = new HashSet<ProjectItemCost>();
             this.MoldsInProjects = new HashSet<MoldsInProjects>();
-            this.ManufacturersBussinessItems = new HashSet<ManufacturersBussinessItems>();
             this.BOM = new HashSet<BOM>();
+            this.Required = new HashSet<Required>();
+            this.ControlTables = new HashSet<ControlTables>();
+            this.ManufacturersBussinessItems = new HashSet<ManufacturersBussinessItems>();
         }
     
         public System.Guid Id { get; set; }
@@ -33,8 +35,12 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MoldsInProjects> MoldsInProjects { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BOM> BOM { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Required> Required { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ControlTables> ControlTables { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
     }
 }

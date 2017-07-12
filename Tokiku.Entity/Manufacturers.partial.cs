@@ -92,7 +92,6 @@ namespace Tokiku.Entity
         public virtual ICollection<Contacts> Contacts { get; set; }
         public virtual TicketPeriod TicketPeriod { get; set; }
         public virtual ICollection<Projects> ClientForProjects { get; set; }
-        public virtual ICollection<FormDetails> FormDetails { get; set; }
         public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
         public virtual ICollection<SupplierTranscationItem> SupplierTranscationItem { get; set; }
         public virtual ICollection<ShopFlowDetail> ShopFlowDetail { get; set; }

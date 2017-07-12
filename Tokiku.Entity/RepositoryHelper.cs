@@ -71,6 +71,34 @@ namespace Tokiku.Entity
 			return repository;
 		}		
 
+		public static ControlTableDetailsRepository GetControlTableDetailsRepository()
+		{
+			var repository = new ControlTableDetailsRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static ControlTableDetailsRepository GetControlTableDetailsRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new ControlTableDetailsRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
+		public static ControlTablesRepository GetControlTablesRepository()
+		{
+			var repository = new ControlTablesRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static ControlTablesRepository GetControlTablesRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new ControlTablesRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
 		public static EngineeringRepository GetEngineeringRepository()
 		{
 			var repository = new EngineeringRepository();
@@ -85,30 +113,72 @@ namespace Tokiku.Entity
 			return repository;
 		}		
 
-		public static FormDetailsRepository GetFormDetailsRepository()
+		public static InventoryRepository GetInventoryRepository()
 		{
-			var repository = new FormDetailsRepository();
+			var repository = new InventoryRepository();
 			repository.UnitOfWork = GetUnitOfWork();
 			return repository;
 		}
 
-		public static FormDetailsRepository GetFormDetailsRepository(IUnitOfWork unitOfWork)
+		public static InventoryRepository GetInventoryRepository(IUnitOfWork unitOfWork)
 		{
-			var repository = new FormDetailsRepository();
+			var repository = new InventoryRepository();
 			repository.UnitOfWork = unitOfWork;
 			return repository;
 		}		
 
-		public static FormsRepository GetFormsRepository()
+		public static InvoiceDetailsRepository GetInvoiceDetailsRepository()
 		{
-			var repository = new FormsRepository();
+			var repository = new InvoiceDetailsRepository();
 			repository.UnitOfWork = GetUnitOfWork();
 			return repository;
 		}
 
-		public static FormsRepository GetFormsRepository(IUnitOfWork unitOfWork)
+		public static InvoiceDetailsRepository GetInvoiceDetailsRepository(IUnitOfWork unitOfWork)
 		{
-			var repository = new FormsRepository();
+			var repository = new InvoiceDetailsRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
+		public static InvoiceDetails_MaterialRepository GetInvoiceDetails_MaterialRepository()
+		{
+			var repository = new InvoiceDetails_MaterialRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static InvoiceDetails_MaterialRepository GetInvoiceDetails_MaterialRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new InvoiceDetails_MaterialRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
+		public static InvoiceDetails_MiscellaneousRepository GetInvoiceDetails_MiscellaneousRepository()
+		{
+			var repository = new InvoiceDetails_MiscellaneousRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static InvoiceDetails_MiscellaneousRepository GetInvoiceDetails_MiscellaneousRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new InvoiceDetails_MiscellaneousRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
+		public static InvoicesRepository GetInvoicesRepository()
+		{
+			var repository = new InvoicesRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static InvoicesRepository GetInvoicesRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new InvoicesRepository();
 			repository.UnitOfWork = unitOfWork;
 			return repository;
 		}		
@@ -183,20 +253,6 @@ namespace Tokiku.Entity
 			return repository;
 		}		
 
-		public static MaterialValuationRepository GetMaterialValuationRepository()
-		{
-			var repository = new MaterialValuationRepository();
-			repository.UnitOfWork = GetUnitOfWork();
-			return repository;
-		}
-
-		public static MaterialValuationRepository GetMaterialValuationRepository(IUnitOfWork unitOfWork)
-		{
-			var repository = new MaterialValuationRepository();
-			repository.UnitOfWork = unitOfWork;
-			return repository;
-		}		
-
 		public static MembershipRepository GetMembershipRepository()
 		{
 			var repository = new MembershipRepository();
@@ -253,16 +309,58 @@ namespace Tokiku.Entity
 			return repository;
 		}		
 
-		public static OrderMiscellaneousRepository GetOrderMiscellaneousRepository()
+		public static OrderDetailsRepository GetOrderDetailsRepository()
 		{
-			var repository = new OrderMiscellaneousRepository();
+			var repository = new OrderDetailsRepository();
 			repository.UnitOfWork = GetUnitOfWork();
 			return repository;
 		}
 
-		public static OrderMiscellaneousRepository GetOrderMiscellaneousRepository(IUnitOfWork unitOfWork)
+		public static OrderDetailsRepository GetOrderDetailsRepository(IUnitOfWork unitOfWork)
 		{
-			var repository = new OrderMiscellaneousRepository();
+			var repository = new OrderDetailsRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
+		public static OrderMaterialValuationRepository GetOrderMaterialValuationRepository()
+		{
+			var repository = new OrderMaterialValuationRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static OrderMaterialValuationRepository GetOrderMaterialValuationRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new OrderMaterialValuationRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
+		public static OrdersRepository GetOrdersRepository()
+		{
+			var repository = new OrdersRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static OrdersRepository GetOrdersRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new OrdersRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
+		public static OrderTypesRepository GetOrderTypesRepository()
+		{
+			var repository = new OrderTypesRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static OrderTypesRepository GetOrderTypesRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new OrderTypesRepository();
 			repository.UnitOfWork = unitOfWork;
 			return repository;
 		}		
@@ -277,6 +375,34 @@ namespace Tokiku.Entity
 		public static PaymentTypesRepository GetPaymentTypesRepository(IUnitOfWork unitOfWork)
 		{
 			var repository = new PaymentTypesRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
+		public static PickListRepository GetPickListRepository()
+		{
+			var repository = new PickListRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static PickListRepository GetPickListRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new PickListRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
+		public static PickListDetailsRepository GetPickListDetailsRepository()
+		{
+			var repository = new PickListDetailsRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static PickListDetailsRepository GetPickListDetailsRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new PickListDetailsRepository();
 			repository.UnitOfWork = unitOfWork;
 			return repository;
 		}		
@@ -365,16 +491,86 @@ namespace Tokiku.Entity
 			return repository;
 		}		
 
-		public static PurchasingOrderRepository GetPurchasingOrderRepository()
+		public static ReceiptDetailsRepository GetReceiptDetailsRepository()
 		{
-			var repository = new PurchasingOrderRepository();
+			var repository = new ReceiptDetailsRepository();
 			repository.UnitOfWork = GetUnitOfWork();
 			return repository;
 		}
 
-		public static PurchasingOrderRepository GetPurchasingOrderRepository(IUnitOfWork unitOfWork)
+		public static ReceiptDetailsRepository GetReceiptDetailsRepository(IUnitOfWork unitOfWork)
 		{
-			var repository = new PurchasingOrderRepository();
+			var repository = new ReceiptDetailsRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
+		public static ReceiptsRepository GetReceiptsRepository()
+		{
+			var repository = new ReceiptsRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static ReceiptsRepository GetReceiptsRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new ReceiptsRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
+		public static RequiredRepository GetRequiredRepository()
+		{
+			var repository = new RequiredRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static RequiredRepository GetRequiredRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new RequiredRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
+		public static RequiredDetailsRepository GetRequiredDetailsRepository()
+		{
+			var repository = new RequiredDetailsRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static RequiredDetailsRepository GetRequiredDetailsRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new RequiredDetailsRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
+		public static ReturnDetailsRepository GetReturnDetailsRepository()
+		{
+			var repository = new ReturnDetailsRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static ReturnDetailsRepository GetReturnDetailsRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new ReturnDetailsRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
+		public static ReturnsRepository GetReturnsRepository()
+		{
+			var repository = new ReturnsRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static ReturnsRepository GetReturnsRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new ReturnsRepository();
 			repository.UnitOfWork = unitOfWork;
 			return repository;
 		}		
@@ -445,6 +641,20 @@ namespace Tokiku.Entity
 		public static StatesRepository GetStatesRepository(IUnitOfWork unitOfWork)
 		{
 			var repository = new StatesRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
+		public static StocksRepository GetStocksRepository()
+		{
+			var repository = new StocksRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static StocksRepository GetStocksRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new StocksRepository();
 			repository.UnitOfWork = unitOfWork;
 			return repository;
 		}		

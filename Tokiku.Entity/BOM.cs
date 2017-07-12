@@ -14,13 +14,6 @@ namespace Tokiku.Entity
     
     public partial class BOM
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public BOM()
-        {
-            this.MaterialValuation = new HashSet<MaterialValuation>();
-            this.OrderMiscellaneous = new HashSet<OrderMiscellaneous>();
-        }
-    
         public System.Guid Id { get; set; }
         public Nullable<System.Guid> ProcessingAtlasId { get; set; }
         public string Code { get; set; }
@@ -65,11 +58,6 @@ namespace Tokiku.Entity
         public virtual ProcessingAtlas ProcessingAtlas { get; set; }
         public virtual ShopFlow ShopFlow { get; set; }
         public virtual Users Users { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MaterialValuation> MaterialValuation { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderMiscellaneous> OrderMiscellaneous { get; set; }
         public virtual Manufacturers Manufacturers { get; set; }
-        public virtual PurchasingOrder PurchasingOrder { get; set; }
     }
 }

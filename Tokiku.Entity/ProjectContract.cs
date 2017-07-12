@@ -19,6 +19,7 @@ namespace Tokiku.Entity
         {
             this.ProcessingAtlas = new HashSet<ProcessingAtlas>();
             this.Engineering = new HashSet<Engineering>();
+            this.Required = new HashSet<Required>();
         }
     
         public System.Guid Id { get; set; }
@@ -37,5 +38,7 @@ namespace Tokiku.Entity
         public virtual ICollection<ProcessingAtlas> ProcessingAtlas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Engineering> Engineering { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Required> Required { get; set; }
     }
 }

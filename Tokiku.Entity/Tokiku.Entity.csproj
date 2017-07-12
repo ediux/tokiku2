@@ -59,55 +59,11 @@
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
     <Compile Include="ActionCodes.cs" />
-    <Compile Include="BOM.Partial.cs">
-      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
-    </Compile>
-    <Compile Include="FormDetails.Partial.cs">
-      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Manufacturers.Partial.cs">
-      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MaterialValuation.cs">
-      <DependentUpon>Tokiku.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MaterialValuation.Partial.cs">
-      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MaterialValuationRepository.cs">
-      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
-    </Compile>
-    <Compile Include="OrderMiscellaneous.cs">
-      <DependentUpon>Tokiku.tt</DependentUpon>
-    </Compile>
-    <Compile Include="OrderMiscellaneous.Partial.cs">
-      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
-    </Compile>
-    <Compile Include="OrderMiscellaneousRepository.cs">
-      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProcessingAtlas.Partial.cs">
-      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Projects.Partial.cs">
-      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PurchasingOrder.Partial.cs">
-      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ShopFlow.Partial.cs">
-      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SupplierTranscationItem.Partial.cs">
-      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Users.Partial.cs">
-      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ViewTables\AluminumExtrusionOrderListEntity.cs" />
-    <Compile Include="ViewTables\AluminumExtrusionOrderMiscellaneousEntity.cs" />
     <Compile Include="BOM.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BOM.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
     <Compile Include="ConstructionAtlas.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
@@ -115,17 +71,77 @@
     <Compile Include="Contacts.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
+    <Compile Include="ControlTableDetails.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ControlTableDetails.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ControlTableDetailsRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ControlTables.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ControlTables.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ControlTablesRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
     <Compile Include="Engineering.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
-    <Compile Include="FormDetails.cs">
+    <Compile Include="Inventory.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
-    <Compile Include="Forms.cs">
+    <Compile Include="Inventory.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceDetails.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceDetails.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceDetailsRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceDetails_Material.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceDetails_Material.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceDetails_MaterialRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceDetails_Miscellaneous.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceDetails_Miscellaneous.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceDetails_MiscellaneousRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Invoices.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Invoices.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InvoicesRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
     <Compile Include="Manufacturers.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Manufacturers.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
     <Compile Include="ManufacturersBussinessItems.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
@@ -151,11 +167,71 @@
     <Compile Include="MoldUseStatus.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
+    <Compile Include="OrderDetails.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderDetails.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderDetailsRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderMaterialValuation.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderMaterialValuation.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderMaterialValuationRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderMiscellaneous.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Orders.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Orders.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrdersRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderTypes.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderTypes.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderTypesRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
     <Compile Include="PaymentTypes.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
+    <Compile Include="PickList.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PickList.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PickListDetails.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PickListDetails.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PickListDetailsRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PickListRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
     <Compile Include="ProcessingAtlas.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProcessingAtlas.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
     <Compile Include="Profile.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
@@ -169,20 +245,74 @@
     <Compile Include="Projects.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
+    <Compile Include="Projects.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
     <Compile Include="PromissoryNoteManagement.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
-    <Compile Include="PromissoryNoteManagement.Partial.cs">
+    <Compile Include="ReceiptDetails.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReceiptDetails.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
-    <Compile Include="PurchasingOrder.cs">
+    <Compile Include="ReceiptDetailsRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Receipts.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Receipts.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReceiptsRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Required.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Required.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RequiredDetails.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RequiredDetails.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RequiredDetailsRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RequiredRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReturnDetails.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReturnDetails.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReturnDetailsRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Returns.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Returns.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReturnsRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
     <Compile Include="Roles.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
     <Compile Include="ShopFlow.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ShopFlow.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
     <Compile Include="ShopFlowDetail.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
@@ -193,8 +323,20 @@
     <Compile Include="States.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
+    <Compile Include="Stocks.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Stocks.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StocksRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
     <Compile Include="SupplierTranscationItem.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SupplierTranscationItem.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
     <Compile Include="TicketPeriod.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
@@ -202,16 +344,24 @@
     <Compile Include="TicketTypes.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
-    <Compile Include="Tokiku.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Tokiku.Context.tt</DependentUpon>
-    </Compile>
     <Compile Include="TranscationCategories.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
     <Compile Include="Users.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Users.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewTables\AluminumExtrusionOrderListEntity.cs" />
+    <Compile Include="ViewTables\AluminumExtrusionOrderMiscellaneousEntity.cs" />
+    <Compile Include="PromissoryNoteManagement.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tokiku.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Tokiku.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="BOMRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
@@ -251,15 +401,6 @@
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
     <Compile Include="ExecuteResultEntity.cs" />
-    <Compile Include="FormDetailsRepository.cs">
-      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Forms.Partial.cs">
-      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
-    </Compile>
-    <Compile Include="FormsRepository.cs">
-      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
-    </Compile>
     <Compile Include="IExecuteResultEntity.cs" />
     <Compile Include="IUnitOfWork.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
@@ -306,9 +447,6 @@
     </Compile>
     <Compile Include="ProjectItemCost.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PurchasingOrderRepository.cs">
-      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
     <Compile Include="Roles.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>

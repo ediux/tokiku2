@@ -53,16 +53,32 @@ namespace Tokiku.Entity
         public virtual DbSet<MoldsInProjects> MoldsInProjects { get; set; }
         public virtual DbSet<ConstructionAtlas> ConstructionAtlas { get; set; }
         public virtual DbSet<ProcessingAtlas> ProcessingAtlas { get; set; }
-        public virtual DbSet<FormDetails> FormDetails { get; set; }
-        public virtual DbSet<Forms> Forms { get; set; }
-        public virtual DbSet<MaterialEstimation> MaterialEstimation { get; set; }
-        public virtual DbSet<PurchasingOrder> PurchasingOrder { get; set; }
         public virtual DbSet<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
         public virtual DbSet<ShopFlowHistory> ShopFlowHistory { get; set; }
         public virtual DbSet<ShopFlowDetail> ShopFlowDetail { get; set; }
-        public virtual DbSet<OrderMiscellaneous> OrderMiscellaneous { get; set; }
-        public virtual DbSet<MaterialValuation> MaterialValuation { get; set; }
         public virtual DbSet<BOM> BOM { get; set; }
         public virtual DbSet<SupplierTranscationItem> SupplierTranscationItem { get; set; }
+        public virtual DbSet<OrderDetails> OrderDetails { get; set; }
+        public virtual DbSet<OrderMaterialValuation> OrderMaterialValuation { get; set; }
+        public virtual DbSet<Orders> Orders { get; set; }
+        public virtual DbSet<OrderTypes> OrderTypes { get; set; }
+        public virtual DbSet<PickList> PickList { get; set; }
+        public virtual DbSet<PickListDetails> PickListDetails { get; set; }
+        public virtual DbSet<ReceiptDetails> ReceiptDetails { get; set; }
+        public virtual DbSet<Receipts> Receipts { get; set; }
+        public virtual DbSet<Required> Required { get; set; }
+        public virtual DbSet<RequiredDetails> RequiredDetails { get; set; }
+        public virtual DbSet<ReturnDetails> ReturnDetails { get; set; }
+        public virtual DbSet<Returns> Returns { get; set; }
+        public virtual DbSet<Stocks> Stocks { get; set; }
+        public virtual DbSet<ControlTableDetails> ControlTableDetails { get; set; }
+        public virtual DbSet<ControlTables> ControlTables { get; set; }
+        public virtual DbSet<Inventory> Inventory { get; set; }
+        public virtual DbSet<InvoiceDetails> InvoiceDetails { get; set; }
+        public virtual DbSet<InvoiceDetails_Material> InvoiceDetails_Material { get; set; }
+        public virtual DbSet<InvoiceDetails_Miscellaneous> InvoiceDetails_Miscellaneous { get; set; }
+        public virtual DbSet<Invoices> Invoices { get; set; }
+        public virtual DbSet<MaterialEstimation> MaterialEstimation { get; set; }
+        public virtual DbSet<OrderMiscellaneous> OrderMiscellaneous { get; set; }
     }
 }

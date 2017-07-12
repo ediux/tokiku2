@@ -14,17 +14,23 @@ namespace Tokiku.Entity
     
     public partial class OrderMiscellaneous
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public OrderMiscellaneous()
+        {
+            this.InvoiceDetails_Miscellaneous = new HashSet<InvoiceDetails_Miscellaneous>();
+        }
+    
         public System.Guid Id { get; set; }
-        public Nullable<System.Guid> FormDetailId { get; set; }
+        public Nullable<System.Guid> OrderId { get; set; }
         public string CodeOrItem { get; set; }
-        public Nullable<System.Guid> ManufacturersId { get; set; }
+        public string FactoryNumber { get; set; }
         public string Description { get; set; }
         public int UnitPrice { get; set; }
         public int Quantity { get; set; }
         public decimal TotalPrice { get; set; }
-        public Nullable<System.Guid> BOMId { get; set; }
     
-        public virtual FormDetails FormDetails { get; set; }
-        public virtual BOM BOM { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<InvoiceDetails_Miscellaneous> InvoiceDetails_Miscellaneous { get; set; }
+        public virtual Orders Orders { get; set; }
     }
 }

@@ -12,12 +12,12 @@ namespace Tokiku.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class Forms
+    public partial class OrderTypes
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Forms()
+        public OrderTypes()
         {
-            this.FormDetails = new HashSet<FormDetails>();
+            this.Orders = new HashSet<Orders>();
         }
     
         public System.Guid Id { get; set; }
@@ -26,6 +26,6 @@ namespace Tokiku.Entity
         public System.Guid CreateUserId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FormDetails> FormDetails { get; set; }
+        public virtual ICollection<Orders> Orders { get; set; }
     }
 }

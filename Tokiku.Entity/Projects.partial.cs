@@ -94,6 +94,5 @@ namespace Tokiku.Entity
         public virtual ICollection<Manufacturers> Manufacturers { get; set; }
         public virtual ICollection<ConstructionAtlas> ConstructionAtlas { get; set; }
         public virtual ICollection<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
-        public virtual ICollection<FormDetails> FormDetails { get; set; }
     }
 }

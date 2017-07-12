@@ -12,31 +12,33 @@ namespace Tokiku.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class PurchasingOrder
+    public partial class Required
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PurchasingOrder()
+        public Required()
         {
-            this.BOM = new HashSet<BOM>();
+            this.RequiredDetails = new HashSet<RequiredDetails>();
         }
     
         public System.Guid Id { get; set; }
-        public Nullable<System.Guid> FormDetailId { get; set; }
-        public string Code { get; set; }
-        public Nullable<System.Guid> MaterialId { get; set; }
-        public double UnitWeight { get; set; }
-        public double OrderLength { get; set; }
-        public decimal RequiredQuantity { get; set; }
-        public decimal SparePartsNumber { get; set; }
-        public decimal OrderQuantity { get; set; }
-        public string Comment { get; set; }
+        public Nullable<System.Guid> ProjectId { get; set; }
+        public Nullable<System.Guid> ProjectContractId { get; set; }
+        public string FormNumber { get; set; }
+        public Nullable<System.Guid> ManufacturersId { get; set; }
+        public Nullable<System.Guid> MaterialCategoriesId { get; set; }
+        public System.DateTime MakingTime { get; set; }
+        public System.Guid MakingUserId { get; set; }
+        public string RequiredPostion { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
     
-        public virtual FormDetails FormDetails { get; set; }
-        public virtual Materials Materials { get; set; }
+        public virtual Manufacturers Manufacturers { get; set; }
+        public virtual MaterialCategories MaterialCategories { get; set; }
+        public virtual ProjectContract ProjectContract { get; set; }
+        public virtual Projects Projects { get; set; }
         public virtual Users Users { get; set; }
+        public virtual Users Users1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BOM> BOM { get; set; }
+        public virtual ICollection<RequiredDetails> RequiredDetails { get; set; }
     }
 }

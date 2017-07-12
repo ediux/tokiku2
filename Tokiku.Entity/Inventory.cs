@@ -12,18 +12,16 @@ namespace Tokiku.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class MaterialValuation
+    public partial class Inventory
     {
         public System.Guid Id { get; set; }
-        public System.Guid FormDetailId { get; set; }
-        public string ItemName { get; set; }
-        public string Material { get; set; }
-        public Nullable<int> UnitPrice { get; set; }
-        public Nullable<double> Weight { get; set; }
-        public Nullable<int> TotalPrice { get; set; }
-        public Nullable<System.Guid> BOMId { get; set; }
+        public Nullable<System.Guid> ControlTableId { get; set; }
+        public Nullable<System.Guid> ControlTableDetailId { get; set; }
+        public Nullable<System.Guid> StockId { get; set; }
+        public int Amount { get; set; }
     
-        public virtual FormDetails FormDetails { get; set; }
-        public virtual BOM BOM { get; set; }
+        public virtual ControlTableDetails ControlTableDetails { get; set; }
+        public virtual ControlTables ControlTables { get; set; }
+        public virtual Stocks Stocks { get; set; }
     }
 }

@@ -16,11 +16,11 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var repo = RepositoryHelper.GetPurchasingOrderRepository();
+                var repo = RepositoryHelper.GetOrdersRepository();
 
                 database = repo.UnitOfWork;
                 var queryresult = (from q in repo.All()
-                                   where q.FormDetails.ProjectId == ProjectId && q.FormDetailId == FormDetilId
+                                   //where q.FormDetails.ProjectId == ProjectId && q.FormDetailId == FormDetilId
                                    select new AluminumExtrusionOrderEntity() { });
 
                 if (queryresult.Any())

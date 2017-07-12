@@ -14,16 +14,16 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var repo = RepositoryHelper.GetMaterialValuationRepository();
+                var repo = RepositoryHelper.GetOrderMaterialValuationRepository();
 
                 database = repo.UnitOfWork;
                 var queryresult = (from q in repo.All()
-                                   where q.FormDetails.ProjectId == ProjectId && q.FormDetailId == FormDetailId
+                                   //where q.FormDetails.ProjectId == ProjectId && q.FormDetailId == FormDetailId
                                    select new AluminumExtrusionOrderMaterialValuationEntity()
                                    {
-                                       Material = q.Material,
+                                       //Material = q.Material,
                                        TotalPrice = q.TotalPrice,
-                                       UnitPrice = q.UnitPrice,
+                                       //UnitPrice = q.UnitPrice,
                                        Weight = q.Weight
                                    });
 
