@@ -33,5 +33,9 @@ namespace TokikuNew.Views
             ctrl.Query();
         }
 
+        private void btnNew_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

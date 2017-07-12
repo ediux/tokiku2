@@ -32,5 +32,10 @@ namespace TokikuNew.Views
             CheckGrid.DataContext = ctrl;
             ctrl.Query();
         }
+
+        private void btnNew_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
