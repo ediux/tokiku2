@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FormsDetailViewModel.cs" />
+    <Compile Include="InventoryListViewModel.cs" />
+    <Compile Include="InventoryViewModel.cs" />
     <Compile Include="OrderControlTableViewModel.cs" />
     <Compile Include="Projects\Orders\AluminumExtrusionOrderListViewModel.cs" />
     <Compile Include="Projects\Orders\AluminumExtrusionOrderMaterialValuationViewModel.cs" />

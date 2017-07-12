@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="TokikuNew.Views.InventoryListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TokikuNew.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1024" Loaded="InventoryListView_Loaded">
+    <Grid>
+        <DataGrid x:Name="CheckGrid" AutoGenerateColumns="False" Margin="5" ItemsSource="{Binding}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="盤點單號" Width="auto" />
+                <DataGridTextColumn Header="品項" Width="auto" />
+                <DataGridTextColumn Header="數量" Width="auto" />
+                <DataGridTextColumn Header="盤點日期" Width="auto" />
+                <DataGridTextColumn Header="盤點人員" Width="auto" />
+            </DataGrid.Columns>
+            <DataGridTemplateColumn>
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <Button Content="開啟盤點單" x:Name="BtnOpen" Click="BtnOpen_Click" />
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+        </DataGrid>
+            
+    </Grid>
+</UserControl>

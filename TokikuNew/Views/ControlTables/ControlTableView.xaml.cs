@@ -106,6 +106,18 @@ namespace TokikuNew.Views
             }
 
         }
+        private void InventoryView_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "產生盤點單"));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+        }
         private void Shipping_Click(object sender, RoutedEventArgs e)
         {
             try

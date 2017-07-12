@@ -151,6 +151,12 @@
     <Compile Include="Views\ControlTables\IronPartsView.xaml.cs">
       <DependentUpon>IronPartsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ControlTables\InventoryView.xaml.cs">
+      <DependentUpon>InventoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ControlTables\InventoryListView.xaml.cs">
+      <DependentUpon>InventoryListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\OrderControlTableView.xaml.cs">
       <DependentUpon>OrderControlTableView.xaml</DependentUpon>
     </Compile>
@@ -334,6 +340,14 @@
     <Page Include="Views\ControlTables\IronPartsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ControlTables\InventoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ControlTables\InventoryListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\OrderControlTableView.xaml">
       <SubType>Designer</SubType>

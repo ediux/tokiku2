@@ -72,6 +72,8 @@
     <Compile Include="ContractManagementController.cs" />
     <Compile Include="Finance\PromissoryNoteManagementViewModelController.cs" />
     <Compile Include="Finance\TicketPeriodsManagementController.cs" />
+    <Compile Include="InventoryController.cs" />
+    <Compile Include="InventoryListController.cs" />
     <Compile Include="MES\BOMController.cs" />
     <Compile Include="MES\MaterialManagementController.cs" />
     <Compile Include="MES\MoldsController.cs" />
