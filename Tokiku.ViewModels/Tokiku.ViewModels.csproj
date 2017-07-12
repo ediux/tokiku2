@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FormsDetailViewModel.cs" />
+    <Compile Include="OrderControlTableViewModel.cs" />
     <Compile Include="Projects\Orders\AluminumExtrusionOrderListViewModel.cs" />
     <Compile Include="Projects\Orders\AluminumExtrusionOrderMaterialValuationViewModel.cs" />
     <Compile Include="Projects\Orders\AluminumExtrusionOrderMiscellaneousViewModel.cs" />
@@ -94,6 +95,8 @@
     <Compile Include="Manufacturers\TranscationCategoriesViewModel.cs" />
     <Compile Include="RecvMaterialListViewModel.cs" />
     <Compile Include="RecvMaterialViewModel.cs" />
+    <Compile Include="RequiredListViewModel.cs" />
+    <Compile Include="RequiredViewModel.cs" />
     <Compile Include="ReturnMaterialListViewModel.cs" />
     <Compile Include="ReturnMaterialViewModel.cs" />
     <Compile Include="Shared\AccessLogViewModel.cs" />

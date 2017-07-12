@@ -382,6 +382,7 @@
     </Compile>
     <Compile Include="ViewTables\ManufacturersEnter.cs" />
     <Compile Include="ViewTables\MoldsEnter.cs" />
+    <Compile Include="ViewTables\OrderControlTableEntity.cs" />
     <Compile Include="ViewTables\ProjectListEntity.cs" />
     <Compile Include="ProjectsRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
@@ -427,6 +428,8 @@
     </Compile>
     <Compile Include="ViewTables\RecvMaterialEntity.cs" />
     <Compile Include="ViewTables\RecvMaterialListEntity.cs" />
+    <Compile Include="ViewTables\RequiredEntity.cs" />
+    <Compile Include="ViewTables\RequiredListEntity.cs" />
     <Compile Include="ViewTables\ReturnMaterialEntity.cs" />
     <Compile Include="ViewTables\ReturnMaterialListEntity.cs" />
     <Compile Include="ViewTables\ShippingMaterialEntity.cs" />

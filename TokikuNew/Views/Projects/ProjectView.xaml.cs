@@ -243,6 +243,12 @@ namespace TokikuNew.Views
                         addWorkarea = new ClosableTabItem() { Header = Header };
                     }
 
+                    if (btn == "產生需求單")
+                    {
+                        Header = "需求單";
+                        addWorkarea = new ClosableTabItem() { Header = Header };
+                    }
+
                     if (btn == "產生退貨單")
                     {
                         Header = "退貨單";
@@ -539,6 +545,18 @@ namespace TokikuNew.Views
                         {
                             var vm = new AluminumExtrusionOrderListView() { Margin = new Thickness(0) };
                             vm.DataContext = new AluminumExtrusionOrderListViewModelCollection();
+                            addWorkarea.Content = vm;
+                            addWorkarea.Margin = new Thickness(0);
+
+                            InnerWorkspaces.Items.Add(addWorkarea);
+                            InnerWorkspaces.SelectedItem = addWorkarea;
+                            return;
+                        }
+
+                        if (btnContext == "產生需求單")
+                        {
+                            var vm = new RequiredView() { Margin = new Thickness(0) };
+
                             addWorkarea.Content = vm;
                             addWorkarea.Margin = new Thickness(0);
 

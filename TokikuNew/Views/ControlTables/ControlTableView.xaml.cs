@@ -83,6 +83,18 @@ namespace TokikuNew.Views
             }
         }
 
+        private void Required_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "產生需求單"));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+        }
         private void Shipping_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -225,6 +237,7 @@ namespace TokikuNew.Views
                 }
             }
         }
+
     }
 
     //public class ColumnVisibilityConverter : IValueConverter
