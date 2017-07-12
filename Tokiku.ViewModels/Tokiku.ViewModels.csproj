@@ -95,6 +95,8 @@
     <Compile Include="Manufacturers\TranscationCategoriesViewModel.cs" />
     <Compile Include="RecvMaterialListViewModel.cs" />
     <Compile Include="RecvMaterialViewModel.cs" />
+    <Compile Include="RequiredListViewModel.cs" />
+    <Compile Include="RequiredViewModel.cs" />
     <Compile Include="ReturnMaterialListViewModel.cs" />
     <Compile Include="ReturnMaterialViewModel.cs" />
     <Compile Include="Shared\AccessLogViewModel.cs" />

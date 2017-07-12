@@ -428,6 +428,8 @@
     </Compile>
     <Compile Include="ViewTables\RecvMaterialEntity.cs" />
     <Compile Include="ViewTables\RecvMaterialListEntity.cs" />
+    <Compile Include="ViewTables\RequiredEntity.cs" />
+    <Compile Include="ViewTables\RequiredListEntity.cs" />
     <Compile Include="ViewTables\ReturnMaterialEntity.cs" />
     <Compile Include="ViewTables\ReturnMaterialListEntity.cs" />
     <Compile Include="ViewTables\ShippingMaterialEntity.cs" />

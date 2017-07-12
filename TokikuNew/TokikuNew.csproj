@@ -287,6 +287,12 @@
     <Compile Include="Views\ControlTables\RecvMaterialListView.xaml.cs">
       <DependentUpon>RecvMaterialListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ControlTables\RequiredListView.xaml.cs">
+      <DependentUpon>RequiredListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ControlTables\RequiredView.xaml.cs">
+      <DependentUpon>RequiredView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SystemMembersView.xaml.cs">
       <DependentUpon>SystemMembersView.xaml</DependentUpon>
     </Compile>
@@ -542,6 +548,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ControlTables\RecvMaterialListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ControlTables\RequiredListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ControlTables\RequiredView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
