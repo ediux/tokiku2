@@ -167,7 +167,7 @@
         <AssociationConnector Association="TokikuModel.FK_InvoiceDetails_Miscellaneous_OrderMiscellaneous" />
         <AssociationConnector Association="TokikuModel.FK_OrderMiscellaneous_Orders" />
         </Diagram>
-      <Diagram DiagramId="da028285ff1d445f8957817e8b05eec6" Name="專案主檔" ZoomLevel="92" >
+      <Diagram DiagramId="da028285ff1d445f8957817e8b05eec6" Name="專案主檔" ZoomLevel="86" >
         <EntityTypeShape EntityType="TokikuModel.Projects" Width="1.5" PointX="3" PointY="15.125" />
         <EntityTypeShape EntityType="TokikuModel.ProjectContract" Width="1.5" PointX="5.25" PointY="15.25" />
         <AssociationConnector Association="TokikuModel.FK_ProjectContract_Projects" />
