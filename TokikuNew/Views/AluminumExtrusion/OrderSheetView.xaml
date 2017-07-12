@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              Background="{DynamicResource ResourceKey=ControlBackgroundBrush}"
              Loaded="userControl_Loaded"
-             d:DesignHeight="600" d:DesignWidth="1024">
+             d:DesignHeight="600" d:DesignWidth="1366">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>
@@ -20,36 +20,25 @@
             <ColumnDefinition Width="50*" />
             <ColumnDefinition Width="50*" />
         </Grid.ColumnDefinitions>
-        <Canvas Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Panel.ZIndex="500" Width="{Binding ActualWidth, ElementName=userControl}">
-            <Expander Canvas.Left="0" VerticalAlignment="Stretch" ExpandDirection="Down" Header="表頭" IsExpanded="False">
-                <Expander.HeaderTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="50*"/>
-                                <ColumnDefinition Width="50*"/>
-                            </Grid.ColumnDefinitions>
-                            <StackPanel Orientation="Horizontal" Grid.Column="0">
-                                <TextBlock Text="表頭" VerticalAlignment="Center" FontSize="14"/>
-
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
-                                <Button Content="請款單" x:Name="btn3" Margin="5,0,0,0" Command="{DynamicResource OpenNewTabItem}" CommandParameter="產生請款單,TokikuNew.InvoiceView" />
-                                <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="請款單列表" x:Name="btn4" Margin="0,0,5,0"  Command="{DynamicResource OpenNewTabItem}"/>
-                                <Button Content="退貨單" x:Name="btn1" Margin="5,0,0,0" Command="{DynamicResource OpenNewTabItem}" />
-                                <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="退貨單列表" x:Name="btn2" Margin="0,0,5,0" Command="{DynamicResource OpenNewTabItem}"/>
-                                <Button x:Name="btnAddNewForm" Margin="5,0,0,0" Content="收料單" Command="{DynamicResource OpenNewTabItem}"/>
-                                <Button Content="&#xE179;" ToolTip="收料單列表" FontFamily="/Resources/#Segoe MDL2 Assets" Margin="0,0,5,0" Command="{DynamicResource OpenNewTabItem}"/>
-                                <Button Content="出貨單" x:Name="btn5" Margin="5,0,0,0" Command="{DynamicResource OpenNewTabItem}"/>
-                                <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="出貨單列表" x:Name="btn6" Margin="0,0,5,0" Command="{DynamicResource OpenNewTabItem}"/>
-                            </StackPanel>
-                        </Grid>
-                    </DataTemplate>
-                </Expander.HeaderTemplate>
-                <Expander.ContentTemplate>
-                    <DataTemplate>
-                        <WrapPanel Height="81" Orientation="Horizontal" MaxWidth="1310" Width="1310">
-                            <Grid Width="1310">
+        <Expander Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Panel.ZIndex="999" VerticalAlignment="Stretch" ExpandDirection="Down" Header="表頭"  x:Name="expander1">
+            <Expander.HeaderTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Column="0">
+                            <TextBlock Text="表頭" VerticalAlignment="Center" FontSize="14"/>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </Expander.HeaderTemplate>
+            <Expander.ContentTemplate>
+                <DataTemplate>
+                    <Popup PopupAnimation="Slide" IsOpen="{Binding IsExpanded,ElementName=expander1}">
+                        <WrapPanel Height="81" Orientation="Horizontal" MaxWidth="1356" Width="1356" Background="{DynamicResource ControlBackgroundBrush}">
+                            <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto" />
                                     <ColumnDefinition Width="auto" />
@@ -82,7 +71,7 @@
                                 <TextBlock Grid.Column="10" Text="預估交期:" VerticalAlignment="Center" Margin="2"/>
                                 <DatePicker Grid.Column="11" Width="200" VerticalAlignment="Center" Margin="2"/>
                             </Grid>
-                            <Grid Width="1310">
+                            <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto" />
                                     <ColumnDefinition Width="auto" />
@@ -102,7 +91,7 @@
                                 <TextBlock Grid.Column="6" Foreground="Black" Text="製單人員:" VerticalAlignment="Center" />
                                 <TextBox Grid.Column="7" Foreground="Black" Text="{Binding LoginedUser.UserName, ElementName=userControl}" Width="100" IsReadOnly="True" Margin="2" TextAlignment="Center" VerticalAlignment="Center"/>
                             </Grid>
-                            <Grid Width="1310">
+                            <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto" />
                                     <ColumnDefinition Width="auto" />
@@ -117,11 +106,21 @@
                                 </ComboBox>
                             </Grid>
                         </WrapPanel>
-                    </DataTemplate>
-                </Expander.ContentTemplate>
-            </Expander>
-        </Canvas>
+                    </Popup>
 
+                </DataTemplate>
+            </Expander.ContentTemplate>
+        </Expander>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" Panel.ZIndex="1000" Margin="0,0,25,0" >
+            <Button Content="請款單" x:Name="btn3" Margin="5,0,0,0" Command="{DynamicResource OpenNewTabItem}" CommandParameter="產生請款單,TokikuNew.InvoiceView" />
+            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="請款單列表" x:Name="btn4" Margin="0,0,5,0"  Command="{DynamicResource OpenNewTabItem}"/>
+            <Button Content="退貨單" x:Name="btn1" Margin="5,0,0,0" Command="{DynamicResource OpenNewTabItem}" />
+            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="退貨單列表" x:Name="btn2" Margin="0,0,5,0" Command="{DynamicResource OpenNewTabItem}"/>
+            <Button x:Name="btnAddNewForm" Margin="5,0,0,0" Content="收料單" Command="{DynamicResource OpenNewTabItem}"/>
+            <Button Content="&#xE179;" ToolTip="收料單列表" FontFamily="/Resources/#Segoe MDL2 Assets" Margin="0,0,5,0" Command="{DynamicResource OpenNewTabItem}"/>
+            <Button Content="出貨單" x:Name="btn5" Margin="5,0,0,0" Command="{DynamicResource OpenNewTabItem}"/>
+            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="出貨單列表" x:Name="btn6" Margin="0,0,5,0" Command="{DynamicResource OpenNewTabItem}"/>
+        </StackPanel>
         <Canvas Grid.Row="0" Grid.Column="1" Panel.ZIndex="499">
             <Expander Canvas.Right="0" VerticalAlignment="Stretch" ExpandDirection="Left" Header="項目選單" IsExpanded="False">
                 <Expander.ContentTemplate>
