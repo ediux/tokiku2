@@ -29,9 +29,15 @@ namespace TokikuNew.Views
 
         private void RecvMaterialListView_Loaded(object sender, RoutedEventArgs e)
         {
-            RecvMaterialListViewModelCollection ctrl = new RecvMaterialListViewModelCollection();
-            CheckGrid.DataContext = ctrl;
-            ctrl.Query();
+            //ObjectDataProvider collection =(ObjectDataProvider) FindResource("RecvMaterialSource");
+
+            //if (collection != null)
+            //{
+            //    CheckGrid.ItemsSource = (RecvMaterialViewModelCollection) collection.Data;
+            //}
+            //RecvMaterialListViewModelCollection ctrl = new RecvMaterialListViewModelCollection();
+            //CheckGrid.DataContext = ctrl;
+            //ctrl.Query();
         }
 
         private void BtnOpen_Click(object sender, RoutedEventArgs e)

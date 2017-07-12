@@ -188,6 +188,12 @@
     <Compile Include="OrderMiscellaneous.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
+    <Compile Include="OrderMiscellaneous.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderMiscellaneousRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
     <Compile Include="Orders.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
@@ -251,22 +257,22 @@
     <Compile Include="PromissoryNoteManagement.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
-    <Compile Include="ReceiptDetails.cs">
+    <Compile Include="Receive.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
-    <Compile Include="ReceiptDetails.Partial.cs">
+    <Compile Include="Receive.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
-    <Compile Include="ReceiptDetailsRepository.cs">
+    <Compile Include="ReceiveDetails.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReceiveDetails.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReceiveDetailsRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
-    <Compile Include="Receipts.cs">
-      <DependentUpon>Tokiku.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Receipts.Partial.cs">
-      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ReceiptsRepository.cs">
+    <Compile Include="ReceiveRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
     <Compile Include="Required.cs">

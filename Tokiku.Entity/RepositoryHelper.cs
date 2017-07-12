@@ -337,6 +337,20 @@ namespace Tokiku.Entity
 			return repository;
 		}		
 
+		public static OrderMiscellaneousRepository GetOrderMiscellaneousRepository()
+		{
+			var repository = new OrderMiscellaneousRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static OrderMiscellaneousRepository GetOrderMiscellaneousRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new OrderMiscellaneousRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
 		public static OrdersRepository GetOrdersRepository()
 		{
 			var repository = new OrdersRepository();
@@ -491,30 +505,30 @@ namespace Tokiku.Entity
 			return repository;
 		}		
 
-		public static ReceiptDetailsRepository GetReceiptDetailsRepository()
+		public static ReceiveRepository GetReceiveRepository()
 		{
-			var repository = new ReceiptDetailsRepository();
+			var repository = new ReceiveRepository();
 			repository.UnitOfWork = GetUnitOfWork();
 			return repository;
 		}
 
-		public static ReceiptDetailsRepository GetReceiptDetailsRepository(IUnitOfWork unitOfWork)
+		public static ReceiveRepository GetReceiveRepository(IUnitOfWork unitOfWork)
 		{
-			var repository = new ReceiptDetailsRepository();
+			var repository = new ReceiveRepository();
 			repository.UnitOfWork = unitOfWork;
 			return repository;
 		}		
 
-		public static ReceiptsRepository GetReceiptsRepository()
+		public static ReceiveDetailsRepository GetReceiveDetailsRepository()
 		{
-			var repository = new ReceiptsRepository();
+			var repository = new ReceiveDetailsRepository();
 			repository.UnitOfWork = GetUnitOfWork();
 			return repository;
 		}
 
-		public static ReceiptsRepository GetReceiptsRepository(IUnitOfWork unitOfWork)
+		public static ReceiveDetailsRepository GetReceiveDetailsRepository(IUnitOfWork unitOfWork)
 		{
-			var repository = new ReceiptsRepository();
+			var repository = new ReceiveDetailsRepository();
 			repository.UnitOfWork = unitOfWork;
 			return repository;
 		}		

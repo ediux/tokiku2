@@ -4,16 +4,20 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:viewmodels="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1024" Loaded="RecvMaterialListView_Loaded">
+             d:DesignHeight="600" d:DesignWidth="1024">
+    <UserControl.Resources>
+        <ObjectDataProvider ObjectType="{x:Type viewmodels:RecvMaterialViewModelCollection}" x:Key="RecvMaterialSource" />
+    </UserControl.Resources>
     <Grid>
-        <DataGrid x:Name="CheckGrid" AutoGenerateColumns="False" Margin="5" ItemsSource="{Binding}">
+        <DataGrid x:Name="CheckGrid" AutoGenerateColumns="False" CanUserAddRows="True"
+                  Margin="5" ItemsSource="{Binding Source={StaticResource RecvMaterialSource}}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="收料單號"/>
-                <DataGridTextColumn Header="退料單號"/>
-                <DataGridTextColumn Header="廠商來料單號"/>
-                <DataGridTextColumn Header="建單日期"/>
-                <DataGridTextColumn Header="建單人員"/>
+                <DataGridTextColumn Header="收料單號" Binding="{Binding ReceiptNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="廠商來料單號" Binding="{Binding IncomingNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="建單日期" Binding="{Binding CreateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="建單人員" Binding="{Binding CreateUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -23,6 +27,6 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-            
+
     </Grid>
 </UserControl>

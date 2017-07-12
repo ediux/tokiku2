@@ -56,11 +56,11 @@ namespace TokikuNew.Views
         private void AluminumExtrusionOrderView_Loaded(object sender, RoutedEventArgs e)
         {
             try {
-                AluminumExtrusionOrderViewModelCollection coll = (AluminumExtrusionOrderViewModelCollection)FindResource("AluminumExtrusionOrderSource");
-                if (coll != null)
-                {
-                    coll = AluminumExtrusionOrderViewModelCollection.Query(SelectedProject.Id, FormDetailId);
-                }
+                //AluminumExtrusionOrderViewModelCollection coll = (AluminumExtrusionOrderViewModelCollection)FindResource("AluminumExtrusionOrderSource");
+                //if (coll != null)
+                //{
+                //    coll = AluminumExtrusionOrderViewModelCollection.Query(SelectedProject.Id, FormDetailId);
+                //}
                 //AluminumExtrusionOrderViewModelCollection coll = new AluminumExtrusionOrderViewModelCollection();
                 //鋁擠型訂製單DG.DataContext = coll;
                 //coll.Query();

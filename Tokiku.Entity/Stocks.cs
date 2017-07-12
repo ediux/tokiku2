@@ -18,7 +18,7 @@ namespace Tokiku.Entity
         public Stocks()
         {
             this.PickList = new HashSet<PickList>();
-            this.Receipts = new HashSet<Receipts>();
+            this.Receipts = new HashSet<Receive>();
             this.Returns = new HashSet<Returns>();
             this.Inventory = new HashSet<Inventory>();
         }
@@ -31,7 +31,7 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PickList> PickList { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Receipts> Receipts { get; set; }
+        public virtual ICollection<Receive> Receipts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Returns> Returns { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

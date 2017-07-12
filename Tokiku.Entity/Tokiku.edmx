@@ -2928,8 +2928,8 @@
           <EntitySet Name="OrderTypes" EntityType="TokikuModel.OrderTypes" />
           <EntitySet Name="PickList" EntityType="TokikuModel.PickList" />
           <EntitySet Name="PickListDetails" EntityType="TokikuModel.PickListDetails" />
-          <EntitySet Name="ReceiptDetails" EntityType="TokikuModel.ReceiptDetails" />
-          <EntitySet Name="Receipts" EntityType="TokikuModel.Receipts" />
+          <EntitySet Name="ReceiptDetails" EntityType="TokikuModel.ReceiveDetails" />
+          <EntitySet Name="Receipts" EntityType="TokikuModel.Receive" />
           <EntitySet Name="Required" EntityType="TokikuModel.Required" />
           <EntitySet Name="RequiredDetails" EntityType="TokikuModel.RequiredDetails" />
           <EntitySet Name="ReturnDetails" EntityType="TokikuModel.ReturnDetails" />
@@ -4349,7 +4349,7 @@
           <NavigationProperty Name="OrderDetails" Relationship="TokikuModel.FK_PickListDetails_OrderDetails" FromRole="PickListDetails" ToRole="OrderDetails" />
           <NavigationProperty Name="PickList" Relationship="TokikuModel.FK_PickListDetails_PickList" FromRole="PickListDetails" ToRole="PickList" />
         </EntityType>
-        <EntityType Name="ReceiptDetails">
+        <EntityType Name="ReceiveDetails">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -4366,7 +4366,7 @@
           <NavigationProperty Name="InvoiceDetails_Material" Relationship="TokikuModel.FK_InvoiceDetails_Material_ReceiptDetails" FromRole="ReceiptDetails" ToRole="InvoiceDetails_Material" />
           <NavigationProperty Name="InvoiceDetails_Miscellaneous" Relationship="TokikuModel.FK_InvoiceDetails_Miscellaneous_ReceiptDetails" FromRole="ReceiptDetails" ToRole="InvoiceDetails_Miscellaneous" />
         </EntityType>
-        <EntityType Name="Receipts">
+        <EntityType Name="Receive">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -4503,7 +4503,7 @@
         </Association>
         <Association Name="FK_Receipts_Manufacturers">
           <End Type="TokikuModel.Manufacturers" Role="Manufacturers" Multiplicity="0..1" />
-          <End Type="TokikuModel.Receipts" Role="Receipts" Multiplicity="*" />
+          <End Type="TokikuModel.Receive" Role="Receipts" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Manufacturers">
               <PropertyRef Name="Id" />
@@ -4599,7 +4599,7 @@
         </Association>
         <Association Name="FK_ReceiptDetails_OrderDetails">
           <End Type="TokikuModel.OrderDetails" Role="OrderDetails" Multiplicity="0..1" />
-          <End Type="TokikuModel.ReceiptDetails" Role="ReceiptDetails" Multiplicity="*" />
+          <End Type="TokikuModel.ReceiveDetails" Role="ReceiptDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="OrderDetails">
               <PropertyRef Name="Id" />
@@ -4742,8 +4742,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ReceiptDetails_Receipts">
-          <End Type="TokikuModel.Receipts" Role="Receipts" Multiplicity="0..1" />
-          <End Type="TokikuModel.ReceiptDetails" Role="ReceiptDetails" Multiplicity="*" />
+          <End Type="TokikuModel.Receive" Role="Receipts" Multiplicity="0..1" />
+          <End Type="TokikuModel.ReceiveDetails" Role="ReceiptDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Receipts">
               <PropertyRef Name="Id" />
@@ -4755,7 +4755,7 @@
         </Association>
         <Association Name="FK_Receipts_CreateUsers">
           <End Type="TokikuModel.Users" Role="Users" Multiplicity="1" />
-          <End Type="TokikuModel.Receipts" Role="Receipts" Multiplicity="*" />
+          <End Type="TokikuModel.Receive" Role="Receipts" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="UserId" />
@@ -4767,7 +4767,7 @@
         </Association>
         <Association Name="FK_Receipts_MakingUsers">
           <End Type="TokikuModel.Users" Role="Users" Multiplicity="1" />
-          <End Type="TokikuModel.Receipts" Role="Receipts" Multiplicity="*" />
+          <End Type="TokikuModel.Receive" Role="Receipts" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="UserId" />
@@ -4779,7 +4779,7 @@
         </Association>
         <Association Name="FK_Receipts_Stocks">
           <End Type="TokikuModel.Stocks" Role="Stocks" Multiplicity="1" />
-          <End Type="TokikuModel.Receipts" Role="Receipts" Multiplicity="*" />
+          <End Type="TokikuModel.Receive" Role="Receipts" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Stocks">
               <PropertyRef Name="Id" />
@@ -5140,7 +5140,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_InvoiceDetails_ReceiptDetails">
-          <End Type="TokikuModel.ReceiptDetails" Role="ReceiptDetails" Multiplicity="0..1" />
+          <End Type="TokikuModel.ReceiveDetails" Role="ReceiptDetails" Multiplicity="0..1" />
           <End Type="TokikuModel.InvoiceDetails" Role="InvoiceDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ReceiptDetails">
@@ -5176,7 +5176,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_InvoiceDetails_Material_ReceiptDetails">
-          <End Type="TokikuModel.ReceiptDetails" Role="ReceiptDetails" Multiplicity="0..1" />
+          <End Type="TokikuModel.ReceiveDetails" Role="ReceiptDetails" Multiplicity="0..1" />
           <End Type="TokikuModel.InvoiceDetails_Material" Role="InvoiceDetails_Material" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ReceiptDetails">
@@ -5200,7 +5200,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_InvoiceDetails_Miscellaneous_ReceiptDetails">
-          <End Type="TokikuModel.ReceiptDetails" Role="ReceiptDetails" Multiplicity="0..1" />
+          <End Type="TokikuModel.ReceiveDetails" Role="ReceiptDetails" Multiplicity="0..1" />
           <End Type="TokikuModel.InvoiceDetails_Miscellaneous" Role="InvoiceDetails_Miscellaneous" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ReceiptDetails">
@@ -5964,7 +5964,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ReceiptDetails">
-            <EntityTypeMapping TypeName="TokikuModel.ReceiptDetails">
+            <EntityTypeMapping TypeName="TokikuModel.ReceiveDetails">
               <MappingFragment StoreEntitySet="ReceiptDetails">
                 <ScalarProperty Name="ReceiptQuantity" ColumnName="ReceiptQuantity" />
                 <ScalarProperty Name="LackQuantity" ColumnName="LackQuantity" />
@@ -5977,7 +5977,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Receipts">
-            <EntityTypeMapping TypeName="TokikuModel.Receipts">
+            <EntityTypeMapping TypeName="TokikuModel.Receive">
               <MappingFragment StoreEntitySet="Receipts">
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />

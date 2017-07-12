@@ -812,12 +812,12 @@ namespace TokikuNew.Views
         {
             if (e.Parameter != null)
             {
-                if(e.OriginalSource is Button)
+                if (e.OriginalSource is Button)
                 {
                     ((Button)e.OriginalSource).IsEnabled = true;
                 }
 
-                if(e.Source is Button)
+                if (e.Source is Button)
                 {
                     ((Button)e.Source).IsEnabled = true;
                 }
@@ -844,7 +844,7 @@ namespace TokikuNew.Views
 
                 object SharedModel = null;
                 string ViewType = "";
-                
+
                 if (e.Parameter is string)
                 {
                     string rawParamters = (string)e.Parameter;
@@ -1070,7 +1070,11 @@ namespace TokikuNew.Views
 
                     if (vm != null)
                     {
-                        ViewTypeRef.GetProperty("DataContext").SetValue(vm, SharedModel);
+                        if (SharedModel != null)
+                        {
+                            ViewTypeRef.GetProperty("DataContext").SetValue(vm, SharedModel);
+                        }
+
                         if (ViewTypeRef.GetProperty("LoginedUser") != null)
                         {
                             ViewTypeRef.GetProperty("LoginedUser").SetValue(vm, LoginedUser);
@@ -1089,7 +1093,7 @@ namespace TokikuNew.Views
                     InnerWorkspaces.SelectedItem = addWorkarea;
                     return;
 
-                
+
                 }
                 else
                 {

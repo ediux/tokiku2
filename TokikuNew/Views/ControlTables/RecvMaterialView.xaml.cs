@@ -20,9 +20,9 @@ namespace TokikuNew
 
         private void RecvMaterialView_Loaded(object sender, RoutedEventArgs e)
         {
-            RecvMaterialViewModelCollection ctrl = new RecvMaterialViewModelCollection();
-            CheckGrid.DataContext = ctrl;
-            ctrl.Query();
+            //RecvMaterialViewModelCollection ctrl = new RecvMaterialViewModelCollection();
+            //CheckGrid.DataContext = ctrl;
+            //ctrl.Query();
         }
 
         private void InitialSpreadRecvMaterial()

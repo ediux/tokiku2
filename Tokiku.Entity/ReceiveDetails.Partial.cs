@@ -4,12 +4,12 @@ namespace Tokiku.Entity
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     
-    [MetadataType(typeof(ReceiptDetailsMetaData))]
-    public partial class ReceiptDetails
+    [MetadataType(typeof(ReceiveDetailsMetaData))]
+    public partial class ReceiveDetails
     {
     }
     
-    public partial class ReceiptDetailsMetaData
+    public partial class ReceiveDetailsMetaData
     {
         [Required]
         public System.Guid Id { get; set; }
@@ -25,7 +25,7 @@ namespace Tokiku.Entity
         public int ReceiptQuantity { get; set; }
     
         public virtual OrderDetails OrderDetails { get; set; }
-        public virtual Receipts Receipts { get; set; }
+        public virtual Receive Receipts { get; set; }
         public virtual ICollection<InvoiceDetails> InvoiceDetails { get; set; }
         public virtual ICollection<InvoiceDetails_Material> InvoiceDetails_Material { get; set; }
         public virtual ICollection<InvoiceDetails_Miscellaneous> InvoiceDetails_Miscellaneous { get; set; }

@@ -31,8 +31,8 @@ namespace Tokiku.Entity
             this.OrdersByMakingUser = new HashSet<Orders>();
             this.PickList = new HashSet<PickList>();
             this.PickList1 = new HashSet<PickList>();
-            this.Receipts = new HashSet<Receipts>();
-            this.Receipts1 = new HashSet<Receipts>();
+            this.Receipts = new HashSet<Receive>();
+            this.Receipts1 = new HashSet<Receive>();
             this.Required = new HashSet<Required>();
             this.Required1 = new HashSet<Required>();
             this.Returns = new HashSet<Returns>();
@@ -80,9 +80,9 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PickList> PickList1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Receipts> Receipts { get; set; }
+        public virtual ICollection<Receive> Receipts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Receipts> Receipts1 { get; set; }
+        public virtual ICollection<Receive> Receipts1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Required> Required { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

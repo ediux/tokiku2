@@ -20,6 +20,7 @@ namespace Tokiku.Entity
         public decimal PaymentAmount { get; set; }
     
         public virtual Invoices Invoices { get; set; }
-        public virtual ReceiptDetails ReceiptDetails { get; set; }
+        public virtual ReceiveDetails ReceiptDetails { get; set; }
+        public virtual OrderMiscellaneous OrderMiscellaneous { get; set; }
     }
 }

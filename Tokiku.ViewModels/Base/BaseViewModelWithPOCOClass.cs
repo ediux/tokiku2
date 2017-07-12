@@ -44,7 +44,7 @@ namespace Tokiku.ViewModels
         public IEnumerable<string> Errors { get => _Errors; set { _Errors = value; if (_Errors.Any()) { _HasError = true; } } }
 
         private bool _HasError = false;
-        public bool HasError { get => _HasError; set => _HasError = value;  }
+        public bool HasError { get => _HasError; set => _HasError = value; }
 
         private DocumentStatusViewModel _Status;
         public DocumentStatusViewModel Status
@@ -66,6 +66,12 @@ namespace Tokiku.ViewModels
         protected void RaisePropertyChanged(string PropertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
+        }
+
+        public Guid Id
+        {
+            get { return (Guid)_EntityType.GetProperty("Id").GetValue(CopyofPOCOInstance); }
+            set { _EntityType.GetProperty("Id").SetValue(CopyofPOCOInstance, value); RaisePropertyChanged("Id"); }
         }
 
         /// <summary>

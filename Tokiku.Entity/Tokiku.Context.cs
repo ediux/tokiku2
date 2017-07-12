@@ -64,8 +64,8 @@ namespace Tokiku.Entity
         public virtual DbSet<OrderTypes> OrderTypes { get; set; }
         public virtual DbSet<PickList> PickList { get; set; }
         public virtual DbSet<PickListDetails> PickListDetails { get; set; }
-        public virtual DbSet<ReceiptDetails> ReceiptDetails { get; set; }
-        public virtual DbSet<Receipts> Receipts { get; set; }
+        public virtual DbSet<ReceiveDetails> ReceiptDetails { get; set; }
+        public virtual DbSet<Receive> Receipts { get; set; }
         public virtual DbSet<Required> Required { get; set; }
         public virtual DbSet<RequiredDetails> RequiredDetails { get; set; }
         public virtual DbSet<ReturnDetails> ReturnDetails { get; set; }

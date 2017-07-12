@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class AssemblyTableViewModel : IBaseViewModel
+    public class AssemblyTableViewModel : BaseViewModelWithPOCOClass<BOM>
     {
 
 
@@ -17,8 +18,8 @@ namespace Tokiku.ViewModels
 
         public Guid Id
         {
-            get { return _Id; }
-            set { _Id = value; RaisePropertyChanged("Id"); }
+            get { return CopyofPOCOInstance.Id; }
+            set { CopyofPOCOInstance.Id = value; RaisePropertyChanged("Id"); }
         }
         #endregion
 
@@ -111,49 +112,32 @@ namespace Tokiku.ViewModels
         #endregion
 
 
-        private IEnumerable<string> _Errors = new string[] { };
 
-        public IEnumerable<string> Errors { get => _Errors; set => _Errors = value; }
 
-        private bool _HasError = false;
+        //public void Query()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public bool HasError { get => _HasError; set => _HasError = value; }
+        //public void Initialized()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        //public void Refresh()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        /// <summary>
-        /// 引發屬性變更事件。
-        /// </summary>
-        /// <param name="PropertyName">發生變更的屬性名稱。</param>
-        protected void RaisePropertyChanged(string PropertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
-        }
+        //public void SaveModel()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public void Query()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Initialized()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Refresh()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SaveModel()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetModel(dynamic entity)
-        {
-            throw new NotImplementedException();
-        }
+        //public void SetModel(dynamic entity)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
 
     }

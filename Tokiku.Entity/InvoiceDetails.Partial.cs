@@ -35,6 +35,6 @@ namespace Tokiku.Entity
         public virtual ICollection<InvoiceDetails> InvoiceDetails1 { get; set; }
         public virtual InvoiceDetails InvoiceDetails2 { get; set; }
         public virtual OrderDetails OrderDetails { get; set; }
-        public virtual ReceiptDetails ReceiptDetails { get; set; }
+        public virtual ReceiveDetails ReceiptDetails { get; set; }
     }
 }

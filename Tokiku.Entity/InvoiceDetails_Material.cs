@@ -25,6 +25,6 @@ namespace Tokiku.Entity
     
         public virtual Invoices Invoices { get; set; }
         public virtual OrderMaterialValuation OrderMaterialValuation { get; set; }
-        public virtual ReceiptDetails ReceiptDetails { get; set; }
+        public virtual ReceiveDetails ReceiptDetails { get; set; }
     }
 }

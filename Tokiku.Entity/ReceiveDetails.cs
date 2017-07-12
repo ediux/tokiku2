@@ -12,10 +12,10 @@ namespace Tokiku.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class ReceiptDetails
+    public partial class ReceiveDetails
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ReceiptDetails()
+        public ReceiveDetails()
         {
             this.InvoiceDetails = new HashSet<InvoiceDetails>();
             this.InvoiceDetails_Material = new HashSet<InvoiceDetails_Material>();
@@ -31,7 +31,7 @@ namespace Tokiku.Entity
         public int ReceiptQuantity { get; set; }
     
         public virtual OrderDetails OrderDetails { get; set; }
-        public virtual Receipts Receipts { get; set; }
+        public virtual Receive Receipts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InvoiceDetails> InvoiceDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

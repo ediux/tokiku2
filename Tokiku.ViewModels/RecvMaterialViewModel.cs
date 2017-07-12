@@ -20,41 +20,50 @@ namespace Tokiku.ViewModels
 
         }
 
-        public override void Query()
+        public new static RecvMaterialViewModelCollection Query()
         {
             RecvMaterialController ctrl = new RecvMaterialController();
-            ExecuteResultEntity<ICollection<RecvMaterialEntity>> ere = ctrl.QuerAll();
+            ExecuteResultEntity<ICollection<Receive>> ere = ctrl.QuerAll();
+
             if (!ere.HasError)
             {
-                RecvMaterialViewModel vm = new RecvMaterialViewModel();
-                foreach (var item in ere.Result)
-                {
-                    vm.SetModel(item);
-                    Add(vm);
-                }
+                return new RecvMaterialViewModelCollection(ere.Result.Select(s => new RecvMaterialViewModel(s)).ToList());
             }
+
+            return new RecvMaterialViewModelCollection();
         }
 
     }
 
-    public class RecvMaterialViewModel : BaseViewModel
+    public class RecvMaterialViewModel : BaseViewModelWithPOCOClass<Receive>
     {
-        public override void SetModel(dynamic entity)
+        public RecvMaterialViewModel(Receive entity) : base(entity)
         {
-            try
-            {
-                if (entity is RecvMaterialEntity)
-                {
-                    RecvMaterialEntity data = (RecvMaterialEntity)entity;
-                    BindingFromModel(data, this);
-                }
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-                throw;
-            }
+
         }
 
+        public string ReceiptNumber
+        {
+            get { return CopyofPOCOInstance.ReceiptNumber; }
+            set { CopyofPOCOInstance.ReceiptNumber = value; RaisePropertyChanged("ReceiptNumber"); }
+        }
+
+        public string IncomingNumber
+        {
+            get { return CopyofPOCOInstance.IncomingNumber; }
+            set { CopyofPOCOInstance.IncomingNumber = value; RaisePropertyChanged("IncomingNumber"); }
+        }
+
+        public DateTime CreateTime
+        {
+            get { return CopyofPOCOInstance.CreateTime; }
+            set { CopyofPOCOInstance.CreateTime = value; RaisePropertyChanged("CreateTime"); }
+        }
+
+        public string CreateUser
+        {
+            get { return CopyofPOCOInstance.Users.UserName; }
+            set { CopyofPOCOInstance.Users.UserName = value; RaisePropertyChanged("CreateUser"); }
+        }
     }
 }

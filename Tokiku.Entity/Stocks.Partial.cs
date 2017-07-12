@@ -23,7 +23,7 @@ namespace Tokiku.Entity
         public System.Guid CreateUserId { get; set; }
     
         public virtual ICollection<PickList> PickList { get; set; }
-        public virtual ICollection<Receipts> Receipts { get; set; }
+        public virtual ICollection<Receive> Receipts { get; set; }
         public virtual ICollection<Returns> Returns { get; set; }
         public virtual ICollection<Inventory> Inventory { get; set; }
     }

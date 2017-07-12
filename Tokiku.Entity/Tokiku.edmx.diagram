@@ -93,8 +93,8 @@
         <EntityTypeShape EntityType="TokikuModel.OrderTypes" Width="1.5" PointX="3.625" PointY="50.25" />
         <EntityTypeShape EntityType="TokikuModel.PickList" Width="1.5" PointX="11.875" PointY="39.25" />
         <EntityTypeShape EntityType="TokikuModel.PickListDetails" Width="1.5" PointX="19.125" PointY="44.125" />
-        <EntityTypeShape EntityType="TokikuModel.ReceiptDetails" Width="1.5" PointX="19.125" PointY="47.875" />
-        <EntityTypeShape EntityType="TokikuModel.Receipts" Width="1.5" PointX="13.875" PointY="44.25" />
+        <EntityTypeShape EntityType="TokikuModel.ReceiveDetails" Width="1.5" PointX="19.125" PointY="47.875" />
+        <EntityTypeShape EntityType="TokikuModel.Receive" Width="1.5" PointX="13.875" PointY="44.25" />
         <EntityTypeShape EntityType="TokikuModel.Required" Width="1.5" PointX="16.125" PointY="44.25" />
         <EntityTypeShape EntityType="TokikuModel.RequiredDetails" Width="1.5" PointX="8.5" PointY="61.5" />
         <EntityTypeShape EntityType="TokikuModel.ReturnDetails" Width="1.5" PointX="17.125" PointY="39.875" />

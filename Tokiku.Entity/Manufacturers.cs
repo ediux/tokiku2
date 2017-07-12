@@ -29,7 +29,7 @@ namespace Tokiku.Entity
             this.SupplierTranscationItem = new HashSet<SupplierTranscationItem>();
             this.Orders = new HashSet<Orders>();
             this.PickList = new HashSet<PickList>();
-            this.Receipts = new HashSet<Receipts>();
+            this.Receipts = new HashSet<Receive>();
             this.Required = new HashSet<Required>();
             this.Returns = new HashSet<Returns>();
             this.Invoices = new HashSet<Invoices>();
@@ -90,7 +90,7 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PickList> PickList { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Receipts> Receipts { get; set; }
+        public virtual ICollection<Receive> Receipts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Required> Required { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
