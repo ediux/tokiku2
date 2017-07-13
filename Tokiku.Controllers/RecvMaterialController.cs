@@ -10,25 +10,15 @@ namespace Tokiku.Controllers
 {
     public class RecvMaterialController : BaseController
     {
-        private string sql;
+        private ExecuteResultEntity<ICollection<Receive>> rtn;
 
         public ExecuteResultEntity<ICollection<Receive>> QuerAll()
         {
-            sql = " select TokikuId, ManufacturersId, Material, UnitWeight, OrderLength, " +
-                         " RequiredQuantity, SparePartsQuantity, PlaceAnOrderQuantity, Note " +
-                    " from TABL1 ";
-
-            ExecuteResultEntity<ICollection<Receive>> rtn;
-
-            try
-            {
+            try {
                 var repo = RepositoryHelper.GetReceiveRepository();
                 return ExecuteResultEntity<ICollection<Receive>>.CreateResultEntity(
-                    new Collection<Receive>(repo.All().ToList()))
-;
-            }
-            catch (Exception ex)
-            {
+                    new Collection<Receive>(repo.All().ToList()));
+            }catch (Exception ex) {
                 rtn = ExecuteResultEntity<ICollection<Receive>>.CreateErrorResultEntity(ex);
                 return rtn;
             }
