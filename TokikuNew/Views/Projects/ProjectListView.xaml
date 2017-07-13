@@ -10,12 +10,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024" Loaded="UserControl_Loaded">
     <UserControl.Resources>
-        <ObjectDataProvider x:Key="ProjoectListSource" ObjectType="{x:Type vm:ProjectListViewModelCollection}"/>
+        <ObjectDataProvider x:Key="ProjoectListSource" ObjectType="{x:Type vm:ProjectListViewModelCollection}" MethodName="Query"/>
     </UserControl.Resources>
     <UserControl.CommandBindings>
-        <CommandBinding Command="{DynamicResource Query}"
-                        CanExecute="CommandBinding_CanExecute"
-                        Executed="CommandBinding_Executed" />
+        <CommandBinding Command="{StaticResource Query}" x:Name="QueryCommand"
+                        CanExecute="QueryCommand_CanExecute"
+                        Executed="QueryCommand_Executed" />
     </UserControl.CommandBindings>
     <Grid Background="{DynamicResource ControlBackgroundBrush}">
         <Grid.RowDefinitions>

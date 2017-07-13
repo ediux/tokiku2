@@ -109,16 +109,7 @@ namespace TokikuNew.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                //搜尋框
-                ((ProjectListViewModelCollection)DataContext).QueryByText((string)e.OriginalSource);
-                //DataContext = controller.SearchByText((string)e.OriginalSource);
-            }
-            catch (Exception ex)
-            {
-                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
-            }
+           
         }
 
         private void ProjectList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -209,6 +200,40 @@ namespace TokikuNew.Views
         private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
 
+        }
+
+        private void QueryCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.Handled = true;
+
+            ObjectDataProvider source = (ObjectDataProvider)FindResource("ProjoectListSource");
+
+            if (source != null)
+            {
+                ProjectListViewModelCollection list = (ProjectListViewModelCollection)source.Data;
+                
+                e.CanExecute = list.Any();
+            }
+
+            e.CanExecute = false;
+           
+        }
+
+        private void QueryCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            try
+            {
+                e.Handled = true;
+                ObjectDataProvider source = (ObjectDataProvider)FindResource("ProjoectListSource");
+                
+                //搜尋框
+                ((ProjectListViewModelCollection)DataContext).QueryByText((string)e.OriginalSource);
+                //DataContext = controller.SearchByText((string)e.OriginalSource);
+            }
+            catch (Exception ex)
+            {
+                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
+            }
         }
     }
 }

@@ -92,7 +92,7 @@ namespace Tokiku.ViewModels
             {
                 string controllerfullname = string.Format("Tokiku.Controllers.{0}Controller", ControllerName);
 
-                Type ControllerType = Type.GetType(controllerfullname);
+                Type ControllerType = System.Reflection.Assembly.Load("Tokiku.Controllers").GetType(controllerfullname);
 
                 if (ControllerType == null)
                 {
