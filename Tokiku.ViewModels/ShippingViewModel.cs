@@ -8,45 +8,44 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class RecvMaterialViewModelCollection : BaseViewModelCollection<RecvMaterialViewModel>
+    public class ShippingViewModelCollection : BaseViewModelCollection<ShippingViewModel>
     {
-        public RecvMaterialViewModelCollection()
+        public ShippingViewModelCollection()
         {
             HasError = false;
         }
 
-        public RecvMaterialViewModelCollection(IEnumerable<RecvMaterialViewModel> source) : base(source)
+        public ShippingViewModelCollection(IEnumerable<ShippingViewModel> source) : base(source)
         {
 
         }
 
-        public new static RecvMaterialViewModelCollection Query()
+        public new static ShippingViewModelCollection Query()
         {
-            RecvMaterialController ctrl = new RecvMaterialController();
-            ExecuteResultEntity<ICollection<Receive>> ere = ctrl.QuerAll();
+            ShippingController ctrl = new ShippingController();
+            ExecuteResultEntity<ICollection<PickList>> ere = ctrl.QuerAll();
 
             if (!ere.HasError)
             {
-                return new RecvMaterialViewModelCollection(ere.Result.Select(s => new RecvMaterialViewModel(s)).ToList());
+                return new ShippingViewModelCollection(ere.Result.Select(s => new ShippingViewModel(s)).ToList());
             }
-
-            return new RecvMaterialViewModelCollection();
+            return new ShippingViewModelCollection();
         }
 
     }
 
-    public class RecvMaterialViewModel : BaseViewModelWithPOCOClass<Receive>
+    public class ShippingViewModel : BaseViewModelWithPOCOClass<PickList>
     {
-        public RecvMaterialViewModel(Receive entity) : base(entity)
+        public ShippingViewModel(PickList entity) : base(entity)
         {
 
         }
 
-        // 收料單單號
-        public string ReceiptNumber
+        // 領料單單號
+        public string PickListNumber
         {
-            get { return CopyofPOCOInstance.ReceiptNumber; }
-            set { CopyofPOCOInstance.ReceiptNumber = value; RaisePropertyChanged("ReceiptNumber"); }
+            get { return CopyofPOCOInstance.PickListNumber; }
+            set { CopyofPOCOInstance.PickListNumber = value; RaisePropertyChanged("PickListNumber"); }
         }
         // 來料廠商代碼
         public string IncomingManufacturersCode
@@ -69,8 +68,8 @@ namespace Tokiku.ViewModels
         // 輸入人員
         public string CreateUser
         {
-            get { return CopyofPOCOInstance.Users.UserName; }
-            set { CopyofPOCOInstance.Users.UserName = value; RaisePropertyChanged("CreateUser"); }
+            get { return CopyofPOCOInstance.CreateUsers.UserName; }
+            set { CopyofPOCOInstance.CreateUsers.UserName = value; RaisePropertyChanged("CreateUser"); }
         }
         // 輸入日期
         public DateTime CreateTime
@@ -79,10 +78,10 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.CreateTime = value; RaisePropertyChanged("CreateTime"); }
         }
         // 製單人員
-        public string MakingUser
+        public string MakingUserName
         {
-            get { return CopyofPOCOInstance.Users.UserName; }
-            set { CopyofPOCOInstance.Users.UserName = value; RaisePropertyChanged("MakingUser"); }
+            get { return CopyofPOCOInstance.MakingUsers.UserName; }
+            set { CopyofPOCOInstance.MakingUsers.UserName = value; RaisePropertyChanged("MakingUserName"); }
         }
         // 製單日期
         public DateTime MakingTime

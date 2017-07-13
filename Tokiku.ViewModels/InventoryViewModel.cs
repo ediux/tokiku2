@@ -20,40 +20,25 @@ namespace Tokiku.ViewModels
 
         }
 
-        public override void Query()
+        public new static InventoryViewModelCollection Query()
         {
             InventoryController ctrl = new InventoryController();
-            ExecuteResultEntity<ICollection<InventoryEntity>> ere = ctrl.QuerAll();
+            ExecuteResultEntity<ICollection<Inventory>> ere = ctrl.QuerAll();
+
             if (!ere.HasError)
             {
-                InventoryViewModel vm = new InventoryViewModel();
-                foreach (var item in ere.Result)
-                {
-                    vm.SetModel(item);
-                    Add(vm);
-                }
+                return new InventoryViewModelCollection(ere.Result.Select(s => new InventoryViewModel(s)).ToList());
             }
+            return new InventoryViewModelCollection();
         }
 
     }
 
-    public class InventoryViewModel : BaseViewModel
+    public class InventoryViewModel : BaseViewModelWithPOCOClass<Inventory>
     {
-        public override void SetModel(dynamic entity)
+        public InventoryViewModel(Inventory entity) : base(entity)
         {
-            try
-            {
-                if (entity is InventoryEntity)
-                {
-                    InventoryEntity data = (InventoryEntity)entity;
-                    BindingFromModel(data, this);
-                }
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-                throw;
-            }
+
         }
 
     }

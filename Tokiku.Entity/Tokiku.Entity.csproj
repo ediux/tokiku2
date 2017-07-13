@@ -487,7 +487,6 @@
     <Compile Include="ViewTables\AluminumExtrusionOrderEntity.cs" />
     <Compile Include="ViewTables\AluminumExtrusionOrderMaterialValuationEntity.cs" />
     <Compile Include="ViewTables\ContractManagementEntity.cs" />
-    <Compile Include="ViewTables\InventoryEntity.cs" />
     <Compile Include="ViewTables\InventoryListEntity.cs" />
     <Compile Include="ViewTables\MainWindowEntity.cs" />
     <Compile Include="ManufacturersBussinessItemsRepository.cs">
@@ -574,9 +573,7 @@
     </Compile>
     <Compile Include="ViewTables\RecvMaterialEntity.cs" />
     <Compile Include="ViewTables\RecvMaterialListEntity.cs" />
-    <Compile Include="ViewTables\RequiredEntity.cs" />
     <Compile Include="ViewTables\RequiredListEntity.cs" />
-    <Compile Include="ViewTables\ReturnMaterialEntity.cs" />
     <Compile Include="ViewTables\ReturnMaterialListEntity.cs" />
     <Compile Include="ViewTables\ShippingMaterialEntity.cs" />
     <Compile Include="ViewTables\ShippingMaterialListEntity.cs" />

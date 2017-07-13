@@ -74,6 +74,7 @@
     <Compile Include="Finance\TicketPeriodsManagementController.cs" />
     <Compile Include="InventoryController.cs" />
     <Compile Include="InventoryListController.cs" />
+    <Compile Include="InvoicesController.cs" />
     <Compile Include="MES\BOMController.cs" />
     <Compile Include="MES\MaterialManagementController.cs" />
     <Compile Include="MES\MoldsController.cs" />
@@ -86,7 +87,7 @@
     <Compile Include="RecvMaterialListController.cs" />
     <Compile Include="RequiredController.cs" />
     <Compile Include="RequiredListController.cs" />
-    <Compile Include="ReturnMaterialController.cs" />
+    <Compile Include="ReturnsController.cs" />
     <Compile Include="ReturnMaterialListController.cs" />
     <Compile Include="Shared\IBaseController.cs" />
     <Compile Include="Shared\LoginParameter.cs" />
@@ -104,7 +105,7 @@
     <Compile Include="Shared\StateController.cs" />
     <Compile Include="Projects\SuppliersController.cs" />
     <Compile Include="Shared\SystemController.cs" />
-    <Compile Include="ShippingMaterialController.cs" />
+    <Compile Include="ShippingController.cs" />
     <Compile Include="ShippingMaterialListController.cs" />
     <Compile Include="SystemMembersController.cs" />
     <Compile Include="SystemRolesController.cs" />

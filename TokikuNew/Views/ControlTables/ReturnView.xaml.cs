@@ -28,9 +28,9 @@ namespace TokikuNew.Views
 
         private void ReturnMaterialViewUC_Loaded(object sender, RoutedEventArgs e)
         {
-            ReturnMaterialViewModelCollection ctrl = new ReturnMaterialViewModelCollection();
-            CheckGrid.DataContext = ctrl;
-            ctrl.Query();
+            //ReturnsViewModelCollection ctrl = new ReturnsViewModelCollection();
+            //CheckGrid.DataContext = ctrl;
+            //ctrl.Query();
         }
 
         private void btnNew_Click(object sender, RoutedEventArgs e)

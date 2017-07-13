@@ -28,9 +28,9 @@ namespace TokikuNew.Views
         
         private void InventoryView_Loaded(object sender, RoutedEventArgs e)
         {
-            InventoryViewModelCollection ctrl = new InventoryViewModelCollection();
-            CheckGrid.DataContext = ctrl;
-            ctrl.Query();
+            //InventoryViewModelCollection ctrl = new InventoryViewModelCollection();
+            //CheckGrid.DataContext = ctrl;
+            //ctrl.Query();
         }
 
         private void btnNew_Click(object sender, RoutedEventArgs e)

@@ -48,6 +48,7 @@
     <Compile Include="FormsDetailViewModel.cs" />
     <Compile Include="InventoryListViewModel.cs" />
     <Compile Include="InventoryViewModel.cs" />
+    <Compile Include="InvoicesViewModel.cs" />
     <Compile Include="OrderControlTableViewModel.cs" />
     <Compile Include="Projects\Orders\AluminumExtrusionOrderListViewModel.cs" />
     <Compile Include="Projects\Orders\AluminumExtrusionOrderMaterialValuationViewModel.cs" />
@@ -100,11 +101,11 @@
     <Compile Include="RequiredListViewModel.cs" />
     <Compile Include="RequiredViewModel.cs" />
     <Compile Include="ReturnMaterialListViewModel.cs" />
-    <Compile Include="ReturnMaterialViewModel.cs" />
+    <Compile Include="ReturnsViewModel.cs" />
     <Compile Include="Shared\AccessLogViewModel.cs" />
     <Compile Include="Shared\AccessLogViewModelCollection.cs" />
     <Compile Include="ShippingMaterialListViewModel.cs" />
-    <Compile Include="ShippingMaterialViewModel.cs" />
+    <Compile Include="ShippingViewModel.cs" />
     <Compile Include="SystemMembersViewModel.cs" />
     <Compile Include="SystemRolesViewModel.cs" />
     <Compile Include="Users\LoginViewModel.cs" />

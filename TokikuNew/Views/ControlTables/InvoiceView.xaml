@@ -44,16 +44,16 @@
                                 <TextBox Grid.Column="1" Text="54321" IsReadOnly="True" Margin="2" TextAlignment="Center" VerticalAlignment="Center" />
                                 <TextBlock Grid.Column="2" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
                                 <TextBlock Grid.Column="3" Text="請款單號" VerticalAlignment="Center" />
-                                <TextBox Grid.Column="4" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                                <TextBox Grid.Column="4" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding InvoiceNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <TextBlock Grid.Column="5" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
                                 <TextBlock Grid.Column="6" Text="請款廠商" VerticalAlignment="Center" />
-                                <TextBox Grid.Column="7" Width="88" MaxLength="20" VerticalAlignment="Center" Margin="2" />
-                                <TextBox Grid.Column="8" Width="165" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                                <TextBox Grid.Column="7" Width="88" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding InvoiceManufacturersCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox Grid.Column="8" Width="165" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding InvoiceManufacturersName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <TextBlock Grid.Column="9" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
                                 <TextBlock Grid.Column="10" Text="廠商請款單號" VerticalAlignment="Center" />
-                                <TextBox Grid.Column="11" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                                <TextBox Grid.Column="11" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding ManufacturerInvoiceNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <TextBlock Grid.Column="12" Text="輸入人員" VerticalAlignment="Center" />
-                                <TextBox Grid.Column="13" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                                <TextBox Grid.Column="13" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding CreateUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </Grid>
                             <Grid Width="1310">
                                 <Grid.ColumnDefinitions>
@@ -70,16 +70,16 @@
                                     <ColumnDefinition Width="auto" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="建檔日期" VerticalAlignment="Center" />
-                                <DatePicker Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="2" />
+                                <DatePicker Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="2" Text="{Binding CreateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <TextBlock Grid.Column="2" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
                                 <TextBlock Grid.Column="3" Text="請款人員" VerticalAlignment="Center" />
-                                <TextBox Grid.Column="4" Width="100" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                                <TextBox Grid.Column="4" Width="100" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding InvoiceUserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <TextBlock Grid.Column="5" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
                                 <TextBlock Grid.Column="6" Text="請款日期" VerticalAlignment="Center" />
-                                <DatePicker Grid.Column="7" Width="200" VerticalAlignment="Center" Margin="2" />
+                                <DatePicker Grid.Column="7" Width="200" VerticalAlignment="Center" Margin="2" Text="{Binding InvoiceTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <TextBlock Grid.Column="8" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
                                 <TextBlock Grid.Column="9" Text="預計付款日期" VerticalAlignment="Center" />
-                                <DatePicker Grid.Column="10" Width="200" VerticalAlignment="Center" Margin="2" />
+                                <DatePicker Grid.Column="10" Width="200" VerticalAlignment="Center" Margin="2" Text="{Binding EstimatedPaymentDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </Grid>
                             <Grid Width="1310">
                                 <Grid.ColumnDefinitions>
@@ -89,7 +89,7 @@
                                 </Grid.ColumnDefinitions>
                                 <CheckBox Grid.Column="0" Content="預付款專用" Margin="2,2,4,2" VerticalAlignment="Center" Foreground="#FF036808" />
                                 <TextBlock Grid.Column="1" Text="備註" VerticalAlignment="Center" Foreground="#FF036808" />
-                                <TextBox Grid.Column="2" Width="500" MaxLength="20" VerticalAlignment="Center" Margin="4,2,2,2" />
+                                <TextBox Grid.Column="2" Width="500" MaxLength="20" VerticalAlignment="Center" Margin="4,2,2,2" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </Grid>
                         </WrapPanel>
                     </DataTemplate>
