@@ -571,11 +571,9 @@
     <Compile Include="UsersRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewTables\RecvMaterialEntity.cs" />
     <Compile Include="ViewTables\RecvMaterialListEntity.cs" />
     <Compile Include="ViewTables\RequiredListEntity.cs" />
     <Compile Include="ViewTables\ReturnMaterialListEntity.cs" />
-    <Compile Include="ViewTables\ShippingMaterialEntity.cs" />
     <Compile Include="ViewTables\ShippingMaterialListEntity.cs" />
     <Compile Include="ViewTables\SystemMembersEntity.cs" />
     <Compile Include="ViewTables\SystemRolesEntity.cs" />
