@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using Tokiku.Controllers;
 using Tokiku.Entity;
 using Tokiku.ViewModels;
+using TokikuNew.Helpers;
 using WinForm = System.Windows.Forms;
 namespace TokikuNew.Views
 {
@@ -107,10 +108,6 @@ namespace TokikuNew.Views
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-           
-        }
 
         private void ProjectList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -131,43 +128,32 @@ namespace TokikuNew.Views
 
         }
 
-        private void btnNew_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                RaiseEvent(new RoutedEventArgs(Controls.ClosableTabItem.SendNewPageRequestEvent, e.OriginalSource));
-            }
-            catch (Exception ex)
-            {
 
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
 
-        }
-
-        private void cSearchBar_ResetSearch(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                ((ProjectListViewModelCollection)DataContext).Refresh();
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
-        }
 
         private void ProjectList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             try
             {
+                e.Handled = true;
                 if (ProjectList.SelectedItem != null)
                 {
-                    e.Handled = true;
-                    SelectedProject = (ProjectListViewModel)ProjectList.SelectedItem;
-                    RaiseEvent(new RoutedEventArgs(SelectedProjectChangedEvent, SelectedProject));
+                    SelectedProject = (ProjectListViewModel)ProjectList.SelectedItem;                   
                 }
+
+                RoutedUICommand command = (RoutedUICommand)TryFindResource("OpenNewTabItem");
+
+                if (command != null)
+                {
+                    command.Execute(new RoutedViewResult() {
+                         FormatedDisplay= "專案:{0}-{1}",
+                         FormatedParameters = new object[] { SelectedProject.Code, SelectedProject.ShortName },
+                         ViewType = typeof(ProjectViewer),
+                         RoutedValues = new object[] { SelectedProject.Id }
+                    }, ProjectList);
+                }
+
+              
             }
             catch (Exception ex)
             {
@@ -175,30 +161,6 @@ namespace TokikuNew.Views
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
 
-
-        }
-
-        private void cSearchBar_RefreshResult(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                //搜尋框
-                ((ProjectListViewModelCollection)DataContext).QueryByText((string)e.OriginalSource);
-                //DataContext = controller.SearchByText((string)e.OriginalSource);
-            }
-            catch (Exception ex)
-            {
-                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
-            }
-        }
-
-        private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-
-        }
-
-        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
 
         }
 
@@ -211,12 +173,12 @@ namespace TokikuNew.Views
             if (source != null)
             {
                 ProjectListViewModelCollection list = (ProjectListViewModelCollection)source.Data;
-                
-                e.CanExecute = list.Any();
+                e.CanExecute = true;
+                return;
             }
 
             e.CanExecute = false;
-           
+
         }
 
         private void QueryCommand_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -224,16 +186,88 @@ namespace TokikuNew.Views
             try
             {
                 e.Handled = true;
+
                 ObjectDataProvider source = (ObjectDataProvider)FindResource("ProjoectListSource");
-                
-                //搜尋框
-                ((ProjectListViewModelCollection)DataContext).QueryByText((string)e.OriginalSource);
-                //DataContext = controller.SearchByText((string)e.OriginalSource);
+
+                if (source != null)
+                {
+
+                    source.MethodName = "QueryByText";
+                    source.MethodParameters.Clear();
+                    source.MethodParameters.Add(e.Parameter);
+                    source.Refresh();
+                }
             }
             catch (Exception ex)
             {
                 WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
             }
+        }
+
+        private void ResetFiliterCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.Handled = true;
+            e.CanExecute = true;
+
+        }
+
+        private void ResetFiliterCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            try
+            {
+                e.Handled = true;
+
+                ObjectDataProvider source = (ObjectDataProvider)FindResource("ProjoectListSource");
+
+                if (source != null)
+                {
+
+                    source.MethodName = "Query";
+                    source.MethodParameters.Clear();
+                    source.Refresh();
+                }
+                //((ProjectListViewModelCollection)DataContext).Refresh();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+        }
+
+        private void RefreshQueryCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.Handled = true;
+            e.CanExecute = true;
+        }
+
+        private void RefreshQueryCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            try
+            {
+                e.Handled = true;
+
+                ObjectDataProvider source = (ObjectDataProvider)FindResource("ProjoectListSource");
+
+                if (source != null)
+                {
+
+                    source.MethodName = "QueryByText";
+                    source.MethodParameters.Clear();
+                    source.MethodParameters.Add(e.Parameter);
+                    source.Refresh();
+                }
+            }
+            catch (Exception ex)
+            {
+                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
+            }
+        }
+
+        private void btnNew_PreviewCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.Handled = true;
+            e.CanExecute = true;
         }
     }
 }

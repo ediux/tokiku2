@@ -196,7 +196,7 @@ namespace Tokiku.Controllers
                 {
                     var result = from p in projectsrepo.All()
                                  where p.Void == false
-                                 orderby p.State ascending, p.Code ascending
+                                 orderby p.State ascending, p.Code descending
                                  select new ProjectListEntity
                                  {
                                      Id = p.Id,
@@ -206,7 +206,7 @@ namespace Tokiku.Controllers
                                      State = p.State,
                                      StateText = p.States.StateName,
                                      StartDate = p.StartDate,
-                                     CompletionDate = p.CompletionDate,
+                                     CompletionDate = p.PromissoryNoteManagement.Any(s => s.TicketTypeId == 3 || s.TicketTypeId == 4) ? p.PromissoryNoteManagement.Where(s => s.TicketTypeId == 3 || s.TicketTypeId == 4).OrderByDescending(o => o.CreateTime).FirstOrDefault().CreateTime : default(DateTime?)
                                  };
 
                     return ExecuteResultEntity<ICollection<ProjectListEntity>>.CreateResultEntity(
@@ -227,7 +227,7 @@ namespace Tokiku.Controllers
             {
                 var result = from p in projectsrepo.All()
                              where p.Id == ProjectId && p.Void == false
-                             orderby p.State ascending, p.Code ascending
+                             orderby p.Code descending, p.State ascending
                              select p;
 
                 return result.Any();
@@ -432,8 +432,8 @@ namespace Tokiku.Controllers
                     var result = projectsrepo.Where(s => s.Code.Contains(text)
                      || s.Name.Contains(text)
                     || (s.ShortName != null && s.ShortName.Contains(text)))
+                    .OrderByDescending(s => s.Code)
                     .OrderBy(s => s.State)
-                    .OrderBy(s => s.Code)
                     .Select(s => new ProjectListEntity()
                     {
                         Id = s.Id,

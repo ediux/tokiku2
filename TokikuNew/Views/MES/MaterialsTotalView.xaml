@@ -24,7 +24,7 @@
                 <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="btnImport" Grid.Row="1" Grid.Column="2"  Width="50" Content="匯入" Margin="2" Click="btnImport_Click" />
-            <Controls:SearchBar Grid.Row="1" Grid.Column="1" Margin="2"  Search="SearchBar_Search" />
+            <Controls:SearchBar Grid.Row="1" Grid.Column="1" Margin="2"  />
         </Grid>
         <DataGrid Grid.Row="1" Grid.Column="0" 
                   BorderBrush="{DynamicResource ControlBorderBrush}"

@@ -119,6 +119,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helpers\ClipboardHelper.cs" />
+    <Compile Include="Helpers\RoutedViewResult.cs" />
     <Compile Include="Helpers\SwitchFieldMode.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
     <Compile Include="Commands\OpenNewPageContentCommand.cs" />

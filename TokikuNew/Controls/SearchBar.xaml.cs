@@ -14,82 +14,29 @@ namespace TokikuNew.Controls
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                RaiseEvent(new RoutedEventArgs(SearchEvent, tbSearchBar.Text));
-            }
-            catch (System.Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
-
-        }
-
-        /// <summary>
-        /// 引發搜尋的事件
-        /// </summary>
-        public static readonly RoutedEvent SearchEvent = EventManager.RegisterRoutedEvent("Search", RoutingStrategy.Bubble
-          , typeof(RoutedEventHandler), typeof(SearchBar));
-
-        /// <summary>
-        /// 引發搜尋的事件
-        /// </summary>
-        public event RoutedEventHandler Search
-        {
-            add { AddHandler(SearchEvent, value); }
-            remove { RemoveHandler(SearchEvent, value); }
-        }
-
-        /// <summary>
-        /// 引發重設搜尋條件的事件
-        /// </summary>
-        public static readonly RoutedEvent ResetSearchEvent = EventManager.RegisterRoutedEvent("ResetSearch", RoutingStrategy.Bubble
-    , typeof(RoutedEventHandler), typeof(SearchBar));
-
-        /// <summary>
-        /// 引發重設搜尋條件的事件
-        /// </summary>
-        public event RoutedEventHandler ResetSearch
-        {
-            add { AddHandler(ResetSearchEvent, value); }
-            remove { RemoveHandler(ResetSearchEvent, value); }
-        }
-
-        /// <summary>
-        /// 引發重新整理事件
-        /// </summary>
-        public static readonly RoutedEvent RefreshResultEvent = EventManager.RegisterRoutedEvent("RefreshResult", RoutingStrategy.Bubble
-    , typeof(RoutedEventHandler), typeof(SearchBar));
-
-        /// <summary>
-        /// 引發重新整理事件
-        /// </summary>
-        public event RoutedEventHandler RefreshResult
-        {
-            add { AddHandler(RefreshResultEvent, value); }
-            remove { RemoveHandler(RefreshResultEvent, value); }
-        }
-
         private void SearchBar_KeyDown(object sender, KeyEventArgs e)
         {
             try
             {
-               
-
                 if (e.Key == Key.Enter)
                 {
                     e.Handled = true;
-                    RaiseEvent(new RoutedEventArgs(SearchEvent, tbSearchBar.Text));
+                    btnQuery.Command.Execute(tbSearchBar.Text);                    
                 }
                 else
                 {
                     if (e.Key == Key.Escape)
                     {
                         e.Handled = true;
-                        RaiseEvent(new RoutedEventArgs(ResetSearchEvent, tbSearchBar));
                         tbSearchBar.Text = "";
+                        //btnRefresh.Command.Execute(tbSearchBar.Text);
+
+                        RoutedUICommand ResetQueryCommand = (RoutedUICommand)FindResource("ResetFiliter");
+
+                        if (ResetQueryCommand != null)
+                        {
+                            ResetQueryCommand.Execute(tbSearchBar.Text, tbSearchBar);
+                        }
                     }
                 }
             }
@@ -100,19 +47,18 @@ namespace TokikuNew.Controls
 
         }
 
-        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        private void Button_PreviewCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            try
-            {
-                e.Handled = true;
-                RaiseEvent(new RoutedEventArgs(RefreshResultEvent, tbSearchBar.Text));
-            }
-            catch (System.Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
+            e.Handled = true;
+            e.CanExecute = true;
+            Keyboard.Focus((Button)sender);
+        }
 
-
+        private void btnRefresh_PreviewCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.Handled = true;
+            e.CanExecute = true;
+            Keyboard.Focus((Button)sender);
         }
     }
 }

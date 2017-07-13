@@ -3,9 +3,11 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using Tokiku.Controllers;
 using Tokiku.ViewModels;
 using TokikuNew.Controls;
+using TokikuNew.Helpers;
 using TokikuNew.Views;
 
 namespace TokikuNew
@@ -548,238 +550,238 @@ namespace TokikuNew
             }
         }
 
-        /// <summary>
-        /// 票期管理功能表項目
-        /// </summary>        
-        private void MI_Finance_TicketManagement_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                ClosableTabItem addWorkarea = new ClosableTabItem();
-                addWorkarea.Header = "票期管理";
+        ///// <summary>
+        ///// 票期管理功能表項目
+        ///// </summary>        
+        //private void MI_Finance_TicketManagement_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        ClosableTabItem addWorkarea = new ClosableTabItem();
+        //        addWorkarea.Header = "票期管理";
 
-                bool isExisted = true;
+        //        bool isExisted = true;
 
-                foreach (TabItem item in Workspaces.Items)
-                {
-                    if (item.Header.Equals(addWorkarea.Header))
-                    {
-                        isExisted = true;
-                        addWorkarea = (ClosableTabItem)item;
-                        break;
-                    }
-                }
+        //        foreach (TabItem item in Workspaces.Items)
+        //        {
+        //            if (item.Header.Equals(addWorkarea.Header))
+        //            {
+        //                isExisted = true;
+        //                addWorkarea = (ClosableTabItem)item;
+        //                break;
+        //            }
+        //        }
 
-                if (!isExisted)
-                {
+        //        if (!isExisted)
+        //        {
 
-                }
+        //        }
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+        //    }
+        //}
 
-        private void MI_Main_Vendor_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                ClosableTabItem addWorkarea = new ClosableTabItem();
+        //private void MI_Main_Vendor_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        ClosableTabItem addWorkarea = new ClosableTabItem();
 
-                ManufacturersViewModelCollection model = ((MainViewModel)DataContext).Manufacturers;
+        //        ManufacturersViewModelCollection model = ((MainViewModel)DataContext).Manufacturers;
 
-                if (model != null)
-                    addWorkarea.Header = "廠商列表";
-                else
-                    return;
+        //        if (model != null)
+        //            addWorkarea.Header = "廠商列表";
+        //        else
+        //            return;
 
-                bool isExisted = false;
+        //        bool isExisted = false;
 
-                foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
-                {
-                    if (item.Header.Equals(addWorkarea.Header))
-                    {
-                        isExisted = true;
-                        addWorkarea = item;
-                        break;
-                    }
-                }
+        //        foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
+        //        {
+        //            if (item.Header.Equals(addWorkarea.Header))
+        //            {
+        //                isExisted = true;
+        //                addWorkarea = item;
+        //                break;
+        //            }
+        //        }
 
-                if (!isExisted)
-                {
+        //        if (!isExisted)
+        //        {
 
-                    var vm = new VendorListView() { Margin = new Thickness(0) };
+        //            var vm = new VendorListView() { Margin = new Thickness(0) };
 
-                    vm.DataContext = model;
-                    vm.SelectedVendorChanged += VendorSelection_SelectedVendorChanged;
+        //            vm.DataContext = model;
+        //            vm.SelectedVendorChanged += VendorSelection_SelectedVendorChanged;
 
-                    addWorkarea.Content = vm;
+        //            addWorkarea.Content = vm;
 
-                    Workspaces.Items.Add(addWorkarea);
-                }
+        //            Workspaces.Items.Add(addWorkarea);
+        //        }
 
-                Workspaces.SelectedItem = addWorkarea;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
+        //        Workspaces.SelectedItem = addWorkarea;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+        //    }
+        //}
 
-        private void MI_Main_Client_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                ClosableTabItem addWorkarea = new ClosableTabItem();
+        //private void MI_Main_Client_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        ClosableTabItem addWorkarea = new ClosableTabItem();
 
-                ClientViewModelCollection model = ((MainViewModel)DataContext).Clients;
+        //        ClientViewModelCollection model = ((MainViewModel)DataContext).Clients;
 
-                if (model != null)
-                    addWorkarea.Header = "客戶列表";
-                else
-                    return;
+        //        if (model != null)
+        //            addWorkarea.Header = "客戶列表";
+        //        else
+        //            return;
 
-                bool isExisted = false;
+        //        bool isExisted = false;
 
-                foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
-                {
-                    if (item.Header.Equals(addWorkarea.Header))
-                    {
-                        isExisted = true;
-                        addWorkarea = item;
-                        break;
-                    }
-                }
+        //        foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
+        //        {
+        //            if (item.Header.Equals(addWorkarea.Header))
+        //            {
+        //                isExisted = true;
+        //                addWorkarea = item;
+        //                break;
+        //            }
+        //        }
 
-                if (!isExisted)
-                {
+        //        if (!isExisted)
+        //        {
 
-                    var vm = new ClientListView() { Margin = new Thickness(0) };
+        //            var vm = new ClientListView() { Margin = new Thickness(0) };
 
-                    vm.DataContext = model;
-                    
-                    vm.SelectedClientChanged += ClientListView_SelectedClientChanged;
+        //            vm.DataContext = model;
 
-                    addWorkarea.Content = vm;
+        //            vm.SelectedClientChanged += ClientListView_SelectedClientChanged;
 
-                    Workspaces.Items.Add(addWorkarea);
-                }
+        //            addWorkarea.Content = vm;
 
-                Workspaces.SelectedItem = addWorkarea;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+        //            Workspaces.Items.Add(addWorkarea);
+        //        }
 
-        }
+        //        Workspaces.SelectedItem = addWorkarea;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+        //    }
 
-        private void MI_Main_Molds_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                ClosableTabItem addWorkarea = new ClosableTabItem();
-                addWorkarea.Header = "模具總表";
+        //}
+
+        //private void MI_Main_Molds_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        ClosableTabItem addWorkarea = new ClosableTabItem();
+        //        addWorkarea.Header = "模具總表";
 
 
-                bool isExisted = false;
-                // 檢查是否重複開啟
-                foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
-                {
-                    if (item.Header.Equals(addWorkarea.Header))
-                    {
-                        isExisted = true;
-                        addWorkarea = item;
-                        break;
-                    }
-                }
+        //        bool isExisted = false;
+        //        // 檢查是否重複開啟
+        //        foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
+        //        {
+        //            if (item.Header.Equals(addWorkarea.Header))
+        //            {
+        //                isExisted = true;
+        //                addWorkarea = item;
+        //                break;
+        //            }
+        //        }
 
-                if (!isExisted)
-                {
-                    // 內容
-                    var vm = new MaterialsTotalView() { Margin = new Thickness(0) };
-                    addWorkarea.Content = vm;
-                    Workspaces.Items.Add(addWorkarea);
-                }
+        //        if (!isExisted)
+        //        {
+        //            // 內容
+        //            var vm = new MaterialsTotalView() { Margin = new Thickness(0) };
+        //            addWorkarea.Content = vm;
+        //            Workspaces.Items.Add(addWorkarea);
+        //        }
 
-                Workspaces.SelectedItem = addWorkarea;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
+        //        Workspaces.SelectedItem = addWorkarea;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+        //    }
+        //}
 
-        private void PromissoryNoteManagement_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                ClosableTabItem addWorkarea = new ClosableTabItem();
-                addWorkarea.Header = "本票管理";
+        //private void PromissoryNoteManagement_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        ClosableTabItem addWorkarea = new ClosableTabItem();
+        //        addWorkarea.Header = "本票管理";
 
-                bool isExisted = false;
-                // 檢查是否重複開啟
-                foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
-                {
-                    if (item.Header.Equals(addWorkarea.Header))
-                    {
-                        isExisted = true;
-                        addWorkarea = item;
-                        break;
-                    }
-                }
-                // 內容
-                if (!isExisted)
-                {
-                    var vm = new PromissoryNoteManagementUC() { Margin = new Thickness(0) };
-                    addWorkarea.Content = vm;
-                    Workspaces.Items.Add(addWorkarea);
-                }
+        //        bool isExisted = false;
+        //        // 檢查是否重複開啟
+        //        foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
+        //        {
+        //            if (item.Header.Equals(addWorkarea.Header))
+        //            {
+        //                isExisted = true;
+        //                addWorkarea = item;
+        //                break;
+        //            }
+        //        }
+        //        // 內容
+        //        if (!isExisted)
+        //        {
+        //            var vm = new PromissoryNoteManagementUC() { Margin = new Thickness(0) };
+        //            addWorkarea.Content = vm;
+        //            Workspaces.Items.Add(addWorkarea);
+        //        }
 
-                Workspaces.SelectedItem = addWorkarea; // 指定當前顯示頁
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
+        //        Workspaces.SelectedItem = addWorkarea; // 指定當前顯示頁
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+        //    }
+        //}
 
         // 合約管理按鈕觸發事件
-        private void ContractManagement_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                ClosableTabItem addWorkarea = new ClosableTabItem();
-                addWorkarea.Header = "合約管理";
+        //private void ContractManagement_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        ClosableTabItem addWorkarea = new ClosableTabItem();
+        //        addWorkarea.Header = "合約管理";
 
-                bool isExisted = false;
-                // 檢查是否重複開啟
-                foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
-                {
-                    if (item.Header.Equals(addWorkarea.Header))
-                    {
-                        isExisted = true;
-                        addWorkarea = item;
-                        break;
-                    }
-                }
-                // 內容
-                if (!isExisted)
-                {
-                    var vm = new ContractManagementView() { Margin = new Thickness(0) };
-                    addWorkarea.Content = vm;
-                    Workspaces.Items.Add(addWorkarea);
-                }
+        //        bool isExisted = false;
+        //        // 檢查是否重複開啟
+        //        foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
+        //        {
+        //            if (item.Header.Equals(addWorkarea.Header))
+        //            {
+        //                isExisted = true;
+        //                addWorkarea = item;
+        //                break;
+        //            }
+        //        }
+        //        // 內容
+        //        if (!isExisted)
+        //        {
+        //            var vm = new ContractManagementView() { Margin = new Thickness(0) };
+        //            addWorkarea.Content = vm;
+        //            Workspaces.Items.Add(addWorkarea);
+        //        }
 
-                Workspaces.SelectedItem = addWorkarea; // 指定當前顯示頁
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
+        //        Workspaces.SelectedItem = addWorkarea; // 指定當前顯示頁
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+        //    }
+        //}
 
         private void Window_Initialized(object sender, EventArgs e)
         {
@@ -795,5 +797,93 @@ namespace TokikuNew
             }
         }
 
+        private void OpenNewTabItemCommand_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
+        {
+            e.Handled = true;
+
+            if (e.Parameter is RoutedViewResult)
+                e.CanExecute = true;
+            else
+                e.CanExecute = false;
+        }
+
+        private void OpenNewTabItemCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            try
+            {
+                e.Handled = true;
+
+                if (!(e.Parameter is RoutedViewResult))
+                    return;
+
+                RoutedViewResult executeresult = e.Parameter as RoutedViewResult;
+
+                ClosableTabItem addWorkarea = null;
+                string Header = string.Empty;
+
+                if (!string.IsNullOrEmpty(executeresult.DisplayText))
+                    Header = executeresult.DisplayText;
+                else
+                    Header = string.Format(executeresult.FormatedDisplay, executeresult.FormatedParameters);
+
+                object SharedModel = executeresult.DataContent;
+
+                addWorkarea = new ClosableTabItem() { Header = Header };
+
+                bool isExisted = false;
+
+                foreach (ClosableTabItem item in Workspaces.Items.OfType<ClosableTabItem>())
+                {
+                    if (item.Header.Equals(addWorkarea.Header))
+                    {
+                        isExisted = true;
+                        addWorkarea = item;
+                        break;
+                    }
+                }
+
+                if (!isExisted)
+                {
+
+                    var vm = Activator.CreateInstance(executeresult.ViewType);
+
+                    if (vm != null)
+                    {
+                        if (SharedModel != null)
+                        {
+                            executeresult.ViewType.GetProperty("DataContext").SetValue(vm, SharedModel);
+                        }
+
+                        if (executeresult.ViewType.GetProperty("Mode") != null)
+                        {
+                            executeresult.ViewType.GetProperty("Mode").SetValue(vm, DocumentLifeCircle.Read);
+                        }
+                    }
+                    RoutedUICommand command = TryFindResource("Reply") as RoutedUICommand;
+
+                    if (command != null)
+                    {
+                        command.Execute(executeresult.RoutedValues, (UserControl)vm);
+                    }
+                    addWorkarea = new ClosableTabItem() { Header = Header };
+                    addWorkarea.Content = vm;
+                    addWorkarea.Margin = new Thickness(0);
+
+                    Workspaces.Items.Add(addWorkarea);
+                    Workspaces.SelectedItem = addWorkarea;
+
+
+                    return;
+                }
+                else
+                {
+                    Workspaces.SelectedItem = addWorkarea;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }

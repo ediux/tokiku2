@@ -572,14 +572,14 @@ namespace Tokiku.ViewModels
         //    }
         //}
 
-        //public override void Query()
-        //{
-        //    throw new NotSupportedException();
-        //}
+        public ProjectsViewModel Query(Guid ProjectId)
+        {
+            return QuerySingle<ProjectsViewModel, Projects>("ProjectManagerView", "QueryById", ProjectId);
+        }
 
         public ProjectsViewModel Refresh()
         {
-            return QuerySingle<ProjectsViewModel, Projects>("ProjectManagerView", "QueryById", Id);
+           return Query(Id);
         }
 
         //public override void SetModel(dynamic entity)

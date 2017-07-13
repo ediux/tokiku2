@@ -5,11 +5,21 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Controls="clr-namespace:TokikuNew.Controls"
     xmlns:local="clr-namespace:TokikuNew.Views"
+    xmlns:Viewmodel="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
     x:Name="userControl" x:Class="TokikuNew.Views.ProjectManagerView"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1366" Loaded="UserControl_Loaded" 
              Initialized="userControl_Initialized" >
-    <Grid Background="{DynamicResource ControlBackgroundBrush}">
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="ProjectSource" ObjectType="{x:Type Viewmodel:ProjectsViewModel}" MethodName="Query">
+        </ObjectDataProvider>
+    </UserControl.Resources>
+    <UserControl.CommandBindings>
+        <CommandBinding Command="{StaticResource Reply}" x:Name="ReplyCommand"
+                        CanExecute="ReplyCommand_CanExecute"
+                        Executed="ReplyCommand_Executed" />
+    </UserControl.CommandBindings>
+    <Grid Background="{DynamicResource ControlBackgroundBrush}" DataContext="{Binding Source={StaticResource ProjectSource}}">
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>
             <RowDefinition />
@@ -128,7 +138,7 @@
                         <TextBlock Text="起造日期：" Grid.Row="11" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" />
                         <DatePicker x:Name="StartDate" Grid.Row="11" Grid.Column="1" Margin="1"  Text="{Binding StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=\{0:yyyy年MM月dd日\}}" Style="{DynamicResource ReadModeSwitch_DatePicker}"/>
                         <TextBlock Text="完工日期：" Grid.Row="12" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" />
-                        <TextBlock x:Name="CompletionDate" Grid.Row="12" Grid.Column="1" Margin="1" Text="{Binding CompletionDate, Mode=TwoWay, StringFormat=\{0:yyyy年MM月dd日\}, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock x:Name="CompletionDate" Grid.Row="12" Grid.Column="1" Margin="1" Text="{Binding CompletionDate, StringFormat=\{0:yyyy年MM月dd日\}}"/>
                         <TextBlock Grid.Row="12" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center" Text="狀態："  Margin="2"/>
                         <ComboBox Style="{DynamicResource ReadModeSwitch_ComboBox}" Grid.Row="12" Grid.Column="3" Margin="2" ItemsSource="{DynamicResource StatesSource}"
                                   SelectedIndex="0"
@@ -175,9 +185,9 @@
                         <TextBlock Text="監造單位：" Grid.Row="7" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"  />
                         <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="7" Grid.Column="3" Margin="2" Text="{Binding SupervisionUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock Grid.Row="8" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"  Text="保固起始日：" />
-                        <TextBlock Grid.Row="8" Grid.Column="3" Grid.ColumnSpan="3" Margin="2" Text="{Binding WarrantyStartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock Grid.Row="8" Grid.Column="3" Grid.ColumnSpan="3" Margin="2" Text="{Binding WarrantyStartDate}"/>
                         <TextBlock Grid.Row="9" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"  Text="保固到期日：" />
-                        <TextBlock Grid.Row="9" Grid.Column="3" Grid.ColumnSpan="3" Margin="2" Text="{Binding WarrantyDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock Grid.Row="9" Grid.Column="3" Grid.ColumnSpan="3" Margin="2" Text="{Binding WarrantyDate}"/>
                         <TextBlock Grid.Row="10" Grid.Column="2" Text="異動人員：" VerticalAlignment="Center" HorizontalAlignment="Right" />
                         <TextBlock Grid.Row="10" Grid.Column="3" Text="{Binding LoginedUser.UserName, ElementName=userControl}" VerticalAlignment="Center" />
                         <TextBlock Grid.Row="11" Grid.Column="2" Text="異動日期：" VerticalAlignment="Center" HorizontalAlignment="Right" />

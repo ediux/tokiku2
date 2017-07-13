@@ -577,5 +577,31 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
         }
+
+        private void ReplyCommand_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
+        {
+            e.Handled = true;
+            e.CanExecute = true;
+        }
+
+        private void ReplyCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            try
+            {
+                ObjectDataProvider source = (ObjectDataProvider)FindResource("ProjectSource");
+
+                if (source != null)
+                {
+                    source.MethodParameters.Clear();
+                    source.MethodParameters.Add(((object[])e.Parameter)[0]);
+                    source.Refresh();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+        }
     }
 }

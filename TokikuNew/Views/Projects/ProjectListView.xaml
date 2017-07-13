@@ -8,14 +8,21 @@
              xmlns:entity="clr-namespace:Tokiku.Entity;assembly=Tokiku.Entity"
              xmlns:controls ="clr-namespace:TokikuNew.Controls"
              mc:Ignorable="d" 
+             Focusable="True"
              d:DesignHeight="768" d:DesignWidth="1024" Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <ObjectDataProvider x:Key="ProjoectListSource" ObjectType="{x:Type vm:ProjectListViewModelCollection}" MethodName="Query"/>
     </UserControl.Resources>
     <UserControl.CommandBindings>
-        <CommandBinding Command="{StaticResource Query}" x:Name="QueryCommand"
+        <CommandBinding Command="{StaticResource Query}" x:Name="QueryCommand"                         
                         CanExecute="QueryCommand_CanExecute"
                         Executed="QueryCommand_Executed" />
+        <CommandBinding Command="{StaticResource ResetFiliter}" x:Name="ResetFiliterCommand"
+                        CanExecute="ResetFiliterCommand_CanExecute"
+                        Executed="ResetFiliterCommand_Executed" />
+        <CommandBinding Command="{StaticResource QueryRefresh}" x:Name="RefreshQueryCommand"
+                        CanExecute="RefreshQueryCommand_CanExecute"
+                        Executed="RefreshQueryCommand_Executed" />
     </UserControl.CommandBindings>
     <Grid Background="{DynamicResource ControlBackgroundBrush}">
         <Grid.RowDefinitions>
@@ -33,8 +40,8 @@
                     <ColumnDefinition Width="125*"/>
                     <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
-                <controls:SearchBar Grid.Column="0" x:Name="cSearchBar" Search="Button_Click" ResetSearch="cSearchBar_ResetSearch" RefreshResult="cSearchBar_RefreshResult" />
-                <Button Grid.Column="1" Margin="1" Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" Name="btnNew" Click="btnNew_Click" ToolTip="新增"></Button>
+                <controls:SearchBar Grid.Column="0" x:Name="cSearchBar" Focusable="True" />
+                <Button Grid.Column="1" Margin="1" Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" Name="btnNew" Command="{StaticResource OpenNewTabItem}" CommandParameter="" CommandManager.PreviewCanExecute="btnNew_PreviewCanExecute" ToolTip="新增"></Button>
             </Grid>
         </Grid>
         <controls:CustomDataGrid x:Name="ProjectList" Grid.Row="1" Margin="5" ItemsSource="{Binding Source={StaticResource ProjoectListSource}}" 
@@ -45,7 +52,7 @@
                                  CanUserDeleteRows="False"
                                  CanUserSortColumns="False"                                 
                                  IsReadOnly="True"
-                                 MouseDoubleClick="ProjectList_MouseDoubleClick"
+                                 MouseDoubleClick="ProjectList_MouseDoubleClick"                                 
                                  AllowExecuteSystemCommand="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="專案代號" Binding="{Binding Code}" Width="100"/>

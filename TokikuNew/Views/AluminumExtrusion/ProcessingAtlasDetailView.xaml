@@ -21,7 +21,7 @@
                 <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="btnImport" Grid.Row="1" Grid.Column="2"  Width="50" Content="匯入" Margin="2" Click="btnImport_Click" />
-            <Controls:SearchBar Grid.Row="1" Grid.Column="1" Margin="2" x:Name="SearchBox" ResetSearch="SearchBox_ResetSearch" />
+            <Controls:SearchBar Grid.Row="1" Grid.Column="1" Margin="2" x:Name="SearchBox" />
         </Grid>
         <DataGrid x:Name="BOMGrid" Grid.Row="1" AutoGenerateColumns="False">
             <DataGrid.Columns>
