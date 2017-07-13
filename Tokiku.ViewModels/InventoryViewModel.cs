@@ -37,13 +37,13 @@ namespace Tokiku.ViewModels
 
     }
 
-    public class InventoryViewModel : BaseViewModelWithPOCOClass<InventoryEntity>
+    public class InventoryViewModel : BaseViewModelWithPOCOClass<Inventory>
     {
         public InventoryViewModel()
         {
 
         }
-        public InventoryViewModel(InventoryEntity entity) : base(entity)
+        public InventoryViewModel(Inventory entity) : base(entity)
         {
 
         }
