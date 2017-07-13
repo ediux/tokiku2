@@ -12,6 +12,16 @@ namespace Tokiku.ViewModels
 {
     public class ManufacturersBussinessItemsViewModelColletion : BaseViewModelCollection<ManufacturersBussinessItemsViewModel>
     {
+        public ManufacturersBussinessItemsViewModelColletion()
+        {
+
+        }
+
+        public ManufacturersBussinessItemsViewModelColletion(IEnumerable<ManufacturersBussinessItemsViewModel> source):base(source)
+        {
+
+        }
+
         public async void QueryByBusinessItem(Guid MaterialCategoriesId, string BusinessItem, Guid ManufacturersId)
         {
             try
@@ -31,8 +41,8 @@ namespace Tokiku.ViewModels
                         foreach (var row in objectdataset)
                         {
                             ManufacturersBussinessItemsViewModel model = new ManufacturersBussinessItemsViewModel();
-                            model.DoEvents();
-                            model.SetModel(row);
+                           
+                            
                             Add(model);
                         }
                     }
@@ -67,13 +77,13 @@ namespace Tokiku.ViewModels
                         foreach (var row in bi)
                         {
                             ManufacturersBussinessItemsViewModel model = new ManufacturersBussinessItemsViewModel();
-                            model.DoEvents();
-                            model.SetModel(row);
-                            model.MaterialCategories = row.MaterialCategories.Name;
-                            model.PaymentTypeName = row.PaymentTypes.PaymentTypeName;
-                            model.TicketPeriod = row.TicketPeriod.Name;
-                            model.PaymentTypeName = row.PaymentTypes.PaymentTypeName;
-                            model.TranscationCategories = row.TranscationCategories.Name;
+                           
+                            //model.SetModel(row);
+                            //model.MaterialCategories = row.MaterialCategories.Name;
+                            //model.PaymentTypeName = row.PaymentTypes.PaymentTypeName;
+                            //model.TicketPeriod = row.TicketPeriod.Name;
+                            //model.PaymentTypeName = row.PaymentTypes.PaymentTypeName;
+                            //model.TranscationCategories = row.TranscationCategories.Name;
                             
                             Add(model);
                         }
@@ -101,8 +111,8 @@ namespace Tokiku.ViewModels
                         if (!Items.Where(w => w.Name == row.Name).Any())
                         {
                             ManufacturersBussinessItemsViewModel model = new ManufacturersBussinessItemsViewModel();
-                            model.DoEvents();
-                            model.SetModel(row);
+                           
+                         
                             Add(model);
                         }
                     }
@@ -132,7 +142,7 @@ namespace Tokiku.ViewModels
                         foreach (var row in objectdataset)
                         {
                             ManufacturersBussinessItemsViewModel model = new ManufacturersBussinessItemsViewModel();
-                            model.SetModel(row);
+                           
                             Add(model);
                         }
                     }
@@ -146,40 +156,26 @@ namespace Tokiku.ViewModels
         }
     }
 
-    public class ManufacturersBussinessItemsViewModel : BaseViewModel
+    public class ManufacturersBussinessItemsViewModel : BaseViewModelWithPOCOClass<ManufacturersBussinessItems>
     {
-
-
-        #region Id
-
-
-        public Guid Id
+        public ManufacturersBussinessItemsViewModel():base()
         {
-            get { return (Guid)GetValue(IdProperty); }
-            set { SetValue(IdProperty, value); }
+
         }
 
-        // Using a DependencyProperty as the backing store for Id.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty IdProperty =
-            DependencyProperty.Register("Id", typeof(Guid), typeof(ManufacturersBussinessItemsViewModel), new PropertyMetadata(Guid.NewGuid()));
+        public ManufacturersBussinessItemsViewModel(ManufacturersBussinessItems entity):base(entity)
+        {
 
-
-        #endregion
+        }
 
         #region MaterialCategoriesId
 
 
-        public Guid MaterialCategoriesId
+        public Guid? MaterialCategoriesId
         {
-            get { return (Guid)GetValue(MaterialCategoriesIdProperty); }
-            set { SetValue(MaterialCategoriesIdProperty, value); }
+            get { return CopyofPOCOInstance.MaterialCategoriesId; }
+            set { CopyofPOCOInstance.MaterialCategoriesId = value; RaisePropertyChanged("MaterialCategoriesId"); }
         }
-
-        // Using a DependencyProperty as the backing store for MaterialCategoriesId.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty MaterialCategoriesIdProperty =
-            DependencyProperty.Register("MaterialCategoriesId", typeof(Guid), typeof(ManufacturersBussinessItemsViewModel), new PropertyMetadata(Guid.Empty
-                , new PropertyChangedCallback(DefaultFieldChanged)));
-
 
         #endregion
 
@@ -189,13 +185,11 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string MaterialCategories
         {
-            get { return (string)GetValue(MaterialCategoriesProperty); }
-            set { SetValue(MaterialCategoriesProperty, value); }
+            get { return CopyofPOCOInstance.MaterialCategories.Name; }
+            set {  RaisePropertyChanged("MaterialCategories"); }
         }
 
-        // Using a DependencyProperty as the backing store for MaterialCategories.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty MaterialCategoriesProperty =
-            DependencyProperty.Register("MaterialCategories", typeof(string), typeof(ManufacturersBussinessItemsViewModel), new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
+     
 
         #endregion
 
@@ -206,14 +200,11 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string Name
         {
-            get { return (string)GetValue(NameProperty); }
-            set { SetValue(NameProperty, value); }
+            get { return CopyofPOCOInstance.Name; }
+            set { CopyofPOCOInstance.Name = value; RaisePropertyChanged("Name"); }
         }
 
-        // Using a DependencyProperty as the backing store for Name.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty NameProperty =
-            DependencyProperty.Register("Name", typeof(string), typeof(ManufacturersBussinessItemsViewModel), new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
-
+       
 
         #endregion
 
@@ -222,15 +213,9 @@ namespace Tokiku.ViewModels
 
         public byte PaymentTypeId
         {
-            get { return (byte)GetValue(PaymentTypeIdProperty); }
-            set { SetValue(PaymentTypeIdProperty, value); }
+            get { return CopyofPOCOInstance.PaymentTypeId.HasValue ? CopyofPOCOInstance.PaymentTypeId.Value : (byte)0; }
+            set { CopyofPOCOInstance.PaymentTypeId = value; RaisePropertyChanged("PaymentTypeId"); }
         }
-
-        // Using a DependencyProperty as the backing store for PaymentTypeId.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty PaymentTypeIdProperty =
-            DependencyProperty.Register("PaymentTypeId", typeof(byte), typeof(ManufacturersBussinessItemsViewModel), new PropertyMetadata((byte)0
-                , new PropertyChangedCallback(DefaultFieldChanged)));
-
 
         #endregion
 
@@ -239,15 +224,9 @@ namespace Tokiku.ViewModels
 
         public string PaymentTypeName
         {
-            get { return (string)GetValue(PaymentTypeNameProperty); }
-            set { SetValue(PaymentTypeNameProperty, value); }
+            get { return CopyofPOCOInstance.PaymentTypes.PaymentTypeName; }
+         
         }
-
-        // Using a DependencyProperty as the backing store for PaymentTypes.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty PaymentTypeNameProperty =
-            DependencyProperty.Register("PaymentTypeName ", typeof(string), typeof(ManufacturersBussinessItemsViewModel),
-                new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
-
 
         #endregion
 
@@ -256,14 +235,11 @@ namespace Tokiku.ViewModels
 
         public int TicketPeriodId
         {
-            get { return (int)GetValue(TicketPeriodIdProperty); }
-            set { SetValue(TicketPeriodIdProperty, value); }
+            get { return CopyofPOCOInstance.TicketPeriodId.HasValue ? CopyofPOCOInstance.TicketPeriodId.Value : 0; }
+            set { CopyofPOCOInstance.TicketPeriodId = value; RaisePropertyChanged("TicketPeriodId"); }
         }
 
-        // Using a DependencyProperty as the backing store for TicketTypeId.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty TicketPeriodIdProperty =
-            DependencyProperty.Register("TicketPeriodId", typeof(int), typeof(ManufacturersBussinessItemsViewModel),
-                new PropertyMetadata(1, new PropertyChangedCallback(DefaultFieldChanged)));
+      
 
 
         #endregion
@@ -275,30 +251,20 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string TicketPeriod
         {
-            get { return (string)GetValue(TicketPeriodProperty); }
-            set { SetValue(TicketPeriodProperty, value); }
+            get { return CopyofPOCOInstance.TicketPeriod.Name; }
+         
         }
-
-        // Using a DependencyProperty as the backing store for TicketTypes.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty TicketPeriodProperty =
-            DependencyProperty.Register("TicketPeriod", typeof(string), typeof(ManufacturersBussinessItemsViewModel),
-                new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
-
-
         #endregion
 
         #region ManufacturersId
 
         public Guid ManufacturersId
         {
-            get { return (Guid)GetValue(ManufacturersIdProperty); }
-            set { SetValue(ManufacturersIdProperty, value); }
+            get { return CopyofPOCOInstance.ManufacturersId; }
+            set { CopyofPOCOInstance.ManufacturersId = value; RaisePropertyChanged("ManufacturersId"); }
         }
 
-        // Using a DependencyProperty as the backing store for ManufacturersId.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ManufacturersIdProperty =
-            DependencyProperty.Register("ManufacturersId", typeof(Guid), typeof(ManufacturersBussinessItemsViewModel),
-                new PropertyMetadata(Guid.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
+  
 
         #endregion
 
@@ -307,17 +273,13 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 交易類別ID
         /// </summary>
-        public int TranscationCategoriesId
+        public int? TranscationCategoriesId
         {
-            get { return (int)GetValue(TranscationCategoriesIdProperty); }
-            set { SetValue(TranscationCategoriesIdProperty, value); }
+            get { return CopyofPOCOInstance.TranscationCategoriesId; }
+            set { CopyofPOCOInstance.TranscationCategoriesId = value;RaisePropertyChanged("TranscationCategoriesId"); }
         }
 
-        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty TranscationCategoriesIdProperty =
-            DependencyProperty.Register("TranscationCategoriesId", typeof(int),
-                typeof(ManufacturersBussinessItemsViewModel), new PropertyMetadata(0, new PropertyChangedCallback(DefaultFieldChanged)
-                    ));
+    
 
 
         #endregion
@@ -329,84 +291,76 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string TranscationCategories
         {
-            get { return (string)GetValue(TranscationCategoriesProperty); }
-            set { SetValue(TranscationCategoriesProperty, value); }
+            get { return CopyofPOCOInstance.TranscationCategories.Name; }
+          
         }
 
-        // Using a DependencyProperty as the backing store for TranscationCategories.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty TranscationCategoriesProperty =
-            DependencyProperty.Register("TranscationCategories", typeof(string),
-                typeof(ManufacturersBussinessItemsViewModel), new PropertyMetadata(string.Empty,
-                    new PropertyChangedCallback(DefaultFieldChanged)));
-
+    
         #endregion
 
 
 
         public Manufacturers Manufacturers
         {
-            get { return (Manufacturers)GetValue(ManufacturersProperty); }
-            set { SetValue(ManufacturersProperty, value); }
+            get { return CopyofPOCOInstance.Manufacturers; }
+            set { Manufacturers = value; RaisePropertyChanged("Manufacturers"); }
         }
 
-        // Using a DependencyProperty as the backing store for Manufacturers.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ManufacturersProperty =
-            DependencyProperty.Register("Manufacturers", typeof(Manufacturers), typeof(ManufacturersBussinessItemsViewModel), new PropertyMetadata(default(Manufacturers)));
+       
 
 
-
-        public override void SetModel(dynamic entity)
-        {
-            if (!Dispatcher.CheckAccess())
-            {
-                Dispatcher.Invoke(DispatcherPriority.Background,
-                    new Action<dynamic>(SetModel), entity);
-            }
-            else
-            {
-                try
-                {
-                    if (entity is View_BussinessItemsList)
-                    {
-                        View_BussinessItemsList data = (View_BussinessItemsList)entity;
-                        if (data != null)
-                        {
-                            BindingFromModel(data, this);
-                        }
+        //public override void SetModel(dynamic entity)
+        //{
+        //    if (!Dispatcher.CheckAccess())
+        //    {
+        //        Dispatcher.Invoke(DispatcherPriority.Background,
+        //            new Action<dynamic>(SetModel), entity);
+        //    }
+        //    else
+        //    {
+        //        try
+        //        {
+        //            if (entity is View_BussinessItemsList)
+        //            {
+        //                View_BussinessItemsList data = (View_BussinessItemsList)entity;
+        //                if (data != null)
+        //                {
+        //                    BindingFromModel(data, this);
+        //                }
                         
-                    }
-                    else
-                    {
-                        if (entity is ManufacturersBussinessItems)
-                        {
-                            ManufacturersBussinessItems data = (ManufacturersBussinessItems)entity;
-                            BindingFromModel(data, this);
-                            this.Manufacturers = data.Manufacturers;
+        //            }
+        //            else
+        //            {
+        //                if (entity is ManufacturersBussinessItems)
+        //                {
+        //                    ManufacturersBussinessItems data = (ManufacturersBussinessItems)entity;
+        //                    BindingFromModel(data, this);
+        //                    this.Manufacturers = data.Manufacturers;
                            
-                            if (data.Manufacturers != null)
-                            {
-                                MaterialCategories = data.MaterialCategories.Name;
-                            }
-                            if (data.PaymentTypes != null)
-                            {
-                                PaymentTypeName = data.PaymentTypes.PaymentTypeName;
-                            }
-                            if (data.TranscationCategories != null)
-                            {
-                                TranscationCategories = data.TranscationCategories.Name;
-                            }
-                            if (data.TicketPeriod != null)
-                            {
-                                TicketPeriod = data.TicketPeriod.Name;
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    setErrortoModel(this, ex);
-                }
-            }
-        }
+        //                    if (data.Manufacturers != null)
+        //                    {
+        //                        MaterialCategories = data.MaterialCategories.Name;
+        //                    }
+        //                    if (data.PaymentTypes != null)
+        //                    {
+        //                        PaymentTypeName = data.PaymentTypes.PaymentTypeName;
+        //                    }
+        //                    if (data.TranscationCategories != null)
+        //                    {
+        //                        TranscationCategories = data.TranscationCategories.Name;
+        //                    }
+        //                    if (data.TicketPeriod != null)
+        //                    {
+        //                        TicketPeriod = data.TicketPeriod.Name;
+        //                    }
+        //                }
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            setErrortoModel(this, ex);
+        //        }
+        //    }
+        //}
     }
 }

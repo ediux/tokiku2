@@ -89,7 +89,6 @@
     <Compile Include="ContactPerson\ContactsViewModel.cs" />
     <Compile Include="Manufacturers\ManufacturersViewModel.cs" />
     <Compile Include="MES\MaterialsViewModel.cs" />
-    <Compile Include="Base\BaseViewModel.cs" />
     <Compile Include="Base\DocumentStatusViewModel.cs" />
     <Compile Include="Base\IBaseViewModel.cs" />
     <Compile Include="Base\IBaseViewModelWithLoginedUser.cs" />

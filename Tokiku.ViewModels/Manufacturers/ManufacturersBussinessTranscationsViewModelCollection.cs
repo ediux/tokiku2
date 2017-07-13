@@ -9,10 +9,7 @@ namespace Tokiku.ViewModels
 {
     public class ManufacturersBussinessTranscationsViewModelCollection : BaseViewModelCollection<ManufacturersBussinessTranscationsViewModel>
     {
-        public override void SaveModel()
-        {
-
-        }
+   
 
         public void Query(Guid ManufacturersId)
         {
@@ -29,7 +26,7 @@ namespace Tokiku.ViewModels
                         foreach (var row in objectdataset)
                         {
                             ManufacturersBussinessTranscationsViewModel model = new ManufacturersBussinessTranscationsViewModel();
-                            model.SetModel(row);
+                           
                             Add(model);
                         }
                     }
@@ -41,9 +38,6 @@ namespace Tokiku.ViewModels
             }
         }
 
-        public override void Query()
-        {
-           
-        }
+      
     }
 }

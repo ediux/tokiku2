@@ -27,9 +27,7 @@ namespace Tokiku.ViewModels
         }
 
         #region 目前選定的專案
-        public static readonly DependencyProperty CurrentProjectProperty =
-                   DependencyProperty.Register("CurrentProject", typeof(ProjectsViewModel), typeof(MainViewModel),
-                       new PropertyMetadata(default(ProjectsViewModel)));
+        private ProjectsViewModel _CurrentProject;
 
         /// <summary>
         /// 目前選定的專案
@@ -38,82 +36,73 @@ namespace Tokiku.ViewModels
         {
             get
             {
-                return GetValue(CurrentProjectProperty) as ProjectsViewModel;
+                return _CurrentProject;
             }
 
             set
             {
-                SetValue(CurrentProjectProperty, value);
+                _CurrentProject = value;
                 RaisePropertyChanged("CurrentProject");
             }
         }
         #endregion
 
         #region 專案列表
-
+        private ProjectListViewModelCollection _Projects;
         /// <summary>
         /// 專案列表
         /// </summary>
         public ProjectListViewModelCollection Projects
         {
-            get { return (ProjectListViewModelCollection)GetValue(ProjectsProperty); }
-            set { SetValue(ProjectsProperty, value); RaisePropertyChanged("Projects"); }
+            get { return _Projects; }
+            set { _Projects = value; RaisePropertyChanged("Projects"); }
         }
 
-        // Using a DependencyProperty as the backing store for Projects.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ProjectsProperty =
-            DependencyProperty.Register("Projects", typeof(ProjectListViewModelCollection), typeof(MainViewModel),
-                new PropertyMetadata(default(ProjectListViewModelCollection)));
+
         #endregion
 
         #region 廠商列表
+        private ManufacturersViewModelCollection _Manufacturers;
         /// <summary>
         /// 廠商列表
         /// </summary>
         public ManufacturersViewModelCollection Manufacturers
         {
-            get { return (ManufacturersViewModelCollection)GetValue(ManufacturersProperty); }
-            set { SetValue(ManufacturersProperty, value); RaisePropertyChanged("Manufacturers"); }
+            get { return _Manufacturers; }
+            set { _Manufacturers = value; RaisePropertyChanged("Manufacturers"); }
         }
 
-        // Using a DependencyProperty as the backing store for Manufacturers.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ManufacturersProperty =
-            DependencyProperty.Register("Manufacturers", typeof(ManufacturersViewModelCollection), typeof(MainViewModel),
-                new PropertyMetadata(default(ManufacturersViewModelCollection)));
+
         #endregion
 
         #region 客戶列表
-
+        private ClientViewModelCollection _Clients;
         /// <summary>
         /// 客戶列表
         /// </summary>
         public ClientViewModelCollection Clients
         {
-            get { return (ClientViewModelCollection)GetValue(ClientsProperty); }
-            set { SetValue(ClientsProperty, value); }
+            get { return _Clients; }
+            set { _Clients = value; RaisePropertyChanged("Clients"); }
         }
 
-        // Using a DependencyProperty as the backing store for Clients.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ClientsProperty =
-            DependencyProperty.Register("Clients", typeof(ClientViewModelCollection), typeof(MainViewModel), new PropertyMetadata(default(ObservableCollection<ClientViewModel>)));
-
+     
 
 
         #endregion
 
         #region 工具列狀態
+        private ToolbarButtonsViewModel _ToolBarButtons;
         /// <summary>
         /// 工具列按鈕狀態
         /// </summary>
         public ToolbarButtonsViewModel ToolBarButtons
         {
-            get { return (ToolbarButtonsViewModel)GetValue(ToolBarButtonsProperty); }
-            set { SetValue(ToolBarButtonsProperty, value); }
+            get { return _ToolBarButtons; }
+            set { _ToolBarButtons = value; RaisePropertyChanged("ToolBarButtons"); }
         }
 
-        // Using a DependencyProperty as the backing store for ToolBarButtons.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ToolBarButtonsProperty =
-            DependencyProperty.Register("ToolBarButtons", typeof(ToolbarButtonsViewModel), typeof(MainViewModel), new PropertyMetadata(default(ToolbarButtonsViewModel)));
+    
         #endregion
 
         public override void Initialized()
@@ -129,12 +118,13 @@ namespace Tokiku.ViewModels
 
         }
 
-        public override async void Query()
+        public  void Query()
         {
             //非同步讀取資料庫
-            await Dispatcher.InvokeAsync(new Action(Projects.Query), System.Windows.Threading.DispatcherPriority.Background);
-            await Dispatcher.InvokeAsync(new Action(Manufacturers.Query), System.Windows.Threading.DispatcherPriority.Background);
-            await Dispatcher.InvokeAsync(new Action(Clients.Query), System.Windows.Threading.DispatcherPriority.Background);
+            _Projects = ProjectListViewModelCollection.Query<ProjectListViewModelCollection, Projects>("", "");
+            //await Dispatcher.InvokeAsync(new Action(Projects.Query), System.Windows.Threading.DispatcherPriority.Background);
+            //await Dispatcher.InvokeAsync(new Action(Manufacturers.Query), System.Windows.Threading.DispatcherPriority.Background);
+            //await Dispatcher.InvokeAsync(new Action(Clients.Query), System.Windows.Threading.DispatcherPriority.Background);
           
         }
     }

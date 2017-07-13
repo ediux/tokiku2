@@ -21,6 +21,6 @@ namespace Tokiku.Controllers
         ExecuteResultEntity<ICollection<T>> Query(Expression<Func<T, bool>> filiter);
         ExecuteResultEntity<T> Update(T fromModel, bool isLastRecord = true);
         ExecuteResultEntity Delete(Expression<Func<T, bool>> condtion);
-        ExecuteResultEntity<T> CreateOrUpdate(T entity);
+        ExecuteResultEntity<T> CreateOrUpdate(T entity,bool isLastRecord = true);
     }
 }

@@ -6,10 +6,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public abstract class BaseViewModelCollection<TView> : ObservableCollection<TView>, IBaseViewModel where TView : IBaseViewModel
+    public abstract class BaseViewModelCollection<TView> : ObservableCollection<TView>, IBaseViewModel where TView : ISingleBaseViewModel
     {
         public BaseViewModelCollection()
         {
@@ -26,7 +27,7 @@ namespace Tokiku.ViewModels
         /// </summary>
         /// <param name="model">檢視模型型別。</param>
         /// <param name="ex">例外錯誤狀況執行個體。</param>
-        protected static void setErrortoModel(BaseViewModelCollection<TView> model, Exception ex)
+        public static void setErrortoModel(BaseViewModelCollection<TView> model, Exception ex)
         {
             if (model == null)
                 model = (BaseViewModelCollection<TView>)Activator.CreateInstance(model.GetType());
@@ -43,7 +44,7 @@ namespace Tokiku.ViewModels
         /// </summary>
         /// <param name="model"></param>
         /// <param name="Message"></param>
-        protected static void setErrortoModel(BaseViewModelCollection<TView> model, string Message)
+        public static void setErrortoModel(BaseViewModelCollection<TView> model, string Message)
         {
             if (model == null)
                 model = (BaseViewModelCollection<TView>)Activator.CreateInstance(model.GetType());
@@ -74,32 +75,94 @@ namespace Tokiku.ViewModels
         }
 
         /// <summary>
-        /// 儲存或更新檢視模型
+        /// 對指定控制器發出查詢呼叫。
         /// </summary>
-        public virtual void SaveModel()
+        /// <typeparam name="TResult">回傳的資料實體類別。</typeparam>
+        /// <param name="ControllerName">控制器名稱</param>
+        /// <param name="ActionName">動作名稱(方法名稱)</param>
+        /// <param name="values">動作方法參數</param>
+        /// <returns>傳回指定檢視模型集合。</returns>
+        public static TCollection Query<TCollection, TResult>(string ControllerName, string ActionName, params object[] values)
+            where TCollection : BaseViewModelCollection<TView>
+            where TResult : class
         {
-            foreach (var row in Items)
+            TCollection collection = null;
+
+            try
             {
-                if (row != null)
-                    row.SaveModel();
+                string controllerfullname = string.Format("Tokiku.Controllers.{0}Controller", ControllerName);
+
+                Type ControllerType = Type.GetType(controllerfullname);
+
+                if (ControllerType == null)
+                {
+                    throw new Exception(string.Format("Controller '{0}' not found.", ControllerName));
+                }
+
+                var ctrl = Activator.CreateInstance(ControllerType);
+
+                if (ctrl == null)
+                {
+                    throw new NullReferenceException();
+                }
+
+                var method = ControllerType.GetMethod(ActionName);
+
+                if (method != null)
+                {
+                    ExecuteResultEntity<ICollection<TResult>> result =
+                        (ExecuteResultEntity<ICollection<TResult>>)method.Invoke(ctrl, values);
+
+                    if (!result.HasError)
+                    {
+                        collection = (TCollection)Activator.CreateInstance(typeof(TCollection),
+                           result.Result.Select(s => (TView)Activator.CreateInstance(typeof(TView), s)));
+
+                        return collection;
+                    }
+                    else
+                    {
+                        collection = Activator.CreateInstance<TCollection>();
+                        collection.Errors = result.Errors;
+                        collection.HasError = true;
+                        return collection;
+                    }
+                }
+                else
+                {
+                    throw new Exception(string.Format("Action '{0}' not found.", ActionName));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                if (collection == null)
+                    collection = Activator.CreateInstance<TCollection>();
+
+                setErrortoModel(collection, ex);
+                return collection;
             }
         }
 
         /// <summary>
-        /// 查詢全部資料
+        /// 儲存或更新檢視模型
         /// </summary>
-        public virtual void Query()
+        public virtual void SaveModel(string ControllerName)
         {
+            try
+            {
+                int i = 0;
 
-        }
-
-
-        /// <summary>
-        /// 重新整理檢視模型
-        /// </summary>
-        public virtual void Refresh()
-        {
-            Query();
+                foreach (var item in Items)
+                {
+                    item.SaveModel(ControllerName, i== (Items.Count-1));
+                    i++;
+                }
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
         }
 
         /// <summary>
@@ -334,14 +397,5 @@ namespace Tokiku.ViewModels
             }
         }
 
-        public void SetModel(dynamic entity)
-        {
-            throw new NotSupportedException();
-        }
-
-        public Task QueryAsync()
-        {
-            throw new NotSupportedException();
-        }
     }
 }

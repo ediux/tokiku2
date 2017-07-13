@@ -37,24 +37,9 @@ namespace Tokiku.ViewModels
 
     }
 
-    public class RequiredViewModel : BaseViewModel
+    public class RequiredViewModel : BaseViewModelWithPOCOClass<Required>
     {
-        public override void SetModel(dynamic entity)
-        {
-            try
-            {
-                if (entity is RequiredEntity)
-                {
-                    RequiredEntity data = (RequiredEntity)entity;
-                    BindingFromModel(data, this);
-                }
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-                throw;
-            }
-        }
+       
 
     }
 }

@@ -495,7 +495,7 @@ namespace Tokiku.Controllers
         /// 新增或更新資料至資料庫。
         /// </summary>
         /// <param name="model">已經變更的資料實體物件(來自UI)</param>
-        public virtual ExecuteResultEntity<T> CreateOrUpdate(T entity)
+        public virtual ExecuteResultEntity<T> CreateOrUpdate(T entity,bool isLastRecord = true)
         {
             try
             {
@@ -508,7 +508,7 @@ namespace Tokiku.Controllers
                 //檢查資料庫資料是否存在?
                 if (repo.Get(IdentifyPrimaryKey(entity)) != null)
                 {
-                    var update_result = Update(entity);
+                    var update_result = Update(entity, isLastRecord);
 
                     if (update_result.HasError)
                     {
@@ -520,7 +520,7 @@ namespace Tokiku.Controllers
                 }
                 else
                 {
-                    var add_result = Add(entity);
+                    var add_result = Add(entity, isLastRecord);
                     if (add_result.HasError)
                     {
                         return new ExecuteResultEntity<T>()

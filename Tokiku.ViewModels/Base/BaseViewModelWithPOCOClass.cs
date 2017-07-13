@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class BaseViewModelWithPOCOClass<TPOCO> : IBaseViewModel where TPOCO : class
+    public class BaseViewModelWithPOCOClass<TPOCO> : ISingleBaseViewModel where TPOCO : class
     {
         protected TPOCO CopyofPOCOInstance;
 
@@ -22,14 +23,18 @@ namespace Tokiku.ViewModels
 
         public BaseViewModelWithPOCOClass(TPOCO entity)
         {
+            Initialized();
+            Status.IsNewInstance = false;
             CopyofPOCOInstance = entity;
             EntityType = entity.GetType();
-            Initialized();
         }
 
         public virtual void Initialized()
         {
-
+            Status = new DocumentStatusViewModel();
+            Status.IsNewInstance = true;
+            Status.IsModify = false;
+            Status.IsSaved = false;
         }
 
         protected Type _EntityType;
@@ -65,6 +70,9 @@ namespace Tokiku.ViewModels
         /// <param name="PropertyName">發生變更的屬性名稱。</param>
         protected void RaisePropertyChanged(string PropertyName)
         {
+            Status.IsModify = true;
+            Status.IsSaved = false;
+
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
         }
 
@@ -142,10 +150,10 @@ namespace Tokiku.ViewModels
         /// </summary>
         /// <param name="model">檢視模型型別。</param>
         /// <param name="ex">例外錯誤狀況執行個體。</param>
-        protected static void setErrortoModel(IBaseViewModel model, Exception ex)
+        protected static void setErrortoModel(ISingleBaseViewModel model, Exception ex)
         {
             if (model == null)
-                model = (IBaseViewModel)Activator.CreateInstance(model.GetType());
+                model = (ISingleBaseViewModel)Activator.CreateInstance(model.GetType());
 
             if (model.Errors == null)
                 model.Errors = new string[] { }.AsEnumerable();
@@ -159,10 +167,10 @@ namespace Tokiku.ViewModels
         /// </summary>
         /// <param name="model"></param>
         /// <param name="Message"></param>
-        protected static void setErrortoModel(IBaseViewModel model, string Message)
+        protected static void setErrortoModel(ISingleBaseViewModel model, string Message)
         {
             if (model == null)
-                model = (IBaseViewModel)Activator.CreateInstance(model.GetType());
+                model = (ISingleBaseViewModel)Activator.CreateInstance(model.GetType());
 
             if (model.Errors == null)
                 model.Errors = new string[] { }.AsEnumerable();
@@ -171,39 +179,131 @@ namespace Tokiku.ViewModels
         }
 
         /// <summary>
-        /// 將具備POCO特性的資料類別實體的內容抄寫到目前檢視模型中。
+        /// 對指定控制器發出單一查詢呼叫。
         /// </summary>
-        /// <param name="entity"></param>
-        public virtual void SetModel(dynamic entity)
+        /// <typeparam name="TResult">回傳的資料實體類別。</typeparam>
+        /// <param name="ControllerName">控制器名稱</param>
+        /// <param name="ActionName">動作名稱(方法名稱)</param>
+        /// <param name="values">動作方法參數</param>
+        /// <returns>傳回指定檢視模型。</returns>
+        public static TView QuerySingle<TView, TResult>(string ControllerName, string ActionName, params object[] values)
+            where TView : BaseViewModelWithPOCOClass<TPOCO>
+            where TResult : class
         {
+            TView viewmodel = null;
+
             try
             {
-                if (entity is TPOCO)
+                string controllerfullname = string.Format("Tokiku.Controllers.{0}Controller", ControllerName);
+
+                Type ControllerType = Type.GetType(controllerfullname);
+
+                if (ControllerType == null)
                 {
-                    TPOCO data = (TPOCO)entity;
-                    CopyofPOCOInstance = data;
-                    BindingFromModel(data);
+                    throw new Exception(string.Format("Controller '{0}' not found.", ControllerName));
                 }
+
+                var ctrl = Activator.CreateInstance(ControllerType);
+
+                if (ctrl == null)
+                {
+                    throw new NullReferenceException();
+                }
+
+                var method = ControllerType.GetMethod(ActionName);
+
+                if (method != null)
+                {
+                    ExecuteResultEntity<TResult> result =
+                        (ExecuteResultEntity<TResult>)method.Invoke(ctrl, values);
+
+                    if (!result.HasError)
+                    {
+                        viewmodel = (TView)Activator.CreateInstance(typeof(TView),
+                           result.Result);
+
+                        return viewmodel;
+                    }
+                    else
+                    {
+                        viewmodel = Activator.CreateInstance<TView>();
+                        viewmodel.Errors = result.Errors;
+                        viewmodel.HasError = true;
+                        return viewmodel;
+                    }
+                }
+                else
+                {
+                    throw new Exception(string.Format("Action '{0}' not found.", ActionName));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                if (viewmodel == null)
+                    viewmodel = Activator.CreateInstance<TView>();
+
+                setErrortoModel(viewmodel, ex);
+                return viewmodel;
+            }
+        }
+
+        /// <summary>
+        /// 儲存資料檢視模型
+        /// </summary>
+        /// <param name="ControllerName">控制器名稱</param>
+        /// <param name="isLast">控制旗標(多列更新使用)</param>
+        public virtual void SaveModel(string ControllerName, bool isLast = true)
+        {
+            string ActionName = "CreateOrUpdate";
+
+            try
+            {
+                string controllerfullname = string.Format("Tokiku.Controllers.{0}Controller", ControllerName);
+
+                Type ControllerType = Type.GetType(controllerfullname);
+
+                if (ControllerType == null)
+                {
+                    throw new Exception(string.Format("Controller '{0}' not found.", ControllerName));
+                }
+
+                var ctrl = Activator.CreateInstance(ControllerType);
+
+                if (ctrl == null)
+                {
+                    throw new NullReferenceException();
+                }
+
+                var method = ControllerType.GetMethod(ActionName);
+
+                if (method != null)
+                {
+                    ExecuteResultEntity<TPOCO> result =
+                        (ExecuteResultEntity<TPOCO>)method.Invoke(ctrl, new object[] { CopyofPOCOInstance, isLast });
+
+                    if (!result.HasError)
+                    {
+                        CopyofPOCOInstance = result.Result;
+                    }
+                    else
+                    {
+                        
+                        Errors = result.Errors;
+                        HasError = true;
+                        
+                    }
+                }
+                else
+                {
+                    throw new Exception(string.Format("Action '{0}' not found.", ActionName));
+                }
+
             }
             catch (Exception ex)
             {
                 setErrortoModel(this, ex);
             }
-        }
-
-        public virtual void Query()
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual void Refresh()
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual void SaveModel()
-        {
-            throw new NotImplementedException();
         }
     }
 }

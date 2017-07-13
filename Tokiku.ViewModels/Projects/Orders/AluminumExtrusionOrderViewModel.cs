@@ -61,7 +61,7 @@ namespace Tokiku.ViewModels
             }
         }
 
-        public override void Query()
+        public static  Query()
         {
             AluminumExtrusionOrderController ctrl = new AluminumExtrusionOrderController();
             ExecuteResultEntity<ICollection<AluminumExtrusionOrderEntity>> ere = ctrl.QuerAll();
