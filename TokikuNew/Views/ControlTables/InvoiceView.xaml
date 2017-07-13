@@ -41,7 +41,7 @@
                                     <ColumnDefinition Width="auto" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="ID" Margin="2,2,0,2" VerticalAlignment="Center" />
-                                <TextBox Grid.Column="1" Text="54321" IsReadOnly="True" Margin="2" TextAlignment="Center" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="1" IsReadOnly="True" Margin="2" TextAlignment="Center" VerticalAlignment="Center" Text="{Binding Order, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <TextBlock Grid.Column="2" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
                                 <TextBlock Grid.Column="3" Text="請款單號" VerticalAlignment="Center" />
                                 <TextBox Grid.Column="4" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding InvoiceNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
