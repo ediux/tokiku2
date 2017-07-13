@@ -9,6 +9,14 @@
              xmlns:controls ="clr-namespace:TokikuNew.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="ProjoectListSource" ObjectType="{x:Type vm:ProjectListViewModelCollection}"/>
+    </UserControl.Resources>
+    <UserControl.CommandBindings>
+        <CommandBinding Command="{DynamicResource Query}"
+                        CanExecute="CommandBinding_CanExecute"
+                        Executed="CommandBinding_Executed" />
+    </UserControl.CommandBindings>
     <Grid Background="{DynamicResource ControlBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>
@@ -29,7 +37,7 @@
                 <Button Grid.Column="1" Margin="1" Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" Name="btnNew" Click="btnNew_Click" ToolTip="新增"></Button>
             </Grid>
         </Grid>
-        <controls:CustomDataGrid x:Name="ProjectList" Grid.Row="1" Margin="5" ItemsSource="{Binding}" 
+        <controls:CustomDataGrid x:Name="ProjectList" Grid.Row="1" Margin="5" ItemsSource="{Binding Source={StaticResource ProjoectListSource}}" 
                                  FontSize="20" MinRowHeight="50" CellStyle="{StaticResource DataGrid_Centering}"
                                  AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto"
                                  AlternatingRowBackground="AliceBlue"  AlternationCount="2"
