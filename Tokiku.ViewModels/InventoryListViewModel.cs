@@ -20,41 +20,41 @@ namespace Tokiku.ViewModels
 
         }
 
-        public override void Query()
-        {
-            InventoryListController ctrl = new InventoryListController();
-            ExecuteResultEntity<ICollection<InventoryListEntity>> ere = ctrl.QuerAll();
-            if (!ere.HasError)
-            {
-                InventoryListViewModel vm = new InventoryListViewModel();
-                foreach (var item in ere.Result)
-                {
-                    vm.SetModel(item);
-                    Add(vm);
-                }
-            }
-        }
+        //public override void Query()
+        //{
+        //    InventoryListController ctrl = new InventoryListController();
+        //    ExecuteResultEntity<ICollection<InventoryListEntity>> ere = ctrl.QuerAll();
+        //    if (!ere.HasError)
+        //    {
+        //        InventoryListViewModel vm = new InventoryListViewModel();
+        //        foreach (var item in ere.Result)
+        //        {
+        //            vm.SetModel(item);
+        //            Add(vm);
+        //        }
+        //    }
+        //}
 
     }
 
-    public class InventoryListViewModel : BaseViewModel
+    public class InventoryListViewModel : BaseViewModelWithPOCOClass<InventoryListEntity>
     {
-        public override void SetModel(dynamic entity)
-        {
-            try
-            {
-                if (entity is InventoryListEntity)
-                {
-                    InventoryListEntity data = (InventoryListEntity)entity;
-                    BindingFromModel(data, this);
-                }
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-                throw;
-            }
-        }
+        //public override void SetModel(dynamic entity)
+        //{
+        //    try
+        //    {
+        //        if (entity is InventoryListEntity)
+        //        {
+        //            InventoryListEntity data = (InventoryListEntity)entity;
+        //            BindingFromModel(data, this);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        setErrortoModel(this, ex);
+        //        throw;
+        //    }
+        //}
 
     }
 }

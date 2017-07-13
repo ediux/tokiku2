@@ -21,46 +21,55 @@ namespace Tokiku.ViewModels
 
         }
 
-        public override void Query()
-        {
-            AluminumExtrusionOrderMiscellaneousController ctrl = new AluminumExtrusionOrderMiscellaneousController();
-            ExecuteResultEntity<ICollection<AluminumExtrusionOrderMiscellaneousEntity>> ere = ctrl.QuerAll();
-            if (!ere.HasError)
-            {
-                AluminumExtrusionOrderMiscellaneousViewModel vm = new AluminumExtrusionOrderMiscellaneousViewModel();
-                foreach (var item in ere.Result)
-                {
-                    vm.SetModel(item);
-                    Add(vm);
-                }
-            }
-        }
+        //public override void Query()
+        //{
+        //    AluminumExtrusionOrderMiscellaneousController ctrl = new AluminumExtrusionOrderMiscellaneousController();
+        //    ExecuteResultEntity<ICollection<AluminumExtrusionOrderMiscellaneousEntity>> ere = ctrl.QuerAll();
+        //    if (!ere.HasError)
+        //    {
+        //        AluminumExtrusionOrderMiscellaneousViewModel vm = new AluminumExtrusionOrderMiscellaneousViewModel();
+        //        foreach (var item in ere.Result)
+        //        {
+        //            vm.SetModel(item);
+        //            Add(vm);
+        //        }
+        //    }
+        //}
 
     }
-    public class AluminumExtrusionOrderMiscellaneousViewModel : BaseViewModel
+    public class AluminumExtrusionOrderMiscellaneousViewModel : BaseViewModelWithPOCOClass<AluminumExtrusionOrderMiscellaneousEntity>
     {
-        public override void SetModel(dynamic entity)
+        public AluminumExtrusionOrderMiscellaneousViewModel()
         {
-            try
-            {
-                if (entity is AluminumExtrusionOrderMiscellaneousEntity)
-                {
-                    AluminumExtrusionOrderMiscellaneousEntity data = (AluminumExtrusionOrderMiscellaneousEntity)entity;
-                    BindingFromModel(data, this);
-                }
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-                throw;
-            }
+
         }
+
+        public AluminumExtrusionOrderMiscellaneousViewModel(AluminumExtrusionOrderMiscellaneousEntity entity):base(entity)
+        {
+
+        }
+        //public override void SetModel(dynamic entity)
+        //{
+        //    try
+        //    {
+        //        if (entity is AluminumExtrusionOrderMiscellaneousEntity)
+        //        {
+        //            AluminumExtrusionOrderMiscellaneousEntity data = (AluminumExtrusionOrderMiscellaneousEntity)entity;
+        //            BindingFromModel(data, this);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        setErrortoModel(this, ex);
+        //        throw;
+        //    }
+        //}
 
         // "*東菊編號/項目*"
         public string TokikuId
         {
-            get { return (string)GetValue(TokikuIdProperty); }
-            set { SetValue(TokikuIdProperty, value); }
+            get { return CopyofPOCOInstance.TokikuId; }
+            set { CopyofPOCOInstance.TokikuId = value; RaisePropertyChanged("TokikuId"); }
         }
 
         // Using a DependencyProperty as the backing store for TokikuId.  This enables animation, styling, binding, etc...

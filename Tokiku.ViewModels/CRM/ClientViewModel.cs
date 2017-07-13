@@ -176,7 +176,7 @@ namespace Tokiku.ViewModels
                 IsClient = true;
 
                // ClientForProjects = new ProjectsViewModelCollection();
-                Contracts = new ContactsViewModelCollection();
+                //Contracts = new ContactsViewModelCollection();
 
                 var createnewresult = controller.CreateNew();
 

@@ -21,14 +21,7 @@ namespace Tokiku.ViewModels
 
         }
 
-        #region Id
-        public Guid Id
-        {
-            get { return CopyofPOCOInstance.Id; }
-            set { CopyofPOCOInstance.Id = value; RaisePropertyChanged("Id"); }
-        }
-
-        #endregion
+      
 
         #region 加工圖集
 
@@ -246,20 +239,20 @@ namespace Tokiku.ViewModels
 
         #endregion
 
-        public override void SetModel(dynamic entity)
-        {
-            try
-            {
-                if (entity is BOM)
-                {
-                    BOM data = (BOM)entity;
-                    BindingFromModel(data);
-                }
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-            }
-        }
+        //public override void SetModel(dynamic entity)
+        //{
+        //    try
+        //    {
+        //        if (entity is BOM)
+        //        {
+        //            BOM data = (BOM)entity;
+        //            BindingFromModel(data);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        setErrortoModel(this, ex);
+        //    }
+        //}
     }
 }

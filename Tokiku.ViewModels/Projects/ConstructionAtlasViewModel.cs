@@ -20,52 +20,41 @@ namespace Tokiku.ViewModels
     /// <summary>
     /// 施工圖集檢視模型
     /// </summary>
-    public class ConstructionAtlasViewModel : BaseViewModel
+    public class ConstructionAtlasViewModel : BaseViewModelWithPOCOClass<ConstructionAtlas>
     {
 
-        /// <summary>
-        /// 編號
-        /// </summary>
-        public Guid Id
+        public ConstructionAtlasViewModel()
         {
-            get { return (Guid)GetValue(IdProperty); }
-            set { SetValue(IdProperty, value); }
+
         }
+        public ConstructionAtlasViewModel(ConstructionAtlas entity):base(entity)
+        {
 
-        // Using a DependencyProperty as the backing store for Id.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty IdProperty =
-            DependencyProperty.Register("Id", typeof(Guid), typeof(ConstructionAtlasViewModel), new PropertyMetadata(Guid.NewGuid()));
-
+        }
+        
 
 
         /// <summary>
         /// 專案合約編號
         /// </summary>
-        public Guid ProjectContractId
+        public Guid? ProjectContractId
         {
-            get { return (Guid)GetValue(ProjectContractIdProperty); }
-            set { SetValue(ProjectContractIdProperty, value); }
+            get { return CopyofPOCOInstance.ProjectContractId; }
+            set { CopyofPOCOInstance.ProjectContractId = value; RaisePropertyChanged("ProjectContractId"); }
         }
 
-        // Using a DependencyProperty as the backing store for EngineeringId.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ProjectContractIdProperty =
-            DependencyProperty.Register("ProjectContractId", typeof(Guid), typeof(ConstructionAtlasViewModel), new PropertyMetadata(Guid.Empty));
-
-
+      
 
         /// <summary>
         /// 圖名
         /// </summary>
         public string ImageName
         {
-            get { return (string)GetValue(ImageNameProperty); }
-            set { SetValue(ImageNameProperty, value); }
+            get { return CopyofPOCOInstance.ImageName; }
+            set { CopyofPOCOInstance.ImageName = value;RaisePropertyChanged("ImageName"); }
         }
 
-        // Using a DependencyProperty as the backing store for ImageName.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ImageNameProperty =
-            DependencyProperty.Register("ImageName", typeof(string), typeof(ConstructionAtlasViewModel), new PropertyMetadata(string.Empty));
-
+      
 
 
         /// <summary>
@@ -73,13 +62,9 @@ namespace Tokiku.ViewModels
         /// </summary>
         public int Edition
         {
-            get { return (int)GetValue(EditionProperty); }
-            set { SetValue(EditionProperty, value); }
+            get { return CopyofPOCOInstance.Edition; }
+            set { CopyofPOCOInstance.Edition = value;RaisePropertyChanged("Edition"); }
         }
-
-        // Using a DependencyProperty as the backing store for Edition.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty EditionProperty =
-            DependencyProperty.Register("Edition", typeof(int), typeof(ConstructionAtlasViewModel), new PropertyMetadata(1));
 
 
 
@@ -89,15 +74,11 @@ namespace Tokiku.ViewModels
         /// </summary>
         public DateTime SubmissionDate
         {
-            get { return (DateTime)GetValue(SubmissionDateProperty); }
-            set { SetValue(SubmissionDateProperty, value); }
+            get { return CopyofPOCOInstance.SubmissionDate; }
+            set { CopyofPOCOInstance.SubmissionDate = value; RaisePropertyChanged("SubmissionDate"); }
         }
 
-        // Using a DependencyProperty as the backing store for SubmissionDate.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SubmissionDateProperty =
-            DependencyProperty.Register("SubmissionDate", typeof(DateTime), typeof(ConstructionAtlasViewModel), new PropertyMetadata(DateTime.Today));
-
-
+   
 
 
 
@@ -106,13 +87,9 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string SubmitCertificateNumber
         {
-            get { return (string)GetValue(SubmitCertificateNumberProperty); }
-            set { SetValue(SubmitCertificateNumberProperty, value); }
+            get { return CopyofPOCOInstance.SubmitCertificateNumber; }
+            set { CopyofPOCOInstance.SubmitCertificateNumber = value;RaisePropertyChanged("SubmitCertificateNumber"); }
         }
-
-        // Using a DependencyProperty as the backing store for SubmitCertificateNumber.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SubmitCertificateNumberProperty =
-            DependencyProperty.Register("SubmitCertificateNumber", typeof(string), typeof(ConstructionAtlasViewModel), new PropertyMetadata(string.Empty));
 
 
 
@@ -121,14 +98,11 @@ namespace Tokiku.ViewModels
         /// </summary>
         public DateTime? ReplyDate
         {
-            get { return (DateTime?)GetValue(ReplyDateProperty); }
-            set { SetValue(ReplyDateProperty, value); }
+            get { return CopyofPOCOInstance.ReplyDate; }
+            set { CopyofPOCOInstance.ReplyDate = value; RaisePropertyChanged("ReplyDate"); }
         }
 
-        // Using a DependencyProperty as the backing store for ReplyDate.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ReplyDateProperty =
-            DependencyProperty.Register("ReplyDate", typeof(DateTime?), typeof(ConstructionAtlasViewModel), new PropertyMetadata(default(DateTime?)));
-
+   
 
 
         /// <summary>
@@ -136,44 +110,33 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string ReplyNumber
         {
-            get { return (string)GetValue(ReplyNumberProperty); }
-            set { SetValue(ReplyNumberProperty, value); }
+            get { return CopyofPOCOInstance.ReplyNumber; }
+            set { CopyofPOCOInstance.ReplyNumber = value;RaisePropertyChanged("ReplyNumber"); }
         }
 
-        // Using a DependencyProperty as the backing store for ReplyDate.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ReplyNumberProperty =
-            DependencyProperty.Register("ReplyNumber", typeof(string), typeof(ConstructionAtlasViewModel), new PropertyMetadata(string.Empty));
-
-
+   
 
         /// <summary>
         /// 回覆內容
         /// </summary>
         public int ReplyContent
         {
-            get { return (int)GetValue(ReplyContentProperty); }
-            set { SetValue(ReplyContentProperty, value); }
+            get { return CopyofPOCOInstance.ReplyContent; }
+            set { CopyofPOCOInstance.ReplyContent = value;RaisePropertyChanged("ReplyContent"); }
         }
 
-        // Using a DependencyProperty as the backing store for ReplyContent.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ReplyContentProperty =
-            DependencyProperty.Register("ReplyContent", typeof(int), typeof(ConstructionAtlasViewModel), new PropertyMetadata(1));
-
-
+ 
 
         /// <summary>
         /// 完稿
         /// </summary>
         public bool Finalized
         {
-            get { return (bool)GetValue(FinalizedProperty); }
-            set { SetValue(FinalizedProperty, value); }
+            get { return CopyofPOCOInstance.Finalized; }
+            set { CopyofPOCOInstance.Finalized = value;RaisePropertyChanged("Finalized"); }
         }
 
-        // Using a DependencyProperty as the backing store for Finalized.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty FinalizedProperty =
-            DependencyProperty.Register("Finalized", typeof(bool), typeof(ConstructionAtlasViewModel), new PropertyMetadata(false));
-
+   
 
 
         /// <summary>
@@ -181,75 +144,38 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string Comment
         {
-            get { return (string)GetValue(CommentProperty); }
-            set { SetValue(CommentProperty, value); }
+            get { return CopyofPOCOInstance.Comment;
+            }
+            set { CopyofPOCOInstance.Comment = value; RaisePropertyChanged("Comment"); }
         }
 
-        // Using a DependencyProperty as the backing store for Comment.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CommentProperty =
-            DependencyProperty.Register("Comment", typeof(string), typeof(ConstructionAtlasViewModel), new PropertyMetadata(string.Empty));
+    
+
+       
+
+        
 
 
+      
 
-        /// <summary>
-        /// 建立時間
-        /// </summary>
-        public DateTime CreateTime
-        {
-            get { return (DateTime)GetValue(CreateTimeProperty); }
-            set { SetValue(CreateTimeProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for CreateTime.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CreateTimeProperty =
-            DependencyProperty.Register("CreateTime", typeof(DateTime), typeof(ConstructionAtlasViewModel), new PropertyMetadata(DateTime.Now));
-
-
-
-        /// <summary>
-        /// 建立人員
-        /// </summary>
-        public Guid CreateUserId
-        {
-            get { return (Guid)GetValue(CreateUserIdProperty); }
-            set { SetValue(CreateUserIdProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for CreateUserId.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CreateUserIdProperty =
-            DependencyProperty.Register("CreateUserId", typeof(Guid), typeof(ConstructionAtlasViewModel), new PropertyMetadata(default(Guid)));
-
-
-
-
-        public DateTime LastUpdateDate
-        {
-            get { return (DateTime)GetValue(LastUpdateDateProperty); }
-            set { SetValue(LastUpdateDateProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for LastUpdateData.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty LastUpdateDateProperty =
-            DependencyProperty.Register("LastUpdateDate", typeof(DateTime), typeof(ConstructionAtlasViewModel), new PropertyMetadata(DateTime.Now));
-
-
+       
 
 
      
 
 
 
-        public override void SetModel(dynamic entity)
-        {
-            try
-            {
-                ConstructionAtlas data = (ConstructionAtlas)entity;
-                BindingFromModel(data, this);
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-            }
-        }
+        //public override void SetModel(dynamic entity)
+        //{
+        //    try
+        //    {
+        //        ConstructionAtlas data = (ConstructionAtlas)entity;
+        //        BindingFromModel(data, this);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        setErrortoModel(this, ex);
+        //    }
+        //}
     }
 }

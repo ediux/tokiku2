@@ -21,41 +21,50 @@ namespace Tokiku.ViewModels
 
         }
 
-        public override void Query()
-        {
-            RecvMaterialListController ctrl = new RecvMaterialListController();
-            ExecuteResultEntity<ICollection<RecvMaterialListEntity>> ere = ctrl.QuerAll();
-            if (!ere.HasError)
-            {
-                RecvMaterialListViewModel vm = new RecvMaterialListViewModel();
-                foreach (var item in ere.Result)
-                {
-                    vm.SetModel(item);
-                    Add(vm);
-                }
-            }
-        }
+        //public override void Query()
+        //{
+        //    RecvMaterialListController ctrl = new RecvMaterialListController();
+        //    ExecuteResultEntity<ICollection<RecvMaterialListEntity>> ere = ctrl.QuerAll();
+        //    if (!ere.HasError)
+        //    {
+        //        RecvMaterialListViewModel vm = new RecvMaterialListViewModel();
+        //        foreach (var item in ere.Result)
+        //        {
+        //            vm.SetModel(item);
+        //            Add(vm);
+        //        }
+        //    }
+        //}
 
     }
 
-    public class RecvMaterialListViewModel : BaseViewModel
+    public class RecvMaterialListViewModel : BaseViewModelWithPOCOClass<RecvMaterialListEntity>
     {
-        public override void SetModel(dynamic entity)
+        public RecvMaterialListViewModel()
         {
-            try
-            {
-                if (entity is RecvMaterialListEntity)
-                {
-                    RecvMaterialListEntity data = (RecvMaterialListEntity)entity;
-                    BindingFromModel(data, this);
-                }
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-                throw;
-            }
+
         }
+
+        public RecvMaterialListViewModel(RecvMaterialListEntity entity) : base(entity)
+        {
+
+        }
+        //public override void SetModel(dynamic entity)
+        //{
+        //    try
+        //    {
+        //        if (entity is RecvMaterialListEntity)
+        //        {
+        //            RecvMaterialListEntity data = (RecvMaterialListEntity)entity;
+        //            BindingFromModel(data, this);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        setErrortoModel(this, ex);
+        //        throw;
+        //    }
+        //}
 
     }
 }

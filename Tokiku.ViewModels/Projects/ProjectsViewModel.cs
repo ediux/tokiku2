@@ -135,22 +135,7 @@ namespace Tokiku.ViewModels
                 RaisePropertyChanged("ClientId");
             }
         }
-        /// <summary>
-        /// 建立時間
-        /// </summary>
-        public System.DateTime CreateTime
-        {
-            get { return CopyofPOCOInstance.CreateTime; }
-            set { CopyofPOCOInstance.CreateTime = value; RaisePropertyChanged("CreateTime"); }
-        }
-        /// <summary>
-        /// 建立者(擁有者)
-        /// </summary>
-        public System.Guid CreateUserId
-        {
-            get { return CopyofPOCOInstance.CreateUserId; }
-            set { CopyofPOCOInstance.CreateUserId = value; RaisePropertyChanged("CreateUserId"); }
-        }
+        
         /// <summary>
         /// 工程簽約日期
         /// </summary>
@@ -313,7 +298,7 @@ namespace Tokiku.ViewModels
 
         #endregion
 
-      
+
         #region CheckoutDay
         /// <summary>
         /// 付款條件: 結帳日
@@ -351,7 +336,7 @@ namespace Tokiku.ViewModels
         public string BuildingCompanyConsultant
         {
             get { return CopyofPOCOInstance.BuildingCompanyConsultant; }
-            set { CopyofPOCOInstance.BuildingCompanyConsultant = value;RaisePropertyChanged("BuildingCompanyConsultant"); }
+            set { CopyofPOCOInstance.BuildingCompanyConsultant = value; RaisePropertyChanged("BuildingCompanyConsultant"); }
         }
 
 
@@ -386,7 +371,7 @@ namespace Tokiku.ViewModels
         }
 
 
-  
+
 
 
         public string OwnerContractNumber
@@ -520,81 +505,81 @@ namespace Tokiku.ViewModels
         //    Query(data.Id);
         //}
 
-        public void Query(Guid ProjectId)
-        {
+        //public void Query(Guid ProjectId)
+        //{
 
-            try
-            {
-                var QueryResult = _projectcontroller.Query(p => p.Id == ProjectId);
+        //    try
+        //    {
+        //        var QueryResult = _projectcontroller.Query(p => p.Id == ProjectId);
 
-                if (!QueryResult.HasError)
-                {
-                    var data = QueryResult.Result.SingleOrDefault();
+        //        if (!QueryResult.HasError)
+        //        {
+        //            var data = QueryResult.Result.SingleOrDefault();
 
-                    //BindingFromModel(data, this);
-                    //CompletionDate = data.PromissoryNoteManagement.Where(w => w.TicketTypeId == 3 || w.TicketTypeId == 4).OrderBy(o => o.OpenDate).FirstOrDefault()?.OpenDate;
-                    //WarrantyStartDate = data.PromissoryNoteManagement.Where(w => w.TicketTypeId == 3 || w.TicketTypeId == 4).OrderByDescending(o => o.OpenDate).FirstOrDefault()?.OpenDate;
-                    //WarrantyDate = data.PromissoryNoteManagement.Where(w => w.TicketTypeId == 3 || w.TicketTypeId == 4).OrderByDescending(o => o.RecoveryDate).FirstOrDefault()?.RecoveryDate;
+        //            //BindingFromModel(data, this);
+        //            //CompletionDate = data.PromissoryNoteManagement.Where(w => w.TicketTypeId == 3 || w.TicketTypeId == 4).OrderBy(o => o.OpenDate).FirstOrDefault()?.OpenDate;
+        //            //WarrantyStartDate = data.PromissoryNoteManagement.Where(w => w.TicketTypeId == 3 || w.TicketTypeId == 4).OrderByDescending(o => o.OpenDate).FirstOrDefault()?.OpenDate;
+        //            //WarrantyDate = data.PromissoryNoteManagement.Where(w => w.TicketTypeId == 3 || w.TicketTypeId == 4).OrderByDescending(o => o.RecoveryDate).FirstOrDefault()?.RecoveryDate;
 
-                    if (data.ClientId.HasValue)
-                        Client.QueryModel(data.ClientId.Value);
+        //            if (data.ClientId.HasValue)
+        //                Client.QueryModel(data.ClientId.Value);
 
-                    if (data.SupplierTranscationItem.Any())
-                    {
-                        //Suppliers.Clear();
-                        foreach (var row in data.SupplierTranscationItem)
-                        {
-                            SuppliersViewModel model = new SuppliersViewModel();
-                            try
-                            {
+        //            if (data.SupplierTranscationItem.Any())
+        //            {
+        //                //Suppliers.Clear();
+        //                foreach (var row in data.SupplierTranscationItem)
+        //                {
+        //                    SuppliersViewModel model = new SuppliersViewModel();
+        //                    try
+        //                    {
 
-                                model.ProjectId = row.ProjectId;
-                                model.PlaceofReceipt = row.PlaceofReceipt;
-                                model.ManufacturersName = row.ManufacturersBussinessItems.Manufacturers.Name;
-                                //model.TicketPeriod = row.ManufacturersBussinessItems.TicketPeriod.Name;
-                                model.MaterialCategories = row.ManufacturersBussinessItems.MaterialCategories.Name;
-                                //model.PaymentTypeName = row.ManufacturersBussinessItems.PaymentTypes.PaymentTypeName;
-                                //model.TranscationCategories = row.ManufacturersBussinessItems.TranscationCategories.Name;
-                                model.SetModel(row.ManufacturersBussinessItems);
-                            }
-                            catch (Exception ex)
-                            {
-                                //setErrortoModel(model, ex);
-                            }
+        //                        model.ProjectId = row.ProjectId;
+        //                        model.PlaceofReceipt = row.PlaceofReceipt;
+        //                        model.ManufacturersName = row.ManufacturersBussinessItems.Manufacturers.Name;
+        //                        //model.TicketPeriod = row.ManufacturersBussinessItems.TicketPeriod.Name;
+        //                        model.MaterialCategories = row.ManufacturersBussinessItems.MaterialCategories.Name;
+        //                        //model.PaymentTypeName = row.ManufacturersBussinessItems.PaymentTypes.PaymentTypeName;
+        //                        //model.TranscationCategories = row.ManufacturersBussinessItems.TranscationCategories.Name;
+        //                        model.SetModel(row.ManufacturersBussinessItems);
+        //                    }
+        //                    catch (Exception ex)
+        //                    {
+        //                        //setErrortoModel(model, ex);
+        //                    }
 
-                            //if (!model.HasError)
-                            //    Suppliers.Add(model);
-                        }
-                    }
+        //                    //if (!model.HasError)
+        //                    //    Suppliers.Add(model);
+        //                }
+        //            }
 
-                    if (data.ProjectContract.Any())
-                    {
-                        //ProjectContract.Clear();
-                        foreach (var row in data.ProjectContract)
-                        {
-                            ProjectContractViewModel model = new ProjectContractViewModel();
-                            model.SetModel(row);
-                            //ProjectContract.Add(model);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
+        //            if (data.ProjectContract.Any())
+        //            {
+        //                //ProjectContract.Clear();
+        //                foreach (var row in data.ProjectContract)
+        //                {
+        //                    ProjectContractViewModel model = new ProjectContractViewModel();
+        //                    //model.SetModel(row);
+        //                    //ProjectContract.Add(model);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                setErrortoModel(this, ex);
+        //        setErrortoModel(this, ex);
 
-            }
-        }
+        //    }
+        //}
 
         //public override void Query()
         //{
         //    throw new NotSupportedException();
         //}
 
-        public void Refresh()
+        public ProjectsViewModel Refresh()
         {
-            Query(Id);
+            return QuerySingle<ProjectsViewModel, Projects>("ProjectManagerView", "QueryById", Id);
         }
 
         //public override void SetModel(dynamic entity)

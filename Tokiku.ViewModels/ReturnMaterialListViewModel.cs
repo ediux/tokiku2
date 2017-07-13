@@ -20,41 +20,50 @@ namespace Tokiku.ViewModels
 
         }
 
-        public override void Query()
-        {
-            ReturnMaterialListController ctrl = new ReturnMaterialListController();
-            ExecuteResultEntity<ICollection<ReturnMaterialListEntity>> ere = ctrl.QuerAll();
-            if (!ere.HasError)
-            {
-                ReturnMaterialListViewModel vm = new ReturnMaterialListViewModel();
-                foreach (var item in ere.Result)
-                {
-                    vm.SetModel(item);
-                    Add(vm);
-                }
-            }
-        }
+        //public override void Query()
+        //{
+        //    ReturnMaterialListController ctrl = new ReturnMaterialListController();
+        //    ExecuteResultEntity<ICollection<ReturnMaterialListEntity>> ere = ctrl.QuerAll();
+        //    if (!ere.HasError)
+        //    {
+        //        ReturnMaterialListViewModel vm = new ReturnMaterialListViewModel();
+        //        foreach (var item in ere.Result)
+        //        {
+        //            vm.SetModel(item);
+        //            Add(vm);
+        //        }
+        //    }
+        //}
 
     }
 
-    public class ReturnMaterialListViewModel : BaseViewModel
+    public class ReturnMaterialListViewModel : BaseViewModelWithPOCOClass<ReturnMaterialListEntity>
     {
-        public override void SetModel(dynamic entity)
+        public ReturnMaterialListViewModel()
         {
-            try
-            {
-                if (entity is ReturnMaterialListEntity)
-                {
-                    ReturnMaterialListEntity data = (ReturnMaterialListEntity)entity;
-                    BindingFromModel(data, this);
-                }
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-                throw;
-            }
+
         }
+
+        public ReturnMaterialListViewModel(ReturnMaterialListEntity entity) : base(entity)
+        {
+
+        }
+        //public override void SetModel(dynamic entity)
+        //{
+        //    try
+        //    {
+        //        if (entity is ReturnMaterialListEntity)
+        //        {
+        //            ReturnMaterialListEntity data = (ReturnMaterialListEntity)entity;
+        //            BindingFromModel(data, this);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        setErrortoModel(this, ex);
+        //        throw;
+        //    }
+        //}
 
     }
 }

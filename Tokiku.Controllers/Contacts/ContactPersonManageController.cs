@@ -117,7 +117,7 @@ namespace Tokiku.Controllers
         /// <summary>
         /// 儲存變更
         /// </summary>
-        public override ExecuteResultEntity<Contacts> CreateOrUpdate(Contacts entity)
+        public override ExecuteResultEntity<Contacts> CreateOrUpdate(Contacts entity, bool isLastRecord = true)
         {
             try
             {

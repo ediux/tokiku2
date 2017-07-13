@@ -9,5 +9,9 @@ namespace Tokiku.Controllers
 {
     public class ProjectManagerViewController : BaseController<Projects>
     {
+        public ExecuteResultEntity<ICollection<Projects>> QueryById(Guid id)
+        {
+            return Query(p => p.Id == id);
+        }
     }
 }

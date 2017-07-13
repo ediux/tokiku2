@@ -20,41 +20,49 @@ namespace Tokiku.ViewModels
 
         }
 
-        public override void Query()
-        {
-            OrderControlTableController ctrl = new OrderControlTableController();
-            ExecuteResultEntity<ICollection<OrderControlTableEntity>> ere = ctrl.QuerAll();
-            if (!ere.HasError)
-            {
-                OrderControlTableViewModel vm = new OrderControlTableViewModel();
-                foreach (var item in ere.Result)
-                {
-                    vm.SetModel(item);
-                    Add(vm);
-                }
-            }
-        }
+        //public override void Query()
+        //{
+        //    OrderControlTableController ctrl = new OrderControlTableController();
+        //    ExecuteResultEntity<ICollection<OrderControlTableEntity>> ere = ctrl.QuerAll();
+        //    if (!ere.HasError)
+        //    {
+        //        OrderControlTableViewModel vm = new OrderControlTableViewModel();
+        //        foreach (var item in ere.Result)
+        //        {
+        //            vm.SetModel(item);
+        //            Add(vm);
+        //        }
+        //    }
+        //}
 
     }
 
-    public class OrderControlTableViewModel : BaseViewModel
+    public class OrderControlTableViewModel : BaseViewModelWithPOCOClass<OrderControlTableEntity>
     {
-        public override void SetModel(dynamic entity)
+        public OrderControlTableViewModel()
         {
-            try
-            {
-                if (entity is OrderControlTableEntity)
-                {
-                    OrderControlTableEntity data = (OrderControlTableEntity)entity;
-                    BindingFromModel(data, this);
-                }
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-                throw;
-            }
+
         }
+        public OrderControlTableViewModel(OrderControlTableEntity entiy):base(entiy)
+        {
+
+        }
+        //public override void SetModel(dynamic entity)
+        //{
+        //    try
+        //    {
+        //        if (entity is OrderControlTableEntity)
+        //        {
+        //            OrderControlTableEntity data = (OrderControlTableEntity)entity;
+        //            BindingFromModel(data, this);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        setErrortoModel(this, ex);
+        //        throw;
+        //    }
+        //}
 
     }
 }

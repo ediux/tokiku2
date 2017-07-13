@@ -10,7 +10,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class LoginViewModel : BaseViewModel, IBaseViewModel
+    public class LoginViewModel : DependencyObject
     {
         private StartUpWindowController _controller = null;
 
@@ -19,19 +19,19 @@ namespace Tokiku.ViewModels
             _controller = controller;
         }
 
-        public static readonly DependencyProperty UserNameProperty = DependencyProperty.Register("UserName", typeof(string), typeof(LoginViewModel), new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
+        public static readonly DependencyProperty UserNameProperty = DependencyProperty.Register("UserName", typeof(string), typeof(LoginViewModel), new PropertyMetadata(string.Empty));
 
         /// <summary>
         /// 登入帳號
         /// </summary>
         public string UserName { get { return (string)GetValue(UserNameProperty); } set { SetValue(UserNameProperty, value); } }
 
-        public static readonly DependencyProperty PasswordProperty = DependencyProperty.Register("Password", typeof(string), typeof(LoginViewModel), new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
+        public static readonly DependencyProperty PasswordProperty = DependencyProperty.Register("Password", typeof(string), typeof(LoginViewModel), new PropertyMetadata(string.Empty));
 
         /// <summary>
         /// 登入密碼
         /// </summary>
-        public string Password { get { return (string)GetValue(PasswordProperty); } set { SetValue(PasswordProperty, value); RaisePropertyChanged("Password"); } }
+        public string Password { get { return (string)GetValue(PasswordProperty); } set { SetValue(PasswordProperty, value);  } }
 
         public UserViewModel Login()
         {
@@ -40,7 +40,7 @@ namespace Tokiku.ViewModels
             if (!reult.HasError)
             {
                 UserViewModel model = new UserViewModel();
-                BindingFromModel(reult.Result, model);
+             
                 return model;
             }
             else

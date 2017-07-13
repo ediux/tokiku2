@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Tokiku.ViewModels
 {
-    public class ConstructionAtlasReplyContextViewModelCollection : BaseViewModelCollection<ConstructionAtlasReplyContextViewModel>
+    public class ConstructionAtlasReplyContextViewModelCollection : ObservableCollection<ConstructionAtlasReplyContextViewModel>
     {
-        public override void Initialized()
+        public ConstructionAtlasReplyContextViewModelCollection()
         {
-            base.Initialized();
             Add(new ConstructionAtlasReplyContextViewModel()
             {
                 Value = 1,
                 Text = ""
             });
+
             Add(new ConstructionAtlasReplyContextViewModel()
             {
                 Value = 2,
@@ -46,6 +47,8 @@ namespace Tokiku.ViewModels
                 Value = 7,
                 Text = "其他"
             });
+
         }
+
     }
 }

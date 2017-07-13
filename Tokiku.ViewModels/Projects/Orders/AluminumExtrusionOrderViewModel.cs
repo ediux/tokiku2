@@ -33,18 +33,7 @@ namespace Tokiku.ViewModels
                 if (!ere.HasError)
                 {
                     returnSet = new AluminumExtrusionOrderViewModelCollection(ere.Result.ToList()
-                        .ConvertAll(c => new AluminumExtrusionOrderViewModel()
-                        {
-                            ManufacturersId = c.ManufacturersId,
-                            Material = c.Material,
-                            Note = c.Note,
-                            OrderLength = c.OrderLength,
-                            PlaceAnOrderQuantity = c.PlaceAnOrderQuantity,
-                            RequiredQuantity = c.RequiredQuantity,
-                            SparePartsQuantity = c.SparePartsQuantity,
-                            TokikuId = c.TokikuId,
-                            UnitWeight = c.UnitWeight
-                        }));
+                        .ConvertAll(c => new AluminumExtrusionOrderViewModel(c)));
                 }
 
                 return new AluminumExtrusionOrderViewModelCollection();
@@ -61,148 +50,120 @@ namespace Tokiku.ViewModels
             }
         }
 
-        public static  Query()
+        public static AluminumExtrusionOrderViewModelCollection Query()
         {
-            AluminumExtrusionOrderController ctrl = new AluminumExtrusionOrderController();
-            ExecuteResultEntity<ICollection<AluminumExtrusionOrderEntity>> ere = ctrl.QuerAll();
-            if (!ere.HasError)
-            {
-                AluminumExtrusionOrderViewModel vm = new AluminumExtrusionOrderViewModel();
-                foreach (var item in ere.Result)
-                {
-                    vm.SetModel(item);
-                    Add(vm);
-                }
-            }
+            return Query<AluminumExtrusionOrderViewModelCollection, Orders>("", "");
         }
 
     }
-    public class AluminumExtrusionOrderViewModel : BaseViewModel
+    public class AluminumExtrusionOrderViewModel : BaseViewModelWithPOCOClass<AluminumExtrusionOrderEntity>
     {
-        public override void SetModel(dynamic entity)
+        public AluminumExtrusionOrderViewModel() : base()
         {
-            try
-            {
-                if (entity is AluminumExtrusionOrderEntity)
-                {
-                    AluminumExtrusionOrderEntity data = (AluminumExtrusionOrderEntity)entity;
-                    BindingFromModel(data, this);
-                }
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-                throw;
-            }
+
         }
+
+        public AluminumExtrusionOrderViewModel(AluminumExtrusionOrderEntity entity): base(entity)
+        {
+                
+        }
+        //public override void SetModel(dynamic entity)
+        //{
+        //    try
+        //    {
+        //        if (entity is AluminumExtrusionOrderEntity)
+        //        {
+        //            AluminumExtrusionOrderEntity data = (AluminumExtrusionOrderEntity)entity;
+        //            BindingFromModel(data, this);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        setErrortoModel(this, ex);
+        //        throw;
+        //    }
+        //}
 
         // "*東菊編號*"
         public string TokikuId
         {
-            get { return (string)GetValue(TokikuIdProperty); }
-            set { SetValue(TokikuIdProperty, value); }
+            get { return CopyofPOCOInstance.TokikuId; }
+            set { CopyofPOCOInstance.TokikuId = value;
+                RaisePropertyChanged("TokikuId");
+            }
         }
 
-        // Using a DependencyProperty as the backing store for TokikuId.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty TokikuIdProperty =
-            DependencyProperty.Register("TokikuId", typeof(string), typeof(AluminumExtrusionOrderViewModel), new PropertyMetadata(string.Empty));
-
+       
 
         // "*廠商編號*"
         public string ManufacturersId
         {
-            get { return (string)GetValue(ManufacturersIdProperty); }
-            set { SetValue(ManufacturersIdProperty, value); }
+            get { return CopyofPOCOInstance.ManufacturersId; }
+            set { CopyofPOCOInstance.ManufacturersId = value; RaisePropertyChanged("ManufacturersId"); }
         }
 
-        // Using a DependencyProperty as the backing store for ManufacturersId.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ManufacturersIdProperty =
-            DependencyProperty.Register("ManufacturersId", typeof(string), typeof(AluminumExtrusionOrderViewModel), new PropertyMetadata(string.Empty));
-
+    
 
         // "*材質*"
         public string Material
         {
-            get { return (string)GetValue(MaterialProperty); }
-            set { SetValue(MaterialProperty, value); }
+            get { return CopyofPOCOInstance.Material; }
+            set { CopyofPOCOInstance.Material = value; RaisePropertyChanged("Material"); }
         }
 
-        // Using a DependencyProperty as the backing store for Material.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty MaterialProperty =
-            DependencyProperty.Register("Material", typeof(string), typeof(AluminumExtrusionOrderViewModel), new PropertyMetadata(string.Empty));
-
-
+   
         // "*單位重(kg/m)*"
         public Nullable<float> UnitWeight
         {
-            get { return (Nullable<float>)GetValue(UnitWeightProperty); }
-            set { SetValue(UnitWeightProperty, value); }
+            get { return CopyofPOCOInstance.UnitWeight; }
+            set { CopyofPOCOInstance.UnitWeight = value; RaisePropertyChanged("UnitWeight"); }
         }
 
-        // Using a DependencyProperty as the backing store for UnitWeight.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty UnitWeightProperty =
-            DependencyProperty.Register("UnitWeight", typeof(Nullable<float>), typeof(AluminumExtrusionOrderViewModel), new PropertyMetadata(default(Nullable<float>)));
-
+  
 
         // "*訂購長度(mm)*"
         public Nullable<int> OrderLength
         {
-            get { return (Nullable<int>)GetValue(OrderLengthProperty); }
-            set { SetValue(OrderLengthProperty, value); }
+            get { return CopyofPOCOInstance.OrderLength; }
+            set { CopyofPOCOInstance.OrderLength = value; RaisePropertyChanged("OrderLength"); }
         }
 
-        // Using a DependencyProperty as the backing store for OrderLength.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty OrderLengthProperty =
-            DependencyProperty.Register("OrderLength", typeof(Nullable<int>), typeof(AluminumExtrusionOrderViewModel), new PropertyMetadata(default(Nullable<int>)));
-
+ 
 
         // "[需求數量]"
         public Nullable<int> RequiredQuantity
         {
-            get { return (Nullable<int>)GetValue(RequiredQuantityProperty); }
-            set { SetValue(RequiredQuantityProperty, value); }
+            get { return CopyofPOCOInstance.RequiredQuantity; }
+            set { CopyofPOCOInstance.RequiredQuantity = value; RaisePropertyChanged("RequiredQuantity"); }
         }
 
-        // Using a DependencyProperty as the backing store for RequiredQuantity.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty RequiredQuantityProperty =
-            DependencyProperty.Register("RequiredQuantity", typeof(Nullable<int>), typeof(AluminumExtrusionOrderViewModel), new PropertyMetadata(default(Nullable<int>)));
-
+  
 
         // "[備品數量]"
         public Nullable<int> SparePartsQuantity
         {
-            get { return (Nullable<int>)GetValue(SparePartsQuantityProperty); }
-            set { SetValue(SparePartsQuantityProperty, value); }
+            get { return (Nullable<int>)CopyofPOCOInstance.SparePartsQuantity; }
+            set { CopyofPOCOInstance.SparePartsQuantity = value; RaisePropertyChanged("SparePartsQuantity"); }
         }
 
-        // Using a DependencyProperty as the backing store for SparePartsQuantity.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SparePartsQuantityProperty =
-            DependencyProperty.Register("SparePartsQuantity", typeof(Nullable<int>), typeof(AluminumExtrusionOrderViewModel), new PropertyMetadata(default(Nullable<int>)));
-
+     
 
         // "[下單數量]"
         public Nullable<int> PlaceAnOrderQuantity
         {
-            get { return (Nullable<int>)GetValue(PlaceAnOrderQuantityProperty); }
-            set { SetValue(PlaceAnOrderQuantityProperty, value); }
+            get { return CopyofPOCOInstance.PlaceAnOrderQuantity; }
+            set { CopyofPOCOInstance.PlaceAnOrderQuantity = value; RaisePropertyChanged("PlaceAnOrderQuantity"); }
         }
 
-        // Using a DependencyProperty as the backing store for PlaceAnOrderQuantity.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty PlaceAnOrderQuantityProperty =
-            DependencyProperty.Register("PlaceAnOrderQuantity", typeof(Nullable<int>), typeof(AluminumExtrusionOrderViewModel), new PropertyMetadata(default(Nullable<int>)));
-
-
+    
         // "[備註]"
         public string Note
         {
-            get { return (string)GetValue(NoteProperty); }
-            set { SetValue(NoteProperty, value); }
+            get { return CopyofPOCOInstance.Note; }
+            set { CopyofPOCOInstance.Note = value; RaisePropertyChanged("Note"); }
         }
 
-        // Using a DependencyProperty as the backing store for Note.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty NoteProperty =
-            DependencyProperty.Register("Note", typeof(string), typeof(AluminumExtrusionOrderViewModel), new PropertyMetadata(string.Empty));
-
+   
 
     }
 }

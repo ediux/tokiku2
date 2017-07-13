@@ -20,7 +20,7 @@ namespace Tokiku.ViewModels
 
         }
 
-        public new static RecvMaterialViewModelCollection Query()
+        public static RecvMaterialViewModelCollection Query()
         {
             RecvMaterialController ctrl = new RecvMaterialController();
             ExecuteResultEntity<ICollection<Receive>> ere = ctrl.QuerAll();
@@ -54,16 +54,6 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.IncomingNumber = value; RaisePropertyChanged("IncomingNumber"); }
         }
 
-        public DateTime CreateTime
-        {
-            get { return CopyofPOCOInstance.CreateTime; }
-            set { CopyofPOCOInstance.CreateTime = value; RaisePropertyChanged("CreateTime"); }
-        }
-
-        public string CreateUser
-        {
-            get { return CopyofPOCOInstance.Users.UserName; }
-            set { CopyofPOCOInstance.Users.UserName = value; RaisePropertyChanged("CreateUser"); }
-        }
+      
     }
 }

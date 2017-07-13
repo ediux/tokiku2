@@ -8,27 +8,34 @@ namespace Tokiku.ViewModels
     {
         public WithLoginUserBaseViewModel()
         {
-            LoginedUser = new UserViewModel()
-            {
-                UserId = Guid.Empty,
-                UserName = "root",
-                LoweredUserName = "root",
-                IsAnonymous = false,
-            };
+
         }
 
-        private UserViewModel _LoginedUser;
+        public WithLoginUserBaseViewModel(Users entity) : base(entity)
+        {
+
+        }
+
+        private UserViewModel _LoginedUser = new UserViewModel()
+        {
+            UserId = Guid.Empty,
+            UserName = "root",
+            LoweredUserName = "root",
+            IsAnonymous = false,
+        };
         /// <summary>
         /// 取得目前登入的使用者
         /// </summary>
         public UserViewModel LoginedUser
         {
-            get {
-                
-                return _LoginedUser; }
+            get
+            {
+
+                return _LoginedUser;
+            }
             set
             {
-               
+
             }
         }
     }

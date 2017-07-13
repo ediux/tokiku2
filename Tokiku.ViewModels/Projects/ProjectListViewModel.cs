@@ -31,34 +31,34 @@ namespace Tokiku.ViewModels
             _projects_controller = new ProjectsController();
         }
 
-        public override void Query()
-        {
-            var projectResult = _projects_controller.Query(v => v.Void == false);
-            if (!projectResult.HasError)
-            {
-                Clear();
-                var result = projectResult.Result
-                    .OrderByDescending(s => s.Code)
-                    .OrderBy(s => s.State)
-                    .Select(s => new ProjectListViewModel()
-                    {
-                        Code = s.Code,
-                        CompletionDate = s.PromissoryNoteManagement.Where(k => k.TicketTypeId == 3 || k.TicketTypeId == 4).OrderByDescending(w => w.OpenDate).FirstOrDefault()?.OpenDate,
-                        Id = s.Id,
-                        Name = s.Name,
-                        ShortName = s.ShortName,
-                        StartDate = s.StartDate,
-                        State = s.State,
-                        WarrantyDate = s.PromissoryNoteManagement.Where(k => k.TicketTypeId == 3 || k.TicketTypeId == 4).OrderByDescending(w => w.RecoveryDate).FirstOrDefault()?.RecoveryDate
-                    });
+        //public override void Query()
+        //{
+        //    var projectResult = _projects_controller.Query(v => v.Void == false);
+        //    if (!projectResult.HasError)
+        //    {
+        //        Clear();
+        //        var result = projectResult.Result
+        //            .OrderByDescending(s => s.Code)
+        //            .OrderBy(s => s.State)
+        //            .Select(s => new ProjectListViewModel()
+        //            {
+        //                Code = s.Code,
+        //                CompletionDate = s.PromissoryNoteManagement.Where(k => k.TicketTypeId == 3 || k.TicketTypeId == 4).OrderByDescending(w => w.OpenDate).FirstOrDefault()?.OpenDate,
+        //                Id = s.Id,
+        //                Name = s.Name,
+        //                ShortName = s.ShortName,
+        //                StartDate = s.StartDate,
+        //                State = s.State,
+        //                WarrantyDate = s.PromissoryNoteManagement.Where(k => k.TicketTypeId == 3 || k.TicketTypeId == 4).OrderByDescending(w => w.RecoveryDate).FirstOrDefault()?.RecoveryDate
+        //            });
 
-                foreach (var row in result)
-                {
-                    Add(row);
-                }
+        //        foreach (var row in result)
+        //        {
+        //            Add(row);
+        //        }
 
-            }
-        }
+        //    }
+        //}
         public void QueryByText(string text)
         {
             var projectResult = _projects_controller.SearchByText(text);
@@ -92,118 +92,110 @@ namespace Tokiku.ViewModels
         }
 
     }
-    public class ProjectListViewModel : BaseViewModel
+    public class ProjectListViewModel : BaseViewModelWithPOCOClass<ProjectListEntity>
     {
-        private ProjectsController _projects_controller;
-
-
-        public static readonly DependencyProperty IdProperty = DependencyProperty.Register("Id", typeof(Guid), typeof(ProjectListViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
-
-        public static readonly DependencyProperty CodeProperty = DependencyProperty.Register("Code", typeof(string), typeof(ProjectListViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
-
-        public static readonly DependencyProperty ProjectNameProperty = DependencyProperty.Register("ProjectName", typeof(string), typeof(ProjectListViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
-
-        public static readonly DependencyProperty ShortNameProperty = DependencyProperty.Register("ShortName", typeof(string), typeof(ProjectListViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
-
-        public static readonly DependencyProperty StateProperty = DependencyProperty.Register("State", typeof(byte), typeof(ProjectListViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
-
-        /// <summary>
-        /// 編號
-        /// </summary>
-        public Guid Id
+        public ProjectListViewModel()
         {
-            get { return (Guid)GetValue(IdProperty); }
-            set { SetValue(IdProperty, value); RaisePropertyChanged("Id"); }
+
         }
+
+        public ProjectListViewModel(ProjectListEntity entity):base(entity)
+        {
+
+        }
+        //private ProjectsController _projects_controller;
+
+
+     
+        ///// <summary>
+        ///// 編號
+        ///// </summary>
+        //public Guid Id
+        //{
+        //    get { return (Guid)GetValue(IdProperty); }
+        //    set { SetValue(IdProperty, value); RaisePropertyChanged("Id"); }
+        //}
 
         /// <summary>
         /// 專案代碼
         /// </summary>
         public string Code
         {
-            get { return (string)GetValue(CodeProperty); }
-            set { SetValue(CodeProperty, value); RaisePropertyChanged("Code"); }
+            get { return CopyofPOCOInstance.Code; }
+            set { CopyofPOCOInstance.Code = value; RaisePropertyChanged("Code"); }
         }
 
         /// <summary>
         /// 專案名稱
         /// </summary>
-        public string Name { get { return (string)GetValue(ProjectNameProperty); } set { SetValue(ProjectNameProperty, value); RaisePropertyChanged("ProjectName"); } }
+        public string Name { get { return CopyofPOCOInstance.Name; } set { CopyofPOCOInstance.Name = value; RaisePropertyChanged("ProjectName"); } }
         /// <summary>
         /// 專案名稱(簡稱)
         /// </summary>
-        public string ShortName { get { return (string)GetValue(ShortNameProperty); } set { SetValue(ShortNameProperty, value); RaisePropertyChanged("ShortName"); } }
+        public string ShortName { get { return CopyofPOCOInstance.ShortName; } set { CopyofPOCOInstance.ShortName = value;  RaisePropertyChanged("ShortName"); } }
 
         /// <summary>
         /// 狀態
         /// </summary>
-        public byte State { get { return (byte)GetValue(StateProperty); } set { SetValue(StateProperty, value); RaisePropertyChanged("State"); } }
+        public byte State { get { return CopyofPOCOInstance.State; } set { CopyofPOCOInstance.State = value; RaisePropertyChanged("State"); } }
 
         public DateTime? StartDate
         {
-            get { return (DateTime?)GetValue(StartDateProperty); }
-            set { SetValue(StartDateProperty, value); RaisePropertyChanged("StartDate"); }
+            get { return CopyofPOCOInstance.StartDate; }
+            set { CopyofPOCOInstance.StartDate = value; RaisePropertyChanged("StartDate"); }
         }
 
-        // Using a DependencyProperty as the backing store for StartDate.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty StartDateProperty =
-            DependencyProperty.Register("StartDate", typeof(DateTime?), typeof(ProjectListViewModel), new PropertyMetadata(default(DateTime?), new PropertyChangedCallback(DefaultFieldChanged)));
-
+     
 
 
         public DateTime? CompletionDate
         {
-            get { return (DateTime?)GetValue(CompletionDateProperty); }
-            set { SetValue(CompletionDateProperty, value); }
+            get { return CopyofPOCOInstance.CompletionDate; }
+            set { CopyofPOCOInstance.CompletionDate = value; RaisePropertyChanged("CompletionDate"); }
         }
-
-        // Using a DependencyProperty as the backing store for CompletionDate.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CompletionDateProperty =
-            DependencyProperty.Register("CompletionDate", typeof(DateTime?), typeof(ProjectListViewModel), new PropertyMetadata(default(DateTime?), new PropertyChangedCallback(DefaultFieldChanged)));
 
         /// <summary>
         /// 保固日期
         /// </summary>
         public DateTime? WarrantyDate
         {
-            get { return (DateTime?)GetValue(WarrantyDateProperty); }
-            set { SetValue(WarrantyDateProperty, value); }
+            get { return CopyofPOCOInstance.WarrantyDate; }
+            set { CopyofPOCOInstance.WarrantyDate = value;
+                RaisePropertyChanged("WarrantyDate");
+            }
         }
 
-        // Using a DependencyProperty as the backing store for WarrantyDate.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty WarrantyDateProperty =
-            DependencyProperty.Register("WarrantyDate", typeof(DateTime?), typeof(ProjectListViewModel), new PropertyMetadata(default(DateTime?)));
-
+     
         //public System.DateTime StartDate { get; set; }
         //public System.DateTime CompletionDate { get; set; }
         public override void Initialized()
         {
             base.Initialized();
-            _projects_controller = new ProjectsController();
+            
         }
 
-        public override void Query()
-        {
-            if (Id == Guid.Empty)
-                return;
+        //public override void Query()
+        //{
+        //    if (Id == Guid.Empty)
+        //        return;
 
-            var result = _projects_controller.QuerySingle(Id);
+        //    var result = _projects_controller.QuerySingle(Id);
 
-            if (!result.HasError)
-            {
-                BindingFromModel(result.Result, this);
+        //    if (!result.HasError)
+        //    {
+        //        BindingFromModel(result.Result, this);
                
 
-                if (CompletionDate.HasValue == false)
-                {
-                    CompletionDate = DateTime.Today;
-                }
-            }
-            else
-            {
-                Errors = result.Errors;
-                HasError = result.HasError;
-            }
-        }
+        //        if (CompletionDate.HasValue == false)
+        //        {
+        //            CompletionDate = DateTime.Today;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Errors = result.Errors;
+        //        HasError = result.HasError;
+        //    }
+        //}
     }
 }

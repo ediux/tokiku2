@@ -14,7 +14,7 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 模具使用狀況編號        
         /// </summary>
-        public int Id
+        public new int Id
         {
             get { return CopyofPOCOInstance.Id; }
             set { CopyofPOCOInstance.Id = value; RaisePropertyChanged("Id"); }
@@ -37,50 +37,23 @@ namespace Tokiku.ViewModels
         
         #endregion
 
-        #region CreateTime
+     
 
 
-        /// <summary>
-        /// 建立時間
-        /// </summary>
-        public DateTime CreateTime
-        {
-            get { return CopyofPOCOInstance.CreateTime; }
-            set { CopyofPOCOInstance.CreateTime = value; RaisePropertyChanged("CreateTime"); }
-        }
+        //#region CreateUser
+        ///// <summary>
+        ///// 建立的使用者
+        ///// </summary>
+        //public UserViewModel CreateUser
+        //{
+        //    get { UserViewModel usermodel = new UserViewModel(); usermodel.SetModel(SystemController.GetUserById(CopyofPOCOInstance.CreateUserId).Result); return usermodel; }
+        //    set {
+        //        CopyofPOCOInstance.CreateUserId = value.UserId;
+        //        RaisePropertyChanged("CreateUser");
+        //    }
+        //}
 
-        #endregion
-
-        #region CreateUserId
-
-
-        /// <summary>
-        /// 建立人員ID
-        /// </summary>
-        public Guid CreateUserId
-        {
-            get { return CopyofPOCOInstance.CreateUserId; }
-            set { CopyofPOCOInstance.CreateUserId = value; RaisePropertyChanged("CreateUserId"); }
-        }
-
-   
-
-        #endregion
-
-        #region CreateUser
-        /// <summary>
-        /// 建立的使用者
-        /// </summary>
-        public UserViewModel CreateUser
-        {
-            get { UserViewModel usermodel = new UserViewModel(); usermodel.SetModel(SystemController.GetUserById(CopyofPOCOInstance.CreateUserId).Result); return usermodel; }
-            set {
-                CopyofPOCOInstance.CreateUserId = value.UserId;
-                RaisePropertyChanged("CreateUser");
-            }
-        }
-
-        #endregion
+        //#endregion
 
         public async void QueryByName(string name)
         {
@@ -96,10 +69,8 @@ namespace Tokiku.ViewModels
                     {
                         var data = executrresult.Result.Single();
                         CopyofPOCOInstance = data;
-                        CreateUser = new UserViewModel() {
-                             
-                        };
-                        CreateUser.SetModel(controller.GetCurrentLoginUser().Result);
+                       
+                        //CreateUser.SetModel(controller.GetCurrentLoginUser().Result);
                         //BindingFromModel(, CreateUser);
                     }
                 }
@@ -110,17 +81,17 @@ namespace Tokiku.ViewModels
             }
         }
 
-        public override void SetModel(dynamic entity)
-        {
-            try
-            {
-                MoldUseStatus data = (MoldUseStatus)entity;
-                BindingFromModel(data);
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-            }
-        }
+        //public override void SetModel(dynamic entity)
+        //{
+        //    try
+        //    {
+        //        MoldUseStatus data = (MoldUseStatus)entity;
+        //        BindingFromModel(data);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        setErrortoModel(this, ex);
+        //    }
+        //}
     }
 }

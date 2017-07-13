@@ -21,41 +21,49 @@ namespace Tokiku.ViewModels
 
         }
 
-        public override void Query()
-        {
-            SystemMembersController ctrl = new SystemMembersController();
-            ExecuteResultEntity<ICollection<SystemMembersEntity>> ere = ctrl.QuerAll();
-            if (!ere.HasError)
-            {
-                SystemMembersViewModel vm = new SystemMembersViewModel();
-                foreach (var item in ere.Result)
-                {
-                    vm.SetModel(item);
-                    Add(vm);
-                }
-            }
-        }
+        //public override void Query()
+        //{
+        //    SystemMembersController ctrl = new SystemMembersController();
+        //    ExecuteResultEntity<ICollection<SystemMembersEntity>> ere = ctrl.QuerAll();
+        //    if (!ere.HasError)
+        //    {
+        //        SystemMembersViewModel vm = new SystemMembersViewModel();
+        //        foreach (var item in ere.Result)
+        //        {
+        //            vm.SetModel(item);
+        //            Add(vm);
+        //        }
+        //    }
+        //}
 
     }
 
-    public class SystemMembersViewModel : BaseViewModel
+    public class SystemMembersViewModel : BaseViewModelWithPOCOClass<Users>
     {
-        public override void SetModel(dynamic entity)
+        public SystemMembersViewModel()
         {
-            try
-            {
-                if (entity is SystemMembersEntity)
-                {
-                    SystemMembersEntity data = (SystemMembersEntity)entity;
-                    BindingFromModel(data, this);
-                }
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-                throw;
-            }
+
         }
+        public SystemMembersViewModel(Users entity):base(entity)
+        {
+
+        }
+        //public override void SetModel(dynamic entity)
+        //{
+        //    try
+        //    {
+        //        if (entity is SystemMembersEntity)
+        //        {
+        //            SystemMembersEntity data = (SystemMembersEntity)entity;
+        //            BindingFromModel(data, this);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        setErrortoModel(this, ex);
+        //        throw;
+        //    }
+        //}
 
     }
 }

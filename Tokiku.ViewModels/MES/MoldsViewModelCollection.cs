@@ -11,25 +11,25 @@ namespace Tokiku.ViewModels
 {
     public class MoldsViewModelCollection : BaseViewModelCollection<MoldsViewModel>
     {
-        public override void Query()
-        {
-            try
-            {
-                MoldsController controller = new MoldsController();
-                var executeresult = controller.Query();
-                if (!executeresult.Result.HasError)
-                {
-                    if (executeresult.Result.Result.Any())
-                    {
+        //public override void Query()
+        //{
+        //    try
+        //    {
+        //        MoldsController controller = new MoldsController();
+        //        var executeresult = controller.Query();
+        //        if (!executeresult.Result.HasError)
+        //        {
+        //            if (executeresult.Result.Result.Any())
+        //            {
 
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-            }
-        }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        setErrortoModel(this, ex);
+        //    }
+        //}
 
         public static MoldsViewModelCollection ImportFromExcel(string filename)
         {
@@ -54,45 +54,45 @@ namespace Tokiku.ViewModels
 
         }
 
-        public async override void SaveModel()
-        {
-            try
-            {
-                MoldsController controller = new MoldsController();
-                MaterialManagementController MMcontroller = new MaterialManagementController();
-                Collection<Molds> dataset = new Collection<Molds>();
-                var logineduser = MMcontroller.GetCurrentLoginUser().Result;
-                if (Items.Any())
-                {
-                    foreach (var model in Items)
-                    {
-                        Molds data = new Molds();
+        //public async override void SaveModel()
+        //{
+        //    try
+        //    {
+        //        MoldsController controller = new MoldsController();
+        //        MaterialManagementController MMcontroller = new MaterialManagementController();
+        //        Collection<Molds> dataset = new Collection<Molds>();
+        //        var logineduser = MMcontroller.GetCurrentLoginUser().Result;
+        //        if (Items.Any())
+        //        {
+        //            foreach (var model in Items)
+        //            {
+        //                Molds data = new Molds();
                         
-                        CopyToModel(data, model);
-                        dataset.Add(data);
-                        //if (model..Status.IsNewInstance)
-                        //{
+        //                CopyToModel(data, model);
+        //                dataset.Add(data);
+        //                //if (model..Status.IsNewInstance)
+        //                //{
                            
-                        //    //MMcontroller.Add(new Materials()
-                        //    //{
-                        //    //    CreateTime = DateTime.Now,
-                        //    //    CreateUser = logineduser,
-                        //    //    CreateUserId = logineduser.UserId,
-                        //    //    Id = Guid.NewGuid(),
-                        //    //    ManufacturersId = model.ManufacturersId,
-                        //    //    Name = model.Materials.Name,
-                        //    //    UnitPrice = 0F
-                        //    //});
+        //                //    //MMcontroller.Add(new Materials()
+        //                //    //{
+        //                //    //    CreateTime = DateTime.Now,
+        //                //    //    CreateUser = logineduser,
+        //                //    //    CreateUserId = logineduser.UserId,
+        //                //    //    Id = Guid.NewGuid(),
+        //                //    //    ManufacturersId = model.ManufacturersId,
+        //                //    //    Name = model.Materials.Name,
+        //                //    //    UnitPrice = 0F
+        //                //    //});
 
-                        //}
-                    }
-                }
-                await controller.CreateOrUpdateAsync(dataset);
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-            }
-        }
+        //                //}
+        //            }
+        //        }
+        //        await controller.CreateOrUpdateAsync(dataset);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        setErrortoModel(this, ex);
+        //    }
+        //}
     }
 }

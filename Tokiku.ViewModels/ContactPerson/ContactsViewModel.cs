@@ -187,23 +187,7 @@ namespace Tokiku.ViewModels
 
    
 
-        /// <summary>
-        /// 建立時間
-        /// </summary>
-        public DateTime CreateTime
-        {
-            get { return CopyofPOCOInstance.CreateTime; }
-            set { CopyofPOCOInstance.CreateTime = value; RaisePropertyChanged("CreateTime"); }
-        }
-
-        /// <summary>
-        /// 建立者
-        /// </summary>
-        public Guid CreateUserId
-        {
-            get { return CopyofPOCOInstance.CreateUserId; }
-            set { CopyofPOCOInstance.CreateUserId = value; RaisePropertyChanged("CreateUserId"); }
-        }
+       
 
         public string EMail
         {

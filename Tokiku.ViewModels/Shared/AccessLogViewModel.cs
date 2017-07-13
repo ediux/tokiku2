@@ -14,7 +14,7 @@ namespace Tokiku.ViewModels
     public class AccessLogViewModel : BaseViewModelWithPOCOClass<AccessLog>
     {
         [Key]
-        public long Id
+        public new long Id
         {
             get { return CopyofPOCOInstance.Id; }
             set { CopyofPOCOInstance.Id = value; RaisePropertyChanged("Id"); }
@@ -139,22 +139,22 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.Reason = value; RaisePropertyChanged("Description"); }
         }
 
-        public override void SetModel(dynamic entity)
-        {
-            try
-            {
-                if (entity is AccessLog)
-                {
-                    CopyofPOCOInstance = (AccessLog)entity;
-                    BindingFromModel(CopyofPOCOInstance);
-                }
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-                throw;
-            }
-        }
+        //public override void SetModel(dynamic entity)
+        //{
+        //    try
+        //    {
+        //        if (entity is AccessLog)
+        //        {
+        //            CopyofPOCOInstance = (AccessLog)entity;
+        //            BindingFromModel(CopyofPOCOInstance);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        setErrortoModel(this, ex);
+        //        throw;
+        //    }
+        //}
 
 
     }

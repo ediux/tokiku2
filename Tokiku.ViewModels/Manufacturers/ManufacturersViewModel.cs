@@ -200,13 +200,7 @@ namespace Tokiku.ViewModels
         public string Comment { get { return CopyofPOCOInstance.Comment; } set { CopyofPOCOInstance.Comment = value; RaisePropertyChanged("Comment"); } }
         public bool Void { get { return CopyofPOCOInstance.Void; } set { CopyofPOCOInstance.Void = value; RaisePropertyChanged("Void"); } }
         public bool IsClient { get { return CopyofPOCOInstance.IsClient; } set { CopyofPOCOInstance.IsClient = value; RaisePropertyChanged("IsClient"); } }
-        public System.DateTime CreateTime { get { return CopyofPOCOInstance.CreateTime; } set { CopyofPOCOInstance.CreateTime = value; RaisePropertyChanged("CreateTime"); } }
-        public System.Guid CreateUserId { get { return CopyofPOCOInstance.CreateUserId; } set { CopyofPOCOInstance.CreateUserId = value; RaisePropertyChanged("CreateUserId"); } }
-        public virtual UserViewModel CreateUser
-        {
-            get { return UserViewModel.QuerySingle<UserViewModel, Users>("System", "GetUser", CopyofPOCOInstance.CreateUserId); }
-            set { CopyofPOCOInstance.CreateUserId = value.Id; RaisePropertyChanged("CreateUser"); }
-        }
+       
 
         #region MainContactPerson
 
@@ -287,27 +281,27 @@ namespace Tokiku.ViewModels
 
         #endregion
 
-        #region 聯絡人清單 Contracts
-        /// <summary>
-        /// 聯絡人清單
-        /// </summary>
-        public ContactsViewModelCollection Contracts
-        {
-            get
-            {
-                var source = new ContactsViewModelCollection();
-                if (source.Count == 0)
-                {
-                    source.Query();
-                }
-                return source;
-            }
-            set { RaisePropertyChanged("Contracts"); }
-        }
+        //#region 聯絡人清單 Contracts
+        ///// <summary>
+        ///// 聯絡人清單
+        ///// </summary>
+        //public ContactsViewModelCollection Contracts
+        //{
+        //    get
+        //    {
+        //        var source = new ContactsViewModelCollection();
+        //        if (source.Count == 0)
+        //        {
+        //            source.Query();
+        //        }
+        //        return source;
+        //    }
+        //    set { RaisePropertyChanged("Contracts"); }
+        //}
 
 
 
-        #endregion
+        //#endregion
 
         #region 選擇的聯絡人
         private ContactsViewModel _SelectedContact;
@@ -485,7 +479,7 @@ namespace Tokiku.ViewModels
                 //LastUpdateTime = DateTime.Now;
                 CreateTime = DateTime.Now;
 
-                Contracts = new ContactsViewModelCollection();
+                //Contracts = new ContactsViewModelCollection();
                 ManufacturersBussinessItems = new ManufacturersBussinessItemsViewModelColletion();
                 TranscationRecords = new ManufacturersBussinessTranscationsViewModelCollection();
             }
@@ -636,8 +630,8 @@ namespace Tokiku.ViewModels
         //}
         public void QueryDetails()
         {
-            Contracts.ManufacturersId = Id;
-            Contracts.Query("", Id, IsClient);
+            //Contracts.ManufacturersId = Id;
+            //Contracts.Query("", Id, IsClient);
 
             ManufacturersBussinessItems.QueryAsync(Id);
 

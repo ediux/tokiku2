@@ -20,40 +20,33 @@ namespace Tokiku.ViewModels
 
         }
 
-        public override void Query()
-        {
-            SystemRolesController ctrl = new SystemRolesController();
-            ExecuteResultEntity<ICollection<SystemRolesEntity>> ere = ctrl.QuerAll();
-            if (!ere.HasError)
-            {
-                SystemRolesViewModel vm = new SystemRolesViewModel();
-                foreach (var item in ere.Result)
-                {
-                    vm.SetModel(item);
-                    Add(vm);
-                }
-            }
-        }
+        //public override void Query()
+        //{
+        //    SystemRolesController ctrl = new SystemRolesController();
+        //    ExecuteResultEntity<ICollection<SystemRolesEntity>> ere = ctrl.QuerAll();
+        //    if (!ere.HasError)
+        //    {
+        //        SystemRolesViewModel vm = new SystemRolesViewModel();
+        //        foreach (var item in ere.Result)
+        //        {
+        //            vm.SetModel(item);
+        //            Add(vm);
+        //        }
+        //    }
+        //}
 
     }
 
-    public class SystemRolesViewModel : BaseViewModel
+    public class SystemRolesViewModel : BaseViewModelWithPOCOClass<Roles>
     {
-        public override void SetModel(dynamic entity)
+        public SystemRolesViewModel() : base()
         {
-            try
-            {
-                if (entity is SystemRolesEntity)
-                {
-                    SystemRolesEntity data = (SystemRolesEntity)entity;
-                    BindingFromModel(data, this);
-                }
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-                throw;
-            }
+
+        }
+
+        public SystemRolesViewModel(Roles entity) : base(entity)
+        {
+
         }
 
     }

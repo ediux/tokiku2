@@ -20,41 +20,33 @@ namespace Tokiku.ViewModels
 
         }
 
-        public override void Query()
-        {
-            ReturnMaterialController ctrl = new ReturnMaterialController();
-            ExecuteResultEntity<ICollection<ReturnMaterialEntity>> ere = ctrl.QuerAll();
-            if (!ere.HasError)
-            {
-                ReturnMaterialViewModel vm = new ReturnMaterialViewModel();
-                foreach (var item in ere.Result)
-                {
-                    vm.SetModel(item);
-                    Add(vm);
-                }
-            }
-        }
+        //public override void Query()
+        //{
+        //    ReturnMaterialController ctrl = new ReturnMaterialController();
+        //    ExecuteResultEntity<ICollection<ReturnMaterialEntity>> ere = ctrl.QuerAll();
+        //    if (!ere.HasError)
+        //    {
+        //        ReturnMaterialViewModel vm = new ReturnMaterialViewModel();
+        //        foreach (var item in ere.Result)
+        //        {
+        //            vm.SetModel(item);
+        //            Add(vm);
+        //        }
+        //    }
+        //}
 
     }
 
-    public class ReturnMaterialViewModel : BaseViewModel
+    public class ReturnMaterialViewModel : BaseViewModelWithPOCOClass<ReturnMaterialEntity>
     {
-        public override void SetModel(dynamic entity)
+        public ReturnMaterialViewModel()
         {
-            try
-            {
-                if (entity is ReturnMaterialEntity)
-                {
-                    ReturnMaterialEntity data = (ReturnMaterialEntity)entity;
-                    BindingFromModel(data, this);
-                }
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-                throw;
-            }
+
         }
 
+        public ReturnMaterialViewModel(ReturnMaterialEntity entity) : base(entity)
+        {
+
+        }
     }
 }

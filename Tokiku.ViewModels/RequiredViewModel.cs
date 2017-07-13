@@ -20,26 +20,33 @@ namespace Tokiku.ViewModels
 
         }
 
-        public override void Query()
-        {
-            RequiredController ctrl = new RequiredController();
-            ExecuteResultEntity<ICollection<RequiredEntity>> ere = ctrl.QuerAll();
-            if (!ere.HasError)
-            {
-                RequiredViewModel vm = new RequiredViewModel();
-                foreach (var item in ere.Result)
-                {
-                    vm.SetModel(item);
-                    Add(vm);
-                }
-            }
-        }
+        //public override void Query()
+        //{
+        //    RequiredController ctrl = new RequiredController();
+        //    ExecuteResultEntity<ICollection<RequiredEntity>> ere = ctrl.QuerAll();
+        //    if (!ere.HasError)
+        //    {
+        //        RequiredViewModel vm = new RequiredViewModel();
+        //        foreach (var item in ere.Result)
+        //        {
+        //            vm.SetModel(item);
+        //            Add(vm);
+        //        }
+        //    }
+        //}
 
     }
 
     public class RequiredViewModel : BaseViewModelWithPOCOClass<Required>
     {
-       
+        public RequiredViewModel()
+        {
+
+        }
+        public RequiredViewModel(Required entity) : base(entity)
+        {
+
+        }
 
     }
 }

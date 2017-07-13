@@ -49,10 +49,6 @@
     <Compile Include="InventoryListViewModel.cs" />
     <Compile Include="InventoryViewModel.cs" />
     <Compile Include="OrderControlTableViewModel.cs" />
-    <Compile Include="Projects\Orders\AluminumExtrusionOrderListViewModel.cs" />
-    <Compile Include="Projects\Orders\AluminumExtrusionOrderMaterialValuationViewModel.cs" />
-    <Compile Include="Projects\Orders\AluminumExtrusionOrderMiscellaneousViewModel.cs" />
-    <Compile Include="Projects\Orders\AluminumExtrusionOrderViewModel.cs" />
     <Compile Include="AssemblyTableViewModel.cs" />
     <Compile Include="AssemblyTableViewModelCollection.cs" />
     <Compile Include="Base\BaseViewModelWithPOCOClass.cs" />
@@ -73,9 +69,7 @@
     <Compile Include="MES\MoldUseStatusViewModelCollection.cs" />
     <Compile Include="Projects\ConstructionAtlasReplyContextViewModel.cs" />
     <Compile Include="Projects\ConstructionAtlasReplyContextViewModelCollection.cs" />
-    <Compile Include="Projects\Orders\AluminumExtrusionOrderSheetViewModel.cs" />
     <Compile Include="Projects\ConstructionAtlasViewModel.cs" />
-    <Compile Include="Projects\CompositionTypesViewModel.cs" />
     <Compile Include="CRM\ClientViewModel.cs" />
     <Compile Include="Projects\EngineeringViewModel.cs" />
     <Compile Include="Projects\ProcessingAtlasViewModel.cs" />
@@ -128,6 +122,9 @@
       <Project>{14cc904e-4a5c-401b-a7db-ddb045abb6dd}</Project>
       <Name>Tokiku.Entity</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Projects\Orders\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

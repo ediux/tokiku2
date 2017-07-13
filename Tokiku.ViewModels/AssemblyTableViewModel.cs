@@ -13,15 +13,7 @@ namespace Tokiku.ViewModels
     {
 
 
-        #region Id
-        private Guid _Id;
-
-        public Guid Id
-        {
-            get { return CopyofPOCOInstance.Id; }
-            set { CopyofPOCOInstance.Id = value; RaisePropertyChanged("Id"); }
-        }
-        #endregion
+       
 
         #region Atlas
 

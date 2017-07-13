@@ -20,41 +20,49 @@ namespace Tokiku.ViewModels
 
         }
 
-        public override void Query()
-        {
-            ShippingMaterialController ctrl = new ShippingMaterialController();
-            ExecuteResultEntity<ICollection<ShippingMaterialEntity>> ere = ctrl.QuerAll();
-            if (!ere.HasError)
-            {
-                ShippingMaterialViewModel vm = new ShippingMaterialViewModel();
-                foreach (var item in ere.Result)
-                {
-                    vm.SetModel(item);
-                    Add(vm);
-                }
-            }
-        }
+        //public override void Query()
+        //{
+        //    ShippingMaterialController ctrl = new ShippingMaterialController();
+        //    ExecuteResultEntity<ICollection<ShippingMaterialEntity>> ere = ctrl.QuerAll();
+        //    if (!ere.HasError)
+        //    {
+        //        ShippingMaterialViewModel vm = new ShippingMaterialViewModel();
+        //        foreach (var item in ere.Result)
+        //        {
+        //            vm.SetModel(item);
+        //            Add(vm);
+        //        }
+        //    }
+        //}
 
     }
 
-    public class ShippingMaterialViewModel : BaseViewModel
+    public class ShippingMaterialViewModel : BaseViewModelWithPOCOClass<ShippingMaterialEntity>
     {
-        public override void SetModel(dynamic entity)
+        public ShippingMaterialViewModel()
         {
-            try
-            {
-                if (entity is ShippingMaterialEntity)
-                {
-                    ShippingMaterialEntity data = (ShippingMaterialEntity)entity;
-                    BindingFromModel(data, this);
-                }
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-                throw;
-            }
+
         }
+        public ShippingMaterialViewModel(ShippingMaterialEntity entity):base(entity)
+        {
+
+        }
+        //public override void SetModel(dynamic entity)
+        //{
+        //    try
+        //    {
+        //        if (entity is ShippingMaterialEntity)
+        //        {
+        //            ShippingMaterialEntity data = (ShippingMaterialEntity)entity;
+        //            BindingFromModel(data, this);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        setErrortoModel(this, ex);
+        //        throw;
+        //    }
+        //}
 
     }
 }

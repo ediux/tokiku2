@@ -11,158 +11,153 @@ namespace Tokiku.ViewModels
 {
     public class SuppliersViewModelCollection : BaseViewModelCollection<SuppliersViewModel>
     {
-        public override void SaveModel()
-        {
-            try
-            {
-                SuppliersController controller = new SuppliersController();
-                if (Items.Any())
-                {
-                    foreach(var item in Items)
-                    {
-                        SupplierTranscationItem data = new SupplierTranscationItem();
-                        CopyToModel(data, item);
-                        data.ManufacturersBussinessItemsId = item.Id;
-                        data.PlaceofReceipt = item.PlaceofReceipt;
-                        data.ProjectId = item.ProjectId;
-                        controller.CreateOrUpdate(data);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-            }
-        }
+        //public override void SaveModel()
+        //{
+        //    try
+        //    {
+        //        SuppliersController controller = new SuppliersController();
+        //        if (Items.Any())
+        //        {
+        //            foreach(var item in Items)
+        //            {
+        //                SupplierTranscationItem data = new SupplierTranscationItem();
+        //                CopyToModel(data, item);
+        //                data.ManufacturersBussinessItemsId = item.Id;
+        //                data.PlaceofReceipt = item.PlaceofReceipt;
+        //                data.ProjectId = item.ProjectId;
+        //                controller.CreateOrUpdate(data);
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        setErrortoModel(this, ex);
+        //    }
+        //}
     }
 
     /// <summary>
     /// 專案列表-供應商項目檢視模型
     /// </summary>
-    public class SuppliersViewModel : ManufacturersBussinessItemsViewModel
+    public class SuppliersViewModel : BaseViewModelWithPOCOClass<SupplierTranscationItem>
     {
-        #region 內部變數
-        private SuppliersController controller;
-        #endregion
+        //#region 內部變數
+        //private SuppliersController controller;
+        //#endregion
 
         public SuppliersViewModel() : base()
         {
 
         }
 
+        public SuppliersViewModel(SupplierTranscationItem entity) : base(entity)
+        {
+
+        }
         /// <summary>
         /// 專案編號
         /// </summary>
         public Guid ProjectId
         {
-            get { return (Guid)GetValue(ProjectIdProperty); }
-            set { SetValue(ProjectIdProperty, value); }
+            get { return CopyofPOCOInstance.ProjectId; }
+            set { CopyofPOCOInstance.ProjectId = value;RaisePropertyChanged("ProjectId"); }
         }
 
-        // Using a DependencyProperty as the backing store for ProjectId.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ProjectIdProperty =
-            DependencyProperty.Register("ProjectId", typeof(Guid), typeof(SuppliersViewModel), new PropertyMetadata(Guid.Empty));
-
+    
         public string PlaceofReceipt
         {
-            get { return (string)GetValue(PlaceofReceiptProperty); }
-            set { SetValue(PlaceofReceiptProperty, value); }
+            get { return CopyofPOCOInstance.PlaceofReceipt; }
+            set { CopyofPOCOInstance.PlaceofReceipt = value;RaisePropertyChanged("PlaceofReceipt"); }
         }
-
-        // Using a DependencyProperty as the backing store for PlaceofReceipt.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty PlaceofReceiptProperty =
-            DependencyProperty.Register("PlaceofReceipt", typeof(string), typeof(SuppliersViewModel), new PropertyMetadata(string.Empty));
-
 
 
 
         public string ManufacturersName
         {
-            get { return (string)GetValue(ManufacturersNameProperty); }
-            set { SetValue(ManufacturersNameProperty, value); }
+            get { return CopyofPOCOInstance.Manufacturers.Name; }
+            set {
+                //var model= ManufacturersViewModel.QuerySingle<ManufacturersViewModel,Manufacturers>("", "", value);
+                RaisePropertyChanged("ManufacturersName"); }
         }
 
-        // Using a DependencyProperty as the backing store for Manufacturers.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ManufacturersNameProperty =
-            DependencyProperty.Register("Manufacturers", typeof(string), typeof(SuppliersViewModel), new PropertyMetadata(string.Empty));
+    
 
-        
         #region Model Command Functions      
         public override void Initialized()
         {
             base.Initialized();
-            controller = new SuppliersController();
+            //controller = new SuppliersController();
         }
 
-        public override void Query()
-        {
-            if (ProjectId != null && ProjectId != Guid.Empty)
-            {
-                var executed_result = controller.Query(p => p.ProjectId == ProjectId);
+        //public override void Query()
+        //{
+        //    if (ProjectId != null && ProjectId != Guid.Empty)
+        //    {
+        //        var executed_result = controller.Query(p => p.ProjectId == ProjectId);
 
-                if (!executed_result.HasError)
-                {
-                    SupplierTranscationItem data = executed_result.Result.Single();
-                    BindingFromModel(data, this);
+        //        if (!executed_result.HasError)
+        //        {
+        //            SupplierTranscationItem data = executed_result.Result.Single();
+        //            BindingFromModel(data, this);
 
-                    if (data.ManufacturersBussinessItems != null)
-                    {
-                        BindingFromModel(data.ManufacturersBussinessItems, this);
-                    }
+        //            if (data.ManufacturersBussinessItems != null)
+        //            {
+        //                BindingFromModel(data.ManufacturersBussinessItems, this);
+        //            }
 
-                  
-                }
 
-            }
+        //        }
 
-        }
+        //    }
 
-        public override void SaveModel()
-        {
-            SupplierTranscationItem data = new SupplierTranscationItem();
+        //}
 
-            CopyToModel(data, this);
+        //public override void SaveModel()
+        //{
+        //    SupplierTranscationItem data = new SupplierTranscationItem();
 
-            var result = controller.CreateOrUpdate(data);
+        //    CopyToModel(data, this);
 
-            if (result.HasError)
-            {
-                Errors = result.Errors;
-                HasError = result.HasError;
-            }
+        //    var result = controller.CreateOrUpdate(data);
 
-            Refresh();
+        //    if (result.HasError)
+        //    {
+        //        Errors = result.Errors;
+        //        HasError = result.HasError;
+        //    }
 
-        }
+        //    Refresh();
 
-        public override void SetModel(dynamic entity)
-        {
-            if (entity is ManufacturersBussinessItemsViewModel)
-            {
-                ManufacturersBussinessItemsViewModel model = (ManufacturersBussinessItemsViewModel)entity;
-                BindingFromModel(model, this);
-                ManufacturersName = Manufacturers.Name;
-            }
-            else
-            {
-                if (entity is ManufacturersBussinessItems)
-                {
-                    ManufacturersBussinessItems data = (ManufacturersBussinessItems)entity;
-                    BindingFromModel(data, this);
-                    ManufacturersName = data.Manufacturers.Name;
+        //}
 
-                }
-                else
-                {
-                    if(entity is SupplierTranscationItem)
-                    {
-                        SupplierTranscationItem data = (SupplierTranscationItem)entity;
-                        BindingFromModel(data, this);
-                        BindingFromModel(data.ManufacturersBussinessItems, this);
-                    }
-                }
-            } 
-        }
+        //public override void SetModel(dynamic entity)
+        //{
+        //    if (entity is ManufacturersBussinessItemsViewModel)
+        //    {
+        //        ManufacturersBussinessItemsViewModel model = (ManufacturersBussinessItemsViewModel)entity;
+        //        BindingFromModel(model, this);
+        //        ManufacturersName = Manufacturers.Name;
+        //    }
+        //    else
+        //    {
+        //        if (entity is ManufacturersBussinessItems)
+        //        {
+        //            ManufacturersBussinessItems data = (ManufacturersBussinessItems)entity;
+        //            BindingFromModel(data, this);
+        //            ManufacturersName = data.Manufacturers.Name;
+
+        //        }
+        //        else
+        //        {
+        //            if(entity is SupplierTranscationItem)
+        //            {
+        //                SupplierTranscationItem data = (SupplierTranscationItem)entity;
+        //                BindingFromModel(data, this);
+        //                BindingFromModel(data.ManufacturersBussinessItems, this);
+        //            }
+        //        }
+        //    } 
+        //}
         #endregion
 
     }

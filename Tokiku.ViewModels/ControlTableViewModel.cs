@@ -11,16 +11,7 @@ namespace Tokiku.ViewModels
 {
     public class ControlTableViewModel : BaseViewModelWithPOCOClass<ControlTableDetails>
     {
-        #region Id
-        /// <summary>
-        /// BOM的編號
-        /// </summary>
-        public Guid Id
-        {
-            get { return CopyofPOCOInstance.Id; }
-            set { CopyofPOCOInstance.Id = value; RaisePropertyChanged("Id"); }
-        }
-        #endregion
+      
 
         #region Row Index
         private int _RowIndex;

@@ -22,17 +22,7 @@ namespace Tokiku.ViewModels
 
         }
 
-        #region Id
-        /// <summary>
-        /// 編號
-        /// </summary>
-        public Guid Id
-        {
-            get { return CopyofPOCOInstance.Id; }
-            set { CopyofPOCOInstance.Id = value; RaisePropertyChanged("Id"); }
-        }
 
-        #endregion
 
         #region Open Date
         /// <summary>
@@ -237,61 +227,7 @@ namespace Tokiku.ViewModels
 
         #endregion
 
-        #region CreateTime
 
-
-        /// <summary>
-        /// 建立時間
-        /// </summary>
-        public DateTime CreateTime
-        {
-            get { return CopyofPOCOInstance.Molds.CreateTime; }
-            set { CopyofPOCOInstance.Molds.CreateTime = value; RaisePropertyChanged("CreateTime"); }
-        }
-
-
-        #endregion
-
-        #region CreateUserId
-
-
-        /// <summary>
-        /// 建立人員ID
-        /// </summary>
-        public Guid CreateUserId
-        {
-            get { return CopyofPOCOInstance.Molds.CreateUserId; }
-            set { CopyofPOCOInstance.Molds.CreateUserId = value; RaisePropertyChanged("CreateUserId"); }
-        }
-
-
-
-        #endregion
-
-        #region CreateUser
-        /// <summary>
-        /// 建立的使用者
-        /// </summary>
-        public string CreateUser
-        {
-            get
-            {
-                return CopyofPOCOInstance.Molds.CreateUser.UserName;
-            }
-            set
-            {
-                SystemController sysCtrl = new SystemController();
-                var executeresult = sysCtrl.GetUser(value);
-                if (!executeresult.HasError)
-                {
-                    CopyofPOCOInstance.Molds.CreateUserId = executeresult.Result.UserId;
-                }
-            }
-        }
-
-
-
-        #endregion
 
         #region MoldUseStatus
 
@@ -366,7 +302,7 @@ namespace Tokiku.ViewModels
             if (!loginedUser.HasError)
             {
                 CreateUserId = loginedUser.Result.UserId;
-                CreateUser = loginedUser.Result.UserName;
+                CreateUser = loginedUser.Result;
 
                 //CreateUser.SetModel(loginedUser.Result);
             }
@@ -377,16 +313,16 @@ namespace Tokiku.ViewModels
         //public virtual Materials Materials { get; set; }
         //public virtual MoldUseStatus MoldUseStatus { get; set; }
         //ICollection<MoldsInProjects> ProjectMolds { get; set; }
-        public override void SaveModel()
-        {
-            try
-            {
+        //public override void SaveModel()
+        //{
+        //    try
+        //    {
 
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        setErrortoModel(this, ex);
+        //    }
+        //}
     }
 }

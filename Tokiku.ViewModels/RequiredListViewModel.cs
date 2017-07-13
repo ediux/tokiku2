@@ -20,41 +20,50 @@ namespace Tokiku.ViewModels
 
         }
 
-        public override void Query()
-        {
-            RequiredListController ctrl = new RequiredListController();
-            ExecuteResultEntity<ICollection<RequiredListEntity>> ere = ctrl.QuerAll();
-            if (!ere.HasError)
-            {
-                RequiredListViewModel vm = new RequiredListViewModel();
-                foreach (var item in ere.Result)
-                {
-                    vm.SetModel(item);
-                    Add(vm);
-                }
-            }
-        }
+        //public override void Query()
+        //{
+        //    RequiredListController ctrl = new RequiredListController();
+        //    ExecuteResultEntity<ICollection<RequiredListEntity>> ere = ctrl.QuerAll();
+        //    if (!ere.HasError)
+        //    {
+        //        RequiredListViewModel vm = new RequiredListViewModel();
+        //        foreach (var item in ere.Result)
+        //        {
+        //            //vm.SetModel(item);
+        //            Add(vm);
+        //        }
+        //    }
+        //}
 
     }
 
-    public class RequiredListViewModel : BaseViewModel
+    public class RequiredListViewModel : BaseViewModelWithPOCOClass<RequiredListEntity>
     {
-        public override void SetModel(dynamic entity)
+        public RequiredListViewModel()
         {
-            try
-            {
-                if (entity is RequiredListEntity)
-                {
-                    RequiredListEntity data = (RequiredListEntity)entity;
-                    BindingFromModel(data, this);
-                }
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-                throw;
-            }
+
         }
+
+        public RequiredListViewModel(RequiredListEntity entity) : base(entity)
+        {
+
+        }
+        //public override void SetModel(dynamic entity)
+        //{
+        //    try
+        //    {
+        //        if (entity is RequiredListEntity)
+        //        {
+        //            RequiredListEntity data = (RequiredListEntity)entity;
+        //            BindingFromModel(data, this);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        setErrortoModel(this, ex);
+        //        throw;
+        //    }
+        //}
 
     }
 }

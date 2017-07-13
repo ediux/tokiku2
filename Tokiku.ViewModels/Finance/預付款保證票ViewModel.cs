@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Tokiku.Entity;
 namespace Tokiku.ViewModels
 {
     public class 預付款保證票ViewModelCollection : BaseViewModelCollection<預付款保證票ViewModel>
@@ -16,7 +16,7 @@ namespace Tokiku.ViewModels
         }
     }
 
-    public class 預付款保證票ViewModel : BaseViewModel
+    public class 預付款保證票ViewModel : BaseViewModelWithPOCOClass<PromissoryNoteManagement>
     {
         public string Name { get; set; }
     }

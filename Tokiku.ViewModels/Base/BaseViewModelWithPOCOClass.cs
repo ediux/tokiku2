@@ -82,6 +82,54 @@ namespace Tokiku.ViewModels
             set { _EntityType.GetProperty("Id").SetValue(CopyofPOCOInstance, value); RaisePropertyChanged("Id"); }
         }
 
+        #region CreateTime
+
+        /// <summary>
+        /// 建立時間
+        /// </summary>
+        public DateTime CreateTime
+        {
+            get { return (DateTime)_EntityType.GetProperty("CreateTime").GetValue(CopyofPOCOInstance); }
+            set { _EntityType.GetProperty("CreateTime").SetValue(CopyofPOCOInstance, value); RaisePropertyChanged("CreateTime"); }
+        }
+
+
+        #endregion
+
+        #region CreateUserId
+        /// <summary>
+        /// 建立人員識別碼
+        /// </summary>
+        public Guid CreateUserId
+        {
+            get { return (Guid)_EntityType.GetProperty("CreateUserId").GetValue(CopyofPOCOInstance); }
+            set { _EntityType.GetProperty("CreateUserId").SetValue(CopyofPOCOInstance, value); RaisePropertyChanged("CreateUserId"); }
+        }
+        #endregion
+
+        #region CreateUser
+
+        /// <summary>
+        /// 建立人員
+        /// </summary>
+        public Users CreateUser
+        {
+            get { return (Users)_EntityType.GetProperty("CreateUser").GetValue(CopyofPOCOInstance); }
+            set { _EntityType.GetProperty("CreateUser").SetValue(CopyofPOCOInstance, value); RaisePropertyChanged("CreateUser"); }
+        }
+
+
+        #endregion
+
+        /// <summary>
+        /// 最後異動時間
+        /// </summary>
+        public DateTime? LastUpdateDate
+        {
+            get { return (DateTime?)_EntityType.GetProperty("LastUpdateDate").GetValue(CopyofPOCOInstance); }
+            set { _EntityType.GetProperty("LastUpdateDate").SetValue(CopyofPOCOInstance, value); RaisePropertyChanged("LastUpdateDate"); }
+        }
+
         /// <summary>
         /// 將來自資料庫的資料實體抄到檢視模型。
         /// </summary>

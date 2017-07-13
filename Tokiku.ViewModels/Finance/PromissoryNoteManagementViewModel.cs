@@ -163,29 +163,7 @@ namespace Tokiku.ViewModels
 
 
 
-        // 異動人員代號
-        public Guid CreateUserId
-        {
-            get { return CopyofPOCOInstance.CreateUserId.HasValue ? CopyofPOCOInstance.CreateUserId.Value : Guid.Empty; }
-            set { CopyofPOCOInstance.CreateUserId = value; RaisePropertyChanged("CreateUserId"); }
-        }
-
-
-        // 異動人員
-        public string CreateUser
-        {
-            get { return CopyofPOCOInstance.CreateUser; }
-            set { CopyofPOCOInstance.CreateUser = value; RaisePropertyChanged("CreateUser"); }
-        }
-
-
-        // 異動時間
-        public string CreateTime
-        {
-            get { return CopyofPOCOInstance.CreateTime; }
-            set { CopyofPOCOInstance.CreateTime = value; RaisePropertyChanged("CreateTime"); }
-        }
-
+       
 
         /*/ 承攬總價
         public Nullable<int> 承攬總價
