@@ -42,12 +42,12 @@ namespace TokikuNew.Views
 
         private void sSearchBar_ResetSearch(object sender, RoutedEventArgs e)
         {
-            ((ClientViewModelCollection)DataContext).Query();
+            //((ClientViewModelCollection)DataContext).Query();
         }
 
         private void sSearchBar_Search(object sender, RoutedEventArgs e)
         {
-            ((ClientViewModelCollection)DataContext).QueryByText((string)e.OriginalSource);
+            //((ClientViewModelCollection)DataContext).QueryByText((string)e.OriginalSource);
         }
 
         private void ClientList_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
@@ -74,7 +74,7 @@ namespace TokikuNew.Views
 
         private void sSearchBar_RefreshResult(object sender, RoutedEventArgs e)
         {
-            ((ClientViewModelCollection)DataContext).QueryByText((string)e.OriginalSource);
+            //((ClientViewModelCollection)DataContext).QueryByText((string)e.OriginalSource);
         }
 
         private bool IsStartUped = false;
@@ -82,15 +82,15 @@ namespace TokikuNew.Views
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             var DataSource = ((ClientViewModelCollection)DataContext);
-            if (!IsStartUped)
-            {
-                if (DataSource != null)
-                {
-                    Dispatcher.Invoke(DataSource.Query, DispatcherPriority.Background);
-                }
+            //if (!IsStartUped)
+            //{
+            //    if (DataSource != null)
+            //    {
+            //        Dispatcher.Invoke(DataSource.Query, DispatcherPriority.Background);
+            //    }
 
-                IsStartUped = true;
-            }
+            //    IsStartUped = true;
+            //}
         }
     }
 }

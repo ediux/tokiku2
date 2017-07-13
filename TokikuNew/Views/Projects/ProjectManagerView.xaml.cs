@@ -104,8 +104,8 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
                 {
                     if (SelectedProject.ClientId.HasValue)
                     {
-                        if (SelectedClient != null)
-                            SelectedClient.Refresh();
+                        //if (SelectedClient != null)
+                        //    SelectedClient.Refresh();
                     }
                 }
 
@@ -127,7 +127,7 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
                 if (e.OriginalSource is ClientViewModel)
                 {
                     SelectedClient = (ClientViewModel)e.OriginalSource;
-                    SelectedProject.Client = SelectedClient;
+                    //SelectedProject.Client = SelectedClient;
                     SelectedProject.ClientId = SelectedClient.Id;
                 }
             }
@@ -155,13 +155,13 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
                 }
                 if (SelectedProject != null)
                 {
-                    if (SelectedProject.ProjectContract != null && SelectedProject.ProjectContract.Any())
-                    {
-                        foreach (var foundcurrentNo in SelectedProject.ProjectContract)
-                        {
-                            foundcurrentNo.Name = tbName.Text;
-                        }
-                    }
+                    //if (SelectedProject.ProjectContract != null && SelectedProject.ProjectContract.Any())
+                    //{
+                    //    foreach (var foundcurrentNo in SelectedProject.ProjectContract)
+                    //    {
+                    //        foundcurrentNo.Name = tbName.Text;
+                    //    }
+                    //}
                 }
 
             }
@@ -257,10 +257,10 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
         {
             try
             {
-                if (SelectedProject.ProjectContract == null)
-                    SelectedProject.ProjectContract = new ProjectContractViewModelCollection();
+                //if (SelectedProject.ProjectContract == null)
+                //    SelectedProject.ProjectContract = new ProjectContractViewModelCollection();
 
-                SelectedProject.ProjectContract.Add(new ProjectContractViewModel());
+                //SelectedProject.ProjectContract.Add(new ProjectContractViewModel());
                 // UpdateLayout();
             }
             catch (Exception ex)
@@ -351,7 +351,7 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
                     {
                         if (dlg.SelectedClient != null)
                         {
-                            ((ProjectsViewModel)DataContext).Client = dlg.SelectedClient;
+                            //((ProjectsViewModel)DataContext).Client = dlg.SelectedClient;
                             ((ProjectsViewModel)DataContext).ClientId = dlg.SelectedClient.Id;
                             SelectedClient = SelectedProject.Client;
                         }
@@ -372,8 +372,8 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
             {
                 if (SelectedProject != null)
                 {
-                    var foundcurrentNo = SelectedProject.ProjectContract.Where(w => w.ContractNumber == SelectedProject.Code).Single();
-                    foundcurrentNo.SigningDate = SelectedProject.ProjectSigningDate;
+                    //var foundcurrentNo = SelectedProject.ProjectContract.Where(w => w.ContractNumber == SelectedProject.Code).Single();
+                    //foundcurrentNo.SigningDate = SelectedProject.ProjectSigningDate;
                 }
             }
             catch (Exception ex)
@@ -389,7 +389,7 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
             {
                 if (SelectedProject != null)
                 {
-                    SelectedProject.ProjectContract.Query((string)string.Empty);
+                    //SelectedProject.ProjectContract.Query((string)string.Empty);
                 }
             }
             catch (Exception ex)
@@ -406,7 +406,7 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
             {
                 if (SelectedProject != null)
                 {
-                    SelectedProject.ProjectContract.Query((string)e.OriginalSource);
+                    //SelectedProject.ProjectContract.Query((string)e.OriginalSource);
                 }
             }
             catch (Exception ex)
@@ -424,7 +424,7 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
                 {
                     if (dlg.SelectedClient != null)
                     {
-                        ((ProjectsViewModel)DataContext).Client = dlg.SelectedClient;
+                        //((ProjectsViewModel)DataContext).Client = dlg.SelectedClient;
                         ((ProjectsViewModel)DataContext).ClientId = dlg.SelectedClient.Id;
                         SelectedClient = SelectedProject.Client;
                     }
@@ -502,7 +502,7 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
         {
             try
             {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, SelectedProject.ConstructionAtlas));
+                //RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, SelectedProject.ConstructionAtlas));
             }
             catch (Exception ex)
             {

@@ -114,17 +114,17 @@ namespace TokikuNew.Views
 
                             if (contextObject.DataContext != null)
                             {
-                                if (contextObject.DataContext is BaseViewModel)
-                                {
-                                    BaseViewModel vmodel = (BaseViewModel)contextObject.DataContext;
-                                    if (vmodel.Status.IsModify && vmodel.Status.IsSaved == false)
-                                    {
-                                        if (MessageBox.Show("您尚未儲存，要繼續嗎?", "關閉前確認", MessageBoxButton.YesNo) == MessageBoxResult.No)
-                                        {
-                                            return;
-                                        }
-                                    }
-                                }
+                                //if (contextObject.DataContext is BaseViewModelWithPOCOClass<>)
+                                //{
+                                //    BaseViewModel vmodel = (BaseViewModel)contextObject.DataContext;
+                                //    if (vmodel.Status.IsModify && vmodel.Status.IsSaved == false)
+                                //    {
+                                //        if (MessageBox.Show("您尚未儲存，要繼續嗎?", "關閉前確認", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                                //        {
+                                //            return;
+                                //        }
+                                //    }
+                                //}
 
                             }
 
@@ -369,7 +369,7 @@ namespace TokikuNew.Views
                     if (e.OriginalSource != null && e.OriginalSource is ProjectContractViewModel)
                     {
                         var vm = new ContractManager() { Margin = new Thickness(0) };
-                        ((ProjectContractViewModel)SharedModel).Query();
+                        //((ProjectContractViewModel)SharedModel).Query();
                         vm.DataContext = SharedModel;
                         vm.LoginedUser = LoginedUser;
 
@@ -388,8 +388,8 @@ namespace TokikuNew.Views
                     {
 
                         var vm = new ConstructionAtlasView() { Margin = new Thickness(0) };
-                        if (SharedModel != null)
-                            ((ConstructionAtlasViewModelCollection)e.OriginalSource).Query();
+                        //if (SharedModel != null)
+                        //    ((ConstructionAtlasViewModelCollection)e.OriginalSource).Query();
 
                         vm.DataContext = SharedModel;
                         vm.LoginedUser = LoginedUser;
@@ -409,8 +409,8 @@ namespace TokikuNew.Views
                     {
 
                         var vm = new ProcessingAtlasView() { Margin = new Thickness(0) };
-                        if (SharedModel != null)
-                            ((ProcessingAtlasViewModelCollection)SharedModel).Query();
+                        //if (SharedModel != null)
+                        //    ((ProcessingAtlasViewModelCollection)SharedModel).Query();
                         vm.DataContext = SharedModel;
                         vm.LoginedUser = LoginedUser;
 
@@ -429,8 +429,8 @@ namespace TokikuNew.Views
                     {
 
                         var vm = new ContractManager() { Margin = new Thickness(0) };
-                        if (SharedModel != null)
-                            ((EngineeringViewModelCollection)SharedModel).Query();
+                        //if (SharedModel != null)
+                        //    ((EngineeringViewModelCollection)SharedModel).Query();
 
                         vm.DataContext = SharedModel;
                         vm.LoginedUser = LoginedUser;
@@ -525,8 +525,8 @@ namespace TokikuNew.Views
                         if (btnContext == "加工圖集總表")
                         {
                             var vm = new ProcessingAtlasView() { Margin = new Thickness(0) };
-                            if (SharedModel != null)
-                                ((ProcessingAtlasViewModelCollection)SharedModel).Query();
+                            //if (SharedModel != null)
+                            //    ((ProcessingAtlasViewModelCollection)SharedModel).Query();
                             vm.DataContext = SharedModel;
                             vm.LoginedUser = LoginedUser;
 
@@ -556,7 +556,7 @@ namespace TokikuNew.Views
                         if (btnContext == "鋁擠型訂製單列表")
                         {
                             var vm = new AluminumExtrusionOrderListView() { Margin = new Thickness(0) };
-                            vm.DataContext = new AluminumExtrusionOrderListViewModelCollection();
+                            //vm.DataContext = new AluminumExtrusionOrderListViewModelCollection();
                             addWorkarea.Content = vm;
                             addWorkarea.Margin = new Thickness(0);
 

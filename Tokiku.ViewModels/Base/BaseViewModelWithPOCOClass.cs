@@ -27,6 +27,7 @@ namespace Tokiku.ViewModels
             Status.IsNewInstance = false;
             CopyofPOCOInstance = entity;
             EntityType = entity.GetType();
+            _Mode = DocumentLifeCircle.Read;
         }
 
         public virtual void Initialized()
@@ -130,67 +131,11 @@ namespace Tokiku.ViewModels
             set { _EntityType.GetProperty("LastUpdateDate").SetValue(CopyofPOCOInstance, value); RaisePropertyChanged("LastUpdateDate"); }
         }
 
-        /// <summary>
-        /// 將來自資料庫的資料實體抄到檢視模型。
-        /// </summary>
-        protected void BindingFromModel(TPOCO entity)
+        private DocumentLifeCircle _Mode = DocumentLifeCircle.None;
+        public DocumentLifeCircle Mode
         {
-            try
-            {
-                if (entity == null)
-                    return;
-
-                Type t = entity.GetType();
-                Type ct = GetType();
-
-                var props = t.GetProperties();
-
-                foreach (var prop in props)
-                {
-                    try
-                    {
-                        if (t.IsGenericType && t.GetGenericTypeDefinition().Name == (typeof(ICollection<>).Name))
-                        {
-                            continue;
-                        }
-
-                        if (ct.IsGenericType && ct.GetGenericTypeDefinition().Name == (typeof(ObservableCollection<>).Name))
-                        {
-                            continue;
-                        }
-
-                        if (ct.BaseType.IsGenericType && ct.BaseType.GetGenericTypeDefinition().Name == (typeof(ObservableCollection<>).Name))
-                        {
-                            continue;
-                        }
-
-                        if (ct.BaseType.IsGenericType && ct.BaseType.GetGenericTypeDefinition().Name == (typeof(BaseViewModelCollection<>).Name))
-                        {
-                            continue;
-                        }
-
-                        var ctProp = ct.GetProperty(prop.Name);
-
-                        if (ctProp != null)
-                        {
-                            if (prop.PropertyType == ctProp.PropertyType)
-                            {
-                                var entityvalue = prop.GetValue(entity);
-                                var value = ctProp.GetValue(this);
-                                ctProp.SetValue(this, entityvalue);
-                            }
-                        }
-                    }
-                    catch
-                    {
-                        continue;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Errors = new string[] { ex.Message + "," + ex.StackTrace };
-            }
+            get { return _Mode; }
+            set { _Mode = value; RaisePropertyChanged("Mode"); }
         }
 
         /// <summary>
@@ -301,6 +246,16 @@ namespace Tokiku.ViewModels
         /// </summary>
         /// <param name="ControllerName">控制器名稱</param>
         /// <param name="isLast">控制旗標(多列更新使用)</param>
+        public virtual void SaveModel(bool isLast = true)
+        {
+            SaveModel(typeof(TPOCO).Name, isLast);
+        }
+
+        /// <summary>
+        /// 儲存資料檢視模型
+        /// </summary>
+        /// <param name="ControllerName">控制器名稱</param>
+        /// <param name="isLast">控制旗標(多列更新使用)</param>
         public virtual void SaveModel(string ControllerName, bool isLast = true)
         {
             string ActionName = "CreateOrUpdate";
@@ -336,10 +291,10 @@ namespace Tokiku.ViewModels
                     }
                     else
                     {
-                        
+
                         Errors = result.Errors;
                         HasError = true;
-                        
+
                     }
                 }
                 else

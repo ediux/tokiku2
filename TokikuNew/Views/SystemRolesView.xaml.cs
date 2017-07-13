@@ -30,7 +30,7 @@ namespace TokikuNew.Views
         {
             SystemRolesViewModelCollection ctrl = new SystemRolesViewModelCollection();
             CheckGrid.DataContext = ctrl;
-            ctrl.Query();
+            //ctrl.Query();
         }
     }
 }

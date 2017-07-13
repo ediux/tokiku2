@@ -45,13 +45,13 @@ namespace TokikuNew.Views
             {
                 if (!IsLoaded)
                 {
-                    ((ProjectListViewModelCollection)DataContext).Query();
+                    //((ProjectListViewModelCollection)DataContext).Query();
                 }
                 else
                 {
                     if (((ProjectListViewModelCollection)DataContext).Count == 0)
                     {
-                        ((ProjectListViewModelCollection)DataContext).Refresh();
+                        //((ProjectListViewModelCollection)DataContext).Refresh();
                     }
                 }
 

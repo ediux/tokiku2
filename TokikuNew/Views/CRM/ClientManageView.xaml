@@ -93,12 +93,12 @@
             </GroupBox>
             <GroupBox Header="專案工程資料" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="4" Margin="2">
 
-                <c:CustomDataGrid x:Name="EngList" HorizontalScrollBarVisibility="Auto"
+                <DataGrid x:Name="EngList" HorizontalScrollBarVisibility="Auto"
                                  CanUserAddRows="False" CanUserDeleteRows="False"
                                   AutoGenerateColumns="False"
                                   IsReadOnly="True"
                                   Margin="5" ItemsSource="{Binding ClientForProjects}" MouseDoubleClick="EngList_MouseDoubleClick" >
-                    <c:CustomDataGrid.Columns>
+                    <DataGrid.Columns>
                         <DataGridTextColumn Header="工程代號" Binding="{Binding Code}" Width="auto"/>
                         <DataGridTextColumn Header="工程名稱" Binding="{Binding Name}" Width="250"/>
                         <DataGridTextColumn Header="面積數(㎡)" Binding="{Binding Area}" Width="100"/>
@@ -117,8 +117,8 @@
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="營造廠" Binding="{Binding BuildingCompany}" Width="200"/>
                         <DataGridTextColumn Header="監造單位" Binding="{Binding SupervisionUnit}" Width="*"/>
-                    </c:CustomDataGrid.Columns>
-                </c:CustomDataGrid>
+                    </DataGrid.Columns>
+                </DataGrid>
             </GroupBox>
         </Grid>
     </Grid>

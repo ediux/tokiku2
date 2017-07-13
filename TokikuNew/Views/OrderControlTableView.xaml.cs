@@ -30,7 +30,7 @@ namespace TokikuNew.Views
         {
             OrderControlTableViewModelCollection ctrl = new OrderControlTableViewModelCollection();
             CheckGrid.DataContext = ctrl;
-            ctrl.Query();
+            //ctrl.Query();
         }
 
         private void btnNew_Click(object sender, RoutedEventArgs e)

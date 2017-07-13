@@ -13,7 +13,7 @@ namespace Tokiku.ViewModels
 {
     public class ProjectListViewModelCollection : BaseViewModelCollection<ProjectListViewModel>
     {
-        private ProjectsController _projects_controller;
+        //private ProjectsController _projects_controller;
 
         public ProjectListViewModelCollection() : base()
         {
@@ -28,7 +28,12 @@ namespace Tokiku.ViewModels
         public override void Initialized()
         {
             base.Initialized();
-            _projects_controller = new ProjectsController();
+            //_projects_controller = new ProjectsController();
+        }
+
+        public void Refresh()
+        {
+
         }
 
         //public override void Query()
@@ -61,34 +66,34 @@ namespace Tokiku.ViewModels
         //}
         public void QueryByText(string text)
         {
-            var projectResult = _projects_controller.SearchByText(text);
-            if (!projectResult.HasError)
-            {
-                Clear();
-                var result = projectResult.Result
-                    .Where(s => s.Code.Contains(text)
-                    || s.Name.Contains(text)
-                    || (s.ShortName != null && s.ShortName.Contains(text)))
-                    .OrderByDescending(s => s.Code)
-                    .OrderBy(s => s.State)
-                    .Select(s => new ProjectListViewModel()
-                    {
-                        Code = s.Code,
-                        CompletionDate = s.CompletionDate,
-                        Id = s.Id,
-                        Name = s.Name,
-                        ShortName = s.ShortName,
-                        StartDate = s.StartDate,
-                        State = s.State,
-                        WarrantyDate = s.WarrantyDate
-                    });
+            //var projectResult = _projects_controller.SearchByText(text);
+            //if (!projectResult.HasError)
+            //{
+            //    Clear();
+            //    var result = projectResult.Result
+            //        .Where(s => s.Code.Contains(text)
+            //        || s.Name.Contains(text)
+            //        || (s.ShortName != null && s.ShortName.Contains(text)))
+            //        .OrderByDescending(s => s.Code)
+            //        .OrderBy(s => s.State)
+            //        .Select(s => new ProjectListViewModel()
+            //        {
+            //            Code = s.Code,
+            //            CompletionDate = s.CompletionDate,
+            //            Id = s.Id,
+            //            Name = s.Name,
+            //            ShortName = s.ShortName,
+            //            StartDate = s.StartDate,
+            //            State = s.State,
+            //            WarrantyDate = s.WarrantyDate
+            //        });
 
-                foreach (var row in result)
-                {
-                    Add(row);
-                }
+            //    //foreach (var row in result)
+            //    //{
+            //    //    Add(row);
+            //    //}
 
-            }
+            //}
         }
 
     }

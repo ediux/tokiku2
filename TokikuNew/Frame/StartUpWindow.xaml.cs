@@ -165,7 +165,7 @@ namespace TokikuNew.Frame
         {
             try
             {
-                Model.Initialized();
+                //Model.Initialized();
                 DataContext = Model;
             }
             catch (Exception ex)

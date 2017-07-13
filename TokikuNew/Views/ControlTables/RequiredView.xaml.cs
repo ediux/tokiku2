@@ -31,7 +31,7 @@ namespace TokikuNew.Views
         {
             RequiredViewModelCollection ctrl = new RequiredViewModelCollection();
             CheckGrid.DataContext = ctrl;
-            ctrl.Query();
+            //ctrl.Query();
         }
 
         private void btnNew_Click(object sender, RoutedEventArgs e)

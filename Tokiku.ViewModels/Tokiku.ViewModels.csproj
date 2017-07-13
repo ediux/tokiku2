@@ -45,6 +45,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DocumentLifeCircle.cs" />
     <Compile Include="FormsDetailViewModel.cs" />
     <Compile Include="InventoryListViewModel.cs" />
     <Compile Include="InventoryViewModel.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Projects\ConstructionAtlasViewModel.cs" />
     <Compile Include="CRM\ClientViewModel.cs" />
     <Compile Include="Projects\EngineeringViewModel.cs" />
+    <Compile Include="Projects\Orders\AluminumExtrusionOrderViewModel.cs" />
     <Compile Include="Projects\ProcessingAtlasViewModel.cs" />
     <Compile Include="Projects\ProcessingAtlasViewModelCollection.cs" />
     <Compile Include="Projects\SuppliersViewModel.cs" />
@@ -123,8 +125,6 @@
       <Name>Tokiku.Entity</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Projects\Orders\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

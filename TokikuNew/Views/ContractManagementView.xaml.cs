@@ -30,7 +30,7 @@ namespace TokikuNew.Views
         {
             ContractManagementViewModelCollection ctrl = new ContractManagementViewModelCollection();
             CheckGrid.DataContext = ctrl;
-            ctrl.Query();
+            //ctrl.Query();
         }
     }
 }

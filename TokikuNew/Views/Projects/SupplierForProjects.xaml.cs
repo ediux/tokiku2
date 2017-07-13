@@ -157,7 +157,7 @@ namespace TokikuNew.Views
                 if (BussinessItemsGrid.SelectedItem != null)
                 {
                     SuppliersViewModel model = (SuppliersViewModel)BussinessItemsGrid.SelectedItem;
-                    model.MaterialCategories = ((MaterialCategoriesViewModel)((ComboBox)sender).SelectedItem).Name;
+                    //model.MaterialCategories = ((MaterialCategoriesViewModel)((ComboBox)sender).SelectedItem).Name;
                 }
                 BussinessItemsByCategories = new ManufacturersBussinessItemsViewModelColletion();
                 BussinessItemsByCategories.QueryWithMaterialCategories(CBMaterialCategoriesId);
@@ -191,7 +191,7 @@ namespace TokikuNew.Views
                     if (BussinessItemsGrid.SelectedItem != null)
                     {
                         SuppliersViewModel model = (SuppliersViewModel)BussinessItemsGrid.SelectedItem;
-                        model.Name = TranscationItem.Name;
+                        //model.Name = TranscationItem.Name;
                         model.Id = TranscationItem.Id;
                     }
 
@@ -265,8 +265,8 @@ namespace TokikuNew.Views
                 Button btn = (Button)sender;
                 SuppliersViewModel data = (SuppliersViewModel)btn.DataContext;
                 ((SuppliersViewModelCollection)DataContext).Remove(data);
-                ((SuppliersViewModelCollection)DataContext).SaveModel();
-                ((SuppliersViewModelCollection)DataContext).Refresh();
+                //((SuppliersViewModelCollection)DataContext).SaveModel();
+                //((SuppliersViewModelCollection)DataContext).Refresh();
             }
             catch (Exception ex)
             {
@@ -280,7 +280,7 @@ namespace TokikuNew.Views
         {
             try
             {
-                NextStop.Query();
+                //NextStop.Query();
 
                 AddHandler(DockBar.DocumentModeChangedEvent, new RoutedEventHandler(DockBar_DocumentModeChanged));
 
@@ -311,7 +311,7 @@ namespace TokikuNew.Views
 
                             }
                         }
-                        dataset.SaveModel();
+                        //dataset.SaveModel();
 
                         if (dataset.HasError)
                         {
@@ -322,7 +322,7 @@ namespace TokikuNew.Views
                         }
 
                         Mode = DocumentLifeCircle.Read;
-                        dataset.Refresh();
+                        //dataset.Refresh();
                         
                         break;
                 }
@@ -366,7 +366,7 @@ namespace TokikuNew.Views
                     if (BussinessItemsGrid.SelectedItem != null)
                     {
                         SuppliersViewModel model = (SuppliersViewModel)BussinessItemsGrid.SelectedItem;
-                        model.TicketPeriod = item.Name;
+                        //model.TicketPeriod = item.Name;
                     }
                 }
             }

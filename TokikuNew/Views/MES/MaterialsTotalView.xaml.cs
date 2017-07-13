@@ -63,14 +63,14 @@ namespace TokikuNew.Views
             //MoldsWorkBookImports.Sheets[0].Name = "模具總表";
             if (!IsLoaded)
             {
-                datasource.Query();
+                //datasource.Query();
                 LoadFromDatabase();
             }
             else
             {
                 if (datasource.Count == 0)
                 {
-                    datasource.Query();
+                    //datasource.Query();
                     LoadFromDatabase();
                 }
             }

@@ -30,9 +30,9 @@ namespace TokikuNew.Views
         private void AluminumExtrusionOrderMaterialValuationView_Loaded(object sender, RoutedEventArgs e)
         {
             try {
-                AluminumExtrusionOrderMaterialValuationViewModelCollection coll = new AluminumExtrusionOrderMaterialValuationViewModelCollection();
-                材質估價DG.DataContext = coll;
-                coll.Query();
+                //AluminumExtrusionOrderMaterialValuationViewModelCollection coll = new AluminumExtrusionOrderMaterialValuationViewModelCollection();
+                //材質估價DG.DataContext = coll;
+                //coll.Query();
             }catch (Exception ex) {
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
             }

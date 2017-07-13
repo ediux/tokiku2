@@ -91,7 +91,7 @@ namespace TokikuNew.Views
                     case DocumentLifeCircle.Save:
                         var dataset = (ProjectContractViewModelCollection)DataContext;
 
-                        dataset.SaveModel();
+                        dataset.SaveModel("");
 
                         if (dataset.HasError)
                         {
@@ -146,31 +146,31 @@ namespace TokikuNew.Views
                 ((ProjectContractViewModel)e.NewItem).Name = CurrentProject.Name;
                 ((ProjectContractViewModel)e.NewItem).SigningDate = CurrentProject.ProjectSigningDate;
 
-                if (CurrentProject.ProjectContract.Where(w => w.ContractNumber == ((ProjectContractViewModel)e.NewItem).ContractNumber).Any())
-                {
-                    var lastdata = CurrentProject.ProjectContract
-                        .Where(w => w.ContractNumber.StartsWith(((ProjectContractViewModel)e.NewItem).ContractNumber))
-                        .OrderByDescending(w => w.ContractNumber).FirstOrDefault();
+                //if (CurrentProject.ProjectContract.Where(w => w.ContractNumber == ((ProjectContractViewModel)e.NewItem).ContractNumber).Any())
+                //{
+                //    var lastdata = CurrentProject.ProjectContract
+                //        .Where(w => w.ContractNumber.StartsWith(((ProjectContractViewModel)e.NewItem).ContractNumber))
+                //        .OrderByDescending(w => w.ContractNumber).FirstOrDefault();
 
-                    if (lastdata != null)
-                    {
-                        int lastnumber = 0;
+                //    if (lastdata != null)
+                //    {
+                //        int lastnumber = 0;
 
-                        if (lastdata.ContractNumber.Length > 7)
-                        {
-                            if (!int.TryParse(lastdata.ContractNumber.Substring(8), out lastnumber))
-                            {
-                                ((ProjectContractViewModel)e.NewItem).ContractNumber = string.Empty;
-                                return;
-                            }
-                        }
+                //        if (lastdata.ContractNumber.Length > 7)
+                //        {
+                //            if (!int.TryParse(lastdata.ContractNumber.Substring(8), out lastnumber))
+                //            {
+                //                ((ProjectContractViewModel)e.NewItem).ContractNumber = string.Empty;
+                //                return;
+                //            }
+                //        }
 
-                        lastnumber += 1;
-                        ((ProjectContractViewModel)e.NewItem).ContractNumber = string.Format("{0}-{1}", lastdata.ContractNumber.Substring(0, 7), lastnumber);
-                        return;
-                    }
+                //        lastnumber += 1;
+                //        ((ProjectContractViewModel)e.NewItem).ContractNumber = string.Format("{0}-{1}", lastdata.ContractNumber.Substring(0, 7), lastnumber);
+                //        return;
+                //    }
 
-                }
+                //}
             }
             catch (Exception ex)
             {
@@ -180,28 +180,28 @@ namespace TokikuNew.Views
 
         private void btnProcessAltas_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, ((ProjectContractViewModel)((Button)sender).DataContext).ProcessingAtlas));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            //try
+            //{
+            //    RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, ((ProjectContractViewModel)((Button)sender).DataContext).ProcessingAtlas));
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
 
-            }
+            //}
         }
 
         private void btnEngItem_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, ((ProjectContractViewModel)((Button)sender).DataContext).Engineerings));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            //try
+            //{
+            //    RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, ((ProjectContractViewModel)((Button)sender).DataContext).Engineerings));
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
 
-            }
+            //}
         }
 
         private void ContractList_Selected(object sender, RoutedEventArgs e)

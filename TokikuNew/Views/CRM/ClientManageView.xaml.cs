@@ -72,12 +72,12 @@ namespace TokikuNew.Views
                         break;
                     case DocumentLifeCircle.Save:
 
-                        if (SelectedManufacturers.Contracts.Count > 0 && !SelectedManufacturers.Contracts.Where(w => w.IsDefault == true).Any())
-                        {
-                            MessageBox.Show("請勾選預設聯絡人!","錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-                            SelectedManufacturers.Errors = null;
-                            return;
-                        }
+                        //if (SelectedManufacturers.Contracts.Count > 0 && !SelectedManufacturers.Contracts.Where(w => w.IsDefault == true).Any())
+                        //{
+                        //    MessageBox.Show("請勾選預設聯絡人!","錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                        //    SelectedManufacturers.Errors = null;
+                        //    return;
+                        //}
 
                         SelectedManufacturers.SaveModel();
 
@@ -88,23 +88,23 @@ namespace TokikuNew.Views
                             break;
                         }
 
-                        var maincontact = SelectedManufacturers.Contracts.Where(w => w.IsDefault == true).SingleOrDefault();
-                        if (maincontact != null)
-                        {
-                            tblMainContractPerson.Text = maincontact.Name;
-                            tblExt.Text = maincontact.ExtensionNumber;
-                            tbMobile.Text = maincontact.Mobile;
+                        //var maincontact = SelectedManufacturers.Contracts.Where(w => w.IsDefault == true).SingleOrDefault();
+                        //if (maincontact != null)
+                        //{
+                        //    tblMainContractPerson.Text = maincontact.Name;
+                        //    tblExt.Text = maincontact.ExtensionNumber;
+                        //    tbMobile.Text = maincontact.Mobile;
 
-                            //((ManufacturersViewModel)DataContext).MainContactPerson = maincontact.Name;
-                            //((ManufacturersViewModel)DataContext).Extension = maincontact.ExtensionNumber;
-                        }
-                        else
-                        {
-                            tblMainContractPerson.Text = string.Empty;
-                            tblExt.Text = string.Empty;
-                            tbMobile.Text = string.Empty;
+                        //    //((ManufacturersViewModel)DataContext).MainContactPerson = maincontact.Name;
+                        //    //((ManufacturersViewModel)DataContext).Extension = maincontact.ExtensionNumber;
+                        //}
+                        //else
+                        //{
+                        //    tblMainContractPerson.Text = string.Empty;
+                        //    tblExt.Text = string.Empty;
+                        //    tbMobile.Text = string.Empty;
 
-                        }
+                        //}
 
                         if (SelectedManufacturers.Status.IsNewInstance)
                         {
@@ -165,26 +165,26 @@ namespace TokikuNew.Views
         {
             AddHandler(DockBar.DocumentModeChangedEvent, new RoutedEventHandler(dockBar_DocumentModeChanged));
             ClientViewModel SelectedManufacturers = (ClientViewModel)DataContext;
-            SelectedManufacturers.ClientForProjects.QueryByClient(SelectedManufacturers.Id);
-            SelectedManufacturers.Contracts.Query("", SelectedManufacturers.Id, SelectedManufacturers.IsClient);
+            //SelectedManufacturers.ClientForProjects.QueryByClient(SelectedManufacturers.Id);
+            //SelectedManufacturers.Contracts.Query("", SelectedManufacturers.Id, SelectedManufacturers.IsClient);
 
-            var maincontact = SelectedManufacturers.Contracts.Where(w => w.IsDefault == true).SingleOrDefault();
-            if (maincontact != null)
-            {
-                tblMainContractPerson.Text = maincontact.Name;
-                tblExt.Text = maincontact.ExtensionNumber;
-                tbMobile.Text = maincontact.Mobile;
+            //var maincontact = SelectedManufacturers.Contracts.Where(w => w.IsDefault == true).SingleOrDefault();
+            //if (maincontact != null)
+            //{
+            //    tblMainContractPerson.Text = maincontact.Name;
+            //    tblExt.Text = maincontact.ExtensionNumber;
+            //    tbMobile.Text = maincontact.Mobile;
               
-                //((ManufacturersViewModel)DataContext).MainContactPerson = maincontact.Name;
-                //((ManufacturersViewModel)DataContext).Extension = maincontact.ExtensionNumber;
-            }
-            else
-            {
-                tblMainContractPerson.Text = string.Empty;
-                tblExt.Text = string.Empty;
-                tbMobile.Text = string.Empty;
+            //    //((ManufacturersViewModel)DataContext).MainContactPerson = maincontact.Name;
+            //    //((ManufacturersViewModel)DataContext).Extension = maincontact.ExtensionNumber;
+            //}
+            //else
+            //{
+            //    tblMainContractPerson.Text = string.Empty;
+            //    tblExt.Text = string.Empty;
+            //    tbMobile.Text = string.Empty;
                
-            }
+            //}
         }
 
         private void ContractList_DefaultContactChanged(object sender, RoutedEventArgs e)

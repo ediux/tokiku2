@@ -345,7 +345,7 @@ namespace TokikuNew
                         ProjectsViewModel source = new ProjectsViewModel();
 
                         //source.Id = SelectedProjectId;
-                        source.Query(SelectedProjectId);
+                        //source.Query(SelectedProjectId);
                         vm.DataContext = source;
                         vm.Mode = DocumentLifeCircle.Read;
 

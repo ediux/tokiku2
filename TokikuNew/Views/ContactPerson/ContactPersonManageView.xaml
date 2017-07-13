@@ -4,10 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:c="clr-namespace:TokikuNew.Controls"
+    xmlns:viewmodels="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
     x:Name="userControl" x:Class="TokikuNew.Views.ContactPersonManageView" 
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024" Loaded="UserControl_Loaded"
     Background="{DynamicResource ControlBackgroundBrush}">
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="ContractSource" ObjectType="{x:Type viewmodels:ContactsViewModelCollection }" />
+    </UserControl.Resources>
     <Grid>
         <!-- Grid.RowDefinitions -->
             <!--<RowDefinition Height="17"/>-->

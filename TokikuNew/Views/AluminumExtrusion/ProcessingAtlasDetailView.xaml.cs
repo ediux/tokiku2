@@ -76,7 +76,7 @@ namespace TokikuNew.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            BaseViewModel.BindToDataGridView<BOMViewModel, BOMViewModelCollection>(BOMImports, BOMGrid);
+            //BaseViewModel.BindToDataGridView<BOMViewModel, BOMViewModelCollection>(BOMImports, BOMGrid);
         }
 
         private void UserControl_Initialized(object sender, EventArgs e)
