@@ -10,32 +10,17 @@ namespace Tokiku.Controllers
 {
     public class OrderControlTableController : BaseController
     {
-        private string sql;
+        private ExecuteResultEntity<ICollection<Orders>> rtn;
 
-        public ExecuteResultEntity<ICollection<OrderControlTableEntity>> QuerAll()
+        public ExecuteResultEntity<ICollection<Orders>> QuerAll()
         {
-            sql = " select TokikuId, ManufacturersId, Material, UnitWeight, OrderLength, " +
-                         " RequiredQuantity, SparePartsQuantity, PlaceAnOrderQuantity, Note " +
-                    " from TABL1 ";
-
-            ExecuteResultEntity<ICollection<OrderControlTableEntity>> rtn;
-
-            try
-            {
-                using (var ManufacturersRepository = RepositoryHelper.GetManufacturersRepository())
-                {
-                    var queryresult = ManufacturersRepository.UnitOfWork.Context.Database.SqlQuery<OrderControlTableEntity>(sql);
-
-                    rtn = ExecuteResultEntity<ICollection<OrderControlTableEntity>>.CreateResultEntity(
-                        new Collection<OrderControlTableEntity>(queryresult.ToList()));
-
-                    return rtn;
-                }
-
+            try {
+                var repo = RepositoryHelper.GetOrdersRepository();
+                return ExecuteResultEntity<ICollection<Orders>>.CreateResultEntity(
+                    new Collection<Orders>(repo.All().ToList()));
             }
-            catch (Exception ex)
-            {
-                rtn = ExecuteResultEntity<ICollection<OrderControlTableEntity>>.CreateErrorResultEntity(ex);
+            catch (Exception ex) {
+                rtn = ExecuteResultEntity<ICollection<Orders>>.CreateErrorResultEntity(ex);
                 return rtn;
             }
         }

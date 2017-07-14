@@ -34,7 +34,7 @@ namespace Tokiku.ViewModels
         //        }
         //    }
         //}
-        public new static RequiredViewModelCollection Query()
+        public static RequiredViewModelCollection Query()
         {
             RequiredController ctrl = new RequiredController();
             ExecuteResultEntity<ICollection<Required>> ere = ctrl.QuerAll();

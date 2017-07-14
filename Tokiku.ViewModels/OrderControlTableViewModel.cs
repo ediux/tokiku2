@@ -20,49 +20,54 @@ namespace Tokiku.ViewModels
 
         }
 
-        //public override void Query()
-        //{
-        //    OrderControlTableController ctrl = new OrderControlTableController();
-        //    ExecuteResultEntity<ICollection<OrderControlTableEntity>> ere = ctrl.QuerAll();
-        //    if (!ere.HasError)
-        //    {
-        //        OrderControlTableViewModel vm = new OrderControlTableViewModel();
-        //        foreach (var item in ere.Result)
-        //        {
-        //            vm.SetModel(item);
-        //            Add(vm);
-        //        }
-        //    }
-        //}
+        public static OrderControlTableViewModelCollection Query()
+        {
+            OrderControlTableController ctrl = new OrderControlTableController();
+            ExecuteResultEntity<ICollection<Orders>> ere = ctrl.QuerAll();
+
+            if (!ere.HasError)
+            {
+                return new OrderControlTableViewModelCollection(ere.Result.Select(s => new OrderControlTableViewModel(s)).ToList());
+            }
+            return new OrderControlTableViewModelCollection();
+        }
 
     }
 
-    public class OrderControlTableViewModel : BaseViewModelWithPOCOClass<OrderControlTableEntity>
+    public class OrderControlTableViewModel : BaseViewModelWithPOCOClass<Orders>
     {
         public OrderControlTableViewModel()
         {
 
         }
-        public OrderControlTableViewModel(OrderControlTableEntity entiy):base(entiy)
+        public OrderControlTableViewModel(Orders entiy):base(entiy)
         {
 
         }
-        //public override void SetModel(dynamic entity)
-        //{
-        //    try
-        //    {
-        //        if (entity is OrderControlTableEntity)
-        //        {
-        //            OrderControlTableEntity data = (OrderControlTableEntity)entity;
-        //            BindingFromModel(data, this);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        setErrortoModel(this, ex);
-        //        throw;
-        //    }
-        //}
+        // ID
+        public int Order
+        {
+            get { return CopyofPOCOInstance.Order; }
+            set { CopyofPOCOInstance.Order = value; RaisePropertyChanged("Order"); }
+        }
+        // 訂製單單號
+        public string FormNumber
+        {
+            get { return CopyofPOCOInstance.FormNumber; }
+            set { CopyofPOCOInstance.FormNumber = value; RaisePropertyChanged("FormNumber"); }
+        }
+        // 廠商代碼
+        public string ManufacturersCode
+        {
+            get { return CopyofPOCOInstance.Manufacturers.Code; }
+            set { CopyofPOCOInstance.Manufacturers.Code = value; RaisePropertyChanged("ManufacturersCode"); }
+        }
+        // 廠商名稱
+        public string ManufacturersName
+        {
+            get { return CopyofPOCOInstance.Manufacturers.Name; }
+            set { CopyofPOCOInstance.Manufacturers.Name = value; RaisePropertyChanged("ManufacturersName"); }
+        }
 
     }
 }

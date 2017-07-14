@@ -30,7 +30,7 @@ namespace TokikuNew.Views
         {
             InventoryViewModelCollection ctrl = new InventoryViewModelCollection();
             CheckGrid.DataContext = ctrl;
-            //ctrl.Query();
+            InventoryViewModelCollection.Query();
         }
 
         private void btnNew_Click(object sender, RoutedEventArgs e)
