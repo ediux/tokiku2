@@ -23,19 +23,44 @@ namespace TokikuNew.Views
         public ProjectManagerView()
         {
             InitializeComponent();
+
+           
         }
 
-        #region SelectedProject
-        public ProjectsViewModel SelectedProject
+        #region SelectedProjectId
+        public Guid SelectedProjectId
         {
-            get { return (ProjectsViewModel)GetValue(SelectedProjectProperty); }
-            set { SetValue(SelectedProjectProperty, value); }
+            get { return (Guid)GetValue(SelectedProjectIdProperty); }
+            set { SetValue(SelectedProjectIdProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for SelectedProject.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SelectedProjectProperty =
-            DependencyProperty.Register("SelectedProject", typeof(ProjectsViewModel), typeof(ProjectManagerView), new PropertyMetadata(default(ProjectsViewModel)));
+        public static readonly DependencyProperty SelectedProjectIdProperty =
+            DependencyProperty.Register("SelectedProjectId", typeof(Guid), 
+                typeof(ProjectManagerView), new PropertyMetadata(Guid.Empty, new PropertyChangedCallback(SelectedProjectIdChange)));
 
+        public static void SelectedProjectIdChange(DependencyObject sender,DependencyPropertyChangedEventArgs e)
+        {
+            try
+            {
+                if(sender is ProjectManagerView)
+                {
+
+                    ObjectDataProvider source = (ObjectDataProvider)((ProjectManagerView)sender).TryFindResource("ProjectSource");
+
+                    if (source != null)
+                    {
+                        source.MethodParameters[0] = e.NewValue;
+                        source.Refresh();
+                    }
+                }
+              
+            }
+            catch (Exception ex)
+            {
+                
+            }
+        }
         #endregion
 
         #region 已選擇的客戶
@@ -96,18 +121,22 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
         {
             try
             {
-                Binding selectProjectBinding = new Binding();
-                selectProjectBinding.Source = DataContext;
-                SetBinding(SelectedProjectProperty, selectProjectBinding);
+                e.Handled = true;
 
-                if (SelectedProject != null)
-                {
-                    if (SelectedProject.ClientId.HasValue)
-                    {
-                        //if (SelectedClient != null)
-                        //    SelectedClient.Refresh();
-                    }
-                }
+              
+
+                //Binding selectProjectBinding = new Binding();
+                //selectProjectBinding.Source = DataContext;
+                //SetBinding(SelectedProjectProperty, selectProjectBinding);
+
+                //if (SelectedProject != null)
+                //{
+                //    if (SelectedProject.ClientId.HasValue)
+                //    {
+                //        //if (SelectedClient != null)
+                //        //    SelectedClient.Refresh();
+                //    }
+                //}
 
 
                 AddHandler(ClientListView.SelectedClientChangedEvent, new RoutedEventHandler(UserControl_OnSelectionClientChanged));
@@ -128,7 +157,7 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
                 {
                     SelectedClient = (ClientViewModel)e.OriginalSource;
                     //SelectedProject.Client = SelectedClient;
-                    SelectedProject.ClientId = SelectedClient.Id;
+                    //SelectedProject.ClientId = SelectedClient.Id;
                 }
             }
             catch (Exception ex)
@@ -153,16 +182,16 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
                 {
                     tbShortName.Text = string.Empty;
                 }
-                if (SelectedProject != null)
-                {
-                    //if (SelectedProject.ProjectContract != null && SelectedProject.ProjectContract.Any())
-                    //{
-                    //    foreach (var foundcurrentNo in SelectedProject.ProjectContract)
-                    //    {
-                    //        foundcurrentNo.Name = tbName.Text;
-                    //    }
-                    //}
-                }
+                //if (SelectedProject != null)
+                //{
+                //    //if (SelectedProject.ProjectContract != null && SelectedProject.ProjectContract.Any())
+                //    //{
+                //    //    foreach (var foundcurrentNo in SelectedProject.ProjectContract)
+                //    //    {
+                //    //        foundcurrentNo.Name = tbName.Text;
+                //    //    }
+                //    //}
+                //}
 
             }
             catch (Exception ex)
@@ -177,26 +206,26 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
             try
             {
                 e.Handled = true;
-                SelectedProject.Errors = null;
+                //SelectedProject.Errors = null;
                 Mode = (DocumentLifeCircle)e.OriginalSource;
                 switch (Mode)
                 {
 
                     case DocumentLifeCircle.Create:
-                        if (SelectedProject.Status.IsNewInstance == false)
-                        {
-                            RaiseEvent(new RoutedEventArgs(NewDocumentPageEvent, this));
-                            break;
-                        }
+                        //if (SelectedProject.Status.IsNewInstance == false)
+                        //{
+                        //    RaiseEvent(new RoutedEventArgs(NewDocumentPageEvent, this));
+                        //    break;
+                        //}
 
-                        SelectedProject = new ProjectsViewModel();
+                        //SelectedProject = new ProjectsViewModel();
 
-                        SelectedProject.Initialized();
-                        SelectedProject.CreateUserId = LoginedUser.UserId;
+                        //SelectedProject.Initialized();
+                        //SelectedProject.CreateUserId = LoginedUser.UserId;
 
-                        SelectedProject.Status.IsModify = false;
-                        SelectedProject.Status.IsSaved = false;
-                        SelectedProject.Status.IsNewInstance = true;
+                        //SelectedProject.Status.IsModify = false;
+                        //SelectedProject.Status.IsSaved = false;
+                        //SelectedProject.Status.IsNewInstance = true;
 
                         break;
                     case DocumentLifeCircle.Save:
@@ -208,41 +237,41 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
                         //    //recvdata.SiteContactPersonPhone = TBSiteContactPersonPhone.Text;
                         //}
 
-                        if (SelectedProject.CreateUserId == Guid.Empty)
-                            SelectedProject.CreateUserId = LoginedUser.UserId;
+                        //if (SelectedProject.CreateUserId == Guid.Empty)
+                        //    SelectedProject.CreateUserId = LoginedUser.UserId;
 
-                        if (SelectedClient != null)
-                            SelectedProject.ClientId = SelectedClient.Id;
+                        //if (SelectedClient != null)
+                        //    SelectedProject.ClientId = SelectedClient.Id;
 
-                        SelectedProject.SaveModel();
+                        //SelectedProject.SaveModel();
 
-                        if (SelectedProject.HasError)
-                        {
-                            MessageBox.Show(string.Join("\n", SelectedProject.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-                            SelectedProject.Errors = null;
-                            //Mode = dockBar.LastState;
-                            break;
-                        }
+                        //if (SelectedProject.HasError)
+                        //{
+                        //    MessageBox.Show(string.Join("\n", SelectedProject.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                        //    SelectedProject.Errors = null;
+                        //    //Mode = dockBar.LastState;
+                        //    break;
+                        //}
 
-                        if (SelectedProject.Status.IsNewInstance)
-                        {
-                            RaiseEvent(new RoutedEventArgs(ClosableTabItem.OnPageClosingEvent, this));
-                        }
+                        //if (SelectedProject.Status.IsNewInstance)
+                        //{
+                        //    RaiseEvent(new RoutedEventArgs(ClosableTabItem.OnPageClosingEvent, this));
+                        //}
 
-                        Mode = DocumentLifeCircle.Read;
+                        //Mode = DocumentLifeCircle.Read;
 
-                        SelectedProject.Refresh();
+                        //SelectedProject.Refresh();
 
-                        SelectedProject.Status.IsModify = false;
-                        SelectedProject.Status.IsSaved = true;
-                        SelectedProject.Status.IsNewInstance = false;
+                        //SelectedProject.Status.IsModify = false;
+                        //SelectedProject.Status.IsSaved = true;
+                        //SelectedProject.Status.IsNewInstance = false;
 
 
                         break;
                     case DocumentLifeCircle.Update:
-                        SelectedProject.Status.IsModify = false;
-                        SelectedProject.Status.IsSaved = false;
-                        SelectedProject.Status.IsNewInstance = false;
+                        //SelectedProject.Status.IsModify = false;
+                        //SelectedProject.Status.IsSaved = false;
+                        //SelectedProject.Status.IsNewInstance = false;
                         break;
                 }
 
@@ -301,7 +330,7 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
                 {
                     SelectedClient = model;
 
-                    SelectedProject.ClientId = SelectedClient.Id;
+                    //SelectedProject.ClientId = SelectedClient.Id;
 
                 }
             }
@@ -353,7 +382,7 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
                         {
                             //((ProjectsViewModel)DataContext).Client = dlg.SelectedClient;
                             ((ProjectsViewModel)DataContext).ClientId = dlg.SelectedClient.Id;
-                            SelectedClient = SelectedProject.Client;
+                            //SelectedClient = SelectedProject.Client;
                         }
                     }
                 }
@@ -370,11 +399,11 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
         {
             try
             {
-                if (SelectedProject != null)
-                {
-                    //var foundcurrentNo = SelectedProject.ProjectContract.Where(w => w.ContractNumber == SelectedProject.Code).Single();
-                    //foundcurrentNo.SigningDate = SelectedProject.ProjectSigningDate;
-                }
+                //if (SelectedProject != null)
+                //{
+                //    //var foundcurrentNo = SelectedProject.ProjectContract.Where(w => w.ContractNumber == SelectedProject.Code).Single();
+                //    //foundcurrentNo.SigningDate = SelectedProject.ProjectSigningDate;
+                //}
             }
             catch (Exception ex)
             {
@@ -387,10 +416,10 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
         {
             try
             {
-                if (SelectedProject != null)
-                {
-                    //SelectedProject.ProjectContract.Query((string)string.Empty);
-                }
+                //if (SelectedProject != null)
+                //{
+                //    //SelectedProject.ProjectContract.Query((string)string.Empty);
+                //}
             }
             catch (Exception ex)
             {
@@ -404,10 +433,10 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
         {
             try
             {
-                if (SelectedProject != null)
-                {
-                    //SelectedProject.ProjectContract.Query((string)e.OriginalSource);
-                }
+                //if (SelectedProject != null)
+                //{
+                //    //SelectedProject.ProjectContract.Query((string)e.OriginalSource);
+                //}
             }
             catch (Exception ex)
             {
@@ -426,7 +455,7 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
                     {
                         //((ProjectsViewModel)DataContext).Client = dlg.SelectedClient;
                         ((ProjectsViewModel)DataContext).ClientId = dlg.SelectedClient.Id;
-                        SelectedClient = SelectedProject.Client;
+                        //SelectedClient = SelectedProject.Client;
                     }
                 }
 
@@ -483,6 +512,14 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
         {
             try
             {
+                Binding selectProjectBinding = new Binding();
+                selectProjectBinding.Source = TryFindResource("ProjectSource");
+                selectProjectBinding.Path = new PropertyPath("MethodParameters[0]");
+                selectProjectBinding.BindsDirectlyToSource = true;
+                selectProjectBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+
+                SetBinding(SelectedProjectIdProperty, selectProjectBinding);
+
                 controller = App.Resolve<ProjectsController>();
                 projectcontroll = App.Resolve<ProjectContractController>();
                 clientcontroller = App.Resolve<ClientController>();
@@ -490,6 +527,8 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
                 {
                     Mode = DocumentLifeCircle.Read;
                 }
+
+
             }
             catch (Exception ex)
             {

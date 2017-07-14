@@ -136,24 +136,26 @@ namespace TokikuNew.Views
             try
             {
                 e.Handled = true;
+
                 if (ProjectList.SelectedItem != null)
                 {
-                    SelectedProject = (ProjectListViewModel)ProjectList.SelectedItem;                   
+                    SelectedProject = (ProjectListViewModel)ProjectList.SelectedItem;
                 }
 
                 RoutedUICommand command = (RoutedUICommand)TryFindResource("OpenNewTabItem");
 
                 if (command != null)
                 {
-                    command.Execute(new RoutedViewResult() {
-                         FormatedDisplay= "專案:{0}-{1}",
-                         FormatedParameters = new object[] { SelectedProject.Code, SelectedProject.ShortName },
-                         ViewType = typeof(ProjectViewer),
-                         RoutedValues = new object[] { SelectedProject.Id }
-                    }, ProjectList);
+                    var routedvalue = new RoutedViewResult()
+                    {
+                        FormatedDisplay = "專案:{0}-{1}",
+                        FormatedParameters = new object[] { SelectedProject.Code, SelectedProject.ShortName },
+                        ViewType = typeof(ProjectViewer),
+                        RoutedValues = new Dictionary<string, object>()
+                    };
+                    routedvalue.RoutedValues.Add("SelectedProjectId", SelectedProject.Id);
+                    command.Execute(routedvalue, ProjectList);
                 }
-
-              
             }
             catch (Exception ex)
             {

@@ -15,7 +15,7 @@
     <Grid Background="{DynamicResource ControlBackgroundBrush}">
         <TabControl  TabStripPlacement="Top" Name="InnerWorkspaces">
             <TabItem Header="專案主檔">
-                <local:ProjectManagerView x:Name="PMV" SelectedProject="{Binding}" Mode="{Binding Path=Mode, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                <local:ProjectManagerView x:Name="PMV" SelectedProjectId="{Binding SelectedProjectId,ElementName=userControl}"  Mode="{Binding Path=Mode, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     LoginedUser="{Binding LoginedUser, ElementName=userControl}" />
             </TabItem>
             <TabItem Header="成本估算" Visibility="Collapsed">

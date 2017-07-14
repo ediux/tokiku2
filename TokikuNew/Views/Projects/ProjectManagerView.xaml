@@ -5,6 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Controls="clr-namespace:TokikuNew.Controls"
     xmlns:local="clr-namespace:TokikuNew.Views"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:Viewmodel="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
     x:Name="userControl" x:Class="TokikuNew.Views.ProjectManagerView"
              mc:Ignorable="d" 
@@ -12,6 +13,9 @@
              Initialized="userControl_Initialized" >
     <UserControl.Resources>
         <ObjectDataProvider x:Key="ProjectSource" ObjectType="{x:Type Viewmodel:ProjectsViewModel}" MethodName="Query">
+            <ObjectDataProvider.MethodParameters>
+                <x:Static Member="sys:Guid.Empty" />
+            </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </UserControl.Resources>
     <UserControl.CommandBindings>
@@ -19,7 +23,8 @@
                         CanExecute="ReplyCommand_CanExecute"
                         Executed="ReplyCommand_Executed" />
     </UserControl.CommandBindings>
-    <Grid Background="{DynamicResource ControlBackgroundBrush}" DataContext="{Binding Source={StaticResource ProjectSource}}">
+    
+    <Grid Background="{DynamicResource ControlBackgroundBrush}" >
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>
             <RowDefinition />
@@ -47,7 +52,7 @@
         </StackPanel>
 
         <Grid Grid.Row="1">
-            <GroupBox Header="基本資料" Style="{DynamicResource GroupBox_DocumentEditor}">
+            <GroupBox Header="基本資料" Style="{DynamicResource GroupBox_DocumentEditor}" DataContext="{Binding Source={StaticResource ProjectSource}}">
                 <Grid>
                     <Grid>
                         <Grid.ColumnDefinitions>
