@@ -20,7 +20,7 @@ namespace Tokiku.ViewModels
 
         }
 
-        public new static ShippingViewModelCollection Query()
+        public static ShippingViewModelCollection Query()
         {
             ShippingController ctrl = new ShippingController();
             ExecuteResultEntity<ICollection<PickList>> ere = ctrl.QuerAll();

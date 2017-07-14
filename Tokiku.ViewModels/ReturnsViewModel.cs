@@ -20,7 +20,7 @@ namespace Tokiku.ViewModels
 
         }
 
-        public new static ReturnsViewModelCollection Query()
+        public static ReturnsViewModelCollection Query()
         {
             ReturnsController ctrl = new ReturnsController();
             ExecuteResultEntity<ICollection<Returns>> ere = ctrl.QuerAll();

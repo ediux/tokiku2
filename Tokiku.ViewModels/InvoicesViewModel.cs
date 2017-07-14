@@ -20,7 +20,7 @@ namespace Tokiku.ViewModels
 
         }
 
-        public new static InvoicesViewModelCollection Query()
+        public static InvoicesViewModelCollection Query()
         {
             InvoicesController ctrl = new InvoicesController();
             ExecuteResultEntity<ICollection<Invoices>> ere = ctrl.QuerAll();

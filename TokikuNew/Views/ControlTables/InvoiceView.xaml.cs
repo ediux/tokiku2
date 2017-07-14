@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Tokiku.ViewModels;
 
 namespace TokikuNew
 {
@@ -29,6 +30,13 @@ namespace TokikuNew
             InitialSpreadOtherMoney();
             InitialSpreadReserveMoney();
             InitialSpreadPrepayments();
+        }
+
+        private void InvoiceView_Loaded(object sender, RoutedEventArgs e)
+        {
+            InvoicesViewModelCollection ctrl = new InvoicesViewModelCollection();
+            CheckGrid.DataContext = ctrl;
+            InvoicesViewModelCollection.Query();
         }
 
         //UI設定
