@@ -492,6 +492,23 @@ namespace Tokiku.Controllers
                 return false;
             }
         }
+        public ExecuteResultEntity<ICollection<TranscationCategories>> GetTranscationCategoriesList()
+        {
+            try
+            {
+                TranscationCategoriesRepository repo = RepositoryHelper.GetTranscationCategoriesRepository(database);
+
+                return ExecuteResultEntity<ICollection<TranscationCategories>>.CreateResultEntity(
+                    new Collection<TranscationCategories>(repo.All().ToList()));
+
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<ICollection<TranscationCategories>>.CreateErrorResultEntity(ex);
+
+
+            }
+        }
 
         public Task<ExecuteResultEntity<ICollection<TranscationCategories>>> GetTranscationCategoriesListAsync()
         {
@@ -506,6 +523,27 @@ namespace Tokiku.Controllers
             catch (Exception ex)
             {
                 return Task.FromResult(ExecuteResultEntity<ICollection<TranscationCategories>>.CreateErrorResultEntity(ex));
+
+
+            }
+        }
+
+        public ExecuteResultEntity<ICollection<MaterialCategories>> GetMaterialCategoriesList()
+        {
+            try
+            {
+                MaterialCategoriesRepository repo = RepositoryHelper.GetMaterialCategoriesRepository(database);
+
+                var result = from q in repo.All()
+                             select q;
+
+                return ExecuteResultEntity<ICollection<MaterialCategories>>.CreateResultEntity(
+                    new Collection<MaterialCategories>(result.ToList()));
+
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<ICollection<MaterialCategories>>.CreateErrorResultEntity(ex);
 
 
             }
@@ -547,6 +585,32 @@ namespace Tokiku.Controllers
             catch (Exception ex)
             {
                 return Task.FromResult(ExecuteResultEntity<ICollection<ManufacturersBussinessItems>>.CreateErrorResultEntity(ex));
+            }
+        }
+
+        /// <summary>
+        /// 連動下拉單查詢交易品項
+        /// </summary>
+        /// <param name="MaterialCategoriesId"></param>
+        /// <returns></returns>
+        public ExecuteResultEntity<ICollection<ManufacturersBussinessItems>> GetBussinessItemsListWithMaterialCategories(Guid MaterialCategoriesId)
+        {
+            //, Guid TranscationCategoriesId, Guid TicketPeriodId
+            try
+            {
+                ManufacturersBussinessItemsRepository repo = RepositoryHelper.GetManufacturersBussinessItemsRepository();
+                database = repo.UnitOfWork;
+
+                var remap = (from q in repo.All()
+                             where q.MaterialCategoriesId == MaterialCategoriesId
+                             select q).Distinct();
+
+                return ExecuteResultEntity<ICollection<ManufacturersBussinessItems>>.CreateResultEntity(
+                    new Collection<ManufacturersBussinessItems>(remap.ToList()));
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<ICollection<ManufacturersBussinessItems>>.CreateErrorResultEntity(ex);
             }
         }
 

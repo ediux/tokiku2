@@ -23,7 +23,7 @@
                         CanExecute="ReplyCommand_CanExecute"
                         Executed="ReplyCommand_Executed" />
     </UserControl.CommandBindings>
-    
+
     <Grid Background="{DynamicResource ControlBackgroundBrush}" >
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>
@@ -145,7 +145,7 @@
                         <TextBlock Text="完工日期：" Grid.Row="12" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" />
                         <TextBlock x:Name="CompletionDate" Grid.Row="12" Grid.Column="1" Margin="1" Text="{Binding CompletionDate, StringFormat=\{0:yyyy年MM月dd日\}}"/>
                         <TextBlock Grid.Row="12" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center" Text="狀態："  Margin="2"/>
-                        <ComboBox Style="{DynamicResource ReadModeSwitch_ComboBox}" Grid.Row="12" Grid.Column="3" Margin="2" ItemsSource="{DynamicResource StatesSource}"
+                        <ComboBox Style="{DynamicResource ReadModeSwitch_ComboBox}" Grid.Row="12" Grid.Column="3" Margin="2" ItemsSource="{Binding Source={StaticResource StatesSource}}"
                                   SelectedIndex="0"
                                   SelectedValuePath="Id" SelectedValue="{Binding State}">
                             <ComboBox.ItemTemplate>
@@ -210,9 +210,8 @@
                 <RowDefinition Height="50*" />
                 <RowDefinition Height="50*" />
             </Grid.RowDefinitions>
-            <local:ContractListView Grid.Row="1" Grid.Column="1" DataContext="{Binding ProjectContract}" CurrentProject="{Binding SelectedProject,ElementName=userControl}"/>
-            <local:SupplierForProjects Grid.Row="0" DataContext="{Binding Suppliers}" CurrentProject="{Binding SelectedProject,ElementName=userControl}"/>
+            <local:ContractListView Grid.Row="1" Grid.Column="1"  SelectedProjectId="{Binding SelectedProjectId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=userControl}" />
+            <local:SupplierForProjects Grid.Row="0" SelectedProjectId="{Binding SelectedProjectId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=userControl}"/>
         </Grid>
-
     </Grid>
 </UserControl>

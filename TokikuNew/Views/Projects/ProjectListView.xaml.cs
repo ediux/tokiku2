@@ -32,6 +32,7 @@ namespace TokikuNew.Views
             InitializeComponent();
         }
 
+
         public static readonly DependencyProperty SelectedProjectProperty = DependencyProperty.Register("SelectedProject", typeof(ProjectListViewModel), typeof(ProjectSelectListView));
 
         public ProjectListViewModel SelectedProject

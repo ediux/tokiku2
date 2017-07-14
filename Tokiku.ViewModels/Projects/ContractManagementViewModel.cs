@@ -21,25 +21,36 @@ namespace Tokiku.ViewModels
 
         }
 
-        //public override void Query()
-        //{
-        //    ContractManagementController ctrl = new ContractManagementController();
-        //    ExecuteResultEntity<ICollection<ContractManagementEntity>> ere = ctrl.QuerAll();
-        //    if (!ere.HasError)
-        //    {
-        //        ContractManagementViewModel vm = new ContractManagementViewModel();
-        //        foreach (var item in ere.Result)
-        //        {
-        //            vm.SetModel(item);
-        //            Add(vm);
-        //        }
-        //    }
-        //}
+        public ContractManagementViewModelCollection Query(Guid ProjectId)
+        {
+            return Query<ContractManagementViewModelCollection, ProjectContract>("ProjectContract", "QueryAll", ProjectId);
+
+            //ContractManagementController ctrl = new ContractManagementController();
+            //ExecuteResultEntity<ICollection<ContractManagementEntity>> ere = ctrl.QuerAll();
+            //if (!ere.HasError)
+            //{
+            //    ContractManagementViewModel vm = new ContractManagementViewModel();
+            //    foreach (var item in ere.Result)
+            //    {
+            //        vm.SetModel(item);
+            //        Add(vm);
+            //    }
+            //}
+        }
 
     }
 
     public class ContractManagementViewModel : BaseViewModelWithPOCOClass<ProjectContract>
     {
+        public ContractManagementViewModel()
+        {
+
+        }
+
+        public ContractManagementViewModel(ProjectContract entity):base(entity)
+        {
+
+        }
         //public override void SetModel(dynamic entity)
         //{
         //    try

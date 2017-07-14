@@ -116,7 +116,7 @@ namespace Tokiku.ViewModels
                     if (!result.HasError)
                     {
                         collection = (TCollection)Activator.CreateInstance(typeof(TCollection),
-                           result.Result.Select(s => (TView)Activator.CreateInstance(typeof(TView), s)));
+                           result.Result.Select(s => (TView)Activator.CreateInstance(typeof(TView), s)).ToList());
 
                         return collection;
                     }

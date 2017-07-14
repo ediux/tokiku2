@@ -24,7 +24,7 @@ namespace TokikuNew.Views
         {
             InitializeComponent();
 
-           
+
         }
 
         #region SelectedProjectId
@@ -36,14 +36,14 @@ namespace TokikuNew.Views
 
         // Using a DependencyProperty as the backing store for SelectedProject.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedProjectIdProperty =
-            DependencyProperty.Register("SelectedProjectId", typeof(Guid), 
+            DependencyProperty.Register("SelectedProjectId", typeof(Guid),
                 typeof(ProjectManagerView), new PropertyMetadata(Guid.Empty, new PropertyChangedCallback(SelectedProjectIdChange)));
 
-        public static void SelectedProjectIdChange(DependencyObject sender,DependencyPropertyChangedEventArgs e)
+        public static void SelectedProjectIdChange(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             try
             {
-                if(sender is ProjectManagerView)
+                if (sender is ProjectManagerView)
                 {
 
                     ObjectDataProvider source = (ObjectDataProvider)((ProjectManagerView)sender).TryFindResource("ProjectSource");
@@ -54,11 +54,11 @@ namespace TokikuNew.Views
                         source.Refresh();
                     }
                 }
-              
+
             }
             catch (Exception ex)
             {
-                
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
         }
         #endregion
@@ -123,7 +123,7 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
             {
                 e.Handled = true;
 
-              
+
 
                 //Binding selectProjectBinding = new Binding();
                 //selectProjectBinding.Source = DataContext;
@@ -206,26 +206,28 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
             try
             {
                 e.Handled = true;
-                //SelectedProject.Errors = null;
+                ProjectsViewModel SelectedProject = (ProjectsViewModel)((ObjectDataProvider)TryFindResource("ProjectSource")).Data;
+                //SelectedProject.Errors = new string[] { };
                 Mode = (DocumentLifeCircle)e.OriginalSource;
                 switch (Mode)
                 {
 
                     case DocumentLifeCircle.Create:
-                        //if (SelectedProject.Status.IsNewInstance == false)
-                        //{
-                        //    RaiseEvent(new RoutedEventArgs(NewDocumentPageEvent, this));
-                        //    break;
-                        //}
 
-                        //SelectedProject = new ProjectsViewModel();
+                        if (SelectedProject.Status.IsNewInstance == false)
+                        {
+                            RaiseEvent(new RoutedEventArgs(NewDocumentPageEvent, this));
+                            break;
+                        }
 
-                        //SelectedProject.Initialized();
-                        //SelectedProject.CreateUserId = LoginedUser.UserId;
+                        SelectedProject = new ProjectsViewModel();
 
-                        //SelectedProject.Status.IsModify = false;
-                        //SelectedProject.Status.IsSaved = false;
-                        //SelectedProject.Status.IsNewInstance = true;
+                        SelectedProject.Initialized();
+                        SelectedProject.CreateUserId = LoginedUser.UserId;
+
+                        SelectedProject.Status.IsModify = false;
+                        SelectedProject.Status.IsSaved = false;
+                        SelectedProject.Status.IsNewInstance = true;
 
                         break;
                     case DocumentLifeCircle.Save:
@@ -237,41 +239,41 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
                         //    //recvdata.SiteContactPersonPhone = TBSiteContactPersonPhone.Text;
                         //}
 
-                        //if (SelectedProject.CreateUserId == Guid.Empty)
-                        //    SelectedProject.CreateUserId = LoginedUser.UserId;
+                        if (SelectedProject.CreateUserId == Guid.Empty)
+                            SelectedProject.CreateUserId = LoginedUser.UserId;
 
-                        //if (SelectedClient != null)
-                        //    SelectedProject.ClientId = SelectedClient.Id;
+                        if (SelectedClient != null)
+                            SelectedProject.ClientId = SelectedClient.Id;
 
-                        //SelectedProject.SaveModel();
+                        SelectedProject.SaveModel("ProjectManagerView");
 
-                        //if (SelectedProject.HasError)
-                        //{
-                        //    MessageBox.Show(string.Join("\n", SelectedProject.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-                        //    SelectedProject.Errors = null;
-                        //    //Mode = dockBar.LastState;
-                        //    break;
-                        //}
+                        if (SelectedProject.HasError)
+                        {
+                            MessageBox.Show(string.Join("\n", SelectedProject.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                            SelectedProject.Errors = null;
+                            //Mode = dockBar.LastState;
+                            break;
+                        }
 
-                        //if (SelectedProject.Status.IsNewInstance)
-                        //{
-                        //    RaiseEvent(new RoutedEventArgs(ClosableTabItem.OnPageClosingEvent, this));
-                        //}
+                        if (SelectedProject.Status.IsNewInstance)
+                        {
+                            RaiseEvent(new RoutedEventArgs(ClosableTabItem.OnPageClosingEvent, this));
+                        }
 
-                        //Mode = DocumentLifeCircle.Read;
+                        Mode = DocumentLifeCircle.Read;
 
-                        //SelectedProject.Refresh();
+                        ((ObjectDataProvider)TryFindResource("ProjectSource")).Refresh();
 
-                        //SelectedProject.Status.IsModify = false;
-                        //SelectedProject.Status.IsSaved = true;
-                        //SelectedProject.Status.IsNewInstance = false;
+                        SelectedProject.Status.IsModify = false;
+                        SelectedProject.Status.IsSaved = true;
+                        SelectedProject.Status.IsNewInstance = false;
 
 
                         break;
                     case DocumentLifeCircle.Update:
-                        //SelectedProject.Status.IsModify = false;
-                        //SelectedProject.Status.IsSaved = false;
-                        //SelectedProject.Status.IsNewInstance = false;
+                        SelectedProject.Status.IsModify = false;
+                        SelectedProject.Status.IsSaved = false;
+                        SelectedProject.Status.IsNewInstance = false;
                         break;
                 }
 

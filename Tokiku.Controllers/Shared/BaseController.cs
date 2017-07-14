@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
@@ -20,7 +21,7 @@ namespace Tokiku.Controllers
         /// <summary>
         /// 統一資料庫連線物件。
         /// </summary>
-        protected IUnitOfWork database;
+        protected static IUnitOfWork database;
 
         public BaseController()
         {
@@ -282,7 +283,7 @@ namespace Tokiku.Controllers
             IEnumerable<string> keyNames = set.EntitySet.ElementType
                                                         .KeyMembers
                                                         .Select(k => k.Name);
-            
+
             Type entityreflection = typeof(T);
 
             var pkeys = entityreflection.GetProperties()
@@ -307,10 +308,34 @@ namespace Tokiku.Controllers
             {
                 MethodInfo GetRepositoryMethod = RepositoryType.GetMethod(string.Format("Get{0}Repository", type.Name), new Type[] { typeof(IUnitOfWork) });
 
-                database = RepositoryHelper.GetUnitOfWork();
+                if (database == null)
+                    database = RepositoryHelper.GetUnitOfWork();
 
                 if (GetRepositoryMethod != null)
                     return (IRepositoryBase<T>)GetRepositoryMethod.Invoke(null, new object[] { database });
+                else
+                    throw new NotImplementedException(string.Format("Function of Get{0}Repository not found or not implemented.", type.Name));
+            }
+
+            return default(IRepositoryBase<T>);
+
+        }
+
+        private IRepositoryBase<T> GetSecondRepository()
+        {
+            Type type = typeof(T);
+
+            Type RepositoryType = typeof(RepositoryHelper);
+
+
+            if (RepositoryType != null)
+            {
+                MethodInfo GetRepositoryMethod = RepositoryType.GetMethod(string.Format("Get{0}Repository", type.Name), new Type[] { typeof(IUnitOfWork) });
+
+                var database2 = new EFUnitOfWork(new TokikuEntities());
+
+                if (GetRepositoryMethod != null)
+                    return (IRepositoryBase<T>)GetRepositoryMethod.Invoke(null, new object[] { database2 });
                 else
                     throw new NotImplementedException(string.Format("Function of Get{0}Repository not found or not implemented.", type.Name));
             }
@@ -347,9 +372,9 @@ namespace Tokiku.Controllers
         {
             try
             {
-                using (IRepositoryBase<T> repo = GetRepository())
+                using (IRepositoryBase<T> repo = GetSecondRepository())
                 {
-                    database = repo.UnitOfWork;
+
                     if (repo == null)
                         return ExecuteResultEntity.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
 
@@ -358,9 +383,12 @@ namespace Tokiku.Controllers
                     if (isLastRecord)
                     {
                         repo.UnitOfWork.Commit();
-                        database = repo.UnitOfWork;
-                        repo.UnitOfWork.Context.Set<T>().Attach(entity);
-                        entity = repo.Reload(entity);
+
+                        var repor = GetRepository();
+                        ((IObjectContextAdapter)repo.UnitOfWork.Context).ObjectContext.Detach(entity);
+                        repor.UnitOfWork.Context.Set<T>().Attach(entity);
+                        //repo.UnitOfWork.Context.Set<T>().Attach(entity);
+                        entity = repor.Reload(entity);
                     }
 
                     return ExecuteResultEntity.CreateResultEntity();
@@ -384,7 +412,7 @@ namespace Tokiku.Controllers
 
             try
             {
-              
+
                 var repo = GetRepository();
 
                 database = repo.UnitOfWork;
@@ -392,11 +420,24 @@ namespace Tokiku.Controllers
                 if (repo == null)
                     return ExecuteResultEntity<ICollection<T>>.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
 
-                var result = repo.Where(filiter);
+                var result = repo.Where(filiter).AsNoTracking();
 
                 if (result.Any())
                 {
-                    model = ExecuteResultEntity<ICollection<T>>.CreateResultEntity(new Collection<T>(result.ToList()));
+                    var detachs = result.ToList();
+                    //foreach (var e in detachs)
+                    //{
+                    //    try
+                    //    {
+                    //        ((IObjectContextAdapter)database.Context).ObjectContext.Detach(e);
+                    //    }
+                    //    catch
+                    //    {
+
+                    //    }
+
+                    //}
+                    model = ExecuteResultEntity<ICollection<T>>.CreateResultEntity(new Collection<T>(detachs));
                     return model;
                 }
 
@@ -421,29 +462,45 @@ namespace Tokiku.Controllers
         {
             try
             {
-                using (var repo = GetRepository())
+                var reporead = GetRepository();
+
+                try
                 {
-                    if (repo == null)
-                        return ExecuteResultEntity<T>.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
-
-                    database = repo.UnitOfWork;
-
-                    T findresult = repo.Get(IdentifyPrimaryKey(fromModel));
-
-                    if (findresult != null)
-                    {
-                        CheckAndUpdateValue(fromModel, findresult);
-
-                        if (isLastRecord)
-                        {
-                            repo.UnitOfWork.Commit();
-                            database = repo.UnitOfWork;
-                            findresult = repo.Get(IdentifyPrimaryKey(findresult));
-                        }
-
-                        return ExecuteResultEntity<T>.CreateResultEntity(findresult);
-                    }
+                    ((IObjectContextAdapter)database.Context).ObjectContext.Detach(fromModel);
                 }
+                catch
+                {
+
+                }
+
+                //reporead.UnitOfWork.Context.Entry<T>(fromModel).State = EntityState.Detached;
+
+                var repo = GetSecondRepository();
+                if (repo == null)
+                    return ExecuteResultEntity<T>.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
+
+                //((IObjectContextAdapter)repo.UnitOfWork.Context).ObjectContext.(fromModel);
+
+                ////database = repo.UnitOfWork;
+
+                T findresult = repo.Get(IdentifyPrimaryKey(fromModel));
+
+                if (findresult != null)
+                {
+                    CheckAndUpdateValue(fromModel, findresult);
+
+                    if (isLastRecord)
+                    {
+                        //repo.UnitOfWork.Context.Entry<T>(fromModel).State = System.Data.Entity.EntityState.Detached;
+                        //repo.UnitOfWork.Context.Entry<T>(findresult).State = System.Data.Entity.EntityState.Modified;
+                        repo.UnitOfWork.Commit();
+                        //database = repo.UnitOfWork;
+                        findresult = GetRepository().Get(IdentifyPrimaryKey(findresult));
+                    }
+
+                    return ExecuteResultEntity<T>.CreateResultEntity(findresult);
+                }
+
                 return ExecuteResultEntity<T>.CreateErrorResultEntity("Data not found.");
             }
             catch (Exception ex)
@@ -462,27 +519,27 @@ namespace Tokiku.Controllers
         {
             try
             {
-                using (var repo = GetRepository())
+                var repo = GetRepository();
+
+                if (repo == null)
+                    return ExecuteResultEntity.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
+
+                var findresult = repo.Where(condtion);
+
+                if (findresult.Any())
                 {
-                    if (repo == null)
-                        return ExecuteResultEntity.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
-                    database = repo.UnitOfWork;
-                    var findresult = repo.Where(condtion);
-
-                    if (findresult.Any())
+                    foreach (var result in findresult)
                     {
-                        foreach (var result in findresult)
-                        {
-                            repo.Delete(result);
-                        }
-
-                        repo.UnitOfWork.Commit();
-
-                        return ExecuteResultEntity.CreateResultEntity();
+                        repo.Delete(result);
                     }
 
-                    return ExecuteResultEntity.CreateErrorResultEntity("Data no found.");
+                    repo.UnitOfWork.Commit();
+
+                    return ExecuteResultEntity.CreateResultEntity();
                 }
+
+                return ExecuteResultEntity.CreateErrorResultEntity("Data no found.");
+
             }
             catch (Exception ex)
             {
@@ -495,15 +552,17 @@ namespace Tokiku.Controllers
         /// 新增或更新資料至資料庫。
         /// </summary>
         /// <param name="model">已經變更的資料實體物件(來自UI)</param>
-        public virtual ExecuteResultEntity<T> CreateOrUpdate(T entity,bool isLastRecord = true)
+        public virtual ExecuteResultEntity<T> CreateOrUpdate(T entity, bool isLastRecord = true)
         {
             try
             {
                 var repo = GetRepository();
-                database = repo.UnitOfWork;
+
 
                 if (repo == null)
                     return ExecuteResultEntity<T>.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
+
+                repo.UnitOfWork.Context.Entry<T>(entity).State = System.Data.Entity.EntityState.Detached;
 
                 //檢查資料庫資料是否存在?
                 if (repo.Get(IdentifyPrimaryKey(entity)) != null)

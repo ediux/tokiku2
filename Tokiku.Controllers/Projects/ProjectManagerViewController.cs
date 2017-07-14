@@ -16,7 +16,9 @@ namespace Tokiku.Controllers
                 var executeresult = Query(p => p.Id == id);
                 if (!executeresult.HasError)
                 {
-                    return ExecuteResultEntity<Projects>.CreateResultEntity(executeresult.Result.SingleOrDefault());
+                    var entity = executeresult.Result.SingleOrDefault();
+                    //database.Context.Entry<Projects>(entity).State = System.Data.Entity.EntityState.Detached;
+                    return ExecuteResultEntity<Projects>.CreateResultEntity(entity);
                 }
                 return ExecuteResultEntity<Projects>.CreateResultEntity(new Projects());
             }

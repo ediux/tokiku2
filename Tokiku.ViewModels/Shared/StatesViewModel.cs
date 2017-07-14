@@ -11,7 +11,7 @@ namespace Tokiku.ViewModels
 {
     public class StatesViewModelCollection : BaseViewModelCollection<StatesViewModel>
     {
-      
+
 
         public StatesViewModelCollection()
         {
@@ -29,7 +29,10 @@ namespace Tokiku.ViewModels
         //    controller = new Controllers.StateController();
         //    //Query();
         //}
-
+        public static StatesViewModelCollection Query()
+        {
+            return Query<StatesViewModelCollection, States>("State", "QueryAll");
+        }
         //public async override void Query()
         //{
         //    var result = await controller.GetStateListAsync();
@@ -57,15 +60,23 @@ namespace Tokiku.ViewModels
     }
     public class StatesViewModel : BaseViewModelWithPOCOClass<States>
     {
+        public StatesViewModel()
+        {
 
+        }
+
+        public StatesViewModel(States entity) : base(entity)
+        {
+
+        }
 
         public new byte Id
         {
             get { return CopyofPOCOInstance.Id; }
-            set { CopyofPOCOInstance.Id = value;RaisePropertyChanged("Id"); }
+            set { CopyofPOCOInstance.Id = value; RaisePropertyChanged("Id"); }
         }
 
-      
+
 
         public string StateName
         {
@@ -73,7 +84,7 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.StateName = value; RaisePropertyChanged("StateName"); }
         }
 
-      
+
         //public override void SetModel(dynamic entity)
         //{
         //    try

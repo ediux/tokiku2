@@ -9,6 +9,11 @@ namespace Tokiku.Controllers
 {
     public class SuppliersController : BaseController<SupplierTranscationItem>
     {
+        public ExecuteResultEntity<ICollection<SupplierTranscationItem>> QueryByProject(Guid ProjectId)
+        {
+            return Query(p => p.ProjectId == ProjectId);
+        }
+
         public override ExecuteResultEntity<SupplierTranscationItem> Update(SupplierTranscationItem fromModel, bool isLastRecord = true)
         {
             try

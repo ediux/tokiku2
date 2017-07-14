@@ -35,27 +35,17 @@ namespace Tokiku.ViewModels
             _controller = new ProjectContractController();
         }
 
-        public void Query(Guid ProjectId)
+        public static ProjectContractViewModelCollection Query(Guid ProjectId)
         {
             try
             {
-                var executed_result = _controller.QueryAll(ProjectId);
-
-                if (!executed_result.HasError)
-                {
-                    ClearItems();
-
-                    foreach (var row in executed_result.Result)
-                    {
-                        ProjectContractViewModel model = new ProjectContractViewModel();
-                        //model.SetModel(row);
-                        Add(model);
-                    }
-                }
+                return Query<ProjectContractViewModelCollection, ProjectContract>("ProjectContract", "QueryAll", ProjectId);
             }
             catch (Exception ex)
             {
-                setErrortoModel(this, ex);
+                ProjectContractViewModelCollection coll = new ProjectContractViewModelCollection();
+                setErrortoModel(coll, ex);
+                return coll;
             }
 
         }

@@ -6,10 +6,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
              xmlns:Controls="clr-namespace:TokikuNew.Controls"
+             xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" Background="Transparent"
              Initialized="userControl_Initialized"
              Loaded="userControl_Loaded"
              d:DesignHeight="300" d:DesignWidth="512">
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="SupplierSource" ObjectType="{x:Type vm:SuppliersViewModelCollection }" MethodName="Query">
+            <ObjectDataProvider.MethodParameters>
+                <x:Static Member="sys:Guid.Empty" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
     <GroupBox Header="供應商" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Style="{DynamicResource GroupBox_DocumentEditor}">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -23,7 +32,7 @@
                       Margin="2" 
                       AutoGenerateColumns="False" 
                       IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}"
-                      ItemsSource="{Binding}" SelectionChanged="BussinessItemsGrid_SelectionChanged">
+                      ItemsSource="{Binding Source={StaticResource SupplierSource}}" SelectionChanged="BussinessItemsGrid_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="材料類別" Width="auto" >
                         <DataGridTemplateColumn.CellTemplate>
@@ -35,7 +44,7 @@
                             <DataTemplate>
                                 <ComboBox x:Name="CBMaterialCategories" Grid.Column="1" Grid.Row="0" Margin="2" IsReadOnly="False"
                                           Text="{Binding MaterialCategories}"
-                                          ItemsSource="{DynamicResource MaterialCategoriesSource}" 
+                                          ItemsSource="{Binding Source={StaticResource MaterialCategoriesSource}}" 
                                           SelectedValuePath="Id" DisplayMemberPath="Name" 
                                           SelectedValue="{Binding CBMaterialCategoriesId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=userControl}" 
                                           SelectionChanged="CBMaterialCategories_SelectionChanged" 
@@ -59,8 +68,8 @@
                             <DataTemplate>
                                 <ComboBox x:Name="CBTranscationBusiness" Grid.Column="3" Grid.Row="0" Margin="2"
                                           IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}"
-                                          SelectedValue="{Binding Id,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                          SelectedValuePath="Id"
+                                          SelectedValue="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                          SelectedValuePath="Name"
                                           ItemsSource="{Binding BussinessItemsByCategories, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           SelectionChanged="CBTranscationBusiness_SelectionChanged">
                                     <ComboBox.ItemTemplate>

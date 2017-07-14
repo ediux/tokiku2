@@ -17,7 +17,7 @@ namespace Tokiku.ViewModels
 
         }
 
-        public ManufacturersBussinessItemsViewModelColletion(IEnumerable<ManufacturersBussinessItemsViewModel> source):base(source)
+        public ManufacturersBussinessItemsViewModelColletion(IEnumerable<ManufacturersBussinessItemsViewModel> source) : base(source)
         {
 
         }
@@ -41,8 +41,8 @@ namespace Tokiku.ViewModels
                         foreach (var row in objectdataset)
                         {
                             ManufacturersBussinessItemsViewModel model = new ManufacturersBussinessItemsViewModel();
-                           
-                            
+
+
                             Add(model);
                         }
                     }
@@ -55,7 +55,7 @@ namespace Tokiku.ViewModels
             }
         }
 
-        public async void QueryByBusinessItem(Guid MaterialCategoriesId, string BusinessItem, Guid ManufacturersId,int TicketPeriodId)
+        public async void QueryByBusinessItem(Guid MaterialCategoriesId, string BusinessItem, Guid ManufacturersId, int TicketPeriodId)
         {
             try
             {
@@ -77,14 +77,14 @@ namespace Tokiku.ViewModels
                         foreach (var row in bi)
                         {
                             ManufacturersBussinessItemsViewModel model = new ManufacturersBussinessItemsViewModel();
-                           
+
                             //model.SetModel(row);
                             //model.MaterialCategories = row.MaterialCategories.Name;
                             //model.PaymentTypeName = row.PaymentTypes.PaymentTypeName;
                             //model.TicketPeriod = row.TicketPeriod.Name;
                             //model.PaymentTypeName = row.PaymentTypes.PaymentTypeName;
                             //model.TranscationCategories = row.TranscationCategories.Name;
-                            
+
                             Add(model);
                         }
                     }
@@ -97,30 +97,20 @@ namespace Tokiku.ViewModels
             }
         }
 
-        public async void QueryWithMaterialCategories(Guid MaterialCategoriesId)
+        public static ManufacturersBussinessItemsViewModelColletion QueryWithMaterialCategories(Guid MaterialCategoriesId)
         {
             try
             {
-                ManufacturersManageController controller = new ManufacturersManageController();
-                var queryresult = await controller.GetBussinessItemsListWithMaterialCategoriesAsync(MaterialCategoriesId);
-                if (!queryresult.HasError)
-                {
-                    var objectdataset = queryresult.Result;
-                    foreach (var row in objectdataset)
-                    {
-                        if (!Items.Where(w => w.Name == row.Name).Any())
-                        {
-                            ManufacturersBussinessItemsViewModel model = new ManufacturersBussinessItemsViewModel();
-                           
-                         
-                            Add(model);
-                        }
-                    }
-                }
+                return Query<ManufacturersBussinessItemsViewModelColletion, ManufacturersBussinessItems>(
+                    "ManufacturersManage",
+                    "GetBussinessItemsListWithMaterialCategories",
+                    MaterialCategoriesId);
             }
             catch (Exception ex)
             {
-                setErrortoModel(this, ex);
+                ManufacturersBussinessItemsViewModelColletion coll = new ManufacturersBussinessItemsViewModelColletion();
+                setErrortoModel(coll, ex);
+                return coll;
             }
         }
 
@@ -137,12 +127,12 @@ namespace Tokiku.ViewModels
                     var objectdataset = queryresult.Result;
                     if (objectdataset.Any())
                     {
-                        
+
                         ClearItems();
                         foreach (var row in objectdataset)
                         {
                             ManufacturersBussinessItemsViewModel model = new ManufacturersBussinessItemsViewModel();
-                           
+
                             Add(model);
                         }
                     }
@@ -158,12 +148,12 @@ namespace Tokiku.ViewModels
 
     public class ManufacturersBussinessItemsViewModel : BaseViewModelWithPOCOClass<ManufacturersBussinessItems>
     {
-        public ManufacturersBussinessItemsViewModel():base()
+        public ManufacturersBussinessItemsViewModel() : base()
         {
 
         }
 
-        public ManufacturersBussinessItemsViewModel(ManufacturersBussinessItems entity):base(entity)
+        public ManufacturersBussinessItemsViewModel(ManufacturersBussinessItems entity) : base(entity)
         {
 
         }
@@ -186,10 +176,10 @@ namespace Tokiku.ViewModels
         public string MaterialCategories
         {
             get { return CopyofPOCOInstance.MaterialCategories.Name; }
-            set {  RaisePropertyChanged("MaterialCategories"); }
+            set { RaisePropertyChanged("MaterialCategories"); }
         }
 
-     
+
 
         #endregion
 
@@ -204,7 +194,7 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.Name = value; RaisePropertyChanged("Name"); }
         }
 
-       
+
 
         #endregion
 
@@ -225,7 +215,7 @@ namespace Tokiku.ViewModels
         public string PaymentTypeName
         {
             get { return CopyofPOCOInstance.PaymentTypes.PaymentTypeName; }
-         
+
         }
 
         #endregion
@@ -239,7 +229,7 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.TicketPeriodId = value; RaisePropertyChanged("TicketPeriodId"); }
         }
 
-      
+
 
 
         #endregion
@@ -252,7 +242,7 @@ namespace Tokiku.ViewModels
         public string TicketPeriod
         {
             get { return CopyofPOCOInstance.TicketPeriod.Name; }
-         
+
         }
         #endregion
 
@@ -264,7 +254,7 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.ManufacturersId = value; RaisePropertyChanged("ManufacturersId"); }
         }
 
-  
+
 
         #endregion
 
@@ -276,10 +266,10 @@ namespace Tokiku.ViewModels
         public int? TranscationCategoriesId
         {
             get { return CopyofPOCOInstance.TranscationCategoriesId; }
-            set { CopyofPOCOInstance.TranscationCategoriesId = value;RaisePropertyChanged("TranscationCategoriesId"); }
+            set { CopyofPOCOInstance.TranscationCategoriesId = value; RaisePropertyChanged("TranscationCategoriesId"); }
         }
 
-    
+
 
 
         #endregion
@@ -292,10 +282,10 @@ namespace Tokiku.ViewModels
         public string TranscationCategories
         {
             get { return CopyofPOCOInstance.TranscationCategories.Name; }
-          
+
         }
 
-    
+
         #endregion
 
 
@@ -306,7 +296,7 @@ namespace Tokiku.ViewModels
             set { Manufacturers = value; RaisePropertyChanged("Manufacturers"); }
         }
 
-       
+
 
 
         //public override void SetModel(dynamic entity)
@@ -327,7 +317,7 @@ namespace Tokiku.ViewModels
         //                {
         //                    BindingFromModel(data, this);
         //                }
-                        
+
         //            }
         //            else
         //            {
@@ -336,7 +326,7 @@ namespace Tokiku.ViewModels
         //                    ManufacturersBussinessItems data = (ManufacturersBussinessItems)entity;
         //                    BindingFromModel(data, this);
         //                    this.Manufacturers = data.Manufacturers;
-                           
+
         //                    if (data.Manufacturers != null)
         //                    {
         //                        MaterialCategories = data.MaterialCategories.Name;

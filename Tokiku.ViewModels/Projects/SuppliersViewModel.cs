@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,6 +12,21 @@ namespace Tokiku.ViewModels
 {
     public class SuppliersViewModelCollection : BaseViewModelCollection<SuppliersViewModel>
     {
+        public SuppliersViewModelCollection() : base()
+        {
+
+        }
+
+        public SuppliersViewModelCollection(IEnumerable<SuppliersViewModel> source) : base(source)
+        {
+
+        }
+
+        public SuppliersViewModelCollection Query(Guid ProjectId)
+        {
+            return Query<SuppliersViewModelCollection, SupplierTranscationItem>(
+                "Suppliers", "QueryByProject", ProjectId);
+        }
         //public override void SaveModel()
         //{
         //    try
@@ -60,34 +76,77 @@ namespace Tokiku.ViewModels
         public Guid ProjectId
         {
             get { return CopyofPOCOInstance.ProjectId; }
-            set { CopyofPOCOInstance.ProjectId = value;RaisePropertyChanged("ProjectId"); }
+            set { CopyofPOCOInstance.ProjectId = value; RaisePropertyChanged("ProjectId"); }
         }
 
-    
+        public Guid ManufacturersBussinessItemsId
+        {
+            get => CopyofPOCOInstance.ManufacturersBussinessItemsId;
+            set
+            {
+                CopyofPOCOInstance.ManufacturersBussinessItemsId = value;
+                RaisePropertyChanged("ManufacturersBussinessItemsId");
+            }
+        }
+        public Guid? NextManufacturersId
+        {
+            get => CopyofPOCOInstance.NextManufacturersId; set
+            {
+                CopyofPOCOInstance.NextManufacturersId = value;
+                RaisePropertyChanged("NextManufacturersId");
+            }
+        }
+
+        public string MaterialCategories
+        {
+            get => CopyofPOCOInstance.ManufacturersBussinessItems.MaterialCategories.Name;
+            set
+            {
+                CopyofPOCOInstance.ManufacturersBussinessItems.MaterialCategories.Name = value;
+                RaisePropertyChanged("MaterialCategories");
+            }
+        }
+
+        public string Name
+        {
+            get => CopyofPOCOInstance.ManufacturersBussinessItems.Name;
+            set => RaisePropertyChanged("Name");
+        }
+
         public string PlaceofReceipt
         {
             get { return CopyofPOCOInstance.PlaceofReceipt; }
-            set { CopyofPOCOInstance.PlaceofReceipt = value;RaisePropertyChanged("PlaceofReceipt"); }
+            set { CopyofPOCOInstance.PlaceofReceipt = value; RaisePropertyChanged("PlaceofReceipt"); }
         }
 
+        public string TicketPeriod
+        {
+            get => CopyofPOCOInstance.ManufacturersBussinessItems.TicketPeriod.Name;
+            set
+            {
+                CopyofPOCOInstance.ManufacturersBussinessItems.TicketPeriod.Name = value;
+                RaisePropertyChanged("TicketPeriod");
+            }
+        }
 
+        public int? TicketPeriodId
+        {
+            get => CopyofPOCOInstance.ManufacturersBussinessItems.TicketPeriodId;
+            set => RaisePropertyChanged("TicketPeriodId");
+        }
 
         public string ManufacturersName
         {
             get { return CopyofPOCOInstance.Manufacturers.Name; }
-            set {
-                //var model= ManufacturersViewModel.QuerySingle<ManufacturersViewModel,Manufacturers>("", "", value);
-                RaisePropertyChanged("ManufacturersName"); }
+            set
+            {
+                CopyofPOCOInstance.ManufacturersBussinessItems.Manufacturers.Name = value;
+                RaisePropertyChanged("ManufacturersName");
+            }
         }
-
-    
 
         #region Model Command Functions      
-        public override void Initialized()
-        {
-            base.Initialized();
-            //controller = new SuppliersController();
-        }
+
 
         //public override void Query()
         //{

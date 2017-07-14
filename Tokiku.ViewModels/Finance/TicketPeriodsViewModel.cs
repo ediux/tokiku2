@@ -14,56 +14,70 @@ namespace Tokiku.ViewModels
     /// </summary>
     public class TicketPeriodsViewModelCollection : BaseViewModelCollection<TicketPeriodsViewModel>
     {
-        private TicketPeriodsManagementController controller;
-
-        public override void Initialized()
+        public TicketPeriodsViewModelCollection()
         {
-            base.Initialized();
-            controller = new TicketPeriodsManagementController();
-            Query();
+
         }
 
-        public  void Query()
+        public TicketPeriodsViewModelCollection(IEnumerable<TicketPeriodsViewModel> source) : base(source)
         {
-            var result = controller.QueryAll();
-            if (!result.HasError)
-            {
-                if (result.Result.Any())
-                {
-                    ClearItems();
-                    foreach (var entity in result.Result)
-                    {
-                        var model = new TicketPeriodsViewModel();
-                       
-                        Add(model);
-                    }
-                }
-            }
+
         }
 
-        public async void QueryByManufacturers(Guid MaterialCategoriesId, string BusinessItem, Guid ManufacturersId)
+
+
+
+        public static TicketPeriodsViewModelCollection Query()
         {
-            var result = await controller.QueryForSelectBusinessItemAsync(MaterialCategoriesId, BusinessItem, ManufacturersId);
+            return Query<TicketPeriodsViewModelCollection, TicketPeriod>("TicketPeriodsManagement", "QueryAll");
+            //var result = controller.QueryAll();
+            //if (!result.HasError)
+            //{
+            //    if (result.Result.Any())
+            //    {
+            //        ClearItems();
+            //        foreach (var entity in result.Result)
+            //        {
+            //            var model = new TicketPeriodsViewModel();
 
-            if (!result.HasError)
-            {
-                if (result.Result.Any())
-                {
-                    ClearItems();
-                    foreach (var entity in result.Result)
-                    {
-                        var model = new TicketPeriodsViewModel();
+            //            Add(model);
+            //        }
+            //    }
+            //}
+        }
 
-                        Add(model);
-                    }
-                }
-            }
+        public TicketPeriodsViewModelCollection QueryByManufacturers(Guid MaterialCategoriesId, string BusinessItem, Guid ManufacturersId)
+        {
+            return Query<TicketPeriodsViewModelCollection, TicketPeriod>("TicketPeriodsManagement", "QueryForSelectBusinessItem", MaterialCategoriesId, BusinessItem, ManufacturersId);
+            //var result = await controller.QueryForSelectBusinessItemAsync(MaterialCategoriesId, BusinessItem, ManufacturersId);
+
+            //if (!result.HasError)
+            //{
+            //    if (result.Result.Any())
+            //    {
+            //        ClearItems();
+            //        foreach (var entity in result.Result)
+            //        {
+            //            var model = new TicketPeriodsViewModel();
+
+            //            Add(model);
+            //        }
+            //    }
+            //}
         }
     }
 
     public class TicketPeriodsViewModel : BaseViewModelWithPOCOClass<TicketPeriod>
     {
+        public TicketPeriodsViewModel()
+        {
 
+        }
+
+        public TicketPeriodsViewModel(TicketPeriod entity) : base(entity)
+        {
+
+        }
         #region Id
         /// <summary>
         /// 編號
@@ -103,7 +117,7 @@ namespace Tokiku.ViewModels
 
         #endregion
 
-       
+
 
 
         public override string ToString()

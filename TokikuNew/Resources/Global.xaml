@@ -1,11 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:ValueConverters="clr-namespace:TokikuNew.ValueConverters">
-    <vm:MaterialCategoriesViewModelCollection x:Key="MaterialCategoriesSource" x:Name="MaterialCategoriesSource" />
-    <vm:StatesViewModelCollection x:Key="StatesSource" x:Name="StatesSource"/>
-    <vm:TicketTypesViewModelCollection x:Key="TicketTypesSource"/>
-    <vm:TicketPeriodsViewModelCollection x:Key="TicketPeriodsSource"/>
+    <ObjectDataProvider x:Key="MaterialCategoriesSource" ObjectType="{x:Type vm:MaterialCategoriesViewModelCollection}" MethodName="Query"/>
+    <ObjectDataProvider x:Key="StatesSource" ObjectType="{x:Type vm:StatesViewModelCollection}" MethodName="Query">
+    </ObjectDataProvider>
+    <ObjectDataProvider x:Key="TicketTypesSource" ObjectType="{x:Type vm:TicketTypesViewModelCollection}" MethodName="Query"/>
+    <ObjectDataProvider x:Key="TicketPeriodsSource" ObjectType="{x:Type vm:TicketPeriodsViewModelCollection}" MethodName="Query"/>
     <vm:TranscationCategoriesViewModelCollection x:Key="TranscationCategoriesSource"/>
     <vm:PaymentTypesManageViewModelCollection x:Key="PaymentTypesSource"/>
     <vm:VoidViewModelCollection x:Key="VoidStateListSource" />

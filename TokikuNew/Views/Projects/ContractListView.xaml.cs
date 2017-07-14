@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tokiku.Entity;
 using Tokiku.ViewModels;
 using TokikuNew.Controls;
 
@@ -27,15 +28,43 @@ namespace TokikuNew.Views
             InitializeComponent();
         }
 
-        public ProjectsViewModel CurrentProject
+        #region SelectedProjectId
+        public Guid SelectedProjectId
         {
-            get { return (ProjectsViewModel)GetValue(CurrentProjectProperty); }
-            set { SetValue(CurrentProjectProperty, value); }
+            get { return (Guid)GetValue(SelectedProjectIdProperty); }
+            set { SetValue(SelectedProjectIdProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for CurrentProject.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CurrentProjectProperty =
-            DependencyProperty.Register("CurrentProject", typeof(ProjectsViewModel), typeof(ContractListView), new PropertyMetadata(default(ProjectsViewModel)));
+        // Using a DependencyProperty as the backing store for SelectedProject.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedProjectIdProperty =
+            DependencyProperty.Register("SelectedProjectId", typeof(Guid),
+                typeof(ContractListView), new PropertyMetadata(Guid.Empty, new PropertyChangedCallback(SelectedProjectIdChange)));
+
+        public static void SelectedProjectIdChange(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            try
+            {
+
+                if (sender is ContractListView)
+                {
+
+                    ObjectDataProvider source = (ObjectDataProvider)((ContractListView)sender).TryFindResource("ContractListSource");
+
+                    if (source != null)
+                    {
+                        source.MethodParameters[0] = e.NewValue;
+                        source.Refresh();
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+        }
+        #endregion
+
 
 
         #region Document Mode
@@ -135,9 +164,12 @@ namespace TokikuNew.Views
             try
             {
                 e.NewItem = new ProjectContractViewModel();
-                ((ProjectContractViewModel)e.NewItem).ProjectId = CurrentProject.Id;
+                ((ProjectContractViewModel)e.NewItem).ProjectId = SelectedProjectId;
                 ((ProjectContractViewModel)e.NewItem).Initialized();
                 ((ProjectContractViewModel)e.NewItem).Id = Guid.NewGuid();
+
+                ProjectsViewModel CurrentProject = ProjectsViewModel.QuerySingle<ProjectsViewModel, Projects>("ProjectManagerView", "QueryById", SelectedProjectId);
+
                 if (string.IsNullOrEmpty(((ProjectContractViewModel)e.NewItem).ContractNumber))
                 {
                     if (CurrentProject != null)

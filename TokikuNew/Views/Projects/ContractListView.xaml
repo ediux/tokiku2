@@ -4,18 +4,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              x:Name="userControl"
              Initialized="userControl_Initialized"
              Loaded="userControl_Loaded"
              d:DesignHeight="300" d:DesignWidth="385.836">
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="ContractListSource" ObjectType="{x:Type vm:ProjectContractViewModelCollection}" MethodName="Query">
+            <ObjectDataProvider.MethodParameters>
+                <x:Static Member="sys:Guid.Empty" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
     <Grid>
         <GroupBox Header="合約列表" Grid.Row="1" Grid.Column="0" Style="{DynamicResource GroupBox_DocumentEditor}">
             <Grid>
                 <DataGrid Grid.Row="1" Grid.Column="0" AutoGenerateColumns="False" 
                                              CanUserDeleteRows="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
                                              CanUserAddRows="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                             ItemsSource="{Binding}"
+                                             ItemsSource="{Binding Source={StaticResource ContractListSource}}"
                                              MouseDoubleClick="ContractList_MouseDoubleClick"
                                              DataGridRow.Selected="ContractList_Selected"
                                              x:Name="ContractList"

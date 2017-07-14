@@ -25,6 +25,7 @@ namespace Tokiku.ViewModels
         {
             Initialized();
             Status.IsNewInstance = false;
+            CopyofPOCOInstance = Activator.CreateInstance<TPOCO>();
             CopyofPOCOInstance = entity;
             EntityType = entity.GetType();
             _Mode = DocumentLifeCircle.Read;
@@ -264,7 +265,7 @@ namespace Tokiku.ViewModels
             {
                 string controllerfullname = string.Format("Tokiku.Controllers.{0}Controller", ControllerName);
 
-                Type ControllerType = Type.GetType(controllerfullname);
+                Type ControllerType = System.Reflection.Assembly.Load("Tokiku.Controllers").GetType(controllerfullname);
 
                 if (ControllerType == null)
                 {

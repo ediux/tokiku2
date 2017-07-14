@@ -21,7 +21,7 @@ namespace Tokiku.ViewModels
 
         public static TicketTypesViewModelCollection Query()
         {
-            return Query<TicketTypesViewModelCollection, TicketTypes>("ManufacturersManage", "GetTranscationCategoriesListAsync");
+            return Query<TicketTypesViewModelCollection, TicketTypes>("ManufacturersManage", "GetTranscationCategoriesList");
             //var result = await controller.GetTranscationCategoriesListAsync();
 
             //if (!result.HasError)
