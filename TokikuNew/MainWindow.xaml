@@ -12,7 +12,7 @@
     <Window.Resources>
         <helpers:RoutedViewResult DisplayText="廠商列表" ViewType="{x:Type Views:VendorListView}" x:Key="OpenVendorListView" />
         <helpers:RoutedViewResult DisplayText="客戶列表" ViewType="{x:Type Views:ClientListView}" x:Key="OpenClientListView" />
-        <helpers:RoutedViewResult DisplayText="新增專案" ViewType="{x:Type Views:ProjectManagerView}" x:Key="OpenNewProjectView"/>
+       
         <helpers:RoutedViewResult DisplayText="新增廠商" ViewType="{x:Type Views:ManufacturersManageView}" x:Key="OpenNewManufactureView"/>
         <helpers:RoutedViewResult DisplayText="新增客戶" ViewType="{x:Type Views:ClientManageView}" x:Key="OpenNewClient" />
         <helpers:RoutedViewResult DisplayText="模具總表" ViewType="{x:Type Views:MaterialsTotalView}" x:Key="OpenMaterialsTotalView"/>
