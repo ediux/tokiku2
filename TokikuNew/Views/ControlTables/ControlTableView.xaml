@@ -24,16 +24,18 @@
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                 <DataGrid x:Name="dg" >
                     <DataGrid.Columns>
+                        <DataGridTextColumn Header="合約編號" Width="auto" />
                         <DataGridTextColumn Header="項次" Width="auto" Binding="{Binding RowIndex,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                        <DataGridTextColumn Header="製單" Width="auto"/>
-                        <DataGridTextColumn Header="加工編號" Width="auto" />
-                        <DataGridTextColumn Header="東菊編號" Width="auto" />
+                        <DataGridTextColumn Header="製單" Width="auto" />
+                        <DataGridTextColumn Header="加工編號" Width="auto" Binding="{Binding ProcessingNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn Header="東菊編號" Width="auto" Binding="{Binding Code,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                         <DataGridTextColumn Header="尺寸" Width="auto" />
-                        <DataGridTextColumn Header="廠商" Width="auto" />
-                        <DataGridTextColumn Header="廠商編號" Width="auto" />
-                        <DataGridTextColumn Header="材質" Width="auto" />
-                        <DataGridTextColumn Header="單位重量(kg/m)" Width="auto" />
-                        <DataGridTextColumn Header="訂購長度(mm)" Width="auto"/>
+                        <DataGridTextColumn Header="廠商" Width="auto" Binding="{Binding ManufacturersName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn Header="廠商編號" Width="auto" Binding="{Binding ManufacturersCode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn Header="材質" Width="auto" Binding="{Binding MaterialCategories,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn Header="單位重量(kg/m)" Width="auto" Binding="{Binding UnitWeight,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn Header="訂購長度(mm)" Width="auto" Binding="{Binding OrderLength,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn Header="倉別" Width="auto" />
                         <DataGridTemplateColumn Header="需求數量" Width="auto" >
                             <DataGridTemplateColumn.HeaderTemplate>
                                 <DataTemplate>

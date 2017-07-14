@@ -18,7 +18,7 @@
             <ColumnDefinition Width="50*" />
             <ColumnDefinition Width="50*" />
         </Grid.ColumnDefinitions>
-        <Expander Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Stretch" ExpandDirection="Down" Header="表頭" IsExpanded="True" x:Name="expander1">
+        <Expander Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Panel.ZIndex="500" VerticalAlignment="Stretch" ExpandDirection="Down" Header="表頭" IsExpanded="True" x:Name="expander1">
             <Expander.ContentTemplate>
                 <DataTemplate>
                     <Popup PopupAnimation="Slide" IsOpen="{Binding IsExpanded,ElementName=expander1}">
@@ -103,7 +103,7 @@
         </Expander>
     
 
-        <Canvas Grid.Row="0" Grid.Column="1" Panel.ZIndex="499">
+        <Canvas Grid.Row="1" Grid.Column="1" Panel.ZIndex="499">
             <Expander Canvas.Right="0" VerticalAlignment="Stretch" ExpandDirection="Left" Header="項目選單" IsExpanded="False">
                 <Expander.ContentTemplate>
                     <DataTemplate>

@@ -225,7 +225,11 @@ namespace TokikuNew.Views
 
         private void userControl_Loaded(object sender, RoutedEventArgs e)
         {
-            for(int i=0;i< dg.Columns.Count; i++)
+            ControlTableViewModelCollection ctrl = new ControlTableViewModelCollection();
+            dg.DataContext = ctrl;
+            ControlTableViewModelCollection.Query();
+
+            for (int i=0;i< dg.Columns.Count; i++)
             {
                 dg.Columns[i].Visibility = Visibility.Visible;
             }

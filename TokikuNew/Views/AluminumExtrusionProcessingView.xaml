@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:TokikuNew.Views"
              mc:Ignorable="d" 
              Background="{DynamicResource ControlBackgroundBrush}"
-             d:DesignHeight="300" d:DesignWidth="1366">
+             d:DesignHeight="300" d:DesignWidth="1366" Loaded="AluminumExtrusionProcessingView_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>
@@ -25,13 +25,13 @@
             <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="加工訂製單列表" Margin="0,0,5,0"  />
         </StackPanel>
         <GroupBox Header="鋁擠型加工管控表" Grid.Row="1" Margin="2" Style="{DynamicResource GroupBox_DocumentEditor}">
-            <DataGrid>
+            <DataGrid x:Name="CheckGrid">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="加工編號" Width="auto" />
                     <DataGridTextColumn Header="擠型編號" Width="auto" />
                     <DataGridTextColumn Header="裁切長度" Width="auto" />
                     <DataGridTextColumn Header="材料說明" Width="auto" />
-                    <DataGridTextColumn Header="圖集" Width="auto" />
+                    <DataGridTextColumn Header="圖集" Width="auto" Binding="{Binding Atlas, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <DataGridTextColumn Header="合計" Width="auto" />
 
                     <DataGridTextColumn Header="修改日期" Width="auto" />
