@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tokiku.ViewModels;
 
 namespace TokikuNew.Views
 {
@@ -24,5 +25,13 @@ namespace TokikuNew.Views
         {
             InitializeComponent();
         }
+
+        private void AluminumExtrusionProcessingView_Loaded(object sender, RoutedEventArgs e)
+        {
+            ProcessingViewModelCollection ctrl = new ProcessingViewModelCollection();
+            CheckGrid.DataContext = ctrl;
+            ProcessingViewModelCollection.Query();
+        }
+
     }
 }

@@ -5,13 +5,45 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tokiku.Controllers;
 using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
+    public class ControlTableViewModelCollection : BaseViewModelCollection<ControlTableViewModel>
+    {
+        public ControlTableViewModelCollection()
+        {
+            HasError = false;
+        }
+
+        public ControlTableViewModelCollection(IEnumerable<ControlTableViewModel> source) : base(source)
+        {
+
+        }
+
+        public static ControlTableViewModelCollection Query()
+        {
+            ControlTableController ctrl = new ControlTableController();
+            ExecuteResultEntity<ICollection<ControlTableDetails>> ere = ctrl.QuerAll();
+
+            if (!ere.HasError)
+            {
+                return new ControlTableViewModelCollection(ere.Result.Select(s => new ControlTableViewModel(s)).ToList());
+            }
+
+            return new ControlTableViewModelCollection();
+        }
+
+    }
+
     public class ControlTableViewModel : BaseViewModelWithPOCOClass<ControlTableDetails>
     {
-      
+        public ControlTableViewModel(ControlTableDetails entity) : base(entity)
+        {
+
+        }
+
 
         #region Row Index
         private int _RowIndex;
@@ -163,16 +195,20 @@ namespace Tokiku.ViewModels
         #endregion
 
         #region 單位重量
-        public decimal? UnitWeight { get { return CopyofPOCOInstance.RequiredDetails.UnitWeight; } set { CopyofPOCOInstance.RequiredDetails.UnitWeight = value.HasValue ? value.Value: 0; RaisePropertyChanged("UnitWeight"); } }
+        public decimal? UnitWeight
+        {
+            get { return CopyofPOCOInstance.RequiredDetails.UnitWeight; }
+            set { CopyofPOCOInstance.RequiredDetails.UnitWeight = value.HasValue ? value.Value : 0; RaisePropertyChanged("UnitWeight"); }
+        }
         #endregion
 
-        //#region 訂購長度
-        //public int? OrderLength
-        //{
-        //    get { return CopyofPOCOInstance..OrderLength; }
-        //    set { CopyofPOCOInstance.OrderLength = value; RaisePropertyChanged("OrderLength"); }
-        //}
-        //#endregion
+        #region 訂購長度
+        public int? OrderLength
+        {
+            get { return CopyofPOCOInstance.RequiredDetails.OrderLength; }
+            set { CopyofPOCOInstance.RequiredDetails.OrderLength = value; RaisePropertyChanged("OrderLength"); }
+        }
+        #endregion
 
         //#region required quantity 需求數量-數量小計
         //public decimal? RequiredQuantitySummary

@@ -70,6 +70,7 @@
     <Compile Include="AluminumExtrusionOrderMaterialValuationController.cs" />
     <Compile Include="AluminumExtrusionOrderMiscellaneousController.cs" />
     <Compile Include="ContractManagementController.cs" />
+    <Compile Include="ControlTableController.cs" />
     <Compile Include="Finance\PromissoryNoteManagementViewModelController.cs" />
     <Compile Include="Finance\TicketPeriodsManagementController.cs" />
     <Compile Include="InventoryController.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="OrderControlTableController.cs" />
     <Compile Include="Orders\AluminumExtrusionOrderSheetViewController.cs" />
     <Compile Include="Manufacturers\ClientController.cs" />
+    <Compile Include="ProcessingController.cs" />
     <Compile Include="Projects\ProcessingAtlasController.cs" />
     <Compile Include="Projects\EngineeringController.cs" />
     <Compile Include="RecvMaterialController.cs" />
