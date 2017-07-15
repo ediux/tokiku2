@@ -14,8 +14,8 @@ namespace Tokiku.Controllers
         {
             try
             {
-                TicketPeriodRepository repo = RepositoryHelper.GetTicketPeriodRepository();
-                database = repo.UnitOfWork;
+                var repo = this.GetReoisitory();
+                //database = repo.UnitOfWork;
                 var queryresult = from q in repo.All()
                                   orderby q.DayLimit ascending
                                   select q;
@@ -33,8 +33,8 @@ namespace Tokiku.Controllers
         {
             try
             {
-                TicketPeriodRepository repo = RepositoryHelper.GetTicketPeriodRepository();
-                database = repo.UnitOfWork;
+                var repo = this.GetReoisitory();
+                //database = repo.UnitOfWork;
                 var queryresult = from q in repo.All()
                                   from b in q.ManufacturersBussinessItems
                                   where b.MaterialCategoriesId == MaterialCategoriesId
@@ -55,8 +55,8 @@ namespace Tokiku.Controllers
         {
             try
             {
-                TicketPeriodRepository repo = RepositoryHelper.GetTicketPeriodRepository();
-                database = repo.UnitOfWork;
+                var repo = this.GetReoisitory();
+                //database = repo.UnitOfWork;
                 var queryresult = from q in repo.All()
                                   from b in q.ManufacturersBussinessItems
                                   where b.MaterialCategoriesId == MaterialCategoriesId

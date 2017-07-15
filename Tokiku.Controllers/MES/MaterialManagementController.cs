@@ -28,11 +28,12 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var repo = RepositoryHelper.GetMaterialCategoriesRepository();
-                database = repo.UnitOfWork;
+                var repo = this.GetReoisitory<MaterialCategories>();
+             
                 var result = from q in repo.All()
                              where q.Name.Contains(Name)
                              select q;
+
                 return ExecuteResultEntity<ICollection<MaterialCategories>>.CreateResultEntity(new Collection<MaterialCategories>(result.ToList()));
 
             }

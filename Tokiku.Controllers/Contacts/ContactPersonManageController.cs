@@ -20,8 +20,8 @@ namespace Tokiku.Controllers
 
         public ContactPersonManageController()
         {
-            repo = RepositoryHelper.GetContactsRepository(database);
-            accesslogrepo = RepositoryHelper.GetAccessLogRepository(database);
+            repo = this.GetReoisitory() as IContactsRepository;
+            accesslogrepo = this.GetReoisitory<AccessLog>() as IAccessLogRepository;
         }
 
         public ExecuteResultEntity<ICollection<Contacts>> QueryAll()

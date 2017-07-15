@@ -33,8 +33,31 @@ namespace Tokiku.Controllers
 
             try
             {
-                var repo = RepositoryHelper.GetMoldsRepository();
-                var queryresult = repo.UnitOfWork.Context.Database.SqlQuery<MoldsEnter>(sql);
+                var repo = this.GetReoisitory<Molds>();
+                var materialsrepo = this.GetReoisitory<Materials>();
+                var moldusestatusrepo = this.GetReoisitory<MoldUseStatus>();
+
+                var queryresult = (from a in repo.All()
+                                   join b in materialsrepo.All() on a.Id equals b.Id
+                                   join c in moldusestatusrepo.All() on a.MoldUseStatusId equals c.Id
+                                   select new MoldsEnter()
+                                   {
+                                       LegendMoldReduction = a.LegendMoldReduction,
+                                       UsePosition = a.UsePosition,
+                                       Code = a.Code,
+                                       SerialNumber = a.SerialNumber,
+                                       Name1 = b.Name,
+                                       UnitWeight = a.UnitWeight,
+                                       SurfaceTreatment = a.SurfaceTreatment,
+                                       PaintArea = a.PaintArea,
+                                       MembraneTreatment = a.MembraneTreatment,
+                                       MinimumYield = a.MinimumYield,
+                                       ProductionIngot = a.ProductionIngot,
+                                       TotalOrderWeight = a.TotalOrderWeight,
+                                       Name2 = c.Name,
+                                       Comment = a.Comment
+                                   });
+
                 return Task.FromResult(
                     ExecuteResultEntity<ICollection<MoldsEnter>>.CreateResultEntity(
                         new Collection<MoldsEnter>(queryresult.ToList())));
@@ -46,35 +69,14 @@ namespace Tokiku.Controllers
             }
         }
 
-        /// <summary>
-        /// 傳回主索引鍵欄位的內容值。
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        protected object[] IdentifyPrimaryKey<T>(T entity) where T : class
-        {
 
-            ObjectContext objectContext = ((IObjectContextAdapter)database.Context).ObjectContext;
-            ObjectSet<T> set = objectContext.CreateObjectSet<T>();
-            IEnumerable<string> keyNames = set.EntitySet.ElementType
-                                                        .KeyMembers
-                                                        .Select(k => k.Name);
-
-            Type entityreflection = typeof(T);
-
-            var pkeys = entityreflection.GetProperties()
-                .Join(keyNames, (x) => x.Name, (y) => y, (k, t) => k)
-                .Select(s => s.GetValue(entity));
-
-            return pkeys.ToArray();
-        }
 
         public Task<ExecuteResultEntity<ICollection<Molds>>> QueryAsync(Expression<Func<Molds, bool>> filiter)
         {
             try
             {
-                var repo = RepositoryHelper.GetMoldsRepository();
-                database = repo.UnitOfWork;
+                var repo = this.GetReoisitory<Molds>();
+
                 return Task.FromResult(
                     ExecuteResultEntity<ICollection<Molds>>.CreateResultEntity(
                        new Collection<Molds>(repo.Where(filiter).ToList())));
@@ -91,7 +93,7 @@ namespace Tokiku.Controllers
             try
             {
                 var repo = RepositoryHelper.GetMoldUseStatusRepository();
-                database = repo.UnitOfWork;
+                //database = repo.UnitOfWork;
                 return Task.FromResult(
                     ExecuteResultEntity<ICollection<MoldUseStatus>>.CreateResultEntity(
                        new Collection<MoldUseStatus>(repo.Where(filiter).ToList())));
@@ -112,44 +114,43 @@ namespace Tokiku.Controllers
         {
             try
             {
-                using (var repo = RepositoryHelper.GetMoldsRepository())
+                var repo = this.GetReoisitory<Molds>();
+
+                if (repo == null)
+                    return Task.FromResult(ExecuteResultEntity.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(Molds).Name)));
+
+
+
+                if (entityCollection.Any())
                 {
-                    if (repo == null)
-                        return Task.FromResult(ExecuteResultEntity.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(Molds).Name)));
-
-                    database = repo.UnitOfWork;
-
-                    if (entityCollection.Any())
+                    int c = 1;
+                    foreach (var entity in entityCollection)
                     {
-                        int c = 1;
-                        foreach (var entity in entityCollection)
+                        if (repo.Get(entity.Id) != null)
                         {
-                            if (repo.Get(entity.Id) != null)
+                            var update_result = Update(entity, c == entityCollection.Count);
+                            if (update_result.HasError)
                             {
-                                var update_result = Update(entity, c == entityCollection.Count);
-                                if (update_result.HasError)
-                                {
-                                    c++;
-                                    continue;
-                                }
+                                c++;
+                                continue;
+                            }
 
-                            }
-                            else
-                            {
-                                var add_result = Add(entity, c == entityCollection.Count);
-                                if (add_result.HasError)
-                                {
-                                    c++;
-                                    continue;
-                                }
-                            }
-                            c++;
                         }
+                        else
+                        {
+                            var add_result = Add(entity, c == entityCollection.Count);
+                            if (add_result.HasError)
+                            {
+                                c++;
+                                continue;
+                            }
+                        }
+                        c++;
                     }
-
-                    return Task.FromResult(ExecuteResultEntity.CreateResultEntity());
-
                 }
+
+                return Task.FromResult(ExecuteResultEntity.CreateResultEntity());
+
             }
             catch (Exception ex)
             {
@@ -167,8 +168,8 @@ namespace Tokiku.Controllers
             try
             {
 
-                var repo = RepositoryHelper.GetMoldsRepository(database);
-                database = repo.UnitOfWork;
+                var repo = this.GetReoisitory<Molds>();
+
                 if (repo == null)
                     return ExecuteResultEntity.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(Molds).Name));
 
@@ -177,7 +178,6 @@ namespace Tokiku.Controllers
                 if (isLastRecord)
                 {
                     repo.UnitOfWork.Commit();
-                    database = repo.UnitOfWork;
                     repo.UnitOfWork.Context.Set<Molds>().Attach(entity);
                     entity = repo.Reload(entity);
                 }
@@ -200,29 +200,28 @@ namespace Tokiku.Controllers
         {
             try
             {
-                using (var repo = RepositoryHelper.GetMoldsRepository())
+                var repo = this.GetReoisitory<Molds>();
+
+                if (repo == null)
+                    return ExecuteResultEntity<Molds>.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(Molds).Name));
+
+
+                Molds findresult = repo.Get(IdentifyPrimaryKey(fromModel));
+
+                if (findresult != null)
                 {
-                    if (repo == null)
-                        return ExecuteResultEntity<Molds>.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(Molds).Name));
+                    CheckAndUpdateValue(fromModel, findresult);
 
-                    database = repo.UnitOfWork;
-
-                    Molds findresult = repo.Get(IdentifyPrimaryKey(fromModel));
-
-                    if (findresult != null)
+                    if (isLastRecord)
                     {
-                        CheckAndUpdateValue(fromModel, findresult);
+                        repo.UnitOfWork.Commit();
 
-                        if (isLastRecord)
-                        {
-                            repo.UnitOfWork.Commit();
-                            database = repo.UnitOfWork;
-                            findresult = repo.Get(IdentifyPrimaryKey(findresult));
-                        }
-
-                        return ExecuteResultEntity<Molds>.CreateResultEntity(findresult);
+                        findresult = repo.Get(IdentifyPrimaryKey(findresult));
                     }
+
+                    return ExecuteResultEntity<Molds>.CreateResultEntity(findresult);
                 }
+
                 return ExecuteResultEntity<Molds>.CreateErrorResultEntity("Data not found.");
             }
             catch (Exception ex)
@@ -239,40 +238,37 @@ namespace Tokiku.Controllers
         {
             try
             {
-                using (var repo = RepositoryHelper.GetMoldsRepository())
+                var repo = this.GetReoisitory<Molds>();
+
+
+                if (repo == null)
+                    return ExecuteResultEntity<Molds>.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(Molds).Name));
+
+                if (repo.Get(IdentifyPrimaryKey(entity)) != null)
                 {
-                    if (repo == null)
-                        return ExecuteResultEntity<Molds>.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(Molds).Name));
+                    var update_result = Update(entity);
 
-                    database = repo.UnitOfWork;
-
-                    if (repo.Get(IdentifyPrimaryKey(entity)) != null)
+                    if (update_result.HasError)
                     {
-                        var update_result = Update(entity);
-
-                        if (update_result.HasError)
-                        {
-                            update_result.Result = entity;
-                            return update_result;
-                        }
-
-                        return ExecuteResultEntity<Molds>.CreateResultEntity(update_result.Result);
-                    }
-                    else
-                    {
-                        var add_result = Add(entity);
-                        if (add_result.HasError)
-                        {
-                            return new ExecuteResultEntity<Molds>()
-                            {
-                                Errors = add_result.Errors,
-                                Result = entity
-                            };
-                        }
-
-                        return ExecuteResultEntity<Molds>.CreateResultEntity(entity);
+                        update_result.Result = entity;
+                        return update_result;
                     }
 
+                    return ExecuteResultEntity<Molds>.CreateResultEntity(update_result.Result);
+                }
+                else
+                {
+                    var add_result = Add(entity);
+                    if (add_result.HasError)
+                    {
+                        return new ExecuteResultEntity<Molds>()
+                        {
+                            Errors = add_result.Errors,
+                            Result = entity
+                        };
+                    }
+
+                    return ExecuteResultEntity<Molds>.CreateResultEntity(entity);
                 }
             }
             catch (Exception ex)
@@ -285,8 +281,9 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var ProjectRepo = RepositoryHelper.GetProjectsRepository();
-                var Manufacturer = RepositoryHelper.GetManufacturersRepository(ProjectRepo.UnitOfWork);
+                var ProjectRepo = this.GetReoisitory<Projects>();
+                var Manufacturer = this.GetReoisitory<Manufacturers>();
+
                 Collection<Molds> DestTarget = new Collection<Molds>();
                 Dictionary<int, string> ColumnMapping = new Dictionary<int, string>();
                 XSSFWorkbook workbook;
@@ -393,15 +390,15 @@ namespace Tokiku.Controllers
                             switch (Header)
                             {
                                 case "專案名稱":
-                                    if(cell.CellType == CellType.String)
+                                    if (cell.CellType == CellType.String)
                                     {
                                         string ProjectName = cell.StringCellValue;
                                         var foundProject = (from q in ProjectRepo.All()
                                                             where q.Name.Equals(ProjectName)
                                                             select q).SingleOrDefault();
-                                        
+
                                     }
-                                    
+
                                     break;
                                 case "廠商":
                                     break;
@@ -459,8 +456,8 @@ namespace Tokiku.Controllers
 
                 }
 
-                var repo = RepositoryHelper.GetMoldsRepository();
-                database = repo.UnitOfWork;
+                var repo = this.GetReoisitory<Molds>();
+              
                 Collection<Molds> MoldsSource = new Collection<Molds>(repo.All().ToList());
 
                 var oriMolds = MoldsSource.Select(s => new { s.OpenDate, s.LegendMoldReduction, s.Code, s.ManufacturersId, s.MaterialId, s.UnitWeight });
@@ -507,7 +504,7 @@ namespace Tokiku.Controllers
 
                 if (isuserepo2)
                     repo.UnitOfWork.Commit();
-                
+
                 return ExecuteResultEntity<ICollection<Molds>>.CreateResultEntity(MoldsSource);
             }
             catch (Exception ex)

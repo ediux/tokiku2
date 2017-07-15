@@ -71,14 +71,20 @@ namespace Tokiku.ViewModels
             get { return CopyofPOCOInstance.IncomingNumber; }
             set { CopyofPOCOInstance.IncomingNumber = value; RaisePropertyChanged("IncomingNumber"); }
         }
-        // 輸入人員
-        public string CreateUser
+         
+        /// <summary>
+        /// 輸入人員
+        /// </summary>
+        public new string CreateUser
         {
             get { return CopyofPOCOInstance.CreateUsers.UserName; }
             set { CopyofPOCOInstance.CreateUsers.UserName = value; RaisePropertyChanged("CreateUser"); }
         }
-        // 輸入日期
-        public DateTime CreateTime
+        
+        /// <summary>
+        /// 輸入日期
+        /// </summary>
+        public new DateTime CreateTime
         {
             get { return CopyofPOCOInstance.CreateTime; }
             set { CopyofPOCOInstance.CreateTime = value; RaisePropertyChanged("CreateTime"); }

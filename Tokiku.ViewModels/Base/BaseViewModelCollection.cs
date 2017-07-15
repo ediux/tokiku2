@@ -144,6 +144,58 @@ namespace Tokiku.ViewModels
             }
         }
 
+        public static ICollection<TResult> ExecuteAction<TResult>(string ControllerName, string ActionName, params object[] values)            
+            where TResult : class
+        {
+            ICollection<TResult> collection = null;
+
+            try
+            {
+                string controllerfullname = string.Format("Tokiku.Controllers.{0}Controller", ControllerName);
+
+                Type ControllerType = System.Reflection.Assembly.Load("Tokiku.Controllers").GetType(controllerfullname);
+
+                if (ControllerType == null)
+                {
+                    throw new Exception(string.Format("Controller '{0}' not found.", ControllerName));
+                }
+
+                var ctrl = Activator.CreateInstance(ControllerType);
+
+                if (ctrl == null)
+                {
+                    throw new NullReferenceException();
+                }
+
+                var method = ControllerType.GetMethod(ActionName);
+
+                if (method != null)
+                {
+                    ExecuteResultEntity<ICollection<TResult>> result =
+                        (ExecuteResultEntity<ICollection<TResult>>)method.Invoke(ctrl, values);
+
+                    if (!result.HasError)
+                    {
+                        collection = result.Result;
+                        return collection;
+                    }
+                    else
+                    {
+                        collection = Activator.CreateInstance<ICollection<TResult>>();                      
+                        return collection;
+                    }
+                }
+                else
+                {
+                    throw new Exception(string.Format("Action '{0}' not found.", ActionName));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         /// <summary>
         /// 儲存或更新檢視模型
         /// </summary>
@@ -152,11 +204,20 @@ namespace Tokiku.ViewModels
             try
             {
                 int i = 0;
-
+                List<string> message = new List<string>();
                 foreach (var item in Items)
                 {
                     item.SaveModel(ControllerName, i== (Items.Count-1));
+                    if (item.HasError)
+                    {
+                        message.AddRange(item.Errors);
+                    }
                     i++;
+                }
+                if (message.Count > 0)
+                {
+                    Errors = message.ToArray();
+                    HasError = true;
                 }
             }
             catch (Exception ex)

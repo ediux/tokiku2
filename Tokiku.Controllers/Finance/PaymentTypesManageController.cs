@@ -15,7 +15,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                PaymentTypesRepository repo = RepositoryHelper.GetPaymentTypesRepository(database);
+                var repo = this.GetReoisitory();
                 
                 var queryresult = from q in repo.All()
                                   orderby q.Id ascending

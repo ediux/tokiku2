@@ -61,42 +61,45 @@ namespace Tokiku.ViewModels
 
         }
 
-        //public override void Query()
-        //{
-        //    try
-        //    {
-        //        if (!System.Windows.Threading.Dispatcher.CurrentDispatcher.CheckAccess())
-        //        {
-        //            System.Windows.Threading.Dispatcher.CurrentDispatcher.Invoke(new Action(Query), System.Windows.Threading.DispatcherPriority.Background);
-        //        }
-        //        else
-        //        {
-        //            if (_controller == null)
-        //                return;
+        public static ManufacturersViewModelCollection Query()
+        {
+            try
+            {
+                return Query<ManufacturersViewModelCollection, Manufacturers>("ManufacturersManage", "QueryAll");
+                //if (!System.Windows.Threading.Dispatcher.CurrentDispatcher.CheckAccess())
+                //{
+                //    System.Windows.Threading.Dispatcher.CurrentDispatcher.Invoke(new Action(Query), System.Windows.Threading.DispatcherPriority.Background);
+                //}
+                //else
+                //{
+                //    if (_controller == null)
+                //        return;
 
-        //            var queryresult = _controller.QueryAll();
+                //    var queryresult = _controller.QueryAll();
 
-        //            if (!queryresult.HasError)
-        //            {
-        //                ClearItems();
+                //    if (!queryresult.HasError)
+                //    {
+                //        ClearItems();
 
-        //                foreach (var row in queryresult.Result)
-        //                {
-        //                    ManufacturersViewModel model = new ManufacturersViewModel();
+                //        foreach (var row in queryresult.Result)
+                //        {
+                //            ManufacturersViewModel model = new ManufacturersViewModel();
 
-        //                    //model.SetModel(row);
-        //                    Add(model);
-        //                }
-        //            }
-        //        }
+                //            //model.SetModel(row);
+                //            Add(model);
+                //        }
+                //    }
+                //}
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        setErrortoModel(this, ex);
-        //    }
+            }
+            catch (Exception ex)
+            {
+                ManufacturersViewModelCollection collection = new ManufacturersViewModelCollection();
+                setErrortoModel(collection, ex);
+                return collection;
+            }
 
-        //}
+        }
 
         public void QueryByText(string originalSource)
         {
@@ -124,27 +127,31 @@ namespace Tokiku.ViewModels
 
         }
 
-        public async void QueryByBusinessItem(Guid MaterialCategoriesId, string BusinessItem)
+        public static ManufacturersViewModelCollection QueryByBusinessItem(Guid MaterialCategoriesId, string BusinessItem)
         {
             try
             {
-                ManufacturersManageController controller = new ManufacturersManageController();
-                var queryresult = await controller.GetManufacturersWithBusinessItemAsync(MaterialCategoriesId, BusinessItem);
-                if (!queryresult.HasError)
-                {
-                    var objectdataset = queryresult.Result;
-                    foreach (var row in objectdataset)
-                    {
-                        ManufacturersViewModel model = new ManufacturersViewModel();
+                return Query<ManufacturersViewModelCollection, Manufacturers>("ManufacturersManage", "GetManufacturersWithBusinessItem", MaterialCategoriesId, BusinessItem);
 
-                        //model.SetModel(row);
-                        Add(model);
-                    }
-                }
+                //ManufacturersManageController controller = new ManufacturersManageController();
+                //var queryresult =  controller.GetManufacturersWithBusinessItemAsync(MaterialCategoriesId, BusinessItem);
+                //if (!queryresult.HasError)
+                //{
+                //    var objectdataset = queryresult.Result;
+                //    foreach (var row in objectdataset)
+                //    {
+                //        ManufacturersViewModel model = new ManufacturersViewModel();
+
+                //        //model.SetModel(row);
+                //        Add(model);
+                //    }
+                //}
             }
             catch (Exception ex)
             {
-                setErrortoModel(this, ex);
+                ManufacturersViewModelCollection collection = new ManufacturersViewModelCollection();
+                setErrortoModel(collection, ex);
+                return collection;
             }
         }
         #endregion
@@ -153,6 +160,7 @@ namespace Tokiku.ViewModels
 
     public class ManufacturersViewModel : BaseViewModelWithPOCOClass<Manufacturers>
     {
+
         #region 內部變數
         private ManufacturersManageController controller;
         #endregion

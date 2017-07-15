@@ -4202,7 +4202,7 @@
           <Property Name="SiteContactPerson" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SiteContactPersonPhone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="NextManufacturersId" Type="Guid" />
-          <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_SupplierTranscationItem_NextManufacturers" FromRole="SupplierTranscationItem" ToRole="Manufacturers" />
+          <NavigationProperty Name="NextManufacturers" Relationship="TokikuModel.FK_SupplierTranscationItem_NextManufacturers" FromRole="SupplierTranscationItem" ToRole="Manufacturers" />
           <NavigationProperty Name="ManufacturersBussinessItems" Relationship="TokikuModel.FK_SupplierTranscationItem_ManufacturersBussinessItems" FromRole="SupplierTranscationItem" ToRole="ManufacturersBussinessItems" />
           <NavigationProperty Name="Projects" Relationship="TokikuModel.FK_SupplierTranscationItem_Projects" FromRole="SupplierTranscationItem" ToRole="Projects" />
         </EntityType>

@@ -16,10 +16,10 @@ namespace Tokiku.Controllers
 
         public ProjectsController()
         {
-            UserRepo = RepositoryHelper.GetUsersRepository(database);
-            manufacturerepo = RepositoryHelper.GetManufacturersRepository(database);
-            projectsrepo = RepositoryHelper.GetProjectsRepository(database);
-            staterepo = RepositoryHelper.GetStatesRepository(database);
+            UserRepo = this.GetReoisitory<Users>() as IUsersRepository;
+            manufacturerepo = this.GetReoisitory<Manufacturers>() as IManufacturersRepository;
+            projectsrepo = this.GetReoisitory() as IProjectsRepository;
+            staterepo = this.GetReoisitory<States>() as IStatesRepository;
         }
 
 
@@ -192,8 +192,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                using (database)
-                {
+          
                     var result = from p in projectsrepo.All()
                                  where p.Void == false
                                  orderby p.State ascending, p.Code descending
@@ -211,7 +210,7 @@ namespace Tokiku.Controllers
 
                     return ExecuteResultEntity<ICollection<ProjectListEntity>>.CreateResultEntity(
                         new Collection<ProjectListEntity>(result.ToList()));
-                }
+              
 
             }
             catch (Exception ex)
@@ -256,10 +255,7 @@ namespace Tokiku.Controllers
             try
             {
 
-                var repo = RepositoryHelper.GetProjectsRepository();
-                database = repo.UnitOfWork;
-
-                var original = (from q in repo.All()
+                var original = (from q in projectsrepo.All()
                                 where q.Id == fromModel.Id
                                 select q).Single();
 
@@ -381,11 +377,11 @@ namespace Tokiku.Controllers
                     }
                     #endregion
 
-                    repo.UnitOfWork.Commit();
+                    projectsrepo.UnitOfWork.Commit();
 
                 }
 
-                fromModel = repo.Get(original.Id);
+                fromModel = projectsrepo.Get(original.Id);
 
                 return ExecuteResultEntity<Projects>.CreateResultEntity(fromModel);
 

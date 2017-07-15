@@ -14,38 +14,38 @@ namespace Tokiku.Controllers
             return Query(p => p.ProjectId == ProjectId);
         }
 
-        public override ExecuteResultEntity<SupplierTranscationItem> Update(SupplierTranscationItem fromModel, bool isLastRecord = true)
-        {
-            try
-            {
+        //public override ExecuteResultEntity<SupplierTranscationItem> Update(SupplierTranscationItem fromModel, bool isLastRecord = true)
+        //{
+        //    try
+        //    {
 
-                var repo = RepositoryHelper.GetSupplierTranscationItemRepository();
-                database = repo.UnitOfWork;
+        //        var repo = RepositoryHelper.GetSupplierTranscationItemRepository();
+        //        database = repo.UnitOfWork;
 
-                var original = (from q in repo.All()
-                                where q.ProjectId == fromModel.ProjectId
-                                && q.ManufacturersBussinessItemsId == fromModel.ManufacturersBussinessItemsId
-                                select q).Single();
+        //        var original = (from q in repo.All()
+        //                        where q.ProjectId == fromModel.ProjectId
+        //                        && q.ManufacturersBussinessItemsId == fromModel.ManufacturersBussinessItemsId
+        //                        select q).Single();
 
-                if (original != null)
-                {
-                    CheckAndUpdateValue(fromModel, original);
+        //        if (original != null)
+        //        {
+        //            CheckAndUpdateValue(fromModel, original);
                    
-                    if (isLastRecord)
-                    {
-                        repo.UnitOfWork.Commit();
-                    }  
-                }
+        //            if (isLastRecord)
+        //            {
+        //                repo.UnitOfWork.Commit();
+        //            }  
+        //        }
 
-                fromModel = repo.Get(original.ProjectId,original.ManufacturersBussinessItemsId);
+        //        fromModel = repo.Get(original.ProjectId,original.ManufacturersBussinessItemsId);
 
-                return ExecuteResultEntity<SupplierTranscationItem>.CreateResultEntity(fromModel);
+        //        return ExecuteResultEntity<SupplierTranscationItem>.CreateResultEntity(fromModel);
 
-            }
-            catch (Exception ex)
-            {
-                return ExecuteResultEntity<SupplierTranscationItem>.CreateErrorResultEntity(ex);
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return ExecuteResultEntity<SupplierTranscationItem>.CreateErrorResultEntity(ex);
+        //    }
+        //}
     }
 }

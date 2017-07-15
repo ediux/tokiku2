@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Tokiku.Controllers;
 using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
@@ -13,6 +14,11 @@ namespace Tokiku.ViewModels
     public class BaseViewModelWithPOCOClass<TPOCO> : ISingleBaseViewModel where TPOCO : class
     {
         protected TPOCO CopyofPOCOInstance;
+
+        public TPOCO Entity
+        {
+            get => CopyofPOCOInstance;
+        }
 
         public BaseViewModelWithPOCOClass()
         {
@@ -23,9 +29,10 @@ namespace Tokiku.ViewModels
 
         public BaseViewModelWithPOCOClass(TPOCO entity)
         {
+
+            CopyofPOCOInstance = Activator.CreateInstance<TPOCO>();
             Initialized();
             Status.IsNewInstance = false;
-            CopyofPOCOInstance = Activator.CreateInstance<TPOCO>();
             CopyofPOCOInstance = entity;
             EntityType = entity.GetType();
             _Mode = DocumentLifeCircle.Read;
@@ -243,23 +250,17 @@ namespace Tokiku.ViewModels
         }
 
         /// <summary>
-        /// 儲存資料檢視模型
+        /// 對指定控制器發出單一查詢呼叫。
         /// </summary>
+        /// <typeparam name="TResult">回傳的資料實體類別。</typeparam>
         /// <param name="ControllerName">控制器名稱</param>
-        /// <param name="isLast">控制旗標(多列更新使用)</param>
-        public virtual void SaveModel(bool isLast = true)
+        /// <param name="ActionName">動作名稱(方法名稱)</param>
+        /// <param name="values">動作方法參數</param>
+        /// <returns>傳回指定檢視模型。</returns>
+        public static TResult ExecuteAction<TResult>(string ControllerName, string ActionName, params object[] values)
+            where TResult : class
         {
-            SaveModel(typeof(TPOCO).Name, isLast);
-        }
-
-        /// <summary>
-        /// 儲存資料檢視模型
-        /// </summary>
-        /// <param name="ControllerName">控制器名稱</param>
-        /// <param name="isLast">控制旗標(多列更新使用)</param>
-        public virtual void SaveModel(string ControllerName, bool isLast = true)
-        {
-            string ActionName = "CreateOrUpdate";
+            TResult viewmodel = null;
 
             try
             {
@@ -283,8 +284,114 @@ namespace Tokiku.ViewModels
 
                 if (method != null)
                 {
-                    ExecuteResultEntity<TPOCO> result =
-                        (ExecuteResultEntity<TPOCO>)method.Invoke(ctrl, new object[] { CopyofPOCOInstance, isLast });
+                    ExecuteResultEntity<TResult> result =
+                        (ExecuteResultEntity<TResult>)method.Invoke(ctrl, values);
+
+                    if (!result.HasError)
+                    {
+                        viewmodel = result.Result;
+                        return viewmodel;
+                    }
+                    else
+                    {
+                        viewmodel = Activator.CreateInstance<TResult>();
+                        return viewmodel;
+                    }
+                }
+                else
+                {
+                    throw new Exception(string.Format("Action '{0}' not found.", ActionName));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 儲存資料檢視模型
+        /// </summary>
+        /// <param name="ControllerName">控制器名稱</param>
+        /// <param name="isLast">控制旗標(多列更新使用)</param>
+        public virtual void SaveModel(bool isLast = true)
+        {
+            SaveModel(typeof(TPOCO).Name, isLast);
+        }
+
+        private IBaseController<TPOCO> session_controller;
+
+        /// <summary>
+        /// 儲存資料檢視模型
+        /// </summary>
+        /// <param name="ControllerName">控制器名稱</param>
+        /// <param name="isLast">控制旗標(多列更新使用)</param>
+        public virtual void SaveModel(string ControllerName, bool isLast = true)
+        {
+            string ActionName = "CreateOrUpdate";
+
+            try
+            {
+                if (isLast)
+                {
+                    string controllerfullname = string.Format("Tokiku.Controllers.{0}Controller", ControllerName);
+
+                    Type ControllerType = System.Reflection.Assembly.Load("Tokiku.Controllers").GetType(controllerfullname);
+
+                    if (ControllerType == null)
+                    {
+                        throw new Exception(string.Format("Controller '{0}' not found.", ControllerName));
+                    }
+
+                    if (session_controller == null)
+                    {
+                        if (ControllerType.BaseType.GetInterface(typeof(IBaseController<TPOCO>).FullName) != null || ControllerType.BaseType == typeof(BaseController<TPOCO>))
+                        {
+                            session_controller = (IBaseController<TPOCO>)Activator.CreateInstance(ControllerType);
+
+                            if (session_controller == null)
+                            {
+                                throw new Exception(string.Format("Controller '{0}' not found.", ControllerName));
+                            }
+                        }
+
+                        if (ControllerType.BaseType == typeof(IBaseController) || ControllerType.BaseType == typeof(BaseController))
+                        {
+                            var ctrl = Activator.CreateInstance(ControllerType);
+
+                            var method = ControllerType.GetMethod(ActionName);
+
+                            if (method != null)
+                            {
+                                ExecuteResultEntity<TPOCO> result =
+                                    (ExecuteResultEntity<TPOCO>)method.Invoke(ctrl, new object[] { CopyofPOCOInstance, isLast });
+
+                                if (!result.HasError)
+                                {
+                                    CopyofPOCOInstance = result.Result;
+                                }
+                                else
+                                {
+
+                                    Errors = result.Errors;
+                                    HasError = true;
+                                }
+
+                                return;
+                            }
+                            else
+                            {
+                                throw new Exception(string.Format("Action '{0}' not found.", ActionName));
+                            }
+                        }
+                    }
+
+                }
+
+                if (session_controller != null)
+                {
+                    ExecuteResultEntity<TPOCO> result = session_controller.CreateOrUpdate(CopyofPOCOInstance, isLast);
 
                     if (!result.HasError)
                     {
@@ -298,9 +405,11 @@ namespace Tokiku.ViewModels
 
                     }
                 }
-                else
+
+                if (isLast && session_controller != null)
                 {
-                    throw new Exception(string.Format("Action '{0}' not found.", ActionName));
+                    session_controller.Dispose();
+                    session_controller = null;
                 }
 
             }

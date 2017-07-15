@@ -16,7 +16,7 @@ namespace Tokiku.Controllers
         public ExecuteResultEntity<ICollection<PromissoryNoteManagement>> QuerAll()
         {
             try {
-                var repo = RepositoryHelper.GetPromissoryNoteManagementRepository();
+                var repo = this.GetReoisitory<PromissoryNoteManagement>();
                 return ExecuteResultEntity<ICollection<PromissoryNoteManagement>>.CreateResultEntity(
                     new Collection<PromissoryNoteManagement>(repo.All().ToList()));
             }catch (Exception ex) {

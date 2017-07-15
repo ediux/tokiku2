@@ -32,7 +32,8 @@
                       Margin="2" 
                       AutoGenerateColumns="False" 
                       IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}"
-                      ItemsSource="{Binding Source={StaticResource SupplierSource}}" SelectionChanged="BussinessItemsGrid_SelectionChanged">
+                      ItemsSource="{Binding Source={StaticResource SupplierSource}}" SelectionChanged="BussinessItemsGrid_SelectionChanged" 
+                      AddingNewItem="BussinessItemsGrid_AddingNewItem">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="材料類別" Width="auto" >
                         <DataGridTemplateColumn.CellTemplate>
@@ -114,8 +115,8 @@
                             <DataTemplate>
                                 <ComboBox x:Name="CBTicketPeriods" Grid.Column="3" Grid.Row="1" Margin="2"
                                           ItemsSource="{Binding TicketPeriodsByManufacturers,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=userControl}"
-                                          SelectedValuePath="Id"
-                                          SelectedValue="{Binding TicketPeriodId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                          SelectedValuePath="Name"
+                                          SelectedValue="{Binding TicketPeriod}"
                                         SelectionChanged="CBTicketPeriods_SelectionChanged"
                                           IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}">
                                     <ComboBox.ItemTemplate>
@@ -132,15 +133,18 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding PlaceofReceipt}"/>
+                                    <TextBlock Text="{Binding NextManufacturers.Address}"/>
+                                    <TextBlock Text="{Binding NextManufacturers.Name,StringFormat=(\{0\})}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
-                                <ComboBox ItemsSource="{Binding NextStop,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=userControl}"  
-                                          SelectedValue="{Binding PlaceofReceipt, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                          SelectedValuePath="Address">
+                                <ComboBox Name="DDLNextStop"
+                                    ItemsSource="{Binding Path=NextStop,ElementName=userControl}"                                          
+                                          SelectedValue="{Binding Path=NextManufacturersId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                          SelectedValuePath="Id"
+                                          SelectionChanged="DDLNextStop_SelectionChanged" >
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal">

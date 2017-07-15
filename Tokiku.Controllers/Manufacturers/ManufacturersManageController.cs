@@ -20,7 +20,7 @@ namespace Tokiku.Controllers
 
         public ManufacturersManageController()
         {
-            BussinessItemsRepo = RepositoryHelper.GetManufacturersBussinessItemsRepository(database);
+            BussinessItemsRepo = (ManufacturersBussinessItemsRepository)this.GetReoisitory<ManufacturersBussinessItems>();
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Tokiku.Controllers
         {
 
             string Code = string.Empty;
-            ManufacturersRepository repo = RepositoryHelper.GetManufacturersRepository(database);
+            var repo = this.GetReoisitory();
             var lastitem = repo.All()
                 .OrderByDescending(s => s.Code)
                 .FirstOrDefault();
@@ -114,7 +114,7 @@ namespace Tokiku.Controllers
             return string.Format("{0:00}", Code);
         }
 
-        public ExecuteResultEntity<ICollection<ManufacturersEnter>> SearchByText(string originalSource)
+        public ExecuteResultEntity<ICollection<Manufacturers>> SearchByText(string originalSource)
         {
             sql = " select distinct a.Id as Id, Code, a.Name as Name, Principal, UniformNumbers, " +
                          " MainContactPerson, Phone, Address, Fax, FactoryPhone, FactoryAddress, " +
@@ -126,22 +126,23 @@ namespace Tokiku.Controllers
                                        " or Principal like '%'+@p0+'%') " +
                 " order by Code ";
 
-            ExecuteResultEntity<ICollection<ManufacturersEnter>> rtn;
+            ExecuteResultEntity<ICollection<Manufacturers>> rtn;
             try
             {
                 object[] obj = new object[] { originalSource };
                 if (originalSource != null && originalSource.Length > 0)
                 {
+                    var ManufacturersRepository = this.GetReoisitory();
+                    var queryresult = from q in ManufacturersRepository.All()
+                                      where q.Void == false && q.IsClient == false &&
+                                      (q.Name.Contains(originalSource) || q.ManufacturersBussinessItems.Any(s => s.Name.Contains(originalSource)) || q.Principal.Contains(originalSource))
+                                      select q;
 
-                    using (var ManufacturersRepository = RepositoryHelper.GetManufacturersRepository())
-                    {
-                        var queryresult = ManufacturersRepository.UnitOfWork.Context.Database.SqlQuery<ManufacturersEnter>(sql, obj);
+                    rtn = ExecuteResultEntity<ICollection<Manufacturers>>.CreateResultEntity(
+                        new Collection<Manufacturers>(queryresult.ToList()));
 
-                        rtn = ExecuteResultEntity<ICollection<ManufacturersEnter>>.CreateResultEntity(
-                            new Collection<ManufacturersEnter>(queryresult.ToList()));
+                    return rtn;
 
-                        return rtn;
-                    }
                 }
                 else
                 {
@@ -150,7 +151,7 @@ namespace Tokiku.Controllers
             }
             catch (Exception ex)
             {
-                return ExecuteResultEntity<ICollection<ManufacturersEnter>>.CreateErrorResultEntity(ex);
+                return ExecuteResultEntity<ICollection<Manufacturers>>.CreateErrorResultEntity(ex);
             }
 
         }
@@ -160,20 +161,18 @@ namespace Tokiku.Controllers
         {
             try
             {
-                using (var ManufacturersRepository = RepositoryHelper.GetManufacturersRepository())
-                {
-                    var result = ManufacturersRepository
-                                     .Where(filiter)
-                                     .Where(w => w.Void == false)
-                                     .OrderBy(p => p.Code)
-                                     .ToList();
 
-                    ExecuteResultEntity<ICollection<Manufacturers>> model = ExecuteResultEntity<ICollection<Manufacturers>>
-                        .CreateResultEntity(new Collection<Manufacturers>(result));
+                var ManufacturersRepository = this.GetReoisitory();
+                var result = ManufacturersRepository
+                                    .Where(filiter)
+                                    .Where(w => w.Void == false)
+                                    .OrderBy(p => p.Code)
+                                    .ToList();
 
-                    return model;
-                }
+                ExecuteResultEntity<ICollection<Manufacturers>> model = ExecuteResultEntity<ICollection<Manufacturers>>
+                    .CreateResultEntity(new Collection<Manufacturers>(result));
 
+                return model;
             }
             catch (Exception ex)
             {
@@ -187,7 +186,9 @@ namespace Tokiku.Controllers
 
             try
             {
-                View_ManufacturersBussinessTranscationsRepository repo = RepositoryHelper.GetView_ManufacturersBussinessTranscationsRepository(database);
+                var repo =
+                    this.GetReoisitory<View_ManufacturersBussinessTranscations>();
+
                 var result = repo
                     .Where(w => w.ManufacturersId == ManufacturersId)
                     .OrderBy(p => p.Code)
@@ -206,31 +207,31 @@ namespace Tokiku.Controllers
             }
         }
 
-        public ExecuteResultEntity<ICollection<ManufacturersEnter>> QueryAll()
+        public ExecuteResultEntity<ICollection<Manufacturers>> QueryAll()
         {
-            sql = " select Id, Code, Name, ShortName, Principal, UniformNumbers, MainContactPerson, " +
-                         " Phone, Address, Fax, FactoryPhone, FactoryAddress, " +
-                         " case when Void = 0 then '啟用' when Void = 1 then '停用' end as Void " +
-                    " from Manufacturers where IsClient = 0 order by Code ";
+            //sql = " select Id, Code, Name, ShortName, Principal, UniformNumbers, MainContactPerson, " +
+            //             " Phone, Address, Fax, FactoryPhone, FactoryAddress, " +
+            //             " case when Void = 0 then '啟用' when Void = 1 then '停用' end as Void " +
+            //        " from Manufacturers where IsClient = 0 order by Code ";
 
-            ExecuteResultEntity<ICollection<ManufacturersEnter>> rtn;
+            ExecuteResultEntity<ICollection<Manufacturers>> rtn;
 
             try
             {
-                using (var ManufacturersRepository = RepositoryHelper.GetManufacturersRepository())
-                {
-                    var queryresult = ManufacturersRepository.UnitOfWork.Context.Database.SqlQuery<ManufacturersEnter>(sql);
+                var ManufacturersRepository = this.GetReoisitory();
 
-                    rtn = ExecuteResultEntity<ICollection<ManufacturersEnter>>.CreateResultEntity(
-                        new Collection<ManufacturersEnter>(queryresult.ToList()));
+                var queryresult = from q in ManufacturersRepository.All()
+                                  where q.Void == false && q.IsClient == false && ((q.Address != null) && q.Address.Length > 0)
+                                  select q;
 
-                    return rtn;
-                }
+                rtn = ExecuteResultEntity<ICollection<Manufacturers>>.CreateResultEntity(
+                    new Collection<Manufacturers>(queryresult.ToList()));
 
+                return rtn;
             }
             catch (Exception ex)
             {
-                rtn = ExecuteResultEntity<ICollection<ManufacturersEnter>>.CreateErrorResultEntity(ex);
+                rtn = ExecuteResultEntity<ICollection<Manufacturers>>.CreateErrorResultEntity(ex);
                 return rtn;
             }
 
@@ -255,26 +256,29 @@ namespace Tokiku.Controllers
             }
         }
 
-        public override ExecuteResultEntity Add(Manufacturers entity, bool isLastRecord = true)
-        {
-            try
-            {
-                var ManufacturersRepository = RepositoryHelper.GetManufacturersRepository();
-                ManufacturersRepository.Add(entity);
-                ManufacturersRepository.UnitOfWork.Commit();
-                return ExecuteResultEntity.CreateResultEntity();
-            }
-            catch (Exception ex)
-            {
-                return ExecuteResultEntity.CreateErrorResultEntity(ex);
-            }
-        }
+        //public override ExecuteResultEntity Add(Manufacturers entity, bool isLastRecord = true)
+        //{
+        //    try
+        //    {
+        //        var ManufacturersRepository = RepositoryHelper.GetManufacturersRepository();
+        //        ManufacturersRepository.Add(entity);
+        //        ManufacturersRepository.UnitOfWork.Commit();
+        //        return ExecuteResultEntity.CreateResultEntity();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return ExecuteResultEntity.CreateErrorResultEntity(ex);
+        //    }
+        //}
 
         public ExecuteResultEntity<ManufacturersBussinessItems> CreateOrUpdateBussinessItems(ManufacturersBussinessItems entity)
         {
             try
             {
-                ManufacturersBussinessItemsRepository repo = RepositoryHelper.GetManufacturersBussinessItemsRepository(database);
+
+                var repo =
+                    this.GetReoisitory<ManufacturersBussinessItems>();
+
                 var result = from q in repo.All()
                              where q.Id == entity.Id
                              select q;
@@ -306,169 +310,166 @@ namespace Tokiku.Controllers
             }
         }
 
-        public override ExecuteResultEntity<Manufacturers> Update(Manufacturers fromModel, bool isLastRecord = true)
-        {
-            try
-            {
-                var ManufacturersRepository = RepositoryHelper.GetManufacturersRepository();
+        //public override ExecuteResultEntity<Manufacturers> Update(Manufacturers fromModel, bool isLastRecord = true)
+        //{
+        //    try
+        //    {
+        //        var ManufacturersRepository = RepositoryHelper.GetManufacturersRepository();
 
 
-                AccessLogRepository accesslog = RepositoryHelper.GetAccessLogRepository(database);
+        //        AccessLogRepository accesslog = RepositoryHelper.GetAccessLogRepository(database);
 
-                //var LoginedUser = GetCurrentLoginUser();
+        //        //var LoginedUser = GetCurrentLoginUser();
 
-                var dbm = (from q in ManufacturersRepository.All()
-                           where q.Id == fromModel.Id
-                           select q).SingleOrDefault();
+        //        var dbm = (from q in ManufacturersRepository.All()
+        //                   where q.Id == fromModel.Id
+        //                   select q).SingleOrDefault();
 
-                if (dbm != null)
-                {
-                    CheckAndUpdateValue(fromModel, dbm);
+        //        if (dbm != null)
+        //        {
+        //            CheckAndUpdateValue(fromModel, dbm);
 
-                    var toDel = dbm.Contacts.Select(s => s.Id).Except(fromModel.Contacts.Select(s => s.Id)).ToList();
-                    var toAdd = fromModel.Contacts.Select(s => s.Id).Except(dbm.Contacts.Select(s => s.Id)).ToList();
-                    var samerows = dbm.Contacts.Select(s => s.Id).Intersect(fromModel.Contacts.Select(s => s.Id)).ToList();
+        //            var toDel = dbm.Contacts.Select(s => s.Id).Except(fromModel.Contacts.Select(s => s.Id)).ToList();
+        //            var toAdd = fromModel.Contacts.Select(s => s.Id).Except(dbm.Contacts.Select(s => s.Id)).ToList();
+        //            var samerows = dbm.Contacts.Select(s => s.Id).Intersect(fromModel.Contacts.Select(s => s.Id)).ToList();
 
-                    Stack<Contacts> RemoveStack = new Stack<Contacts>();
-                    Stack<Contacts> AddStack = new Stack<Contacts>();
+        //            Stack<Contacts> RemoveStack = new Stack<Contacts>();
+        //            Stack<Contacts> AddStack = new Stack<Contacts>();
 
-                    foreach (var delitem in toDel)
-                    {
-                        RemoveStack.Push(dbm.Contacts.Where(w => w.Id == delitem).Single());
-                    }
+        //            foreach (var delitem in toDel)
+        //            {
+        //                RemoveStack.Push(dbm.Contacts.Where(w => w.Id == delitem).Single());
+        //            }
 
-                    foreach (var additem in toAdd)
-                    {
-                        AddStack.Push(fromModel.Contacts.Where(w => w.Id == additem).Single());
-                    }
+        //            foreach (var additem in toAdd)
+        //            {
+        //                AddStack.Push(fromModel.Contacts.Where(w => w.Id == additem).Single());
+        //            }
 
-                    while (RemoveStack.Count > 0)
-                    {
-                        dbm.Contacts.Remove(RemoveStack.Pop());
-                    }
+        //            while (RemoveStack.Count > 0)
+        //            {
+        //                dbm.Contacts.Remove(RemoveStack.Pop());
+        //            }
 
-                    while (AddStack.Count > 0)
-                    {
-                        dbm.Contacts.Add(AddStack.Pop());
-                    }
+        //            while (AddStack.Count > 0)
+        //            {
+        //                dbm.Contacts.Add(AddStack.Pop());
+        //            }
 
-                    foreach (var sameitem in samerows)
-                    {
-                        Contacts Source = fromModel.Contacts.Where(w => w.Id == sameitem).Single();
-                        Contacts Target = dbm.Contacts.Where(w => w.Id == sameitem).Single();
-                        CheckAndUpdateValue(Source, Target);
-                    }
+        //            foreach (var sameitem in samerows)
+        //            {
+        //                Contacts Source = fromModel.Contacts.Where(w => w.Id == sameitem).Single();
+        //                Contacts Target = dbm.Contacts.Where(w => w.Id == sameitem).Single();
+        //                CheckAndUpdateValue(Source, Target);
+        //            }
 
-                    var repo2 = RepositoryHelper.GetManufacturersBussinessItemsRepository();
+        //            var repo2 = RepositoryHelper.GetManufacturersBussinessItemsRepository();
 
-                    var toDelBI = repo2.Where(w => w.ManufacturersId == dbm.Id).Select(s => s.Id).Except(fromModel.ManufacturersBussinessItems.Select(s => s.Id)).ToList();
-                    var toAddBI = fromModel.ManufacturersBussinessItems.Select(s => s.Id).Except(repo2.Where(w => w.ManufacturersId == dbm.Id).Select(s => s.Id)).ToList();
-                    var samerowsBI = dbm.ManufacturersBussinessItems.Select(s => s.Id).Intersect(fromModel.ManufacturersBussinessItems.Select(s => s.Id)).ToList();
-
-
-                    Stack<ManufacturersBussinessItems> RemoveStackBI = new Stack<ManufacturersBussinessItems>();
-                    Stack<ManufacturersBussinessItems> AddStackBI = new Stack<ManufacturersBussinessItems>();
-
-                    bool isuserepo2 = false;
-
-                    foreach (var delitem in toDelBI)
-                    {
-
-                        RemoveStackBI.Push(repo2.Where(w => w.Id == delitem).Single());
-                    }
-
-                    foreach (var additem in toAddBI)
-                    {
-                        AddStackBI.Push(fromModel.ManufacturersBussinessItems.Where(w => w.Id == additem).ToList().Single());
-                    }
-
-                    while (RemoveStackBI.Count > 0)
-                    {
-                        isuserepo2 = true;
-                        repo2.Delete(RemoveStackBI.Pop());
-                        //dbm.ManufacturersBussinessItems.Remove();
-                    }
-
-                    while (AddStackBI.Count > 0)
-                    {
-                        isuserepo2 = true;
-                        var en = AddStackBI.Pop();
-                        repo2.Add(new ManufacturersBussinessItems()
-                        {
-                            Id = en.Id,
-                            ManufacturersId = en.ManufacturersId,
-                            MaterialCategoriesId = en.MaterialCategoriesId,
-                            PaymentTypeId = en.PaymentTypeId,
-                            Name = en.Name,
-                            TicketPeriodId = en.TicketPeriodId,
-                            TranscationCategoriesId = en.TranscationCategoriesId
-                        });
-                        //dbm.ManufacturersBussinessItems.Add(AddStackBI.Pop());
-                    }
-
-                    if (isuserepo2)
-                        repo2.UnitOfWork.Commit();
-
-                    foreach (var sameitem in samerowsBI)
-                    {
-                        ManufacturersBussinessItems Source = fromModel.ManufacturersBussinessItems.Where(w => w.Id == sameitem).Single();
-                        ManufacturersBussinessItems Target = dbm.ManufacturersBussinessItems.Where(w => w.Id == sameitem).Single();
-                        Target.ManufacturersId = Source.ManufacturersId;
-                        Target.MaterialCategoriesId = Source.MaterialCategoriesId;
-                        Target.Name = Source.Name;
-                        Target.PaymentTypeId = Source.PaymentTypeId;
-                        Target.TicketPeriodId = Source.TicketPeriodId;
-                        Target.TranscationCategoriesId = Source.TranscationCategoriesId;
-
-                    }
+        //            var toDelBI = repo2.Where(w => w.ManufacturersId == dbm.Id).Select(s => s.Id).Except(fromModel.ManufacturersBussinessItems.Select(s => s.Id)).ToList();
+        //            var toAddBI = fromModel.ManufacturersBussinessItems.Select(s => s.Id).Except(repo2.Where(w => w.ManufacturersId == dbm.Id).Select(s => s.Id)).ToList();
+        //            var samerowsBI = dbm.ManufacturersBussinessItems.Select(s => s.Id).Intersect(fromModel.ManufacturersBussinessItems.Select(s => s.Id)).ToList();
 
 
-                }
+        //            Stack<ManufacturersBussinessItems> RemoveStackBI = new Stack<ManufacturersBussinessItems>();
+        //            Stack<ManufacturersBussinessItems> AddStackBI = new Stack<ManufacturersBussinessItems>();
 
-                ManufacturersRepository.UnitOfWork.Commit();
+        //            bool isuserepo2 = false;
 
-                //accesslog.Add(new AccessLog()
-                //{
-                //    ActionCode = (Byte)ActionCodes.Update,
-                //    CreateTime = DateTime.Now,
-                //    DataId = dbm.Id.ToString("N"),
-                //    Reason = "更新資料",
-                //    UserId = LoginedUser.Result.UserId
-                //});
+        //            foreach (var delitem in toDelBI)
+        //            {
 
-                var rtn = Query(w => w.Id == fromModel.Id);
-                return ExecuteResultEntity<Manufacturers>.CreateResultEntity(rtn.Result.SingleOrDefault());
+        //                RemoveStackBI.Push(repo2.Where(w => w.Id == delitem).Single());
+        //            }
+
+        //            foreach (var additem in toAddBI)
+        //            {
+        //                AddStackBI.Push(fromModel.ManufacturersBussinessItems.Where(w => w.Id == additem).ToList().Single());
+        //            }
+
+        //            while (RemoveStackBI.Count > 0)
+        //            {
+        //                isuserepo2 = true;
+        //                repo2.Delete(RemoveStackBI.Pop());
+        //                //dbm.ManufacturersBussinessItems.Remove();
+        //            }
+
+        //            while (AddStackBI.Count > 0)
+        //            {
+        //                isuserepo2 = true;
+        //                var en = AddStackBI.Pop();
+        //                repo2.Add(new ManufacturersBussinessItems()
+        //                {
+        //                    Id = en.Id,
+        //                    ManufacturersId = en.ManufacturersId,
+        //                    MaterialCategoriesId = en.MaterialCategoriesId,
+        //                    PaymentTypeId = en.PaymentTypeId,
+        //                    Name = en.Name,
+        //                    TicketPeriodId = en.TicketPeriodId,
+        //                    TranscationCategoriesId = en.TranscationCategoriesId
+        //                });
+        //                //dbm.ManufacturersBussinessItems.Add(AddStackBI.Pop());
+        //            }
+
+        //            if (isuserepo2)
+        //                repo2.UnitOfWork.Commit();
+
+        //            foreach (var sameitem in samerowsBI)
+        //            {
+        //                ManufacturersBussinessItems Source = fromModel.ManufacturersBussinessItems.Where(w => w.Id == sameitem).Single();
+        //                ManufacturersBussinessItems Target = dbm.ManufacturersBussinessItems.Where(w => w.Id == sameitem).Single();
+        //                Target.ManufacturersId = Source.ManufacturersId;
+        //                Target.MaterialCategoriesId = Source.MaterialCategoriesId;
+        //                Target.Name = Source.Name;
+        //                Target.PaymentTypeId = Source.PaymentTypeId;
+        //                Target.TicketPeriodId = Source.TicketPeriodId;
+        //                Target.TranscationCategoriesId = Source.TranscationCategoriesId;
+
+        //            }
 
 
-            }
-            catch (Exception ex)
-            {
-                return ExecuteResultEntity<Manufacturers>.CreateErrorResultEntity(ex);
-            }
-        }
+        //        }
+
+        //        ManufacturersRepository.UnitOfWork.Commit();
+
+        //        //accesslog.Add(new AccessLog()
+        //        //{
+        //        //    ActionCode = (Byte)ActionCodes.Update,
+        //        //    CreateTime = DateTime.Now,
+        //        //    DataId = dbm.Id.ToString("N"),
+        //        //    Reason = "更新資料",
+        //        //    UserId = LoginedUser.Result.UserId
+        //        //});
+
+        //        var rtn = Query(w => w.Id == fromModel.Id);
+        //        return ExecuteResultEntity<Manufacturers>.CreateResultEntity(rtn.Result.SingleOrDefault());
+
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return ExecuteResultEntity<Manufacturers>.CreateErrorResultEntity(ex);
+        //    }
+        //}
 
         public override ExecuteResultEntity Delete(Expression<Func<Manufacturers, bool>> condtion)
         {
             try
             {
-                using (var repo = RepositoryHelper.GetManufacturersRepository(database))
+                var repo = this.GetReoisitory();
+
+                var result = repo
+                       .Where(condtion)
+                       .Where(p => p.Void == false);
+
+                if (result.Any())
                 {
-                    var result = repo
-                        .Where(condtion)
-                        .Where(p => p.Void == false);
+                    var data = result.Single();
+                    data.Void = true;
 
-                    if (result.Any())
-                    {
-                        var data = result.Single();
-                        data.Void = true;
-
-                        return ExecuteResultEntity.CreateResultEntity();
-                    }
-
-                    return ExecuteResultEntity.CreateErrorResultEntity("Data not found.");
-
+                    return ExecuteResultEntity.CreateResultEntity();
                 }
 
+                return ExecuteResultEntity.CreateErrorResultEntity("Data not found.");
             }
             catch (Exception ex)
             {
@@ -480,12 +481,10 @@ namespace Tokiku.Controllers
         {
             try
             {
-                using (var repo = RepositoryHelper.GetManufacturersRepository(database))
-                {
-                    var result = repo.Where(filiter);
-                    return result.Any();
-                }
+                var repo = this.GetReoisitory();
 
+                var result = repo.Where(filiter);
+                return result.Any();
             }
             catch
             {
@@ -496,7 +495,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                TranscationCategoriesRepository repo = RepositoryHelper.GetTranscationCategoriesRepository(database);
+                var repo = this.GetReoisitory<TranscationCategories>();
 
                 return ExecuteResultEntity<ICollection<TranscationCategories>>.CreateResultEntity(
                     new Collection<TranscationCategories>(repo.All().ToList()));
@@ -514,17 +513,11 @@ namespace Tokiku.Controllers
         {
             try
             {
-                TranscationCategoriesRepository repo = RepositoryHelper.GetTranscationCategoriesRepository(database);
-
-                return Task.FromResult(ExecuteResultEntity<ICollection<TranscationCategories>>.CreateResultEntity(
-                    new Collection<TranscationCategories>(repo.All().ToList())));
-
+                return Task.FromResult(GetTranscationCategoriesList());
             }
             catch (Exception ex)
             {
                 return Task.FromResult(ExecuteResultEntity<ICollection<TranscationCategories>>.CreateErrorResultEntity(ex));
-
-
             }
         }
 
@@ -532,7 +525,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                MaterialCategoriesRepository repo = RepositoryHelper.GetMaterialCategoriesRepository(database);
+                var repo = this.GetReoisitory<MaterialCategories>();
 
                 var result = from q in repo.All()
                              select q;
@@ -544,8 +537,6 @@ namespace Tokiku.Controllers
             catch (Exception ex)
             {
                 return ExecuteResultEntity<ICollection<MaterialCategories>>.CreateErrorResultEntity(ex);
-
-
             }
         }
 
@@ -553,20 +544,11 @@ namespace Tokiku.Controllers
         {
             try
             {
-                MaterialCategoriesRepository repo = RepositoryHelper.GetMaterialCategoriesRepository(database);
-
-                var result = from q in repo.All()
-                             select q;
-
-                return Task.FromResult(ExecuteResultEntity<ICollection<MaterialCategories>>.CreateResultEntity(
-                    new Collection<MaterialCategories>(result.ToList())));
-
+                return Task.FromResult(GetMaterialCategoriesList());
             }
             catch (Exception ex)
             {
                 return Task.FromResult(ExecuteResultEntity<ICollection<MaterialCategories>>.CreateErrorResultEntity(ex));
-
-
             }
         }
 
@@ -574,7 +556,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var biListRepo = RepositoryHelper.GetManufacturersBussinessItemsRepository(database);
+                var biListRepo = this.GetReoisitory<ManufacturersBussinessItems>();
 
                 var result = (from q in biListRepo.All()
                               where q.ManufacturersId == ManufacturersId
@@ -598,8 +580,8 @@ namespace Tokiku.Controllers
             //, Guid TranscationCategoriesId, Guid TicketPeriodId
             try
             {
-                ManufacturersBussinessItemsRepository repo = RepositoryHelper.GetManufacturersBussinessItemsRepository();
-                database = repo.UnitOfWork;
+                var repo = this.GetReoisitory<ManufacturersBussinessItems>();
+                //database = repo.UnitOfWork;
 
                 var remap = (from q in repo.All()
                              where q.MaterialCategoriesId == MaterialCategoriesId
@@ -621,19 +603,9 @@ namespace Tokiku.Controllers
         /// <returns></returns>
         public Task<ExecuteResultEntity<ICollection<ManufacturersBussinessItems>>> GetBussinessItemsListWithMaterialCategoriesAsync(Guid MaterialCategoriesId)
         {
-            //, Guid TranscationCategoriesId, Guid TicketPeriodId
             try
             {
-                ManufacturersBussinessItemsRepository repo = RepositoryHelper.GetManufacturersBussinessItemsRepository();
-                database = repo.UnitOfWork;
-
-                var matchedresult = repo
-                    .Where(w => w.MaterialCategoriesId == MaterialCategoriesId)
-                    .Distinct()
-                    .ToList();
-
-                return Task.FromResult(ExecuteResultEntity<ICollection<ManufacturersBussinessItems>>.CreateResultEntity(
-                    new Collection<ManufacturersBussinessItems>(matchedresult)));
+                return Task.FromResult(GetBussinessItemsListWithMaterialCategories(MaterialCategoriesId));
             }
             catch (Exception ex)
             {
@@ -641,12 +613,12 @@ namespace Tokiku.Controllers
             }
         }
 
-        public Task<ExecuteResultEntity<ICollection<Manufacturers>>> GetManufacturersWithBusinessItemAsync(Guid MaterialCategoriesId, string BusinessItem)
+        public ExecuteResultEntity<ICollection<Manufacturers>> GetManufacturersWithBusinessItem(Guid MaterialCategoriesId, string BusinessItem)
         {
             try
             {
-                ManufacturersRepository repo = RepositoryHelper.GetManufacturersRepository();
-                database = repo.UnitOfWork;
+                var repo = this.GetReoisitory();
+
 
                 var matchedresult = (from q in repo.All()
                                      from s in q.ManufacturersBussinessItems
@@ -654,8 +626,20 @@ namespace Tokiku.Controllers
                                      && s.Name.Contains(BusinessItem)
                                      select q).Distinct().ToList();
 
-                return Task.FromResult(ExecuteResultEntity<ICollection<Manufacturers>>.CreateResultEntity(
-                    new Collection<Manufacturers>(matchedresult)));
+                return ExecuteResultEntity<ICollection<Manufacturers>>.CreateResultEntity(
+                    new Collection<Manufacturers>(matchedresult));
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<ICollection<Manufacturers>>.CreateErrorResultEntity(ex);
+            }
+        }
+
+        public Task<ExecuteResultEntity<ICollection<Manufacturers>>> GetManufacturersWithBusinessItemAsync(Guid MaterialCategoriesId, string BusinessItem)
+        {
+            try
+            {
+                return Task.FromResult(GetManufacturersWithBusinessItem(MaterialCategoriesId, BusinessItem));
             }
             catch (Exception ex)
             {

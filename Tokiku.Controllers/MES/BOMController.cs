@@ -13,8 +13,8 @@ namespace Tokiku.Controllers
         {
             try
             {
-                ProcessingAtlasRepository repo = RepositoryHelper.GetProcessingAtlasRepository();
-                database = repo.UnitOfWork;
+                var repo = this.GetReoisitory<ProcessingAtlas>();
+
                 var result = repo.Where(w => w.Name == ProcessingAtlas);
 
                 if (result.Any())
@@ -37,8 +37,8 @@ namespace Tokiku.Controllers
                 if (source == null)
                     return ExecuteResultEntity.CreateErrorResultEntity(new ArgumentNullException("source"));
 
-                BOMRepository Repo = RepositoryHelper.GetBOMRepository();
-                database = Repo.UnitOfWork;
+                var Repo = this.GetReoisitory<BOM>();
+
 
                 Repo.BatchAdd(source);
 

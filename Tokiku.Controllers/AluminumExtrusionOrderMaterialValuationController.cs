@@ -16,7 +16,7 @@ namespace Tokiku.Controllers
             {
                 var repo = RepositoryHelper.GetOrderMaterialValuationRepository();
 
-                database = repo.UnitOfWork;
+                //database = repo.UnitOfWork;
                 var queryresult = (from q in repo.All()
                                    //where q.FormDetails.ProjectId == ProjectId && q.FormDetailId == FormDetailId
                                    select new AluminumExtrusionOrderMaterialValuationEntity()

@@ -46,9 +46,19 @@ namespace Tokiku.ViewModels
             //}
         }
 
-        public TicketPeriodsViewModelCollection QueryByManufacturers(Guid MaterialCategoriesId, string BusinessItem, Guid ManufacturersId)
+        public static TicketPeriodsViewModelCollection QueryByManufacturers(Guid MaterialCategoriesId, string BusinessItem, Guid ManufacturersId)
         {
-            return Query<TicketPeriodsViewModelCollection, TicketPeriod>("TicketPeriodsManagement", "QueryForSelectBusinessItem", MaterialCategoriesId, BusinessItem, ManufacturersId);
+            try
+            {
+                return Query<TicketPeriodsViewModelCollection, TicketPeriod>("TicketPeriodsManagement", "QueryForSelectBusinessItem", MaterialCategoriesId, BusinessItem, ManufacturersId);
+            }
+            catch (Exception ex)
+            {
+                TicketPeriodsViewModelCollection collection = new TicketPeriodsViewModelCollection();
+                setErrortoModel(collection, ex);
+                return collection;
+            }
+            
             //var result = await controller.QueryForSelectBusinessItemAsync(MaterialCategoriesId, BusinessItem, ManufacturersId);
 
             //if (!result.HasError)

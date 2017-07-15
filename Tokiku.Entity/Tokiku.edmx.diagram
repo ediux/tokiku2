@@ -168,25 +168,28 @@
         <AssociationConnector Association="TokikuModel.FK_OrderMiscellaneous_Orders" />
         </Diagram>
       <Diagram DiagramId="da028285ff1d445f8957817e8b05eec6" Name="專案主檔" ZoomLevel="86" >
-        <EntityTypeShape EntityType="TokikuModel.Projects" Width="1.5" PointX="3" PointY="15.125" />
-        <EntityTypeShape EntityType="TokikuModel.ProjectContract" Width="1.5" PointX="5.25" PointY="15.25" />
+        <EntityTypeShape EntityType="TokikuModel.Projects" Width="1.5" PointX="3" PointY="10.625" />
+        <EntityTypeShape EntityType="TokikuModel.ProjectContract" Width="1.5" PointX="5.25" PointY="10.75" />
         <AssociationConnector Association="TokikuModel.FK_ProjectContract_Projects" />
-        <EntityTypeShape EntityType="TokikuModel.Engineering" Width="1.5" PointX="7.5" PointY="13" />
-        <EntityTypeShape EntityType="TokikuModel.ConstructionAtlas" Width="1.5" PointX="5.25" PointY="35.875" />
+        <EntityTypeShape EntityType="TokikuModel.Engineering" Width="1.5" PointX="7.5" PointY="8.5" />
+        <EntityTypeShape EntityType="TokikuModel.ConstructionAtlas" Width="1.5" PointX="5.25" PointY="23.875" />
         <AssociationConnector Association="TokikuModel.FK_ConstructionAtlas_Projects" />
-        <EntityTypeShape EntityType="TokikuModel.ProcessingAtlas" Width="1.5" PointX="7.5" PointY="17.5" />
+        <EntityTypeShape EntityType="TokikuModel.ProcessingAtlas" Width="1.5" PointX="7.5" PointY="13.125" />
         <AssociationConnector Association="TokikuModel.FK_ProcessingAtlas_ProjectContract" />
-        <EntityTypeShape EntityType="TokikuModel.Manufacturers" Width="1.5" PointX="0.75" PointY="18.125" />
+        <EntityTypeShape EntityType="TokikuModel.Manufacturers" Width="1.5" PointX="0.75" PointY="13.25" />
         <AssociationConnector Association="TokikuModel.ClientsInProjects" />
         <AssociationConnector Association="TokikuModel.FK_Engineering_ProjectContract" />
-        <EntityTypeShape EntityType="TokikuModel.MoldsInProjects" Width="1.5" PointX="5.25" PointY="28.25" />
+        <EntityTypeShape EntityType="TokikuModel.MoldsInProjects" Width="1.5" PointX="5.25" PointY="18.75" />
         <AssociationConnector Association="TokikuModel.FK_MoldsInProjects_Projects" />
-        <EntityTypeShape EntityType="TokikuModel.Molds" Width="1.5" PointX="3" PointY="26.125" />
+        <EntityTypeShape EntityType="TokikuModel.Molds" Width="1.5" PointX="3" PointY="21.75" />
         <AssociationConnector Association="TokikuModel.FK_Molds_Manufacturers" />
         <AssociationConnector Association="TokikuModel.FK_MoldsInProjects_Molds" />
-        <EntityTypeShape EntityType="TokikuModel.BOM" Width="1.5" PointX="9.75" PointY="17.25" />
+        <EntityTypeShape EntityType="TokikuModel.BOM" Width="1.5" PointX="9.75" PointY="13.25" />
         <AssociationConnector Association="TokikuModel.FK_BOM_ProcessingAtlas" />
         <AssociationConnector Association="TokikuModel.FK_BOM_Manufacturers" />
+        <EntityTypeShape EntityType="TokikuModel.SupplierTranscationItem" Width="1.5" PointX="5.25" PointY="15.125" />
+        <AssociationConnector Association="TokikuModel.FK_SupplierTranscationItem_NextManufacturers" />
+        <AssociationConnector Association="TokikuModel.FK_SupplierTranscationItem_Projects" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

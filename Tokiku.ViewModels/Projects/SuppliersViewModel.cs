@@ -68,6 +68,21 @@ namespace Tokiku.ViewModels
 
         public SuppliersViewModel(SupplierTranscationItem entity) : base(entity)
         {
+            _MaterialCategories = CopyofPOCOInstance?.ManufacturersBussinessItems?.MaterialCategories?.Name;
+            _Name = CopyofPOCOInstance?.ManufacturersBussinessItems?.Name;
+            _TicketPeriod = CopyofPOCOInstance?.ManufacturersBussinessItems?.TicketPeriod?.Name;
+            _TicketPeriodId = CopyofPOCOInstance?.ManufacturersBussinessItems?.TicketPeriodId;
+            _ManufacturersName = CopyofPOCOInstance?.ManufacturersBussinessItems?.Manufacturers?.Name;
+            _ManufacturersId = CopyofPOCOInstance?.ManufacturersBussinessItems?.ManufacturersId;
+        }
+
+        public override void Initialized()
+        {
+            base.Initialized();
+            if (CopyofPOCOInstance == null)
+                CopyofPOCOInstance = new SupplierTranscationItem();
+
+            CopyofPOCOInstance.ManufacturersBussinessItems = new ManufacturersBussinessItems();
 
         }
         /// <summary>
@@ -79,6 +94,34 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.ProjectId = value; RaisePropertyChanged("ProjectId"); }
         }
 
+        /// <summary>
+        /// 營業項目
+        /// </summary>
+        public ManufacturersBussinessItems ManufacturersBussinessItems
+        {
+            get => CopyofPOCOInstance.ManufacturersBussinessItems;
+            set
+            {
+                CopyofPOCOInstance.ManufacturersBussinessItems = value;
+
+                _MaterialCategories = CopyofPOCOInstance.ManufacturersBussinessItems.MaterialCategories?.Name;
+                _Name = CopyofPOCOInstance.ManufacturersBussinessItems?.Name;
+                _TicketPeriod = CopyofPOCOInstance.ManufacturersBussinessItems?.TicketPeriod?.Name;
+                _TicketPeriodId = CopyofPOCOInstance.ManufacturersBussinessItems?.TicketPeriodId;
+                _ManufacturersName = CopyofPOCOInstance.ManufacturersBussinessItems?.Manufacturers?.Name;
+                _ManufacturersId = CopyofPOCOInstance.ManufacturersBussinessItems?.ManufacturersId;
+                RaisePropertyChanged("ManufacturersBussinessItems");
+                RaisePropertyChanged("MaterialCategories");
+                RaisePropertyChanged("Name");
+                RaisePropertyChanged("TicketPeriod");
+                RaisePropertyChanged("TicketPeriodId");
+                RaisePropertyChanged("ManufacturersName");
+            }
+        }
+
+        /// <summary>
+        /// 營業項目ID
+        /// </summary>
         public Guid ManufacturersBussinessItemsId
         {
             get => CopyofPOCOInstance.ManufacturersBussinessItemsId;
@@ -88,59 +131,113 @@ namespace Tokiku.ViewModels
                 RaisePropertyChanged("ManufacturersBussinessItemsId");
             }
         }
+
+        private Guid? _ManufacturersId;
+        public Guid? ManufacturersId { get => _ManufacturersId; set {
+                _ManufacturersId = value;
+                RaisePropertyChanged("ManufacturersId");
+            } }
+
+
+        /// <summary>
+        /// 送貨地址(收貨廠商ID)
+        /// </summary>
         public Guid? NextManufacturersId
         {
-            get => CopyofPOCOInstance.NextManufacturersId; set
+            get => CopyofPOCOInstance.NextManufacturersId;
+            set
             {
                 CopyofPOCOInstance.NextManufacturersId = value;
                 RaisePropertyChanged("NextManufacturersId");
             }
         }
 
-        public string MaterialCategories
+        /// <summary>
+        /// 送貨地址(收貨廠商)
+        /// </summary>
+        public Manufacturers NextManufacturers
         {
-            get => CopyofPOCOInstance.ManufacturersBussinessItems.MaterialCategories.Name;
+            get => CopyofPOCOInstance.NextManufacturers;
             set
             {
-                CopyofPOCOInstance.ManufacturersBussinessItems.MaterialCategories.Name = value;
+                CopyofPOCOInstance.NextManufacturers = value;
+                CopyofPOCOInstance.NextManufacturersId = CopyofPOCOInstance.NextManufacturers.Id;
+
+                RaisePropertyChanged("NextManufacturers");
+                RaisePropertyChanged("NextManufacturersId");
+            }
+        }
+
+        private string _MaterialCategories;
+
+        /// <summary>
+        /// 材料類別
+        /// </summary>
+        public string MaterialCategories
+        {
+            get => _MaterialCategories;
+
+            set
+            {
+                _MaterialCategories = value;
                 RaisePropertyChanged("MaterialCategories");
             }
         }
 
+        private string _Name;
+        /// <summary>
+        /// 交易品項
+        /// </summary>
         public string Name
         {
-            get => CopyofPOCOInstance.ManufacturersBussinessItems.Name;
-            set => RaisePropertyChanged("Name");
-        }
-
-        public string PlaceofReceipt
-        {
-            get { return CopyofPOCOInstance.PlaceofReceipt; }
-            set { CopyofPOCOInstance.PlaceofReceipt = value; RaisePropertyChanged("PlaceofReceipt"); }
-        }
-
-        public string TicketPeriod
-        {
-            get => CopyofPOCOInstance.ManufacturersBussinessItems.TicketPeriod.Name;
+            get => _Name;
             set
             {
-                CopyofPOCOInstance.ManufacturersBussinessItems.TicketPeriod.Name = value;
+                _Name = value;
+                RaisePropertyChanged("Name");
+            }
+        }
+
+        private string _TicketPeriod;
+        /// <summary>
+        /// 票期
+        /// </summary>
+        public string TicketPeriod
+        {
+            get => _TicketPeriod;
+            set
+            {
+                _TicketPeriod = value;
                 RaisePropertyChanged("TicketPeriod");
             }
         }
 
+        private int? _TicketPeriodId;
+
+        /// <summary>
+        /// 票期ID
+        /// </summary>
         public int? TicketPeriodId
         {
-            get => CopyofPOCOInstance.ManufacturersBussinessItems.TicketPeriodId;
-            set => RaisePropertyChanged("TicketPeriodId");
-        }
-
-        public string ManufacturersName
-        {
-            get { return CopyofPOCOInstance.Manufacturers.Name; }
+            get => _TicketPeriodId;
             set
             {
-                CopyofPOCOInstance.ManufacturersBussinessItems.Manufacturers.Name = value;
+                _TicketPeriodId = value;
+                RaisePropertyChanged("TicketPeriodId");
+            }
+        }
+
+        private string _ManufacturersName;
+
+        /// <summary>
+        /// 廠商
+        /// </summary>
+        public string ManufacturersName
+        {
+            get => _ManufacturersName;
+            set
+            {
+                _ManufacturersName = value;
                 RaisePropertyChanged("ManufacturersName");
             }
         }

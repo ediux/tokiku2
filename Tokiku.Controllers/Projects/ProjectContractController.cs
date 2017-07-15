@@ -137,8 +137,8 @@ namespace Tokiku.Controllers
             try
             {
 
-                var repo = RepositoryHelper.GetProjectContractRepository();
-                database = repo.UnitOfWork;
+                var repo = this.GetReoisitory();
+                //database = repo.UnitOfWork;
 
                 var original = (from q in repo.All()
                                 where q.Id == fromModel.Id

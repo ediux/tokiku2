@@ -90,13 +90,13 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.EstimatedPaymentDate = value; RaisePropertyChanged("EstimatedPaymentDate"); }
         }
         // 輸入人員
-        public string CreateUser
+        public new string CreateUser
         {
             get { return CopyofPOCOInstance.Users.UserName; }
             set { CopyofPOCOInstance.Users.UserName = value; RaisePropertyChanged("CreateUser"); }
         }
         // 輸入日期
-        public DateTime CreateTime
+        public new DateTime CreateTime
         {
             get { return CopyofPOCOInstance.CreateTime; }
             set { CopyofPOCOInstance.CreateTime = value; RaisePropertyChanged("CreateTime"); }
