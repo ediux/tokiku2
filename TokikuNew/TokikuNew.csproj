@@ -128,7 +128,7 @@
     <Compile Include="Views\Finance\ActualCostsView.xaml.cs">
       <DependentUpon>ActualCostsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AluminumExtrusionProcessingView.xaml.cs">
+    <Compile Include="Views\ControlTables\AluminumExtrusionProcessingView.xaml.cs">
       <DependentUpon>AluminumExtrusionProcessingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AluminumExtrusion\AluminumExtrusionOrderMiscellaneousView.xaml.cs">
@@ -143,7 +143,7 @@
     <Compile Include="Views\AluminumExtrusion\AluminumExtrusionOrderListView.xaml.cs">
       <DependentUpon>AluminumExtrusionOrderListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ContractManagementView.xaml.cs">
+    <Compile Include="Views\Projects\ContractManagementView.xaml.cs">
       <DependentUpon>ContractManagementView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ControlTables\AluminumPlateView.xaml.cs">
@@ -158,7 +158,7 @@
     <Compile Include="Views\ControlTables\InventoryListView.xaml.cs">
       <DependentUpon>InventoryListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\OrderControlTableView.xaml.cs">
+    <Compile Include="Views\ControlTables\OrderControlTableView.xaml.cs">
       <DependentUpon>OrderControlTableView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Projects\ProcessingChangeLogView.xaml.cs">
@@ -299,17 +299,17 @@
     <Compile Include="Views\ControlTables\RequiredView.xaml.cs">
       <DependentUpon>RequiredView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SystemMembersView.xaml.cs">
+    <Compile Include="Views\System\SystemMembersView.xaml.cs">
       <DependentUpon>SystemMembersView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SystemRolesView.xaml.cs">
+    <Compile Include="Views\System\SystemRolesView.xaml.cs">
       <DependentUpon>SystemRolesView.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\Finance\ActualCostsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AluminumExtrusionProcessingView.xaml">
+    <Page Include="Views\ControlTables\AluminumExtrusionProcessingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -329,7 +329,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ContractManagementView.xaml">
+    <Page Include="Views\Projects\ContractManagementView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -349,7 +349,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\OrderControlTableView.xaml">
+    <Page Include="Views\ControlTables\OrderControlTableView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -573,11 +573,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SystemMembersView.xaml">
+    <Page Include="Views\System\SystemMembersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SystemRolesView.xaml">
+    <Page Include="Views\System\SystemRolesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

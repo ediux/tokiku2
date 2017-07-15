@@ -66,31 +66,6 @@ namespace Tokiku.ViewModels
             try
             {
                 return Query<ManufacturersViewModelCollection, Manufacturers>("ManufacturersManage", "QueryAll");
-                //if (!System.Windows.Threading.Dispatcher.CurrentDispatcher.CheckAccess())
-                //{
-                //    System.Windows.Threading.Dispatcher.CurrentDispatcher.Invoke(new Action(Query), System.Windows.Threading.DispatcherPriority.Background);
-                //}
-                //else
-                //{
-                //    if (_controller == null)
-                //        return;
-
-                //    var queryresult = _controller.QueryAll();
-
-                //    if (!queryresult.HasError)
-                //    {
-                //        ClearItems();
-
-                //        foreach (var row in queryresult.Result)
-                //        {
-                //            ManufacturersViewModel model = new ManufacturersViewModel();
-
-                //            //model.SetModel(row);
-                //            Add(model);
-                //        }
-                //    }
-                //}
-
             }
             catch (Exception ex)
             {
@@ -132,20 +107,6 @@ namespace Tokiku.ViewModels
             try
             {
                 return Query<ManufacturersViewModelCollection, Manufacturers>("ManufacturersManage", "GetManufacturersWithBusinessItem", MaterialCategoriesId, BusinessItem);
-
-                //ManufacturersManageController controller = new ManufacturersManageController();
-                //var queryresult =  controller.GetManufacturersWithBusinessItemAsync(MaterialCategoriesId, BusinessItem);
-                //if (!queryresult.HasError)
-                //{
-                //    var objectdataset = queryresult.Result;
-                //    foreach (var row in objectdataset)
-                //    {
-                //        ManufacturersViewModel model = new ManufacturersViewModel();
-
-                //        //model.SetModel(row);
-                //        Add(model);
-                //    }
-                //}
             }
             catch (Exception ex)
             {
