@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -26,6 +27,24 @@ namespace Tokiku.ViewModels
         {
             return Query<SuppliersViewModelCollection, SupplierTranscationItem>(
                 "Suppliers", "QueryByProject", ProjectId);
+        }
+
+        protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                if (e.OldItems.Count > 0)
+                {
+                    for (int i = 0; i < e.OldItems.Count; i++)
+                    {
+                        ExecuteAction<SupplierTranscationItem>("Suppliers", "Delete", ((SuppliersViewModel)e.OldItems[i]).Entity, false);
+                    }
+                }
+            }
+
+            base.OnCollectionChanged(e);
+
+
         }
         //public override void SaveModel()
         //{
@@ -133,10 +152,14 @@ namespace Tokiku.ViewModels
         }
 
         private Guid? _ManufacturersId;
-        public Guid? ManufacturersId { get => _ManufacturersId; set {
+        public Guid? ManufacturersId
+        {
+            get => _ManufacturersId; set
+            {
                 _ManufacturersId = value;
                 RaisePropertyChanged("ManufacturersId");
-            } }
+            }
+        }
 
 
         /// <summary>

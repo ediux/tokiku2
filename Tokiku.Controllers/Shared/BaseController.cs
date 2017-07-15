@@ -17,10 +17,10 @@ namespace Tokiku.Controllers
     /// 商業邏輯層控制器基底類別。
     /// </summary>
     public abstract class BaseController : IBaseController
-    {       
-      
+    {
+
         public BaseController()
-        {          
+        {
         }
 
 
@@ -32,7 +32,7 @@ namespace Tokiku.Controllers
             if (!disposedValue)
             {
                 if (disposing)
-                {                   
+                {
                 }
 
                 // TODO: 釋放 Unmanaged 資源 (Unmanaged 物件) 並覆寫下方的完成項。
@@ -276,7 +276,7 @@ namespace Tokiku.Controllers
 
         }
 
-       
+
 
         /// <summary>
         /// 取得資料庫儲存庫物件。
@@ -329,7 +329,7 @@ namespace Tokiku.Controllers
                     //database = RepositoryHelper.GetUnitOfWork();
                     repo = GetRepository();
                     entity = repo.Get(IdentifyPrimaryKey(entity));
-                    
+
                 }
 
                 return ExecuteResultEntity.CreateResultEntity();
@@ -422,35 +422,30 @@ namespace Tokiku.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public virtual ExecuteResultEntity Delete(Expression<Func<T, bool>> condtion)
+        public virtual ExecuteResultEntity<T> Delete(T entity, bool isDeleteRightNow = false)
         {
             try
             {
                 var repo = GetRepository();
 
                 if (repo == null)
-                    return ExecuteResultEntity.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
+                    return ExecuteResultEntity<T>.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
 
-                var findresult = repo.Where(condtion);
+                var findresult = repo.Get(IdentifyPrimaryKey(entity));
 
-                if (findresult.Any())
-                {
-                    foreach (var result in findresult)
-                    {
-                        repo.Delete(result);
-                    }
+                if (findresult != null)
+                    repo.Delete(findresult);
 
+                if (isDeleteRightNow)
+                {                    
                     repo.UnitOfWork.Commit();
-
-                    return ExecuteResultEntity.CreateResultEntity();
                 }
 
-                return ExecuteResultEntity.CreateErrorResultEntity("Data no found.");
-
+                return ExecuteResultEntity<T>.CreateResultEntity(entity);
             }
             catch (Exception ex)
             {
-                return ExecuteResultEntity.CreateErrorResultEntity(ex);
+                return ExecuteResultEntity<T>.CreateErrorResultEntity(ex);
             }
 
         }
@@ -469,7 +464,7 @@ namespace Tokiku.Controllers
                 if (repo == null)
                     return ExecuteResultEntity<T>.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
 
-                
+
 
                 //檢查資料庫資料是否存在?
                 if (repo.Get(IdentifyPrimaryKey(entity)) != null)

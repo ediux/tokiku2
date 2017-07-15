@@ -245,6 +245,9 @@
     <Compile Include="ProjectContract.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProjectContract.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
     <Compile Include="ProjectItemCost.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
@@ -446,9 +449,6 @@
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
     <Compile Include="Profile.Partial.cs">
-      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProjectContract.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
     <Compile Include="ProjectItemCost.Partial.cs">

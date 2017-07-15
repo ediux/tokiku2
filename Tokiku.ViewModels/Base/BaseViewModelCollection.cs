@@ -144,7 +144,7 @@ namespace Tokiku.ViewModels
             }
         }
 
-        public static ICollection<TResult> ExecuteAction<TResult>(string ControllerName, string ActionName, params object[] values)            
+        public static ICollection<TResult> ExecuteAction<TResult>(string ControllerName, string ActionName, params object[] values)
             where TResult : class
         {
             ICollection<TResult> collection = null;
@@ -171,19 +171,66 @@ namespace Tokiku.ViewModels
 
                 if (method != null)
                 {
-                    ExecuteResultEntity<ICollection<TResult>> result =
-                        (ExecuteResultEntity<ICollection<TResult>>)method.Invoke(ctrl, values);
+                    var result = method.Invoke(ctrl, values);
 
-                    if (!result.HasError)
+                    if (result is ExecuteResultEntity)
                     {
-                        collection = result.Result;
-                        return collection;
+                        ExecuteResultEntity resultc = (ExecuteResultEntity)result;
+
+                        if (!resultc.HasError)
+                        {
+                            collection = new Collection<TResult>();
+                            return collection;
+                        }
+                        else
+                        {
+                            collection = Activator.CreateInstance<Collection<TResult>>();
+                            return collection;
+                        }
                     }
                     else
                     {
-                        collection = Activator.CreateInstance<ICollection<TResult>>();                      
-                        return collection;
+                        if (result is ExecuteResultEntity<TResult>)
+                        {
+                            ExecuteResultEntity<TResult> resultc = (ExecuteResultEntity<TResult>)result;
+
+                            if (!resultc.HasError)
+                            {
+                                collection = new Collection<TResult>();
+                                collection.Add(resultc.Result);
+                                return collection;
+                            }
+                            else
+                            {
+                                collection = Activator.CreateInstance<Collection<TResult>>();
+                                return collection;
+                            }
+                        }
+                        else
+                        {
+                            if (result is ExecuteResultEntity<ICollection<TResult>>)
+                            {
+                                ExecuteResultEntity<ICollection<TResult>> resultc = (ExecuteResultEntity<ICollection<TResult>>)result;
+
+                                if (!resultc.HasError)
+                                {
+                                    collection = resultc.Result;
+                                    return collection;
+                                }
+                                else
+                                {
+                                    collection = Activator.CreateInstance<Collection<TResult>>();
+                                    return collection;
+                                }
+                            }
+                            else
+                            {
+                                collection = Activator.CreateInstance<Collection<TResult>>();
+                                return collection;
+                            }
+                        }
                     }
+
                 }
                 else
                 {
@@ -207,7 +254,7 @@ namespace Tokiku.ViewModels
                 List<string> message = new List<string>();
                 foreach (var item in Items)
                 {
-                    item.SaveModel(ControllerName, i== (Items.Count-1));
+                    item.SaveModel(ControllerName, i == (Items.Count - 1));
                     if (item.HasError)
                     {
                         message.AddRange(item.Errors);

@@ -39,8 +39,7 @@ namespace Tokiku.ViewModels
 
             if (!reult.HasError)
             {
-                UserViewModel model = new UserViewModel();
-             
+                UserViewModel model = new UserViewModel(reult.Result);             
                 return model;
             }
             else

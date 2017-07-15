@@ -224,38 +224,18 @@ namespace Tokiku.Controllers
 
         }
 
-        public override ExecuteResultEntity Delete(Expression<Func<Contacts, bool>> condtion)
+        public override ExecuteResultEntity<Contacts> Delete(Contacts entity, bool isDeleteRightNow = false)
         {
             try
             {
-                var result = Query(condtion);
-
-                if (!result.HasError)
-                {
-                    if (result.Result.Any())
-                    {
-                        int c = 0;
-
-                        foreach (var model in result.Result)
-                        {
-                            model.Void = true; //設定為停用
-                            Update(model, c == (result.Result.Count - 1));
-                            c++;
-                        }
-
-                        return ExecuteResultEntity.CreateResultEntity();
-                    }
-                }
-
-                var rtn = new ExecuteResultEntity();
-                rtn.Errors = result.Errors;
-                rtn.HasError = result.HasError;
-                return rtn;
+                entity.Void = true;
+                var result = Update(entity, !isDeleteRightNow);                
+                return result;
 
             }
             catch (Exception ex)
             {
-                return ExecuteResultEntity.CreateErrorResultEntity(ex);
+                return ExecuteResultEntity<Contacts>.CreateErrorResultEntity(ex);
             }
         }
 

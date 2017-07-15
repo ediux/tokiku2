@@ -20,16 +20,16 @@ namespace Tokiku.Controllers
 {
     public class MoldsController : BaseController
     {
-        private String sql;
+        //private String sql;
 
         public Task<ExecuteResultEntity<ICollection<MoldsEnter>>> Query()
         {
-            sql = " select LegendMoldReduction, UsePosition, Code, SerialNumber, " +
-                         " b.Name as Name1, UnitWeight, SurfaceTreatment, PaintArea, " +
-                         " MembraneTreatment, MinimumYield, ProductionIngot, " +
-                         " TotalOrderWeight, c.Name as Name2, Comment " +
-                    " from Molds a left join materials b on a.Id = b.Id " +
-                                 " left join MoldUseStatus c on c.Id = a.MoldUseStatusId ";
+            //sql = " select LegendMoldReduction, UsePosition, Code, SerialNumber, " +
+            //             " b.Name as Name1, UnitWeight, SurfaceTreatment, PaintArea, " +
+            //             " MembraneTreatment, MinimumYield, ProductionIngot, " +
+            //             " TotalOrderWeight, c.Name as Name2, Comment " +
+            //        " from Molds a left join materials b on a.Id = b.Id " +
+            //                     " left join MoldUseStatus c on c.Id = a.MoldUseStatusId ";
 
             try
             {

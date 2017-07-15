@@ -22,25 +22,30 @@ namespace Tokiku.ViewModels
 
         public BaseViewModelWithPOCOClass()
         {
-            CopyofPOCOInstance = Activator.CreateInstance<TPOCO>();
+            Status = new DocumentStatusViewModel();
             EntityType = typeof(TPOCO);
+            CopyofPOCOInstance = Activator.CreateInstance<TPOCO>();
             Initialized();
         }
 
         public BaseViewModelWithPOCOClass(TPOCO entity)
         {
-
-            CopyofPOCOInstance = Activator.CreateInstance<TPOCO>();
-            Initialized();
-            Status.IsNewInstance = false;
-            CopyofPOCOInstance = entity;
+            Status = new DocumentStatusViewModel();
             EntityType = entity.GetType();
+            //            CopyofPOCOInstance = Activator.CreateInstance<TPOCO>();                         
+            CopyofPOCOInstance = entity;
             _Mode = DocumentLifeCircle.Read;
+            Status.IsNewInstance = false;
         }
 
         public virtual void Initialized()
         {
-            Status = new DocumentStatusViewModel();
+            CreateTime = DateTime.Now;
+            CreateUser = ExecuteAction<Users>("System", "GetCurrentLoginUser");
+
+            if (CreateUser != null)
+                CreateUserId = CreateUser.UserId;
+
             Status.IsNewInstance = true;
             Status.IsModify = false;
             Status.IsSaved = false;
@@ -79,16 +84,42 @@ namespace Tokiku.ViewModels
         /// <param name="PropertyName">發生變更的屬性名稱。</param>
         protected void RaisePropertyChanged(string PropertyName)
         {
-            Status.IsModify = true;
-            Status.IsSaved = false;
+            if (Status != null)
+            {
+                Status.IsModify = true;
+                Status.IsSaved = false;
+            }
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
         }
 
         public Guid Id
         {
-            get { return (Guid)_EntityType.GetProperty("Id").GetValue(CopyofPOCOInstance); }
-            set { _EntityType.GetProperty("Id").SetValue(CopyofPOCOInstance, value); RaisePropertyChanged("Id"); }
+            get
+            {
+                try
+                {
+                    return (Guid)_EntityType.GetProperty("Id").GetValue(CopyofPOCOInstance);
+                }
+                catch
+                {
+                    return Guid.Empty;
+                }
+
+            }
+            set
+            {
+                try
+                {
+                    _EntityType.GetProperty("Id").SetValue(CopyofPOCOInstance, value);
+                    RaisePropertyChanged("Id");
+                }
+                catch
+                {
+
+                }
+
+            }
         }
 
         #region CreateTime
@@ -96,10 +127,31 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 建立時間
         /// </summary>
-        public DateTime CreateTime
+        public virtual DateTime CreateTime
         {
-            get { return (DateTime)_EntityType.GetProperty("CreateTime").GetValue(CopyofPOCOInstance); }
-            set { _EntityType.GetProperty("CreateTime").SetValue(CopyofPOCOInstance, value); RaisePropertyChanged("CreateTime"); }
+            get
+            {
+                try
+                {
+                    return (DateTime)_EntityType.GetProperty("CreateTime").GetValue(CopyofPOCOInstance);
+                }
+                catch
+                {
+                    return default(DateTime);
+                }
+
+            }
+            set
+            {
+                try
+                {
+                    _EntityType.GetProperty("CreateTime").SetValue(CopyofPOCOInstance, value); RaisePropertyChanged("CreateTime");
+                }
+                catch
+                {
+                    
+                }
+            }
         }
 
 
@@ -109,10 +161,30 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 建立人員識別碼
         /// </summary>
-        public Guid CreateUserId
+        public virtual Guid CreateUserId
         {
-            get { return (Guid)_EntityType.GetProperty("CreateUserId").GetValue(CopyofPOCOInstance); }
-            set { _EntityType.GetProperty("CreateUserId").SetValue(CopyofPOCOInstance, value); RaisePropertyChanged("CreateUserId"); }
+            get
+            {
+                try
+                {
+                    return (Guid)_EntityType.GetProperty("CreateUserId").GetValue(CopyofPOCOInstance);
+                }
+                catch
+                {
+                    return Guid.Empty;
+                }
+
+            }
+            set
+            {
+                try
+                {
+                    _EntityType.GetProperty("CreateUserId").SetValue(CopyofPOCOInstance, value); RaisePropertyChanged("CreateUserId");
+                }
+                catch
+                {                    
+                }
+            }
         }
         #endregion
 
@@ -121,10 +193,31 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 建立人員
         /// </summary>
-        public Users CreateUser
+        public virtual Users CreateUser
         {
-            get { return (Users)_EntityType.GetProperty("CreateUser").GetValue(CopyofPOCOInstance); }
-            set { _EntityType.GetProperty("CreateUser").SetValue(CopyofPOCOInstance, value); RaisePropertyChanged("CreateUser"); }
+            get
+            {
+                try
+                {
+                    return (Users)_EntityType.GetProperty("CreateUser").GetValue(CopyofPOCOInstance);
+                }
+                catch
+                {
+                    return null;
+                }
+
+            }
+            set
+            {
+                try
+                {
+                    _EntityType.GetProperty("CreateUser").SetValue(CopyofPOCOInstance, value); RaisePropertyChanged("CreateUser");
+                }
+                catch
+                {
+                
+                }
+            }
         }
 
 

@@ -16,7 +16,7 @@ namespace Tokiku.Controllers
     {
         private ManufacturersBussinessItemsRepository BussinessItemsRepo;
 
-        private String sql;
+        //private String sql;
 
         public ManufacturersManageController()
         {
@@ -116,15 +116,15 @@ namespace Tokiku.Controllers
 
         public ExecuteResultEntity<ICollection<Manufacturers>> SearchByText(string originalSource)
         {
-            sql = " select distinct a.Id as Id, Code, a.Name as Name, Principal, UniformNumbers, " +
-                         " MainContactPerson, Phone, Address, Fax, FactoryPhone, FactoryAddress, " +
-                         " case when Void = 0 then '啟用' when Void = 1 then '停用' end as Void " +
-                    " from Manufacturers a " +
-               " left join ManufacturersBussinessItems b on a.Id = b.ManufacturersId " +
-                   " where IsClient = 0 and (a.Name like '%'+@p0+'%' " +
-                                       " or b.Name like '%'+@p0+'%' " +
-                                       " or Principal like '%'+@p0+'%') " +
-                " order by Code ";
+            //sql = " select distinct a.Id as Id, Code, a.Name as Name, Principal, UniformNumbers, " +
+            //             " MainContactPerson, Phone, Address, Fax, FactoryPhone, FactoryAddress, " +
+            //             " case when Void = 0 then '啟用' when Void = 1 then '停用' end as Void " +
+            //        " from Manufacturers a " +
+            //   " left join ManufacturersBussinessItems b on a.Id = b.ManufacturersId " +
+            //       " where IsClient = 0 and (a.Name like '%'+@p0+'%' " +
+            //                           " or b.Name like '%'+@p0+'%' " +
+            //                           " or Principal like '%'+@p0+'%') " +
+            //    " order by Code ";
 
             ExecuteResultEntity<ICollection<Manufacturers>> rtn;
             try
@@ -451,29 +451,17 @@ namespace Tokiku.Controllers
         //    }
         //}
 
-        public override ExecuteResultEntity Delete(Expression<Func<Manufacturers, bool>> condtion)
+        public override ExecuteResultEntity<Manufacturers> Delete(Manufacturers entity, bool isDeleteRightNow = false)
         {
             try
             {
-                var repo = this.GetReoisitory();
-
-                var result = repo
-                       .Where(condtion)
-                       .Where(p => p.Void == false);
-
-                if (result.Any())
-                {
-                    var data = result.Single();
-                    data.Void = true;
-
-                    return ExecuteResultEntity.CreateResultEntity();
-                }
-
-                return ExecuteResultEntity.CreateErrorResultEntity("Data not found.");
+                entity.Void = true;
+                var result = Update(entity, !isDeleteRightNow);
+                return result;
             }
             catch (Exception ex)
             {
-                return ExecuteResultEntity.CreateErrorResultEntity(ex);
+                return ExecuteResultEntity<Manufacturers>.CreateErrorResultEntity(ex);
             }
         }
 

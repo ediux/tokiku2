@@ -9,7 +9,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class UserViewModel : BaseViewModelWithPOCOClass<Users> ,IBaseViewModel
+    public class UserViewModel : BaseViewModelWithPOCOClass<Users>, IBaseViewModel
     {
         public UserViewModel()
         {
@@ -24,7 +24,7 @@ namespace Tokiku.ViewModels
         public Guid UserId
         {
             get { return CopyofPOCOInstance.UserId; }
-            set { CopyofPOCOInstance.UserId = value; RaisePropertyChanged("UserId"); }
+            set { RaisePropertyChanged("UserId"); }
         }
 
         public string UserName
@@ -62,14 +62,17 @@ namespace Tokiku.ViewModels
             get { return CopyofPOCOInstance.Membership.Password; }
         }
 
+        public override Users CreateUser { get => null; set { } }
+        public override DateTime CreateTime { get => DateTime.Now; set {  } }
+        public override Guid CreateUserId { get => Guid.Empty; set { } }
         public override void Initialized()
         {
             base.Initialized();
             IsAnonymous = true;
-            LastActivityDate = new DateTime(1754, 1, 1);
-            LoweredUserName = Environment.UserName.ToLowerInvariant();
-            UserName = Environment.UserName;
-            UserId = Guid.NewGuid();
+            CopyofPOCOInstance.LastActivityDate = new DateTime(1754, 1, 1);
+            CopyofPOCOInstance.LoweredUserName = Environment.UserName.ToLowerInvariant();
+            CopyofPOCOInstance.UserName = Environment.UserName;
+            CopyofPOCOInstance.UserId = Guid.NewGuid();
         }
     }
 }

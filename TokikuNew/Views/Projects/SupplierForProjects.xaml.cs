@@ -274,6 +274,13 @@ namespace TokikuNew.Views
             {
                 Button btn = (Button)sender;
                 SuppliersViewModel data = (SuppliersViewModel)btn.DataContext;
+
+                var dataset = ((ObjectDataProvider)TryFindResource("SupplierSource")).Data as SuppliersViewModelCollection;
+
+                if (dataset != null)
+                {
+                    dataset.Remove(data);
+                }
                 //((SuppliersViewModelCollection)DataContext).Remove(data);
                 ////((SuppliersViewModelCollection)DataContext).SaveModel();
                 ////((SuppliersViewModelCollection)DataContext).Refresh();

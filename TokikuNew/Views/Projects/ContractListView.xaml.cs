@@ -65,8 +65,6 @@ namespace TokikuNew.Views
         }
         #endregion
 
-
-
         #region Document Mode
 
 
@@ -118,19 +116,23 @@ namespace TokikuNew.Views
                 {
 
                     case DocumentLifeCircle.Save:
-                        var dataset = (ProjectContractViewModelCollection)DataContext;
+                        var dataset = (ProjectContractViewModelCollection)((DataSourceProvider)TryFindResource("ContractListSource")).Data;
 
-                        dataset.SaveModel("");
-
-                        if (dataset.HasError)
+                        if (dataset != null)
                         {
-                            MessageBox.Show(string.Join("\n", dataset.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-                            dataset.Errors = null;
-                            break;
+                            dataset.SaveModel("ProjectContract");
+
+                            if (dataset.HasError)
+                            {
+                                MessageBox.Show(string.Join("\n", dataset.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                                dataset.Errors = null;
+                                break;
+                            }
+
+                            Mode = DocumentLifeCircle.Read;
+                            return;
                         }
-
-                        Mode = DocumentLifeCircle.Read;
-
+                        Mode = DocumentLifeCircle.Update;
                         break;
                 }
 
@@ -167,7 +169,7 @@ namespace TokikuNew.Views
                 ((ProjectContractViewModel)e.NewItem).ProjectId = SelectedProjectId;
                 ((ProjectContractViewModel)e.NewItem).Initialized();
                 ((ProjectContractViewModel)e.NewItem).Id = Guid.NewGuid();
-
+                
                 ProjectsViewModel CurrentProject = ProjectsViewModel.QuerySingle<ProjectsViewModel, Projects>("ProjectManagerView", "QueryById", SelectedProjectId);
 
                 if (string.IsNullOrEmpty(((ProjectContractViewModel)e.NewItem).ContractNumber))
@@ -178,31 +180,36 @@ namespace TokikuNew.Views
                 ((ProjectContractViewModel)e.NewItem).Name = CurrentProject.Name;
                 ((ProjectContractViewModel)e.NewItem).SigningDate = CurrentProject.ProjectSigningDate;
 
-                //if (CurrentProject.ProjectContract.Where(w => w.ContractNumber == ((ProjectContractViewModel)e.NewItem).ContractNumber).Any())
-                //{
-                //    var lastdata = CurrentProject.ProjectContract
-                //        .Where(w => w.ContractNumber.StartsWith(((ProjectContractViewModel)e.NewItem).ContractNumber))
-                //        .OrderByDescending(w => w.ContractNumber).FirstOrDefault();
 
-                //    if (lastdata != null)
-                //    {
-                //        int lastnumber = 0;
+                if (CurrentProject.Entity.ProjectContract.Where(w => w.ContractNumber == ((ProjectContractViewModel)e.NewItem).ContractNumber).Any())
+                {
+                    var lastdata = CurrentProject.Entity.ProjectContract
+                        .Where(w => w.ContractNumber.StartsWith(((ProjectContractViewModel)e.NewItem).ContractNumber))
+                        .OrderByDescending(w => w.ContractNumber).FirstOrDefault();
 
-                //        if (lastdata.ContractNumber.Length > 7)
-                //        {
-                //            if (!int.TryParse(lastdata.ContractNumber.Substring(8), out lastnumber))
-                //            {
-                //                ((ProjectContractViewModel)e.NewItem).ContractNumber = string.Empty;
-                //                return;
-                //            }
-                //        }
+                    if (lastdata != null)
+                    {
+                        int lastnumber = 0;
 
-                //        lastnumber += 1;
-                //        ((ProjectContractViewModel)e.NewItem).ContractNumber = string.Format("{0}-{1}", lastdata.ContractNumber.Substring(0, 7), lastnumber);
-                //        return;
-                //    }
+                        if (lastdata.ContractNumber.Length > 7)
+                        {
+                            if (!int.TryParse(lastdata.ContractNumber.Substring(8), out lastnumber))
+                            {
+                                ((ProjectContractViewModel)e.NewItem).ContractNumber = string.Empty;
+                                return;
+                            }
+                        }
 
-                //}
+                        lastnumber += 1;
+                        ((ProjectContractViewModel)e.NewItem).ContractNumber = string.Format("{0}-{1}", lastdata.ContractNumber.Substring(0, 7), lastnumber);
+                        return;
+                    }
+
+                }
+                else
+                {
+                    CurrentProject.Entity.ProjectContract.Add(((ProjectContractViewModel)e.NewItem).Entity);
+                }
             }
             catch (Exception ex)
             {
