@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Tokiku.ViewModels
 {
-    public class FormsDetailViewModel : IBaseViewModel
+    public class FormsDetailViewModel : BaseViewModelWithPOCOClass<>
     {
         public IEnumerable<string> Errors { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public bool HasError { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
