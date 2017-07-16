@@ -297,7 +297,7 @@ namespace TokikuNew.Views
         {
             try
             {
-                NextStop = ManufacturersViewModelCollection.Query();
+                NextStop = ManufacturersViewModelCollection.QueryForCombox();
                 AddHandler(DockBar.DocumentModeChangedEvent, new RoutedEventHandler(DockBar_DocumentModeChanged));
             }
             catch (Exception ex)

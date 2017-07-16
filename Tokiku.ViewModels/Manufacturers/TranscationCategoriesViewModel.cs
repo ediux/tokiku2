@@ -10,18 +10,22 @@ namespace Tokiku.ViewModels
 {
     public class TranscationCategoriesViewModelCollection : BaseViewModelCollection<TranscationCategoriesViewModel>
     {
-        private Controllers.ManufacturersManageController controller;
 
-        public override void Initialized()
+        public TranscationCategoriesViewModelCollection()
         {
-            base.Initialized();
-            controller = new Controllers.ManufacturersManageController();
-            Query();
+
+        }
+
+        public TranscationCategoriesViewModelCollection(IEnumerable<TranscationCategoriesViewModel> source) : base(source)
+        {
+
         }
 
         public static TranscationCategoriesViewModelCollection Query()
         {
-            return Query<TranscationCategoriesViewModelCollection, TranscationCategories>("ManufacturersManage", "GetTranscationCategoriesListAsync");
+            return Query<TranscationCategoriesViewModelCollection, TranscationCategories>(
+                "ManufacturersManage",
+                "GetTranscationCategoriesList");
             //var result = await controller.GetTranscationCategoriesList();
 
             //if (!result.HasError)

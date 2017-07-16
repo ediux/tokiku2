@@ -135,7 +135,10 @@ namespace Tokiku.Controllers
                     var ManufacturersRepository = this.GetReoisitory();
                     var queryresult = from q in ManufacturersRepository.All()
                                       where q.Void == false && q.IsClient == false &&
-                                      (q.Name.Contains(originalSource) || q.ManufacturersBussinessItems.Any(s => s.Name.Contains(originalSource)) || q.Principal.Contains(originalSource))
+                                      (q.Name.Contains(originalSource) ||
+                                    (q.ManufacturersBussinessItems != null && q.ManufacturersBussinessItems.Any(s => s.Name.Contains(originalSource)))
+                                      || (q.Principal != null && q.Principal.Contains(originalSource)))
+                                      orderby q.Code ascending
                                       select q;
 
                     rtn = ExecuteResultEntity<ICollection<Manufacturers>>.CreateResultEntity(
@@ -207,6 +210,59 @@ namespace Tokiku.Controllers
             }
         }
 
+        public ExecuteResultEntity<ICollection<Manufacturers>> QueryAllForCombox()
+        {
+            //sql = " select Id, Code, Name, ShortName, Principal, UniformNumbers, MainContactPerson, " +
+            //             " Phone, Address, Fax, FactoryPhone, FactoryAddress, " +
+            //             " case when Void = 0 then '啟用' when Void = 1 then '停用' end as Void " +
+            //        " from Manufacturers where IsClient = 0 order by Code ";
+
+            ExecuteResultEntity<ICollection<Manufacturers>> rtn;
+
+            try
+            {
+                var ManufacturersRepository = this.GetReoisitory();
+
+                var queryresult = from q in ManufacturersRepository.All()
+                                  where q.Void == false && q.IsClient == false &&
+                                  ((q.Address != null) && q.Address.Length > 0)
+                                  select q;
+
+                rtn = ExecuteResultEntity<ICollection<Manufacturers>>.CreateResultEntity(
+                    new Collection<Manufacturers>(queryresult.ToList()));
+
+                return rtn;
+            }
+            catch (Exception ex)
+            {
+                rtn = ExecuteResultEntity<ICollection<Manufacturers>>.CreateErrorResultEntity(ex);
+                return rtn;
+            }
+
+        }
+        public ExecuteResultEntity<Manufacturers> QuerySingle(Guid ManufacturersId)
+        {
+            ExecuteResultEntity<Manufacturers> rtn;
+
+            try
+            {
+                var ManufacturersRepository = this.GetReoisitory().All();
+
+                var queryresult = from q in ManufacturersRepository
+                                  where q.Void == false && q.IsClient == false
+                                  && q.Id == ManufacturersId
+                                  orderby q.Code ascending
+                                  select q;
+
+                return ExecuteResultEntity<Manufacturers>.CreateResultEntity(queryresult.SingleOrDefault());
+
+            }
+            catch (Exception ex)
+            {
+                rtn = ExecuteResultEntity<Manufacturers>.CreateErrorResultEntity(ex);
+                return rtn;
+            }
+        }
         public ExecuteResultEntity<ICollection<Manufacturers>> QueryAll()
         {
             //sql = " select Id, Code, Name, ShortName, Principal, UniformNumbers, MainContactPerson, " +
@@ -221,7 +277,8 @@ namespace Tokiku.Controllers
                 var ManufacturersRepository = this.GetReoisitory();
 
                 var queryresult = from q in ManufacturersRepository.All()
-                                  where q.Void == false && q.IsClient == false && ((q.Address != null) && q.Address.Length > 0)
+                                  where q.Void == false && q.IsClient == false
+                                  orderby q.Code ascending
                                   select q;
 
                 rtn = ExecuteResultEntity<ICollection<Manufacturers>>.CreateResultEntity(
@@ -479,6 +536,30 @@ namespace Tokiku.Controllers
                 return false;
             }
         }
+
+        public ExecuteResultEntity<TranscationCategories> QuerySingleTranscationCategory(int TranscationCategoriesId)
+        {
+            try
+            {
+                var repo = this.GetReoisitory<TranscationCategories>();
+
+                var result = (from q in repo.All()
+                              where q.Id == TranscationCategoriesId
+                              select q).SingleOrDefault();
+
+                return ExecuteResultEntity<TranscationCategories>.CreateResultEntity(
+                    result);
+
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<TranscationCategories>
+                    .CreateErrorResultEntity(ex);
+
+
+            }
+        }
+
         public ExecuteResultEntity<ICollection<TranscationCategories>> GetTranscationCategoriesList()
         {
             try
@@ -537,6 +618,26 @@ namespace Tokiku.Controllers
             catch (Exception ex)
             {
                 return Task.FromResult(ExecuteResultEntity<ICollection<MaterialCategories>>.CreateErrorResultEntity(ex));
+            }
+        }
+
+        public ExecuteResultEntity<ICollection<ManufacturersBussinessItems>> QueryBussinessItemsList(Guid ManufacturersId)
+        {
+            try
+            {
+                var biListRepo = this.GetReoisitory<ManufacturersBussinessItems>();
+
+                var result = (from q in biListRepo.All()
+                              where q.ManufacturersId == ManufacturersId
+                              select q).ToList();
+
+                return ExecuteResultEntity<ICollection<ManufacturersBussinessItems>>
+                    .CreateResultEntity(
+                    new Collection<ManufacturersBussinessItems>(result));
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<ICollection<ManufacturersBussinessItems>>.CreateErrorResultEntity(ex);
             }
         }
 

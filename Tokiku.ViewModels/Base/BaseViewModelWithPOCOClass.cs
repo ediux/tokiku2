@@ -31,9 +31,18 @@ namespace Tokiku.ViewModels
         public BaseViewModelWithPOCOClass(TPOCO entity)
         {
             Status = new DocumentStatusViewModel();
-            EntityType = entity.GetType();
-            //            CopyofPOCOInstance = Activator.CreateInstance<TPOCO>();                         
-            CopyofPOCOInstance = entity;
+            if (entity != null)
+            {
+                EntityType = entity.GetType();
+                CopyofPOCOInstance = entity;
+            }
+            else
+            {
+                EntityType = typeof(TPOCO);
+                CopyofPOCOInstance = Activator.CreateInstance<TPOCO>();
+                Initialized();
+            }
+          
             _Mode = DocumentLifeCircle.Read;
             Status.IsNewInstance = false;
         }
@@ -149,7 +158,7 @@ namespace Tokiku.ViewModels
                 }
                 catch
                 {
-                    
+
                 }
             }
         }
@@ -182,7 +191,7 @@ namespace Tokiku.ViewModels
                     _EntityType.GetProperty("CreateUserId").SetValue(CopyofPOCOInstance, value); RaisePropertyChanged("CreateUserId");
                 }
                 catch
-                {                    
+                {
                 }
             }
         }
@@ -215,7 +224,7 @@ namespace Tokiku.ViewModels
                 }
                 catch
                 {
-                
+
                 }
             }
         }

@@ -114,6 +114,40 @@ namespace Tokiku.ViewModels
             }
         }
 
+        public static ManufacturersBussinessItemsViewModelColletion Query(Guid ManufacturersId)
+        {
+            try
+            {
+                return Query<ManufacturersBussinessItemsViewModelColletion, ManufacturersBussinessItems>(
+                    "ManufacturersManage", "QueryBussinessItemsList", ManufacturersId);
+                //ManufacturersManageController controller = new ManufacturersManageController();
+
+                //var queryresult = await controller.QueryBussinessItemsListAsync(ManufacturersId);
+
+                //if (!queryresult.HasError)
+                //{
+                //    var objectdataset = queryresult.Result;
+                //    if (objectdataset.Any())
+                //    {
+
+                //        ClearItems();
+                //        foreach (var row in objectdataset)
+                //        {
+                //            ManufacturersBussinessItemsViewModel model = new ManufacturersBussinessItemsViewModel();
+
+                //            Add(model);
+                //        }
+                //    }
+                //}
+            }
+            catch (Exception ex)
+            {
+                ManufacturersBussinessItemsViewModelColletion collection = new ManufacturersBussinessItemsViewModelColletion();
+                setErrortoModel(collection, ex);
+                return collection;
+            }
+        }
+
         public async void QueryAsync(Guid ManufacturersId)
         {
             try
@@ -175,7 +209,7 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string MaterialCategories
         {
-            get { return CopyofPOCOInstance.MaterialCategories.Name; }
+            get { return CopyofPOCOInstance?.MaterialCategories?.Name; }
             set { RaisePropertyChanged("MaterialCategories"); }
         }
 
@@ -214,8 +248,8 @@ namespace Tokiku.ViewModels
 
         public string PaymentTypeName
         {
-            get { return CopyofPOCOInstance.PaymentTypes.PaymentTypeName; }
-
+            get { return CopyofPOCOInstance?.PaymentTypes?.PaymentTypeName; }
+            set { RaisePropertyChanged("PaymentTypeName"); }
         }
 
         #endregion
@@ -226,7 +260,18 @@ namespace Tokiku.ViewModels
         public int TicketPeriodId
         {
             get { return CopyofPOCOInstance.TicketPeriodId.HasValue ? CopyofPOCOInstance.TicketPeriodId.Value : 0; }
-            set { CopyofPOCOInstance.TicketPeriodId = value; RaisePropertyChanged("TicketPeriodId"); }
+            set
+            {
+                CopyofPOCOInstance.TicketPeriodId = value;
+                RaisePropertyChanged("TicketPeriodId");
+                var result = ExecuteAction<TicketPeriod>(
+                    "TicketPeriodsManagement", "QuerySingle", value);
+                if (result != null)
+                {
+                    CopyofPOCOInstance.TicketPeriod = result;
+                    RaisePropertyChanged("TicketPeriod");
+                }
+            }
         }
 
 
@@ -241,8 +286,8 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string TicketPeriod
         {
-            get { return CopyofPOCOInstance.TicketPeriod.Name; }
-
+            get { return CopyofPOCOInstance?.TicketPeriod?.Name; }
+            set { RaisePropertyChanged("TicketPeriod"); }
         }
         #endregion
 
@@ -266,7 +311,18 @@ namespace Tokiku.ViewModels
         public int? TranscationCategoriesId
         {
             get { return CopyofPOCOInstance.TranscationCategoriesId; }
-            set { CopyofPOCOInstance.TranscationCategoriesId = value; RaisePropertyChanged("TranscationCategoriesId"); }
+            set {
+                CopyofPOCOInstance.TranscationCategoriesId = value;
+                RaisePropertyChanged("TranscationCategoriesId");
+                var result = ExecuteAction<TranscationCategories>(
+                   "ManufacturersManage", "QuerySingleTranscationCategory", value);
+                if (result != null)
+                {
+                    CopyofPOCOInstance.TranscationCategories = result;
+                    CopyofPOCOInstance.TranscationCategoriesId = result.Id;
+                    RaisePropertyChanged("TranscationCategories");
+                }
+            }
         }
 
 
@@ -281,8 +337,8 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string TranscationCategories
         {
-            get { return CopyofPOCOInstance.TranscationCategories.Name; }
-
+            get { return CopyofPOCOInstance?.TranscationCategories?.Name; }
+            set { RaisePropertyChanged("TranscationCategories"); }
         }
 
 

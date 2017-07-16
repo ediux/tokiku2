@@ -5,13 +5,29 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
              xmlns:controls="clr-namespace:TokikuNew.Controls"
+             xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+             xmlns:helpers="clr-namespace:TokikuNew.Helpers"
              mc:Ignorable="d" 
-             d:DesignHeight="768" d:DesignWidth="1024"
-             xmlns:ctrl="clr-namespace:Tokiku.Controllers;assembly=Tokiku.Controllers"
-             Background="{DynamicResource ControlBackgroundBrush}"
-             Loaded="UserControl_Loaded">
+             d:DesignHeight="768" d:DesignWidth="1024"              
+             Background="{DynamicResource ControlBackgroundBrush}">
     <UserControl.Resources>
+        <helpers:RoutedViewResult x:Key="OpenNewManufacturer" DisplayText="新增廠商" ViewType="{x:Type local:ManufacturersManageView}" />
+        <ObjectDataProvider x:Key="ManufacturerListSource" ObjectType="{x:Type vm:ManufacturersViewModelCollection}" MethodName="Query" />
     </UserControl.Resources>
+    <UserControl.CommandBindings>
+        <CommandBinding x:Name="QueryCommand"
+            Command="{StaticResource Query}"
+            CanExecute="QueryCommand_CanExecute"
+            Executed="QueryCommand_Executed"/>
+        <CommandBinding x:Name="QueryRefreshCommand"
+                        Command="{StaticResource QueryRefresh}"
+                        CanExecute="QueryRefreshCommand_CanExecute"
+                        Executed="QueryRefreshCommand_Executed"/>
+        <CommandBinding x:Name="ResetFiliterCommand"
+                        Command="{StaticResource ResetFiliter}"
+                        CanExecute="ResetFiliterCommand_CanExecute"
+                        Executed="ResetFiliterCommand_Executed"/>
+    </UserControl.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>
@@ -29,11 +45,11 @@
                     <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
                 <controls:SearchBar x:Name="sSearchBar" Grid.Column="0"/>
-                <Button Name="btnNew" Grid.Column="1" Margin="2,1" Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" Click="btnNew_Click" ToolTip="新增"/>
+                <Button Name="btnNew" Grid.Column="1" Margin="2,1" Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenNewManufacturer}" CommandManager.PreviewCanExecute="btnNew_PreviewCanExecute" ToolTip="新增"/>
             </Grid>
         </Grid>
         <controls:CustomDataGrid x:Name="VendorList" AllowExecuteSystemCommand="False" Grid.Row="1" Margin="5"
-                                 ItemsSource="{Binding}" ClipboardCopyMode="IncludeHeader" 
+                                 ItemsSource="{Binding Source={StaticResource ManufacturerListSource}}" ClipboardCopyMode="IncludeHeader" 
                                  CellStyle="{StaticResource DataGrid_Centering}" FontSize="20" MinRowHeight="30"
                                  AlternatingRowBackground="AliceBlue"  AlternationCount="2"
                                  SelectedCellsChanged="VendorList_SelectedCellsChanged" AutoGenerateColumns="False" 

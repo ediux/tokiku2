@@ -8,8 +8,8 @@
     </ObjectDataProvider>
     <ObjectDataProvider x:Key="TicketTypesSource" ObjectType="{x:Type vm:TicketTypesViewModelCollection}" MethodName="Query"/>
     <ObjectDataProvider x:Key="TicketPeriodsSource" ObjectType="{x:Type vm:TicketPeriodsViewModelCollection}" MethodName="Query"/>
-    <vm:TranscationCategoriesViewModelCollection x:Key="TranscationCategoriesSource"/>
-    <vm:PaymentTypesManageViewModelCollection x:Key="PaymentTypesSource"/>
+    <ObjectDataProvider x:Key="TranscationCategoriesSource" ObjectType="{x:Type vm:TranscationCategoriesViewModelCollection}" MethodName="Query"/>
+    <ObjectDataProvider x:Key="PaymentTypesSource" ObjectType="{x:Type vm:PaymentTypesManageViewModelCollection}" MethodName="Query"/>
     <vm:VoidViewModelCollection x:Key="VoidStateListSource" />
     <vm:ConstructionAtlasReplyContextViewModelCollection x:Key="ConstructionAtlasReplySelectList"/>
     <vm:預付款保證票ViewModelCollection x:Key="預付款保證票清單"/>

@@ -10,6 +10,25 @@ namespace Tokiku.Controllers
 {
     public class TicketPeriodsManagementController : BaseController<TicketPeriod>
     {
+        public ExecuteResultEntity<TicketPeriod> QuerySingle(int TicketPeriodId)
+        {
+            try
+            {
+                var repo = this.GetReoisitory();
+                //database = repo.UnitOfWork;
+                var queryresult = (from q in repo.All()
+                                   where q.Id == TicketPeriodId
+                                  orderby q.DayLimit ascending
+                                  select q).SingleOrDefault();
+
+                return ExecuteResultEntity<TicketPeriod>.CreateResultEntity(
+                    queryresult);
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<TicketPeriod>.CreateErrorResultEntity(ex);
+            }
+        }
         public ExecuteResultEntity<ICollection<TicketPeriod>> QueryAll()
         {
             try
