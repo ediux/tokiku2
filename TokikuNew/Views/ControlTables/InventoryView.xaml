@@ -4,12 +4,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm ="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:TokikuNew.Views"
              xmlns:c="clr-namespace:TokikuNew.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1024" Loaded="InventoryView_Loaded">
     <UserControl.Resources>
-        <ObjectDataProvider x:Key="InventorySource" ObjectType="{x:Type vm:InventoryViewModelCollection}" MethodName="Query"/>
+        <ObjectDataProvider x:Key="InventorySource" ObjectType="{x:Type vm:InventoryViewModel}" MethodName="CreateNew">
+            <ObjectDataProvider.MethodParameters>
+                <x:Static Member="sys:String.Empty"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="InventoryListSource" ObjectType="{x:Type vm:InventoryViewModelCollection}" MethodName="Query">
+            <ObjectDataProvider.MethodParameters>
+                <x:Static Member="sys:Guid.Empty"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -24,7 +34,7 @@
             <Expander Canvas.Left="0" VerticalAlignment="Stretch" ExpandDirection="Down" Header="表頭" IsExpanded="False">
                 <Expander.ContentTemplate>
                     <DataTemplate>
-                        <WrapPanel Height="81" Orientation="Horizontal" MaxWidth="1310" Width="1310">
+                        <WrapPanel Height="81" Orientation="Horizontal" MaxWidth="1310" Width="1310" DataContext="{Binding Source={StaticResource InventorySource}}">
                             <Grid Width="1310">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto" />
@@ -162,8 +172,11 @@
         </Canvas>
         
         <Grid x:Name="CheckGrid" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="570" Margin="10,0,0,0" VerticalAlignment="Top" Width="1326">
-            <DataGrid ItemsSource="{Binding Source={StaticResource InventorySource}}">
-                <DataGrid.Columns>
+            <c:CustomDataGrid AllowExecuteSystemCommand="True"
+                              CanUserAddRows="True"
+                              CanUserDeleteRows="True"
+                              ItemsSource="{Binding Source={StaticResource InventoryListSource}}">
+                <c:CustomDataGrid.Columns>
                     <DataGridTextColumn Header="單號" Width="auto" Binding="{Binding FormNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <DataGridTextColumn Header="批號" Width="auto" />
                     <DataGridTextColumn Header="項次" Width="auto" />
@@ -172,14 +185,14 @@
                     <DataGridTextColumn Header="材質" Width="auto" Binding="{Binding MaterialCategoriesName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <DataGridTextColumn Header="單位重(kg/m)" Width="auto" Binding="{Binding UnitWeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <DataGridTextColumn Header="訂購長度(mm)" Width="auto" Binding="{Binding OrderLength, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <DataGridTextColumn Header="下單數量" Width="auto" />
+                    <DataGridTextColumn Header="下單數量" Width="auto" Binding="{Binding QuantityofOrderSummary, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <DataGridTextColumn Header="出貨順序" Width="auto" />
-                    <DataGridTextColumn Header="重量" Width="auto" />
+                    <DataGridTextColumn Header="重量" Width="auto" Binding="{Binding TotalWeightofOrder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <DataGridTextColumn Header="缺料" Width="auto" />
                     <DataGridTextColumn Header="出料量" Width="auto" />
                     <DataGridTextColumn Header="備註" Width="auto" />
-                </DataGrid.Columns>
-            </DataGrid>
+                </c:CustomDataGrid.Columns>
+            </c:CustomDataGrid>
         </Grid>
         
     </Grid>

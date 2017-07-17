@@ -38,9 +38,26 @@ namespace Tokiku.ViewModels
 
     public class InventoryViewModel : BaseViewModelWithPOCOClass<Inventory>
     {
+        public InventoryViewModel()
+        {
+
+        }
+
         public InventoryViewModel(Inventory entity) : base(entity)
         {
 
+        }
+
+        public static InventoryViewModel CreateNew(Guid ProjectId)
+        {
+            try {
+                return QuerySingle<InventoryViewModel, Inventory>(
+                    "Inventory", "CreateNew", ProjectId);
+            }catch (Exception ex) {
+                InventoryViewModel view = new InventoryViewModel();
+                setErrortoModel(view, ex);
+                return view;
+            }
         }
 
         // 需求單單號
@@ -78,6 +95,18 @@ namespace Tokiku.ViewModels
         {
             get { return CopyofPOCOInstance.ControlTableDetails.RequiredDetails.OrderLength; }
             set { CopyofPOCOInstance.ControlTableDetails.RequiredDetails.OrderLength = value; RaisePropertyChanged("OrderLength"); }
+        }
+        // 下單數量
+        public decimal? QuantityofOrderSummary
+        {
+            get { return CopyofPOCOInstance.ControlTables.QuantityofOrderSummary; }
+            set { CopyofPOCOInstance.ControlTables.QuantityofOrderSummary = value; RaisePropertyChanged("QuantityofOrderSummary"); }
+        }
+        // 訂單總重
+        public decimal? TotalWeightofOrder
+        {
+            get { return CopyofPOCOInstance.ControlTables.TotalWeightofOrder; }
+            set { CopyofPOCOInstance.ControlTables.TotalWeightofOrder = value; RaisePropertyChanged("TotalWeightofOrder"); }
         }
 
     }
