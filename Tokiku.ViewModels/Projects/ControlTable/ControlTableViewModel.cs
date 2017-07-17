@@ -22,17 +22,28 @@ namespace Tokiku.ViewModels
 
         }
 
-        public static ControlTableViewModelCollection Query()
+        public static ControlTableViewModelCollection Query(Guid ProjectId)
         {
-            ControlTableController ctrl = new ControlTableController();
-            ExecuteResultEntity<ICollection<ControlTableDetails>> ere = ctrl.QuerAll();
-
-            if (!ere.HasError)
+            try
             {
-                return new ControlTableViewModelCollection(ere.Result.Select(s => new ControlTableViewModel(s)).ToList());
+                return Query<ControlTableViewModelCollection, ControlTables>(
+                    "ControlTable", "QueryAll",ProjectId);
             }
+            catch (Exception ex)
+            {
+                ControlTableViewModelCollection collection = new ControlTableViewModelCollection();
+                setErrortoModel(collection, ex);
+                return collection;
+            }
+            //ControlTableController ctrl = new ControlTableController();
+            //ExecuteResultEntity<ICollection<ControlTableDetails>> ere = ctrl.QuerAll();
 
-            return new ControlTableViewModelCollection();
+            //if (!ere.HasError)
+            //{
+            //    return new ControlTableViewModelCollection(ere.Result.Select(s => new ControlTableViewModel(s)).ToList());
+            //}
+
+            //return new ControlTableViewModelCollection();
         }
 
     }

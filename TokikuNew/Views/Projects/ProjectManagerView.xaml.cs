@@ -60,7 +60,7 @@ namespace TokikuNew.Views
                     if (result != null)
                     {
                         result.RoutedValues = new System.Collections.Generic.Dictionary<string, object>();
-                        result.RoutedValues.Add("ProjectShortName", ((ProjectsViewModel)source.Data).ShortName);
+                        result.RoutedValues.Add("SelectedProject", (ProjectsViewModel)source.Data);
                     }
                 }
             }
@@ -137,7 +137,7 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
                 if (result != null && viewmodel != null)
                 {
                     result.RoutedValues = new System.Collections.Generic.Dictionary<string, object>();
-                    result.RoutedValues.Add("ProjectShortName", viewmodel.ShortName);
+                    result.RoutedValues.Add("SelectedProject", viewmodel);
                 }
 
                 //Binding selectProjectBinding = new Binding();

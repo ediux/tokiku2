@@ -60,17 +60,19 @@ namespace TokikuNew.Views
 
         #endregion
 
-        public string ProjectShortName
+
+
+        public ProjectsViewModel SelectedProject
         {
-            get { return (string)GetValue(ProjectShortNameProperty); }
-            set { SetValue(ProjectShortNameProperty, value); }
+            get { return (ProjectsViewModel)GetValue(SelectedProjectProperty); }
+            set { SetValue(SelectedProjectProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for ProjectShortName.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ProjectShortNameProperty =
-            DependencyProperty.Register("ProjectShortName", typeof(string), typeof(ControlTableView),
-                new PropertyMetadata(string.Empty, new PropertyChangedCallback(ProjectShortNameChange)));
-
+        // Using a DependencyProperty as the backing store for SelectedProject.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedProjectProperty =
+            DependencyProperty.Register("SelectedProject", typeof(ProjectsViewModel), typeof(ControlTableView),
+                new PropertyMetadata(default(ProjectsViewModel), new PropertyChangedCallback(ProjectShortNameChange)));
+ 
         public static void ProjectShortNameChange(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             try
@@ -83,7 +85,7 @@ namespace TokikuNew.Views
                     if (source != null)
                     {
                         source.RoutedValues = new Dictionary<string, object>();
-                        source.RoutedValues.Add("ProjectShortName", e.NewValue);
+                        source.RoutedValues.Add("ProjectShortName", ((ProjectsViewModel)e.NewValue).ShortName);
                     }
                 }
 
@@ -260,11 +262,19 @@ namespace TokikuNew.Views
 
         private void userControl_Loaded(object sender, RoutedEventArgs e)
         {
-            ControlTableViewModelCollection ctrl = new ControlTableViewModelCollection();
-            dg.DataContext = ctrl;
-            ControlTableViewModelCollection.Query();
+            ObjectDataProvider controltableprovider = (ObjectDataProvider)TryFindResource("ControlTableListSource");
 
-            for (int i=0;i< dg.Columns.Count; i++)
+            if (controltableprovider != null)
+            {
+                controltableprovider.MethodParameters[0] = SelectedProject.Id;
+                controltableprovider.Refresh();
+            }
+
+            //ControlTableViewModelCollection ctrl = new ControlTableViewModelCollection();
+            //dg.DataContext = ctrl;
+            //ControlTableViewModelCollection.Query(select);
+
+            for (int i = 0; i < dg.Columns.Count; i++)
             {
                 dg.Columns[i].Visibility = Visibility.Visible;
             }
@@ -296,7 +306,7 @@ namespace TokikuNew.Views
                         dg.Columns[15].Visibility = Visibility.Collapsed;
                         dg.Columns[16].Visibility = Visibility.Collapsed;
                         break;
-                        
+
                 }
             }
         }
