@@ -12,7 +12,7 @@ namespace Tokiku.ViewModels
     {
         public InventoryViewModelCollection()
         {
-            HasError = false;
+            
         }
 
         public InventoryViewModelCollection(IEnumerable<InventoryViewModel> source) : base(source)
@@ -22,14 +22,16 @@ namespace Tokiku.ViewModels
         
         public static InventoryViewModelCollection Query()
         {
-            InventoryController ctrl = new InventoryController();
-            ExecuteResultEntity<ICollection<Inventory>> ere = ctrl.QuerAll();
+            return Query<InventoryViewModelCollection, Inventory>("Inventory", "QueryAll");
 
-            if (!ere.HasError)
-            {
-                return new InventoryViewModelCollection(ere.Result.Select(s => new InventoryViewModel(s)).ToList());
-            }
-            return new InventoryViewModelCollection();
+            //InventoryController ctrl = new InventoryController();
+            //ExecuteResultEntity<ICollection<Inventory>> ere = ctrl.QuerAll();
+
+            //if (!ere.HasError)
+            //{
+            //    return new InventoryViewModelCollection(ere.Result.Select(s => new InventoryViewModel(s)).ToList());
+            //}
+            //return new InventoryViewModelCollection();
         }
 
     }
