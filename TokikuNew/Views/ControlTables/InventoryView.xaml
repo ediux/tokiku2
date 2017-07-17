@@ -3,10 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm ="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
              xmlns:local="clr-namespace:TokikuNew.Views"
              xmlns:c="clr-namespace:TokikuNew.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1024" Loaded="InventoryView_Loaded">
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="InventorySource" ObjectType="{x:Type vm:InventoryViewModelCollection}" MethodName="Query"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27" />
@@ -158,7 +162,7 @@
         </Canvas>
         
         <Grid x:Name="CheckGrid" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="570" Margin="10,0,0,0" VerticalAlignment="Top" Width="1326">
-            <DataGrid>
+            <DataGrid ItemsSource="{Binding Source={StaticResource InventorySource}}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="單號" Width="auto" />
                     <DataGridTextColumn Header="批號" Width="auto" />
