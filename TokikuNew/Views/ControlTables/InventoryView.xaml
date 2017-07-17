@@ -164,14 +164,14 @@
         <Grid x:Name="CheckGrid" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="570" Margin="10,0,0,0" VerticalAlignment="Top" Width="1326">
             <DataGrid ItemsSource="{Binding Source={StaticResource InventorySource}}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="單號" Width="auto" />
+                    <DataGridTextColumn Header="單號" Width="auto" Binding="{Binding FormNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <DataGridTextColumn Header="批號" Width="auto" />
                     <DataGridTextColumn Header="項次" Width="auto" />
-                    <DataGridTextColumn Header="東菊編號" Width="auto" />
-                    <DataGridTextColumn Header="廠商編號" Width="auto" />
-                    <DataGridTextColumn Header="材質" Width="auto" />
-                    <DataGridTextColumn Header="單位重(kg/m)" Width="auto" />
-                    <DataGridTextColumn Header="訂購長度(mm)" Width="auto" />
+                    <DataGridTextColumn Header="東菊編號" Width="auto" Binding="{Binding RequiredDetailsCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <DataGridTextColumn Header="廠商編號" Width="auto" Binding="{Binding FactoryNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <DataGridTextColumn Header="材質" Width="auto" Binding="{Binding MaterialCategoriesName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <DataGridTextColumn Header="單位重(kg/m)" Width="auto" Binding="{Binding UnitWeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <DataGridTextColumn Header="訂購長度(mm)" Width="auto" Binding="{Binding OrderLength, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <DataGridTextColumn Header="下單數量" Width="auto" />
                     <DataGridTextColumn Header="出貨順序" Width="auto" />
                     <DataGridTextColumn Header="重量" Width="auto" />
