@@ -10,8 +10,9 @@
     <ObjectDataProvider x:Key="TicketPeriodsSource" ObjectType="{x:Type vm:TicketPeriodsViewModelCollection}" MethodName="Query"/>
     <ObjectDataProvider x:Key="TranscationCategoriesSource" ObjectType="{x:Type vm:TranscationCategoriesViewModelCollection}" MethodName="Query"/>
     <ObjectDataProvider x:Key="PaymentTypesSource" ObjectType="{x:Type vm:PaymentTypesManageViewModelCollection}" MethodName="Query"/>
-    <vm:VoidViewModelCollection x:Key="VoidStateListSource" />
-    <vm:ConstructionAtlasReplyContextViewModelCollection x:Key="ConstructionAtlasReplySelectList"/>
+    <ObjectDataProvider x:Key="VoidStateListSource" ObjectType="{x:Type vm:VoidViewModelCollection}" MethodName="Query"/>
+    <ObjectDataProvider x:Key="ConstructionAtlasReplySelectList" ObjectType="{x:Type vm:ConstructionAtlasReplyContextViewModelCollection}" MethodName="Query"/>
+    
     <vm:預付款保證票ViewModelCollection x:Key="預付款保證票清單"/>
     <vm:保固票ViewModelCollection x:Key="保固票清單"/>
     <vm:PromissoryNoteManagementViewModelCollection x:Key="PromissoryNoteManagementSource"/>

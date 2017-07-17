@@ -156,7 +156,7 @@
                               SelectedValue="{Binding Void, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               SelectedIndex="0"
-                              ItemsSource="{DynamicResource VoidStateListSource}">
+                              ItemsSource="{Binding Source={StaticResource VoidStateListSource}}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Text}"/>
@@ -182,7 +182,7 @@
                               SelectedValue="{Binding PaymentType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               SelectedIndex="0"
                               IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl_ManufacturersManageView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              ItemsSource="{DynamicResource PaymentTypesSource}"                             
+                              ItemsSource="{Binding Source={StaticResource PaymentTypesSource}}"                             
                               Margin="2">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>

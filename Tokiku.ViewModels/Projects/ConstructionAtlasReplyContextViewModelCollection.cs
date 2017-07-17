@@ -11,44 +11,65 @@ namespace Tokiku.ViewModels
     {
         public ConstructionAtlasReplyContextViewModelCollection()
         {
-            Add(new ConstructionAtlasReplyContextViewModel()
-            {
-                Value = 1,
-                Text = ""
-            });
-
-            Add(new ConstructionAtlasReplyContextViewModel()
-            {
-                Value = 2,
-                Text = "存查"
-            });
-            Add(new ConstructionAtlasReplyContextViewModel()
-            {
-                Value = 3,
-                Text = "同意"
-            });
-            Add(new ConstructionAtlasReplyContextViewModel()
-            {
-                Value = 4,
-                Text = "修正後同意"
-            });
-            Add(new ConstructionAtlasReplyContextViewModel()
-            {
-                Value = 5,
-                Text = "修正後送審"
-            });
-            Add(new ConstructionAtlasReplyContextViewModel()
-            {
-                Value = 6,
-                Text = "退件重新送審"
-            });
-            Add(new ConstructionAtlasReplyContextViewModel()
-            {
-                Value = 7,
-                Text = "其他"
-            });
+            
 
         }
+        public ConstructionAtlasReplyContextViewModelCollection(IEnumerable<ConstructionAtlasReplyContextViewModel> source):base(source)
+        {
+
+        }
+
+        public static ConstructionAtlasReplyContextViewModelCollection Query()
+        {
+            try
+            {
+                ConstructionAtlasReplyContextViewModelCollection collection = new ConstructionAtlasReplyContextViewModelCollection();
+
+                collection.Add(new ConstructionAtlasReplyContextViewModel()
+                {
+                    Value = 1,
+                    Text = ""
+                });
+
+                collection.Add(new ConstructionAtlasReplyContextViewModel()
+                {
+                    Value = 2,
+                    Text = "存查"
+                });
+                collection.Add(new ConstructionAtlasReplyContextViewModel()
+                {
+                    Value = 3,
+                    Text = "同意"
+                });
+                collection.Add(new ConstructionAtlasReplyContextViewModel()
+                {
+                    Value = 4,
+                    Text = "修正後同意"
+                });
+                collection.Add(new ConstructionAtlasReplyContextViewModel()
+                {
+                    Value = 5,
+                    Text = "修正後送審"
+                });
+                collection.Add(new ConstructionAtlasReplyContextViewModel()
+                {
+                    Value = 6,
+                    Text = "退件重新送審"
+                });
+                collection.Add(new ConstructionAtlasReplyContextViewModel()
+                {
+                    Value = 7,
+                    Text = "其他"
+                });
+                return collection;
+            }
+            catch 
+            {
+                ConstructionAtlasReplyContextViewModelCollection collection = new ConstructionAtlasReplyContextViewModelCollection();
+                return collection;
+            }
+        } 
+
 
     }
 }

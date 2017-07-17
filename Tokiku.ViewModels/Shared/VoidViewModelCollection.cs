@@ -11,13 +11,28 @@ namespace Tokiku.ViewModels
     {
         public VoidViewModelCollection()
         {
-            Initialized();
+            
         }
-        public void Initialized()
+        public VoidViewModelCollection(IEnumerable<VoidViewModel> source):base(source)
         {
-            ClearItems();
-            Add(new VoidViewModel() { Value = false, Text = "啟用" });
-            Add(new VoidViewModel() { Value = true, Text = "停用" });
+
+        }
+        public static VoidViewModelCollection Query()
+        {
+            try
+            {
+                VoidViewModelCollection collection = new VoidViewModelCollection();
+                collection.Add(new VoidViewModel() { Value = false, Text = "啟用" });
+                collection.Add(new VoidViewModel() { Value = true, Text = "停用" });
+                return collection;
+            }
+            catch 
+            {
+                VoidViewModelCollection collection = new VoidViewModelCollection();
+                return collection;
+            }
+            
+            
         }
     }
 }
