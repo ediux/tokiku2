@@ -8,18 +8,150 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class RequiredController : BaseController
+    public class RequiredController : BaseController<Required>
     {
-        private ExecuteResultEntity<ICollection<Required>> rtn;
-
-        public ExecuteResultEntity<ICollection<Required>> QuerAll()
+        public ExecuteResultEntity<Required> CreateNew(string ProjectShortName)
         {
-            try {
+            ExecuteResultEntity<Required> rtn;
+
+            try
+            {
+                var repo = this.GetReoisitory();
+                var result = from q in repo.All()
+                             where q.Projects.ShortName == ProjectShortName
+                             orderby q.FormNumber descending
+                             select q;
+
+                if (result.Count() > 0)
+                {
+                    int nextSerialNumber = 0;
+
+                    int.TryParse(result.First().FormNumber.Replace(ProjectShortName, ""), out nextSerialNumber);
+
+                    nextSerialNumber += 1;
+
+                    Required newitem = new Required();
+                    newitem.Id = Guid.NewGuid();
+                    newitem.Projects = result.FirstOrDefault()?.Projects;
+                    newitem.Manufacturers = new Manufacturers();
+                    newitem.FormNumber = string.Format("{0}{1:000}", ProjectShortName, nextSerialNumber);
+                    newitem.CreateTime = DateTime.Now;
+                    newitem.MakingTime = DateTime.Now;
+                    
+                    newitem.CreateUser = GetCurrentLoginUser().Result;
+                    newitem.CreateUserId = newitem.CreateUser.UserId;
+                    newitem.MakingUser = newitem.CreateUser;
+                    newitem.MakingUserId = newitem.MakingUser.UserId;
+                   
+                    return ExecuteResultEntity<Required>.CreateResultEntity(newitem);
+                }
+                else
+                {
+                    var projectrepo = this.GetReoisitory<Projects>();
+                    var findproject = (from q in projectrepo.All()
+                                       where q.ShortName == ProjectShortName
+                                       select q).SingleOrDefault();
+
+                    if (findproject == null)
+                    {
+                        return ExecuteResultEntity<Required>.CreateErrorResultEntity("無法找到專案!");
+                    }
+
+                    Required newitem = new Required();
+                    newitem.Id = Guid.NewGuid();
+                    newitem.Projects = findproject;
+                    newitem.ProjectId = findproject.Id;
+                    newitem.Manufacturers = new Manufacturers();
+                    newitem.FormNumber = string.Format("{0}001", ProjectShortName);
+                    newitem.CreateTime = DateTime.Now;
+                    newitem.MakingTime = DateTime.Now;
+
+                    newitem.CreateUser = GetCurrentLoginUser().Result;
+                    newitem.CreateUserId = newitem.CreateUser.UserId;
+                    newitem.MakingUser = newitem.CreateUser;
+                    newitem.MakingUserId = newitem.MakingUser.UserId;
+                    return ExecuteResultEntity<Required>.CreateResultEntity(newitem);
+                }
+            }
+            catch (Exception ex)
+            {
+                rtn = ExecuteResultEntity<Required>.CreateErrorResultEntity(ex);
+                return rtn;
+            }
+        }
+
+        public ExecuteResultEntity<ICollection<Required>> Query()
+        {
+            ExecuteResultEntity<ICollection<Required>> rtn;
+
+            try
+            {
                 var repo = RepositoryHelper.GetRequiredRepository();
                 return ExecuteResultEntity<ICollection<Required>>.CreateResultEntity(
                     new Collection<Required>(repo.All().ToList()));
-            }catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 rtn = ExecuteResultEntity<ICollection<Required>>.CreateErrorResultEntity(ex);
+                return rtn;
+            }
+        }
+
+        public ExecuteResultEntity<ICollection<RequiredDetails>> QueryAllDetail(Guid RequiredId)
+        {
+            try
+            {
+                if (RequiredId == Guid.Empty)
+                {
+                    return ExecuteResultEntity<ICollection<RequiredDetails>>.CreateResultEntity(
+                        new Collection<RequiredDetails>());
+                }
+                else
+                {
+                    var repo = this.GetReoisitory<RequiredDetails>().All();
+                    var result = from q in repo
+                                 where q.RequiredId == RequiredId
+                                 select q;
+
+                    return ExecuteResultEntity<ICollection<RequiredDetails>>.CreateResultEntity(
+                        new Collection<RequiredDetails>(
+                            result.ToList()));
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return ExecuteResultEntity<ICollection<RequiredDetails>>.CreateErrorResultEntity(ex);
+            }
+        }
+
+
+        public ExecuteResultEntity<ICollection<RequiredListEntity>> QuerAll()
+        {
+            string sql;
+            sql = " select TokikuId, ManufacturersId, Material, UnitWeight, OrderLength, " +
+                             " RequiredQuantity, SparePartsQuantity, PlaceAnOrderQuantity, Note " +
+                        " from TABL1 ";
+
+            ExecuteResultEntity<ICollection<RequiredListEntity>> rtn;
+
+            try
+            {
+                using (var ManufacturersRepository = RepositoryHelper.GetManufacturersRepository())
+                {
+                    var queryresult = ManufacturersRepository.UnitOfWork.Context.Database.SqlQuery<RequiredListEntity>(sql);
+
+                    rtn = ExecuteResultEntity<ICollection<RequiredListEntity>>.CreateResultEntity(
+                                    new Collection<RequiredListEntity>(queryresult.ToList()));
+
+                    return rtn;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                rtn = ExecuteResultEntity<ICollection<RequiredListEntity>>.CreateErrorResultEntity(ex);
                 return rtn;
             }
         }

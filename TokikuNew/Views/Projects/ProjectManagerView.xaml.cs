@@ -7,6 +7,7 @@ using Tokiku.Controllers;
 using Tokiku.ViewModels;
 using TokikuNew.Controls;
 using TokikuNew.Frame;
+using TokikuNew.Helpers;
 using WinForm = System.Windows.Forms;
 
 namespace TokikuNew.Views
@@ -53,8 +54,15 @@ namespace TokikuNew.Views
                         source.MethodParameters[0] = e.NewValue;
                         source.Refresh();
                     }
-                }
 
+                    RoutedViewResult result = (RoutedViewResult)((ProjectManagerView)sender).TryFindResource("OpenControlTable");
+
+                    if (result != null)
+                    {
+                        result.RoutedValues = new System.Collections.Generic.Dictionary<string, object>();
+                        result.RoutedValues.Add("ProjectShortName", ((ProjectsViewModel)source.Data).ShortName);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -123,7 +131,14 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
             {
                 e.Handled = true;
 
+                RoutedViewResult result = (RoutedViewResult)TryFindResource("OpenControlTable");
+                ProjectsViewModel viewmodel = (ProjectsViewModel)((ObjectDataProvider)TryFindResource("ProjectSource")).Data;
 
+                if (result != null && viewmodel != null)
+                {
+                    result.RoutedValues = new System.Collections.Generic.Dictionary<string, object>();
+                    result.RoutedValues.Add("ProjectShortName", viewmodel.ShortName);
+                }
 
                 //Binding selectProjectBinding = new Binding();
                 //selectProjectBinding.Source = DataContext;
@@ -643,6 +658,12 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
 
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
+        }
+
+        private void Btn2_PreviewCanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
+        {
+            e.Handled = true;
+            e.CanExecute = true;
         }
     }
 }

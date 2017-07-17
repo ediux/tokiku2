@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tokiku.ViewModels;
 using TokikuNew.Controls;
+using TokikuNew.Helpers;
 
 namespace TokikuNew.Views
 {
@@ -58,6 +59,40 @@ namespace TokikuNew.Views
 
 
         #endregion
+
+        public string ProjectShortName
+        {
+            get { return (string)GetValue(ProjectShortNameProperty); }
+            set { SetValue(ProjectShortNameProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ProjectShortName.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ProjectShortNameProperty =
+            DependencyProperty.Register("ProjectShortName", typeof(string), typeof(ControlTableView),
+                new PropertyMetadata(string.Empty, new PropertyChangedCallback(ProjectShortNameChange)));
+
+        public static void ProjectShortNameChange(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            try
+            {
+                if (sender is ControlTableView)
+                {
+
+                    RoutedViewResult source = (RoutedViewResult)((ControlTableView)sender).TryFindResource("OpenNewRequired");
+
+                    if (source != null)
+                    {
+                        source.RoutedValues = new Dictionary<string, object>();
+                        source.RoutedValues.Add("ProjectShortName", e.NewValue);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+        }
 
         private void Order_Click(object sender, RoutedEventArgs e)
         {
@@ -266,6 +301,11 @@ namespace TokikuNew.Views
             }
         }
 
+        private void Button_PreviewCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.Handled = true;
+            e.CanExecute = true;
+        }
     }
 
     //public class ColumnVisibilityConverter : IValueConverter

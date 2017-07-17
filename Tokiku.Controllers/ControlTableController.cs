@@ -8,10 +8,27 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class ControlTableController : BaseController
+    public class ControlTableController : BaseController<ControlTableDetails>
     {
         private ExecuteResultEntity<ICollection<ControlTableDetails>> rtn;
 
+        public ExecuteResultEntity<ICollection<ControlTableDetails>> Query(Guid ProjectId)
+        {
+            try
+            {
+                var repo = this.GetReoisitory().All();
+                var result = from q in repo
+                             where q.RequiredDetails.Required.ProjectId == ProjectId
+                             select q;
+
+                return ExecuteResultEntity<ICollection<ControlTableDetails>>.CreateResultEntity(
+                    new Collection<ControlTableDetails>(result.ToList()));
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<ICollection<ControlTableDetails>>.CreateErrorResultEntity(ex);
+            }
+        }
         public ExecuteResultEntity<ICollection<ControlTableDetails>> QuerAll()
         {
             try {

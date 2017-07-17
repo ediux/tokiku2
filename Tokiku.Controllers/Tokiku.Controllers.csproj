@@ -88,7 +88,6 @@
     <Compile Include="RecvMaterialController.cs" />
     <Compile Include="RecvMaterialListController.cs" />
     <Compile Include="RequiredController.cs" />
-    <Compile Include="RequiredListController.cs" />
     <Compile Include="ReturnsController.cs" />
     <Compile Include="ReturnMaterialListController.cs" />
     <Compile Include="Shared\IBaseController.cs" />

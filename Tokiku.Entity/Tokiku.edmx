@@ -647,6 +647,7 @@
           <Property Name="MaterialsId" Type="uniqueidentifier" />
           <Property Name="UnitWeight" Type="decimal" Precision="18" Scale="3" Nullable="false" />
           <Property Name="OrderLength" Type="int" />
+          <Property Name="RequiredQuantity" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ReturnDetails">
           <Key>
@@ -4407,8 +4408,8 @@
           <NavigationProperty Name="MaterialCategories" Relationship="TokikuModel.FK_Required_MaterialCategories" FromRole="Required" ToRole="MaterialCategories" />
           <NavigationProperty Name="ProjectContract" Relationship="TokikuModel.FK_Required_ProjectContract" FromRole="Required" ToRole="ProjectContract" />
           <NavigationProperty Name="Projects" Relationship="TokikuModel.FK_Required_Projects" FromRole="Required" ToRole="Projects" />
-          <NavigationProperty Name="Users" Relationship="TokikuModel.FK_Required_CreateUsers" FromRole="Required" ToRole="Users" />
-          <NavigationProperty Name="Users1" Relationship="TokikuModel.FK_Required_MakingUsers" FromRole="Required" ToRole="Users" />
+          <NavigationProperty Name="CreateUser" Relationship="TokikuModel.FK_Required_CreateUsers" FromRole="Required" ToRole="Users" />
+          <NavigationProperty Name="MakingUser" Relationship="TokikuModel.FK_Required_MakingUsers" FromRole="Required" ToRole="Users" />
           <NavigationProperty Name="RequiredDetails" Relationship="TokikuModel.FK_RequiredDetails_Required" FromRole="Required" ToRole="RequiredDetails" />
         </EntityType>
         <EntityType Name="RequiredDetails">
@@ -4426,6 +4427,7 @@
           <NavigationProperty Name="Materials" Relationship="TokikuModel.FK_RequiredDetails_Materials" FromRole="RequiredDetails" ToRole="Materials" />
           <NavigationProperty Name="Required" Relationship="TokikuModel.FK_RequiredDetails_Required" FromRole="RequiredDetails" ToRole="Required" />
           <NavigationProperty Name="ControlTableDetails" Relationship="TokikuModel.FK_ControlTableDetails_RequiredDetails" FromRole="RequiredDetails" ToRole="ControlTableDetails" />
+          <Property Name="RequiredQuantity" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="ReturnDetails">
           <Key>
@@ -6014,6 +6016,7 @@
           <EntitySetMapping Name="RequiredDetails">
             <EntityTypeMapping TypeName="TokikuModel.RequiredDetails">
               <MappingFragment StoreEntitySet="RequiredDetails">
+                <ScalarProperty Name="RequiredQuantity" ColumnName="RequiredQuantity" />
                 <ScalarProperty Name="OrderLength" ColumnName="OrderLength" />
                 <ScalarProperty Name="UnitWeight" ColumnName="UnitWeight" />
                 <ScalarProperty Name="MaterialsId" ColumnName="MaterialsId" />

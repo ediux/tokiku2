@@ -14,6 +14,21 @@ namespace Tokiku.Controllers
     /// </summary>
     public class MaterialManagementController : BaseController<Materials>
     {
+        public ExecuteResultEntity<Materials> QueryByName(string Name)
+        {
+            try
+            {
+                var repo = this.GetReoisitory().All();
+                var result = (from q in repo
+                              where q.Name == Name
+                              select q).SingleOrDefault();
+                return ExecuteResultEntity<Materials>.CreateResultEntity(result);
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<Materials>.CreateErrorResultEntity(ex);
+            }
+        }
         /// <summary>
         /// 取得查詢結果。        
         /// </summary>

@@ -28,6 +28,8 @@ namespace Tokiku.Entity
         [Required]
         public decimal UnitWeight { get; set; }
         public Nullable<int> OrderLength { get; set; }
+        [Required]
+        public int RequiredQuantity { get; set; }
     
         public virtual Materials Materials { get; set; }
         public virtual Required Required { get; set; }

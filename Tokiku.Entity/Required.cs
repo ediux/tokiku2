@@ -36,8 +36,8 @@ namespace Tokiku.Entity
         public virtual MaterialCategories MaterialCategories { get; set; }
         public virtual ProjectContract ProjectContract { get; set; }
         public virtual Projects Projects { get; set; }
-        public virtual Users Users { get; set; }
-        public virtual Users Users1 { get; set; }
+        public virtual Users CreateUser { get; set; }
+        public virtual Users MakingUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RequiredDetails> RequiredDetails { get; set; }
     }

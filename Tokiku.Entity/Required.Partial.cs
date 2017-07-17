@@ -38,8 +38,8 @@ namespace Tokiku.Entity
         public virtual MaterialCategories MaterialCategories { get; set; }
         public virtual ProjectContract ProjectContract { get; set; }
         public virtual Projects Projects { get; set; }
-        public virtual Users Users { get; set; }
-        public virtual Users Users1 { get; set; }
+        public virtual Users CreateUser { get; set; }
+        public virtual Users MakingUser { get; set; }
         public virtual ICollection<RequiredDetails> RequiredDetails { get; set; }
     }
 }

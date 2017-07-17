@@ -52,7 +52,7 @@
                 <Button Grid.Column="1" Margin="1" Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" Name="btnNew" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenNewProjectView}" CommandManager.PreviewCanExecute="btnNew_PreviewCanExecute" ToolTip="新增"></Button>
             </Grid>
         </Grid>
-        <controls:CustomDataGrid x:Name="ProjectList" Grid.Row="1" Margin="5" ItemsSource="{Binding Source={StaticResource ProjoectListSource}}" 
+        <DataGrid x:Name="ProjectList" Grid.Row="1" Margin="5" ItemsSource="{Binding Source={StaticResource ProjoectListSource}}" 
                                  FontSize="20" MinRowHeight="50" CellStyle="{StaticResource DataGrid_Centering}"
                                  AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto"
                                  AlternatingRowBackground="AliceBlue"  AlternationCount="2"
@@ -60,8 +60,7 @@
                                  CanUserDeleteRows="False"
                                  CanUserSortColumns="False"                                 
                                  IsReadOnly="True"
-                                 MouseDoubleClick="ProjectList_MouseDoubleClick"                                 
-                                 AllowExecuteSystemCommand="False">
+                                 MouseDoubleClick="ProjectList_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="專案代號" Binding="{Binding Code}" Width="100"/>
                 <DataGridTextColumn Header="專案名稱" Binding="{Binding Name}" Width="200*" />
@@ -70,6 +69,6 @@
                 <DataGridTextColumn Header="狀態列"  Width="80" Binding="{Binding State, Converter={StaticResource StatesCodeToTextValueConverter}}" />
                 <DataGridTextColumn Header="保固到期日" Width="120" Binding="{Binding WarrantyDate,StringFormat={}{0:yyyy/MM/dd}}"/>
             </DataGrid.Columns>
-        </controls:CustomDataGrid>
+        </DataGrid>
     </Grid>
 </UserControl>

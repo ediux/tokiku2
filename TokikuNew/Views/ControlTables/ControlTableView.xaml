@@ -4,17 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:helpers="clr-namespace:TokikuNew.Helpers"
              mc:Ignorable="d" x:Name="userControl"             
              Background="{DynamicResource ControlBackgroundBrush}"
              Loaded="userControl_Loaded"
              d:DesignHeight="768" d:DesignWidth="2084.2">
+    <UserControl.Resources>
+        <helpers:RoutedViewResult x:Key="OpenNewRequired"
+                                  DisplayText="需求單"
+                                  ViewType="{x:Type local:RequiredView}">
+        </helpers:RoutedViewResult>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Left">
-            <Button Content="需求單" Margin="0" Command="{DynamicResource OpenNewTabItem}" CommandParameter="需求單,TokikuNew.Views.ReturnMaterialViewUC" IsEnabled="True" Click="Required_Click" />
+            <Button Content="需求單" Margin="0" Command="{DynamicResource OpenNewTabItem}" CommandParameter="{StaticResource OpenNewRequired}" CommandManager.PreviewCanExecute="Button_PreviewCanExecute"/>
             <Button Content="訂製單管控表" Margin="5,0,0,0" Click="OrderControlTableView_Click" />
             <Button Content="訂製單" Margin="5,0,0,0" Click="Order_Click" />
             <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="加工訂製單列表" Margin="0,0,5,0"  Click="OrderList_Click" />

@@ -28,6 +28,7 @@ namespace Tokiku.Entity
         public Nullable<System.Guid> MaterialsId { get; set; }
         public decimal UnitWeight { get; set; }
         public Nullable<int> OrderLength { get; set; }
+        public int RequiredQuantity { get; set; }
     
         public virtual Materials Materials { get; set; }
         public virtual Required Required { get; set; }

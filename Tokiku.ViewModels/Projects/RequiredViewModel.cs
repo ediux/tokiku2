@@ -36,13 +36,13 @@ namespace Tokiku.ViewModels
         //}
         public static RequiredViewModelCollection Query()
         {
-            RequiredController ctrl = new RequiredController();
-            ExecuteResultEntity<ICollection<Required>> ere = ctrl.QuerAll();
+            //RequiredController ctrl = new RequiredController();
+            //ExecuteResultEntity<ICollection<Required>> ere = ctrl.QuerAll();
 
-            if (!ere.HasError)
-            {
-                return new RequiredViewModelCollection(ere.Result.Select(s => new RequiredViewModel(s)).ToList());
-            }
+            //if (!ere.HasError)
+            //{
+            //    return new RequiredViewModelCollection(ere.Result.Select(s => new RequiredViewModel(s)).ToList());
+            //}
             return new RequiredViewModelCollection();
         }
 
@@ -50,95 +50,151 @@ namespace Tokiku.ViewModels
 
     public class RequiredViewModel : BaseViewModelWithPOCOClass<Required>
     {
+        public RequiredViewModel()
+        {
+
+        }
+
         public RequiredViewModel(Required entity) : base(entity)
         {
 
         }
-        
-        // 專案代碼
-        public string ProjectCode
-        {
-            get { return CopyofPOCOInstance.Projects.Code; }
-            set { CopyofPOCOInstance.Projects.Code = value; RaisePropertyChanged("ProjectCode"); }
-        }
-        // 專案名稱
-        public string ProjectName
-        {
-            get { return CopyofPOCOInstance.Projects.Name; }
-            set { CopyofPOCOInstance.Projects.Name = value; RaisePropertyChanged("ProjectName"); }
-        }
-        // 合約編號
-        public string ProjectContractNumber
-        {
-            get { return CopyofPOCOInstance.ProjectContract.ContractNumber; }
-            set { CopyofPOCOInstance.ProjectContract.ContractNumber = value; RaisePropertyChanged("ProjectContractNumber"); }
-        }
-        // 合約名稱
-        public string ProjectContractName
-        {
-            get { return CopyofPOCOInstance.ProjectContract.Name; }
-            set { CopyofPOCOInstance.ProjectContract.Name = value; RaisePropertyChanged("ProjectContractName"); }
-        }
-        // 需求單單號
+
+        //// 專案代碼
+        //public string ProjectCode
+        //{
+        //    get { return CopyofPOCOInstance.Projects.Code; }
+        //    set { CopyofPOCOInstance.Projects.Code = value; RaisePropertyChanged("ProjectCode"); }
+        //}
+
+        /// <summary>
+        /// 需求單單號
+        /// </summary>
         public string FormNumber
         {
-            get { return CopyofPOCOInstance.FormNumber; }
+            get
+            {
+                if (string.IsNullOrEmpty(CopyofPOCOInstance.FormNumber))
+                {
+                    CopyofPOCOInstance = ExecuteAction<Required>("Required", "CreateNew", CopyofPOCOInstance?.Projects?.ShortName);
+                    if (!HasError)
+                        return CopyofPOCOInstance.FormNumber;
+                    else
+                    {
+                        CopyofPOCOInstance.FormNumber = "#ERROR";
+                        return CopyofPOCOInstance.FormNumber;
+                    }
+                }
+
+                return CopyofPOCOInstance.FormNumber;
+            }
             set { CopyofPOCOInstance.FormNumber = value; RaisePropertyChanged("FormNumber"); }
         }
-        // 廠商編號
+
+        public ManufacturersViewModel SelectedManufacturers
+        {
+            get => new ManufacturersViewModel( CopyofPOCOInstance.Manufacturers);
+            set
+            {
+                CopyofPOCOInstance.Manufacturers = value.Entity;
+                RaisePropertyChanged("SelectedManufacturers");
+                RaisePropertyChanged("ManufacturersCode");
+                RaisePropertyChanged("ManufacturersName");
+            }
+        }
+
+        /// <summary>
+        /// 廠商編號
+        /// </summary>
         public string ManufacturersCode
         {
-            get { return CopyofPOCOInstance.Manufacturers.Code; }
-            set { CopyofPOCOInstance.Manufacturers.Code = value; RaisePropertyChanged("ManufacturersCode"); }
+            get { return CopyofPOCOInstance?.Manufacturers?.Code; }
+            set
+            {
+                RaisePropertyChanged("ManufacturersCode");
+            }
         }
-        // 廠商名稱
+
+        /// <summary>
+        /// 廠商名稱
+        /// </summary>
         public string ManufacturersName
         {
-            get { return CopyofPOCOInstance.Manufacturers.Name; }
-            set { CopyofPOCOInstance.Manufacturers.Name = value; RaisePropertyChanged("ManufacturersName"); }
+            get { return CopyofPOCOInstance?.Manufacturers?.Name; }
+            set
+            {
+
+                RaisePropertyChanged("ManufacturersName");
+            }
         }
-        // 物料名稱
-        public string MaterialCategoriesName
-        {
-            get { return CopyofPOCOInstance.MaterialCategories.Name; }
-            set { CopyofPOCOInstance.MaterialCategories.Name = value; RaisePropertyChanged("MaterialCategoriesName"); }
-        }
-        // 製單日期
+
+
+        /// <summary>
+        /// 製單日期
+        /// </summary>
         public DateTime MakingTime
         {
             get { return CopyofPOCOInstance.MakingTime; }
             set { CopyofPOCOInstance.MakingTime = value; RaisePropertyChanged("MakingTime"); }
         }
-        // 製單人
+
+        /// <summary>
+        /// 製單人
+        /// </summary>
         public string MakingUserName
         {
-            get { return CopyofPOCOInstance.Users.UserName; }
-            set { CopyofPOCOInstance.Users.UserName = value; RaisePropertyChanged("MakingUserName"); }
+            get { return CopyofPOCOInstance?.MakingUser?.UserName; }
+            set { CopyofPOCOInstance.MakingUser.UserName = value; RaisePropertyChanged("MakingUserName"); }
         }
-        // 需求單使用位置
+
+
+        /// <summary>
+        /// 需求單使用位置
+        /// </summary>
         public string RequiredPostion
         {
             get { return CopyofPOCOInstance.RequiredPostion; }
             set { CopyofPOCOInstance.RequiredPostion = value; RaisePropertyChanged("RequiredPostion"); }
         }
-        // 輸入日期
+
+        /// <summary>
+        /// 輸入日期
+        /// </summary>
         public new DateTime CreateTime
         {
             get { return CopyofPOCOInstance.CreateTime; }
             set { CopyofPOCOInstance.CreateTime = value; RaisePropertyChanged("CreateTime"); }
         }
-        // 輸入人員
+
+        // 
+        /// <summary>
+        /// 輸入人員
+        /// </summary>
         public new string CreateUser
         {
-            get { return CopyofPOCOInstance.Users.UserName; }
-            set { CopyofPOCOInstance.Users.UserName = value; RaisePropertyChanged("CreateUser"); }
+            get { return CopyofPOCOInstance.MakingUser?.UserName; }
+            set { CopyofPOCOInstance.MakingUser.UserName = value; RaisePropertyChanged("CreateUser"); }
         }
         // 
-        public System.Collections.ArrayList RequiredDetailsList
-        {
-            get { return (System.Collections.ArrayList)CopyofPOCOInstance.RequiredDetails; }
-            //set { CopyofPOCOInstance.RequiredDetails = value; RaisePropertyChanged("RequiredDetails"); }
-        }
+        //public System.Collections.ArrayList RequiredDetailsList
+        //{
+        //    get { return (System.Collections.ArrayList)CopyofPOCOInstance.RequiredDetails; }
+        //    //set { CopyofPOCOInstance.RequiredDetails = value; RaisePropertyChanged("RequiredDetails"); }
+        //}
 
+        public static RequiredViewModel CreateNew(string ProjectShortName)
+        {
+            try
+            {
+                return QuerySingle<RequiredViewModel, Required>(
+                    "Required", "CreateNew", ProjectShortName);
+            }
+            catch (Exception ex)
+            {
+                RequiredViewModel view = new RequiredViewModel();
+                setErrortoModel(view, ex);
+                return view;
+            }
+        }
     }
 }

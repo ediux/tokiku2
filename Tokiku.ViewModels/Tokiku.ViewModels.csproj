@@ -45,6 +45,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RequiredDetailViewModel.cs" />
+    <Compile Include="RequiredDetailViewModelCollection.cs" />
     <Compile Include="Shared\DocumentLifeCircle.cs" />
     <Compile Include="Projects\InventoryListViewModel.cs" />
     <Compile Include="Projects\InventoryViewModel.cs" />

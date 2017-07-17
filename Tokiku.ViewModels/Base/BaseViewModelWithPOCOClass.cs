@@ -42,7 +42,7 @@ namespace Tokiku.ViewModels
                 CopyofPOCOInstance = Activator.CreateInstance<TPOCO>();
                 Initialized();
             }
-          
+
             _Mode = DocumentLifeCircle.Read;
             Status.IsNewInstance = false;
         }
@@ -313,7 +313,7 @@ namespace Tokiku.ViewModels
                     throw new NullReferenceException();
                 }
 
-                var method = ControllerType.GetMethod(ActionName);
+                var method = ControllerType.GetMethod(ActionName, values.Select(s => s.GetType()).ToArray());
 
                 if (method != null)
                 {

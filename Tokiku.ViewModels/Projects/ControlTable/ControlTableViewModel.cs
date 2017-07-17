@@ -14,7 +14,7 @@ namespace Tokiku.ViewModels
     {
         public ControlTableViewModelCollection()
         {
-            HasError = false;
+           
         }
 
         public ControlTableViewModelCollection(IEnumerable<ControlTableViewModel> source) : base(source)

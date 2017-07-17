@@ -18,7 +18,10 @@ namespace TokikuNew.Controls
         {
             try
             {
+                AutoGenerateColumns = false;
 
+                if (ItemsSource != null)
+                    DataSourceType = ItemsSource.GetType();
                 CommandManager.RegisterClassCommandBinding(typeof(CustomDataGrid), new CommandBinding(
         ApplicationCommands.Paste,
         new ExecutedRoutedEventHandler(CustomDataGrid_Executed),
@@ -34,6 +37,20 @@ namespace TokikuNew.Controls
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
         }
+
+
+
+        public Type DataSourceType
+        {
+            get { return (Type)GetValue(DataSourceTypeProperty); }
+            set { SetValue(DataSourceTypeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for DataSourceType.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty DataSourceTypeProperty =
+            DependencyProperty.Register("DataSourceType", typeof(Type), typeof(CustomDataGrid));
+
+
 
         public bool AllowExecuteSystemCommand
         {
@@ -51,8 +68,23 @@ namespace TokikuNew.Controls
         {
             try
             {
-                if (e.Command == ApplicationCommands.Paste) { e.CanExecute = (bool)GetValue(AllowExecuteSystemCommandProperty); e.ContinueRouting = !e.CanExecute; }
-                if (e.Command == ApplicationCommands.Copy) { e.CanExecute = (bool)GetValue(AllowExecuteSystemCommandProperty); e.ContinueRouting = !e.CanExecute; }
+                e.Handled = true;
+
+                if (sender is CustomDataGrid)
+                {
+                    CustomDataGrid data = (CustomDataGrid)sender;
+                    if (data.DataSourceType == this.DataSourceType)
+                    {
+                        if (e.Command == ApplicationCommands.Paste) { e.CanExecute = AllowExecuteSystemCommand; }
+                        if (e.Command == ApplicationCommands.Copy) { e.CanExecute = AllowExecuteSystemCommand; }
+                    }
+
+                }
+                else
+                {
+                    e.CanExecute = false;
+                }
+
             }
             catch (Exception ex)
             {
@@ -61,11 +93,19 @@ namespace TokikuNew.Controls
 
 
         }
-
+        static bool IsNullable<T>(T obj)
+        {
+            if (obj == null) return true; // obvious
+            Type type = typeof(T);
+            if (!type.IsValueType) return true; // ref-type
+            if (Nullable.GetUnderlyingType(type) != null) return true; // Nullable<T>
+            return false; // value-type
+        }
         private void CustomDataGrid_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             try
             {
+                e.Handled = true;
                 if (e.Command == ApplicationCommands.Paste)
                 {
                     // parse the clipboard data
@@ -76,7 +116,7 @@ namespace TokikuNew.Controls
                     int minRowIndex = Math.Max(Items.IndexOf(CurrentItem), 0);
                     int maxRowIndex = Items.Count - 1;
                     int minColumnDisplayIndex = (SelectionUnit != DataGridSelectionUnit.FullRow) ? Columns.IndexOf(CurrentColumn) : 0;
-                    int maxColumnDisplayIndex = Columns.Count - 1;
+                    int maxColumnDisplayIndex = Columns.Count;
 
                     int rowDataIndex = 0;
 
@@ -116,7 +156,28 @@ namespace TokikuNew.Controls
                             {
                                 try
                                 {
-                                    item.GetType().GetProperty(propertyName).SetValue(item, value, null);
+                                    var propinfo = item.GetType().GetProperty(propertyName);
+
+                                    if (propinfo != null)
+                                    {
+                                        try
+                                        {
+                                            propinfo.SetValue(item, Convert.ChangeType(value, propinfo.PropertyType));
+                                        }
+                                        catch
+                                        {
+                                            if (IsNullable(item))
+                                            {
+                                                object convertedValue = null;
+                                                convertedValue = Convert.ChangeType(value,
+                                                    Nullable.GetUnderlyingType(propinfo.PropertyType));
+                                                propinfo.SetValue(item, convertedValue);
+                                            }
+                                        }
+
+
+                                    }
+
                                 }
                                 catch
                                 {
