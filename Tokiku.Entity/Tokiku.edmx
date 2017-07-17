@@ -122,16 +122,8 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ControlTableId" Type="uniqueidentifier" />
-          <Property Name="RequiredDetailId" Type="uniqueidentifier" />
-        </EntityType>
-        <EntityType Name="ControlTables">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="MaterialCategoriesId" Type="uniqueidentifier" />
           <Property Name="RequiredQuantitySubtotal" Type="decimal" Precision="18" Scale="3" />
-          <Property Name="RequiredQuantityWeightSummary" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="RequiredQuantityWeightSummary" Type="decimal" Precision="18" Scale="3" />
           <Property Name="NumberofOrdersNotPlaced" Type="decimal" Precision="18" Scale="3" />
           <Property Name="QuantityofOrderSummary" Type="decimal" Precision="18" Scale="3" />
           <Property Name="PrepareSubtotal" Type="decimal" Precision="18" Scale="3" />
@@ -151,6 +143,14 @@
           <Property Name="InventoryMargin_LossAdjustment_WeightSubtotal" Type="decimal" Precision="18" Scale="3" />
           <Property Name="InventoryStatus_QuantitySubtotal" Type="decimal" Precision="18" Scale="3" />
           <Property Name="InventoryStatus_WeightSubtotal" Type="decimal" Precision="18" Scale="3" />
+        </EntityType>
+        <EntityType Name="ControlTables">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProjectId" Type="uniqueidentifier" />
+          <Property Name="MaterialCategoriesId" Type="uniqueidentifier" />
           <Property Name="CreateTime" Type="smalldatetime" Nullable="false" />
           <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
@@ -178,6 +178,7 @@
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ControlTableId" Type="uniqueidentifier" />
           <Property Name="ControlTableDetailId" Type="uniqueidentifier" />
+          <Property Name="RequireDetailId" Type="uniqueidentifier" />
           <Property Name="StockId" Type="uniqueidentifier" />
           <Property Name="Amount" Type="int" Nullable="false" />
         </EntityType>
@@ -649,6 +650,14 @@
           <Property Name="OrderLength" Type="int" />
           <Property Name="RequiredQuantity" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="RequiredDetailsInControlTables">
+          <Key>
+            <PropertyRef Name="ControlTableDetailsId" />
+            <PropertyRef Name="RequiredDetailsId" />
+          </Key>
+          <Property Name="ControlTableDetailsId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RequiredDetailsId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
         <EntityType Name="ReturnDetails">
           <Key>
             <PropertyRef Name="Id" />
@@ -938,18 +947,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ControlTableDetails_RequiredDetails">
-          <End Role="RequiredDetails" Type="Self.RequiredDetails" Multiplicity="0..1" />
-          <End Role="ControlTableDetails" Type="Self.ControlTableDetails" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RequiredDetails">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ControlTableDetails">
-              <PropertyRef Name="RequiredDetailId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ControlTables_MaterialCategories">
           <End Role="MaterialCategories" Type="Self.MaterialCategories" Multiplicity="0..1" />
           <End Role="ControlTables" Type="Self.ControlTables" Multiplicity="*" />
@@ -959,6 +956,18 @@
             </Principal>
             <Dependent Role="ControlTables">
               <PropertyRef Name="MaterialCategoriesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ControlTables_Projects">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="0..1" />
+          <End Role="ControlTables" Type="Self.ControlTables" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ControlTables">
+              <PropertyRef Name="ProjectId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -995,6 +1004,18 @@
             </Principal>
             <Dependent Role="Inventory">
               <PropertyRef Name="ControlTableId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inventory_RequiredDetails">
+          <End Role="RequiredDetails" Type="Self.RequiredDetails" Multiplicity="0..1" />
+          <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequiredDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="RequireDetailId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1850,6 +1871,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RequiredDetailsInControlTables_ControlTableDetails">
+          <End Role="ControlTableDetails" Type="Self.ControlTableDetails" Multiplicity="1" />
+          <End Role="RequiredDetailsInControlTables" Type="Self.RequiredDetailsInControlTables" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ControlTableDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RequiredDetailsInControlTables">
+              <PropertyRef Name="ControlTableDetailsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequiredDetailsInControlTables_RequiredDetails">
+          <End Role="RequiredDetails" Type="Self.RequiredDetails" Multiplicity="1" />
+          <End Role="RequiredDetailsInControlTables" Type="Self.RequiredDetailsInControlTables" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequiredDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RequiredDetailsInControlTables">
+              <PropertyRef Name="RequiredDetailsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ReturnDetails_OrderDetails">
           <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="0..1" />
           <End Role="ReturnDetails" Type="Self.ReturnDetails" Multiplicity="*" />
@@ -2120,6 +2165,7 @@
           <EntitySet Name="Receipts" EntityType="Self.Receipts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Required" EntityType="Self.Required" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RequiredDetails" EntityType="Self.RequiredDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequiredDetailsInControlTables" EntityType="Self.RequiredDetailsInControlTables" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReturnDetails" EntityType="Self.ReturnDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Returns" EntityType="Self.Returns" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
@@ -2187,12 +2233,12 @@
             <End Role="ControlTables" EntitySet="ControlTables" />
             <End Role="ControlTableDetails" EntitySet="ControlTableDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_ControlTableDetails_RequiredDetails" Association="Self.FK_ControlTableDetails_RequiredDetails">
-            <End Role="RequiredDetails" EntitySet="RequiredDetails" />
-            <End Role="ControlTableDetails" EntitySet="ControlTableDetails" />
-          </AssociationSet>
           <AssociationSet Name="FK_ControlTables_MaterialCategories" Association="Self.FK_ControlTables_MaterialCategories">
             <End Role="MaterialCategories" EntitySet="MaterialCategories" />
+            <End Role="ControlTables" EntitySet="ControlTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ControlTables_Projects" Association="Self.FK_ControlTables_Projects">
+            <End Role="Projects" EntitySet="Projects" />
             <End Role="ControlTables" EntitySet="ControlTables" />
           </AssociationSet>
           <AssociationSet Name="FK_Engineering_ProjectContract" Association="Self.FK_Engineering_ProjectContract">
@@ -2205,6 +2251,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Inventory_ControlTables" Association="Self.FK_Inventory_ControlTables">
             <End Role="ControlTables" EntitySet="ControlTables" />
+            <End Role="Inventory" EntitySet="Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inventory_RequiredDetails" Association="Self.FK_Inventory_RequiredDetails">
+            <End Role="RequiredDetails" EntitySet="RequiredDetails" />
             <End Role="Inventory" EntitySet="Inventory" />
           </AssociationSet>
           <AssociationSet Name="FK_Inventory_Stocks" Association="Self.FK_Inventory_Stocks">
@@ -2491,6 +2541,14 @@
             <End Role="Required" EntitySet="Required" />
             <End Role="RequiredDetails" EntitySet="RequiredDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_RequiredDetailsInControlTables_ControlTableDetails" Association="Self.FK_RequiredDetailsInControlTables_ControlTableDetails">
+            <End Role="ControlTableDetails" EntitySet="ControlTableDetails" />
+            <End Role="RequiredDetailsInControlTables" EntitySet="RequiredDetailsInControlTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequiredDetailsInControlTables_RequiredDetails" Association="Self.FK_RequiredDetailsInControlTables_RequiredDetails">
+            <End Role="RequiredDetails" EntitySet="RequiredDetails" />
+            <End Role="RequiredDetailsInControlTables" EntitySet="RequiredDetailsInControlTables" />
+          </AssociationSet>
           <AssociationSet Name="FK_ReturnDetails_OrderDetails" Association="Self.FK_ReturnDetails_OrderDetails">
             <End Role="OrderDetails" EntitySet="OrderDetails" />
             <End Role="ReturnDetails" EntitySet="ReturnDetails" />
@@ -2654,16 +2712,16 @@
           <NavigationProperty Name="OrdersByCreateUser" Relationship="TokikuModel.FK_Orders_CreateUsers" FromRole="Users" ToRole="Orders" />
           <NavigationProperty Name="OrdersByMakingUser" Relationship="TokikuModel.FK_Orders_MakingUsers" FromRole="Users" ToRole="Orders" />
           <NavigationProperty Name="PickList" Relationship="TokikuModel.FK_PickList_CreateUsers" FromRole="Users" ToRole="PickList" />
-          <NavigationProperty Name="PickList1" Relationship="TokikuModel.FK_PickList_MakingUsers" FromRole="Users" ToRole="PickList" />
+          <NavigationProperty Name="PickList_MakingUser" Relationship="TokikuModel.FK_PickList_MakingUsers" FromRole="Users" ToRole="PickList" />
           <NavigationProperty Name="Receipts" Relationship="TokikuModel.FK_Receipts_CreateUsers" FromRole="Users" ToRole="Receipts" />
           <NavigationProperty Name="Receipts1" Relationship="TokikuModel.FK_Receipts_MakingUsers" FromRole="Users" ToRole="Receipts" />
-          <NavigationProperty Name="Required" Relationship="TokikuModel.FK_Required_CreateUsers" FromRole="Users" ToRole="Required" />
-          <NavigationProperty Name="Required1" Relationship="TokikuModel.FK_Required_MakingUsers" FromRole="Users" ToRole="Required" />
           <NavigationProperty Name="Returns" Relationship="TokikuModel.FK_Returns_CreateUsers" FromRole="Users" ToRole="Returns" />
           <NavigationProperty Name="Returns1" Relationship="TokikuModel.FK_Returns_MakerUsers" FromRole="Users" ToRole="Returns" />
           <NavigationProperty Name="Invoices" Relationship="TokikuModel.FK_Invoices_CreateUsers" FromRole="Users" ToRole="Invoices" />
           <NavigationProperty Name="Invoices1" Relationship="TokikuModel.FK_Invoices_InvoiceUsers" FromRole="Users" ToRole="Invoices" />
           <NavigationProperty Name="MaterialEstimation" Relationship="TokikuModel.FK_MaterialEstimation_Users" FromRole="Users" ToRole="MaterialEstimation" />
+          <NavigationProperty Name="Required" Relationship="TokikuModel.FK_Required_CreateUsers" FromRole="Users" ToRole="Required" />
+          <NavigationProperty Name="Required1" Relationship="TokikuModel.FK_Required_MakingUsers" FromRole="Users" ToRole="Required" />
         </EntityType>
         <Association Name="FK__aspnet_Me__UserI__164452B1">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
@@ -2931,8 +2989,6 @@
           <EntitySet Name="PickListDetails" EntityType="TokikuModel.PickListDetails" />
           <EntitySet Name="ReceiptDetails" EntityType="TokikuModel.ReceiveDetails" />
           <EntitySet Name="Receipts" EntityType="TokikuModel.Receive" />
-          <EntitySet Name="Required" EntityType="TokikuModel.Required" />
-          <EntitySet Name="RequiredDetails" EntityType="TokikuModel.RequiredDetails" />
           <EntitySet Name="ReturnDetails" EntityType="TokikuModel.ReturnDetails" />
           <EntitySet Name="Returns" EntityType="TokikuModel.Returns" />
           <EntitySet Name="Stocks" EntityType="TokikuModel.Stocks" />
@@ -2948,21 +3004,9 @@
             <End Role="Manufacturers" EntitySet="Manufacturers" />
             <End Role="Receipts" EntitySet="Receipts" />
           </AssociationSet>
-          <AssociationSet Name="FK_Required_Manufacturers" Association="TokikuModel.FK_Required_Manufacturers">
-            <End Role="Manufacturers" EntitySet="Manufacturers" />
-            <End Role="Required" EntitySet="Required" />
-          </AssociationSet>
           <AssociationSet Name="FK_Returns_Manufacturers" Association="TokikuModel.FK_Returns_Manufacturers">
             <End Role="Manufacturers" EntitySet="Manufacturers" />
             <End Role="Returns" EntitySet="Returns" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Required_MaterialCategories" Association="TokikuModel.FK_Required_MaterialCategories">
-            <End Role="MaterialCategories" EntitySet="MaterialCategories" />
-            <End Role="Required" EntitySet="Required" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RequiredDetails_Materials" Association="TokikuModel.FK_RequiredDetails_Materials">
-            <End Role="Materials" EntitySet="Materials" />
-            <End Role="RequiredDetails" EntitySet="RequiredDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderDetails_Orders" Association="TokikuModel.FK_OrderDetails_Orders">
             <End Role="Orders" EntitySet="Orders" />
@@ -3016,14 +3060,6 @@
             <End Role="PickList" EntitySet="PickList" />
             <End Role="PickListDetails" EntitySet="PickListDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_Required_ProjectContract" Association="TokikuModel.FK_Required_ProjectContract">
-            <End Role="ProjectContract" EntitySet="ProjectContract" />
-            <End Role="Required" EntitySet="Required" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Required_Projects" Association="TokikuModel.FK_Required_Projects">
-            <End Role="Projects" EntitySet="Projects" />
-            <End Role="Required" EntitySet="Required" />
-          </AssociationSet>
           <AssociationSet Name="FK_ReceiptDetails_Receipts" Association="TokikuModel.FK_ReceiptDetails_Receipts">
             <End Role="Receipts" EntitySet="Receipts" />
             <End Role="ReceiptDetails" EntitySet="ReceiptDetails" />
@@ -3039,18 +3075,6 @@
           <AssociationSet Name="FK_Receipts_Stocks" Association="TokikuModel.FK_Receipts_Stocks">
             <End Role="Stocks" EntitySet="Stocks" />
             <End Role="Receipts" EntitySet="Receipts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Required_CreateUsers" Association="TokikuModel.FK_Required_CreateUsers">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Required" EntitySet="Required" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Required_MakingUsers" Association="TokikuModel.FK_Required_MakingUsers">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Required" EntitySet="Required" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RequiredDetails_Required" Association="TokikuModel.FK_RequiredDetails_Required">
-            <End Role="Required" EntitySet="Required" />
-            <End Role="RequiredDetails" EntitySet="RequiredDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_ReturnDetails_Returns" Association="TokikuModel.FK_ReturnDetails_Returns">
             <End Role="Returns" EntitySet="Returns" />
@@ -3068,45 +3092,10 @@
             <End Role="Stocks" EntitySet="Stocks" />
             <End Role="Returns" EntitySet="Returns" />
           </AssociationSet>
-          <EntitySet Name="ControlTableDetails" EntityType="TokikuModel.ControlTableDetails" />
-          <EntitySet Name="ControlTables" EntityType="TokikuModel.ControlTables" />
-          <EntitySet Name="Inventory" EntityType="TokikuModel.Inventory" />
           <EntitySet Name="InvoiceDetails" EntityType="TokikuModel.InvoiceDetails" />
           <EntitySet Name="InvoiceDetails_Material" EntityType="TokikuModel.InvoiceDetails_Material" />
           <EntitySet Name="InvoiceDetails_Miscellaneous" EntityType="TokikuModel.InvoiceDetails_Miscellaneous" />
           <EntitySet Name="Invoices" EntityType="TokikuModel.Invoices" />
-          <AssociationSet Name="FK_ControlTableDetails_ControlTables" Association="TokikuModel.FK_ControlTableDetails_ControlTables">
-            <End Role="ControlTables" EntitySet="ControlTables" />
-            <End Role="ControlTableDetails" EntitySet="ControlTableDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ControlTableDetails_RequiredDetails" Association="TokikuModel.FK_ControlTableDetails_RequiredDetails">
-            <End Role="RequiredDetails" EntitySet="RequiredDetails" />
-            <End Role="ControlTableDetails" EntitySet="ControlTableDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Inventory_ControlTableDetails" Association="TokikuModel.FK_Inventory_ControlTableDetails">
-            <End Role="ControlTableDetails" EntitySet="ControlTableDetails" />
-            <End Role="Inventory" EntitySet="Inventory" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderDetails_ControlTableDetails" Association="TokikuModel.FK_OrderDetails_ControlTableDetails">
-            <End Role="ControlTableDetails" EntitySet="ControlTableDetails" />
-            <End Role="OrderDetails" EntitySet="OrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderMaterialValuation_ControlTableDetails" Association="TokikuModel.FK_OrderMaterialValuation_ControlTableDetails">
-            <End Role="ControlTableDetails" EntitySet="ControlTableDetails" />
-            <End Role="OrderMaterialValuation" EntitySet="OrderMaterialValuation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ControlTables_MaterialCategories" Association="TokikuModel.FK_ControlTables_MaterialCategories">
-            <End Role="MaterialCategories" EntitySet="MaterialCategories" />
-            <End Role="ControlTables" EntitySet="ControlTables" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Inventory_ControlTables" Association="TokikuModel.FK_Inventory_ControlTables">
-            <End Role="ControlTables" EntitySet="ControlTables" />
-            <End Role="Inventory" EntitySet="Inventory" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Inventory_Stocks" Association="TokikuModel.FK_Inventory_Stocks">
-            <End Role="Stocks" EntitySet="Stocks" />
-            <End Role="Inventory" EntitySet="Inventory" />
-          </AssociationSet>
           <AssociationSet Name="FK_InvoiceDetails_Invoices" Association="TokikuModel.FK_InvoiceDetails_Invoices">
             <End Role="Invoices" EntitySet="Invoices" />
             <End Role="InvoiceDetails" EntitySet="InvoiceDetails" />
@@ -3172,6 +3161,83 @@
           <AssociationSet Name="FK_OrderMiscellaneous_Orders" Association="TokikuModel.FK_OrderMiscellaneous_Orders">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderMiscellaneous" EntitySet="OrderMiscellaneous" />
+          </AssociationSet>
+          <EntitySet Name="ControlTables" EntityType="TokikuModel.ControlTables" />
+          <EntitySet Name="Required" EntityType="TokikuModel.Required" />
+          <AssociationSet Name="FK_ControlTables_MaterialCategories" Association="TokikuModel.FK_ControlTables_MaterialCategories">
+            <End Role="MaterialCategories" EntitySet="MaterialCategories" />
+            <End Role="ControlTables" EntitySet="ControlTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ControlTables_Projects" Association="TokikuModel.FK_ControlTables_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="ControlTables" EntitySet="ControlTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Required_Manufacturers" Association="TokikuModel.FK_Required_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="Required" EntitySet="Required" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Required_MaterialCategories" Association="TokikuModel.FK_Required_MaterialCategories">
+            <End Role="MaterialCategories" EntitySet="MaterialCategories" />
+            <End Role="Required" EntitySet="Required" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Required_ProjectContract" Association="TokikuModel.FK_Required_ProjectContract">
+            <End Role="ProjectContract" EntitySet="ProjectContract" />
+            <End Role="Required" EntitySet="Required" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Required_Projects" Association="TokikuModel.FK_Required_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="Required" EntitySet="Required" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Required_CreateUsers" Association="TokikuModel.FK_Required_CreateUsers">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Required" EntitySet="Required" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Required_MakingUsers" Association="TokikuModel.FK_Required_MakingUsers">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Required" EntitySet="Required" />
+          </AssociationSet>
+          <EntitySet Name="ControlTableDetails" EntityType="TokikuModel.ControlTableDetails" />
+          <EntitySet Name="RequiredDetails" EntityType="TokikuModel.RequiredDetails" />
+          <AssociationSet Name="FK_ControlTableDetails_ControlTables" Association="TokikuModel.FK_ControlTableDetails_ControlTables">
+            <End Role="ControlTables" EntitySet="ControlTables" />
+            <End Role="ControlTableDetails" EntitySet="ControlTableDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_ControlTableDetails" Association="TokikuModel.FK_OrderDetails_ControlTableDetails">
+            <End Role="ControlTableDetails" EntitySet="ControlTableDetails" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderMaterialValuation_ControlTableDetails" Association="TokikuModel.FK_OrderMaterialValuation_ControlTableDetails">
+            <End Role="ControlTableDetails" EntitySet="ControlTableDetails" />
+            <End Role="OrderMaterialValuation" EntitySet="OrderMaterialValuation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequiredDetails_Materials" Association="TokikuModel.FK_RequiredDetails_Materials">
+            <End Role="Materials" EntitySet="Materials" />
+            <End Role="RequiredDetails" EntitySet="RequiredDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequiredDetails_Required" Association="TokikuModel.FK_RequiredDetails_Required">
+            <End Role="Required" EntitySet="Required" />
+            <End Role="RequiredDetails" EntitySet="RequiredDetails" />
+          </AssociationSet>
+          <AssociationSet Name="RequiredDetailsInControlTables" Association="TokikuModel.RequiredDetailsInControlTables">
+            <End Role="ControlTableDetails" EntitySet="ControlTableDetails" />
+            <End Role="RequiredDetails" EntitySet="RequiredDetails" />
+          </AssociationSet>
+          <EntitySet Name="Inventory" EntityType="TokikuModel.Inventory" />
+          <AssociationSet Name="FK_Inventory_ControlTableDetails" Association="TokikuModel.FK_Inventory_ControlTableDetails">
+            <End Role="ControlTableDetails" EntitySet="ControlTableDetails" />
+            <End Role="Inventory" EntitySet="Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inventory_ControlTables" Association="TokikuModel.FK_Inventory_ControlTables">
+            <End Role="ControlTables" EntitySet="ControlTables" />
+            <End Role="Inventory" EntitySet="Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inventory_RequiredDetails" Association="TokikuModel.FK_Inventory_RequiredDetails">
+            <End Role="RequiredDetails" EntitySet="RequiredDetails" />
+            <End Role="Inventory" EntitySet="Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inventory_Stocks" Association="TokikuModel.FK_Inventory_Stocks">
+            <End Role="Stocks" EntitySet="Stocks" />
+            <End Role="Inventory" EntitySet="Inventory" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="AccessLog">
@@ -3291,9 +3357,9 @@
           <NavigationProperty Name="Orders" Relationship="TokikuModel.FK_Orders_ShippingManufacturers" FromRole="Manufacturers" ToRole="Orders" />
           <NavigationProperty Name="PickList" Relationship="TokikuModel.FK_PickList_IncomingManufacturers" FromRole="Manufacturers" ToRole="PickList" />
           <NavigationProperty Name="Receipts" Relationship="TokikuModel.FK_Receipts_Manufacturers" FromRole="Manufacturers" ToRole="Receipts" />
-          <NavigationProperty Name="Required" Relationship="TokikuModel.FK_Required_Manufacturers" FromRole="Manufacturers" ToRole="Required" />
           <NavigationProperty Name="Returns" Relationship="TokikuModel.FK_Returns_Manufacturers" FromRole="Manufacturers" ToRole="Returns" />
           <NavigationProperty Name="Invoices" Relationship="TokikuModel.FK_Invoices_Manufacturers" FromRole="Manufacturers" ToRole="Invoices" />
+          <NavigationProperty Name="Required" Relationship="TokikuModel.FK_Required_Manufacturers" FromRole="Manufacturers" ToRole="Required" />
         </EntityType>
         <EntityType Name="MaterialCategories">
           <Key>
@@ -3306,9 +3372,9 @@
           <NavigationProperty Name="ProjectItemCost" Relationship="TokikuModel.FK_ProjectItemCost_MaterialCategories" FromRole="MaterialCategories" ToRole="ProjectItemCost" />
           <NavigationProperty Name="MoldsInProjects" Relationship="TokikuModel.FK_MoldsInProjects_MaterialCategories" FromRole="MaterialCategories" ToRole="MoldsInProjects" />
           <NavigationProperty Name="BOM" Relationship="TokikuModel.FK_BOM_MaterialCategories" FromRole="MaterialCategories" ToRole="BOM" />
-          <NavigationProperty Name="Required" Relationship="TokikuModel.FK_Required_MaterialCategories" FromRole="MaterialCategories" ToRole="Required" />
-          <NavigationProperty Name="ControlTables" Relationship="TokikuModel.FK_ControlTables_MaterialCategories" FromRole="MaterialCategories" ToRole="ControlTables" />
           <NavigationProperty Name="ManufacturersBussinessItems" Relationship="TokikuModel.FK_ManufacturersBussinessItems_MaterialCategories" FromRole="MaterialCategories" ToRole="ManufacturersBussinessItems" />
+          <NavigationProperty Name="ControlTables" Relationship="TokikuModel.FK_ControlTables_MaterialCategories" FromRole="MaterialCategories" ToRole="ControlTables" />
+          <NavigationProperty Name="Required" Relationship="TokikuModel.FK_Required_MaterialCategories" FromRole="MaterialCategories" ToRole="Required" />
         </EntityType>
         <EntityType Name="Materials">
           <Key>
@@ -3739,6 +3805,7 @@
           <Property Name="SitePhone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="PromissoryNoteManagement" Relationship="TokikuModel.FK_PromissoryNoteManagement_Projects" FromRole="Projects" ToRole="PromissoryNoteManagement" />
           <NavigationProperty Name="SupplierTranscationItem" Relationship="TokikuModel.FK_SupplierTranscationItem_Projects" FromRole="Projects" ToRole="SupplierTranscationItem" />
+          <NavigationProperty Name="ControlTables" Relationship="TokikuModel.FK_ControlTables_Projects" FromRole="Projects" ToRole="ControlTables" />
           <NavigationProperty Name="Required" Relationship="TokikuModel.FK_Required_Projects" FromRole="Projects" ToRole="Required" />
         </EntityType>
         <Association Name="FK_ProjectContract_Projects">
@@ -4261,8 +4328,8 @@
           <NavigationProperty Name="Users" Relationship="TokikuModel.FK_PurchasingOrder_Users1" FromRole="OrderDetails" ToRole="Users" />
           <NavigationProperty Name="ReceiptDetails" Relationship="TokikuModel.FK_ReceiptDetails_OrderDetails" FromRole="OrderDetails" ToRole="ReceiptDetails" />
           <NavigationProperty Name="ReturnDetails" Relationship="TokikuModel.FK_ReturnDetails_OrderDetails" FromRole="OrderDetails" ToRole="ReturnDetails" />
-          <NavigationProperty Name="ControlTableDetails" Relationship="TokikuModel.FK_OrderDetails_ControlTableDetails" FromRole="OrderDetails" ToRole="ControlTableDetails" />
           <NavigationProperty Name="InvoiceDetails" Relationship="TokikuModel.FK_InvoiceDetails_OrderDetails" FromRole="OrderDetails" ToRole="InvoiceDetails" />
+          <NavigationProperty Name="ControlTableDetails" Relationship="TokikuModel.FK_OrderDetails_ControlTableDetails" FromRole="OrderDetails" ToRole="ControlTableDetails" />
         </EntityType>
         <EntityType Name="OrderMaterialValuation">
           <Key>
@@ -4274,8 +4341,8 @@
           <Property Name="Weight" Type="Double" Nullable="false" />
           <Property Name="TotalPrice" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Orders" Relationship="TokikuModel.FK_OrderMaterialValuation_Orders" FromRole="OrderMaterialValuation" ToRole="Orders" />
-          <NavigationProperty Name="ControlTableDetails" Relationship="TokikuModel.FK_OrderMaterialValuation_ControlTableDetails" FromRole="OrderMaterialValuation" ToRole="ControlTableDetails" />
           <NavigationProperty Name="InvoiceDetails_Material" Relationship="TokikuModel.FK_InvoiceDetails_Material_OrderMaterialValuation" FromRole="OrderMaterialValuation" ToRole="InvoiceDetails_Material" />
+          <NavigationProperty Name="ControlTableDetails" Relationship="TokikuModel.FK_OrderMaterialValuation_ControlTableDetails" FromRole="OrderMaterialValuation" ToRole="ControlTableDetails" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -4389,46 +4456,6 @@
           <NavigationProperty Name="Users1" Relationship="TokikuModel.FK_Receipts_MakingUsers" FromRole="Receipts" ToRole="Users" />
           <NavigationProperty Name="Stocks" Relationship="TokikuModel.FK_Receipts_Stocks" FromRole="Receipts" ToRole="Stocks" />
         </EntityType>
-        <EntityType Name="Required">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="ProjectId" Type="Guid" />
-          <Property Name="ProjectContractId" Type="Guid" />
-          <Property Name="FormNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ManufacturersId" Type="Guid" />
-          <Property Name="MaterialCategoriesId" Type="Guid" />
-          <Property Name="MakingTime" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="MakingUserId" Type="Guid" Nullable="false" />
-          <Property Name="RequiredPostion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_Required_Manufacturers" FromRole="Required" ToRole="Manufacturers" />
-          <NavigationProperty Name="MaterialCategories" Relationship="TokikuModel.FK_Required_MaterialCategories" FromRole="Required" ToRole="MaterialCategories" />
-          <NavigationProperty Name="ProjectContract" Relationship="TokikuModel.FK_Required_ProjectContract" FromRole="Required" ToRole="ProjectContract" />
-          <NavigationProperty Name="Projects" Relationship="TokikuModel.FK_Required_Projects" FromRole="Required" ToRole="Projects" />
-          <NavigationProperty Name="CreateUser" Relationship="TokikuModel.FK_Required_CreateUsers" FromRole="Required" ToRole="Users" />
-          <NavigationProperty Name="MakingUser" Relationship="TokikuModel.FK_Required_MakingUsers" FromRole="Required" ToRole="Users" />
-          <NavigationProperty Name="RequiredDetails" Relationship="TokikuModel.FK_RequiredDetails_Required" FromRole="Required" ToRole="RequiredDetails" />
-        </EntityType>
-        <EntityType Name="RequiredDetails">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="RequiredId" Type="Guid" />
-          <Property Name="Order" Type="Int32" Nullable="false" />
-          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FactoryNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MaterialsId" Type="Guid" />
-          <Property Name="UnitWeight" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
-          <Property Name="OrderLength" Type="Int32" />
-          <NavigationProperty Name="Materials" Relationship="TokikuModel.FK_RequiredDetails_Materials" FromRole="RequiredDetails" ToRole="Materials" />
-          <NavigationProperty Name="Required" Relationship="TokikuModel.FK_RequiredDetails_Required" FromRole="RequiredDetails" ToRole="Required" />
-          <NavigationProperty Name="ControlTableDetails" Relationship="TokikuModel.FK_ControlTableDetails_RequiredDetails" FromRole="RequiredDetails" ToRole="ControlTableDetails" />
-          <Property Name="RequiredQuantity" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="ReturnDetails">
           <Key>
             <PropertyRef Name="Id" />
@@ -4515,18 +4542,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Required_Manufacturers">
-          <End Type="TokikuModel.Manufacturers" Role="Manufacturers" Multiplicity="0..1" />
-          <End Type="TokikuModel.Required" Role="Required" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Manufacturers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Required">
-              <PropertyRef Name="ManufacturersId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Returns_Manufacturers">
           <End Type="TokikuModel.Manufacturers" Role="Manufacturers" Multiplicity="0..1" />
           <End Type="TokikuModel.Returns" Role="Returns" Multiplicity="*" />
@@ -4536,30 +4551,6 @@
             </Principal>
             <Dependent Role="Returns">
               <PropertyRef Name="IncomingManufacturerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Required_MaterialCategories">
-          <End Type="TokikuModel.MaterialCategories" Role="MaterialCategories" Multiplicity="0..1" />
-          <End Type="TokikuModel.Required" Role="Required" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaterialCategories">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Required">
-              <PropertyRef Name="MaterialCategoriesId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RequiredDetails_Materials">
-          <End Type="TokikuModel.Materials" Role="Materials" Multiplicity="0..1" />
-          <End Type="TokikuModel.RequiredDetails" Role="RequiredDetails" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Materials">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="RequiredDetails">
-              <PropertyRef Name="MaterialsId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4719,30 +4710,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Required_ProjectContract">
-          <End Type="TokikuModel.ProjectContract" Role="ProjectContract" Multiplicity="0..1" />
-          <End Type="TokikuModel.Required" Role="Required" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectContract">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Required">
-              <PropertyRef Name="ProjectContractId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Required_Projects">
-          <End Type="TokikuModel.Projects" Role="Projects" Multiplicity="0..1" />
-          <End Type="TokikuModel.Required" Role="Required" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Projects">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Required">
-              <PropertyRef Name="ProjectId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ReceiptDetails_Receipts">
           <End Type="TokikuModel.Receive" Role="Receipts" Multiplicity="0..1" />
           <End Type="TokikuModel.ReceiveDetails" Role="ReceiptDetails" Multiplicity="*" />
@@ -4788,42 +4755,6 @@
             </Principal>
             <Dependent Role="Receipts">
               <PropertyRef Name="StockId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Required_CreateUsers">
-          <End Type="TokikuModel.Users" Role="Users" Multiplicity="1" />
-          <End Type="TokikuModel.Required" Role="Required" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Required">
-              <PropertyRef Name="CreateUserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Required_MakingUsers">
-          <End Type="TokikuModel.Users" Role="Users" Multiplicity="1" />
-          <End Type="TokikuModel.Required" Role="Required" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Required">
-              <PropertyRef Name="MakingUserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RequiredDetails_Required">
-          <End Type="TokikuModel.Required" Role="Required" Multiplicity="0..1" />
-          <End Type="TokikuModel.RequiredDetails" Role="RequiredDetails" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Required">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="RequiredDetails">
-              <PropertyRef Name="RequiredId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4875,65 +4806,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="ControlTableDetails">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="ControlTableId" Type="Guid" />
-          <Property Name="RequiredDetailId" Type="Guid" />
-          <NavigationProperty Name="ControlTables" Relationship="TokikuModel.FK_ControlTableDetails_ControlTables" FromRole="ControlTableDetails" ToRole="ControlTables" />
-          <NavigationProperty Name="RequiredDetails" Relationship="TokikuModel.FK_ControlTableDetails_RequiredDetails" FromRole="ControlTableDetails" ToRole="RequiredDetails" />
-          <NavigationProperty Name="Inventory" Relationship="TokikuModel.FK_Inventory_ControlTableDetails" FromRole="ControlTableDetails" ToRole="Inventory" />
-          <NavigationProperty Name="OrderDetails" Relationship="TokikuModel.FK_OrderDetails_ControlTableDetails" FromRole="ControlTableDetails" ToRole="OrderDetails" />
-          <NavigationProperty Name="OrderMaterialValuation" Relationship="TokikuModel.FK_OrderMaterialValuation_ControlTableDetails" FromRole="ControlTableDetails" ToRole="OrderMaterialValuation" />
-        </EntityType>
-        <EntityType Name="ControlTables">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="MaterialCategoriesId" Type="Guid" />
-          <Property Name="RequiredQuantitySubtotal" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="RequiredQuantityWeightSummary" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
-          <Property Name="NumberofOrdersNotPlaced" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="QuantityofOrderSummary" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="PrepareSubtotal" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="TotalWeightofOrder" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="ArrivalCondition_QuantitySubtotal" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="ArrivalCondition_WeightSubtotal" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="ArrivalCondition_OutofStock" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="ReturnStatus_QuantitySubtotal" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="ReturnStatus_WeightSubtotal" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="ReturnStatus_Receipt_QuantitySubtotal" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="ReturnStatus_Receipt_WeightSubtotal" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="ReturnStatus_Charge_QuantitySubtotal" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="ReturnStatus_Charge_WeightSubtotal" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="PickingCondition_QuantitySubtotal" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="PickingCondition_WeightSubtotal" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="InventoryMargin_LossAdjustment_QuantitySubtotal" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="InventoryMargin_LossAdjustment_WeightSubtotal" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="InventoryStatus_QuantitySubtotal" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="InventoryStatus_WeightSubtotal" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="ControlTableDetails" Relationship="TokikuModel.FK_ControlTableDetails_ControlTables" FromRole="ControlTables" ToRole="ControlTableDetails" />
-          <NavigationProperty Name="MaterialCategories" Relationship="TokikuModel.FK_ControlTables_MaterialCategories" FromRole="ControlTables" ToRole="MaterialCategories" />
-          <NavigationProperty Name="Inventory" Relationship="TokikuModel.FK_Inventory_ControlTables" FromRole="ControlTables" ToRole="Inventory" />
-        </EntityType>
-        <EntityType Name="Inventory">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="ControlTableId" Type="Guid" />
-          <Property Name="ControlTableDetailId" Type="Guid" />
-          <Property Name="StockId" Type="Guid" />
-          <Property Name="Amount" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ControlTableDetails" Relationship="TokikuModel.FK_Inventory_ControlTableDetails" FromRole="Inventory" ToRole="ControlTableDetails" />
-          <NavigationProperty Name="ControlTables" Relationship="TokikuModel.FK_Inventory_ControlTables" FromRole="Inventory" ToRole="ControlTables" />
-          <NavigationProperty Name="Stocks" Relationship="TokikuModel.FK_Inventory_Stocks" FromRole="Inventory" ToRole="Stocks" />
-        </EntityType>
         <EntityType Name="InvoiceDetails">
           <Key>
             <PropertyRef Name="Id" />
@@ -5009,102 +4881,6 @@
           <NavigationProperty Name="Users1" Relationship="TokikuModel.FK_Invoices_InvoiceUsers" FromRole="Invoices" ToRole="Users" />
           <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_Invoices_Manufacturers" FromRole="Invoices" ToRole="Manufacturers" />
         </EntityType>
-        <Association Name="FK_ControlTableDetails_ControlTables">
-          <End Type="TokikuModel.ControlTables" Role="ControlTables" Multiplicity="0..1" />
-          <End Type="TokikuModel.ControlTableDetails" Role="ControlTableDetails" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ControlTables">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ControlTableDetails">
-              <PropertyRef Name="ControlTableId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ControlTableDetails_RequiredDetails">
-          <End Type="TokikuModel.RequiredDetails" Role="RequiredDetails" Multiplicity="0..1" />
-          <End Type="TokikuModel.ControlTableDetails" Role="ControlTableDetails" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RequiredDetails">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ControlTableDetails">
-              <PropertyRef Name="RequiredDetailId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Inventory_ControlTableDetails">
-          <End Type="TokikuModel.ControlTableDetails" Role="ControlTableDetails" Multiplicity="0..1" />
-          <End Type="TokikuModel.Inventory" Role="Inventory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ControlTableDetails">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Inventory">
-              <PropertyRef Name="ControlTableDetailId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderDetails_ControlTableDetails">
-          <End Type="TokikuModel.ControlTableDetails" Role="ControlTableDetails" Multiplicity="0..1" />
-          <End Type="TokikuModel.OrderDetails" Role="OrderDetails" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ControlTableDetails">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OrderDetails">
-              <PropertyRef Name="ControlTableDetailId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderMaterialValuation_ControlTableDetails">
-          <End Type="TokikuModel.ControlTableDetails" Role="ControlTableDetails" Multiplicity="0..1" />
-          <End Type="TokikuModel.OrderMaterialValuation" Role="OrderMaterialValuation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ControlTableDetails">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OrderMaterialValuation">
-              <PropertyRef Name="ControlTableDetailId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ControlTables_MaterialCategories">
-          <End Type="TokikuModel.MaterialCategories" Role="MaterialCategories" Multiplicity="0..1" />
-          <End Type="TokikuModel.ControlTables" Role="ControlTables" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaterialCategories">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ControlTables">
-              <PropertyRef Name="MaterialCategoriesId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Inventory_ControlTables">
-          <End Type="TokikuModel.ControlTables" Role="ControlTables" Multiplicity="0..1" />
-          <End Type="TokikuModel.Inventory" Role="Inventory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ControlTables">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Inventory">
-              <PropertyRef Name="ControlTableId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Inventory_Stocks">
-          <End Type="TokikuModel.Stocks" Role="Stocks" Multiplicity="0..1" />
-          <End Type="TokikuModel.Inventory" Role="Inventory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Stocks">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Inventory">
-              <PropertyRef Name="StockId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_InvoiceDetails_Invoices">
           <End Type="TokikuModel.Invoices" Role="Invoices" Multiplicity="0..1" />
           <End Type="TokikuModel.InvoiceDetails" Role="InvoiceDetails" Multiplicity="*" />
@@ -5323,6 +5099,317 @@
             </Principal>
             <Dependent Role="OrderMiscellaneous">
               <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ControlTables">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ProjectId" Type="Guid" />
+          <Property Name="MaterialCategoriesId" Type="Guid" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="MaterialCategories" Relationship="TokikuModel.FK_ControlTables_MaterialCategories" FromRole="ControlTables" ToRole="MaterialCategories" />
+          <NavigationProperty Name="Projects" Relationship="TokikuModel.FK_ControlTables_Projects" FromRole="ControlTables" ToRole="Projects" />
+          <NavigationProperty Name="ControlTableDetails" Relationship="TokikuModel.FK_ControlTableDetails_ControlTables" FromRole="ControlTables" ToRole="ControlTableDetails" />
+          <NavigationProperty Name="Inventory" Relationship="TokikuModel.FK_Inventory_ControlTables" FromRole="ControlTables" ToRole="Inventory" />
+        </EntityType>
+        <EntityType Name="Required">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ProjectId" Type="Guid" />
+          <Property Name="ProjectContractId" Type="Guid" />
+          <Property Name="FormNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ManufacturersId" Type="Guid" />
+          <Property Name="MaterialCategoriesId" Type="Guid" />
+          <Property Name="MakingTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="MakingUserId" Type="Guid" Nullable="false" />
+          <Property Name="RequiredPostion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_Required_Manufacturers" FromRole="Required" ToRole="Manufacturers" />
+          <NavigationProperty Name="MaterialCategories" Relationship="TokikuModel.FK_Required_MaterialCategories" FromRole="Required" ToRole="MaterialCategories" />
+          <NavigationProperty Name="ProjectContract" Relationship="TokikuModel.FK_Required_ProjectContract" FromRole="Required" ToRole="ProjectContract" />
+          <NavigationProperty Name="Projects" Relationship="TokikuModel.FK_Required_Projects" FromRole="Required" ToRole="Projects" />
+          <NavigationProperty Name="CreateUser" Relationship="TokikuModel.FK_Required_CreateUsers" FromRole="Required" ToRole="Users" />
+          <NavigationProperty Name="MakingUser" Relationship="TokikuModel.FK_Required_MakingUsers" FromRole="Required" ToRole="Users" />
+          <NavigationProperty Name="RequiredDetails" Relationship="TokikuModel.FK_RequiredDetails_Required" FromRole="Required" ToRole="RequiredDetails" />
+        </EntityType>
+        <Association Name="FK_ControlTables_MaterialCategories">
+          <End Type="TokikuModel.MaterialCategories" Role="MaterialCategories" Multiplicity="0..1" />
+          <End Type="TokikuModel.ControlTables" Role="ControlTables" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaterialCategories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ControlTables">
+              <PropertyRef Name="MaterialCategoriesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ControlTables_Projects">
+          <End Type="TokikuModel.Projects" Role="Projects" Multiplicity="0..1" />
+          <End Type="TokikuModel.ControlTables" Role="ControlTables" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ControlTables">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Required_Manufacturers">
+          <End Type="TokikuModel.Manufacturers" Role="Manufacturers" Multiplicity="0..1" />
+          <End Type="TokikuModel.Required" Role="Required" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Required">
+              <PropertyRef Name="ManufacturersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Required_MaterialCategories">
+          <End Type="TokikuModel.MaterialCategories" Role="MaterialCategories" Multiplicity="0..1" />
+          <End Type="TokikuModel.Required" Role="Required" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaterialCategories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Required">
+              <PropertyRef Name="MaterialCategoriesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Required_ProjectContract">
+          <End Type="TokikuModel.ProjectContract" Role="ProjectContract" Multiplicity="0..1" />
+          <End Type="TokikuModel.Required" Role="Required" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectContract">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Required">
+              <PropertyRef Name="ProjectContractId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Required_Projects">
+          <End Type="TokikuModel.Projects" Role="Projects" Multiplicity="0..1" />
+          <End Type="TokikuModel.Required" Role="Required" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Required">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Required_CreateUsers">
+          <End Type="TokikuModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="TokikuModel.Required" Role="Required" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Required">
+              <PropertyRef Name="CreateUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Required_MakingUsers">
+          <End Type="TokikuModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="TokikuModel.Required" Role="Required" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Required">
+              <PropertyRef Name="MakingUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ControlTableDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ControlTableId" Type="Guid" />
+          <Property Name="RequiredQuantitySubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="RequiredQuantityWeightSummary" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="NumberofOrdersNotPlaced" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="QuantityofOrderSummary" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="PrepareSubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="TotalWeightofOrder" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="ArrivalCondition_QuantitySubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="ArrivalCondition_WeightSubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="ArrivalCondition_OutofStock" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="ReturnStatus_QuantitySubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="ReturnStatus_WeightSubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="ReturnStatus_Receipt_QuantitySubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="ReturnStatus_Receipt_WeightSubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="ReturnStatus_Charge_QuantitySubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="ReturnStatus_Charge_WeightSubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="PickingCondition_QuantitySubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="PickingCondition_WeightSubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="InventoryMargin_LossAdjustment_QuantitySubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="InventoryMargin_LossAdjustment_WeightSubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="InventoryStatus_QuantitySubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="InventoryStatus_WeightSubtotal" Type="Decimal" Precision="18" Scale="3" />
+          <NavigationProperty Name="ControlTables" Relationship="TokikuModel.FK_ControlTableDetails_ControlTables" FromRole="ControlTableDetails" ToRole="ControlTables" />
+          <NavigationProperty Name="OrderDetails" Relationship="TokikuModel.FK_OrderDetails_ControlTableDetails" FromRole="ControlTableDetails" ToRole="OrderDetails" />
+          <NavigationProperty Name="OrderMaterialValuation" Relationship="TokikuModel.FK_OrderMaterialValuation_ControlTableDetails" FromRole="ControlTableDetails" ToRole="OrderMaterialValuation" />
+          <NavigationProperty Name="RequiredDetails" Relationship="TokikuModel.RequiredDetailsInControlTables" FromRole="ControlTableDetails" ToRole="RequiredDetails" />
+          <NavigationProperty Name="Inventory" Relationship="TokikuModel.FK_Inventory_ControlTableDetails" FromRole="ControlTableDetails" ToRole="Inventory" />
+        </EntityType>
+        <EntityType Name="RequiredDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="RequiredId" Type="Guid" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FactoryNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaterialsId" Type="Guid" />
+          <Property Name="UnitWeight" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="OrderLength" Type="Int32" />
+          <Property Name="RequiredQuantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Materials" Relationship="TokikuModel.FK_RequiredDetails_Materials" FromRole="RequiredDetails" ToRole="Materials" />
+          <NavigationProperty Name="Required" Relationship="TokikuModel.FK_RequiredDetails_Required" FromRole="RequiredDetails" ToRole="Required" />
+          <NavigationProperty Name="ControlTableDetails" Relationship="TokikuModel.RequiredDetailsInControlTables" FromRole="RequiredDetails" ToRole="ControlTableDetails" />
+          <NavigationProperty Name="Inventory" Relationship="TokikuModel.FK_Inventory_RequiredDetails" FromRole="RequiredDetails" ToRole="Inventory" />
+        </EntityType>
+        <Association Name="FK_ControlTableDetails_ControlTables">
+          <End Type="TokikuModel.ControlTables" Role="ControlTables" Multiplicity="0..1" />
+          <End Type="TokikuModel.ControlTableDetails" Role="ControlTableDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ControlTables">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ControlTableDetails">
+              <PropertyRef Name="ControlTableId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetails_ControlTableDetails">
+          <End Type="TokikuModel.ControlTableDetails" Role="ControlTableDetails" Multiplicity="0..1" />
+          <End Type="TokikuModel.OrderDetails" Role="OrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ControlTableDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="ControlTableDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderMaterialValuation_ControlTableDetails">
+          <End Type="TokikuModel.ControlTableDetails" Role="ControlTableDetails" Multiplicity="0..1" />
+          <End Type="TokikuModel.OrderMaterialValuation" Role="OrderMaterialValuation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ControlTableDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderMaterialValuation">
+              <PropertyRef Name="ControlTableDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequiredDetails_Materials">
+          <End Type="TokikuModel.Materials" Role="Materials" Multiplicity="0..1" />
+          <End Type="TokikuModel.RequiredDetails" Role="RequiredDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materials">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RequiredDetails">
+              <PropertyRef Name="MaterialsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequiredDetails_Required">
+          <End Type="TokikuModel.Required" Role="Required" Multiplicity="0..1" />
+          <End Type="TokikuModel.RequiredDetails" Role="RequiredDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Required">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RequiredDetails">
+              <PropertyRef Name="RequiredId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RequiredDetailsInControlTables">
+          <End Type="TokikuModel.ControlTableDetails" Role="ControlTableDetails" Multiplicity="*" />
+          <End Type="TokikuModel.RequiredDetails" Role="RequiredDetails" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Inventory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ControlTableId" Type="Guid" />
+          <Property Name="ControlTableDetailId" Type="Guid" />
+          <Property Name="RequireDetailId" Type="Guid" />
+          <Property Name="StockId" Type="Guid" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ControlTableDetails" Relationship="TokikuModel.FK_Inventory_ControlTableDetails" FromRole="Inventory" ToRole="ControlTableDetails" />
+          <NavigationProperty Name="ControlTables" Relationship="TokikuModel.FK_Inventory_ControlTables" FromRole="Inventory" ToRole="ControlTables" />
+          <NavigationProperty Name="RequiredDetails" Relationship="TokikuModel.FK_Inventory_RequiredDetails" FromRole="Inventory" ToRole="RequiredDetails" />
+          <NavigationProperty Name="Stocks" Relationship="TokikuModel.FK_Inventory_Stocks" FromRole="Inventory" ToRole="Stocks" />
+        </EntityType>
+        <Association Name="FK_Inventory_ControlTableDetails">
+          <End Type="TokikuModel.ControlTableDetails" Role="ControlTableDetails" Multiplicity="0..1" />
+          <End Type="TokikuModel.Inventory" Role="Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ControlTableDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="ControlTableDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inventory_ControlTables">
+          <End Type="TokikuModel.ControlTables" Role="ControlTables" Multiplicity="0..1" />
+          <End Type="TokikuModel.Inventory" Role="Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ControlTables">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="ControlTableId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inventory_RequiredDetails">
+          <End Type="TokikuModel.RequiredDetails" Role="RequiredDetails" Multiplicity="0..1" />
+          <End Type="TokikuModel.Inventory" Role="Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequiredDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="RequireDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inventory_Stocks">
+          <End Type="TokikuModel.Stocks" Role="Stocks" Multiplicity="0..1" />
+          <End Type="TokikuModel.Inventory" Role="Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stocks">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="StockId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5996,38 +6083,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Required">
-            <EntityTypeMapping TypeName="TokikuModel.Required">
-              <MappingFragment StoreEntitySet="Required">
-                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="RequiredPostion" ColumnName="RequiredPostion" />
-                <ScalarProperty Name="MakingUserId" ColumnName="MakingUserId" />
-                <ScalarProperty Name="MakingTime" ColumnName="MakingTime" />
-                <ScalarProperty Name="MaterialCategoriesId" ColumnName="MaterialCategoriesId" />
-                <ScalarProperty Name="ManufacturersId" ColumnName="ManufacturersId" />
-                <ScalarProperty Name="FormNumber" ColumnName="FormNumber" />
-                <ScalarProperty Name="ProjectContractId" ColumnName="ProjectContractId" />
-                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RequiredDetails">
-            <EntityTypeMapping TypeName="TokikuModel.RequiredDetails">
-              <MappingFragment StoreEntitySet="RequiredDetails">
-                <ScalarProperty Name="RequiredQuantity" ColumnName="RequiredQuantity" />
-                <ScalarProperty Name="OrderLength" ColumnName="OrderLength" />
-                <ScalarProperty Name="UnitWeight" ColumnName="UnitWeight" />
-                <ScalarProperty Name="MaterialsId" ColumnName="MaterialsId" />
-                <ScalarProperty Name="FactoryNumber" ColumnName="FactoryNumber" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Order" ColumnName="Order" />
-                <ScalarProperty Name="RequiredId" ColumnName="RequiredId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ReturnDetails">
             <EntityTypeMapping TypeName="TokikuModel.ReturnDetails">
               <MappingFragment StoreEntitySet="ReturnDetails">
@@ -6066,57 +6121,6 @@
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ControlTableDetails">
-            <EntityTypeMapping TypeName="TokikuModel.ControlTableDetails">
-              <MappingFragment StoreEntitySet="ControlTableDetails">
-                <ScalarProperty Name="RequiredDetailId" ColumnName="RequiredDetailId" />
-                <ScalarProperty Name="ControlTableId" ColumnName="ControlTableId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ControlTables">
-            <EntityTypeMapping TypeName="TokikuModel.ControlTables">
-              <MappingFragment StoreEntitySet="ControlTables">
-                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="InventoryStatus_WeightSubtotal" ColumnName="InventoryStatus_WeightSubtotal" />
-                <ScalarProperty Name="InventoryStatus_QuantitySubtotal" ColumnName="InventoryStatus_QuantitySubtotal" />
-                <ScalarProperty Name="InventoryMargin_LossAdjustment_WeightSubtotal" ColumnName="InventoryMargin_LossAdjustment_WeightSubtotal" />
-                <ScalarProperty Name="InventoryMargin_LossAdjustment_QuantitySubtotal" ColumnName="InventoryMargin_LossAdjustment_QuantitySubtotal" />
-                <ScalarProperty Name="PickingCondition_WeightSubtotal" ColumnName="PickingCondition_WeightSubtotal" />
-                <ScalarProperty Name="PickingCondition_QuantitySubtotal" ColumnName="PickingCondition_QuantitySubtotal" />
-                <ScalarProperty Name="ReturnStatus_Charge_WeightSubtotal" ColumnName="ReturnStatus_Charge_WeightSubtotal" />
-                <ScalarProperty Name="ReturnStatus_Charge_QuantitySubtotal" ColumnName="ReturnStatus_Charge_QuantitySubtotal" />
-                <ScalarProperty Name="ReturnStatus_Receipt_WeightSubtotal" ColumnName="ReturnStatus_Receipt_WeightSubtotal" />
-                <ScalarProperty Name="ReturnStatus_Receipt_QuantitySubtotal" ColumnName="ReturnStatus_Receipt_QuantitySubtotal" />
-                <ScalarProperty Name="ReturnStatus_WeightSubtotal" ColumnName="ReturnStatus_WeightSubtotal" />
-                <ScalarProperty Name="ReturnStatus_QuantitySubtotal" ColumnName="ReturnStatus_QuantitySubtotal" />
-                <ScalarProperty Name="ArrivalCondition_OutofStock" ColumnName="ArrivalCondition_OutofStock" />
-                <ScalarProperty Name="ArrivalCondition_WeightSubtotal" ColumnName="ArrivalCondition_WeightSubtotal" />
-                <ScalarProperty Name="ArrivalCondition_QuantitySubtotal" ColumnName="ArrivalCondition_QuantitySubtotal" />
-                <ScalarProperty Name="TotalWeightofOrder" ColumnName="TotalWeightofOrder" />
-                <ScalarProperty Name="PrepareSubtotal" ColumnName="PrepareSubtotal" />
-                <ScalarProperty Name="QuantityofOrderSummary" ColumnName="QuantityofOrderSummary" />
-                <ScalarProperty Name="NumberofOrdersNotPlaced" ColumnName="NumberofOrdersNotPlaced" />
-                <ScalarProperty Name="RequiredQuantityWeightSummary" ColumnName="RequiredQuantityWeightSummary" />
-                <ScalarProperty Name="RequiredQuantitySubtotal" ColumnName="RequiredQuantitySubtotal" />
-                <ScalarProperty Name="MaterialCategoriesId" ColumnName="MaterialCategoriesId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Inventory">
-            <EntityTypeMapping TypeName="TokikuModel.Inventory">
-              <MappingFragment StoreEntitySet="Inventory">
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="StockId" ColumnName="StockId" />
-                <ScalarProperty Name="ControlTableDetailId" ColumnName="ControlTableDetailId" />
-                <ScalarProperty Name="ControlTableId" ColumnName="ControlTableId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -6207,6 +6211,98 @@
                 <ScalarProperty Name="FactoryNumber" ColumnName="FactoryNumber" />
                 <ScalarProperty Name="CodeOrItem" ColumnName="CodeOrItem" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ControlTables">
+            <EntityTypeMapping TypeName="TokikuModel.ControlTables">
+              <MappingFragment StoreEntitySet="ControlTables">
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="MaterialCategoriesId" ColumnName="MaterialCategoriesId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Required">
+            <EntityTypeMapping TypeName="TokikuModel.Required">
+              <MappingFragment StoreEntitySet="Required">
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="RequiredPostion" ColumnName="RequiredPostion" />
+                <ScalarProperty Name="MakingUserId" ColumnName="MakingUserId" />
+                <ScalarProperty Name="MakingTime" ColumnName="MakingTime" />
+                <ScalarProperty Name="MaterialCategoriesId" ColumnName="MaterialCategoriesId" />
+                <ScalarProperty Name="ManufacturersId" ColumnName="ManufacturersId" />
+                <ScalarProperty Name="FormNumber" ColumnName="FormNumber" />
+                <ScalarProperty Name="ProjectContractId" ColumnName="ProjectContractId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ControlTableDetails">
+            <EntityTypeMapping TypeName="TokikuModel.ControlTableDetails">
+              <MappingFragment StoreEntitySet="ControlTableDetails">
+                <ScalarProperty Name="InventoryStatus_WeightSubtotal" ColumnName="InventoryStatus_WeightSubtotal" />
+                <ScalarProperty Name="InventoryStatus_QuantitySubtotal" ColumnName="InventoryStatus_QuantitySubtotal" />
+                <ScalarProperty Name="InventoryMargin_LossAdjustment_WeightSubtotal" ColumnName="InventoryMargin_LossAdjustment_WeightSubtotal" />
+                <ScalarProperty Name="InventoryMargin_LossAdjustment_QuantitySubtotal" ColumnName="InventoryMargin_LossAdjustment_QuantitySubtotal" />
+                <ScalarProperty Name="PickingCondition_WeightSubtotal" ColumnName="PickingCondition_WeightSubtotal" />
+                <ScalarProperty Name="PickingCondition_QuantitySubtotal" ColumnName="PickingCondition_QuantitySubtotal" />
+                <ScalarProperty Name="ReturnStatus_Charge_WeightSubtotal" ColumnName="ReturnStatus_Charge_WeightSubtotal" />
+                <ScalarProperty Name="ReturnStatus_Charge_QuantitySubtotal" ColumnName="ReturnStatus_Charge_QuantitySubtotal" />
+                <ScalarProperty Name="ReturnStatus_Receipt_WeightSubtotal" ColumnName="ReturnStatus_Receipt_WeightSubtotal" />
+                <ScalarProperty Name="ReturnStatus_Receipt_QuantitySubtotal" ColumnName="ReturnStatus_Receipt_QuantitySubtotal" />
+                <ScalarProperty Name="ReturnStatus_WeightSubtotal" ColumnName="ReturnStatus_WeightSubtotal" />
+                <ScalarProperty Name="ReturnStatus_QuantitySubtotal" ColumnName="ReturnStatus_QuantitySubtotal" />
+                <ScalarProperty Name="ArrivalCondition_OutofStock" ColumnName="ArrivalCondition_OutofStock" />
+                <ScalarProperty Name="ArrivalCondition_WeightSubtotal" ColumnName="ArrivalCondition_WeightSubtotal" />
+                <ScalarProperty Name="ArrivalCondition_QuantitySubtotal" ColumnName="ArrivalCondition_QuantitySubtotal" />
+                <ScalarProperty Name="TotalWeightofOrder" ColumnName="TotalWeightofOrder" />
+                <ScalarProperty Name="PrepareSubtotal" ColumnName="PrepareSubtotal" />
+                <ScalarProperty Name="QuantityofOrderSummary" ColumnName="QuantityofOrderSummary" />
+                <ScalarProperty Name="NumberofOrdersNotPlaced" ColumnName="NumberofOrdersNotPlaced" />
+                <ScalarProperty Name="RequiredQuantityWeightSummary" ColumnName="RequiredQuantityWeightSummary" />
+                <ScalarProperty Name="RequiredQuantitySubtotal" ColumnName="RequiredQuantitySubtotal" />
+                <ScalarProperty Name="ControlTableId" ColumnName="ControlTableId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequiredDetails">
+            <EntityTypeMapping TypeName="TokikuModel.RequiredDetails">
+              <MappingFragment StoreEntitySet="RequiredDetails">
+                <ScalarProperty Name="RequiredQuantity" ColumnName="RequiredQuantity" />
+                <ScalarProperty Name="OrderLength" ColumnName="OrderLength" />
+                <ScalarProperty Name="UnitWeight" ColumnName="UnitWeight" />
+                <ScalarProperty Name="MaterialsId" ColumnName="MaterialsId" />
+                <ScalarProperty Name="FactoryNumber" ColumnName="FactoryNumber" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="RequiredId" ColumnName="RequiredId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="RequiredDetailsInControlTables" TypeName="TokikuModel.RequiredDetailsInControlTables" StoreEntitySet="RequiredDetailsInControlTables">
+            <EndProperty Name="RequiredDetails">
+              <ScalarProperty Name="Id" ColumnName="RequiredDetailsId" />
+            </EndProperty>
+            <EndProperty Name="ControlTableDetails">
+              <ScalarProperty Name="Id" ColumnName="ControlTableDetailsId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Inventory">
+            <EntityTypeMapping TypeName="TokikuModel.Inventory">
+              <MappingFragment StoreEntitySet="Inventory">
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="StockId" ColumnName="StockId" />
+                <ScalarProperty Name="RequireDetailId" ColumnName="RequireDetailId" />
+                <ScalarProperty Name="ControlTableDetailId" ColumnName="ControlTableDetailId" />
+                <ScalarProperty Name="ControlTableId" ColumnName="ControlTableId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

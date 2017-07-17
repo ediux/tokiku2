@@ -17,22 +17,44 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ControlTableDetails()
         {
-            this.Inventory = new HashSet<Inventory>();
             this.OrderDetails = new HashSet<OrderDetails>();
             this.OrderMaterialValuation = new HashSet<OrderMaterialValuation>();
+            this.RequiredDetails = new HashSet<RequiredDetails>();
+            this.Inventory = new HashSet<Inventory>();
         }
     
         public System.Guid Id { get; set; }
         public Nullable<System.Guid> ControlTableId { get; set; }
-        public Nullable<System.Guid> RequiredDetailId { get; set; }
+        public Nullable<decimal> RequiredQuantitySubtotal { get; set; }
+        public Nullable<decimal> RequiredQuantityWeightSummary { get; set; }
+        public Nullable<decimal> NumberofOrdersNotPlaced { get; set; }
+        public Nullable<decimal> QuantityofOrderSummary { get; set; }
+        public Nullable<decimal> PrepareSubtotal { get; set; }
+        public Nullable<decimal> TotalWeightofOrder { get; set; }
+        public Nullable<decimal> ArrivalCondition_QuantitySubtotal { get; set; }
+        public Nullable<decimal> ArrivalCondition_WeightSubtotal { get; set; }
+        public Nullable<decimal> ArrivalCondition_OutofStock { get; set; }
+        public Nullable<decimal> ReturnStatus_QuantitySubtotal { get; set; }
+        public Nullable<decimal> ReturnStatus_WeightSubtotal { get; set; }
+        public Nullable<decimal> ReturnStatus_Receipt_QuantitySubtotal { get; set; }
+        public Nullable<decimal> ReturnStatus_Receipt_WeightSubtotal { get; set; }
+        public Nullable<decimal> ReturnStatus_Charge_QuantitySubtotal { get; set; }
+        public Nullable<decimal> ReturnStatus_Charge_WeightSubtotal { get; set; }
+        public Nullable<decimal> PickingCondition_QuantitySubtotal { get; set; }
+        public Nullable<decimal> PickingCondition_WeightSubtotal { get; set; }
+        public Nullable<decimal> InventoryMargin_LossAdjustment_QuantitySubtotal { get; set; }
+        public Nullable<decimal> InventoryMargin_LossAdjustment_WeightSubtotal { get; set; }
+        public Nullable<decimal> InventoryStatus_QuantitySubtotal { get; set; }
+        public Nullable<decimal> InventoryStatus_WeightSubtotal { get; set; }
     
         public virtual ControlTables ControlTables { get; set; }
-        public virtual RequiredDetails RequiredDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Inventory> Inventory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderMaterialValuation> OrderMaterialValuation { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RequiredDetails> RequiredDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Inventory> Inventory { get; set; }
     }
 }

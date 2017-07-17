@@ -264,7 +264,7 @@ namespace TokikuNew.Views
         {
             ObjectDataProvider controltableprovider = (ObjectDataProvider)TryFindResource("ControlTableListSource");
 
-            if (controltableprovider != null)
+            if (controltableprovider != null && controltableprovider.MethodParameters[0].Equals(Guid.Empty))
             {
                 controltableprovider.MethodParameters[0] = SelectedProject.Id;
                 controltableprovider.Refresh();
@@ -283,7 +283,7 @@ namespace TokikuNew.Views
             {
                 switch (FormName)
                 {
-                    case "鋁擠型需求":
+                    case "鋁擠型材料":
                         dg.Columns[1].Visibility = Visibility.Collapsed;
                         dg.Columns[2].Visibility = Visibility.Collapsed;
                         dg.Columns[4].Visibility = Visibility.Collapsed;

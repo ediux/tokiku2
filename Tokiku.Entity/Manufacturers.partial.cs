@@ -93,9 +93,15 @@ namespace Tokiku.Entity
         public virtual TicketPeriod TicketPeriod { get; set; }
         public virtual ICollection<Projects> ClientForProjects { get; set; }
         public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
-        public virtual ICollection<SupplierTranscationItem> SupplierTranscationItem { get; set; }
         public virtual ICollection<ShopFlowDetail> ShopFlowDetail { get; set; }
         public virtual ICollection<ShopFlowDetail> ShopFlowDetail1 { get; set; }
         public virtual ICollection<BOM> BOM { get; set; }
+        public virtual ICollection<SupplierTranscationItem> SupplierTranscationItem { get; set; }
+        public virtual ICollection<Orders> Orders { get; set; }
+        public virtual ICollection<PickList> PickList { get; set; }
+        public virtual ICollection<Receive> Receipts { get; set; }
+        public virtual ICollection<Returns> Returns { get; set; }
+        public virtual ICollection<Invoices> Invoices { get; set; }
+        public virtual ICollection<Required> Required { get; set; }
     }
 }

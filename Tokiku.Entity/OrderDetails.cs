@@ -41,8 +41,8 @@ namespace Tokiku.Entity
         public virtual ICollection<ReceiveDetails> ReceiptDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReturnDetails> ReturnDetails { get; set; }
-        public virtual ControlTableDetails ControlTableDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InvoiceDetails> InvoiceDetails { get; set; }
+        public virtual ControlTableDetails ControlTableDetails { get; set; }
     }
 }

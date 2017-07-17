@@ -66,19 +66,19 @@ namespace Tokiku.Entity
         public virtual DbSet<PickListDetails> PickListDetails { get; set; }
         public virtual DbSet<ReceiveDetails> ReceiptDetails { get; set; }
         public virtual DbSet<Receive> Receipts { get; set; }
-        public virtual DbSet<Required> Required { get; set; }
-        public virtual DbSet<RequiredDetails> RequiredDetails { get; set; }
         public virtual DbSet<ReturnDetails> ReturnDetails { get; set; }
         public virtual DbSet<Returns> Returns { get; set; }
         public virtual DbSet<Stocks> Stocks { get; set; }
-        public virtual DbSet<ControlTableDetails> ControlTableDetails { get; set; }
-        public virtual DbSet<ControlTables> ControlTables { get; set; }
-        public virtual DbSet<Inventory> Inventory { get; set; }
         public virtual DbSet<InvoiceDetails> InvoiceDetails { get; set; }
         public virtual DbSet<InvoiceDetails_Material> InvoiceDetails_Material { get; set; }
         public virtual DbSet<InvoiceDetails_Miscellaneous> InvoiceDetails_Miscellaneous { get; set; }
         public virtual DbSet<Invoices> Invoices { get; set; }
         public virtual DbSet<MaterialEstimation> MaterialEstimation { get; set; }
         public virtual DbSet<OrderMiscellaneous> OrderMiscellaneous { get; set; }
+        public virtual DbSet<ControlTables> ControlTables { get; set; }
+        public virtual DbSet<Required> Required { get; set; }
+        public virtual DbSet<ControlTableDetails> ControlTableDetails { get; set; }
+        public virtual DbSet<RequiredDetails> RequiredDetails { get; set; }
+        public virtual DbSet<Inventory> Inventory { get; set; }
     }
 }

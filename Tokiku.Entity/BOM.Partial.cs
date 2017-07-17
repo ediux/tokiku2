@@ -66,6 +66,9 @@ namespace Tokiku.Entity
         public System.DateTime CreateTime { get; set; }
         [Required]
         public System.Guid CreateUserId { get; set; }
+        
+        [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
+        public string Size { get; set; }
     
         public virtual MaterialCategories MaterialCategories { get; set; }
         public virtual ProcessingAtlas ProcessingAtlas { get; set; }

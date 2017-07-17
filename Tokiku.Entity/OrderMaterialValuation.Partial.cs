@@ -21,7 +21,7 @@ namespace Tokiku.Entity
         public int TotalPrice { get; set; }
     
         public virtual Orders Orders { get; set; }
-        public virtual ControlTableDetails ControlTableDetails { get; set; }
         public virtual ICollection<InvoiceDetails_Material> InvoiceDetails_Material { get; set; }
+        public virtual ControlTableDetails ControlTableDetails { get; set; }
     }
 }

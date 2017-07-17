@@ -29,7 +29,6 @@ namespace Tokiku.Entity
         [Required]
         public System.Guid CreateUserId { get; set; }
     
-        public virtual ICollection<ShopFlowDetail> ShopFlowDetail { get; set; }
         public virtual Manufacturers Manufacturers { get; set; }
     }
 }

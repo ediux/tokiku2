@@ -14,7 +14,7 @@ namespace Tokiku.ViewModels
     {
         public ControlTableViewModelCollection()
         {
-           
+
         }
 
         public ControlTableViewModelCollection(IEnumerable<ControlTableViewModel> source) : base(source)
@@ -26,8 +26,8 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                return Query<ControlTableViewModelCollection, ControlTables>(
-                    "ControlTable", "QueryAll",ProjectId);
+                return Query<ControlTableViewModelCollection, ControlTableDetails>(
+                    "ControlTable", "QueryAll", ProjectId);
             }
             catch (Exception ex)
             {
@@ -56,6 +56,23 @@ namespace Tokiku.ViewModels
         }
 
 
+        #region 合約編號
+        private string _ContractNumber;
+        /// <summary>
+        /// 合約編號
+        /// </summary>
+        public string ContractNumber
+        {
+            get => _ContractNumber;
+            set
+            {
+                _ContractNumber = value;
+                RaisePropertyChanged("ContractNumber");
+            }
+        }
+
+        #endregion
+
         #region Row Index
         private int _RowIndex;
 
@@ -65,7 +82,7 @@ namespace Tokiku.ViewModels
         public int RowIndex
         {
             get { return _RowIndex; }
-            set { _RowIndex = value; RaisePropertyChanged(""); }
+            set { _RowIndex = value; RaisePropertyChanged("RowIndex"); }
         }
         #endregion
 
@@ -86,7 +103,7 @@ namespace Tokiku.ViewModels
                     //        return string.Empty;
                     //}
                     //else
-                        return string.Empty;
+                    return string.Empty;
                 }
                 catch (Exception ex)
                 {
@@ -131,8 +148,8 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string Code
         {
-            get { return CopyofPOCOInstance.RequiredDetails.Code; }
-            set { CopyofPOCOInstance.RequiredDetails.Code = value; RaisePropertyChanged("Code"); }
+            get { return CopyofPOCOInstance.RequiredDetails?.FirstOrDefault().Code; }
+            set {  RaisePropertyChanged("Code"); }
         }
         #endregion
 
@@ -140,7 +157,7 @@ namespace Tokiku.ViewModels
         public string CutLength
         {
             get { return ""; }
-            set {  RaisePropertyChanged("CutLength"); }
+            set { RaisePropertyChanged("CutLength"); }
         }
         #endregion
 
@@ -151,8 +168,8 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string ManufacturersName
         {
-            get { return CopyofPOCOInstance.RequiredDetails.Required.Manufacturers.Name; }
-            set { CopyofPOCOInstance.RequiredDetails.Required.Manufacturers.Name = value; RaisePropertyChanged("ManufacturersName"); }
+            get { return CopyofPOCOInstance.RequiredDetails?.FirstOrDefault().Required.Manufacturers.Name; }
+            set { RaisePropertyChanged("ManufacturersName"); }
         }
 
         #endregion
@@ -165,11 +182,10 @@ namespace Tokiku.ViewModels
         {
             get
             {
-                return CopyofPOCOInstance.RequiredDetails.FactoryNumber;
+                return CopyofPOCOInstance.RequiredDetails?.FirstOrDefault().FactoryNumber;
             }
             set
-            {
-                CopyofPOCOInstance.RequiredDetails.FactoryNumber = value;
+            {               
                 RaisePropertyChanged("ManufacturersCode");
             }
         }
@@ -186,20 +202,21 @@ namespace Tokiku.ViewModels
             get { return CopyofPOCOInstance.ControlTables.MaterialCategories.Name; }
             set
             {
-                try
-                {
-                    Controllers.MaterialManagementController controller = new Controllers.MaterialManagementController();
-                    var executeresult = controller.FindMaterialCategoriesByName(value);
+                //try
+                //{
+                //    Controllers.MaterialManagementController controller = new Controllers.MaterialManagementController();
+                //    var executeresult = controller.FindMaterialCategoriesByName(value);
 
-                    if (!executeresult.HasError)
-                    {
-                        CopyofPOCOInstance.ControlTables.MaterialCategoriesId = executeresult.Result.Single().Id;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    setErrortoModel(this, ex);
-                }
+                //    if (!executeresult.HasError)
+                //    {
+                //        CopyofPOCOInstance.ControlTables.MaterialCategoriesId = executeresult.Result.Single().Id;
+                //    }
+                //}
+                //catch (Exception ex)
+                //{
+                //    setErrortoModel(this, ex);
+                //}
+                RaisePropertyChanged("MaterialCategories");
             }
         }
 
@@ -208,85 +225,85 @@ namespace Tokiku.ViewModels
         #region 單位重量
         public decimal? UnitWeight
         {
-            get { return CopyofPOCOInstance.RequiredDetails.UnitWeight; }
-            set { CopyofPOCOInstance.RequiredDetails.UnitWeight = value.HasValue ? value.Value : 0; RaisePropertyChanged("UnitWeight"); }
+            get { return CopyofPOCOInstance.RequiredDetails?.FirstOrDefault()?.UnitWeight; }
+            set { RaisePropertyChanged("UnitWeight"); }
         }
         #endregion
 
         #region 訂購長度
         public int? OrderLength
         {
-            get { return CopyofPOCOInstance.RequiredDetails.OrderLength; }
-            set { CopyofPOCOInstance.RequiredDetails.OrderLength = value; RaisePropertyChanged("OrderLength"); }
+            get { return CopyofPOCOInstance.RequiredDetails.FirstOrDefault().OrderLength; }
+            set { RaisePropertyChanged("OrderLength"); }
         }
         #endregion
 
-        //#region required quantity 需求數量-數量小計
-        //public decimal? RequiredQuantitySummary
-        //{
-        //    get { return CopyofPOCOInstance.RequiredQuantitySubtotal; }
-        //    set { CopyofPOCOInstance.RequiredQuantitySubtotal = value; RaisePropertyChanged("RequiredQuantitySummary"); }
-        //}
-        //#endregion
+        #region required quantity 需求數量-數量小計
+        public decimal? RequiredQuantitySummary
+        {
+            get { return CopyofPOCOInstance.RequiredQuantitySubtotal; }
+            set { CopyofPOCOInstance.RequiredQuantitySubtotal = value; RaisePropertyChanged("RequiredQuantitySummary"); }
+        }
+        #endregion
 
-        //#region required quantity 需求數量-重量小計
-        //public decimal RequiredWeightSubtotal
-        //{
-        //    get { return CopyofPOCOInstance.RequiredQuantityWeightSummary; }
-        //    set { CopyofPOCOInstance.RequiredQuantityWeightSummary = value; RaisePropertyChanged("RequiredWeightSubtotal"); }
-        //}
-        //#endregion
+        #region required quantity 需求數量-重量小計
+        public decimal? RequiredWeightSubtotal
+        {
+            get { return CopyofPOCOInstance.RequiredQuantityWeightSummary; }
+            set { CopyofPOCOInstance.RequiredQuantityWeightSummary = value; RaisePropertyChanged("RequiredWeightSubtotal"); }
+        }
+        #endregion
 
-        //#region required quantity 需求數量-未下訂單數量
-        //public decimal? NumberofOrdersNotPlaced
-        //{
-        //    get { return CopyofPOCOInstance.NumberofOrdersNotPlaced; }
-        //    set { CopyofPOCOInstance.NumberofOrdersNotPlaced = value; RaisePropertyChanged("NumberofOrdersNotPlaced"); }
-        //}
-        //#endregion
+        #region required quantity 需求數量-未下訂單數量
+        public decimal? NumberofOrdersNotPlaced
+        {
+            get { return CopyofPOCOInstance.NumberofOrdersNotPlaced; }
+            set { CopyofPOCOInstance.NumberofOrdersNotPlaced = value; RaisePropertyChanged("NumberofOrdersNotPlaced"); }
+        }
+        #endregion
 
-        //#region 訂單數量-數量小計(單位:支)
-        //public decimal? QuantityofOrderSummary
-        //{
-        //    get { return CopyofPOCOInstance.QuantityofOrderSummary; }
-        //    set { CopyofPOCOInstance.QuantityofOrderSummary = value; RaisePropertyChanged("QuantityofOrderSummary"); }
-        //}
-        //#endregion
+        #region 訂單數量-數量小計(單位:支)
+        public decimal? QuantityofOrderSummary
+        {
+            get { return CopyofPOCOInstance.QuantityofOrderSummary; }
+            set { CopyofPOCOInstance.QuantityofOrderSummary = value; RaisePropertyChanged("QuantityofOrderSummary"); }
+        }
+        #endregion
 
-        //#region 訂單數量-備品小計(單位:支)
-        //public decimal? PrepareSubtotal
-        //{
-        //    get { return CopyofPOCOInstance.PrepareSubtotal; }
-        //    set
-        //    {
-        //        CopyofPOCOInstance.QuantityofOrderSummary = value;
-        //        RaisePropertyChanged("PrepareSubtotal");
-        //    }
-        //}
-        //#endregion
+        #region 訂單數量-備品小計(單位:支)
+        public decimal? PrepareSubtotal
+        {
+            get { return CopyofPOCOInstance.PrepareSubtotal; }
+            set
+            {
+                CopyofPOCOInstance.QuantityofOrderSummary = value;
+                RaisePropertyChanged("PrepareSubtotal");
+            }
+        }
+        #endregion
 
-        //#region 訂單總重量  (訂單+備品)    (單位:kg)
-        //public decimal? TotalWeightofOrder
-        //{
-        //    get { return CopyofPOCOInstance.TotalWeightofOrder; }
-        //    set { CopyofPOCOInstance.TotalWeightofOrder = value; RaisePropertyChanged("TotalWeightofOrder"); }
-        //}
-        //#endregion
+        #region 訂單總重量  (訂單+備品)    (單位:kg)
+        public decimal? TotalWeightofOrder
+        {
+            get { return CopyofPOCOInstance.TotalWeightofOrder; }
+            set { CopyofPOCOInstance.TotalWeightofOrder = value; RaisePropertyChanged("TotalWeightofOrder"); }
+        }
+        #endregion
 
-        //#region 到貨狀況 (所有倉別庫存彙總) - 數量小計(單位:支) 
-        //public decimal? ArrivalCondition_QuantitySubtotal
-        //{
-        //    get { return CopyofPOCOInstance.ControlTables.ArrivalCondition_QuantitySubtotal; }
-        //    set { CopyofPOCOInstance.ControlTables.ArrivalCondition_QuantitySubtotal = value; RaisePropertyChanged("ArrivalCondition_QuantitySubtotal"); }
-        //}
-        //#endregion
+        #region 到貨狀況 (所有倉別庫存彙總) - 數量小計(單位:支) 
+        public decimal? ArrivalCondition_QuantitySubtotal
+        {
+            get { return CopyofPOCOInstance.ArrivalCondition_QuantitySubtotal; }
+            set { CopyofPOCOInstance.ArrivalCondition_QuantitySubtotal = value; RaisePropertyChanged("ArrivalCondition_QuantitySubtotal"); }
+        }
+        #endregion
 
-        //#region 到貨狀況 (所有倉別庫存彙總)-重量小計(單位:kg)
-        //public decimal? ArrivalCondition_WeightSubtotal
-        //{
-        //    get { return CopyofPOCOInstance.ArrivalCondition_WeightSubtotal; }
-        //    set { CopyofPOCOInstance.ArrivalCondition_WeightSubtotal = value; RaisePropertyChanged("ArrivalCondition_WeightSubtotal"); }
-        //}
-        //#endregion
+        #region 到貨狀況 (所有倉別庫存彙總)-重量小計(單位:kg)
+        public decimal? ArrivalCondition_WeightSubtotal
+        {
+            get { return CopyofPOCOInstance.ArrivalCondition_WeightSubtotal; }
+            set { CopyofPOCOInstance.ArrivalCondition_WeightSubtotal = value; RaisePropertyChanged("ArrivalCondition_WeightSubtotal"); }
+        }
+        #endregion
     }
 }

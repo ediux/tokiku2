@@ -23,6 +23,7 @@ namespace Tokiku.Entity
             this.ConstructionAtlas = new HashSet<ConstructionAtlas>();
             this.PromissoryNoteManagement = new HashSet<PromissoryNoteManagement>();
             this.SupplierTranscationItem = new HashSet<SupplierTranscationItem>();
+            this.ControlTables = new HashSet<ControlTables>();
             this.Required = new HashSet<Required>();
         }
     
@@ -71,6 +72,8 @@ namespace Tokiku.Entity
         public virtual ICollection<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupplierTranscationItem> SupplierTranscationItem { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ControlTables> ControlTables { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Required> Required { get; set; }
     }

@@ -63,50 +63,50 @@ namespace Tokiku.ViewModels
         // 需求單單號
         public string FormNumber
         {
-            get { return CopyofPOCOInstance.ControlTableDetails.RequiredDetails.Required.FormNumber; }
-            set { CopyofPOCOInstance.ControlTableDetails.RequiredDetails.Required.FormNumber = value; RaisePropertyChanged("FormNumber"); }
+            get { return CopyofPOCOInstance.RequiredDetails?.Required.FormNumber; }
+            set { CopyofPOCOInstance.RequiredDetails.Required.FormNumber = value; RaisePropertyChanged("FormNumber"); }
         }
         // 東菊編號
         public string RequiredDetailsCode
         {
-            get { return CopyofPOCOInstance.ControlTableDetails.RequiredDetails.Code; }
-            set { CopyofPOCOInstance.ControlTableDetails.RequiredDetails.Code = value; RaisePropertyChanged("RequiredDetailsCode"); }
+            get { return CopyofPOCOInstance.RequiredDetails.Code; }
+            set { CopyofPOCOInstance.RequiredDetails.Code = value; RaisePropertyChanged("RequiredDetailsCode"); }
         }
         // 廠商編號
         public string FactoryNumber
         {
-            get { return CopyofPOCOInstance.ControlTableDetails.RequiredDetails.FactoryNumber; }
-            set { CopyofPOCOInstance.ControlTableDetails.RequiredDetails.FactoryNumber = value; RaisePropertyChanged("FactoryNumber"); }
+            get { return CopyofPOCOInstance.RequiredDetails.FactoryNumber; }
+            set { CopyofPOCOInstance.RequiredDetails.FactoryNumber = value; RaisePropertyChanged("FactoryNumber"); }
         }
         // 材質
         public string MaterialCategoriesName
         {
-            get { return CopyofPOCOInstance.ControlTables.MaterialCategories.Name; }
-            set { CopyofPOCOInstance.ControlTables.MaterialCategories.Name = value; RaisePropertyChanged("MaterialCategoriesName"); }
+            get { return CopyofPOCOInstance.RequiredDetails.Materials.Name; }
+            set { CopyofPOCOInstance.RequiredDetails.Materials.Name = value; RaisePropertyChanged("MaterialCategoriesName"); }
         }
         // 單位重(kg/m)
         public decimal UnitWeight
         {
-            get { return CopyofPOCOInstance.ControlTableDetails.RequiredDetails.UnitWeight; }
-            set { CopyofPOCOInstance.ControlTableDetails.RequiredDetails.UnitWeight = value; RaisePropertyChanged("UnitWeight"); }
+            get { return CopyofPOCOInstance.RequiredDetails.UnitWeight; }
+            set { CopyofPOCOInstance.RequiredDetails.UnitWeight = value; RaisePropertyChanged("UnitWeight"); }
         }
         // 訂購長度(mm)
         public int? OrderLength
         {
-            get { return CopyofPOCOInstance.ControlTableDetails.RequiredDetails.OrderLength; }
-            set { CopyofPOCOInstance.ControlTableDetails.RequiredDetails.OrderLength = value; RaisePropertyChanged("OrderLength"); }
+            get { return CopyofPOCOInstance.RequiredDetails.OrderLength; }
+            set { CopyofPOCOInstance.RequiredDetails.OrderLength = value; RaisePropertyChanged("OrderLength"); }
         }
         // 下單數量
         public decimal? QuantityofOrderSummary
         {
-            get { return CopyofPOCOInstance.ControlTables.QuantityofOrderSummary; }
-            set { CopyofPOCOInstance.ControlTables.QuantityofOrderSummary = value; RaisePropertyChanged("QuantityofOrderSummary"); }
+            get { return CopyofPOCOInstance.ControlTableDetails.QuantityofOrderSummary; }
+            set { CopyofPOCOInstance.ControlTableDetails.QuantityofOrderSummary = value; RaisePropertyChanged("QuantityofOrderSummary"); }
         }
         // 訂單總重
         public decimal? TotalWeightofOrder
         {
-            get { return CopyofPOCOInstance.ControlTables.TotalWeightofOrder; }
-            set { CopyofPOCOInstance.ControlTables.TotalWeightofOrder = value; RaisePropertyChanged("TotalWeightofOrder"); }
+            get { return CopyofPOCOInstance.ControlTableDetails.TotalWeightofOrder; }
+            set { CopyofPOCOInstance.ControlTableDetails.TotalWeightofOrder = value; RaisePropertyChanged("TotalWeightofOrder"); }
         }
 
     }

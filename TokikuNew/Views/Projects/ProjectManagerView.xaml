@@ -8,6 +8,7 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:helpers="clr-namespace:TokikuNew.Helpers"
     xmlns:Viewmodel="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+    xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
     x:Name="userControl" x:Class="TokikuNew.Views.ProjectManagerView"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1366" Loaded="UserControl_Loaded" 
@@ -21,6 +22,11 @@
         <helpers:RoutedViewResult x:Key="OpenControlTable"
                                   DisplayText="鋁擠型材料"
                                   ViewType="{x:Type local:ControlTableView}">
+            <helpers:RoutedViewResult.RoutedValues>
+                <sys:String x:Key="FormName" >鋁擠型材料</sys:String>
+                <Viewmodel:DocumentLifeCircle x:Key="Mode">Read</Viewmodel:DocumentLifeCircle>
+                <Viewmodel:ProjectsViewModel x:Key="SelectedProject"></Viewmodel:ProjectsViewModel>
+            </helpers:RoutedViewResult.RoutedValues>
         </helpers:RoutedViewResult>
     </UserControl.Resources>
     <UserControl.CommandBindings>

@@ -18,8 +18,8 @@ namespace Tokiku.Entity
         [Required]
         public string StateName { get; set; }
     
-        public virtual ICollection<ShopFlowHistory> ShopFlowHistory { get; set; }
         public virtual ICollection<Engineering> Engineering { get; set; }
         public virtual ICollection<Projects> Projects { get; set; }
+        public virtual ICollection<ShopFlowHistory> ShopFlowHistory { get; set; }
     }
 }

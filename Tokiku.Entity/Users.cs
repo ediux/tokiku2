@@ -30,16 +30,16 @@ namespace Tokiku.Entity
             this.OrdersByCreateUser = new HashSet<Orders>();
             this.OrdersByMakingUser = new HashSet<Orders>();
             this.PickList = new HashSet<PickList>();
-            this.PickList1 = new HashSet<PickList>();
+            this.PickList_MakingUser = new HashSet<PickList>();
             this.Receipts = new HashSet<Receive>();
             this.Receipts1 = new HashSet<Receive>();
-            this.Required = new HashSet<Required>();
-            this.Required1 = new HashSet<Required>();
             this.Returns = new HashSet<Returns>();
             this.Returns1 = new HashSet<Returns>();
             this.Invoices = new HashSet<Invoices>();
             this.Invoices1 = new HashSet<Invoices>();
             this.MaterialEstimation = new HashSet<MaterialEstimation>();
+            this.Required = new HashSet<Required>();
+            this.Required1 = new HashSet<Required>();
         }
     
         public System.Guid UserId { get; set; }
@@ -78,15 +78,11 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PickList> PickList { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PickList> PickList1 { get; set; }
+        public virtual ICollection<PickList> PickList_MakingUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Receive> Receipts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Receive> Receipts1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Required> Required { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Required> Required1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Returns> Returns { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -97,5 +93,9 @@ namespace Tokiku.Entity
         public virtual ICollection<Invoices> Invoices1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MaterialEstimation> MaterialEstimation { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Required> Required { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Required> Required1 { get; set; }
     }
 }

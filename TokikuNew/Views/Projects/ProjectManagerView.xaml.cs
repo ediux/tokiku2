@@ -17,9 +17,9 @@ namespace TokikuNew.Views
     /// </summary>
     public partial class ProjectManagerView : UserControl
     {
-        private ProjectsController controller;
-        private ProjectContractController projectcontroll;
-        private ClientController clientcontroller;
+        //private ProjectsController controller;
+        //private ProjectContractController projectcontroll;
+        //private ClientController clientcontroller;
 
         public ProjectManagerView()
         {
@@ -55,13 +55,13 @@ namespace TokikuNew.Views
                         source.Refresh();
                     }
 
-                    RoutedViewResult result = (RoutedViewResult)((ProjectManagerView)sender).TryFindResource("OpenControlTable");
+                    //RoutedViewResult result = (RoutedViewResult)((ProjectManagerView)sender).TryFindResource("OpenControlTable");
 
-                    if (result != null)
-                    {
-                        result.RoutedValues = new System.Collections.Generic.Dictionary<string, object>();
-                        result.RoutedValues.Add("SelectedProject", (ProjectsViewModel)source.Data);
-                    }
+                    //if (result != null)
+                    //{
+                    //    result.RoutedValues = new System.Collections.Generic.Dictionary<string, object>();
+                    //    result.RoutedValues.Add("SelectedProject", (ProjectsViewModel)source.Data);
+                    //}
                 }
             }
             catch (Exception ex)
@@ -136,8 +136,8 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
 
                 if (result != null && viewmodel != null)
                 {
-                    result.RoutedValues = new System.Collections.Generic.Dictionary<string, object>();
-                    result.RoutedValues.Add("SelectedProject", viewmodel);
+                    //result.RoutedValues = new System.Collections.Generic.Dictionary<string, object>();
+                    result.RoutedValues["SelectedProject"] = viewmodel;
                 }
 
                 //Binding selectProjectBinding = new Binding();
@@ -168,6 +168,7 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
         {
             try
             {
+                e.Handled = true;
                 if (e.OriginalSource is ClientViewModel)
                 {
                     SelectedClient = (ClientViewModel)e.OriginalSource;
@@ -189,6 +190,8 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
         {
             try
             {
+                e.Handled = true;
+
                 if (tbName.Text.Length > 0)
                 {
                     tbShortName.Text = tbName.Text;
@@ -537,9 +540,9 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
 
                 SetBinding(SelectedProjectIdProperty, selectProjectBinding);
 
-                controller = App.Resolve<ProjectsController>();
-                projectcontroll = App.Resolve<ProjectContractController>();
-                clientcontroller = App.Resolve<ClientController>();
+                //controller = App.Resolve<ProjectsController>();
+                //projectcontroll = App.Resolve<ProjectContractController>();
+                //clientcontroller = App.Resolve<ClientController>();
                 if (Mode == default(DocumentLifeCircle))
                 {
                     Mode = DocumentLifeCircle.Read;
@@ -644,6 +647,7 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
         {
             try
             {
+                e.Handled = true;
                 ObjectDataProvider source = (ObjectDataProvider)FindResource("ProjectSource");
 
                 if (source != null)

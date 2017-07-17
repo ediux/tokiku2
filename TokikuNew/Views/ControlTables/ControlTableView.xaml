@@ -20,7 +20,8 @@
                                   DisplayText="鋁擠型訂製單"
                                   ViewType="{x:Type local:AluminumExtrusionOrderSheetView}"/>
         <helpers:RoutedViewResult x:Key="OpenOrderControlTable"
-                                  DisplayText="訂製單管控表"/>
+                                  DisplayText="訂製單管控表"
+                                  ViewType="{x:Type local:OrderControlTableView}"/>
         <helpers:RoutedViewResult x:Key="OpenOrderList"
                                   DisplayText="加工訂製單列表"
                                   ViewType="{x:Type local:AluminumExtrusionOrderListView}"/>
@@ -47,19 +48,19 @@
         </StackPanel>
         <GroupBox Header="{Binding Path=Header, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabItem}}}" Grid.Row="1" Style="{DynamicResource GroupBox_DocumentEditor}">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                <DataGrid x:Name="dg" >
+                <DataGrid x:Name="dg" ItemsSource="{Binding Source={StaticResource ControlTableListSource}}" AutoGenerateColumns="False" >
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="合約編號" Width="auto" />
-                        <DataGridTextColumn Header="項次" Width="auto" Binding="{Binding RowIndex,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn Header="合約編號" Width="auto" Binding="{Binding ContractNumber}" />
+                        <DataGridTextColumn Header="項次" Width="auto" Binding="{Binding RowIndex}" />
                         <DataGridTextColumn Header="製單" Width="auto" />
-                        <DataGridTextColumn Header="加工編號" Width="auto" Binding="{Binding ProcessingNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                        <DataGridTextColumn Header="東菊編號" Width="auto" Binding="{Binding Code,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn Header="加工編號" Width="auto" Binding="{Binding ProcessingNumber}" />
+                        <DataGridTextColumn Header="東菊編號" Width="auto" Binding="{Binding Code}" />
                         <DataGridTextColumn Header="尺寸" Width="auto" />
-                        <DataGridTextColumn Header="廠商" Width="auto" Binding="{Binding ManufacturersName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                        <DataGridTextColumn Header="廠商編號" Width="auto" Binding="{Binding ManufacturersCode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                        <DataGridTextColumn Header="材質" Width="auto" Binding="{Binding MaterialCategories,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                        <DataGridTextColumn Header="單位重量(kg/m)" Width="auto" Binding="{Binding UnitWeight,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                        <DataGridTextColumn Header="訂購長度(mm)" Width="auto" Binding="{Binding OrderLength,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn Header="廠商" Width="auto" Binding="{Binding ManufacturersName}" />
+                        <DataGridTextColumn Header="廠商編號" Width="auto" Binding="{Binding ManufacturersCode}" />
+                        <DataGridTextColumn Header="材質" Width="auto" Binding="{Binding MaterialCategories}" />
+                        <DataGridTextColumn Header="單位重量(kg/m)" Width="auto" Binding="{Binding UnitWeight}" />
+                        <DataGridTextColumn Header="訂購長度(mm)" Width="auto" Binding="{Binding OrderLength}" />
                         <DataGridTextColumn Header="倉別" Width="auto" />
                         <DataGridTemplateColumn Header="需求數量" Width="auto" >
                             <DataGridTemplateColumn.HeaderTemplate>
@@ -91,6 +92,22 @@
                             </DataGridTemplateColumn.HeaderTemplate>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="55"/>
+                                            <ColumnDefinition Width="55"/>
+                                            <ColumnDefinition Width="65"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Margin="-5,0,0,-5"  Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
+                                            <TextBlock FontSize="11" Text="{Binding RequiredQuantitySummary}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                                        </Border>
+                                        <Border Margin="0,0,0,-5"  Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
+                                            <TextBlock FontSize="11" Text="{Binding RequiredWeightSubtotal}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                        <Border Margin="0,0,-5,-5"  Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
+                                            <TextBlock  FontSize="11" Text="{Binding NumberofOrdersNotPlaced}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </Grid>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -125,6 +142,22 @@
                             </DataGridTemplateColumn.HeaderTemplate>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="55"/>
+                                            <ColumnDefinition Width="55"/>
+                                            <ColumnDefinition Width="65"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Margin="-5,0,0,-5"  Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="#BCA9F5">
+                                            <TextBlock FontSize="11" Text="{Binding QuantityofOrderSummary}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                                        </Border>
+                                        <Border Margin="0,0,0,-5"  Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="#BCA9F5">
+                                            <TextBlock FontSize="11" Text="{Binding PrepareSubtotal}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                        <Border Margin="0,0,-5,-5"  Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" Background="#BCA9F5">
+                                            <TextBlock  FontSize="11" Text="{Binding TotalWeightofOrder}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </Grid>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

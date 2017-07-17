@@ -30,9 +30,9 @@ namespace Tokiku.Entity
             this.Orders = new HashSet<Orders>();
             this.PickList = new HashSet<PickList>();
             this.Receipts = new HashSet<Receive>();
-            this.Required = new HashSet<Required>();
             this.Returns = new HashSet<Returns>();
             this.Invoices = new HashSet<Invoices>();
+            this.Required = new HashSet<Required>();
         }
     
         public System.Guid Id { get; set; }
@@ -92,10 +92,10 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Receive> Receipts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Required> Required { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Returns> Returns { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Invoices> Invoices { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Required> Required { get; set; }
     }
 }

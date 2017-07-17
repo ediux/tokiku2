@@ -16,7 +16,7 @@ namespace Tokiku.Entity
         public Nullable<System.Guid> OrderId { get; set; }
         
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
-        [Required(ErrorMessage ="項目為必要項!")]
+        [Required]
         public string CodeOrItem { get; set; }
         
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]

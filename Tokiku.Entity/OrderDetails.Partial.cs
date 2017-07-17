@@ -32,7 +32,7 @@ namespace Tokiku.Entity
         public virtual Users Users { get; set; }
         public virtual ICollection<ReceiveDetails> ReceiptDetails { get; set; }
         public virtual ICollection<ReturnDetails> ReturnDetails { get; set; }
-        public virtual ControlTableDetails ControlTableDetails { get; set; }
         public virtual ICollection<InvoiceDetails> InvoiceDetails { get; set; }
+        public virtual ControlTableDetails ControlTableDetails { get; set; }
     }
 }

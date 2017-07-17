@@ -46,5 +46,6 @@ namespace Tokiku.Entity
         public virtual Users CreateUsers { get; set; }
         public virtual Users MakingUsers { get; set; }
         public virtual OrderTypes OrderTypes { get; set; }
+        public virtual ICollection<OrderMiscellaneous> OrderMiscellaneous { get; set; }
     }
 }
