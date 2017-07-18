@@ -13,12 +13,7 @@
              Focusable="True"
              d:DesignHeight="768" d:DesignWidth="1024" Loaded="UserControl_Loaded">
     <UserControl.Resources>
-        <helpers:RoutedViewResult DisplayText="新增專案" ViewType="{x:Type local:ProjectManagerView}" x:Key="OpenNewProjectView">
-            <helpers:RoutedViewResult.RoutedValues>
-                <x:Static Member="sys:Guid.Empty" x:Key="SelectedProjectId"></x:Static>
-                <vm:DocumentLifeCircle x:Key="Mode">Create</vm:DocumentLifeCircle>
-            </helpers:RoutedViewResult.RoutedValues>
-        </helpers:RoutedViewResult>
+        
         <ObjectDataProvider x:Key="ProjoectListSource" ObjectType="{x:Type vm:ProjectListViewModelCollection}" MethodName="Query"/>
     </UserControl.Resources>
     <UserControl.CommandBindings>

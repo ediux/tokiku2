@@ -12,22 +12,7 @@
              Loaded="userControl_Loaded"
              d:DesignHeight="768" d:DesignWidth="2084.2">
     <UserControl.Resources>
-        <helpers:RoutedViewResult x:Key="OpenNewRequired"
-                                  DisplayText="需求單"
-                                  ViewType="{x:Type local:RequiredView}">
-        </helpers:RoutedViewResult>
-        <helpers:RoutedViewResult x:Key="OpenOrderView"
-                                  DisplayText="鋁擠型訂製單"
-                                  ViewType="{x:Type local:AluminumExtrusionOrderSheetView}"/>
-        <helpers:RoutedViewResult x:Key="OpenOrderControlTable"
-                                  DisplayText="訂製單管控表"
-                                  ViewType="{x:Type local:OrderControlTableView}"/>
-        <helpers:RoutedViewResult x:Key="OpenOrderList"
-                                  DisplayText="加工訂製單列表"
-                                  ViewType="{x:Type local:AluminumExtrusionOrderListView}"/>
-        <helpers:RoutedViewResult x:Key="OpenInventoryView"
-                                  DisplayText="盤點單"
-                                  ViewType="{x:Type local:InventoryView}"/>
+        
         <ObjectDataProvider x:Key="ControlTableListSource" ObjectType="{x:Type vm:ControlTableViewModelCollection}" MethodName="Query">
             <ObjectDataProvider.MethodParameters>
                 <x:Static Member="sys:Guid.Empty"/>
@@ -46,7 +31,7 @@
             <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="加工訂製單列表" Margin="0,0,5,0"  Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenOrderList}" CommandManager.PreviewCanExecute="Button_PreviewCanExecute" />
             <Button Content="盤點單" Margin="5,0,0,0"  Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenInventoryView}" CommandManager.PreviewCanExecute="Button_PreviewCanExecute" />
         </StackPanel>
-        <GroupBox Header="{Binding Path=Header, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabItem}}}" Grid.Row="1" Style="{DynamicResource GroupBox_DocumentEditor}">
+        <GroupBox Header="{Binding Path=Header, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabItem}}}" Grid.Row="1">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                 <DataGrid x:Name="dg" ItemsSource="{Binding Source={StaticResource ControlTableListSource}}" AutoGenerateColumns="False" >
                     <DataGrid.Columns>

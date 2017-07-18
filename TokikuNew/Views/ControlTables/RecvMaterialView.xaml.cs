@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using Tokiku.ViewModels;
 using TokikuNew.Controls;
 
-namespace TokikuNew
+namespace TokikuNew.Views
 {
     /// <summary>
     /// RecvMaterialView.xaml 的互動邏輯

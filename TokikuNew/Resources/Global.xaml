@@ -1,7 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+                    xmlns:view="clr-namespace:TokikuNew.Views"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:helpers="clr-namespace:TokikuNew.Helpers"
                     xmlns:ValueConverters="clr-namespace:TokikuNew.ValueConverters">
     <ObjectDataProvider x:Key="MaterialCategoriesSource" ObjectType="{x:Type vm:MaterialCategoriesViewModelCollection}" MethodName="Query"/>
     <ObjectDataProvider x:Key="StatesSource" ObjectType="{x:Type vm:StatesViewModelCollection}" MethodName="Query">
@@ -51,4 +53,99 @@
     <Style TargetType="DataGridCell">
         <Setter Property="FontSize" Value="14"/>
     </Style>
+    <!-- 各功能畫面參數 -->
+    <helpers:RoutedViewResult DisplayText="新增專案" ViewType="{x:Type view:ProjectManagerView}" x:Key="OpenNewProjectView">
+        <helpers:RoutedViewResult.RoutedValues>
+            <x:Static Member="sys:Guid.Empty" x:Key="SelectedProjectId"></x:Static>
+            <vm:DocumentLifeCircle x:Key="Mode">Create</vm:DocumentLifeCircle>
+        </helpers:RoutedViewResult.RoutedValues>
+    </helpers:RoutedViewResult>
+    <helpers:RoutedViewResult x:Key="OpenNewRequired"
+                                  DisplayText="需求單"
+                                  ViewType="{x:Type view:RequiredView}">
+    </helpers:RoutedViewResult>
+    <helpers:RoutedViewResult x:Key="OpenOrderView"
+                                  DisplayText="鋁擠型訂製單"
+                                  ViewType="{x:Type view:AluminumExtrusionOrderSheetView}"/>
+    <helpers:RoutedViewResult x:Key="OpenOrderControlTable"
+                                  DisplayText="訂製單管控表"
+                                  ViewType="{x:Type view:OrderControlTableView}"/>
+    <helpers:RoutedViewResult x:Key="OpenOrderList"
+                                  DisplayText="加工訂製單列表"
+                                  ViewType="{x:Type view:AluminumExtrusionOrderListView}"/>
+    <helpers:RoutedViewResult x:Key="OpenInventoryView"
+                                  DisplayText="盤點單"
+                                  ViewType="{x:Type view:InventoryView}"/>
+    <helpers:RoutedViewResult x:Key="OpenControlTable"
+                                  DisplayText="鋁擠型材料"
+                                  ViewType="{x:Type view:ControlTableView}">
+        <helpers:RoutedViewResult.RoutedValues>
+            <sys:String x:Key="FormName" >鋁擠型材料</sys:String>
+            <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
+            <vm:ProjectsViewModel x:Key="SelectedProject"></vm:ProjectsViewModel>
+        </helpers:RoutedViewResult.RoutedValues>
+    </helpers:RoutedViewResult>
+    <helpers:RoutedViewResult x:Key="OpenAluminumProcessingControlTable"
+                                  DisplayText="鋁擠型加工"
+                                  ViewType="{x:Type view:ControlTableView}">
+        <helpers:RoutedViewResult.RoutedValues>
+            <sys:String x:Key="FormName" >鋁擠型加工</sys:String>
+            <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
+            <vm:ProjectsViewModel x:Key="SelectedProject"></vm:ProjectsViewModel>
+        </helpers:RoutedViewResult.RoutedValues>
+    </helpers:RoutedViewResult>
+    <helpers:RoutedViewResult x:Key="OpenGlassControlTable"
+                                  DisplayText="玻璃"
+                                  ViewType="{x:Type view:ControlTableView}">
+        <helpers:RoutedViewResult.RoutedValues>
+            <sys:String x:Key="FormName" >玻璃管控表</sys:String>
+            <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
+            <vm:ProjectsViewModel x:Key="SelectedProject"></vm:ProjectsViewModel>
+        </helpers:RoutedViewResult.RoutedValues>
+    </helpers:RoutedViewResult>
+    <helpers:RoutedViewResult x:Key="OpenConstructionAtlasView"
+                                  DisplayText="施工圖集"                                  
+                                  ViewType="{x:Type view:ConstructionAtlasView}">
+        <helpers:RoutedViewResult.DataContent>
+            <vm:ConstructionAtlasViewModelCollection />
+        </helpers:RoutedViewResult.DataContent>
+    </helpers:RoutedViewResult>
+    <helpers:RoutedViewResult x:Key="OpenAssemblyTableView"
+                                  DisplayText="組裝總表"
+                                  ViewType="{x:Type view:AssemblyTableView}"/>
+    <helpers:RoutedViewResult x:Key="OpenProcessingAtlasView"
+                              DisplayText="加工圖集"
+                              ViewType="{x:Type view:ProcessingAtlasView}"/>
+    <!-- 請款單,TokikuNew.InvoiceView -->
+    <helpers:RoutedViewResult x:Key="OpenInvoiceView"
+                              DisplayText="請款單"
+                              ViewType="{x:Type view:InvoiceView}"/>
+    <!--請款單列表,TokikuNew.Views.InvoiceViewListView -->
+    <helpers:RoutedViewResult x:Key="OpenInvoiceViewListView"
+                              DisplayText="請款單列表"
+                              ViewType="{x:Type view:InvoiceViewListView}"/>
+    <!--退貨單,TokikuNew.Views.ReturnMaterialViewUC-->
+    <helpers:RoutedViewResult x:Key="OpenReturnMaterialView"
+                              DisplayText="退貨單"
+                              ViewType="{x:Type view:ReturnMaterialViewUC}"/>
+    <!--退貨單列表,TokikuNew.Views.ReturnMaterialListViewUC-->
+    <helpers:RoutedViewResult x:Key="OpenReturnMaterialListView"
+                              DisplayText="退貨單列表"
+                              ViewType="{x:Type view:ReturnMaterialListViewUC}"/>
+    <!--收料單,TokikuNew.RecvMaterialView-->
+    <helpers:RoutedViewResult x:Key="OpenRecvMaterialView"
+                              DisplayText="收料單"
+                              ViewType="{x:Type view:RecvMaterialView}"/>    
+    <!--收料單列表,TokikuNew.Views.RecvMaterialListView-->
+    <helpers:RoutedViewResult x:Key="OpenRecvMaterialListView"
+                              DisplayText="收料單列表"
+                              ViewType="{x:Type view:RecvMaterialListView}"/>    
+    <!--領料單,TokikuNew.Views.ShippingMaterialViewUC-->
+    <helpers:RoutedViewResult x:Key="OpenShippingMaterialView"
+                              DisplayText="領料單"
+                              ViewType="{x:Type view:ShippingMaterialViewUC}"/>    
+    <!--領料單料單列表,TokikuNew.Views.ShippingMaterialListViewUC-->
+    <helpers:RoutedViewResult x:Key="OpenShippingMaterialListView"
+                              DisplayText="領料單料單列表"
+                              ViewType="{x:Type view:ShippingMaterialListViewUC}"/>    
 </ResourceDictionary>

@@ -12,7 +12,7 @@
             <RowDefinition Height="27"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right">
+        <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Left">
             <Button Content="請款單" x:Name="btn3" Margin="5,0,0,0" />
             <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="請款單列表" x:Name="btn4" Margin="0,0,5,0" />
             <Button Content="退貨單" x:Name="btn1" Margin="5,0,0,0" />

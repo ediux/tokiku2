@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using Tokiku.Controllers;
 using Tokiku.ViewModels;
 using TokikuNew.Controls;
@@ -125,6 +126,35 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
             remove { RemoveHandler(NewDocumentPageEvent, value); }
         }
 
+        private void userControl_Initialized(object sender, EventArgs e)
+        {
+            try
+            {
+                Binding selectProjectBinding = new Binding();
+                selectProjectBinding.Source = TryFindResource("ProjectSource");
+                selectProjectBinding.Path = new PropertyPath("MethodParameters[0]");
+                selectProjectBinding.BindsDirectlyToSource = true;
+                selectProjectBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+
+                SetBinding(SelectedProjectIdProperty, selectProjectBinding);
+
+                //controller = App.Resolve<ProjectsController>();
+                //projectcontroll = App.Resolve<ProjectContractController>();
+                //clientcontroller = App.Resolve<ClientController>();
+                if (Mode == default(DocumentLifeCircle))
+                {
+                    Mode = DocumentLifeCircle.Read;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+        }
+
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             try
@@ -234,7 +264,13 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
 
                         if (SelectedProject.Status.IsNewInstance == false)
                         {
-                            RaiseEvent(new RoutedEventArgs(NewDocumentPageEvent, this));
+                            RoutedUICommand command = (RoutedUICommand)TryFindResource("OpenNewTabItem");
+                            RoutedViewResult viewparam = (RoutedViewResult)TryFindResource("OpenNewProjectView");
+                            if (command != null)
+                            {
+                                command.Execute(viewparam, this);
+                            }
+                            //RaiseEvent(new RoutedEventArgs(NewDocumentPageEvent, this));
                             break;
                         }
 
@@ -302,67 +338,6 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
             }
         }
 
-        private void btnAddContract_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                //if (SelectedProject.ProjectContract == null)
-                //    SelectedProject.ProjectContract = new ProjectContractViewModelCollection();
-
-                //SelectedProject.ProjectContract.Add(new ProjectContractViewModel());
-                // UpdateLayout();
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
-
-
-        }
-
-
-
-        private void btnShowClientSelection_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                e.Handled = true;
-
-                if (e.OriginalSource is ProjectContractViewModel)
-                {
-
-                }
-            }
-            catch (Exception ex)
-            {
-                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
-            }
-        }
-
-        private void ClientList_SelectedClientChanged(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                ClientViewModel model = e.OriginalSource as ClientViewModel;
-
-                if (model != null)
-                {
-                    SelectedClient = model;
-
-                    //SelectedProject.ClientId = SelectedClient.Id;
-
-                }
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
-
-
-        }
-
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             try
@@ -415,55 +390,6 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
 
         }
 
-        private void ProjectSigningDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-            try
-            {
-                //if (SelectedProject != null)
-                //{
-                //    //var foundcurrentNo = SelectedProject.ProjectContract.Where(w => w.ContractNumber == SelectedProject.Code).Single();
-                //    //foundcurrentNo.SigningDate = SelectedProject.ProjectSigningDate;
-                //}
-            }
-            catch (Exception ex)
-            {
-                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
-            }
-
-        }
-
-        private void ProjectContactSearchBar_ResetSearch(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                //if (SelectedProject != null)
-                //{
-                //    //SelectedProject.ProjectContract.Query((string)string.Empty);
-                //}
-            }
-            catch (Exception ex)
-            {
-                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
-
-            }
-
-        }
-
-        private void ProjectContactSearchBar_Search(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                //if (SelectedProject != null)
-                //{
-                //    //SelectedProject.ProjectContract.Query((string)e.OriginalSource);
-                //}
-            }
-            catch (Exception ex)
-            {
-                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
-            }
-        }
-
         private void btnClientDialog_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -485,162 +411,6 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
                 WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
 
             }
-        }
-
-        private void CBVandorSelectionForRecvAddress_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            try
-            {
-                //if (CBVandorSelectionForRecvAddress == null)
-                //    return;
-
-                //var selectedvalue = (Guid)CBVandorSelectionForRecvAddress.SelectedValue;
-
-                //if (selectedvalue == null)
-                //    return;
-
-                //if (SelectedProject == null)
-                //    return;
-
-                //var newCBSource = SelectedProject.Suppliers.Where(s => s.ManufacturersId == selectedvalue)
-                //    .Select(s => new
-                //    {
-                //        s.Id,
-                //        s.ProjectId,
-                //        s.ManufacturersName,
-                //        s.PlaceofReceipt,
-                //        s.Manufacturers.Contacts.Where(w => w.IsDefault == true).SingleOrDefault()?.Name,
-                //        Phone = s.Manufacturers.Contacts.Where(w => w.IsDefault == true).SingleOrDefault()?.Phone ?? s.Manufacturers.Contacts.Where(w => w.IsDefault == true).SingleOrDefault()?.Mobile,
-                //        s.SiteContactPerson,
-                //        s.SiteContactPersonPhone,
-                //        LastUpdateUser = LoginedUser.UserName
-                //    }).ToList();
-
-                //if (RecvDataGrid == null)
-                //    return;
-
-                //RecvDataGrid.ItemsSource = newCBSource;
-
-            }
-            catch (Exception ex)
-            {
-                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
-            }
-        }
-
-        private void userControl_Initialized(object sender, EventArgs e)
-        {
-            try
-            {
-                Binding selectProjectBinding = new Binding();
-                selectProjectBinding.Source = TryFindResource("ProjectSource");
-                selectProjectBinding.Path = new PropertyPath("MethodParameters[0]");
-                selectProjectBinding.BindsDirectlyToSource = true;
-                selectProjectBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-
-                SetBinding(SelectedProjectIdProperty, selectProjectBinding);
-
-                //controller = App.Resolve<ProjectsController>();
-                //projectcontroll = App.Resolve<ProjectContractController>();
-                //clientcontroller = App.Resolve<ClientController>();
-                if (Mode == default(DocumentLifeCircle))
-                {
-                    Mode = DocumentLifeCircle.Read;
-                }
-
-
-            }
-            catch (Exception ex)
-            {
-                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
-            }
-
-        }
-
-        private void btnConstructionAtlasView_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                //RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, SelectedProject.ConstructionAtlas));
-            }
-            catch (Exception ex)
-            {
-
-                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
-            }
-        }
-
-        private void BtnAssemblyTable_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                //目前專案的管控總表(需求/組裝總表)
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, new AssemblyTableView()));
-            }
-            catch (Exception ex)
-            {
-
-                WinForm.MessageBox.Show(ex.Message, "錯誤", WinForm.MessageBoxButtons.OK, WinForm.MessageBoxIcon.Error, WinForm.MessageBoxDefaultButton.Button1, WinForm.MessageBoxOptions.DefaultDesktopOnly);
-            }
-        }
-
-        private void btnProcessAltas_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "加工圖集總表"));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-
-            }
-        }
-
-        private void BtnAluminumExtrusion_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "鋁擠型需求"));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-
-            }
-        }
-
-        private void BtnAluminumProcessing_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "鋁擠型加工"));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-
-            }
-        }
-
-
-        private void BtnGlass_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "玻璃管控表"));
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
-        }
-
-        private void ReplyCommand_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
-        {
-            e.Handled = true;
-            e.CanExecute = true;
         }
 
         private void ReplyCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)

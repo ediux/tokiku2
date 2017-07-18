@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="TokikuNew.InvoiceView"
+﻿<UserControl x:Class="TokikuNew.Views.InvoiceView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -262,7 +262,7 @@
                             <DataGridTextColumn Header="本次請款"/>
                         </DataGrid.Columns>
                     </DataGrid>-->
-                    
+
                 </Grid>
             </TabItem>
             <TabItem Header="預付款" Background="#FFF56E2F">

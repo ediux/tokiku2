@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Tokiku.ViewModels;
 
-namespace TokikuNew
+namespace TokikuNew.Views
 {
     /// <summary>
     /// InvoiceView.xaml 的互動邏輯

@@ -37,5 +37,11 @@ namespace TokikuNew.Views
         {
 
         }
+
+        private void btn3_PreviewCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.Handled = true;
+            e.CanExecute = true;
+        }
     }
 }
