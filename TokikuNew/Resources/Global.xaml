@@ -4,6 +4,7 @@
                     xmlns:view="clr-namespace:TokikuNew.Views"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:helpers="clr-namespace:TokikuNew.Helpers"
+                    xmlns:cmd="clr-namespace:TokikuNew.Commands"
                     xmlns:ValueConverters="clr-namespace:TokikuNew.ValueConverters">
     <ObjectDataProvider x:Key="MaterialCategoriesSource" ObjectType="{x:Type vm:MaterialCategoriesViewModelCollection}" MethodName="Query"/>
     <ObjectDataProvider x:Key="StatesSource" ObjectType="{x:Type vm:StatesViewModelCollection}" MethodName="Query">
@@ -37,11 +38,11 @@
     <RoutedUICommand x:Key="Query" Text="查詢"  />
     <RoutedUICommand x:Key="Commit" Text="確認送出"/>
     <RoutedUICommand x:Key="Features" Text="功能"/>
-    <RoutedUICommand x:Key="RunExcel" Text="Run Excel App"/>
+    <RoutedUICommand x:Key="RunExcel" Text="Run Excel App" />
     <RoutedUICommand x:Key="Cancel" Text="取消" />
     <RoutedUICommand x:Key="AddColumn" Text="新增行"/>
     <RoutedUICommand x:Key="AddRow" Text="新增列"/>
-    <RoutedUICommand x:Key="OpenNewTabItem" Text="開新分頁" />
+    <cmd:OpenNewTabItem x:Key="OpenNewTabItem" Text="開新分頁" />
     <RoutedUICommand x:Key="CloseTabItem" Text="關閉分頁"/>
     <RoutedUICommand x:Key="ResetFiliter" Text="重設查詢" />
     <RoutedUICommand x:Key="QueryRefresh" Text="重新整理查詢" />

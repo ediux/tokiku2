@@ -9,17 +9,22 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using TokikuNew.Commands;
+using TokikuNew.Helpers;
 
 namespace TokikuNew.Controls
 {
-    public class CustomDataGrid : DataGrid
+    public class CustomDataGrid : DataGrid, ICommandSource
     {
         public CustomDataGrid()
         {
             try
             {
-                AutoGenerateColumns = false;
+                RoutedValues = new Dictionary<string, object>();
+                FormatDisplayParametersMapping = new List<string>();
 
+                AutoGenerateColumns = false;
+                this.MouseDoubleClick += CustomDataGrid_MouseDoubleClick;
                 if (ItemsSource != null)
                     DataSourceType = ItemsSource.GetType();
                 CommandManager.RegisterClassCommandBinding(typeof(CustomDataGrid), new CommandBinding(
@@ -40,6 +45,195 @@ namespace TokikuNew.Controls
 
 
 
+        public Type OpenViewType
+        {
+            get { return (Type)GetValue(OpenViewTypeProperty); }
+            set { SetValue(OpenViewTypeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for OpenViewType.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty OpenViewTypeProperty =
+            DependencyProperty.Register("OpenViewType", typeof(Type), typeof(CustomDataGrid), new PropertyMetadata((Type)null));
+
+
+
+
+        public string DisplayText
+        {
+            get { return (string)GetValue(DisplayTextProperty); }
+            set { SetValue(DisplayTextProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for DisplayText.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty DisplayTextProperty =
+            DependencyProperty.Register("DisplayText", typeof(string), typeof(CustomDataGrid), new PropertyMetadata(string.Empty));
+
+
+
+        public string FormationDisplayText
+        {
+            get { return (string)GetValue(FormationDisplayTextProperty); }
+            set { SetValue(FormationDisplayTextProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for FormationDisplayText.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FormationDisplayTextProperty =
+            DependencyProperty.Register("FormationDisplayText", typeof(string), typeof(CustomDataGrid), new PropertyMetadata(string.Empty));
+
+
+
+        public List<string> FormatDisplayParametersMapping
+        {
+            get { return (List<string>)GetValue(FormatDisplayParametersMappingProperty); }
+            set { SetValue(FormatDisplayParametersMappingProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for FormatDisplayParametersMapping.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FormatDisplayParametersMappingProperty =
+            DependencyProperty.Register("FormatDisplayParametersMapping", typeof(List<string>), typeof(CustomDataGrid), new PropertyMetadata(default(List<string>)));
+
+
+
+        public Dictionary<string,object> RoutedValues
+        {
+            get { return (Dictionary<string,object>)GetValue(RoutedValuesProperty); }
+            set { SetValue(RoutedValuesProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for RoutedValues.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty RoutedValuesProperty =
+            DependencyProperty.Register("RoutedValues", typeof(Dictionary<string,object>), typeof(CustomDataGrid), new PropertyMetadata(default(Dictionary<string,object>)));
+        
+
+        private void CustomDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                e.Handled = true;
+
+                if (Command is OpenNewTabItem)
+                {
+                    if (SelectedItem != null)
+                    {
+
+                        OpenNewTabItem command = (OpenNewTabItem)Command;
+
+                        if (command != null)
+                        {
+                            var routedvalue = new RoutedViewResult()
+                            {
+                                DisplayText = this.DisplayText,
+                                ViewType = this.OpenViewType,
+                                RoutedValues = new Dictionary<string, object>()
+                            };
+                            routedvalue.FormatedDisplay = this.FormationDisplayText;
+
+                            List<object> values = new List<object>();
+
+                            foreach(var key in FormatDisplayParametersMapping)
+                            {
+                                values.Add(DataSourceType.GetProperty(key).GetValue(SelectedItem));
+                            }
+                            routedvalue.FormatedParameters = values.ToArray();
+                            routedvalue.RoutedValues = new Dictionary<string, object>();
+                            foreach(var k in RoutedValues.Keys)
+                            {
+                                routedvalue.RoutedValues.Add(k, DataSourceType.GetProperty((string)RoutedValues[k]).GetValue(SelectedItem));
+                            }
+                            command.Execute(routedvalue);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+
+        }
+
+        public ICommand Command
+        {
+            get { return (ICommand)GetValue(CommandProperty); }
+            set { SetValue(CommandProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Command.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CommandProperty =
+            DependencyProperty.Register("Command", typeof(ICommand), typeof(CustomDataGrid), new PropertyMetadata((ICommand)null, new PropertyChangedCallback(CommandChanged)));
+
+        // Command dependency property change callback.
+        private static void CommandChanged(DependencyObject d,
+            DependencyPropertyChangedEventArgs e)
+        {
+            CustomDataGrid cs = (CustomDataGrid)d;
+            cs.HookUpCommand((ICommand)e.OldValue, (ICommand)e.NewValue);
+        }
+
+        // Add a new command to the Command Property.
+        private void HookUpCommand(ICommand oldCommand, ICommand newCommand)
+        {
+            // If oldCommand is not null, then we need to remove the handlers.
+            if (oldCommand != null)
+            {
+                RemoveCommand(oldCommand, newCommand);
+            }
+            AddCommand(oldCommand, newCommand);
+        }
+
+        // Remove an old command from the Command Property.
+        private void RemoveCommand(ICommand oldCommand, ICommand newCommand)
+        {
+            EventHandler handler = CanExecuteChanged;
+            oldCommand.CanExecuteChanged -= handler;
+        }
+
+        // Add the command.
+        private void AddCommand(ICommand oldCommand, ICommand newCommand)
+        {
+            EventHandler handler = new EventHandler(CanExecuteChanged);
+            //canExecuteChangedHandler = handler;
+            if (newCommand != null)
+            {
+                newCommand.CanExecuteChanged += CanExecuteChanged;
+            }
+        }
+
+        private void CanExecuteChanged(object sender, EventArgs e)
+        {
+
+            if (this.Command != null)
+            {
+                RoutedCommand command = this.Command as RoutedCommand;
+
+                // If a RoutedCommand.
+                if (command != null)
+                {
+                    if (command.CanExecute(CommandParameter, CommandTarget))
+                    {
+                        this.IsEnabled = true;
+                    }
+                    else
+                    {
+                        this.IsEnabled = false;
+                    }
+                }
+                // If a not RoutedCommand.
+                else
+                {
+                    if (Command.CanExecute(CommandParameter))
+                    {
+                        this.IsEnabled = true;
+                    }
+                    else
+                    {
+                        this.IsEnabled = false;
+                    }
+                }
+            }
+        }
+
         public Type DataSourceType
         {
             get { return (Type)GetValue(DataSourceTypeProperty); }
@@ -57,6 +251,25 @@ namespace TokikuNew.Controls
             get { return (bool)GetValue(AllowExecuteSystemCommandProperty); }
             set { SetValue(AllowExecuteSystemCommandProperty, value); }
         }
+
+        public object CommandParameter
+        {
+            get { return (object)GetValue(CommandParameterProperty); }
+            set { SetValue(CommandParameterProperty, value); }
+        }
+
+        public static readonly DependencyProperty CommandParameterProperty =
+            DependencyProperty.Register("CommandParameter", typeof(object), typeof(CustomDataGrid), new PropertyMetadata(null));
+
+        public IInputElement CommandTarget
+        {
+            get { return (IInputElement)GetValue(CommandTargetProperty); }
+            set { SetValue(CommandTargetProperty, value); }
+        }
+
+
+        public static readonly DependencyProperty CommandTargetProperty =
+            DependencyProperty.Register("CommandTarget", typeof(IInputElement), typeof(CustomDataGrid), new PropertyMetadata((IInputElement)null));
 
         // Using a DependencyProperty as the backing store for AllowExecuteSystemCommand.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty AllowExecuteSystemCommandProperty =
