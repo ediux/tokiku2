@@ -325,7 +325,7 @@ namespace TokikuNew.Views
 
             if (source != null)
             {
-                ControlTableViewModelCollection list = (ControlTableViewModelCollection)source.Data;
+                RequiredControlTableViewModelCollection list = (RequiredControlTableViewModelCollection)source.Data;
                 e.CanExecute = true;
                 return;
             }

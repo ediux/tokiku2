@@ -37,14 +37,14 @@ namespace Tokiku.ViewModels
             }
         }
 
-        public static ControlTableViewModelCollection Query()
+        public static RequiredControlTableViewModelCollection Query()
         {
-            return Query<ControlTableViewModelCollection, ControlTableDetails>("ControlTable", "QueryAll");
+            return Query<RequiredControlTableViewModelCollection, ControlTableDetails>("ControlTable", "QueryAll");
         }
 
-        public ControlTableViewModelCollection QueryByText(string text)
+        public RequiredControlTableViewModelCollection QueryByText(string text)
         {
-            return Query<ControlTableViewModelCollection, ControlTableDetails>("ControlTable", "SearchByText", text);
+            return Query<RequiredControlTableViewModelCollection, ControlTableDetails>("ControlTable", "SearchByText", text);
         }
     }
 
