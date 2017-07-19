@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using Tokiku.Controllers;
 using Tokiku.Entity;
 using Tokiku.ViewModels;
+using TokikuNew.Commands;
 using TokikuNew.Helpers;
 using WinForm = System.Windows.Forms;
 namespace TokikuNew.Views
@@ -143,19 +144,20 @@ namespace TokikuNew.Views
                     SelectedProject = (ProjectListViewModel)ProjectList.SelectedItem;
                 }
 
-                RoutedUICommand command = (RoutedUICommand)TryFindResource("OpenNewTabItem");
+                OpenNewTabItem command = (OpenNewTabItem)TryFindResource("OpenNewTabItem");
 
                 if (command != null)
-                {
+                {                    
                     var routedvalue = new RoutedViewResult()
                     {
                         FormatedDisplay = "專案:{0}-{1}",
                         FormatedParameters = new object[] { SelectedProject.Code, SelectedProject.ShortName },
                         ViewType = typeof(ProjectViewer),
+                        SourceViewType = typeof(ProjectSelectListView),
                         RoutedValues = new Dictionary<string, object>()
                     };
                     routedvalue.RoutedValues.Add("SelectedProjectId", SelectedProject.Id);
-                    command.Execute(routedvalue, ProjectList);
+                    command.Execute(routedvalue);
                 }
             }
             catch (Exception ex)

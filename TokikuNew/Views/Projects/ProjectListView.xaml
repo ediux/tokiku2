@@ -46,7 +46,7 @@
                 <Button Grid.Column="1" Margin="1" Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" Name="btnNew" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenNewProjectView}" CommandManager.PreviewCanExecute="btnNew_PreviewCanExecute" ToolTip="新增"></Button>
             </Grid>
         </Grid>
-        <DataGrid x:Name="ProjectList" Grid.Row="1" Margin="5" ItemsSource="{Binding Source={StaticResource ProjoectListSource}}" 
+        <controls:CustomDataGrid x:Name="ProjectList" Grid.Row="1" Margin="5" ItemsSource="{Binding Source={StaticResource ProjoectListSource}}" 
                                  FontSize="20" MinRowHeight="50" CellStyle="{StaticResource DataGrid_Centering}"
                                  AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto"
                                  AlternatingRowBackground="AliceBlue"  AlternationCount="2"
@@ -54,15 +54,25 @@
                                  CanUserDeleteRows="False"
                                  CanUserSortColumns="False"                                 
                                  IsReadOnly="True"                  
-                                 MouseDoubleClick="ProjectList_MouseDoubleClick">
-            <DataGrid.Columns>
+                                 Command="{StaticResource OpenNewTabItem}" 
+                                 OpenViewType="{x:Type local:ProjectViewer}"
+                                 FormationDisplayText="專案:{0}-{1}"
+                                 DataSourceType="{x:Type vm:ProjectListViewModel}">
+            <controls:CustomDataGrid.FormatDisplayParametersMapping>
+                <sys:String>Code</sys:String>
+                <sys:String>ShortName</sys:String>
+            </controls:CustomDataGrid.FormatDisplayParametersMapping>
+            <controls:CustomDataGrid.RoutedValues>
+                <sys:String x:Key="SelectedProjectId">Id</sys:String>
+            </controls:CustomDataGrid.RoutedValues>
+            <controls:CustomDataGrid.Columns>
                 <DataGridTextColumn Header="專案代號" Binding="{Binding Code}" Width="100"/>
                 <DataGridTextColumn Header="專案名稱" Binding="{Binding Name}" Width="200*" />
                 <DataGridTextColumn Header="起造日期" Width="120" Binding="{Binding StartDate,StringFormat={}{0:yyyy/MM/dd}}"/>
                 <DataGridTextColumn Header="完工日期" Width="120" Binding="{Binding CompletionDate,StringFormat={}{0:yyyy/MM/dd}}" />
                 <DataGridTextColumn Header="狀態列"  Width="80" Binding="{Binding State, Converter={StaticResource StatesCodeToTextValueConverter}}" />
                 <DataGridTextColumn Header="保固到期日" Width="120" Binding="{Binding WarrantyDate,StringFormat={}{0:yyyy/MM/dd}}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+            </controls:CustomDataGrid.Columns>
+        </controls:CustomDataGrid>
     </Grid>
 </UserControl>
