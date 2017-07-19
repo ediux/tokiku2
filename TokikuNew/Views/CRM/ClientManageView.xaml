@@ -99,8 +99,8 @@
                                   IsReadOnly="True"
                                   Margin="5" ItemsSource="{Binding ClientForProjects}" MouseDoubleClick="EngList_MouseDoubleClick" >
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="工程代號" Binding="{Binding Code}" Width="auto"/>
-                        <DataGridTextColumn Header="工程名稱" Binding="{Binding Name}" Width="250"/>
+                        <DataGridTextColumn Header="專案代號" Binding="{Binding Code}" Width="auto"/>
+                        <DataGridTextColumn Header="專案名稱" Binding="{Binding Name}" Width="250"/>
                         <DataGridTextColumn Header="面積數(㎡)" Binding="{Binding Area}" Width="100"/>
                         <DataGridTextColumn Header="起造日期" Binding="{Binding StartDate,StringFormat={}{0:yyyy/MM/dd}}" Width="100"/>
                         <DataGridTextColumn Header="完工日期" Binding="{Binding CompletionDate,StringFormat={}{0:yyyy/MM/dd}}" Width="100"/>
