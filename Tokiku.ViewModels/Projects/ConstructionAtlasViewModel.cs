@@ -9,11 +9,20 @@ namespace Tokiku.ViewModels
     {
         public ConstructionAtlasViewModelCollection()
         {
-
         }
+
         public ConstructionAtlasViewModelCollection(IEnumerable<ConstructionAtlasViewModel> source) : base(source)
         {
+        }
 
+        public static ConstructionAtlasViewModelCollection Query()
+        {
+            return Query<ConstructionAtlasViewModelCollection, ConstructionAtlas>("ConstructionAtlas", "QueryAll");
+        }
+
+        public static ConstructionAtlasViewModelCollection QueryByText(string text)
+        {
+            return Query<ConstructionAtlasViewModelCollection, ConstructionAtlas>("ConstructionAtlas", "SearchByText", text);
         }
     }
 
