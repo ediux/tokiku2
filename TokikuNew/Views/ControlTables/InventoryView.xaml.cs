@@ -38,5 +38,9 @@ namespace TokikuNew.Views
 
         }
 
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

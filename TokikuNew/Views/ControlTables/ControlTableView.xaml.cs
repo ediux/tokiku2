@@ -316,6 +316,100 @@ namespace TokikuNew.Views
             e.Handled = true;
             e.CanExecute = true;
         }
+
+        private void QueryCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.Handled = true;
+
+            ObjectDataProvider source = (ObjectDataProvider)FindResource("ControlTableListSource");
+
+            if (source != null)
+            {
+                ControlTableViewModelCollection list = (ControlTableViewModelCollection)source.Data;
+                e.CanExecute = true;
+                return;
+            }
+
+            e.CanExecute = false;
+
+        }
+
+        private void QueryCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            try
+            {
+                e.Handled = true;
+
+                ObjectDataProvider source = (ObjectDataProvider)FindResource("ControlTableListSource");
+
+                if (source != null)
+                {
+                    source.MethodName = "QueryByText";
+                    source.MethodParameters.Clear();
+                    source.MethodParameters.Add(e.Parameter);
+                    source.Refresh();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+        }
+
+        private void ResetFiliterCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.Handled = true;
+            e.CanExecute = true;
+        }
+
+        private void ResetFiliterCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            try
+            {
+                e.Handled = true;
+
+                ObjectDataProvider source = (ObjectDataProvider)FindResource("ControlTableListSource");
+
+                if (source != null)
+                {
+                    source.MethodName = "Query";
+                    source.MethodParameters.Clear();
+                    source.Refresh();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+        }
+
+        private void RefreshQueryCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.Handled = true;
+            e.CanExecute = true;
+        }
+
+        private void RefreshQueryCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            try
+            {
+                e.Handled = true;
+
+                ObjectDataProvider source = (ObjectDataProvider)FindResource("ControlTableListSource");
+
+                if (source != null)
+                {
+                    source.MethodName = "QueryByText";
+                    source.MethodParameters.Clear();
+                    source.MethodParameters.Add(e.Parameter);
+                    source.Refresh();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+        }
     }
 
     //public class ColumnVisibilityConverter : IValueConverter
@@ -336,4 +430,5 @@ namespace TokikuNew.Views
     //    }
 
     //}
+
 }

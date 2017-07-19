@@ -57,7 +57,7 @@
 			ContactPersonManageView.xaml - 聯絡人管理
 		ControlTables - 管控表
 			AluminumPlateView.xaml - 鋁板管控表
-			ControlTableView.xaml - 鋁擠型管控表
+			ControlTableView.xaml - 鋁擠型材料
 			GlassView.xaml - 玻璃管控表
 			HardwareView.xaml - 五金管控表(其他材料)
 			InventoryListView.xaml - 盤點單列表

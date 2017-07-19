@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:c="clr-namespace:TokikuNew.Controls"
              xmlns:local="clr-namespace:TokikuNew.Views"
              xmlns:helpers="clr-namespace:TokikuNew.Helpers"
              xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
@@ -12,24 +13,37 @@
              Loaded="userControl_Loaded"
              d:DesignHeight="768" d:DesignWidth="2084.2">
     <UserControl.Resources>
-        
         <ObjectDataProvider x:Key="ControlTableListSource" ObjectType="{x:Type vm:ControlTableViewModelCollection}" MethodName="Query">
             <ObjectDataProvider.MethodParameters>
                 <x:Static Member="sys:Guid.Empty"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </UserControl.Resources>
+    <UserControl.CommandBindings>
+        <CommandBinding Command="{StaticResource Query}" x:Name="QueryCommand"                         
+                        CanExecute="QueryCommand_CanExecute"
+                        Executed="QueryCommand_Executed" />
+        <CommandBinding Command="{StaticResource ResetFiliter}" x:Name="ResetFiliterCommand"
+                        CanExecute="ResetFiliterCommand_CanExecute"
+                        Executed="ResetFiliterCommand_Executed" />
+        <CommandBinding Command="{StaticResource QueryRefresh}" x:Name="RefreshQueryCommand"
+                        CanExecute="RefreshQueryCommand_CanExecute"
+                        Executed="RefreshQueryCommand_Executed" />
+    </UserControl.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Left">
-            <Button Content="需求單" Margin="0" Command="{DynamicResource OpenNewTabItem}" CommandParameter="{StaticResource OpenNewRequired}" CommandManager.PreviewCanExecute="Button_PreviewCanExecute"/>
+            <Button Content="需求單" Margin="5,0,0,0" Command="{DynamicResource OpenNewTabItem}" CommandParameter="{StaticResource OpenNewRequired}" CommandManager.PreviewCanExecute="Button_PreviewCanExecute"/>
             <Button Content="訂製單管控表" Margin="5,0,0,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenOrderControlTable}" CommandManager.PreviewCanExecute="Button_PreviewCanExecute" />
             <Button Content="訂製單" Margin="5,0,0,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenOrderView}" CommandManager.PreviewCanExecute="Button_PreviewCanExecute" />
             <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="加工訂製單列表" Margin="0,0,5,0"  Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenOrderList}" CommandManager.PreviewCanExecute="Button_PreviewCanExecute" />
             <Button Content="盤點單" Margin="5,0,0,0"  Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenInventoryView}" CommandManager.PreviewCanExecute="Button_PreviewCanExecute" />
+            <Grid Margin="5,0,0,0" Width="300">
+            <c:SearchBar Grid.Row="0" Grid.Column="1" x:Name="sSearchBar" />
+            </Grid>
         </StackPanel>
         <GroupBox Header="{Binding Path=Header, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabItem}}}" Grid.Row="1">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
