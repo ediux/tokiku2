@@ -11,7 +11,7 @@
              d:DesignHeight="768" d:DesignWidth="1024"              
              Background="{DynamicResource ControlBackgroundBrush}">
     <UserControl.Resources>
-        <helpers:RoutedViewResult x:Key="OpenNewManufacturer" DisplayText="新增廠商" ViewType="{x:Type local:ManufacturersManageView}" />
+        <helpers:RoutedViewResult x:Key="OpenNewManufacturer" DisplayText="新增廠商" ViewType="{x:Type local:ManufacturersManageView}" AttachedTargetElementName="OpenVendorListView" />
         <ObjectDataProvider x:Key="ManufacturerListSource" ObjectType="{x:Type vm:ManufacturersViewModelCollection}" MethodName="Query" />
     </UserControl.Resources>
     <UserControl.CommandBindings>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using TokikuNew.Commands;
 
@@ -40,10 +41,13 @@ namespace TokikuNew
                 ((ICommand)e.OldValue).CanExecuteChanged -= handler;
             ((ICommand)e.NewValue).CanExecuteChanged += handler;
 
-            if(cmd is OpenNewTabItem)
+            if (cmd is OpenNewTabItem)
             {
                 OpenNewTabItem x = (OpenNewTabItem)cmd;
-                x.ControlSource = d;
+
+                
+                if (d is TabControl)
+                    x.ControlSource.Add((TabControl)d);
             }
             //mgr.Command = ((ICommand)e.NewValue);
         }
@@ -151,5 +155,22 @@ namespace TokikuNew
             get { return (IInputElement)GetValue(CommandTargetProperty); }
             set { SetValue(CommandTargetProperty, value); }
         }
+
+
+
+        public static Helpers.RoutedViewResult GetRoutedViewParameter(DependencyObject obj)
+        {
+            return (Helpers.RoutedViewResult)obj.GetValue(RoutedViewParameterProperty);
+        }
+
+        public static void SetRoutedViewParameter(DependencyObject obj, Helpers.RoutedViewResult value)
+        {
+            obj.SetValue(RoutedViewParameterProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for RoutedViewParameter.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty RoutedViewParameterProperty =
+            DependencyProperty.RegisterAttached("RoutedViewParameter", typeof(Helpers.RoutedViewResult), typeof(CommandAttachManager), new PropertyMetadata(default(Helpers.RoutedViewResult)));
+
     }
 }

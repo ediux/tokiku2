@@ -13,7 +13,7 @@ namespace TokikuNew.Controls
     public class MultiPageManager : TabControl, ICommandSource
     {
         public MultiPageManager()
-        {            
+        {
         }
 
         public ICommand Command
@@ -36,9 +36,10 @@ namespace TokikuNew.Controls
         {
             MultiPageManager cs = (MultiPageManager)d;
             cs.HookUpCommand((ICommand)e.OldValue, (ICommand)e.NewValue);
-            if(e.NewValue is OpenNewTabItem)
+
+            if (e.NewValue is OpenNewTabItem)
             {
-                ((OpenNewTabItem)e.NewValue).ControlSource = (TabControl)d;
+                ((OpenNewTabItem)e.NewValue).ControlSource.Add((TabControl)d);
             }
         }
 
@@ -58,7 +59,7 @@ namespace TokikuNew.Controls
             get { return (IInputElement)GetValue(CommandTargetProperty); }
             set { SetValue(CommandTargetProperty, value); }
         }
-        
+
 
         public static readonly DependencyProperty CommandTargetProperty =
             DependencyProperty.Register("CommandTarget", typeof(IInputElement), typeof(MultiPageManager), new PropertyMetadata((IInputElement)null));

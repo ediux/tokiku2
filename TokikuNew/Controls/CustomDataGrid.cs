@@ -94,6 +94,18 @@ namespace TokikuNew.Controls
 
 
 
+        public string TriggerTargetElementName
+        {
+            get { return (string)GetValue(TriggerTargetElementNameProperty); }
+            set { SetValue(TriggerTargetElementNameProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for TargetElementName.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TriggerTargetElementNameProperty =
+            DependencyProperty.Register("TriggerTargetElementName", typeof(string), typeof(CustomDataGrid), new PropertyMetadata(string.Empty));
+
+
+
         public Dictionary<string,object> RoutedValues
         {
             get { return (Dictionary<string,object>)GetValue(RoutedValuesProperty); }
@@ -140,6 +152,7 @@ namespace TokikuNew.Controls
                             {
                                 routedvalue.RoutedValues.Add(k, DataSourceType.GetProperty((string)RoutedValues[k]).GetValue(SelectedItem));
                             }
+                            routedvalue.AttachedTargetElementName = TriggerTargetElementName;
                             command.Execute(routedvalue);
                         }
                     }

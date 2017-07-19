@@ -20,6 +20,6 @@ namespace TokikuNew.Helpers
         public Type SourceViewType { get; set; }
         public object DataContent { get; set; }
         public Dictionary<string, object> RoutedValues { get; set; }
-
+        public string AttachedTargetElementName { get; set; }
     }
 }

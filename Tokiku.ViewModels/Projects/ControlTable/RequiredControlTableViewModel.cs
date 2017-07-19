@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -22,12 +23,24 @@ namespace Tokiku.ViewModels
 
         }
 
+        protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
+        {
+            Items[e.NewStartingIndex].RowIndex = Count;
+            base.OnCollectionChanged(e);
+        }
         public static RequiredControlTableViewModelCollection Query(Guid ProjectId)
         {
             try
             {
-                return Query<RequiredControlTableViewModelCollection, ControlTableDetails>(
+                var coll= Query<RequiredControlTableViewModelCollection, ControlTableDetails>(
                     "ControlTable", "QueryAll", ProjectId);
+                int i = 1;
+                foreach(var item in coll)
+                {
+                    item.RowIndex = i;
+                    i++;
+                }
+                return coll;
             }
             catch (Exception ex)
             {
@@ -37,14 +50,14 @@ namespace Tokiku.ViewModels
             }
         }
 
-        public static ControlTableViewModelCollection Query()
+        public static RequiredControlTableViewModelCollection Query()
         {
-            return Query<ControlTableViewModelCollection, ControlTableDetails>("ControlTable", "QueryAll");
+            return Query<RequiredControlTableViewModelCollection, ControlTableDetails>("ControlTable", "QueryAll");
         }
 
-        public ControlTableViewModelCollection QueryByText(string text)
+        public RequiredControlTableViewModelCollection QueryByText(string text)
         {
-            return Query<ControlTableViewModelCollection, ControlTableDetails>("ControlTable", "SearchByText", text);
+            return Query<RequiredControlTableViewModelCollection, ControlTableDetails>("ControlTable", "SearchByText", text);
         }
     }
 

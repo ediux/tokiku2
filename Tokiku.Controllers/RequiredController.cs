@@ -37,12 +37,12 @@ namespace Tokiku.Controllers
                     newitem.FormNumber = string.Format("{0}{1:000}", ProjectShortName, nextSerialNumber);
                     newitem.CreateTime = DateTime.Now;
                     newitem.MakingTime = DateTime.Now;
-                    
+
                     newitem.CreateUser = GetCurrentLoginUser().Result;
                     newitem.CreateUserId = newitem.CreateUser.UserId;
                     newitem.MakingUser = newitem.CreateUser;
                     newitem.MakingUserId = newitem.MakingUser.UserId;
-                   
+
                     return ExecuteResultEntity<Required>.CreateResultEntity(newitem);
                 }
                 else
@@ -154,6 +154,29 @@ namespace Tokiku.Controllers
                 rtn = ExecuteResultEntity<ICollection<RequiredListEntity>>.CreateErrorResultEntity(ex);
                 return rtn;
             }
+        }
+
+        public override ExecuteResultEntity<Required> CreateOrUpdate(Required entity, bool isLastRecord = true)
+        {
+            try
+            {
+                var result = base.CreateOrUpdate(entity, isLastRecord);
+
+                if (!result.HasError)
+                {
+                    ControlTableController ctrl = new ControlTableController();
+                    ctrl.Calculations(entity.Projects.Id);
+
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                var rtn = ExecuteResultEntity<Required>.CreateErrorResultEntity(ex);
+                return rtn;
+            }
+
         }
     }
 }

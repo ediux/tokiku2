@@ -121,7 +121,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="Tokiku.pfx" />
     <None Include="TokikuNew_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

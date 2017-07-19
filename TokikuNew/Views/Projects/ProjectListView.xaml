@@ -57,7 +57,8 @@
                                  Command="{StaticResource OpenNewTabItem}" 
                                  OpenViewType="{x:Type local:ProjectViewer}"
                                  FormationDisplayText="專案:{0}-{1}"
-                                 DataSourceType="{x:Type vm:ProjectListViewModel}">
+                                 DataSourceType="{x:Type vm:ProjectListViewModel}"
+                                 TriggerTargetElementName="Workspaces">
             <controls:CustomDataGrid.FormatDisplayParametersMapping>
                 <sys:String>Code</sys:String>
                 <sys:String>ShortName</sys:String>
