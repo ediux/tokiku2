@@ -13,7 +13,6 @@
              Focusable="True"
              d:DesignHeight="768" d:DesignWidth="1024" Loaded="UserControl_Loaded">
     <UserControl.Resources>
-        
         <ObjectDataProvider x:Key="ProjoectListSource" ObjectType="{x:Type vm:ProjectListViewModelCollection}" MethodName="Query"/>
     </UserControl.Resources>
     <UserControl.CommandBindings>
@@ -54,7 +53,7 @@
                                  CanUserAddRows="False"
                                  CanUserDeleteRows="False"
                                  CanUserSortColumns="False"                                 
-                                 IsReadOnly="True"
+                                 IsReadOnly="True"                  
                                  MouseDoubleClick="ProjectList_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="專案代號" Binding="{Binding Code}" Width="100"/>

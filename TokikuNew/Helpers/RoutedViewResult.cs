@@ -17,8 +17,9 @@ namespace TokikuNew.Helpers
         public object[] FormatedParameters { get; set; }
 
         public Type ViewType { get; set; }
+        public Type SourceViewType { get; set; }
         public object DataContent { get; set; }
-        public Dictionary<string,object> RoutedValues { get; set; }
+        public Dictionary<string, object> RoutedValues { get; set; }
 
     }
 }

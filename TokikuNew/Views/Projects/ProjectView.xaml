@@ -8,12 +8,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024" Loaded="UserControl_Loaded"  >
     <UserControl.CommandBindings>
-        <CommandBinding Command="{StaticResource OpenNewTabItem}"
-                         CanExecute="CommandBinding_CanExecute"
-                         Executed="CommandBinding_Executed"/>
+        <CommandBinding Command="{StaticResource OpenNewTabItem}"/>
     </UserControl.CommandBindings>
     <Grid Background="{DynamicResource ControlBackgroundBrush}">
-        <TabControl  TabStripPlacement="Top" Name="InnerWorkspaces">
+        <Controls:MultiPageManager Command="{StaticResource OpenNewTabItem}" TabStripPlacement="Top" x:Name="InnerWorkspaces">
             <TabItem Header="專案主檔">
                 <local:ProjectManagerView x:Name="PMV" SelectedProjectId="{Binding SelectedProjectId,ElementName=userControl}"  Mode="{Binding Path=Mode, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     LoginedUser="{Binding LoginedUser, ElementName=userControl}" />
@@ -22,6 +20,6 @@
             </TabItem>
             <TabItem Header="專案模具" Visibility="Collapsed">
             </TabItem>
-        </TabControl>
+        </Controls:MultiPageManager>
     </Grid>
 </UserControl>

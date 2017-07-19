@@ -17,7 +17,7 @@ namespace TokikuNew.Controls
         public CustomDataGrid()
         {
             try
-            {
+            {                
                 AutoGenerateColumns = false;
 
                 if (ItemsSource != null)

@@ -22,6 +22,19 @@ namespace TokikuNew
             InitializeComponent();
         }
 
+
+
+        public IInputElement CommandTarget
+        {
+            get { return (IInputElement)GetValue(CommandTargetProperty); }
+            set { SetValue(CommandTargetProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CommandTarget.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CommandTargetProperty =
+            DependencyProperty.Register("CommandTarget", typeof(IInputElement), typeof(MainWindow), new UIPropertyMetadata(null));
+
+
         ManufacturersManageController mc;
         ClientController clientcontroller;
         private ProjectsController controller;
@@ -576,6 +589,7 @@ namespace TokikuNew
 
         private void OpenNewTabItemCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
         {
+            
             try
             {
                 e.Handled = true;
