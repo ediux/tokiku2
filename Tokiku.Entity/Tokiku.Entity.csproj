@@ -29,6 +29,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>TokikuNew_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -617,6 +623,7 @@
     <None Include="Tokiku.edmx.diagram">
       <DependentUpon>Tokiku.edmx</DependentUpon>
     </None>
+    <None Include="TokikuNew_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Edward.IRepository.EF6.tt">

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using TokikuNew.Commands;
 
 namespace TokikuNew
 {
@@ -39,6 +40,11 @@ namespace TokikuNew
                 ((ICommand)e.OldValue).CanExecuteChanged -= handler;
             ((ICommand)e.NewValue).CanExecuteChanged += handler;
 
+            if(cmd is OpenNewTabItem)
+            {
+                OpenNewTabItem x = (OpenNewTabItem)cmd;
+                x.ControlSource = d;
+            }
             //mgr.Command = ((ICommand)e.NewValue);
         }
 
