@@ -3,15 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:l="clr-namespace:TokikuNew"
              xmlns:local="clr-namespace:TokikuNew.Views"
              xmlns:Controls="clr-namespace:TokikuNew.Controls" x:Name="userControl" x:Class="TokikuNew.Views.ProjectViewer"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024" Loaded="UserControl_Loaded"  >
-    <UserControl.CommandBindings>
-        <CommandBinding Command="{StaticResource OpenNewTabItem}"/>
-    </UserControl.CommandBindings>
+
     <Grid Background="{DynamicResource ControlBackgroundBrush}">
-        <Controls:MultiPageManager Command="{StaticResource OpenNewTabItem}" TabStripPlacement="Top" x:Name="InnerWorkspaces">
+        <TabControl l:CommandAttachManager.Command="{StaticResource OpenNewTabItem}"  TabStripPlacement="Top" x:Name="InnerWorkspaces">
             <TabItem Header="專案主檔">
                 <local:ProjectManagerView x:Name="PMV" SelectedProjectId="{Binding SelectedProjectId,ElementName=userControl}"  Mode="{Binding Path=Mode, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     LoginedUser="{Binding LoginedUser, ElementName=userControl}" />
@@ -20,6 +19,6 @@
             </TabItem>
             <TabItem Header="專案模具" Visibility="Collapsed">
             </TabItem>
-        </Controls:MultiPageManager>
+        </TabControl>
     </Grid>
 </UserControl>

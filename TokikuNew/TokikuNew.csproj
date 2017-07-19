@@ -24,13 +24,15 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://devops.cenoq.com/confluence/display/Toku/TokikuOneClick/</InstallUrl>
-    <ProductName>Tokiku ERP</ProductName>
+    <InstallUrl>http://220.130.128.34/</InstallUrl>
+    <ProductName>東菊金屬ERP系統</ProductName>
     <PublisherName>Cenqo</PublisherName>
     <SuiteName>TokikuERP</SuiteName>
-    <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.0.0.4</MinimumRequiredVersion>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>index.html</WebPage>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>5</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -120,6 +122,7 @@
     </ApplicationDefinition>
     <Compile Include="Controls\MultiPageManager.cs" />
     <Compile Include="Helpers\ClipboardHelper.cs" />
+    <Compile Include="Helpers\CommandAttachManager.cs" />
     <Compile Include="Helpers\RoutedViewResult.cs" />
     <Compile Include="Helpers\SwitchFieldMode.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
