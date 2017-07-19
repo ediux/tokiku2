@@ -61,7 +61,7 @@
     <Compile Include="Projects\AssemblyTableViewModel.cs" />
     <Compile Include="Projects\AssemblyTableViewModelCollection.cs" />
     <Compile Include="Base\BaseViewModelWithPOCOClass.cs" />
-    <Compile Include="Projects\ControlTable\ControlTableViewModel.cs" />
+    <Compile Include="Projects\ControlTable\RequiredControlTableViewModel.cs" />
     <Compile Include="Projects\ProcessingViewModel.cs" />
     <Compile Include="Projects\ContractManagementViewModel.cs" />
     <Compile Include="Finance\TicketPeriodsViewModel.cs" />

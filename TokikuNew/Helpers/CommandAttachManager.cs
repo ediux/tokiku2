@@ -119,12 +119,37 @@ namespace TokikuNew
         }
         public ICommand Command
         {
-            get { return GetCommand(this); }
-            set { SetCommand(this, value); }
+            get { return (ICommand)GetValue(CommandProperty); }
+            set { SetValue(CommandProperty, value); }
         }
 
-        public object CommandParameter => throw new NotImplementedException();
+        public object CommandParameter
+        {
+            get { return GetValue(CommandParameterProperty); }
+            set { SetValue(CommandProperty, value); }
+        }
 
-        public IInputElement CommandTarget => throw new NotImplementedException();
+
+
+        public static IInputElement GetCommandTarget(DependencyObject obj)
+        {
+            return (IInputElement)obj.GetValue(CommandTargetProperty);
+        }
+
+        public static void SetCommandTarget(DependencyObject obj, IInputElement value)
+        {
+            obj.SetValue(CommandTargetProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for CommandTarget.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CommandTargetProperty =
+            DependencyProperty.RegisterAttached("CommandTarget", typeof(IInputElement), typeof(CommandAttachManager), new PropertyMetadata((IInputElement)null));
+
+
+        public IInputElement CommandTarget
+        {
+            get { return (IInputElement)GetValue(CommandTargetProperty); }
+            set { SetValue(CommandTargetProperty, value); }
+        }
     }
 }

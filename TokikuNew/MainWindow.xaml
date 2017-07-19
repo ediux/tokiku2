@@ -20,10 +20,10 @@
         <helpers:RoutedViewResult DisplayText="本票管理" ViewType="{x:Type Views:PromissoryNoteManagementUC}" x:Key="OpenPromissoryNoteManagementView"/>
         <helpers:RoutedViewResult DisplayText="合約管理" ViewType="{x:Type Views:ContractManagementView}" x:Key="OpenContractManagementView"/>
     </Window.Resources>
-    <Window.CommandBindings>
+    <!--<Window.CommandBindings>
         <CommandBinding x:Name="OpenNewTabItemCommand" Command="{StaticResource OpenNewTabItem}"
                         />
-    </Window.CommandBindings>
+    </Window.CommandBindings>-->
     <Viewbox Stretch="Fill"
              Margin="0" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" >
         <Grid Width="1366" Height="768">
@@ -63,16 +63,16 @@
                     <MenuItem Header="結束程式" Name="ExitApp" Click="ExitApp_Click"></MenuItem>
                 </MenuItem>
             </Menu>
-            <controls:MultiPageManager Grid.Row="1" Margin="0,0,0,0" x:Name="Workspaces" FontSize="9" Command="{StaticResource OpenNewTabItem}">
+            <!--<controls:MultiPageManager Grid.Row="1" Margin="0,0,0,0" x:Name="Workspaces" FontSize="9" Command="{StaticResource OpenNewTabItem}">
                 <TabItem Header="專案列表" >
                     <Views:ProjectSelectListView x:Name="ProjectSelectionPage" SelectedProjectChanged="ProjectSelectionPage_SelectedProjectChanged" DataContext="{Binding Projects}"  />
                 </TabItem>
-            </controls:MultiPageManager>
-            <!--<TabControl Grid.Row="1" Margin="0,0,0,0" x:Name="Workspaces" FontSize="9">
+            </controls:MultiPageManager>-->
+            <TabControl Grid.Row="1" Margin="0,0,0,0" x:Name="Workspaces" FontSize="9" local:CommandAttachManager.Command="{StaticResource OpenNewTabItem}">
                 <TabItem Header="專案列表" >
                     <Views:ProjectSelectListView x:Name="ProjectSelectionPage" SelectedProjectChanged="ProjectSelectionPage_SelectedProjectChanged" DataContext="{Binding Projects}"  />
                 </TabItem>
-            </TabControl>-->
+            </TabControl>
             <StatusBar Margin="0" Grid.Row="3">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="1" FontFamily="Segoe MDL2 Assets" Text="&#xe187;" VerticalAlignment="Center" HorizontalAlignment="Center" />

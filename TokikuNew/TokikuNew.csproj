@@ -127,6 +127,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\CloseMultiPageContentCommand.cs" />
+    <Compile Include="Commands\TokikuCommands.cs" />
     <Compile Include="Controls\MultiPageManager.cs" />
     <Compile Include="Helpers\ClipboardHelper.cs" />
     <Compile Include="Helpers\CommandAttachManager.cs" />

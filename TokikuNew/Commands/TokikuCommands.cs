@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace TokikuNew.Commands
 {
-    class TokikuCommands
+    public class TokikuCommands
     {
+        public static OpenNewTabItem OpenNewTabItem = new OpenNewTabItem();
     }
 }

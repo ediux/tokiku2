@@ -10,28 +10,28 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class ControlTableViewModelCollection : BaseViewModelCollection<ControlTableViewModel>
+    public class RequiredControlTableViewModelCollection : BaseViewModelCollection<RequiredControlTableViewModel>
     {
-        public ControlTableViewModelCollection()
+        public RequiredControlTableViewModelCollection()
         {
 
         }
 
-        public ControlTableViewModelCollection(IEnumerable<ControlTableViewModel> source) : base(source)
+        public RequiredControlTableViewModelCollection(IEnumerable<RequiredControlTableViewModel> source) : base(source)
         {
 
         }
 
-        public static ControlTableViewModelCollection Query(Guid ProjectId)
+        public static RequiredControlTableViewModelCollection Query(Guid ProjectId)
         {
             try
             {
-                return Query<ControlTableViewModelCollection, ControlTableDetails>(
+                return Query<RequiredControlTableViewModelCollection, ControlTableDetails>(
                     "ControlTable", "QueryAll", ProjectId);
             }
             catch (Exception ex)
             {
-                ControlTableViewModelCollection collection = new ControlTableViewModelCollection();
+                RequiredControlTableViewModelCollection collection = new RequiredControlTableViewModelCollection();
                 setErrortoModel(collection, ex);
                 return collection;
             }
@@ -48,31 +48,14 @@ namespace Tokiku.ViewModels
 
     }
 
-    public class ControlTableViewModel : BaseViewModelWithPOCOClass<ControlTableDetails>
+    public class RequiredControlTableViewModel : BaseViewModelWithPOCOClass<ControlTableDetails>
     {
-        public ControlTableViewModel(ControlTableDetails entity) : base(entity)
+        public RequiredControlTableViewModel(ControlTableDetails entity) : base(entity)
         {
 
         }
 
-
-        #region 合約編號
-        private string _ContractNumber;
-        /// <summary>
-        /// 合約編號
-        /// </summary>
-        public string ContractNumber
-        {
-            get => _ContractNumber;
-            set
-            {
-                _ContractNumber = value;
-                RaisePropertyChanged("ContractNumber");
-            }
-        }
-
-        #endregion
-
+        
         #region Row Index
         private int _RowIndex;
 
@@ -128,19 +111,6 @@ namespace Tokiku.ViewModels
 
         #endregion
 
-        #region 加工編號
-        private string _ProcessingNumber;
-        /// <summary>
-        /// 加工編號
-        /// </summary>
-        public string ProcessingNumber
-        {
-            get { return _ProcessingNumber; }
-            set { _ProcessingNumber = value; RaisePropertyChanged("ProcessingNumber"); }
-        }
-
-        #endregion
-
         #region 東菊編號
 
         /// <summary>
@@ -150,14 +120,6 @@ namespace Tokiku.ViewModels
         {
             get { return CopyofPOCOInstance.RequiredDetails?.FirstOrDefault().Code; }
             set {  RaisePropertyChanged("Code"); }
-        }
-        #endregion
-
-        #region 尺寸
-        public string CutLength
-        {
-            get { return ""; }
-            set { RaisePropertyChanged("CutLength"); }
         }
         #endregion
 

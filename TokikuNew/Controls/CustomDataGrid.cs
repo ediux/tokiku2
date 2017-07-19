@@ -14,7 +14,7 @@ using TokikuNew.Helpers;
 
 namespace TokikuNew.Controls
 {
-    public class CustomDataGrid : DataGrid, ICommandSource
+    public class CustomDataGrid : DataGrid
     {
         public CustomDataGrid()
         {

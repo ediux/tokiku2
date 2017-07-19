@@ -12,12 +12,20 @@
              Loaded="userControl_Loaded"
              d:DesignHeight="768" d:DesignWidth="2084.2">
     <UserControl.Resources>
-        
-        <ObjectDataProvider x:Key="ControlTableListSource" ObjectType="{x:Type vm:ControlTableViewModelCollection}" MethodName="Query">
+
+        <ObjectDataProvider x:Key="ControlTableListSource" ObjectType="{x:Type vm:RequiredControlTableViewModelCollection}" MethodName="Query">
             <ObjectDataProvider.MethodParameters>
                 <x:Static Member="sys:Guid.Empty"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+        <Style TargetType="DataGrid" BasedOn="{StaticResource {x:Type DataGrid}}">
+            <Setter Property="Visibility" Value="Collapsed"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding FormName,ElementName=userControl}" Value="鋁擠型材料">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -35,10 +43,7 @@
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                 <DataGrid x:Name="dg" ItemsSource="{Binding Source={StaticResource ControlTableListSource}}" AutoGenerateColumns="False" >
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="合約編號" Width="auto" Binding="{Binding ContractNumber}" />
                         <DataGridTextColumn Header="項次" Width="auto" Binding="{Binding RowIndex}" />
-                        <DataGridTextColumn Header="製單" Width="auto" />
-                        <DataGridTextColumn Header="加工編號" Width="auto" Binding="{Binding ProcessingNumber}" />
                         <DataGridTextColumn Header="東菊編號" Width="auto" Binding="{Binding Code}" />
                         <DataGridTextColumn Header="尺寸" Width="auto" />
                         <DataGridTextColumn Header="廠商" Width="auto" Binding="{Binding ManufacturersName}" />
