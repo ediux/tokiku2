@@ -35,17 +35,17 @@ namespace Tokiku.ViewModels
                 setErrortoModel(collection, ex);
                 return collection;
             }
-            //ControlTableController ctrl = new ControlTableController();
-            //ExecuteResultEntity<ICollection<ControlTableDetails>> ere = ctrl.QuerAll();
-
-            //if (!ere.HasError)
-            //{
-            //    return new ControlTableViewModelCollection(ere.Result.Select(s => new ControlTableViewModel(s)).ToList());
-            //}
-
-            //return new ControlTableViewModelCollection();
         }
 
+        public static ControlTableViewModelCollection Query()
+        {
+            return Query<ControlTableViewModelCollection, ControlTableDetails>("ControlTable", "QueryAll");
+        }
+
+        public ControlTableViewModelCollection QueryByText(string text)
+        {
+            return Query<ControlTableViewModelCollection, ControlTableDetails>("ControlTable", "SearchByText", text);
+        }
     }
 
     public class RequiredControlTableViewModel : BaseViewModelWithPOCOClass<ControlTableDetails>

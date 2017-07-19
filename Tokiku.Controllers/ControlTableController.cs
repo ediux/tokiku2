@@ -10,8 +10,6 @@ namespace Tokiku.Controllers
 {
     public class ControlTableController : BaseController<ControlTableDetails>
     {
-        private ExecuteResultEntity<ICollection<ControlTableDetails>> rtn;
-
         public ExecuteResultEntity<ICollection<ControlTableDetails>> Query(Guid ProjectId)
         {
             try
@@ -23,6 +21,44 @@ namespace Tokiku.Controllers
 
                 return ExecuteResultEntity<ICollection<ControlTableDetails>>.CreateResultEntity(
                     new Collection<ControlTableDetails>(result.ToList()));
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<ICollection<ControlTableDetails>>.CreateErrorResultEntity(ex);
+            }
+        }
+
+        public ExecuteResultEntity<ICollection<ControlTableDetails>> SearchByText(string text)
+        {
+            try
+            {
+                if (text != null && text.Length > 0)
+                {
+                    //ExecuteResultEntity<ICollection<ControlTableDetails>> model = ExecuteResultEntity<ICollection<ControlTableDetails>>
+                    //     .CreateResultEntity(new Collection<ControlTableDetails>(result.ToList()));
+
+                    //return model;
+                    return null;
+                }
+                else
+                {
+                    var result = QueryAll();
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<ICollection<ControlTableDetails>>.CreateErrorResultEntity(ex);
+            }
+        }
+
+        public ExecuteResultEntity<ICollection<ControlTableDetails>> QueryAll()
+        {
+            try
+            {
+                var repo = this.GetReoisitory();
+                return ExecuteResultEntity<ICollection<ControlTableDetails>>.CreateResultEntity(
+                    new Collection<ControlTableDetails>(repo.All().ToList()));
             }
             catch (Exception ex)
             {
@@ -131,23 +167,7 @@ namespace Tokiku.Controllers
             }
             catch (Exception ex)
             {
-                rtn = ExecuteResultEntity<ICollection<ControlTableDetails>>.CreateErrorResultEntity(ex);
-                return rtn;
-            }
-        }
-
-        public ExecuteResultEntity<ICollection<ControlTableDetails>> QuerAll()
-        {
-            try
-            {
-                var repo = this.GetReoisitory();
-                return ExecuteResultEntity<ICollection<ControlTableDetails>>.CreateResultEntity(
-                    new Collection<ControlTableDetails>(repo.All().ToList()));
-            }
-            catch (Exception ex)
-            {
-                rtn = ExecuteResultEntity<ICollection<ControlTableDetails>>.CreateErrorResultEntity(ex);
-                return rtn;
+                return ExecuteResultEntity<ICollection<ControlTableDetails>>.CreateErrorResultEntity(ex);
             }
         }
 
