@@ -25,14 +25,14 @@
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="27" />
+            <RowDefinition Height="27" SharedSizeGroup="extendsize" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50*" />
             <ColumnDefinition Width="50*" />
         </Grid.ColumnDefinitions>
-        <Canvas Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Panel.ZIndex="500">
+        <Canvas Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Panel.ZIndex="500" Grid.IsSharedSizeScope="True">
             <Expander Canvas.Left="0" VerticalAlignment="Stretch" ExpandDirection="Down" Header="表頭" IsExpanded="False">
                 <Expander.ContentTemplate>
                     <DataTemplate>

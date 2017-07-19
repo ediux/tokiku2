@@ -113,7 +113,8 @@ namespace TokikuNew.Views
                         master.Entity.RequiredDetails.Add(item.Entity);
                     }
                 }
-
+         
+                
                 master.SaveModel("Required");
                 if (master.HasError)
                 {

@@ -735,5 +735,25 @@ namespace Tokiku.Controllers
                 return Task.FromResult(ExecuteResultEntity<ICollection<Manufacturers>>.CreateErrorResultEntity(ex));
             }
         }
+
+        public ExecuteResultEntity<Manufacturers> QueryByName(string name)
+        {
+            try
+            {
+                var repo = this.GetReoisitory();
+
+
+                var matchedresult = (from q in repo.All()
+                                     where q.Name == name && q.IsClient == false && q.Void == false
+                                     select q).SingleOrDefault();
+
+                return ExecuteResultEntity<Manufacturers>.CreateResultEntity(
+                    matchedresult);
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<Manufacturers>.CreateErrorResultEntity(ex);
+            }
+        }
     }
 }

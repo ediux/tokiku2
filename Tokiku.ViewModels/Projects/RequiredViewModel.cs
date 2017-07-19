@@ -93,10 +93,13 @@ namespace Tokiku.ViewModels
 
         public ManufacturersViewModel SelectedManufacturers
         {
-            get => new ManufacturersViewModel( CopyofPOCOInstance.Manufacturers);
+            get => new ManufacturersViewModel(CopyofPOCOInstance.Manufacturers);
             set
             {
                 CopyofPOCOInstance.Manufacturers = value.Entity;
+
+               
+
                 RaisePropertyChanged("SelectedManufacturers");
                 RaisePropertyChanged("ManufacturersCode");
                 RaisePropertyChanged("ManufacturersName");
@@ -123,6 +126,7 @@ namespace Tokiku.ViewModels
             get { return CopyofPOCOInstance?.Manufacturers?.Name; }
             set
             {
+               
 
                 RaisePropertyChanged("ManufacturersName");
             }

@@ -18,11 +18,29 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var repo = this.GetReoisitory().All();
-                var result = (from q in repo
+
+                var repo = this.GetReoisitory();
+                var result = (from q in repo.All()
                               where q.Name == Name
                               select q).SingleOrDefault();
-                return ExecuteResultEntity<Materials>.CreateResultEntity(result);
+
+                if (result != null)
+                    return ExecuteResultEntity<Materials>.CreateResultEntity(result);
+                else
+                {
+                    Materials newMaterials = new Materials();
+                    newMaterials = new Materials();
+                    newMaterials.Id = Guid.NewGuid();              
+                    newMaterials.ManufacturersId = Guid.Empty;
+                    newMaterials.Name = Name;
+                    newMaterials.UnitPrice = 0;
+                    newMaterials.CreateTime = DateTime.Now;
+                    newMaterials.CreateUserId = GetCurrentLoginUser().Result.UserId;
+
+                    repo.Add(newMaterials);
+                    repo.UnitOfWork.Commit();
+                    return ExecuteResultEntity<Materials>.CreateResultEntity(repo.Reload(newMaterials));
+                }
             }
             catch (Exception ex)
             {
@@ -44,7 +62,7 @@ namespace Tokiku.Controllers
             try
             {
                 var repo = this.GetReoisitory<MaterialCategories>();
-             
+
                 var result = from q in repo.All()
                              where q.Name.Contains(Name)
                              select q;
