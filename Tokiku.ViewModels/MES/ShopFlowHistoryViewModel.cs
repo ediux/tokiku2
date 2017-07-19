@@ -51,19 +51,7 @@ namespace Tokiku.ViewModels
       
 
 
-        #region State
-
-
-        public byte State
-        {
-            get { return CopyofPOCOInstance.State; }
-            set { CopyofPOCOInstance.State = value; RaisePropertyChanged("State"); }
-        }
-
         
-
-        #endregion
-
       
      
 

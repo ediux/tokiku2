@@ -771,6 +771,20 @@ namespace Tokiku.Entity
 			return repository;
 		}		
 
+		public static View_RequiredFormsRepository GetView_RequiredFormsRepository()
+		{
+			var repository = new View_RequiredFormsRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static View_RequiredFormsRepository GetView_RequiredFormsRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new View_RequiredFormsRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
 		public static WorkShopsRepository GetWorkShopsRepository()
 		{
 			var repository = new WorkShopsRepository();

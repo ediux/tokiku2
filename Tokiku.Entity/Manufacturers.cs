@@ -23,8 +23,6 @@ namespace Tokiku.Entity
             this.Contacts = new HashSet<Contacts>();
             this.ClientForProjects = new HashSet<Projects>();
             this.ManufacturersBussinessItems = new HashSet<ManufacturersBussinessItems>();
-            this.ShopFlowDetail = new HashSet<ShopFlowDetail>();
-            this.ShopFlowDetail1 = new HashSet<ShopFlowDetail>();
             this.BOM = new HashSet<BOM>();
             this.SupplierTranscationItem = new HashSet<SupplierTranscationItem>();
             this.Orders = new HashSet<Orders>();
@@ -77,10 +75,6 @@ namespace Tokiku.Entity
         public virtual ICollection<Projects> ClientForProjects { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ShopFlowDetail> ShopFlowDetail { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ShopFlowDetail> ShopFlowDetail1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BOM> BOM { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

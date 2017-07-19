@@ -47,7 +47,6 @@ namespace Tokiku.Entity
         public Nullable<decimal> InventoryStatus_QuantitySubtotal { get; set; }
         public Nullable<decimal> InventoryStatus_WeightSubtotal { get; set; }
     
-        public virtual ControlTables ControlTables { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -56,5 +55,6 @@ namespace Tokiku.Entity
         public virtual ICollection<RequiredDetails> RequiredDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Inventory> Inventory { get; set; }
+        public virtual ControlTables ControlTables { get; set; }
     }
 }

@@ -32,10 +32,10 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                var coll= Query<RequiredControlTableViewModelCollection, ControlTableDetails>(
+                var coll = Query<RequiredControlTableViewModelCollection, ControlTableDetails>(
                     "ControlTable", "QueryAll", ProjectId);
                 int i = 1;
-                foreach(var item in coll)
+                foreach (var item in coll)
                 {
                     item.RowIndex = i;
                     i++;
@@ -68,7 +68,7 @@ namespace Tokiku.ViewModels
 
         }
 
-        
+
         #region Row Index
         private int _RowIndex;
 
@@ -132,7 +132,7 @@ namespace Tokiku.ViewModels
         public string Code
         {
             get { return CopyofPOCOInstance.RequiredDetails?.FirstOrDefault().Code; }
-            set {  RaisePropertyChanged("Code"); }
+            set { RaisePropertyChanged("Code"); }
         }
         #endregion
 
@@ -160,7 +160,7 @@ namespace Tokiku.ViewModels
                 return CopyofPOCOInstance.RequiredDetails?.FirstOrDefault().FactoryNumber;
             }
             set
-            {               
+            {
                 RaisePropertyChanged("ManufacturersCode");
             }
         }
@@ -174,7 +174,7 @@ namespace Tokiku.ViewModels
         [Display(Name = "材料屬性", Order = 5)]
         public string MaterialCategories
         {
-            get { return CopyofPOCOInstance.ControlTables.MaterialCategories.Name; }
+            get { return string.Join(",", CopyofPOCOInstance.RequiredDetails.Select(s => s.Materials.Name).Distinct().ToArray()); }
             set
             {
                 //try

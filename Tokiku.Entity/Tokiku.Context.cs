@@ -54,8 +54,6 @@ namespace Tokiku.Entity
         public virtual DbSet<ConstructionAtlas> ConstructionAtlas { get; set; }
         public virtual DbSet<ProcessingAtlas> ProcessingAtlas { get; set; }
         public virtual DbSet<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
-        public virtual DbSet<ShopFlowHistory> ShopFlowHistory { get; set; }
-        public virtual DbSet<ShopFlowDetail> ShopFlowDetail { get; set; }
         public virtual DbSet<BOM> BOM { get; set; }
         public virtual DbSet<SupplierTranscationItem> SupplierTranscationItem { get; set; }
         public virtual DbSet<OrderDetails> OrderDetails { get; set; }
@@ -75,10 +73,13 @@ namespace Tokiku.Entity
         public virtual DbSet<Invoices> Invoices { get; set; }
         public virtual DbSet<MaterialEstimation> MaterialEstimation { get; set; }
         public virtual DbSet<OrderMiscellaneous> OrderMiscellaneous { get; set; }
-        public virtual DbSet<ControlTables> ControlTables { get; set; }
         public virtual DbSet<Required> Required { get; set; }
         public virtual DbSet<ControlTableDetails> ControlTableDetails { get; set; }
         public virtual DbSet<RequiredDetails> RequiredDetails { get; set; }
         public virtual DbSet<Inventory> Inventory { get; set; }
+        public virtual DbSet<ShopFlowDetail> ShopFlowDetail { get; set; }
+        public virtual DbSet<ShopFlowHistory> ShopFlowHistory { get; set; }
+        public virtual DbSet<View_RequiredForms> View_RequiredForms { get; set; }
+        public virtual DbSet<ControlTables> ControlTables { get; set; }
     }
 }

@@ -23,14 +23,14 @@ namespace Tokiku.Entity
     
         public System.Guid Id { get; set; }
         public Nullable<System.Guid> ProjectId { get; set; }
-        public Nullable<System.Guid> MaterialCategoriesId { get; set; }
+        public Nullable<System.Guid> ShopFlowId { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
     
-        public virtual MaterialCategories MaterialCategories { get; set; }
-        public virtual Projects Projects { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ControlTableDetails> ControlTableDetails { get; set; }
+        public virtual Projects Projects { get; set; }
+        public virtual ShopFlow ShopFlow { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Inventory> Inventory { get; set; }
     }

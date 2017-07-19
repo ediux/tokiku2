@@ -79,7 +79,7 @@ namespace Tokiku.Controllers
                 var requiresrepo = this.GetReoisitory<RequiredDetails>().All();
                 var repomaster = this.GetReoisitory<ControlTables>();
                 var repo = this.GetReoisitory();
-                var repomg = this.GetReoisitory<MaterialCategories>();
+                var repomg = this.GetReoisitory<ShopFlow>();
 
                 //先確認是否有管控表
                 var isexistsct = (from q in repomaster.All()
@@ -101,14 +101,14 @@ namespace Tokiku.Controllers
                     master.CreateUserId = GetCurrentLoginUser().Result.UserId;
 
                     var mgset = from q in repomg.All()
-                                where q.Name == "鋁擠型"
+                                where q.Name == "鋁擠型材料"
                                 select q;
 
                     if (mgset.Any())
                     {
                         var mgentry = mgset.FirstOrDefault();
-                        master.MaterialCategories = mgentry;
-                        master.MaterialCategoriesId = mgentry.Id;
+                        master.ShopFlow = mgentry;
+                        master.ShopFlowId = mgentry.Id;
                     }
 
                     repomaster.Add(master);
