@@ -14,19 +14,19 @@ namespace TokikuNew.Commands
 {
     public class OpenNewTabItem : ICommand
     {
-        TabControl Workspaces;
+        object _control;
 
         public OpenNewTabItem()
-        {            
+        {
         }
         public OpenNewTabItem(TabControl source)
         {
-            Workspaces = source;
+            _control = source;
         }
 
         public string Text { get; set; }
 
-        public TabControl ControlSource { get => Workspaces; set => Workspaces = value; }
+        public object ControlSource { get => _control; set => _control = value; }
 
         public event EventHandler CanExecuteChanged;
 
@@ -43,6 +43,10 @@ namespace TokikuNew.Commands
 
                 ClosableTabItem addWorkarea = null;
 
+                if (!(_control is TabControl))
+                    return;
+
+                TabControl Workspaces = (TabControl)_control;
                 string Header = string.Empty;
 
                 if (!string.IsNullOrEmpty(executeresult.DisplayText))
