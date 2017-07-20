@@ -9,31 +9,49 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
+    public class ProcessingAtlasViewModelCollection : BaseViewModelCollection<ProcessingAtlasViewModel>
+    {
+        public ProcessingAtlasViewModelCollection()
+        {
+        }
+
+        public ProcessingAtlasViewModelCollection(IEnumerable<ProcessingAtlasViewModel> source) : base(source)
+        {
+        }
+
+        public static ProcessingAtlasViewModelCollection Query()
+        {
+            return Query<ProcessingAtlasViewModelCollection, ProcessingAtlas>("ProcessingAtlas", "QueryAll");
+        }
+    }
     public class ProcessingAtlasViewModel : BaseViewModelWithPOCOClass<ProcessingAtlas>
     {
+        public ProcessingAtlasViewModel()
+        {
+        }
+        public ProcessingAtlasViewModel(ProcessingAtlas entity) : base(entity)
+        {
+        }
 
-
-     
-
-
-
+        // ID
         public Guid ProjectContractId
         {
             get { return CopyofPOCOInstance.ProjectContractId; }
-            set { CopyofPOCOInstance.ProjectContractId = value;RaisePropertyChanged("ProjectContractId"); }
+            set { CopyofPOCOInstance.ProjectContractId = value; RaisePropertyChanged("ProjectContractId"); }
         }
-
-
-
+        // 順序
         public int Order
         {
             get { return CopyofPOCOInstance.Order; }
             set { CopyofPOCOInstance.Order = value; RaisePropertyChanged("Order"); }
         }
-
-     
-
-
+        // 合約編號
+        public string ContractNumber
+        {
+            get { return CopyofPOCOInstance.ProjectContract.ContractNumber; }
+            set { CopyofPOCOInstance.ProjectContract.ContractNumber = value;RaisePropertyChanged("ContractNumber"); }
+        }
+        // 圖集
         public int Atlas
         {
             get { return CopyofPOCOInstance.Atlas; }
@@ -41,23 +59,13 @@ namespace Tokiku.ViewModels
                 RaisePropertyChanged("Atlas");
             }
         }
-
-     
+        // 圖集名稱
         public string Name
         {
             get { return CopyofPOCOInstance.Name; }
             set { CopyofPOCOInstance.Name = value; RaisePropertyChanged("Name"); }
         }
-
-    
-
-     
-
-   
-
-     
-
-
+        // 更新次數
         public int UpdateTimes
         {
             get { return CopyofPOCOInstance.UpdateTimes; }
@@ -65,10 +73,7 @@ namespace Tokiku.ViewModels
                 RaisePropertyChanged("UpdateTimes");
             }
         }
-
-
-
-
+        // 最新日期
         public DateTime? LastUpdate
         {
             get { return CopyofPOCOInstance.LastUpdate; }
@@ -76,8 +81,7 @@ namespace Tokiku.ViewModels
                 RaisePropertyChanged("LastUpdate");
             }
         }
-
-    
+        // 施工順序異動日期
         public DateTime? ConstructionOrderChangeDate
         {
             get { return CopyofPOCOInstance.ConstructionOrderChangeDate; }
@@ -93,23 +97,6 @@ namespace Tokiku.ViewModels
             ConstructionOrderChangeDate = default(DateTime);
             LastUpdate = CreateTime;
         }
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="entity"></param>
-        //public override void SetModel(dynamic entity)
-        //{
-        //    try
-        //    {
-        //        ProcessingAtlas data = (ProcessingAtlas)entity;
-        //        BindingFromModel(data, this);
-              
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        setErrortoModel(this, ex);
-        //    }
-        //}
+        
     }
 }

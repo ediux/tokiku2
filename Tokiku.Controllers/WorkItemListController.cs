@@ -10,7 +10,7 @@ namespace Tokiku.Controllers
 {
     public class WorkItemListController : BaseController
     {
-        public ExecuteResultEntity<ICollection<Engineering>> QuerAll()
+        public ExecuteResultEntity<ICollection<Engineering>> QueryAll()
         {
             try {
                 var repo = RepositoryHelper.GetEngineeringRepository();

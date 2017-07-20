@@ -83,7 +83,6 @@
     <Compile Include="Projects\EngineeringViewModel.cs" />
     <Compile Include="Projects\Orders\AluminumExtrusionOrderViewModel.cs" />
     <Compile Include="Projects\ProcessingAtlasViewModel.cs" />
-    <Compile Include="Projects\ProcessingAtlasViewModelCollection.cs" />
     <Compile Include="Projects\SuppliersViewModel.cs" />
     <Compile Include="Finance\PaymentTypesManageViewModel.cs" />
     <Compile Include="Projects\ProjectContractViewModel.cs" />

@@ -19,7 +19,7 @@ namespace Tokiku.ViewModels
 
         public static WorkItemListCollection Query()
         {
-            return Query<WorkItemListCollection, Engineering>("Engineering", "QueryAll");
+            return Query<WorkItemListCollection, Engineering>("WorkItemList", "QueryAll");
         }
     }
 
