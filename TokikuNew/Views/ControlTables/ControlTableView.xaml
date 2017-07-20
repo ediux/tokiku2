@@ -202,10 +202,10 @@
                                         <ColumnDefinition Width="65"/>
                                     </Grid.ColumnDefinitions>
                                     <Border Margin="-2"  Grid.Column="0" BorderThickness="1" BorderBrush="Black">
-                                        <TextBlock FontSize="11" Text="{Binding ArrivalCondition_QuantitySubtotal}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                                        <TextBlock FontSize="11" Text="{Binding }" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
                                     </Border>
                                     <Border Margin="0"  Grid.Column="1" BorderThickness="1" BorderBrush="Black">
-                                        <TextBlock FontSize="11" Text="{Binding ArrivalCondition_WeightSubtotal}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <TextBlock FontSize="11" Text="{Binding }" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
                                     <Border Margin="0"  Grid.Column="2" BorderThickness="1" BorderBrush="Black" >
                                         <TextBlock  FontSize="11" Text="{Binding }" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>

@@ -280,5 +280,13 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.ArrivalCondition_WeightSubtotal = value; RaisePropertyChanged("ArrivalCondition_WeightSubtotal"); }
         }
         #endregion
+
+        #region 缺貨數量小計
+
+        #endregion
+
+        #region 退貨狀況
+
+        #endregion
     }
 }

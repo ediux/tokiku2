@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using Tokiku.Controllers;
 using Tokiku.Entity;
 
@@ -56,6 +57,139 @@ namespace Tokiku.ViewModels
         }
 
     }
+    public class OrderViewModel : BaseViewModelWithPOCOClass<OrderDetails>
+    {
+
+        public OrderViewModel() : base()
+        {
+
+        }
+
+        public OrderViewModel(OrderDetails entity) : base(entity)
+        {
+
+        }
+
+        /// <summary>
+        /// 訂單編號
+        /// </summary>
+        public new Guid Id
+        {
+            get => (CopyofPOCOInstance.Orders ?? CopyofPOCOInstance.Orders).Id; set
+            {
+                var ordermaster = ExecuteAction<Orders>("Orders", "QuerySingle", value);
+
+                if (ordermaster != null)
+                {
+                    CopyofPOCOInstance.Orders = ordermaster;
+                    CopyofPOCOInstance.OrderId = ordermaster.Id;
+                    RaisePropertyChanged("Id");
+                }
+                else
+                {
+                    throw new Exception("找不到訂單表頭!");
+                }
+            }
+        }
+
+        /// <summary>
+        /// 訂單細項編號
+        /// </summary>
+        public Guid DetailId
+        {
+            get => CopyofPOCOInstance.Id;
+            set
+            {
+
+                CopyofPOCOInstance.Id = value;
+                RaisePropertyChanged("DetailId");
+            }
+        }
+
+        /// <summary>
+        /// 東菊編號
+        /// </summary>
+        public string Code
+        {
+            get => CopyofPOCOInstance.RequiredDetails.Code; set
+            {
+                var refdata = ExecuteAction<RequiredDetails>("Requires", "QuerySingleByCode", value);
+                if (refdata != null)
+                {
+                    CopyofPOCOInstance.RequiredDetails = refdata;
+                    CopyofPOCOInstance.RequiredDetailsId = refdata.Id;
+
+                    RaisePropertyChanged("Code");
+                }
+                else
+                {
+                    throw new Exception("找不到東菊編號!");
+                }
+            }
+        }
+
+        /// <summary>
+        /// 廠商編號
+        /// </summary>
+        public string FactoryNumber { get => CopyofPOCOInstance?.RequiredDetails?.FactoryNumber; set {
+                var refdata = ExecuteAction<RequiredDetails>("Requires", "QuerySingleByFactoryNumber", CopyofPOCOInstance.RequiredDetailsId, value);
+                if (refdata != null)
+                {
+                    CopyofPOCOInstance.RequiredDetails = refdata;
+                    CopyofPOCOInstance.RequiredDetailsId = refdata.Id;
+
+                    RaisePropertyChanged("FactoryNumber");
+                }
+                else
+                {
+                    throw new Exception("找不到廠商編號!");
+                }
+            } }
+
+
+        /// <summary>
+        /// 材質
+        /// </summary>
+        public string Material { get => CopyofPOCOInstance?.RequiredDetails?.Materials?.Name; set {
+                var refdata = ExecuteAction<RequiredDetails>("Requires", "QuerySingleByFactoryNumber", CopyofPOCOInstance.RequiredDetailsId, value);
+                if (refdata != null)
+                {
+                    CopyofPOCOInstance.RequiredDetails = refdata;
+                    CopyofPOCOInstance.RequiredDetailsId = refdata.Id;
+
+                    RaisePropertyChanged("FactoryNumber");
+                }
+                else
+                {
+                    throw new Exception("找不到廠商編號!");
+                }
+            } }
+
+        /// <summary>
+        /// 單位重量
+        /// </summary>
+        public decimal? UnitWeight { get=>CopyofPOCOInstance?.RequiredDetails?.UnitWeight; set {
+
+            } }
+
+        /// <summary>
+        /// 訂購長度
+        /// </summary>
+        public decimal? OrderLength { get => CopyofPOCOInstance?.RequiredDetails?.OrderLength;
+            set {  }
+        }
+        private ICommand _SaveCommand = new RoutedCommand();
+
+        /// <summary>
+        /// 儲存命令
+        /// </summary>
+        public ICommand SaveCommand
+        {
+            get => _SaveCommand;
+            set => _SaveCommand = value;
+        }
+    }
+
     public class AluminumExtrusionOrderViewModel : BaseViewModelWithPOCOClass<AluminumExtrusionOrderEntity>
     {
         public AluminumExtrusionOrderViewModel() : base()
@@ -63,37 +197,23 @@ namespace Tokiku.ViewModels
 
         }
 
-        public AluminumExtrusionOrderViewModel(AluminumExtrusionOrderEntity entity): base(entity)
+        public AluminumExtrusionOrderViewModel(AluminumExtrusionOrderEntity entity) : base(entity)
         {
-                
+
         }
-        //public override void SetModel(dynamic entity)
-        //{
-        //    try
-        //    {
-        //        if (entity is AluminumExtrusionOrderEntity)
-        //        {
-        //            AluminumExtrusionOrderEntity data = (AluminumExtrusionOrderEntity)entity;
-        //            BindingFromModel(data, this);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        setErrortoModel(this, ex);
-        //        throw;
-        //    }
-        //}
 
         // "*東菊編號*"
         public string TokikuId
         {
             get { return CopyofPOCOInstance.TokikuId; }
-            set { CopyofPOCOInstance.TokikuId = value;
+            set
+            {
+                CopyofPOCOInstance.TokikuId = value;
                 RaisePropertyChanged("TokikuId");
             }
         }
 
-       
+
 
         // "*廠商編號*"
         public string ManufacturersId
@@ -102,7 +222,7 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.ManufacturersId = value; RaisePropertyChanged("ManufacturersId"); }
         }
 
-    
+
 
         // "*材質*"
         public string Material
@@ -111,7 +231,7 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.Material = value; RaisePropertyChanged("Material"); }
         }
 
-   
+
         // "*單位重(kg/m)*"
         public Nullable<float> UnitWeight
         {
@@ -119,7 +239,7 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.UnitWeight = value; RaisePropertyChanged("UnitWeight"); }
         }
 
-  
+
 
         // "*訂購長度(mm)*"
         public Nullable<int> OrderLength
@@ -128,7 +248,7 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.OrderLength = value; RaisePropertyChanged("OrderLength"); }
         }
 
- 
+
 
         // "[需求數量]"
         public Nullable<int> RequiredQuantity
@@ -137,7 +257,7 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.RequiredQuantity = value; RaisePropertyChanged("RequiredQuantity"); }
         }
 
-  
+
 
         // "[備品數量]"
         public Nullable<int> SparePartsQuantity
@@ -146,7 +266,7 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.SparePartsQuantity = value; RaisePropertyChanged("SparePartsQuantity"); }
         }
 
-     
+
 
         // "[下單數量]"
         public Nullable<int> PlaceAnOrderQuantity
@@ -155,15 +275,13 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.PlaceAnOrderQuantity = value; RaisePropertyChanged("PlaceAnOrderQuantity"); }
         }
 
-    
+
         // "[備註]"
         public string Note
         {
             get { return CopyofPOCOInstance.Note; }
             set { CopyofPOCOInstance.Note = value; RaisePropertyChanged("Note"); }
         }
-
-   
 
     }
 }
