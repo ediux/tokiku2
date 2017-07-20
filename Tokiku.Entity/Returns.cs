@@ -25,6 +25,7 @@ namespace Tokiku.Entity
         public string ReturnNumber { get; set; }
         public Nullable<System.Guid> IncomingManufacturerId { get; set; }
         public string IncomingNumber { get; set; }
+        public string ReceiptNumber { get; set; }
         public Nullable<System.Guid> MakingUserId { get; set; }
         public System.DateTime MakingTime { get; set; }
         public string MakerPhone { get; set; }

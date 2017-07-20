@@ -3,17 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm ="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
              xmlns:local="clr-namespace:TokikuNew.Views"
              xmlns:Controls="clr-namespace:TokikuNew.Controls"
              mc:Ignorable="d" 
              Background="{DynamicResource ControlBackgroundBrush}"
              x:Name="userControl"
              d:DesignHeight="768" d:DesignWidth="1366">
-
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="ProcessingAtlasSource" ObjectType="{x:Type vm:ProcessingAtlasViewModelCollection}" MethodName="Query"/>
+    </UserControl.Resources>
 
 
     <GroupBox Header="加工圖集" Grid.Row="1" Grid.Column="1" Margin="5" Style="{DynamicResource GroupBox_DocumentEditor}">
-        <Controls:CustomDataGrid x:Name="com2" Margin="5" ItemsSource="{Binding}" 
+        <Controls:CustomDataGrid x:Name="com2" Margin="5" ItemsSource="{Binding Source={StaticResource ProcessingAtlasSource}}" 
                                  CanUserAddRows="True" 
                                  CanUserDeleteRows="True" 
                                  AutoGenerateColumns="False"
@@ -22,13 +25,15 @@
                                  RowEditEnding="com2_RowEditEnding"
                                  IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}">
             <Controls:CustomDataGrid.Columns>
-                <DataGridTextColumn Header="順序" Binding="{Binding Order,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="合約編號" />
-                <DataGridTextColumn Header="圖集" Binding="{Binding Atlas,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="名稱" Binding="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="更新次數" Binding="{Binding UpdateTimes,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="最新日期" Binding="{Binding LastUpdate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="施工順序異動日期" Binding="{Binding ConstructionOrderChangeDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="順序" Binding="{Binding Order,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" />
+                <DataGridTextColumn Header="合約編號" Binding="{Binding ContractNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" />
+                <DataGridTextColumn Header="圖集" Binding="{Binding Atlas,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" />
+                <DataGridTextColumn Header="名稱" Binding="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" />
+                <DataGridTextColumn Header="更新次數" Binding="{Binding UpdateTimes,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" />
+                <DataGridTextColumn Header="最新日期" Binding="{Binding LastUpdate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" />
+                <DataGridTextColumn Header="施工順序異動日期" Binding="{Binding ConstructionOrderChangeDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" />
+                <DataGridTextColumn Header="收圖日期" Width="auto" />
+                <DataGridTextColumn Header="發圖日期" Width="auto" />
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

@@ -71,7 +71,14 @@ namespace Tokiku.ViewModels
             get { return CopyofPOCOInstance.IncomingNumber; }
             set { CopyofPOCOInstance.IncomingNumber = value; RaisePropertyChanged("IncomingNumber"); }
         }
-      
+
+        // 收料單號
+        public string ReceiptNumber
+        {
+            get { return CopyofPOCOInstance.ReceiptNumber; }
+            set { CopyofPOCOInstance.ReceiptNumber = value; RaisePropertyChanged("ReceiptNumber"); }
+        }
+
         // 製單人員
         public string MakingUser
         {
