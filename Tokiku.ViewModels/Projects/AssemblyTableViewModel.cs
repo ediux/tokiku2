@@ -9,128 +9,85 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class AssemblyTableViewModel : BaseViewModelWithPOCOClass<BOM>
+    public class AssemblyTableViewModelCollection : BaseViewModelCollection<AssemblyTableViewModel>
     {
+        public AssemblyTableViewModelCollection() : base()
+        {
+        }
 
+        public AssemblyTableViewModelCollection(IEnumerable<AssemblyTableViewModel> source) : base(source)
+        {
+        }
 
-       
+        public static AssemblyTableViewModelCollection Query()
+        {
+            return Query<AssemblyTableViewModelCollection, Orders>("Orders", "QueryAll");
+        }
 
-        #region Atlas
+    }
 
-        private int _atlas = 1;
+    public class AssemblyTableViewModel : BaseViewModelWithPOCOClass<Orders>
+    {
+        public AssemblyTableViewModel(Orders entity) : base(entity)
+        {
 
+        }
+        
+        /*/ 圖集
         public int Atlas
         {
-            get { return _atlas; }
-            set { _atlas = value; RaisePropertyChanged("Atlas"); }
+            get { return CopyofPOCOInstance.Atlas; }
+            set { CopyofPOCOInstance.Atlas = value; RaisePropertyChanged("Atlas"); }
         }
-
-        #endregion
-
-        #region Combination Number 組合編號
-        private string _CombinationNumber = string.Empty;
+        
+        // 組合編號
         public string CombinationNumber
         {
-            get => _CombinationNumber;
-            set { _CombinationNumber = value; RaisePropertyChanged("CombinationNumber"); }
+            get { return CopyofPOCOInstance.CombinationNumber; }
+            set { CopyofPOCOInstance.CombinationNumber = value; RaisePropertyChanged("CombinationNumber"); }
         }
-        #endregion
-
-        #region Processing number 加工編號
-        private string _ProcessingNumber;
-
-        /// <summary>
-        /// 加工編號
-        /// </summary>
+        
+        // 加工編號
         public string ProcessingNumber
         {
-            get { return _ProcessingNumber; }
-            set { _ProcessingNumber = value; RaisePropertyChanged("ProcessingNumber"); }
+            get { return CopyofPOCOInstance.ProcessingNumber; }
+            set { CopyofPOCOInstance.ProcessingNumber = value; RaisePropertyChanged("ProcessingNumber"); }
         }
-
-        #endregion
-
-        #region Crowded number 擠型編號
-        private string _CrowdedNumber;
-
-        /// <summary>
-        /// 擠型編號
-        /// </summary>
+        
+        // 擠型編號
         public string CrowdedNumber
         {
-            get { return _CrowdedNumber; }
-            set { _CrowdedNumber = value; RaisePropertyChanged("CrowdedNumber"); }
+            get { return CopyofPOCOInstance.CrowdedNumber; }
+            set { CopyofPOCOInstance.CrowdedNumber = value; RaisePropertyChanged("CrowdedNumber"); }
         }
-
-        #endregion
-
-        #region Cut length
-        private decimal _CutLength;
-
+        
+        // 裁切長度/規格
         public decimal CutLength
         {
-            get { return _CutLength; }
-            set { _CutLength = value; RaisePropertyChanged("CutLength"); }
+            get { return CopyofPOCOInstance.CutLength; }
+            set { CopyofPOCOInstance.CutLength = value; RaisePropertyChanged("CutLength"); }
         }
-
-        #endregion
-
-        #region 數量
-
-        private int _Amount;
-
+        
+        // 數量
         public int Amount
         {
-            get { return _Amount; }
-            set { _Amount = value; RaisePropertyChanged("Amount"); }
+            get { return CopyofPOCOInstance.Amount; }
+            set { CopyofPOCOInstance.Amount = value; RaisePropertyChanged("Amount"); }
         }
-
-        #endregion
-
-        #region Material Description 
-        private string _MaterialDescription = string.Empty;
-        /// <summary>
-        /// 
-        /// </summary>
-        public string MaterialDescription { get => _MaterialDescription; set { _MaterialDescription = value; RaisePropertyChanged("MaterialDescription"); } }
-        #endregion
-
-        #region TotalDemand
-        private decimal _TotalDemand;
-        /// <summary>
-        /// 
-        /// </summary>
-        public decimal TotalDemand { get => _TotalDemand; set { _TotalDemand = value; RaisePropertyChanged("TotalDemand"); } }
-        #endregion
-
-
-
-
-        //public void Query()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public void Initialized()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public void Refresh()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public void SaveModel()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public void SetModel(dynamic entity)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-
+        
+        // 材料說明
+        public string MaterialDescription
+        {
+            get { return CopyofPOCOInstance.MaterialDescription; }
+            set { CopyofPOCOInstance.MaterialDescription = value; RaisePropertyChanged("MaterialDescription"); }
+        }
+        
+        // 總需求量
+        public decimal TotalDemand
+        {
+            get { return CopyofPOCOInstance.TotalDemand; }
+            set { CopyofPOCOInstance.TotalDemand = value; RaisePropertyChanged("TotalDemand"); }
+        }
+        // */
     }
 }

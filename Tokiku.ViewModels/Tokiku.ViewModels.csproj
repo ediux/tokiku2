@@ -59,7 +59,6 @@
     <Compile Include="Projects\InvoicesViewModel.cs" />
     <Compile Include="Projects\ControlTable\OrderControlTableViewModel.cs" />
     <Compile Include="Projects\AssemblyTableViewModel.cs" />
-    <Compile Include="Projects\AssemblyTableViewModelCollection.cs" />
     <Compile Include="Base\BaseViewModelWithPOCOClass.cs" />
     <Compile Include="Projects\ControlTable\RequiredControlTableViewModel.cs" />
     <Compile Include="Projects\ProcessingViewModel.cs" />
