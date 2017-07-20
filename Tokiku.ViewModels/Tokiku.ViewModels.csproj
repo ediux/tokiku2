@@ -122,6 +122,7 @@
     <Compile Include="Finance\TicketTypesViewModel.cs" />
     <Compile Include="Shared\VoidViewModel.cs" />
     <Compile Include="Shared\VoidViewModelCollection.cs" />
+    <Compile Include="WorkItemListViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tokiku.Controllers\Tokiku.Controllers.csproj">

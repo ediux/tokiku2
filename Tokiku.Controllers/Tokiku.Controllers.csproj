@@ -119,6 +119,7 @@
     <Compile Include="ShippingMaterialListController.cs" />
     <Compile Include="SystemMembersController.cs" />
     <Compile Include="SystemRolesController.cs" />
+    <Compile Include="WorkItemListController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
