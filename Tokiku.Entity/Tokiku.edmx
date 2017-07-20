@@ -3425,10 +3425,6 @@
             <End Role="Required" EntitySet="Required" />
             <End Role="RequiredDetails" EntitySet="RequiredDetails" />
           </AssociationSet>
-          <AssociationSet Name="RequiredDetailsInControlTables" Association="TokikuModel.RequiredDetailsInControlTables">
-            <End Role="ControlTableDetails" EntitySet="ControlTableDetails" />
-            <End Role="RequiredDetails" EntitySet="RequiredDetails" />
-          </AssociationSet>
           <EntitySet Name="Inventory" EntityType="TokikuModel.Inventory" />
           <AssociationSet Name="FK_Inventory_ControlTableDetails" Association="TokikuModel.FK_Inventory_ControlTableDetails">
             <End Role="ControlTableDetails" EntitySet="ControlTableDetails" />
@@ -5191,7 +5187,6 @@
           <Property Name="InventoryStatus_WeightSubtotal" Type="Decimal" Precision="18" Scale="3" />
           <NavigationProperty Name="OrderDetails" Relationship="TokikuModel.FK_OrderDetails_ControlTableDetails" FromRole="ControlTableDetails" ToRole="OrderDetails" />
           <NavigationProperty Name="OrderMaterialValuation" Relationship="TokikuModel.FK_OrderMaterialValuation_ControlTableDetails" FromRole="ControlTableDetails" ToRole="OrderMaterialValuation" />
-          <NavigationProperty Name="RequiredDetails" Relationship="TokikuModel.RequiredDetailsInControlTables" FromRole="ControlTableDetails" ToRole="RequiredDetails" />
           <NavigationProperty Name="Inventory" Relationship="TokikuModel.FK_Inventory_ControlTableDetails" FromRole="ControlTableDetails" ToRole="Inventory" />
           <NavigationProperty Name="ControlTables" Relationship="TokikuModel.FK_ControlTableDetails_ControlTables" FromRole="ControlTableDetails" ToRole="ControlTables" />
           <NavigationProperty Name="OrderControlTableDetails" Relationship="TokikuModel.FK_OrderControlTableDetails_ControlTableDetails" FromRole="ControlTableDetails" ToRole="OrderControlTableDetails" />
@@ -5211,7 +5206,6 @@
           <Property Name="RequiredQuantity" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Materials" Relationship="TokikuModel.FK_RequiredDetails_Materials" FromRole="RequiredDetails" ToRole="Materials" />
           <NavigationProperty Name="Required" Relationship="TokikuModel.FK_RequiredDetails_Required" FromRole="RequiredDetails" ToRole="Required" />
-          <NavigationProperty Name="ControlTableDetails" Relationship="TokikuModel.RequiredDetailsInControlTables" FromRole="RequiredDetails" ToRole="ControlTableDetails" />
           <NavigationProperty Name="Inventory" Relationship="TokikuModel.FK_Inventory_RequiredDetails" FromRole="RequiredDetails" ToRole="Inventory" />
           <NavigationProperty Name="OrderDetails" Relationship="TokikuModel.FK_OrderDetails_RequiredDetails" FromRole="RequiredDetails" ToRole="OrderDetails" />
           <NavigationProperty Name="OrderMaterialValuation" Relationship="TokikuModel.FK_OrderMaterialValuation_RequiredDetails" FromRole="RequiredDetails" ToRole="OrderMaterialValuation" />
@@ -5263,10 +5257,6 @@
               <PropertyRef Name="RequiredId" />
             </Dependent>
           </ReferentialConstraint>
-        </Association>
-        <Association Name="RequiredDetailsInControlTables">
-          <End Type="TokikuModel.ControlTableDetails" Role="ControlTableDetails" Multiplicity="*" />
-          <End Type="TokikuModel.RequiredDetails" Role="RequiredDetails" Multiplicity="*" />
         </Association>
         <EntityType Name="Inventory">
           <Key>

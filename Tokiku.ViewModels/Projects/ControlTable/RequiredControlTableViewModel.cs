@@ -131,7 +131,7 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string Code
         {
-            get { return CopyofPOCOInstance.RequiredDetails?.FirstOrDefault().Code; }
+            get { return ""; }
             set { RaisePropertyChanged("Code"); }
         }
         #endregion
@@ -143,7 +143,7 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string ManufacturersName
         {
-            get { return CopyofPOCOInstance.RequiredDetails?.FirstOrDefault().Required.Manufacturers.Name; }
+            get { return ""; }
             set { RaisePropertyChanged("ManufacturersName"); }
         }
 
@@ -157,7 +157,7 @@ namespace Tokiku.ViewModels
         {
             get
             {
-                return CopyofPOCOInstance.RequiredDetails?.FirstOrDefault().FactoryNumber;
+                return "";
             }
             set
             {
@@ -174,7 +174,7 @@ namespace Tokiku.ViewModels
         [Display(Name = "材料屬性", Order = 5)]
         public string MaterialCategories
         {
-            get { return string.Join(",", CopyofPOCOInstance.RequiredDetails.Where(w=>w.Materials !=null).Select(s => s.Materials.Name).Distinct().ToArray()); }
+            get { return ""; }
             set
             {
                 //try
@@ -200,7 +200,7 @@ namespace Tokiku.ViewModels
         #region 單位重量
         public decimal? UnitWeight
         {
-            get { return CopyofPOCOInstance.RequiredDetails?.FirstOrDefault()?.UnitWeight; }
+            get { return 0; }
             set { RaisePropertyChanged("UnitWeight"); }
         }
         #endregion
@@ -208,7 +208,7 @@ namespace Tokiku.ViewModels
         #region 訂購長度
         public int? OrderLength
         {
-            get { return CopyofPOCOInstance.RequiredDetails.FirstOrDefault().OrderLength; }
+            get { return 0; }
             set { RaisePropertyChanged("OrderLength"); }
         }
         #endregion

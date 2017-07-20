@@ -19,7 +19,6 @@ namespace Tokiku.Entity
         {
             this.OrderDetails = new HashSet<OrderDetails>();
             this.OrderMaterialValuation = new HashSet<OrderMaterialValuation>();
-            this.RequiredDetails = new HashSet<RequiredDetails>();
             this.Inventory = new HashSet<Inventory>();
             this.OrderControlTableDetails = new HashSet<OrderControlTableDetails>();
         }
@@ -52,8 +51,6 @@ namespace Tokiku.Entity
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderMaterialValuation> OrderMaterialValuation { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RequiredDetails> RequiredDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Inventory> Inventory { get; set; }
         public virtual ControlTables ControlTables { get; set; }

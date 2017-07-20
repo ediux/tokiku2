@@ -129,7 +129,6 @@
         <AssociationConnector Association="TokikuModel.FK_OrderMaterialValuation_ControlTableDetails" />
         <AssociationConnector Association="TokikuModel.FK_RequiredDetails_Materials" />
         <AssociationConnector Association="TokikuModel.FK_RequiredDetails_Required" />
-        <AssociationConnector Association="TokikuModel.RequiredDetailsInControlTables" />
         <EntityTypeShape EntityType="TokikuModel.Inventory" Width="1.5" PointX="26.5" PointY="44.375" />
         <AssociationConnector Association="TokikuModel.FK_Inventory_ControlTableDetails" />
         <AssociationConnector Association="TokikuModel.FK_Inventory_RequiredDetails" />
@@ -153,10 +152,6 @@
         <AssociationConnector Association="TokikuModel.FK_OrderControlTableDetails_ProcessingAtlas" />
         <AssociationConnector Association="TokikuModel.FK_OrderDetails_RequiredDetails" />
         <EntityTypeShape EntityType="TokikuModel.View_OrderMaterialValuation" Width="1.5" PointX="5.375" PointY="3.75" />
-        <AssociationConnector Association="TokikuModel.FK_OrderControlTableDetails_ControlTableDetails" />
-        <AssociationConnector Association="TokikuModel.FK_OrderControlTableDetails_OrderDetails" />
-        <AssociationConnector Association="TokikuModel.FK_OrderControlTableDetails_ProcessingAtlas" />
-        <AssociationConnector Association="TokikuModel.FK_OrderDetails_RequiredDetails" />
         <AssociationConnector Association="TokikuModel.FK_OrderMaterialValuation_RequiredDetails" />
         <EntityTypeShape EntityType="TokikuModel.Manufacturers" Width="1.5" PointX="5.375" PointY="35.25" />
         <AssociationConnector Association="TokikuModel.FK_Invoices_Manufacturers" />
