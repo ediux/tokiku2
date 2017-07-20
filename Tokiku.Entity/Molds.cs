@@ -40,11 +40,11 @@ namespace Tokiku.Entity
         public System.Guid CreateUserId { get; set; }
         public string SerialNumber { get; set; }
     
-        public virtual Manufacturers Manufacturers { get; set; }
         public virtual Materials Materials { get; set; }
         public virtual MoldUseStatus MoldUseStatus { get; set; }
         public virtual Users CreateUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MoldsInProjects> MoldsInProjects { get; set; }
+        public virtual Manufacturers Manufacturers { get; set; }
     }
 }

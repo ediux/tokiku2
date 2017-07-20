@@ -12,24 +12,17 @@ namespace Tokiku.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class ProjectItemCost
+    public partial class ManufacturersFactories
     {
         public System.Guid Id { get; set; }
-        public System.Guid EngineeringId { get; set; }
-        public System.Guid MaterialCategoriesId { get; set; }
-        public System.Guid ManufacturersId { get; set; }
-        public string Specification { get; set; }
-        public float Unit { get; set; }
-        public decimal UnitPrice { get; set; }
-        public decimal Quantity { get; set; }
-        public decimal Amount { get; set; }
-        public bool IsBudget { get; set; }
+        public Nullable<System.Guid> ManufacturersId { get; set; }
+        public string Name { get; set; }
+        public string FactoryPhone { get; set; }
+        public string FactoryFax { get; set; }
+        public string FactoryAddress { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
     
-        public virtual Engineering Engineering { get; set; }
-        public virtual MaterialCategories MaterialCategories { get; set; }
-        public virtual Users CreateUser { get; set; }
         public virtual Manufacturers Manufacturers { get; set; }
     }
 }

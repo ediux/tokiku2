@@ -12,30 +12,25 @@ namespace Tokiku.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class View_RequiredForms
+    public partial class View_Orders
     {
         public System.Guid ProjectId { get; set; }
-        public System.Guid RequiredId { get; set; }
-        public System.Guid RequiredDetailsId { get; set; }
+        public string ProjectCode { get; set; }
         public string ProjectName { get; set; }
         public string ShopFlowName { get; set; }
+        public Nullable<System.Guid> OrderTypeId { get; set; }
         public string FormName { get; set; }
+        public System.Guid RequiredId { get; set; }
         public string FormNumber { get; set; }
-        public string ManufacturersName { get; set; }
-        public string MakingUser { get; set; }
-        public System.DateTime MakingTime { get; set; }
-        public string RequiredPostion { get; set; }
-        public System.DateTime CreateTime { get; set; }
-        public string CreateUser { get; set; }
         public string Code { get; set; }
         public string FactoryNumber { get; set; }
-        public string Materials { get; set; }
-        public Nullable<int> OrderLength { get; set; }
-        public int RequiredQuantity { get; set; }
-        public decimal UnitWeight { get; set; }
         public System.Guid MaterialsId { get; set; }
-        public System.Guid ManufacturersId { get; set; }
-        public System.Guid CreateUserId { get; set; }
-        public System.Guid ShopFlowId { get; set; }
+        public string Materials { get; set; }
+        public decimal UnitWeight { get; set; }
+        public Nullable<int> OrderLength { get; set; }
+        public decimal RequiredQuantity { get; set; }
+        public decimal SparePartsNumber { get; set; }
+        public decimal OrderQuantity { get; set; }
+        public string Comment { get; set; }
     }
 }

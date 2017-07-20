@@ -19,8 +19,9 @@ namespace Tokiku.Entity
         {
             this.PickListDetails = new HashSet<PickListDetails>();
             this.ReceiptDetails = new HashSet<ReceiveDetails>();
-            this.ReturnDetails = new HashSet<ReturnDetails>();
             this.InvoiceDetails = new HashSet<InvoiceDetails>();
+            this.OrderControlTableDetails = new HashSet<OrderControlTableDetails>();
+            this.ReturnDetails = new HashSet<ReturnDetails>();
         }
     
         public System.Guid Id { get; set; }
@@ -32,6 +33,7 @@ namespace Tokiku.Entity
         public string Comment { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
+        public Nullable<System.Guid> RequiredDetailsId { get; set; }
     
         public virtual Orders Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -40,9 +42,12 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReceiveDetails> ReceiptDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ReturnDetails> ReturnDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InvoiceDetails> InvoiceDetails { get; set; }
         public virtual ControlTableDetails ControlTableDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderControlTableDetails> OrderControlTableDetails { get; set; }
+        public virtual RequiredDetails RequiredDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ReturnDetails> ReturnDetails { get; set; }
     }
 }

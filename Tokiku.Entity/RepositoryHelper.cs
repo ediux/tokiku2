@@ -211,6 +211,20 @@ namespace Tokiku.Entity
 			return repository;
 		}		
 
+		public static ManufacturersFactoriesRepository GetManufacturersFactoriesRepository()
+		{
+			var repository = new ManufacturersFactoriesRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static ManufacturersFactoriesRepository GetManufacturersFactoriesRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new ManufacturersFactoriesRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
 		public static MaterialCategoriesRepository GetMaterialCategoriesRepository()
 		{
 			var repository = new MaterialCategoriesRepository();
@@ -305,6 +319,20 @@ namespace Tokiku.Entity
 		public static MoldUseStatusRepository GetMoldUseStatusRepository(IUnitOfWork unitOfWork)
 		{
 			var repository = new MoldUseStatusRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
+		public static OrderControlTableDetailsRepository GetOrderControlTableDetailsRepository()
+		{
+			var repository = new OrderControlTableDetailsRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static OrderControlTableDetailsRepository GetOrderControlTableDetailsRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new OrderControlTableDetailsRepository();
 			repository.UnitOfWork = unitOfWork;
 			return repository;
 		}		
@@ -767,6 +795,62 @@ namespace Tokiku.Entity
 		public static View_ManufacturersBussinessTranscationsRepository GetView_ManufacturersBussinessTranscationsRepository(IUnitOfWork unitOfWork)
 		{
 			var repository = new View_ManufacturersBussinessTranscationsRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
+		public static View_OrderMaterialValuationRepository GetView_OrderMaterialValuationRepository()
+		{
+			var repository = new View_OrderMaterialValuationRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static View_OrderMaterialValuationRepository GetView_OrderMaterialValuationRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new View_OrderMaterialValuationRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
+		public static View_OrdersRepository GetView_OrdersRepository()
+		{
+			var repository = new View_OrdersRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static View_OrdersRepository GetView_OrdersRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new View_OrdersRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
+		public static View_PickListRepository GetView_PickListRepository()
+		{
+			var repository = new View_PickListRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static View_PickListRepository GetView_PickListRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new View_PickListRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
+		public static View_RequiredControlTableRepository GetView_RequiredControlTableRepository()
+		{
+			var repository = new View_RequiredControlTableRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static View_RequiredControlTableRepository GetView_RequiredControlTableRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new View_RequiredControlTableRepository();
 			repository.UnitOfWork = unitOfWork;
 			return repository;
 		}		

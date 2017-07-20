@@ -34,7 +34,6 @@ namespace Tokiku.Entity
         public virtual DbSet<WorkShops> WorkShops { get; set; }
         public virtual DbSet<Contacts> Contacts { get; set; }
         public virtual DbSet<Engineering> Engineering { get; set; }
-        public virtual DbSet<Manufacturers> Manufacturers { get; set; }
         public virtual DbSet<MaterialCategories> MaterialCategories { get; set; }
         public virtual DbSet<Materials> Materials { get; set; }
         public virtual DbSet<Molds> Molds { get; set; }
@@ -64,7 +63,6 @@ namespace Tokiku.Entity
         public virtual DbSet<PickListDetails> PickListDetails { get; set; }
         public virtual DbSet<ReceiveDetails> ReceiptDetails { get; set; }
         public virtual DbSet<Receive> Receipts { get; set; }
-        public virtual DbSet<ReturnDetails> ReturnDetails { get; set; }
         public virtual DbSet<Returns> Returns { get; set; }
         public virtual DbSet<Stocks> Stocks { get; set; }
         public virtual DbSet<InvoiceDetails> InvoiceDetails { get; set; }
@@ -79,7 +77,15 @@ namespace Tokiku.Entity
         public virtual DbSet<Inventory> Inventory { get; set; }
         public virtual DbSet<ShopFlowDetail> ShopFlowDetail { get; set; }
         public virtual DbSet<ShopFlowHistory> ShopFlowHistory { get; set; }
-        public virtual DbSet<View_RequiredForms> View_RequiredForms { get; set; }
         public virtual DbSet<ControlTables> ControlTables { get; set; }
+        public virtual DbSet<ManufacturersFactories> ManufacturersFactories { get; set; }
+        public virtual DbSet<OrderControlTableDetails> OrderControlTableDetails { get; set; }
+        public virtual DbSet<View_OrderMaterialValuation> View_OrderMaterialValuation { get; set; }
+        public virtual DbSet<View_Orders> View_Orders { get; set; }
+        public virtual DbSet<View_PickList> View_PickList { get; set; }
+        public virtual DbSet<Manufacturers> Manufacturers { get; set; }
+        public virtual DbSet<View_RequiredForms> View_RequiredForms { get; set; }
+        public virtual DbSet<View_RequiredControlTable> View_RequiredControlTable { get; set; }
+        public virtual DbSet<ReturnDetails> ReturnDetails { get; set; }
     }
 }

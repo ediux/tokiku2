@@ -17,8 +17,8 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TicketPeriod()
         {
-            this.Manufacturers = new HashSet<Manufacturers>();
             this.ManufacturersBussinessItems = new HashSet<ManufacturersBussinessItems>();
+            this.Manufacturers = new HashSet<Manufacturers>();
         }
     
         public int Id { get; set; }
@@ -28,8 +28,8 @@ namespace Tokiku.Entity
         public Nullable<System.Guid> CreateUserId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Manufacturers> Manufacturers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Manufacturers> Manufacturers { get; set; }
     }
 }

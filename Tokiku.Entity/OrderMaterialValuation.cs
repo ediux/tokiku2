@@ -25,10 +25,12 @@ namespace Tokiku.Entity
         public Nullable<System.Guid> ControlTableDetailId { get; set; }
         public double Weight { get; set; }
         public int TotalPrice { get; set; }
+        public Nullable<System.Guid> RequiredDetailsId { get; set; }
     
         public virtual Orders Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InvoiceDetails_Material> InvoiceDetails_Material { get; set; }
         public virtual ControlTableDetails ControlTableDetails { get; set; }
+        public virtual RequiredDetails RequiredDetails { get; set; }
     }
 }

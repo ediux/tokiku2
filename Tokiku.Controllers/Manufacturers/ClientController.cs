@@ -64,7 +64,7 @@ namespace Tokiku.Controllers
             try
             {
                 var result = from q in ManufacturersRepo.All()
-                             from p in q.ClientForProjects
+                             from p in q.ManufacturersBussinessItems
                              where q.IsClient == true && q.Void == false && p.Id == ProjectId
                              select q;
 

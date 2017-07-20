@@ -17,20 +17,20 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Manufacturers()
         {
-            this.Molds = new HashSet<Molds>();
-            this.ProjectItemCost = new HashSet<ProjectItemCost>();
-            this.WorkShops = new HashSet<WorkShops>();
-            this.Contacts = new HashSet<Contacts>();
-            this.ClientForProjects = new HashSet<Projects>();
+            this.Invoices = new HashSet<Invoices>();
             this.ManufacturersBussinessItems = new HashSet<ManufacturersBussinessItems>();
-            this.BOM = new HashSet<BOM>();
-            this.SupplierTranscationItem = new HashSet<SupplierTranscationItem>();
+            this.ManufacturersFactories = new HashSet<ManufacturersFactories>();
+            this.Molds = new HashSet<Molds>();
             this.Orders = new HashSet<Orders>();
             this.PickList = new HashSet<PickList>();
+            this.ProjectItemCost = new HashSet<ProjectItemCost>();
             this.Receipts = new HashSet<Receive>();
-            this.Returns = new HashSet<Returns>();
-            this.Invoices = new HashSet<Invoices>();
             this.Required = new HashSet<Required>();
+            this.Returns = new HashSet<Returns>();
+            this.SupplierTranscationItem = new HashSet<SupplierTranscationItem>();
+            this.WorkShops = new HashSet<WorkShops>();
+            this.Projects = new HashSet<Projects>();
+            this.Contacts = new HashSet<Contacts>();
         }
     
         public System.Guid Id { get; set; }
@@ -42,9 +42,6 @@ namespace Tokiku.Entity
         public string Fax { get; set; }
         public string eMail { get; set; }
         public string Address { get; set; }
-        public string FactoryPhone { get; set; }
-        public string FactoryFax { get; set; }
-        public string FactoryAddress { get; set; }
         public string Comment { get; set; }
         public bool Void { get; set; }
         public bool IsClient { get; set; }
@@ -61,35 +58,35 @@ namespace Tokiku.Entity
         public Nullable<int> TicketPeriodId { get; set; }
         public string InvoiceAddress { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Invoices> Invoices { get; set; }
         public virtual PaymentTypes PaymentTypes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Molds> Molds { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProjectItemCost> ProjectItemCost { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WorkShops> WorkShops { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Contacts> Contacts { get; set; }
         public virtual TicketPeriod TicketPeriod { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Projects> ClientForProjects { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BOM> BOM { get; set; }
+        public virtual ICollection<ManufacturersFactories> ManufacturersFactories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SupplierTranscationItem> SupplierTranscationItem { get; set; }
+        public virtual ICollection<Molds> Molds { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Orders> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PickList> PickList { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProjectItemCost> ProjectItemCost { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Receive> Receipts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Required> Required { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Returns> Returns { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Invoices> Invoices { get; set; }
+        public virtual ICollection<SupplierTranscationItem> SupplierTranscationItem { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Required> Required { get; set; }
+        public virtual ICollection<WorkShops> WorkShops { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Projects> Projects { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Contacts> Contacts { get; set; }
     }
 }

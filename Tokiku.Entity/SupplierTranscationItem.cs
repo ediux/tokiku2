@@ -22,8 +22,8 @@ namespace Tokiku.Entity
         public string SiteContactPersonPhone { get; set; }
         public Nullable<System.Guid> NextManufacturersId { get; set; }
     
-        public virtual Manufacturers NextManufacturers { get; set; }
         public virtual ManufacturersBussinessItems ManufacturersBussinessItems { get; set; }
         public virtual Projects Projects { get; set; }
+        public virtual Manufacturers NextManufacturers { get; set; }
     }
 }

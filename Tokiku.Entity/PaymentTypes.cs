@@ -17,16 +17,16 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PaymentTypes()
         {
-            this.Manufacturers = new HashSet<Manufacturers>();
             this.ManufacturersBussinessItems = new HashSet<ManufacturersBussinessItems>();
+            this.Manufacturers = new HashSet<Manufacturers>();
         }
     
         public byte Id { get; set; }
         public string PaymentTypeName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Manufacturers> Manufacturers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Manufacturers> Manufacturers { get; set; }
     }
 }
