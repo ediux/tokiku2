@@ -688,7 +688,8 @@
           <Property Name="Comment" Type="nvarchar" MaxLength="512" />
           <Property Name="CreateTime" Type="smalldatetime" Nullable="false" />
           <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
-        </EntityType>
+          <Property Name="ReceiptNumber" Type="nvarchar" MaxLength="50" Nullable="true" />
+       </EntityType>
         <EntityType Name="Roles">
           <Key>
             <PropertyRef Name="RoleId" />
@@ -4357,6 +4358,7 @@
           <Property Name="Comment" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
+          <Property Name="ReceiptNumber" Type="String" Nullable="true" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_Returns_Manufacturers" FromRole="Returns" ToRole="Manufacturers" />
           <NavigationProperty Name="ReturnDetails" Relationship="TokikuModel.FK_ReturnDetails_Returns" FromRole="Returns" ToRole="ReturnDetails" />
           <NavigationProperty Name="Users" Relationship="TokikuModel.FK_Returns_CreateUsers" FromRole="Returns" ToRole="Users" />
@@ -6050,6 +6052,7 @@
           <EntitySetMapping Name="Returns">
             <EntityTypeMapping TypeName="TokikuModel.Returns">
               <MappingFragment StoreEntitySet="Returns">
+                <ScalarProperty Name="ReceiptNumber" ColumnName="ReceiptNumber" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
