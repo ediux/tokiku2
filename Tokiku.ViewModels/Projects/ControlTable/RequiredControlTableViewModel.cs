@@ -174,7 +174,7 @@ namespace Tokiku.ViewModels
         [Display(Name = "材料屬性", Order = 5)]
         public string MaterialCategories
         {
-            get { return string.Join(",", CopyofPOCOInstance.RequiredDetails.Select(s => s.Materials.Name).Distinct().ToArray()); }
+            get { return string.Join(",", CopyofPOCOInstance.RequiredDetails.Where(w=>w.Materials !=null).Select(s => s.Materials.Name).Distinct().ToArray()); }
             set
             {
                 //try

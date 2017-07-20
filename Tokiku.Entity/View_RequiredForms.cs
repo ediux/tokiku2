@@ -15,8 +15,6 @@ namespace Tokiku.Entity
     public partial class View_RequiredForms
     {
         public System.Guid ProjectId { get; set; }
-        public System.Guid ControlTableId { get; set; }
-        public System.Guid ControlTableDetailId { get; set; }
         public string ProjectName { get; set; }
         public string ShopFlowName { get; set; }
         public string FormNumber { get; set; }
@@ -32,5 +30,7 @@ namespace Tokiku.Entity
         public decimal UnitWeight { get; set; }
         public System.DateTime CreateTime { get; set; }
         public string CreateUser { get; set; }
+        public Nullable<System.Guid> RequiredId { get; set; }
+        public System.Guid RequiredDetailId { get; set; }
     }
 }

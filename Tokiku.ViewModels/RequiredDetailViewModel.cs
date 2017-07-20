@@ -105,6 +105,7 @@ namespace Tokiku.ViewModels
                 catch (Exception ex)
                 {
                     setErrortoModel(this, ex);
+                    throw ex;
                 }                
             }
         }

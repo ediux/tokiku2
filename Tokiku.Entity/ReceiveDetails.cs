@@ -29,6 +29,7 @@ namespace Tokiku.Entity
         public double Weight { get; set; }
         public int LackQuantity { get; set; }
         public int ReceiptQuantity { get; set; }
+        public string Comment { get; set; }
     
         public virtual OrderDetails OrderDetails { get; set; }
         public virtual Receive Receipts { get; set; }

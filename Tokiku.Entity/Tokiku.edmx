@@ -390,6 +390,7 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="OrderId" Type="uniqueidentifier" />
+          <Property Name="RequiredDetailsId" Type="uniqueidentifier" />
           <Property Name="ControlTableDetailId" Type="uniqueidentifier" />
           <Property Name="RequiredQuantity" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="SparePartsNumber" Type="decimal" Precision="18" Scale="0" Nullable="false" />
@@ -602,6 +603,7 @@
           <Property Name="Weight" Type="float" Nullable="false" />
           <Property Name="LackQuantity" Type="int" Nullable="false" />
           <Property Name="ReceiptQuantity" Type="int" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="512" />
         </EntityType>
         <EntityType Name="Receipts">
           <Key>
@@ -688,6 +690,7 @@
           <Property Name="Comment" Type="nvarchar" MaxLength="512" />
           <Property Name="CreateTime" Type="smalldatetime" Nullable="false" />
           <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReceiptNumber" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -862,8 +865,7 @@
         <EntityType Name="View_RequiredForms">
           <Key>
             <PropertyRef Name="ProjectId" />
-            <PropertyRef Name="ControlTableId" />
-            <PropertyRef Name="ControlTableDetailId" />
+            <PropertyRef Name="RequiredDetailId" />
             <PropertyRef Name="ProjectName" />
             <PropertyRef Name="FormNumber" />
             <PropertyRef Name="ManufacturersName" />
@@ -878,8 +880,8 @@
             <PropertyRef Name="CreateUser" />
           </Key>
           <Property Name="ProjectId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ControlTableId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ControlTableDetailId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RequiredId" Type="uniqueidentifier" />
+          <Property Name="RequiredDetailId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ProjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ShopFlowName" Type="nvarchar" MaxLength="50" />
           <Property Name="FormNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -1445,6 +1447,18 @@
             </Principal>
             <Dependent Role="OrderDetails">
               <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetails_RequiredDetails">
+          <End Role="RequiredDetails" Type="Self.RequiredDetails" Multiplicity="0..1" />
+          <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequiredDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="RequiredDetailsId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2201,8 +2215,8 @@
           <EntitySet Name="View_RequiredForms" EntityType="Self.View_RequiredForms" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [View_RequiredForms].[ProjectId] AS [ProjectId], 
-    [View_RequiredForms].[ControlTableId] AS [ControlTableId], 
-    [View_RequiredForms].[ControlTableDetailId] AS [ControlTableDetailId], 
+    [View_RequiredForms].[RequiredId] AS [RequiredId], 
+    [View_RequiredForms].[RequiredDetailId] AS [RequiredDetailId], 
     [View_RequiredForms].[ProjectName] AS [ProjectName], 
     [View_RequiredForms].[ShopFlowName] AS [ShopFlowName], 
     [View_RequiredForms].[FormNumber] AS [FormNumber], 
@@ -2402,6 +2416,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_OrderDetails_Orders" Association="Self.FK_OrderDetails_Orders">
             <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_RequiredDetails" Association="Self.FK_OrderDetails_RequiredDetails">
+            <End Role="RequiredDetails" EntitySet="RequiredDetails" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderMaterialValuation_ControlTableDetails" Association="Self.FK_OrderMaterialValuation_ControlTableDetails">
@@ -3224,6 +3242,10 @@
           <AssociationSet Name="FK_Inventory_ControlTables" Association="TokikuModel.FK_Inventory_ControlTables">
             <End Role="ControlTables" EntitySet="ControlTables" />
             <End Role="Inventory" EntitySet="Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_RequiredDetails" Association="TokikuModel.FK_OrderDetails_RequiredDetails">
+            <End Role="RequiredDetails" EntitySet="RequiredDetails" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="AccessLog">
@@ -4200,6 +4222,8 @@
           <NavigationProperty Name="ReturnDetails" Relationship="TokikuModel.FK_ReturnDetails_OrderDetails" FromRole="OrderDetails" ToRole="ReturnDetails" />
           <NavigationProperty Name="InvoiceDetails" Relationship="TokikuModel.FK_InvoiceDetails_OrderDetails" FromRole="OrderDetails" ToRole="InvoiceDetails" />
           <NavigationProperty Name="ControlTableDetails" Relationship="TokikuModel.FK_OrderDetails_ControlTableDetails" FromRole="OrderDetails" ToRole="ControlTableDetails" />
+          <Property Name="RequiredDetailsId" Type="Guid" />
+          <NavigationProperty Name="RequiredDetails" Relationship="TokikuModel.FK_OrderDetails_RequiredDetails" FromRole="OrderDetails" ToRole="RequiredDetails" />
         </EntityType>
         <EntityType Name="OrderMaterialValuation">
           <Key>
@@ -4303,6 +4327,7 @@
           <NavigationProperty Name="InvoiceDetails" Relationship="TokikuModel.FK_InvoiceDetails_ReceiptDetails" FromRole="ReceiptDetails" ToRole="InvoiceDetails" />
           <NavigationProperty Name="InvoiceDetails_Material" Relationship="TokikuModel.FK_InvoiceDetails_Material_ReceiptDetails" FromRole="ReceiptDetails" ToRole="InvoiceDetails_Material" />
           <NavigationProperty Name="InvoiceDetails_Miscellaneous" Relationship="TokikuModel.FK_InvoiceDetails_Miscellaneous_ReceiptDetails" FromRole="ReceiptDetails" ToRole="InvoiceDetails_Miscellaneous" />
+          <Property Name="Comment" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Receive">
           <Key>
@@ -4362,6 +4387,7 @@
           <NavigationProperty Name="Users" Relationship="TokikuModel.FK_Returns_CreateUsers" FromRole="Returns" ToRole="Users" />
           <NavigationProperty Name="Users1" Relationship="TokikuModel.FK_Returns_MakerUsers" FromRole="Returns" ToRole="Users" />
           <NavigationProperty Name="Stocks" Relationship="TokikuModel.FK_Returns_Stocks" FromRole="Returns" ToRole="Stocks" />
+          <Property Name="ReceiptNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Stocks">
           <Key>
@@ -5119,6 +5145,7 @@
           <NavigationProperty Name="Required" Relationship="TokikuModel.FK_RequiredDetails_Required" FromRole="RequiredDetails" ToRole="Required" />
           <NavigationProperty Name="ControlTableDetails" Relationship="TokikuModel.RequiredDetailsInControlTables" FromRole="RequiredDetails" ToRole="ControlTableDetails" />
           <NavigationProperty Name="Inventory" Relationship="TokikuModel.FK_Inventory_RequiredDetails" FromRole="RequiredDetails" ToRole="Inventory" />
+          <NavigationProperty Name="OrderDetails" Relationship="TokikuModel.FK_OrderDetails_RequiredDetails" FromRole="RequiredDetails" ToRole="OrderDetails" />
         </EntityType>
         <Association Name="FK_OrderDetails_ControlTableDetails">
           <End Type="TokikuModel.ControlTableDetails" Role="ControlTableDetails" Multiplicity="0..1" />
@@ -5268,8 +5295,6 @@
         <EntityType Name="View_RequiredForms">
           <Key>
             <PropertyRef Name="ProjectId" />
-            <PropertyRef Name="ControlTableId" />
-            <PropertyRef Name="ControlTableDetailId" />
             <PropertyRef Name="ProjectName" />
             <PropertyRef Name="FormNumber" />
             <PropertyRef Name="ManufacturersName" />
@@ -5282,10 +5307,9 @@
             <PropertyRef Name="UnitWeight" />
             <PropertyRef Name="CreateTime" />
             <PropertyRef Name="CreateUser" />
+            <PropertyRef Name="RequiredDetailId" />
           </Key>
           <Property Name="ProjectId" Type="Guid" Nullable="false" />
-          <Property Name="ControlTableId" Type="Guid" Nullable="false" />
-          <Property Name="ControlTableDetailId" Type="Guid" Nullable="false" />
           <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ShopFlowName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FormNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -5301,6 +5325,8 @@
           <Property Name="UnitWeight" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="CreateUser" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="RequiredId" Type="Guid" />
+          <Property Name="RequiredDetailId" Type="Guid" Nullable="false" />
         </EntityType>
         <Association Name="FK_ShopFlowDetail_ShopFlow">
           <End Type="TokikuModel.ShopFlow" Role="ShopFlow" Multiplicity="1" />
@@ -5385,6 +5411,18 @@
             </Principal>
             <Dependent Role="Inventory">
               <PropertyRef Name="ControlTableId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetails_RequiredDetails">
+          <End Type="TokikuModel.RequiredDetails" Role="RequiredDetails" Multiplicity="0..1" />
+          <End Type="TokikuModel.OrderDetails" Role="OrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequiredDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="RequiredDetailsId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5917,6 +5955,7 @@
           <EntitySetMapping Name="OrderDetails">
             <EntityTypeMapping TypeName="TokikuModel.OrderDetails">
               <MappingFragment StoreEntitySet="OrderDetails">
+                <ScalarProperty Name="RequiredDetailsId" ColumnName="RequiredDetailsId" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
@@ -6005,6 +6044,7 @@
           <EntitySetMapping Name="ReceiptDetails">
             <EntityTypeMapping TypeName="TokikuModel.ReceiveDetails">
               <MappingFragment StoreEntitySet="ReceiptDetails">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="ReceiptQuantity" ColumnName="ReceiptQuantity" />
                 <ScalarProperty Name="LackQuantity" ColumnName="LackQuantity" />
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
@@ -6050,6 +6090,7 @@
           <EntitySetMapping Name="Returns">
             <EntityTypeMapping TypeName="TokikuModel.Returns">
               <MappingFragment StoreEntitySet="Returns">
+                <ScalarProperty Name="ReceiptNumber" ColumnName="ReceiptNumber" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
@@ -6280,6 +6321,8 @@
           <EntitySetMapping Name="View_RequiredForms">
             <EntityTypeMapping TypeName="TokikuModel.View_RequiredForms">
               <MappingFragment StoreEntitySet="View_RequiredForms">
+                <ScalarProperty Name="RequiredDetailId" ColumnName="RequiredDetailId" />
+                <ScalarProperty Name="RequiredId" ColumnName="RequiredId" />
                 <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
                 <ScalarProperty Name="UnitWeight" ColumnName="UnitWeight" />
@@ -6295,8 +6338,6 @@
                 <ScalarProperty Name="FormNumber" ColumnName="FormNumber" />
                 <ScalarProperty Name="ShopFlowName" ColumnName="ShopFlowName" />
                 <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-                <ScalarProperty Name="ControlTableDetailId" ColumnName="ControlTableDetailId" />
-                <ScalarProperty Name="ControlTableId" ColumnName="ControlTableId" />
                 <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
               </MappingFragment>
             </EntityTypeMapping>

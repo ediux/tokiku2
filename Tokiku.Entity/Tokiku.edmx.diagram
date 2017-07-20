@@ -165,6 +165,7 @@
         <AssociationConnector Association="TokikuModel.FK_ControlTables_Projects" />
         <AssociationConnector Association="TokikuModel.FK_ControlTables_ShopFlow" />
         <AssociationConnector Association="TokikuModel.FK_Inventory_ControlTables" />
+        <AssociationConnector Association="TokikuModel.FK_OrderDetails_RequiredDetails" />
         </Diagram>
       <Diagram DiagramId="da028285ff1d445f8957817e8b05eec6" Name="專案主檔" ZoomLevel="86" >
         <EntityTypeShape EntityType="TokikuModel.Projects" Width="1.5" PointX="3" PointY="10.625" />

@@ -19,6 +19,7 @@ namespace Tokiku.Entity
         {
             this.ControlTableDetails = new HashSet<ControlTableDetails>();
             this.Inventory = new HashSet<Inventory>();
+            this.OrderDetails = new HashSet<OrderDetails>();
         }
     
         public System.Guid Id { get; set; }
@@ -37,5 +38,7 @@ namespace Tokiku.Entity
         public virtual ICollection<ControlTableDetails> ControlTableDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Inventory> Inventory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderDetails> OrderDetails { get; set; }
     }
 }
