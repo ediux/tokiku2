@@ -10,8 +10,6 @@ namespace Tokiku.Controllers
 {
     public class InventoryController : BaseController
     {
-        private ExecuteResultEntity<ICollection<Inventory>> rtn;
-
         public ExecuteResultEntity<ICollection<Inventory>> QuerAll()
         {
             try {
@@ -19,8 +17,7 @@ namespace Tokiku.Controllers
                 return ExecuteResultEntity<ICollection<Inventory>>.CreateResultEntity(
                     new Collection<Inventory>(repo.All().ToList()));
             }catch (Exception ex) {
-                rtn = ExecuteResultEntity<ICollection<Inventory>>.CreateErrorResultEntity(ex);
-                return rtn;
+                return ExecuteResultEntity<ICollection<Inventory>>.CreateErrorResultEntity(ex);
             }
         }
     }

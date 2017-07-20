@@ -6,6 +6,7 @@
                     xmlns:helpers="clr-namespace:TokikuNew.Helpers"
                     xmlns:cmd="clr-namespace:TokikuNew.Commands"
                     xmlns:ValueConverters="clr-namespace:TokikuNew.ValueConverters">
+    <!--資料來源-->
     <ObjectDataProvider x:Key="MaterialCategoriesSource" ObjectType="{x:Type vm:MaterialCategoriesViewModelCollection}" MethodName="Query"/>
     <ObjectDataProvider x:Key="StatesSource" ObjectType="{x:Type vm:StatesViewModelCollection}" MethodName="Query">
     </ObjectDataProvider>
@@ -15,10 +16,12 @@
     <ObjectDataProvider x:Key="PaymentTypesSource" ObjectType="{x:Type vm:PaymentTypesManageViewModelCollection}" MethodName="Query"/>
     <ObjectDataProvider x:Key="VoidStateListSource" ObjectType="{x:Type vm:VoidViewModelCollection}" MethodName="Query"/>
     <ObjectDataProvider x:Key="ConstructionAtlasReplySelectList" ObjectType="{x:Type vm:ConstructionAtlasReplyContextViewModelCollection}" MethodName="Query"/>
-    
+
+    <ObjectDataProvider x:Key="ManufactureList" ObjectType="{x:Type vm:ManufacturersViewModelCollection}" MethodName="Query"/>
     <vm:預付款保證票ViewModelCollection x:Key="預付款保證票清單"/>
     <vm:保固票ViewModelCollection x:Key="保固票清單"/>
     <vm:PromissoryNoteManagementViewModelCollection x:Key="PromissoryNoteManagementSource"/>
+    <!--轉換器-->
     <ValueConverters:DateTime2StringFormatingValueConverter x:Key="FormatedDatetime"/>
     <ValueConverters:ReplyContentValueConverter x:Key="AtlasReplayContents"/>
     <ValueConverters:NOTGateValueConverter x:Key="NOTGateValueConverter"/>
@@ -33,6 +36,7 @@
     <ValueConverters:VoidToStateTextValueConverter x:Key="Void2TextValueConvterver" />
     <BitmapImage x:Key="Logo" UriSource="/Resources/16x16.png" />
     <BitmapImage x:Key="Banner" UriSource="/Resources/TokikuLogo.gif" />
+    <!--系統與自訂命令-->
     <RoutedUICommand x:Key="Modify" Text="修改" />
     <RoutedUICommand x:Key="Save" Text="暫存"/>
     <RoutedUICommand x:Key="Query" Text="查詢"  />

@@ -22,7 +22,6 @@
                 <x:Static Member="sys:Guid.Empty"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
-        <ObjectDataProvider x:Key="ManufactureList" ObjectType="{x:Type vm:ManufacturersViewModelCollection}" MethodName="Query"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -121,6 +120,7 @@
             <c:CustomDataGrid AllowExecuteSystemCommand="True"                              
                               CanUserAddRows="True"
                               CanUserDeleteRows="True" 
+                              DataSourceType="{x:Type vm:RequiredDetailViewModel}"
                               ItemsSource="{Binding Source={StaticResource RequiredDetailSource}}">
                 <c:CustomDataGrid.Columns>
                     <DataGridTextColumn Header="項次" Width="auto" Binding="{Binding Order,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>

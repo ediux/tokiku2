@@ -99,7 +99,7 @@ namespace Tokiku.ViewModels
                 CopyofPOCOInstance.Manufacturers = value.Entity;
 
                
-
+                
                 RaisePropertyChanged("SelectedManufacturers");
                 RaisePropertyChanged("ManufacturersCode");
                 RaisePropertyChanged("ManufacturersName");

@@ -6,7 +6,11 @@ namespace Tokiku.Entity
     
     [MetadataType(typeof(ControlTableDetailsMetaData))]
     public partial class ControlTableDetails
-    {
+    {       
+        public int RowIndex
+        {
+            get;set;
+        }
     }
     
     public partial class ControlTableDetailsMetaData
@@ -41,6 +45,5 @@ namespace Tokiku.Entity
         public virtual ICollection<RequiredDetails> RequiredDetails { get; set; }
         public virtual ICollection<Inventory> Inventory { get; set; }
         public virtual ControlTables ControlTables { get; set; }
-        public virtual ICollection<OrderControlTableDetails> OrderControlTableDetails { get; set; }
     }
 }

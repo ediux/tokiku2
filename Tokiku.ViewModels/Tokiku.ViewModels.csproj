@@ -59,7 +59,6 @@
     <Compile Include="Projects\InvoicesViewModel.cs" />
     <Compile Include="Projects\ControlTable\OrderControlTableViewModel.cs" />
     <Compile Include="Projects\AssemblyTableViewModel.cs" />
-    <Compile Include="Projects\AssemblyTableViewModelCollection.cs" />
     <Compile Include="Base\BaseViewModelWithPOCOClass.cs" />
     <Compile Include="Projects\ControlTable\RequiredControlTableViewModel.cs" />
     <Compile Include="Projects\ProcessingViewModel.cs" />
@@ -84,7 +83,6 @@
     <Compile Include="Projects\EngineeringViewModel.cs" />
     <Compile Include="Projects\Orders\AluminumExtrusionOrderViewModel.cs" />
     <Compile Include="Projects\ProcessingAtlasViewModel.cs" />
-    <Compile Include="Projects\ProcessingAtlasViewModelCollection.cs" />
     <Compile Include="Projects\SuppliersViewModel.cs" />
     <Compile Include="Finance\PaymentTypesManageViewModel.cs" />
     <Compile Include="Projects\ProjectContractViewModel.cs" />
@@ -123,6 +121,7 @@
     <Compile Include="Finance\TicketTypesViewModel.cs" />
     <Compile Include="Shared\VoidViewModel.cs" />
     <Compile Include="Shared\VoidViewModelCollection.cs" />
+    <Compile Include="WorkItemListViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tokiku.Controllers\Tokiku.Controllers.csproj">

@@ -156,27 +156,27 @@ namespace Tokiku.Controllers
             }
         }
 
-        public override ExecuteResultEntity<Required> CreateOrUpdate(Required entity, bool isLastRecord = true)
-        {
-            try
-            {
-                var result = base.CreateOrUpdate(entity, isLastRecord);
+        //public override ExecuteResultEntity<Required> CreateOrUpdate(Required entity, bool isLastRecord = true)
+        //{
+        //    try
+        //    {
+        //        var result = base.CreateOrUpdate(entity, isLastRecord);
 
-                if (!result.HasError)
-                {
-                    ControlTableController ctrl = new ControlTableController();
-                    ctrl.Calculations(entity.Projects.Id);
+        //        if (!result.HasError)
+        //        {
+        //            ControlTableController ctrl = new ControlTableController();
+        //            ctrl.Calculations(entity.Projects.Id);
 
-                }
+        //        }
 
-                return result;
-            }
-            catch (Exception ex)
-            {
-                var rtn = ExecuteResultEntity<Required>.CreateErrorResultEntity(ex);
-                return rtn;
-            }
+        //        return result;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        var rtn = ExecuteResultEntity<Required>.CreateErrorResultEntity(ex);
+        //        return rtn;
+        //    }
 
-        }
+        //}
     }
 }

@@ -90,11 +90,11 @@ namespace Tokiku.Entity
         public virtual ICollection<ProjectContract> ProjectContract { get; set; }
         public virtual States States { get; set; }
         public virtual ICollection<MoldsInProjects> MoldsInProjects { get; set; }
+        public virtual ICollection<Manufacturers> Manufacturers { get; set; }
         public virtual ICollection<ConstructionAtlas> ConstructionAtlas { get; set; }
         public virtual ICollection<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
         public virtual ICollection<SupplierTranscationItem> SupplierTranscationItem { get; set; }
         public virtual ICollection<Required> Required { get; set; }
         public virtual ICollection<ControlTables> ControlTables { get; set; }
-        public virtual ICollection<Manufacturers> Manufacturers { get; set; }
     }
 }
