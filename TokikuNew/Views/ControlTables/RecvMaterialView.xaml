@@ -10,7 +10,7 @@
              Background="{DynamicResource ControlBackgroundBrush}"
              d:DesignHeight="600" d:DesignWidth="1024" Loaded="RecvMaterialView_Loaded">
     <UserControl.Resources>
-        <ObjectDataProvider x:Key="OrderSource" ObjectType="{x:Type vm:AluminumExtrusionOrderViewModelCollection}" MethodName="Query"/>
+        <ObjectDataProvider x:Key="OrderSource" ObjectType="{x:Type vm:OrderDetailViewModelCollection}" MethodName="Query"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>

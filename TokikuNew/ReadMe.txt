@@ -46,13 +46,13 @@
 		StatesCodeToTextValueConverter.cs - 進度代碼轉換為對應的文字
 		VoidToStateTextValueConverter.cs - 將停用狀態轉換為對應的文字
 	Views
-		AluminumExtrusion - 鋁擠型加工相關表單
-			AluminumExtrusionOrderListView.xaml - 鋁擠型訂製單列表
-			OrderSheetView.xaml - 鋁擠型訂製單
-				├ AluminumExtrusionOrderView.xaml - 鋁擠型訂製單
-				├ AluminumExtrusionOrderMaterialValuationView.xaml - 鋁擠型材質估價
-				└ AluminumExtrusionOrderMiscellaneousView.xaml - 鋁擠型雜項
-			ProcessingAtlasDetailView.xaml - 鋁擠型加工圖集明細表
+		Orders - 訂製單相關
+			AluminumExtrusionOrderListView.xaml - 訂製單列表
+			OrderSheetView.xaml - 訂製單(所有工段)
+				├ OrderView.xaml - 訂製單
+				├ AluminumExtrusionOrderMaterialValuationView.xaml - 材質估價
+				└ AluminumExtrusionOrderMiscellaneousView.xaml - 雜項
+			ProcessingAtlasDetailView.xaml - 圖集明細表
 		ContactPerson
 			ContactPersonManageView.xaml - 聯絡人管理
 		ControlTables - 管控表

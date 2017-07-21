@@ -144,16 +144,16 @@
     <Compile Include="Views\ControlTables\AluminumExtrusionProcessingView.xaml.cs">
       <DependentUpon>AluminumExtrusionProcessingView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AluminumExtrusion\AluminumExtrusionOrderMiscellaneousView.xaml.cs">
+    <Compile Include="Views\Orders\AluminumExtrusionOrderMiscellaneousView.xaml.cs">
       <DependentUpon>AluminumExtrusionOrderMiscellaneousView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AluminumExtrusion\AluminumExtrusionOrderMaterialValuationView.xaml.cs">
+    <Compile Include="Views\Orders\AluminumExtrusionOrderMaterialValuationView.xaml.cs">
       <DependentUpon>AluminumExtrusionOrderMaterialValuationView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AluminumExtrusion\OrderView.xaml.cs">
+    <Compile Include="Views\Orders\OrderView.xaml.cs">
       <DependentUpon>OrderView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AluminumExtrusion\AluminumExtrusionOrderListView.xaml.cs">
+    <Compile Include="Views\Orders\AluminumExtrusionOrderListView.xaml.cs">
       <DependentUpon>AluminumExtrusionOrderListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ManufacturerBussinessItemView.xaml.cs">
@@ -207,7 +207,7 @@
     <Compile Include="Views\Projects\AssemblyTableView.xaml.cs">
       <DependentUpon>AssemblyTableView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AluminumExtrusion\ProcessingAtlasDetailView.xaml.cs">
+    <Compile Include="Views\Orders\ProcessingAtlasDetailView.xaml.cs">
       <DependentUpon>ProcessingAtlasDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Projects\ConstructionAtlasView.xaml.cs">
@@ -258,7 +258,7 @@
     <Compile Include="ValueConverters\ReadModeToVisibilityValueConverter.cs" />
     <Compile Include="ValueConverters\StatesCodeToTextValueConverter.cs" />
     <Compile Include="ValueConverters\VoidToStateTextValueConverter.cs" />
-    <Compile Include="Views\AluminumExtrusion\OrderSheetView.xaml.cs">
+    <Compile Include="Views\Orders\OrderSheetView.xaml.cs">
       <DependentUpon>OrderSheetView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CRM\ClientListView.xaml.cs">
@@ -338,19 +338,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AluminumExtrusion\AluminumExtrusionOrderMiscellaneousView.xaml">
+    <Page Include="Views\Orders\AluminumExtrusionOrderMiscellaneousView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AluminumExtrusion\AluminumExtrusionOrderMaterialValuationView.xaml">
+    <Page Include="Views\Orders\AluminumExtrusionOrderMaterialValuationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AluminumExtrusion\OrderView.xaml">
+    <Page Include="Views\Orders\OrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AluminumExtrusion\AluminumExtrusionOrderListView.xaml">
+    <Page Include="Views\Orders\AluminumExtrusionOrderListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -422,7 +422,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AluminumExtrusion\ProcessingAtlasDetailView.xaml">
+    <Page Include="Views\Orders\ProcessingAtlasDetailView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -526,7 +526,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\AluminumExtrusion\OrderSheetView.xaml">
+    <Page Include="Views\Orders\OrderSheetView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

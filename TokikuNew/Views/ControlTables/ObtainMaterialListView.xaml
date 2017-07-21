@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1300">
     <UserControl.Resources>
-        <ObjectDataProvider ObjectType="{x:Type vm:ObtainMaterialListViewModelCollection}" x:Key="ObtainMaterialListSource" MethodName="Query" />
+        <ObjectDataProvider ObjectType="{x:Type vm:OrderDetailViewModelCollection}" x:Key="ObtainMaterialListSource" MethodName="Query" />
     </UserControl.Resources>
     <Grid>
         <DataGrid x:Name="CheckGrid" AutoGenerateColumns="False" CanUserAddRows="True"
