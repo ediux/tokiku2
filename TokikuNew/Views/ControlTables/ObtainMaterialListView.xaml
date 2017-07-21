@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="TokikuNew.Views.ObtainMaterialListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1300">
+    <UserControl.Resources>
+        <ObjectDataProvider ObjectType="{x:Type vm:ObtainMaterialListViewModelCollection}" x:Key="ObtainMaterialListSource" MethodName="Query" />
+    </UserControl.Resources>
+    <Grid>
+        <DataGrid x:Name="CheckGrid" AutoGenerateColumns="False" CanUserAddRows="True"
+                  Margin="5" ItemsSource="{Binding Source={StaticResource ObtainMaterialListSource}}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="領料單號" Width="auto" />
+                <DataGridTextColumn Header="領料倉別" Width="auto" />
+                <DataGridTextColumn Header="申請日期" Width="auto" />
+                <DataGridTextColumn Header="交易品項" Width="auto" />
+                <DataGridTextColumn Header="加工廠商" Width="auto" />
+                <DataGridTemplateColumn Width="auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="開啟領料單" x:Name="BtnOpen" Click="BtnOpen_Click" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+            
+    </Grid>
+</UserControl>

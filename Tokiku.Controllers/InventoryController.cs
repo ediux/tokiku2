@@ -10,7 +10,7 @@ namespace Tokiku.Controllers
 {
     public class InventoryController : BaseController
     {
-        public ExecuteResultEntity<ICollection<Inventory>> QuerAll()
+        public ExecuteResultEntity<ICollection<Inventory>> QueryAll()
         {
             try {
                 var repo = RepositoryHelper.GetInventoryRepository();
