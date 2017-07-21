@@ -989,12 +989,16 @@
 警告 6002: 資料表/檢視 'Tokiku2_New.dbo.View_RequiredControlTable' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
         <EntityType Name="View_RequiredControlTable">
           <Key>
+            <PropertyRef Name="ProjectId" />
+            <PropertyRef Name="ProjectName" />
             <PropertyRef Name="Code" />
             <PropertyRef Name="ManufacturersName" />
             <PropertyRef Name="FactoryNumber" />
             <PropertyRef Name="Materials" />
             <PropertyRef Name="UnitWeight" />
           </Key>
+          <Property Name="ProjectId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ManufacturersName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="FactoryNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -2481,6 +2485,8 @@
           </EntitySet>
           <EntitySet Name="View_RequiredControlTable" EntityType="Self.View_RequiredControlTable" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
+    [View_RequiredControlTable].[ProjectId] AS [ProjectId], 
+    [View_RequiredControlTable].[ProjectName] AS [ProjectName], 
     [View_RequiredControlTable].[Code] AS [Code], 
     [View_RequiredControlTable].[ManufacturersName] AS [ManufacturersName], 
     [View_RequiredControlTable].[FactoryNumber] AS [FactoryNumber], 
@@ -5907,6 +5913,8 @@
             <PropertyRef Name="FactoryNumber" />
             <PropertyRef Name="Materials" />
             <PropertyRef Name="UnitWeight" />
+            <PropertyRef Name="ProjectId" />
+            <PropertyRef Name="ProjectName" />
           </Key>
           <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ManufacturersName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -5925,6 +5933,8 @@
           <Property Name="ReturnStatus_WeightSubtotal" Type="Double" />
           <Property Name="Weight" Type="Double" />
           <Property Name="ShippingQuantity" Type="Int32" />
+          <Property Name="ProjectId" Type="Guid" Nullable="false" />
+          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ReturnDetails">
           <Key>
@@ -6972,6 +6982,8 @@
           <EntitySetMapping Name="View_RequiredControlTable">
             <EntityTypeMapping TypeName="TokikuModel.View_RequiredControlTable">
               <MappingFragment StoreEntitySet="View_RequiredControlTable">
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
                 <ScalarProperty Name="ShippingQuantity" ColumnName="ShippingQuantity" />
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
                 <ScalarProperty Name="ReturnStatus_WeightSubtotal" ColumnName="ReturnStatus_WeightSubtotal" />

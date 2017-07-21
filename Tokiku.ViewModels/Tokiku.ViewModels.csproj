@@ -51,8 +51,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreateNewModelCommand.cs" />
     <Compile Include="RequiredDetailViewModel.cs" />
     <Compile Include="RequiredDetailViewModelCollection.cs" />
+    <Compile Include="Base\SaveModelCommand.cs" />
     <Compile Include="Shared\DocumentLifeCircle.cs" />
     <Compile Include="Projects\InventoryListViewModel.cs" />
     <Compile Include="Projects\InventoryViewModel.cs" />
@@ -81,7 +83,7 @@
     <Compile Include="Projects\ConstructionAtlasViewModel.cs" />
     <Compile Include="CRM\ClientViewModel.cs" />
     <Compile Include="Projects\EngineeringViewModel.cs" />
-    <Compile Include="Projects\Orders\AluminumExtrusionOrderViewModel.cs" />
+    <Compile Include="Projects\Orders\OrderDetailViewModel.cs" />
     <Compile Include="Projects\ProcessingAtlasViewModel.cs" />
     <Compile Include="Projects\SuppliersViewModel.cs" />
     <Compile Include="Finance\PaymentTypesManageViewModel.cs" />

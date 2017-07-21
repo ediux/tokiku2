@@ -97,11 +97,43 @@ namespace TokikuNew.Commands
 
                             if (executeresult.RoutedValues != null && executeresult.RoutedValues.Count > 0)
                             {
-                                foreach (var k in executeresult.RoutedValues.Keys)
+                                List<string> _keys = executeresult.RoutedValues.Keys.ToList();
+
+                                foreach (var k in _keys)
                                 {
+                                    //尋找是否有路由綁定設定
+
+                                    if (executeresult.RoutingBinding.ContainsKey(k))
+                                    {
+                                        //有路由綁定設定
+                                        if (executeresult.SourceInstance != null)
+                                        {
+                                            var fetchprop = executeresult.SourceViewType.GetProperty(executeresult.RoutingBinding[k]);
+
+                                            if (fetchprop != null)
+                                            {
+                                                executeresult.RoutedValues[k] = fetchprop.GetValue(executeresult.SourceInstance);
+                                            }
+                                        }
+
+                                        if (executeresult.DataContent != null)
+                                        {
+                                            var fetchprop = executeresult.DataContent.GetType().GetProperty(executeresult.RoutingBinding[k]);
+
+                                            if (fetchprop != null)
+                                            {
+                                                executeresult.RoutedValues[k] = fetchprop.GetValue(executeresult.DataContent);
+                                            }
+                                        }
+                                    }
+
                                     var prop = executeresult.ViewType.GetProperty(k);
+
                                     if (prop != null)
+                                    {       
                                         prop.SetValue(vm, executeresult.RoutedValues[k]);
+                                    }
+
                                 }
                             }
                         }

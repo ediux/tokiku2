@@ -28,15 +28,16 @@ namespace TokikuNew.Views
         }
 
         #region SelectedProject
-        public ProjectsViewModel SelectedProject
+        public Guid SelectedProjectId
         {
-            get { return (ProjectsViewModel)GetValue(SelectedProjectProperty); }
-            set { SetValue(SelectedProjectProperty, value); }
+            get { return (Guid)GetValue(SelectedProjectIdProperty); }
+            set { SetValue(SelectedProjectIdProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for SelectedProject.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SelectedProjectProperty =
-            DependencyProperty.Register("SelectedProject", typeof(ProjectsViewModel), typeof(AluminumExtrusionOrderView), new PropertyMetadata(default(ProjectsViewModel)));
+        public static readonly DependencyProperty SelectedProjectIdProperty =
+            DependencyProperty.Register("SelectedProjectId", typeof(Guid), typeof(AluminumExtrusionOrderView),
+                new PropertyMetadata(Guid.Empty));
 
         #endregion
 

@@ -14,19 +14,39 @@
              d:DesignHeight="768" d:DesignWidth="1366" Loaded="UserControl_Loaded" 
              Initialized="userControl_Initialized" >
     <UserControl.Resources>
-        <ObjectDataProvider x:Key="ProjectSource" ObjectType="{x:Type Viewmodel:ProjectsViewModel}" MethodName="Query">
-            <ObjectDataProvider.MethodParameters>
-                <x:Static Member="sys:Guid.Empty" />
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-       
+
+        <helpers:RoutedViewResult x:Key="OpenAluminumProcessingControlTable" AttachedTargetElementName="InnerWorkspaces"
+                                  DisplayText="鋁擠型加工"
+                                  SourceInstance="{Binding ElementName=userControl, Mode=OneWay}"
+                                  ViewType="{x:Type local:ControlTableView}">
+            <helpers:RoutedViewResult.RoutingBinding>
+                <sys:String x:Key="SelectedProjectId">SelectedProjectId</sys:String>
+            </helpers:RoutedViewResult.RoutingBinding>
+            <helpers:RoutedViewResult.RoutedValues>
+                <sys:String x:Key="FormName" >鋁擠型加工</sys:String>
+                <Viewmodel:DocumentLifeCircle x:Key="Mode">Read</Viewmodel:DocumentLifeCircle>
+                <sys:Guid x:Key="SelectedProjectId"></sys:Guid>
+            </helpers:RoutedViewResult.RoutedValues>
+        </helpers:RoutedViewResult>
+        <helpers:RoutedViewResult x:Key="OpenControlTable"
+                                  DisplayText="鋁擠型材料" AttachedTargetElementName="InnerWorkspaces"                                  
+                                  SourceInstance="{Binding Source={StaticResource ProjectSource}}"
+                                  ViewType="{x:Type local:ControlTableView}">
+            <helpers:RoutedViewResult.RoutingBinding>
+                <sys:String x:Key="SelectedProjectId">Id</sys:String>
+            </helpers:RoutedViewResult.RoutingBinding>
+            <helpers:RoutedViewResult.RoutedValues>
+                <sys:String x:Key="FormName" >鋁擠型材料</sys:String>
+                <Viewmodel:DocumentLifeCircle x:Key="Mode">Read</Viewmodel:DocumentLifeCircle>
+                <sys:Guid x:Key="SelectedProjectId"></sys:Guid>
+            </helpers:RoutedViewResult.RoutedValues>
+        </helpers:RoutedViewResult>
     </UserControl.Resources>
     <UserControl.CommandBindings>
         <CommandBinding Command="{StaticResource Reply}" x:Name="ReplyCommand"
                         CanExecute="Btn2_PreviewCanExecute"
                         Executed="ReplyCommand_Executed" />
     </UserControl.CommandBindings>
-
     <Grid Background="{DynamicResource ControlBackgroundBrush}" >
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>

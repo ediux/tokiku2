@@ -128,16 +128,18 @@
                                 </Grid.ColumnDefinitions>
                                 <c:SearchBar Grid.Row="0" Grid.Column="1" x:Name="sSearchBar" />
                                 <Button Name="btnNew" Grid.Row="0" Grid.Column="2" Margin="1" Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" Click="btnNew_Click" />
-                                <DataGrid Grid.Row="1" Grid.ColumnSpan="3">
+                                <DataGrid Grid.Row="1" Grid.ColumnSpan="3"
+                                          AutoGenerateColumns="False"
+                                          ItemsSource="{Binding Source={StaticResource ControlTableListSource}}" Loaded="DataGrid_Loaded">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="" Width="auto" />
-                                        <DataGridTextColumn Header="項次" Width="auto" />
-                                        <DataGridTextColumn Header="東菊編號" Width="auto" />
-                                        <DataGridTextColumn Header="廠商" Width="auto" />
-                                        <DataGridTextColumn Header="廠商編號" Width="auto" />
-                                        <DataGridTextColumn Header="材質" Width="auto" />
-                                        <DataGridTextColumn Header="單位重量(kg/m)" Width="auto" />
-                                        <DataGridTextColumn Header="訂購長度(mm)" Width="auto" />
+                                        <DataGridCheckBoxColumn Header="" Width="auto" Binding="{Binding IsSelected}" />
+                                        <DataGridTextColumn Header="項次" Width="auto" Binding="{Binding RowIndex}" />
+                                        <DataGridTextColumn Header="東菊編號" Width="auto" Binding="{Binding Code}"/>
+                                        <DataGridTextColumn Header="廠商" Width="auto" Binding="{Binding ManufacturersName}" />
+                                        <DataGridTextColumn Header="廠商編號" Width="auto" Binding="{Binding ManufacturersCode}" />
+                                        <DataGridTextColumn Header="材質" Width="auto" Binding="{Binding MaterialCategories}"/>
+                                        <DataGridTextColumn Header="單位重量(kg/m)" Width="auto" Binding="{Binding UnitWeight}"/>
+                                        <DataGridTextColumn Header="訂購長度(mm)" Width="auto" Binding="{Binding OrderLength}"/>
                                         <DataGridTemplateColumn >
                                             <DataGridTemplateColumn.HeaderTemplate>
                                                 <DataTemplate>
@@ -166,6 +168,29 @@
                                                     </Grid>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.HeaderTemplate>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="32"/>
+                                                        </Grid.RowDefinitions>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="55"/>
+                                                            <ColumnDefinition Width="55"/>
+                                                            <ColumnDefinition Width="65"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Border Margin="-5,0,0,-5"  Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" >
+                                                            <TextBlock FontSize="11" Text="{Binding RequiredQuantitySummary}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                                                        </Border>
+                                                        <Border Margin="0,0,0,-5"  Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" >
+                                                            <TextBlock FontSize="11" Text="{Binding RequiredWeightSubtotal}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                        <Border Margin="0,0,-5,-5"  Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" >
+                                                            <TextBlock  FontSize="11" Text="{Binding NumberofOrdersNotPlaced}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
                                     </DataGrid.Columns>
                                 </DataGrid>
@@ -177,7 +202,7 @@
         </Canvas>
         <TabControl Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" TabStripPlacement="Bottom">
             <TabItem Header="訂製單">
-                <local:AluminumExtrusionOrderView SelectedProject="{Binding}" />
+                <local:AluminumExtrusionOrderView SelectedProjectId="{Binding SelectedProjectId,ElementName=userControl}" />
             </TabItem>
             <TabItem Header="材質估價">
                 <local:AluminumExtrusionOrderMaterialValuationView />

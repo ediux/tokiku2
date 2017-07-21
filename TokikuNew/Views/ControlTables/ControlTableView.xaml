@@ -13,12 +13,18 @@
              Loaded="userControl_Loaded"
              d:DesignHeight="768" d:DesignWidth="2084.2">
     <UserControl.Resources>
+        <helpers:RoutedViewResult x:Key="OpenOrderView" AttachedTargetElementName="InnerWorkspaces"
+                                  DisplayText="訂製單"
+                                  SourceInstance="{Binding Source={StaticResource ProjectSource}}"
+                                  ViewType="{x:Type local:AluminumExtrusionOrderSheetView}">
+            <helpers:RoutedViewResult.RoutingBinding>
+                <sys:String x:Key="SelectedProjectId">Id</sys:String>
+            </helpers:RoutedViewResult.RoutingBinding>
+            <helpers:RoutedViewResult.RoutedValues>
+                <sys:Guid x:Key="SelectedProjectId"></sys:Guid>
+            </helpers:RoutedViewResult.RoutedValues>
+        </helpers:RoutedViewResult>
 
-        <ObjectDataProvider x:Key="ControlTableListSource" ObjectType="{x:Type vm:RequiredControlTableViewModelCollection}" MethodName="Query">
-            <ObjectDataProvider.MethodParameters>
-                <x:Static Member="sys:Guid.Empty"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
         <Style TargetType="DataGrid" BasedOn="{StaticResource {x:Type DataGrid}}">
             <Setter Property="Visibility" Value="Collapsed"/>
             <Style.Triggers>

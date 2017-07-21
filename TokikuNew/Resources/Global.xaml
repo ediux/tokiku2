@@ -7,6 +7,11 @@
                     xmlns:cmd="clr-namespace:TokikuNew.Commands"
                     xmlns:ValueConverters="clr-namespace:TokikuNew.ValueConverters">
     <!--資料來源-->
+    <ObjectDataProvider x:Key="ProjectSource" ObjectType="{x:Type vm:ProjectsViewModel}" MethodName="Query">
+        <ObjectDataProvider.MethodParameters>
+            <x:Static Member="sys:Guid.Empty" />
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
     <ObjectDataProvider x:Key="MaterialCategoriesSource" ObjectType="{x:Type vm:MaterialCategoriesViewModelCollection}" MethodName="Query"/>
     <ObjectDataProvider x:Key="StatesSource" ObjectType="{x:Type vm:StatesViewModelCollection}" MethodName="Query">
     </ObjectDataProvider>
@@ -18,9 +23,29 @@
     <ObjectDataProvider x:Key="ConstructionAtlasReplySelectList" ObjectType="{x:Type vm:ConstructionAtlasReplyContextViewModelCollection}" MethodName="Query"/>
 
     <ObjectDataProvider x:Key="ManufactureList" ObjectType="{x:Type vm:ManufacturersViewModelCollection}" MethodName="Query"/>
-    <vm:預付款保證票ViewModelCollection x:Key="預付款保證票清單"/>
-    <vm:保固票ViewModelCollection x:Key="保固票清單"/>
-    <vm:PromissoryNoteManagementViewModelCollection x:Key="PromissoryNoteManagementSource"/>
+    <ObjectDataProvider ObjectType="{x:Type vm:OrderDetailViewModelCollection}" x:Key="AluminumExtrusionOrderSource2" MethodName="Query"  >
+
+    </ObjectDataProvider>
+    <ObjectDataProvider x:Key="RequiredSource" ObjectType="{x:Type vm:RequiredViewModel}" MethodName="CreateNew">
+        <ObjectDataProvider.MethodParameters>
+            <x:Static Member="sys:String.Empty"/>
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+    <ObjectDataProvider x:Key="RequiredDetailSource" ObjectType="{x:Type vm:RequiredDetailViewModelCollection}" MethodName="Query">
+        <ObjectDataProvider.MethodParameters>
+            <x:Static Member="sys:Guid.Empty"/>
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+    <ObjectDataProvider x:Key="ControlTableListSource" ObjectType="{x:Type vm:RequiredControlTableViewModelCollection}" MethodName="Query">
+        <ObjectDataProvider.MethodParameters>
+            <x:Static Member="sys:Guid.Empty"/>
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+    <!--<viewmodels:AluminumExtrusionOrderViewModelCollection x:Key="AluminumExtrusionOrderSource" />-->
+    <ObjectDataProvider ObjectType="{x:Type vm:預付款保證票ViewModel}" x:Key="預付款保證票清單" />
+    <ObjectDataProvider ObjectType="{x:Type vm:保固票ViewModelCollection}" x:Key="保固票清單" />
+    <ObjectDataProvider ObjectType="{x:Type vm:PromissoryNoteManagementViewModelCollection}" x:Key="PromissoryNoteManagementSource" />
+
     <!--轉換器-->
     <ValueConverters:DateTime2StringFormatingValueConverter x:Key="FormatedDatetime"/>
     <ValueConverters:ReplyContentValueConverter x:Key="AtlasReplayContents"/>
@@ -79,9 +104,7 @@
                                   DisplayText="需求單"
                                   ViewType="{x:Type view:RequiredView}">
     </helpers:RoutedViewResult>
-    <helpers:RoutedViewResult x:Key="OpenOrderView" AttachedTargetElementName="InnerWorkspaces"
-                                  DisplayText="鋁擠型訂製單"
-                                  ViewType="{x:Type view:AluminumExtrusionOrderSheetView}"/>
+
     <helpers:RoutedViewResult x:Key="OpenOrderControlTable" AttachedTargetElementName="InnerWorkspaces"
                                   DisplayText="訂製單管控表"
                                   ViewType="{x:Type view:OrderControlTableView}"/>
@@ -91,24 +114,8 @@
     <helpers:RoutedViewResult x:Key="OpenInventoryView" AttachedTargetElementName="InnerWorkspaces"
                                   DisplayText="盤點單"
                                   ViewType="{x:Type view:InventoryView}"/>
-    <helpers:RoutedViewResult x:Key="OpenControlTable"
-                                  DisplayText="鋁擠型材料" AttachedTargetElementName="InnerWorkspaces"
-                                  ViewType="{x:Type view:ControlTableView}">
-        <helpers:RoutedViewResult.RoutedValues>
-            <sys:String x:Key="FormName" >鋁擠型材料</sys:String>
-            <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
-            <vm:ProjectsViewModel x:Key="SelectedProject"></vm:ProjectsViewModel>
-        </helpers:RoutedViewResult.RoutedValues>
-    </helpers:RoutedViewResult>
-    <helpers:RoutedViewResult x:Key="OpenAluminumProcessingControlTable" AttachedTargetElementName="InnerWorkspaces"
-                                  DisplayText="鋁擠型加工"
-                                  ViewType="{x:Type view:ControlTableView}">
-        <helpers:RoutedViewResult.RoutedValues>
-            <sys:String x:Key="FormName" >鋁擠型加工</sys:String>
-            <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
-            <vm:ProjectsViewModel x:Key="SelectedProject"></vm:ProjectsViewModel>
-        </helpers:RoutedViewResult.RoutedValues>
-    </helpers:RoutedViewResult>
+
+
     <helpers:RoutedViewResult x:Key="OpenGlassControlTable" AttachedTargetElementName="InnerWorkspaces"
                                   DisplayText="玻璃"
                                   ViewType="{x:Type view:ControlTableView}">

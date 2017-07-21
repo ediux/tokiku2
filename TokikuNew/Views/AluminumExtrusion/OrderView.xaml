@@ -9,16 +9,15 @@
              mc:Ignorable="d"              
              d:DesignHeight="683" d:DesignWidth="1362" Loaded="AluminumExtrusionOrderView_Loaded">
     <UserControl.Resources>
-        <ObjectDataProvider ObjectType="{x:Type viewmodels:AluminumExtrusionOrderViewModelCollection}" x:Key="AluminumExtrusionOrderSource2"  >
-            
-        </ObjectDataProvider>
-        <viewmodels:AluminumExtrusionOrderViewModelCollection x:Key="AluminumExtrusionOrderSource" />
+
+        
     </UserControl.Resources>
     <Grid>
-        <c:CustomDataGrid Margin="5" AutoGenerateColumns="False" x:Name="鋁擠型訂製單DG" ItemsSource="{Binding Source={StaticResource AluminumExtrusionOrderSource2}}">
+        <c:CustomDataGrid Margin="5" AutoGenerateColumns="False" x:Name="鋁擠型訂製單DG" 
+                          ItemsSource="{Binding Source={StaticResource AluminumExtrusionOrderSource2}}">
             <c:CustomDataGrid.Columns>
-                <DataGridTextColumn IsReadOnly="True" Header="*東菊編號*" Binding="{Binding TokikuId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
-                <DataGridTextColumn IsReadOnly="True" Header="*廠商編號*" Binding="{Binding ManufacturersId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
+                <DataGridTextColumn IsReadOnly="True" Header="*東菊編號*" Binding="{Binding Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
+                <DataGridTextColumn IsReadOnly="True" Header="*廠商編號*" Binding="{Binding FactoryNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
                 <DataGridTextColumn IsReadOnly="True" Header="*材質*" Binding="{Binding Material, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
                 <DataGridTextColumn IsReadOnly="True" Header="*單位重(kg/m)*" Binding="{Binding UnitWeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
                 <DataGridTextColumn IsReadOnly="True" Header="*訂購長度(mm)*" Binding="{Binding OrderLength, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />

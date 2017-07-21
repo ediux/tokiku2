@@ -161,14 +161,14 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
             {
                 e.Handled = true;
 
-                RoutedViewResult result = (RoutedViewResult)TryFindResource("OpenControlTable");
-                ProjectsViewModel viewmodel = (ProjectsViewModel)((ObjectDataProvider)TryFindResource("ProjectSource")).Data;
+                //RoutedViewResult result = (RoutedViewResult)TryFindResource("OpenControlTable");
+                //ProjectsViewModel viewmodel = (ProjectsViewModel)((ObjectDataProvider)TryFindResource("ProjectSource")).Data;
 
-                if (result != null && viewmodel != null)
-                {
-                    //result.RoutedValues = new System.Collections.Generic.Dictionary<string, object>();
-                    result.RoutedValues["SelectedProject"] = viewmodel;
-                }
+                //if (result != null && viewmodel != null)
+                //{
+                //    //result.RoutedValues = new System.Collections.Generic.Dictionary<string, object>();
+                //    result.RoutedValues["SelectedProject"] = viewmodel;
+                //}
 
                 //Binding selectProjectBinding = new Binding();
                 //selectProjectBinding.Source = DataContext;

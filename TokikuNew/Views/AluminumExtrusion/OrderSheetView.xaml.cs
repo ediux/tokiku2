@@ -64,15 +64,15 @@ namespace TokikuNew.Views
         #endregion
 
         #region SelectedProject
-        public ProjectsViewModel SelectedProject
+        public Guid SelectedProjectId
         {
-            get { return (ProjectsViewModel)GetValue(SelectedProjectProperty); }
-            set { SetValue(SelectedProjectProperty, value); }
+            get { return (Guid)GetValue(SelectedProjectIdProperty); }
+            set { SetValue(SelectedProjectIdProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for SelectedProject.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SelectedProjectProperty =
-            DependencyProperty.Register("SelectedProject", typeof(ProjectsViewModel), typeof(AluminumExtrusionOrderSheetView), new PropertyMetadata(default(ProjectsViewModel)));
+        public static readonly DependencyProperty SelectedProjectIdProperty =
+            DependencyProperty.Register("SelectedProject", typeof(Guid), typeof(AluminumExtrusionOrderSheetView), new PropertyMetadata(Guid.Empty));
 
         #endregion
 
@@ -130,13 +130,7 @@ namespace TokikuNew.Views
 
             try
             {
-                Binding datasourcebinding = new Binding();
-                datasourcebinding.Source = DataContext;
-                datasourcebinding.Mode = BindingMode.TwoWay;
-                datasourcebinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-                datasourcebinding.Path = new PropertyPath(DataContextProperty);
 
-                SetBinding(SelectedProjectProperty, datasourcebinding);
             }
             catch (Exception ex)
             {
@@ -745,6 +739,16 @@ namespace TokikuNew.Views
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void DataGrid_Loaded(object sender, RoutedEventArgs e)
+        {
+            ObjectDataProvider source = (ObjectDataProvider)TryFindResource("ControlTableListSource");
+
+            if (source != null)
+            {
+                source.MethodParameters[0] = SelectedProjectId; 
+            }
         }
 
         // ========== 頁籤切換顯示內容功能 ==========↓

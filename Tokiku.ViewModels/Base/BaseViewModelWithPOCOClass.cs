@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using Tokiku.Controllers;
 using Tokiku.Entity;
 
@@ -253,6 +254,19 @@ namespace Tokiku.ViewModels
             get { return _Mode; }
             set { _Mode = value; RaisePropertyChanged("Mode"); }
         }
+
+        public virtual string SaveModelController => _EntityType.Name;
+
+        protected ICommand _SaveCommand = new SaveModelCommand();
+        /// <summary>
+        /// 取得或設定當引發儲存時的命令項目。
+        /// </summary>
+        public ICommand SaveCommand { get => _SaveCommand; set => _SaveCommand = value; }
+        protected ICommand _CreateNewCommand = new CreateNewModelCommand();
+        /// <summary>
+        /// 取得或設定當引發新建項目時的命令項目。
+        /// </summary>
+        public ICommand CreateNewCommand { get => _CreateNewCommand; set => _CreateNewCommand = value; }
 
         /// <summary>
         /// 將錯誤訊息寫到檢視模型中以利顯示。
@@ -525,6 +539,16 @@ namespace Tokiku.ViewModels
             {
                 setErrortoModel(this, ex);
             }
+        }
+
+        public virtual void SaveModel(string ControllerName)
+        {
+            SaveModel(SaveModelController, true);
+        }
+
+        public void SaveModel()
+        {
+            SaveModel(SaveModelController);
         }
     }
 }

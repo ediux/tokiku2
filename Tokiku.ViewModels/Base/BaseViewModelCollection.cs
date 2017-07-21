@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
@@ -64,6 +65,30 @@ namespace Tokiku.ViewModels
         /// 指出是否發生錯誤。
         /// </summary>
         public bool HasError { get; set; }
+
+        public virtual string SaveModelController
+        {
+            get
+            {
+                ISingleBaseViewModel view = Activator.CreateInstance<TView>();
+
+                if (view != null)
+                    return view.SaveModelController;
+                else
+                    return string.Empty;
+            }
+        }
+
+        protected ICommand _SaveCommand = new SaveModelCommand();
+        /// <summary>
+        /// 取得或設定當引發儲存時的命令項目。
+        /// </summary>
+        public ICommand SaveCommand { get => _SaveCommand; set => _SaveCommand = value; }
+        protected ICommand _CreateNewCommand = new CreateNewModelCommand();
+        /// <summary>
+        /// 取得或設定當引發新建項目時的命令項目。
+        /// </summary>
+        public ICommand CreateNewCommand { get => _CreateNewCommand; set => _CreateNewCommand = value; }
 
         /// <summary>
         /// 檢視模型初始化作業
@@ -505,5 +530,9 @@ namespace Tokiku.ViewModels
             }
         }
 
+        public void SaveModel()
+        {
+            SaveModel(SaveModelController);
+        }
     }
 }

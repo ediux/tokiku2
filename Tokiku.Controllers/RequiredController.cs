@@ -10,6 +10,12 @@ namespace Tokiku.Controllers
 {
     public class RequiredController : BaseController<Required>
     {
+        #region 表頭建立
+        /// <summary>
+        /// 建立需求單表頭項目
+        /// </summary>
+        /// <param name="ProjectShortName"></param>
+        /// <returns></returns>
         public ExecuteResultEntity<Required> CreateNew(string ProjectShortName)
         {
             ExecuteResultEntity<Required> rtn;
@@ -79,7 +85,13 @@ namespace Tokiku.Controllers
                 return rtn;
             }
         }
+        #endregion
 
+        #region 表頭查詢
+        /// <summary>
+        /// 查詢需求單列表
+        /// </summary>
+        /// <returns></returns>
         public ExecuteResultEntity<ICollection<Required>> Query()
         {
             ExecuteResultEntity<ICollection<Required>> rtn;
@@ -96,7 +108,14 @@ namespace Tokiku.Controllers
                 return rtn;
             }
         }
+        #endregion
 
+        #region 表身內容查詢
+        /// <summary>
+        /// 查詢需求單細項列表
+        /// </summary>
+        /// <param name="RequiredId"></param>
+        /// <returns></returns>
         public ExecuteResultEntity<ICollection<RequiredDetails>> QueryAllDetail(Guid RequiredId)
         {
             try
@@ -126,35 +145,220 @@ namespace Tokiku.Controllers
             }
         }
 
-
-        public ExecuteResultEntity<ICollection<RequiredListEntity>> QuerAll()
+        /// <summary>
+        /// 查詢某張需求單的東菊編號對應的需求細項
+        /// </summary>
+        /// <param name="ProjectId"></param>
+        /// <param name="RequiredDetailId"></param>
+        /// <param name="Code">要查詢的東菊編號</param>
+        /// <returns></returns>
+        public ExecuteResultEntity<RequiredDetails> QuerySingleDetailByCode(Guid ProjectId, Guid RequiredDetailId, string Code)
         {
-            string sql;
-            sql = " select TokikuId, ManufacturersId, Material, UnitWeight, OrderLength, " +
-                             " RequiredQuantity, SparePartsQuantity, PlaceAnOrderQuantity, Note " +
-                        " from TABL1 ";
-
-            ExecuteResultEntity<ICollection<RequiredListEntity>> rtn;
-
             try
             {
-                using (var ManufacturersRepository = RepositoryHelper.GetManufacturersRepository())
+                if (string.IsNullOrEmpty(Code))
                 {
-                    var queryresult = ManufacturersRepository.UnitOfWork.Context.Database.SqlQuery<RequiredListEntity>(sql);
-
-                    rtn = ExecuteResultEntity<ICollection<RequiredListEntity>>.CreateResultEntity(
-                                    new Collection<RequiredListEntity>(queryresult.ToList()));
-
-                    return rtn;
+                    return ExecuteResultEntity<RequiredDetails>.CreateResultEntity(
+                        new RequiredDetails());
                 }
+                else
+                {
+                    var repo = this.GetReoisitory<RequiredDetails>().All();
+
+                    var result = from q in repo
+                                 from s in q.Required.RequiredDetails
+                                 where q.Required.ProjectId == ProjectId
+                                 && q.Id == RequiredDetailId
+                                 && s.Code == Code
+                                 select s;
+
+                    return ExecuteResultEntity<RequiredDetails>.CreateResultEntity(
+                        result.SingleOrDefault());
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<RequiredDetails>.CreateErrorResultEntity(ex);
+            }
+        }
+
+        /// <summary>
+        /// 查詢指定需求單細項
+        /// </summary>
+        /// <param name="RequiredId"></param>
+        /// <returns></returns>
+        public ExecuteResultEntity<RequiredDetails> QuerySingleDetail(Guid RequiredId)
+        {
+            try
+            {
+                if (RequiredId == Guid.Empty)
+                {
+                    return ExecuteResultEntity<RequiredDetails>.CreateResultEntity(
+                        new RequiredDetails());
+                }
+                else
+                {
+                    var repo = this.GetReoisitory<RequiredDetails>().All();
+
+                    var result = from q in repo
+                                 where q.Id == RequiredId
+                                 select q;
+
+                    return ExecuteResultEntity<RequiredDetails>.CreateResultEntity(
+                        result.SingleOrDefault());
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<RequiredDetails>.CreateErrorResultEntity(ex);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ProjectId"></param>
+        /// <param name="RequiredId"></param>
+        /// <param name="FactoryNumber"></param>
+        /// <returns></returns>
+        public ExecuteResultEntity<RequiredDetails> QuerySingleDetailByFactoryNumber(Guid ProjectId, Guid RequiredDetailId, string FactoryNumber)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(FactoryNumber))
+                {
+                    return ExecuteResultEntity<RequiredDetails>.CreateResultEntity(
+                        new RequiredDetails());
+                }
+                else
+                {
+                    var repo = this.GetReoisitory<RequiredDetails>().All();
+
+                    var result = from q in repo
+                                 from s in q.Required.RequiredDetails
+                                 where q.Required.ProjectId == ProjectId
+                                 && q.Id == RequiredDetailId
+                                 && s.FactoryNumber == FactoryNumber
+                                 select s;
+
+                    return ExecuteResultEntity<RequiredDetails>.CreateResultEntity(
+                        result.SingleOrDefault());
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<RequiredDetails>.CreateErrorResultEntity(ex);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ProjectId"></param>
+        /// <param name="RequiredId"></param>
+        /// <param name="Material"></param>
+        /// <returns></returns>
+        public ExecuteResultEntity<RequiredDetails> QuerySingleDetailByMaterial(Guid ProjectId, Guid RequiredDetailId, string Material)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(Material))
+                {
+                    return ExecuteResultEntity<RequiredDetails>.CreateResultEntity(
+                        new RequiredDetails());
+                }
+                else
+                {
+                    var repo = this.GetReoisitory<RequiredDetails>().All();
+
+                    var result = from q in repo
+                                 from s in q.Required.RequiredDetails
+                                 where q.Required.ProjectId == ProjectId
+                                 && q.Id == RequiredDetailId
+                                 && s.Materials.Name == Material
+                                 select s;
+
+                    return ExecuteResultEntity<RequiredDetails>.CreateResultEntity(
+                        result.SingleOrDefault());
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<RequiredDetails>.CreateErrorResultEntity(ex);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ProjectId"></param>
+        /// <param name="RequiredId"></param>
+        /// <param name="Weight"></param>
+        /// <returns></returns>
+        public ExecuteResultEntity<RequiredDetails> QuerySingleDetailByUnitWeight(Guid ProjectId, Guid RequiredDetailId, decimal Weight)
+        {
+            try
+            {
+
+                var repo = this.GetReoisitory<RequiredDetails>().All();
+
+                var result = from q in repo
+                             from s in q.Required.RequiredDetails
+                             where q.Required.ProjectId == ProjectId
+                             && q.Id == RequiredDetailId
+                             && s.UnitWeight == Weight
+                             select s;
+
+                return ExecuteResultEntity<RequiredDetails>.CreateResultEntity(
+                    result.SingleOrDefault());
+
 
             }
             catch (Exception ex)
             {
-                rtn = ExecuteResultEntity<ICollection<RequiredListEntity>>.CreateErrorResultEntity(ex);
-                return rtn;
+                return ExecuteResultEntity<RequiredDetails>.CreateErrorResultEntity(ex);
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ProjectId"></param>
+        /// <param name="RequiredId"></param>
+        /// <param name="OrderLength"></param>
+        /// <returns></returns>
+        public ExecuteResultEntity<RequiredDetails> QuerySingleDetailByOrderLength(Guid ProjectId, Guid RequiredDetailId, decimal OrderLength)
+        {
+            try
+            {
+
+                var repo = this.GetReoisitory<RequiredDetails>().All();
+
+                var result = from q in repo
+                             from s in q.Required.RequiredDetails
+                             where q.Required.ProjectId == ProjectId
+                             && q.Id == RequiredDetailId
+                             && s.OrderLength == OrderLength
+                             select s;
+
+                return ExecuteResultEntity<RequiredDetails>.CreateResultEntity(
+                    result.SingleOrDefault());
+
+
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<RequiredDetails>.CreateErrorResultEntity(ex);
+            }
+        }
+        #endregion
+
+
+
 
         //public override ExecuteResultEntity<Required> CreateOrUpdate(Required entity, bool isLastRecord = true)
         //{

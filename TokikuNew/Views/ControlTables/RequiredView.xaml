@@ -12,16 +12,7 @@
              Background="{DynamicResource ControlBackgroundBrush}"
              d:DesignHeight="600" d:DesignWidth="1024" Loaded="RequiredView_Loaded">
     <UserControl.Resources>
-        <ObjectDataProvider x:Key="RequiredSource" ObjectType="{x:Type vm:RequiredViewModel}" MethodName="CreateNew">
-            <ObjectDataProvider.MethodParameters>
-                <x:Static Member="sys:String.Empty"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-        <ObjectDataProvider x:Key="RequiredDetailSource" ObjectType="{x:Type vm:RequiredDetailViewModelCollection}" MethodName="Query">
-            <ObjectDataProvider.MethodParameters>
-                <x:Static Member="sys:Guid.Empty"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
+        
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>

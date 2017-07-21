@@ -31,5 +31,7 @@ namespace Tokiku.Entity
         public Nullable<double> ReturnStatus_WeightSubtotal { get; set; }
         public Nullable<double> Weight { get; set; }
         public Nullable<int> ShippingQuantity { get; set; }
+        public System.Guid ProjectId { get; set; }
+        public string ProjectName { get; set; }
     }
 }

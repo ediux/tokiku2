@@ -62,30 +62,34 @@ namespace TokikuNew.Views
 
 
 
-        public ProjectsViewModel SelectedProject
+        public Guid SelectedProjectId
         {
-            get { return (ProjectsViewModel)GetValue(SelectedProjectProperty); }
-            set { SetValue(SelectedProjectProperty, value); }
+            get { return (Guid)GetValue(SelectedProjectIdProperty); }
+            set { SetValue(SelectedProjectIdProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for SelectedProject.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SelectedProjectProperty =
-            DependencyProperty.Register("SelectedProject", typeof(ProjectsViewModel), typeof(ControlTableView),
-                new PropertyMetadata(default(ProjectsViewModel), new PropertyChangedCallback(ProjectShortNameChange)));
- 
+        // Using a DependencyProperty as the backing store for SelectedProjectId.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedProjectIdProperty =
+            DependencyProperty.Register("SelectedProjectId", typeof(Guid), typeof(ControlTableView),
+                new PropertyMetadata(Guid.Empty,new PropertyChangedCallback(ProjectShortNameChange)));
+
+
+
+
         public static void ProjectShortNameChange(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             try
             {
                 if (sender is ControlTableView)
                 {
+                    ControlTableView currentview = (ControlTableView)sender;
 
-                    RoutedViewResult source = (RoutedViewResult)((ControlTableView)sender).TryFindResource("OpenNewRequired");
+                    ObjectDataProvider controltableprovider = (ObjectDataProvider)currentview.TryFindResource("ControlTableListSource");
 
-                    if (source != null)
+                    if (controltableprovider != null)
                     {
-                        source.RoutedValues = new Dictionary<string, object>();
-                        source.RoutedValues.Add("ProjectShortName", ((ProjectsViewModel)e.NewValue).ShortName);
+                        controltableprovider.MethodParameters[0] = e.NewValue;
+                        //controltableprovider.Refresh();
                     }
                 }
 
@@ -262,14 +266,10 @@ namespace TokikuNew.Views
 
         private void userControl_Loaded(object sender, RoutedEventArgs e)
         {
-            ObjectDataProvider controltableprovider = (ObjectDataProvider)TryFindResource("ControlTableListSource");
+           
 
-            if (controltableprovider != null && controltableprovider.MethodParameters[0].Equals(Guid.Empty))
-            {
-                controltableprovider.MethodParameters[0] = SelectedProject.Id;
-                controltableprovider.Refresh();
-            }
-
+            //RoutedViewResult routing = (RoutedViewResult)TryFindResource("OpenOrderView");
+            //routing.RoutedValues["SelectedProject"] = SelectedProject;
             //ControlTableViewModelCollection ctrl = new ControlTableViewModelCollection();
             //dg.DataContext = ctrl;
             //ControlTableViewModelCollection.Query(select);

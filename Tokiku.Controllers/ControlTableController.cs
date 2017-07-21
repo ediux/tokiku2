@@ -8,28 +8,28 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class ControlTableController : BaseController<ControlTableDetails>
+    public class ControlTableController : BaseController<View_RequiredControlTable>
     {
-        public ExecuteResultEntity<ICollection<ControlTableDetails>> Query(Guid ProjectId)
+        public ExecuteResultEntity<ICollection<View_RequiredControlTable>> Query(Guid ProjectId)
         {
             try
             {
                 var repo = this.GetReoisitory().All();
                 var result = (from q in repo
-                             where q.ControlTables.ProjectId == ProjectId
-                             select q).ToList();
+                              where q.ProjectId == ProjectId
+                              select q).ToList();
                 int i = 1;
                 result.ForEach((x) => { x.RowIndex = i; i++; });
-                return ExecuteResultEntity<ICollection<ControlTableDetails>>.CreateResultEntity(
-                    new Collection<ControlTableDetails>(result));
+                return ExecuteResultEntity<ICollection<View_RequiredControlTable>>.CreateResultEntity(
+                    new Collection<View_RequiredControlTable>(result));
             }
             catch (Exception ex)
             {
-                return ExecuteResultEntity<ICollection<ControlTableDetails>>.CreateErrorResultEntity(ex);
+                return ExecuteResultEntity<ICollection<View_RequiredControlTable>>.CreateErrorResultEntity(ex);
             }
         }
 
-        public ExecuteResultEntity<ICollection<ControlTableDetails>> SearchByText(string text)
+        public ExecuteResultEntity<ICollection<View_RequiredControlTable>> SearchByText(string text)
         {
             try
             {
@@ -52,11 +52,11 @@ namespace Tokiku.Controllers
             }
             catch (Exception ex)
             {
-                return ExecuteResultEntity<ICollection<ControlTableDetails>>.CreateErrorResultEntity(ex);
+                return ExecuteResultEntity<ICollection<View_RequiredControlTable>>.CreateErrorResultEntity(ex);
             }
         }
 
-        public ExecuteResultEntity<ICollection<ControlTableDetails>> QueryAll()
+        public ExecuteResultEntity<ICollection<View_RequiredControlTable>> QueryAll()
         {
             try
             {
@@ -64,40 +64,40 @@ namespace Tokiku.Controllers
                 var result = repo.All().ToList();
                 int i = 1;
                 result.ForEach((x) => { x.RowIndex = i; i++; });
-                return ExecuteResultEntity<ICollection<ControlTableDetails>>.CreateResultEntity(
-                    new Collection<ControlTableDetails>(result));
+                return ExecuteResultEntity<ICollection<View_RequiredControlTable>>.CreateResultEntity(
+                    new Collection<View_RequiredControlTable>(result));
             }
             catch (Exception ex)
             {
-                return ExecuteResultEntity<ICollection<ControlTableDetails>>.CreateErrorResultEntity(ex);
+                return ExecuteResultEntity<ICollection<View_RequiredControlTable>>.CreateErrorResultEntity(ex);
             }
         }
 
-        public ExecuteResultEntity<ICollection<ControlTableDetails>> QueryAll(Guid ProjectId)
+        public ExecuteResultEntity<ICollection<View_RequiredControlTable>> QueryAll(Guid ProjectId)
         {
             try
             {
                 if (ProjectId == Guid.Empty)
                 {
-                    return ExecuteResultEntity<ICollection<ControlTableDetails>>.CreateResultEntity(
-                   new Collection<ControlTableDetails>());
+                    return ExecuteResultEntity<ICollection<View_RequiredControlTable>>.CreateResultEntity(
+                   new Collection<View_RequiredControlTable>());
                 }
 
                 var repo = this.GetReoisitory();
 
                 var result = (from q in repo.All()
-                             where q.ControlTables.ProjectId == ProjectId
-                             select q).ToList();
+                              where q.ProjectId == ProjectId
+                              select q).ToList();
                 int i = 1;
                 result.ForEach((x) => { x.RowIndex = i; i++; });
 
 
-                return ExecuteResultEntity<ICollection<ControlTableDetails>>.CreateResultEntity(
-                    new Collection<ControlTableDetails>(result));
+                return ExecuteResultEntity<ICollection<View_RequiredControlTable>>.CreateResultEntity(
+                    new Collection<View_RequiredControlTable>(result));
             }
             catch (Exception ex)
             {
-                return ExecuteResultEntity<ICollection<ControlTableDetails>>.CreateErrorResultEntity(ex);
+                return ExecuteResultEntity<ICollection<View_RequiredControlTable>>.CreateErrorResultEntity(ex);
             }
         }
 

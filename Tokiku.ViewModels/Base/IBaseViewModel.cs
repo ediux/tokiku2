@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows.Input;
 
 namespace Tokiku.ViewModels
 {
@@ -23,10 +25,22 @@ namespace Tokiku.ViewModels
         /// </summary>
         void Initialized();
 
+        void SaveModel(string ControllerName);
+
+        void SaveModel();
+
+        string SaveModelController { get; }
+
+        ICommand SaveCommand { get; set; }
+        ICommand CreateNewCommand { get; set; }
     }
 
-    public interface ISingleBaseViewModel: IBaseViewModel
+    public interface ISingleBaseViewModel : IBaseViewModel
     {
         void SaveModel(string ControllerName, bool isLast = true);
+
+        Type EntityType { get; set; }
+
+        DocumentStatusViewModel Status { get; set; }
     }
 }
