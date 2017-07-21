@@ -75,6 +75,10 @@
     <helpers:RoutedViewResult DisplayText="模具總表" ViewType="{x:Type view:MaterialsTotalView}" AttachedTargetElementName="Workspaces" x:Key="OpenMaterialsTotalView"/>
     <helpers:RoutedViewResult DisplayText="本票管理" ViewType="{x:Type view:PromissoryNoteManagementUC}" AttachedTargetElementName="Workspaces" x:Key="OpenPromissoryNoteManagementView"/>
     <helpers:RoutedViewResult DisplayText="合約管理" ViewType="{x:Type view:ContractManagementView}" AttachedTargetElementName="Workspaces" x:Key="OpenContractManagementView"/>
+    <helpers:RoutedViewResult DisplayText="人員管理" ViewType="{x:Type view:SystemMembersView}"
+                              AttachedTargetElementName="Workspaces" x:Key="OpenSystemMembersView" />
+    <helpers:RoutedViewResult DisplayText="角色管理" ViewType="{x:Type view:SystemRolesView}"
+                              AttachedTargetElementName="Workspaces" x:Key="OpenSystemRolesView"/>
     <helpers:RoutedViewResult x:Key="OpenNewRequired" AttachedTargetElementName="InnerWorkspaces"
                                   DisplayText="需求單"
                                   ViewType="{x:Type view:RequiredView}">

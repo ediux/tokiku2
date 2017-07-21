@@ -56,6 +56,7 @@
 		ContactPerson
 			ContactPersonManageView.xaml - 聯絡人管理
 		ControlTables - 管控表
+			AluminumExtrusionProcessingView.xaml - 
 			AluminumPlateView.xaml - 鋁板管控表
 			ControlTableView.xaml - 鋁擠型材料
 			GlassView.xaml - 玻璃管控表
@@ -79,8 +80,9 @@
 			ClientListView.xaml - 客戶列表
 			ClientManageView.xaml - 客戶主檔
 		Finance - 財務管理
+			ActualCostsView.xaml - 成本估算(實際成本)
 			CostEstimateView.xaml - 專案成本估算
-			PaymentTypesManageView.xaml - 人員管理
+			PaymentTypesManageView.xaml - 支付方式清單
 			PromissoryNoteManagementViewUC.xaml - 本票管理
 		Forms - 簽核流程相關表單
 		Manufacturers - 廠商相關
@@ -98,6 +100,9 @@
 			ProjectSelectListView.xaml - 專案列表
 			ProjectVi-ewer.xaml - 單一專案檢視
 			SupplierForProjects.xaml - 專案供應商清單
+		System
+			SystemMembersView.xaml - 人員管理
+			SystemRolesView.xaml - 角色管理
 App.config - 應用程式組態設定檔
 App.xaml - 應用程式進入點(等同WinForm的Program類別)，包含定義預設的主題等都在這個檔案引用。
 MainWindow.xaml - 東菊ERP系統主視窗
