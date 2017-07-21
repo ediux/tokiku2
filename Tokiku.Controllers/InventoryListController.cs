@@ -12,7 +12,7 @@ namespace Tokiku.Controllers
     {
         private string sql;
 
-        public ExecuteResultEntity<ICollection<InventoryListEntity>> QuerAll()
+        public ExecuteResultEntity<ICollection<InventoryListEntity>> QueryAll()
         {
             sql = " select TokikuId, ManufacturersId, Material, UnitWeight, OrderLength, " +
                          " RequiredQuantity, SparePartsQuantity, PlaceAnOrderQuantity, Note " +

@@ -4,11 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
-             xmlns:viewmodels="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+             xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1024">
     <UserControl.Resources>
-        <ObjectDataProvider ObjectType="{x:Type viewmodels:RecvMaterialViewModelCollection}" x:Key="RecvMaterialSource" />
+        <ObjectDataProvider ObjectType="{x:Type vm:RecvMaterialViewModelCollection}" x:Key="RecvMaterialSource" MethodName="Query" />
     </UserControl.Resources>
     <Grid>
         <DataGrid x:Name="CheckGrid" AutoGenerateColumns="False" CanUserAddRows="True"

@@ -159,6 +159,12 @@
     <Compile Include="Views\ManufacturerBussinessItemView.xaml.cs">
       <DependentUpon>ManufacturerBussinessItemView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ControlTables\ObtainMaterialView.xaml.cs">
+      <DependentUpon>ObtainMaterialView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ControlTables\ObtainMaterialListView.xaml.cs">
+      <DependentUpon>ObtainMaterialListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Projects\ContractManagementView.xaml.cs">
       <DependentUpon>ContractManagementView.xaml</DependentUpon>
     </Compile>
@@ -349,6 +355,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ManufacturerBussinessItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ControlTables\ObtainMaterialView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ControlTables\ObtainMaterialListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

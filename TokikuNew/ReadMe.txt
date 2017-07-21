@@ -56,7 +56,7 @@
 		ContactPerson
 			ContactPersonManageView.xaml - 聯絡人管理
 		ControlTables - 管控表
-			AluminumExtrusionProcessingView.xaml - 
+			AluminumExtrusionProcessingView.xaml - 鋁擠型加工管控表
 			AluminumPlateView.xaml - 鋁板管控表
 			ControlTableView.xaml - 鋁擠型材料
 			GlassView.xaml - 玻璃管控表
@@ -66,6 +66,8 @@
 			InvoiceView.xaml - 請款單
 			InvoiceViewListView.xaml - 請款單列表
 			IronPartsView.xaml - 鐵件管控表
+			ObtainMaterialView.xaml - 領料單
+			ObtainMaterialListView.xaml - 領料單列表
 			OrderControlTableView.xaml - 訂單管控表
 			QualityAbnormallySingleView.xaml - 品質異常單
 			RecvMaterialListView.xaml - 收料單列表
