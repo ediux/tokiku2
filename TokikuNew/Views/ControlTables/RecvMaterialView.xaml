@@ -186,7 +186,7 @@
                     <DataGridTextColumn Header="單位重(kg/m)" Width="auto" />
                     <DataGridTextColumn Header="訂購長度(mm)" Width="auto" />
                     <DataGridTextColumn Header="下單數量" Width="auto" />
-                    <DataGridTextColumn Header="出貨順序" Width="auto" />
+                    <!-- DataGridTextColumn Header="出貨順序" Width="auto" / -->
                     <DataGridTextColumn Header="重量" Width="auto" />
                     <DataGridTextColumn Header="缺料" Width="auto" />
                     <DataGridTextColumn Header="收料量" Width="auto" />
