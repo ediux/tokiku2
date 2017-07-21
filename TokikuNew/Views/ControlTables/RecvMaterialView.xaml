@@ -195,7 +195,7 @@
         </Grid>
 
         <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="31" Margin="10,0,0,6" VerticalAlignment="Bottom" Width="1006">
-            <Label Content="收料筆數:" HorizontalAlignment="Left" Height="22" Margin="10,10,0,0" VerticalAlignment="Top" Width="51" Grid.Column="1"/>
+            <Label Content="收料支數:" HorizontalAlignment="Left" Height="22" Margin="10,10,0,0" VerticalAlignment="Top" Width="51" Grid.Column="1"/>
             <TextBox HorizontalAlignment="Left" Height="24" Margin="66,8,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="65"/>
             <Label Content="合計:" HorizontalAlignment="Left" Height="22" Margin="149,10,0,0" VerticalAlignment="Top" Width="32"/>
             <TextBox HorizontalAlignment="Left" Height="24" Margin="186,8,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="168"/>
@@ -209,7 +209,7 @@
         <Grid HorizontalAlignment="Left" Height="301" Margin="10,174,0,0" VerticalAlignment="Top" Width="1006">
 
         </Grid -->
-        <Button x:Name="BtnAddNewForm" Content="產生加工訂製單" HorizontalAlignment="Left" Margin="913,4,0,0" VerticalAlignment="Top" Width="101" Click="BtnAddNewForm_Click"/>
+        <Button x:Name="BtnAddNewForm" Content="產生加工訂製單" Panel.ZIndex="498" HorizontalAlignment="Left" Margin="913,4,0,0" VerticalAlignment="Top" Width="101" Click="BtnAddNewForm_Click"/>
 
 
 
