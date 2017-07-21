@@ -66,6 +66,7 @@
 			InvoiceViewListView.xaml - 請款單列表
 			IronPartsView.xaml - 鐵件管控表
 			OrderControlTableView.xaml - 訂單管控表
+			QualityAbnormallySingleView.xaml - 品質異常單
 			RecvMaterialListView.xaml - 收料單列表
 			RecvMaterialView.xaml - 收料單
 			RequiredListView.xaml - 需求單列表
