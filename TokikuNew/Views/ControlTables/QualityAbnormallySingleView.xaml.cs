@@ -24,5 +24,10 @@ namespace TokikuNew.Views
         {
             InitializeComponent();
         }
+
+        private void btnNew_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
