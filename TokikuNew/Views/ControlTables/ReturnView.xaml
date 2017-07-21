@@ -70,7 +70,7 @@
                                     <ColumnDefinition Width="auto" />
                                     <ColumnDefinition Width="auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" Text="建檔日期" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="0" Margin="2,2,0,2" Text="建檔日期" VerticalAlignment="Center" />
                                 <DatePicker Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="2" Text="{Binding CreateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <TextBlock Grid.Column="2" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
                                 <TextBlock Grid.Column="3" Text="製單人員" VerticalAlignment="Center" />
