@@ -65,6 +65,7 @@
 			InvoiceView.xaml - 請款單
 			InvoiceViewListView.xaml - 請款單列表
 			IronPartsView.xaml - 鐵件管控表
+			OrderControlTableView.xaml - 訂單管控表
 			RecvMaterialListView.xaml - 收料單列表
 			RecvMaterialView.xaml - 收料單
 			RequiredListView.xaml - 需求單列表
