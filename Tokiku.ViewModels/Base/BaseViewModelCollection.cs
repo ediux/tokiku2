@@ -15,6 +15,10 @@ namespace Tokiku.ViewModels
     {
         public BaseViewModelCollection()
         {
+            _Replay = new RelayCommand((x) => ReplyFrom(x), (x) => true);
+            _SaveCommand = new SaveModelCommand();
+            _CreateNewCommand = new CreateNewModelCommand();
+
             Initialized();
         }
 
@@ -89,6 +93,16 @@ namespace Tokiku.ViewModels
         /// 取得或設定當引發新建項目時的命令項目。
         /// </summary>
         public ICommand CreateNewCommand { get => _CreateNewCommand; set => _CreateNewCommand = value; }
+        private ICommand _Replay;
+        /// <summary>
+        /// 轉送命令
+        /// </summary>
+        public ICommand ReplyCommand { get => _Replay; set => _Replay = value; }
+
+        public virtual void ReplyFrom(object source)
+        {
+
+        }
 
         /// <summary>
         /// 檢視模型初始化作業

@@ -8,6 +8,6 @@ namespace TokikuNew.Commands
 {
     public class TokikuCommands
     {
-        public static OpenNewTabItem OpenNewTabItem = new OpenNewTabItem();
+        
     }
 }

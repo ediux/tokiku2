@@ -3,11 +3,9 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Input;
 using Tokiku.Controllers;
 using Tokiku.ViewModels;
 using TokikuNew.Controls;
-using TokikuNew.Helpers;
 using TokikuNew.Views;
 
 namespace TokikuNew

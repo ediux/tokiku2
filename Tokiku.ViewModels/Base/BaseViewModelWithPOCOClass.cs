@@ -23,6 +23,9 @@ namespace Tokiku.ViewModels
 
         public BaseViewModelWithPOCOClass()
         {
+            _SaveCommand = new SaveModelCommand();
+            _CreateNewCommand = new CreateNewModelCommand();
+            _ReplyCommand = new RelayCommand((x) => { });
             Status = new DocumentStatusViewModel();
             EntityType = typeof(TPOCO);
             CopyofPOCOInstance = Activator.CreateInstance<TPOCO>();
@@ -48,6 +51,18 @@ namespace Tokiku.ViewModels
             Status.IsNewInstance = false;
         }
 
+        /// <summary>
+        /// 接收轉送來源的物件。
+        /// </summary>
+        /// <param name="source">轉送來源。</param>
+        public virtual void ReplyFrom(object source)
+        {
+
+        }
+
+        /// <summary>
+        /// 檢視模型初始化
+        /// </summary>
         public virtual void Initialized()
         {
             CreateTime = DateTime.Now;
@@ -267,6 +282,8 @@ namespace Tokiku.ViewModels
         /// 取得或設定當引發新建項目時的命令項目。
         /// </summary>
         public ICommand CreateNewCommand { get => _CreateNewCommand; set => _CreateNewCommand = value; }
+        private ICommand _ReplyCommand;
+        public ICommand ReplyCommand { get => _ReplyCommand; set => _ReplyCommand = value; }
 
         /// <summary>
         /// 將錯誤訊息寫到檢視模型中以利顯示。

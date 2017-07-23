@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:c="clr-namespace:TokikuNew.Controls"
              xmlns:local="clr-namespace:TokikuNew.Views"
-             xmlns:helpers="clr-namespace:TokikuNew.Helpers"
              xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" x:Name="userControl"             
@@ -13,17 +12,17 @@
              Loaded="userControl_Loaded"
              d:DesignHeight="768" d:DesignWidth="2084.2">
     <UserControl.Resources>
-        <helpers:RoutedViewResult x:Key="OpenOrderView" AttachedTargetElementName="InnerWorkspaces"
+        <vm:RoutedViewResult x:Key="OpenOrderView" AttachedTargetElementName="InnerWorkspaces"
                                   DisplayText="訂製單"
                                   SourceInstance="{Binding Source={StaticResource ProjectSource}}"
                                   ViewType="{x:Type local:AluminumExtrusionOrderSheetView}">
-            <helpers:RoutedViewResult.RoutingBinding>
+            <vm:RoutedViewResult.RoutingBinding>
                 <sys:String x:Key="SelectedProjectId">Id</sys:String>
-            </helpers:RoutedViewResult.RoutingBinding>
-            <helpers:RoutedViewResult.RoutedValues>
+            </vm:RoutedViewResult.RoutingBinding>
+            <vm:RoutedViewResult.RoutedValues>
                 <sys:Guid x:Key="SelectedProjectId"></sys:Guid>
-            </helpers:RoutedViewResult.RoutedValues>
-        </helpers:RoutedViewResult>
+            </vm:RoutedViewResult.RoutedValues>
+        </vm:RoutedViewResult>
 
         <Style TargetType="DataGrid" BasedOn="{StaticResource {x:Type DataGrid}}">
             <Setter Property="Visibility" Value="Collapsed"/>
@@ -62,7 +61,9 @@
         </StackPanel>
         <GroupBox Header="{Binding Path=Header, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabItem}}}" Grid.Row="1">
             <DataGrid FrozenColumnCount="7" x:Name="dg" ItemsSource="{Binding Source={StaticResource ControlTableListSource}}" AutoGenerateColumns="False" >
-                
+                <vm:CommandRoutingManager.CommandParameter>
+                    <vm:RoutedViewResult></vm:RoutedViewResult>
+                </vm:CommandRoutingManager.CommandParameter> 
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="項次" Width="auto" Binding="{Binding RowIndex}" />
                     <DataGridTextColumn Header="東菊編號" Width="auto" Binding="{Binding Code}" />

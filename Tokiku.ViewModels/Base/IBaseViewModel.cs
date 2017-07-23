@@ -33,6 +33,7 @@ namespace Tokiku.ViewModels
 
         ICommand SaveCommand { get; set; }
         ICommand CreateNewCommand { get; set; }
+        ICommand ReplyCommand { get; set; }
     }
 
     public interface ISingleBaseViewModel : IBaseViewModel

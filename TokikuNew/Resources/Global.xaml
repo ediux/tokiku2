@@ -2,8 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
                     xmlns:view="clr-namespace:TokikuNew.Views"
-                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
-                    xmlns:helpers="clr-namespace:TokikuNew.Helpers"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"                  
                     xmlns:cmd="clr-namespace:TokikuNew.Commands"
                     xmlns:ValueConverters="clr-namespace:TokikuNew.ValueConverters">
     <!--資料來源-->
@@ -71,7 +70,7 @@
     <RoutedUICommand x:Key="Cancel" Text="取消" />
     <RoutedUICommand x:Key="AddColumn" Text="新增行"/>
     <RoutedUICommand x:Key="AddRow" Text="新增列"/>
-    <cmd:OpenNewTabItem x:Key="OpenNewTabItem" Text="開新分頁" />
+    <vm:RedirectCommand x:Key="OpenNewTabItem"  />
     <RoutedUICommand x:Key="CloseTabItem" Text="關閉分頁"/>
     <RoutedUICommand x:Key="ResetFiliter" Text="重設查詢" />
     <RoutedUICommand x:Key="QueryRefresh" Text="重新整理查詢" />
@@ -84,94 +83,94 @@
         <Setter Property="FontSize" Value="14"/>
     </Style>
     <!-- 各功能畫面參數 -->
-    <helpers:RoutedViewResult DisplayText="新增專案" AttachedTargetElementName="Workspaces" ViewType="{x:Type view:ProjectManagerView}"  x:Key="OpenNewProjectView">
-        <helpers:RoutedViewResult.RoutedValues>
+    <vm:RoutedViewResult DisplayText="新增專案" AttachedTargetElementName="Workspaces" ViewType="{x:Type view:ProjectManagerView}"  x:Key="OpenNewProjectView">
+        <vm:RoutedViewResult.RoutedValues>
             <x:Static Member="sys:Guid.Empty" x:Key="SelectedProjectId"></x:Static>
             <vm:DocumentLifeCircle x:Key="Mode">Create</vm:DocumentLifeCircle>
-        </helpers:RoutedViewResult.RoutedValues>
-    </helpers:RoutedViewResult>
-    <helpers:RoutedViewResult DisplayText="廠商列表" AttachedTargetElementName="Workspaces" ViewType="{x:Type view:VendorListView}" x:Key="OpenVendorListView">
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <vm:RoutedViewResult DisplayText="廠商列表" AttachedTargetElementName="Workspaces" ViewType="{x:Type view:VendorListView}" x:Key="OpenVendorListView">
         
-    </helpers:RoutedViewResult>
-    <helpers:RoutedViewResult DisplayText="客戶列表" ViewType="{x:Type view:ClientListView}" AttachedTargetElementName="Workspaces" x:Key="OpenClientListView" />
+    </vm:RoutedViewResult>
+    <vm:RoutedViewResult DisplayText="客戶列表" ViewType="{x:Type view:ClientListView}" AttachedTargetElementName="Workspaces" x:Key="OpenClientListView" />
 
-    <helpers:RoutedViewResult DisplayText="新增廠商" ViewType="{x:Type view:ManufacturersManageView}" AttachedTargetElementName="Workspaces" x:Key="OpenNewManufactureView"/>
-    <helpers:RoutedViewResult DisplayText="新增客戶" ViewType="{x:Type view:ClientManageView}" AttachedTargetElementName="Workspaces" x:Key="OpenNewClient" />
-    <helpers:RoutedViewResult DisplayText="模具總表" ViewType="{x:Type view:MaterialsTotalView}" AttachedTargetElementName="Workspaces" x:Key="OpenMaterialsTotalView"/>
-    <helpers:RoutedViewResult DisplayText="本票管理" ViewType="{x:Type view:PromissoryNoteManagementUC}" AttachedTargetElementName="Workspaces" x:Key="OpenPromissoryNoteManagementView"/>
-    <helpers:RoutedViewResult DisplayText="合約管理" ViewType="{x:Type view:ContractManagementView}" AttachedTargetElementName="Workspaces" x:Key="OpenContractManagementView"/>
-    <helpers:RoutedViewResult DisplayText="人員管理" ViewType="{x:Type view:SystemMembersView}"
+    <vm:RoutedViewResult DisplayText="新增廠商" ViewType="{x:Type view:ManufacturersManageView}" AttachedTargetElementName="Workspaces" x:Key="OpenNewManufactureView"/>
+    <vm:RoutedViewResult DisplayText="新增客戶" ViewType="{x:Type view:ClientManageView}" AttachedTargetElementName="Workspaces" x:Key="OpenNewClient" />
+    <vm:RoutedViewResult DisplayText="模具總表" ViewType="{x:Type view:MaterialsTotalView}" AttachedTargetElementName="Workspaces" x:Key="OpenMaterialsTotalView"/>
+    <vm:RoutedViewResult DisplayText="本票管理" ViewType="{x:Type view:PromissoryNoteManagementUC}" AttachedTargetElementName="Workspaces" x:Key="OpenPromissoryNoteManagementView"/>
+    <vm:RoutedViewResult DisplayText="合約管理" ViewType="{x:Type view:ContractManagementView}" AttachedTargetElementName="Workspaces" x:Key="OpenContractManagementView"/>
+    <vm:RoutedViewResult DisplayText="人員管理" ViewType="{x:Type view:SystemMembersView}"
                               AttachedTargetElementName="Workspaces" x:Key="OpenSystemMembersView" />
-    <helpers:RoutedViewResult DisplayText="角色管理" ViewType="{x:Type view:SystemRolesView}"
+    <vm:RoutedViewResult DisplayText="角色管理" ViewType="{x:Type view:SystemRolesView}"
                               AttachedTargetElementName="Workspaces" x:Key="OpenSystemRolesView"/>
-    <helpers:RoutedViewResult x:Key="OpenNewRequired" AttachedTargetElementName="InnerWorkspaces"
+    <vm:RoutedViewResult x:Key="OpenNewRequired" AttachedTargetElementName="InnerWorkspaces"
                                   DisplayText="需求單"
                                   ViewType="{x:Type view:RequiredView}">
-    </helpers:RoutedViewResult>
+    </vm:RoutedViewResult>
 
-    <helpers:RoutedViewResult x:Key="OpenOrderControlTable" AttachedTargetElementName="InnerWorkspaces"
+    <vm:RoutedViewResult x:Key="OpenOrderControlTable" AttachedTargetElementName="InnerWorkspaces"
                                   DisplayText="訂製單管控表"
                                   ViewType="{x:Type view:OrderControlTableView}"/>
-    <helpers:RoutedViewResult x:Key="OpenOrderList" AttachedTargetElementName="InnerWorkspaces"
+    <vm:RoutedViewResult x:Key="OpenOrderList" AttachedTargetElementName="InnerWorkspaces"
                                   DisplayText="加工訂製單列表"
                                   ViewType="{x:Type view:AluminumExtrusionOrderListView}"/>
-    <helpers:RoutedViewResult x:Key="OpenInventoryView" AttachedTargetElementName="InnerWorkspaces"
+    <vm:RoutedViewResult x:Key="OpenInventoryView" AttachedTargetElementName="InnerWorkspaces"
                                   DisplayText="盤點單"
                                   ViewType="{x:Type view:InventoryView}"/>
 
 
-    <helpers:RoutedViewResult x:Key="OpenGlassControlTable" AttachedTargetElementName="InnerWorkspaces"
+    <vm:RoutedViewResult x:Key="OpenGlassControlTable" AttachedTargetElementName="InnerWorkspaces"
                                   DisplayText="玻璃"
                                   ViewType="{x:Type view:ControlTableView}">
-        <helpers:RoutedViewResult.RoutedValues>
+        <vm:RoutedViewResult.RoutedValues>
             <sys:String x:Key="FormName" >玻璃管控表</sys:String>
             <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
             <vm:ProjectsViewModel x:Key="SelectedProject"></vm:ProjectsViewModel>
-        </helpers:RoutedViewResult.RoutedValues>
-    </helpers:RoutedViewResult>
-    <helpers:RoutedViewResult x:Key="OpenConstructionAtlasView" AttachedTargetElementName="InnerWorkspaces"
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <vm:RoutedViewResult x:Key="OpenConstructionAtlasView" AttachedTargetElementName="InnerWorkspaces"
                                   DisplayText="施工圖集"                                  
                                   ViewType="{x:Type view:ConstructionAtlasView}">
-        <helpers:RoutedViewResult.DataContent>
+        <vm:RoutedViewResult.DataContent>
             <vm:ConstructionAtlasViewModelCollection />
-        </helpers:RoutedViewResult.DataContent>
-    </helpers:RoutedViewResult>
-    <helpers:RoutedViewResult x:Key="OpenAssemblyTableView" AttachedTargetElementName="InnerWorkspaces"
+        </vm:RoutedViewResult.DataContent>
+    </vm:RoutedViewResult>
+    <vm:RoutedViewResult x:Key="OpenAssemblyTableView" AttachedTargetElementName="InnerWorkspaces"
                                   DisplayText="組裝總表"
                                   ViewType="{x:Type view:AssemblyTableView}"/>
-    <helpers:RoutedViewResult x:Key="OpenProcessingAtlasView" AttachedTargetElementName="InnerWorkspaces"
+    <vm:RoutedViewResult x:Key="OpenProcessingAtlasView" AttachedTargetElementName="InnerWorkspaces"
                               DisplayText="加工圖集"
                               ViewType="{x:Type view:ProcessingAtlasView}"/>
     <!-- 請款單,TokikuNew.InvoiceView -->
-    <helpers:RoutedViewResult x:Key="OpenInvoiceView" AttachedTargetElementName="InnerWorkspaces"
+    <vm:RoutedViewResult x:Key="OpenInvoiceView" AttachedTargetElementName="InnerWorkspaces"
                               DisplayText="請款單"
                               ViewType="{x:Type view:InvoiceView}"/>
     <!--請款單列表,TokikuNew.Views.InvoiceViewListView -->
-    <helpers:RoutedViewResult x:Key="OpenInvoiceViewListView" AttachedTargetElementName="InnerWorkspaces"
+    <vm:RoutedViewResult x:Key="OpenInvoiceViewListView" AttachedTargetElementName="InnerWorkspaces"
                               DisplayText="請款單列表"
                               ViewType="{x:Type view:InvoiceViewListView}"/>
     <!--退貨單,TokikuNew.Views.ReturnMaterialViewUC-->
-    <helpers:RoutedViewResult x:Key="OpenReturnMaterialView" AttachedTargetElementName="InnerWorkspaces"
+    <vm:RoutedViewResult x:Key="OpenReturnMaterialView" AttachedTargetElementName="InnerWorkspaces"
                               DisplayText="退貨單"
                               ViewType="{x:Type view:ReturnMaterialViewUC}"/>
     <!--退貨單列表,TokikuNew.Views.ReturnMaterialListViewUC-->
-    <helpers:RoutedViewResult x:Key="OpenReturnMaterialListView" AttachedTargetElementName="InnerWorkspaces"
+    <vm:RoutedViewResult x:Key="OpenReturnMaterialListView" AttachedTargetElementName="InnerWorkspaces"
                               DisplayText="退貨單列表"
                               ViewType="{x:Type view:ReturnMaterialListViewUC}"/>
     <!--收料單,TokikuNew.RecvMaterialView-->
-    <helpers:RoutedViewResult x:Key="OpenRecvMaterialView" AttachedTargetElementName="InnerWorkspaces"
+    <vm:RoutedViewResult x:Key="OpenRecvMaterialView" AttachedTargetElementName="InnerWorkspaces"
                               DisplayText="收料單"
                               ViewType="{x:Type view:RecvMaterialView}"/>    
     <!--收料單列表,TokikuNew.Views.RecvMaterialListView-->
-    <helpers:RoutedViewResult x:Key="OpenRecvMaterialListView" AttachedTargetElementName="InnerWorkspaces"
+    <vm:RoutedViewResult x:Key="OpenRecvMaterialListView" AttachedTargetElementName="InnerWorkspaces"
                               DisplayText="收料單列表"
                               ViewType="{x:Type view:RecvMaterialListView}"/>    
     <!--領料單,TokikuNew.Views.ShippingMaterialViewUC-->
-    <helpers:RoutedViewResult x:Key="OpenShippingMaterialView" AttachedTargetElementName="InnerWorkspaces"
+    <vm:RoutedViewResult x:Key="OpenShippingMaterialView" AttachedTargetElementName="InnerWorkspaces"
                               DisplayText="領料單"
                               ViewType="{x:Type view:ShippingMaterialViewUC}"/>    
     <!--領料單料單列表,TokikuNew.Views.ShippingMaterialListViewUC-->
-    <helpers:RoutedViewResult x:Key="OpenShippingMaterialListView" AttachedTargetElementName="InnerWorkspaces"
+    <vm:RoutedViewResult x:Key="OpenShippingMaterialListView" AttachedTargetElementName="InnerWorkspaces"
                               DisplayText="領料單料單列表"
                               ViewType="{x:Type view:ShippingMaterialListViewUC}"/>    
 </ResourceDictionary>

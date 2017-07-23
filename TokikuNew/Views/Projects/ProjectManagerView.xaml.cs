@@ -4,11 +4,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using Tokiku.Controllers;
 using Tokiku.ViewModels;
 using TokikuNew.Controls;
 using TokikuNew.Frame;
-using TokikuNew.Helpers;
 using WinForm = System.Windows.Forms;
 
 namespace TokikuNew.Views

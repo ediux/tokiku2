@@ -7,7 +7,7 @@
              xmlns:vm ="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
              xmlns:entity="clr-namespace:Tokiku.Entity;assembly=Tokiku.Entity"
              xmlns:controls ="clr-namespace:TokikuNew.Controls"
-             xmlns:helpers="clr-namespace:TokikuNew.Helpers"
+
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              Focusable="True"

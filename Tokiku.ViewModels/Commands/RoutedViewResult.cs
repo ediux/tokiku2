@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Input;
 
-namespace TokikuNew.Helpers
+namespace Tokiku.ViewModels
 {
     public class RoutedViewResult : UIElement
     {
@@ -14,6 +12,9 @@ namespace TokikuNew.Helpers
         {
             RoutedValues = new Dictionary<string, object>();
             RoutingBinding = new Dictionary<string, string>();
+            ReplyCommand = new RelayCommand((x) => {
+
+            });
         }
 
 
@@ -127,6 +128,22 @@ namespace TokikuNew.Helpers
         public static readonly DependencyProperty RoutedValuesProperty =
             DependencyProperty.Register("RoutedValues", typeof(Dictionary<string, object>), typeof(RoutedViewResult), new PropertyMetadata(default(Dictionary<string, object>)));
 
+
+
+
+
+        /// <summary>
+        /// 轉送命令
+        /// </summary>
+        public ICommand ReplyCommand
+        {
+            get { return (ICommand)GetValue(ReplyCommandProperty); }
+            set { SetValue(ReplyCommandProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ReplyCommand.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ReplyCommandProperty =
+            DependencyProperty.Register("ReplyCommand", typeof(ICommand), typeof(RoutedViewResult), new PropertyMetadata(null));
 
 
 

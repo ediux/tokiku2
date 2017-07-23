@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:TokikuNew" 
-        xmlns:helpers ="clr-namespace:TokikuNew.Helpers"
         xmlns:controls="clr-namespace:TokikuNew.Controls"
+        xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
         mc:Ignorable="d"        
         Title="東菊金屬 ERP System" Height="768" Width="1366" WindowState="Maximized" Icon="{DynamicResource Logo}"
         Loaded="Window_Loaded" Background="{DynamicResource WindowBackgroundBrush}"
@@ -62,7 +62,7 @@
                     <Views:ProjectSelectListView x:Name="ProjectSelectionPage" SelectedProjectChanged="ProjectSelectionPage_SelectedProjectChanged" DataContext="{Binding Projects}"  />
                 </TabItem>
             </controls:MultiPageManager>-->
-            <TabControl Grid.Row="1" Margin="0,0,0,0" x:Name="Workspaces" FontSize="9" local:CommandAttachManager.Command="{StaticResource OpenNewTabItem}">
+            <TabControl Grid.Row="1" Margin="0,0,0,0" x:Name="Workspaces" FontSize="9" vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}">
                 <TabItem Header="專案列表" >
                     <Views:ProjectSelectListView x:Name="ProjectSelectionPage" SelectedProjectChanged="ProjectSelectionPage_SelectedProjectChanged" DataContext="{Binding Projects}"  />
                 </TabItem>

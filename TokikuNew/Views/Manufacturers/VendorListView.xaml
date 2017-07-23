@@ -6,12 +6,11 @@
              xmlns:local="clr-namespace:TokikuNew.Views"
              xmlns:controls="clr-namespace:TokikuNew.Controls"
              xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
-             xmlns:helpers="clr-namespace:TokikuNew.Helpers"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024"              
              Background="{DynamicResource ControlBackgroundBrush}">
     <UserControl.Resources>
-        <helpers:RoutedViewResult x:Key="OpenNewManufacturer" DisplayText="新增廠商" ViewType="{x:Type local:ManufacturersManageView}" AttachedTargetElementName="OpenVendorListView" />
+        <vm:RoutedViewResult x:Key="OpenNewManufacturer" DisplayText="新增廠商" ViewType="{x:Type local:ManufacturersManageView}" AttachedTargetElementName="OpenVendorListView" />
         <ObjectDataProvider x:Key="ManufacturerListSource" ObjectType="{x:Type vm:ManufacturersViewModelCollection}" MethodName="Query" />
     </UserControl.Resources>
     <UserControl.CommandBindings>

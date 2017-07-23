@@ -6,8 +6,8 @@
     xmlns:Controls="clr-namespace:TokikuNew.Controls"
     xmlns:local="clr-namespace:TokikuNew.Views"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
-    xmlns:helpers="clr-namespace:TokikuNew.Helpers"
-    xmlns:Viewmodel="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+    xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+    xmlns:l="clr-namespace:TokikuNew"
     xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
     x:Name="userControl" x:Class="TokikuNew.Views.ProjectManagerView"
              mc:Ignorable="d" 
@@ -15,32 +15,32 @@
              Initialized="userControl_Initialized" >
     <UserControl.Resources>
 
-        <helpers:RoutedViewResult x:Key="OpenAluminumProcessingControlTable" AttachedTargetElementName="InnerWorkspaces"
+        <vm:RoutedViewResult x:Key="OpenAluminumProcessingControlTable" AttachedTargetElementName="InnerWorkspaces"
                                   DisplayText="鋁擠型加工"
                                   SourceInstance="{Binding ElementName=userControl, Mode=OneWay}"
                                   ViewType="{x:Type local:ControlTableView}">
-            <helpers:RoutedViewResult.RoutingBinding>
+            <vm:RoutedViewResult.RoutingBinding>
                 <sys:String x:Key="SelectedProjectId">SelectedProjectId</sys:String>
-            </helpers:RoutedViewResult.RoutingBinding>
-            <helpers:RoutedViewResult.RoutedValues>
+            </vm:RoutedViewResult.RoutingBinding>
+            <vm:RoutedViewResult.RoutedValues>
                 <sys:String x:Key="FormName" >鋁擠型加工</sys:String>
-                <Viewmodel:DocumentLifeCircle x:Key="Mode">Read</Viewmodel:DocumentLifeCircle>
+                <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
                 <sys:Guid x:Key="SelectedProjectId"></sys:Guid>
-            </helpers:RoutedViewResult.RoutedValues>
-        </helpers:RoutedViewResult>
-        <helpers:RoutedViewResult x:Key="OpenControlTable"
+            </vm:RoutedViewResult.RoutedValues>
+        </vm:RoutedViewResult>
+        <vm:RoutedViewResult x:Key="OpenControlTable"
                                   DisplayText="鋁擠型材料" AttachedTargetElementName="InnerWorkspaces"                                  
                                   SourceInstance="{Binding Source={StaticResource ProjectSource}}"
                                   ViewType="{x:Type local:ControlTableView}">
-            <helpers:RoutedViewResult.RoutingBinding>
+            <vm:RoutedViewResult.RoutingBinding>
                 <sys:String x:Key="SelectedProjectId">Id</sys:String>
-            </helpers:RoutedViewResult.RoutingBinding>
-            <helpers:RoutedViewResult.RoutedValues>
+            </vm:RoutedViewResult.RoutingBinding>
+            <vm:RoutedViewResult.RoutedValues>
                 <sys:String x:Key="FormName" >鋁擠型材料</sys:String>
-                <Viewmodel:DocumentLifeCircle x:Key="Mode">Read</Viewmodel:DocumentLifeCircle>
+                <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
                 <sys:Guid x:Key="SelectedProjectId"></sys:Guid>
-            </helpers:RoutedViewResult.RoutedValues>
-        </helpers:RoutedViewResult>
+            </vm:RoutedViewResult.RoutedValues>
+        </vm:RoutedViewResult>
     </UserControl.Resources>
     <UserControl.CommandBindings>
         <CommandBinding Command="{StaticResource Reply}" x:Name="ReplyCommand"
@@ -61,7 +61,7 @@
             <Button x:Name="BtnAssemblyTable" Content="組裝總表" Grid.Row="16" Grid.Column="1" Margin="5,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenAssemblyTableView}" CommandManager.PreviewCanExecute="Btn2_PreviewCanExecute" />
             <Button Content="加工圖集總表" Grid.Row="16" Grid.Column="1" Margin="5,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenProcessingAtlasView}" CommandManager.PreviewCanExecute="Btn2_PreviewCanExecute"  />
             <Button Content="訂製單管控表" x:Name="BtnOrderControlTable" Margin="5,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenOrderControlTable}" CommandManager.PreviewCanExecute="Btn2_PreviewCanExecute" />
-            <Button Content="鋁擠型材料" x:Name="Btn2" Grid.Row="17" Grid.Column="1" Margin="5,0" Command="{StaticResource OpenNewTabItem}" CommandManager.PreviewCanExecute="Btn2_PreviewCanExecute" CommandParameter="{StaticResource OpenControlTable}" />
+            <Button Content="鋁擠型材料" x:Name="Btn2" Grid.Row="17" Grid.Column="1" Margin="5,0" Command="{StaticResource OpenNewTabItem}" CommandManager.PreviewCanExecute="Btn2_PreviewCanExecute" CommandParameter="{StaticResource OpenControlTable}"  />
             <Button Content="鋁擠型加工" x:Name="BtnAluminumProcessing" Margin="5,0" Command="{StaticResource OpenNewTabItem}" CommandManager.PreviewCanExecute="Btn2_PreviewCanExecute" CommandParameter="{StaticResource OpenAluminumProcessingControlTable}"/>
             <Button Content="玻璃" x:Name="BtnGlass" Margin="5,0" Command="{StaticResource OpenNewTabItem}" CommandManager.PreviewCanExecute="Btn2_PreviewCanExecute" CommandParameter="{StaticResource OpenGlassControlTable}"/>
             <Button Content="鋁板" x:Name="BtnAluminumPlate"  DataContext="{Binding}" Margin="5,0"/>

@@ -51,8 +51,13 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\CommandRoutingManager.cs" />
+    <Compile Include="Commands\CloseMultiPageContentCommand.cs" />
+    <Compile Include="Commands\RedirectCommand.cs" />
+    <Compile Include="Commands\RoutedViewResult.cs" />
     <Compile Include="Projects\ObtainMaterialListViewModel.cs" />
-    <Compile Include="CreateNewModelCommand.cs" />
+    <Compile Include="Commands\CreateNewModelCommand.cs" />
+    <Compile Include="RelayCommand.cs" />
     <Compile Include="RequiredDetailViewModel.cs" />
     <Compile Include="RequiredDetailViewModelCollection.cs" />
     <Compile Include="Base\SaveModelCommand.cs" />

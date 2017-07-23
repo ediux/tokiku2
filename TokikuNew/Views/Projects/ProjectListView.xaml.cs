@@ -1,23 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Tokiku.Controllers;
-using Tokiku.Entity;
 using Tokiku.ViewModels;
-using TokikuNew.Commands;
-using TokikuNew.Helpers;
 using WinForm = System.Windows.Forms;
 namespace TokikuNew.Views
 {
@@ -144,21 +132,21 @@ namespace TokikuNew.Views
                     SelectedProject = (ProjectListViewModel)ProjectList.SelectedItem;
                 }
 
-                OpenNewTabItem command = (OpenNewTabItem)TryFindResource("OpenNewTabItem");
+                //OpenNewTabItem command = (OpenNewTabItem)TryFindResource("OpenNewTabItem");
 
-                if (command != null)
-                {                    
-                    var routedvalue = new RoutedViewResult()
-                    {
-                        FormatedDisplay = "專案:{0}-{1}",
-                        FormatedParameters = new object[] { SelectedProject.Code, SelectedProject.ShortName },
-                        ViewType = typeof(ProjectViewer),
-                        SourceViewType = typeof(ProjectSelectListView),
-                        RoutedValues = new Dictionary<string, object>()
-                    };
-                    routedvalue.RoutedValues.Add("SelectedProjectId", SelectedProject.Id);
-                    command.Execute(routedvalue);
-                }
+                //if (command != null)
+                //{                    
+                //    var routedvalue = new RoutedViewResult()
+                //    {
+                //        FormatedDisplay = "專案:{0}-{1}",
+                //        FormatedParameters = new object[] { SelectedProject.Code, SelectedProject.ShortName },
+                //        ViewType = typeof(ProjectViewer),
+                //        SourceViewType = typeof(ProjectSelectListView),
+                //        RoutedValues = new Dictionary<string, object>()
+                //    };
+                //    routedvalue.RoutedValues.Add("SelectedProjectId", SelectedProject.Id);
+                //    command.Execute(routedvalue);
+                //}
             }
             catch (Exception ex)
             {

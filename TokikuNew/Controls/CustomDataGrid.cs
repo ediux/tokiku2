@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using TokikuNew.Commands;
-using TokikuNew.Helpers;
+using Tokiku.ViewModels;
 
 namespace TokikuNew.Controls
 {
@@ -25,7 +22,9 @@ namespace TokikuNew.Controls
                 FormatDisplayParametersMapping = new List<string>();
 
                 AutoGenerateColumns = false;
-                this.MouseDoubleClick += CustomDataGrid_MouseDoubleClick;
+
+                CommandRoutingManager.SetCommand(this, new RedirectCommand() { SourceInstance = CommandRoutingManager.FindRootElement(this) });
+                
                 if (ItemsSource != null)
                     DataSourceType = ItemsSource.GetType();
                 CommandManager.RegisterClassCommandBinding(typeof(CustomDataGrid), new CommandBinding(
@@ -127,12 +126,12 @@ namespace TokikuNew.Controls
             {
                 e.Handled = true;
 
-                if (Command is OpenNewTabItem)
+                if (Command is RedirectCommand)
                 {
                     if (SelectedItem != null)
                     {
 
-                        OpenNewTabItem command = (OpenNewTabItem)Command;
+                        RedirectCommand command = (RedirectCommand)Command;
 
                         if (command != null)
                         {

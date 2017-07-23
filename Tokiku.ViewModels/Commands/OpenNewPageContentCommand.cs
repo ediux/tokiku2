@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Tokiku.ViewModels;
-using TokikuNew.Controls;
-using TokikuNew.Helpers;
 
-namespace TokikuNew.Commands
+namespace Tokiku.ViewModels
 {
     public class OpenNewTabItem : ICommand
     {
@@ -19,6 +14,7 @@ namespace TokikuNew.Commands
         public OpenNewTabItem()
         {
         }
+
         public OpenNewTabItem(TabControl source)
         {
             if (_control.Contains(source) == false)
@@ -41,6 +37,19 @@ namespace TokikuNew.Commands
         {
             try
             {
+                if (parameter is UIElement || parameter is UIElement3D || parameter is FrameworkElement)
+                {
+                    UIElement element = (UIElement)parameter;
+
+                    RoutedViewResult routeview = CommandRoutingManager.GetRoutedView(element);
+
+                    var view = Activator.CreateInstance(routeview.ViewType);
+
+
+
+                    return;
+                }
+
                 RoutedViewResult executeresult = parameter as RoutedViewResult;
 
                 ClosableTabItem addWorkarea = null;
@@ -130,7 +139,7 @@ namespace TokikuNew.Commands
                                     var prop = executeresult.ViewType.GetProperty(k);
 
                                     if (prop != null)
-                                    {       
+                                    {
                                         prop.SetValue(vm, executeresult.RoutedValues[k]);
                                     }
 
