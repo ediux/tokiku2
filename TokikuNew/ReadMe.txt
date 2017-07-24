@@ -69,6 +69,7 @@
 			ObtainMaterialView.xaml - 領料單
 			ObtainMaterialListView.xaml - 領料單列表
 			OrderControlTableView.xaml - 訂單管控表
+			QualityAbnormallySingleListView.xaml - 品質異常單列表
 			QualityAbnormallySingleView.xaml - 品質異常單
 			RecvMaterialListView.xaml - 收料單列表
 			RecvMaterialView.xaml - 收料單

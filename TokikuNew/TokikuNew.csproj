@@ -322,6 +322,9 @@
     <Compile Include="Views\ControlTables\QualityAbnormallySingleView.xaml.cs">
       <DependentUpon>QualityAbnormallySingleView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ControlTables\QualityAbnormallySingleListView.xaml.cs">
+      <DependentUpon>QualityAbnormallySingleListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\System\SystemMembersView.xaml.cs">
       <DependentUpon>SystemMembersView.xaml</DependentUpon>
     </Compile>
@@ -613,6 +616,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ControlTables\QualityAbnormallySingleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ControlTables\QualityAbnormallySingleListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

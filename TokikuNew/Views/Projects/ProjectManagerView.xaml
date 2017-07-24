@@ -57,7 +57,7 @@
             <ColumnDefinition Width="50*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="5,0" VerticalAlignment="Center">
-            <Button Content="施工圖集" x:Name="Btn7" Margin="5,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenConstructionAtlasView}" CommandManager.PreviewCanExecute="Btn2_PreviewCanExecute"/>
+            <Button Content="施工圖集" x:Name="Btn7" Margin="5,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenConstructionAtlasView}" CommandManager.PreviewCanExecute="Btn2_PreviewCanExecute" />
             <Button Content="組裝總表" x:Name="Btn6" Margin="5,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenAssemblyTableView}" CommandManager.PreviewCanExecute="Btn2_PreviewCanExecute" />
             <Button Content="加工圖集總表" x:Name="Btn5" Margin="5,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenProcessingAtlasView}" CommandManager.PreviewCanExecute="Btn2_PreviewCanExecute" />
             <Button Content="訂製單管控表" x:Name="Btn4" Margin="5,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenOrderControlTable}" CommandManager.PreviewCanExecute="Btn2_PreviewCanExecute" />

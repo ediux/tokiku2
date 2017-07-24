@@ -33,5 +33,11 @@ namespace TokikuNew.Views
             //ProcessingViewModelCollection.Query();
         }
 
+        private void Btn2_PreviewCanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
+        {
+            e.Handled = true;
+            e.CanExecute = true;
+        }
+
     }
 }

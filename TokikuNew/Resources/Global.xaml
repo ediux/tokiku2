@@ -147,7 +147,10 @@
                          DisplayText="鋁擠型材料" ViewType="{x:Type view:ControlTableView}" />
     <vm:RoutedViewResult x:Key="OpenProcessingView" AttachedTargetElementName="InnerWorkspaces"
                          DisplayText="鋁擠型加工" ViewType="{x:Type view:AluminumExtrusionProcessingView}" />
-    
+
+    <!-- 品質異常單,TokikuNew.QualityAbnormallySingleView -->
+    <vm:RoutedViewResult x:Key="OpenQualityAbnormallySingleView" AttachedTargetElementName="InnerWorkspaces"
+                         DisplayText="請款單" ViewType="{x:Type view:QualityAbnormallySingleView}" />
     <!-- 請款單,TokikuNew.InvoiceView -->
     <vm:RoutedViewResult x:Key="OpenInvoiceView" AttachedTargetElementName="InnerWorkspaces"
                          DisplayText="請款單" ViewType="{x:Type view:InvoiceView}" />
