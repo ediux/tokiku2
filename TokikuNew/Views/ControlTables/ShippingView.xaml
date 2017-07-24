@@ -5,9 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:c="clr-namespace:TokikuNew.Controls"
              xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
              mc:Ignorable="d" 
              Background="{DynamicResource ControlBackgroundBrush}"
              d:DesignHeight="768" d:DesignWidth="1366" Loaded="ShippingMaterialView_Loaded">
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="ShippingMaterialSource" ObjectType="{x:Type vm:ShippingMaterialViewModelCollection}" MethodName="Query"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27" />
@@ -173,8 +177,8 @@
             </Expander>
         </Canvas>
 
-        <Grid x:Name="CheckGrid" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="570" Margin="10,0,0,0" VerticalAlignment="Top" Width="1326">
-            <DataGrid>
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="570" Margin="10,0,0,0" VerticalAlignment="Top" Width="1326">
+            <DataGrid x:Name="CheckGrid" AutoGenerateColumns="False" Margin="5" ItemsSource="{Binding Source={StaticResource ShippingMaterialSource}}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="單號" Width="auto" />
                     <DataGridTextColumn Header="批號" Width="auto" />

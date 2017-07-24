@@ -69,6 +69,7 @@
 			ObtainMaterialView.xaml - 領料單
 			ObtainMaterialListView.xaml - 領料單列表
 			OrderControlTableView.xaml - 訂單管控表
+			QualityAbnormallySingleListView.xaml - 品質異常單列表
 			QualityAbnormallySingleView.xaml - 品質異常單
 			RecvMaterialListView.xaml - 收料單列表
 			RecvMaterialView.xaml - 收料單
@@ -85,6 +86,7 @@
 			ActualCostsView.xaml - 成本估算(實際成本)
 			CostEstimateView.xaml - 專案成本估算
 			PaymentTypesManageView.xaml - 支付方式清單
+			PrepaymentsView.xaml - 預付款申請單
 			PromissoryNoteManagementViewUC.xaml - 本票管理
 		Forms - 簽核流程相關表單
 		Manufacturers - 廠商相關

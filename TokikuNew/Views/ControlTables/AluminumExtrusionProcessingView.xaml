@@ -13,20 +13,20 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Left">
-            <Button Content="請款單" x:Name="btn3" Margin="5,0,0,0" />
-            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="請款單列表" x:Name="btn4" Margin="0,0,5,0" />
-            <Button Content="退貨單" x:Name="btn1" Margin="5,0,0,0" />
-            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="退貨單列表" x:Name="btn2" Margin="0,0,5,0" />
-            <Button Content="品質異常單" x:Name="btn7" Margin="5,0,0,0" />
+            <Button Content="請款單" x:Name="btn3" Margin="5,0,0,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenInvoiceView}" CommandManager.PreviewCanExecute="Btn2_PreviewCanExecute" />
+            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="請款單列表" x:Name="btn4" Margin="0,0,5,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenInvoiceViewListView}" CommandManager.PreviewCanExecute="Btn2_PreviewCanExecute" />
+            <Button Content="退貨單" x:Name="btn1" Margin="5,0,0,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenReturnMaterialView}" CommandManager.PreviewCanExecute="Btn2_PreviewCanExecute" />
+            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="退貨單列表" x:Name="btn2" Margin="0,0,5,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenReturnMaterialListView}" CommandManager.PreviewCanExecute="Btn2_PreviewCanExecute" />
+            <Button Content="品質異常單" x:Name="btn7" Margin="5,0,0,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenQualityAbnormallySingleView}" CommandManager.PreviewCanExecute="Btn2_PreviewCanExecute" />
             <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="品質異常單列表" x:Name="btn8" Margin="0,0,5,0" />
-            <Button Content="收料單" x:Name="btnAddNewForm" Margin="5,0,0,0" />
-            <Button Content="&#xE179;" ToolTip="收料單列表" FontFamily="/Resources/#Segoe MDL2 Assets" Margin="0,0,5,0" />
+            <Button Content="收料單" x:Name="btn11" Margin="5,0,0,0" />
+            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="收料單列表" x:Name="btn12" Margin="0,0,5,0" />
             <Button Content="出貨單" x:Name="btn5" Margin="5,0,0,0" />
             <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="出貨單列表" x:Name="btn6" Margin="0,0,5,0"/>
             <Button Content="領料單" x:Name="btn9" Margin="5,0,0,0" />
             <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="領料單列表" x:Name="btn10" Margin="0,0,5,0"/>
-            <Button Content="訂製單" Margin="5,0,0,0" />
-            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="加工訂製單列表" Margin="0,0,5,0"  />
+            <Button Content="訂製單" x:Name="btn13" Margin="5,0,0,0" />
+            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="加工訂製單列表" x:Name="btn14" Margin="0,0,5,0"  />
         </StackPanel>
         <GroupBox Header="鋁擠型加工管控表" Grid.Row="1" Margin="2" Style="{DynamicResource GroupBox_DocumentEditor}">
             <DataGrid x:Name="CheckGrid">

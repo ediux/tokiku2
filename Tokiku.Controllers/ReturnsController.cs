@@ -10,17 +10,14 @@ namespace Tokiku.Controllers
 {
     public class ReturnsController : BaseController
     {
-        private ExecuteResultEntity<ICollection<Returns>> rtn;
-
-        public ExecuteResultEntity<ICollection<Returns>> QuerAll()
+        public ExecuteResultEntity<ICollection<Returns>> QueryAll()
         {
             try {
                 var repo = RepositoryHelper.GetReturnsRepository();
                 return ExecuteResultEntity<ICollection<Returns>>.CreateResultEntity(
                     new Collection<Returns>(repo.All().ToList()));
             }catch (Exception ex) {
-                rtn = ExecuteResultEntity<ICollection<Returns>>.CreateErrorResultEntity(ex);
-                return rtn;
+                return ExecuteResultEntity<ICollection<Returns>>.CreateErrorResultEntity(ex);
             }
         }
     }

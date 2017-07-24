@@ -11,19 +11,15 @@ namespace Tokiku.Controllers
 {
     public class PromissoryNoteManagementViewModelController : BaseController
     {
-        private ExecuteResultEntity<ICollection<PromissoryNoteManagement>> rtn;
-
-        public ExecuteResultEntity<ICollection<PromissoryNoteManagement>> QuerAll()
+        public ExecuteResultEntity<ICollection<PromissoryNoteManagement>> QueryAll()
         {
             try {
                 var repo = this.GetReoisitory<PromissoryNoteManagement>();
                 return ExecuteResultEntity<ICollection<PromissoryNoteManagement>>.CreateResultEntity(
                     new Collection<PromissoryNoteManagement>(repo.All().ToList()));
             }catch (Exception ex) {
-                rtn = ExecuteResultEntity<ICollection<PromissoryNoteManagement>>.CreateErrorResultEntity(ex);
-                return rtn;
+                return ExecuteResultEntity<ICollection<PromissoryNoteManagement>>.CreateErrorResultEntity(ex);
             }
-
         }
 
     }

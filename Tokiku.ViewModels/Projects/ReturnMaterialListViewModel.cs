@@ -12,58 +12,24 @@ namespace Tokiku.ViewModels
     {
         public ReturnMaterialListViewModelCollection()
         {
-            HasError = false;
         }
 
         public ReturnMaterialListViewModelCollection(IEnumerable<ReturnMaterialListViewModel> source) : base(source)
         {
-
         }
 
-        //public override void Query()
-        //{
-        //    ReturnMaterialListController ctrl = new ReturnMaterialListController();
-        //    ExecuteResultEntity<ICollection<ReturnMaterialListEntity>> ere = ctrl.QuerAll();
-        //    if (!ere.HasError)
-        //    {
-        //        ReturnMaterialListViewModel vm = new ReturnMaterialListViewModel();
-        //        foreach (var item in ere.Result)
-        //        {
-        //            vm.SetModel(item);
-        //            Add(vm);
-        //        }
-        //    }
-        //}
+        public static ReturnMaterialListViewModelCollection Query()
+        {
+            return Query<ReturnMaterialListViewModelCollection, Returns>("ReturnMaterialList", "QueryAll");
+        }
 
     }
 
-    public class ReturnMaterialListViewModel : BaseViewModelWithPOCOClass<ReturnMaterialListEntity>
+    public class ReturnMaterialListViewModel : BaseViewModelWithPOCOClass<Returns>
     {
-        public ReturnMaterialListViewModel()
+        public ReturnMaterialListViewModel(Returns entity) : base(entity)
         {
-
         }
-
-        public ReturnMaterialListViewModel(ReturnMaterialListEntity entity) : base(entity)
-        {
-
-        }
-        //public override void SetModel(dynamic entity)
-        //{
-        //    try
-        //    {
-        //        if (entity is ReturnMaterialListEntity)
-        //        {
-        //            ReturnMaterialListEntity data = (ReturnMaterialListEntity)entity;
-        //            BindingFromModel(data, this);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        setErrortoModel(this, ex);
-        //        throw;
-        //    }
-        //}
 
     }
 }

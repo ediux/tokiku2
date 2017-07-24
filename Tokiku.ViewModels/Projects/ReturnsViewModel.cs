@@ -12,24 +12,15 @@ namespace Tokiku.ViewModels
     {
         public ReturnsViewModelCollection()
         {
-            HasError = false;
         }
 
         public ReturnsViewModelCollection(IEnumerable<ReturnsViewModel> source) : base(source)
         {
-
         }
 
         public static ReturnsViewModelCollection Query()
         {
-            ReturnsController ctrl = new ReturnsController();
-            ExecuteResultEntity<ICollection<Returns>> ere = ctrl.QuerAll();
-
-            if (!ere.HasError)
-            {
-                return new ReturnsViewModelCollection(ere.Result.Select(s => new ReturnsViewModel(s)).ToList());
-            }
-            return new ReturnsViewModelCollection();
+            return Query<ReturnsViewModelCollection, Returns>("Returns", "QueryAll");
         }
 
     }
@@ -38,7 +29,6 @@ namespace Tokiku.ViewModels
     {
         public ReturnsViewModel(Returns entity) : base(entity)
         {
-
         }
 
         // ID

@@ -15,26 +15,15 @@ namespace Tokiku.ViewModels
     {
         public PromissoryNoteManagementViewModelCollection()
         {
-            HasError = false;
         }
 
         public PromissoryNoteManagementViewModelCollection(IEnumerable<PromissoryNoteManagementViewModel> source) : base(source)
         {
-
-
         }
 
         public static PromissoryNoteManagementViewModelCollection Query()
         {
-            PromissoryNoteManagementViewModelController ctrl = new PromissoryNoteManagementViewModelController();
-            ExecuteResultEntity<ICollection<PromissoryNoteManagement>> ere = ctrl.QuerAll();
-
-            if (!ere.HasError)
-            {
-                return new PromissoryNoteManagementViewModelCollection(ere.Result.Select(s => new PromissoryNoteManagementViewModel(s)).ToList());
-            }
-
-            return new PromissoryNoteManagementViewModelCollection();
+            return Query<PromissoryNoteManagementViewModelCollection, PromissoryNoteManagement>("PromissoryNoteManagementViewModel", "QueryAll");
         }
 
     }
@@ -43,7 +32,6 @@ namespace Tokiku.ViewModels
     {
         public PromissoryNoteManagementViewModel(PromissoryNoteManagement entity) : base(entity)
         {
-
         }
 
         /*/ 工程代號

@@ -29,9 +29,9 @@ namespace TokikuNew.Views
 
         private void ShippingMaterialView_Loaded(object sender, RoutedEventArgs e)
         {
-            ShippingViewModelCollection ctrl = new ShippingViewModelCollection();
+            ShippingMaterialViewModelCollection ctrl = new ShippingMaterialViewModelCollection();
             CheckGrid.DataContext = ctrl;
-            ShippingViewModelCollection.Query();
+            //ShippingMaterialViewModelCollection.Query();
         }
 
         private void btnAddNewForm_Click(object sender, RoutedEventArgs e)

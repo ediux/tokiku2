@@ -37,14 +37,14 @@ namespace Tokiku.ViewModels
 
     }
 
-    public class RequiredListViewModel : BaseViewModelWithPOCOClass<RequiredListEntity>
+    public class RequiredListViewModel : BaseViewModelWithPOCOClass<Required>
     {
         public RequiredListViewModel()
         {
 
         }
 
-        public RequiredListViewModel(RequiredListEntity entity) : base(entity)
+        public RequiredListViewModel(Required entity) : base(entity)
         {
 
         }
