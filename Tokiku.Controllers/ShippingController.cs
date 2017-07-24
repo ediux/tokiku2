@@ -8,20 +8,16 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class ShippingController : BaseController
+    public class ShippingMaterialController : BaseController
     {
-        private ExecuteResultEntity<ICollection<PickList>> rtn;
-
         public ExecuteResultEntity<ICollection<PickList>> QuerAll()
         {
             try {
                 var repo = RepositoryHelper.GetPickListRepository();
                 return ExecuteResultEntity<ICollection<PickList>>.CreateResultEntity(
                     new Collection<PickList>(repo.All().ToList()));
-            }
-            catch (Exception ex) {
-                rtn = ExecuteResultEntity<ICollection<PickList>>.CreateErrorResultEntity(ex);
-                return rtn;
+            }catch (Exception ex) {
+                return ExecuteResultEntity<ICollection<PickList>>.CreateErrorResultEntity(ex);
             }
         }
     }

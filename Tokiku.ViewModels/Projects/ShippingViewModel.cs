@@ -8,37 +8,27 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class ShippingViewModelCollection : BaseViewModelCollection<ShippingViewModel>
+    public class ShippingMaterialViewModelCollection : BaseViewModelCollection<ShippingMaterialViewModel>
     {
-        public ShippingViewModelCollection()
+        public ShippingMaterialViewModelCollection()
         {
-            HasError = false;
         }
 
-        public ShippingViewModelCollection(IEnumerable<ShippingViewModel> source) : base(source)
+        public ShippingMaterialViewModelCollection(IEnumerable<ShippingMaterialViewModel> source) : base(source)
         {
-
         }
 
-        public static ShippingViewModelCollection Query()
+        public static ShippingMaterialViewModelCollection Query()
         {
-            ShippingController ctrl = new ShippingController();
-            ExecuteResultEntity<ICollection<PickList>> ere = ctrl.QuerAll();
-
-            if (!ere.HasError)
-            {
-                return new ShippingViewModelCollection(ere.Result.Select(s => new ShippingViewModel(s)).ToList());
-            }
-            return new ShippingViewModelCollection();
+            return Query<ShippingMaterialViewModelCollection, PickList>("ShippingMaterial", "QueryAll");
         }
 
     }
 
-    public class ShippingViewModel : BaseViewModelWithPOCOClass<PickList>
+    public class ShippingMaterialViewModel : BaseViewModelWithPOCOClass<PickList>
     {
-        public ShippingViewModel(PickList entity) : base(entity)
+        public ShippingMaterialViewModel(PickList entity) : base(entity)
         {
-
         }
 
         // ID

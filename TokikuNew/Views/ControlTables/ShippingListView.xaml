@@ -8,10 +8,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1024" Loaded="ShippingMaterialListViewUC_Loaded">
     <UserControl.Resources>
-        <ObjectDataProvider x:Key="OrderSource" ObjectType="{x:Type vm:ShippingMaterialListViewModelCollection}" MethodName="Query"/>
+        <ObjectDataProvider x:Key="ShippingMaterialListSource" ObjectType="{x:Type vm:ShippingMaterialListViewModelCollection}" MethodName="Query"/>
     </UserControl.Resources>
     <Grid>
-        <DataGrid x:Name="CheckGrid" AutoGenerateColumns="False" Margin="5" ItemsSource="{Binding}">
+        <DataGrid x:Name="CheckGrid" AutoGenerateColumns="False" Margin="5" ItemsSource="{Binding Source={StaticResource ShippingMaterialListSource}}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="倉別" Width="auto" />
                 <DataGridTextColumn Header="出貨單號" Width="auto" />

@@ -30,7 +30,7 @@ namespace TokikuNew.Views
         {
             ProcessingViewModelCollection ctrl = new ProcessingViewModelCollection();
             CheckGrid.DataContext = ctrl;
-            ProcessingViewModelCollection.Query();
+            //ProcessingViewModelCollection.Query();
         }
 
     }
