@@ -151,6 +151,9 @@
     <!-- 品質異常單,TokikuNew.QualityAbnormallySingleView -->
     <vm:RoutedViewResult x:Key="OpenQualityAbnormallySingleView" AttachedTargetElementName="InnerWorkspaces"
                          DisplayText="請款單" ViewType="{x:Type view:QualityAbnormallySingleView}" />
+    <!-- 品質異常單列表,TokikuNew.QualityAbnormallySingleListView -->
+    <vm:RoutedViewResult x:Key="OpenQualityAbnormallySingleListView" AttachedTargetElementName="InnerWorkspaces"
+                         DisplayText="請款單" ViewType="{x:Type view:QualityAbnormallySingleListView}" />
     <!-- 請款單,TokikuNew.InvoiceView -->
     <vm:RoutedViewResult x:Key="OpenInvoiceView" AttachedTargetElementName="InnerWorkspaces"
                          DisplayText="請款單" ViewType="{x:Type view:InvoiceView}" />
