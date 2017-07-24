@@ -28,46 +28,46 @@ namespace TokikuNew.Views
         }
 
         #region SelectedProjectId
-        public Guid SelectedProjectId
-        {
-            get { return (Guid)GetValue(SelectedProjectIdProperty); }
-            set { SetValue(SelectedProjectIdProperty, value); }
-        }
+        //public Guid SelectedProjectId
+        //{
+        //    get { return (Guid)GetValue(SelectedProjectIdProperty); }
+        //    set { SetValue(SelectedProjectIdProperty, value); }
+        //}
 
-        // Using a DependencyProperty as the backing store for SelectedProject.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SelectedProjectIdProperty =
-            DependencyProperty.Register("SelectedProjectId", typeof(Guid),
-                typeof(ProjectManagerView), new PropertyMetadata(Guid.Empty, new PropertyChangedCallback(SelectedProjectIdChange)));
+        //// Using a DependencyProperty as the backing store for SelectedProject.  This enables animation, styling, binding, etc...
+        //public static readonly DependencyProperty SelectedProjectIdProperty =
+        //    DependencyProperty.Register("SelectedProjectId", typeof(Guid),
+        //        typeof(ProjectManagerView), new PropertyMetadata(Guid.Empty, new PropertyChangedCallback(SelectedProjectIdChange)));
 
-        public static void SelectedProjectIdChange(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-        {
-            try
-            {
-                if (sender is ProjectManagerView)
-                {
+        //public static void SelectedProjectIdChange(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (sender is ProjectManagerView)
+        //        {
 
-                    ObjectDataProvider source = (ObjectDataProvider)((ProjectManagerView)sender).TryFindResource("ProjectSource");
+        //            ObjectDataProvider source = (ObjectDataProvider)((ProjectManagerView)sender).TryFindResource("ProjectSource");
 
-                    if (source != null)
-                    {
-                        source.MethodParameters[0] = e.NewValue;
-                        source.Refresh();
-                    }
+        //            if (source != null)
+        //            {
+        //                source.MethodParameters[0] = e.NewValue;
+        //                source.Refresh();
+        //            }
 
-                    //RoutedViewResult result = (RoutedViewResult)((ProjectManagerView)sender).TryFindResource("OpenControlTable");
+        //            //RoutedViewResult result = (RoutedViewResult)((ProjectManagerView)sender).TryFindResource("OpenControlTable");
 
-                    //if (result != null)
-                    //{
-                    //    result.RoutedValues = new System.Collections.Generic.Dictionary<string, object>();
-                    //    result.RoutedValues.Add("SelectedProject", (ProjectsViewModel)source.Data);
-                    //}
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
-        }
+        //            //if (result != null)
+        //            //{
+        //            //    result.RoutedValues = new System.Collections.Generic.Dictionary<string, object>();
+        //            //    result.RoutedValues.Add("SelectedProject", (ProjectsViewModel)source.Data);
+        //            //}
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+        //    }
+        //}
         #endregion
 
         #region 已選擇的客戶
@@ -128,13 +128,13 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
         {
             try
             {
-                Binding selectProjectBinding = new Binding();
-                selectProjectBinding.Source = TryFindResource("ProjectSource");
-                selectProjectBinding.Path = new PropertyPath("MethodParameters[0]");
-                selectProjectBinding.BindsDirectlyToSource = true;
-                selectProjectBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+                //Binding selectProjectBinding = new Binding();
+                //selectProjectBinding.Source = TryFindResource("ProjectSource");
+                //selectProjectBinding.Path = new PropertyPath("MethodParameters[0]");
+                //selectProjectBinding.BindsDirectlyToSource = true;
+                //selectProjectBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
 
-                SetBinding(SelectedProjectIdProperty, selectProjectBinding);
+                //SetBinding(SelectedProjectIdProperty, selectProjectBinding);
 
                 //controller = App.Resolve<ProjectsController>();
                 //projectcontroll = App.Resolve<ProjectContractController>();

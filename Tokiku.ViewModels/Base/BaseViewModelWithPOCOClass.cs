@@ -31,8 +31,8 @@ namespace Tokiku.ViewModels
         public BaseViewModelWithPOCOClass(TPOCO entity)
         {
             SaveCommand = new SaveModelCommand(new Action<string>(SaveModel));
-            CreateNewCommand = new CreateNewModelCommand();
-            RelayCommand = new RelayCommand((x) => { });
+            CreateNewCommand = new CreateNewModelCommand(new Action<object>(Initialized));
+            RelayCommand = new RelayCommand(new Action<object>(ReplyFrom));
             Status = new DocumentStatusViewModel();
             if (entity != null)
             {

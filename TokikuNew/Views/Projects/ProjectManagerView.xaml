@@ -16,8 +16,7 @@
     <UserControl.Resources>
 
         <vm:RoutedViewResult x:Key="OpenAluminumProcessingControlTable" AttachedTargetElementName="InnerWorkspaces"
-                                  DisplayText="鋁擠型加工"
-                                  SourceInstance="{Binding ElementName=userControl, Mode=OneWay}"
+                                  DisplayText="鋁擠型加工"               
                                   ViewType="{x:Type local:ControlTableView}">
             <vm:RoutedViewResult.RoutingBinding>
                 <sys:String x:Key="SelectedProjectId">SelectedProjectId</sys:String>
@@ -43,9 +42,9 @@
         </vm:RoutedViewResult>
     </UserControl.Resources>
     <UserControl.CommandBindings>
-        <CommandBinding Command="{StaticResource Reply}" x:Name="ReplyCommand"
+        <!--<CommandBinding Command="{StaticResource Reply}" x:Name="ReplyCommand"
                         CanExecute="Btn2_PreviewCanExecute"
-                        Executed="ReplyCommand_Executed" />
+                        Executed="ReplyCommand_Executed" />-->
     </UserControl.CommandBindings>
     <Grid Background="{DynamicResource ControlBackgroundBrush}" >
         <Grid.RowDefinitions>

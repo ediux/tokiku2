@@ -222,9 +222,34 @@ namespace Tokiku.ViewModels
                                                         {
                                                             if (routedvalues.RoutedValues.ContainsKey("ViewModel"))
                                                             {
-                                                                IBaseViewModel viewmodel = (IBaseViewModel)((FrameworkElement)routedvalues.SourceInstance).TryFindResource(routedvalues.RoutedValues["ViewModel"]);
+                                                                ObjectDataProvider provider = ((ObjectDataProvider)((FrameworkElement)routedvalues.SourceInstance).TryFindResource(routedvalues.RoutedValues["ViewModel"]));
 
-                                                                viewmodel.RelayCommand.Execute(viewmodel);
+                                                                if (provider != null)
+                                                                {
+                                                                    IBaseViewModel viewmodel = (IBaseViewModel)provider.Data;
+
+                                                                    if (viewmodel != null)
+                                                                    {
+                                                                        viewmodel.RelayCommand.Execute(SharedModel);
+                                                                        
+                                                                    }
+
+                                                                    else
+                                                                    {
+                                                                        viewmodel = (IBaseViewModel)((FrameworkElement)vm).TryFindResource(routedvalues.RoutedValues["ViewModel"]);
+                                                                        if (viewmodel != null)
+                                                                            viewmodel.RelayCommand.Execute(SharedModel);
+                                                                    }
+                                                                }
+
+                                                            }
+                                                            else
+                                                            {
+                                                                if (SharedModel is IBaseViewModel)
+                                                                {
+                                                                    IBaseViewModel viewmodel = (IBaseViewModel)SharedModel;
+                                                                    viewmodel.RelayCommand.Execute(routedvalues);
+                                                                }
                                                             }
 
                                                             //var modellist = routedvalues.RoutedValues.OfType<IBaseViewModel>().ToList();

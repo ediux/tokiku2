@@ -30,6 +30,7 @@ namespace Tokiku.ViewModels
             _projectcontroller = new ProjectsController();
         }
 
+
         //public override void Query()
         //{
         //    var queryresult = _projectcontroller.Query(a => a.Void == false);
@@ -135,7 +136,7 @@ namespace Tokiku.ViewModels
                 RaisePropertyChanged("ClientId");
             }
         }
-        
+
         /// <summary>
         /// 工程簽約日期
         /// </summary>
@@ -572,6 +573,14 @@ namespace Tokiku.ViewModels
         //    }
         //}
 
+        public override void ReplyFrom(object source)
+        {
+            if (source != null && source is ProjectListViewModel)
+            {
+                CopyofPOCOInstance = Query(((ProjectListViewModel)source).Id).Entity;
+            }
+        }
+
         public ProjectsViewModel Query(Guid ProjectId)
         {
             return QuerySingle<ProjectsViewModel, Projects>("ProjectManagerView", "QueryById", ProjectId);
@@ -579,7 +588,7 @@ namespace Tokiku.ViewModels
 
         public ProjectsViewModel Refresh()
         {
-           return Query(Id);
+            return Query(Id);
         }
 
         //public override void SetModel(dynamic entity)

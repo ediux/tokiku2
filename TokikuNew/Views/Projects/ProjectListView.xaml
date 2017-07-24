@@ -65,7 +65,7 @@
                         </x:Array>
                     </vm:RoutedViewResult.FormatedParameters>
                     <vm:RoutedViewResult.RoutedValues>
-                        <sys:String x:Key="SelectedProjectId">Id</sys:String>
+                        <sys:String x:Key="ViewModel">ProjectSource</sys:String>
                         <x:Type x:Key="SourceViewType" TypeName="l:MainWindow"/>
                         <sys:String x:Key="TabControlName">Workspaces</sys:String>
                     </vm:RoutedViewResult.RoutedValues>

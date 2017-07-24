@@ -4,12 +4,13 @@
                     xmlns:view="clr-namespace:TokikuNew.Views"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"                  
                     xmlns:cmd="clr-namespace:TokikuNew.Commands"
+                    xmlns:l="clr-namespace:TokikuNew"
                     xmlns:ValueConverters="clr-namespace:TokikuNew.ValueConverters">
     <!--資料來源-->
-    <ObjectDataProvider x:Key="ProjectSource" ObjectType="{x:Type vm:ProjectsViewModel}" MethodName="Query">
-        <ObjectDataProvider.MethodParameters>
+    <ObjectDataProvider x:Key="ProjectSource" ObjectType="{x:Type vm:ProjectsViewModel}">
+        <!--<ObjectDataProvider.MethodParameters>
             <x:Static Member="sys:Guid.Empty" />
-        </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider.MethodParameters>-->
     </ObjectDataProvider>
     <ObjectDataProvider x:Key="MaterialCategoriesSource" ObjectType="{x:Type vm:MaterialCategoriesViewModelCollection}" MethodName="Query"/>
     <ObjectDataProvider x:Key="StatesSource" ObjectType="{x:Type vm:StatesViewModelCollection}" MethodName="Query">
@@ -91,7 +92,10 @@
         </vm:RoutedViewResult.RoutedValues>
     </vm:RoutedViewResult>
     <vm:RoutedViewResult DisplayText="廠商列表" AttachedTargetElementName="Workspaces" ViewType="{x:Type view:VendorListView}" x:Key="OpenVendorListView">
-        
+        <vm:RoutedViewResult.RoutedValues>
+            <x:Type x:Key="SourceViewType" TypeName="l:MainWindow"/>
+            <sys:String x:Key="TabControlName">Workspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
     </vm:RoutedViewResult>
     <vm:RoutedViewResult DisplayText="客戶列表" ViewType="{x:Type view:ClientListView}" AttachedTargetElementName="Workspaces" x:Key="OpenClientListView" />
 
