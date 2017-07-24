@@ -19,7 +19,7 @@
             <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="退貨單列表" x:Name="btn2" Margin="0,0,5,0" />
             <Button Content="品質異常單" x:Name="btn7" Margin="5,0,0,0" />
             <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="品質異常單列表" x:Name="btn8" Margin="0,0,5,0" />
-            <Button Content="收料單" x:Name="btnAddNewForm" Margin="5,0,0,0" />
+            <Button Content="收料單" x:Name="btn11" Margin="5,0,0,0" />
             <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="收料單列表" x:Name="btn12" Margin="0,0,5,0" />
             <Button Content="出貨單" x:Name="btn5" Margin="5,0,0,0" />
             <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="出貨單列表" x:Name="btn6" Margin="0,0,5,0"/>
