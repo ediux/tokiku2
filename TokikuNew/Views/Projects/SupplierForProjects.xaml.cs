@@ -401,7 +401,7 @@ namespace TokikuNew.Views
             try
             {
                 e.NewItem = new SuppliersViewModel(new SupplierTranscationItem() { Id = Guid.NewGuid() });
-                ((SuppliersViewModel)e.NewItem).Initialized();
+                ((SuppliersViewModel)e.NewItem).Initialized(null);
 
 
             }

@@ -72,6 +72,7 @@
     <RoutedUICommand x:Key="AddRow" Text="新增列"/>
     <vm:RedirectCommand x:Key="OpenNewTabItem"  />
     <RoutedUICommand x:Key="CloseTabItem" Text="關閉分頁"/>
+    <vm:CloseWindwCommand x:Key="CloseWindow" />
     <RoutedUICommand x:Key="ResetFiliter" Text="重設查詢" />
     <RoutedUICommand x:Key="QueryRefresh" Text="重新整理查詢" />
     <RoutedUICommand x:Key="Reply" Text="轉送" />

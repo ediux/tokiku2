@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace Tokiku.ViewModels
@@ -23,8 +24,13 @@ namespace Tokiku.ViewModels
                 {
                     RoutedViewResult routedvalues = _Mapping[source];
 
+                    if (routedvalues == null)
+                        return;
+
                     if (source is Window)
                     {
+
+
                         if (routedvalues.ViewType.BaseType == typeof(Window))
                         {
                             Window _win = (Window)Activator.CreateInstance(routedvalues.ViewType);
@@ -105,7 +111,7 @@ namespace Tokiku.ViewModels
 
                                             foreach (var model in modellist)
                                             {
-                                                model.ReplyCommand.Execute(routedvalues);
+                                                model.RelayCommand.Execute(routedvalues);
                                             }
                                         }
 
@@ -128,6 +134,125 @@ namespace Tokiku.ViewModels
 
 
                                 }
+                            }
+                            else
+                            {
+                                if (routedvalues.RoutedValues.ContainsKey("SourceViewType"))
+                                {
+                                    if (routedvalues.RoutedValues.ContainsKey("TabControlName"))
+                                    {
+                                        var sourcekey = _Mapping.Keys.Where(w => w.GetType() == (Type)routedvalues.RoutedValues["SourceViewType"]).Single();
+
+                                        if (sourcekey != null)
+                                        {
+                                            var foundcontrol = ((Control)sourcekey).FindName((string)routedvalues.RoutedValues["TabControlName"]);
+
+                                            if (foundcontrol is TabControl)
+                                            {
+                                                var foundtabcontrol = ((TabControl)foundcontrol);
+
+                                                if (foundtabcontrol != null)
+                                                {
+                                                    TabItem addWorkarea = null;
+
+                                                    string Header = string.Empty;
+
+                                                    if (!string.IsNullOrEmpty(routedvalues.DisplayText))
+                                                        Header = routedvalues.DisplayText;
+                                                    else
+                                                    {
+                                                        if (routedvalues.SourceInstance != null)
+                                                        {
+                                                            if (routedvalues.SourceInstance is DataGrid)
+                                                            {
+                                                                List<object> values = new List<object>();
+                                                                Type datatype = ((DataGrid)routedvalues.SourceInstance).SelectedItem.GetType();
+                                                                string[] Fields = (string[])routedvalues.FormatedParameters;
+
+                                                                foreach (string field in Fields)
+                                                                {
+                                                                    var prop = datatype.GetProperty(field);
+
+                                                                    if (prop != null)
+                                                                    {
+                                                                        values.Add(prop.GetValue(((DataGrid)routedvalues.SourceInstance).SelectedItem));
+                                                                    }
+                                                                }
+
+                                                                Header = string.Format(routedvalues.FormatedDisplay, values.ToArray());
+                                                            }
+
+                                                        }
+                                                        else
+                                                        {
+                                                            Header = string.Format(routedvalues.FormatedDisplay, routedvalues.FormatedParameters);
+                                                        }
+                                                    }
+
+                                                    object SharedModel = null;
+
+                                                    if (routedvalues.SourceInstance is DataGrid)
+                                                        SharedModel = ((DataGrid)routedvalues.SourceInstance).SelectedItem;
+
+                                                    addWorkarea = new TabItem() { Header = Header };
+
+                                                    bool isExisted = false;
+
+                                                    foreach (TabItem item in foundtabcontrol.Items.OfType<TabItem>())
+                                                    {
+                                                        if (item.Header.Equals(addWorkarea.Header))
+                                                        {
+                                                            isExisted = true;
+                                                            addWorkarea = item;
+                                                            break;
+                                                        }
+                                                    }
+
+                                                    if (!isExisted)
+                                                    {
+
+                                                        var vm = Activator.CreateInstance(routedvalues.ViewType);
+
+                                                        if (vm != null)
+                                                        {
+                                                            if (routedvalues.RoutedValues.ContainsKey("ViewModel"))
+                                                            {
+                                                                IBaseViewModel viewmodel = (IBaseViewModel)((FrameworkElement)routedvalues.SourceInstance).TryFindResource(routedvalues.RoutedValues["ViewModel"]);
+
+                                                                viewmodel.RelayCommand.Execute(viewmodel);
+                                                            }
+
+                                                            //var modellist = routedvalues.RoutedValues.OfType<IBaseViewModel>().ToList();
+
+                                                            //foreach (var model in modellist)
+                                                            //{
+                                                            //    model.RelayCommand.Execute(routedvalues);
+                                                            //}
+                                                        }
+
+                                                        addWorkarea = (TabItem)Activator.CreateInstance(Assembly.Load("TokikuNew").GetType("TokikuNew.Controls.ClosableTabItem"));
+
+                                                        addWorkarea.Header = Header;
+                                                        addWorkarea.Content = vm;
+                                                        addWorkarea.Margin = new Thickness(0);
+
+                                                        foundtabcontrol.Items.Add(addWorkarea);
+                                                        foundtabcontrol.SelectedItem = addWorkarea;
+
+
+                                                        return;
+                                                    }
+                                                    else
+                                                    {
+                                                        foundtabcontrol.SelectedItem = addWorkarea;
+                                                    }
+
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
                             }
                         }
 
@@ -195,7 +320,11 @@ namespace Tokiku.ViewModels
 
                 if (d is UIElement)
                 {
-
+                    var cmdt = e.NewValue.GetType().GetProperty("SourceInstance");
+                    if (cmdt != null)
+                    {
+                        cmdt.SetValue(e.NewValue, FindRootElement((FrameworkElement)d));
+                    }
 
                     var p = ((UIElement)d).GetType().GetProperty("Command");
 
@@ -213,13 +342,15 @@ namespace Tokiku.ViewModels
                         return;
                     }
 
+
                 }
 
                 if (d is Control)
                 {
                     Control c = (Control)d;
 
-                    c.MouseDoubleClick += Button_MouseDoubleClick;
+                    if (c != null)
+                        c.MouseDoubleClick += Button_MouseDoubleClick;
 
                 }
 
@@ -243,6 +374,7 @@ namespace Tokiku.ViewModels
 
         private static void Button_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            e.Handled = true;
             GetCommand((DependencyObject)sender).Execute(GetCommandParameter((DependencyObject)sender));
         }
 
@@ -361,7 +493,7 @@ namespace Tokiku.ViewModels
                         if (routeitem.SourceInstance == null)
                             routeitem.SourceInstance = d;
 
-                        if (!_Mapping.ContainsKey((UIElement)routeitem.SourceInstance))
+                        if (!_Mapping.ContainsKey(FindRootElement((FrameworkElement)d)))
                         {
                             _Mapping.Add(FindRootElement((FrameworkElement)d), routeitem);
                         }
@@ -374,7 +506,7 @@ namespace Tokiku.ViewModels
 
                     var cmdp = ((UIElement)d).GetType().GetProperty("CommandParameter");
 
-                    if (cmdp == null)
+                    if (cmdp != null)
                     {
                         cmdp.SetValue(d, e.NewValue);
                     }
@@ -464,7 +596,7 @@ namespace Tokiku.ViewModels
 
         public object CommandParameter => GetValue(CommandParameterProperty);
 
-        public IInputElement CommandTarget => throw new NotImplementedException();
+        public IInputElement CommandTarget => (IInputElement)GetValue(CommandTargetProperty);
 
     }
 }

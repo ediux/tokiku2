@@ -5,7 +5,6 @@ using System.Windows.Input;
 
 namespace Tokiku.ViewModels
 {
-
     public interface IBaseViewModel : INotifyPropertyChanged
     {
 
@@ -23,7 +22,7 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 初始化作業。
         /// </summary>
-        void Initialized();
+        void Initialized(object Parameter);
 
         void SaveModel(string ControllerName);
 
@@ -31,17 +30,25 @@ namespace Tokiku.ViewModels
 
         string SaveModelController { get; }
 
+        /// <summary>
+        /// 查詢命令
+        /// </summary>
+        ICommand QueryCommand { get; set; }
+        /// <summary>
+        /// 儲存命令
+        /// </summary>
         ICommand SaveCommand { get; set; }
+        /// <summary>
+        /// 新建命令
+        /// </summary>
         ICommand CreateNewCommand { get; set; }
-        ICommand ReplyCommand { get; set; }
-    }
-
-    public interface ISingleBaseViewModel : IBaseViewModel
-    {
-        void SaveModel(string ControllerName, bool isLast = true);
-
-        Type EntityType { get; set; }
-
-        DocumentStatusViewModel Status { get; set; }
+        /// <summary>
+        /// 刪除命令
+        /// </summary>
+        ICommand DeleteCommand { get; set; }
+        /// <summary>
+        /// 處理轉送路由資料的命令
+        /// </summary>
+        ICommand RelayCommand { get; set; }
     }
 }

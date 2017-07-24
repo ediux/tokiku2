@@ -11,8 +11,7 @@
         Loaded="Window_Loaded" Background="{DynamicResource WindowBackgroundBrush}"
         Initialized="Window_Initialized">
     <Window.Resources>
-       
-       
+        <vm:RedirectCommand x:Key="redirect" SourceInstance="{x:Reference Name=mainwindow}"/>
     </Window.Resources>
     <!--<Window.CommandBindings>
         <CommandBinding x:Name="OpenNewTabItemCommand" Command="{StaticResource OpenNewTabItem}"
@@ -64,7 +63,7 @@
             </controls:MultiPageManager>-->
             <TabControl Grid.Row="1" Margin="0,0,0,0" x:Name="Workspaces" FontSize="9" vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}">
                 <TabItem Header="專案列表" >
-                    <Views:ProjectSelectListView x:Name="ProjectSelectionPage" SelectedProjectChanged="ProjectSelectionPage_SelectedProjectChanged" DataContext="{Binding Projects}"  />
+                    <Views:ProjectSelectListView x:Name="ProjectSelectionPage" />
                 </TabItem>
             </TabControl>
             <StatusBar Margin="0" Grid.Row="3">

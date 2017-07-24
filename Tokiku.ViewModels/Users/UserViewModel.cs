@@ -65,9 +65,9 @@ namespace Tokiku.ViewModels
         public override Users CreateUser { get => null; set { } }
         public override DateTime CreateTime { get => DateTime.Now; set {  } }
         public override Guid CreateUserId { get => Guid.Empty; set { } }
-        public override void Initialized()
+        public override void Initialized(object Parameter)
         {
-            base.Initialized();
+            base.Initialized(Parameter);
             IsAnonymous = true;
             CopyofPOCOInstance.LastActivityDate = new DateTime(1754, 1, 1);
             CopyofPOCOInstance.LoweredUserName = Environment.UserName.ToLowerInvariant();

@@ -15,15 +15,23 @@ namespace Tokiku.ViewModels
 
         public MainViewModel(Controllers.ProjectsController projects_controller)
         {
-            _projects_controller = projects_controller;
+            //_projects_controller = projects_controller;
 
-            Status = new DocumentStatusViewModel();
-            Projects = new ProjectListViewModelCollection();
-            Manufacturers = new ManufacturersViewModelCollection();
+            //Status = new DocumentStatusViewModel();
+            //Projects = new ProjectListViewModelCollection();
+            //Manufacturers = new ManufacturersViewModelCollection();
 
-            Clients = new ClientViewModelCollection();
-            ToolBarButtons = new ToolbarButtonsViewModel();
+            //Clients = new ClientViewModelCollection();
+            //ToolBarButtons = new ToolbarButtonsViewModel();
 
+        }
+
+        public override void ReplyFrom(object source)
+        {
+            if (source is RoutedViewResult)
+            {
+
+            }
         }
 
         #region 目前選定的專案
@@ -86,7 +94,7 @@ namespace Tokiku.ViewModels
             set { _Clients = value; RaisePropertyChanged("Clients"); }
         }
 
-     
+
 
 
         #endregion
@@ -102,12 +110,12 @@ namespace Tokiku.ViewModels
             set { _ToolBarButtons = value; RaisePropertyChanged("ToolBarButtons"); }
         }
 
-    
+
         #endregion
 
-        public override void Initialized()
+        public override void Initialized(object Parameter)
         {
-            base.Initialized();
+            base.Initialized(Parameter);
 
             if (_projects_controller == null)
                 return;
@@ -118,14 +126,14 @@ namespace Tokiku.ViewModels
 
         }
 
-        public  void Query()
+        public void Query()
         {
             //非同步讀取資料庫
             _Projects = ProjectListViewModelCollection.Query<ProjectListViewModelCollection, Projects>("", "");
             //await Dispatcher.InvokeAsync(new Action(Projects.Query), System.Windows.Threading.DispatcherPriority.Background);
             //await Dispatcher.InvokeAsync(new Action(Manufacturers.Query), System.Windows.Threading.DispatcherPriority.Background);
             //await Dispatcher.InvokeAsync(new Action(Clients.Query), System.Windows.Threading.DispatcherPriority.Background);
-          
+
         }
     }
 }

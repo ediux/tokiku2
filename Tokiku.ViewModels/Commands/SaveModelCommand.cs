@@ -11,7 +11,19 @@ namespace Tokiku.ViewModels
 {
     public class SaveModelCommand : ICommand
     {
+        private Action<string> execute;
+
         public event EventHandler CanExecuteChanged;
+
+        public SaveModelCommand() : this((x) => { })
+        {
+
+        }
+
+        public SaveModelCommand(Action<string> execute)
+        {
+            this.execute = execute;
+        }
 
         public bool CanExecute(object parameter)
         {
@@ -19,49 +31,68 @@ namespace Tokiku.ViewModels
             {
                 CanExecuteChanged.Invoke(parameter, new EventArgs());
             }
+            else
+            {
+                if (parameter is ISingleBaseViewModel)
+                {
+                    ISingleBaseViewModel viewmodel = (ISingleBaseViewModel)parameter;
+                    if (viewmodel.Status.IsSaved)
+                        return false;
+                    else
+                        return true;
+                }
+            }
 
-            return true;
+            return false;
         }
 
         public void Execute(object parameter)
         {
             try
             {
-                if (parameter != null && (parameter is IBaseViewModel || parameter is ISingleBaseViewModel))
+                if(parameter is string)
                 {
-                    Type refectionType = parameter.GetType();
-
-                    IBaseViewModel model = (IBaseViewModel)parameter;
-
-                    if (refectionType != null)
-                    {
-                        var method = refectionType.GetMethod("OnBeforeSave", new Type[] { typeof(object) });
-
-                        if (method != null)
-                        {
-                            method.Invoke(parameter, new object[] { parameter });
-                        }
-
-                        model.SaveModel();
-
-                        if (model.HasError)
-                        {
-                            MessageBox.Show(string.Join("\n", model.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-                            model.Errors = null;
-                            return;
-                        }
-
-                        if (parameter is ISingleBaseViewModel)
-                        {
-                            ISingleBaseViewModel singleview = (ISingleBaseViewModel)model;
-                            singleview.Status.IsModify = false;
-                            singleview.Status.IsSaved = true;
-                            singleview.Status.IsNewInstance = false;
-                        }
-
-                    }
-
+                    string _controllername = (string)parameter;
+                    execute?.Invoke(_controllername);
                 }
+                
+
+
+                //if (parameter != null && (parameter is IBaseViewModel || parameter is ISingleBaseViewModel))
+                //{
+                //    Type refectionType = parameter.GetType();
+
+                //    IBaseViewModel model = (IBaseViewModel)parameter;
+
+                //    if (refectionType != null)
+                //    {
+                //        var method = refectionType.GetMethod("OnBeforeSave", new Type[] { typeof(object) });
+
+                //        if (method != null)
+                //        {
+                //            method.Invoke(parameter, new object[] { parameter });
+                //        }
+
+                //        model.SaveModel();
+
+                //        if (model.HasError)
+                //        {
+                //            MessageBox.Show(string.Join("\n", model.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                //            model.Errors = null;
+                //            return;
+                //        }
+
+                //        if (parameter is ISingleBaseViewModel)
+                //        {
+                //            ISingleBaseViewModel singleview = (ISingleBaseViewModel)model;
+                //            singleview.Status.IsModify = false;
+                //            singleview.Status.IsSaved = true;
+                //            singleview.Status.IsNewInstance = false;
+                //        }
+
+                //    }
+
+                //}
                 //ProjectsViewModel SelectedProject = (ProjectsViewModel)((ObjectDataProvider)).Data;
                 ////SelectedProject.Errors = new string[] { };
                 //Mode = (DocumentLifeCircle)e.OriginalSource;

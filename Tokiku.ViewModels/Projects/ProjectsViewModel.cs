@@ -408,9 +408,9 @@ namespace Tokiku.ViewModels
 
         #region 模型命令方法
 
-        public override void Initialized()
+        public override void Initialized(object Parameter)
         {
-            base.Initialized();
+            base.Initialized(Parameter);
 
             //ProjectContract = new ProjectContractViewModelCollection();
             //Client = new ClientViewModel();

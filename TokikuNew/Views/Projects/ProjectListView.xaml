@@ -4,16 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:l="clr-namespace:TokikuNew"
              xmlns:vm ="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
              xmlns:entity="clr-namespace:Tokiku.Entity;assembly=Tokiku.Entity"
              xmlns:controls ="clr-namespace:TokikuNew.Controls"
-
+             x:Name="userControl"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              Focusable="True"
-             d:DesignHeight="768" d:DesignWidth="1024" Loaded="UserControl_Loaded">
+             d:DesignHeight="768" d:DesignWidth="1024" >
     <UserControl.Resources>
-        <ObjectDataProvider x:Key="ProjoectListSource" ObjectType="{x:Type vm:ProjectListViewModelCollection}" MethodName="Query"/>
+        <ObjectDataProvider x:Key="ProjoectListSource" ObjectType="{x:Type vm:ProjectListViewModelCollection}" MethodName="Query" />
     </UserControl.Resources>
     <UserControl.CommandBindings>
         <CommandBinding Command="{StaticResource Query}" x:Name="QueryCommand"                         
@@ -46,7 +47,7 @@
                 <Button Grid.Column="1" Margin="1" Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" Name="btnNew" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenNewProjectView}" CommandManager.PreviewCanExecute="btnNew_PreviewCanExecute" ToolTip="新增"></Button>
             </Grid>
         </Grid>
-        <controls:CustomDataGrid x:Name="ProjectList" Grid.Row="1" Margin="5" ItemsSource="{Binding Source={StaticResource ProjoectListSource}}" 
+        <DataGrid x:Name="ProjectList" Grid.Row="1" Margin="5" ItemsSource="{Binding Source={StaticResource ProjoectListSource}}" 
                                  FontSize="20" MinRowHeight="50" CellStyle="{StaticResource DataGrid_Centering}"
                                  AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto"
                                  AlternatingRowBackground="AliceBlue"  AlternationCount="2"
@@ -54,26 +55,31 @@
                                  CanUserDeleteRows="False"
                                  CanUserSortColumns="False"                                 
                                  IsReadOnly="True"                  
-                                 Command="{StaticResource OpenNewTabItem}" 
-                                 OpenViewType="{x:Type local:ProjectViewer}"
-                                 FormationDisplayText="專案:{0}-{1}"
-                                 DataSourceType="{x:Type vm:ProjectListViewModel}"
-                                 TriggerTargetElementName="Workspaces">
-            <controls:CustomDataGrid.FormatDisplayParametersMapping>
-                <sys:String>Code</sys:String>
-                <sys:String>ShortName</sys:String>
-            </controls:CustomDataGrid.FormatDisplayParametersMapping>
-            <controls:CustomDataGrid.RoutedValues>
-                <sys:String x:Key="SelectedProjectId">Id</sys:String>
-            </controls:CustomDataGrid.RoutedValues>
-            <controls:CustomDataGrid.Columns>
+                                 vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}" >
+            <vm:CommandRoutingManager.CommandParameter>
+                <vm:RoutedViewResult ViewType="{x:Type local:ProjectViewer}"  FormatedDisplay="專案:{0}-{1}">
+                    <vm:RoutedViewResult.FormatedParameters>
+                        <x:Array Type="sys:String">
+                            <sys:String>Code</sys:String>
+                            <sys:String>ShortName</sys:String>
+                        </x:Array>
+                    </vm:RoutedViewResult.FormatedParameters>
+                    <vm:RoutedViewResult.RoutedValues>
+                        <sys:String x:Key="SelectedProjectId">Id</sys:String>
+                        <x:Type x:Key="SourceViewType" TypeName="l:MainWindow"/>
+                        <sys:String x:Key="TabControlName">Workspaces</sys:String>
+                    </vm:RoutedViewResult.RoutedValues>
+                </vm:RoutedViewResult>
+            </vm:CommandRoutingManager.CommandParameter>
+
+            <DataGrid.Columns>
                 <DataGridTextColumn Header="專案代號" Binding="{Binding Code}" Width="100"/>
                 <DataGridTextColumn Header="專案名稱" Binding="{Binding Name}" Width="200*" />
                 <DataGridTextColumn Header="起造日期" Width="120" Binding="{Binding StartDate,StringFormat={}{0:yyyy/MM/dd}}"/>
                 <DataGridTextColumn Header="完工日期" Width="120" Binding="{Binding CompletionDate,StringFormat={}{0:yyyy/MM/dd}}" />
                 <DataGridTextColumn Header="狀態列"  Width="80" Binding="{Binding State, Converter={StaticResource StatesCodeToTextValueConverter}}" />
                 <DataGridTextColumn Header="保固到期日" Width="120" Binding="{Binding WarrantyDate,StringFormat={}{0:yyyy/MM/dd}}"/>
-            </controls:CustomDataGrid.Columns>
-        </controls:CustomDataGrid>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

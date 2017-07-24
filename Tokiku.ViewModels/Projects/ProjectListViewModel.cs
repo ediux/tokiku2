@@ -175,11 +175,7 @@ namespace Tokiku.ViewModels
      
         //public System.DateTime StartDate { get; set; }
         //public System.DateTime CompletionDate { get; set; }
-        public override void Initialized()
-        {
-            base.Initialized();
-            
-        }
+     
 
         //public override void Query()
         //{

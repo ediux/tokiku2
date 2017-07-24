@@ -164,14 +164,14 @@ namespace Tokiku.ViewModels
         //    }
         //}
 
-        public override void Initialized()
+        public override void Initialized(object Parameter)
         {
             try
             {
 #if DEBUG
                 Debug.WriteLine("ClientViewModel initialized.");
 #endif
-                base.Initialized();
+                base.Initialized(Parameter);
 
                 IsClient = true;
 

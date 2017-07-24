@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 using Tokiku.Controllers;
 using Tokiku.Entity;
@@ -23,17 +19,20 @@ namespace Tokiku.ViewModels
 
         public BaseViewModelWithPOCOClass()
         {
-            _SaveCommand = new SaveModelCommand();
-            _CreateNewCommand = new CreateNewModelCommand();
-            _ReplyCommand = new RelayCommand((x) => { });
+            SaveCommand = new SaveModelCommand(new Action<string>(SaveModel));
+            CreateNewCommand = new CreateNewModelCommand(new Action<object>(Initialized));
+            RelayCommand = new RelayCommand(new Action<object>(ReplyFrom));
             Status = new DocumentStatusViewModel();
             EntityType = typeof(TPOCO);
             CopyofPOCOInstance = Activator.CreateInstance<TPOCO>();
-            Initialized();
+            
         }
 
         public BaseViewModelWithPOCOClass(TPOCO entity)
         {
+            SaveCommand = new SaveModelCommand(new Action<string>(SaveModel));
+            CreateNewCommand = new CreateNewModelCommand();
+            RelayCommand = new RelayCommand((x) => { });
             Status = new DocumentStatusViewModel();
             if (entity != null)
             {
@@ -44,15 +43,16 @@ namespace Tokiku.ViewModels
             {
                 EntityType = typeof(TPOCO);
                 CopyofPOCOInstance = Activator.CreateInstance<TPOCO>();
-                Initialized();
+                Initialized(null);
             }
 
             _Mode = DocumentLifeCircle.Read;
             Status.IsNewInstance = false;
         }
 
+        
         /// <summary>
-        /// 接收轉送來源的物件。
+        /// 處理接收轉送來源的物件。
         /// </summary>
         /// <param name="source">轉送來源。</param>
         public virtual void ReplyFrom(object source)
@@ -63,7 +63,7 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 檢視模型初始化
         /// </summary>
-        public virtual void Initialized()
+        public virtual void Initialized(object Parameter)
         {
             CreateTime = DateTime.Now;
             CreateUser = ExecuteAction<Users>("System", "GetCurrentLoginUser");
@@ -253,10 +253,14 @@ namespace Tokiku.ViewModels
         /// </summary>
         public DateTime? LastUpdateDate
         {
-            get {
-                try {
+            get
+            {
+                try
+                {
                     return (DateTime?)_EntityType.GetProperty("LastUpdateDate").GetValue(CopyofPOCOInstance);
-                }catch(Exception ex) {
+                }
+                catch (Exception ex)
+                {
                     return null;
                 }
             }
@@ -283,7 +287,11 @@ namespace Tokiku.ViewModels
         /// </summary>
         public ICommand CreateNewCommand { get => _CreateNewCommand; set => _CreateNewCommand = value; }
         private ICommand _ReplyCommand;
-        public ICommand ReplyCommand { get => _ReplyCommand; set => _ReplyCommand = value; }
+        public ICommand RelayCommand { get => _ReplyCommand; set  { _ReplyCommand = value; RaisePropertyChanged("ReplyCommand"); } }
+        private ICommand _DeleteCommand;
+        public ICommand DeleteCommand { get => _DeleteCommand; set => _DeleteCommand = value; }
+        private ICommand _QueryCommnand;
+        public ICommand QueryCommand { get => _QueryCommnand; set => _QueryCommnand = value; }
 
         /// <summary>
         /// 將錯誤訊息寫到檢視模型中以利顯示。
@@ -419,7 +427,7 @@ namespace Tokiku.ViewModels
                     throw new NullReferenceException();
                 }
 
-                var method = ControllerType.GetMethod(ActionName);
+                var method = ControllerType.GetMethod(ActionName,values.Select(s=>s != null ? s.GetType() : null).ToArray());
 
                 if (method != null)
                 {
@@ -428,13 +436,13 @@ namespace Tokiku.ViewModels
 
                     if (!result.HasError)
                     {
-                        viewmodel = result.Result;
+                        
+                        viewmodel = result?.Result;
                         return viewmodel;
                     }
                     else
                     {
-                        viewmodel = Activator.CreateInstance<TResult>();
-                        return viewmodel;
+                        throw new Exception(string.Join(",", result.Errors));
                     }
                 }
                 else
@@ -560,7 +568,7 @@ namespace Tokiku.ViewModels
 
         public virtual void SaveModel(string ControllerName)
         {
-            SaveModel(SaveModelController, true);
+            SaveModel(ControllerName, true);
         }
 
         public void SaveModel()

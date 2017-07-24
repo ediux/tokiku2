@@ -6,7 +6,20 @@ namespace Tokiku.ViewModels
 {
     public class CreateNewModelCommand : ICommand
     {
+        private Action<object> execute;
+        private Func<object, bool> canExecute;
+
         public event EventHandler CanExecuteChanged;
+
+        public CreateNewModelCommand():this((x)=> { })
+        {
+
+        }
+
+        public CreateNewModelCommand(Action<object> execute,Func<object,bool> canExecute = null)
+        {
+
+        }
 
         public bool CanExecute(object parameter)
         {
@@ -22,6 +35,7 @@ namespace Tokiku.ViewModels
         {
             try
             {
+                this.execute(parameter);
                 //        if (SelectedProject.Status.IsNewInstance == false)
                 //        {
                 //            RoutedUICommand command = (RoutedUICommand)TryFindResource("OpenNewTabItem");

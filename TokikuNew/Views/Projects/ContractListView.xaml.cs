@@ -167,7 +167,7 @@ namespace TokikuNew.Views
             {
                 e.NewItem = new ProjectContractViewModel();
                 ((ProjectContractViewModel)e.NewItem).ProjectId = SelectedProjectId;
-                ((ProjectContractViewModel)e.NewItem).Initialized();
+                ((ProjectContractViewModel)e.NewItem).Initialized(null);
                 ((ProjectContractViewModel)e.NewItem).Id = Guid.NewGuid();
                 
                 ProjectsViewModel CurrentProject = ProjectsViewModel.QuerySingle<ProjectsViewModel, Projects>("ProjectManagerView", "QueryById", SelectedProjectId);
