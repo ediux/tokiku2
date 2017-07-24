@@ -17,8 +17,6 @@ namespace Tokiku.ViewModels
             });
         }
 
-
-
         public string DisplayText
         {
             get { return (string)GetValue(DisplayTextProperty); }

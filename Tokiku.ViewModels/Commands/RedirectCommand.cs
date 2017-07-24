@@ -46,7 +46,7 @@ namespace Tokiku.ViewModels
 
         public void Execute(object parameter)
         {
-            CommandRoutingManager.Redirect((UIElement)SourceInstance);
+            CommandRoutingManager.Redirect((UIElement)SourceInstance, (parameter is RoutedViewResult) ? (RoutedViewResult)parameter : null);
         }
     }
 }
