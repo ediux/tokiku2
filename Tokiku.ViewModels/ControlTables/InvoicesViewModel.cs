@@ -12,26 +12,15 @@ namespace Tokiku.ViewModels
     {
         public InvoicesViewModelCollection()
         {
-            
         }
 
         public InvoicesViewModelCollection(IEnumerable<InvoicesViewModel> source) : base(source)
         {
-
         }
 
         public static InvoicesViewModelCollection Query()
         {
             return Query<InvoicesViewModelCollection, Invoices>("Invoices", "QueryAll");
-
-            //InvoicesController ctrl = new InvoicesController();
-            //ExecuteResultEntity<ICollection<Invoices>> ere = ctrl.QuerAll();
-
-            //if (!ere.HasError)
-            //{
-            //    return new InvoicesViewModelCollection(ere.Result.Select(s => new InvoicesViewModel(s)).ToList());
-            //}
-            //return new InvoicesViewModelCollection();
         }
 
     }
@@ -40,7 +29,6 @@ namespace Tokiku.ViewModels
     {
         public InvoicesViewModel(Invoices entity) : base(entity)
         {
-
         }
 
         // ID

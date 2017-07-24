@@ -10,17 +10,14 @@ namespace Tokiku.Controllers
 {
     public class InvoicesController : BaseController
     {
-        private ExecuteResultEntity<ICollection<Invoices>> rtn;
-
-        public ExecuteResultEntity<ICollection<Invoices>> QuerAll()
+        public ExecuteResultEntity<ICollection<Invoices>> QueryAll()
         {
             try {
                 var repo = RepositoryHelper.GetInvoicesRepository();
                 return ExecuteResultEntity<ICollection<Invoices>>.CreateResultEntity(
                     new Collection<Invoices>(repo.All().ToList()));
             }catch(Exception ex) {
-                rtn = ExecuteResultEntity<ICollection<Invoices>>.CreateErrorResultEntity(ex);
-                return rtn;
+                return ExecuteResultEntity<ICollection<Invoices>>.CreateErrorResultEntity(ex);
             }
         }
     }

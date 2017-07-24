@@ -12,26 +12,15 @@ namespace Tokiku.ViewModels
     {
         public InventoryViewModelCollection()
         {
-            
         }
 
         public InventoryViewModelCollection(IEnumerable<InventoryViewModel> source) : base(source)
         {
-
         }
         
         public static InventoryViewModelCollection Query()
         {
             return Query<InventoryViewModelCollection, Inventory>("Inventory", "QueryAll");
-
-            //InventoryController ctrl = new InventoryController();
-            //ExecuteResultEntity<ICollection<Inventory>> ere = ctrl.QuerAll();
-
-            //if (!ere.HasError)
-            //{
-            //    return new InventoryViewModelCollection(ere.Result.Select(s => new InventoryViewModel(s)).ToList());
-            //}
-            //return new InventoryViewModelCollection();
         }
 
     }
@@ -40,12 +29,10 @@ namespace Tokiku.ViewModels
     {
         public InventoryViewModel()
         {
-
         }
 
         public InventoryViewModel(Inventory entity) : base(entity)
         {
-
         }
 
         public static InventoryViewModel CreateNew(Guid ProjectId)

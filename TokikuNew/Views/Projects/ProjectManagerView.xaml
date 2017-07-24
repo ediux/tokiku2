@@ -64,7 +64,7 @@
             <Button Content="鋁擠型材料" x:Name="Btn2" Margin="5,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenControlTable}" CommandManager.PreviewCanExecute="Btn2_PreviewCanExecute" />
             <Button Content="鋁擠型加工" x:Name="Btn3" Margin="5,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenProcessingView}" CommandManager.PreviewCanExecute="Btn2_PreviewCanExecute" />
             <Button Content="玻璃" x:Name="BtnGlass" Margin="5,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenGlassControlTable}" CommandManager.PreviewCanExecute="Btn2_PreviewCanExecute" />
-            <Button Content="鋁板" x:Name="BtnAluminumPlate"  DataContext="{Binding}" Margin="5,0"/>
+            <Button Content="鋁板" x:Name="BtnAluminumPlate" DataContext="{Binding}" Margin="5,0"/>
             <Button Content="不鏽鋼板" DataContext="{Binding}" Margin="5,0"/>
             <Button Content="鐵件" x:Name="BtnIronPieces" DataContext="{Binding}" Margin="5,0"/>
             <Button Content="石材" DataContext="{Binding}" Margin="5,0"/>
