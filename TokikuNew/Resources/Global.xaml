@@ -110,23 +110,15 @@
                          AttachedTargetElementName="Workspaces" x:Key="OpenSystemMembersView" />
     <vm:RoutedViewResult DisplayText="角色管理" ViewType="{x:Type view:SystemRolesView}"
                          AttachedTargetElementName="Workspaces" x:Key="OpenSystemRolesView" />
-    
+
     <vm:RoutedViewResult x:Key="OpenNewRequired" AttachedTargetElementName="InnerWorkspaces"
-                                  DisplayText="需求單"
-                                  ViewType="{x:Type view:RequiredView}">
-    </vm:RoutedViewResult>
-
+                         DisplayText="需求單" ViewType="{x:Type view:RequiredView}" />
     <vm:RoutedViewResult x:Key="OpenOrderList" AttachedTargetElementName="InnerWorkspaces"
-                                  DisplayText="加工訂製單列表"
-                                  ViewType="{x:Type view:AluminumExtrusionOrderListView}"/>
+                         DisplayText="加工訂製單列表" ViewType="{x:Type view:AluminumExtrusionOrderListView}" />
     <vm:RoutedViewResult x:Key="OpenInventoryView" AttachedTargetElementName="InnerWorkspaces"
-                                  DisplayText="盤點單"
-                                  ViewType="{x:Type view:InventoryView}"/>
-
-
+                         DisplayText="盤點單" ViewType="{x:Type view:InventoryView}" />
     <vm:RoutedViewResult x:Key="OpenGlassControlTable" AttachedTargetElementName="InnerWorkspaces"
-                                  DisplayText="玻璃"
-                                  ViewType="{x:Type view:ControlTableView}">
+                         DisplayText="玻璃" ViewType="{x:Type view:ControlTableView}">
         <vm:RoutedViewResult.RoutedValues>
             <sys:String x:Key="FormName" >玻璃管控表</sys:String>
             <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>

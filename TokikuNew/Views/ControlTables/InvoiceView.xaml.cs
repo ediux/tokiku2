@@ -34,9 +34,9 @@ namespace TokikuNew.Views
 
         private void InvoiceView_Loaded(object sender, RoutedEventArgs e)
         {
-            InvoicesViewModelCollection ctrl = new InvoicesViewModelCollection();
-            CheckGrid.DataContext = ctrl;
-            InvoicesViewModelCollection.Query();
+            //InvoicesViewModelCollection ctrl = new InvoicesViewModelCollection();
+            //CheckGrid.DataContext = ctrl;
+            //InvoicesViewModelCollection.Query();
         }
 
         //UI設定
