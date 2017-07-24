@@ -2,11 +2,15 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:c="clr-namespace:TokikuNew.Controls"
              xmlns:local="clr-namespace:TokikuNew.Views"
-             xmlns:Controls="clr-namespace:TokikuNew.Controls"
+             xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024" Loaded="PromissoryNoteManagementViewUC_Loaded">
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="PromissoryNoteManagementSource" ObjectType="{x:Type vm:PromissoryNoteManagementViewModelCollection}" MethodName="Query"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27" />
@@ -16,13 +20,13 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="350" />
         </Grid.ColumnDefinitions>
-        <Controls:SearchBar Grid.Row="0" Grid.Column="1" x:Name="sSearchBar" />
+        <c:SearchBar Grid.Row="0" Grid.Column="1" x:Name="sSearchBar" />
         <GroupBox Style="{DynamicResource GroupBox_DocumentEditor}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Header="本票管理" VerticalAlignment="Top" Height="468" Margin="2" x:Name="CheckGrid">
-            <Controls:CustomDataGrid x:Name="BussinessItemsGrid" AutoGenerateColumns="False" 
+            <c:CustomDataGrid x:Name="BussinessItemsGrid" AutoGenerateColumns="False" 
                                      CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"
-                                     ItemsSource="{Binding}"
+                                     ItemsSource="{Binding Source={StaticResource PromissoryNoteManagementSource}}"
                                      SelectionChanged="BussinessItemsGrid_SelectionChanged" Margin="0,0,-2,0">
-                <Controls:CustomDataGrid.Columns>
+                <c:CustomDataGrid.Columns>
                     <DataGridTextColumn Header="工程代號" Binding="{Binding ContractNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
                     <DataGridTextColumn Header="專案名稱" Binding="{Binding ProjectName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
                     <DataGridTextColumn Header="本票名稱" Binding="{Binding PromissoryName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
@@ -106,8 +110,8 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn -->
-                </Controls:CustomDataGrid.Columns>
-            </Controls:CustomDataGrid>
+                </c:CustomDataGrid.Columns>
+            </c:CustomDataGrid>
         </GroupBox>
         <!-- GroupBox Header="本票管理" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="300" Width="400">
             <Grid>

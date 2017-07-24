@@ -10,7 +10,7 @@
              Background="{DynamicResource ControlBackgroundBrush}"
              d:DesignHeight="768" d:DesignWidth="1366" Loaded="ShippingMaterialView_Loaded">
     <UserControl.Resources>
-        <ObjectDataProvider x:Key="ShippingMaterialSource" ObjectType="{x:Type vm:ShippingViewModelCollection}" MethodName="Query"/>
+        <ObjectDataProvider x:Key="ShippingMaterialSource" ObjectType="{x:Type vm:ShippingMaterialViewModelCollection}" MethodName="Query"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>

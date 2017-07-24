@@ -5,9 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:c="clr-namespace:TokikuNew.Controls"
              xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
              mc:Ignorable="d" 
              Background="{DynamicResource ControlBackgroundBrush}"
              d:DesignHeight="600" d:DesignWidth="1024" Loaded="ReturnMaterialViewUC_Loaded" >
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="ReturnsSource" ObjectType="{x:Type vm:ReturnsViewModelCollection}" MethodName="Query"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27" />
@@ -193,7 +197,7 @@
         </Canvas>
 
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="570" Margin="10,0,0,0" VerticalAlignment="Top" Width="1326">
-            <DataGrid x:Name="CheckGrid">
+            <DataGrid x:Name="CheckGrid" AutoGenerateColumns="False" Margin="5" ItemsSource="{Binding Source={StaticResource ReturnsSource}}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="單號" Width="auto" />
                     <DataGridTextColumn Header="批號" Width="auto" />
