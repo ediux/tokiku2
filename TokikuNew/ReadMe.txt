@@ -85,6 +85,7 @@
 			ActualCostsView.xaml - 成本估算(實際成本)
 			CostEstimateView.xaml - 專案成本估算
 			PaymentTypesManageView.xaml - 支付方式清單
+			PrepaymentsView.xaml - 預付款申請單
 			PromissoryNoteManagementViewUC.xaml - 本票管理
 		Forms - 簽核流程相關表單
 		Manufacturers - 廠商相關

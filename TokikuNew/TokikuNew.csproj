@@ -160,6 +160,9 @@
     <Compile Include="Views\ControlTables\ObtainMaterialListView.xaml.cs">
       <DependentUpon>ObtainMaterialListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Finance\PrepaymentsView.xaml.cs">
+      <DependentUpon>PrepaymentsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Projects\ContractManagementView.xaml.cs">
       <DependentUpon>ContractManagementView.xaml</DependentUpon>
     </Compile>
@@ -358,6 +361,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ControlTables\ObtainMaterialListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Finance\PrepaymentsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
