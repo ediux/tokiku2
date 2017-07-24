@@ -203,9 +203,9 @@ namespace Tokiku.ViewModels
 
    
     
-        public override void Initialized()
+        public override void Initialized(object Parameter)
         {
-            base.Initialized();
+            base.Initialized(Parameter);
             Id = Guid.NewGuid();
             ContactPersonManageController controller = new ContactPersonManageController();
             CreateUserId = controller.GetCurrentLoginUser().Result.UserId;

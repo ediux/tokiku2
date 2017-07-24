@@ -290,9 +290,9 @@ namespace Tokiku.ViewModels
 
         #endregion
 
-        public override void Initialized()
+        public override void Initialized(object Parameter)
         {
-            base.Initialized();
+            base.Initialized(Parameter);
 
             Id = Guid.NewGuid();
 

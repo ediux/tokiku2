@@ -16,7 +16,7 @@ namespace Tokiku.ViewModels
         public BaseViewModelCollection()
         {
             _Replay = new RelayCommand((x) => ReplyFrom(x), (x) => true);
-            _SaveCommand = new SaveModelCommand();
+            _SaveCommand = new SaveModelCommand((x) => SaveModel(x));
             _CreateNewCommand = new CreateNewModelCommand();
 
             Initialized();
@@ -24,6 +24,10 @@ namespace Tokiku.ViewModels
 
         public BaseViewModelCollection(IEnumerable<TView> source) : base(source)
         {
+            _Replay = new RelayCommand((x) => ReplyFrom(x), (x) => true);
+            _SaveCommand = new SaveModelCommand((x) => SaveModel(x));
+            _CreateNewCommand = new CreateNewModelCommand();
+
             Initialized();
         }
 
@@ -97,7 +101,18 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 轉送命令
         /// </summary>
-        public ICommand ReplyCommand { get => _Replay; set => _Replay = value; }
+        public ICommand RelayCommand { get => _Replay; set => _Replay = value; }
+        private ICommand _DeleteCommand;
+        /// <summary>
+        /// 刪除命令
+        /// </summary>
+        public ICommand DeleteCommand { get => _DeleteCommand; set => _DeleteCommand = value; }
+
+        private ICommand _QueryCommand;
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICommand QueryCommand { get => _QueryCommand; set => _QueryCommand = value; }
 
         public virtual void ReplyFrom(object source)
         {
@@ -547,6 +562,11 @@ namespace Tokiku.ViewModels
         public void SaveModel()
         {
             SaveModel(SaveModelController);
+        }
+
+        public void Initialized(object Parameter)
+        {
+            throw new NotImplementedException();
         }
     }
 }

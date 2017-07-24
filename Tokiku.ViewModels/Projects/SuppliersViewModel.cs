@@ -95,9 +95,9 @@ namespace Tokiku.ViewModels
             _ManufacturersId = CopyofPOCOInstance?.ManufacturersBussinessItems?.ManufacturersId;
         }
 
-        public override void Initialized()
+        public override void Initialized(object Parameter)
         {
-            base.Initialized();
+            base.Initialized(Parameter);
             if (CopyofPOCOInstance == null)
                 CopyofPOCOInstance = new SupplierTranscationItem();
 

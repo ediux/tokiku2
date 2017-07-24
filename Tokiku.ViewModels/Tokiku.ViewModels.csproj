@@ -52,15 +52,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\CommandRoutingManager.cs" />
+    <Compile Include="Base\ISingleBaseViewModel.cs" />
     <Compile Include="Commands\CloseMultiPageContentCommand.cs" />
+    <Compile Include="Commands\CloseWindwCommand.cs" />
+    <Compile Include="Commands\KeyPressNextFocusCommand.cs" />
+    <Compile Include="Commands\LoginCommand.cs" />
     <Compile Include="Commands\RedirectCommand.cs" />
     <Compile Include="Commands\RoutedViewResult.cs" />
     <Compile Include="Projects\ObtainMaterialListViewModel.cs" />
     <Compile Include="Commands\CreateNewModelCommand.cs" />
-    <Compile Include="RelayCommand.cs" />
+    <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="RequiredDetailViewModel.cs" />
     <Compile Include="RequiredDetailViewModelCollection.cs" />
-    <Compile Include="Base\SaveModelCommand.cs" />
+    <Compile Include="Commands\SaveModelCommand.cs" />
     <Compile Include="Shared\DocumentLifeCircle.cs" />
     <Compile Include="Projects\InventoryListViewModel.cs" />
     <Compile Include="Projects\InventoryViewModel.cs" />

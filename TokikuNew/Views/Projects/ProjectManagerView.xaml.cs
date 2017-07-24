@@ -274,7 +274,7 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
 
                         SelectedProject = new ProjectsViewModel();
 
-                        SelectedProject.Initialized();
+                        SelectedProject.Initialized(null);
                         SelectedProject.CreateUserId = LoginedUser.UserId;
 
                         SelectedProject.Status.IsModify = false;

@@ -113,7 +113,7 @@ namespace TokikuNew.Views
 
                     case DocumentLifeCircle.Create:
                         EngineeringViewModelCollection model1 = (EngineeringViewModelCollection)DataContext;
-                        SelectedEngineering.Initialized();
+                        SelectedEngineering.Initialized(null);
                         SelectedEngineering.CreateUserId = LoginedUser.UserId;
                         model1.Add(SelectedEngineering);
 

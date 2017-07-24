@@ -163,22 +163,22 @@ namespace TokikuNew
                 ClosableTabItem addWorkarea = new ClosableTabItem();
                 addWorkarea.Header = "新增專案";
 
-                var vm = new ProjectManagerView() { Margin = new Thickness(0) };
-                vm.DataContext = new ProjectsViewModel(App.Resolve<ProjectsController>());
-                ((ProjectsViewModel)vm.DataContext).Initialized();
-                vm.Mode = DocumentLifeCircle.Update;
-                //SetValue(DockBar.DocumentModeProperty, DocumentLifeCircle.Create);
+                //var vm = new ProjectManagerView() { Margin = new Thickness(0) };
+                //vm.DataContext = new ProjectsViewModel(App.Resolve<ProjectsController>());
+                //((ProjectsViewModel)vm.DataContext).Initialized();
+                //vm.Mode = DocumentLifeCircle.Update;
+                ////SetValue(DockBar.DocumentModeProperty, DocumentLifeCircle.Create);
 
-                Binding bindinglogineduser = new Binding();
-                bindinglogineduser.Source = ((MainViewModel)DataContext).LoginedUser;
+                //Binding bindinglogineduser = new Binding();
+                //bindinglogineduser.Source = ((MainViewModel)DataContext).LoginedUser;
 
-                vm.SetBinding(ProjectManagerView.LoginedUserProperty, bindinglogineduser);
+                //vm.SetBinding(ProjectManagerView.LoginedUserProperty, bindinglogineduser);
 
-                addWorkarea.Content = vm;
-                addWorkarea.Margin = new Thickness(0);
+                //addWorkarea.Content = vm;
+                //addWorkarea.Margin = new Thickness(0);
 
-                Workspaces.Items.Add(addWorkarea);
-                Workspaces.SelectedItem = addWorkarea;
+                //Workspaces.Items.Add(addWorkarea);
+                //Workspaces.SelectedItem = addWorkarea;
 
             }
             catch (Exception ex)
@@ -565,9 +565,9 @@ namespace TokikuNew
         {
             try
             {
-                mc = App.Resolve<ManufacturersManageController>();
-                clientcontroller = App.Resolve<ClientController>();
-                controller = App.Resolve<ProjectsController>();
+                //mc = App.Resolve<ManufacturersManageController>();
+                //clientcontroller = App.Resolve<ClientController>();
+                //controller = App.Resolve<ProjectsController>();
             }
             catch (Exception ex)
             {
