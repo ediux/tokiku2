@@ -16,13 +16,18 @@ namespace Tokiku.ViewModels
     /// </summary>
     public class CommandRoutingManager : DependencyObject, ICommandSource
     {
-        public static void Redirect(UIElement source)
+        public static void Redirect(UIElement source, RoutedViewResult routingdata = null)
         {
             if (source != null)
             {
                 if (_Mapping.ContainsKey(source))
                 {
-                    RoutedViewResult routedvalues = _Mapping[source];
+                    RoutedViewResult routedvalues = null;
+
+                    if (routingdata == null)
+                        routingdata = _Mapping[source];
+                    else
+                        routedvalues = routingdata;
 
                     if (routedvalues == null)
                         return;
