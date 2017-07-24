@@ -97,20 +97,20 @@
     <vm:RoutedViewResult DisplayText="新增廠商" ViewType="{x:Type view:ManufacturersManageView}" AttachedTargetElementName="Workspaces" x:Key="OpenNewManufactureView"/>
     <vm:RoutedViewResult DisplayText="新增客戶" ViewType="{x:Type view:ClientManageView}" AttachedTargetElementName="Workspaces" x:Key="OpenNewClient" />
     <vm:RoutedViewResult DisplayText="模具總表" ViewType="{x:Type view:MaterialsTotalView}" AttachedTargetElementName="Workspaces" x:Key="OpenMaterialsTotalView"/>
-    <vm:RoutedViewResult DisplayText="本票管理" ViewType="{x:Type view:PromissoryNoteManagementUC}" AttachedTargetElementName="Workspaces" x:Key="OpenPromissoryNoteManagementView"/>
-    <vm:RoutedViewResult DisplayText="合約管理" ViewType="{x:Type view:ContractManagementView}" AttachedTargetElementName="Workspaces" x:Key="OpenContractManagementView"/>
+    <vm:RoutedViewResult DisplayText="本票管理" ViewType="{x:Type view:PromissoryNoteManagementUC}"
+                         AttachedTargetElementName="Workspaces" x:Key="OpenPromissoryNoteManagementView" />
+    <vm:RoutedViewResult DisplayText="合約管理" ViewType="{x:Type view:ContractManagementView}"
+                         AttachedTargetElementName="Workspaces" x:Key="OpenContractManagementView" />
     <vm:RoutedViewResult DisplayText="人員管理" ViewType="{x:Type view:SystemMembersView}"
-                              AttachedTargetElementName="Workspaces" x:Key="OpenSystemMembersView" />
+                         AttachedTargetElementName="Workspaces" x:Key="OpenSystemMembersView" />
     <vm:RoutedViewResult DisplayText="角色管理" ViewType="{x:Type view:SystemRolesView}"
-                              AttachedTargetElementName="Workspaces" x:Key="OpenSystemRolesView"/>
+                         AttachedTargetElementName="Workspaces" x:Key="OpenSystemRolesView" />
+    
     <vm:RoutedViewResult x:Key="OpenNewRequired" AttachedTargetElementName="InnerWorkspaces"
                                   DisplayText="需求單"
                                   ViewType="{x:Type view:RequiredView}">
     </vm:RoutedViewResult>
 
-    <vm:RoutedViewResult x:Key="OpenOrderControlTable" AttachedTargetElementName="InnerWorkspaces"
-                                  DisplayText="訂製單管控表"
-                                  ViewType="{x:Type view:OrderControlTableView}"/>
     <vm:RoutedViewResult x:Key="OpenOrderList" AttachedTargetElementName="InnerWorkspaces"
                                   DisplayText="加工訂製單列表"
                                   ViewType="{x:Type view:AluminumExtrusionOrderListView}"/>
@@ -141,36 +141,35 @@
     <vm:RoutedViewResult x:Key="OpenProcessingAtlasView" AttachedTargetElementName="InnerWorkspaces"
                               DisplayText="加工圖集"
                               ViewType="{x:Type view:ProcessingAtlasView}"/>
+    <vm:RoutedViewResult x:Key="OpenOrderControlTable" AttachedTargetElementName="InnerWorkspaces"
+                         DisplayText="訂製單管控表" ViewType="{x:Type view:OrderControlTableView}" />
+    <vm:RoutedViewResult x:Key="OpenControlTable" AttachedTargetElementName="InnerWorkspaces"
+                         DisplayText="鋁擠型材料" ViewType="{x:Type view:ControlTableView}" />
+    <vm:RoutedViewResult x:Key="OpenProcessingView" AttachedTargetElementName="InnerWorkspaces"
+                         DisplayText="鋁擠型加工" ViewType="{x:Type view:AluminumExtrusionProcessingView}" />
+    
     <!-- 請款單,TokikuNew.InvoiceView -->
     <vm:RoutedViewResult x:Key="OpenInvoiceView" AttachedTargetElementName="InnerWorkspaces"
-                              DisplayText="請款單"
-                              ViewType="{x:Type view:InvoiceView}"/>
+                         DisplayText="請款單" ViewType="{x:Type view:InvoiceView}" />
     <!--請款單列表,TokikuNew.Views.InvoiceViewListView -->
     <vm:RoutedViewResult x:Key="OpenInvoiceViewListView" AttachedTargetElementName="InnerWorkspaces"
-                              DisplayText="請款單列表"
-                              ViewType="{x:Type view:InvoiceViewListView}"/>
+                         DisplayText="請款單列表" ViewType="{x:Type view:InvoiceViewListView}" />
     <!--退貨單,TokikuNew.Views.ReturnMaterialViewUC-->
     <vm:RoutedViewResult x:Key="OpenReturnMaterialView" AttachedTargetElementName="InnerWorkspaces"
-                              DisplayText="退貨單"
-                              ViewType="{x:Type view:ReturnMaterialViewUC}"/>
+                         DisplayText="退貨單" ViewType="{x:Type view:ReturnMaterialViewUC}" />
     <!--退貨單列表,TokikuNew.Views.ReturnMaterialListViewUC-->
     <vm:RoutedViewResult x:Key="OpenReturnMaterialListView" AttachedTargetElementName="InnerWorkspaces"
-                              DisplayText="退貨單列表"
-                              ViewType="{x:Type view:ReturnMaterialListViewUC}"/>
+                         DisplayText="退貨單列表" ViewType="{x:Type view:ReturnMaterialListViewUC}" />
     <!--收料單,TokikuNew.RecvMaterialView-->
     <vm:RoutedViewResult x:Key="OpenRecvMaterialView" AttachedTargetElementName="InnerWorkspaces"
-                              DisplayText="收料單"
-                              ViewType="{x:Type view:RecvMaterialView}"/>    
+                         DisplayText="收料單" ViewType="{x:Type view:RecvMaterialView}" />
     <!--收料單列表,TokikuNew.Views.RecvMaterialListView-->
     <vm:RoutedViewResult x:Key="OpenRecvMaterialListView" AttachedTargetElementName="InnerWorkspaces"
-                              DisplayText="收料單列表"
-                              ViewType="{x:Type view:RecvMaterialListView}"/>    
+                         DisplayText="收料單列表" ViewType="{x:Type view:RecvMaterialListView}" />
     <!--領料單,TokikuNew.Views.ShippingMaterialViewUC-->
     <vm:RoutedViewResult x:Key="OpenShippingMaterialView" AttachedTargetElementName="InnerWorkspaces"
-                              DisplayText="領料單"
-                              ViewType="{x:Type view:ShippingMaterialViewUC}"/>    
+                         DisplayText="領料單" ViewType="{x:Type view:ShippingMaterialViewUC}" />
     <!--領料單料單列表,TokikuNew.Views.ShippingMaterialListViewUC-->
     <vm:RoutedViewResult x:Key="OpenShippingMaterialListView" AttachedTargetElementName="InnerWorkspaces"
-                              DisplayText="領料單料單列表"
-                              ViewType="{x:Type view:ShippingMaterialListViewUC}"/>    
+                         DisplayText="領料單料單列表" ViewType="{x:Type view:ShippingMaterialListViewUC}" />
 </ResourceDictionary>
