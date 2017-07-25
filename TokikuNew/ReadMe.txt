@@ -50,7 +50,7 @@
 			AluminumExtrusionOrderListView.xaml - 訂製單列表
 			OrderSheetView.xaml - 訂製單(所有工段)
 				├ OrderView.xaml - 訂製單
-				├ AluminumExtrusionOrderMaterialValuationView.xaml - 材質估價
+				├ MaterialValuationView.xaml - 材質估價
 				└ AluminumExtrusionOrderMiscellaneousView.xaml - 雜項
 			ProcessingAtlasDetailView.xaml - 圖集明細表
 		ContactPerson

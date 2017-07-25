@@ -142,8 +142,8 @@
     <Compile Include="Views\Orders\AluminumExtrusionOrderMiscellaneousView.xaml.cs">
       <DependentUpon>AluminumExtrusionOrderMiscellaneousView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Orders\AluminumExtrusionOrderMaterialValuationView.xaml.cs">
-      <DependentUpon>AluminumExtrusionOrderMaterialValuationView.xaml</DependentUpon>
+    <Compile Include="Views\Orders\MaterialValuationView.xaml.cs">
+      <DependentUpon>MaterialValuationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Orders\OrderView.xaml.cs">
       <DependentUpon>OrderView.xaml</DependentUpon>
@@ -343,7 +343,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Orders\AluminumExtrusionOrderMaterialValuationView.xaml">
+    <Page Include="Views\Orders\MaterialValuationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

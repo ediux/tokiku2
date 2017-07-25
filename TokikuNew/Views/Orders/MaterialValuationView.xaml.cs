@@ -17,17 +17,17 @@ using Tokiku.ViewModels;
 namespace TokikuNew.Views
 {
     /// <summary>
-    /// AluminumExtrusionOrderMaterialValuationView.xaml 的互動邏輯
+    /// MaterialValuationView.xaml 的互動邏輯
     /// </summary>
-    public partial class AluminumExtrusionOrderMaterialValuationView : UserControl
+    public partial class MaterialValuationView : UserControl
     {
-        public AluminumExtrusionOrderMaterialValuationView()
+        public MaterialValuationView()
         {
             InitializeComponent();
             
         }
 
-        private void AluminumExtrusionOrderMaterialValuationView_Loaded(object sender, RoutedEventArgs e)
+        private void MaterialValuationView_Loaded(object sender, RoutedEventArgs e)
         {
             try {
                 //AluminumExtrusionOrderMaterialValuationViewModelCollection coll = new AluminumExtrusionOrderMaterialValuationViewModelCollection();
