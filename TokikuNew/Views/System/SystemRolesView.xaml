@@ -20,11 +20,11 @@
         <GroupBox x:Name="CheckGrid" Style="{DynamicResource GroupBox_DocumentEditor}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Header="角色管理">
             <DataGrid>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="" Width="auto" />
-                    <DataGridTextColumn Header="項次" Width="auto" />
-                    <DataGridTextColumn Header="部門" Width="auto" />
-                    <DataGridTextColumn Header="群組" Width="auto" />
-                    <DataGridTextColumn Header="權限等級" Width="auto" />
+                    <DataGridTextColumn Header="" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="項次" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="部門" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="群組" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="權限等級" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>

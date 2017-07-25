@@ -24,16 +24,16 @@
                                          x:Name="EngCaseList"
                                          MouseDoubleClick="EngCaseList_Selected">
                 <Controls:CustomDataGrid.Columns>
-                    <DataGridTextColumn Header="合約編號" Binding="{Binding ContractNumber}" Width="auto" />
-                    <DataGridTextColumn Header="工程名稱" Binding="{Binding Name}" Width="auto" />
-                    <DataGridTextColumn Header="項次" Binding="{Binding }" Width="auto" />
-                    <DataGridTextColumn Header="工程項目" Binding="{Binding }" Width="auto" />
-                    <DataGridTextColumn Header="單位" Binding="{Binding Unit}" Width="auto" />
-                    <DataGridTextColumn Header="本約數量" Binding="{Binding }" Width="auto" />
-                    <DataGridTextColumn Header="追加數量" Binding="{Binding }" Width="auto" />
-                    <DataGridTextColumn Header="追減數量" Binding="{Binding }" Width="auto" />
-                    <DataGridTextColumn Header="追加減後總數量" Binding="{Binding WarrantyDate}" Width="auto" />
-                    <DataGridTextColumn Header="備註" Binding="{Binding}" Width="auto" />
+                    <DataGridTextColumn Header="合約編號" Binding="{Binding ContractNumber}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="工程名稱" Binding="{Binding Name}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="項次" Binding="{Binding }" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="工程項目" Binding="{Binding }" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="單位" Binding="{Binding Unit}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="本約數量" Binding="{Binding }" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="追加數量" Binding="{Binding }" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="追減數量" Binding="{Binding }" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="追加減後總數量" Binding="{Binding WarrantyDate}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="備註" Binding="{Binding}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                     <!-- DataGridTextColumn Header="本約追加(減)工程項目" Binding="{Binding StartDate,StringFormat={}{0:yyyy/MM/dd}}" Width="auto" / -->
                     <!-- DataGridTextColumn Header="" Binding="{Binding Architect}" Width="auto" / -->
                     <!-- DataGridTextColumn Header="" Binding="{Binding State, Converter={StaticResource StatesCodeToTextValueConverter}}" Width="auto" / -->

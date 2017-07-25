@@ -54,16 +54,16 @@
                     <ContextMenu/>
                 </Controls:CustomDataGrid.ContextMenu>
                 <Controls:CustomDataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding ImageName, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="圖名" Width="auto" />
-                    <DataGridTextColumn Binding="{Binding Edition, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="版次" Width="auto" />
-                    <DataGridTextColumn Binding="{Binding SubmissionDate, Mode=TwoWay, StringFormat=\{0:d\}, UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="送審日期" Width="auto" />
-                    <DataGridTextColumn Binding="{Binding SubmitCertificateNumber, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="送審文號" Width="auto" />
-                    <DataGridTextColumn Binding="{Binding ReplyDate, Mode=TwoWay, StringFormat=\{0:d\}, UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="回覆日期" Width="auto" />
-                    <DataGridTextColumn Binding="{Binding ReplyNumber, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="回覆文號" Width="auto" />
-                    <DataGridTextColumn Header="回覆內容" Binding="{Binding ReplyContent, Converter={StaticResource AtlasReplayContents}}" Width="auto" />
+                    <DataGridTextColumn Binding="{Binding ImageName, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="圖名" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Binding="{Binding Edition, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="版次" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Binding="{Binding SubmissionDate, Mode=TwoWay, StringFormat=\{0:d\}, UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="送審日期" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Binding="{Binding SubmitCertificateNumber, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="送審文號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Binding="{Binding ReplyDate, Mode=TwoWay, StringFormat=\{0:d\}, UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="回覆日期" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Binding="{Binding ReplyNumber, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="回覆文號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="回覆內容" Binding="{Binding ReplyContent, Converter={StaticResource AtlasReplayContents}}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                     <DataGridCheckBoxColumn Header="定稿" Binding="{Binding Finalized}" Width="auto" />
-                    <DataGridTextColumn Header="備註" Binding="{Binding Comment,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" />
-                    <DataGridTextColumn Header="異動人員/日期" Width="auto">
+                    <DataGridTextColumn Header="備註" Binding="{Binding Comment,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="異動人員/日期" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}">
                         <DataGridTextColumn.Binding>
                             <MultiBinding StringFormat="{}{0}/{1:d}">
                                 <Binding Path="LastUpdateUser"/>

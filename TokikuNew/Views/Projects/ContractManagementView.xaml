@@ -21,20 +21,20 @@
         <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource GroupBox_DocumentEditor}" Header="合約管理" VerticalAlignment="Stretch" x:Name="CheckGrid">
             <DataGrid>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="項次" Width="auto" />
-                    <DataGridTextColumn Header="工程項目" Width="auto" />
-                    <DataGridTextColumn Header="追加(減)工程項目" Width="auto" />
-                    <DataGridTextColumn Header="單位" Width="auto" />
-                    <DataGridTextColumn Header="數量" Width="auto" />
-                    <DataGridTextColumn Header="合約單價" Width="auto" />
-                    <DataGridTextColumn Header="合約金額" Width="auto" />
-                    <DataGridTextColumn Header="追加(減)數量" Width="auto" />
-                    <DataGridTextColumn Header="追加(減)單價" Width="auto" />
-                    <DataGridTextColumn Header="追加(減)金額" Width="auto" />
-                    <DataGridTextColumn Header="追加減後數量" Width="auto" />
-                    <DataGridTextColumn Header="追加減後單價" Width="auto" />
-                    <DataGridTextColumn Header="追加減後總金額" Width="auto" />
-                    <DataGridTextColumn Header="異動人員" Width="auto" />
+                    <DataGridTextColumn Header="項次" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="工程項目" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="追加(減)工程項目" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="單位" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="合約單價" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="合約金額" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="追加(減)數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="追加(減)單價" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="追加(減)金額" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="追加減後數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="追加減後單價" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="追加減後總金額" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="異動人員" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.HeaderTemplate>
                             <DataTemplate>
