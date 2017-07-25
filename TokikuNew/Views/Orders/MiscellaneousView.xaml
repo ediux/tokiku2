@@ -9,12 +9,12 @@
     <Grid>
         <DataGrid x:Name="雜項DG" Margin="5" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="*東菊編號/項目*" Binding="{Binding TokikuId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
-                <DataGridTextColumn Header="廠商編號" Binding="{Binding ManufacturersId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
-                <DataGridTextColumn Header="*說明*" Binding="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
-                <DataGridTextColumn Header="*單價*" Binding="{Binding UnitPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
-                <DataGridTextColumn Header="*數量*" Binding="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
-                <DataGridTextColumn Header="*金額*" Binding="{Binding Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
+                <DataGridTextColumn Header="*東菊編號/項目*" Binding="{Binding TokikuId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="廠商編號" Binding="{Binding ManufacturersId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="*說明*" Binding="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="*單價*" Binding="{Binding UnitPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="*數量*" Binding="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="*金額*" Binding="{Binding Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
             </DataGrid.Columns>
         </DataGrid>
 

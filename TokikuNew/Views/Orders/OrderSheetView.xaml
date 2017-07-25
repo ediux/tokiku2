@@ -137,13 +137,13 @@
                                           ItemsSource="{Binding Source={StaticResource ControlTableListSource}}" Loaded="DataGrid_Loaded">
                                     <DataGrid.Columns>
                                         <DataGridCheckBoxColumn Header="" Width="auto" Binding="{Binding IsSelected}" />
-                                        <DataGridTextColumn Header="項次" Width="auto" Binding="{Binding RowIndex}" />
-                                        <DataGridTextColumn Header="東菊編號" Width="auto" Binding="{Binding Code}"/>
-                                        <DataGridTextColumn Header="廠商" Width="auto" Binding="{Binding ManufacturersName}" />
-                                        <DataGridTextColumn Header="廠商編號" Width="auto" Binding="{Binding ManufacturersCode}" />
-                                        <DataGridTextColumn Header="材質" Width="auto" Binding="{Binding MaterialCategories}"/>
-                                        <DataGridTextColumn Header="單位重量(kg/m)" Width="auto" Binding="{Binding UnitWeight}"/>
-                                        <DataGridTextColumn Header="訂購長度(mm)" Width="auto" Binding="{Binding OrderLength}"/>
+                                        <DataGridTextColumn Header="項次" Width="auto" Binding="{Binding RowIndex}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn Header="東菊編號" Width="auto" Binding="{Binding Code}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn Header="廠商" Width="auto" Binding="{Binding ManufacturersName}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn Header="廠商編號" Width="auto" Binding="{Binding ManufacturersCode}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn Header="材質" Width="auto" Binding="{Binding MaterialCategories}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn Header="單位重量(kg/m)" Width="auto" Binding="{Binding UnitWeight}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn Header="訂購長度(mm)" Width="auto" Binding="{Binding OrderLength}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                                         <DataGridTemplateColumn >
                                             <DataGridTemplateColumn.HeaderTemplate>
                                                 <DataTemplate>
