@@ -44,7 +44,7 @@
                     <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
                 <controls:SearchBar Grid.Column="0" x:Name="cSearchBar" Focusable="True" />
-                <Button Grid.Column="1" Margin="1" Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" Name="btnNew" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenNewProjectView}" CommandManager.PreviewCanExecute="btnNew_PreviewCanExecute" ToolTip="新增"></Button>
+                <Button Grid.Column="1" Margin="1" Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" Name="btnNew" vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenNewProjectView}" vm:CommandRoutingManager.RoutingName="ProjectManagerView" ToolTip="新增"></Button>
             </Grid>
         </Grid>
         <DataGrid x:Name="ProjectList" Grid.Row="1" Margin="5" ItemsSource="{Binding Source={StaticResource ProjoectListSource}}" 

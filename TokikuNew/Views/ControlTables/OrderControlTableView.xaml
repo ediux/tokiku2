@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
              xmlns:c="clr-namespace:TokikuNew.Controls" x:Name="userControl"
              mc:Ignorable="d" 
              Background="{DynamicResource ControlBackgroundBrush}"
@@ -18,14 +19,16 @@
             <ColumnDefinition Width="50*" />
         </Grid.ColumnDefinitions>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Column="0"  Margin="0,0,0,0" >
-            <Button Content="請款單" x:Name="btn3" Margin="5,0,0,0" Command="{DynamicResource OpenNewTabItem}" CommandParameter="{StaticResource OpenInvoiceView}" CommandManager.PreviewCanExecute="btn3_PreviewCanExecute" />
-            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="請款單列表" x:Name="btn4" Margin="0,0,5,0"  Command="{DynamicResource OpenNewTabItem}" CommandParameter="{StaticResource OpenInvoiceViewListView}" CommandManager.PreviewCanExecute="btn3_PreviewCanExecute"/>
-            <Button Content="退貨單" x:Name="btn1" Margin="5,0,0,0" Command="{DynamicResource OpenNewTabItem}" CommandParameter="{StaticResource OpenReturnMaterialView}" CommandTarget="{Binding ElementName=btn1}" CommandManager.PreviewCanExecute="btn3_PreviewCanExecute"/>
-            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="退貨單列表" x:Name="btn2" Margin="0,0,5,0" Command="{DynamicResource OpenNewTabItem}" CommandParameter="{StaticResource OpenReturnMaterialListView}" CommandManager.PreviewCanExecute="btn3_PreviewCanExecute"/>
-            <Button x:Name="btnAddNewForm" Margin="5,0,0,0" Content="收料單" Command="{DynamicResource OpenNewTabItem}" CommandParameter="{StaticResource OpenRecvMaterialView}" CommandManager.PreviewCanExecute="btn3_PreviewCanExecute"/>
-            <Button Content="&#xE179;" ToolTip="收料單列表" FontFamily="/Resources/#Segoe MDL2 Assets" Margin="0,0,5,0" Command="{DynamicResource OpenNewTabItem}" CommandParameter="{StaticResource OpenRecvMaterialListView}" CommandManager.PreviewCanExecute="btn3_PreviewCanExecute"/>
-            <Button Content="領料單" x:Name="btn5" Margin="5,0,0,0" Command="{DynamicResource OpenNewTabItem}" CommandParameter="{StaticResource OpenShippingMaterialView}" CommandManager.PreviewCanExecute="btn3_PreviewCanExecute"/>
-            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="領料單列表" x:Name="btn6" Margin="0,0,5,0" Command="{DynamicResource OpenNewTabItem}" CommandParameter="{StaticResource OpenShippingMaterialListView}" CommandManager.PreviewCanExecute="btn3_PreviewCanExecute"/>
+            <Button Content="收料單" x:Name="btnAddNewForm" Margin="5,0,0,0" vm:CommandRoutingManager.Command="{DynamicResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenRecvMaterialView}" vm:CommandRoutingManager.RoutingName="RecvMaterialView" />
+            <Button Content="&#xE179;" ToolTip="收料單列表" FontFamily="/Resources/#Segoe MDL2 Assets" Margin="0,0,5,0" vm:CommandRoutingManager.Command="{DynamicResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenRecvMaterialListView}" vm:CommandRoutingManager.RoutingName="RecvMaterialView" />
+            <Button Content="請款單" x:Name="btn3" Margin="5,0,0,0" vm:CommandRoutingManager.Command="{DynamicResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenInvoiceView}" vm:CommandRoutingManager.RoutingName="InvoiceView" />
+            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="請款單列表" x:Name="btn4" Margin="0,0,5,0"  vm:CommandRoutingManager.Command="{DynamicResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenInvoiceViewListView}" vm:CommandRoutingManager.RoutingName="InvoiceViewListView" />
+            <Button Content="領料單" x:Name="btn5" Margin="5,0,0,0" vm:CommandRoutingManager.Command="{DynamicResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenShippingMaterialView}" vm:CommandRoutingManager.RoutingName="ShippingMaterialViewUC" />
+            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="領料單列表" x:Name="btn6" Margin="0,0,5,0" vm:CommandRoutingManager.Command="{DynamicResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenShippingMaterialListView}" vm:CommandRoutingManager.RoutingName="ShippingMaterialListViewUC" />
+            <Button Content="品質異常單" x:Name="btn7" Margin="5,0,0,0" vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenQualityAbnormallySingleView}" vm:CommandRoutingManager.RoutingName="QualityAbnormallySingleView" />
+            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="品質異常單列表" x:Name="btn8" Margin="0,0,5,0" />
+            <Button Content="退貨單" x:Name="btn1" Margin="5,0,0,0" vm:CommandRoutingManager.Command="{DynamicResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenReturnMaterialView}" vm:CommandRoutingManager.RoutingName="ReturnMaterialViewUC" />
+            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="退貨單列表" x:Name="btn2" Margin="0,0,5,0" vm:CommandRoutingManager.Command="{DynamicResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenReturnMaterialListView}" vm:CommandRoutingManager.RoutingName="ReturnMaterialListViewUC" />
         </StackPanel>
 
         <GroupBox x:Name="CheckGrid" Header="訂製單管控表" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">

@@ -55,13 +55,13 @@
             <ColumnDefinition Width="50*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="5,0" VerticalAlignment="Center">
-            <Button Content="施工圖集" x:Name="Btn7" Margin="5,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenConstructionAtlasView}" CommandManager.PreviewCanExecute="Btn2_PreviewCanExecute" />
-            <Button Content="組裝總表" x:Name="Btn6" Margin="5,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenAssemblyTableView}" CommandManager.PreviewCanExecute="Btn2_PreviewCanExecute" />
-            <Button Content="加工圖集總表" x:Name="Btn5" Margin="5,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenProcessingAtlasView}" CommandManager.PreviewCanExecute="Btn2_PreviewCanExecute" />
-            <Button Content="訂製單管控表" x:Name="Btn4" Margin="5,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenOrderControlTable}" CommandManager.PreviewCanExecute="Btn2_PreviewCanExecute" />
-            <Button Content="鋁擠型材料" x:Name="Btn2" Margin="5,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenControlTable}" CommandManager.PreviewCanExecute="Btn2_PreviewCanExecute" />
-            <Button Content="鋁擠型加工" x:Name="Btn3" Margin="5,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenProcessingView}" CommandManager.PreviewCanExecute="Btn2_PreviewCanExecute" />
-            <Button Content="玻璃" x:Name="BtnGlass" Margin="5,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenGlassControlTable}" CommandManager.PreviewCanExecute="Btn2_PreviewCanExecute" />
+            <Button Content="施工圖集" x:Name="Btn7" Margin="5,0" vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenConstructionAtlasView}" vm:CommandRoutingManager.RoutingName="ConstructionAtlasView" />
+            <Button Content="組裝總表" x:Name="Btn6" Margin="5,0" vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenAssemblyTableView}" vm:CommandRoutingManager.RoutingName="AssemblyTableView" />
+            <Button Content="加工圖集總表" x:Name="Btn5" Margin="5,0" vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenProcessingAtlasView}" vm:CommandRoutingManager.RoutingName="ProcessingAtlasView" />
+            <Button Content="訂製單管控表" x:Name="Btn4" Margin="5,0" vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenOrderControlTable}" vm:CommandRoutingManager.RoutingName="OrderControlTableView" />
+            <Button Content="鋁擠型材料" x:Name="Btn2" Margin="5,0" vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenControlTable}" vm:CommandRoutingManager.RoutingName="ControlTableView" />
+            <Button Content="鋁擠型加工" x:Name="Btn3" Margin="5,0" vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenProcessingView}" vm:CommandRoutingManager.RoutingName="AluminumExtrusionProcessingView" />
+            <Button Content="玻璃" x:Name="BtnGlass" Margin="5,0" vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenGlassControlTable}" vm:CommandRoutingManager.RoutingName="ControlTableView" />
             <Button Content="鋁板" x:Name="BtnAluminumPlate" DataContext="{Binding}" Margin="5,0"/>
             <Button Content="不鏽鋼板" DataContext="{Binding}" Margin="5,0"/>
             <Button Content="鐵件" x:Name="BtnIronPieces" DataContext="{Binding}" Margin="5,0"/>

@@ -50,11 +50,26 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Left">
-            <Button Content="需求單" Margin="5,0,0,0" Command="{DynamicResource OpenNewTabItem}" CommandParameter="{StaticResource OpenNewRequired}" CommandManager.PreviewCanExecute="Button_PreviewCanExecute"/>
-            <Button Content="訂製單管控表" Margin="5,0,0,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenOrderControlTable}" CommandManager.PreviewCanExecute="Button_PreviewCanExecute" />
-            <Button Content="訂製單" Margin="5,0,0,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenOrderView}" CommandManager.PreviewCanExecute="Button_PreviewCanExecute" />
-            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="加工訂製單列表" Margin="0,0,5,0"  Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenOrderList}" CommandManager.PreviewCanExecute="Button_PreviewCanExecute" />
-            <Button Content="盤點單" Margin="5,0,0,0"  Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenInventoryView}" CommandManager.PreviewCanExecute="Button_PreviewCanExecute" />
+            <Button Content="需求單" Margin="5,0,0,0"
+                    vm:CommandRoutingManager.Command="{DynamicResource OpenNewTabItem}"
+                    vm:CommandRoutingManager.CommandParameter="{StaticResource OpenNewRequired}"
+                    vm:CommandRoutingManager.RoutingName="RequiredView" />
+            <Button Content="訂製單管控表" Margin="5,0,0,0"
+                    vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}"
+                    vm:CommandRoutingManager.CommandParameter="{StaticResource OpenOrderControlTable}"
+                    vm:CommandRoutingManager.RoutingName="OrderControlTableView" />
+            <Button Content="訂製單" Margin="5,0,0,0"
+                    vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}"
+                    vm:CommandRoutingManager.CommandParameter="{StaticResource OpenOrderSheet}"
+                    vm:CommandRoutingManager.RoutingName="AluminumExtrusionOrderSheetView" />
+            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="加工訂製單列表" Margin="0,0,5,0"
+                    vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}"
+                    vm:CommandRoutingManager.CommandParameter="{StaticResource OpenOrderList}"
+                    vm:CommandRoutingManager.RoutingName="AluminumExtrusionOrderListView" />
+            <Button Content="盤點單" Margin="5,0,0,0"
+                    vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}"
+                    vm:CommandRoutingManager.CommandParameter="{StaticResource OpenInventoryView}"
+                    vm:CommandRoutingManager.RoutingName="InventoryView" />
             <Grid Margin="5,0,0,0" Width="300">
             <c:SearchBar Grid.Row="0" Grid.Column="1" x:Name="sSearchBar" />
             </Grid>
