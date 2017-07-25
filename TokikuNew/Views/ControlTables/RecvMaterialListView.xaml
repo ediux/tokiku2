@@ -14,10 +14,10 @@
         <DataGrid x:Name="CheckGrid" AutoGenerateColumns="False" CanUserAddRows="True"
                   Margin="5" ItemsSource="{Binding Source={StaticResource RecvMaterialSource}}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="收料單號" Binding="{Binding ReceiptNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="廠商來料單號" Binding="{Binding IncomingNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="建單日期" Binding="{Binding CreateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="建單人員" Binding="{Binding CreateUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="收料單號" Binding="{Binding ReceiptNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="廠商來料單號" Binding="{Binding IncomingNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="建單日期" Binding="{Binding CreateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="建單人員" Binding="{Binding CreateUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

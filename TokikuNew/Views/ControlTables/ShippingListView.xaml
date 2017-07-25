@@ -13,13 +13,13 @@
     <Grid>
         <DataGrid x:Name="CheckGrid" AutoGenerateColumns="False" Margin="5" ItemsSource="{Binding Source={StaticResource ShippingMaterialListSource}}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="倉別" Width="auto" />
-                <DataGridTextColumn Header="出貨單號" Width="auto" />
-                <DataGridTextColumn Header="收料單號" Width="auto" />
-                <DataGridTextColumn Header="領料單號" Width="auto" />
-                <DataGridTextColumn Header="領料日期" Width="auto" />
-                <DataGridTextColumn Header="建單日期" Width="auto" />
-                <DataGridTextColumn Header="建單人員" Width="auto" />
+                <DataGridTextColumn Header="倉別" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="出貨單號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="收料單號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="領料單號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="領料日期" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="建單日期" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="建單人員" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

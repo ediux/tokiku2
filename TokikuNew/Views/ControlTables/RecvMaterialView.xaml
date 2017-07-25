@@ -118,16 +118,16 @@
                                 <Button Name="btnNew" Grid.Row="0" Grid.Column="2" Margin="1" Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" Click="btnNew_Click" />
                                 <c:CustomDataGrid Grid.Row="1" Grid.ColumnSpan="3" Margin="1" AutoGenerateColumns="False" x:Name="鋁擠型訂製單DG" ItemsSource="{Binding Source={StaticResource OrderSource}}">
                                     <c:CustomDataGrid.Columns>
-                                        <DataGridTextColumn Header="" Width="auto" />
-                                        <DataGridTextColumn IsReadOnly="True" Header="*東菊編號*" Binding="{Binding TokikuId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
-                                        <DataGridTextColumn IsReadOnly="True" Header="*廠商編號*" Binding="{Binding ManufacturersId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
-                                        <DataGridTextColumn IsReadOnly="True" Header="*材質*" Binding="{Binding Material, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
-                                        <DataGridTextColumn IsReadOnly="True" Header="*單位重(kg/m)*" Binding="{Binding UnitWeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
-                                        <DataGridTextColumn IsReadOnly="True" Header="*訂購長度(mm)*" Binding="{Binding OrderLength, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
-                                        <DataGridTextColumn Header="[需求數量]" Binding="{Binding RequiredQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
-                                        <DataGridTextColumn Header="[備品數量]" Binding="{Binding SparePartsQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
-                                        <DataGridTextColumn Header="[下單數量]" Binding="{Binding PlaceAnOrderQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
-                                        <DataGridTextColumn Header="[備註]" Binding="{Binding Note, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" />
+                                        <DataGridTextColumn Header="" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn IsReadOnly="True" Header="*東菊編號*" Binding="{Binding TokikuId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn IsReadOnly="True" Header="*廠商編號*" Binding="{Binding ManufacturersId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn IsReadOnly="True" Header="*材質*" Binding="{Binding Material, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn IsReadOnly="True" Header="*單位重(kg/m)*" Binding="{Binding UnitWeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn IsReadOnly="True" Header="*訂購長度(mm)*" Binding="{Binding OrderLength, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn Header="[需求數量]" Binding="{Binding RequiredQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn Header="[備品數量]" Binding="{Binding SparePartsQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn Header="[下單數量]" Binding="{Binding PlaceAnOrderQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn Header="[備註]" Binding="{Binding Note, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                                     </c:CustomDataGrid.Columns>
                                 </c:CustomDataGrid>
                             </Grid>
@@ -140,20 +140,19 @@
         <Grid x:Name="CheckGrid" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="570" Margin="10,0,0,0" VerticalAlignment="Top" Width="1326">
             <DataGrid>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="單號" Width="auto" />
-                    <DataGridTextColumn Header="批號" Width="auto" />
-                    <DataGridTextColumn Header="項次" Width="auto" />
-                    <DataGridTextColumn Header="東菊編號" Width="auto" />
-                    <DataGridTextColumn Header="廠商編號" Width="auto" />
-                    <DataGridTextColumn Header="材質" Width="auto" />
-                    <DataGridTextColumn Header="單位重(kg/m)" Width="auto" />
-                    <DataGridTextColumn Header="訂購長度(mm)" Width="auto" />
-                    <DataGridTextColumn Header="下單數量" Width="auto" />
-                    <!-- DataGridTextColumn Header="出貨順序" Width="auto" / -->
-                    <DataGridTextColumn Header="重量" Width="auto" />
-                    <DataGridTextColumn Header="缺料" Width="auto" />
-                    <DataGridTextColumn Header="收料量" Width="auto" />
-                    <DataGridTextColumn Header="備註" Width="auto" />
+                    <DataGridTextColumn Header="單號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="批號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="項次" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="東菊編號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="廠商編號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="材質" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="單位重(kg/m)" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="訂購長度(mm)" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="下單數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="重量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="缺料" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="收料量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="備註" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
