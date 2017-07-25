@@ -159,29 +159,55 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
             {
                 e.Handled = true;
 
-                //RoutedViewResult result = (RoutedViewResult)TryFindResource("OpenControlTable");
-                //ProjectsViewModel viewmodel = (ProjectsViewModel)((ObjectDataProvider)TryFindResource("ProjectSource")).Data;
+                RoutedViewResult routtdata = (RoutedViewResult)TryFindResource("OpenControlTable");
 
-                //if (result != null && viewmodel != null)
+                if (routtdata != null)
+                {
+                    if (routtdata.RoutedValues.ContainsKey("UIElement"))
+                        routtdata.RoutedValues["UIElement"] = Btn2;
+                    else
+                        routtdata.RoutedValues.Add("UIElement", Btn2);
+                }
+
+                routtdata = (RoutedViewResult)TryFindResource("OpenControlTable");
+
+                if (routtdata != null)
+                {
+                    if (routtdata.RoutedValues.ContainsKey("UIElement"))
+                        routtdata.RoutedValues["UIElement"] = Btn3;
+                    else
+                        routtdata.RoutedValues.Add("UIElement", Btn3);
+                }
+
+                //RoutedViewResult routtdata = (RoutedViewResult)TryFindResource("OpenControlTable");
+
+                //if (routtdata != null)
                 //{
-                //    //result.RoutedValues = new System.Collections.Generic.Dictionary<string, object>();
-                //    result.RoutedValues["SelectedProject"] = viewmodel;
+                //    if (routtdata.RoutedValues.ContainsKey("UIElement"))
+                //        routtdata.RoutedValues["UIElement"] = Btn2;
+                //    else
+                //        routtdata.RoutedValues.Add("UIElement", Btn2);
                 //}
 
-                //Binding selectProjectBinding = new Binding();
-                //selectProjectBinding.Source = DataContext;
-                //SetBinding(SelectedProjectProperty, selectProjectBinding);
+                //RoutedViewResult routtdata = (RoutedViewResult)TryFindResource("OpenControlTable");
 
-                //if (SelectedProject != null)
+                //if (routtdata != null)
                 //{
-                //    if (SelectedProject.ClientId.HasValue)
-                //    {
-                //        //if (SelectedClient != null)
-                //        //    SelectedClient.Refresh();
-                //    }
+                //    if (routtdata.RoutedValues.ContainsKey("UIElement"))
+                //        routtdata.RoutedValues["UIElement"] = Btn2;
+                //    else
+                //        routtdata.RoutedValues.Add("UIElement", Btn2);
                 //}
 
+                //RoutedViewResult routtdata = (RoutedViewResult)TryFindResource("OpenControlTable");
 
+                //if (routtdata != null)
+                //{
+                //    if (routtdata.RoutedValues.ContainsKey("UIElement"))
+                //        routtdata.RoutedValues["UIElement"] = Btn2;
+                //    else
+                //        routtdata.RoutedValues.Add("UIElement", Btn2);
+                //}
                 AddHandler(ClientListView.SelectedClientChangedEvent, new RoutedEventHandler(UserControl_OnSelectionClientChanged));
                 AddHandler(DockBar.DocumentModeChangedEvent, new RoutedEventHandler(DockBar_DocumentModeChanged));
             }
@@ -336,7 +362,7 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
             }
         }
 
-      
+
         private void TextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             try

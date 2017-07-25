@@ -14,7 +14,6 @@
     <UserControl.Resources>
         <vm:RoutedViewResult x:Key="OpenOrderView" AttachedTargetElementName="InnerWorkspaces"
                                   DisplayText="訂製單"
-                                  SourceInstance="{Binding Source={StaticResource ProjectSource}}"
                                   ViewType="{x:Type local:AluminumExtrusionOrderSheetView}">
             <vm:RoutedViewResult.RoutingBinding>
                 <sys:String x:Key="SelectedProjectId">Id</sys:String>
@@ -52,7 +51,7 @@
         <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Left">
             <Button Content="需求單" Margin="5,0,0,0" Command="{DynamicResource OpenNewTabItem}" CommandParameter="{StaticResource OpenNewRequired}" CommandManager.PreviewCanExecute="Button_PreviewCanExecute"/>
             <Button Content="訂製單管控表" Margin="5,0,0,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenOrderControlTable}" CommandManager.PreviewCanExecute="Button_PreviewCanExecute" />
-            <Button Content="訂製單" Margin="5,0,0,0" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenOrderView}" CommandManager.PreviewCanExecute="Button_PreviewCanExecute" />
+            <Button Content="訂製單" Margin="5,0,0,0" vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenOrderView}" />
             <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="加工訂製單列表" Margin="0,0,5,0"  Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenOrderList}" CommandManager.PreviewCanExecute="Button_PreviewCanExecute" />
             <Button Content="盤點單" Margin="5,0,0,0"  Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenInventoryView}" CommandManager.PreviewCanExecute="Button_PreviewCanExecute" />
             <Grid Margin="5,0,0,0" Width="300">

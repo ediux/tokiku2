@@ -102,7 +102,9 @@
             <sys:String x:Key="TabControlName">Workspaces</sys:String>
         </vm:RoutedViewResult.RoutedValues>
     </vm:RoutedViewResult>
-    <vm:RoutedViewResult DisplayText="客戶列表" ViewType="{x:Type view:ClientListView}" AttachedTargetElementName="Workspaces" x:Key="OpenClientListView">
+    <vm:RoutedViewResult DisplayText="客戶列表" ViewType="{x:Type view:ClientListView}" 
+                         Name="OpenClientListView"
+                         AttachedTargetElementName="Workspaces" x:Key="OpenClientListView">
         <vm:RoutedViewResult.RoutedValues>
             <x:Type x:Key="SourceViewType" TypeName="l:MainWindow"/>
             <sys:String x:Key="TabControlName">Workspaces</sys:String>
@@ -144,16 +146,63 @@
     </vm:RoutedViewResult>
     <vm:RoutedViewResult x:Key="OpenAssemblyTableView" AttachedTargetElementName="InnerWorkspaces"
                                   DisplayText="組裝總表"
-                                  ViewType="{x:Type view:AssemblyTableView}"/>
+                                  ViewType="{x:Type view:AssemblyTableView}">
+        <vm:RoutedViewResult.RoutedValues>
+            <sys:String x:Key="FormName" >組裝總表</sys:String>
+            <sys:Guid x:Key="SelectedProjectId"></sys:Guid>
+            <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
     <vm:RoutedViewResult x:Key="OpenProcessingAtlasView" AttachedTargetElementName="InnerWorkspaces"
                               DisplayText="加工圖集"
-                              ViewType="{x:Type view:ProcessingAtlasView}"/>
+                              ViewType="{x:Type view:ProcessingAtlasView}">
+        <vm:RoutedViewResult.RoutedValues>
+            <sys:String x:Key="FormName" >加工圖集</sys:String>
+            <sys:Guid x:Key="SelectedProjectId"></sys:Guid>
+            <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
     <vm:RoutedViewResult x:Key="OpenOrderControlTable" AttachedTargetElementName="InnerWorkspaces"
-                         DisplayText="訂製單管控表" ViewType="{x:Type view:OrderControlTableView}" />
-    <vm:RoutedViewResult x:Key="OpenControlTable" AttachedTargetElementName="InnerWorkspaces"
-                         DisplayText="鋁擠型材料" ViewType="{x:Type view:ControlTableView}" />
+                         Name="OpenOrderControlTable"
+                         DisplayText="訂製單管控表" ViewType="{x:Type view:OrderControlTableView}">
+        <vm:RoutedViewResult.RoutedValues>
+            <sys:String x:Key="FormName" >訂製單管控表</sys:String>
+            <sys:Guid x:Key="SelectedProjectId"></sys:Guid>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+
+    <vm:RoutedViewResult x:Key="OpenAluminumProcessingControlTable" AttachedTargetElementName="InnerWorkspaces"
+                                  DisplayText="鋁擠型加工"      
+                                    Name="OpenAluminumProcessingControlTable"
+                                  ViewType="{x:Type view:ControlTableView}">
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="SelectedProjectId">SelectedProjectId</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <sys:String x:Key="FormName" >鋁擠型加工</sys:String>
+            <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
+            <sys:Guid x:Key="SelectedProjectId"></sys:Guid>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
     <vm:RoutedViewResult x:Key="OpenProcessingView" AttachedTargetElementName="InnerWorkspaces"
-                         DisplayText="鋁擠型加工" ViewType="{x:Type view:AluminumExtrusionProcessingView}" />
+                         Name="OpenProcessingView"
+                         SourceViewType="{x:Type view:ProjectManagerView}"
+                         DisplayText="鋁擠型加工" ViewType="{x:Type view:AluminumExtrusionProcessingView}">
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="SelectedProjectId">Id</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <sys:String x:Key="FormName" >鋁擠型加工</sys:String>
+            <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
+            <sys:Guid x:Key="SelectedProjectId"></sys:Guid>
+            <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
 
     <!-- 品質異常單,TokikuNew.QualityAbnormallySingleView -->
     <vm:RoutedViewResult x:Key="OpenQualityAbnormallySingleView" AttachedTargetElementName="InnerWorkspaces"

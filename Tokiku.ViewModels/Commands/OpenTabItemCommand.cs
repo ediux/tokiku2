@@ -57,10 +57,10 @@ namespace Tokiku.ViewModels
 
                         if (Workspaces == null)
                             return;
+
+                        Workspaces = OpenTab(Workspaces, executeresult);
+                        Workspaces.UpdateLayout();
                     }
-
-                    OpenTab(Workspaces, executeresult);
-
                 }
 
                 if (executeresult.RoutedValues.ContainsKey("UIElement") && executeresult.RoutedValues["UIElement"] is DataGrid)
@@ -74,12 +74,48 @@ namespace Tokiku.ViewModels
                         {
                             TabControl Workspaces = (TabControl)FindControl(dg, (string)executeresult.RoutedValues["TabControlName"]);
 
-                            OpenTab(Workspaces, executeresult);
+                            Workspaces = OpenTab(Workspaces, executeresult);
+                            Workspaces.UpdateLayout();
                         }
                     }
                 }
 
+                if (executeresult.RoutedValues.ContainsKey("UIElement") && executeresult.RoutedValues["UIElement"] is MenuItem)
+                {
+                    MenuItem dg = (MenuItem)executeresult.RoutedValues["UIElement"];
 
+                    if (dg != null)
+                    {
+                        //TabControlName
+                        if (executeresult.RoutedValues.ContainsKey("TabControlName"))
+                        {
+                            TabControl Workspaces = (TabControl)FindControl(dg, (string)executeresult.RoutedValues["TabControlName"]);
+
+                            Workspaces = OpenTab(Workspaces, executeresult);
+                            Workspaces.UpdateLayout();
+                        }
+                    }
+                }
+
+                if (executeresult.RoutedValues.ContainsKey("UIElement") && executeresult.RoutedValues["UIElement"] is Button)
+                {
+                    Button dg = (Button)executeresult.RoutedValues["UIElement"];
+
+                    if (dg != null)
+                    {
+                        //TabControlName
+                        if (executeresult.RoutedValues.ContainsKey("TabControlName"))
+                        {
+                            TabControl Workspaces = (TabControl)FindControl(dg, (string)executeresult.RoutedValues["TabControlName"]);
+
+                            if (Workspaces == null)
+                                return;
+
+                             OpenTab(Workspaces, executeresult);
+                           
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -89,6 +125,9 @@ namespace Tokiku.ViewModels
 
         private FrameworkElement FindControl(FrameworkElement element, string name)
         {
+            if (element == null)
+                return null;
+
             FrameworkElement foundcontrol = (FrameworkElement)element.FindName(name);
 
             if (foundcontrol != null)
@@ -96,10 +135,13 @@ namespace Tokiku.ViewModels
                 return foundcontrol;
             }
 
-            return FindControl((FrameworkElement)element.Parent, name);
+            if (element.Parent != null)
+                return FindControl((FrameworkElement)element.Parent, name);
+            else
+                return null;
         }
 
-        private void OpenTab(TabControl Workspaces, RoutedViewResult executeresult)
+        private TabControl OpenTab(TabControl Workspaces, RoutedViewResult executeresult)
         {
             TabItem addWorkarea = null;
 
@@ -138,7 +180,7 @@ namespace Tokiku.ViewModels
 
             object SharedModel = executeresult.DataContent;
 
-            addWorkarea = addWorkarea = (TabItem)Activator.CreateInstance(Assembly.Load("TokikuNew").GetType("TokikuNew.Controls.ClosableTabItem"));
+            addWorkarea = (TabItem)Activator.CreateInstance(Assembly.Load("TokikuNew").GetType("TokikuNew.Controls.ClosableTabItem"));
             addWorkarea.Header = Header;
 
             bool isExisted = false;
@@ -155,38 +197,47 @@ namespace Tokiku.ViewModels
 
             if (!isExisted)
             {
-
                 var vm = Activator.CreateInstance(executeresult.ViewType);
 
                 if (vm != null)
                 {
                     if (SharedModel != null)
                     {
-                        executeresult.ViewType.GetProperty("DataContext").SetValue(vm, SharedModel);
+                        ((FrameworkElement)vm).DataContext = SharedModel;
                     }
+                    //executeresult.ViewType.GetProperty("DataContext")
 
                     if (executeresult.ViewType.GetProperty("Mode") != null)
                     {
                         executeresult.ViewType.GetProperty("Mode").SetValue(vm, DocumentLifeCircle.Read);
                     }
 
-                    
+                    if (executeresult.RoutedValues != null && executeresult.RoutedValues.Count > 0)
+                    {
+                        foreach (var k in executeresult.RoutedValues.Keys)
+                        {
+                            var prop = executeresult.ViewType.GetProperty(k);
+                            if (prop != null)
+                                prop.SetValue(vm, executeresult.RoutedValues[k]);
+                        }
+                    }
                 }
 
 
                 addWorkarea.Content = vm;
                 addWorkarea.Margin = new Thickness(0);
+                addWorkarea.Visibility = Visibility.Visible;
+                addWorkarea.Focus();
 
                 Workspaces.Items.Add(addWorkarea);
                 Workspaces.SelectedItem = addWorkarea;
-
-
-                return;
             }
             else
             {
                 Workspaces.SelectedItem = addWorkarea;
             }
+
+            return Workspaces;
         }
     }
 }

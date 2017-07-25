@@ -11,14 +11,13 @@
              mc:Ignorable="d" DataContext="{Binding Source={StaticResource ProjectSource}}"
              d:DesignHeight="768" d:DesignWidth="1024" Loaded="UserControl_Loaded"  >
     <UserControl.Resources>
-        <vm:BridgingCommand x:Key="bgcmd" SourceInstance="{x:Reference userControl}" TargetViewType="{x:Type local:ProjectManagerView}" />
+        
     </UserControl.Resources>
     <Grid Background="{DynamicResource ControlBackgroundBrush}">
-        <TabControl TabStripPlacement="Top" x:Name="InnerWorkspaces">
+        <TabControl x:Name="InnerWorkspaces" TabStripPlacement="Top">
             <TabItem Header="專案主檔">
                 <local:ProjectManagerView x:Name="PMV" SelectedProjectId="{Binding Id}" Mode="{Binding Path=Mode, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     LoginedUser="{Binding LoginedUser, ElementName=userControl}">
-                    
                 </local:ProjectManagerView>
             </TabItem>
             <TabItem Header="成本估算" Visibility="Collapsed">

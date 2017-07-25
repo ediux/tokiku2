@@ -78,7 +78,7 @@ namespace TokikuNew.Views
                     if (controltableprovider != null)
                     {
                         controltableprovider.MethodParameters[0] = e.NewValue;
-                        //controltableprovider.Refresh();
+                        controltableprovider.Refresh();
                     }
                 }
 
@@ -263,10 +263,10 @@ namespace TokikuNew.Views
             //dg.DataContext = ctrl;
             //ControlTableViewModelCollection.Query(select);
 
-            for (int i = 0; i < dg.Columns.Count; i++)
-            {
-                dg.Columns[i].Visibility = Visibility.Visible;
-            }
+            //for (int i = 0; i < dg.Columns.Count; i++)
+            //{
+            //    dg.Columns[i].Visibility = Visibility.Visible;
+            //}
 
             if (!string.IsNullOrEmpty(FormName))
             {

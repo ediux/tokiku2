@@ -84,6 +84,7 @@ namespace TokikuNew.Views
         {
             try
             {
+
                 //註冊一個處理分頁關閉的事件處理器
                 AddHandler(ClosableTabItem.OnPageClosingEvent, new RoutedEventHandler(ProjectViewer_OnPageClosing));
                 AddHandler(ClosableTabItem.SendNewPageRequestEvent, new RoutedEventHandler(ProjectViewer_OpenNewTab));

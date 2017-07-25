@@ -61,7 +61,7 @@
                     <Views:ProjectSelectListView x:Name="ProjectSelectionPage" SelectedProjectChanged="ProjectSelectionPage_SelectedProjectChanged" DataContext="{Binding Projects}"  />
                 </TabItem>
             </controls:MultiPageManager>-->
-            <TabControl Grid.Row="1" Margin="0,0,0,0" x:Name="Workspaces" FontSize="9" vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}">
+            <TabControl Grid.Row="1" Margin="0,0,0,0" x:Name="Workspaces" FontSize="9" >
                 <TabItem Header="專案列表" >
                     <Views:ProjectSelectListView x:Name="ProjectSelectionPage" />
                 </TabItem>
