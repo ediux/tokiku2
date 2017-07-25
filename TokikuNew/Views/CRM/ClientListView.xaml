@@ -38,16 +38,16 @@
                                  IsReadOnly="True"
                                  >
             <DataGrid.Columns>
-                <DataGridTextColumn  Header="客戶代號" Width="auto" Binding="{Binding Code}" />
-                <DataGridTextColumn Header="名稱(全名)" Width="auto" Binding="{Binding Name}" />
-                <DataGridTextColumn Header="名稱(簡稱)" Width="auto" Binding="{Binding ShortName}" />
-                <DataGridTextColumn Header="主要聯絡人" Width="auto" Binding="{Binding MainContactPerson}" />
-                <DataGridTextColumn Header="公司電話" Width="auto" Binding="{Binding Phone}" />
-                <DataGridTextColumn Header="公司傳真" Width="auto" Binding="{Binding Fax}" />
-                <DataGridTextColumn Header="電子郵件" Width="auto" Binding="{Binding EMail}" />
-                <DataGridTextColumn Header="公司地址" Width="auto" Binding="{Binding Address}" />
-                <DataGridTextColumn Header="負責人" Width="auto" Binding="{Binding Principal}" />
-                <DataGridTextColumn Header="統一編號" Width="auto" Binding="{Binding UniformNumbers}" />
+                <DataGridTextColumn Header="客戶代號" Width="auto" Binding="{Binding Code}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="名稱(全名)" Width="auto" Binding="{Binding Name}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="名稱(簡稱)" Width="auto" Binding="{Binding ShortName}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="主要聯絡人" Width="auto" Binding="{Binding MainContactPerson}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="公司電話" Width="auto" Binding="{Binding Phone}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="公司傳真" Width="auto" Binding="{Binding Fax}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="電子郵件" Width="auto" Binding="{Binding EMail}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="公司地址" Width="auto" Binding="{Binding Address}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="負責人" Width="auto" Binding="{Binding Principal}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="統一編號" Width="auto" Binding="{Binding UniformNumbers}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
             </DataGrid.Columns>
         </controls:CustomDataGrid>
     </Grid>
