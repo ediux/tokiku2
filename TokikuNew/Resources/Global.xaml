@@ -7,10 +7,10 @@
                     xmlns:l="clr-namespace:TokikuNew"
                     xmlns:ValueConverters="clr-namespace:TokikuNew.ValueConverters">
     <!--資料來源-->
-    <ObjectDataProvider x:Key="ProjectSource" ObjectType="{x:Type vm:ProjectsViewModel}">
-        <!--<ObjectDataProvider.MethodParameters>
+    <ObjectDataProvider x:Key="ProjectSource" ObjectType="{x:Type vm:ProjectsViewModel}" MethodName="Query">
+        <ObjectDataProvider.MethodParameters>
             <x:Static Member="sys:Guid.Empty" />
-        </ObjectDataProvider.MethodParameters>-->
+        </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
     <ObjectDataProvider x:Key="MaterialCategoriesSource" ObjectType="{x:Type vm:MaterialCategoriesViewModelCollection}" MethodName="Query"/>
     <ObjectDataProvider x:Key="StatesSource" ObjectType="{x:Type vm:StatesViewModelCollection}" MethodName="Query">
@@ -250,8 +250,19 @@
     <vm:RoutedViewResult x:Key="OpenReturnMaterialListView" AttachedTargetElementName="InnerWorkspaces"
                          DisplayText="退貨單列表" ViewType="{x:Type view:ReturnMaterialListViewUC}" />
     <!-- 需求單,TokikuNew.RequiredView -->
-    <vm:RoutedViewResult x:Key="OpenNewRequired" AttachedTargetElementName="InnerWorkspaces"
-                         DisplayText="需求單" ViewType="{x:Type view:RequiredView}" />
+    <vm:RoutedViewResult x:Key="OpenNewRequired" 
+                         Name="OpenNewRequired"
+                         DisplayText="需求單" ViewType="{x:Type view:RequiredView}">
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="ProjectShortName">ShortName</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <x:Static Member="sys:String.Empty" x:Key="ProjectShortName"></x:Static>
+            <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
+            <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
     <!-- 盤點單,TokikuNew.RequiredView -->
     <vm:RoutedViewResult x:Key="OpenInventoryView" AttachedTargetElementName="InnerWorkspaces"
                          DisplayText="盤點單" ViewType="{x:Type view:InventoryView}" />

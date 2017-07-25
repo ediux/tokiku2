@@ -62,7 +62,7 @@
         </StackPanel>
 
         <Grid Grid.Row="1">
-            <GroupBox Header="基本資料" Style="{DynamicResource GroupBox_DocumentEditor}" DataContext="{Binding Source={StaticResource ProjectSource}}">
+            <GroupBox Header="基本資料" Style="{DynamicResource GroupBox_DocumentEditor}" DataContext="{StaticResource ProjectSource}">
                 <Grid>
                     <Grid>
                         <Grid.ColumnDefinitions>

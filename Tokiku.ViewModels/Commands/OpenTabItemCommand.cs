@@ -66,7 +66,7 @@ namespace Tokiku.ViewModels
                 if (executeresult.RoutedValues.ContainsKey("UIElement") && executeresult.RoutedValues["UIElement"] is DataGrid)
                 {
                     DataGrid dg = (DataGrid)executeresult.RoutedValues["UIElement"];
-
+                    executeresult.DataContent = dg.SelectedItem;
                     if (dg != null)
                     {
                         //TabControlName
@@ -100,7 +100,7 @@ namespace Tokiku.ViewModels
                 if (executeresult.RoutedValues.ContainsKey("UIElement") && executeresult.RoutedValues["UIElement"] is Button)
                 {
                     Button dg = (Button)executeresult.RoutedValues["UIElement"];
-
+                    executeresult.DataContent = dg.DataContext;
                     if (dg != null)
                     {
                         //TabControlName
@@ -111,8 +111,8 @@ namespace Tokiku.ViewModels
                             if (Workspaces == null)
                                 return;
 
-                             OpenTab(Workspaces, executeresult);
-                           
+                            OpenTab(Workspaces, executeresult);
+
                         }
                     }
                 }
@@ -212,13 +212,47 @@ namespace Tokiku.ViewModels
                         executeresult.ViewType.GetProperty("Mode").SetValue(vm, DocumentLifeCircle.Read);
                     }
 
+                    if (executeresult.DataContent != null)
+                    {
+                        foreach (var bk in executeresult.RoutingBinding.Keys)
+                        {
+                            var propb = executeresult.DataContent.GetType().GetProperty(executeresult.RoutingBinding[bk]);
+
+                            if (propb != null)
+                            {
+                                if (executeresult.RoutedValues.ContainsKey(bk))
+                                    executeresult.RoutedValues[bk] = propb.GetValue(executeresult.DataContent);
+                            }
+                        }
+                    }
+
                     if (executeresult.RoutedValues != null && executeresult.RoutedValues.Count > 0)
                     {
                         foreach (var k in executeresult.RoutedValues.Keys)
                         {
+                            if (k == "TargetViewModelInstance")
+                            {
+                                IBaseViewModel model = (IBaseViewModel)executeresult.RoutedValues["TargetViewModelInstance"];
+
+                                if (model != null)
+                                {
+
+                                   
+
+
+                                    model.RelayCommand.Execute(executeresult);
+                                }
+
+
+                            }
                             var prop = executeresult.ViewType.GetProperty(k);
+
                             if (prop != null)
+                            {
+
                                 prop.SetValue(vm, executeresult.RoutedValues[k]);
+
+                            }
                         }
                     }
                 }

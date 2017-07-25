@@ -43,24 +43,17 @@ namespace TokikuNew.Views
         {
             try
             {
+               
                 if (sender is ProjectManagerView)
                 {
 
                     ObjectDataProvider source = (ObjectDataProvider)((ProjectManagerView)sender).TryFindResource("ProjectSource");
 
                     if (source != null)
-                    {
+                    {                        
                         source.MethodParameters[0] = e.NewValue;
                         source.Refresh();
-                    }
-
-                    //RoutedViewResult result = (RoutedViewResult)((ProjectManagerView)sender).TryFindResource("OpenControlTable");
-
-                    //if (result != null)
-                    //{
-                    //    result.RoutedValues = new System.Collections.Generic.Dictionary<string, object>();
-                    //    result.RoutedValues.Add("SelectedProject", (ProjectsViewModel)source.Data);
-                    //}
+                    }                
                 }
             }
             catch (Exception ex)
@@ -128,23 +121,10 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
         {
             try
             {
-                //Binding selectProjectBinding = new Binding();
-                //selectProjectBinding.Source = TryFindResource("ProjectSource");
-                //selectProjectBinding.Path = new PropertyPath("MethodParameters[0]");
-                //selectProjectBinding.BindsDirectlyToSource = true;
-                //selectProjectBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-
-                //SetBinding(SelectedProjectIdProperty, selectProjectBinding);
-
-                //controller = App.Resolve<ProjectsController>();
-                //projectcontroll = App.Resolve<ProjectContractController>();
-                //clientcontroller = App.Resolve<ClientController>();
                 if (Mode == default(DocumentLifeCircle))
                 {
                     Mode = DocumentLifeCircle.Read;
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -159,25 +139,25 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
             {
                 e.Handled = true;
 
-                RoutedViewResult routtdata = (RoutedViewResult)TryFindResource("OpenControlTable");
+                //RoutedViewResult routtdata = (RoutedViewResult)TryFindResource("OpenControlTable");
 
-                if (routtdata != null)
-                {
-                    if (routtdata.RoutedValues.ContainsKey("UIElement"))
-                        routtdata.RoutedValues["UIElement"] = Btn2;
-                    else
-                        routtdata.RoutedValues.Add("UIElement", Btn2);
-                }
+                //if (routtdata != null)
+                //{
+                //    if (routtdata.RoutedValues.ContainsKey("UIElement"))
+                //        routtdata.RoutedValues["UIElement"] = Btn2;
+                //    else
+                //        routtdata.RoutedValues.Add("UIElement", Btn2);
+                //}
 
-                routtdata = (RoutedViewResult)TryFindResource("OpenControlTable");
+                //routtdata = (RoutedViewResult)TryFindResource("OpenControlTable");
 
-                if (routtdata != null)
-                {
-                    if (routtdata.RoutedValues.ContainsKey("UIElement"))
-                        routtdata.RoutedValues["UIElement"] = Btn3;
-                    else
-                        routtdata.RoutedValues.Add("UIElement", Btn3);
-                }
+                //if (routtdata != null)
+                //{
+                //    if (routtdata.RoutedValues.ContainsKey("UIElement"))
+                //        routtdata.RoutedValues["UIElement"] = Btn3;
+                //    else
+                //        routtdata.RoutedValues.Add("UIElement", Btn3);
+                //}
 
                 //RoutedViewResult routtdata = (RoutedViewResult)TryFindResource("OpenControlTable");
 

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 using Tokiku.Controllers;
 using Tokiku.Entity;
 
@@ -573,13 +574,23 @@ namespace Tokiku.ViewModels
         //    }
         //}
 
-        public override void ReplyFrom(object source)
-        {
-            if (source != null && source is ProjectListViewModel)
-            {
-                CopyofPOCOInstance = Query(((ProjectListViewModel)source).Id).Entity;
-            }
-        }
+        //public override void ReplyFrom(object source)
+        //{
+        //    if (source != null && source is ProjectListViewModel)
+        //    {
+        //        CopyofPOCOInstance = Query(((ProjectListViewModel)source).Id).Entity;
+        //    }
+
+        //    if (source != null && source is RoutedViewResult)
+        //    {
+        //        //CopyofPOCOInstance = Query(((ProjectsViewModel)((RoutedViewResult)source).RoutedValues["TargetViewModelInstance"]).Id).Entity;
+        //        var provider = ((ObjectDataProvider)((RoutedViewResult)source).RoutedValues["TargetViewModelProvider"]);
+
+        //        provider.MethodName = "Query";
+        //        provider.MethodParameters[0] = ((ProjectsViewModel)((RoutedViewResult)source).RoutedValues["TargetViewModelInstance"]).Id;
+                     
+        //    }
+        //}
 
         public ProjectsViewModel Query(Guid ProjectId)
         {

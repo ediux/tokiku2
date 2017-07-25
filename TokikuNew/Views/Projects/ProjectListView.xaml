@@ -59,9 +59,10 @@
                                  vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}" >
             <vm:CommandRoutingManager.CommandParameter>
                 <vm:RoutedViewResult ViewType="{x:Type local:ProjectViewer}"
-                                     SourceInstance="{x:Reference Name=userControl}" Name="ProjectList" 
+                                     SourceInstance="{x:Reference Name=userControl}"
                                      FormatedDisplay="專案:{0}-{1}" 
-                                     DataContent="{Binding SelectedItem ,ElementName=ProjectList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                                     DataContent="{Binding SelectedItem ,ElementName=ProjectList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                     Name="ProjectList">
                     <vm:RoutedViewResult.FormatedParameters>
                         <x:Array Type="sys:String">
                             <sys:String>Code</sys:String>
@@ -71,11 +72,14 @@
                     <vm:RoutedViewResult.RoutingBinding>
                         <sys:String x:Key="Code">Code</sys:String>
                         <sys:String x:Key="ShortName">ShortName</sys:String>
+                        <sys:String x:Key="SelectProjectId">Id</sys:String>
                     </vm:RoutedViewResult.RoutingBinding>
                     <vm:RoutedViewResult.RoutedValues>
-                        <sys:String x:Key="ViewModel">ProjectSource</sys:String>
+                        <sys:Guid x:Key="SelectProjectId"></sys:Guid>
+                        <sys:String x:Key="ViewModel">ProjectsViewModel</sys:String>
                         <x:Type x:Key="SourceViewType" TypeName="l:MainWindow"/>
                         <sys:String x:Key="TabControlName">Workspaces</sys:String>
+                        <sys:String x:Key="ResourceKey">ProjectSource</sys:String>
                     </vm:RoutedViewResult.RoutedValues>
                 </vm:RoutedViewResult>
             </vm:CommandRoutingManager.CommandParameter>

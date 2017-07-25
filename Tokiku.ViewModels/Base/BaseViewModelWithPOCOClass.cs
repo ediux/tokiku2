@@ -427,7 +427,8 @@ namespace Tokiku.ViewModels
                     throw new NullReferenceException();
                 }
 
-                var method = ControllerType.GetMethod(ActionName,values.Select(s=>s != null ? s.GetType() : null).ToArray());
+                //object[] prarms = 
+                var method = ControllerType.GetMethod(ActionName, values.Select(s => s != null ? s.GetType() : typeof(object)).ToArray());
 
                 if (method != null)
                 {

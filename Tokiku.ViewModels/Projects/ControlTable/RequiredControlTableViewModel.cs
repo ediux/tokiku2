@@ -52,12 +52,45 @@ namespace Tokiku.ViewModels
 
         public static RequiredControlTableViewModelCollection Query()
         {
-            return Query<RequiredControlTableViewModelCollection, View_RequiredControlTable>("ControlTable", "QueryAll");
+            try
+            {
+                var coll = Query<RequiredControlTableViewModelCollection, View_RequiredControlTable>("ControlTable", "QueryAll");
+                int i = 1;
+                foreach (var item in coll)
+                {
+                    item.RowIndex = i;
+                    i++;
+                }
+                return coll;
+            }
+            catch (Exception ex)
+            {
+                RequiredControlTableViewModelCollection collection = new RequiredControlTableViewModelCollection();
+                setErrortoModel(collection, ex);
+                return collection;
+            }
         }
 
         public RequiredControlTableViewModelCollection QueryByText(string text)
         {
-            return Query<RequiredControlTableViewModelCollection, View_RequiredControlTable>("ControlTable", "SearchByText", text);
+            try
+            {
+                var coll = Query<RequiredControlTableViewModelCollection, View_RequiredControlTable>("ControlTable", "SearchByText", text);
+                int i = 1;
+                foreach (var item in coll)
+                {
+                    item.RowIndex = i;
+                    i++;
+                }
+                return coll;
+            }
+            catch (Exception ex)
+            {
+                RequiredControlTableViewModelCollection collection = new RequiredControlTableViewModelCollection();
+                setErrortoModel(collection, ex);
+                return collection;
+            }
+            
         }
     }
 
@@ -239,17 +272,37 @@ namespace Tokiku.ViewModels
         #region 到貨狀況 (所有倉別庫存彙總)-重量小計(單位:kg)
         public double? ArrivalCondition_WeightSubtotal
         {
-            get { return CopyofPOCOInstance.ArrivalCondition_WeightSubtotal; }
+            get { return CopyofPOCOInstance.ArrivalCondition_WeightSubtotal;  }
             set { CopyofPOCOInstance.ArrivalCondition_WeightSubtotal = value; RaisePropertyChanged("ArrivalCondition_WeightSubtotal"); }
         }
         #endregion
 
         #region 缺貨數量小計
-
+        public decimal? ArrivalCondition_OutofStock
+        {
+            get { return CopyofPOCOInstance.ArrivalCondition_OutofStock; }
+            set { RaisePropertyChanged("ArrivalCondition_OutofStock"); }
+        }
         #endregion
 
         #region 退貨狀況
-
+        public decimal? ReturnStatus_QuantitySubtotal
+        {
+            get { return CopyofPOCOInstance.ReturnStatus_QuantitySubtotal; }
+            set { RaisePropertyChanged("ReturnStatus_QuantitySubtotal"); }
+        }
         #endregion
+
+        public double? ReturnStatus_WeightSubtotal
+        {
+            get { return CopyofPOCOInstance.ReturnStatus_WeightSubtotal; }
+            set { RaisePropertyChanged("ReturnStatus_WeightSubtotal"); }
+        }
+
+        public double? Receive_QuantitySubtotal
+        {
+            get { return 0; }
+            set { RaisePropertyChanged("Receive_QuantitySubtotal"); }
+        }
     }
 }

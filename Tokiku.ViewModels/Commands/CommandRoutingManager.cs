@@ -168,15 +168,14 @@ namespace Tokiku.ViewModels
                             else
                                 routingdata.RoutedValues["TargetViewModelProvider"] = provider;
 
-                            if (provider.ObjectType.GetInterfaces().OfType<IBaseViewModel>().Any())
+                            if (provider !=null)
                             {
-                                viewmodel = (IBaseViewModel)provider.Data;
-
+                                
 
                                 if (!routingdata.RoutedValues.ContainsKey("TargetViewModelInstance"))
-                                    routingdata.RoutedValues.Add("TargetViewModelInstance", viewmodel);
+                                    routingdata.RoutedValues.Add("TargetViewModelInstance", provider.Data);
                                 else
-                                    routingdata.RoutedValues["TargetViewModelInstance"] = viewmodel;
+                                    routingdata.RoutedValues["TargetViewModelInstance"] = provider.Data;
                             }
                         }
 
@@ -536,25 +535,29 @@ namespace Tokiku.ViewModels
                 if (_Mapping.Count > 0 && _Mapping.ContainsKey(source))
                     _Mapping[source].RemoveWhere(w => w.Name == routingdata.Name);
 
+                routingdata.SourceInstance = source;
+                routingdata.SourceViewType = routingdata.SourceInstance.GetType();
+
+                routingdata.DataContent = source.DataContext;
+
+                if (routingdata.RoutedValues.ContainsKey("SourceViewType"))
+                    routingdata.RoutedValues.Remove("SourceViewType");
+
+                if (routingdata.RoutedValues.ContainsKey("View") == false)
+                    routingdata.RoutedValues.Add("View", routingdata.ViewType);
+
+                if (!routingdata.RoutedValues.ContainsKey("IsDialog"))
+                    routingdata.RoutedValues.Add("IsDialog", true);
+
                 if (_Mapping.ContainsKey(source) == false)
                 {
                     _Mapping.Add(source, new HashSet<RoutedViewResult>());
-
-                    routingdata.SourceInstance = source;
-                    routingdata.SourceViewType = routingdata.SourceInstance.GetType();
-
-                    routingdata.DataContent = source.DataContext;
-
-                    if (routingdata.RoutedValues.ContainsKey("SourceViewType"))
-                        routingdata.RoutedValues.Remove("SourceViewType");
-
-                    if (routingdata.RoutedValues.ContainsKey("View") == false)
-                        routingdata.RoutedValues.Add("View", routingdata.ViewType);
-
-                    if (!routingdata.RoutedValues.ContainsKey("IsDialog"))
-                        routingdata.RoutedValues.Add("IsDialog", true);
-
-                    _Mapping[source].Add(routingdata);
+                    _Mapping[source].Add(routingdata); 
+                }
+                else
+                {
+                    if (!_Mapping[source].Where(w => w.Name == routingdata.Name).Any())
+                        _Mapping[source].Add(routingdata);                    
                 }
             }
             catch
@@ -669,7 +672,7 @@ namespace Tokiku.ViewModels
                         {
                             p.SetValue(d, e.NewValue);
                         }
-                        
+
                     }
                     //var cmdt2 = e.NewValue.GetType().GetProperty("RoutingName");
 
@@ -833,19 +836,18 @@ namespace Tokiku.ViewModels
 
                         if (routeitem.RoutedValues.ContainsKey("UIElement") == false)
                             routeitem.RoutedValues.Add("UIElement", d);
-
-                        if (string.IsNullOrEmpty(((FrameworkElement)d).Name))
-                        {
-                            if (string.IsNullOrEmpty(GetRoutingName(d)))
-                                SetRoutingName(d, string.Format("Route_{0}_{1}", d.GetType().Name, Guid.NewGuid().ToString("N")));
-                        }
                         else
-                        {
-                            if (string.IsNullOrEmpty(GetRoutingName(d)) || GetRoutingName(d) == "Default")
-                                SetRoutingName(d, string.Format("Route_{0}", ((FrameworkElement)d).Name));
-                        }
+                            routeitem.RoutedValues["UIElement"] = d;
 
-                        Register(FindRootElement((FrameworkElement)d), routeitem, GetRoutingName(d));
+                        //if (string.IsNullOrEmpty(GetRoutingName(d)))
+                        //    SetRoutingName(d, string.Format("Route_{0}_{1}", d.GetType().Name, Guid.NewGuid().ToString("N")));
+
+                        if (string.IsNullOrEmpty(routeitem.Name))
+                            routeitem.Name = GetRoutingName(d);
+                        else
+                            SetRoutingName(d, routeitem.Name);
+
+                        Register(FindRootElement((FrameworkElement)d), routeitem, routeitem.Name);
                     }
 
                     var cmdp = ((UIElement)d).GetType().GetProperty("CommandParameter");
@@ -854,7 +856,6 @@ namespace Tokiku.ViewModels
                     {
                         cmdp.SetValue(d, e.NewValue);
                     }
-
 
                 }
 

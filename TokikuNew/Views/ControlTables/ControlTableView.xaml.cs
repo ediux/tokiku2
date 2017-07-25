@@ -60,7 +60,7 @@ namespace TokikuNew.Views
         // Using a DependencyProperty as the backing store for SelectedProjectId.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedProjectIdProperty =
             DependencyProperty.Register("SelectedProjectId", typeof(Guid), typeof(ControlTableView),
-                new PropertyMetadata(Guid.Empty,new PropertyChangedCallback(ProjectShortNameChange)));
+                new PropertyMetadata(Guid.Empty, new PropertyChangedCallback(ProjectShortNameChange)));
 
 
 
@@ -77,6 +77,7 @@ namespace TokikuNew.Views
 
                     if (controltableprovider != null)
                     {
+                        controltableprovider.MethodName = "Query";
                         controltableprovider.MethodParameters[0] = e.NewValue;
                         controltableprovider.Refresh();
                     }
@@ -89,173 +90,9 @@ namespace TokikuNew.Views
             }
         }
 
-        private void Order_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "產生鋁擠型訂製單"));
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
-        }
-
-        private void OrderList_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "鋁擠型訂製單列表"));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
-        }
-
-        private void OrderControlTableView_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "產生訂製單管控表"));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
-        }
-        private void Required_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "產生需求單"));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
-
-        }
-        private void InventoryView_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "產生盤點單"));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
-
-        }
-        private void Shipping_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "產生出貨單"));
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
-        }
-
-        private void ShippingList_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "出貨單列表"));
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
-        }
-
-        private void Receive_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "產生收料單"));
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
-        }
-
-        private void ReceiveList_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "收料單列表"));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
-        }
-
-
-        private void Return_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "產生退貨單"));
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
-        }
-
-
-        private void ReturnList_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "退貨單列表"));
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
-        }
-
-        private void Payment_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "產生請款單"));
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
-        }
-        private void PaymentList_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, "請款單列表"));
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
-        }
-
         private void userControl_Loaded(object sender, RoutedEventArgs e)
         {
-           
+
 
             //RoutedViewResult routing = (RoutedViewResult)TryFindResource("OpenOrderView");
             //routing.RoutedValues["SelectedProject"] = SelectedProject;
@@ -362,7 +199,6 @@ namespace TokikuNew.Views
                 if (source != null)
                 {
                     source.MethodName = "Query";
-                    source.MethodParameters.Clear();
                     source.Refresh();
                 }
             }
@@ -389,8 +225,7 @@ namespace TokikuNew.Views
                 if (source != null)
                 {
                     source.MethodName = "QueryByText";
-                    source.MethodParameters.Clear();
-                    source.MethodParameters.Add(e.Parameter);
+                    source.MethodParameters[0] = e.Parameter;
                     source.Refresh();
                 }
             }
