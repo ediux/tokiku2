@@ -31,9 +31,9 @@
                                              AddingNewItem="ContractList_AddingNewItem"
                                              IsReadOnly="{Binding Mode, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="合約編號" Binding="{Binding ContractNumber}" Width="auto"/>
-                        <DataGridTextColumn Header="專案全名" Binding="{Binding Name}" Width="auto"/>
-                        <DataGridTextColumn Header="簽約日期" Binding="{Binding SigningDate, StringFormat=\{0:yyyy/MM/dd\}}" Width="auto"/>
+                        <DataGridTextColumn Header="合約編號" Binding="{Binding ContractNumber}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                        <DataGridTextColumn Header="專案全名" Binding="{Binding Name}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                        <DataGridTextColumn Header="簽約日期" Binding="{Binding SigningDate, StringFormat=\{0:yyyy/MM/dd\}}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                         <DataGridTemplateColumn Width="auto">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

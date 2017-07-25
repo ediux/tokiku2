@@ -11,11 +11,11 @@
     <Grid>
         <DataGrid AutoGenerateColumns="False" Margin="5" ItemsSource="{Binding}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="請款單號"/>
-                <DataGridTextColumn Header="收料單號"/>
-                <DataGridTextColumn Header="廠商來料單號"/>
-                <DataGridTextColumn Header="建單日期"/>
-                <DataGridTextColumn Header="建單人員"/>
+                <DataGridTextColumn Header="請款單號" Binding="{Binding}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="收料單號" Binding="{Binding}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="廠商來料單號" Binding="{Binding}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="建單日期" Binding="{Binding}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="建單人員" Binding="{Binding}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

@@ -56,20 +56,20 @@
                                  HorizontalScrollBarVisibility="Auto" CanUserAddRows="True"
                                  IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="廠商代號" Width="auto" Binding="{Binding Code}" />
-                <DataGridTextColumn Header="名稱(全名)" Width="auto" Binding="{Binding Path=Name}" />
-                <DataGridTextColumn Header="名稱(簡稱)" Width="auto" Binding="{Binding ShortName}" />
-                <DataGridTextColumn Header="主要聯絡人" Width="auto" Binding="{Binding MainContactPerson}"/>
-                <DataGridTextColumn Header="公司電話" Width="auto" Binding="{Binding Phone}"/>
-                <DataGridTextColumn Header="公司傳真" Width="auto" Binding="{Binding Fax}"/>
-                <DataGridTextColumn Header="電子郵件" Width="auto" Binding="{Binding EMail}"/>
-                <DataGridTextColumn Header="公司地址" Width="auto" Binding="{Binding Address}"/>
-                <DataGridTextColumn Header="負責人" Width="auto" Binding="{Binding Principal}" />
-                <DataGridTextColumn Header="統一編號" Width="auto" Binding="{Binding UniformNumbers}" />
-                <DataGridTextColumn Header="工廠地址" Width="auto" Binding="{Binding FactoryAddress}"/>
-                <DataGridTextColumn Header="工廠電話"  Width="auto" Binding="{Binding FactoryPhone}"/>
-                <DataGridTextColumn Header="工廠傳真" Width="auto" Binding="{Binding FactoryFax}"/>
-                <DataGridTextColumn Header="狀態" Width="auto" Binding="{Binding Void, Converter={StaticResource Void2TextValueConvterver}}" />
+                <DataGridTextColumn Header="廠商代號" Binding="{Binding Code}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="名稱(全名)" Binding="{Binding Path=Name}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="名稱(簡稱)" Binding="{Binding ShortName}" Width="auto"  HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="主要聯絡人" Binding="{Binding MainContactPerson}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="公司電話" Binding="{Binding Phone}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="公司傳真" Binding="{Binding Fax}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="電子郵件" Binding="{Binding EMail}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="公司地址" Binding="{Binding Address}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="負責人" Binding="{Binding Principal}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="統一編號" Binding="{Binding UniformNumbers}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="工廠地址" Binding="{Binding FactoryAddress}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="工廠電話" Binding="{Binding FactoryPhone}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="工廠傳真" Binding="{Binding FactoryFax}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="狀態" Binding="{Binding Void, Converter={StaticResource Void2TextValueConvterver}}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
             </DataGrid.Columns>
         </controls:CustomDataGrid>
     </Grid>

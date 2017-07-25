@@ -81,12 +81,12 @@
             </vm:CommandRoutingManager.CommandParameter>
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="專案代號" Binding="{Binding Code}" Width="100"/>
-                <DataGridTextColumn Header="專案名稱" Binding="{Binding Name}" Width="200*" />
-                <DataGridTextColumn Header="起造日期" Width="120" Binding="{Binding StartDate,StringFormat={}{0:yyyy/MM/dd}}"/>
-                <DataGridTextColumn Header="完工日期" Width="120" Binding="{Binding CompletionDate,StringFormat={}{0:yyyy/MM/dd}}" />
-                <DataGridTextColumn Header="狀態列"  Width="80" Binding="{Binding State, Converter={StaticResource StatesCodeToTextValueConverter}}" />
-                <DataGridTextColumn Header="保固到期日" Width="120" Binding="{Binding WarrantyDate,StringFormat={}{0:yyyy/MM/dd}}"/>
+                <DataGridTextColumn Header="專案代號" Binding="{Binding Code}" Width="100" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="專案名稱" Binding="{Binding Name}" Width="200*" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="起造日期" Width="120" Binding="{Binding StartDate,StringFormat={}{0:yyyy/MM/dd}}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="完工日期" Width="120" Binding="{Binding CompletionDate,StringFormat={}{0:yyyy/MM/dd}}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="狀態列"  Width="80" Binding="{Binding State, Converter={StaticResource StatesCodeToTextValueConverter}}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="保固到期日" Width="120" Binding="{Binding WarrantyDate,StringFormat={}{0:yyyy/MM/dd}}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

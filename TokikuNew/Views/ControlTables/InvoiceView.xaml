@@ -118,14 +118,14 @@
                                 <Button Name="btnNew" Grid.Row="0" Grid.Column="2" Margin="1" Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" Click="btnNew_Click" />
                                 <DataGrid Grid.Row="1" Grid.ColumnSpan="3">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="" Width="auto" />
-                                        <DataGridTextColumn Header="項次" Width="auto" />
-                                        <DataGridTextColumn Header="東菊編號" Width="auto" />
-                                        <DataGridTextColumn Header="廠商" Width="auto" />
-                                        <DataGridTextColumn Header="廠商編號" Width="auto" />
-                                        <DataGridTextColumn Header="材質" Width="auto" />
-                                        <DataGridTextColumn Header="單位重量(kg/m)" Width="auto" />
-                                        <DataGridTextColumn Header="訂購長度(mm)" Width="auto" />
+                                        <DataGridTextColumn Header="" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn Header="項次" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn Header="東菊編號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn Header="廠商" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn Header="廠商編號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn Header="材質" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn Header="單位重量(kg/m)" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn Header="訂購長度(mm)" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                                         <DataGridTemplateColumn >
                                             <DataGridTemplateColumn.HeaderTemplate>
                                                 <DataTemplate>
@@ -171,14 +171,14 @@
                 <Grid Background="#FFE5E5E5">
                     <DataGrid Height="520" Margin="0,0,175,0" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource InvoicesSource}}">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="收料日期"/>
-                            <DataGridTextColumn Header="收料單號"/>
-                            <DataGridTextColumn Header="廠商來料單號"/>
-                            <DataGridTextColumn Header="收料數量"/>
-                            <DataGridTextColumn Header="已請款數量"/>
-                            <DataGridTextColumn Header="待請款數量"/>
-                            <DataGridTextColumn Header="本次請款數量"/>
-                            <DataGridTextColumn Header="勾選"/>
+                            <DataGridTextColumn Header="收料日期" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="收料單號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="廠商來料單號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="收料數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="已請款數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="待請款數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="本次請款數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="勾選" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                         </DataGrid.Columns>
                     </DataGrid>
                     <StackPanel Margin="0,91,34,250" Width="104" HorizontalAlignment="Right">
@@ -193,22 +193,22 @@
                 <Grid Background="#FFE5E5E5">
                     <DataGrid>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="訂製單號"/>
-                            <DataGridTextColumn Header="批號"/>
-                            <DataGridTextColumn Header="東菊編號"/>
-                            <DataGridTextColumn Header="大同編號"/>
-                            <DataGridTextColumn Header="材質"/>
-                            <DataGridTextColumn Header="單位重(kg/m)"/>
-                            <DataGridTextColumn Header="訂購長度(mm)"/>
-                            <DataGridTextColumn Header="訂製數量"/>
-                            <DataGridTextColumn Header="總收料數量"/>
-                            <DataGridTextColumn Header="已請款數量"/>
-                            <DataGridTextColumn Header="待請款數量"/>
-                            <DataGridTextColumn Header="本次請款數量"/>
-                            <DataGridTextColumn Header="保留款比例(%)"/>
-                            <DataGridTextColumn Header="kg單價"/>
-                            <DataGridTextColumn Header="保留款金額"/>
-                            <DataGridTextColumn Header="2016-10-12"/>
+                            <DataGridTextColumn Header="訂製單號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="批號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="東菊編號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="大同編號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="材質" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="單位重(kg/m)" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="訂購長度(mm)" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="訂製數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="總收料數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="已請款數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="待請款數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="本次請款數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="保留款比例(%)" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="kg單價" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="保留款金額" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="2016-10-12" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                         </DataGrid.Columns>
                     </DataGrid>
 
@@ -220,11 +220,11 @@
                 <Grid Background="#FFE5E5E5" Margin="0,2,0,-2">
                     <DataGrid>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="材質"/>
-                            <DataGridTextColumn Header="kg單價"/>
-                            <DataGridTextColumn Header="重量"/>
-                            <DataGridTextColumn Header="總價"/>
-                            <DataGridTextColumn Header="數量"/>
+                            <DataGridTextColumn Header="材質" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="kg單價" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="重量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="總價" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                         </DataGrid.Columns>
                     </DataGrid>
 
@@ -234,16 +234,16 @@
                 <Grid Background="#FFE5E5E5" Margin="0,2,0,-2">
                     <DataGrid>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="訂製單號"/>
-                            <DataGridTextColumn Header="批號"/>
-                            <DataGridTextColumn Header="項目"/>
-                            <DataGridTextColumn Header="說明"/>
-                            <DataGridTextColumn Header="單價"/>
-                            <DataGridTextColumn Header="數量"/>
-                            <DataGridTextColumn Header="金額"/>
-                            <DataGridTextColumn Header="已請款"/>
-                            <DataGridTextColumn Header="待請款"/>
-                            <DataGridTextColumn Header="本次請款"/>
+                            <DataGridTextColumn Header="訂製單號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="批號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="項目" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="說明" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="單價" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="金額" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="已請款" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="待請款" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="本次請款" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                         </DataGrid.Columns>
                     </DataGrid>
 
@@ -267,9 +267,9 @@
                 <Grid Background="#FFE5E5E5">
                     <DataGrid>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="預付款說明"/>
-                            <DataGridTextColumn Header="金額"/>
-                            <DataGridTextColumn Header="已沖銷金額"/>
+                            <DataGridTextColumn Header="預付款說明" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="金額" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="已沖銷金額" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                         </DataGrid.Columns>
                     </DataGrid>
 

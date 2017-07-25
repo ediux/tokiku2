@@ -260,10 +260,10 @@
                                       ItemsSource="{Binding TranscationRecords}"
                                       >
                     <c:CustomDataGrid.Columns>
-                        <DataGridTextColumn Header="工程代碼" Binding="{Binding Code}" Width="auto"/>
-                        <DataGridTextColumn Header="工程名稱" Binding="{Binding Name}" Width="auto"/>
-                        <DataGridTextColumn Header="交易品項" Binding="{Binding TranscationItemName}" Width="auto"/>
-                        <DataGridTextColumn Header="訂單日期" Binding="{Binding StartDate, StringFormat=\{0:yyyy/MM/dd\}}" Width="auto"/>
+                        <DataGridTextColumn Header="工程代碼" Binding="{Binding Code}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                        <DataGridTextColumn Header="工程名稱" Binding="{Binding Name}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                        <DataGridTextColumn Header="交易品項" Binding="{Binding TranscationItemName}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                        <DataGridTextColumn Header="訂單日期" Binding="{Binding StartDate, StringFormat=\{0:yyyy/MM/dd\}}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                     </c:CustomDataGrid.Columns>
                 </c:CustomDataGrid>
             </GroupBox>

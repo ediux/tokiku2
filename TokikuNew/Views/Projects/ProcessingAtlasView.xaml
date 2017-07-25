@@ -25,15 +25,15 @@
                                  RowEditEnding="com2_RowEditEnding"
                                  IsReadOnly="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}">
             <Controls:CustomDataGrid.Columns>
-                <DataGridTextColumn Header="順序" Binding="{Binding Order,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" />
-                <DataGridTextColumn Header="合約編號" Binding="{Binding ContractNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" />
-                <DataGridTextColumn Header="圖集" Binding="{Binding Atlas,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" />
-                <DataGridTextColumn Header="名稱" Binding="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" />
-                <DataGridTextColumn Header="更新次數" Binding="{Binding UpdateTimes,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" />
-                <DataGridTextColumn Header="最新日期" Binding="{Binding LastUpdate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" />
-                <DataGridTextColumn Header="施工順序異動日期" Binding="{Binding ConstructionOrderChangeDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" />
-                <DataGridTextColumn Header="收圖日期" Width="auto" />
-                <DataGridTextColumn Header="發圖日期" Width="auto" />
+                <DataGridTextColumn Header="順序" Binding="{Binding Order,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="合約編號" Binding="{Binding ContractNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="圖集" Binding="{Binding Atlas,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="名稱" Binding="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="更新次數" Binding="{Binding UpdateTimes,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="最新日期" Binding="{Binding LastUpdate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="施工順序異動日期" Binding="{Binding ConstructionOrderChangeDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="收圖日期" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="發圖日期" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

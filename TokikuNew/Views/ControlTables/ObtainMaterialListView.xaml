@@ -14,11 +14,11 @@
         <DataGrid x:Name="CheckGrid" AutoGenerateColumns="False" CanUserAddRows="True"
                   Margin="5" ItemsSource="{Binding Source={StaticResource ObtainMaterialListSource}}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="領料單號" Width="auto" />
-                <DataGridTextColumn Header="領料倉別" Width="auto" />
-                <DataGridTextColumn Header="申請日期" Width="auto" />
-                <DataGridTextColumn Header="交易品項" Width="auto" />
-                <DataGridTextColumn Header="加工廠商" Width="auto" />
+                <DataGridTextColumn Header="領料單號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="領料倉別" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="申請日期" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="交易品項" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="加工廠商" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                 <DataGridTemplateColumn Width="auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

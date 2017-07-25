@@ -37,14 +37,14 @@
                         </Style>
                     </DataGridCheckBoxColumn.CellStyle>
                 </DataGridCheckBoxColumn>
-                <DataGridTextColumn Header="姓名" Binding="{Binding Name}" Width="auto" />
-                <DataGridTextColumn Header="行動電話" Binding="{Binding Mobile}" Width="auto" />
-                <DataGridTextColumn Header="電話" Binding="{Binding Phone}" Width="auto" />
-                <DataGridTextColumn Header="分機" Binding="{Binding ExtensionNumber}" Width="auto" />
-                <DataGridTextColumn Header="傳真" Binding="{Binding Fax}" Width="auto"/>
-                <DataGridTextColumn Header="eMail" Binding="{Binding EMail}" Width="auto" />
-                <DataGridTextColumn Header="部門" Binding="{Binding Dep}" Width="auto" />
-                <DataGridTextColumn Header="職稱" Binding="{Binding Title}" Width="auto" />
+                <DataGridTextColumn Header="姓名" Binding="{Binding Name}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="行動電話" Binding="{Binding Mobile}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="電話" Binding="{Binding Phone}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="分機" Binding="{Binding ExtensionNumber}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="傳真" Binding="{Binding Fax}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="eMail" Binding="{Binding EMail}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="部門" Binding="{Binding Dep}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="職稱" Binding="{Binding Title}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

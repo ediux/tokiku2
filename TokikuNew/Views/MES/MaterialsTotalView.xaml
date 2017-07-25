@@ -39,24 +39,24 @@
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="圖例" Width="auto"/>
-                <DataGridTextColumn Header="使用位置" Width="auto"/>
-                <DataGridTextColumn Header="東菊編號" Width="auto"/>
-                <DataGridTextColumn Header="廠商" Width="auto"/>
-                <DataGridTextColumn Header="廠商編號" Width="auto"/>
-                <DataGridTextColumn Header="材質" Width="auto"/>
-                <DataGridTextColumn Header="單位重(kg/M)" Width="auto"/>
-                <DataGridTextColumn Header="表面處理" Width="auto"/>
-                <DataGridTextColumn Header="烤漆面積(㎡)" Width="auto"/>
-                <DataGridTextColumn Header="皮膜處理(kg)" Width="auto"/>
-                <DataGridTextColumn Header="最低產量" Width="auto"/>
-                <DataGridTextColumn Header="生產錠徑" Width="auto"/>
-                <DataGridTextColumn Header="模具費用" Width="auto"/>
-                <DataGridTextColumn Header="訂單總重量" Width="auto"/>
-                <DataGridTextColumn Header="模具使用狀況" Width="auto"/>
-                <DataGridTextColumn Header="備註" Width="auto"/>
-                <DataGridTextColumn Header="異動人員" Width="auto"/>
-                <DataGridTextColumn Header="異動日期" Width="auto"/>
+                <DataGridTextColumn Header="圖例" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="使用位置" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="東菊編號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="廠商" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="廠商編號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="材質" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="單位重(kg/M)" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="表面處理" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="烤漆面積(㎡)" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="皮膜處理(kg)" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="最低產量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="生產錠徑" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="模具費用" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="訂單總重量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="模具使用狀況" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="備註" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="異動人員" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="異動日期" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
