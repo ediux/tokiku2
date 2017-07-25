@@ -44,7 +44,7 @@
                     <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
                 <controls:SearchBar x:Name="sSearchBar" Grid.Column="0"/>
-                <Button Name="btnNew" Grid.Column="1" Margin="2,1" Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenNewManufacturer}" CommandManager.PreviewCanExecute="btnNew_PreviewCanExecute" ToolTip="新增"/>
+                <Button Name="btnNew" Grid.Column="1" Margin="2,1" Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenNewManufacture}" vm:CommandRoutingManager.RoutingName="ManufacturersManageView" ToolTip="新增"/>
             </Grid>
         </Grid>
         <controls:CustomDataGrid x:Name="VendorList" AllowExecuteSystemCommand="False" Grid.Row="1" Margin="5"
