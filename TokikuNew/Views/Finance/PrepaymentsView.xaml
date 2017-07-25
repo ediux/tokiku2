@@ -76,15 +76,15 @@
                               CanUserDeleteRows="True"
                               ><!-- ItemsSource="{Binding Source={StaticResource InventoryListSource}}" -->
                 <c:CustomDataGrid.Columns>
-                    <DataGridTextColumn Header="項次" Width="auto" Binding="{Binding FormNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <DataGridTextColumn Header="交易類別" Width="auto" Binding="{Binding FormNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <DataGridTextColumn Header="交易品項" Width="auto" Binding="{Binding FormNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <DataGridTextColumn Header="品名/規格" Width="auto" Binding="{Binding FormNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <DataGridTextColumn Header="單位" Width="auto" Binding="{Binding FormNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <DataGridTextColumn Header="數量" Width="auto" Binding="{Binding FormNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <DataGridTextColumn Header="預付金額(未稅)" Width="auto" Binding="{Binding FormNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <DataGridTextColumn Header="稅額" Width="auto" Binding="{Binding FormNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <DataGridTextColumn Header="備註" Width="auto" Binding="{Binding FormNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <DataGridTextColumn Header="項次" Width="auto" Binding="{Binding FormNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="交易類別" Width="auto" Binding="{Binding FormNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="交易品項" Width="auto" Binding="{Binding FormNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="品名/規格" Width="auto" Binding="{Binding FormNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="單位" Width="auto" Binding="{Binding FormNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="數量" Width="auto" Binding="{Binding FormNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="預付金額(未稅)" Width="auto" Binding="{Binding FormNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="稅額" Width="auto" Binding="{Binding FormNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="備註" Width="auto" Binding="{Binding FormNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                     
                 </c:CustomDataGrid.Columns>
             </c:CustomDataGrid>
