@@ -297,16 +297,6 @@ namespace Tokiku.ViewModels
                 RaisePropertyChanged("Note");
             }
         }
-        private ICommand _SaveCommand = new RoutedCommand();
-
-        /// <summary>
-        /// 儲存命令
-        /// </summary>
-        public ICommand SaveCommand
-        {
-            get => _SaveCommand;
-            set => _SaveCommand = value;
-        }
     }
 
     public class OrderDetailViewModel : BaseViewModelWithPOCOClass<AluminumExtrusionOrderEntity>

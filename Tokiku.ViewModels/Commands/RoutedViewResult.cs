@@ -12,10 +12,27 @@ namespace Tokiku.ViewModels
         {
             RoutedValues = new Dictionary<string, object>();
             RoutingBinding = new Dictionary<string, string>();
-            ReplyCommand = new RelayCommand((x) => {
+            ReplyCommand = new RelayCommand((x) =>
+            {
 
             });
         }
+       
+
+        /// <summary>
+        /// 路由名稱
+        /// </summary>
+        public string Name
+        {
+            get { return (string)GetValue(NameProperty); }
+            set { SetValue(NameProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Name.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty NameProperty =
+            DependencyProperty.Register("Name", typeof(string), typeof(RoutedViewResult), new PropertyMetadata("Default"));
+
+
 
         public string DisplayText
         {
@@ -54,13 +71,35 @@ namespace Tokiku.ViewModels
         public static readonly DependencyProperty FormatedParametersProperty =
             DependencyProperty.Register("FormatedParameters", typeof(object[]), typeof(RoutedViewResult), new PropertyMetadata(null));
 
+        /// <summary>
+        /// View的型別
+        /// </summary>
+        public Type ViewType
+        {
+            get { return (Type)GetValue(ViewTypeProperty); }
+            set { SetValue(ViewTypeProperty, value); }
+        }
 
-        //public object[] FormatedParameters { get; set; }
+        // Using a DependencyProperty as the backing store for ViewType.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ViewTypeProperty =
+            DependencyProperty.Register("ViewType", typeof(Type), typeof(RoutedViewResult), new PropertyMetadata(null));
 
-        public Type ViewType { get; set; }
+        /// <summary>
+        /// 來源View的型別        
+        /// </summary>
+        public Type SourceViewType
+        {
+            get { return (Type)GetValue(SourceViewTypeProperty); }
+            set { SetValue(SourceViewTypeProperty, value); }
+        }
 
-        public Type SourceViewType { get; set; }
+        // Using a DependencyProperty as the backing store for SourceViewType.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SourceViewTypeProperty =
+            DependencyProperty.Register("SourceViewType", typeof(Type), typeof(RoutedViewResult), new PropertyMetadata(null));
 
+        /// <summary>
+        /// 來源執行個體參考
+        /// </summary>
         public object SourceInstance
         {
             get { return (object)GetValue(SourceInstanceProperty); }

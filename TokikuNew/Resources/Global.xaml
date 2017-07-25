@@ -71,12 +71,13 @@
     <RoutedUICommand x:Key="Cancel" Text="取消" />
     <RoutedUICommand x:Key="AddColumn" Text="新增行"/>
     <RoutedUICommand x:Key="AddRow" Text="新增列"/>
-    <vm:RedirectCommand x:Key="OpenNewTabItem"  />
-    <RoutedUICommand x:Key="CloseTabItem" Text="關閉分頁"/>
-    <vm:CloseWindwCommand x:Key="CloseWindow" />
+    <vm:OpenNewTabItem x:Key="OpenNewTabItem"  />
+    <vm:CloseMultiPageContentCommand x:Key="CloseTabItem" />
+    <vm:CloseWindowCommand x:Key="CloseWindow" />
     <RoutedUICommand x:Key="ResetFiliter" Text="重設查詢" />
     <RoutedUICommand x:Key="QueryRefresh" Text="重新整理查詢" />
-    <RoutedUICommand x:Key="Reply" Text="轉送" />
+    <vm:RelayCommand x:Key="Reply" />
+    
     <Style TargetType="TextBlock">
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
@@ -89,15 +90,24 @@
         <vm:RoutedViewResult.RoutedValues>
             <x:Static Member="sys:Guid.Empty" x:Key="SelectedProjectId"></x:Static>
             <vm:DocumentLifeCircle x:Key="Mode">Create</vm:DocumentLifeCircle>
+            <x:Type x:Key="SourceViewType" TypeName="l:MainWindow"/>
+            <sys:String x:Key="TabControlName">Workspaces</sys:String>
         </vm:RoutedViewResult.RoutedValues>
     </vm:RoutedViewResult>
-    <vm:RoutedViewResult DisplayText="廠商列表" AttachedTargetElementName="Workspaces" ViewType="{x:Type view:VendorListView}" x:Key="OpenVendorListView">
+    <vm:RoutedViewResult DisplayText="廠商列表" AttachedTargetElementName="Workspaces" 
+                         Name="OpenVendorListView"
+                         ViewType="{x:Type view:VendorListView}" x:Key="OpenVendorListView">
         <vm:RoutedViewResult.RoutedValues>
             <x:Type x:Key="SourceViewType" TypeName="l:MainWindow"/>
             <sys:String x:Key="TabControlName">Workspaces</sys:String>
         </vm:RoutedViewResult.RoutedValues>
     </vm:RoutedViewResult>
-    <vm:RoutedViewResult DisplayText="客戶列表" ViewType="{x:Type view:ClientListView}" AttachedTargetElementName="Workspaces" x:Key="OpenClientListView" />
+    <vm:RoutedViewResult DisplayText="客戶列表" ViewType="{x:Type view:ClientListView}" AttachedTargetElementName="Workspaces" x:Key="OpenClientListView">
+        <vm:RoutedViewResult.RoutedValues>
+            <x:Type x:Key="SourceViewType" TypeName="l:MainWindow"/>
+            <sys:String x:Key="TabControlName">Workspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
 
     <vm:RoutedViewResult DisplayText="新增廠商" ViewType="{x:Type view:ManufacturersManageView}" AttachedTargetElementName="Workspaces" x:Key="OpenNewManufactureView"/>
     <vm:RoutedViewResult DisplayText="新增客戶" ViewType="{x:Type view:ClientManageView}" AttachedTargetElementName="Workspaces" x:Key="OpenNewClient" />

@@ -8,10 +8,10 @@
         xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
         mc:Ignorable="d"        
         Title="東菊金屬 ERP System" Height="768" Width="1366" WindowState="Maximized" Icon="{DynamicResource Logo}"
-        Loaded="Window_Loaded" Background="{DynamicResource WindowBackgroundBrush}"
+        Loaded="Window_Loaded" Background="{DynamicResource WindowBackgroundBrush}" 
         Initialized="Window_Initialized">
     <Window.Resources>
-        <vm:RedirectCommand x:Key="redirect" SourceInstance="{x:Reference Name=mainwindow}"/>
+        <vm:RedirectCommand x:Key="redirect" RoutingName="MainWindow" />
     </Window.Resources>
     <!--<Window.CommandBindings>
         <CommandBinding x:Name="OpenNewTabItemCommand" Command="{StaticResource OpenNewTabItem}"
@@ -27,7 +27,7 @@
             </Grid.RowDefinitions>
             <Menu Grid.Row="0">
                 <MenuItem Header="主檔" Name="MI_Main" >
-                    <MenuItem Header="廠商主檔" Name="MI_Main_Vendor" Command="{StaticResource OpenNewTabItem}" CommandParameter="{StaticResource OpenVendorListView}" CommandTarget="{Binding ElementName=mainwindow,Path=CommandTarget,Mode=OneWay}"/>
+                    <MenuItem Header="廠商主檔" Name="MI_Main_Vendor" vm:CommandRoutingManager.Command="{Binding Source={ StaticResource OpenNewTabItem}}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenVendorListView}" vm:CommandRoutingManager.RoutingName="OpenVendorListView"/>
                     <MenuItem Header="客戶主檔" Name="MI_Main_Client" Command="{Binding Source={StaticResource OpenNewTabItem}}" CommandParameter="{StaticResource OpenClientListView}"/>
                     <MenuItem Header="模具總表" Name="MI_Main_Molds" Command="{Binding Source={StaticResource OpenNewTabItem}}" CommandParameter="{StaticResource OpenMaterialsTotalView}"/>
                 </MenuItem>

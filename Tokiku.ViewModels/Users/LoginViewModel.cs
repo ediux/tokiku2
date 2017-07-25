@@ -62,9 +62,9 @@ namespace Tokiku.ViewModels
                 {
                     LoginCommand Login = (LoginCommand)RelayCommand;
                     RedirectCommand Redirect = new RedirectCommand();
-                    Redirect.SourceInstance = Login.SourceInstance;
+                    //Redirect.SourceInstance = Login.SourceInstance;
                     Redirect.Execute(Parameter);
-                    ((Window)Redirect.SourceInstance).Close();
+                    //((Window)Redirect.SourceInstance).Close();
                 }
             }
             catch (Exception ex)

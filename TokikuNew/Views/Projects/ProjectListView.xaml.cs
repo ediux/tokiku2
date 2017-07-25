@@ -159,18 +159,10 @@ namespace TokikuNew.Views
 
         private void QueryCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
+
             e.Handled = true;
 
-            ObjectDataProvider source = (ObjectDataProvider)FindResource("ProjoectListSource");
-
-            if (source != null)
-            {
-                ProjectListViewModelCollection list = (ProjectListViewModelCollection)source.Data;
-                e.CanExecute = true;
-                return;
-            }
-
-            e.CanExecute = false;
+            e.CanExecute = true;
 
         }
 

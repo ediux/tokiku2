@@ -6,11 +6,11 @@ namespace Tokiku.ViewModels
 {
     public class RedirectCommand : ICommand
     {
-        public object SourceInstance { get; set; }
+        public string RoutingName { get; set; }
 
         public RedirectCommand()
         {
-
+            RoutingName = "Default";
         }
 
         public event EventHandler CanExecuteChanged
@@ -46,7 +46,21 @@ namespace Tokiku.ViewModels
 
         public void Execute(object parameter)
         {
-            CommandRoutingManager.Redirect((UIElement)SourceInstance, (parameter is RoutedViewResult) ? (RoutedViewResult)parameter : null);
+            RoutedViewResult routingdata = (parameter is RoutedViewResult) ? (RoutedViewResult)parameter : null;
+
+            if (routingdata == null)
+                return;
+
+            CommandRoutingManager.HandleCommand(this, parameter, routingdata.Name);
+
+            if (routingdata.RoutedValues.ContainsKey("TargetInstance"))
+            {
+                if (routingdata.RoutedValues["TargetInstance"] is Window)
+                {
+                    OpenWindowCommand openwindowcmd = new OpenWindowCommand();
+                    openwindowcmd.Execute(parameter);
+                }
+            }
         }
     }
 }

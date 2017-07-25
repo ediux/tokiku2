@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TokikuNew"
         xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="東菊金屬 ERP System" Height="300" Width="400" 
         WindowStyle="None" 
@@ -47,10 +48,20 @@
             <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
                 <Button Name="btnLogin" Content="登入" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"  vm:CommandRoutingManager.Command="{Binding RelayCommand}" IsDefault="True" TabIndex="3">
                     <vm:CommandRoutingManager.CommandParameter>
-                        <vm:RoutedViewResult ViewType="{x:Type local:MainWindow}"/>
+                        <vm:RoutedViewResult ViewType="{x:Type local:MainWindow}" Name="btnLogin">
+                            <vm:RoutedViewResult.RoutedValues>
+                                <sys:Boolean x:Key="IsOwnerHide">True</sys:Boolean>
+                            </vm:RoutedViewResult.RoutedValues>
+                        </vm:RoutedViewResult>
                     </vm:CommandRoutingManager.CommandParameter>
                 </Button>
-                <Button Name="btnCancel" Content="取消" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" vm:CommandRoutingManager.Command="{StaticResource CloseWindow}" IsCancel="True" TabIndex="4" />
+                <Button Name="btnCancel" Content="取消" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" vm:CommandRoutingManager.Command="{StaticResource CloseWindow}" IsCancel="True" TabIndex="4">
+                    <vm:CommandRoutingManager.CommandParameter>
+                        <vm:RoutedViewResult SourceInstance="{x:Reference window}" Name="CloseApp">
+                            
+                        </vm:RoutedViewResult>
+                    </vm:CommandRoutingManager.CommandParameter>
+                </Button>
             </StackPanel>
         </Grid>
     </Grid>

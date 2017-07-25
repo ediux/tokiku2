@@ -16,8 +16,8 @@ namespace TokikuNew.Views
     /// </summary>
     public partial class ProjectViewer : UserControl
     {
-        private ProjectsController controller = new ProjectsController();
-        private ProjectContractController projectcontractcontroller = new ProjectContractController();
+        //private ProjectsController controller = new ProjectsController();
+        //private ProjectContractController projectcontractcontroller = new ProjectContractController();
 
         //public Guid SelectedProjectId
         //{

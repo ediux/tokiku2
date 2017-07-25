@@ -23,7 +23,7 @@ namespace TokikuNew.Controls
 
                 AutoGenerateColumns = false;
 
-                CommandRoutingManager.SetCommand(this, new RedirectCommand() { SourceInstance = CommandRoutingManager.FindRootElement(this) });
+                CommandRoutingManager.SetCommand(this, new RedirectCommand());
                 
                 if (ItemsSource != null)
                     DataSourceType = ItemsSource.GetType();

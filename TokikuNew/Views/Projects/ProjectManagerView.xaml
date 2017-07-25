@@ -14,7 +14,6 @@
              d:DesignHeight="768" d:DesignWidth="1366" Loaded="UserControl_Loaded" 
              Initialized="userControl_Initialized" >
     <UserControl.Resources>
-
         <vm:RoutedViewResult x:Key="OpenAluminumProcessingControlTable" AttachedTargetElementName="InnerWorkspaces"
                                   DisplayText="鋁擠型加工"               
                                   ViewType="{x:Type local:ControlTableView}">
@@ -121,7 +120,7 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="27"/>
                             </Grid.ColumnDefinitions>
-                            <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Column="0" Margin="2" Text="{Binding Client.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" KeyDown="TextBox_KeyDown" 
+                            <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Column="0" Margin="2" Text="{Binding Client.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" KeyDown="TextBox_KeyDown" 
                                       Height="23" VerticalAlignment="Bottom" />
                             <Button Style="{DynamicResource ReadModeSwitch_Button}" x:Name="btnClientDialog" Margin="2" Grid.Column="1" Content="&#xE10C;" FontFamily="/Resources/#Segoe MDL2 Assets" Click="btnClientDialog_Click" />
                         </Grid>

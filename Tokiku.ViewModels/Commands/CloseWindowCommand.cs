@@ -3,24 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Tokiku.ViewModels
 {
-    public class RelayCommand : ICommand
+    public class CloseWindowCommand : ICommand
     {
-        private Action<object> execute;
-        private Func<object, bool> canExecute;
-
-        public RelayCommand():this((x)=> { })
+        public object SourceInstance
         {
-
-        }
-
-        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
-        {
-            this.execute = execute;
-            this.canExecute = canExecute;
+            get;
+            set;
         }
 
         public event EventHandler CanExecuteChanged
@@ -31,12 +24,17 @@ namespace Tokiku.ViewModels
 
         public bool CanExecute(object parameter)
         {
-            return this.canExecute == null || this.canExecute(parameter);
+            return true;
         }
 
         public void Execute(object parameter)
         {
-            this.execute(parameter);
+            RoutedViewResult executeresult = (parameter is RoutedViewResult) ? (RoutedViewResult)parameter : null;
+
+            if (executeresult.SourceInstance is Window)
+            {
+                ((Window)executeresult.SourceInstance).Close();
+            }
         }
     }
 }

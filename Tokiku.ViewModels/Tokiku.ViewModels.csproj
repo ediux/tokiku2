@@ -53,10 +53,14 @@
   <ItemGroup>
     <Compile Include="Base\CommandRoutingManager.cs" />
     <Compile Include="Base\ISingleBaseViewModel.cs" />
+    <Compile Include="Commands\BridgingCommand.cs" />
     <Compile Include="Commands\CloseMultiPageContentCommand.cs" />
+    <Compile Include="Commands\CloseWindowCommand.cs" />
     <Compile Include="Commands\CloseWindwCommand.cs" />
     <Compile Include="Commands\KeyPressNextFocusCommand.cs" />
     <Compile Include="Commands\LoginCommand.cs" />
+    <Compile Include="Commands\OpenTabItemCommand.cs" />
+    <Compile Include="Commands\OpenWindowCommand.cs" />
     <Compile Include="Commands\RedirectCommand.cs" />
     <Compile Include="Commands\RoutedViewResult.cs" />
     <Compile Include="ControlTables\ObtainMaterialListViewModel.cs" />

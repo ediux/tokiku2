@@ -15,6 +15,8 @@ namespace Tokiku.ViewModels
             set;
         }
 
+    
+
         private Action<object> execute;
 
         public LoginCommand() : this((x) => { })

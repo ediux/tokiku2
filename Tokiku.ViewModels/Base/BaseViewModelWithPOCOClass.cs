@@ -259,7 +259,7 @@ namespace Tokiku.ViewModels
                 {
                     return (DateTime?)_EntityType.GetProperty("LastUpdateDate").GetValue(CopyofPOCOInstance);
                 }
-                catch (Exception ex)
+                catch
                 {
                     return null;
                 }
