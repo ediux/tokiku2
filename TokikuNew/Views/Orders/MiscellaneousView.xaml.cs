@@ -17,17 +17,17 @@ using Tokiku.ViewModels;
 namespace TokikuNew.Views
 {
     /// <summary>
-    /// AluminumExtrusionOrderMiscellaneousView.xaml 的互動邏輯
+    /// MiscellaneousView.xaml 的互動邏輯
     /// </summary>
-    public partial class AluminumExtrusionOrderMiscellaneousView : UserControl
+    public partial class MiscellaneousView : UserControl
     {
-        public AluminumExtrusionOrderMiscellaneousView()
+        public MiscellaneousView()
         {
             InitializeComponent();
             
         }
 
-        private void AluminumExtrusionOrderMiscellaneousView_Loaded(object sender, RoutedEventArgs e)
+        private void MiscellaneousView_Loaded(object sender, RoutedEventArgs e)
         {
             try {
                 //AluminumExtrusionOrderMiscellaneousViewModelCollection coll = new AluminumExtrusionOrderMiscellaneousViewModelCollection();
