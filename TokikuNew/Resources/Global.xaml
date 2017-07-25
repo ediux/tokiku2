@@ -178,14 +178,14 @@
     </vm:RoutedViewResult>
 
     <vm:RoutedViewResult x:Key="OpenAluminumProcessingControlTable" AttachedTargetElementName="InnerWorkspaces"
-                                  DisplayText="鋁擠型加工"      
+                                  DisplayText="鋁擠型材料"      
                                     Name="OpenAluminumProcessingControlTable"
                                   ViewType="{x:Type view:ControlTableView}">
         <vm:RoutedViewResult.RoutingBinding>
             <sys:String x:Key="SelectedProjectId">SelectedProjectId</sys:String>
         </vm:RoutedViewResult.RoutingBinding>
         <vm:RoutedViewResult.RoutedValues>
-            <sys:String x:Key="FormName" >鋁擠型加工</sys:String>
+            <sys:String x:Key="FormName" >鋁擠型材料</sys:String>
             <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
             <sys:Guid x:Key="SelectedProjectId"></sys:Guid>
             <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
@@ -194,12 +194,12 @@
     <vm:RoutedViewResult x:Key="OpenProcessingView" AttachedTargetElementName="InnerWorkspaces"
                          Name="OpenProcessingView"
                          SourceViewType="{x:Type view:ProjectManagerView}"
-                         DisplayText="鋁擠型加工" ViewType="{x:Type view:AluminumExtrusionProcessingView}">
+                         DisplayText="鋁擠型加工管控表" ViewType="{x:Type view:AluminumExtrusionProcessingView}">
         <vm:RoutedViewResult.RoutingBinding>
             <sys:String x:Key="SelectedProjectId">Id</sys:String>
         </vm:RoutedViewResult.RoutingBinding>
         <vm:RoutedViewResult.RoutedValues>
-            <sys:String x:Key="FormName" >鋁擠型加工</sys:String>
+            <sys:String x:Key="FormName" >鋁擠型加工管控表</sys:String>
             <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
             <sys:Guid x:Key="SelectedProjectId"></sys:Guid>
             <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
@@ -207,12 +207,24 @@
         </vm:RoutedViewResult.RoutedValues>
     </vm:RoutedViewResult>
 
-    <!-- 品質異常單,TokikuNew.QualityAbnormallySingleView -->
-    <vm:RoutedViewResult x:Key="OpenQualityAbnormallySingleView" AttachedTargetElementName="InnerWorkspaces"
-                         DisplayText="請款單" ViewType="{x:Type view:QualityAbnormallySingleView}" />
-    <!-- 品質異常單列表,TokikuNew.QualityAbnormallySingleListView -->
-    <vm:RoutedViewResult x:Key="OpenQualityAbnormallySingleListView" AttachedTargetElementName="InnerWorkspaces"
-                         DisplayText="請款單" ViewType="{x:Type view:QualityAbnormallySingleListView}" />
+    <!-- 訂製單,TokikuNew.QualityAbnormallySingleView -->
+    <vm:RoutedViewResult x:Key="OpenOrderSheet" AttachedTargetElementName="InnerWorkspaces"
+                         DisplayText="訂製單" ViewType="{x:Type view:AluminumExtrusionOrderSheetView}" />
+    <!-- 訂製單列表,TokikuNew.QualityAbnormallySingleListView -->
+    <vm:RoutedViewResult x:Key="OpenOrderList" AttachedTargetElementName="InnerWorkspaces"
+                         DisplayText="訂製單列表" ViewType="{x:Type view:AluminumExtrusionOrderListView}" />
+    <!-- 收料單,TokikuNew.QualityAbnormallySingleView -->
+    <vm:RoutedViewResult x:Key="OpenRecvMaterialView" AttachedTargetElementName="InnerWorkspaces"
+                         DisplayText="收料單" ViewType="{x:Type view:RecvMaterialView}" />
+    <!-- 收料單列表,TokikuNew.QualityAbnormallySingleView -->
+    <vm:RoutedViewResult x:Key="OpenRecvMaterialListView" AttachedTargetElementName="InnerWorkspaces"
+                         DisplayText="收料單列表" ViewType="{x:Type view:RecvMaterialListView}" />
+    <!-- 出貨單,TokikuNew.QualityAbnormallySingleView -->
+    <vm:RoutedViewResult x:Key="OpenShippingView" AttachedTargetElementName="InnerWorkspaces"
+                         DisplayText="出貨單" ViewType="{x:Type view:ShippingMaterialViewUC}" />
+    <!-- 出貨單列表,TokikuNew.QualityAbnormallySingleView -->
+    <vm:RoutedViewResult x:Key="OpenShippingListView" AttachedTargetElementName="InnerWorkspaces"
+                         DisplayText="出貨單列表" ViewType="{x:Type view:ShippingMaterialListViewUC}" />
     <!-- 請款單,TokikuNew.InvoiceView -->
     <vm:RoutedViewResult x:Key="OpenInvoiceView" AttachedTargetElementName="InnerWorkspaces"
                          DisplayText="請款單" ViewType="{x:Type view:InvoiceView}" />
