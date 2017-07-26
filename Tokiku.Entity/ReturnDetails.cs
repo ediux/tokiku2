@@ -15,7 +15,7 @@ namespace Tokiku.Entity
     public partial class ReturnDetails
     {
         public System.Guid Id { get; set; }
-        public Nullable<System.Guid> ReturnsId { get; set; }
+        public System.Guid ReturnId { get; set; }
         public Nullable<System.Guid> OrderDetailId { get; set; }
         public int ShippingOrder { get; set; }
         public double Weight { get; set; }

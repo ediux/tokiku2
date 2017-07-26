@@ -26,13 +26,16 @@ namespace Tokiku.Entity
         public System.DateTime CreateTime { get; set; }
         [Required]
         public System.Guid CreateUserId { get; set; }
+        public Nullable<System.Guid> RequiredDetailsId { get; set; }
     
         public virtual Orders Orders { get; set; }
         public virtual ICollection<PickListDetails> PickListDetails { get; set; }
         public virtual Users Users { get; set; }
         public virtual ICollection<ReceiveDetails> ReceiptDetails { get; set; }
-        public virtual ICollection<ReturnDetails> ReturnDetails { get; set; }
         public virtual ICollection<InvoiceDetails> InvoiceDetails { get; set; }
         public virtual ControlTableDetails ControlTableDetails { get; set; }
+        public virtual ICollection<OrderControlTableDetails> OrderControlTableDetails { get; set; }
+        public virtual RequiredDetails RequiredDetails { get; set; }
+        public virtual ICollection<ReturnDetails> ReturnDetails { get; set; }
     }
 }

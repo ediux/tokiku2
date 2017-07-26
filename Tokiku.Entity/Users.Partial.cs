@@ -45,13 +45,13 @@ namespace Tokiku.Entity
         public virtual ICollection<PickList> PickList_MakingUser { get; set; }
         public virtual ICollection<Receive> Receipts { get; set; }
         public virtual ICollection<Receive> Receipts1 { get; set; }
-        public virtual ICollection<Returns> Returns { get; set; }
-        public virtual ICollection<Returns> Returns1 { get; set; }
         public virtual ICollection<Invoices> Invoices { get; set; }
         public virtual ICollection<Invoices> Invoices1 { get; set; }
         public virtual ICollection<MaterialEstimation> MaterialEstimation { get; set; }
         public virtual ICollection<Required> Required { get; set; }
         public virtual ICollection<Required> Required1 { get; set; }
         public virtual ICollection<ShopFlowDetail> ShopFlowDetail { get; set; }
+        public virtual ICollection<Returns> Returns { get; set; }
+        public virtual ICollection<Returns> Returns1 { get; set; }
     }
 }

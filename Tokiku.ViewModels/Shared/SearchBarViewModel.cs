@@ -131,6 +131,8 @@ namespace Tokiku.ViewModels.Shared
 
                         provider.Refresh();
                     }
+
+                    SearchText = "";
                 }
             }
             catch (Exception)

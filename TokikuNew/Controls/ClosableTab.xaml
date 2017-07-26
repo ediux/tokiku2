@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Controls"
-             mc:Ignorable="d" 
+             xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+             mc:Ignorable="d" x:Name="BtnClosableTabItem"
              d:DesignHeight="27" d:DesignWidth="100" >
 
     <Grid Margin="1,0,1,0">
@@ -13,7 +14,8 @@
             <ColumnDefinition Width="22"/>
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Column="0"  HorizontalAlignment="Center" Margin="5,2"  VerticalAlignment="Center" Text="{Binding Header, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ClosableTabItem}}}" />
-        <Button Grid.Column="1" Grid.Row="0" Margin="-1,0,0,0" x:Name="btnTabClose" Width="19" Height="19" Click="btnTabClose_Click" >
+        <Button Grid.Column="1" Grid.Row="0" Margin="-1,0,0,0" x:Name="btnTabClose" Width="19" Height="19" Command="{StaticResource CloseTabItem}" CommandParameter="{x:Reference BtnClosableTabItem}" >
+           
             <Button.Content>
                 <Path x:Name="Cross" Data="M0,0 L1,1 M0,1 L1,0" Stretch="Fill" 
                           Stroke="Black" StrokeThickness="2" Width="8" Height="8" />

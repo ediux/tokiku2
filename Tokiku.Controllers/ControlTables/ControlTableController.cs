@@ -39,10 +39,13 @@ namespace Tokiku.Controllers
                     //     .CreateResultEntity(new Collection<ControlTableDetails>(result.ToList()));
 
                     //return model;
-                    var result = QueryAll();
+                    var result = (from q in this.GetReoisitory()
+                                  where q.Code.Contains(text) || q.Materials.Contains(text) || q.ManufacturersName.Contains(text)
+                                  select q).ToList();
                     int i = 1;
-                    result.Result.ToList().ForEach((x) => { x.RowIndex = i; i++; });
-                    return result;
+                    result.ForEach((x) => { x.RowIndex = i; i++; });
+                    return  ExecuteResultEntity<ICollection<View_RequiredControlTable>>
+                        .CreateResultEntity(new Collection<View_RequiredControlTable>(result));
                 }
                 else
                 {

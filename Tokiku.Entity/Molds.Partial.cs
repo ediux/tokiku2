@@ -56,10 +56,10 @@ namespace Tokiku.Entity
         [StringLength(16, ErrorMessage="欄位長度不得大於 16 個字元")]
         public string SerialNumber { get; set; }
     
-        public virtual Manufacturers Manufacturers { get; set; }
         public virtual Materials Materials { get; set; }
         public virtual MoldUseStatus MoldUseStatus { get; set; }
         public virtual Users CreateUser { get; set; }
         public virtual ICollection<MoldsInProjects> MoldsInProjects { get; set; }
+        public virtual Manufacturers Manufacturers { get; set; }
     }
 }

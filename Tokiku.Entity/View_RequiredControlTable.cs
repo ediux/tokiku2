@@ -33,5 +33,9 @@ namespace Tokiku.Entity
         public Nullable<int> ShippingQuantity { get; set; }
         public System.Guid ProjectId { get; set; }
         public string ProjectName { get; set; }
+        public Nullable<decimal> InventoryMargin_LossAdjustment_QuantitySubtotal { get; set; }
+        public Nullable<decimal> InventoryMargin_LossAdjustment_WeightSubtotal { get; set; }
+        public Nullable<decimal> InventoryStatus_QuantitySubtotal { get; set; }
+        public Nullable<decimal> InventoryStatus_WeightSubtotal { get; set; }
     }
 }

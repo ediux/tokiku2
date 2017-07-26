@@ -104,6 +104,12 @@ namespace Tokiku.ViewModels
             CopyofPOCOInstance.ManufacturersBussinessItems = new ManufacturersBussinessItems();
 
         }
+
+        public string Code
+        {
+            get => CopyofPOCOInstance.ManufacturersBussinessItems.Manufacturers.Code;
+            set { RaisePropertyChanged("Code"); }
+        }
         /// <summary>
         /// 專案編號
         /// </summary>

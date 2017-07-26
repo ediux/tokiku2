@@ -19,9 +19,11 @@ namespace Tokiku.Entity
         public double Weight { get; set; }
         [Required]
         public int TotalPrice { get; set; }
+        public Nullable<System.Guid> RequiredDetailsId { get; set; }
     
         public virtual Orders Orders { get; set; }
         public virtual ICollection<InvoiceDetails_Material> InvoiceDetails_Material { get; set; }
         public virtual ControlTableDetails ControlTableDetails { get; set; }
+        public virtual RequiredDetails RequiredDetails { get; set; }
     }
 }

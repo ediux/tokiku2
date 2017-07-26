@@ -54,11 +54,7 @@ namespace TokikuNew
                     {
                         if (currentworking.Content != null)
                         {
-
-                            Workspaces.Items.Remove(currentworking);
-
-
-                            ((MainViewModel)DataContext).CurrentProject = null;
+                            Workspaces.Items.Remove(currentworking);                           
                         }
                     }
                 }
@@ -80,7 +76,7 @@ namespace TokikuNew
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            AddHandler(ClosableTabItem.SendNewPageRequestEvent, new RoutedEventHandler(Window_AutoOpenNewPage));
+            //AddHandler(ClosableTabItem.SendNewPageRequestEvent, new RoutedEventHandler(Window_AutoOpenNewPage));
             AddHandler(ClosableTabItem.OnPageClosingEvent, new RoutedEventHandler(btnTabClose_Click));
             AddHandler(ClientListView.SelectedClientChangedEvent, new RoutedEventHandler(ClientListView_SelectedClientChanged));
             AddHandler(ProjectSelectListView.SelectedProjectChangedEvent, new RoutedEventHandler(ProjectSelectionPage_SelectedProjectChanged));

@@ -35,7 +35,6 @@ namespace Tokiku.Entity
         public System.Guid CreateUserId { get; set; }
         public Nullable<System.Guid> ShopFlowId { get; set; }
     
-        public virtual Manufacturers Manufacturers { get; set; }
         public virtual MaterialCategories MaterialCategories { get; set; }
         public virtual ProjectContract ProjectContract { get; set; }
         public virtual Projects Projects { get; set; }
@@ -43,5 +42,6 @@ namespace Tokiku.Entity
         public virtual Users MakingUser { get; set; }
         public virtual ICollection<RequiredDetails> RequiredDetails { get; set; }
         public virtual ShopFlow ShopFlow { get; set; }
+        public virtual Manufacturers Manufacturers { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace Tokiku.Entity
     
         public virtual ICollection<PickList> PickList { get; set; }
         public virtual ICollection<Receive> Receipts { get; set; }
-        public virtual ICollection<Returns> Returns { get; set; }
         public virtual ICollection<Inventory> Inventory { get; set; }
+        public virtual ICollection<Returns> Returns { get; set; }
     }
 }

@@ -40,12 +40,13 @@ namespace Tokiku.Entity
         [Required]
         public System.Guid CreateUserId { get; set; }
     
-        public virtual Manufacturers Manufacturers { get; set; }
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }
         public virtual ICollection<OrderMaterialValuation> OrderMaterialValuation { get; set; }
         public virtual Users CreateUsers { get; set; }
         public virtual Users MakingUsers { get; set; }
         public virtual OrderTypes OrderTypes { get; set; }
         public virtual ICollection<OrderMiscellaneous> OrderMiscellaneous { get; set; }
+        public virtual Manufacturers Manufacturers { get; set; }
+        public virtual ICollection<Returns> Returns { get; set; }
     }
 }

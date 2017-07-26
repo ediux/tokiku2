@@ -160,7 +160,7 @@ namespace Tokiku.ViewModels
                     throw new NullReferenceException();
                 }
 
-                var method = ControllerType.GetMethod(ActionName, values.Select(s => s.GetType()).ToArray());
+                var method = ControllerType.GetMethod(ActionName, values.Select(s => s != null ? s.GetType() : typeof(object)).ToArray());
 
                 if (method != null)
                 {
@@ -221,7 +221,7 @@ namespace Tokiku.ViewModels
                     throw new NullReferenceException();
                 }
 
-                var method = ControllerType.GetMethod(ActionName, values.Select(s => s.GetType()).ToArray());
+                var method = ControllerType.GetMethod(ActionName, values.Select(s => s != null ? s.GetType() : typeof(object)).ToArray());
 
                 if (method != null)
                 {

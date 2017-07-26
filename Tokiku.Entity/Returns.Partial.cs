@@ -14,7 +14,7 @@ namespace Tokiku.Entity
         [Required]
         public System.Guid Id { get; set; }
         [Required]
-        public int Order { get; set; }
+        public System.Guid OrderId { get; set; }
         
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
         [Required]
@@ -38,8 +38,12 @@ namespace Tokiku.Entity
         public System.DateTime CreateTime { get; set; }
         [Required]
         public System.Guid CreateUserId { get; set; }
+        
+        [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
+        public string ReceiptNumber { get; set; }
     
         public virtual Manufacturers Manufacturers { get; set; }
+        public virtual Orders Orders { get; set; }
         public virtual ICollection<ReturnDetails> ReturnDetails { get; set; }
         public virtual Users Users { get; set; }
         public virtual Users Users1 { get; set; }

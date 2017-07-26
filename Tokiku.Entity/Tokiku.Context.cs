@@ -63,7 +63,6 @@ namespace Tokiku.Entity
         public virtual DbSet<PickListDetails> PickListDetails { get; set; }
         public virtual DbSet<ReceiveDetails> ReceiptDetails { get; set; }
         public virtual DbSet<Receive> Receipts { get; set; }
-        public virtual DbSet<Returns> Returns { get; set; }
         public virtual DbSet<Stocks> Stocks { get; set; }
         public virtual DbSet<InvoiceDetails> InvoiceDetails { get; set; }
         public virtual DbSet<InvoiceDetails_Material> InvoiceDetails_Material { get; set; }
@@ -87,5 +86,6 @@ namespace Tokiku.Entity
         public virtual DbSet<View_RequiredForms> View_RequiredForms { get; set; }
         public virtual DbSet<View_RequiredControlTable> View_RequiredControlTable { get; set; }
         public virtual DbSet<ReturnDetails> ReturnDetails { get; set; }
+        public virtual DbSet<Returns> Returns { get; set; }
     }
 }

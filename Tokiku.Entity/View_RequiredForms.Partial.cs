@@ -14,9 +14,9 @@ namespace Tokiku.Entity
         [Required]
         public System.Guid ProjectId { get; set; }
         [Required]
-        public System.Guid ControlTableId { get; set; }
+        public System.Guid RequiredId { get; set; }
         [Required]
-        public System.Guid ControlTableDetailId { get; set; }
+        public System.Guid RequiredDetailsId { get; set; }
         
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
         [Required]
@@ -25,6 +25,10 @@ namespace Tokiku.Entity
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
         [Required]
         public string ShopFlowName { get; set; }
+        
+        [StringLength(3, ErrorMessage="欄位長度不得大於 3 個字元")]
+        [Required]
+        public string FormName { get; set; }
         
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
         [Required]
@@ -43,6 +47,12 @@ namespace Tokiku.Entity
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
         [Required]
         public string RequiredPostion { get; set; }
+        [Required]
+        public System.DateTime CreateTime { get; set; }
+        
+        [StringLength(256, ErrorMessage="欄位長度不得大於 256 個字元")]
+        [Required]
+        public string CreateUser { get; set; }
         
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
         [Required]
@@ -60,20 +70,6 @@ namespace Tokiku.Entity
         public int RequiredQuantity { get; set; }
         [Required]
         public decimal UnitWeight { get; set; }
-        [Required]
-        public System.DateTime CreateTime { get; set; }
-        
-        [StringLength(256, ErrorMessage="欄位長度不得大於 256 個字元")]
-        [Required]
-        public string CreateUser { get; set; }
-        [Required]
-        public System.Guid RequiredId { get; set; }
-        [Required]
-        public System.Guid RequiredDetailsId { get; set; }
-        
-        [StringLength(3, ErrorMessage="欄位長度不得大於 3 個字元")]
-        [Required]
-        public string FormName { get; set; }
         [Required]
         public System.Guid MaterialsId { get; set; }
         [Required]

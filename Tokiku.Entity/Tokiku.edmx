@@ -680,7 +680,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ReturnsId" Type="uniqueidentifier" />
+          <Property Name="ReturnId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="OrderDetailId" Type="uniqueidentifier" />
           <Property Name="ShippingOrder" Type="int" Nullable="false" />
           <Property Name="Weight" Type="float" Nullable="false" />
@@ -693,7 +693,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Order" Type="int" Nullable="false" />
+          <Property Name="OrderId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ReturnNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IncomingManufacturerId" Type="uniqueidentifier" />
           <Property Name="IncomingNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -1016,6 +1016,10 @@
           <Property Name="ReturnStatus_WeightSubtotal" Type="float" />
           <Property Name="Weight" Type="float" />
           <Property Name="ShippingQuantity" Type="int" />
+          <Property Name="InventoryMargin_LossAdjustment_QuantitySubtotal" Type="decimal" Precision="38" Scale="3" />
+          <Property Name="InventoryMargin_LossAdjustment_WeightSubtotal" Type="decimal" Precision="38" Scale="3" />
+          <Property Name="InventoryStatus_QuantitySubtotal" Type="decimal" Precision="38" Scale="3" />
+          <Property Name="InventoryStatus_WeightSubtotal" Type="decimal" Precision="38" Scale="3" />
         </EntityType>
         <!--產生期間發現錯誤:
 警告 6002: 資料表/檢視 'Tokiku2_New.dbo.View_RequiredForms' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
@@ -2185,14 +2189,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ReturnDetails_Returns">
-          <End Role="Returns" Type="Self.Returns" Multiplicity="0..1" />
+          <End Role="Returns" Type="Self.Returns" Multiplicity="1" />
           <End Role="ReturnDetails" Type="Self.ReturnDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Returns">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ReturnDetails">
-              <PropertyRef Name="ReturnsId" />
+              <PropertyRef Name="ReturnId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2229,6 +2233,18 @@
             </Principal>
             <Dependent Role="Returns">
               <PropertyRef Name="IncomingManufacturerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Returns_Orders">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="Returns" Type="Self.Returns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Returns">
+              <PropertyRef Name="OrderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2503,7 +2519,11 @@
     [View_RequiredControlTable].[ReturnStatus_QuantitySubtotal] AS [ReturnStatus_QuantitySubtotal], 
     [View_RequiredControlTable].[ReturnStatus_WeightSubtotal] AS [ReturnStatus_WeightSubtotal], 
     [View_RequiredControlTable].[Weight] AS [Weight], 
-    [View_RequiredControlTable].[ShippingQuantity] AS [ShippingQuantity]
+    [View_RequiredControlTable].[ShippingQuantity] AS [ShippingQuantity], 
+    [View_RequiredControlTable].[InventoryMargin_LossAdjustment_QuantitySubtotal] AS [InventoryMargin_LossAdjustment_QuantitySubtotal], 
+    [View_RequiredControlTable].[InventoryMargin_LossAdjustment_WeightSubtotal] AS [InventoryMargin_LossAdjustment_WeightSubtotal], 
+    [View_RequiredControlTable].[InventoryStatus_QuantitySubtotal] AS [InventoryStatus_QuantitySubtotal], 
+    [View_RequiredControlTable].[InventoryStatus_WeightSubtotal] AS [InventoryStatus_WeightSubtotal]
     FROM [dbo].[View_RequiredControlTable] AS [View_RequiredControlTable]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="View_RequiredForms" EntityType="Self.View_RequiredForms" store:Type="Views" store:Schema="dbo">
@@ -2921,6 +2941,10 @@
             <End Role="Manufacturers" EntitySet="Manufacturers" />
             <End Role="Returns" EntitySet="Returns" />
           </AssociationSet>
+          <AssociationSet Name="FK_Returns_Orders" Association="Self.FK_Returns_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Returns" EntitySet="Returns" />
+          </AssociationSet>
           <AssociationSet Name="FK_Returns_Stocks" Association="Self.FK_Returns_Stocks">
             <End Role="Stocks" EntitySet="Stocks" />
             <End Role="Returns" EntitySet="Returns" />
@@ -3044,14 +3068,14 @@
           <NavigationProperty Name="PickList_MakingUser" Relationship="TokikuModel.FK_PickList_MakingUsers" FromRole="Users" ToRole="PickList" />
           <NavigationProperty Name="Receipts" Relationship="TokikuModel.FK_Receipts_CreateUsers" FromRole="Users" ToRole="Receipts" />
           <NavigationProperty Name="Receipts1" Relationship="TokikuModel.FK_Receipts_MakingUsers" FromRole="Users" ToRole="Receipts" />
-          <NavigationProperty Name="Returns" Relationship="TokikuModel.FK_Returns_CreateUsers" FromRole="Users" ToRole="Returns" />
-          <NavigationProperty Name="Returns1" Relationship="TokikuModel.FK_Returns_MakerUsers" FromRole="Users" ToRole="Returns" />
           <NavigationProperty Name="Invoices" Relationship="TokikuModel.FK_Invoices_CreateUsers" FromRole="Users" ToRole="Invoices" />
           <NavigationProperty Name="Invoices1" Relationship="TokikuModel.FK_Invoices_InvoiceUsers" FromRole="Users" ToRole="Invoices" />
           <NavigationProperty Name="MaterialEstimation" Relationship="TokikuModel.FK_MaterialEstimation_Users" FromRole="Users" ToRole="MaterialEstimation" />
           <NavigationProperty Name="Required" Relationship="TokikuModel.FK_Required_CreateUsers" FromRole="Users" ToRole="Required" />
           <NavigationProperty Name="Required1" Relationship="TokikuModel.FK_Required_MakingUsers" FromRole="Users" ToRole="Required" />
           <NavigationProperty Name="ShopFlowDetail" Relationship="TokikuModel.FK_ShopFlowDetail_Users" FromRole="Users" ToRole="ShopFlowDetail" />
+          <NavigationProperty Name="Returns" Relationship="TokikuModel.FK_Returns_CreateUsers" FromRole="Users" ToRole="Returns" />
+          <NavigationProperty Name="Returns1" Relationship="TokikuModel.FK_Returns_MakerUsers" FromRole="Users" ToRole="Returns" />
         </EntityType>
         <Association Name="FK__aspnet_Me__UserI__164452B1">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
@@ -3248,7 +3272,6 @@
           <EntitySet Name="PickListDetails" EntityType="TokikuModel.PickListDetails" />
           <EntitySet Name="ReceiptDetails" EntityType="TokikuModel.ReceiveDetails" />
           <EntitySet Name="Receipts" EntityType="TokikuModel.Receive" />
-          <EntitySet Name="Returns" EntityType="TokikuModel.Returns" />
           <EntitySet Name="Stocks" EntityType="TokikuModel.Stocks" />
           <AssociationSet Name="FK_OrderDetails_Orders" Association="TokikuModel.FK_OrderDetails_Orders">
             <End Role="Orders" EntitySet="Orders" />
@@ -3313,18 +3336,6 @@
           <AssociationSet Name="FK_Receipts_Stocks" Association="TokikuModel.FK_Receipts_Stocks">
             <End Role="Stocks" EntitySet="Stocks" />
             <End Role="Receipts" EntitySet="Receipts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Returns_CreateUsers" Association="TokikuModel.FK_Returns_CreateUsers">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Returns" EntitySet="Returns" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Returns_MakerUsers" Association="TokikuModel.FK_Returns_MakerUsers">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Returns" EntitySet="Returns" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Returns_Stocks" Association="TokikuModel.FK_Returns_Stocks">
-            <End Role="Stocks" EntitySet="Stocks" />
-            <End Role="Returns" EntitySet="Returns" />
           </AssociationSet>
           <EntitySet Name="InvoiceDetails" EntityType="TokikuModel.InvoiceDetails" />
           <EntitySet Name="InvoiceDetails_Material" EntityType="TokikuModel.InvoiceDetails_Material" />
@@ -3545,10 +3556,6 @@
             <End Role="Manufacturers" EntitySet="Manufacturers" />
             <End Role="Required" EntitySet="Required" />
           </AssociationSet>
-          <AssociationSet Name="FK_Returns_Manufacturers" Association="TokikuModel.FK_Returns_Manufacturers">
-            <End Role="Manufacturers" EntitySet="Manufacturers" />
-            <End Role="Returns" EntitySet="Returns" />
-          </AssociationSet>
           <AssociationSet Name="FK_SupplierTranscationItem_NextManufacturers" Association="TokikuModel.FK_SupplierTranscationItem_NextManufacturers">
             <End Role="Manufacturers" EntitySet="Manufacturers" />
             <End Role="SupplierTranscationItem" EntitySet="SupplierTranscationItem" />
@@ -3568,13 +3575,34 @@
           <EntitySet Name="View_RequiredForms" EntityType="TokikuModel.View_RequiredForms" />
           <EntitySet Name="View_RequiredControlTable" EntityType="TokikuModel.View_RequiredControlTable" />
           <EntitySet Name="ReturnDetails" EntityType="TokikuModel.ReturnDetails" />
+          <EntitySet Name="Returns" EntityType="TokikuModel.Returns" />
+          <AssociationSet Name="FK_Returns_Manufacturers" Association="TokikuModel.FK_Returns_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="Returns" EntitySet="Returns" />
+          </AssociationSet>
           <AssociationSet Name="FK_ReturnDetails_OrderDetails" Association="TokikuModel.FK_ReturnDetails_OrderDetails">
             <End Role="OrderDetails" EntitySet="OrderDetails" />
             <End Role="ReturnDetails" EntitySet="ReturnDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_Returns_Orders" Association="TokikuModel.FK_Returns_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Returns" EntitySet="Returns" />
+          </AssociationSet>
           <AssociationSet Name="FK_ReturnDetails_Returns" Association="TokikuModel.FK_ReturnDetails_Returns">
             <End Role="Returns" EntitySet="Returns" />
             <End Role="ReturnDetails" EntitySet="ReturnDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Returns_CreateUsers" Association="TokikuModel.FK_Returns_CreateUsers">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Returns" EntitySet="Returns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Returns_MakerUsers" Association="TokikuModel.FK_Returns_MakerUsers">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Returns" EntitySet="Returns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Returns_Stocks" Association="TokikuModel.FK_Returns_Stocks">
+            <End Role="Stocks" EntitySet="Stocks" />
+            <End Role="Returns" EntitySet="Returns" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="AccessLog">
@@ -4443,6 +4471,7 @@
           <NavigationProperty Name="OrderTypes" Relationship="TokikuModel.FK_Orders_OrderTypes" FromRole="Orders" ToRole="OrderTypes" />
           <NavigationProperty Name="OrderMiscellaneous" Relationship="TokikuModel.FK_OrderMiscellaneous_Orders" FromRole="Orders" ToRole="OrderMiscellaneous" />
           <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_Orders_ShippingManufacturers" FromRole="Orders" ToRole="Manufacturers" />
+          <NavigationProperty Name="Returns" Relationship="TokikuModel.FK_Returns_Orders" FromRole="Orders" ToRole="Returns" />
         </EntityType>
         <EntityType Name="OrderTypes">
           <Key>
@@ -4531,29 +4560,6 @@
           <NavigationProperty Name="Stocks" Relationship="TokikuModel.FK_Receipts_Stocks" FromRole="Receipts" ToRole="Stocks" />
           <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_Receipts_Manufacturers" FromRole="Receive" ToRole="Manufacturers" />
         </EntityType>
-        <EntityType Name="Returns">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="Order" Type="Int32" Nullable="false" />
-          <Property Name="ReturnNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IncomingManufacturerId" Type="Guid" />
-          <Property Name="IncomingNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MakingUserId" Type="Guid" />
-          <Property Name="MakingTime" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="MakerPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="StockId" Type="Guid" />
-          <Property Name="Comment" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
-          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="Users" Relationship="TokikuModel.FK_Returns_CreateUsers" FromRole="Returns" ToRole="Users" />
-          <NavigationProperty Name="Users1" Relationship="TokikuModel.FK_Returns_MakerUsers" FromRole="Returns" ToRole="Users" />
-          <NavigationProperty Name="Stocks" Relationship="TokikuModel.FK_Returns_Stocks" FromRole="Returns" ToRole="Stocks" />
-          <Property Name="ReceiptNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_Returns_Manufacturers" FromRole="Returns" ToRole="Manufacturers" />
-          <NavigationProperty Name="ReturnDetails" Relationship="TokikuModel.FK_ReturnDetails_Returns" FromRole="Returns" ToRole="ReturnDetails" />
-        </EntityType>
         <EntityType Name="Stocks">
           <Key>
             <PropertyRef Name="Id" />
@@ -4564,8 +4570,8 @@
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="PickList" Relationship="TokikuModel.FK_PickList_Stocks" FromRole="Stocks" ToRole="PickList" />
           <NavigationProperty Name="Receipts" Relationship="TokikuModel.FK_Receipts_Stocks" FromRole="Stocks" ToRole="Receipts" />
-          <NavigationProperty Name="Returns" Relationship="TokikuModel.FK_Returns_Stocks" FromRole="Stocks" ToRole="Returns" />
           <NavigationProperty Name="Inventory" Relationship="TokikuModel.FK_Inventory_Stocks" FromRole="Stocks" ToRole="Inventory" />
+          <NavigationProperty Name="Returns" Relationship="TokikuModel.FK_Returns_Stocks" FromRole="Stocks" ToRole="Returns" />
         </EntityType>
         <Association Name="FK_OrderDetails_Orders">
           <End Type="TokikuModel.Orders" Role="Orders" Multiplicity="0..1" />
@@ -4755,42 +4761,6 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Receipts">
-              <PropertyRef Name="StockId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Returns_CreateUsers">
-          <End Type="TokikuModel.Users" Role="Users" Multiplicity="1" />
-          <End Type="TokikuModel.Returns" Role="Returns" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Returns">
-              <PropertyRef Name="CreateUserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Returns_MakerUsers">
-          <End Type="TokikuModel.Users" Role="Users" Multiplicity="0..1" />
-          <End Type="TokikuModel.Returns" Role="Returns" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Returns">
-              <PropertyRef Name="MakingUserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Returns_Stocks">
-          <End Type="TokikuModel.Stocks" Role="Stocks" Multiplicity="0..1" />
-          <End Type="TokikuModel.Returns" Role="Returns" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Stocks">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Returns">
               <PropertyRef Name="StockId" />
             </Dependent>
           </ReferentialConstraint>
@@ -5675,11 +5645,11 @@
           <NavigationProperty Name="ProjectItemCost" Relationship="TokikuModel.FK_ProjectItemCost_Manufacturers" FromRole="Manufacturers" ToRole="ProjectItemCost" />
           <NavigationProperty Name="Receipts" Relationship="TokikuModel.FK_Receipts_Manufacturers" FromRole="Manufacturers" ToRole="Receive" />
           <NavigationProperty Name="Required" Relationship="TokikuModel.FK_Required_Manufacturers" FromRole="Manufacturers" ToRole="Required" />
-          <NavigationProperty Name="Returns" Relationship="TokikuModel.FK_Returns_Manufacturers" FromRole="Manufacturers" ToRole="Returns" />
           <NavigationProperty Name="SupplierTranscationItem" Relationship="TokikuModel.FK_SupplierTranscationItem_NextManufacturers" FromRole="Manufacturers" ToRole="SupplierTranscationItem" />
           <NavigationProperty Name="WorkShops" Relationship="TokikuModel.FK_WorkShops_Manufacturers" FromRole="Manufacturers" ToRole="WorkShops" />
           <NavigationProperty Name="Projects" Relationship="TokikuModel.ClientsInProjects" FromRole="Manufacturers" ToRole="Projects" />
           <NavigationProperty Name="Contacts" Relationship="TokikuModel.ContractsInManufacturers" FromRole="Manufacturers" ToRole="Contacts" />
+          <NavigationProperty Name="Returns" Relationship="TokikuModel.FK_Returns_Manufacturers" FromRole="Manufacturers" ToRole="Returns" />
         </EntityType>
         <Association Name="FK_Invoices_Manufacturers">
           <End Type="TokikuModel.Manufacturers" Role="Manufacturers" Multiplicity="0..1" />
@@ -5813,18 +5783,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Returns_Manufacturers">
-          <End Type="TokikuModel.Manufacturers" Role="Manufacturers" Multiplicity="0..1" />
-          <End Type="TokikuModel.Returns" Role="Returns" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Manufacturers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Returns">
-              <PropertyRef Name="IncomingManufacturerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_SupplierTranscationItem_NextManufacturers">
           <End Type="TokikuModel.Manufacturers" Role="Manufacturers" Multiplicity="0..1" />
           <End Type="TokikuModel.SupplierTranscationItem" Role="SupplierTranscationItem" Multiplicity="*" />
@@ -5935,13 +5893,17 @@
           <Property Name="ShippingQuantity" Type="Int32" />
           <Property Name="ProjectId" Type="Guid" Nullable="false" />
           <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InventoryMargin_LossAdjustment_QuantitySubtotal" Type="Decimal" Precision="38" Scale="3" />
+          <Property Name="InventoryMargin_LossAdjustment_WeightSubtotal" Type="Decimal" Precision="38" Scale="3" />
+          <Property Name="InventoryStatus_QuantitySubtotal" Type="Decimal" Precision="38" Scale="3" />
+          <Property Name="InventoryStatus_WeightSubtotal" Type="Decimal" Precision="38" Scale="3" />
         </EntityType>
         <EntityType Name="ReturnDetails">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="ReturnsId" Type="Guid" />
+          <Property Name="ReturnId" Type="Guid" Nullable="false" />
           <Property Name="OrderDetailId" Type="Guid" />
           <Property Name="ShippingOrder" Type="Int32" Nullable="false" />
           <Property Name="Weight" Type="Double" Nullable="false" />
@@ -5951,6 +5913,42 @@
           <NavigationProperty Name="OrderDetails" Relationship="TokikuModel.FK_ReturnDetails_OrderDetails" FromRole="ReturnDetails" ToRole="OrderDetails" />
           <NavigationProperty Name="Returns" Relationship="TokikuModel.FK_ReturnDetails_Returns" FromRole="ReturnDetails" ToRole="Returns" />
         </EntityType>
+        <EntityType Name="Returns">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="OrderId" Type="Guid" Nullable="false" />
+          <Property Name="ReturnNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IncomingManufacturerId" Type="Guid" />
+          <Property Name="IncomingNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MakingUserId" Type="Guid" />
+          <Property Name="MakingTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="MakerPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="StockId" Type="Guid" />
+          <Property Name="Comment" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
+          <Property Name="ReceiptNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_Returns_Manufacturers" FromRole="Returns" ToRole="Manufacturers" />
+          <NavigationProperty Name="Orders" Relationship="TokikuModel.FK_Returns_Orders" FromRole="Returns" ToRole="Orders" />
+          <NavigationProperty Name="ReturnDetails" Relationship="TokikuModel.FK_ReturnDetails_Returns" FromRole="Returns" ToRole="ReturnDetails" />
+          <NavigationProperty Name="Users" Relationship="TokikuModel.FK_Returns_CreateUsers" FromRole="Returns" ToRole="Users" />
+          <NavigationProperty Name="Users1" Relationship="TokikuModel.FK_Returns_MakerUsers" FromRole="Returns" ToRole="Users" />
+          <NavigationProperty Name="Stocks" Relationship="TokikuModel.FK_Returns_Stocks" FromRole="Returns" ToRole="Stocks" />
+        </EntityType>
+        <Association Name="FK_Returns_Manufacturers">
+          <End Type="TokikuModel.Manufacturers" Role="Manufacturers" Multiplicity="0..1" />
+          <End Type="TokikuModel.Returns" Role="Returns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Returns">
+              <PropertyRef Name="IncomingManufacturerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ReturnDetails_OrderDetails">
           <End Type="TokikuModel.OrderDetails" Role="OrderDetails" Multiplicity="0..1" />
           <End Type="TokikuModel.ReturnDetails" Role="ReturnDetails" Multiplicity="*" />
@@ -5963,15 +5961,63 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Returns_Orders">
+          <End Type="TokikuModel.Orders" Role="Orders" Multiplicity="1" />
+          <End Type="TokikuModel.Returns" Role="Returns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Returns">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ReturnDetails_Returns">
-          <End Type="TokikuModel.Returns" Role="Returns" Multiplicity="0..1" />
+          <End Type="TokikuModel.Returns" Role="Returns" Multiplicity="1" />
           <End Type="TokikuModel.ReturnDetails" Role="ReturnDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Returns">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ReturnDetails">
-              <PropertyRef Name="ReturnsId" />
+              <PropertyRef Name="ReturnId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Returns_CreateUsers">
+          <End Type="TokikuModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="TokikuModel.Returns" Role="Returns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Returns">
+              <PropertyRef Name="CreateUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Returns_MakerUsers">
+          <End Type="TokikuModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="TokikuModel.Returns" Role="Returns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Returns">
+              <PropertyRef Name="MakingUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Returns_Stocks">
+          <End Type="TokikuModel.Stocks" Role="Stocks" Multiplicity="0..1" />
+          <End Type="TokikuModel.Returns" Role="Returns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stocks">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Returns">
+              <PropertyRef Name="StockId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6574,25 +6620,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Returns">
-            <EntityTypeMapping TypeName="TokikuModel.Returns">
-              <MappingFragment StoreEntitySet="Returns">
-                <ScalarProperty Name="ReceiptNumber" ColumnName="ReceiptNumber" />
-                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="StockId" ColumnName="StockId" />
-                <ScalarProperty Name="MakerPhone" ColumnName="MakerPhone" />
-                <ScalarProperty Name="MakingTime" ColumnName="MakingTime" />
-                <ScalarProperty Name="MakingUserId" ColumnName="MakingUserId" />
-                <ScalarProperty Name="IncomingNumber" ColumnName="IncomingNumber" />
-                <ScalarProperty Name="IncomingManufacturerId" ColumnName="IncomingManufacturerId" />
-                <ScalarProperty Name="ReturnNumber" ColumnName="ReturnNumber" />
-                <ScalarProperty Name="Order" ColumnName="Order" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Stocks">
             <EntityTypeMapping TypeName="TokikuModel.Stocks">
               <MappingFragment StoreEntitySet="Stocks">
@@ -6982,6 +7009,10 @@
           <EntitySetMapping Name="View_RequiredControlTable">
             <EntityTypeMapping TypeName="TokikuModel.View_RequiredControlTable">
               <MappingFragment StoreEntitySet="View_RequiredControlTable">
+                <ScalarProperty Name="InventoryStatus_WeightSubtotal" ColumnName="InventoryStatus_WeightSubtotal" />
+                <ScalarProperty Name="InventoryStatus_QuantitySubtotal" ColumnName="InventoryStatus_QuantitySubtotal" />
+                <ScalarProperty Name="InventoryMargin_LossAdjustment_WeightSubtotal" ColumnName="InventoryMargin_LossAdjustment_WeightSubtotal" />
+                <ScalarProperty Name="InventoryMargin_LossAdjustment_QuantitySubtotal" ColumnName="InventoryMargin_LossAdjustment_QuantitySubtotal" />
                 <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
                 <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
                 <ScalarProperty Name="ShippingQuantity" ColumnName="ShippingQuantity" />
@@ -7013,7 +7044,26 @@
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
                 <ScalarProperty Name="ShippingOrder" ColumnName="ShippingOrder" />
                 <ScalarProperty Name="OrderDetailId" ColumnName="OrderDetailId" />
-                <ScalarProperty Name="ReturnsId" ColumnName="ReturnsId" />
+                <ScalarProperty Name="ReturnId" ColumnName="ReturnId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Returns">
+            <EntityTypeMapping TypeName="TokikuModel.Returns">
+              <MappingFragment StoreEntitySet="Returns">
+                <ScalarProperty Name="ReceiptNumber" ColumnName="ReceiptNumber" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="StockId" ColumnName="StockId" />
+                <ScalarProperty Name="MakerPhone" ColumnName="MakerPhone" />
+                <ScalarProperty Name="MakingTime" ColumnName="MakingTime" />
+                <ScalarProperty Name="MakingUserId" ColumnName="MakingUserId" />
+                <ScalarProperty Name="IncomingNumber" ColumnName="IncomingNumber" />
+                <ScalarProperty Name="IncomingManufacturerId" ColumnName="IncomingManufacturerId" />
+                <ScalarProperty Name="ReturnNumber" ColumnName="ReturnNumber" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -78,70 +78,70 @@ namespace TokikuNew.Views
         public ProjectViewer()
         {
             InitializeComponent();
+            this.Loaded += UserControl_Loaded;
         }
 
-        //private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        //{
-        //    try
-        //    {
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
 
-        //        //註冊一個處理分頁關閉的事件處理器
-        //        AddHandler(ClosableTabItem.OnPageClosingEvent, new RoutedEventHandler(ProjectViewer_OnPageClosing));
-        //        AddHandler(ClosableTabItem.SendNewPageRequestEvent, new RoutedEventHandler(ProjectViewer_OpenNewTab));
-        //    }
-        //    catch (Exception ex)
-        //    {
+                //註冊一個處理分頁關閉的事件處理器
+                AddHandler(ClosableTabItem.OnPageClosingEvent, new RoutedEventHandler(ProjectViewer_OnPageClosing));
+            }
+            catch (Exception ex)
+            {
 
-        //        MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-        //    }
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
 
 
-        //}
+        }
 
-        //private void ProjectViewer_OnPageClosing(object sender, RoutedEventArgs e)
-        //{
-        //    e.Handled = true;
+        private void ProjectViewer_OnPageClosing(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
 
-        //    try
-        //    {
-        //        if (e.OriginalSource is TabItem)
-        //        {
-        //            TabItem currentworking = (TabItem)e.OriginalSource;
+            try
+            {
+                if (e.OriginalSource is TabItem)
+                {
+                    TabItem currentworking = (TabItem)e.OriginalSource;
 
-        //            if (currentworking != null)
-        //            {
-        //                if (currentworking.Content != null)
-        //                {
-        //                    UserControl contextObject = (UserControl)currentworking.Content;
+                    if (currentworking != null)
+                    {
+                        if (currentworking.Content != null)
+                        {
+                            UserControl contextObject = (UserControl)currentworking.Content;
 
-        //                    if (contextObject.DataContext != null)
-        //                    {
-        //                        //if (contextObject.DataContext is BaseViewModelWithPOCOClass<>)
-        //                        //{
-        //                        //    BaseViewModel vmodel = (BaseViewModel)contextObject.DataContext;
-        //                        //    if (vmodel.Status.IsModify && vmodel.Status.IsSaved == false)
-        //                        //    {
-        //                        //        if (MessageBox.Show("您尚未儲存，要繼續嗎?", "關閉前確認", MessageBoxButton.YesNo) == MessageBoxResult.No)
-        //                        //        {
-        //                        //            return;
-        //                        //        }
-        //                        //    }
-        //                        //}
+                            if (contextObject.DataContext != null)
+                            {
+                                //if (contextObject.DataContext is BaseViewModelWithPOCOClass<>)
+                                //{
+                                //    BaseViewModel vmodel = (BaseViewModel)contextObject.DataContext;
+                                //    if (vmodel.Status.IsModify && vmodel.Status.IsSaved == false)
+                                //    {
+                                //        if (MessageBox.Show("您尚未儲存，要繼續嗎?", "關閉前確認", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                                //        {
+                                //            return;
+                                //        }
+                                //    }
+                                //}
 
-        //                    }
+                            }
 
-        //                    InnerWorkspaces.Items.Remove(currentworking);
+                            InnerWorkspaces.Items.Remove(currentworking);
 
-        //                }
-        //            }
-        //        }
+                        }
+                    }
+                }
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
-        //    }
-        //}
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
         //private void ProjectViewer_OpenNewTab(object sender, RoutedEventArgs e)
         //{

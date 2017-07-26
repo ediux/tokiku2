@@ -236,22 +236,33 @@ namespace Tokiku.ViewModels
 
                                 if (model != null)
                                 {
-
-                                   
-
-
                                     model.RelayCommand.Execute(executeresult);
                                 }
-
-
                             }
+
+                            var props = executeresult.SourceViewType.GetProperty(k);
+
+                            if (props != null)
+                            {
+                                var propb = executeresult.ViewType.GetProperty(k);
+
+                                if (propb != null)
+                                {
+                                    var sourceval = props.GetValue(executeresult.SourceInstance);
+
+                                    if (sourceval != null)
+                                    {
+                                        propb.SetValue(vm, sourceval);
+                                        continue;
+                                    }
+                                }
+                            }
+
                             var prop = executeresult.ViewType.GetProperty(k);
 
                             if (prop != null)
                             {
-
                                 prop.SetValue(vm, executeresult.RoutedValues[k]);
-
                             }
                         }
                     }

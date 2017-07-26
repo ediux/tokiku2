@@ -13,7 +13,8 @@ namespace Tokiku.Entity
     {
         [Required]
         public System.Guid Id { get; set; }
-        public Nullable<System.Guid> ReturnsId { get; set; }
+        [Required]
+        public System.Guid ReturnId { get; set; }
         public Nullable<System.Guid> OrderDetailId { get; set; }
         [Required]
         public int ShippingOrder { get; set; }

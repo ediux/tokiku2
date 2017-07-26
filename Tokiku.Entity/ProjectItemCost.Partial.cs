@@ -38,8 +38,8 @@ namespace Tokiku.Entity
         public System.Guid CreateUserId { get; set; }
     
         public virtual Engineering Engineering { get; set; }
-        public virtual Manufacturers Manufacturers { get; set; }
         public virtual MaterialCategories MaterialCategories { get; set; }
         public virtual Users CreateUser { get; set; }
+        public virtual Manufacturers Manufacturers { get; set; }
     }
 }

@@ -33,7 +33,8 @@ namespace Tokiku.Entity
     
         public virtual Materials Materials { get; set; }
         public virtual Required Required { get; set; }
-        public virtual ICollection<ControlTableDetails> ControlTableDetails { get; set; }
         public virtual ICollection<Inventory> Inventory { get; set; }
+        public virtual ICollection<OrderDetails> OrderDetails { get; set; }
+        public virtual ICollection<OrderMaterialValuation> OrderMaterialValuation { get; set; }
     }
 }

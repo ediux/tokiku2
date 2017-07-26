@@ -24,7 +24,6 @@
     <ObjectDataProvider x:Key="RequiredListSource" ObjectType="{x:Type vm:RequiredListViewModelCollection}" MethodName="Query"/>
     <ObjectDataProvider x:Key="ManufactureList" ObjectType="{x:Type vm:ManufacturersViewModelCollection}" MethodName="Query"/>
     <ObjectDataProvider ObjectType="{x:Type vm:OrderDetailViewModelCollection}" x:Key="AluminumExtrusionOrderSource2" MethodName="Query"  >
-
     </ObjectDataProvider>
     <ObjectDataProvider x:Key="RequiredSource" ObjectType="{x:Type vm:RequiredViewModel}" MethodName="CreateNew">
         <ObjectDataProvider.MethodParameters>
@@ -37,6 +36,11 @@
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
     <ObjectDataProvider x:Key="ControlTableListSource" ObjectType="{x:Type vm:RequiredControlTableViewModelCollection}" MethodName="Query">
+        <ObjectDataProvider.MethodParameters>
+            <x:Static Member="sys:Guid.Empty"/>
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+    <ObjectDataProvider x:Key="OrderViewSource" ObjectType="{x:Type vm:OrderViewModel}" MethodName="CreateNew">
         <ObjectDataProvider.MethodParameters>
             <x:Static Member="sys:Guid.Empty"/>
         </ObjectDataProvider.MethodParameters>
@@ -536,7 +540,6 @@
             <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
             <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
             <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
-            <sys:String x:Key="ResourceKey">InventoryListSource</sys:String>
         </vm:RoutedViewResult.RoutedValues>
     </vm:RoutedViewResult>
     <!-- 退貨單列表,TokikuNew.Views.ReturnMaterialListViewUC -->
@@ -568,6 +571,7 @@
             <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
         </vm:RoutedViewResult.RoutedValues>
     </vm:RoutedViewResult>
+
     <!-- 需求單列表,TokikuNew.Views.RequiredListView -->
     <vm:RoutedViewResult x:Key="OpenRequiredList" AttachedTargetElementName="InnerWorkspaces"
                          Name="OpenRequiredList"

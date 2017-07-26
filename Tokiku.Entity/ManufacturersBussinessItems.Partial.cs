@@ -27,8 +27,8 @@ namespace Tokiku.Entity
         public virtual PaymentTypes PaymentTypes { get; set; }
         public virtual TicketPeriod TicketPeriod { get; set; }
         public virtual TranscationCategories TranscationCategories { get; set; }
-        public virtual Manufacturers Manufacturers { get; set; }
         public virtual ICollection<SupplierTranscationItem> SupplierTranscationItem { get; set; }
         public virtual MaterialCategories MaterialCategories { get; set; }
+        public virtual Manufacturers Manufacturers { get; set; }
     }
 }

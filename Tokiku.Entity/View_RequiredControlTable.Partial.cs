@@ -7,7 +7,6 @@ namespace Tokiku.Entity
     [MetadataType(typeof(View_RequiredControlTableMetaData))]
     public partial class View_RequiredControlTable
     {
-        public int RowIndex { get; set; }
     }
     
     public partial class View_RequiredControlTableMetaData
@@ -42,5 +41,15 @@ namespace Tokiku.Entity
         public Nullable<double> ReturnStatus_WeightSubtotal { get; set; }
         public Nullable<double> Weight { get; set; }
         public Nullable<int> ShippingQuantity { get; set; }
+        [Required]
+        public System.Guid ProjectId { get; set; }
+        
+        [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
+        [Required]
+        public string ProjectName { get; set; }
+        public Nullable<decimal> InventoryMargin_LossAdjustment_QuantitySubtotal { get; set; }
+        public Nullable<decimal> InventoryMargin_LossAdjustment_WeightSubtotal { get; set; }
+        public Nullable<decimal> InventoryStatus_QuantitySubtotal { get; set; }
+        public Nullable<decimal> InventoryStatus_WeightSubtotal { get; set; }
     }
 }

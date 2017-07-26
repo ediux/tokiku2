@@ -39,10 +39,10 @@ namespace Tokiku.Entity
         [Required]
         public System.Guid CreateUserId { get; set; }
     
-        public virtual Manufacturers Manufacturers { get; set; }
         public virtual Users CreateUsers { get; set; }
         public virtual Users MakingUsers { get; set; }
         public virtual Stocks Stocks { get; set; }
         public virtual ICollection<PickListDetails> PickListDetails { get; set; }
+        public virtual Manufacturers Manufacturers { get; set; }
     }
 }

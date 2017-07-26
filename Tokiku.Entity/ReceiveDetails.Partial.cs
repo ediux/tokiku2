@@ -23,6 +23,9 @@ namespace Tokiku.Entity
         public int LackQuantity { get; set; }
         [Required]
         public int ReceiptQuantity { get; set; }
+        
+        [StringLength(512, ErrorMessage="欄位長度不得大於 512 個字元")]
+        public string Comment { get; set; }
     
         public virtual OrderDetails OrderDetails { get; set; }
         public virtual Receive Receipts { get; set; }

@@ -41,10 +41,10 @@ namespace Tokiku.Entity
         [Required]
         public System.Guid CreateUserId { get; set; }
     
-        public virtual Manufacturers Manufacturers { get; set; }
         public virtual ICollection<ReceiveDetails> ReceiptDetails { get; set; }
         public virtual Users Users { get; set; }
         public virtual Users Users1 { get; set; }
         public virtual Stocks Stocks { get; set; }
+        public virtual Manufacturers Manufacturers { get; set; }
     }
 }
