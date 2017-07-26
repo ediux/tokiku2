@@ -88,10 +88,16 @@
                                     <ColumnDefinition Width="auto" />
                                     <ColumnDefinition Width="auto" />
                                     <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
                                 </Grid.ColumnDefinitions>
                                 <CheckBox Grid.Column="0" Content="預付款專用" Margin="2,2,4,2" VerticalAlignment="Center" Foreground="#FF036808" />
                                 <TextBlock Grid.Column="1" Text="備註" VerticalAlignment="Center" Foreground="#FF036808" />
                                 <TextBox Grid.Column="2" Width="500" MaxLength="20" VerticalAlignment="Center" Margin="4,2,2,2" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBlock Grid.Column="3" Text="保留款" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="4" Width="100" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                                <TextBlock Grid.Column="5" Text="%" VerticalAlignment="Center" />
                             </Grid>
                         </WrapPanel>
                     </DataTemplate>
@@ -249,9 +255,9 @@
 
                 </Grid>
             </TabItem>
-            <TabItem Header="保留款" Background="#FF099B3E">
+            <!-- TabItem Header="保留款" Background="#FF099B3E">
                 <Grid Background="#FFE5E5E5" Margin="0,2,0,-2">
-                    <!--<DataGrid>
+                    <DataGrid>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="請款單號"/>
                             <DataGridTextColumn Header="保留款金額"/>
@@ -259,10 +265,10 @@
                             <DataGridTextColumn Header="待請款"/>
                             <DataGridTextColumn Header="本次請款"/>
                         </DataGrid.Columns>
-                    </DataGrid>-->
+                    </DataGrid>
 
                 </Grid>
-            </TabItem>
+            </TabItem -->
             <TabItem Header="預付款" Background="#FFF56E2F">
                 <Grid Background="#FFE5E5E5">
                     <DataGrid>
