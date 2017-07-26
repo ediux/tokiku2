@@ -263,10 +263,13 @@
             <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
         </vm:RoutedViewResult.RoutedValues>
     </vm:RoutedViewResult>
-    <!-- 需求單列表,TokikuNew.Views.ReturnMaterialListViewUC -->
+    <!-- 需求單列表,TokikuNew.Views.RequiredListView -->
     <vm:RoutedViewResult x:Key="OpenRequiredList" AttachedTargetElementName="InnerWorkspaces"
                          DisplayText="需求單列表" ViewType="{x:Type view:RequiredListView}" />
     <!-- 盤點單,TokikuNew.RequiredView -->
     <vm:RoutedViewResult x:Key="OpenInventoryView" AttachedTargetElementName="InnerWorkspaces"
                          DisplayText="盤點單" ViewType="{x:Type view:InventoryView}" />
+    <!-- 盤點單列表,TokikuNew.Views.InventoryListView -->
+    <vm:RoutedViewResult x:Key="OpenInventoryList" AttachedTargetElementName="InnerWorkspaces"
+                         DisplayText="盤點單列表" ViewType="{x:Type view:InventoryListView}" />
 </ResourceDictionary>
