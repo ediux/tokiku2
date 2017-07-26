@@ -3,19 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:Tokiku.ViewModels.Shared;assembly=Tokiku.ViewModels"
              mc:Ignorable="d" 
              x:Name="userControl"
              Focusable="True"
              d:DesignHeight="27" d:DesignWidth="300">
+    <UserControl.Resources>
+        <vm:SearchBarViewModel x:Key="SearchBarSource" />
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="125*"/>
             <ColumnDefinition Width="60"/>
         </Grid.ColumnDefinitions>
-        <TextBox Name="tbSearchBar" Grid.Column="0" Margin="1" AcceptsReturn="False" KeyDown="SearchBar_KeyDown" />
+        <TextBox Name="tbSearchBar" Grid.Column="0" Margin="1" AcceptsReturn="False" KeyDown="SearchBar_KeyDown" Text="{Binding SearchText,Source={StaticResource SearchBarSource},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
         <StackPanel Orientation="Horizontal" Grid.Column="1">
-            <Button Content="&#xE11A;" FontFamily="/Resources/#Segoe MDL2 Assets" Grid.Column="1" Margin="1" Width="28" Name="btnQuery" FontSize="10" Command="{Binding Source={StaticResource Query}}" Focusable="True" CommandParameter="{Binding Text,ElementName=tbSearchBar}" CommandTarget="{Binding ElementName=tbSearchBar}" ToolTip="查詢" CommandManager.PreviewCanExecute="Button_PreviewCanExecute" />
-            <Button Grid.Column="6" Width="30" Content="&#xE117;" FontFamily="/Resources/#Segoe MDL2 Assets" Margin="1" Name="btnRefresh" Command="{Binding Source={StaticResource QueryRefresh}}"  ToolTip="重新整理" CommandTarget="{Binding ElementName=tbSearchBar}" CommandManager.PreviewCanExecute="btnRefresh_PreviewCanExecute"/>
+            <Button Content="&#xE11A;" FontFamily="/Resources/#Segoe MDL2 Assets" Grid.Column="1" Margin="1" Width="28" Name="btnQuery" FontSize="10" Command="{Binding QueryCommand, Source={StaticResource SearchBarSource}}" Focusable="True" CommandParameter="{Binding DataContext, ElementName=userControl,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="查詢"  />
+            <Button Grid.Column="6" Width="30" Content="&#xE117;" FontFamily="/Resources/#Segoe MDL2 Assets" Margin="1" Name="btnRefresh" Command="{Binding RefreshCommand, Source={StaticResource SearchBarSource}}"  ToolTip="重新整理" CommandParameter="{Binding DataContext, ElementName=userControl,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
     </Grid>
 </UserControl>

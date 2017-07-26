@@ -64,7 +64,7 @@
     <!--系統與自訂命令-->
     <RoutedUICommand x:Key="Modify" Text="修改" />
     <RoutedUICommand x:Key="Save" Text="暫存"/>
-    <RoutedUICommand x:Key="Query" Text="查詢"  />
+    <vm:QueryCommand x:Key="Query" Text="查詢"  />
     <RoutedUICommand x:Key="Commit" Text="確認送出"/>
     <RoutedUICommand x:Key="Features" Text="功能"/>
     <RoutedUICommand x:Key="RunExcel" Text="Run Excel App" />

@@ -1,6 +1,9 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
+using Tokiku.ViewModels.Shared;
 
 namespace TokikuNew.Controls
 {
@@ -14,6 +17,47 @@ namespace TokikuNew.Controls
             InitializeComponent();
         }
 
+
+
+        public SearchBarViewModel SearchBarBinding
+        {
+            get { return (SearchBarViewModel)GetValue(SearchBarBindingProperty); }
+            set { SetValue(SearchBarBindingProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SearchBarBinding.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SearchBarBindingProperty =
+            DependencyProperty.Register("SearchBarBinding", typeof(SearchBarViewModel), typeof(SearchBar), new PropertyMetadata(null, new PropertyChangedCallback(ViewModelChange)));
+
+
+        public static void ViewModelChange(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            try
+            {
+                if (sender != null && sender is SearchBar)
+                {
+                    SearchBar source = (SearchBar)sender;
+
+                    SearchBarViewModel ori = (SearchBarViewModel)e.OldValue;
+                    SearchBarViewModel current = (SearchBarViewModel)e.NewValue;
+
+                    SearchBarViewModel inside = (SearchBarViewModel)source.TryFindResource("SearchBarSource");
+
+                    if (inside != null)
+                    {
+                        inside.QueryCommand = current.QueryCommand;
+                        inside.RefreshCommand = current.RefreshCommand;
+                        inside.ResetCommand = current.ResetCommand;                        
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+        }
+
         private void SearchBar_KeyDown(object sender, KeyEventArgs e)
         {
             try
@@ -21,7 +65,7 @@ namespace TokikuNew.Controls
                 if (e.Key == Key.Enter)
                 {
                     e.Handled = true;
-                    btnQuery.Command.Execute(tbSearchBar.Text);                    
+                    btnQuery.Command.Execute(tbSearchBar.Text);
                 }
                 else
                 {

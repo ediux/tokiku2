@@ -20,6 +20,11 @@ namespace Tokiku.ViewModels
 
         public RequiredControlTableViewModelCollection(IEnumerable<RequiredControlTableViewModel> source) : base(source)
         {
+            this.QueryCommand = new QueryCommand(QueryCommandHandler);
+        }
+
+        public static void QueryCommandHandler(object parameter)
+        {
 
         }
 
@@ -28,6 +33,7 @@ namespace Tokiku.ViewModels
             Items[e.NewStartingIndex].RowIndex = Count;
             base.OnCollectionChanged(e);
         }
+
         public static RequiredControlTableViewModelCollection Query(Guid ProjectId)
         {
             try

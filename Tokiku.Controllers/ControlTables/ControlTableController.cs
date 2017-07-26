@@ -103,5 +103,6 @@ namespace Tokiku.Controllers
 
         //重新計算改用資料庫內觸發程序
 
+      
     }
 }

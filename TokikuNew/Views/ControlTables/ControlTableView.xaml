@@ -83,7 +83,7 @@
                     vm:CommandRoutingManager.CommandParameter="{StaticResource OpenOrderList}"
                     vm:CommandRoutingManager.RoutingName="AluminumExtrusionOrderListView" />
             <Grid Margin="5,0,0,0" Width="300">
-            <c:SearchBar Grid.Row="0" Grid.Column="1" x:Name="sSearchBar" />
+            <c:SearchBar Grid.Row="0" Grid.Column="1" x:Name="sSearchBar" DataContext="{StaticResource ControlTableListSource}" />
             </Grid>
         </StackPanel>
         <GroupBox Header="{Binding Path=Header, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabItem}}}" Grid.Row="1">
@@ -411,7 +411,7 @@
                                         <TextBlock FontSize="11" Text="{Binding }" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
                                     </Border>
                                     <Border Margin="0"  Grid.Column="1" BorderThickness="1" BorderBrush="Black">
-                                        <TextBlock FontSize="11" Text="{Binding ,StringFormat=\{0:#.###\}}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <TextBlock FontSize="11" Text="{Binding }" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
                                 </Grid>
                             </DataTemplate>
@@ -453,7 +453,7 @@
                                         <TextBlock FontSize="11" Text="{Binding }" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
                                     </Border>
                                     <Border Margin="0"  Grid.Column="1" BorderThickness="1" BorderBrush="Black">
-                                        <TextBlock FontSize="11" Text="{Binding ,StringFormat=\{0:#.###\}}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <TextBlock FontSize="11" Text="{Binding }" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
                                   
                                 </Grid>

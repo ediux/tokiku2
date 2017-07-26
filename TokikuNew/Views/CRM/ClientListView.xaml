@@ -5,10 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
              xmlns:controls="clr-namespace:TokikuNew.Controls"
+             xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
              mc:Ignorable="d" 
              Background="{DynamicResource ControlBackgroundBrush}"
              d:DesignHeight="768" d:DesignWidth="1024"
              Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <!--<vm:ClientViewModelCollection x:Key="ClientListSource" />-->
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>
@@ -30,7 +34,7 @@
             </Grid>
         </Grid>
         <controls:CustomDataGrid x:Name="ClientList" AllowExecuteSystemCommand="False" Grid.Row="1" Margin="5"
-                                 ItemsSource="{Binding}" CanUserDeleteRows="False"  CanUserAddRows="False"
+                                 ItemsSource="{StaticResource ClientListSource}" CanUserDeleteRows="False"  CanUserAddRows="False"
                                  AutoGenerateColumns="False"
                                  CellStyle="{StaticResource DataGrid_Centering}" FontSize="20" MinRowHeight="30"
                                  AlternatingRowBackground="AliceBlue"  AlternationCount="2"
