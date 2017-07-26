@@ -39,31 +39,32 @@ namespace Tokiku.ViewModels
         //    catch (Exception ex)
         //    {
         //        ClientViewModelCollection coll = new ClientViewModelCollection();
-                
+
         //        setErrortoModel(coll, ex);
         //    }
 
         //}
+        public static ClientViewModelCollection QueryAll()
+        {
+            try
+            {
+                return Query<ClientViewModelCollection, Manufacturers>("Client", "QueryAll");
 
+            }
+            catch (Exception ex)
+            {
+                ClientViewModelCollection coll = new ClientViewModelCollection();
+                setErrortoModel(coll, ex);
+                return coll;
+            }
+
+        }
         public static ClientViewModelCollection QueryByText(string originalSource)
         {
             try
             {
                 return Query<ClientViewModelCollection, Manufacturers>("Client", "QueryByText", originalSource);
-                //var executeresult = client_controller.SearchByText(originalSource);
-
-                //if (!executeresult.HasError)
-                //{
-                //    var objectdataset = executeresult.Result;
-                //    ClearItems();
-                //    foreach (var row in objectdataset)
-                //    {
-                //        ClientViewModel model = new ClientViewModel();
-                       
-                //        model.SetModel(row);
-                //        Add(model);
-                //    }
-                //}
+            
             }
             catch (Exception ex)
             {

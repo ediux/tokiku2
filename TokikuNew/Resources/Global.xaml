@@ -114,7 +114,27 @@
 
     <!-- 新增廠商,TokikuNew.ManufacturersManageView -->
     <vm:RoutedViewResult x:Key="OpenNewManufacture" AttachedTargetElementName="Workspaces"
-                         DisplayText="新增廠商" ViewType="{x:Type view:ManufacturersManageView}" />
+                         Name="ManufacturersManageView"
+                         DataContent="{Binding SelectedItem ,ElementName=VendorList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                         DisplayText="新增廠商" ViewType="{x:Type view:ManufacturersManageView}">
+        <vm:RoutedViewResult.FormatedParameters>
+            <x:Array Type="sys:String">
+                <sys:String>Code</sys:String>
+                <sys:String>ShortName</sys:String>
+            </x:Array>
+        </vm:RoutedViewResult.FormatedParameters>
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="Code">Code</sys:String>
+            <sys:String x:Key="ShortName">ShortName</sys:String>
+            <sys:String x:Key="SelectedManufacturerId">Id</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <vm:DocumentLifeCircle x:Key="Mode">Update</vm:DocumentLifeCircle>
+            <x:Static Member="sys:Guid.Empty" x:Key="SelectedManufacturerId"></x:Static>
+            <x:Type x:Key="SourceViewType" TypeName="l:MainWindow"/>
+            <sys:String x:Key="TabControlName">Workspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
     <!-- 新增客戶,TokikuNew.ClientManageView -->
     <vm:RoutedViewResult x:Key="OpenNewClient" AttachedTargetElementName="Workspaces"
                          DisplayText="新增客戶" ViewType="{x:Type view:ClientManageView}" />
@@ -212,6 +232,7 @@
                          DisplayText="訂製單" ViewType="{x:Type view:AluminumExtrusionOrderSheetView}" />
     <!-- 訂製單列表,TokikuNew.QualityAbnormallySingleListView -->
     <vm:RoutedViewResult x:Key="OpenOrderList" AttachedTargetElementName="InnerWorkspaces"
+                         Name="OpenOrderList"
                          DisplayText="訂製單列表" ViewType="{x:Type view:AluminumExtrusionOrderListView}" />
     <!-- 收料單,TokikuNew.QualityAbnormallySingleView -->
     <vm:RoutedViewResult x:Key="OpenRecvMaterialView" AttachedTargetElementName="InnerWorkspaces"
