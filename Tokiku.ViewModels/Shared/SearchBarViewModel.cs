@@ -14,7 +14,7 @@ namespace Tokiku.ViewModels.Shared
         public SearchBarViewModel()
         {
             _QueryCommand = new QueryCommand(Query);
-            _RefreshCommand = new RoutedUICommand();
+            _RefreshCommand = new DelegateCommand(Refresh);
         }
 
         private void Query(object parameter)
@@ -50,6 +50,52 @@ namespace Tokiku.ViewModels.Shared
             }
         }
 
+        private void Refresh(object parameter)
+        {
+            //BaseViewModelCollection>.QuerySingle<IC>
+            if (parameter is ObjectDataProvider)
+            {
+
+                ObjectDataProvider provider = (ObjectDataProvider)parameter;
+
+                if (provider != null)
+                {
+                    provider.MethodName = "QueryByText";
+
+                    if (provider.MethodParameters.Count == 0)
+                        provider.MethodParameters.Add(SearchText);
+                    else
+                    {
+                        if (provider.MethodParameters.Count > 1)
+                        {
+                            provider.MethodParameters.Clear();
+                            provider.MethodParameters.Add(SearchText);
+                        }
+                        else
+                        {
+                            provider.MethodParameters[0] = SearchText;
+                        }
+                    }
+                    provider.Refresh();
+                }
+            }
+        }
+
+        private void Reset(object parameter)
+        {
+            if (parameter is ObjectDataProvider)
+            {
+
+                ObjectDataProvider provider = (ObjectDataProvider)parameter;
+
+                if (provider != null)
+                {
+                    provider.MethodName = "QueryAll";
+                    provider.MethodParameters.Clear();
+                    provider.Refresh();
+                }
+            }
+        }
         private string _SearchText = string.Empty;
         public string SearchText { get => _SearchText; set { _SearchText = value; OnPropertyChanged("SearchText"); } }
 

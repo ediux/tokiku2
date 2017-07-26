@@ -65,7 +65,7 @@ namespace TokikuNew.Controls
                 if (e.Key == Key.Enter)
                 {
                     e.Handled = true;
-                    btnQuery.Command.Execute(tbSearchBar.Text);
+                    btnQuery.Command.Execute(DataContext);
                 }
                 else
                 {
@@ -73,14 +73,15 @@ namespace TokikuNew.Controls
                     {
                         e.Handled = true;
                         tbSearchBar.Text = "";
+                        btnQuery.Command.Execute(DataContext);
                         //btnRefresh.Command.Execute(tbSearchBar.Text);
 
-                        RoutedUICommand ResetQueryCommand = (RoutedUICommand)FindResource("ResetFiliter");
+                        //RoutedUICommand ResetQueryCommand = (RoutedUICommand)FindResource("ResetFiliter");
 
-                        if (ResetQueryCommand != null)
-                        {
-                            ResetQueryCommand.Execute(tbSearchBar.Text, tbSearchBar);
-                        }
+                        //if (ResetQueryCommand != null)
+                        //{
+                        //    ResetQueryCommand.Execute(tbSearchBar.Text, tbSearchBar);
+                        //}
                     }
                 }
             }
