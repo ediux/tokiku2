@@ -143,6 +143,7 @@
     <Compile Include="Finance\TicketTypesViewModel.cs" />
     <Compile Include="Shared\VoidViewModel.cs" />
     <Compile Include="Shared\VoidViewModelCollection.cs" />
+    <Compile Include="Users\UserViewModelCollection.cs" />
     <Compile Include="WorkItemListViewModels.cs" />
   </ItemGroup>
   <ItemGroup>

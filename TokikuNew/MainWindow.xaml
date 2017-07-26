@@ -8,15 +8,13 @@
         xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
         mc:Ignorable="d"        
         Title="東菊金屬 ERP System" Height="768" Width="1366" WindowState="Maximized" Icon="{DynamicResource Logo}"
-        Loaded="Window_Loaded" Background="{DynamicResource WindowBackgroundBrush}" 
-        Initialized="Window_Initialized">
+         Background="{DynamicResource WindowBackgroundBrush}" 
+        >
     <Window.Resources>
         <vm:RedirectCommand x:Key="redirect" RoutingName="MainWindow" />
+        <vm:OpenWindowCommand x:Key="openwin"  />
+        <ObjectDataProvider x:Key="MainSource" ObjectType="{x:Type vm:MainViewModel}" MethodName="Query"/>
     </Window.Resources>
-    <!--<Window.CommandBindings>
-        <CommandBinding x:Name="OpenNewTabItemCommand" Command="{StaticResource OpenNewTabItem}"
-                        />
-    </Window.CommandBindings>-->
     <Viewbox Stretch="Fill"
              Margin="0" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" >
         <Grid Width="1366" Height="768">
@@ -49,17 +47,12 @@
                     </MenuItem -->
                 </MenuItem>
                 <MenuItem Header="系統管理">
-                    <MenuItem Header="選項" Name="MI_SystemOption" />
+                    <MenuItem Header="選項" Name="MI_SystemOption" vm:CommandRoutingManager.Command="{StaticResource openwin}" />
                     <MenuItem Header="人員管理" Name="MI_System_Members" vm:CommandRoutingManager.Command="{Binding Source={StaticResource OpenNewTabItem}}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenSystemMembersView}" vm:CommandRoutingManager.RoutingName="SystemMembersView" />
                     <MenuItem Header="角色管理" Name="MI_System_Roles" vm:CommandRoutingManager.Command="{Binding Source={StaticResource OpenNewTabItem}}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenSystemRolesView}" vm:CommandRoutingManager.RoutingName="SystemRolesView" />
                     <MenuItem Header="結束程式" Name="ExitApp" Click="ExitApp_Click"></MenuItem>
                 </MenuItem>
             </Menu>
-            <!--<controls:MultiPageManager Grid.Row="1" Margin="0,0,0,0" x:Name="Workspaces" FontSize="9" Command="{StaticResource OpenNewTabItem}">
-                <TabItem Header="專案列表" >
-                    <Views:ProjectSelectListView x:Name="ProjectSelectionPage" SelectedProjectChanged="ProjectSelectionPage_SelectedProjectChanged" DataContext="{Binding Projects}"  />
-                </TabItem>
-            </controls:MultiPageManager>-->
             <TabControl Grid.Row="1" Margin="0,0,0,0" x:Name="Workspaces" FontSize="9" >
                 <TabItem Header="專案列表" >
                     <Views:ProjectSelectListView x:Name="ProjectSelectionPage" />
@@ -68,7 +61,7 @@
             <StatusBar Margin="0" Grid.Row="3">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="1" FontFamily="Segoe MDL2 Assets" Text="&#xe187;" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                    <TextBlock Margin="1,0" Name="userNameDisplay" Text="{Binding LoginedUser.UserName}"/>
+                    <TextBlock Margin="1,0" Name="userNameDisplay" Text="{Binding LoginedUser.UserName, Source={StaticResource MainSource}}"/>
                 </StackPanel>
             </StatusBar>
         </Grid>

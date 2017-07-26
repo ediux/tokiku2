@@ -39,5 +39,21 @@ namespace Tokiku.Controllers
                 return rtn;
             }
         }
+
+        public ExecuteResultEntity<ICollection<Users>> Query()
+        {
+            try
+            {
+                var repo = this.GetReoisitory<Users>();
+
+                return ExecuteResultEntity<ICollection<Users>>.CreateResultEntity(
+                    new Collection<Users>(repo.All().ToList()));
+            }
+            catch (Exception ex)
+            {
+                var rtn = ExecuteResultEntity<ICollection<Users>>.CreateErrorResultEntity(ex);
+                return rtn;
+            }
+        }
     }
 }

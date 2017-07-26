@@ -15,7 +15,8 @@ namespace Tokiku.Controllers
         public ExecuteResultEntity<ICollection<Orders>> QuerAll()
         {
             try {
-                var repo = RepositoryHelper.GetOrdersRepository();
+                var repo = this.GetReoisitory<Orders>();
+
                 return ExecuteResultEntity<ICollection<Orders>>.CreateResultEntity(
                     new Collection<Orders>(repo.All().ToList()));
             }

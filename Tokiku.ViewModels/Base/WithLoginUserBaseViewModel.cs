@@ -8,7 +8,7 @@ namespace Tokiku.ViewModels
     {
         public WithLoginUserBaseViewModel()
         {
-
+           
         }
 
         public WithLoginUserBaseViewModel(Users entity) : base(entity)
@@ -16,13 +16,8 @@ namespace Tokiku.ViewModels
 
         }
 
-        private UserViewModel _LoginedUser = new UserViewModel()
-        {
-            UserId = Guid.Empty,
-            UserName = "root",
-            LoweredUserName = "root",
-            IsAnonymous = false,
-        };
+        private UserViewModel _LoginedUser;
+
         /// <summary>
         /// 取得目前登入的使用者
         /// </summary>
@@ -30,12 +25,16 @@ namespace Tokiku.ViewModels
         {
             get
             {
+                if (_LoginedUser == null)
+                    _LoginedUser = new UserViewModel(CopyofPOCOInstance);
 
                 return _LoginedUser;
             }
             set
             {
-
+                CopyofPOCOInstance = value.Entity;
+                _LoginedUser = new UserViewModel(CopyofPOCOInstance);
+                RaisePropertyChanged("LoginedUser");
             }
         }
     }

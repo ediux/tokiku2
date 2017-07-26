@@ -60,14 +60,14 @@ namespace Tokiku.ViewModels
     }
     
 
-    public class OrderDetailViewModel : BaseViewModelWithPOCOClass<AluminumExtrusionOrderEntity>
+    public class OrderDetailViewModel : BaseViewModelWithPOCOClass<OrderDetails>
     {
         public OrderDetailViewModel() : base()
         {
 
         }
 
-        public OrderDetailViewModel(AluminumExtrusionOrderEntity entity) : base(entity)
+        public OrderDetailViewModel(OrderDetails entity) : base(entity)
         {
 
         }
@@ -75,10 +75,10 @@ namespace Tokiku.ViewModels
         // "*東菊編號*"
         public string TokikuId
         {
-            get { return CopyofPOCOInstance.TokikuId; }
+            get { return CopyofPOCOInstance.RequiredDetails.Code; }
             set
             {
-                CopyofPOCOInstance.TokikuId = value;
+                //反查
                 RaisePropertyChanged("TokikuId");
             }
         }
@@ -88,8 +88,8 @@ namespace Tokiku.ViewModels
         // "*廠商編號*"
         public string ManufacturersId
         {
-            get { return CopyofPOCOInstance.ManufacturersId; }
-            set { CopyofPOCOInstance.ManufacturersId = value; RaisePropertyChanged("ManufacturersId"); }
+            get { return CopyofPOCOInstance.RequiredDetails.Required.Manufacturers.Code; }
+            set { RaisePropertyChanged("ManufacturersId"); }
         }
 
 
@@ -97,25 +97,25 @@ namespace Tokiku.ViewModels
         // "*材質*"
         public string Material
         {
-            get { return CopyofPOCOInstance.Material; }
-            set { CopyofPOCOInstance.Material = value; RaisePropertyChanged("Material"); }
+            get { return CopyofPOCOInstance.RequiredDetails.Materials.Name; }
+            set { RaisePropertyChanged("Material"); }
         }
 
 
         // "*單位重(kg/m)*"
-        public Nullable<float> UnitWeight
+        public decimal UnitWeight
         {
-            get { return CopyofPOCOInstance.UnitWeight; }
-            set { CopyofPOCOInstance.UnitWeight = value; RaisePropertyChanged("UnitWeight"); }
+            get { return CopyofPOCOInstance.RequiredDetails.UnitWeight; }
+            set {  RaisePropertyChanged("UnitWeight"); }
         }
 
 
 
         // "*訂購長度(mm)*"
-        public Nullable<int> OrderLength
+        public int? OrderLength
         {
-            get { return CopyofPOCOInstance.OrderLength; }
-            set { CopyofPOCOInstance.OrderLength = value; RaisePropertyChanged("OrderLength"); }
+            get { return CopyofPOCOInstance.RequiredDetails.OrderLength; }
+            set { CopyofPOCOInstance.RequiredDetails.OrderLength = value; RaisePropertyChanged("OrderLength"); }
         }
 
 
@@ -123,34 +123,34 @@ namespace Tokiku.ViewModels
         // "[需求數量]"
         public Nullable<int> RequiredQuantity
         {
-            get { return CopyofPOCOInstance.RequiredQuantity; }
-            set { CopyofPOCOInstance.RequiredQuantity = value; RaisePropertyChanged("RequiredQuantity"); }
+            get { return CopyofPOCOInstance.RequiredDetails.RequiredQuantity; }
+            set {  RaisePropertyChanged("RequiredQuantity"); }
         }
 
 
 
         // "[備品數量]"
-        public Nullable<int> SparePartsQuantity
+        public decimal SparePartsQuantity
         {
-            get { return (Nullable<int>)CopyofPOCOInstance.SparePartsQuantity; }
-            set { CopyofPOCOInstance.SparePartsQuantity = value; RaisePropertyChanged("SparePartsQuantity"); }
+            get { return CopyofPOCOInstance.SparePartsNumber; }
+            set { CopyofPOCOInstance.SparePartsNumber = value; RaisePropertyChanged("SparePartsQuantity"); }
         }
 
 
 
         // "[下單數量]"
-        public Nullable<int> PlaceAnOrderQuantity
+        public decimal PlaceAnOrderQuantity
         {
-            get { return CopyofPOCOInstance.PlaceAnOrderQuantity; }
-            set { CopyofPOCOInstance.PlaceAnOrderQuantity = value; RaisePropertyChanged("PlaceAnOrderQuantity"); }
+            get { return CopyofPOCOInstance.OrderQuantity; }
+            set { CopyofPOCOInstance.OrderQuantity = value; RaisePropertyChanged("PlaceAnOrderQuantity"); }
         }
 
 
         // "[備註]"
         public string Note
         {
-            get { return CopyofPOCOInstance.Note; }
-            set { CopyofPOCOInstance.Note = value; RaisePropertyChanged("Note"); }
+            get { return CopyofPOCOInstance.Comment; }
+            set { CopyofPOCOInstance.Comment = value; RaisePropertyChanged("Note"); }
         }
 
     }

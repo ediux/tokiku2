@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tokiku.Entity;
 using Tokiku.ViewModels;
 using TokikuNew.Controls;
 
@@ -770,6 +772,48 @@ namespace TokikuNew.Views
             if (source != null)
             {
                 source.MethodParameters[0] = SelectedProjectId; 
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                OrderViewModel master = (OrderViewModel)((ObjectDataProvider)TryFindResource("OrderViewSource")).Data;
+                OrderDetailViewModelCollection details = (OrderDetailViewModelCollection)((ObjectDataProvider)TryFindResource("AluminumExtrusionOrderSource2")).Data;
+
+                if (details.Count > 0)
+                {
+                    master.Entity.OrderDetails = new Collection<OrderDetails>();
+
+                    foreach (var item in details)
+                    {
+                        item.Entity.Orders = master.Entity;
+                        item.Entity.OrderId = master.Id;
+
+                        if (item.Entity.Id == Guid.Empty)
+                            item.Entity.Id = Guid.NewGuid();
+
+                        master.Entity.OrderDetails.Add(item.Entity);
+                    }
+                }
+
+                master.SaveModel("Orders");
+
+                if (master.HasError)
+                {
+                    MessageBox.Show(string.Join("\n", master.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                }
+                //var provider = (ObjectDataProvider)TryFindResource("RequiredSource");
+                //provider.MethodName = "Query";
+                //provider.MethodParameters.Clear();
+                //provider.MethodParameters.Add(master.Id);
+                //provider.Refresh();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
         }
 

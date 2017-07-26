@@ -45,6 +45,8 @@
             <x:Static Member="sys:Guid.Empty"/>
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
+    <ObjectDataProvider x:Key="OrderTypesListSoure" ObjectType="{x:Type vm:OrderTypesViewModelCollection}" MethodName="Query"/>
+    <ObjectDataProvider x:Key="UserListSource" ObjectType="{x:Type vm:UserViewModelCollection}" MethodName="Query"/>
     <!--<viewmodels:AluminumExtrusionOrderViewModelCollection x:Key="AluminumExtrusionOrderSource" />-->
     <ObjectDataProvider ObjectType="{x:Type vm:預付款保證票ViewModel}" x:Key="預付款保證票清單" />
     <ObjectDataProvider ObjectType="{x:Type vm:保固票ViewModelCollection}" x:Key="保固票清單" />
@@ -67,7 +69,7 @@
     <BitmapImage x:Key="Banner" UriSource="/Resources/TokikuLogo.gif" />
     <!--系統與自訂命令-->
     <RoutedUICommand x:Key="Modify" Text="修改" />
-    <RoutedUICommand x:Key="Save" Text="暫存"/>
+    <vm:SaveModelCommand x:Key="Save" Text="暫存"/>
     <vm:QueryCommand x:Key="Query" Text="查詢"  />
     <RoutedUICommand x:Key="Commit" Text="確認送出"/>
     <RoutedUICommand x:Key="Features" Text="功能"/>
