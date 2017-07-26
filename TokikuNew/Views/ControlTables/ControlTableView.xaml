@@ -82,23 +82,103 @@
                     vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}"
                     vm:CommandRoutingManager.CommandParameter="{StaticResource OpenInventoryList}"
                     vm:CommandRoutingManager.RoutingName="InventoryListView" />
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right">
             <Grid Margin="5,0,0,0" Width="300">
-            <c:SearchBar Grid.Row="0" Grid.Column="1" x:Name="sSearchBar" DataContext="{StaticResource ControlTableListSource}" />
+                <c:SearchBar Grid.Row="0" Grid.Column="1" x:Name="sSearchBar" DataContext="{StaticResource ControlTableListSource}" />
             </Grid>
         </StackPanel>
         <GroupBox Header="{Binding Path=Header, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabItem}}}" Grid.Row="1">
             <DataGrid FrozenColumnCount="7" x:Name="dg" ItemsSource="{Binding Source={StaticResource ControlTableListSource}}" AutoGenerateColumns="False" >
                 <vm:CommandRoutingManager.CommandParameter>
                     <vm:RoutedViewResult></vm:RoutedViewResult>
-                </vm:CommandRoutingManager.CommandParameter> 
+                </vm:CommandRoutingManager.CommandParameter>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="項次" Width="auto" Binding="{Binding RowIndex}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="東菊編號" Width="auto" Binding="{Binding Code}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="廠商" Width="auto" Binding="{Binding ManufacturersName}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="廠商編號" Width="auto" Binding="{Binding ManufacturersCode}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="材質" Width="auto" Binding="{Binding MaterialCategories}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="單位重量(kg/m)" Width="auto" Binding="{Binding UnitWeight}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="訂購長度(mm)" Width="auto" Binding="{Binding OrderLength}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderStyleCenter}"  Width="30">
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="項次" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="11" Text="{Binding RowIndex}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderStyleCenter}"  Width="80">
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="東菊編號" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="11" Text="{Binding Code}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderStyleCenter}"  Width="120">
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="廠商" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="11" Text="{Binding ManufacturersName}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderStyleCenter}"  Width="80">
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="廠商編號" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="11" Text="{Binding ManufacturersCode}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderStyleCenter}"  Width="100">
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="材質" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="11" Text="{Binding MaterialCategories}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderStyleCenter}"  Width="80">
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="單位重量       (kg/m)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="11" Text="{Binding UnitWeight}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderStyleCenter}"  Width="80">
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="訂購長度       (mm)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="11" Text="{Binding OrderLength}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="需求數量" Width="auto" >
                         <DataGridTemplateColumn.HeaderTemplate>
                             <DataTemplate>
@@ -135,14 +215,14 @@
                                         <ColumnDefinition Width="55"/>
                                         <ColumnDefinition Width="65"/>
                                     </Grid.ColumnDefinitions>
-                                    <Border Margin="-2"  Grid.Column="0" BorderThickness="1" BorderBrush="Black">
+                                    <Border Margin="-2,-2,-5,-2"  Grid.Column="0" BorderThickness="1" BorderBrush="Black">
                                         <TextBlock FontSize="11" Text="{Binding RequiredQuantitySummary}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
                                     </Border>
-                                    <Border Margin="0"  Grid.Column="1" BorderThickness="1" BorderBrush="Black">
-                                        <TextBlock FontSize="11" Text="{Binding RequiredWeightSubtotal,StringFormat=\{0:#.###\}}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <Border Margin="4,-2,-4,-2"  Grid.Column="1" BorderThickness="1" BorderBrush="Black">
+                                        <TextBlock Grid.Column="1" FontSize="11" Text="{Binding RequiredWeightSubtotal,StringFormat=\{0:#.###\}}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
-                                    <Border Margin="0"  Grid.Column="2" BorderThickness="1" BorderBrush="Black" >
-                                        <TextBlock  FontSize="11" Text="{Binding NumberofOrdersNotPlaced}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <Border Margin="3,-2,-9,-2"  Grid.Column="2" BorderThickness="1" BorderBrush="Black" >
+                                        <TextBlock Grid.Column="2" FontSize="11" Text="{Binding NumberofOrdersNotPlaced}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
                                 </Grid>
                             </DataTemplate>
@@ -185,13 +265,13 @@
                                         <ColumnDefinition Width="55"/>
                                         <ColumnDefinition Width="65"/>
                                     </Grid.ColumnDefinitions>
-                                    <Border Margin="-5,0,0,-5"  Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="#BCA9F5">
+                                    <Border Margin="-1,-2,-5,-2"  Grid.Column="0" BorderThickness="1" BorderBrush="Black">
                                         <TextBlock FontSize="11" Text="{Binding QuantityofOrderSummary}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
                                     </Border>
-                                    <Border Margin="0,0,0,-5"  Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="#BCA9F5">
+                                    <Border Margin="4,-2,-4,-2"  Grid.Column="1" BorderThickness="1" BorderBrush="Black">
                                         <TextBlock FontSize="11" Text="{Binding PrepareSubtotal}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
-                                    <Border Margin="0,0,-5,-5"  Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" Background="#BCA9F5">
+                                    <Border Margin="3,-2,-9,-2"  Grid.Column="2" BorderThickness="1" BorderBrush="Black">
                                         <TextBlock  FontSize="11" Text="{Binding TotalWeightofOrder,StringFormat=\{0:#.###\}}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
                                 </Grid>
@@ -235,13 +315,13 @@
                                         <ColumnDefinition Width="55"/>
                                         <ColumnDefinition Width="65"/>
                                     </Grid.ColumnDefinitions>
-                                    <Border Margin="-2"  Grid.Column="0" BorderThickness="1" BorderBrush="Black">
+                                    <Border Margin="-1,-2,-5,-2"  Grid.Column="0" BorderThickness="1" BorderBrush="Black">
                                         <TextBlock FontSize="11" Text="{Binding ArrivalCondition_QuantitySubtotal}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
                                     </Border>
-                                    <Border Margin="0"  Grid.Column="1" BorderThickness="1" BorderBrush="Black">
+                                    <Border Margin="4,-2,-4,-2"  Grid.Column="1" BorderThickness="1" BorderBrush="Black">
                                         <TextBlock FontSize="11" Text="{Binding ArrivalCondition_WeightSubtotal,StringFormat=\{0:#.###\}}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
-                                    <Border Margin="0"  Grid.Column="2" BorderThickness="1" BorderBrush="Black" >
+                                    <Border Margin="3,-2,-9,-2"  Grid.Column="2" BorderThickness="1" BorderBrush="Black" >
                                         <TextBlock  FontSize="11" Text="{Binding ArrivalCondition_OutofStock}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
                                 </Grid>
@@ -311,22 +391,22 @@
                                         <ColumnDefinition Width="55"/>
                                         <ColumnDefinition Width="55"/>
                                     </Grid.ColumnDefinitions>
-                                    <Border Margin="-2"  Grid.Column="0" BorderThickness="1" BorderBrush="Black">
+                                    <Border Margin="-1,-2,-5,-2"  Grid.Column="0" BorderThickness="1" BorderBrush="Black">
                                         <TextBlock FontSize="11" Text="{Binding ReturnStatus_QuantitySubtotal}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
                                     </Border>
-                                    <Border Margin="0"  Grid.Column="1" BorderThickness="1" BorderBrush="Black">
+                                    <Border Margin="4,-2,-4,-2"  Grid.Column="1" BorderThickness="1" BorderBrush="Black">
                                         <TextBlock FontSize="11" Text="{Binding ReturnStatus_WeightSubtotal,StringFormat=\{0:#.###\}}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
-                                    <Border Margin="0"  Grid.Column="2" BorderThickness="1" BorderBrush="Black" >
+                                    <Border Margin="4,-2,-5,-2"  Grid.Column="2" BorderThickness="1" BorderBrush="Black" >
                                         <TextBlock  FontSize="11" Text="{Binding Receive_QuantitySubtotal}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
-                                    <Border Margin="0"  Grid.Column="3" BorderThickness="1" BorderBrush="Black" >
+                                    <Border Margin="4,-2,-4,-2"  Grid.Column="3" BorderThickness="1" BorderBrush="Black" >
                                         <TextBlock  FontSize="11" Text="{Binding Receive_QuantitySubtotal,StringFormat=\{0:#.###\}}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
-                                    <Border Margin="0"  Grid.Column="4" BorderThickness="1" BorderBrush="Black" >
+                                    <Border Margin="4,-2,-4,-2"  Grid.Column="4" BorderThickness="1" BorderBrush="Black" >
                                         <TextBlock  FontSize="11" Text="{Binding Receive_QuantitySubtotal}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
-                                    <Border Margin="0"  Grid.Column="5" BorderThickness="1" BorderBrush="Black" >
+                                    <Border Margin="3,-2,-9,-2"  Grid.Column="5" BorderThickness="1" BorderBrush="Black" >
                                         <TextBlock  FontSize="11" Text="{Binding Receive_QuantitySubtotal,StringFormat=\{0:#.###\}}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
                                 </Grid>
@@ -365,10 +445,10 @@
                                         <ColumnDefinition Width="55"/>
                                         <ColumnDefinition Width="55"/>
                                     </Grid.ColumnDefinitions>
-                                    <Border Margin="-2"  Grid.Column="0" BorderThickness="1" BorderBrush="Black">
+                                    <Border Margin="-1,-2,-5,-2"  Grid.Column="0" BorderThickness="1" BorderBrush="Black">
                                         <TextBlock FontSize="11" Text="{Binding RequiredQuantitySummary}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
                                     </Border>
-                                    <Border Margin="0"  Grid.Column="1" BorderThickness="1" BorderBrush="Black">
+                                    <Border Margin="4,-2,-9,-2"  Grid.Column="1" BorderThickness="1" BorderBrush="Black">
                                         <TextBlock FontSize="11" Text="{Binding RequiredWeightSubtotal,StringFormat=\{0:#.###\}}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
                                 </Grid>
@@ -407,10 +487,10 @@
                                         <ColumnDefinition Width="55"/>
                                         <ColumnDefinition Width="55"/>
                                     </Grid.ColumnDefinitions>
-                                    <Border Margin="-2"  Grid.Column="0" BorderThickness="1" BorderBrush="Black">
+                                    <Border Margin="-1,-2,-5,-2"  Grid.Column="0" BorderThickness="1" BorderBrush="Black">
                                         <TextBlock FontSize="11" Text="{Binding }" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
                                     </Border>
-                                    <Border Margin="0"  Grid.Column="1" BorderThickness="1" BorderBrush="Black">
+                                    <Border Margin="4,-2,-9,-2"  Grid.Column="1" BorderThickness="1" BorderBrush="Black">
                                         <TextBlock FontSize="11" Text="{Binding }" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
                                 </Grid>
@@ -449,10 +529,10 @@
                                         <ColumnDefinition Width="55"/>
                                         <ColumnDefinition Width="55"/>
                                     </Grid.ColumnDefinitions>
-                                    <Border Margin="-2"  Grid.Column="0" BorderThickness="1" BorderBrush="Black">
+                                    <Border Margin="-1,-2,-5,-2"  Grid.Column="0" BorderThickness="1" BorderBrush="Black">
                                         <TextBlock FontSize="11" Text="{Binding }" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
                                     </Border>
-                                    <Border Margin="0"  Grid.Column="1" BorderThickness="1" BorderBrush="Black">
+                                    <Border Margin="4,-2,-9,-2"  Grid.Column="1" BorderThickness="1" BorderBrush="Black">
                                         <TextBlock FontSize="11" Text="{Binding }" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
                                   
