@@ -29,8 +29,8 @@ namespace TokikuNew.Views
 
         private void RequiredListView_Loaded(object sender, RoutedEventArgs e)
         {
-            RequiredListViewModelCollection ctrl = new RequiredListViewModelCollection();
-            CheckGrid.DataContext = ctrl;
+            //RequiredListViewModelCollection ctrl = new RequiredListViewModelCollection();
+            //CheckGrid.DataContext = ctrl;
             //ctrl.Query();
         }
 

@@ -75,37 +75,7 @@ namespace Tokiku.ViewModels
                         externaldata.SourceViewType = routingdata.SourceViewType;
                         externaldata.ViewType = routingdata.ViewType;
                         externaldata.Name = routingdata.Name;
-                        //foreach (var extkey in externaldata.RoutedValues.Keys)
-                        //{
-                        //    try
-                        //    {
-                        //        if (!routingdata.RoutedValues.ContainsKey(extkey))
-                        //        {
-                        //            routingdata.RoutedValues.Add(extkey, externaldata.RoutedValues[extkey]);
-                        //        }
-                        //        else
-                        //        {
-                        //            routingdata.RoutedValues[extkey] = externaldata.RoutedValues[extkey];
-                        //        }
-                        //    }
-                        //    catch (Exception ex)
-                        //    {
-                        //        continue;
-                        //    }
 
-                        //}
-
-                        //foreach (var extkey in externaldata.RoutingBinding.Keys)
-                        //{
-                        //    if (!routingdata.RoutingBinding.ContainsKey(extkey))
-                        //    {
-                        //        routingdata.RoutingBinding.Add(extkey, externaldata.RoutingBinding[extkey]);
-                        //    }
-                        //    else
-                        //    {
-                        //        routingdata.RoutingBinding[extkey] = externaldata.RoutingBinding[extkey];
-                        //    }
-                        //}
 
                         if (routingdata.RoutedValues.ContainsKey("View"))
                         {
@@ -168,9 +138,9 @@ namespace Tokiku.ViewModels
                             else
                                 routingdata.RoutedValues["TargetViewModelProvider"] = provider;
 
-                            if (provider !=null)
+                            if (provider != null)
                             {
-                                
+
 
                                 if (!routingdata.RoutedValues.ContainsKey("TargetViewModelInstance"))
                                     routingdata.RoutedValues.Add("TargetViewModelInstance", provider.Data);
@@ -191,339 +161,6 @@ namespace Tokiku.ViewModels
                 throw ex;
             }
         }
-
-        //public static void Redirect(FrameworkElement source, RoutedViewResult routingdata = null)
-        //{
-        //    if (source != null)
-        //    {
-        //        if (_Mapping.ContainsKey(source))
-        //        {
-
-
-        //            if (source is UserControl)
-        //            {
-
-        //                if (source is Control)
-        //                {
-        //                    var vm = Activator.CreateInstance(routedvalues.ViewType); //建立檢視頁面模型
-
-        //                    if (vm == null)
-        //                        return;
-
-        //                    if (routedvalues.SourceInstance is TabControl)
-        //                    {
-        //                        //如果路由本身就是頁籤
-        //                        TabControl control = (TabControl)routedvalues.SourceInstance;
-
-        //                        if (control != null)
-        //                        {
-        //                            #region 頁籤控制項
-        //                            TabItem addWorkarea = null;
-
-        //                            string Header = string.Empty;
-
-        //                            if (!string.IsNullOrEmpty(routedvalues.DisplayText))
-        //                                Header = routedvalues.DisplayText;
-        //                            else
-        //                                Header = string.Format(routedvalues.FormatedDisplay, routedvalues.FormatedParameters);
-
-        //                            #region 檢查是否有路由綁定
-        //                            if (routedvalues.RoutedValues != null && routedvalues.RoutedValues.Count > 0)
-        //                            {
-        //                                List<string> _keys = routedvalues.RoutedValues.Keys.ToList();
-
-        //                                foreach (var k in _keys)
-        //                                {
-        //                                    //尋找是否有路由綁定設定
-
-        //                                    if (routedvalues.RoutingBinding.ContainsKey(k))
-        //                                    {
-        //                                        //有路由綁定設定
-        //                                        if (routedvalues.SourceInstance != null)
-        //                                        {
-        //                                            var fetchprop = routedvalues.SourceViewType.GetProperty(routedvalues.RoutingBinding[k]);
-
-        //                                            if (fetchprop != null)
-        //                                            {
-        //                                                routedvalues.RoutedValues[k] = fetchprop.GetValue(routedvalues.SourceInstance);
-        //                                            }
-        //                                        }
-
-
-        //                                        if (routedvalues.DataContent != null)
-        //                                        {
-        //                                            var fetchprop = routedvalues.DataContent.GetType().GetProperty(routedvalues.RoutingBinding[k]);
-
-        //                                            if (fetchprop != null)
-        //                                            {
-        //                                                routedvalues.RoutedValues[k] = fetchprop.GetValue(routedvalues.DataContent);
-        //                                            }
-        //                                        }
-        //                                    }
-
-        //                                    var prop = routedvalues.ViewType.GetProperty(k);
-
-        //                                    if (prop != null)
-        //                                    {
-        //                                        prop.SetValue(vm, routedvalues.RoutedValues[k]);
-        //                                    }
-        //                                }
-        //                            }
-        //                            #endregion
-
-        //                            #region 資料來源檢查
-        //                            object SharedModel = null;
-
-        //                            if (routedvalues.DataContent != null)
-        //                                SharedModel = routedvalues.DataContent;
-
-        //                            #endregion
-
-        //                            #endregion
-
-        //                            #region 建立頁籤控制項
-        //                            addWorkarea = (TabItem)Activator.CreateInstance(Assembly.Load("TokikuNew").GetType("TokikuNew.Controls.ClosableTabItem"));
-        //                            addWorkarea.Header = Header;
-        //                            #endregion
-
-        //                            #region 檢查頁籤是否存在
-        //                            bool isExisted = false;
-
-        //                            foreach (TabItem item in control.Items.OfType<TabItem>())
-        //                            {
-        //                                if (item.Header.Equals(addWorkarea.Header))
-        //                                {
-        //                                    isExisted = true;
-        //                                    addWorkarea = item;
-        //                                    break;
-        //                                }
-        //                            }
-        //                            #endregion
-
-        //                            if (!isExisted)
-        //                            {
-        //                                var modellist = routedvalues.RoutedValues.OfType<IBaseViewModel>().ToList();
-
-        //                                foreach (var model in modellist)
-        //                                {
-        //                                    model.RelayCommand.Execute(routedvalues);
-        //                                }
-
-        //                                addWorkarea.Content = vm;
-        //                                addWorkarea.Margin = new Thickness(0);
-
-        //                                control.Items.Add(addWorkarea);
-        //                                control.SelectedItem = addWorkarea;
-
-        //                                return;
-        //                            }
-        //                            else
-        //                            {
-        //                                control.SelectedItem = addWorkarea;
-        //                            }
-        //                        }
-        //                    }
-        //                    else
-        //                    {
-        //                        if (routedvalues.RoutedValues.ContainsKey("SourceViewType"))
-        //                        {
-        //                            if (routedvalues.RoutedValues.ContainsKey("TabControlName"))
-        //                            {
-        //                                var sourcekey = _Mapping.Keys.Where(w => w.GetType() == (Type)routedvalues.RoutedValues["SourceViewType"]).Single();
-
-        //                                if (sourcekey != null)
-        //                                {
-        //                                    var foundcontrol = ((Control)sourcekey).FindName((string)routedvalues.RoutedValues["TabControlName"]);
-
-        //                                    if (foundcontrol is TabControl)
-        //                                    {
-        //                                        var foundtabcontrol = ((TabControl)foundcontrol);
-
-        //                                        if (foundtabcontrol != null)
-        //                                        {
-        //                                            TabItem addWorkarea = null;
-
-        //                                            string Header = string.Empty;
-
-        //                                            if (!string.IsNullOrEmpty(routedvalues.DisplayText))
-        //                                                Header = routedvalues.DisplayText;
-        //                                            else
-        //                                            {
-        //                                                if (routedvalues.SourceInstance != null)
-        //                                                {
-        //                                                    if (routedvalues.SourceInstance is DataGrid)
-        //                                                    {
-        //                                                        List<object> values = new List<object>();
-        //                                                        Type datatype = ((DataGrid)routedvalues.SourceInstance).SelectedItem.GetType();
-        //                                                        string[] Fields = (string[])routedvalues.FormatedParameters;
-
-        //                                                        foreach (string field in Fields)
-        //                                                        {
-        //                                                            var prop = datatype.GetProperty(field);
-
-        //                                                            if (prop != null)
-        //                                                            {
-        //                                                                values.Add(prop.GetValue(((DataGrid)routedvalues.SourceInstance).SelectedItem));
-        //                                                            }
-        //                                                        }
-
-        //                                                        Header = string.Format(routedvalues.FormatedDisplay, values.ToArray());
-        //                                                    }
-        //                                                }
-        //                                                else
-        //                                                {
-        //                                                    Header = string.Format(routedvalues.FormatedDisplay, routedvalues.FormatedParameters);
-        //                                                }
-        //                                            }
-
-        //                                            object SharedModel = null;
-
-        //                                            if (routedvalues.SourceInstance is DataGrid)
-        //                                                SharedModel = ((DataGrid)routedvalues.SourceInstance).SelectedItem;
-
-        //                                            #region 建立頁籤控制項
-        //                                            addWorkarea = (TabItem)Activator.CreateInstance(Assembly.Load("TokikuNew").GetType("TokikuNew.Controls.ClosableTabItem"));
-        //                                            addWorkarea.Header = Header;
-        //                                            #endregion
-
-        //                                            bool isExisted = false;
-
-        //                                            foreach (TabItem item in foundtabcontrol.Items.OfType<TabItem>())
-        //                                            {
-        //                                                if (item.Header.Equals(addWorkarea.Header))
-        //                                                {
-        //                                                    isExisted = true;
-        //                                                    addWorkarea = item;
-        //                                                    break;
-        //                                                }
-        //                                            }
-
-        //                                            if (!isExisted)
-        //                                            {
-        //                                                if (vm != null)
-        //                                                {
-        //                                                    if (routedvalues.RoutedValues != null && routedvalues.RoutedValues.Count > 0)
-        //                                                    {
-        //                                                        List<string> _keys = routedvalues.RoutedValues.Keys.ToList();
-
-        //                                                        foreach (var k in _keys)
-        //                                                        {
-        //                                                            //尋找是否有路由綁定設定
-
-        //                                                            if (routedvalues.RoutingBinding.ContainsKey(k))
-        //                                                            {
-        //                                                                //有路由綁定設定
-        //                                                                if (routedvalues.SourceInstance != null)
-        //                                                                {
-        //                                                                    var fetchprop = routedvalues.SourceViewType.GetProperty(routedvalues.RoutingBinding[k]);
-
-        //                                                                    if (fetchprop != null)
-        //                                                                    {
-        //                                                                        routedvalues.RoutedValues[k] = fetchprop.GetValue(routedvalues.SourceInstance);
-        //                                                                    }
-        //                                                                }
-
-
-        //                                                                if (routedvalues.DataContent != null)
-        //                                                                {
-        //                                                                    var fetchprop = routedvalues.DataContent.GetType().GetProperty(routedvalues.RoutingBinding[k]);
-
-        //                                                                    if (fetchprop != null)
-        //                                                                    {
-        //                                                                        routedvalues.RoutedValues[k] = fetchprop.GetValue(routedvalues.DataContent);
-        //                                                                    }
-        //                                                                }
-
-        //                                                                var prop = routedvalues.ViewType.GetProperty(k);
-
-        //                                                                if (prop != null)
-        //                                                                {
-        //                                                                    prop.SetValue(vm, routedvalues.RoutedValues[k]);
-        //                                                                }
-
-        //                                                            }
-        //                                                        }
-
-
-        //                                                    }
-
-
-        //                                                    if (routedvalues.RoutedValues.ContainsKey("ViewModel"))
-        //                                                    {
-        //                                                        ObjectDataProvider provider = ((ObjectDataProvider)((FrameworkElement)routedvalues.SourceInstance).TryFindResource(routedvalues.RoutedValues["ViewModel"]));
-
-        //                                                        if (provider != null)
-        //                                                        {
-        //                                                            IBaseViewModel viewmodel = (IBaseViewModel)provider.Data;
-
-        //                                                            if (viewmodel != null)
-        //                                                            {
-        //                                                                viewmodel.RelayCommand.Execute(SharedModel);
-
-        //                                                            }
-        //                                                            else
-        //                                                            {
-        //                                                                viewmodel = (IBaseViewModel)((FrameworkElement)vm).TryFindResource(routedvalues.RoutedValues["ViewModel"]);
-        //                                                                if (viewmodel != null)
-        //                                                                    viewmodel.RelayCommand.Execute(SharedModel);
-        //                                                            }
-        //                                                        }
-
-        //                                                    }
-        //                                                    else
-        //                                                    {
-        //                                                        if (SharedModel is IBaseViewModel)
-        //                                                        {
-        //                                                            IBaseViewModel viewmodel = (IBaseViewModel)SharedModel;
-        //                                                            viewmodel.RelayCommand.Execute(routedvalues);
-        //                                                        }
-        //                                                    }
-
-        //                                                    //var modellist = routedvalues.RoutedValues.OfType<IBaseViewModel>().ToList();
-
-        //                                                    //foreach (var model in modellist)
-        //                                                    //{
-        //                                                    //    model.RelayCommand.Execute(routedvalues);
-        //                                                    //}
-        //                                                }
-
-        //                                                addWorkarea.Content = vm;
-        //                                                addWorkarea.Margin = new Thickness(0);
-
-        //                                                foundtabcontrol.Items.Add(addWorkarea);
-        //                                                foundtabcontrol.SelectedItem = addWorkarea;
-
-        //                                            }
-        //                                            else
-        //                                            {
-        //                                                foundtabcontrol.SelectedItem = addWorkarea;
-        //                                            }
-
-        //                                            foundtabcontrol.UpdateLayout();
-        //                                        }
-        //                                    }
-        //                                }
-        //                            }
-        //                        }
-
-        //                    }
-        //                }
-
-        //            }
-
-        //            if (source is Page)
-        //            {
-        //                if (routedvalues.RoutedValues.ContainsKey("View"))
-        //                {
-        //                    Uri xamlurl = new Uri((string)routedvalues.RoutedValues["View"], UriKind.Relative);
-        //                    System.Windows.Navigation.NavigationService.GetNavigationService(source).Navigate(xamlurl, routedvalues.DataContent);
-        //                }
-        //            }
-
-        //        }
-        //    }
-
-        //}
 
         public static void Register(FrameworkElement source, RoutedViewResult routingdata, string RoutingName)
         {
@@ -552,12 +189,12 @@ namespace Tokiku.ViewModels
                 if (_Mapping.ContainsKey(source) == false)
                 {
                     _Mapping.Add(source, new HashSet<RoutedViewResult>());
-                    _Mapping[source].Add(routingdata); 
+                    _Mapping[source].Add(routingdata);
                 }
                 else
                 {
                     if (!_Mapping[source].Where(w => w.Name == routingdata.Name).Any())
-                        _Mapping[source].Add(routingdata);                    
+                        _Mapping[source].Add(routingdata);
                 }
             }
             catch
@@ -692,7 +329,7 @@ namespace Tokiku.ViewModels
                             SetRoutingName(d, string.Format("Route_{0}", ((FrameworkElement)d).Name));
                     }
 
-                    if (d is Control)
+                    if (d is Control && e.NewValue != null)
                     {
                         if (d is CheckBox)
                         {
@@ -717,13 +354,25 @@ namespace Tokiku.ViewModels
 
         private static void Button_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            e.Handled = true;
-            RoutedViewResult route = (RoutedViewResult)GetCommandParameter((DependencyObject)sender);
+            try
+            {
+                e.Handled = true;
 
-            if (sender is DataGrid)
-                route.DataContent = ((DataGrid)sender).SelectedItem;
+                if (sender == null)
+                    return;
 
-            GetCommand((DependencyObject)sender).Execute(route);
+                RoutedViewResult route = (RoutedViewResult)GetCommandParameter((DependencyObject)sender);
+
+                if (sender is DataGrid)
+                    route.DataContent = ((DataGrid)sender)?.SelectedItem;
+
+                GetCommand((DependencyObject)sender)?.Execute(route);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
         }
 
         private static void CanExecuteChanged(object sender, EventArgs e)

@@ -13,88 +13,131 @@ namespace Tokiku.ViewModels.Shared
     {
         public SearchBarViewModel()
         {
+            MethodName = new Stack<dynamic>();
             _QueryCommand = new QueryCommand(Query);
             _RefreshCommand = new DelegateCommand(Refresh);
+            _ResetCommand = new DelegateCommand(Reset);
         }
+
+        private Stack<dynamic> MethodName;
 
         private void Query(object parameter)
         {
-            //BaseViewModelCollection>.QuerySingle<IC>
-            if (parameter is ObjectDataProvider)
+            try
             {
-
-                ObjectDataProvider provider = (ObjectDataProvider)parameter;
-
-                if (provider != null)
+                //BaseViewModelCollection>.QuerySingle<IC>
+                if (parameter is ObjectDataProvider)
                 {
-                    provider.MethodName = "QueryByText";
 
-                    if (provider.MethodParameters.Count == 0)
-                        provider.MethodParameters.Add(SearchText);
-                    else
+                    ObjectDataProvider provider = (ObjectDataProvider)parameter;
+
+                    if (provider != null)
                     {
-                        if (provider.MethodParameters.Count > 1)
-                        {
-                            provider.MethodParameters.Clear();
+                        if (MethodName.Count == 0)
+                            MethodName.Push(new { MethodName = provider.MethodName, Parameters = provider.MethodParameters });
+
+                        provider.MethodName = "QueryByText";
+
+                        if (provider.MethodParameters.Count == 0)
                             provider.MethodParameters.Add(SearchText);
-                        }
                         else
                         {
-                            provider.MethodParameters[0] = SearchText;
+                            if (provider.MethodParameters.Count > 1)
+                            {
+                                provider.MethodParameters.Clear();
+                                provider.MethodParameters.Add(SearchText);
+                            }
+                            else
+                            {
+                                provider.MethodParameters[0] = SearchText;
+                            }
                         }
+                        provider.Refresh();
                     }
-                    provider.Refresh();
+
+
                 }
 
+            }
+            catch (Exception)
+            {
 
             }
+
         }
 
         private void Refresh(object parameter)
         {
-            //BaseViewModelCollection>.QuerySingle<IC>
-            if (parameter is ObjectDataProvider)
+            try
             {
-
-                ObjectDataProvider provider = (ObjectDataProvider)parameter;
-
-                if (provider != null)
+                //BaseViewModelCollection>.QuerySingle<IC>
+                if (parameter is ObjectDataProvider)
                 {
-                    provider.MethodName = "QueryByText";
 
-                    if (provider.MethodParameters.Count == 0)
-                        provider.MethodParameters.Add(SearchText);
-                    else
+                    ObjectDataProvider provider = (ObjectDataProvider)parameter;
+
+                    if (provider != null)
                     {
-                        if (provider.MethodParameters.Count > 1)
-                        {
-                            provider.MethodParameters.Clear();
+                        provider.MethodName = "QueryByText";
+
+                        if (provider.MethodParameters.Count == 0)
                             provider.MethodParameters.Add(SearchText);
-                        }
                         else
                         {
-                            provider.MethodParameters[0] = SearchText;
+                            if (provider.MethodParameters.Count > 1)
+                            {
+                                provider.MethodParameters.Clear();
+                                provider.MethodParameters.Add(SearchText);
+                            }
+                            else
+                            {
+                                provider.MethodParameters[0] = SearchText;
+                            }
                         }
+                        provider.Refresh();
                     }
-                    provider.Refresh();
                 }
             }
+            catch (Exception)
+            {
+
+            }
+
         }
 
         private void Reset(object parameter)
         {
-            if (parameter is ObjectDataProvider)
+            try
             {
-
-                ObjectDataProvider provider = (ObjectDataProvider)parameter;
-
-                if (provider != null)
+                if (parameter is ObjectDataProvider)
                 {
-                    provider.MethodName = "QueryAll";
-                    provider.MethodParameters.Clear();
-                    provider.Refresh();
+
+                    ObjectDataProvider provider = (ObjectDataProvider)parameter;
+
+                    if (provider != null)
+                    {
+                        if (MethodName.Count > 0)
+                        {
+                            var laststack = MethodName.Pop();
+
+                            provider.MethodName = laststack.MethodName;
+                            provider.MethodParameters.Clear();
+                            foreach (var item in laststack.Parameters)
+                            {
+                                provider.MethodParameters.Add(item);
+                            }
+                        }
+
+
+                        provider.Refresh();
+                    }
                 }
             }
+            catch (Exception)
+            {
+
+            }
+
         }
         private string _SearchText = string.Empty;
         public string SearchText { get => _SearchText; set { _SearchText = value; OnPropertyChanged("SearchText"); } }

@@ -24,7 +24,7 @@ namespace Tokiku.ViewModels
         /// </summary>
         void Initialized(object Parameter);
 
-        void SaveModel(string ControllerName);
+        void SaveModel(object ControllerName);
 
         void SaveModel();
 

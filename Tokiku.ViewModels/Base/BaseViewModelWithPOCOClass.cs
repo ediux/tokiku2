@@ -19,7 +19,7 @@ namespace Tokiku.ViewModels
 
         public BaseViewModelWithPOCOClass()
         {
-            SaveCommand = new SaveModelCommand(new Action<string>(SaveModel));
+            SaveCommand = new SaveModelCommand(new Action<object>(SaveModel));
             CreateNewCommand = new CreateNewModelCommand(new Action<object>(Initialized));
             RelayCommand = new RelayCommand(new Action<object>(ReplyFrom));
             Status = new DocumentStatusViewModel();
@@ -30,7 +30,7 @@ namespace Tokiku.ViewModels
 
         public BaseViewModelWithPOCOClass(TPOCO entity)
         {
-            SaveCommand = new SaveModelCommand(new Action<string>(SaveModel));
+            SaveCommand = new SaveModelCommand(new Action<object>(SaveModel));
             CreateNewCommand = new CreateNewModelCommand(new Action<object>(Initialized));
             RelayCommand = new RelayCommand(new Action<object>(ReplyFrom));
             Status = new DocumentStatusViewModel();
@@ -567,9 +567,9 @@ namespace Tokiku.ViewModels
             }
         }
 
-        public virtual void SaveModel(string ControllerName)
+        public virtual void SaveModel(object ControllerName)
         {
-            SaveModel(ControllerName, true);
+            SaveModel(SaveModelController, true);
         }
 
         public void SaveModel()

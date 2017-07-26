@@ -120,7 +120,7 @@
                                 </Grid.ColumnDefinitions>
                                 <c:SearchBar Grid.Row="0" Grid.Column="1" x:Name="sSearchBar" />
                                 <Button Name="btnNew" Grid.Row="0" Grid.Column="2" Margin="1" Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" Click="btnNew_Click" />
-                                <DataGrid Grid.Row="1" Grid.ColumnSpan="3">
+                                <DataGrid Grid.Row="1" Grid.ColumnSpan="3" ItemsSource="{Binding Source={StaticResource }}" >
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                                         <DataGridTextColumn Header="項次" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />

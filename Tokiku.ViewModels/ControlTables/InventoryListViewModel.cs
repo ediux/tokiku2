@@ -18,15 +18,28 @@ namespace Tokiku.ViewModels
         {
         }
 
+ 
         public static InventoryListViewModelCollection Query()
         {
-            return Query<InventoryListViewModelCollection, Inventory>("InventoryList", "QueryAll");
+            try
+            {
+                return Query<InventoryListViewModelCollection, Inventory>("InventoryList", "QueryAll");
+            }
+            catch (Exception ex)
+            {
+                InventoryListViewModelCollection collection = new InventoryListViewModelCollection();
+                setErrortoModel(collection, ex);
+                return collection;
+            }
         }
-
     }
 
     public class InventoryListViewModel : BaseViewModelWithPOCOClass<Inventory>
     {
+        public InventoryListViewModel()
+        {
+
+        }
         public InventoryListViewModel(Inventory entity) : base(entity)
         {
         }

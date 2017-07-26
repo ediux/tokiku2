@@ -4,59 +4,41 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 using Tokiku.ViewModels;
 
 namespace Tokiku.ViewModels
 {
-    public class SaveModelCommand : ICommand
+    public class SaveModelCommand : DelegateCommand
     {
-        private Action<string> execute;
-
-        public event EventHandler CanExecuteChanged;
-
-        public SaveModelCommand() : this((x) => { })
+      
+        public SaveModelCommand():base(SaveOrUpdate)
         {
 
         }
 
-        public SaveModelCommand(Action<string> execute)
+        public SaveModelCommand(Action<object> execute):base(execute)
         {
-            this.execute = execute;
+
         }
 
-        public bool CanExecute(object parameter)
-        {
-            if (CanExecuteChanged != null)
-            {
-                CanExecuteChanged.Invoke(parameter, new EventArgs());
-            }
-            else
-            {
-                if (parameter is ISingleBaseViewModel)
-                {
-                    ISingleBaseViewModel viewmodel = (ISingleBaseViewModel)parameter;
-                    if (viewmodel.Status.IsSaved)
-                        return false;
-                    else
-                        return true;
-                }
-            }
-
-            return false;
-        }
-
-        public void Execute(object parameter)
+        private static void SaveOrUpdate(object parameter)
         {
             try
             {
-                if(parameter is string)
-                {
-                    string _controllername = (string)parameter;
-                    execute?.Invoke(_controllername);
-                }
                 
+                if(parameter!=null && parameter is ObjectDataProvider)
+                {
+                    ObjectDataProvider provider = (ObjectDataProvider)parameter;
 
+                    if (provider != null)
+                    {
+                        IBaseViewModel viewmodel = (IBaseViewModel)provider.Data;
+                        viewmodel.SaveCommand.Execute(parameter);
+                        viewmodel.SaveModel();                        
+                    }        
+                }
 
                 //if (parameter != null && (parameter is IBaseViewModel || parameter is ISingleBaseViewModel))
                 //{

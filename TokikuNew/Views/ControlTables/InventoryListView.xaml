@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1024" Loaded="InventoryListView_Loaded">
     <UserControl.Resources>
-        <ObjectDataProvider x:Key="InventoryListSource" ObjectType="{x:Type vm:InventoryListViewModelCollection}" MethodName="Query"/>
+        <ObjectDataProvider ObjectType="{x:Type vm:InventoryListViewModelCollection}" x:Key="InventoryListSource" MethodName="Query"/>
     </UserControl.Resources>
     <Grid>
         <DataGrid x:Name="CheckGrid" AutoGenerateColumns="False" Margin="5" ItemsSource="{Binding Source={StaticResource InventoryListSource}}">
@@ -22,7 +22,7 @@
             <DataGridTemplateColumn>
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
-                        <Button Content="開啟盤點單" x:Name="BtnOpen" Click="BtnOpen_Click" />
+                        <Button Content="開啟盤點單" x:Name="BtnOpen" />
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>

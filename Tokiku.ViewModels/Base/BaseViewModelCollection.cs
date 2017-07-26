@@ -300,7 +300,7 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 儲存或更新檢視模型
         /// </summary>
-        public virtual void SaveModel(string ControllerName)
+        public virtual void SaveModel(object ControllerName)
         {
             try
             {
@@ -308,7 +308,8 @@ namespace Tokiku.ViewModels
                 List<string> message = new List<string>();
                 foreach (var item in Items)
                 {
-                    item.SaveModel(ControllerName, i == (Items.Count - 1));
+                    item.SaveModel(SaveModelController, i == (Items.Count - 1));
+
                     if (item.HasError)
                     {
                         message.AddRange(item.Errors);
