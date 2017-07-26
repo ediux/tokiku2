@@ -24,6 +24,7 @@
                 <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
             </vm:RoutedViewResult.RoutedValues>
         </vm:RoutedViewResult>
+        
     </UserControl.Resources>
     
     <Grid>
