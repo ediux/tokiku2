@@ -5,9 +5,27 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
              xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              Background="{DynamicResource ControlBackgroundBrush}"
              d:DesignHeight="300" d:DesignWidth="1366" Loaded="AluminumExtrusionProcessingView_Loaded">
+    <UserControl.Resources>
+        <vm:RoutedViewResult x:Key="OpenOrderView" AttachedTargetElementName="InnerWorkspaces"
+                                  DisplayText="訂製單"
+                                  Name="AluminumExtrusionOrderSheetView"
+                                  ViewType="{x:Type local:AluminumExtrusionOrderSheetView}">
+            <vm:RoutedViewResult.RoutingBinding>
+                <sys:String x:Key="SelectedProjectId">Id</sys:String>
+            </vm:RoutedViewResult.RoutingBinding>
+            <vm:RoutedViewResult.RoutedValues>
+                <sys:Guid x:Key="SelectedProjectId"></sys:Guid>
+                <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
+                <x:Type x:Key="SourceViewType" TypeName="local:ProjectViewer"/>
+                <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+            </vm:RoutedViewResult.RoutedValues>
+        </vm:RoutedViewResult>
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>
@@ -16,7 +34,7 @@
         <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Left">
             <Button Content="訂製單" x:Name="btn13" Margin="5,0,0,0"
                     vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}"
-                    vm:CommandRoutingManager.CommandParameter="{StaticResource OpenOrderSheet}"
+                    vm:CommandRoutingManager.CommandParameter="{StaticResource OpenOrderView}"
                     vm:CommandRoutingManager.RoutingName="AluminumExtrusionOrderSheetView" />
             <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="加工訂製單列表" x:Name="btn14" Margin="0,0,5,0"
                     vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}"
