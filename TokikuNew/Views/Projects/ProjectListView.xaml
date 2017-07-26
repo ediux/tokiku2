@@ -55,11 +55,10 @@
                                  CanUserDeleteRows="False"
                                  CanUserSortColumns="False"                                 
                                  IsReadOnly="True"   
-                  vm:CommandRoutingManager.RoutingName="ProjectList"
+                                 vm:CommandRoutingManager.RoutingName="ProjectList"
                                  vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}" >
             <vm:CommandRoutingManager.CommandParameter>
                 <vm:RoutedViewResult ViewType="{x:Type local:ProjectViewer}"
-                                     SourceInstance="{x:Reference Name=userControl}"
                                      FormatedDisplay="專案:{0}-{1}" 
                                      DataContent="{Binding SelectedItem ,ElementName=ProjectList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                      Name="ProjectList">

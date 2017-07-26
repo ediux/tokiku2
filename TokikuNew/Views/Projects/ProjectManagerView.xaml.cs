@@ -43,17 +43,17 @@ namespace TokikuNew.Views
         {
             try
             {
-               
+
                 if (sender is ProjectManagerView)
                 {
 
                     ObjectDataProvider source = (ObjectDataProvider)((ProjectManagerView)sender).TryFindResource("ProjectSource");
 
                     if (source != null)
-                    {                        
+                    {
                         source.MethodParameters[0] = e.NewValue;
                         source.Refresh();
-                    }                
+                    }
                 }
             }
             catch (Exception ex)
@@ -228,11 +228,13 @@ EventManager.RegisterRoutedEvent("NewDocumentPage", RoutingStrategy.Bubble, type
 
                 if (tbName.Text.Length > 0)
                 {
-                    tbShortName.Text = tbName.Text;
+                    if (tbShortName != null)
+                        tbShortName.Text = tbName.Text;
                 }
                 else
                 {
-                    tbShortName.Text = string.Empty;
+                    if (tbShortName != null)
+                        tbShortName.Text = string.Empty;
                 }
                 //if (SelectedProject != null)
                 //{

@@ -88,6 +88,10 @@ namespace Tokiku.ViewModels
                         {
                             _ConstructionParameters = (object[])routingdata.RoutedValues["ViewParameters"];
                         }
+                        else
+                        {
+                            _ConstructionParameters = new object[] { };
+                        }
 
                         FrameworkElement targetelement = (FrameworkElement)Activator.CreateInstance(routingdata.ViewType, _ConstructionParameters);
 
