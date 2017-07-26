@@ -31,12 +31,7 @@ namespace Tokiku.ViewModels
         {
         }
 
-        // ID
-        public int Order
-        {
-            get { return CopyofPOCOInstance.Order; }
-            set { CopyofPOCOInstance.Order = value; RaisePropertyChanged("Order"); }
-        }
+
         // 退料單號
         public string ReturnNumber
         {
