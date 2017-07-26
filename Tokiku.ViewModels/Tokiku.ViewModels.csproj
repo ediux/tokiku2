@@ -56,6 +56,7 @@
     <Compile Include="Commands\BridgingCommand.cs" />
     <Compile Include="Commands\CloseMultiPageContentCommand.cs" />
     <Compile Include="Commands\CloseWindowCommand.cs" />
+    <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="Commands\KeyPressNextFocusCommand.cs" />
     <Compile Include="Commands\LoginCommand.cs" />
     <Compile Include="Commands\OpenTabItemCommand.cs" />
