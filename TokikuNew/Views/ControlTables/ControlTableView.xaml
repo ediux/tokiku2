@@ -93,15 +93,92 @@
             <DataGrid FrozenColumnCount="7" x:Name="dg" ItemsSource="{Binding Source={StaticResource ControlTableListSource}}" AutoGenerateColumns="False" >
                 <vm:CommandRoutingManager.CommandParameter>
                     <vm:RoutedViewResult></vm:RoutedViewResult>
-                </vm:CommandRoutingManager.CommandParameter> 
+                </vm:CommandRoutingManager.CommandParameter>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="項次" Width="auto" Binding="{Binding RowIndex}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="東菊編號" Width="auto" Binding="{Binding Code}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="廠商" Width="auto" Binding="{Binding ManufacturersName}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="廠商編號" Width="auto" Binding="{Binding ManufacturersCode}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="材質" Width="auto" Binding="{Binding MaterialCategories}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="單位重量(kg/m)" Width="auto" Binding="{Binding UnitWeight}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="訂購長度(mm)" Width="auto" Binding="{Binding OrderLength}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderStyleCenter}"  Width="30">
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="項次" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="11" Text="{Binding RowIndex}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderStyleCenter}"  Width="80">
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="東菊編號" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="11" Text="{Binding Code}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderStyleCenter}"  Width="120">
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="廠商" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="11" Text="{Binding ManufacturersName}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderStyleCenter}"  Width="80">
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="廠商編號" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="11" Text="{Binding ManufacturersCode}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderStyleCenter}"  Width="100">
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="材質" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="11" Text="{Binding MaterialCategories}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderStyleCenter}"  Width="80">
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="單位重量       (kg/m)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="11" Text="{Binding UnitWeight}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderStyleCenter}"  Width="80">
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="訂購長度       (mm)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="11" Text="{Binding OrderLength}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="需求數量" Width="auto" >
                         <DataGridTemplateColumn.HeaderTemplate>
                             <DataTemplate>
