@@ -16,7 +16,7 @@ namespace Tokiku.ViewModels
             CopyofPOCOInstance.Id = Guid.NewGuid();
             _OrderType = new OrderTypesViewModel(CopyofPOCOInstance.OrderTypes);
             _ShippingManufacture = new ManufacturersViewModel();
-
+            this.Entity.ActualDelivery = DateTime.Now;
         }
 
         public OrderViewModel(Orders entity) : base(entity)
@@ -42,17 +42,28 @@ namespace Tokiku.ViewModels
         public string RequiredDep { get => CopyofPOCOInstance.RequiredDep; set { CopyofPOCOInstance.RequiredDep = value; RaisePropertyChanged("RequiredDep"); } }
         public string FormNumber { get => CopyofPOCOInstance.FormNumber; set { CopyofPOCOInstance.FormNumber = value; RaisePropertyChanged("FormNumber"); } }
         public string BatchNumber { get => CopyofPOCOInstance.BatchNumber; set { CopyofPOCOInstance.BatchNumber = value; RaisePropertyChanged("BatchNumber"); } }
-        public DateTime ExpectedDelivery { get => CopyofPOCOInstance.ExpectedDelivery; set { CopyofPOCOInstance.ExpectedDelivery = value; RaisePropertyChanged("ExpectedDelivery"); } }
-        public DateTime? ActualDelivery { get => CopyofPOCOInstance.ActualDelivery; set { CopyofPOCOInstance.ActualDelivery = value; RaisePropertyChanged("ActualDelivery"); } }
-        public Guid? MakingUserId { get => CopyofPOCOInstance.MakingUserId; set { CopyofPOCOInstance.MakingUserId = value; RaisePropertyChanged("MakingUserId"); } }
+        public DateTime ExpectedDelivery
+        {
+            get
+            {
+                if (CopyofPOCOInstance.ExpectedDelivery.Year < 1754)
+                {
+                    CopyofPOCOInstance.ExpectedDelivery = DateTime.Now;
+                }
+                return CopyofPOCOInstance.ExpectedDelivery;
+            }
+            set { CopyofPOCOInstance.ExpectedDelivery = value; RaisePropertyChanged("ExpectedDelivery"); }
+        }
+        public DateTime? ActualDelivery { get => CopyofPOCOInstance.ActualDelivery.HasValue ? CopyofPOCOInstance.ActualDelivery : DateTime.Now; set { CopyofPOCOInstance.ActualDelivery = value; RaisePropertyChanged("ActualDelivery"); } }
+        public Guid? MakingUserId { get => CopyofPOCOInstance.MakingUserId ?? Guid.Empty; set { CopyofPOCOInstance.MakingUserId = value; RaisePropertyChanged("MakingUserId"); } }
         public UserViewModel MakingUsers { get => new UserViewModel(CopyofPOCOInstance.MakingUsers); set { RaisePropertyChanged("MakingUsers"); } }
 
-        public DateTime? MakingTime { get => CopyofPOCOInstance.MakingTime; set { CopyofPOCOInstance.MakingTime = value; RaisePropertyChanged("MakingTime"); } }
-        public double? ReservedPercentage { get => CopyofPOCOInstance.ReservedPercentage; set { CopyofPOCOInstance.ReservedPercentage = value; RaisePropertyChanged("ReservedPercentage"); } }
-        public Guid? ShippingManufactureId { get => CopyofPOCOInstance.ShippingManufactureId; set { CopyofPOCOInstance.ShippingManufactureId = value; RaisePropertyChanged("ShippingManufactureId"); } }
+        public DateTime? MakingTime { get => CopyofPOCOInstance.MakingTime ?? DateTime.Now; set { CopyofPOCOInstance.MakingTime = value; RaisePropertyChanged("MakingTime"); } }
+        public double? ReservedPercentage { get => CopyofPOCOInstance.ReservedPercentage ?? 0; set { CopyofPOCOInstance.ReservedPercentage = value; RaisePropertyChanged("ReservedPercentage"); } }
+        public Guid? ShippingManufactureId { get => CopyofPOCOInstance.ShippingManufactureId ?? Guid.Empty; set { CopyofPOCOInstance.ShippingManufactureId = value; RaisePropertyChanged("ShippingManufactureId"); } }
 
         private ManufacturersViewModel _ShippingManufacture;
-        public ManufacturersViewModel ShippingManufacture { get => _ShippingManufacture; }
+        public ManufacturersViewModel ShippingManufacture { get => _ShippingManufacture; set { _ShippingManufacture = value; CopyofPOCOInstance.Manufacturers = _ShippingManufacture.Entity; RaisePropertyChanged("ShippingManufacture"); } }
 
         public static OrderViewModel CreateNew(Guid ProjectId)
         {
@@ -60,7 +71,7 @@ namespace Tokiku.ViewModels
             {
                 return QuerySingle<OrderViewModel, Orders>("Orders", "CreateNew", ProjectId);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 OrderViewModel viewmodel = new OrderViewModel();
                 setErrortoModel(viewmodel, ex);

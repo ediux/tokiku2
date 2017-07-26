@@ -259,6 +259,45 @@ namespace Tokiku.Controllers
         /// </summary>
         /// <param name="ProjectId"></param>
         /// <param name="RequiredId"></param>
+        /// <param name="FactoryNumber"></param>
+        /// <returns></returns>
+        public ExecuteResultEntity<RequiredDetails> QuerySingleDetailByFactoryNumber(string TokikuId, string FactoryNumber)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(FactoryNumber))
+                {
+                    return ExecuteResultEntity<RequiredDetails>.CreateResultEntity(
+                        new RequiredDetails());
+                }
+                else
+                {
+                    var repo = this.GetReoisitory<RequiredDetails>().All();
+
+                    var result = from q in repo
+                                 from s in q.Required.Projects.Required
+                                 from m in s.RequiredDetails
+                                 where m.FactoryNumber == FactoryNumber
+                                 && m.Code == TokikuId
+                                 orderby s.CreateTime descending
+                                 select m;
+
+                    return ExecuteResultEntity<RequiredDetails>.CreateResultEntity(
+                        result.FirstOrDefault());
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<RequiredDetails>.CreateErrorResultEntity(ex);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ProjectId"></param>
+        /// <param name="RequiredId"></param>
         /// <param name="Material"></param>
         /// <returns></returns>
         public ExecuteResultEntity<RequiredDetails> QuerySingleDetailByMaterial(Guid ProjectId, Guid RequiredDetailId, string Material)
@@ -297,6 +336,84 @@ namespace Tokiku.Controllers
         /// </summary>
         /// <param name="ProjectId"></param>
         /// <param name="RequiredId"></param>
+        /// <param name="Material"></param>
+        /// <returns></returns>
+        public ExecuteResultEntity<RequiredDetails> QuerySingleDetailByCode(string Code)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(Code))
+                {
+                    return ExecuteResultEntity<RequiredDetails>.CreateResultEntity(
+                        new RequiredDetails());
+                }
+                else
+                {
+                    var repo = this.GetReoisitory<RequiredDetails>().All();
+
+                    var result = from q in repo
+                                 from p in q.Required.Projects.Required
+                                 from s in p.RequiredDetails
+                                 where s.Code == Code
+                                 orderby p.CreateTime descending
+                                 select s;
+
+                    return ExecuteResultEntity<RequiredDetails>.CreateResultEntity(
+                        result.FirstOrDefault());
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<RequiredDetails>.CreateErrorResultEntity(ex);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ProjectId"></param>
+        /// <param name="RequiredId"></param>
+        /// <param name="Material"></param>
+        /// <returns></returns>
+        public ExecuteResultEntity<RequiredDetails> QuerySingleDetailByMaterial(string TokikuId, string ManufacturersId, string Material)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(Material))
+                {
+                    return ExecuteResultEntity<RequiredDetails>.CreateResultEntity(
+                        new RequiredDetails());
+                }
+                else
+                {
+                    var repo = this.GetReoisitory<RequiredDetails>().All();
+
+                    var result = from q in repo
+                                 from p in q.Required.Projects.Required
+                                 from s in p.RequiredDetails
+                                 where s.Code == TokikuId 
+                                 && s.FactoryNumber == ManufacturersId
+                                 && s.Materials.Name == Material
+                                 orderby p.CreateTime descending
+                                 select s;
+
+                    return ExecuteResultEntity<RequiredDetails>.CreateResultEntity(
+                        result.FirstOrDefault());
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<RequiredDetails>.CreateErrorResultEntity(ex);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ProjectId"></param>
+        /// <param name="RequiredId"></param>
         /// <param name="Weight"></param>
         /// <returns></returns>
         public ExecuteResultEntity<RequiredDetails> QuerySingleDetailByUnitWeight(Guid ProjectId, Guid RequiredDetailId, decimal Weight)
@@ -312,6 +429,37 @@ namespace Tokiku.Controllers
                              && q.Id == RequiredDetailId
                              && s.UnitWeight == Weight
                              select s;
+
+                return ExecuteResultEntity<RequiredDetails>.CreateResultEntity(
+                    result.SingleOrDefault());
+
+
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<RequiredDetails>.CreateErrorResultEntity(ex);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ProjectId"></param>
+        /// <param name="RequiredId"></param>
+        /// <param name="Weight"></param>
+        /// <returns></returns>
+        public ExecuteResultEntity<RequiredDetails> QuerySingleDetailByUnitWeight(decimal Weight)
+        {
+            try
+            {
+
+                var repo = this.GetReoisitory<RequiredDetails>().All();
+
+                var result = from q in repo
+                             from s in q.Required.Projects.Required
+                             from m in s.RequiredDetails
+                             where  m.UnitWeight == Weight
+                             select m;
 
                 return ExecuteResultEntity<RequiredDetails>.CreateResultEntity(
                     result.SingleOrDefault());

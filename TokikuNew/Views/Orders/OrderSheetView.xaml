@@ -90,12 +90,12 @@
                                 <ColumnDefinition Width="auto" />
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" Foreground="Black" Text="輸入人員" VerticalAlignment="Center" />
-                            <TextBlock Grid.Column="1" Foreground="Black" Text="{Binding LoginedUser.UserName}" Width="100" Margin="2" TextAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="1" Foreground="Black" Text="{Binding CreateUser.UserName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="100" Margin="2" TextAlignment="Center" VerticalAlignment="Center"/>
                             <!--<TextBox Grid.Column="1" Foreground="Black" Text="{Binding LoginedUser.UserName, ElementName=userControl}" Width="100" IsReadOnly="True" IsEnabled="False" TextAlignment="Center" VerticalAlignment="Center"/>-->
                             <TextBlock Grid.Column="2" Foreground="Black" Text="連絡電話:"  VerticalAlignment="Center" Margin="2"/>
                             <TextBox Grid.Column="3" Foreground="Black" Width="200" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="" />
                             <TextBlock Grid.Column="4" Foreground="Black" Text="建檔日期:" VerticalAlignment="Center"/>
-                            <TextBlock Grid.Column="4" Foreground="Black" VerticalAlignment="Center" Text="{Binding CreateTime,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=\{0:yyyy\/MM\/dd\}}" />
+                            <TextBlock Grid.Column="5" Foreground="Black" VerticalAlignment="Center" Text="{Binding CreateTime,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=\{0:yyyy\/MM\/dd\}}" />
                             <TextBlock Grid.Column="6" Foreground="Black" Text="製單人員:" VerticalAlignment="Center" />
                             <ComboBox Grid.Column="7" Width="100" ItemsSource="{Binding Source={StaticResource UserListSource}}" SelectedValuePath="UserId" SelectedValue="{Binding MakingUserId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
                                 <ComboBox.ItemTemplate>
@@ -104,7 +104,7 @@
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
-                            
+
                         </Grid>
                         <Grid Width="1300">
                             <Grid.ColumnDefinitions>
@@ -118,11 +118,13 @@
                                 <ColumnDefinition Width="auto" />
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" Foreground="Black" Text="製單日期:" VerticalAlignment="Center" Margin="2"/>
-                            <DatePicker Grid.Column="1" Foreground="Black" Width="200" VerticalAlignment="Center"  Margin="2" SelectedDate="{Binding ActualDelivery,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            <DatePicker Grid.Column="1" Foreground="Black" Width="200" VerticalAlignment="Center"  Margin="2" SelectedDate="{Binding MakingTime ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                             <TextBlock Grid.Column="2" Foreground="Black" Text="廠商:"  VerticalAlignment="Center" Margin="2"/>
-                            <ComboBox ItemsSource="{Binding Source={StaticResource ManufactureList}}" 
-                                          SelectedItem="{Binding SelectedManufacturers,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                          Grid.Column="3" Width="165">
+                            <ComboBox ItemsSource="{Binding Source={StaticResource ManufactureList}}"  
+                                      SelectedItem="{Binding ShippingManufacture,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                      SelectedValue="{Binding ShippingManufactureId ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                      SelectedValuePath="Id"
+                                      Grid.Column="3" Width="165">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Name}"/>
@@ -133,7 +135,7 @@
                             <TextBox Width="100" Grid.Column="5" Foreground="Black" Text="{Binding ReservedPercentage}"/>
                             <TextBlock Grid.Column="6" Foreground="Green" Text="%" VerticalAlignment="Center"/>
                             <Button Grid.Column="7" Content="儲存" Click="Button_Click">
-                                
+
                             </Button>
                         </Grid>
                     </WrapPanel>

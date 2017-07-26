@@ -58,7 +58,7 @@ namespace Tokiku.ViewModels
         }
 
     }
-    
+
 
     public class OrderDetailViewModel : BaseViewModelWithPOCOClass<OrderDetails>
     {
@@ -75,11 +75,27 @@ namespace Tokiku.ViewModels
         // "*東菊編號*"
         public string TokikuId
         {
-            get { return CopyofPOCOInstance.RequiredDetails.Code; }
+            get { return CopyofPOCOInstance?.RequiredDetails?.Code; }
             set
             {
-                //反查
+                var found = ExecuteAction<RequiredDetails>("Required", "QuerySingleDetailByCode", value);
+
+                if (found != null)
+                {
+                    CopyofPOCOInstance.RequiredDetails = found;
+                    CopyofPOCOInstance.RequiredDetailsId = found.Id;
+                }
+                else
+                {
+                    throw new Exception("找不到需求單項目");
+                    //反查
+                }
+
                 RaisePropertyChanged("TokikuId");
+                RaisePropertyChanged("ManufacturersId");
+                RaisePropertyChanged("Material");
+                RaisePropertyChanged("UnitWeight");
+                RaisePropertyChanged("OrderLength");
             }
         }
 
@@ -88,8 +104,29 @@ namespace Tokiku.ViewModels
         // "*廠商編號*"
         public string ManufacturersId
         {
-            get { return CopyofPOCOInstance.RequiredDetails.Required.Manufacturers.Code; }
-            set { RaisePropertyChanged("ManufacturersId"); }
+            get { return CopyofPOCOInstance?.RequiredDetails?.FactoryNumber; }
+            set
+            {
+                var found = ExecuteAction<RequiredDetails>("Required", "QuerySingleDetailByFactoryNumber", TokikuId, value);
+
+                if (found != null)
+                {
+                    CopyofPOCOInstance.RequiredDetails = found;
+                    CopyofPOCOInstance.RequiredDetailsId = found.Id;
+                    //反查
+                    RaisePropertyChanged("TokikuId");
+                    RaisePropertyChanged("ManufacturersId");
+                    RaisePropertyChanged("Material");
+                    RaisePropertyChanged("UnitWeight");
+                    RaisePropertyChanged("OrderLength");
+                }
+                else
+                {
+                    throw new Exception("找不到需求單項目");
+                }
+
+
+            }
         }
 
 
@@ -97,16 +134,59 @@ namespace Tokiku.ViewModels
         // "*材質*"
         public string Material
         {
-            get { return CopyofPOCOInstance.RequiredDetails.Materials.Name; }
-            set { RaisePropertyChanged("Material"); }
+            get { return CopyofPOCOInstance?.RequiredDetails?.Materials.Name; }
+            set
+            {
+
+                var found = ExecuteAction<RequiredDetails>("Required", "QuerySingleDetailByMaterial", TokikuId, ManufacturersId, value);
+
+                if (found != null)
+                {
+                    CopyofPOCOInstance.RequiredDetails = found;
+                    CopyofPOCOInstance.RequiredDetailsId = found.Id;
+                    //反查
+                    RaisePropertyChanged("TokikuId");
+                    RaisePropertyChanged("ManufacturersId");
+                    RaisePropertyChanged("Material");
+                    RaisePropertyChanged("UnitWeight");
+                    RaisePropertyChanged("OrderLength");
+                }
+                else
+                {
+                    throw new Exception("找不到需求單項目");
+                }
+
+            }
         }
 
 
         // "*單位重(kg/m)*"
-        public decimal UnitWeight
+        public decimal? UnitWeight
         {
-            get { return CopyofPOCOInstance.RequiredDetails.UnitWeight; }
-            set {  RaisePropertyChanged("UnitWeight"); }
+            get { return CopyofPOCOInstance?.RequiredDetails?.UnitWeight; }
+            set
+            {
+
+                //var found = ExecuteAction<RequiredDetails>("Required", "QuerySingleDetailByMaterial", TokikuId, ManufacturersId, Material);
+
+                //if (found != null)
+                //{
+                //    CopyofPOCOInstance.RequiredDetails = found;
+                //    CopyofPOCOInstance.RequiredDetailsId = found.Id;
+                //    //反查
+                //    RaisePropertyChanged("TokikuId");
+                //    RaisePropertyChanged("ManufacturersId");
+                //    RaisePropertyChanged("Material");
+                //    RaisePropertyChanged("UnitWeight");
+                //    RaisePropertyChanged("OrderLength");
+                //}
+                //else
+                //{
+                //    throw new Exception("找不到需求單項目");
+                //}
+
+
+            }
         }
 
 
@@ -114,17 +194,41 @@ namespace Tokiku.ViewModels
         // "*訂購長度(mm)*"
         public int? OrderLength
         {
-            get { return CopyofPOCOInstance.RequiredDetails.OrderLength; }
-            set { CopyofPOCOInstance.RequiredDetails.OrderLength = value; RaisePropertyChanged("OrderLength"); }
+            get { return CopyofPOCOInstance?.RequiredDetails?.OrderLength; }
+            set
+            {
+                //var found = ExecuteAction<RequiredDetails>("Required", "QuerySingleDetailByMaterial", TokikuId, ManufacturersId, Material);
+
+                //if (found != null)
+                //{
+                //    CopyofPOCOInstance.RequiredDetails = found;
+                //    CopyofPOCOInstance.RequiredDetailsId = found.Id;
+                //    //反查
+                //    RaisePropertyChanged("TokikuId");
+                //    RaisePropertyChanged("ManufacturersId");
+                //    RaisePropertyChanged("Material");
+                //    RaisePropertyChanged("UnitWeight");
+                //    RaisePropertyChanged("OrderLength");
+                //}
+                //else
+                //{
+                //    throw new Exception("找不到需求單項目");
+                //}
+
+            }
         }
 
 
 
         // "[需求數量]"
-        public Nullable<int> RequiredQuantity
+        public decimal RequiredQuantity
         {
-            get { return CopyofPOCOInstance.RequiredDetails.RequiredQuantity; }
-            set {  RaisePropertyChanged("RequiredQuantity"); }
+            get { return CopyofPOCOInstance.RequiredQuantity; }
+            set
+            {
+                CopyofPOCOInstance.RequiredQuantity = value;
+                RaisePropertyChanged("RequiredQuantity");
+            }
         }
 
 
@@ -153,5 +257,7 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.Comment = value; RaisePropertyChanged("Note"); }
         }
 
+        
+        
     }
 }

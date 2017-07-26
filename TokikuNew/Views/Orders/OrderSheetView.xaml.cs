@@ -74,7 +74,7 @@ namespace TokikuNew.Views
 
         // Using a DependencyProperty as the backing store for SelectedProject.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedProjectIdProperty =
-            DependencyProperty.Register("SelectedProject", typeof(Guid), typeof(AluminumExtrusionOrderSheetView), new PropertyMetadata(Guid.Empty,new PropertyChangedCallback(ProjectIdChange)));
+            DependencyProperty.Register("SelectedProject", typeof(Guid), typeof(AluminumExtrusionOrderSheetView), new PropertyMetadata(Guid.Empty, new PropertyChangedCallback(ProjectIdChange)));
 
         public static void ProjectIdChange(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
@@ -771,7 +771,7 @@ namespace TokikuNew.Views
 
             if (source != null)
             {
-                source.MethodParameters[0] = SelectedProjectId; 
+                source.MethodParameters[0] = SelectedProjectId;
             }
         }
 
@@ -785,9 +785,15 @@ namespace TokikuNew.Views
                 if (details.Count > 0)
                 {
                     master.Entity.OrderDetails = new Collection<OrderDetails>();
+                    master.ActualDelivery = new DateTime(1900, 1, 1);
+                        master.CreateTime = DateTime.Now;
+
+                    if (master.MakingTime.HasValue == false)
+                        master.MakingTime = DateTime.Now;
 
                     foreach (var item in details)
                     {
+                        item.CreateTime = DateTime.Now;
                         item.Entity.Orders = master.Entity;
                         item.Entity.OrderId = master.Id;
 
@@ -803,7 +809,12 @@ namespace TokikuNew.Views
                 if (master.HasError)
                 {
                     MessageBox.Show(string.Join("\n", master.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                    master.Errors = new string[] { };
+                    master.HasError = false;
+                    return;
                 }
+
+                RaiseEvent(new RoutedEventArgs(ClosableTabItem.OnPageClosingEvent, this));
                 //var provider = (ObjectDataProvider)TryFindResource("RequiredSource");
                 //provider.MethodName = "Query";
                 //provider.MethodParameters.Clear();
