@@ -69,6 +69,8 @@
     <Compile Include="Commands\CreateNewModelCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="ControlTables\ObtainMaterialViewModel.cs" />
+    <Compile Include="ControlTables\RecvMaterialDetailsViewModel.cs" />
+    <Compile Include="ControlTables\RecvMaterialDetailsViewModelCollection.cs" />
     <Compile Include="Projects\Orders\OrderMaterialValuationViewModel.cs" />
     <Compile Include="Projects\Orders\OrderMiscellaneousViewModel.cs" />
     <Compile Include="Projects\Orders\OrderViewModel.cs" />

@@ -167,25 +167,6 @@ namespace Tokiku.ViewModels
             set
             {
 
-                //var found = ExecuteAction<RequiredDetails>("Required", "QuerySingleDetailByMaterial", TokikuId, ManufacturersId, Material);
-
-                //if (found != null)
-                //{
-                //    CopyofPOCOInstance.RequiredDetails = found;
-                //    CopyofPOCOInstance.RequiredDetailsId = found.Id;
-                //    //反查
-                //    RaisePropertyChanged("TokikuId");
-                //    RaisePropertyChanged("ManufacturersId");
-                //    RaisePropertyChanged("Material");
-                //    RaisePropertyChanged("UnitWeight");
-                //    RaisePropertyChanged("OrderLength");
-                //}
-                //else
-                //{
-                //    throw new Exception("找不到需求單項目");
-                //}
-
-
             }
         }
 
@@ -196,25 +177,7 @@ namespace Tokiku.ViewModels
         {
             get { return CopyofPOCOInstance?.RequiredDetails?.OrderLength; }
             set
-            {
-                //var found = ExecuteAction<RequiredDetails>("Required", "QuerySingleDetailByMaterial", TokikuId, ManufacturersId, Material);
-
-                //if (found != null)
-                //{
-                //    CopyofPOCOInstance.RequiredDetails = found;
-                //    CopyofPOCOInstance.RequiredDetailsId = found.Id;
-                //    //反查
-                //    RaisePropertyChanged("TokikuId");
-                //    RaisePropertyChanged("ManufacturersId");
-                //    RaisePropertyChanged("Material");
-                //    RaisePropertyChanged("UnitWeight");
-                //    RaisePropertyChanged("OrderLength");
-                //}
-                //else
-                //{
-                //    throw new Exception("找不到需求單項目");
-                //}
-
+            {          
             }
         }
 
@@ -233,7 +196,9 @@ namespace Tokiku.ViewModels
 
 
 
-        // "[備品數量]"
+        /// <summary>
+        /// 備品數量
+        /// </summary>
         public decimal SparePartsQuantity
         {
             get { return CopyofPOCOInstance.SparePartsNumber; }
@@ -242,7 +207,10 @@ namespace Tokiku.ViewModels
 
 
 
-        // "[下單數量]"
+ 
+        /// <summary>
+        /// 下單數量
+        /// </summary>
         public decimal PlaceAnOrderQuantity
         {
             get { return CopyofPOCOInstance.OrderQuantity; }
@@ -250,7 +218,9 @@ namespace Tokiku.ViewModels
         }
 
 
-        // "[備註]"
+        /// <summary>
+        /// 備註
+        /// </summary>
         public string Note
         {
             get { return CopyofPOCOInstance.Comment; }

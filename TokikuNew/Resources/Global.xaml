@@ -52,11 +52,21 @@
     </ObjectDataProvider>
     <ObjectDataProvider x:Key="OrderTypesListSoure" ObjectType="{x:Type vm:OrderTypesViewModelCollection}" MethodName="Query"/>
     <ObjectDataProvider x:Key="UserListSource" ObjectType="{x:Type vm:UserViewModelCollection}" MethodName="Query"/>
+    <!--訂製單雜項資料來源-->
     <ObjectDataProvider x:Key="OrderMiscellaneousSource" ObjectType="{x:Type vm:OrderMiscellaneousViewModelCollection}" MethodName="Query">
         <ObjectDataProvider.MethodParameters>
             <x:Static Member="sys:Guid.Empty"/>
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
+    <!--訂製單雜項資料來源-->
+    
+    <!--訂製單列表資料來源-->
+    <ObjectDataProvider x:Key="OrderListSource" ObjectType="{x:Type vm:OrderViewModelCollection}" MethodName="Query">
+        <ObjectDataProvider.MethodParameters>
+            <x:Static Member="sys:Guid.Empty"></x:Static>
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+    <!--訂製單列表資料來源-->
     <!--<viewmodels:AluminumExtrusionOrderViewModelCollection x:Key="AluminumExtrusionOrderSource" />-->
     <ObjectDataProvider ObjectType="{x:Type vm:預付款保證票ViewModel}" x:Key="預付款保證票清單" />
     <ObjectDataProvider ObjectType="{x:Type vm:保固票ViewModelCollection}" x:Key="保固票清單" />
@@ -402,7 +412,6 @@
             <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
             <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
             <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
-            <sys:String x:Key="ResourceKey">InventoryListSource</sys:String>
         </vm:RoutedViewResult.RoutedValues>
     </vm:RoutedViewResult>
     <!-- 收料單列表,TokikuNew.QualityAbnormallySingleView -->

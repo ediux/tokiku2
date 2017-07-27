@@ -6,11 +6,24 @@
              xmlns:c="clr-namespace:TokikuNew.Controls"
              xmlns:local="clr-namespace:TokikuNew.Views"
              xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d"
              Background="{DynamicResource ControlBackgroundBrush}"
              d:DesignHeight="600" d:DesignWidth="1024" Loaded="RecvMaterialView_Loaded">
     <UserControl.Resources>
-        <ObjectDataProvider x:Key="OrderSource" ObjectType="{x:Type vm:OrderDetailViewModelCollection}" MethodName="Query"/>
+        <ObjectDataProvider x:Key="RecvMaterialSource" ObjectType="{x:Type vm:RecvMaterialViewModel}" MethodName="Query">
+            <ObjectDataProvider.MethodParameters>
+                <!--參數:專案ID-->
+                <x:Static Member="sys:Guid.Empty"/>
+                <x:Static Member="sys:Guid.Empty"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="RecvMaterialDetailsSource" ObjectType="{x:Type vm:RecvMaterialDetailsViewModelCollection}" MethodName="Query">
+            <ObjectDataProvider.MethodParameters>
+                <x:Static Member="sys:Guid.Empty"/> <!--參數:專案ID-->
+                <x:Static Member="sys:Guid.Empty"/><!--參數:收料單主檔ID-->
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -43,15 +56,15 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="*" Margin="2,2,0,2" VerticalAlignment="Center" Foreground="#FF0000" />
                                 <TextBlock Grid.Column="1" Text="收料單號" VerticalAlignment="Center" />
-                                <TextBox Grid.Column="2" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding ReceiptNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox Grid.Column="2" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding ReceiptNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Source={StaticResource RecvMaterialSource}}" />
                                 <TextBlock Grid.Column="3" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
                                 <TextBlock Grid.Column="4" Text="來料廠商" VerticalAlignment="Center" />
-                                <TextBox Grid.Column="5" Width="88" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding IncomingManufacturersCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <TextBox Grid.Column="6" Width="165" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding IncomingManufacturersName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox Grid.Column="5" Width="88" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding IncomingManufacturersCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Source={StaticResource RecvMaterialSource}}" />
+                                <TextBox Grid.Column="6" Width="165" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding IncomingManufacturersName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Source={StaticResource RecvMaterialSource}}" />
                                 <TextBlock Grid.Column="7" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
                                 <TextBlock Grid.Column="8" Text="來料單號" VerticalAlignment="Center" />
-                                <TextBox Grid.Column="9" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding IncomingNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                
+                                <TextBox Grid.Column="9" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding IncomingNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Source={StaticResource RecvMaterialSource}}" />
+
                             </Grid>
                             <Grid Width="1310">
                                 <Grid.ColumnDefinitions>
@@ -67,15 +80,15 @@
                                     <ColumnDefinition Width="auto" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="輸入人員" Margin="2,2,0,2" VerticalAlignment="Center" />
-                                <TextBox Grid.Column="1" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding CreateUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox Grid.Column="1" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding CreateUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Source={StaticResource RecvMaterialSource}}" />
                                 <TextBlock Grid.Column="2" Text="建檔日期" VerticalAlignment="Center" />
-                                <DatePicker Grid.Column="3" Width="200" VerticalAlignment="Center" Margin="2" Text="{Binding CreateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <DatePicker Grid.Column="3" Width="200" VerticalAlignment="Center" Margin="2" Text="{Binding CreateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Source={StaticResource RecvMaterialSource}}" />
                                 <TextBlock Grid.Column="4" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
                                 <TextBlock Grid.Column="5" Text="製單人員" VerticalAlignment="Center" />
-                                <TextBox Grid.Column="6" Width="100" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding MakingUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox Grid.Column="6" Width="100" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding MakingUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Source={StaticResource RecvMaterialSource}}" />
                                 <TextBlock Grid.Column="7" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
                                 <TextBlock Grid.Column="8" Text="製單日期" VerticalAlignment="Center" />
-                                <DatePicker Grid.Column="9" Width="200" VerticalAlignment="Center" Margin="2" Text="{Binding MakingTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <DatePicker Grid.Column="9" Width="200" VerticalAlignment="Center" Margin="2" Text="{Binding MakingTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Source={StaticResource RecvMaterialSource}}" />
                             </Grid>
                             <Grid Width="1310">
                                 <Grid.ColumnDefinitions>
@@ -85,6 +98,7 @@
                                     <ColumnDefinition Width="auto" />
                                     <ColumnDefinition Width="auto" />
                                     <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="45" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="*" Margin="2,2,0,2" VerticalAlignment="Center" Foreground="#FF0000" />
                                 <TextBlock Grid.Column="1" Text="倉別" VerticalAlignment="Center" Foreground="#FF036808" />
@@ -92,13 +106,13 @@
                                 <TextBox Grid.Column="3" Width="220" MaxLength="20" VerticalAlignment="Center" Margin="2" />
                                 <TextBlock Grid.Column="4" Text="備註" VerticalAlignment="Center" Foreground="#FF036808" />
                                 <TextBox Grid.Column="5" Width="500" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <Button Content="儲存" Grid.Column="6" FontSize="13" Margin="5,0" x:Name="BtnSave" Click="BtnSave_Click" />
                             </Grid>
                         </WrapPanel>
                     </DataTemplate>
                 </Expander.ContentTemplate>
             </Expander>
         </Canvas>
-
         <Canvas Grid.Row="0" Grid.Column="1" Panel.ZIndex="499">
             <Expander Canvas.Right="0" VerticalAlignment="Stretch" ExpandDirection="Left" Header="項目選單" IsExpanded="False">
                 <Expander.ContentTemplate>
@@ -116,7 +130,7 @@
                                 </Grid.ColumnDefinitions>
                                 <c:SearchBar Grid.Row="0" Grid.Column="1" x:Name="sSearchBar" />
                                 <Button Name="btnNew" Grid.Row="0" Grid.Column="2" Margin="1" Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" Click="btnNew_Click" />
-                                <c:CustomDataGrid Grid.Row="1" Grid.ColumnSpan="3" Margin="1" AutoGenerateColumns="False" x:Name="鋁擠型訂製單DG" ItemsSource="{Binding Source={StaticResource OrderSource}}">
+                                <c:CustomDataGrid Grid.Row="1" Grid.ColumnSpan="3" Margin="1" AutoGenerateColumns="False" x:Name="鋁擠型訂製單DG" ItemsSource="{Binding Source={StaticResource OrderListSource}}">
                                     <c:CustomDataGrid.Columns>
                                         <DataGridTextColumn Header="" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                                         <DataGridTextColumn IsReadOnly="True" Header="*東菊編號*" Binding="{Binding TokikuId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
@@ -136,30 +150,29 @@
                 </Expander.ContentTemplate>
             </Expander>
         </Canvas>
-
         <Grid x:Name="CheckGrid" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="570" Margin="10,0,0,0" VerticalAlignment="Top" Width="1326">
-            <DataGrid>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="單號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="批號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="項次" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="東菊編號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="廠商編號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="材質" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="單位重(kg/m)" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="訂購長度(mm)" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="下單數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="重量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="缺料" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="收料量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="備註" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                </DataGrid.Columns>
-            </DataGrid>
+            <c:CustomDataGrid ItemsSource="{Binding Source={StaticResource RecvMaterialDetailsSource}}">
+                <c:CustomDataGrid.Columns>
+                    <DataGridTextColumn Header="單號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" Binding="{Binding OrderNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                    <DataGridTextColumn Header="批號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" Binding="{Binding BatchNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="項次" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" Binding="{Binding RowIndex}"/>
+                    <DataGridTextColumn Header="東菊編號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" Binding="{Binding Code,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="廠商編號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" Binding="{Binding FactoryNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="材質" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" Binding="{Binding Materials,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="單位重(kg/m)" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" Binding="{Binding UnitWeight,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="訂購長度(mm)" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" Binding="{Binding OrderLength,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="下單數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" Binding="{Binding OrderQuantity,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="重量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" Binding="{Binding Weight,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="缺料" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" Binding="{Binding LackMaterialQuantity,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="收料量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" Binding="{Binding ReceivedQuantity,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="備註" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" Binding="{Binding Comment,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                </c:CustomDataGrid.Columns>
+            </c:CustomDataGrid>
         </Grid>
 
         <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="31" Margin="10,0,0,6" VerticalAlignment="Bottom" Width="1006">
             <Label Content="收料支數:" HorizontalAlignment="Left" Height="22" Margin="10,10,0,0" VerticalAlignment="Top" Width="51" Grid.Column="1"/>
-            <TextBox HorizontalAlignment="Left" Height="24" Margin="66,8,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="65"/>
+            <TextBox HorizontalAlignment="Left" Height="24" Margin="66,8,0,0" TextWrapping="Wrap" Text="{Binding ReceiptCount,Source={StaticResource RecvMaterialSource}}" VerticalAlignment="Top" Width="65"/>
             <Label Content="合計:" HorizontalAlignment="Left" Height="22" Margin="149,10,0,0" VerticalAlignment="Top" Width="32"/>
             <TextBox HorizontalAlignment="Left" Height="24" Margin="186,8,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="168"/>
             <Label Content="收料總重:" HorizontalAlignment="Left" Height="22" Margin="359,10,0,0" VerticalAlignment="Top" Width="54"/>

@@ -121,6 +121,31 @@ namespace Tokiku.Controllers
         #endregion
 
         #region Order Details
+        public ExecuteResultEntity<OrderDetails> QuerySingleDetailByCode(string code)
+        {
+            ExecuteResultEntity<OrderDetails> rtn;
+
+            try
+            {
+                var repo = this.GetReoisitory<OrderDetails>();
+                var result = (from q in repo.All()
+                              from p in q.RequiredDetails.Required.Projects.Required
+                              from m in p.RequiredDetails
+                              from x in m.OrderDetails
+                              where m.Code == code
+                              orderby q.RequiredDetails.Required.Projects.Code descending
+                              select x).Distinct();
+
+
+                return ExecuteResultEntity<OrderDetails>.CreateResultEntity(result.FirstOrDefault());
+            }
+            catch (Exception ex)
+            {
+                rtn = ExecuteResultEntity<OrderDetails>.CreateErrorResultEntity(ex);
+                return rtn;
+            }
+        }
+
         public ExecuteResultEntity Add(OrderDetails entity, bool isLastRecord = true)
         {
             throw new NotImplementedException();

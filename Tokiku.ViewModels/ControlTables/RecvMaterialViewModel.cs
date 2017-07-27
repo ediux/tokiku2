@@ -20,23 +20,51 @@ namespace Tokiku.ViewModels
 
         }
 
-        public static RecvMaterialViewModelCollection Query()
+        public static RecvMaterialViewModelCollection Query(Guid ProjectId)
         {
-            RecvMaterialController ctrl = new RecvMaterialController();
-            ExecuteResultEntity<ICollection<Receive>> ere = ctrl.QuerAll();
-
-            if (!ere.HasError)
+            try
             {
-                return new RecvMaterialViewModelCollection(ere.Result.Select(s => new RecvMaterialViewModel(s)).ToList());
+                return Query<RecvMaterialViewModelCollection, Receive>("RecvMaterial", "Query", ProjectId);
             }
+            catch (Exception ex)
+            {
+                RecvMaterialViewModelCollection emptycollection = new RecvMaterialViewModelCollection();
+                setErrortoModel(emptycollection, ex);
+                return emptycollection;
+            }
+            //RecvMaterialController ctrl = new RecvMaterialController();
+            //ExecuteResultEntity<ICollection<Receive>> ere = ctrl.QuerAll();
 
-            return new RecvMaterialViewModelCollection();
+            //if (!ere.HasError)
+            //{
+            //    return new RecvMaterialViewModelCollection(ere.Result.Select(s => new RecvMaterialViewModel(s)).ToList());
+            //}
+
+            //return new RecvMaterialViewModelCollection();
         }
 
     }
 
     public class RecvMaterialViewModel : BaseViewModelWithPOCOClass<Receive>
     {
+        public RecvMaterialViewModel()
+        {
+
+        }
+        public static RecvMaterialViewModel Query(Guid Id,Guid ProjectId)
+        {
+            try
+            {
+                return QuerySingle<RecvMaterialViewModel, Receive>("RecvMaterial", "QuerySingle",ProjectId, Id);
+            }
+            catch (Exception ex)
+            {
+                RecvMaterialViewModel emptycollection = new RecvMaterialViewModel();
+                setErrortoModel(emptycollection, ex);
+                return emptycollection;
+            }
+        }
+
         public RecvMaterialViewModel(Receive entity) : base(entity)
         {
 
@@ -103,5 +131,16 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.Comment = value; RaisePropertyChanged("Comment"); }
         }
 
+        /// <summary>
+        /// 收料支數
+        /// </summary>
+        public int ReceiptCount
+        {
+            get
+            {
+                return CopyofPOCOInstance.ReceiptDetails.Sum(s => s.ReceiptQuantity);
+            }
+            set { RaisePropertyChanged("ReceiptCount"); }
+        }
     }
 }

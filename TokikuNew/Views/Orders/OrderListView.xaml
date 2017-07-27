@@ -12,11 +12,7 @@
              Background="{DynamicResource ControlBackgroundBrush}"
              d:DesignHeight="768" d:DesignWidth="1366">
     <UserControl.Resources>
-        <ObjectDataProvider x:Key="OrderListSource" ObjectType="{x:Type vm:OrderViewModelCollection}" MethodName="Query">
-            <ObjectDataProvider.MethodParameters>
-                <x:Static Member="sys:Guid.Empty"></x:Static>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
+
     </UserControl.Resources>
     <Grid>
         <DataGrid CanUserAddRows="True" x:Name="OrderList" ItemsSource="{Binding Source={StaticResource OrderListSource}}" AutoGenerateColumns="False">

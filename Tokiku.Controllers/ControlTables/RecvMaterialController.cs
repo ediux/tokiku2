@@ -8,17 +8,62 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class RecvMaterialController : BaseController
+    public class RecvMaterialController : BaseController<Receive>
     {
         private ExecuteResultEntity<ICollection<Receive>> rtn;
 
+        public ExecuteResultEntity<Receive> QuerySingle(Guid ProjectId, Guid Id)
+        {
+            try
+            {
+                var repo = this.GetReoisitory();
+
+                var result = from q in repo.All()
+                             from s in q.ReceiptDetails
+                             where s.OrderDetails.RequiredDetails.Required.ProjectId == ProjectId
+                             && q.Id == Id
+                             select s.Receipts;
+
+                return ExecuteResultEntity<Receive>.CreateResultEntity(
+                    result.SingleOrDefault());
+            }
+            catch (Exception ex)
+            {
+                var rtn = ExecuteResultEntity<Receive>.CreateErrorResultEntity(ex);
+                return rtn;
+            }
+        }
+
+        public ExecuteResultEntity<ICollection<ReceiveDetails>> Query(Guid ProjectId, Guid Id)
+        {
+            try
+            {
+                var repo = this.GetReoisitory<ReceiveDetails>();
+
+                var result = from q in repo.All()
+                             where q.OrderDetails.RequiredDetails.Required.ProjectId == ProjectId
+                             && q.Receipts.Id == Id
+                             select q;
+
+                return ExecuteResultEntity<ICollection<ReceiveDetails>>.CreateResultEntity(
+                    new Collection<ReceiveDetails>(result.ToList()));
+            }
+            catch (Exception ex)
+            {
+                var rtn = ExecuteResultEntity<ICollection<ReceiveDetails>>.CreateErrorResultEntity(ex);
+                return rtn;
+            }
+        }
         public ExecuteResultEntity<ICollection<Receive>> QuerAll()
         {
-            try {
+            try
+            {
                 var repo = RepositoryHelper.GetReceiveRepository();
                 return ExecuteResultEntity<ICollection<Receive>>.CreateResultEntity(
                     new Collection<Receive>(repo.All().ToList()));
-            }catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 rtn = ExecuteResultEntity<ICollection<Receive>>.CreateErrorResultEntity(ex);
                 return rtn;
             }

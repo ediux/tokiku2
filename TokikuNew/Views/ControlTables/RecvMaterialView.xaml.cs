@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using Tokiku.Entity;
 using Tokiku.ViewModels;
 using TokikuNew.Controls;
 
@@ -18,11 +22,65 @@ namespace TokikuNew.Views
             InitialSpreadRecvMaterial();
         }
 
+
+
+        #region SelectedProjectId
+        /// <summary>
+        /// 目前已選擇的專案ID
+        /// </summary>
+        public Guid SelectedProjectId
+        {
+            get { return (Guid)GetValue(SelectedProjectIdProperty); }
+            set { SetValue(SelectedProjectIdProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectedProjectId.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedProjectIdProperty =
+            DependencyProperty.Register("SelectedProjectId", typeof(Guid), typeof(RecvMaterialView), new PropertyMetadata(Guid.Empty, new PropertyChangedCallback(ProjectIdChange)));
+
+        public static void ProjectIdChange(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            try
+            {
+                if (sender is RecvMaterialView)
+                {
+                    RecvMaterialView currentview = (RecvMaterialView)sender;
+
+                    ObjectDataProvider provider = (ObjectDataProvider)currentview.TryFindResource("RecvMaterialSource");
+
+                    if (provider != null)
+                    {
+                        provider.MethodParameters[0] = e.NewValue;
+                        provider.Refresh();
+                    }
+
+                    ObjectDataProvider provider2 = (ObjectDataProvider)currentview.TryFindResource("RecvMaterialDetailsSource");
+
+                    if (provider2 != null)
+                    {
+                        provider2.MethodParameters[0] = e.NewValue;
+                        provider2.MethodParameters[1] = ((RecvMaterialViewModel)provider.Data).Entity.Id;
+
+                        provider2.Refresh();
+
+                        ((RecvMaterialViewModel)provider.Data).Entity.ReceiptDetails = (Collection<Tokiku.Entity.ReceiveDetails>)provider2.Data;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+        }
+
+        #endregion
+
         private void RecvMaterialView_Loaded(object sender, RoutedEventArgs e)
         {
-            RecvMaterialViewModelCollection ctrl = new RecvMaterialViewModelCollection();
-            CheckGrid.DataContext = ctrl;
-            RecvMaterialViewModelCollection.Query();
+            //RecvMaterialViewModelCollection ctrl = new RecvMaterialViewModelCollection();
+            //CheckGrid.DataContext = ctrl;
+            //RecvMaterialViewModelCollection.Query();
         }
 
         private void InitialSpreadRecvMaterial()
@@ -88,5 +146,67 @@ namespace TokikuNew.Views
 
         }
 
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                RecvMaterialViewModel master = (RecvMaterialViewModel)((ObjectDataProvider)TryFindResource("RecvMaterialSource")).Data;
+                //OrderDetailViewModelCollection details = (OrderDetailViewModelCollection)((ObjectDataProvider)TryFindResource("AluminumExtrusionOrderSource2")).Data;
+                //AluminumExtrusionOrderMaterialValuationViewModelCollection OrderMaterialValuation = (AluminumExtrusionOrderMaterialValuationViewModelCollection)((ObjectDataProvider)TryFindResource("MaterialValuationViewSource")).Data;
+                //OrderMiscellaneousViewModelCollection misc = (OrderMiscellaneousViewModelCollection)((ObjectDataProvider)TryFindResource("OrderMiscellaneousSource")).Data;
+
+                if (master == null)
+                    return;
+              
+                master.CreateTime = DateTime.Now;
+
+                //if (master.MakingTime.HasValue == false)
+                //    master.MakingTime = DateTime.Now;
+
+                //if (details.Count > 0)
+                //{
+
+                //    master.Entity.OrderDetails = new Collection<OrderDetails>();
+                //    foreach (var item in details)
+                //    {
+                //        item.CreateTime = DateTime.Now;
+                //        item.Entity.Orders = master.Entity;
+                //        item.Entity.OrderId = master.Id;
+
+                //        if (item.Entity.Id == Guid.Empty)
+                //            item.Entity.Id = Guid.NewGuid();
+
+                //        master.Entity.OrderDetails.Add(item.Entity);
+                //    }
+
+
+
+                //}
+
+               
+                master.SaveModel("RecvMaterial");
+
+                if (master.HasError)
+                {
+                    MessageBox.Show(string.Join("\n", master.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                    master.Errors = new string[] { };
+                    master.HasError = false;
+                    return;
+                }
+
+                RaiseEvent(new RoutedEventArgs(ClosableTabItem.OnPageClosingEvent, this));
+                //var provider = (ObjectDataProvider)TryFindResource("RequiredSource");
+                //provider.MethodName = "Query";
+                //provider.MethodParameters.Clear();
+                //provider.MethodParameters.Add(master.Id);
+                //provider.Refresh();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+        }
     }
+
 }
