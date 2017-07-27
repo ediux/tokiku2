@@ -25,7 +25,7 @@ namespace Tokiku.ViewModels
             Status = new DocumentStatusViewModel();
             EntityType = typeof(TPOCO);
             CopyofPOCOInstance = Activator.CreateInstance<TPOCO>();
-            
+
         }
 
         public BaseViewModelWithPOCOClass(TPOCO entity)
@@ -50,7 +50,7 @@ namespace Tokiku.ViewModels
             Status.IsNewInstance = false;
         }
 
-        
+
         /// <summary>
         /// 處理接收轉送來源的物件。
         /// </summary>
@@ -182,7 +182,9 @@ namespace Tokiku.ViewModels
 
         #endregion
 
+
         #region CreateUserId
+        private Users _LoginUser;
         /// <summary>
         /// 建立人員識別碼
         /// </summary>
@@ -192,7 +194,21 @@ namespace Tokiku.ViewModels
             {
                 try
                 {
-                    return (Guid)_EntityType.GetProperty("CreateUserId").GetValue(CopyofPOCOInstance);
+                    var UserId = (Guid)_EntityType.GetProperty("CreateUserId").GetValue(CopyofPOCOInstance);
+
+                    if (UserId == Guid.Empty)
+                    {
+                        if (_LoginUser == null)
+                            _LoginUser = ExecuteAction<Users>("System", "GetCurrentLoginUser");
+
+                        if (_LoginUser != null)
+                            UserId = _LoginUser.UserId;
+                        else
+                            UserId = Guid.Empty;
+
+                    }
+
+                    return UserId;
                 }
                 catch
                 {
@@ -224,7 +240,10 @@ namespace Tokiku.ViewModels
             {
                 try
                 {
-                    return (Users)_EntityType.GetProperty("CreateUser").GetValue(CopyofPOCOInstance);
+                    if (_LoginUser == null)
+                        _LoginUser = ExecuteAction<Users>("System", "GetCurrentLoginUser");
+
+                    return _LoginUser;
                 }
                 catch
                 {
@@ -287,7 +306,7 @@ namespace Tokiku.ViewModels
         /// </summary>
         public ICommand CreateNewCommand { get => _CreateNewCommand; set => _CreateNewCommand = value; }
         private ICommand _ReplyCommand;
-        public ICommand RelayCommand { get => _ReplyCommand; set  { _ReplyCommand = value; RaisePropertyChanged("ReplyCommand"); } }
+        public ICommand RelayCommand { get => _ReplyCommand; set { _ReplyCommand = value; RaisePropertyChanged("ReplyCommand"); } }
         private ICommand _DeleteCommand;
         public ICommand DeleteCommand { get => _DeleteCommand; set => _DeleteCommand = value; }
         private ICommand _QueryCommnand;
@@ -437,7 +456,7 @@ namespace Tokiku.ViewModels
 
                     if (!result.HasError)
                     {
-                        
+
                         viewmodel = result?.Result;
                         return viewmodel;
                     }

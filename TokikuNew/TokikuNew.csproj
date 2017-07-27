@@ -25,14 +25,15 @@
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://220.130.128.34/</InstallUrl>
+    <SupportUrl>http://f.cenoq.com</SupportUrl>
     <ProductName>東菊金屬ERP系統</ProductName>
-    <PublisherName>Cenqo</PublisherName>
+    <PublisherName>Cenoq Corporation</PublisherName>
     <SuiteName>TokikuERP</SuiteName>
-    <MinimumRequiredVersion>1.0.0.7</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.0.0.9</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>8</ApplicationRevision>
+    <ApplicationRevision>10</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -148,8 +149,8 @@
     <Compile Include="Views\Orders\OrderView.xaml.cs">
       <DependentUpon>OrderView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Orders\AluminumExtrusionOrderListView.xaml.cs">
-      <DependentUpon>AluminumExtrusionOrderListView.xaml</DependentUpon>
+    <Compile Include="Views\Orders\OrderListView.xaml.cs">
+      <DependentUpon>OrderListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ManufacturerBussinessItemView.xaml.cs">
       <DependentUpon>ManufacturerBussinessItemView.xaml</DependentUpon>
@@ -351,7 +352,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Orders\AluminumExtrusionOrderListView.xaml">
+    <Page Include="Views\Orders\OrderListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

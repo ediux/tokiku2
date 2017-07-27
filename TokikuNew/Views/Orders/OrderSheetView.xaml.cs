@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tokiku.Entity;
 using Tokiku.ViewModels;
 using TokikuNew.Controls;
 
@@ -32,37 +34,6 @@ namespace TokikuNew.Views
             //this.訂製單內容.Children.Add(uc); // 頁籤初始內容設定
         }
 
-        #region Document Mode
-
-        /// <summary>
-        /// 目前載入的文件所處的模式
-        /// </summary>
-        public DocumentLifeCircle Mode
-        {
-            get { return (DocumentLifeCircle)GetValue(ModeProperty); }
-            set { SetValue(ModeProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for Mode.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ModeProperty =
-            DependencyProperty.Register("Mode", typeof(DocumentLifeCircle), typeof(AluminumExtrusionOrderSheetView), new PropertyMetadata(DocumentLifeCircle.Read));
-        #endregion
-
-        #region 登入的使用者
-        // Using a DependencyProperty as the backing store for LoginedUser.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty LoginedUserProperty =
-            DependencyProperty.Register("LoginedUser", typeof(UserViewModel), typeof(AluminumExtrusionOrderSheetView), new PropertyMetadata(default(UserViewModel)));
-
-        /// <summary>
-        /// 登入的使用者
-        /// </summary>
-        public UserViewModel LoginedUser
-        {
-            get { return (UserViewModel)GetValue(LoginedUserProperty); }
-            set { SetValue(LoginedUserProperty, value); }
-        }
-        #endregion
-
         #region SelectedProject
         public Guid SelectedProjectId
         {
@@ -72,7 +43,7 @@ namespace TokikuNew.Views
 
         // Using a DependencyProperty as the backing store for SelectedProject.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedProjectIdProperty =
-            DependencyProperty.Register("SelectedProject", typeof(Guid), typeof(AluminumExtrusionOrderSheetView), new PropertyMetadata(Guid.Empty,new PropertyChangedCallback(ProjectIdChange)));
+            DependencyProperty.Register("SelectedProject", typeof(Guid), typeof(AluminumExtrusionOrderSheetView), new PropertyMetadata(Guid.Empty, new PropertyChangedCallback(ProjectIdChange)));
 
         public static void ProjectIdChange(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
@@ -98,7 +69,15 @@ namespace TokikuNew.Views
         }
         #endregion
 
+        public Guid SelectOrderId
+        {
+            get { return (Guid)GetValue(SelectOrderIdProperty); }
+            set { SetValue(SelectOrderIdProperty, value); }
+        }
 
+        // Using a DependencyProperty as the backing store for SelectOrderId.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectOrderIdProperty =
+            DependencyProperty.Register("SelectOrderId", typeof(Guid), typeof(AluminumExtrusionOrderSheetView), new PropertyMetadata(Guid.Empty));
 
         public Guid FormDetailId
         {
@@ -769,7 +748,83 @@ namespace TokikuNew.Views
 
             if (source != null)
             {
-                source.MethodParameters[0] = SelectedProjectId; 
+                source.MethodParameters[0] = SelectedProjectId;
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                OrderViewModel master = (OrderViewModel)((ObjectDataProvider)TryFindResource("OrderViewSource")).Data;
+                OrderDetailViewModelCollection details = (OrderDetailViewModelCollection)((ObjectDataProvider)TryFindResource("AluminumExtrusionOrderSource2")).Data;
+                AluminumExtrusionOrderMaterialValuationViewModelCollection OrderMaterialValuation = (AluminumExtrusionOrderMaterialValuationViewModelCollection)((ObjectDataProvider)TryFindResource("MaterialValuationViewSource")).Data;
+
+
+                master.ActualDelivery = new DateTime(1900, 1, 1);
+                master.CreateTime = DateTime.Now;
+
+                if (master.MakingTime.HasValue == false)
+                    master.MakingTime = DateTime.Now;
+
+                if (details.Count > 0)
+                {
+
+                    master.Entity.OrderDetails = new Collection<OrderDetails>();
+                    foreach (var item in details)
+                    {
+                        item.CreateTime = DateTime.Now;
+                        item.Entity.Orders = master.Entity;
+                        item.Entity.OrderId = master.Id;
+
+                        if (item.Entity.Id == Guid.Empty)
+                            item.Entity.Id = Guid.NewGuid();
+
+                        master.Entity.OrderDetails.Add(item.Entity);
+                    }
+
+
+
+                }
+
+                if (OrderMaterialValuation.Count > 0)
+                {
+                    master.Entity.OrderMaterialValuation = new Collection<OrderMaterialValuation>();
+
+                    foreach (var item in OrderMaterialValuation)
+                    {
+                        item.CreateTime = DateTime.Now;
+                        item.Entity.Orders = master.Entity;
+                        item.Entity.OrderId = master.Id;
+
+                        if (item.Entity.Id == Guid.Empty)
+                            item.Entity.Id = Guid.NewGuid();
+
+                        master.Entity.OrderMaterialValuation.Add(item.Entity);
+                    }
+                }
+
+                master.SaveModel("Orders");
+
+                if (master.HasError)
+                {
+                    MessageBox.Show(string.Join("\n", master.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                    master.Errors = new string[] { };
+                    master.HasError = false;
+                    return;
+                }
+
+                RaiseEvent(new RoutedEventArgs(ClosableTabItem.OnPageClosingEvent, this));
+                //var provider = (ObjectDataProvider)TryFindResource("RequiredSource");
+                //provider.MethodName = "Query";
+                //provider.MethodParameters.Clear();
+                //provider.MethodParameters.Add(master.Id);
+                //provider.Refresh();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
         }
 

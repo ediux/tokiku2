@@ -8,256 +8,75 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class OrderViewModel : BaseViewModelWithPOCOClass<OrderDetails>
+    public class OrderViewModel : BaseViewModelWithPOCOClass<Orders>
     {
 
         public OrderViewModel() : base()
         {
-
+            CopyofPOCOInstance.Id = Guid.NewGuid();
+            _OrderType = new OrderTypesViewModel(CopyofPOCOInstance.OrderTypes);
+            _ShippingManufacture = new ManufacturersViewModel();
+            this.Entity.ActualDelivery = DateTime.Now;
         }
 
-        public OrderViewModel(OrderDetails entity) : base(entity)
+        public OrderViewModel(Orders entity) : base(entity)
         {
-
+            _OrderType = new OrderTypesViewModel(entity.OrderTypes);
+            _ShippingManufacture = new ManufacturersViewModel();
         }
 
-        /// <summary>
-        /// 專案識別碼
-        /// </summary>
-        public Guid? ProjectId
-        {
-            get => CopyofPOCOInstance.RequiredDetails.Required.ProjectId;
-        }
 
-        /// <summary>
-        /// 訂單編號
-        /// </summary>
-        [Key]
-        public new Guid Id
+        public int Order { get => CopyofPOCOInstance.Order; set { CopyofPOCOInstance.Order = value; RaisePropertyChanged("Order"); } }
+        public Guid? OrderTypeId
         {
-            get => CopyofPOCOInstance.Id; set
+            get => CopyofPOCOInstance.OrderTypeId; set
             {
-                CopyofPOCOInstance.Id = value;
-                RaisePropertyChanged("Id");
+                CopyofPOCOInstance.OrderTypeId = value;
+                _OrderType = new OrderTypesViewModel(CopyofPOCOInstance.OrderTypes); RaisePropertyChanged("OrderTypeId");
             }
         }
 
-        /// <summary>
-        /// 訂單表頭編號
-        /// </summary>
+        OrderTypesViewModel _OrderType;
 
-        public Guid? OrderId
+        public OrderTypesViewModel OrderType { get => _OrderType; }
+        public string Name { get => _OrderType.Name; }
+        public string RequiredDep { get => CopyofPOCOInstance.RequiredDep; set { CopyofPOCOInstance.RequiredDep = value; RaisePropertyChanged("RequiredDep"); } }
+        public string FormNumber { get => CopyofPOCOInstance.FormNumber; set { CopyofPOCOInstance.FormNumber = value; RaisePropertyChanged("FormNumber"); } }
+        public string BatchNumber { get => CopyofPOCOInstance.BatchNumber; set { CopyofPOCOInstance.BatchNumber = value; RaisePropertyChanged("BatchNumber"); } }
+        public DateTime ExpectedDelivery
         {
-            get => CopyofPOCOInstance.OrderId;
-            set
+            get
             {
-                var ordermaster = ExecuteAction<Orders>("Orders", "QuerySingle", value);
-
-                if (ordermaster != null)
+                if (CopyofPOCOInstance.ExpectedDelivery.Year < 1754)
                 {
-                    CopyofPOCOInstance.Orders = ordermaster;
-                    CopyofPOCOInstance.OrderId = ordermaster.Id;
-
+                    CopyofPOCOInstance.ExpectedDelivery = DateTime.Now;
                 }
-                else
-                {
-                    throw new Exception("找不到訂單表頭!");
-                }
-
-                RaisePropertyChanged("OrderId");
+                return CopyofPOCOInstance.ExpectedDelivery;
             }
+            set { CopyofPOCOInstance.ExpectedDelivery = value; RaisePropertyChanged("ExpectedDelivery"); }
         }
+        public DateTime? ActualDelivery { get => CopyofPOCOInstance.ActualDelivery.HasValue ? CopyofPOCOInstance.ActualDelivery : DateTime.Now; set { CopyofPOCOInstance.ActualDelivery = value; RaisePropertyChanged("ActualDelivery"); } }
+        public Guid? MakingUserId { get => CopyofPOCOInstance.MakingUserId ?? Guid.Empty; set { CopyofPOCOInstance.MakingUserId = value; RaisePropertyChanged("MakingUserId"); } }
+        public UserViewModel MakingUsers { get => new UserViewModel(CopyofPOCOInstance.MakingUsers); set { RaisePropertyChanged("MakingUsers"); } }
 
-        /// <summary>
-        /// 需求單細項對應Id
-        /// </summary>
-        public Guid? RequiredDetailsId
+        public DateTime? MakingTime { get => CopyofPOCOInstance.MakingTime ?? DateTime.Now; set { CopyofPOCOInstance.MakingTime = value; RaisePropertyChanged("MakingTime"); } }
+        public double? ReservedPercentage { get => CopyofPOCOInstance.ReservedPercentage ?? 0; set { CopyofPOCOInstance.ReservedPercentage = value; RaisePropertyChanged("ReservedPercentage"); } }
+        public Guid? ShippingManufactureId { get => CopyofPOCOInstance.ShippingManufactureId ?? Guid.Empty; set { CopyofPOCOInstance.ShippingManufactureId = value; RaisePropertyChanged("ShippingManufactureId"); } }
+
+        private ManufacturersViewModel _ShippingManufacture;
+        public ManufacturersViewModel ShippingManufacture { get => _ShippingManufacture; set { _ShippingManufacture = value; CopyofPOCOInstance.Manufacturers = _ShippingManufacture.Entity; RaisePropertyChanged("ShippingManufacture"); } }
+        public Guid? ProjectId { get => CopyofPOCOInstance.OrderDetails.FirstOrDefault()?.RequiredDetails.Required.ProjectId; }
+        public static OrderViewModel CreateNew(Guid ProjectId)
         {
-            get => CopyofPOCOInstance.RequiredDetailsId; set
+            try
             {
-                var refdata = ExecuteAction<RequiredDetails>("Required", "QuerySingleDetail",
-                   value);
-
-                if (refdata != null)
-                {
-                    CopyofPOCOInstance.RequiredDetails = refdata;
-                    CopyofPOCOInstance.RequiredDetailsId = refdata.Id;
-
-                    RaisePropertyChanged("RequiredDetailsId");
-                }
-                else
-                {
-                    throw new Exception("找不到東菊編號!");
-                }
+                return QuerySingle<OrderViewModel, Orders>("Orders", "CreateNew", ProjectId);
             }
-        }
-
-        /// <summary>
-        /// 東菊編號
-        /// </summary>
-        public string Code
-        {
-            get => CopyofPOCOInstance.RequiredDetails.Code; set
+            catch (Exception ex)
             {
-                var refdata = ExecuteAction<RequiredDetails>("Required", "QuerySingleDetailByCode",
-                    ProjectId,
-                    RequiredDetailsId,
-                    value);
-
-                if (refdata != null)
-                {
-                    CopyofPOCOInstance.RequiredDetails = refdata;
-                    CopyofPOCOInstance.RequiredDetailsId = refdata.Id;
-
-                    RaisePropertyChanged("Code");
-                }
-                else
-                {
-                    throw new Exception("找不到東菊編號!");
-                }
-            }
-        }
-
-        /// <summary>
-        /// 廠商編號
-        /// </summary>
-        public string FactoryNumber
-        {
-            get => CopyofPOCOInstance?.RequiredDetails?.FactoryNumber; set
-            {
-                var refdata = ExecuteAction<RequiredDetails>("Required", "QuerySingleDetailByFactoryNumber",
-                   ProjectId,
-                   RequiredDetailsId,
-                   value);
-
-                if (refdata != null)
-                {
-                    CopyofPOCOInstance.RequiredDetails = refdata;
-                    CopyofPOCOInstance.RequiredDetailsId = refdata.Id;
-
-                    RaisePropertyChanged("FactoryNumber");
-                }
-                else
-                {
-                    throw new Exception("找不到廠商編號!");
-                }
-
-            }
-        }
-
-
-        /// <summary>
-        /// 材質
-        /// </summary>
-        public string Material
-        {
-            get => CopyofPOCOInstance?.RequiredDetails?.Materials?.Name; set
-            {
-                var refdata = ExecuteAction<RequiredDetails>("Required", "QuerySingleDetailByMaterial",
-                   ProjectId,
-                   RequiredDetailsId,
-                   value);
-
-                if (refdata != null)
-                {
-                    CopyofPOCOInstance.RequiredDetails = refdata;
-                    CopyofPOCOInstance.RequiredDetailsId = refdata.Id;
-
-                    RaisePropertyChanged("Material");
-                }
-                else
-                {
-                    throw new Exception("無法對應資料!");
-                }
-            }
-        }
-
-        /// <summary>
-        /// 單位重量
-        /// </summary>
-        public decimal? UnitWeight
-        {
-            get => CopyofPOCOInstance?.RequiredDetails?.UnitWeight; set
-            {
-                var refdata = ExecuteAction<RequiredDetails>("Required", "QuerySingleDetailByUnitWeight",
-                  ProjectId,
-                  RequiredDetailsId,
-                  value);
-
-                if (refdata != null)
-                {
-                    CopyofPOCOInstance.RequiredDetails = refdata;
-                    CopyofPOCOInstance.RequiredDetailsId = refdata.Id;
-
-                    RaisePropertyChanged("UnitWeight");
-                }
-                else
-                {
-                    throw new Exception("無法對應資料!");
-                }
-            }
-        }
-
-        /// <summary>
-        /// 訂購長度
-        /// </summary>
-        public decimal? OrderLength
-        {
-            get => CopyofPOCOInstance?.RequiredDetails?.OrderLength;
-            set
-            {
-                var refdata = ExecuteAction<RequiredDetails>("Required", "QuerySingleDetailByOrderLength",
-                 ProjectId,
-                 RequiredDetailsId,
-                 value);
-
-                if (refdata != null)
-                {
-                    CopyofPOCOInstance.RequiredDetails = refdata;
-                    CopyofPOCOInstance.RequiredDetailsId = refdata.Id;
-
-                    RaisePropertyChanged("OrderLength");
-                }
-                else
-                {
-                    throw new Exception("無法對應資料!");
-                }
-            }
-        }
-
-        public decimal RequiredQuantity
-        {
-            get => CopyofPOCOInstance.RequiredQuantity; set
-            {
-                CopyofPOCOInstance.RequiredQuantity = value;
-                RaisePropertyChanged("RequiredQuantity");
-            }
-        }
-
-        public decimal SparePartsQuantity
-        {
-            get => CopyofPOCOInstance.SparePartsNumber; set
-            {
-                CopyofPOCOInstance.SparePartsNumber = value;
-                RaisePropertyChanged("SparePartsQuantity");
-            }
-        }
-
-        public decimal PlaceAnOrderQuantity
-        {
-            get => CopyofPOCOInstance.OrderQuantity; set
-            {
-                CopyofPOCOInstance.OrderQuantity = value;
-                RaisePropertyChanged("PlaceAnOrderQuantity");
-            }
-        }
-
-        public string Note
-        {
-            get => CopyofPOCOInstance.Comment; set
-            {
-                CopyofPOCOInstance.Comment = value;
-                RaisePropertyChanged("Note");
+                OrderViewModel viewmodel = new OrderViewModel();
+                setErrortoModel(viewmodel, ex);
+                return viewmodel;
             }
         }
     }

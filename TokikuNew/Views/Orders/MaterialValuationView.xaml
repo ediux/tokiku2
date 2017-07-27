@@ -6,8 +6,11 @@
              xmlns:local="clr-namespace:TokikuNew.Views"
              mc:Ignorable="d" 
              d:DesignHeight="683" d:DesignWidth="1362" Loaded="MaterialValuationView_Loaded">
+    <UserControl.Resources>
+        
+    </UserControl.Resources>
     <Grid>
-        <DataGrid Margin="5" AutoGenerateColumns="False" x:Name="材質估價DG">
+        <DataGrid Margin="5" AutoGenerateColumns="False" x:Name="材質估價DG" ItemsSource="{Binding Source={StaticResource MaterialValuationViewSource}}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="材質" Binding="{Binding Material, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                 <DataGridTextColumn Header="*kg單價*" Binding="{Binding UnitPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />

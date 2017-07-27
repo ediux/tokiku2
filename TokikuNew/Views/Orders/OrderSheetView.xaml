@@ -54,25 +54,29 @@
                                 <ColumnDefinition Width="auto" />
                             </Grid.ColumnDefinitions>
                             <!-- TextBlock Grid.Column="0" Text="ID" Margin="2,2,0,2" VerticalAlignment="Center" />
-                                <TextBox Grid.Column="1" Text="5431" IsReadOnly="True"  Margin="2" TextAlignment="Center" VerticalAlignment="Center"/ -->
+                                <TextBox Grid.Column="1" Text="5431" IsReadOnly="True"  Margin="2" TextAlignment="Center" VerticalAlignment="Center"/> -->
                             <TextBlock Grid.Column="0" Text="訂單屬性" Margin="2,2,0,2" VerticalAlignment="Center"/>
-                            <ComboBox Grid.Column="1" Margin="2" Width="100" VerticalAlignment="Center">
-                                <ComboBoxItem Content="一般訂單" IsSelected="True"/>
-                                <ComboBoxItem Content="補料訂單" IsSelected="False"/>
-                                <ComboBoxItem Content="增加視覺模型訂單" IsSelected="False"/>
-                                <ComboBoxItem Content="風雨試驗訂單" IsSelected="False"/>
+                            <ComboBox Grid.Column="1" Margin="2" Width="100" VerticalAlignment="Center" 
+                                      SelectedValuePath="Id"
+                                      SelectedValue="{Binding OrderTypeId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                      ItemsSource="{Binding Source={StaticResource OrderTypesListSoure}}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
                             </ComboBox>
                             <TextBlock Grid.Column="2" Text="需求單位"  Margin="2,2,0,2" VerticalAlignment="Center"/>
-                            <ComboBox Grid.Column="3" Margin="2" Width="100" VerticalAlignment="Center">
+                            <ComboBox Grid.Column="3" Margin="2" Width="100" SelectedValue="{Binding RequiredDep,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center">
                                 <ComboBoxItem Content="公司" IsSelected="True"/>
                                 <ComboBoxItem Content="其他"/>
                             </ComboBox>
                             <TextBlock Grid.Column="4" Text="訂製單號:" VerticalAlignment="Center" Margin="2"/>
-                            <TextBox Grid.Column="5" Width="200" MaxLength="20" VerticalAlignment="Center"  Margin="2"/>
+                            <TextBox Grid.Column="5" Width="200" MaxLength="20" VerticalAlignment="Center"  Margin="2" Text="{Binding FormNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                             <TextBlock Grid.Column="6" Text="批號:" VerticalAlignment="Center" Margin="2"/>
-                            <TextBox Grid.Column="7" Width="100" MaxLength="20" VerticalAlignment="Center"  Margin="2"/>
+                            <TextBox Grid.Column="7" Width="100" MaxLength="20" VerticalAlignment="Center"  Margin="2" Text="{Binding BatchNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                             <TextBlock Grid.Column="8" Text="預估交期:" VerticalAlignment="Center" Margin="2"/>
-                            <DatePicker Grid.Column="9" Width="200" VerticalAlignment="Center" Margin="2"/>
+                            <DatePicker Grid.Column="9" Width="200" VerticalAlignment="Center" Margin="2" SelectedDate="{Binding ExpectedDelivery,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                         </Grid>
                         <Grid Width="1300">
                             <Grid.ColumnDefinitions>
@@ -86,13 +90,21 @@
                                 <ColumnDefinition Width="auto" />
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" Foreground="Black" Text="輸入人員" VerticalAlignment="Center" />
-                            <TextBox Grid.Column="1" Foreground="Black" Text="{Binding LoginedUser.UserName, ElementName=userControl}" Width="100" IsReadOnly="True" IsEnabled="False" TextAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="1" Foreground="Black" Text="{Binding CreateUser.UserName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="100" Margin="2" TextAlignment="Center" VerticalAlignment="Center"/>
+                            <!--<TextBox Grid.Column="1" Foreground="Black" Text="{Binding LoginedUser.UserName, ElementName=userControl}" Width="100" IsReadOnly="True" IsEnabled="False" TextAlignment="Center" VerticalAlignment="Center"/>-->
                             <TextBlock Grid.Column="2" Foreground="Black" Text="連絡電話:"  VerticalAlignment="Center" Margin="2"/>
-                            <TextBox Grid.Column="3" Foreground="Black" Width="200" MaxLength="20" VerticalAlignment="Center" Margin="2"/>
+                            <TextBox Grid.Column="3" Foreground="Black" Width="200" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="" />
                             <TextBlock Grid.Column="4" Foreground="Black" Text="建檔日期:" VerticalAlignment="Center"/>
-                            <DatePicker Grid.Column="5" Foreground="Black" Width="200" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="5" Foreground="Black" VerticalAlignment="Center" Text="{Binding CreateTime,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=\{0:yyyy\/MM\/dd\}}" />
                             <TextBlock Grid.Column="6" Foreground="Black" Text="製單人員:" VerticalAlignment="Center" />
-                            <TextBox Grid.Column="7" Foreground="Black" Text="{Binding LoginedUser.UserName, ElementName=userControl}" Width="100" IsReadOnly="True" Margin="2" TextAlignment="Center" VerticalAlignment="Center"/>
+                            <ComboBox Grid.Column="7" Width="100" ItemsSource="{Binding Source={StaticResource UserListSource}}" SelectedValuePath="UserId" SelectedValue="{Binding MakingUserId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding UserName}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+
                         </Grid>
                         <Grid Width="1300">
                             <Grid.ColumnDefinitions>
@@ -100,19 +112,31 @@
                                 <ColumnDefinition Width="auto" />
                                 <ColumnDefinition Width="auto" />
                                 <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" Foreground="Black" Text="製單日期:" VerticalAlignment="Center" Margin="2"/>
-                            <DatePicker Grid.Column="1" Foreground="Black" Width="200" VerticalAlignment="Center"  Margin="2"/>
+                            <DatePicker Grid.Column="1" Foreground="Black" Width="200" VerticalAlignment="Center"  Margin="2" SelectedDate="{Binding MakingTime ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                             <TextBlock Grid.Column="2" Foreground="Black" Text="廠商:"  VerticalAlignment="Center" Margin="2"/>
-                            <ComboBox ItemsSource="{Binding Source={StaticResource ManufactureList}}" 
-                                          SelectedItem="{Binding SelectedManufacturers,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                          Grid.Column="8" Width="165">
+                            <ComboBox ItemsSource="{Binding Source={StaticResource ManufactureList}}"  
+                                      SelectedItem="{Binding ShippingManufacture,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                      SelectedValue="{Binding ShippingManufactureId ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                      SelectedValuePath="Id"
+                                      Grid.Column="3" Width="165">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Name}"/>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
+                            <TextBlock Grid.Column="4" Foreground="Green" Text="保留款" VerticalAlignment="Center"/>
+                            <TextBox Width="100" Grid.Column="5" Foreground="Black" Text="{Binding ReservedPercentage}"/>
+                            <TextBlock Grid.Column="6" Foreground="Green" Text="%" VerticalAlignment="Center"/>
+                            <Button Grid.Column="7" Content="儲存" Click="Button_Click">
+
+                            </Button>
                         </Grid>
                     </WrapPanel>
                 </DataTemplate>
@@ -210,7 +234,7 @@
                 <local:AluminumExtrusionOrderView SelectedProjectId="{Binding SelectedProjectId,ElementName=userControl}" />
             </TabItem>
             <TabItem Header="材質估價">
-                <local:MaterialValuationView />
+                <local:MaterialValuationView SelectedProjectId="{Binding SelectedProjectId,ElementName=userControl}"/>
             </TabItem>
             <TabItem Header="雜項">
                 <local:MiscellaneousView/>

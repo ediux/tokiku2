@@ -51,6 +51,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\CommandObjectDataProvider.cs" />
     <Compile Include="Commands\CommandRoutingManager.cs" />
     <Compile Include="Base\ISingleBaseViewModel.cs" />
     <Compile Include="Commands\BridgingCommand.cs" />
@@ -67,7 +68,10 @@
     <Compile Include="ControlTables\ObtainMaterialListViewModel.cs" />
     <Compile Include="Commands\CreateNewModelCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Projects\Orders\OrderMaterialValuationViewModel.cs" />
+    <Compile Include="Projects\Orders\OrderMiscellaneousViewModel.cs" />
     <Compile Include="Projects\Orders\OrderViewModel.cs" />
+    <Compile Include="Projects\Orders\OrderViewModelCollection.cs" />
     <Compile Include="RequiredDetailViewModel.cs" />
     <Compile Include="RequiredDetailViewModelCollection.cs" />
     <Compile Include="Commands\SaveModelCommand.cs" />
@@ -125,6 +129,8 @@
     <Compile Include="Shared\AccessLogViewModelCollection.cs" />
     <Compile Include="ControlTables\ShippingMaterialListViewModel.cs" />
     <Compile Include="ControlTables\ShippingViewModel.cs" />
+    <Compile Include="Shared\OrderTypesViewModel.cs" />
+    <Compile Include="Shared\OrderTypesViewModelCollection.cs" />
     <Compile Include="Shared\SearchBarViewModel.cs" />
     <Compile Include="Shared\SystemMembersViewModel.cs" />
     <Compile Include="Shared\SystemRolesViewModel.cs" />
@@ -140,6 +146,7 @@
     <Compile Include="Finance\TicketTypesViewModel.cs" />
     <Compile Include="Shared\VoidViewModel.cs" />
     <Compile Include="Shared\VoidViewModelCollection.cs" />
+    <Compile Include="Users\UserViewModelCollection.cs" />
     <Compile Include="WorkItemListViewModels.cs" />
   </ItemGroup>
   <ItemGroup>

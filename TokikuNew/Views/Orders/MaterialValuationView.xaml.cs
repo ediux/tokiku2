@@ -27,6 +27,51 @@ namespace TokikuNew.Views
             
         }
 
+        #region SelectedProject
+        public Guid SelectedProjectId
+        {
+            get { return (Guid)GetValue(SelectedProjectIdProperty); }
+            set { SetValue(SelectedProjectIdProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectedProject.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedProjectIdProperty =
+            DependencyProperty.Register("SelectedProject", typeof(Guid), typeof(MaterialValuationView), new PropertyMetadata(Guid.Empty, new PropertyChangedCallback(ProjectIdChange)));
+
+        public static void ProjectIdChange(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            try
+            {
+                if (sender is MaterialValuationView)
+                {
+
+                    ObjectDataProvider source = (ObjectDataProvider)((MaterialValuationView)sender).TryFindResource("OrderViewSource");
+
+                    if (source != null)
+                    {
+                        source.MethodParameters[0] = e.NewValue;
+                        source.Refresh();
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+        }
+        #endregion
+
+        public Guid SelectOrderId
+        {
+            get { return (Guid)GetValue(SelectOrderIdProperty); }
+            set { SetValue(SelectOrderIdProperty, value); }
+        }
+        // Using a DependencyProperty as the backing store for SelectOrderId.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectOrderIdProperty =
+            DependencyProperty.Register("SelectOrderId", typeof(Guid), typeof(MaterialValuationView), new PropertyMetadata(Guid.Empty));
+
+
         private void MaterialValuationView_Loaded(object sender, RoutedEventArgs e)
         {
             try {

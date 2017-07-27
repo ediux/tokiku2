@@ -58,16 +58,16 @@ namespace Tokiku.ViewModels
         }
 
     }
-    
 
-    public class OrderDetailViewModel : BaseViewModelWithPOCOClass<AluminumExtrusionOrderEntity>
+
+    public class OrderDetailViewModel : BaseViewModelWithPOCOClass<OrderDetails>
     {
         public OrderDetailViewModel() : base()
         {
 
         }
 
-        public OrderDetailViewModel(AluminumExtrusionOrderEntity entity) : base(entity)
+        public OrderDetailViewModel(OrderDetails entity) : base(entity)
         {
 
         }
@@ -75,11 +75,27 @@ namespace Tokiku.ViewModels
         // "*東菊編號*"
         public string TokikuId
         {
-            get { return CopyofPOCOInstance.TokikuId; }
+            get { return CopyofPOCOInstance?.RequiredDetails?.Code; }
             set
             {
-                CopyofPOCOInstance.TokikuId = value;
+                var found = ExecuteAction<RequiredDetails>("Required", "QuerySingleDetailByCode", value);
+
+                if (found != null)
+                {
+                    CopyofPOCOInstance.RequiredDetails = found;
+                    CopyofPOCOInstance.RequiredDetailsId = found.Id;                    
+                }
+                else
+                {
+                    throw new Exception("找不到需求單項目");
+                    //反查
+                }
+
                 RaisePropertyChanged("TokikuId");
+                RaisePropertyChanged("ManufacturersId");
+                RaisePropertyChanged("Material");
+                RaisePropertyChanged("UnitWeight");
+                RaisePropertyChanged("OrderLength");
             }
         }
 
@@ -88,8 +104,29 @@ namespace Tokiku.ViewModels
         // "*廠商編號*"
         public string ManufacturersId
         {
-            get { return CopyofPOCOInstance.ManufacturersId; }
-            set { CopyofPOCOInstance.ManufacturersId = value; RaisePropertyChanged("ManufacturersId"); }
+            get { return CopyofPOCOInstance?.RequiredDetails?.FactoryNumber; }
+            set
+            {
+                var found = ExecuteAction<RequiredDetails>("Required", "QuerySingleDetailByFactoryNumber", TokikuId, value);
+
+                if (found != null)
+                {
+                    CopyofPOCOInstance.RequiredDetails = found;
+                    CopyofPOCOInstance.RequiredDetailsId = found.Id;
+                    //反查
+                    RaisePropertyChanged("TokikuId");
+                    RaisePropertyChanged("ManufacturersId");
+                    RaisePropertyChanged("Material");
+                    RaisePropertyChanged("UnitWeight");
+                    RaisePropertyChanged("OrderLength");
+                }
+                else
+                {
+                    throw new Exception("找不到需求單項目");
+                }
+
+
+            }
         }
 
 
@@ -97,61 +134,130 @@ namespace Tokiku.ViewModels
         // "*材質*"
         public string Material
         {
-            get { return CopyofPOCOInstance.Material; }
-            set { CopyofPOCOInstance.Material = value; RaisePropertyChanged("Material"); }
+            get { return CopyofPOCOInstance?.RequiredDetails?.Materials.Name; }
+            set
+            {
+
+                var found = ExecuteAction<RequiredDetails>("Required", "QuerySingleDetailByMaterial", TokikuId, ManufacturersId, value);
+
+                if (found != null)
+                {
+                    CopyofPOCOInstance.RequiredDetails = found;
+                    CopyofPOCOInstance.RequiredDetailsId = found.Id;
+                    //反查
+                    RaisePropertyChanged("TokikuId");
+                    RaisePropertyChanged("ManufacturersId");
+                    RaisePropertyChanged("Material");
+                    RaisePropertyChanged("UnitWeight");
+                    RaisePropertyChanged("OrderLength");
+                }
+                else
+                {
+                    throw new Exception("找不到需求單項目");
+                }
+
+            }
         }
 
 
         // "*單位重(kg/m)*"
-        public Nullable<float> UnitWeight
+        public decimal? UnitWeight
         {
-            get { return CopyofPOCOInstance.UnitWeight; }
-            set { CopyofPOCOInstance.UnitWeight = value; RaisePropertyChanged("UnitWeight"); }
+            get { return CopyofPOCOInstance?.RequiredDetails?.UnitWeight; }
+            set
+            {
+
+                //var found = ExecuteAction<RequiredDetails>("Required", "QuerySingleDetailByMaterial", TokikuId, ManufacturersId, Material);
+
+                //if (found != null)
+                //{
+                //    CopyofPOCOInstance.RequiredDetails = found;
+                //    CopyofPOCOInstance.RequiredDetailsId = found.Id;
+                //    //反查
+                //    RaisePropertyChanged("TokikuId");
+                //    RaisePropertyChanged("ManufacturersId");
+                //    RaisePropertyChanged("Material");
+                //    RaisePropertyChanged("UnitWeight");
+                //    RaisePropertyChanged("OrderLength");
+                //}
+                //else
+                //{
+                //    throw new Exception("找不到需求單項目");
+                //}
+
+
+            }
         }
 
 
 
         // "*訂購長度(mm)*"
-        public Nullable<int> OrderLength
+        public int? OrderLength
         {
-            get { return CopyofPOCOInstance.OrderLength; }
-            set { CopyofPOCOInstance.OrderLength = value; RaisePropertyChanged("OrderLength"); }
+            get { return CopyofPOCOInstance?.RequiredDetails?.OrderLength; }
+            set
+            {
+                //var found = ExecuteAction<RequiredDetails>("Required", "QuerySingleDetailByMaterial", TokikuId, ManufacturersId, Material);
+
+                //if (found != null)
+                //{
+                //    CopyofPOCOInstance.RequiredDetails = found;
+                //    CopyofPOCOInstance.RequiredDetailsId = found.Id;
+                //    //反查
+                //    RaisePropertyChanged("TokikuId");
+                //    RaisePropertyChanged("ManufacturersId");
+                //    RaisePropertyChanged("Material");
+                //    RaisePropertyChanged("UnitWeight");
+                //    RaisePropertyChanged("OrderLength");
+                //}
+                //else
+                //{
+                //    throw new Exception("找不到需求單項目");
+                //}
+
+            }
         }
 
 
 
         // "[需求數量]"
-        public Nullable<int> RequiredQuantity
+        public decimal RequiredQuantity
         {
             get { return CopyofPOCOInstance.RequiredQuantity; }
-            set { CopyofPOCOInstance.RequiredQuantity = value; RaisePropertyChanged("RequiredQuantity"); }
+            set
+            {
+                CopyofPOCOInstance.RequiredQuantity = value;
+                RaisePropertyChanged("RequiredQuantity");
+            }
         }
 
 
 
         // "[備品數量]"
-        public Nullable<int> SparePartsQuantity
+        public decimal SparePartsQuantity
         {
-            get { return (Nullable<int>)CopyofPOCOInstance.SparePartsQuantity; }
-            set { CopyofPOCOInstance.SparePartsQuantity = value; RaisePropertyChanged("SparePartsQuantity"); }
+            get { return CopyofPOCOInstance.SparePartsNumber; }
+            set { CopyofPOCOInstance.SparePartsNumber = value; RaisePropertyChanged("SparePartsQuantity"); }
         }
 
 
 
         // "[下單數量]"
-        public Nullable<int> PlaceAnOrderQuantity
+        public decimal PlaceAnOrderQuantity
         {
-            get { return CopyofPOCOInstance.PlaceAnOrderQuantity; }
-            set { CopyofPOCOInstance.PlaceAnOrderQuantity = value; RaisePropertyChanged("PlaceAnOrderQuantity"); }
+            get { return CopyofPOCOInstance.OrderQuantity; }
+            set { CopyofPOCOInstance.OrderQuantity = value; RaisePropertyChanged("PlaceAnOrderQuantity"); }
         }
 
 
         // "[備註]"
         public string Note
         {
-            get { return CopyofPOCOInstance.Note; }
-            set { CopyofPOCOInstance.Note = value; RaisePropertyChanged("Note"); }
+            get { return CopyofPOCOInstance.Comment; }
+            set { CopyofPOCOInstance.Comment = value; RaisePropertyChanged("Note"); }
         }
 
+        
+        
     }
 }

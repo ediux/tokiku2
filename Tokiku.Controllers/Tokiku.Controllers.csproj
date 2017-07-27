@@ -75,6 +75,7 @@
     <Compile Include="Orders\AluminumExtrusionOrderListController.cs" />
     <Compile Include="Orders\AluminumExtrusionOrderMaterialValuationController.cs" />
     <Compile Include="Orders\AluminumExtrusionOrderMiscellaneousController.cs" />
+    <Compile Include="Orders\OrdersController.cs" />
     <Compile Include="Projects\AssemblyTableController.cs" />
     <Compile Include="Projects\ConstructionAtlasController.cs" />
     <Compile Include="Projects\ContractManagementController.cs" />
