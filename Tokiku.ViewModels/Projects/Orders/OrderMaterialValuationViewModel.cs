@@ -104,16 +104,16 @@ namespace Tokiku.ViewModels
         //"材質"
         public string Material
         {
-            get { return CopyofPOCOInstance.RequiredDetails.Materials.Name; }
+            get { return CopyofPOCOInstance?.RequiredDetails?.Materials.Name; }
             set { RaisePropertyChanged("Material"); }
         }
 
         
 
         //"*kg單價*"
-        public float UnitPrice
+        public float? UnitPrice
         {
-            get { return CopyofPOCOInstance.RequiredDetails.Materials.UnitPrice; }
+            get { return CopyofPOCOInstance?.RequiredDetails?.Materials.UnitPrice; }
             set { RaisePropertyChanged("UnitPrice"); }
         }
 

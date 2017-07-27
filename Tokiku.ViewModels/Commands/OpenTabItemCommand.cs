@@ -198,76 +198,7 @@ namespace Tokiku.ViewModels
             if (!isExisted)
             {
                 var vm = Activator.CreateInstance(executeresult.ViewType);
-
-                if (vm != null)
-                {
-                    if (SharedModel != null)
-                    {
-                        ((FrameworkElement)vm).DataContext = SharedModel;
-                    }
-                    //executeresult.ViewType.GetProperty("DataContext")
-
-                    if (executeresult.ViewType.GetProperty("Mode") != null)
-                    {
-                        executeresult.ViewType.GetProperty("Mode").SetValue(vm, DocumentLifeCircle.Read);
-                    }
-
-                    if (executeresult.DataContent != null)
-                    {
-                        foreach (var bk in executeresult.RoutingBinding.Keys)
-                        {
-                            var propb = executeresult.DataContent.GetType().GetProperty(executeresult.RoutingBinding[bk]);
-
-                            if (propb != null)
-                            {
-                                if (executeresult.RoutedValues.ContainsKey(bk))
-                                    executeresult.RoutedValues[bk] = propb.GetValue(executeresult.DataContent);
-                            }
-                        }
-                    }
-
-                    if (executeresult.RoutedValues != null && executeresult.RoutedValues.Count > 0)
-                    {
-                        foreach (var k in executeresult.RoutedValues.Keys)
-                        {
-                            if (k == "TargetViewModelInstance")
-                            {
-                                IBaseViewModel model = (IBaseViewModel)executeresult.RoutedValues["TargetViewModelInstance"];
-
-                                if (model != null)
-                                {
-                                    model.RelayCommand.Execute(executeresult);
-                                }
-                            }
-
-                            var props = executeresult.SourceViewType.GetProperty(k);
-
-                            if (props != null)
-                            {
-                                var propb = executeresult.ViewType.GetProperty(k);
-
-                                if (propb != null)
-                                {
-                                    var sourceval = props.GetValue(executeresult.SourceInstance);
-
-                                    if (sourceval != null)
-                                    {
-                                        propb.SetValue(vm, sourceval);
-                                        continue;
-                                    }
-                                }
-                            }
-
-                            var prop = executeresult.ViewType.GetProperty(k);
-
-                            if (prop != null)
-                            {
-                                prop.SetValue(vm, executeresult.RoutedValues[k]);
-                            }
-                        }
-                    }
-                }
-
+                ProcessRouteValues(executeresult, SharedModel, vm);
 
                 addWorkarea.Content = vm;
                 addWorkarea.Margin = new Thickness(0);
@@ -279,10 +210,86 @@ namespace Tokiku.ViewModels
             }
             else
             {
+                FrameworkElement vm = (FrameworkElement)addWorkarea.Content;
+
+                ProcessRouteValues(executeresult, SharedModel, vm);
+
                 Workspaces.SelectedItem = addWorkarea;
             }
 
             return Workspaces;
+        }
+
+        private static void ProcessRouteValues(RoutedViewResult executeresult, object SharedModel, object vm)
+        {
+            if (vm != null)
+            {
+                if (SharedModel != null)
+                {
+                    ((FrameworkElement)vm).DataContext = SharedModel;
+                }
+                //executeresult.ViewType.GetProperty("DataContext")
+
+                if (executeresult.ViewType.GetProperty("Mode") != null)
+                {
+                    executeresult.ViewType.GetProperty("Mode").SetValue(vm, DocumentLifeCircle.Read);
+                }
+
+                if (executeresult.DataContent != null)
+                {
+                    foreach (var bk in executeresult.RoutingBinding.Keys)
+                    {
+                        var propb = executeresult.DataContent.GetType().GetProperty(executeresult.RoutingBinding[bk]);
+
+                        if (propb != null)
+                        {
+                            if (executeresult.RoutedValues.ContainsKey(bk))
+                                executeresult.RoutedValues[bk] = propb.GetValue(executeresult.DataContent);
+                        }
+                    }
+                }
+
+                if (executeresult.RoutedValues != null && executeresult.RoutedValues.Count > 0)
+                {
+                    foreach (var k in executeresult.RoutedValues.Keys)
+                    {
+                        if (k == "TargetViewModelInstance")
+                        {
+                            IBaseViewModel model = (IBaseViewModel)executeresult.RoutedValues["TargetViewModelInstance"];
+
+                            if (model != null)
+                            {
+                                model.RelayCommand.Execute(executeresult);
+                            }
+                        }
+
+                        var props = executeresult.SourceViewType.GetProperty(k);
+
+                        if (props != null)
+                        {
+                            var propb = executeresult.ViewType.GetProperty(k);
+
+                            if (propb != null)
+                            {
+                                var sourceval = props.GetValue(executeresult.SourceInstance);
+
+                                if (sourceval != null)
+                                {
+                                    propb.SetValue(vm, sourceval);
+                                    continue;
+                                }
+                            }
+                        }
+
+                        var prop = executeresult.ViewType.GetProperty(k);
+
+                        if (prop != null)
+                        {
+                            prop.SetValue(vm, executeresult.RoutedValues[k]);
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -21,9 +21,9 @@ namespace Tokiku.ViewModels
 
         }
 
-        public static OrderMiscellaneousViewModelCollection Query()
+        public static OrderMiscellaneousViewModelCollection Query(Guid ProjectId)
         {
-            return Query<OrderMiscellaneousViewModelCollection, OrderMiscellaneous>("OrderMiscellaneous", "QueryAll");
+            return Query<OrderMiscellaneousViewModelCollection, OrderMiscellaneous>("OrderMiscellaneous", "QueryAll", ProjectId);
             //AluminumExtrusionOrderMiscellaneousController ctrl = new AluminumExtrusionOrderMiscellaneousController();
             //ExecuteResultEntity<ICollection<AluminumExtrusionOrderMiscellaneousEntity>> ere = ctrl.QuerAll();
             //if (!ere.HasError)

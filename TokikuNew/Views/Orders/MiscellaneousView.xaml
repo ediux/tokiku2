@@ -4,19 +4,20 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:controls="clr-namespace:TokikuNew.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="683" d:DesignWidth="1362" Loaded="MiscellaneousView_Loaded">
     <Grid>
-        <DataGrid x:Name="雜項DG" Margin="5" AutoGenerateColumns="False">
-            <DataGrid.Columns>
+        <controls:CustomDataGrid x:Name="雜項DG" Margin="5" AutoGenerateColumns="False" ItemsSource="{Binding Source={StaticResource OrderMiscellaneousSource}}">
+            <controls:CustomDataGrid.Columns>
                 <DataGridTextColumn Header="*東菊編號/項目*" Binding="{Binding TokikuId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                 <DataGridTextColumn Header="廠商編號" Binding="{Binding ManufacturersId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                 <DataGridTextColumn Header="*說明*" Binding="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                 <DataGridTextColumn Header="*單價*" Binding="{Binding UnitPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                 <DataGridTextColumn Header="*數量*" Binding="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                 <DataGridTextColumn Header="*金額*" Binding="{Binding Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-            </DataGrid.Columns>
-        </DataGrid>
+            </controls:CustomDataGrid.Columns>
+        </controls:CustomDataGrid>
 
     </Grid>
 </UserControl>

@@ -24,6 +24,7 @@
     <ObjectDataProvider x:Key="MaterialValuationViewSource" ObjectType="{x:Type vm:AluminumExtrusionOrderMaterialValuationViewModelCollection}" MethodName="Query">
         <ObjectDataProvider.MethodParameters>
             <x:Static Member="sys:Guid.Empty" />
+            <x:Static Member="sys:Guid.Empty" />
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
     <ObjectDataProvider x:Key="ManufactureList" ObjectType="{x:Type vm:ManufacturersViewModelCollection}" MethodName="Query"/>
@@ -51,6 +52,11 @@
     </ObjectDataProvider>
     <ObjectDataProvider x:Key="OrderTypesListSoure" ObjectType="{x:Type vm:OrderTypesViewModelCollection}" MethodName="Query"/>
     <ObjectDataProvider x:Key="UserListSource" ObjectType="{x:Type vm:UserViewModelCollection}" MethodName="Query"/>
+    <ObjectDataProvider x:Key="OrderMiscellaneousSource" ObjectType="{x:Type vm:OrderMiscellaneousViewModelCollection}" MethodName="Query">
+        <ObjectDataProvider.MethodParameters>
+            <x:Static Member="sys:Guid.Empty"/>
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
     <!--<viewmodels:AluminumExtrusionOrderViewModelCollection x:Key="AluminumExtrusionOrderSource" />-->
     <ObjectDataProvider ObjectType="{x:Type vm:預付款保證票ViewModel}" x:Key="預付款保證票清單" />
     <ObjectDataProvider ObjectType="{x:Type vm:保固票ViewModelCollection}" x:Key="保固票清單" />

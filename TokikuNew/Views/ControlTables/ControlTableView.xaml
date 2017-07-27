@@ -70,7 +70,7 @@
                     vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}"
                     vm:CommandRoutingManager.CommandParameter="{StaticResource OpenOrderView}"
                     vm:CommandRoutingManager.RoutingName="AluminumExtrusionOrderSheetView" />
-            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="加工訂製單列表" Margin="0,0,5,0"
+            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="訂製單列表" Margin="0,0,5,0"
                     vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}"
                     vm:CommandRoutingManager.CommandParameter="{StaticResource OpenOrderList}"
                     vm:CommandRoutingManager.RoutingName="AluminumExtrusionOrderListView" />

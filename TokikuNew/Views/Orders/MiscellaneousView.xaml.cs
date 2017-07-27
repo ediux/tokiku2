@@ -27,6 +27,41 @@ namespace TokikuNew.Views
             
         }
 
+        #region SelectedProject
+        public Guid SelectedProjectId
+        {
+            get { return (Guid)GetValue(SelectedProjectIdProperty); }
+            set { SetValue(SelectedProjectIdProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectedProject.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedProjectIdProperty =
+            DependencyProperty.Register("SelectedProjectId", typeof(Guid), typeof(MiscellaneousView), new PropertyMetadata(Guid.Empty, new PropertyChangedCallback(ProjectIdChange)));
+
+        public static void ProjectIdChange(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            try
+            {
+                if (sender is MiscellaneousView)
+                {
+
+                    ObjectDataProvider source = (ObjectDataProvider)((MiscellaneousView)sender).TryFindResource("OrderMiscellaneousSource");
+
+                    if (source != null)
+                    {
+                        source.MethodParameters[0] = e.NewValue;
+                        source.Refresh();
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+        }
+        #endregion
+
         private void MiscellaneousView_Loaded(object sender, RoutedEventArgs e)
         {
             try {
