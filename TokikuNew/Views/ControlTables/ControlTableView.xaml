@@ -27,14 +27,14 @@
             </vm:RoutedViewResult.RoutedValues>
         </vm:RoutedViewResult>
 
-        <!--<Style TargetType="DataGrid" BasedOn="{StaticResource {x:Type DataGrid}}">
+        <Style TargetType="DataGrid" BasedOn="{StaticResource {x:Type DataGrid}}">
             <Setter Property="Visibility" Value="Collapsed"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding FormName,ElementName=userControl}" Value="鋁擠型材料">
                     <Setter Property="Visibility" Value="Visible"/>
                 </DataTrigger>
             </Style.Triggers>
-        </Style>-->
+        </Style>
     </UserControl.Resources>
     <UserControl.CommandBindings>
         <CommandBinding Command="{StaticResource Query}" x:Name="QueryCommand"                         
