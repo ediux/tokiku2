@@ -278,7 +278,7 @@ namespace Tokiku.Controllers
                                  from s in q.Required.Projects.Required
                                  from m in s.RequiredDetails
                                  where m.FactoryNumber == FactoryNumber
-                                 && m.Code == TokikuId
+                                 || m.Code == TokikuId
                                  orderby s.CreateTime descending
                                  select m;
 
@@ -392,7 +392,7 @@ namespace Tokiku.Controllers
                     var result = from q in repo
                                  from p in q.Required.Projects.Required
                                  from s in p.RequiredDetails
-                                 where s.Code == TokikuId 
+                                 where s.Code == TokikuId
                                  && s.FactoryNumber == ManufacturersId
                                  && s.Materials.Name == Material
                                  orderby p.CreateTime descending
@@ -409,6 +409,58 @@ namespace Tokiku.Controllers
             }
         }
 
+        /// <summary>
+        /// 反查材質資料
+        /// </summary>
+        /// <param name="Material"></param>
+        /// <returns></returns>
+        public ExecuteResultEntity<RequiredDetails> QuerySingleDetailByMaterial(string Material)
+        {
+            try
+            {
+                var repo = this.GetReoisitory<RequiredDetails>().All();
+
+                var result = from q in repo
+                             from p in q.Required.Projects.Required
+                             from s in p.RequiredDetails
+                             where (s.Materials != null && s.Materials.Name == Material)
+                             orderby p.CreateTime descending
+                             select s;
+
+                return ExecuteResultEntity<RequiredDetails>.CreateResultEntity(
+                    result.FirstOrDefault());
+
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<RequiredDetails>.CreateErrorResultEntity(ex);
+            }
+        }
+
+        public ExecuteResultEntity<RequiredDetails> QuerySingleDetailByUnitPrice(string Material, float? UnitPrice)
+        {
+            try
+            {
+
+                var repo = this.GetReoisitory<RequiredDetails>().All();
+
+                var result = from q in repo
+                             from p in q.Required.Projects.Required
+                             from s in p.RequiredDetails
+                             where (s.MaterialsId != Guid.Empty && (s.Materials.Name == Material &&
+                             s.Materials.UnitPrice == UnitPrice))
+                             orderby p.CreateTime descending
+                             select s;
+
+                return ExecuteResultEntity<RequiredDetails>.CreateResultEntity(
+                    result.FirstOrDefault());
+
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<RequiredDetails>.CreateErrorResultEntity(ex);
+            }
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -458,7 +510,7 @@ namespace Tokiku.Controllers
                 var result = from q in repo
                              from s in q.Required.Projects.Required
                              from m in s.RequiredDetails
-                             where  m.UnitWeight == Weight
+                             where m.UnitWeight == Weight
                              select m;
 
                 return ExecuteResultEntity<RequiredDetails>.CreateResultEntity(

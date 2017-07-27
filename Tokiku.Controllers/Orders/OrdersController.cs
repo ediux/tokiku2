@@ -21,21 +21,39 @@ namespace Tokiku.Controllers
                 var repo = this.GetReoisitory<OrderDetails>();
                 var result = (from q in repo.All()
                               where q.RequiredDetails.Required.ProjectId == ProjectId
+                              && q.Orders.FormNumber.Contains(string.Format("{0}-{1}-O", q.RequiredDetails.Required.Projects.ShortName, q.Orders.Manufacturers.ShortName))
                               orderby q.RequiredDetails.Required.Projects.Code descending
                               select q).Distinct();
 
                 if (result.Count() > 0)
                 {
                     int nextSerialNumber = 0;
+                    int counters = 0;
 
-                    int.TryParse(result.First().Orders.FormNumber.Replace(result.First().RequiredDetails.Required.Projects.ShortName, ""), out nextSerialNumber);
+                    var data = result.First();
+                    int.TryParse(data.Orders.FormNumber.Replace(string.Format("{0}-{1}-O", data.RequiredDetails.Required.Projects.ShortName, data.Orders.Manufacturers.ShortName), ""), out nextSerialNumber);
 
                     nextSerialNumber += 1;
                     var lastrow = result.FirstOrDefault();
                     Orders newitem = new Orders();
                     newitem.Id = Guid.NewGuid();
                     newitem.Manufacturers = new Manufacturers();
-                    newitem.FormNumber = string.Format("{0}-{1}-O-{2:000}-{3}", lastrow?.RequiredDetails.Required.Projects.ShortName, lastrow.RequiredDetails.Required.Manufacturers.ShortName, nextSerialNumber);
+
+                    string formnumber = string.Format("{0}-{1}-O-{2:000}",
+                        lastrow?.RequiredDetails?.Required?.Projects?.ShortName,
+                        lastrow.RequiredDetails.Required.Manufacturers.ShortName,
+                        nextSerialNumber);
+
+                    var result2 = (from q in repo.All()
+                                   where q.RequiredDetails.Required.ProjectId == ProjectId
+                                   && q.Orders.FormNumber.Contains(formnumber)
+                                   orderby q.RequiredDetails.Required.Projects.Code descending
+                                   select q).Distinct();
+
+                    counters = result2.Count() + 1;
+
+                    formnumber = string.Format("{0}-{1}", formnumber, counters);
+                    newitem.FormNumber = formnumber;
                     newitem.CreateTime = DateTime.Now;
                     newitem.MakingTime = DateTime.Now;
 
@@ -61,7 +79,7 @@ namespace Tokiku.Controllers
                     Orders newitem = new Orders();
                     newitem.Id = Guid.NewGuid();
                     newitem.Manufacturers = new Manufacturers();
-                    newitem.FormNumber = string.Format("{0}001", findproject.ShortName);
+                    newitem.FormNumber = string.Format("{0}-{0}-O-001", findproject.ShortName);
                     newitem.CreateTime = DateTime.Now;
                     newitem.MakingTime = DateTime.Now;
 

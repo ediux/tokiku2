@@ -54,11 +54,11 @@ namespace TokikuNew.Views
 
                     ObjectDataProvider source = (ObjectDataProvider)((AluminumExtrusionOrderSheetView)sender).TryFindResource("OrderViewSource");
 
-                    if (source != null)
-                    {
-                        source.MethodParameters[0] = e.NewValue;
-                        source.Refresh();
-                    }
+                    source.MethodParameters[0] = e.NewValue;
+                    source.Refresh();
+
+
+
                 }
 
             }
@@ -759,7 +759,7 @@ namespace TokikuNew.Views
                 OrderViewModel master = (OrderViewModel)((ObjectDataProvider)TryFindResource("OrderViewSource")).Data;
                 OrderDetailViewModelCollection details = (OrderDetailViewModelCollection)((ObjectDataProvider)TryFindResource("AluminumExtrusionOrderSource2")).Data;
                 AluminumExtrusionOrderMaterialValuationViewModelCollection OrderMaterialValuation = (AluminumExtrusionOrderMaterialValuationViewModelCollection)((ObjectDataProvider)TryFindResource("MaterialValuationViewSource")).Data;
-
+                OrderMiscellaneousViewModelCollection misc = (OrderMiscellaneousViewModelCollection)((ObjectDataProvider)TryFindResource("OrderMiscellaneousSource")).Data;
 
                 master.ActualDelivery = new DateTime(1900, 1, 1);
                 master.CreateTime = DateTime.Now;
@@ -793,6 +793,7 @@ namespace TokikuNew.Views
 
                     foreach (var item in OrderMaterialValuation)
                     {
+
                         item.CreateTime = DateTime.Now;
                         item.Entity.Orders = master.Entity;
                         item.Entity.OrderId = master.Id;
@@ -804,6 +805,21 @@ namespace TokikuNew.Views
                     }
                 }
 
+                if (misc.Count > 0)
+                {
+                    master.Entity.OrderMiscellaneous = new Collection<OrderMiscellaneous>();
+
+                    foreach (var item in misc)
+                    {                 
+                        item.Entity.Orders = master.Entity;
+                        item.Entity.OrderId = master.Id;
+
+                        if (item.Entity.Id == Guid.Empty)
+                            item.Entity.Id = Guid.NewGuid();
+
+                        master.Entity.OrderMiscellaneous.Add(item.Entity);
+                    }
+                }
                 master.SaveModel("Orders");
 
                 if (master.HasError)

@@ -104,8 +104,22 @@ namespace Tokiku.ViewModels
         //"材質"
         public string Material
         {
-            get { return CopyofPOCOInstance?.RequiredDetails?.Materials.Name; }
-            set { RaisePropertyChanged("Material"); }
+            get { return CopyofPOCOInstance?.RequiredDetails?.Materials?.Name; }
+            set {
+                var found = ExecuteAction<RequiredDetails>("Required", "QuerySingleDetailByMaterial", value);
+
+                if (found != null)
+                {
+                    CopyofPOCOInstance.RequiredDetails = found;
+                    CopyofPOCOInstance.RequiredDetailsId = found.Id;
+                    //反查
+                    RaisePropertyChanged("Material");
+                }
+                else
+                {
+                    throw new Exception("找不到項目");
+                }
+                }
         }
 
         
@@ -113,8 +127,23 @@ namespace Tokiku.ViewModels
         //"*kg單價*"
         public float? UnitPrice
         {
-            get { return CopyofPOCOInstance?.RequiredDetails?.Materials.UnitPrice; }
-            set { RaisePropertyChanged("UnitPrice"); }
+            get { return CopyofPOCOInstance?.RequiredDetails?.Materials?.UnitPrice; }
+            set {
+                var found = ExecuteAction<RequiredDetails>("Required", "QuerySingleDetailByUnitPrice", Material, value);
+
+                if (found != null)
+                {
+                    CopyofPOCOInstance.RequiredDetails = found;
+                    CopyofPOCOInstance.RequiredDetailsId = found.Id;
+                    //反查
+                    RaisePropertyChanged("UnitPrice");
+                }
+                else
+                {
+                    throw new Exception("找不到項目");
+                }
+                
+            }
         }
 
        
