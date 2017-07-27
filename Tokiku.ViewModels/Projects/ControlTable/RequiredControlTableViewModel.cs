@@ -158,14 +158,8 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string ManufacturersCode
         {
-            get
-            {
-                return CopyofPOCOInstance.FactoryNumber; ;
-            }
-            set
-            {
-                RaisePropertyChanged("ManufacturersCode");
-            }
+            get { return CopyofPOCOInstance.FactoryNumber; ; }
+            set { RaisePropertyChanged("ManufacturersCode"); }
         }
         #endregion
 
@@ -252,10 +246,7 @@ namespace Tokiku.ViewModels
         public decimal? PrepareSubtotal
         {
             get { return 0; }
-            set
-            {
-                RaisePropertyChanged("PrepareSubtotal");
-            }
+            set { RaisePropertyChanged("PrepareSubtotal"); }
         }
         #endregion
 
@@ -307,14 +298,40 @@ namespace Tokiku.ViewModels
         }
         #endregion
 
-        public double? Receive_QuantitySubtotal
+        #region 退貨狀況 收穫數量小計
+        public double? ReturnStatus_Receipt_QuantitySubtotal
         {
             get { return 0; }
-            set { RaisePropertyChanged("Receive_QuantitySubtotal"); }
+            set { RaisePropertyChanged("ReturnStatus_Receipt_QuantitySubtotal"); }
         }
+        #endregion
+
+        #region 退貨狀況 收穫重量小計
+        public double? ReturnStatus_Receipt_WeightSubtotal
+        {
+            get { return 0; }
+            set { RaisePropertyChanged("ReturnStatus_Receipt_WeightSubtotal"); }
+        }
+        #endregion
+
+        #region 退貨狀況 扣款數量小計
+        public double? ReturnStatus_Charge_QuantitySubtotal
+        {
+            get { return 0; }
+            set { RaisePropertyChanged("ReturnStatus_Charge_QuantitySubtotal"); }
+        }
+        #endregion
+
+        #region 退貨狀況 扣款重量小計
+        public double? ReturnStatus_Charge_WeightSubtotal
+        {
+            get { return 0; }
+            set { RaisePropertyChanged("ReturnStatus_Charge_WeightSubtotal"); }
+        }
+        #endregion
 
         #region 庫存調整 數量小計
-        public double? InventoryMargin_LossAdjustment_QuantitySubtotal
+        public Nullable<decimal> InventoryMargin_LossAdjustment_QuantitySubtotal
         {
             get { return 0; }
             set { RaisePropertyChanged("InventoryMargin_LossAdjustment_QuantitySubtotal"); }
@@ -322,7 +339,7 @@ namespace Tokiku.ViewModels
         #endregion
 
         #region 庫存調整 重量小計
-        public double? InventoryMargin_LossAdjustment_WeightSubtotal
+        public Nullable<decimal> InventoryMargin_LossAdjustment_WeightSubtotal
         {
             get { return 0; }
             set { RaisePropertyChanged("InventoryMargin_LossAdjustment_WeightSubtotal"); }
@@ -330,7 +347,7 @@ namespace Tokiku.ViewModels
         #endregion
 
         #region 庫存狀況 數量小計
-        public double? InventoryStatus_QuantitySubtotal
+        public Nullable<decimal> InventoryStatus_QuantitySubtotal
         {
             get { return 0; }
             set { RaisePropertyChanged("InventoryStatus_QuantitySubtotal"); }
@@ -338,7 +355,7 @@ namespace Tokiku.ViewModels
         #endregion
 
         #region 庫存狀況 重量小計
-        public double? InventoryStatus_WeightSubtotal
+        public Nullable<decimal> InventoryStatus_WeightSubtotal
         {
             get { return 0; }
             set { RaisePropertyChanged("InventoryStatus_WeightSubtotal"); }
