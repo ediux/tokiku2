@@ -71,6 +71,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControlTables\ObtainMaterialController.cs" />
     <Compile Include="Orders\AluminumExtrusionOrderController.cs" />
     <Compile Include="Orders\AluminumExtrusionOrderListController.cs" />
     <Compile Include="Orders\AluminumExtrusionOrderMaterialValuationController.cs" />

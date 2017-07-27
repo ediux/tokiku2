@@ -16,9 +16,7 @@
         <c:CustomDataGrid Margin="5" AutoGenerateColumns="False" x:Name="鋁擠型訂製單DG" 
                           ItemsSource="{Binding Source={StaticResource AluminumExtrusionOrderSource2}}">
             <c:CustomDataGrid.Columns>
-                <DataGridTextColumn Header="*東菊編號*" Binding="{Binding TokikuId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}">
-                    
-                </DataGridTextColumn>
+                <DataGridTextColumn Header="*東菊編號*" Binding="{Binding TokikuId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                 <DataGridTextColumn Header="*廠商編號*" Binding="{Binding ManufacturersId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                 <DataGridTextColumn Header="*材質*" Binding="{Binding Material, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                 <DataGridTextColumn Header="*單位重(kg/m)*" Binding="{Binding UnitWeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
