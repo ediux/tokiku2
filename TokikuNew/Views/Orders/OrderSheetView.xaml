@@ -234,7 +234,7 @@
                 <local:AluminumExtrusionOrderView SelectedProjectId="{Binding SelectedProjectId,ElementName=userControl}" />
             </TabItem>
             <TabItem Header="材質估價">
-                <local:MaterialValuationView />
+                <local:MaterialValuationView SelectedProjectId="{Binding SelectedProjectId,ElementName=userControl}"/>
             </TabItem>
             <TabItem Header="雜項">
                 <local:MiscellaneousView/>

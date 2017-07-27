@@ -758,16 +758,19 @@ namespace TokikuNew.Views
             {
                 OrderViewModel master = (OrderViewModel)((ObjectDataProvider)TryFindResource("OrderViewSource")).Data;
                 OrderDetailViewModelCollection details = (OrderDetailViewModelCollection)((ObjectDataProvider)TryFindResource("AluminumExtrusionOrderSource2")).Data;
+                AluminumExtrusionOrderMaterialValuationViewModelCollection OrderMaterialValuation = (AluminumExtrusionOrderMaterialValuationViewModelCollection)((ObjectDataProvider)TryFindResource("MaterialValuationViewSource")).Data;
+
+
+                master.ActualDelivery = new DateTime(1900, 1, 1);
+                master.CreateTime = DateTime.Now;
+
+                if (master.MakingTime.HasValue == false)
+                    master.MakingTime = DateTime.Now;
 
                 if (details.Count > 0)
                 {
+
                     master.Entity.OrderDetails = new Collection<OrderDetails>();
-                    master.ActualDelivery = new DateTime(1900, 1, 1);
-                        master.CreateTime = DateTime.Now;
-
-                    if (master.MakingTime.HasValue == false)
-                        master.MakingTime = DateTime.Now;
-
                     foreach (var item in details)
                     {
                         item.CreateTime = DateTime.Now;
@@ -778,6 +781,26 @@ namespace TokikuNew.Views
                             item.Entity.Id = Guid.NewGuid();
 
                         master.Entity.OrderDetails.Add(item.Entity);
+                    }
+
+
+
+                }
+
+                if (OrderMaterialValuation.Count > 0)
+                {
+                    master.Entity.OrderMaterialValuation = new Collection<OrderMaterialValuation>();
+
+                    foreach (var item in OrderMaterialValuation)
+                    {
+                        item.CreateTime = DateTime.Now;
+                        item.Entity.Orders = master.Entity;
+                        item.Entity.OrderId = master.Id;
+
+                        if (item.Entity.Id == Guid.Empty)
+                            item.Entity.Id = Guid.NewGuid();
+
+                        master.Entity.OrderMaterialValuation.Add(item.Entity);
                     }
                 }
 
