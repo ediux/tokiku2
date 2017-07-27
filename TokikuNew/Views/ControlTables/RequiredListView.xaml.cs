@@ -27,6 +27,22 @@ namespace TokikuNew.Views
             InitializeComponent();
         }
 
+
+
+        #region SelectedProjectId
+        public Guid SelectedProjectId
+        {
+            get { return (Guid)GetValue(SelectedProjectIdProperty); }
+            set { SetValue(SelectedProjectIdProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectedProjectId.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedProjectIdProperty =
+            DependencyProperty.Register("SelectedProjectId", typeof(Guid), typeof(RequiredListView), new PropertyMetadata(Guid.Empty));
+
+        #endregion
+
+
         private void RequiredListView_Loaded(object sender, RoutedEventArgs e)
         {
             //RequiredListViewModelCollection ctrl = new RequiredListViewModelCollection();

@@ -20,20 +20,10 @@ namespace Tokiku.ViewModels
 
         }
 
-        //public override void Query()
-        //{
-        //    RequiredListController ctrl = new RequiredListController();
-        //    ExecuteResultEntity<ICollection<RequiredListEntity>> ere = ctrl.QuerAll();
-        //    if (!ere.HasError)
-        //    {
-        //        RequiredListViewModel vm = new RequiredListViewModel();
-        //        foreach (var item in ere.Result)
-        //        {
-        //            //vm.SetModel(item);
-        //            Add(vm);
-        //        }
-        //    }
-        //}
+        public static RequiredListViewModelCollection Query()
+        {
+            return Query<RequiredListViewModelCollection, Required>("Required", "Query");         
+        }
 
     }
 
@@ -46,8 +36,52 @@ namespace Tokiku.ViewModels
 
         public RequiredListViewModel(Required entity) : base(entity)
         {
-
+            
         }
+
+        public string FormNumber
+        {
+            get
+            {                 
+                return CopyofPOCOInstance.FormNumber;
+            }
+            set { CopyofPOCOInstance.FormNumber = value; RaisePropertyChanged("FormNumber"); }
+        }
+        /// <summary>
+        /// 廠商編號
+        /// </summary>
+        public string ManufacturersCode
+        {
+            get { return CopyofPOCOInstance?.Manufacturers?.Code; }
+            set
+            {
+                RaisePropertyChanged("ManufacturersCode");
+            }
+        }
+
+        /// <summary>
+        /// 廠商名稱
+        /// </summary>
+        public string ManufacturersName
+        {
+            get { return CopyofPOCOInstance?.Manufacturers?.Name; }
+            set
+            {
+
+
+                RaisePropertyChanged("ManufacturersName");
+            }
+        }
+
+        /// <summary>
+        /// 輸入日期
+        /// </summary>
+        public new DateTime CreateTime
+        {
+            get { return CopyofPOCOInstance.CreateTime; }
+            set { CopyofPOCOInstance.CreateTime = value; RaisePropertyChanged("CreateTime"); }
+        }     
+
         //public override void SetModel(dynamic entity)
         //{
         //    try

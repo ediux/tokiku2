@@ -83,7 +83,7 @@ namespace Tokiku.ViewModels
                 if (found != null)
                 {
                     CopyofPOCOInstance.RequiredDetails = found;
-                    CopyofPOCOInstance.RequiredDetailsId = found.Id;
+                    CopyofPOCOInstance.RequiredDetailsId = found.Id;                    
                 }
                 else
                 {

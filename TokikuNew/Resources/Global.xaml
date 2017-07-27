@@ -21,7 +21,7 @@
     <ObjectDataProvider x:Key="PaymentTypesSource" ObjectType="{x:Type vm:PaymentTypesManageViewModelCollection}" MethodName="Query"/>
     <ObjectDataProvider x:Key="VoidStateListSource" ObjectType="{x:Type vm:VoidViewModelCollection}" MethodName="Query"/>
     <ObjectDataProvider x:Key="ConstructionAtlasReplySelectList" ObjectType="{x:Type vm:ConstructionAtlasReplyContextViewModelCollection}" MethodName="Query"/>
-    <ObjectDataProvider x:Key="RequiredListSource" ObjectType="{x:Type vm:RequiredListViewModelCollection}" MethodName="Query"/>
+   
     <ObjectDataProvider x:Key="ManufactureList" ObjectType="{x:Type vm:ManufacturersViewModelCollection}" MethodName="Query"/>
     <ObjectDataProvider ObjectType="{x:Type vm:OrderDetailViewModelCollection}" x:Key="AluminumExtrusionOrderSource2" MethodName="Query"  >
     </ObjectDataProvider>
