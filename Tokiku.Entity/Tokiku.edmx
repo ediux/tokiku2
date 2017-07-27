@@ -154,6 +154,23 @@
           <Property Name="CreateTime" Type="smalldatetime" Nullable="false" />
           <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
+        <EntityType Name="EncodingRecords">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EncodingName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CodeName1" Type="nvarchar" MaxLength="50" />
+          <Property Name="CodeName2" Type="nvarchar" MaxLength="50" />
+          <Property Name="CodeName3" Type="nvarchar" MaxLength="50" />
+          <Property Name="CodeName4" Type="nvarchar" MaxLength="50" />
+          <Property Name="CodeName5" Type="nvarchar" MaxLength="50" />
+          <Property Name="Number1" Type="int" Nullable="false" />
+          <Property Name="Number2" Type="int" Nullable="false" />
+          <Property Name="Number3" Type="int" Nullable="false" />
+          <Property Name="Number4" Type="int" Nullable="false" />
+          <Property Name="Number5" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Engineering">
           <Key>
             <PropertyRef Name="Id" />
@@ -1016,6 +1033,10 @@
           <Property Name="ReturnStatus_WeightSubtotal" Type="float" />
           <Property Name="Weight" Type="float" />
           <Property Name="ShippingQuantity" Type="int" />
+          <Property Name="ReturnStatus_Receipt_QuantitySubtotal" Type="decimal" Precision="38" Scale="3" />
+          <Property Name="ReturnStatus_Receipt_WeightSubtotal" Type="decimal" Precision="38" Scale="3" />
+          <Property Name="ReturnStatus_Charge_QuantitySubtotal" Type="decimal" Precision="38" Scale="3" />
+          <Property Name="ReturnStatus_Charge_WeightSubtotal" Type="decimal" Precision="38" Scale="3" />
           <Property Name="InventoryMargin_LossAdjustment_QuantitySubtotal" Type="decimal" Precision="38" Scale="3" />
           <Property Name="InventoryMargin_LossAdjustment_WeightSubtotal" Type="decimal" Precision="38" Scale="3" />
           <Property Name="InventoryStatus_QuantitySubtotal" Type="decimal" Precision="38" Scale="3" />
@@ -2365,6 +2386,7 @@
           <EntitySet Name="ContractsInManufacturers" EntityType="Self.ContractsInManufacturers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ControlTableDetails" EntityType="Self.ControlTableDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ControlTables" EntityType="Self.ControlTables" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EncodingRecords" EntityType="Self.EncodingRecords" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Engineering" EntityType="Self.Engineering" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Inventory" EntityType="Self.Inventory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InvoiceDetails" EntityType="Self.InvoiceDetails" Schema="dbo" store:Type="Tables" />
@@ -2520,6 +2542,10 @@
     [View_RequiredControlTable].[ReturnStatus_WeightSubtotal] AS [ReturnStatus_WeightSubtotal], 
     [View_RequiredControlTable].[Weight] AS [Weight], 
     [View_RequiredControlTable].[ShippingQuantity] AS [ShippingQuantity], 
+    [View_RequiredControlTable].[ReturnStatus_Receipt_QuantitySubtotal] AS [ReturnStatus_Receipt_QuantitySubtotal], 
+    [View_RequiredControlTable].[ReturnStatus_Receipt_WeightSubtotal] AS [ReturnStatus_Receipt_WeightSubtotal], 
+    [View_RequiredControlTable].[ReturnStatus_Charge_QuantitySubtotal] AS [ReturnStatus_Charge_QuantitySubtotal], 
+    [View_RequiredControlTable].[ReturnStatus_Charge_WeightSubtotal] AS [ReturnStatus_Charge_WeightSubtotal], 
     [View_RequiredControlTable].[InventoryMargin_LossAdjustment_QuantitySubtotal] AS [InventoryMargin_LossAdjustment_QuantitySubtotal], 
     [View_RequiredControlTable].[InventoryMargin_LossAdjustment_WeightSubtotal] AS [InventoryMargin_LossAdjustment_WeightSubtotal], 
     [View_RequiredControlTable].[InventoryStatus_QuantitySubtotal] AS [InventoryStatus_QuantitySubtotal], 
@@ -3604,6 +3630,7 @@
             <End Role="Stocks" EntitySet="Stocks" />
             <End Role="Returns" EntitySet="Returns" />
           </AssociationSet>
+          <EntitySet Name="EncodingRecords" EntityType="TokikuModel.EncodingRecords" />
           </EntityContainer>
         <EntityType Name="AccessLog">
           <Key>
@@ -5897,6 +5924,10 @@
           <Property Name="InventoryMargin_LossAdjustment_WeightSubtotal" Type="Decimal" Precision="38" Scale="3" />
           <Property Name="InventoryStatus_QuantitySubtotal" Type="Decimal" Precision="38" Scale="3" />
           <Property Name="InventoryStatus_WeightSubtotal" Type="Decimal" Precision="38" Scale="3" />
+          <Property Name="ReturnStatus_Receipt_QuantitySubtotal" Type="Decimal" Precision="38" Scale="3" />
+          <Property Name="ReturnStatus_Receipt_WeightSubtotal" Type="Decimal" Precision="38" Scale="3" />
+          <Property Name="ReturnStatus_Charge_QuantitySubtotal" Type="Decimal" Precision="38" Scale="3" />
+          <Property Name="ReturnStatus_Charge_WeightSubtotal" Type="Decimal" Precision="38" Scale="3" />
         </EntityType>
         <EntityType Name="ReturnDetails">
           <Key>
@@ -6021,6 +6052,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="EncodingRecords">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="EncodingName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CodeName1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CodeName2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CodeName3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CodeName4" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CodeName5" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Number1" Type="Int32" Nullable="false" />
+          <Property Name="Number2" Type="Int32" Nullable="false" />
+          <Property Name="Number3" Type="Int32" Nullable="false" />
+          <Property Name="Number4" Type="Int32" Nullable="false" />
+          <Property Name="Number5" Type="Int32" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7009,6 +7057,10 @@
           <EntitySetMapping Name="View_RequiredControlTable">
             <EntityTypeMapping TypeName="TokikuModel.View_RequiredControlTable">
               <MappingFragment StoreEntitySet="View_RequiredControlTable">
+                <ScalarProperty Name="ReturnStatus_Charge_WeightSubtotal" ColumnName="ReturnStatus_Charge_WeightSubtotal" />
+                <ScalarProperty Name="ReturnStatus_Charge_QuantitySubtotal" ColumnName="ReturnStatus_Charge_QuantitySubtotal" />
+                <ScalarProperty Name="ReturnStatus_Receipt_WeightSubtotal" ColumnName="ReturnStatus_Receipt_WeightSubtotal" />
+                <ScalarProperty Name="ReturnStatus_Receipt_QuantitySubtotal" ColumnName="ReturnStatus_Receipt_QuantitySubtotal" />
                 <ScalarProperty Name="InventoryStatus_WeightSubtotal" ColumnName="InventoryStatus_WeightSubtotal" />
                 <ScalarProperty Name="InventoryStatus_QuantitySubtotal" ColumnName="InventoryStatus_QuantitySubtotal" />
                 <ScalarProperty Name="InventoryMargin_LossAdjustment_WeightSubtotal" ColumnName="InventoryMargin_LossAdjustment_WeightSubtotal" />
@@ -7064,6 +7116,24 @@
                 <ScalarProperty Name="IncomingManufacturerId" ColumnName="IncomingManufacturerId" />
                 <ScalarProperty Name="ReturnNumber" ColumnName="ReturnNumber" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EncodingRecords">
+            <EntityTypeMapping TypeName="TokikuModel.EncodingRecords">
+              <MappingFragment StoreEntitySet="EncodingRecords">
+                <ScalarProperty Name="Number5" ColumnName="Number5" />
+                <ScalarProperty Name="Number4" ColumnName="Number4" />
+                <ScalarProperty Name="Number3" ColumnName="Number3" />
+                <ScalarProperty Name="Number2" ColumnName="Number2" />
+                <ScalarProperty Name="Number1" ColumnName="Number1" />
+                <ScalarProperty Name="CodeName5" ColumnName="CodeName5" />
+                <ScalarProperty Name="CodeName4" ColumnName="CodeName4" />
+                <ScalarProperty Name="CodeName3" ColumnName="CodeName3" />
+                <ScalarProperty Name="CodeName2" ColumnName="CodeName2" />
+                <ScalarProperty Name="CodeName1" ColumnName="CodeName1" />
+                <ScalarProperty Name="EncodingName" ColumnName="EncodingName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

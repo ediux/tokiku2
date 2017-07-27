@@ -176,6 +176,7 @@
         <AssociationConnector Association="TokikuModel.FK_Returns_CreateUsers" />
         <AssociationConnector Association="TokikuModel.FK_Returns_MakerUsers" />
         <AssociationConnector Association="TokikuModel.FK_Returns_Stocks" />
+        <EntityTypeShape EntityType="TokikuModel.EncodingRecords" Width="1.5" PointX="0.75" PointY="8.75" />
         </Diagram>
       <Diagram DiagramId="da028285ff1d445f8957817e8b05eec6" Name="專案主檔" ZoomLevel="86" >
         <EntityTypeShape EntityType="TokikuModel.Projects" Width="1.5" PointX="3" PointY="10.625" />

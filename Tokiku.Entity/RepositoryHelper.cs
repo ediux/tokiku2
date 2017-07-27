@@ -99,6 +99,20 @@ namespace Tokiku.Entity
 			return repository;
 		}		
 
+		public static EncodingRecordsRepository GetEncodingRecordsRepository()
+		{
+			var repository = new EncodingRecordsRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static EncodingRecordsRepository GetEncodingRecordsRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new EncodingRecordsRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
 		public static EngineeringRepository GetEngineeringRepository()
 		{
 			var repository = new EngineeringRepository();

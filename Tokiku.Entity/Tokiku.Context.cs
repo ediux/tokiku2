@@ -87,5 +87,6 @@ namespace Tokiku.Entity
         public virtual DbSet<View_RequiredControlTable> View_RequiredControlTable { get; set; }
         public virtual DbSet<ReturnDetails> ReturnDetails { get; set; }
         public virtual DbSet<Returns> Returns { get; set; }
+        public virtual DbSet<EncodingRecords> EncodingRecords { get; set; }
     }
 }
