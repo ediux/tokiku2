@@ -7,7 +7,6 @@ namespace Tokiku.Entity
     [MetadataType(typeof(View_RequiredControlTableMetaData))]
     public partial class View_RequiredControlTable
     {
-        public int RowIndex { get; set; }
     }
     
     public partial class View_RequiredControlTableMetaData
@@ -52,5 +51,9 @@ namespace Tokiku.Entity
         public Nullable<decimal> InventoryMargin_LossAdjustment_WeightSubtotal { get; set; }
         public Nullable<decimal> InventoryStatus_QuantitySubtotal { get; set; }
         public Nullable<decimal> InventoryStatus_WeightSubtotal { get; set; }
+        public Nullable<decimal> ReturnStatus_Receipt_QuantitySubtotal { get; set; }
+        public Nullable<decimal> ReturnStatus_Receipt_WeightSubtotal { get; set; }
+        public Nullable<decimal> ReturnStatus_Charge_QuantitySubtotal { get; set; }
+        public Nullable<decimal> ReturnStatus_Charge_WeightSubtotal { get; set; }
     }
 }

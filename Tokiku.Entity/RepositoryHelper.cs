@@ -813,6 +813,20 @@ namespace Tokiku.Entity
 			return repository;
 		}		
 
+		public static View_OrderControlTableRepository GetView_OrderControlTableRepository()
+		{
+			var repository = new View_OrderControlTableRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static View_OrderControlTableRepository GetView_OrderControlTableRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new View_OrderControlTableRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
 		public static View_OrderMaterialValuationRepository GetView_OrderMaterialValuationRepository()
 		{
 			var repository = new View_OrderMaterialValuationRepository();

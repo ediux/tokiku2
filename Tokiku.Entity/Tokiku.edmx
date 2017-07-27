@@ -892,6 +892,40 @@
           <Property Name="ManufacturersId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'Tokiku2_New.dbo.View_OrderControlTable' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+        <EntityType Name="View_OrderControlTable">
+          <Key>
+            <PropertyRef Name="FormNumber" />
+            <PropertyRef Name="Code" />
+            <PropertyRef Name="ProjectsName" />
+            <PropertyRef Name="RequiredDetailsCode" />
+            <PropertyRef Name="ManufacturersCode" />
+            <PropertyRef Name="ManufacturersName" />
+            <PropertyRef Name="MaterialsName" />
+            <PropertyRef Name="UnitWeight" />
+            <PropertyRef Name="ExpectedDelivery" />
+            <PropertyRef Name="LackQuantity" />
+          </Key>
+          <Property Name="FormNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProjectsName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RequiredDetailsCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ManufacturersCode" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="ManufacturersName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MaterialsName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UnitWeight" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="OrderLength" Type="int" />
+          <Property Name="OrderQuantity" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="SparePartsNumber" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="OrderTotalQuantity" Type="decimal" Precision="19" Scale="0" />
+          <Property Name="OrderTotalWeight" Type="decimal" Precision="38" Scale="3" />
+          <Property Name="ExpectedDelivery" Type="smalldatetime" Nullable="false" />
+          <Property Name="ShippingOrder" Type="int" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="LackQuantity" Type="int" Nullable="false" />
+          <Property Name="LackWeight" Type="decimal" Precision="29" Scale="3" />
+        </EntityType>
+        <!--產生期間發現錯誤:
 警告 6002: 資料表/檢視 'Tokiku2_New.dbo.View_OrderMaterialValuation' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
         <EntityType Name="View_OrderMaterialValuation">
           <Key>
@@ -2457,6 +2491,28 @@
     [View_ManufacturersBussinessTranscations].[ManufacturersId] AS [ManufacturersId]
     FROM [dbo].[View_ManufacturersBussinessTranscations] AS [View_ManufacturersBussinessTranscations]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="View_OrderControlTable" EntityType="Self.View_OrderControlTable" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_OrderControlTable].[FormNumber] AS [FormNumber], 
+    [View_OrderControlTable].[Code] AS [Code], 
+    [View_OrderControlTable].[ProjectsName] AS [ProjectsName], 
+    [View_OrderControlTable].[RequiredDetailsCode] AS [RequiredDetailsCode], 
+    [View_OrderControlTable].[ManufacturersCode] AS [ManufacturersCode], 
+    [View_OrderControlTable].[ManufacturersName] AS [ManufacturersName], 
+    [View_OrderControlTable].[MaterialsName] AS [MaterialsName], 
+    [View_OrderControlTable].[UnitWeight] AS [UnitWeight], 
+    [View_OrderControlTable].[OrderLength] AS [OrderLength], 
+    [View_OrderControlTable].[OrderQuantity] AS [OrderQuantity], 
+    [View_OrderControlTable].[SparePartsNumber] AS [SparePartsNumber], 
+    [View_OrderControlTable].[OrderTotalQuantity] AS [OrderTotalQuantity], 
+    [View_OrderControlTable].[OrderTotalWeight] AS [OrderTotalWeight], 
+    [View_OrderControlTable].[ExpectedDelivery] AS [ExpectedDelivery], 
+    [View_OrderControlTable].[ShippingOrder] AS [ShippingOrder], 
+    [View_OrderControlTable].[Comment] AS [Comment], 
+    [View_OrderControlTable].[LackQuantity] AS [LackQuantity], 
+    [View_OrderControlTable].[LackWeight] AS [LackWeight]
+    FROM [dbo].[View_OrderControlTable] AS [View_OrderControlTable]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="View_OrderMaterialValuation" EntityType="Self.View_OrderMaterialValuation" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [View_OrderMaterialValuation].[ProjectId] AS [ProjectId], 
@@ -3631,6 +3687,7 @@
             <End Role="Returns" EntitySet="Returns" />
           </AssociationSet>
           <EntitySet Name="EncodingRecords" EntityType="TokikuModel.EncodingRecords" />
+          <EntitySet Name="View_OrderControlTable" EntityType="TokikuModel.View_OrderControlTable" />
           </EntityContainer>
         <EntityType Name="AccessLog">
           <Key>
@@ -6069,6 +6126,38 @@
           <Property Name="Number4" Type="Int32" Nullable="false" />
           <Property Name="Number5" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="View_OrderControlTable">
+          <Key>
+            <PropertyRef Name="FormNumber" />
+            <PropertyRef Name="Code" />
+            <PropertyRef Name="ProjectsName" />
+            <PropertyRef Name="RequiredDetailsCode" />
+            <PropertyRef Name="ManufacturersCode" />
+            <PropertyRef Name="ManufacturersName" />
+            <PropertyRef Name="MaterialsName" />
+            <PropertyRef Name="UnitWeight" />
+            <PropertyRef Name="ExpectedDelivery" />
+            <PropertyRef Name="LackQuantity" />
+          </Key>
+          <Property Name="FormNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectsName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RequiredDetailsCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ManufacturersCode" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="ManufacturersName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaterialsName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UnitWeight" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="OrderLength" Type="Int32" />
+          <Property Name="OrderQuantity" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SparePartsNumber" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OrderTotalQuantity" Type="Decimal" Precision="19" Scale="0" />
+          <Property Name="OrderTotalWeight" Type="Decimal" Precision="38" Scale="3" />
+          <Property Name="ExpectedDelivery" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ShippingOrder" Type="Int32" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LackQuantity" Type="Int32" Nullable="false" />
+          <Property Name="LackWeight" Type="Decimal" Precision="29" Scale="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7135,6 +7224,30 @@
                 <ScalarProperty Name="CodeName1" ColumnName="CodeName1" />
                 <ScalarProperty Name="EncodingName" ColumnName="EncodingName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_OrderControlTable">
+            <EntityTypeMapping TypeName="TokikuModel.View_OrderControlTable">
+              <MappingFragment StoreEntitySet="View_OrderControlTable">
+                <ScalarProperty Name="LackWeight" ColumnName="LackWeight" />
+                <ScalarProperty Name="LackQuantity" ColumnName="LackQuantity" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="ShippingOrder" ColumnName="ShippingOrder" />
+                <ScalarProperty Name="ExpectedDelivery" ColumnName="ExpectedDelivery" />
+                <ScalarProperty Name="OrderTotalWeight" ColumnName="OrderTotalWeight" />
+                <ScalarProperty Name="OrderTotalQuantity" ColumnName="OrderTotalQuantity" />
+                <ScalarProperty Name="SparePartsNumber" ColumnName="SparePartsNumber" />
+                <ScalarProperty Name="OrderQuantity" ColumnName="OrderQuantity" />
+                <ScalarProperty Name="OrderLength" ColumnName="OrderLength" />
+                <ScalarProperty Name="UnitWeight" ColumnName="UnitWeight" />
+                <ScalarProperty Name="MaterialsName" ColumnName="MaterialsName" />
+                <ScalarProperty Name="ManufacturersName" ColumnName="ManufacturersName" />
+                <ScalarProperty Name="ManufacturersCode" ColumnName="ManufacturersCode" />
+                <ScalarProperty Name="RequiredDetailsCode" ColumnName="RequiredDetailsCode" />
+                <ScalarProperty Name="ProjectsName" ColumnName="ProjectsName" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="FormNumber" ColumnName="FormNumber" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

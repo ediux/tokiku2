@@ -624,6 +624,15 @@
     <Compile Include="View_ManufacturersBussinessTranscationsRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
+    <Compile Include="View_OrderControlTable.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_OrderControlTable.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_OrderControlTableRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
     <Compile Include="View_OrderMaterialValuation.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
