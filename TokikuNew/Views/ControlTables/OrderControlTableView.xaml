@@ -47,7 +47,7 @@
                         <DataGridTextColumn Header="訂單數量(單位:支)" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                         <DataGridTextColumn Header="備品數量(單位:支)" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                         <DataGridTextColumn Header="訂單總數(備品+訂單數量)" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                        <DataGridTextColumn Header="訂單總數量(單位:kg)" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                        <DataGridTextColumn Header="訂單總重量(單位:kg)" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                         <DataGridTextColumn Header="預估交期" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                         <DataGridTextColumn Header="出貨順序" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                         <DataGridTextColumn Header="備註" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
