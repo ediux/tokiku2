@@ -24,16 +24,16 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://220.130.128.34/</InstallUrl>
+    <InstallUrl>http://f.cenoq.com/</InstallUrl>
     <SupportUrl>http://f.cenoq.com</SupportUrl>
     <ProductName>東菊金屬ERP系統</ProductName>
     <PublisherName>Cenoq Corporation</PublisherName>
     <SuiteName>TokikuERP</SuiteName>
-    <MinimumRequiredVersion>1.0.0.9</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.0.0.10</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>10</ApplicationRevision>
+    <ApplicationRevision>11</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
