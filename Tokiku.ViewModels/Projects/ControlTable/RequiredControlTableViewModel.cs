@@ -291,7 +291,7 @@ namespace Tokiku.ViewModels
         }
         #endregion
 
-        #region 退貨狀況
+        #region 退貨狀況 數量小計
         public decimal? ReturnStatus_QuantitySubtotal
         {
             get { return CopyofPOCOInstance.ReturnStatus_QuantitySubtotal; }
@@ -299,16 +299,50 @@ namespace Tokiku.ViewModels
         }
         #endregion
 
+        #region 退貨狀況 重量小計
         public double? ReturnStatus_WeightSubtotal
         {
             get { return CopyofPOCOInstance.ReturnStatus_WeightSubtotal; }
             set { RaisePropertyChanged("ReturnStatus_WeightSubtotal"); }
         }
+        #endregion
 
         public double? Receive_QuantitySubtotal
         {
             get { return 0; }
             set { RaisePropertyChanged("Receive_QuantitySubtotal"); }
         }
+
+        #region 庫存調整 數量小計
+        public double? InventoryMargin_LossAdjustment_QuantitySubtotal
+        {
+            get { return 0; }
+            set { RaisePropertyChanged("InventoryMargin_LossAdjustment_QuantitySubtotal"); }
+        }
+        #endregion
+
+        #region 庫存調整 重量小計
+        public double? InventoryMargin_LossAdjustment_WeightSubtotal
+        {
+            get { return 0; }
+            set { RaisePropertyChanged("InventoryMargin_LossAdjustment_WeightSubtotal"); }
+        }
+        #endregion
+
+        #region 庫存狀況 數量小計
+        public double? InventoryStatus_QuantitySubtotal
+        {
+            get { return 0; }
+            set { RaisePropertyChanged("InventoryStatus_QuantitySubtotal"); }
+        }
+        #endregion
+
+        #region 庫存狀況 重量小計
+        public double? InventoryStatus_WeightSubtotal
+        {
+            get { return 0; }
+            set { RaisePropertyChanged("InventoryStatus_WeightSubtotal"); }
+        }
+        #endregion
     }
 }
