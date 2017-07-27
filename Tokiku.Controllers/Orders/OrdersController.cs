@@ -20,9 +20,9 @@ namespace Tokiku.Controllers
             {
                 var repo = this.GetReoisitory<OrderDetails>();
                 var result = (from q in repo.All()
-                             where q.RequiredDetails.Required.ProjectId == ProjectId
-                             orderby q.RequiredDetails.Required.Projects.Code descending
-                             select q).Distinct();
+                              where q.RequiredDetails.Required.ProjectId == ProjectId
+                              orderby q.RequiredDetails.Required.Projects.Code descending
+                              select q).Distinct();
 
                 if (result.Count() > 0)
                 {
@@ -59,9 +59,9 @@ namespace Tokiku.Controllers
                     }
 
                     Orders newitem = new Orders();
-                    newitem.Id = Guid.NewGuid();                    
+                    newitem.Id = Guid.NewGuid();
                     newitem.Manufacturers = new Manufacturers();
-                    newitem.FormNumber = string.Format("{0}001",findproject.ShortName);
+                    newitem.FormNumber = string.Format("{0}001", findproject.ShortName);
                     newitem.CreateTime = DateTime.Now;
                     newitem.MakingTime = DateTime.Now;
 
@@ -75,6 +75,28 @@ namespace Tokiku.Controllers
             catch (Exception ex)
             {
                 rtn = ExecuteResultEntity<Orders>.CreateErrorResultEntity(ex);
+                return rtn;
+            }
+        }
+
+        public ExecuteResultEntity<ICollection<Orders>> Query(Guid ProjectId)
+        {
+            ExecuteResultEntity<ICollection<Orders>> rtn;
+
+            try
+            {
+                var repo = this.GetReoisitory<OrderDetails>();
+
+                var result = (from q in repo.All()
+                              where q.RequiredDetails.Required.ProjectId == ProjectId
+                              orderby q.RequiredDetails.Required.Projects.Code descending
+                              select q.Orders).Distinct();
+
+                return ExecuteResultEntity<ICollection<Orders>>.CreateResultEntity(new Collection<Orders>(result.ToList()));
+            }
+            catch (Exception ex)
+            {
+                rtn = ExecuteResultEntity<ICollection<Orders>>.CreateErrorResultEntity(ex);
                 return rtn;
             }
         }

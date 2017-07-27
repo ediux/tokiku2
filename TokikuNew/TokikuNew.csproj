@@ -149,8 +149,8 @@
     <Compile Include="Views\Orders\OrderView.xaml.cs">
       <DependentUpon>OrderView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Orders\AluminumExtrusionOrderListView.xaml.cs">
-      <DependentUpon>AluminumExtrusionOrderListView.xaml</DependentUpon>
+    <Compile Include="Views\Orders\OrderListView.xaml.cs">
+      <DependentUpon>OrderListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ManufacturerBussinessItemView.xaml.cs">
       <DependentUpon>ManufacturerBussinessItemView.xaml</DependentUpon>
@@ -352,7 +352,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Orders\AluminumExtrusionOrderListView.xaml">
+    <Page Include="Views\Orders\OrderListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

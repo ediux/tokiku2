@@ -21,7 +21,7 @@ namespace Tokiku.ViewModels
 
         public static OrderViewModelCollection Query(Guid ProjectId)
         {
-            return Query<OrderViewModelCollection, Orders>("", "");
+            return Query<OrderViewModelCollection, Orders>("Orders", "Query", ProjectId);
         }
     }
 }

@@ -39,6 +39,7 @@ namespace Tokiku.ViewModels
         OrderTypesViewModel _OrderType;
 
         public OrderTypesViewModel OrderType { get => _OrderType; }
+        public string Name { get => _OrderType.Name; }
         public string RequiredDep { get => CopyofPOCOInstance.RequiredDep; set { CopyofPOCOInstance.RequiredDep = value; RaisePropertyChanged("RequiredDep"); } }
         public string FormNumber { get => CopyofPOCOInstance.FormNumber; set { CopyofPOCOInstance.FormNumber = value; RaisePropertyChanged("FormNumber"); } }
         public string BatchNumber { get => CopyofPOCOInstance.BatchNumber; set { CopyofPOCOInstance.BatchNumber = value; RaisePropertyChanged("BatchNumber"); } }
@@ -64,7 +65,7 @@ namespace Tokiku.ViewModels
 
         private ManufacturersViewModel _ShippingManufacture;
         public ManufacturersViewModel ShippingManufacture { get => _ShippingManufacture; set { _ShippingManufacture = value; CopyofPOCOInstance.Manufacturers = _ShippingManufacture.Entity; RaisePropertyChanged("ShippingManufacture"); } }
-
+        public Guid? ProjectId { get => CopyofPOCOInstance.OrderDetails.FirstOrDefault()?.RequiredDetails.Required.ProjectId; }
         public static OrderViewModel CreateNew(Guid ProjectId)
         {
             try

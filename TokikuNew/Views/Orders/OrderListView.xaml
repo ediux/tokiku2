@@ -1,0 +1,57 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:Controls="clr-namespace:TokikuNew.Controls" 
+             x:Class="TokikuNew.Views.AluminumExtrusionOrderListView"
+             xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             Background="{DynamicResource ControlBackgroundBrush}"
+             d:DesignHeight="768" d:DesignWidth="1366">
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="OrderListSource" ObjectType="{x:Type vm:OrderViewModelCollection}" MethodName="Query">
+            <ObjectDataProvider.MethodParameters>
+                <x:Static Member="sys:Guid.Empty"></x:Static>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
+    <Grid>
+        <DataGrid CanUserAddRows="True" x:Name="OrderList" ItemsSource="{Binding Source={StaticResource OrderListSource}}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="訂單編號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" Binding="{Binding FormNumber}" />
+                <DataGridTextColumn Header="名稱" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="廠商" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" Binding="{Binding ShippingManufacture.Name}"/>
+                <DataGridTextColumn Header="下單日期" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" Binding="{Binding CreateTime}"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="開啟訂製單" vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}">
+                                <vm:CommandRoutingManager.CommandParameter>
+                                    <vm:RoutedViewResult Name="OpenOrderSheetView" 
+                                                         DataContent="{Binding SelectedItem ,ElementName=OrderList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                                         ViewType="{x:Type local:AluminumExtrusionOrderSheetView}">
+                                        <vm:RoutedViewResult.RoutingBinding>
+                                            <sys:String x:Key="SelectedProjectId">ProjectId</sys:String>
+                                            <sys:String x:Key="SelectOrderId">Id</sys:String>
+                                        </vm:RoutedViewResult.RoutingBinding>
+                                        <vm:RoutedViewResult.RoutedValues>
+                                            <sys:Guid x:Key="SelectedProjectId"></sys:Guid>
+                                            <sys:Guid x:Key="SelectOrderId"></sys:Guid>
+                                            <sys:String x:Key="ViewModel">OrderViewModelCollection</sys:String>
+                                            <x:Type x:Key="SourceViewType" TypeName="local:ProjectViewer"/>
+                                            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+                                            <sys:String x:Key="ResourceKey">OrderListSource</sys:String>
+                                        </vm:RoutedViewResult.RoutedValues>
+                                    </vm:RoutedViewResult>
+                                </vm:CommandRoutingManager.CommandParameter>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

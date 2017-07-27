@@ -34,37 +34,6 @@ namespace TokikuNew.Views
             //this.訂製單內容.Children.Add(uc); // 頁籤初始內容設定
         }
 
-        #region Document Mode
-
-        /// <summary>
-        /// 目前載入的文件所處的模式
-        /// </summary>
-        public DocumentLifeCircle Mode
-        {
-            get { return (DocumentLifeCircle)GetValue(ModeProperty); }
-            set { SetValue(ModeProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for Mode.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ModeProperty =
-            DependencyProperty.Register("Mode", typeof(DocumentLifeCircle), typeof(AluminumExtrusionOrderSheetView), new PropertyMetadata(DocumentLifeCircle.Read));
-        #endregion
-
-        #region 登入的使用者
-        // Using a DependencyProperty as the backing store for LoginedUser.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty LoginedUserProperty =
-            DependencyProperty.Register("LoginedUser", typeof(UserViewModel), typeof(AluminumExtrusionOrderSheetView), new PropertyMetadata(default(UserViewModel)));
-
-        /// <summary>
-        /// 登入的使用者
-        /// </summary>
-        public UserViewModel LoginedUser
-        {
-            get { return (UserViewModel)GetValue(LoginedUserProperty); }
-            set { SetValue(LoginedUserProperty, value); }
-        }
-        #endregion
-
         #region SelectedProject
         public Guid SelectedProjectId
         {
@@ -100,7 +69,15 @@ namespace TokikuNew.Views
         }
         #endregion
 
+        public Guid SelectOrderId
+        {
+            get { return (Guid)GetValue(SelectOrderIdProperty); }
+            set { SetValue(SelectOrderIdProperty, value); }
+        }
 
+        // Using a DependencyProperty as the backing store for SelectOrderId.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectOrderIdProperty =
+            DependencyProperty.Register("SelectOrderId", typeof(Guid), typeof(AluminumExtrusionOrderSheetView), new PropertyMetadata(Guid.Empty));
 
         public Guid FormDetailId
         {
