@@ -134,7 +134,7 @@ namespace Tokiku.ViewModels
         // "*材質*"
         public string Material
         {
-            get { return CopyofPOCOInstance?.RequiredDetails?.Materials.Name; }
+            get { return CopyofPOCOInstance?.RequiredDetails?.Materials?.Name; }
             set
             {
 

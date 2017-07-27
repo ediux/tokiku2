@@ -112,7 +112,14 @@ namespace Tokiku.ViewModels
         public decimal Amount
         {
             get { return CopyofPOCOInstance.TotalPrice; }
-            set { CopyofPOCOInstance.TotalPrice = value;RaisePropertyChanged("Amount"); }
+            set { var total = UnitPrice * Quantity;
+
+                if (value != total)
+                {
+                    CopyofPOCOInstance.TotalPrice = total;
+                }
+
+                RaisePropertyChanged("Amount"); }
         }
 
      

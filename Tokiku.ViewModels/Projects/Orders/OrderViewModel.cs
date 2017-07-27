@@ -22,7 +22,7 @@ namespace Tokiku.ViewModels
         public OrderViewModel(Orders entity) : base(entity)
         {
             _OrderType = new OrderTypesViewModel(entity.OrderTypes);
-            _ShippingManufacture = new ManufacturersViewModel();
+            _ShippingManufacture = new ManufacturersViewModel(entity.Manufacturers);
         }
 
 
@@ -64,7 +64,11 @@ namespace Tokiku.ViewModels
         public Guid? ShippingManufactureId { get => CopyofPOCOInstance.ShippingManufactureId ?? Guid.Empty; set { CopyofPOCOInstance.ShippingManufactureId = value; RaisePropertyChanged("ShippingManufactureId"); } }
 
         private ManufacturersViewModel _ShippingManufacture;
-        public ManufacturersViewModel ShippingManufacture { get => _ShippingManufacture; set { _ShippingManufacture = value; CopyofPOCOInstance.Manufacturers = _ShippingManufacture.Entity; RaisePropertyChanged("ShippingManufacture"); } }
+        public ManufacturersViewModel ShippingManufacture
+        {
+            get => _ShippingManufacture ?? new ManufacturersViewModel(CopyofPOCOInstance.Manufacturers);
+            set { _ShippingManufacture = value; CopyofPOCOInstance.Manufacturers = _ShippingManufacture.Entity; RaisePropertyChanged("ShippingManufacture"); }
+        }
         public Guid? ProjectId { get => CopyofPOCOInstance.OrderDetails.FirstOrDefault()?.RequiredDetails.Required.ProjectId; }
         public static OrderViewModel CreateNew(Guid ProjectId)
         {
