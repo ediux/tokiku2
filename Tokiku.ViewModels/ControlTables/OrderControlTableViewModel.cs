@@ -12,12 +12,10 @@ namespace Tokiku.ViewModels
     {
         public OrderControlTableViewModelCollection()
         {
-            HasError = false;
         }
 
         public OrderControlTableViewModelCollection(IEnumerable<OrderControlTableViewModel> source) : base(source)
         {
-
         }
 
         public static OrderControlTableViewModelCollection Query()
