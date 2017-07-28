@@ -22,6 +22,8 @@
                 <x:Static Member="sys:Guid.Empty"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+        <ObjectDataProvider x:Key="ShippingMaterialSource" ObjectType="{x:Type vm:ShippingMaterialViewModelCollection}" MethodName="Query"/>
+        <ObjectDataProvider x:Key="ShippingDetailsSource" ObjectType="{x:Type vm:ShippingDetailsViewModelCollection}" MethodName="Query"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
