@@ -18,9 +18,10 @@ namespace Tokiku.ViewModels
         {
         }
 
-        public static ShippingMaterialViewModelCollection Query()
+        public static ShippingMaterialViewModelCollection Query(Guid ProjectId)
         {
-            return Query<ShippingMaterialViewModelCollection, PickList>("ShippingMaterial", "QueryAll");
+            return Query<ShippingMaterialViewModelCollection, PickList>
+                ("Shipping", "QueryAll",ProjectId);
         }
 
     }
@@ -41,7 +42,7 @@ namespace Tokiku.ViewModels
             try
             {
                 return QuerySingle<ShippingMaterialViewModel, PickList>(
-                    "ShippingMaterial", "QuerySingle", Id, ProjectId);
+                    "Shipping", "QuerySingle", Id, ProjectId);
             }
             catch (Exception ex)
             {

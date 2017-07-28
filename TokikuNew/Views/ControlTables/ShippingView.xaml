@@ -17,7 +17,7 @@
                 <x:Static Member="sys:Guid.Empty"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
-        <ObjectDataProvider x:Key="ShippingMaterialDetailsSource" ObjectType="{x:Type vm:ShippingMaterialViewModelCollection}" MethodName="Query">
+        <ObjectDataProvider x:Key="ShippingMaterialDetailsSource" ObjectType="{x:Type vm:ship}" MethodName="Query">
             <ObjectDataProvider.MethodParameters>
                 <x:Static Member="sys:Guid.Empty"/>
             </ObjectDataProvider.MethodParameters>

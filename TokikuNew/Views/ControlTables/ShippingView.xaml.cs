@@ -40,7 +40,7 @@ namespace TokikuNew.Views
 
         // Using a DependencyProperty as the backing store for SelectedProjectId.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedProjectIdProperty =
-            DependencyProperty.Register("SelectedProjectId", 
+            DependencyProperty.Register("SelectedProjectId",
                 typeof(Guid), typeof(ShippingMaterialViewUC), new PropertyMetadata(Guid.Empty, new PropertyChangedCallback(ProjectIdChange)));
 
         private static PickList _masterEntity;
@@ -67,15 +67,16 @@ namespace TokikuNew.Views
 
                     if (provider2 != null)
                     {
-
-                        provider2.MethodParameters[0] = e.NewValue;
-                        provider2.MethodParameters[1] = ((RecvMaterialViewModel)provider.Data).Entity.Id;
+                        provider2.MethodParameters[0] = ((ShippingMaterialViewModel)provider.Data).Id;
 
                         provider2.Refresh();
 
-                        _masterEntity = ((ShippingMaterialViewModel)provider.Data).Entity;
-                        _masterEntity.PickListDetails = (Collection<PickListDetails>)provider2.Data;
+
+
                     }
+
+                    _masterEntity = ((ShippingMaterialViewModel)provider.Data).Entity;
+                    _masterEntity.PickListDetails = (Collection<PickListDetails>)provider2.Data;
                 }
 
             }
@@ -105,7 +106,7 @@ namespace TokikuNew.Views
 
         private void ShippingMaterialView_Loaded(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void btnAddNewForm_Click(object sender, RoutedEventArgs e)

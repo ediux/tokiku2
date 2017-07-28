@@ -8,16 +8,43 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class ShippingMaterialController : BaseController
+    public class ShippingController : BaseController<PickList>
     {
-        public ExecuteResultEntity<ICollection<PickList>> QuerAll()
+        public ExecuteResultEntity<ICollection<PickList>> QueryAll(Guid ProjectId)
         {
             try {
-                var repo = RepositoryHelper.GetPickListRepository();
+                var repo = this.GetRepository();
+                var result = from q in repo.All()
+                             from m in q.PickListDetails
+                             where m.OrderDetails.RequiredDetails.Required.ProjectId == ProjectId
+                             select q;
+
                 return ExecuteResultEntity<ICollection<PickList>>.CreateResultEntity(
-                    new Collection<PickList>(repo.All().ToList()));
+                    new Collection<PickList>(result.ToList()));
+
             }catch (Exception ex) {
                 return ExecuteResultEntity<ICollection<PickList>>.CreateErrorResultEntity(ex);
+            }
+        }
+
+        public ExecuteResultEntity<PickList> QuerySingle(Guid Id,Guid ProjectId)
+        {
+            try
+            {
+                var repo = this.GetRepository();
+                var result = from q in repo.All()
+                             from m in q.PickListDetails
+                             where m.OrderDetails.RequiredDetails.Required.ProjectId == ProjectId
+                             && q.Id==Id
+                             select q;
+
+                return ExecuteResultEntity<PickList>.CreateResultEntity(
+                    result.SingleOrDefault());
+
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<PickList>.CreateErrorResultEntity(ex);
             }
         }
     }
