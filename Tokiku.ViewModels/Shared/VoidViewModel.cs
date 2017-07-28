@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace Tokiku.ViewModels
 {
-    public class VoidViewModel : BaseViewModel
+    public class VoidViewModel : DependencyObject
     {
 
         #region Value
@@ -41,7 +41,7 @@ namespace Tokiku.ViewModels
 
         #endregion
 
-        public override void SetModel(dynamic entity)
+        public void SetModel(dynamic entity)
         {
             bool data = (bool)entity;
             if (data)

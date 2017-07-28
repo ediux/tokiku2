@@ -2,16 +2,32 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm ="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
              xmlns:local="clr-namespace:TokikuNew.Views"
              xmlns:Controls="clr-namespace:TokikuNew.Controls"
              mc:Ignorable="d" 
              Background="{DynamicResource ControlBackgroundBrush}"
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="ConstructionAtlasSource" ObjectType="{x:Type vm:ConstructionAtlasViewModelCollection}" MethodName="Query"/>
+    </UserControl.Resources>
+    <UserControl.CommandBindings>
+        <CommandBinding Command="{StaticResource Query}" x:Name="QueryCommand"                         
+                        CanExecute="QueryCommand_CanExecute"
+                        Executed="QueryCommand_Executed" />
+        <CommandBinding Command="{StaticResource ResetFiliter}" x:Name="ResetFiliterCommand"
+                        CanExecute="ResetFiliterCommand_CanExecute"
+                        Executed="ResetFiliterCommand_Executed" />
+        <CommandBinding Command="{StaticResource QueryRefresh}" x:Name="RefreshQueryCommand"
+                        CanExecute="RefreshQueryCommand_CanExecute"
+                        Executed="RefreshQueryCommand_Executed" />
+    </UserControl.CommandBindings>
     <GroupBox Header="施工圖集" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="5">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="350"/>
                 <ColumnDefinition Width="27"/>
                 <ColumnDefinition Width="27"/>
             </Grid.ColumnDefinitions>
@@ -19,17 +35,18 @@
                 <RowDefinition Height="27"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" Grid.Column="1" Margin="2" x:Name="btnAdd" Click="btnAdd_Click"
+            <Controls:SearchBar Grid.Column="1" x:Name="cSearchBar" Focusable="True" />
+            <Button Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" Grid.Column="2" Margin="2" x:Name="btnAdd" Click="btnAdd_Click"
                     IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl}">
 
             </Button>
-            <Button Content="&#xE108;" FontFamily="/Resources/#Segoe MDL2 Assets" Grid.Column="2" Margin="2" x:Name="btnDelete" Click="btnDelete_Click"
+            <Button Content="&#xE108;" FontFamily="/Resources/#Segoe MDL2 Assets" Grid.Column="3" Margin="2" x:Name="btnDelete" Click="btnDelete_Click"
                     IsEnabled="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl}">
 
             </Button>
-            <Controls:CustomDataGrid Grid.Row="1" Grid.ColumnSpan="3" Margin="5" VerticalAlignment="Stretch" 
+            <Controls:CustomDataGrid Grid.Row="1" Grid.ColumnSpan="4" Margin="5" VerticalAlignment="Stretch" 
                                      x:Name="AltasGrid"
-                                     ItemsSource="{Binding}"
+                                     ItemsSource="{Binding Source={StaticResource ConstructionAtlasSource}}"
                                      IsReadOnly="True"
                                      AllowExecuteSystemCommand="True"
                                      AutoGenerateColumns="False">
@@ -37,16 +54,16 @@
                     <ContextMenu/>
                 </Controls:CustomDataGrid.ContextMenu>
                 <Controls:CustomDataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding ImageName, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="圖名"/>
-                    <DataGridTextColumn Binding="{Binding Edition, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="版次"/>
-                    <DataGridTextColumn Binding="{Binding SubmissionDate, Mode=TwoWay, StringFormat=\{0:d\}, UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="送審日期"/>
-                    <DataGridTextColumn Binding="{Binding SubmitCertificateNumber, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="送審文號"/>
-                    <DataGridTextColumn Binding="{Binding ReplyDate, Mode=TwoWay, StringFormat=\{0:d\}, UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="回覆日期"/>
-                    <DataGridTextColumn Binding="{Binding ReplyNumber, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="回覆文號"/>
-                    <DataGridTextColumn Header="回覆內容" Binding="{Binding ReplyContent, Converter={StaticResource AtlasReplayContents}}"/>
-                    <DataGridCheckBoxColumn Header="定稿" Binding="{Binding Finalized}"/>
-                    <DataGridTextColumn Header="備註" Binding="{Binding Comment,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridTextColumn Header="異動人員/日期">
+                    <DataGridTextColumn Binding="{Binding ImageName, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="圖名" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Binding="{Binding Edition, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="版次" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Binding="{Binding SubmissionDate, Mode=TwoWay, StringFormat=\{0:d\}, UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="送審日期" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Binding="{Binding SubmitCertificateNumber, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="送審文號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Binding="{Binding ReplyDate, Mode=TwoWay, StringFormat=\{0:d\}, UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="回覆日期" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Binding="{Binding ReplyNumber, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="回覆文號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="回覆內容" Binding="{Binding ReplyContent, Converter={StaticResource AtlasReplayContents}}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridCheckBoxColumn Header="定稿" Binding="{Binding Finalized}" Width="auto" />
+                    <DataGridTextColumn Header="備註" Binding="{Binding Comment,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="異動人員/日期" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}">
                         <DataGridTextColumn.Binding>
                             <MultiBinding StringFormat="{}{0}/{1:d}">
                                 <Binding Path="LastUpdateUser"/>

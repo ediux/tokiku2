@@ -14,15 +14,16 @@ namespace Tokiku.Entity
     
     public partial class SupplierTranscationItem
     {
+        public System.Guid Id { get; set; }
         public System.Guid ManufacturersBussinessItemsId { get; set; }
         public System.Guid ProjectId { get; set; }
         public string PlaceofReceipt { get; set; }
         public string SiteContactPerson { get; set; }
         public string SiteContactPersonPhone { get; set; }
-        public System.Guid NextManufacturersId { get; set; }
+        public Nullable<System.Guid> NextManufacturersId { get; set; }
     
-        public virtual Projects Projects { get; set; }
         public virtual ManufacturersBussinessItems ManufacturersBussinessItems { get; set; }
-        public virtual Manufacturers Manufacturers { get; set; }
+        public virtual Projects Projects { get; set; }
+        public virtual Manufacturers NextManufacturers { get; set; }
     }
 }

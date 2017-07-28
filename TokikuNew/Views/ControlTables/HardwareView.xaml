@@ -10,9 +10,9 @@
         <GroupBox Header="管控表" VerticalAlignment="Top" Height="468" Margin="2" x:Name="UC">
             <DataGrid>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="材料說明" Width="auto" />
-                    <DataGridTextColumn Header="圖集" Width="auto" />
-                    <DataGridTextColumn Header="合計" Width="auto" />
+                    <DataGridTextColumn Header="材料說明" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="圖集" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="合計" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>

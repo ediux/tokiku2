@@ -11,11 +11,12 @@ namespace Tokiku.Controllers
 {
     public class ProjectContractController : BaseController<ProjectContract>
     {
-        private ProjectContractRepository repo;
+
         public ProjectContractController()
         {
-            repo = RepositoryHelper.GetProjectContractRepository(database);
+
         }
+
         public override ExecuteResultEntity<ProjectContract> CreateNew()
         {
             try
@@ -37,7 +38,7 @@ namespace Tokiku.Controllers
                         return ExecuteResultEntity<ProjectContract>.CreateResultEntity(data);
                     }
                     lastnumber += 1;
-                    data.ContractNumber = string.Format("{0}-{1}", lastdata.ContractNumber.Substring(0,7),lastnumber);
+                    data.ContractNumber = string.Format("{0}-{1}", lastdata.ContractNumber.Substring(0, 7), lastnumber);
                     return ExecuteResultEntity<ProjectContract>.CreateResultEntity(data);
                 }
                 else
@@ -117,10 +118,12 @@ namespace Tokiku.Controllers
                 return ExecuteResultEntity<ProjectContract>.CreateErrorResultEntity(ex);
             }
         }
-       
+
 
         public ExecuteResultEntity<ICollection<ProjectContract>> QueryAll(Guid ProjectId)
         {
+            var repo = RepositoryHelper.GetProjectContractRepository();
+
             var result = from q in repo.All()
                          where q.ProjectId == ProjectId
                          select q;
@@ -134,8 +137,8 @@ namespace Tokiku.Controllers
             try
             {
 
-                var repo = RepositoryHelper.GetProjectContractRepository();
-                database = repo.UnitOfWork;
+                var repo = this.GetRepository();
+                //database = repo.UnitOfWork;
 
                 var original = (from q in repo.All()
                                 where q.Id == fromModel.Id
@@ -145,7 +148,7 @@ namespace Tokiku.Controllers
                 {
                     CheckAndUpdateValue(fromModel, original);
 
-                   
+
 
                     var toDel2 = original.ProcessingAtlas.Select(s => s.Id).Except(fromModel.ProcessingAtlas.Select(s => s.Id)).ToList();
                     var toAdd2 = fromModel.ProcessingAtlas.Select(s => s.Id).Except(original.ProcessingAtlas.Select(s => s.Id)).ToList();
@@ -195,6 +198,6 @@ namespace Tokiku.Controllers
                 return ExecuteResultEntity<ProjectContract>.CreateErrorResultEntity(ex);
             }
         }
-      
+
     }
 }

@@ -1,0 +1,143 @@
+﻿<UserControl x:Class="TokikuNew.Views.OrderControlTableView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+             xmlns:c="clr-namespace:TokikuNew.Controls" x:Name="userControl"
+             mc:Ignorable="d" 
+             Background="{DynamicResource ControlBackgroundBrush}"
+             d:DesignHeight="600" d:DesignWidth="1910" Loaded="OrderControlTableView_Loaded">
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="OrderControlTableSource" ObjectType="{x:Type vm:OrderControlTableViewModelCollection}" MethodName="Query"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="27" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50*" />
+            <ColumnDefinition Width="50*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Column="0"  Margin="0,0,0,0" >
+            <Button Content="收料單" x:Name="btnAddNewForm" Margin="5,0,0,0" vm:CommandRoutingManager.Command="{DynamicResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenRecvMaterialView}" vm:CommandRoutingManager.RoutingName="RecvMaterialView" />
+            <Button Content="&#xE179;" ToolTip="收料單列表" FontFamily="/Resources/#Segoe MDL2 Assets" Margin="0,0,5,0" vm:CommandRoutingManager.Command="{DynamicResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenRecvMaterialListView}" vm:CommandRoutingManager.RoutingName="RecvMaterialView" />
+            <Button Content="領料單" x:Name="btn5" Margin="5,0,0,0" vm:CommandRoutingManager.Command="{DynamicResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenShippingMaterialView}" vm:CommandRoutingManager.RoutingName="ShippingMaterialViewUC" />
+            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="領料單列表" x:Name="btn6" Margin="0,0,5,0" vm:CommandRoutingManager.Command="{DynamicResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenShippingMaterialListView}" vm:CommandRoutingManager.RoutingName="ShippingMaterialListViewUC" />
+            <Button Content="品質異常單" x:Name="btn7" Margin="5,0,0,0" vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenQualityAbnormallySingleView}" vm:CommandRoutingManager.RoutingName="QualityAbnormallySingleView" />
+            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="品質異常單列表" x:Name="btn8" Margin="0,0,5,0" vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenQualityAbnormallySingleListView}" vm:CommandRoutingManager.RoutingName="OpenQualityAbnormallySingleListView" />
+            <Button Content="退貨單" x:Name="btn1" Margin="5,0,0,0" vm:CommandRoutingManager.Command="{DynamicResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenReturnMaterialView}" vm:CommandRoutingManager.RoutingName="ReturnMaterialViewUC" />
+            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="退貨單列表" x:Name="btn2" Margin="0,0,5,0" vm:CommandRoutingManager.Command="{DynamicResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenReturnMaterialListView}" vm:CommandRoutingManager.RoutingName="ReturnMaterialListViewUC" />
+            <Button Content="請款單" x:Name="btn3" Margin="5,0,0,0" vm:CommandRoutingManager.Command="{DynamicResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenInvoiceView}" vm:CommandRoutingManager.RoutingName="InvoiceView" />
+            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="請款單列表" x:Name="btn4" Margin="0,0,5,0"  vm:CommandRoutingManager.Command="{DynamicResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenInvoiceViewListView}" vm:CommandRoutingManager.RoutingName="InvoiceViewListView" />
+        </StackPanel>
+
+        <GroupBox Header="訂製單管控表" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <DataGrid x:Name="CheckGrid" ItemsSource="{Binding Source={StaticResource OrderControlTableSource}}" Margin="5" AutoGenerateColumns="False"  >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="項次" Binding="{Binding RowIndex,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                        <DataGridTextColumn Header="施工位置/加工圖集" Binding="{Binding Atlas,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                        <DataGridTextColumn Header="訂單編號" Binding="{Binding FormNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                        <DataGridTextColumn Header="東菊編號" Binding="{Binding RequiredDetailsCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                        <DataGridTextColumn Header="廠商編號" Binding="{Binding ManufacturersCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                        <DataGridTextColumn Header="廠商名稱" Binding="{Binding ManufacturersName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                        <DataGridTextColumn Header="材質" Binding="{Binding MaterialsName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                        <DataGridTextColumn Header="單位重量(kg/m)" Binding="{Binding UnitWeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                        <DataGridTextColumn Header="訂購長度(mm)" Binding="{Binding OrderLength, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                        <DataGridTextColumn Header="訂單數量(單位:支)" Binding="{Binding OrderQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                        <DataGridTextColumn Header="備品數量(單位:支)" Binding="{Binding SparePartsNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                        <DataGridTextColumn Header="訂單總數(備品+訂單數量)" Binding="{Binding OrderTotalQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                        <DataGridTextColumn Header="訂單總重量(單位:kg)" Binding="{Binding OrderTotalWeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                        <DataGridTextColumn Header="預估交期" Binding="{Binding ExpectedDelivery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                        <DataGridTextColumn Header="出貨順序" Binding="{Binding ShippingOrder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                        <DataGridTextColumn Header="備註" Binding="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                        <DataGridTextColumn Header="缺料(支)" Binding="{Binding LackQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                        <DataGridTextColumn Header="缺料(kg)" Binding="{Binding LackWeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                        <DataGridTemplateColumn Width="auto">
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="27"/>
+                                            <RowDefinition Height="27"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="56"/>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Margin="-5,-5,-5,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" BorderThickness="0.5" BorderBrush="LightGray" Background="#BCA9F5">
+                                            <TextBlock Text="到貨狀況" Margin="0" VerticalAlignment="Center"  HorizontalAlignment="Center" TextAlignment="Center" />
+                                        </Border>
+                                        <Border Margin="-5,0,0,-5" Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="#BCA9F5">
+                                            <TextBlock FontSize="11" Text="收穫總數(單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" />
+                                        </Border>
+                                        <Border Margin="0,0,0,-5" Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="#BCA9F5">
+                                            <TextBlock FontSize="11" Text="收料單號\日期" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" />
+                                        </Border>
+                                        <Border Margin="0,0,0,-5" Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" Background="#BCA9F5">
+                                            <TextBlock FontSize="11" Text="20170603" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" />
+                                        </Border>
+                                        <Border Margin="0,0,0,-5" Grid.Row="1" Grid.Column="3" BorderThickness="1" BorderBrush="LightGray" Background="#BCA9F5">
+                                            <TextBlock FontSize="11" Text="20170608" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" />
+                                        </Border>
+                                        <Border Margin="0,0,-5,-5" Grid.Row="1" Grid.Column="4" BorderThickness="1" BorderBrush="LightGray" Background="#BCA9F5">
+                                            <TextBlock FontSize="11" Text="20170615" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" />
+                                        </Border>
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="auto">
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="27"/>
+                                            <RowDefinition Height="27"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="81"/>
+                                            <ColumnDefinition Width="74"/>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Margin="-5,-5,-5,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" BorderThickness="0.5" BorderBrush="LightGray" Background="#BCF5A9">
+                                            <TextBlock Text="付款狀況" Margin="0" VerticalAlignment="Center"  HorizontalAlignment="Center" TextAlignment="Center" />
+                                        </Border>
+                                        <Border Margin="-5,0,0,-5" Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="#BCF5A9">
+                                            <TextBlock FontSize="11" Text="訂單未計價數量(單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" />
+                                        </Border>
+                                        <Border Margin="0,0,0,-5" Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="#BCF5A9">
+                                            <TextBlock FontSize="11" Text="已計價總數量(單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" />
+                                        </Border>
+                                        <Border Margin="0,0,0,-5" Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" Background="#BCF5A9">
+                                            <TextBlock FontSize="11" Text="計價期別" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" />
+                                        </Border>
+                                        <Border Margin="0,0,0,-5" Grid.Row="1" Grid.Column="3" BorderThickness="1" BorderBrush="LightGray" Background="#BCF5A9">
+                                            <TextBlock FontSize="11" Text="106.06" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" />
+                                        </Border>
+                                        <Border Margin="0,0,-5,-5" Grid.Row="1" Grid.Column="4" BorderThickness="1" BorderBrush="LightGray" Background="#BCF5A9">
+                                            <TextBlock FontSize="11" Text="106.07" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" />
+                                        </Border>
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </ScrollViewer>
+        </GroupBox>
+    </Grid>
+</UserControl>

@@ -19,7 +19,6 @@ namespace Tokiku.Entity
         {
             this.Engineering = new HashSet<Engineering>();
             this.Projects = new HashSet<Projects>();
-            this.ShopFlowHistory = new HashSet<ShopFlowHistory>();
         }
     
         public byte Id { get; set; }
@@ -29,7 +28,5 @@ namespace Tokiku.Entity
         public virtual ICollection<Engineering> Engineering { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Projects> Projects { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ShopFlowHistory> ShopFlowHistory { get; set; }
     }
 }

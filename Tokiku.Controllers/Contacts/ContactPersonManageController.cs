@@ -20,8 +20,8 @@ namespace Tokiku.Controllers
 
         public ContactPersonManageController()
         {
-            repo = RepositoryHelper.GetContactsRepository(database);
-            accesslogrepo = RepositoryHelper.GetAccessLogRepository(database);
+            repo = this.GetRepository() as IContactsRepository;
+            accesslogrepo = this.GetRepository<AccessLog>() as IAccessLogRepository;
         }
 
         public ExecuteResultEntity<ICollection<Contacts>> QueryAll()
@@ -117,7 +117,7 @@ namespace Tokiku.Controllers
         /// <summary>
         /// 儲存變更
         /// </summary>
-        public override ExecuteResultEntity<Contacts> CreateOrUpdate(Contacts entity)
+        public override ExecuteResultEntity<Contacts> CreateOrUpdate(Contacts entity, bool isLastRecord = true)
         {
             try
             {
@@ -224,38 +224,18 @@ namespace Tokiku.Controllers
 
         }
 
-        public override ExecuteResultEntity Delete(Expression<Func<Contacts, bool>> condtion)
+        public override ExecuteResultEntity<Contacts> Delete(Contacts entity, bool isDeleteRightNow = false)
         {
             try
             {
-                var result = Query(condtion);
-
-                if (!result.HasError)
-                {
-                    if (result.Result.Any())
-                    {
-                        int c = 0;
-
-                        foreach (var model in result.Result)
-                        {
-                            model.Void = true; //設定為停用
-                            Update(model, c == (result.Result.Count - 1));
-                            c++;
-                        }
-
-                        return ExecuteResultEntity.CreateResultEntity();
-                    }
-                }
-
-                var rtn = new ExecuteResultEntity();
-                rtn.Errors = result.Errors;
-                rtn.HasError = result.HasError;
-                return rtn;
+                entity.Void = true;
+                var result = Update(entity, !isDeleteRightNow);                
+                return result;
 
             }
             catch (Exception ex)
             {
-                return ExecuteResultEntity.CreateErrorResultEntity(ex);
+                return ExecuteResultEntity<Contacts>.CreateErrorResultEntity(ex);
             }
         }
 

@@ -2,6 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:ctrl="clr-namespace:TokikuNew.Controls">
     <RoutedUICommand x:Key="CloseTab" Text="Close Tab"/>
+    <Style TargetType="DataGridColumnHeader" x:Key="HeaderStyleCenter">
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+    </Style>
     <Style TargetType="{x:Type ctrl:ClosableTabItem}">
         <Setter Property="Template">
             <Setter.Value>

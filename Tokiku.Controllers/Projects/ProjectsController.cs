@@ -9,17 +9,17 @@ namespace Tokiku.Controllers
 {
     public class ProjectsController : BaseController<Projects>
     {
-        IUsersRepository UserRepo;
-        IManufacturersRepository manufacturerepo;
-        IProjectsRepository projectsrepo;
-        IStatesRepository staterepo;
+        //IUsersRepository UserRepo;
+        //IManufacturersRepository manufacturerepo;
+        //IProjectsRepository projectsrepo;
+        //IStatesRepository staterepo;
 
         public ProjectsController()
         {
-            UserRepo = RepositoryHelper.GetUsersRepository(database);
-            manufacturerepo = RepositoryHelper.GetManufacturersRepository(database);
-            projectsrepo = RepositoryHelper.GetProjectsRepository(database);
-            staterepo = RepositoryHelper.GetStatesRepository(database);
+            //UserRepo = this.GetReoisitory<Users>() as IUsersRepository;
+            //manufacturerepo = this.GetReoisitory<Manufacturers>() as IManufacturersRepository;
+            //projectsrepo = this.GetReoisitory() as IProjectsRepository;
+            //staterepo = this.GetReoisitory<States>() as IStatesRepository;
         }
 
 
@@ -79,7 +79,7 @@ namespace Tokiku.Controllers
 
         public ExecuteResultEntity<string> GetNextProjectSerialNumber(string year)
         {
-            var result = (from q in projectsrepo.All()
+            var result = (from q in this.GetRepository().All()
                           where q.Code.StartsWith(year.Trim()) && q.Void == false
                           orderby q.Code descending
                           select q.Code).FirstOrDefault();
@@ -167,7 +167,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var result = from p in projectsrepo.All()
+                var result = from p in this.GetRepository().All()
                              where p.Id == ProjectId && p.Void == false
                              orderby p.State ascending, p.Code ascending
                              select p;
@@ -192,26 +192,26 @@ namespace Tokiku.Controllers
         {
             try
             {
-                using (database)
-                {
-                    var result = from p in projectsrepo.All()
-                                 where p.Void == false
-                                 orderby p.State ascending, p.Code ascending
-                                 select new ProjectListEntity
-                                 {
-                                     Id = p.Id,
-                                     Code = p.Code,
-                                     Name = p.Name,
-                                     ShortName = p.ShortName,
-                                     State = p.State,
-                                     StateText = p.States.StateName,
-                                     StartDate = p.StartDate,
-                                     CompletionDate = p.CompletionDate,
-                                 };
 
-                    return ExecuteResultEntity<ICollection<ProjectListEntity>>.CreateResultEntity(
-                        new Collection<ProjectListEntity>(result.ToList()));
-                }
+                var result = from p in this.GetRepository().All()
+                             where p.Void == false
+                             orderby p.State ascending, p.Code descending
+                             select new ProjectListEntity
+                             {
+                                 Id = p.Id,
+                                 Code = p.Code,
+                                 Name = p.Name,
+                                 ShortName = p.ShortName,
+                                 State = p.State,
+                                 StateText = p.States.StateName,
+                                 StartDate = p.StartDate,
+                                 CompletionDate = p.PromissoryNoteManagement.Any(s => s.TicketTypeId == 3 || s.TicketTypeId == 4) ? p.PromissoryNoteManagement.Where(s => s.TicketTypeId == 3 || s.TicketTypeId == 4).OrderByDescending(o => o.CreateTime).FirstOrDefault().CreateTime : default(DateTime?),
+                                 WarrantyDate = p.PromissoryNoteManagement.Any(k => k.TicketTypeId == 3 || k.TicketTypeId == 4) ? p.PromissoryNoteManagement.Where(k => k.TicketTypeId == 3 || k.TicketTypeId == 4).OrderByDescending(w => w.RecoveryDate).FirstOrDefault().RecoveryDate : default(DateTime?)
+                             };
+
+                return ExecuteResultEntity<ICollection<ProjectListEntity>>.CreateResultEntity(
+                    new Collection<ProjectListEntity>(result.ToList()));
+
 
             }
             catch (Exception ex)
@@ -225,9 +225,9 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var result = from p in projectsrepo.All()
+                var result = from p in this.GetRepository().All()
                              where p.Id == ProjectId && p.Void == false
-                             orderby p.State ascending, p.Code ascending
+                             orderby p.Code descending, p.State ascending
                              select p;
 
                 return result.Any();
@@ -244,7 +244,7 @@ namespace Tokiku.Controllers
             try
             {
                 return ExecuteResultEntity<ICollection<States>>.CreateResultEntity(
-                    new Collection<States>(staterepo.All().ToList()));
+                    new Collection<States>(this.GetRepository<States>().All().ToList()));
             }
             catch (Exception ex)
             {
@@ -255,11 +255,8 @@ namespace Tokiku.Controllers
         {
             try
             {
-
-                var repo = RepositoryHelper.GetProjectsRepository();
-                database = repo.UnitOfWork;
-
-                var original = (from q in repo.All()
+                var projectsrepo = this.GetRepository();
+                var original = (from q in projectsrepo.All()
                                 where q.Id == fromModel.Id
                                 select q).Single();
 
@@ -381,11 +378,12 @@ namespace Tokiku.Controllers
                     }
                     #endregion
 
-                    repo.UnitOfWork.Commit();
+                    
+                    projectsrepo.UnitOfWork.Commit();
 
                 }
 
-                fromModel = repo.Get(original.Id);
+                fromModel = projectsrepo.Get(original.Id);
 
                 return ExecuteResultEntity<Projects>.CreateResultEntity(fromModel);
 
@@ -402,7 +400,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-
+                var projectsrepo = this.GetRepository();
                 var result = from p in projectsrepo.All()
                              where p.Id == ProjectId && p.Void == false
                              orderby p.State ascending, p.Code ascending
@@ -429,11 +427,13 @@ namespace Tokiku.Controllers
             {
                 if (text != null && text.Length > 0)
                 {
+                    var projectsrepo = this.GetRepository();
+
                     var result = projectsrepo.Where(s => s.Code.Contains(text)
                      || s.Name.Contains(text)
                     || (s.ShortName != null && s.ShortName.Contains(text)))
+                    .OrderByDescending(s => s.Code)
                     .OrderBy(s => s.State)
-                    .OrderBy(s => s.Code)
                     .Select(s => new ProjectListEntity()
                     {
                         Id = s.Id,
@@ -443,8 +443,8 @@ namespace Tokiku.Controllers
                         State = s.State,
                         StateText = s.States.StateName,
                         StartDate = s.StartDate,
-                        CompletionDate = s.PromissoryNoteManagement.Where(k => k.TicketTypeId == 3 || k.TicketTypeId == 4).OrderByDescending(w => w.RecoveryDate).FirstOrDefault().OpenDate,
-                        WarrantyDate = s.PromissoryNoteManagement.Where(k => k.TicketTypeId == 3 || k.TicketTypeId == 4).OrderByDescending(w => w.RecoveryDate).FirstOrDefault().RecoveryDate
+                        CompletionDate = s.PromissoryNoteManagement.Any(k => k.TicketTypeId == 3 || k.TicketTypeId == 4) ? s.PromissoryNoteManagement.Where(k => k.TicketTypeId == 3 || k.TicketTypeId == 4).OrderByDescending(o => o.CreateTime).FirstOrDefault().CreateTime : default(DateTime?),
+                        WarrantyDate = s.PromissoryNoteManagement.Any(k => k.TicketTypeId == 3 || k.TicketTypeId == 4) ? s.PromissoryNoteManagement.Where(k => k.TicketTypeId == 3 || k.TicketTypeId == 4).OrderByDescending(w => w.RecoveryDate).FirstOrDefault().RecoveryDate : default(DateTime?)
                     })
                     .ToList();
 

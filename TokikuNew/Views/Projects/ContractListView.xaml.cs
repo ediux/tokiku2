@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tokiku.Entity;
 using Tokiku.ViewModels;
 using TokikuNew.Controls;
 
@@ -27,16 +28,42 @@ namespace TokikuNew.Views
             InitializeComponent();
         }
 
-        public ProjectsViewModel CurrentProject
+        #region SelectedProjectId
+        public Guid SelectedProjectId
         {
-            get { return (ProjectsViewModel)GetValue(CurrentProjectProperty); }
-            set { SetValue(CurrentProjectProperty, value); }
+            get { return (Guid)GetValue(SelectedProjectIdProperty); }
+            set { SetValue(SelectedProjectIdProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for CurrentProject.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CurrentProjectProperty =
-            DependencyProperty.Register("CurrentProject", typeof(ProjectsViewModel), typeof(ContractListView), new PropertyMetadata(default(ProjectsViewModel)));
+        // Using a DependencyProperty as the backing store for SelectedProject.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedProjectIdProperty =
+            DependencyProperty.Register("SelectedProjectId", typeof(Guid),
+                typeof(ContractListView), new PropertyMetadata(Guid.Empty, new PropertyChangedCallback(SelectedProjectIdChange)));
 
+        public static void SelectedProjectIdChange(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            try
+            {
+
+                if (sender is ContractListView)
+                {
+
+                    ObjectDataProvider source = (ObjectDataProvider)((ContractListView)sender).TryFindResource("ContractListSource");
+
+                    if (source != null)
+                    {
+                        source.MethodParameters[0] = e.NewValue;
+                        source.Refresh();
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+        }
+        #endregion
 
         #region Document Mode
 
@@ -89,19 +116,23 @@ namespace TokikuNew.Views
                 {
 
                     case DocumentLifeCircle.Save:
-                        var dataset = (ProjectContractViewModelCollection)DataContext;
+                        var dataset = (ProjectContractViewModelCollection)((DataSourceProvider)TryFindResource("ContractListSource")).Data;
 
-                        dataset.SaveModel();
-
-                        if (dataset.HasError)
+                        if (dataset != null)
                         {
-                            MessageBox.Show(string.Join("\n", dataset.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-                            dataset.Errors = null;
-                            break;
+                            dataset.SaveModel("ProjectContract");
+
+                            if (dataset.HasError)
+                            {
+                                MessageBox.Show(string.Join("\n", dataset.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                                dataset.Errors = null;
+                                break;
+                            }
+
+                            Mode = DocumentLifeCircle.Read;
+                            return;
                         }
-
-                        Mode = DocumentLifeCircle.Read;
-
+                        Mode = DocumentLifeCircle.Update;
                         break;
                 }
 
@@ -135,9 +166,12 @@ namespace TokikuNew.Views
             try
             {
                 e.NewItem = new ProjectContractViewModel();
-                ((ProjectContractViewModel)e.NewItem).ProjectId = CurrentProject.Id;
-                ((ProjectContractViewModel)e.NewItem).Initialized();
+                ((ProjectContractViewModel)e.NewItem).ProjectId = SelectedProjectId;
+                ((ProjectContractViewModel)e.NewItem).Initialized(null);
                 ((ProjectContractViewModel)e.NewItem).Id = Guid.NewGuid();
+                
+                ProjectsViewModel CurrentProject = ProjectsViewModel.QuerySingle<ProjectsViewModel, Projects>("ProjectManagerView", "QueryById", SelectedProjectId);
+
                 if (string.IsNullOrEmpty(((ProjectContractViewModel)e.NewItem).ContractNumber))
                 {
                     if (CurrentProject != null)
@@ -146,9 +180,10 @@ namespace TokikuNew.Views
                 ((ProjectContractViewModel)e.NewItem).Name = CurrentProject.Name;
                 ((ProjectContractViewModel)e.NewItem).SigningDate = CurrentProject.ProjectSigningDate;
 
-                if (CurrentProject.ProjectContract.Where(w => w.ContractNumber == ((ProjectContractViewModel)e.NewItem).ContractNumber).Any())
+
+                if (CurrentProject.Entity.ProjectContract.Where(w => w.ContractNumber == ((ProjectContractViewModel)e.NewItem).ContractNumber).Any())
                 {
-                    var lastdata = CurrentProject.ProjectContract
+                    var lastdata = CurrentProject.Entity.ProjectContract
                         .Where(w => w.ContractNumber.StartsWith(((ProjectContractViewModel)e.NewItem).ContractNumber))
                         .OrderByDescending(w => w.ContractNumber).FirstOrDefault();
 
@@ -171,6 +206,10 @@ namespace TokikuNew.Views
                     }
 
                 }
+                else
+                {
+                    CurrentProject.Entity.ProjectContract.Add(((ProjectContractViewModel)e.NewItem).Entity);
+                }
             }
             catch (Exception ex)
             {
@@ -180,28 +219,28 @@ namespace TokikuNew.Views
 
         private void btnProcessAltas_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, ((ProjectContractViewModel)((Button)sender).DataContext).ProcessingAtlas));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            //try
+            //{
+            //    RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, ((ProjectContractViewModel)((Button)sender).DataContext).ProcessingAtlas));
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
 
-            }
+            //}
         }
 
         private void btnEngItem_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, ((ProjectContractViewModel)((Button)sender).DataContext).Engineerings));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            //try
+            //{
+            //    RaiseEvent(new RoutedEventArgs(ClosableTabItem.SendNewPageRequestEvent, ((ProjectContractViewModel)((Button)sender).DataContext).Engineerings));
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
 
-            }
+            //}
         }
 
         private void ContractList_Selected(object sender, RoutedEventArgs e)

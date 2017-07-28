@@ -14,17 +14,12 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 模具使用狀況編號        
         /// </summary>
-        public int Id
+        public new int Id
         {
-            get { return (int)GetValue(IdProperty); }
-            set { SetValue(IdProperty, value); }
+            get { return CopyofPOCOInstance.Id; }
+            set { CopyofPOCOInstance.Id = value; RaisePropertyChanged("Id"); }
         }
-
-        // Using a DependencyProperty as the backing store for Id.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty IdProperty =
-            DependencyProperty.Register("Id", typeof(int), typeof(MoldUseStatusViewModel), new PropertyMetadata(1));
-
-
+        
         #endregion
 
         #region Name
@@ -35,70 +30,30 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string Name
         {
-            get { return (string)GetValue(NameProperty); }
-            set { SetValue(NameProperty, value); }
+            get { return CopyofPOCOInstance.Name; }
+            set { CopyofPOCOInstance.Name = value; RaisePropertyChanged("Name"); }
         }
 
-        // Using a DependencyProperty as the backing store for Name.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty NameProperty =
-            DependencyProperty.Register("Name", typeof(string), typeof(MoldUseStatusViewModel), new PropertyMetadata(string.Empty));
-
-
+        
         #endregion
 
-        #region CreateTime
+     
 
 
-        /// <summary>
-        /// 建立時間
-        /// </summary>
-        public DateTime CreateTime
-        {
-            get { return (DateTime)GetValue(CreateTimeProperty); }
-            set { SetValue(CreateTimeProperty, value); }
-        }
+        //#region CreateUser
+        ///// <summary>
+        ///// 建立的使用者
+        ///// </summary>
+        //public UserViewModel CreateUser
+        //{
+        //    get { UserViewModel usermodel = new UserViewModel(); usermodel.SetModel(SystemController.GetUserById(CopyofPOCOInstance.CreateUserId).Result); return usermodel; }
+        //    set {
+        //        CopyofPOCOInstance.CreateUserId = value.UserId;
+        //        RaisePropertyChanged("CreateUser");
+        //    }
+        //}
 
-        // Using a DependencyProperty as the backing store for CreateTime.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CreateTimeProperty =
-            DependencyProperty.Register("CreateTime", typeof(DateTime), typeof(MoldUseStatusViewModel), new PropertyMetadata(DateTime.Now));
-
-
-        #endregion
-
-        #region CreateUserId
-
-
-        /// <summary>
-        /// 建立人員ID
-        /// </summary>
-        public Guid CreateUserId
-        {
-            get { return (Guid)GetValue(CreateUserIdProperty); }
-            set { SetValue(CreateUserIdProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for CreateUserId.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CreateUserIdProperty =
-            DependencyProperty.Register("CreateUserId", typeof(Guid), typeof(MoldUseStatusViewModel), new PropertyMetadata(Guid.Empty));
-
-
-        #endregion
-
-        #region CreateUser
-        /// <summary>
-        /// 建立的使用者
-        /// </summary>
-        public UserViewModel CreateUser
-        {
-            get { return (UserViewModel)GetValue(CreateUserProperty); }
-            set { SetValue(CreateUserProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for CreateUser.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CreateUserProperty =
-            DependencyProperty.Register("CreateUser", typeof(UserViewModel), typeof(MoldUseStatusViewModel), new PropertyMetadata(default(UserViewModel)));
-
-        #endregion
+        //#endregion
 
         public async void QueryByName(string name)
         {
@@ -113,9 +68,10 @@ namespace Tokiku.ViewModels
                     if (executrresult.Result.Any())
                     {
                         var data = executrresult.Result.Single();
-                        BindingFromModel(data, this);
-                        CreateUser = new UserViewModel();
-                        BindingFromModel(controller.GetCurrentLoginUser().Result, CreateUser);
+                        CopyofPOCOInstance = data;
+                       
+                        //CreateUser.SetModel(controller.GetCurrentLoginUser().Result);
+                        //BindingFromModel(, CreateUser);
                     }
                 }
             }
@@ -125,17 +81,17 @@ namespace Tokiku.ViewModels
             }
         }
 
-        public override void SetModel(dynamic entity)
-        {
-            try
-            {
-                MoldUseStatus data = (MoldUseStatus)entity;
-                BindingFromModel(data, this);
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-            }
-        }
+        //public override void SetModel(dynamic entity)
+        //{
+        //    try
+        //    {
+        //        MoldUseStatus data = (MoldUseStatus)entity;
+        //        BindingFromModel(data);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        setErrortoModel(this, ex);
+        //    }
+        //}
     }
 }

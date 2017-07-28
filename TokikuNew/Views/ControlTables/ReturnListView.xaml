@@ -4,16 +4,20 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1024">
+             d:DesignHeight="600" d:DesignWidth="1024" Loaded="ReturnMaterialListViewUC_Loaded">
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="ReturnsListSource" ObjectType="{x:Type vm:ReturnsViewModelCollection}" MethodName="Query"/>
+    </UserControl.Resources>
     <Grid>
-        <DataGrid AutoGenerateColumns="False" Margin="5" ItemsSource="{Binding}">
+        <DataGrid x:Name="CheckGrid" AutoGenerateColumns="False" Margin="5" ItemsSource="{Binding Source={StaticResource ReturnsListSource}}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="請款單號"/>
-                <DataGridTextColumn Header="退貨單號"/>
-                <DataGridTextColumn Header="廠商來料單號"/>
-                <DataGridTextColumn Header="建單日期"/>
-                <DataGridTextColumn Header="建單人員"/>
+                <DataGridTextColumn Header="退貨單號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="廠商來料單號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="請款單號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="退貨日期" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="建單人員" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

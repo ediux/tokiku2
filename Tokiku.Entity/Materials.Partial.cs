@@ -28,6 +28,6 @@ namespace Tokiku.Entity
     
         public virtual Users CreateUser { get; set; }
         public virtual ICollection<Molds> Molds { get; set; }
-        public virtual ICollection<PurchasingOrder> PurchasingOrder { get; set; }
+        public virtual ICollection<RequiredDetails> RequiredDetails { get; set; }
     }
 }

@@ -46,35 +46,47 @@
 		StatesCodeToTextValueConverter.cs - 進度代碼轉換為對應的文字
 		VoidToStateTextValueConverter.cs - 將停用狀態轉換為對應的文字
 	Views
-		AluminumExtrusion - 鋁擠型加工相關表單
-			AluminumExtrusionOrderListView.xaml - 鋁擠型訂製單列表
-			AluminumExtrusionOrderSheetView.xaml - 鋁擠型訂製單
-				├ AluminumExtrusionOrderView.xaml - 鋁擠型訂製單
-				├ AluminumExtrusionOrderMaterialValuationView.xaml - 鋁擠型材質估價
-				└ AluminumExtrusionOrderMiscellaneousView.xaml - 鋁擠型雜項
-			ProcessingAtlasDetailView.xaml - 鋁擠型加工圖集明細表
+		Orders - 訂製單相關
+			AluminumExtrusionOrderListView.xaml - 訂製單列表
+			OrderSheetView.xaml - 訂製單(所有工段)
+				├ OrderView.xaml - 訂製單
+				├ MaterialValuationView.xaml - 材質估價
+				└ MiscellaneousView.xaml - 雜項
+			ProcessingAtlasDetailView.xaml - 圖集明細表
 		ContactPerson
 			ContactPersonManageView.xaml - 聯絡人管理
 		ControlTables - 管控表
-			ControlTableView.xaml - 鋁擠型管控表
+			AluminumExtrusionProcessingView.xaml - 鋁擠型加工管控表
+			AluminumPlateView.xaml - 鋁板管控表
+			ControlTableView.xaml - 鋁擠型材料
 			GlassView.xaml - 玻璃管控表
 			HardwareView.xaml - 五金管控表(其他材料)
-			InvoiceViewListView.xaml - 請款單列表
+			InventoryListView.xaml - 盤點單列表
+			InventoryView.xaml - 盤點單
 			InvoiceView.xaml - 請款單
+			InvoiceViewListView.xaml - 請款單列表
+			IronPartsView.xaml - 鐵件管控表
+			ObtainMaterialView.xaml - 領料單
+			ObtainMaterialListView.xaml - 領料單列表
+			OrderControlTableView.xaml - 訂製單管控表
+			QualityAbnormallySingleListView.xaml - 品質異常單列表
+			QualityAbnormallySingleView.xaml - 品質異常單
 			RecvMaterialListView.xaml - 收料單列表
 			RecvMaterialView.xaml - 收料單
+			RequiredListView.xaml - 需求單列表
+			RequiredView.xaml - 需求單
 			ReturnListView.xaml - 退貨單列表
 			ReturnView.xaml - 退貨單
 			ShippingListView.xaml - 出貨單列表
 			ShippingView.xaml - 出貨單
-			AluminumPlateView.xaml - 鋁板管控表
-			IronPartsView.xaml - 鐵件管控表
 		CRM - 客戶關係管理
 			ClientListView.xaml - 客戶列表
 			ClientManageView.xaml - 客戶主檔
 		Finance - 財務管理
+			ActualCostsView.xaml - 成本估算(實際成本)
 			CostEstimateView.xaml - 專案成本估算
-			PaymentTypesManageView.xaml - 支付方式管理
+			PaymentTypesManageView.xaml - 支付方式清單
+			PrepaymentsView.xaml - 預付款申請單
 			PromissoryNoteManagementViewUC.xaml - 本票管理
 		Forms - 簽核流程相關表單
 		Manufacturers - 廠商相關
@@ -90,8 +102,11 @@
 			ProcessingAtlasView.xaml - 加工圖集
 			ProjectManagerView.xaml - 專案主檔
 			ProjectSelectListView.xaml - 專案列表
-			ProjectViewer.xaml - 單一專案檢視
+			ProjectVi-ewer.xaml - 單一專案檢視
 			SupplierForProjects.xaml - 專案供應商清單
+		System
+			SystemMembersView.xaml - 人員管理
+			SystemRolesView.xaml - 角色管理
 App.config - 應用程式組態設定檔
 App.xaml - 應用程式進入點(等同WinForm的Program類別)，包含定義預設的主題等都在這個檔案引用。
 MainWindow.xaml - 東菊ERP系統主視窗

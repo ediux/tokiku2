@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows.Input;
 
 namespace Tokiku.ViewModels
 {
-
     public interface IBaseViewModel : INotifyPropertyChanged
     {
 
@@ -17,36 +18,37 @@ namespace Tokiku.ViewModels
         /// </summary>
         bool HasError { get; set; }
 
-        /// <summary>
-        /// 對模型發出查詢命令，將查詢回來的單一列結果抄寫到檢視模型中
-        /// </summary>
-        /// <remarks>
-        /// 查詢條件就是本身的屬性內容，所以不需要額外參數。
-        /// 如果有屬於特殊條件查詢但不存在於本身的屬性時，請自行宣告方法。
-        /// </remarks>
-        void Query();
 
         /// <summary>
         /// 初始化作業。
         /// </summary>
-        void Initialized();
+        void Initialized(object Parameter);
 
-        /// <summary>
-        /// 重新整理檢視模型
-        /// </summary>
-        void Refresh();
+        void SaveModel(object ControllerName);
 
-        /// <summary>
-        /// 儲存或更新檢視模型
-        /// </summary>
         void SaveModel();
 
+        string SaveModelController { get; }
+
         /// <summary>
-        /// 依據來源實體設定檢視模型內容。
+        /// 查詢命令
         /// </summary>
-        /// <param name="entity">傳入的實體物件</param>
-        void SetModel(dynamic entity);
+        ICommand QueryCommand { get; set; }
+        /// <summary>
+        /// 儲存命令
+        /// </summary>
+        ICommand SaveCommand { get; set; }
+        /// <summary>
+        /// 新建命令
+        /// </summary>
+        ICommand CreateNewCommand { get; set; }
+        /// <summary>
+        /// 刪除命令
+        /// </summary>
+        ICommand DeleteCommand { get; set; }
+        /// <summary>
+        /// 處理轉送路由資料的命令
+        /// </summary>
+        ICommand RelayCommand { get; set; }
     }
-
-
 }

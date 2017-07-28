@@ -8,7 +8,7 @@ using System.Windows;
 namespace Tokiku.ViewModels
 {
 
-    public class ConstructionAtlasReplyContextViewModel : BaseViewModel
+    public class ConstructionAtlasReplyContextViewModel : DependencyObject
     {
 
 

@@ -6,18 +6,28 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public abstract class BaseViewModelCollection<TView> : ObservableCollection<TView>, IBaseViewModel where TView : IBaseViewModel
+    public abstract class BaseViewModelCollection<TView> : ObservableCollection<TView>, IBaseViewModel where TView : ISingleBaseViewModel
     {
         public BaseViewModelCollection()
         {
+            _Replay = new RelayCommand((x) => ReplyFrom(x), (x) => true);
+            _SaveCommand = new SaveModelCommand((x) => SaveModel(x));
+            _CreateNewCommand = new CreateNewModelCommand();
+
             Initialized();
         }
 
         public BaseViewModelCollection(IEnumerable<TView> source) : base(source)
         {
+            _Replay = new RelayCommand((x) => ReplyFrom(x), (x) => true);
+            _SaveCommand = new SaveModelCommand((x) => SaveModel(x));
+            _CreateNewCommand = new CreateNewModelCommand();
+
             Initialized();
         }
 
@@ -26,7 +36,7 @@ namespace Tokiku.ViewModels
         /// </summary>
         /// <param name="model">檢視模型型別。</param>
         /// <param name="ex">例外錯誤狀況執行個體。</param>
-        protected static void setErrortoModel(BaseViewModelCollection<TView> model, Exception ex)
+        public static void setErrortoModel(BaseViewModelCollection<TView> model, Exception ex)
         {
             if (model == null)
                 model = (BaseViewModelCollection<TView>)Activator.CreateInstance(model.GetType());
@@ -43,7 +53,7 @@ namespace Tokiku.ViewModels
         /// </summary>
         /// <param name="model"></param>
         /// <param name="Message"></param>
-        protected static void setErrortoModel(BaseViewModelCollection<TView> model, string Message)
+        public static void setErrortoModel(BaseViewModelCollection<TView> model, string Message)
         {
             if (model == null)
                 model = (BaseViewModelCollection<TView>)Activator.CreateInstance(model.GetType());
@@ -64,6 +74,51 @@ namespace Tokiku.ViewModels
         /// </summary>
         public bool HasError { get; set; }
 
+        public virtual string SaveModelController
+        {
+            get
+            {
+                ISingleBaseViewModel view = Activator.CreateInstance<TView>();
+
+                if (view != null)
+                    return view.SaveModelController;
+                else
+                    return string.Empty;
+            }
+        }
+
+        protected ICommand _SaveCommand = new SaveModelCommand();
+        /// <summary>
+        /// 取得或設定當引發儲存時的命令項目。
+        /// </summary>
+        public ICommand SaveCommand { get => _SaveCommand; set => _SaveCommand = value; }
+        protected ICommand _CreateNewCommand = new CreateNewModelCommand();
+        /// <summary>
+        /// 取得或設定當引發新建項目時的命令項目。
+        /// </summary>
+        public ICommand CreateNewCommand { get => _CreateNewCommand; set => _CreateNewCommand = value; }
+        private ICommand _Replay;
+        /// <summary>
+        /// 轉送命令
+        /// </summary>
+        public ICommand RelayCommand { get => _Replay; set => _Replay = value; }
+        private ICommand _DeleteCommand;
+        /// <summary>
+        /// 刪除命令
+        /// </summary>
+        public ICommand DeleteCommand { get => _DeleteCommand; set => _DeleteCommand = value; }
+
+        private ICommand _QueryCommand;
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICommand QueryCommand { get => _QueryCommand; set => _QueryCommand = value; }
+
+        public virtual void ReplyFrom(object source)
+        {
+
+        }
+
         /// <summary>
         /// 檢視模型初始化作業
         /// </summary>
@@ -74,32 +129,203 @@ namespace Tokiku.ViewModels
         }
 
         /// <summary>
-        /// 儲存或更新檢視模型
+        /// 對指定控制器發出查詢呼叫。
         /// </summary>
-        public virtual void SaveModel()
+        /// <typeparam name="TResult">回傳的資料實體類別。</typeparam>
+        /// <param name="ControllerName">控制器名稱</param>
+        /// <param name="ActionName">動作名稱(方法名稱)</param>
+        /// <param name="values">動作方法參數</param>
+        /// <returns>傳回指定檢視模型集合。</returns>
+        public static TCollection Query<TCollection, TResult>(string ControllerName, string ActionName, params object[] values)
+            where TCollection : BaseViewModelCollection<TView>
+            where TResult : class
         {
-            foreach (var row in Items)
+            TCollection collection = null;
+
+            try
             {
-                if (row != null)
-                    row.SaveModel();
+                string controllerfullname = string.Format("Tokiku.Controllers.{0}Controller", ControllerName);
+
+                Type ControllerType = System.Reflection.Assembly.Load("Tokiku.Controllers").GetType(controllerfullname);
+
+                if (ControllerType == null)
+                {
+                    throw new Exception(string.Format("Controller '{0}' not found.", ControllerName));
+                }
+
+                var ctrl = Activator.CreateInstance(ControllerType);
+
+                if (ctrl == null)
+                {
+                    throw new NullReferenceException();
+                }
+
+                var method = ControllerType.GetMethod(ActionName, values.Select(s => s != null ? s.GetType() : typeof(object)).ToArray());
+
+                if (method != null)
+                {
+                    ExecuteResultEntity<ICollection<TResult>> result =
+                        (ExecuteResultEntity<ICollection<TResult>>)method.Invoke(ctrl, values);
+
+                    if (!result.HasError)
+                    {
+                        collection = (TCollection)Activator.CreateInstance(typeof(TCollection),
+                           result.Result.Select(s => (TView)Activator.CreateInstance(typeof(TView), s)).ToList());
+
+                        return collection;
+                    }
+                    else
+                    {
+                        collection = Activator.CreateInstance<TCollection>();
+                        collection.Errors = result.Errors;
+                        collection.HasError = true;
+                        return collection;
+                    }
+                }
+                else
+                {
+                    throw new Exception(string.Format("Action '{0}' not found.", ActionName));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                if (collection == null)
+                    collection = Activator.CreateInstance<TCollection>();
+
+                setErrortoModel(collection, ex);
+                return collection;
             }
         }
 
-        /// <summary>
-        /// 查詢全部資料
-        /// </summary>
-        public virtual void Query()
+        public static ICollection<TResult> ExecuteAction<TResult>(string ControllerName, string ActionName, params object[] values)
+            where TResult : class
         {
+            ICollection<TResult> collection = null;
 
+            try
+            {
+                string controllerfullname = string.Format("Tokiku.Controllers.{0}Controller", ControllerName);
+
+                Type ControllerType = System.Reflection.Assembly.Load("Tokiku.Controllers").GetType(controllerfullname);
+
+                if (ControllerType == null)
+                {
+                    throw new Exception(string.Format("Controller '{0}' not found.", ControllerName));
+                }
+
+                var ctrl = Activator.CreateInstance(ControllerType);
+
+                if (ctrl == null)
+                {
+                    throw new NullReferenceException();
+                }
+
+                var method = ControllerType.GetMethod(ActionName, values.Select(s => s != null ? s.GetType() : typeof(object)).ToArray());
+
+                if (method != null)
+                {
+                    var result = method.Invoke(ctrl, values);
+
+                    if (result is ExecuteResultEntity)
+                    {
+                        ExecuteResultEntity resultc = (ExecuteResultEntity)result;
+
+                        if (!resultc.HasError)
+                        {
+                            collection = new Collection<TResult>();
+                            return collection;
+                        }
+                        else
+                        {
+                            collection = Activator.CreateInstance<Collection<TResult>>();
+                            return collection;
+                        }
+                    }
+                    else
+                    {
+                        if (result is ExecuteResultEntity<TResult>)
+                        {
+                            ExecuteResultEntity<TResult> resultc = (ExecuteResultEntity<TResult>)result;
+
+                            if (!resultc.HasError)
+                            {
+                                collection = new Collection<TResult>();
+                                collection.Add(resultc.Result);
+                                return collection;
+                            }
+                            else
+                            {
+                                collection = Activator.CreateInstance<Collection<TResult>>();
+                                return collection;
+                            }
+                        }
+                        else
+                        {
+                            if (result is ExecuteResultEntity<ICollection<TResult>>)
+                            {
+                                ExecuteResultEntity<ICollection<TResult>> resultc = (ExecuteResultEntity<ICollection<TResult>>)result;
+
+                                if (!resultc.HasError)
+                                {
+                                    collection = resultc.Result;
+                                    return collection;
+                                }
+                                else
+                                {
+                                    collection = Activator.CreateInstance<Collection<TResult>>();
+                                    return collection;
+                                }
+                            }
+                            else
+                            {
+                                collection = Activator.CreateInstance<Collection<TResult>>();
+                                return collection;
+                            }
+                        }
+                    }
+
+                }
+                else
+                {
+                    throw new Exception(string.Format("Action '{0}' not found.", ActionName));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
-
-
         /// <summary>
-        /// 重新整理檢視模型
+        /// 儲存或更新檢視模型
         /// </summary>
-        public virtual void Refresh()
+        public virtual void SaveModel(object ControllerName)
         {
-            Query();
+            try
+            {
+                int i = 0;
+                List<string> message = new List<string>();
+                foreach (var item in Items)
+                {
+                    item.SaveModel(SaveModelController, i == (Items.Count - 1));
+
+                    if (item.HasError)
+                    {
+                        message.AddRange(item.Errors);
+                    }
+                    i++;
+                }
+                if (message.Count > 0)
+                {
+                    Errors = message.ToArray();
+                    HasError = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
         }
 
         /// <summary>
@@ -334,14 +560,14 @@ namespace Tokiku.ViewModels
             }
         }
 
-        public void SetModel(dynamic entity)
+        public void SaveModel()
         {
-            throw new NotSupportedException();
+            SaveModel(SaveModelController);
         }
 
-        public Task QueryAsync()
+        public void Initialized(object Parameter)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException();
         }
     }
 }

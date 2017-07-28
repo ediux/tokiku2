@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="TokikuNew.Views.AluminumExtrusionOrderView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:c="clr-namespace:TokikuNew.Controls"
+             xmlns:viewmodels="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+             mc:Ignorable="d"              
+             d:DesignHeight="683" d:DesignWidth="1362" Loaded="AluminumExtrusionOrderView_Loaded">
+    <UserControl.Resources>
+
+
+    </UserControl.Resources>
+    <Grid>
+        <c:CustomDataGrid Margin="5" AutoGenerateColumns="False" x:Name="鋁擠型訂製單DG" 
+                          ItemsSource="{Binding Source={StaticResource AluminumExtrusionOrderSource2}}">
+            <c:CustomDataGrid.Columns>
+                <DataGridTextColumn Header="*東菊編號*" Binding="{Binding TokikuId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="*廠商編號*" Binding="{Binding ManufacturersId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="*材質*" Binding="{Binding Material, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="*單位重(kg/m)*" Binding="{Binding UnitWeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="*訂購長度(mm)*" Binding="{Binding OrderLength, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="[需求數量]" Binding="{Binding RequiredQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="[備品數量]" Binding="{Binding SparePartsQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="[下單數量]" Binding="{Binding PlaceAnOrderQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="[備註]" Binding="{Binding Note, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+            </c:CustomDataGrid.Columns>
+        </c:CustomDataGrid>
+
+    </Grid>
+</UserControl>

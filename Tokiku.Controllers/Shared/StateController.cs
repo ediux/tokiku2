@@ -10,6 +10,27 @@ namespace Tokiku.Controllers
 {
     public class StateController : BaseController<States>
     {
+        public ExecuteResultEntity<ICollection<States>> QueryAll()
+        {
+            try
+            {
+
+                StatesRepository repo = RepositoryHelper.GetStatesRepository();
+
+      
+                    return ExecuteResultEntity<ICollection<States>>
+                                       .CreateResultEntity(new Collection<States>(repo.All().ToList()));
+            
+
+
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<ICollection<States>>.CreateErrorResultEntity(ex);
+                throw;
+            }
+        }
+
         public Task<ExecuteResultEntity<ICollection<States>>> GetStateListAsync()
         {
             try

@@ -8,9 +8,9 @@ namespace Tokiku.ViewModels
 {
     public class MoldUseStatusViewModelCollection : BaseViewModelCollection<MoldUseStatusViewModel>
     {
-        public override void Query()
-        {
+        //public override void Query()
+        //{
            
-        }
+        //}
     }
 }

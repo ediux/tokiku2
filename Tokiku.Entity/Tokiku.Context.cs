@@ -12,6 +12,8 @@ namespace Tokiku.Entity
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class TokikuEntities : DbContext
     {
@@ -34,7 +36,6 @@ namespace Tokiku.Entity
         public virtual DbSet<WorkShops> WorkShops { get; set; }
         public virtual DbSet<Contacts> Contacts { get; set; }
         public virtual DbSet<Engineering> Engineering { get; set; }
-        public virtual DbSet<Manufacturers> Manufacturers { get; set; }
         public virtual DbSet<MaterialCategories> MaterialCategories { get; set; }
         public virtual DbSet<Materials> Materials { get; set; }
         public virtual DbSet<Molds> Molds { get; set; }
@@ -45,7 +46,6 @@ namespace Tokiku.Entity
         public virtual DbSet<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
         public virtual DbSet<ShopFlow> ShopFlow { get; set; }
         public virtual DbSet<TicketTypes> TicketTypes { get; set; }
-        public virtual DbSet<SupplierTranscationItem> SupplierTranscationItem { get; set; }
         public virtual DbSet<TicketPeriod> TicketPeriod { get; set; }
         public virtual DbSet<View_BussinessItemsList> View_BussinessItemsList { get; set; }
         public virtual DbSet<View_ManufacturersBussinessTranscations> View_ManufacturersBussinessTranscations { get; set; }
@@ -54,13 +54,56 @@ namespace Tokiku.Entity
         public virtual DbSet<MoldsInProjects> MoldsInProjects { get; set; }
         public virtual DbSet<ConstructionAtlas> ConstructionAtlas { get; set; }
         public virtual DbSet<ProcessingAtlas> ProcessingAtlas { get; set; }
-        public virtual DbSet<FormDetails> FormDetails { get; set; }
-        public virtual DbSet<Forms> Forms { get; set; }
-        public virtual DbSet<MaterialEstimation> MaterialEstimation { get; set; }
-        public virtual DbSet<PurchasingOrder> PurchasingOrder { get; set; }
-        public virtual DbSet<BOM> BOM { get; set; }
         public virtual DbSet<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
-        public virtual DbSet<ShopFlowHistory> ShopFlowHistory { get; set; }
+        public virtual DbSet<BOM> BOM { get; set; }
+        public virtual DbSet<SupplierTranscationItem> SupplierTranscationItem { get; set; }
+        public virtual DbSet<OrderDetails> OrderDetails { get; set; }
+        public virtual DbSet<OrderMaterialValuation> OrderMaterialValuation { get; set; }
+        public virtual DbSet<Orders> Orders { get; set; }
+        public virtual DbSet<OrderTypes> OrderTypes { get; set; }
+        public virtual DbSet<PickList> PickList { get; set; }
+        public virtual DbSet<PickListDetails> PickListDetails { get; set; }
+        public virtual DbSet<ReceiveDetails> ReceiptDetails { get; set; }
+        public virtual DbSet<Receive> Receipts { get; set; }
+        public virtual DbSet<Stocks> Stocks { get; set; }
+        public virtual DbSet<InvoiceDetails> InvoiceDetails { get; set; }
+        public virtual DbSet<InvoiceDetails_Material> InvoiceDetails_Material { get; set; }
+        public virtual DbSet<InvoiceDetails_Miscellaneous> InvoiceDetails_Miscellaneous { get; set; }
+        public virtual DbSet<Invoices> Invoices { get; set; }
+        public virtual DbSet<MaterialEstimation> MaterialEstimation { get; set; }
+        public virtual DbSet<OrderMiscellaneous> OrderMiscellaneous { get; set; }
+        public virtual DbSet<Required> Required { get; set; }
+        public virtual DbSet<ControlTableDetails> ControlTableDetails { get; set; }
+        public virtual DbSet<RequiredDetails> RequiredDetails { get; set; }
+        public virtual DbSet<Inventory> Inventory { get; set; }
         public virtual DbSet<ShopFlowDetail> ShopFlowDetail { get; set; }
+        public virtual DbSet<ShopFlowHistory> ShopFlowHistory { get; set; }
+        public virtual DbSet<ControlTables> ControlTables { get; set; }
+        public virtual DbSet<ManufacturersFactories> ManufacturersFactories { get; set; }
+        public virtual DbSet<OrderControlTableDetails> OrderControlTableDetails { get; set; }
+        public virtual DbSet<View_OrderMaterialValuation> View_OrderMaterialValuation { get; set; }
+        public virtual DbSet<View_Orders> View_Orders { get; set; }
+        public virtual DbSet<View_PickList> View_PickList { get; set; }
+        public virtual DbSet<Manufacturers> Manufacturers { get; set; }
+        public virtual DbSet<View_RequiredForms> View_RequiredForms { get; set; }
+        public virtual DbSet<View_RequiredControlTable> View_RequiredControlTable { get; set; }
+        public virtual DbSet<ReturnDetails> ReturnDetails { get; set; }
+        public virtual DbSet<Returns> Returns { get; set; }
+        public virtual DbSet<EncodingRecords> EncodingRecords { get; set; }
+        public virtual DbSet<View_OrderControlTable> View_OrderControlTable { get; set; }
+    
+        [DbFunction("TokikuEntities", "SplitString")]
+        public virtual IQueryable<SplitString_Result> SplitString(string splitStr, string splitChar)
+        {
+            var splitStrParameter = splitStr != null ?
+                new ObjectParameter("SplitStr", splitStr) :
+                new ObjectParameter("SplitStr", typeof(string));
+    
+            var splitCharParameter = splitChar != null ?
+                new ObjectParameter("SplitChar", splitChar) :
+                new ObjectParameter("SplitChar", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<SplitString_Result>("[TokikuEntities].[SplitString](@SplitStr, @SplitChar)", splitStrParameter, splitCharParameter);
+        }
     }
 }

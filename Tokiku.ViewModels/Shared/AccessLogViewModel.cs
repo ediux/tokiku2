@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Tokiku.Controllers;
 using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
@@ -13,29 +14,17 @@ namespace Tokiku.ViewModels
     public class AccessLogViewModel : BaseViewModelWithPOCOClass<AccessLog>
     {
         [Key]
-        public long Id
+        public new long Id
         {
-            get { return (long)GetValue(IdProperty); }
-            set { SetValue(IdProperty, value); }
+            get { return CopyofPOCOInstance.Id; }
+            set { CopyofPOCOInstance.Id = value; RaisePropertyChanged("Id"); }
         }
-
-        // Using a DependencyProperty as the backing store for Id.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty IdProperty =
-            RegisterDP<long, AccessLogViewModel>("Id");
-
-
-
 
         public string DataTableName
         {
-            get { return (string)GetValue(DataTableNameProperty); }
-            set { SetValue(DataTableNameProperty, value); }
+            get { return CopyofPOCOInstance.DataTableName; }
+            set { CopyofPOCOInstance.DataTableName = value; RaisePropertyChanged("DataTableName"); }
         }
-
-        // Using a DependencyProperty as the backing store for DataTableName.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty DataTableNameProperty =
-            RegisterDP<string, AccessLogViewModel>("DataTableName", string.Empty);
-
 
 
         /// <summary>
@@ -43,13 +32,27 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string UserName
         {
-            get { return (string)GetValue(UserNameProperty); }
-            set { SetValue(UserNameProperty, value); }
-        }
+            get
+            {
+                var executeresult = SystemController.GetUserById(CopyofPOCOInstance.UserId);
 
-        // Using a DependencyProperty as the backing store for UserName.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty UserNameProperty =
-            DependencyProperty.Register("UserName", typeof(string), typeof(AccessLogViewModel), new PropertyMetadata(0));
+                if (!executeresult.HasError)
+                {
+                    return executeresult.Result.UserName;
+                }
+
+                return string.Empty;
+            }
+            set
+            {
+                SystemController sysCtr = new SystemController();
+                var executeresult = sysCtr.GetUser(value);
+                if (!executeresult.HasError)
+                {
+                    CopyofPOCOInstance.UserId = executeresult.Result.UserId;
+                }
+            }
+        }
 
 
         /// <summary>
@@ -58,13 +61,11 @@ namespace Tokiku.ViewModels
         [Column("CreateTime")]
         public DateTime UpdateTime
         {
-            get { return (DateTime)GetValue(UpdateTimeProperty); }
-            set { SetValue(UpdateTimeProperty, value); }
+            get { return CopyofPOCOInstance.CreateTime; }
+            set { CopyofPOCOInstance.CreateTime = value; RaisePropertyChanged("UpdateTime"); }
         }
 
-        // Using a DependencyProperty as the backing store for UpdateTime.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty UpdateTimeProperty =
-            DependencyProperty.Register("UpdateTime", typeof(DateTime), typeof(AccessLogViewModel), new PropertyMetadata(DateTime.Now));
+
 
 
         /// <summary>
@@ -72,15 +73,61 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string Action
         {
-            get { return (string)GetValue(ActionProperty); }
-            set { SetValue(ActionProperty, value); }
+            get
+            {
+                string actionname = "";
+
+                switch ((ActionCodes)CopyofPOCOInstance.ActionCode)
+                {
+                    case ActionCodes.Read:
+                        actionname = "讀取資料";
+                        break;
+                    case ActionCodes.Create:
+                        actionname = "建立資料";
+                        break;
+                    case ActionCodes.Update:
+                        actionname = "更新資料";
+                        break;
+                    case ActionCodes.Delete:
+                        actionname = "刪除資料";
+                        break;
+                    case ActionCodes.ConstructionOrderChange:
+                        actionname = "施工圖集變更";
+                        break;
+                    default:
+                        actionname = "其他";
+                        break;
+                }
+                return actionname;
+            }
+            set
+            {
+                switch (value)
+                {
+                    case "讀取資料":
+                        CopyofPOCOInstance.ActionCode = 0;
+                        break;
+                    case "建立資料":
+                        CopyofPOCOInstance.ActionCode = 1;
+                        break;
+                    case "更新資料":
+                        CopyofPOCOInstance.ActionCode = 2;
+                        break;
+                    case "刪除資料":
+                        CopyofPOCOInstance.ActionCode = 4;
+                        break;
+                    case "施工圖集變更":
+                        CopyofPOCOInstance.ActionCode = 8;
+                        break;
+                    case "其他":
+                    default:
+                        CopyofPOCOInstance.ActionCode = 1;
+                        break;
+
+                }
+                RaisePropertyChanged("Action");
+            }
         }
-
-        // Using a DependencyProperty as the backing store for Action.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ActionProperty =
-            DependencyProperty.Register("Action", typeof(string), typeof(AccessLogViewModel), new PropertyMetadata(string.Empty));
-
-
 
         /// <summary>
         /// 紀錄說明(變更原因說明)
@@ -88,32 +135,26 @@ namespace Tokiku.ViewModels
         [Column("Reason")]
         public string Description
         {
-            get { return (string)GetValue(DescriptionProperty); }
-            set { SetValue(DescriptionProperty, value); }
+            get { return CopyofPOCOInstance.Reason; }
+            set { CopyofPOCOInstance.Reason = value; RaisePropertyChanged("Description"); }
         }
 
-        // Using a DependencyProperty as the backing store for Description.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty DescriptionProperty =
-            DependencyProperty.Register("Description", typeof(string), typeof(AccessLogViewModel), new PropertyMetadata(string.Empty));
-
-
-
-        public override void SetModel(dynamic entity)
-        {
-            try
-            {
-                if (entity is AccessLog)
-                {
-                    CopyofPOCOInstance = (AccessLog)entity;
-                    BindingFromModel(CopyofPOCOInstance, this);
-                }
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-                throw;
-            }
-        }
+        //public override void SetModel(dynamic entity)
+        //{
+        //    try
+        //    {
+        //        if (entity is AccessLog)
+        //        {
+        //            CopyofPOCOInstance = (AccessLog)entity;
+        //            BindingFromModel(CopyofPOCOInstance);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        setErrortoModel(this, ex);
+        //        throw;
+        //    }
+        //}
 
 
     }

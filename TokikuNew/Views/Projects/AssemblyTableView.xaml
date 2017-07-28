@@ -4,22 +4,29 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:viewmodels="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="1366">
+    <UserControl.Resources>
+        <ObjectDataProvider ObjectType="{x:Type viewmodels:AssemblyTableViewModelCollection}" x:Key="source2" />
+        <viewmodels:AssemblyTableViewModelCollection x:Key="DataSource" />
+    </UserControl.Resources>
     <Grid>
-        <DataGrid>
+        <DataGrid AutoGenerateColumns="False" ItemsSource="{StaticResource DataSource}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="圖集"/>
-                <DataGridTextColumn Header="組合編號"/>
-                <DataGridTextColumn Header="加工編號"/>
-                <DataGridTextColumn Header="擠型編號"/>
-                <DataGridTextColumn Header="裁切長度"/>
-
-                <DataGridTextColumn Header="數量"/>
-                <DataGridTextColumn Header="材料說明"/>
-
-                <DataGridTextColumn Header="總需求量"/>
-            
+                <DataGridTextColumn Header="合約編號" Binding="{Binding }" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="圖集" Binding="{Binding Atlas,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="組合編號" Binding="{Binding CombinationNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="組合總樘數" Binding="{Binding }" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="加工編號" Binding="{Binding ProcessingNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="擠型編號" Binding="{Binding CrowdedNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="裁切長度/規格" Binding="{Binding CutLength,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="數量" Binding="{Binding Amount,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="材料說明" Binding="{Binding MaterialDescription,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="單樘數量" Binding="{Binding }" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="總需求量" Binding="{Binding TotalDemand,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="已完成組裝樘數/百分比" Binding="{Binding }" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="未完成組裝樘數" Binding="{Binding }" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

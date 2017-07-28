@@ -135,16 +135,16 @@ namespace TokikuNew.Views
                         {
                             SelectedManufacturer.CreateUserId = LoginedUser.UserId;
                         }
-                        if (SelectedManufacturer.Contracts.Count > 0)
-                        {
-                            foreach (ContactsViewModel model in SelectedManufacturer.Contracts)
-                            {
-                                if (model.CreateUserId == Guid.Empty)
-                                {
-                                    model.CreateUserId = LoginedUser.UserId;
-                                }
-                            }
-                        }
+                        //if (SelectedManufacturer.Contracts.Count > 0)
+                        //{
+                        //    foreach (ContactsViewModel model in SelectedManufacturer.Contracts)
+                        //    {
+                        //        if (model.CreateUserId == Guid.Empty)
+                        //        {
+                        //            model.CreateUserId = LoginedUser.UserId;
+                        //        }
+                        //    }
+                        //}
 
                         if (SelectedManufacturer.HasError)
                         {
@@ -202,19 +202,19 @@ namespace TokikuNew.Views
             {
                 if (ContractList.DataContext is ManufacturersViewModel)
                 {
-                    var founddefuts = ((ManufacturersViewModel)ContractList.DataContext).Contracts
-              .Where(w => w.IsDefault == true);
+              //      var founddefuts = ((ManufacturersViewModel)ContractList.DataContext).Contracts
+              //.Where(w => w.IsDefault == true);
 
-                    if (founddefuts.Any())
-                    {
-                        if (founddefuts.Count() > 0)
-                        {
-                            foreach (var fix in founddefuts)
-                            {
-                                fix.IsDefault = false;
-                            }
-                        }
-                    }
+              //      if (founddefuts.Any())
+              //      {
+              //          if (founddefuts.Count() > 0)
+              //          {
+              //              foreach (var fix in founddefuts)
+              //              {
+              //                  fix.IsDefault = false;
+              //              }
+              //          }
+              //      }
                 }
                 else
                 {

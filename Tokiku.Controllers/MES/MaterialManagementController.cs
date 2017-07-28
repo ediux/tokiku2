@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -13,6 +14,39 @@ namespace Tokiku.Controllers
     /// </summary>
     public class MaterialManagementController : BaseController<Materials>
     {
+        public ExecuteResultEntity<Materials> QueryByName(string Name)
+        {
+            try
+            {
+
+                var repo = this.GetRepository();
+                var result = (from q in repo.All()
+                              where q.Name == Name
+                              select q).SingleOrDefault();
+
+                if (result != null)
+                    return ExecuteResultEntity<Materials>.CreateResultEntity(result);
+                else
+                {
+                    Materials newMaterials = new Materials();
+                    newMaterials = new Materials();
+                    newMaterials.Id = Guid.NewGuid();              
+                    newMaterials.ManufacturersId = Guid.Empty;
+                    newMaterials.Name = Name;
+                    newMaterials.UnitPrice = 0;
+                    newMaterials.CreateTime = DateTime.Now;
+                    newMaterials.CreateUserId = GetCurrentLoginUser().Result.UserId;
+
+                    repo.Add(newMaterials);
+                    repo.UnitOfWork.Commit();
+                    return ExecuteResultEntity<Materials>.CreateResultEntity(repo.Reload(newMaterials));
+                }
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<Materials>.CreateErrorResultEntity(ex);
+            }
+        }
         /// <summary>
         /// 取得查詢結果。        
         /// </summary>
@@ -21,6 +55,25 @@ namespace Tokiku.Controllers
         public virtual Task<ExecuteResultEntity<ICollection<Materials>>> QueryAsync(Expression<Func<Materials, bool>> filiter)
         {
             return Task.FromResult(Query(filiter));
+        }
+
+        public ExecuteResultEntity<ICollection<MaterialCategories>> FindMaterialCategoriesByName(string Name)
+        {
+            try
+            {
+                var repo = this.GetRepository<MaterialCategories>();
+
+                var result = from q in repo.All()
+                             where q.Name.Contains(Name)
+                             select q;
+
+                return ExecuteResultEntity<ICollection<MaterialCategories>>.CreateResultEntity(new Collection<MaterialCategories>(result.ToList()));
+
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<ICollection<MaterialCategories>>.CreateErrorResultEntity(ex);
+            }
         }
     }
 }

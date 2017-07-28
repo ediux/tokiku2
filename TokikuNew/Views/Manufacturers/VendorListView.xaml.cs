@@ -1,20 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
 using Tokiku.ViewModels;
 
 namespace TokikuNew.Views
@@ -53,49 +43,49 @@ namespace TokikuNew.Views
 
 
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                e.Handled = true;
-                ((ManufacturersViewModelCollection)DataContext).QueryByText((string)e.OriginalSource);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
-            //搜尋框
+        //private void Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        e.Handled = true;
+        //        //((ManufacturersViewModelCollection)DataContext).QueryByText((string)e.OriginalSource);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+        //    }
+        //    //搜尋框
 
 
-        }
+        //}
 
-        private void sSearchBar_ResetSearch(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                e.Handled = true;
-                ((ManufacturersViewModelCollection)DataContext).QueryByText("");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
+        //private void sSearchBar_ResetSearch(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        e.Handled = true;
+        //        ((ManufacturersViewModelCollection)DataContext).QueryByText("");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+        //    }
 
-        }
+        //}
 
-        private void btnNew_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                e.Handled = true;
-                RaiseEvent(new RoutedEventArgs(Controls.ClosableTabItem.SendNewPageRequestEvent, this));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
+        //private void btnNew_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        e.Handled = true;
+        //        RaiseEvent(new RoutedEventArgs(Controls.ClosableTabItem.SendNewPageRequestEvent, this));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+        //    }
 
-        }
+        //}
 
         private void VendorList_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
@@ -129,53 +119,115 @@ namespace TokikuNew.Views
             try
             {
                 e.Handled = true;
-                if (SelectedManufacturer != null)
+
+                if (VendorList.SelectedItem != null)
                 {
-                    e.Handled = true;
-                    RaiseEvent(new RoutedEventArgs(SelectedVendorChangedEvent, SelectedManufacturer));
+                    SelectedManufacturer = (ManufacturersViewModel)VendorList.SelectedItem;
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
 
-        }
+                RoutedUICommand command = (RoutedUICommand)TryFindResource("OpenNewTabItem");
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                e.Handled = true;
-                if (DataContext != null)
+                if (command != null)
                 {
-                    ManufacturersViewModelCollection DataSource = (ManufacturersViewModelCollection)DataContext;
-                    if (DataSource != null && DataSource.Count == 0)
+                    var routedvalue = new RoutedViewResult()
                     {
-                        Dispatcher.Invoke(new Action(DataSource.Query), DispatcherPriority.Background);
-                    }
+                        FormatedDisplay = "廠商:{0}-{1}",
+                        FormatedParameters = new object[] { SelectedManufacturer.Code, SelectedManufacturer.ShortName },
+                        ViewType = typeof(ManufacturersManageView),
+                        RoutedValues = new Dictionary<string, object>()
+                    };
+                    routedvalue.RoutedValues.Add("SelectedManufacturerId", SelectedManufacturer.Id);
+                    command.Execute(routedvalue, VendorList);
                 }
+            }
+            catch (Exception ex)
+            {
 
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
 
+        }
+
+        private void QueryCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.Handled = true;
+            e.CanExecute = true;
+        }
+
+        private void QueryCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            try
+            {
+                ObjectDataProvider provider = (ObjectDataProvider)TryFindResource("ManufacturerListSource");
+                if (provider != null)
+                {
+                    provider.MethodName = "QueryByText";
+                    provider.MethodParameters.Clear();
+                    provider.MethodParameters.Add(e.Parameter);
+                    provider.Refresh();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+
             }
-
-
         }
 
-        private void sSearchBar_RefreshResult(object sender, RoutedEventArgs e)
+        private void QueryRefreshCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.Handled = true;
+            e.CanExecute = true;
+        }
+
+        private void QueryRefreshCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            try
+            {
+                ObjectDataProvider provider = (ObjectDataProvider)TryFindResource("ManufacturerListSource");
+                if (provider != null)
+                {
+                    provider.Refresh();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+
+            }
+        }
+
+        private void btnNew_PreviewCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.Handled = true;
+            e.CanExecute = true;
+        }
+
+        private void ResetFiliterCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.Handled = true;
+            e.CanExecute = true;
+        }
+
+        private void ResetFiliterCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             try
             {
                 e.Handled = true;
-                ((ManufacturersViewModelCollection)DataContext).QueryByText((string)e.OriginalSource);
+
+                ObjectDataProvider provider = (ObjectDataProvider)FindResource("ManufacturerListSource");
+
+                if (provider != null)
+                {
+                    provider.MethodName = "Query";
+                    provider.MethodParameters.Clear();
+                    provider.Refresh();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+
             }
         }
     }

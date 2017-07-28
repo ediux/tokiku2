@@ -19,7 +19,7 @@ namespace Tokiku.Controllers
 
         public ClientController()
         {
-            ManufacturersRepo = RepositoryHelper.GetManufacturersRepository();
+            ManufacturersRepo = this.GetRepository<Manufacturers>() as IManufacturersRepository;
         }
 
         public override ExecuteResultEntity<Manufacturers> CreateNew()
@@ -64,7 +64,7 @@ namespace Tokiku.Controllers
             try
             {
                 var result = from q in ManufacturersRepo.All()
-                             from p in q.ClientForProjects
+                             from p in q.ManufacturersBussinessItems
                              where q.IsClient == true && q.Void == false && p.Id == ProjectId
                              select q;
 
@@ -88,7 +88,7 @@ namespace Tokiku.Controllers
                              orderby q.Code ascending
                              select q;
 
-                ICollection<Manufacturers> model = new Collection<Manufacturers>(result.ToList());                
+                ICollection<Manufacturers> model = new Collection<Manufacturers>(result.ToList());
                 return ExecuteResultEntity<ICollection<Manufacturers>>.CreateResultEntity(model);
             }
             catch (Exception ex)
@@ -130,74 +130,94 @@ namespace Tokiku.Controllers
         {
             try
             {
-                using (var ManufacturersRepository = RepositoryHelper.GetManufacturersRepository(database))
+                var ManufacturersRepository = this.GetRepository();
+
+                var accesslog = this.GetRepository<AccessLog>();
+
+                var LoginedUser = GetCurrentLoginUser();
+
+                var dbm = (from q in ManufacturersRepository.All()
+                           where q.Id == fromModel.Id
+                           select q).SingleOrDefault();
+
+                if (dbm != null)
                 {
-                    AccessLogRepository accesslog = RepositoryHelper.GetAccessLogRepository();
-                    var LoginedUser = GetCurrentLoginUser();
+                    CheckAndUpdateValue(fromModel, dbm);
 
-                    var dbm = (from q in ManufacturersRepository.All()
-                               where q.Id == fromModel.Id
-                               select q).SingleOrDefault();
 
-                    if (dbm != null)
+
+                    var toDel = dbm.Contacts.Select(s => s.Id).Except(fromModel.Contacts.Select(s => s.Id)).ToList();
+                    var toAdd = fromModel.Contacts.Select(s => s.Id).Except(dbm.Contacts.Select(s => s.Id)).ToList();
+                    var samerows = dbm.Contacts.Select(s => s.Id).Intersect(fromModel.Contacts.Select(s => s.Id)).ToList();
+
+                    Stack<Contacts> RemoveStack = new Stack<Contacts>();
+                    Stack<Contacts> AddStack = new Stack<Contacts>();
+
+                    foreach (var delitem in toDel)
                     {
-                        CheckAndUpdateValue(fromModel, dbm);
-
-
-
-                        var toDel = dbm.Contacts.Select(s => s.Id).Except(fromModel.Contacts.Select(s => s.Id)).ToList();
-                        var toAdd = fromModel.Contacts.Select(s => s.Id).Except(dbm.Contacts.Select(s => s.Id)).ToList();
-                        var samerows = dbm.Contacts.Select(s => s.Id).Intersect(fromModel.Contacts.Select(s => s.Id)).ToList();
-
-                        Stack<Contacts> RemoveStack = new Stack<Contacts>();
-                        Stack<Contacts> AddStack = new Stack<Contacts>();
-
-                        foreach (var delitem in toDel)
-                        {
-                            RemoveStack.Push(dbm.Contacts.Where(w => w.Id == delitem).Single());
-                        }
-
-                        foreach (var additem in toAdd)
-                        {
-                            AddStack.Push(fromModel.Contacts.Where(w => w.Id == additem).Single());
-                        }
-
-                        while (RemoveStack.Count > 0)
-                        {
-                            dbm.Contacts.Remove(RemoveStack.Pop());
-                        }
-
-                        while (AddStack.Count > 0)
-                        {
-                            dbm.Contacts.Add(AddStack.Pop());
-                        }
-
-                        foreach (var sameitem in samerows)
-                        {
-                            Contacts Source = fromModel.Contacts.Where(w => w.Id == sameitem).Single();
-                            Contacts Target = dbm.Contacts.Where(w => w.Id == sameitem).Single();
-                            CheckAndUpdateValue(Source, Target);
-                        }
-
+                        RemoveStack.Push(dbm.Contacts.Where(w => w.Id == delitem).Single());
                     }
 
-                    ManufacturersRepository.UnitOfWork.Commit();
-
-                    accesslog.Add(new AccessLog()
+                    foreach (var additem in toAdd)
                     {
-                        ActionCode = (Byte)ActionCodes.Update,
-                        CreateTime = DateTime.Now,
-                        DataId = dbm.Id.ToString("N"),
-                        Reason = "更新資料",
-                        UserId = LoginedUser.Result.UserId
-                    });
+                        AddStack.Push(fromModel.Contacts.Where(w => w.Id == additem).Single());
+                    }
 
+                    while (RemoveStack.Count > 0)
+                    {
+                        dbm.Contacts.Remove(RemoveStack.Pop());
+                    }
 
+                    while (AddStack.Count > 0)
+                    {
+                        dbm.Contacts.Add(AddStack.Pop());
+                    }
 
-                    var rtn = Query(w => w.Id == fromModel.Id);
-                    return ExecuteResultEntity<Manufacturers>.CreateResultEntity(rtn.Result.SingleOrDefault());
+                    foreach (var sameitem in samerows)
+                    {
+                        Contacts Source = fromModel.Contacts.Where(w => w.Id == sameitem).Single();
+                        Contacts Target = dbm.Contacts.Where(w => w.Id == sameitem).Single();
+                        CheckAndUpdateValue(Source, Target);
+                    }
+
                 }
 
+                ManufacturersRepository.UnitOfWork.Commit();
+
+                accesslog.Add(new AccessLog()
+                {
+                    ActionCode = (Byte)ActionCodes.Update,
+                    CreateTime = DateTime.Now,
+                    DataId = dbm.Id.ToString("N"),
+                    Reason = "更新資料",
+                    UserId = LoginedUser.Result.UserId
+                });
+
+
+
+                var rtn = Query(w => w.Id == fromModel.Id);
+                return ExecuteResultEntity<Manufacturers>.CreateResultEntity(rtn.Result.SingleOrDefault());
+
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<Manufacturers>.CreateErrorResultEntity(ex);
+            }
+        }
+
+        public ExecuteResultEntity<Manufacturers> QuerySingle(Guid ManufacturerId)
+        {
+            try
+            {
+                var result = from q in ManufacturersRepo.All()
+                             where q.IsClient == true && q.Void == false
+                             && q.Id == ManufacturerId
+                             orderby q.Code ascending
+                             select q;
+
+                Manufacturers model = result.SingleOrDefault();
+
+                return ExecuteResultEntity<Manufacturers>.CreateResultEntity(model);
             }
             catch (Exception ex)
             {

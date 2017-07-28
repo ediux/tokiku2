@@ -4,14 +4,20 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Tokiku.Entity
-{   
-	public  partial class EngineeringRepository : EFRepository<Engineering>, IEngineeringRepository
-	{
+{
+    /// <summary>
+    /// 工程項目的儲存庫
+    /// </summary>
+    public partial class EngineeringRepository : EFRepository<Engineering>, IEngineeringRepository
+    {
 
-	}
+    }
 
-	public  partial interface IEngineeringRepository : IRepositoryBase<Engineering>
-	{
+    /// <summary>
+    /// 工程項目的儲存庫
+    /// </summary>
+	public partial interface IEngineeringRepository : IRepositoryBase<Engineering>
+    {
 
-	}
+    }
 }

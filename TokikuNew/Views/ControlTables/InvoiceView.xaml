@@ -1,13 +1,17 @@
-﻿<UserControl x:Class="TokikuNew.InvoiceView"
+﻿<UserControl x:Class="TokikuNew.Views.InvoiceView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:c="clr-namespace:TokikuNew.Controls"
              xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:vm ="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
              mc:Ignorable="d"
              Background="{DynamicResource ControlBackgroundBrush}"
-             d:DesignHeight="600" d:DesignWidth="1024">
+             d:DesignHeight="600" d:DesignWidth="1024" Loaded="InvoiceView_Loaded">
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="InvoicesSource" ObjectType="{x:Type vm:InvoicesViewModelCollection}" MethodName="Query"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27" />
@@ -22,34 +26,79 @@
             <Expander Canvas.Left="0" VerticalAlignment="Stretch" ExpandDirection="Down" Header="表頭" IsExpanded="False">
                 <Expander.ContentTemplate>
                     <DataTemplate>
-                        <WrapPanel Height="82" Orientation="Horizontal" MaxWidth="1014" Width="1014">
-                            <TextBlock Text="ID" Margin="2,2,0,2" VerticalAlignment="Center" />
-                            <TextBox Text="54321" IsReadOnly="True" Margin="2" TextAlignment="Center" VerticalAlignment="Center" />
-                            <TextBlock Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
-                            <TextBlock Text="請款單號" VerticalAlignment="Center" />
-                            <TextBox Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
-                            <TextBlock Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
-                            <TextBlock Text="請款廠商" VerticalAlignment="Center" />
-                            <TextBox Width="88" MaxLength="20" VerticalAlignment="Center" Margin="2" />
-                            <TextBox Width="165" MaxLength="20" VerticalAlignment="Center" Margin="2" />
-                            <TextBlock Text="廠商請款單號" VerticalAlignment="Center" />
-                            <TextBox Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
-                            <TextBlock Text="輸入人員" VerticalAlignment="Center" />
-                            <TextBox Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
-                            <TextBlock Text="建檔日期" VerticalAlignment="Center" />
-                            <DatePicker Width="200" VerticalAlignment="Center" Margin="2" />
-                            <TextBlock Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
-                            <TextBlock Text="請款人員" VerticalAlignment="Center" />
-                            <TextBox Width="100" MaxLength="20" VerticalAlignment="Center" Margin="2" />
-                            <TextBlock Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
-                            <TextBlock Text="請款日期" VerticalAlignment="Center" />
-                            <DatePicker Width="200" VerticalAlignment="Center" Margin="2" />
-                            <TextBlock Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
-                            <TextBlock Text="預計付款日期" VerticalAlignment="Center" />
-                            <DatePicker Width="200" VerticalAlignment="Center" Margin="2" />
-                            <CheckBox Content="預付款專用" Margin="2,2,4,2" VerticalAlignment="Center" Foreground="#FF036808" />
-                            <TextBlock Text="備註" VerticalAlignment="Center" Foreground="#FF036808" />
-                            <TextBox Width="500" MaxLength="20" VerticalAlignment="Center" Margin="4,2,2,2" />
+                        <WrapPanel Height="81" Orientation="Horizontal" MaxWidth="1310" Width="1310">
+                            <Grid Width="1310">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="ID" Margin="2,2,0,2" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="1" IsReadOnly="True" Margin="2" TextAlignment="Center" VerticalAlignment="Center" Text="{Binding Order, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBlock Grid.Column="2" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                                <TextBlock Grid.Column="3" Text="請款單號" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="4" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding InvoiceNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBlock Grid.Column="5" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                                <TextBlock Grid.Column="6" Text="請款廠商" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="7" Width="88" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding InvoiceManufacturersCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox Grid.Column="8" Width="165" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding InvoiceManufacturersName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBlock Grid.Column="9" Text="廠商請款單號" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="10" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding ManufacturerInvoiceNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBlock Grid.Column="11" Text="輸入人員" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="12" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding CreateUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </Grid>
+                            <Grid Width="1310">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="建檔日期" Margin="2,2,0,2" VerticalAlignment="Center" />
+                                <DatePicker Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="2" Text="{Binding CreateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBlock Grid.Column="2" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                                <TextBlock Grid.Column="3" Text="請款人員" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="4" Width="100" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding InvoiceUserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBlock Grid.Column="5" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                                <TextBlock Grid.Column="6" Text="請款日期" VerticalAlignment="Center" />
+                                <DatePicker Grid.Column="7" Width="200" VerticalAlignment="Center" Margin="2" Text="{Binding InvoiceTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBlock Grid.Column="8" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                                <TextBlock Grid.Column="9" Text="預計付款期別" VerticalAlignment="Center" />
+                                <DatePicker Grid.Column="10" Width="200" VerticalAlignment="Center" Margin="2" Text="{Binding EstimatedPaymentDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </Grid>
+                            <Grid Width="1310">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <CheckBox Grid.Column="0" Content="預付款專用" Margin="2,2,4,2" VerticalAlignment="Center" Foreground="#FF036808" />
+                                <TextBlock Grid.Column="1" Text="備註" VerticalAlignment="Center" Foreground="#FF036808" />
+                                <TextBox Grid.Column="2" Width="500" MaxLength="20" VerticalAlignment="Center" Margin="4,2,2,2" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBlock Grid.Column="3" Text="保留款" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="4" Width="100" MaxLength="20" VerticalAlignment="Center" Margin="2" />
+                                <TextBlock Grid.Column="5" Text="%" VerticalAlignment="Center" />
+                            </Grid>
                         </WrapPanel>
                     </DataTemplate>
                 </Expander.ContentTemplate>
@@ -61,47 +110,61 @@
                 <Expander.ContentTemplate>
                     <DataTemplate>
                         <WrapPanel Height="600" Orientation="Horizontal" MaxWidth="600" Width="600">
-                            <DataGrid>
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="項次" Width="auto" />
-                                    <DataGridTextColumn Header="東菊編號" Width="auto" />
-                                    <DataGridTextColumn Header="廠商" Width="auto" />
-                                    <DataGridTextColumn Header="廠商編號" Width="auto" />
-                                    <DataGridTextColumn Header="材質" Width="auto" />
-                                    <DataGridTextColumn Header="單位重量(kg/m)" Width="auto" />
-                                    <DataGridTextColumn Header="訂購長度(mm)" Width="auto" />
-                                    <DataGridTemplateColumn >
-                                        <DataGridTemplateColumn.HeaderTemplate>
-                                            <DataTemplate>
-                                                <Grid>
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="40"/>
-                                                        <RowDefinition Height="32"/>
-                                                    </Grid.RowDefinitions>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="55"/>
-                                                        <ColumnDefinition Width="55"/>
-                                                        <ColumnDefinition Width="65"/>
-                                                    </Grid.ColumnDefinitions>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="27" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="350" />
+                                    <ColumnDefinition Width="30" />
+                                </Grid.ColumnDefinitions>
+                                <c:SearchBar Grid.Row="0" Grid.Column="1" x:Name="sSearchBar" />
+                                <Button Name="btnNew" Grid.Row="0" Grid.Column="2" Margin="1" Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" Click="btnNew_Click" />
+                                <DataGrid Grid.Row="1" Grid.ColumnSpan="3">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn Header="項次" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn Header="東菊編號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn Header="廠商" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn Header="廠商編號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn Header="材質" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn Header="單位重量(kg/m)" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTextColumn Header="訂購長度(mm)" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                                        <DataGridTemplateColumn >
+                                            <DataGridTemplateColumn.HeaderTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="40"/>
+                                                            <RowDefinition Height="32"/>
+                                                        </Grid.RowDefinitions>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="55"/>
+                                                            <ColumnDefinition Width="55"/>
+                                                            <ColumnDefinition Width="65"/>
+                                                        </Grid.ColumnDefinitions>
 
-                                                    <Border Margin="-5,-5,-5,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0.5" BorderBrush="LightGray" Background="Pink">
-                                                        <TextBlock Text="需求數量" Margin="0" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
-                                                    </Border>
-                                                    <Border Margin="-5,0,0,-5" Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
-                                                        <TextBlock FontSize="11" Text="數量小計     (單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-                                                    </Border>
-                                                    <Border Margin="0,0,0,-5" Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
-                                                        <TextBlock FontSize="11" Text="重量小計     (單位:kg)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                    </Border>
-                                                    <Border Margin="0,0,-5,-5" Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
-                                                        <TextBlock  FontSize="11" Text="未下訂單數量      (單位:支)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                    </Border>
-                                                </Grid>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.HeaderTemplate>
-                                    </DataGridTemplateColumn>
-                                </DataGrid.Columns>
-                            </DataGrid>
+                                                        <Border Margin="-5,-5,-5,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0.5" BorderBrush="LightGray" Background="Pink">
+                                                            <TextBlock Text="需求數量" Margin="0" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+                                                        </Border>
+                                                        <Border Margin="-5,0,0,-5" Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
+                                                            <TextBlock FontSize="11" Text="數量小計     (單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                                                        </Border>
+                                                        <Border Margin="0,0,0,-5" Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
+                                                            <TextBlock FontSize="11" Text="重量小計     (單位:kg)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                        <Border Margin="0,0,-5,-5" Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
+                                                            <TextBlock  FontSize="11" Text="未下訂單數量      (單位:支)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.HeaderTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
                         </WrapPanel>
                     </DataTemplate>
                 </Expander.ContentTemplate>
@@ -112,16 +175,16 @@
             <TabItem Header="收料單勾選" Background="#FFA309BB" Height="30" VerticalAlignment="Top">
 
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid Height="520" Margin="0,0,175,0" VerticalAlignment="Top">
+                    <DataGrid Height="520" Margin="0,0,175,0" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource InvoicesSource}}">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="收料日期"/>
-                            <DataGridTextColumn Header="收料單號"/>
-                            <DataGridTextColumn Header="廠商來料單號"/>
-                            <DataGridTextColumn Header="收料數量"/>
-                            <DataGridTextColumn Header="已請款數量"/>
-                            <DataGridTextColumn Header="待請款數量"/>
-                            <DataGridTextColumn Header="本次請款數量"/>
-                            <DataGridTextColumn Header="勾選"/>
+                            <DataGridTextColumn Header="收料日期" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="收料單號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="廠商來料單號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="收料數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="已請款數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="待請款數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="本次請款數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="勾選" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                         </DataGrid.Columns>
                     </DataGrid>
                     <StackPanel Margin="0,91,34,250" Width="104" HorizontalAlignment="Right">
@@ -136,22 +199,22 @@
                 <Grid Background="#FFE5E5E5">
                     <DataGrid>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="訂製單號"/>
-                            <DataGridTextColumn Header="批號"/>
-                            <DataGridTextColumn Header="東菊編號"/>
-                            <DataGridTextColumn Header="大同編號"/>
-                            <DataGridTextColumn Header="材質"/>
-                            <DataGridTextColumn Header="單位重(kg/m)"/>
-                            <DataGridTextColumn Header="訂購長度(mm)"/>
-                            <DataGridTextColumn Header="訂製數量"/>
-                            <DataGridTextColumn Header="總收料數量"/>
-                            <DataGridTextColumn Header="已請款數量"/>
-                            <DataGridTextColumn Header="待請款數量"/>
-                            <DataGridTextColumn Header="本次請款數量"/>
-                            <DataGridTextColumn Header="保留款比例(%)"/>
-                            <DataGridTextColumn Header="kg單價"/>
-                            <DataGridTextColumn Header="保留款金額"/>
-                            <DataGridTextColumn Header="2016-10-12"/>
+                            <DataGridTextColumn Header="訂製單號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="批號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="東菊編號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="大同編號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="材質" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="單位重(kg/m)" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="訂購長度(mm)" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="訂製數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="總收料數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="已請款數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="待請款數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="本次請款數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="保留款比例(%)" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="kg單價" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="保留款金額" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="2016-10-12" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                         </DataGrid.Columns>
                     </DataGrid>
 
@@ -163,11 +226,11 @@
                 <Grid Background="#FFE5E5E5" Margin="0,2,0,-2">
                     <DataGrid>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="材質"/>
-                            <DataGridTextColumn Header="kg單價"/>
-                            <DataGridTextColumn Header="重量"/>
-                            <DataGridTextColumn Header="總價"/>
-                            <DataGridTextColumn Header="數量"/>
+                            <DataGridTextColumn Header="材質" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="kg單價" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="重量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="總價" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                         </DataGrid.Columns>
                     </DataGrid>
 
@@ -177,24 +240,24 @@
                 <Grid Background="#FFE5E5E5" Margin="0,2,0,-2">
                     <DataGrid>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="訂製單號"/>
-                            <DataGridTextColumn Header="批號"/>
-                            <DataGridTextColumn Header="項目"/>
-                            <DataGridTextColumn Header="說明"/>
-                            <DataGridTextColumn Header="單價"/>
-                            <DataGridTextColumn Header="數量"/>
-                            <DataGridTextColumn Header="金額"/>
-                            <DataGridTextColumn Header="已請款"/>
-                            <DataGridTextColumn Header="待請款"/>
-                            <DataGridTextColumn Header="本次請款"/>
+                            <DataGridTextColumn Header="訂製單號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="批號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="項目" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="說明" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="單價" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="金額" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="已請款" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="待請款" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="本次請款" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                         </DataGrid.Columns>
                     </DataGrid>
 
                 </Grid>
             </TabItem>
-            <TabItem Header="保留款" Background="#FF099B3E">
+            <!-- TabItem Header="保留款" Background="#FF099B3E">
                 <Grid Background="#FFE5E5E5" Margin="0,2,0,-2">
-                    <!--<DataGrid>
+                    <DataGrid>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="請款單號"/>
                             <DataGridTextColumn Header="保留款金額"/>
@@ -202,17 +265,17 @@
                             <DataGridTextColumn Header="待請款"/>
                             <DataGridTextColumn Header="本次請款"/>
                         </DataGrid.Columns>
-                    </DataGrid>-->
-                    
+                    </DataGrid>
+
                 </Grid>
-            </TabItem>
+            </TabItem -->
             <TabItem Header="預付款" Background="#FFF56E2F">
                 <Grid Background="#FFE5E5E5">
                     <DataGrid>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="預付款說明"/>
-                            <DataGridTextColumn Header="金額"/>
-                            <DataGridTextColumn Header="已沖銷金額"/>
+                            <DataGridTextColumn Header="預付款說明" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="金額" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                            <DataGridTextColumn Header="已沖銷金額" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                         </DataGrid.Columns>
                     </DataGrid>
 

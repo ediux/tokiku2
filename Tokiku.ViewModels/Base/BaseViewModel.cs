@@ -17,7 +17,7 @@ using Tokiku.Entity;
 namespace Tokiku.ViewModels
 {
 
-    public class BaseViewModel : DependencyObject, IBaseViewModel
+    public class BaseViewModel : DependencyObject, ISingleBaseViewModel
     {
         public BaseViewModel()
         {
@@ -276,7 +276,7 @@ namespace Tokiku.ViewModels
 
         }
 
-        public static void BindToDataGridView<T, TCollection>(TCollection source, DataGrid Grid) where T : IBaseViewModel where TCollection : BaseViewModelCollection<T>
+        public static void BindToDataGridView<T, TCollection>(TCollection source, DataGrid Grid) where T : ISingleBaseViewModel where TCollection : BaseViewModelCollection<T>
         {
             if (Grid != null)
             {
@@ -513,55 +513,137 @@ namespace Tokiku.ViewModels
         }
         #endregion
 
+
         /// <summary>
-        /// 立即對資料庫執行預設的查詢動作。
+        /// 對指定控制器發出單一查詢呼叫。
         /// </summary>
-        /// <remarks>
-        /// 查詢條件依據相依屬性做為資料來源。
-        /// </remarks>
-        public virtual void Query()
+        /// <typeparam name="TResult">回傳的資料實體類別。</typeparam>
+        /// <param name="ControllerName">控制器名稱</param>
+        /// <param name="ActionName">動作名稱(方法名稱)</param>
+        /// <param name="values">動作方法參數</param>
+        /// <returns>傳回指定檢視模型。</returns>
+        public static TView QuerySingle<TView, TResult>(string ControllerName, string ActionName, params object[] values)
+            where TView : BaseViewModel
+            where TResult : class
         {
-            Status.IsNewInstance = false;
-            Status.IsModify = false;
-            Status.IsSaved = false;
-            DoEvents();
+            TView viewmodel = null;
+
+            try
+            {
+                string controllerfullname = string.Format("Tokiku.Controllers.{0}Controller", ControllerName);
+
+                Type ControllerType = Type.GetType(controllerfullname);
+
+                if (ControllerType == null)
+                {
+                    throw new Exception(string.Format("Controller '{0}' not found.", ControllerName));
+                }
+
+                var ctrl = Activator.CreateInstance(ControllerType);
+
+                if (ctrl == null)
+                {
+                    throw new NullReferenceException();
+                }
+
+                var method = ControllerType.GetMethod(ActionName);
+
+                if (method != null)
+                {
+                    ExecuteResultEntity<TResult> result =
+                        (ExecuteResultEntity<TResult>)method.Invoke(ctrl, values);
+
+                    if (!result.HasError)
+                    {
+                        viewmodel = (TView)Activator.CreateInstance(typeof(TView),
+                           result.Result);
+
+                        return viewmodel;
+                    }
+                    else
+                    {
+                        viewmodel = Activator.CreateInstance<TView>();
+                        viewmodel.Errors = result.Errors;
+                        viewmodel.HasError = true;
+                        return viewmodel;
+                    }
+                }
+                else
+                {
+                    throw new Exception(string.Format("Action '{0}' not found.", ActionName));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                if (viewmodel == null)
+                    viewmodel = Activator.CreateInstance<TView>();
+
+                setErrortoModel(viewmodel, ex);
+                return viewmodel;
+            }
         }
 
         /// <summary>
-        /// 對模型啟用非同步查詢作業。
+        /// 儲存資料檢視模型
         /// </summary>
-        /// <returns></returns>
-        public virtual Task QueryAsync()
+        /// <param name="ControllerName">控制器名稱</param>
+        /// <param name="isLast">控制旗標(多列更新使用)</param>
+        public virtual void SaveModel<TResult>(string ControllerName, bool isLast = true)
+            where TResult : class
         {
-            return Task.Factory.StartNew(new Action(Query));
-        }
-        /// <summary>
-        /// 儲存變更
-        /// </summary>
-        public virtual void SaveModel()
-        {
-            Status.IsNewInstance = false;
-            Status.IsModify = false;
-            Status.IsSaved = true;
-            DoEvents();
+            string ActionName = "CreateOrUpdate";
+
+            try
+            {
+                string controllerfullname = string.Format("Tokiku.Controllers.{0}Controller", ControllerName);
+
+                Type ControllerType = Type.GetType(controllerfullname);
+
+                if (ControllerType == null)
+                {
+                    throw new Exception(string.Format("Controller '{0}' not found.", ControllerName));
+                }
+
+                var ctrl = Activator.CreateInstance(ControllerType);
+
+                if (ctrl == null)
+                {
+                    throw new NullReferenceException();
+                }
+
+                var method = ControllerType.GetMethod(ActionName);
+
+                if (method != null)
+                {
+                    ExecuteResultEntity<TResult> result =
+                        (ExecuteResultEntity<TResult>)method.Invoke(ctrl, new object[] { CopyofPOCOInstance, isLast });
+
+                    if (!result.HasError)
+                    {
+                        CopyofPOCOInstance = result.Result;
+                    }
+                    else
+                    {
+
+                        Errors = result.Errors;
+                        HasError = true;
+
+                    }
+                }
+                else
+                {
+                    throw new Exception(string.Format("Action '{0}' not found.", ActionName));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
         }
 
-        /// <summary>
-        /// 重新整理檢視模型
-        /// </summary>
-        public virtual void Refresh()
-        {
-            DoEvents();
-            Query();
-        }
 
-        public virtual void SetModel(dynamic entity)
-        {
-            Status.IsNewInstance = false;
-            Status.IsModify = false;
-            Status.IsSaved = false;
-            DoEvents();
-        }
 
 
 
@@ -613,6 +695,13 @@ namespace Tokiku.ViewModels
                 return DependencyProperty.Register(PropertyName, typeof(T), typeof(TView), new PropertyMetadata(default(T), new PropertyChangedCallback(DefaultFieldChanged)));
             else
                 return DependencyProperty.Register(PropertyName, typeof(T), typeof(TView), new PropertyMetadata((T)defaultValue, new PropertyChangedCallback(DefaultFieldChanged)));
+        }
+
+        public void SaveModel(string ControllerName, bool isLast = true)
+        {
+            Status.IsNewInstance = false;
+            Status.IsModify = false;
+            Status.IsSaved = true;
         }
         #endregion
     }

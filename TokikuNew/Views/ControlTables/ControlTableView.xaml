@@ -2,299 +2,546 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:c="clr-namespace:TokikuNew.Controls"
              xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" x:Name="userControl"             
              Background="{DynamicResource ControlBackgroundBrush}"
              Loaded="userControl_Loaded"
-             d:DesignHeight="768" d:DesignWidth="1366">
+             d:DesignHeight="768" d:DesignWidth="2084.2">
     <UserControl.Resources>
+        <vm:RoutedViewResult x:Key="OpenOrderView" AttachedTargetElementName="InnerWorkspaces"
+                                  DisplayText="訂製單"
+                                  Name="AluminumExtrusionOrderSheetView"
+                                  ViewType="{x:Type local:AluminumExtrusionOrderSheetView}">
+            <vm:RoutedViewResult.RoutingBinding>
+                <sys:String x:Key="SelectedProjectId">Id</sys:String>
+            </vm:RoutedViewResult.RoutingBinding>
+            <vm:RoutedViewResult.RoutedValues>
+                <sys:Guid x:Key="SelectedProjectId"></sys:Guid>
+                <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
+                <x:Type x:Key="SourceViewType" TypeName="local:ProjectViewer"/>
+                <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+            </vm:RoutedViewResult.RoutedValues>
+        </vm:RoutedViewResult>
+
+        <Style TargetType="DataGrid" BasedOn="{StaticResource {x:Type DataGrid}}">
+            <Setter Property="Visibility" Value="Collapsed"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding FormName,ElementName=userControl}" Value="鋁擠型材料">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
+    <UserControl.CommandBindings>
+        <CommandBinding Command="{StaticResource Query}" x:Name="QueryCommand"                         
+                        CanExecute="QueryCommand_CanExecute"
+                        Executed="QueryCommand_Executed" />
+        <CommandBinding Command="{StaticResource ResetFiliter}" x:Name="ResetFiliterCommand"
+                        CanExecute="ResetFiliterCommand_CanExecute"
+                        Executed="ResetFiliterCommand_Executed" />
+        <CommandBinding Command="{StaticResource QueryRefresh}" x:Name="RefreshQueryCommand"
+                        CanExecute="RefreshQueryCommand_CanExecute"
+                        Executed="RefreshQueryCommand_Executed" />
+    </UserControl.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right">
-            <Button Content="請款單" x:Name="btn3" Margin="5,0,0,0" Click="Payment_Click" />
-            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="請款單列表" x:Name="btn4" Margin="0,0,5,0"  Click="PaymentList_Click"/>
-            <Button Content="退貨單" x:Name="btn1" Margin="5,0,0,0" Click="Return_Click" />
-            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="退貨單列表" x:Name="btn2" Margin="0,0,5,0"  Click="ReturnList_Click"/>
-            <Button x:Name="btnAddNewForm" Margin="5,0,0,0" Content="收料單" Click="Receive_Click"/>
-            <Button Content="&#xE179;" ToolTip="收料單列表" FontFamily="/Resources/#Segoe MDL2 Assets" Margin="0,0,5,0" Click="ReceiveList_Click"/>
-            <Button Content="出貨單" x:Name="btn5" Margin="5,0,0,0" Click="Shipping_Click"/>
-            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="出貨單列表" x:Name="btn6" Margin="0,0,5,0" Click="ShippingList_Click"/>
-            <Button Content="訂製單" Margin="5,0,0,0" Click="Order_Click" />
-            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="加工訂製單列表" Margin="0,0,5,0"  Click="OrderList_Click" />
+        <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Left">
+            <Button Content="需求單" Margin="5,0,0,0"
+                    DataContext="{Binding Source={StaticResource ProjectSource}}"
+                    vm:CommandRoutingManager.Command="{DynamicResource OpenNewTabItem}"
+                    vm:CommandRoutingManager.CommandParameter="{StaticResource OpenNewRequired}"
+                    vm:CommandRoutingManager.RoutingName="RequiredView" />
+            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="需求單列表" Margin="0,0,5,0"
+                    vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}"
+                    vm:CommandRoutingManager.CommandParameter="{StaticResource OpenRequiredList}"
+                    vm:CommandRoutingManager.RoutingName="RequiredListView" />
+            <Button Content="訂製單管控表" Margin="5,0,0,0"
+                    vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}"
+                    vm:CommandRoutingManager.CommandParameter="{StaticResource OpenOrderControlTable}"
+                    vm:CommandRoutingManager.RoutingName="OrderControlTableView" />
+            <Button Content="訂製單" Margin="5,0,0,0"
+                    vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}"
+                    vm:CommandRoutingManager.CommandParameter="{StaticResource OpenOrderView}"
+                    vm:CommandRoutingManager.RoutingName="AluminumExtrusionOrderSheetView" />
+            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="訂製單列表" Margin="0,0,5,0"
+                    vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}"
+                    vm:CommandRoutingManager.CommandParameter="{StaticResource OpenOrderList}"
+                    vm:CommandRoutingManager.RoutingName="AluminumExtrusionOrderListView" />
+            <Button Content="盤點單" Margin="5,0,0,0"
+                    vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}"
+                    vm:CommandRoutingManager.CommandParameter="{StaticResource OpenInventoryView}"
+                    vm:CommandRoutingManager.RoutingName="InventoryView" />
+            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="盤點單列表" Margin="0,0,5,0"
+                    vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}"
+                    vm:CommandRoutingManager.CommandParameter="{StaticResource OpenInventoryList}"
+                    vm:CommandRoutingManager.RoutingName="InventoryListView" />
         </StackPanel>
-        <GroupBox x:Name="groupBox" Header="{Binding Path=Header, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabItem}}}" Grid.Row="1" Style="{DynamicResource GroupBox_DocumentEditor}">
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                <DataGrid x:Name="dg" >
-                    <DataGrid.Resources>
-                        <local:ColumnVisibilityConverter x:Key="ColumnVisibilityConverter"/>
-                    </DataGrid.Resources>
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="項次" Width="auto" />
-                        <DataGridTextColumn Header="東菊編號" Width="auto" />
-                        <DataGridTextColumn Header="廠商" Width="auto" />
-                        <DataGridTextColumn Header="廠商編號" Width="auto" />
-                        <DataGridTextColumn Header="材質" Width="auto" />
-                        <DataGridTextColumn Header="單位重量(kg/m)" Width="auto" />
-                        <DataGridTextColumn Header="訂購長度(mm)" Width="auto"/>
-                        <DataGridTemplateColumn>
-                            <DataGridTemplateColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="40"/>
-                                            <RowDefinition Height="32"/>
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="55"/>
-                                            <ColumnDefinition Width="55"/>
-                                            <ColumnDefinition Width="65"/>
-                                        </Grid.ColumnDefinitions>
 
-                                        <Border Margin="-5,-5,-5,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0.5" BorderBrush="LightGray" Background="Pink">
-                                            <TextBlock Text="需求數量" Margin="0" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
-                                        </Border>
-                                        <Border Margin="-5,0,0,-5" Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
-                                            <TextBlock FontSize="11" Text="數量小計     (單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-                                        </Border>
-                                        <Border Margin="0,0,0,-5" Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
-                                            <TextBlock FontSize="11" Text="重量小計     (單位:kg)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                        <Border Margin="0,0,-5,-5" Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
-                                            <TextBlock  FontSize="11" Text="未下訂單數量      (單位:支)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                    </Grid>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.HeaderTemplate>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn >
-                            <DataGridTemplateColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="40"/>
-                                            <RowDefinition Height="32"/>
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="55"/>
-                                            <ColumnDefinition Width="55"/>
-                                            <ColumnDefinition Width="65"/>
-                                        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right">
+            <Grid Margin="5,0,0,0" Width="300">
+                <c:SearchBar Grid.Row="0" Grid.Column="1" x:Name="sSearchBar" DataContext="{StaticResource ControlTableListSource}" />
+            </Grid>
+        </StackPanel>
+        <GroupBox Header="{Binding Path=Header, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabItem}}}" Grid.Row="1">
+            <DataGrid FrozenColumnCount="7" x:Name="dg" ItemsSource="{Binding Source={StaticResource ControlTableListSource}}" AutoGenerateColumns="False" >
+                <vm:CommandRoutingManager.CommandParameter>
+                    <vm:RoutedViewResult></vm:RoutedViewResult>
+                </vm:CommandRoutingManager.CommandParameter>
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderStyleCenter}"  Width="30">
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="項次" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="12" Text="{Binding RowIndex}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderStyleCenter}"  Width="80">
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="東菊編號" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="12" Text="{Binding Code}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderStyleCenter}"  Width="120">
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="廠商" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="12" Text="{Binding ManufacturersName}" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderStyleCenter}"  Width="80">
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="廠商編號" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="12" Text="{Binding ManufacturersCode}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderStyleCenter}"  Width="100">
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="材質" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="12" Text="{Binding MaterialCategories}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderStyleCenter}"  Width="80">
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="單位重量       (kg/m)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="12" Text="{Binding UnitWeight}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn HeaderStyle="{StaticResource HeaderStyleCenter}"  Width="80">
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="訂購長度       (mm)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="12" Text="{Binding OrderLength}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="需求數量" Width="auto" >
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="32"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="65"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Margin="-5,-5,-5,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0.5" BorderBrush="LightGray" Background="Pink">
+                                        <TextBlock Text="需求數量" Margin="0" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="-5,0,0,-5" Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
+                                        <TextBlock FontSize="12" Text="數量小計     (單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="0,0,0,-5" Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
+                                        <TextBlock FontSize="12" Text="重量小計     (單位:kg)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="0,0,-5,-5" Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" Background="Pink">
+                                        <TextBlock  FontSize="12" Text="未下訂單數量      (單位:支)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="65"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Margin="-2,-2,-5,-2"  Grid.Column="0" BorderThickness="1" BorderBrush="Black">
+                                        <TextBlock FontSize="12" Text="{Binding RequiredQuantitySummary}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="4,-2,-4,-2"  Grid.Column="1" BorderThickness="1" BorderBrush="Black">
+                                        <TextBlock Grid.Column="1" FontSize="12" Text="{Binding RequiredWeightSubtotal,StringFormat=\{0:#.###\}}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="3,-2,-9,-2"  Grid.Column="2" BorderThickness="1" BorderBrush="Black" >
+                                        <TextBlock Grid.Column="2" FontSize="12" Text="{Binding NumberofOrdersNotPlaced}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="32"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="65"/>
+                                    </Grid.ColumnDefinitions>
 
-                                        <Border Margin="-5,-5,-5,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0.5" BorderBrush="LightGray" Background="#BCA9F5">
-                                            <TextBlock Text="訂單數量" Margin="0" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
-                                        </Border>
-                                        <Border Margin="-5,0,0,-5" Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="#BCA9F5">
-                                            <TextBlock FontSize="11" Text="數量小計     (單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-                                        </Border>
-                                        <Border Margin="0,0,0,-5" Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="#BCA9F5">
-                                            <TextBlock FontSize="11" Text="備品小計     (單位:支)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                        <Border Margin="0,0,-5,-5" Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" Background="#BCA9F5">
-                                            <TextBlock  FontSize="11" Text="訂單總重量    (訂單+備品) " TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                    </Grid>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.HeaderTemplate>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn >
-                            <DataGridTemplateColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="40"/>
-                                            <RowDefinition Height="32"/>
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="55"/>
-                                            <ColumnDefinition Width="55"/>
-                                            <ColumnDefinition Width="65"/>
-                                        </Grid.ColumnDefinitions>
+                                    <Border Margin="-5,-5,-5,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0.5" BorderBrush="LightGray" Background="#BCA9F5">
+                                        <TextBlock Text="訂單數量" Margin="0" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="-5,0,0,-5" Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="#BCA9F5">
+                                        <TextBlock FontSize="12" Text="數量小計     (單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="0,0,0,-5" Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="#BCA9F5">
+                                        <TextBlock FontSize="12" Text="備品小計     (單位:支)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="0,0,-5,-5" Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" Background="#BCA9F5">
+                                        <TextBlock  FontSize="12" Text="訂單總重量    (訂單+備品) " TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="65"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Margin="-1,-2,-5,-2"  Grid.Column="0" BorderThickness="1" BorderBrush="Black">
+                                        <TextBlock FontSize="12" Text="{Binding QuantityofOrderSummary}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="4,-2,-4,-2"  Grid.Column="1" BorderThickness="1" BorderBrush="Black">
+                                        <TextBlock FontSize="12" Text="{Binding PrepareSubtotal}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="3,-2,-9,-2"  Grid.Column="2" BorderThickness="1" BorderBrush="Black">
+                                        <TextBlock  FontSize="12" Text="{Binding TotalWeightofOrder,StringFormat=\{0:#.###\}}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="32"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="65"/>
+                                    </Grid.ColumnDefinitions>
 
-                                        <Border Margin="-5,-5,-5,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0.5" BorderBrush="LightGray" Background="#FAAC58">
-                                            <TextBlock Text="到貨狀況 (所有倉別庫存彙總)" Margin="0" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
-                                        </Border>
-                                        <Border Margin="-5,0,0,-5" Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="#FAAC58">
-                                            <TextBlock FontSize="11" Text="數量小計     (單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-                                        </Border>
-                                        <Border Margin="0,0,0,-5" Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="#FAAC58">
-                                            <TextBlock FontSize="11" Text="重量小計     (單位:kg)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                        <Border Margin="0,0,-5,-5" Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" Background="#FAAC58">
-                                            <TextBlock  FontSize="11" Text="缺貨數量小計   (單位:支)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                    </Grid>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.HeaderTemplate>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn >
-                            <DataGridTemplateColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="20"/>
-                                            <RowDefinition Height="20"/>
-                                            <RowDefinition Height="32"/>
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="55"/>
-                                            <ColumnDefinition Width="55"/>
-                                            <ColumnDefinition Width="55"/>
-                                            <ColumnDefinition Width="55"/>
-                                            <ColumnDefinition Width="55"/>
-                                            <ColumnDefinition Width="55"/>
-                                        </Grid.ColumnDefinitions>
+                                    <Border Margin="-5,-5,-5,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0.5" BorderBrush="LightGray" Background="#FAAC58">
+                                        <TextBlock Text="到貨狀況 (所有倉別庫存彙總)" Margin="0" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="-5,0,0,-5" Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="#FAAC58">
+                                        <TextBlock FontSize="12" Text="數量小計     (單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="0,0,0,-5" Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="#FAAC58">
+                                        <TextBlock FontSize="12" Text="重量小計     (單位:kg)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="0,0,-5,-5" Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" Background="#FAAC58">
+                                        <TextBlock  FontSize="12" Text="缺貨數量小計   (單位:支)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="65"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Margin="-1,-2,-5,-2"  Grid.Column="0" BorderThickness="1" BorderBrush="Black">
+                                        <TextBlock FontSize="12" Text="{Binding ArrivalCondition_QuantitySubtotal}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="4,-2,-4,-2"  Grid.Column="1" BorderThickness="1" BorderBrush="Black">
+                                        <TextBlock FontSize="12" Text="{Binding ArrivalCondition_WeightSubtotal,StringFormat=\{0:#.###\}}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="3,-2,-9,-2"  Grid.Column="2" BorderThickness="1" BorderBrush="Black" >
+                                        <TextBlock  FontSize="12" Text="{Binding ArrivalCondition_OutofStock}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn >
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20"/>
+                                        <RowDefinition Height="20"/>
+                                        <RowDefinition Height="32"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="55"/>
+                                    </Grid.ColumnDefinitions>
 
-                                        <Border Margin="-5,-5,-5,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" BorderThickness="0.5" BorderBrush="LightGray" Background="#BCF5A9">
-                                            <TextBlock Text="退貨狀況 (所有倉別庫存彙總)" Margin="0" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
-                                        </Border>
-                                        <Border Margin="-5,0,0,-5" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="LightGray" Background="#BCF5A9">
-                                            <TextBlock FontSize="11" Text="退貨" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-                                        </Border>
-                                        <Border Margin="0,0,0,-5" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="LightGray" Background="#BCF5A9">
-                                            <TextBlock FontSize="11" Text="收貨" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                        <Border Margin="0,0,-5,-5" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="LightGray" Background="#BCF5A9">
-                                            <TextBlock  FontSize="11" Text="扣款(不計價)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
+                                    <Border Margin="-5,-5,-5,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" BorderThickness="0.5" BorderBrush="LightGray" Background="#BCF5A9">
+                                        <TextBlock Text="退貨狀況 (所有倉別庫存彙總)" Margin="0" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="-5,0,0,-5" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="LightGray" Background="#BCF5A9">
+                                        <TextBlock FontSize="12" Text="退貨" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="0,0,0,-5" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="LightGray" Background="#BCF5A9">
+                                        <TextBlock FontSize="12" Text="收貨" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="0,0,-5,-5" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="LightGray" Background="#BCF5A9">
+                                        <TextBlock  FontSize="12" Text="扣款(不計價)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
 
-                                        <Border Margin="-5,0,0,-5" Grid.Row="2" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="#BCF5A9">
-                                            <TextBlock FontSize="11" Text="數量小計     (單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-                                        </Border>
-                                        <Border Margin="0,0,0,-5" Grid.Row="2" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="#BCF5A9">
-                                            <TextBlock FontSize="11" Text="重量小計     (單位:kg)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                        <Border Margin="0,0,0,-5" Grid.Row="2" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" Background="#BCF5A9">
-                                            <TextBlock FontSize="11" Text="數量小計     (單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-                                        </Border>
-                                        <Border Margin="0,0,0,-5" Grid.Row="2" Grid.Column="3" BorderThickness="1" BorderBrush="LightGray" Background="#BCF5A9">
-                                            <TextBlock FontSize="11" Text="重量小計     (單位:kg)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                        <Border Margin="0,0,0,-5" Grid.Row="2" Grid.Column="4" BorderThickness="1" BorderBrush="LightGray" Background="#BCF5A9">
-                                            <TextBlock FontSize="11" Text="數量小計     (單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-                                        </Border>
-                                        <Border Margin="0,0,-5,-5" Grid.Row="2" Grid.Column="5" BorderThickness="1" BorderBrush="LightGray" Background="#BCF5A9">
-                                            <TextBlock FontSize="11" Text="重量小計     (單位:kg)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                    </Grid>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.HeaderTemplate>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn >
-                            <DataGridTemplateColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="40"/>
-                                            <RowDefinition Height="32"/>
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="55"/>
-                                            <ColumnDefinition Width="55"/>
-                                        </Grid.ColumnDefinitions>
+                                    <Border Margin="-5,0,0,-5" Grid.Row="2" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="#BCF5A9">
+                                        <TextBlock FontSize="12" Text="數量小計     (單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="0,0,0,-5" Grid.Row="2" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="#BCF5A9">
+                                        <TextBlock FontSize="12" Text="重量小計     (單位:kg)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="0,0,0,-5" Grid.Row="2" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" Background="#BCF5A9">
+                                        <TextBlock FontSize="12" Text="數量小計     (單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="0,0,0,-5" Grid.Row="2" Grid.Column="3" BorderThickness="1" BorderBrush="LightGray" Background="#BCF5A9">
+                                        <TextBlock FontSize="12" Text="重量小計     (單位:kg)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="0,0,0,-5" Grid.Row="2" Grid.Column="4" BorderThickness="1" BorderBrush="LightGray" Background="#BCF5A9">
+                                        <TextBlock FontSize="12" Text="數量小計     (單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="0,0,-5,-5" Grid.Row="2" Grid.Column="5" BorderThickness="1" BorderBrush="LightGray" Background="#BCF5A9">
+                                        <TextBlock FontSize="12" Text="重量小計     (單位:kg)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="55"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Margin="-1,-2,-5,-2"  Grid.Column="0" BorderThickness="1" BorderBrush="Black">
+                                        <TextBlock FontSize="12" Text="{Binding ReturnStatus_QuantitySubtotal}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="4,-2,-4,-2"  Grid.Column="1" BorderThickness="1" BorderBrush="Black">
+                                        <TextBlock FontSize="12" Text="{Binding ReturnStatus_WeightSubtotal,StringFormat=\{0:#.###\}}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="4,-2,-5,-2"  Grid.Column="2" BorderThickness="1" BorderBrush="Black" >
+                                        <TextBlock  FontSize="12" Text="{Binding ReturnStatus_Receipt_QuantitySubtotal}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="4,-2,-4,-2"  Grid.Column="3" BorderThickness="1" BorderBrush="Black" >
+                                        <TextBlock  FontSize="12" Text="{Binding ReturnStatus_Receipt_WeightSubtotal,StringFormat=\{0:#.###\}}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="4,-2,-4,-2"  Grid.Column="4" BorderThickness="1" BorderBrush="Black" >
+                                        <TextBlock  FontSize="12" Text="{Binding ReturnStatus_Charge_QuantitySubtotal}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="3,-2,-9,-2"  Grid.Column="5" BorderThickness="1" BorderBrush="Black" >
+                                        <TextBlock  FontSize="12" Text="{Binding ReturnStatus_Charge_WeightSubtotal,StringFormat=\{0:#.###\}}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="32"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="55"/>
+                                    </Grid.ColumnDefinitions>
 
-                                        <Border Margin="-5,-5,-5,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="0.5" BorderBrush="LightGray" Background="#A9D0F5">
-                                            <TextBlock Text="領料狀況(所有倉別庫存彙總)" TextWrapping="WrapWithOverflow" Margin="0" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
-                                        </Border>
-                                        <Border Margin="-5,0,0,-5" Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="#A9D0F5">
-                                            <TextBlock FontSize="11" Text="數量小計     (單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-                                        </Border>
-                                        <Border Margin="0,0,-5,-5" Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="#A9D0F5">
-                                            <TextBlock FontSize="11" Text="重量小計     (單位:kg)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                    </Grid>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.HeaderTemplate>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn >
-                            <DataGridTemplateColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="40"/>
-                                            <RowDefinition Height="32"/>
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="55"/>
-                                            <ColumnDefinition Width="55"/>
-                                        </Grid.ColumnDefinitions>
+                                    <Border Margin="-5,-5,-5,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="0.5" BorderBrush="LightGray" Background="#A9D0F5">
+                                        <TextBlock Text="領料狀況(所有倉別庫存彙總)" TextWrapping="WrapWithOverflow" Margin="0" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="-5,0,0,-5" Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="#A9D0F5">
+                                        <TextBlock FontSize="12" Text="數量小計     (單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="0,0,-5,-5" Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="#A9D0F5">
+                                        <TextBlock FontSize="12" Text="重量小計     (單位:kg)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="55"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Margin="-1,-2,-5,-2"  Grid.Column="0" BorderThickness="1" BorderBrush="Black">
+                                        <TextBlock FontSize="12" Text="{Binding RequiredQuantitySummary}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="4,-2,-9,-2"  Grid.Column="1" BorderThickness="1" BorderBrush="Black">
+                                        <TextBlock FontSize="12" Text="{Binding RequiredWeightSubtotal,StringFormat=\{0:#.###\}}" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="32"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="55"/>
+                                    </Grid.ColumnDefinitions>
 
-                                        <Border Margin="-5,-5,-5,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="0.5" BorderBrush="LightGray" Background="#FFFF00">
-                                            <TextBlock Text="庫存盤盈/虧調整" TextWrapping="WrapWithOverflow" Margin="0" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
-                                        </Border>
-                                        <Border Margin="-5,0,0,-5" Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="#FFFF00">
-                                            <TextBlock FontSize="11" Text="數量小計     (單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-                                        </Border>
-                                        <Border Margin="0,0,-5,-5" Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="#FFFF00">
-                                            <TextBlock FontSize="11" Text="重量小計     (單位:kg)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                    </Grid>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.HeaderTemplate>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                                    <Border Margin="-5,-5,-5,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="0.5" BorderBrush="LightGray" Background="#FFFF00">
+                                        <TextBlock Text="庫存盤盈/虧調整" TextWrapping="WrapWithOverflow" Margin="0" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="-5,0,0,-5" Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="#FFFF00">
+                                        <TextBlock FontSize="12" Text="數量小計     (單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="0,0,-5,-5" Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="#FFFF00">
+                                        <TextBlock FontSize="12" Text="重量小計     (單位:kg)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="55"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Margin="-1,-2,-5,-2"  Grid.Column="0" BorderThickness="1" BorderBrush="Black">
+                                        <TextBlock FontSize="12" Text="{Binding }" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="4,-2,-9,-2"  Grid.Column="1" BorderThickness="1" BorderBrush="Black">
+                                        <TextBlock FontSize="12" Text="{Binding }" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="32"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="55"/>
+                                    </Grid.ColumnDefinitions>
 
-                        <DataGridTemplateColumn >
-                            <DataGridTemplateColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="40"/>
-                                            <RowDefinition Height="32"/>
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="55"/>
-                                            <ColumnDefinition Width="55"/>
-                                        </Grid.ColumnDefinitions>
-
-                                        <Border Margin="-5,-5,-5,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="0.5" BorderBrush="LightGray" Background="#F3F781">
-                                            <TextBlock Text="庫存狀況(所有倉別庫存彙總)" TextWrapping="WrapWithOverflow" Margin="0" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
-                                        </Border>
-                                        <Border Margin="-5,0,0,-5" Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="#F3F781">
-                                            <TextBlock FontSize="11" Text="數量小計     (單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-                                        </Border>
-                                        <Border Margin="0,0,-5,-5" Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="#F3F781">
-                                            <TextBlock FontSize="11" Text="重量小計     (單位:kg)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                    </Grid>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.HeaderTemplate>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-
-                </DataGrid>
-            </ScrollViewer>
+                                    <Border Margin="-5,-5,-5,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="0.5" BorderBrush="LightGray" Background="#F3F781">
+                                        <TextBlock Text="庫存狀況(所有倉別庫存彙總)" TextWrapping="WrapWithOverflow" Margin="0" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="-5,0,0,-5" Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" Background="#F3F781">
+                                        <TextBlock FontSize="12" Text="數量小計     (單位:支)" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="0,0,-5,-5" Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" Background="#F3F781">
+                                        <TextBlock FontSize="12" Text="重量小計     (單位:kg)" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition Width="55"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Margin="-1,-2,-5,-2"  Grid.Column="0" BorderThickness="1" BorderBrush="Black">
+                                        <TextBlock FontSize="12" Text="{Binding }" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Border Margin="4,-2,-9,-2"  Grid.Column="1" BorderThickness="1" BorderBrush="Black">
+                                        <TextBlock FontSize="12" Text="{Binding }" TextWrapping="WrapWithOverflow"   Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                  
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
         </GroupBox>
 
     </Grid>

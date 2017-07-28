@@ -11,82 +11,66 @@ namespace Tokiku.ViewModels
 {
     public class MaterialCategoriesViewModelCollection : BaseViewModelCollection<MaterialCategoriesViewModel>
     {
-        private ManufacturersManageController controller;
-
-        public override void Initialized()
+        public MaterialCategoriesViewModelCollection()
         {
-            base.Initialized();
-            controller = new ManufacturersManageController();
-            Query();
+
         }
 
-        public async override void Query()
+        public MaterialCategoriesViewModelCollection(IEnumerable<MaterialCategoriesViewModel> source) : base(source)
         {
-            var result = await controller.GetMaterialCategoriesListAsync();
-            if (!result.HasError)
-            {
-                if (result.Result.Any())
-                {
-                    ClearItems();
-                    foreach(var item in result.Result)
-                    {
-                        MaterialCategoriesViewModel model = new MaterialCategoriesViewModel();
-                        model.SetModel(item);
-                        Add(model);
-                    }
-                }
-            }
-            else
-            {
-                Errors = result.Errors;
-                HasError = result.HasError;
-            }
+
+        }
+        //private ManufacturersManageController controller;
+
+
+
+        public static MaterialCategoriesViewModelCollection Query()
+        {
+            return Query<MaterialCategoriesViewModelCollection, MaterialCategories>("ManufacturersManage", "GetMaterialCategoriesList");
+
+            //var result = await controller.GetMaterialCategoriesListAsync();
+            //if (!result.HasError)
+            //{
+            //    if (result.Result.Any())
+            //    {
+            //        ClearItems();
+            //        foreach (var item in result.Result)
+            //        {
+            //            MaterialCategoriesViewModel model = new MaterialCategoriesViewModel();
+            //            model.SetModel(item);
+            //            Add(model);
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    Errors = result.Errors;
+            //    HasError = result.HasError;
+            //}
         }
     }
 
-    public class MaterialCategoriesViewModel : BaseViewModel
+    public class MaterialCategoriesViewModel : BaseViewModelWithPOCOClass<MaterialCategories>
     {
-        #region Id
-
-
-        public Guid Id
+        public MaterialCategoriesViewModel()
         {
-            get { return (Guid)GetValue(IdProperty); }
-            set { SetValue(IdProperty, value); }
+
         }
 
-        // Using a DependencyProperty as the backing store for Id.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty IdProperty =
-            DependencyProperty.Register("Id", typeof(Guid), typeof(MaterialCategoriesViewModel), new PropertyMetadata(Guid.NewGuid()));
+        public MaterialCategoriesViewModel(MaterialCategories entity) : base(entity)
+        {
 
-
-        #endregion
+        }
 
         #region Name
-
-
         public string Name
         {
-            get { return (string)GetValue(NameProperty); }
-            set { SetValue(NameProperty, value); }
+            get { return CopyofPOCOInstance.Name; }
+            set { CopyofPOCOInstance.Name = value; RaisePropertyChanged("Name"); }
         }
-
-        // Using a DependencyProperty as the backing store for Name.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty NameProperty =
-            DependencyProperty.Register("Name", typeof(string), typeof(MaterialCategoriesViewModel), new PropertyMetadata(string.Empty));
-
-
         #endregion
 
-        
 
-        public override void SetModel(dynamic entity)
-        {
-            var data = (MaterialCategories)entity;
-            if (data != null)
-            {
-                BindingFromModel(data, this);
-            }
-        }
+
     }
 }

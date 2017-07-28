@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tokiku.ViewModels;
 using TokikuNew.Controls;
 
 namespace TokikuNew.Views
@@ -26,6 +27,13 @@ namespace TokikuNew.Views
             InitializeComponent();
         }
 
+        private void ReturnMaterialListViewUC_Loaded(object sender, RoutedEventArgs e)
+        {
+            ReturnMaterialListViewModelCollection ctrl = new ReturnMaterialListViewModelCollection();
+            CheckGrid.DataContext = ctrl;
+            //ctrl.Query();
+        }
+
         private void BtnOpen_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -34,7 +42,6 @@ namespace TokikuNew.Views
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             }
         }

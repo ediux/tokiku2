@@ -5,10 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
              xmlns:controls="clr-namespace:TokikuNew.Controls"
+             xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+             xmlns:l="clr-namespace:TokikuNew"
              mc:Ignorable="d" 
              Background="{DynamicResource ControlBackgroundBrush}"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              d:DesignHeight="768" d:DesignWidth="1024"
              Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="ClientListSource" ObjectType="{x:Type vm:ClientViewModelCollection}" MethodName="QueryAll" />
+        <!--<vm:ClientViewModelCollection x:Key="" />-->
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>
@@ -25,28 +32,54 @@
                     <ColumnDefinition Width="125*"/>
                     <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
-                <controls:SearchBar x:Name="sSearchBar" Search="sSearchBar_Search" DataContext="{Binding Clients}" ResetSearch="sSearchBar_ResetSearch" RefreshResult="sSearchBar_RefreshResult" Grid.Column="0"/>
+                <controls:SearchBar x:Name="sSearchBar"  DataContext="{StaticResource ClientListSource}"  Grid.Column="0"/>
                 <Button Name="btnNew" Grid.Column="1" Margin="1" Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" Click="btnNew_Click" />
             </Grid>
         </Grid>
         <controls:CustomDataGrid x:Name="ClientList" AllowExecuteSystemCommand="False" Grid.Row="1" Margin="5"
-                                 ItemsSource="{Binding}" CanUserDeleteRows="False"  CanUserAddRows="False"
+                                 ItemsSource="{Binding Source= {StaticResource ClientListSource}}" CanUserDeleteRows="False"  CanUserAddRows="False"
                                  AutoGenerateColumns="False"
                                  CellStyle="{StaticResource DataGrid_Centering}" FontSize="20" MinRowHeight="30"
                                  AlternatingRowBackground="AliceBlue"  AlternationCount="2"
                                  MouseDoubleClick="ClientList_MouseDoubleClick"
                                  IsReadOnly="True"
+                                 vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}"
                                  >
+            <vm:CommandRoutingManager.CommandParameter>
+                <vm:RoutedViewResult FormatedDisplay="客戶:{0}-{1}"
+                                     Name="VendorList" 
+                                     ViewType="{x:Type local:ClientManageView}" 
+                                     DataContent="{Binding SelectedItem ,ElementName=VendorList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                    <vm:RoutedViewResult.FormatedParameters>
+                        <x:Array Type="sys:String">
+                            <sys:String>Code</sys:String>
+                            <sys:String>ShortName</sys:String>
+                        </x:Array>
+                    </vm:RoutedViewResult.FormatedParameters>
+                    <vm:RoutedViewResult.RoutingBinding>
+                        <sys:String x:Key="Code">Code</sys:String>
+                        <sys:String x:Key="ShortName">ShortName</sys:String>
+                        <sys:String x:Key="SelectedManufacturerId">Id</sys:String>
+                    </vm:RoutedViewResult.RoutingBinding>
+                    <vm:RoutedViewResult.RoutedValues>
+                        <sys:Guid x:Key="SelectedManufacturerId"></sys:Guid>
+                        <x:Type x:Key="SourceViewType" TypeName="l:MainWindow"/>
+                        <sys:String x:Key="TabControlName">Workspaces</sys:String>
+                        <sys:String x:Key="ResourceKey">ClientListSource</sys:String>
+                    </vm:RoutedViewResult.RoutedValues>
+                </vm:RoutedViewResult>
+            </vm:CommandRoutingManager.CommandParameter>
             <DataGrid.Columns>
-                <DataGridTextColumn  Header="客戶代號" Binding="{Binding Code}" Width="auto" />
-                <DataGridTextColumn Header="名稱(全名)" Binding="{Binding Name}" Width="auto" />
-                <DataGridTextColumn Header="名稱(簡稱)" Binding="{Binding ShortName}" Width="auto" />
-                <DataGridTextColumn Header="負責人" Binding="{Binding Principal}" Width="auto" />
-                <DataGridTextColumn Header="統一編號" Binding="{Binding UniformNumbers}" Width="auto" />
-                <DataGridTextColumn Header="主要聯絡人" Width="auto" Binding="{Binding MainContactPerson}"/>
-                <DataGridTextColumn Header="公司電話" Width="auto" Binding="{Binding Phone}"/>
-                <DataGridTextColumn Header="公司地址" Width="auto" Binding="{Binding Address}"/>
-                <DataGridTextColumn Header="公司傳真" Width="auto" Binding="{Binding Fax}"/>
+                <DataGridTextColumn Header="客戶代號" Width="auto" Binding="{Binding Code}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="名稱(全名)" Width="auto" Binding="{Binding Name}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="名稱(簡稱)" Width="auto" Binding="{Binding ShortName}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="主要聯絡人" Width="auto" Binding="{Binding MainContactPerson}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="公司電話" Width="auto" Binding="{Binding Phone}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="公司傳真" Width="auto" Binding="{Binding Fax}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="電子郵件" Width="auto" Binding="{Binding EMail}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="公司地址" Width="auto" Binding="{Binding Address}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="負責人" Width="auto" Binding="{Binding Principal}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="統一編號" Width="auto" Binding="{Binding UniformNumbers}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
             </DataGrid.Columns>
         </controls:CustomDataGrid>
     </Grid>

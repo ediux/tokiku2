@@ -23,13 +23,22 @@ namespace Tokiku.Entity
             this.ProjectContract = new HashSet<ProjectContract>();
             this.ProjectItemCost = new HashSet<ProjectItemCost>();
             this.PromissoryNoteManagement = new HashSet<PromissoryNoteManagement>();
-            this.FormDetails = new HashSet<FormDetails>();
-            this.FormDetails1 = new HashSet<FormDetails>();
-            this.MaterialEstimation = new HashSet<MaterialEstimation>();
-            this.PurchasingOrder = new HashSet<PurchasingOrder>();
             this.BOM = new HashSet<BOM>();
-            this.ShopFlowHistory = new HashSet<ShopFlowHistory>();
+            this.OrderDetails = new HashSet<OrderDetails>();
+            this.OrdersByCreateUser = new HashSet<Orders>();
+            this.OrdersByMakingUser = new HashSet<Orders>();
+            this.PickList = new HashSet<PickList>();
+            this.PickList_MakingUser = new HashSet<PickList>();
+            this.Receipts_CreateUser = new HashSet<Receive>();
+            this.Receipts_MakingUser = new HashSet<Receive>();
+            this.Invoices_CreateUser = new HashSet<Invoices>();
+            this.Invoices_InvoiceUser = new HashSet<Invoices>();
+            this.MaterialEstimation = new HashSet<MaterialEstimation>();
+            this.Required = new HashSet<Required>();
+            this.Required1 = new HashSet<Required>();
             this.ShopFlowDetail = new HashSet<ShopFlowDetail>();
+            this.Returns = new HashSet<Returns>();
+            this.Returns1 = new HashSet<Returns>();
         }
     
         public System.Guid UserId { get; set; }
@@ -54,18 +63,36 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FormDetails> FormDetails { get; set; }
+        public virtual ICollection<BOM> BOM { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FormDetails> FormDetails1 { get; set; }
+        public virtual ICollection<OrderDetails> OrderDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Orders> OrdersByCreateUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Orders> OrdersByMakingUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PickList> PickList { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PickList> PickList_MakingUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Receive> Receipts_CreateUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Receive> Receipts_MakingUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Invoices> Invoices_CreateUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Invoices> Invoices_InvoiceUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MaterialEstimation> MaterialEstimation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PurchasingOrder> PurchasingOrder { get; set; }
+        public virtual ICollection<Required> Required { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BOM> BOM { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ShopFlowHistory> ShopFlowHistory { get; set; }
+        public virtual ICollection<Required> Required1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShopFlowDetail> ShopFlowDetail { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Returns> Returns { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Returns> Returns1 { get; set; }
     }
 }

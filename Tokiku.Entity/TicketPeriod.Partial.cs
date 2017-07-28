@@ -22,7 +22,7 @@ namespace Tokiku.Entity
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.Guid> CreateUserId { get; set; }
     
-        public virtual ICollection<Manufacturers> Manufacturers { get; set; }
         public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
+        public virtual ICollection<Manufacturers> Manufacturers { get; set; }
     }
 }

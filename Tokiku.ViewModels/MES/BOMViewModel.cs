@@ -9,25 +9,19 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class BOMViewModel : BaseViewModel
+    public class BOMViewModel : BaseViewModelWithPOCOClass<BOM>
     {
         public BOMViewModel()
         {
 
         }
 
-
-        #region Id
-        public Guid Id
+        public BOMViewModel(BOM entity) : base(entity)
         {
-            get { return (Guid)GetValue(IdProperty); }
-            set { SetValue(IdProperty, value); }
+
         }
 
-        // Using a DependencyProperty as the backing store for Id.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty IdProperty =
-            DependencyProperty.Register("Id", typeof(Guid), typeof(BOMViewModel), new PropertyMetadata(Guid.NewGuid()));
-        #endregion
+      
 
         #region 加工圖集
 
@@ -37,14 +31,13 @@ namespace Tokiku.ViewModels
         [Display(Name = "圖集", Order = 0)]
         public string ProcessingAtlas
         {
-            get { return (string)GetValue(ProcessingAtlasProperty); }
-            set { SetValue(ProcessingAtlasProperty, value); }
+            get { return CopyofPOCOInstance.ProcessingAtlas.Name; }
+            set
+            {
+                CopyofPOCOInstance.ProcessingAtlas.Name = value;
+                RaisePropertyChanged("ProcessingAtlas");
+            }
         }
-
-        // Using a DependencyProperty as the backing store for ProcessingAtlas.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ProcessingAtlasProperty =
-            DependencyProperty.Register("ProcessingAtlas", typeof(string), typeof(BOMViewModel), new PropertyMetadata(string.Empty));
-
 
         #endregion
 
@@ -56,13 +49,14 @@ namespace Tokiku.ViewModels
         [Display(Name = "名稱", Order = 1)]
         public string Name
         {
-            get { return (string)GetValue(NameProperty); }
-            set { SetValue(NameProperty, value); }
+            get { return ""; }
+            set
+            {
+                
+                RaisePropertyChanged("Name");
+            }
         }
 
-        // Using a DependencyProperty as the backing store for Name.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty NameProperty =
-            DependencyProperty.Register("Name", typeof(string), typeof(BOMViewModel), new PropertyMetadata(string.Empty));
 
 
         #endregion
@@ -75,31 +69,14 @@ namespace Tokiku.ViewModels
         [Display(Name = "組合編號", Order = 2)]
         public string CombinationNumber
         {
-            get { return (string)GetValue(CombinationNumberProperty); }
-            set { SetValue(CombinationNumberProperty, value); }
+            get { return ""; }
+            set
+            {
+                //CopyofPOCOInstance.CombinationNumber = value;
+                RaisePropertyChanged("CombinationNumber");
+            }
         }
 
-        // Using a DependencyProperty as the backing store for CombinationNumber.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CombinationNumberProperty =
-            DependencyProperty.Register("CombinationNumber", typeof(string), typeof(BOMViewModel), new PropertyMetadata(string.Empty));
-
-
-        #endregion
-
-        #region MaterialCategoriesId
-
-        /// <summary>
-        /// 材料類別
-        /// </summary>
-        public Guid MaterialCategoriesId
-        {
-            get { return (Guid)GetValue(MaterialCategoriesIdProperty); }
-            set { SetValue(MaterialCategoriesIdProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for MaterialCategoriesId.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty MaterialCategoriesIdProperty =
-            DependencyProperty.Register("MaterialCategoriesId", typeof(Guid), typeof(BOMViewModel), new PropertyMetadata(Guid.Empty));
 
 
         #endregion
@@ -112,14 +89,25 @@ namespace Tokiku.ViewModels
         [Display(Name = "材料屬性", Order = 5)]
         public string MaterialCategories
         {
-            get { return (string)GetValue(MaterialCategoriesProperty); }
-            set { SetValue(MaterialCategoriesProperty, value); }
+            get { return CopyofPOCOInstance.MaterialCategories.Name; }
+            set
+            {
+                try
+                {
+                    Controllers.MaterialManagementController controller = new Controllers.MaterialManagementController();
+                    var executeresult = controller.FindMaterialCategoriesByName(value);
+
+                    if (!executeresult.HasError)
+                    {
+                        CopyofPOCOInstance.MaterialCategoriesId = executeresult.Result.Single().Id;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    setErrortoModel(this, ex);
+                }
+            }
         }
-
-        // Using a DependencyProperty as the backing store for MaterialCategories.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty MaterialCategoriesProperty =
-            DependencyProperty.Register("MaterialCategories", typeof(string), typeof(BOMViewModel), new PropertyMetadata(string.Empty));
-
 
         #endregion
 
@@ -131,13 +119,10 @@ namespace Tokiku.ViewModels
         [Display(Name = "加工編號", Order = 6)]
         public string ProcessingNumber
         {
-            get { return (string)GetValue(ProcessingNumberProperty); }
-            set { SetValue(ProcessingNumberProperty, value); }
+            get { return CopyofPOCOInstance.ProcessingNumber; }
+            set { CopyofPOCOInstance.ProcessingNumber = value; RaisePropertyChanged("ProcessingNumber"); }
         }
 
-        // Using a DependencyProperty as the backing store for ProcessingNumber.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ProcessingNumberProperty =
-            DependencyProperty.Register("ProcessingNumber", typeof(string), typeof(BOMViewModel), new PropertyMetadata(string.Empty));
 
         #endregion
 
@@ -149,13 +134,10 @@ namespace Tokiku.ViewModels
         [Display(Name = "擠型編號", Order = 7)]
         public string CrowdedNumber
         {
-            get { return (string)GetValue(CrowdedNumberProperty); }
-            set { SetValue(CrowdedNumberProperty, value); }
+            get { return ""; }
+            set {  RaisePropertyChanged("CrowdedNumber"); }
         }
 
-        // Using a DependencyProperty as the backing store for CrowdedNumber.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CrowdedNumberProperty =
-            DependencyProperty.Register("CrowdedNumber", typeof(string), typeof(BOMViewModel), new PropertyMetadata(string.Empty));
 
 
         #endregion
@@ -168,15 +150,13 @@ namespace Tokiku.ViewModels
         [Display(Name = "材料說明", Order = 8)]
         public string MaterialDescription
         {
-            get { return (string)GetValue(MaterialDescriptionProperty); }
-            set { SetValue(MaterialDescriptionProperty, value); }
+            get { return CopyofPOCOInstance.Comment; }
+            set
+            {
+                CopyofPOCOInstance.Comment = value;
+                RaisePropertyChanged("MaterialDescription");
+            }
         }
-
-        // Using a DependencyProperty as the backing store for MaterialDescription.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty MaterialDescriptionProperty =
-            DependencyProperty.Register("MaterialDescription", typeof(string), typeof(BOMViewModel), new PropertyMetadata(string.Empty));
-
-
 
         #endregion
 
@@ -188,14 +168,13 @@ namespace Tokiku.ViewModels
         [Display(Name = "裁切長度", Order = 9)]
         public string CutLength
         {
-            get { return (string)GetValue(CutLengthProperty); }
-            set { SetValue(CutLengthProperty, value); }
+            get { return CopyofPOCOInstance.Size; }
+            set { CopyofPOCOInstance.Size = value;
+                RaisePropertyChanged("CutLength");
+            }
         }
 
-        // Using a DependencyProperty as the backing store for CutLength.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CutLengthProperty =
-            DependencyProperty.Register("CutLength", typeof(string), typeof(BOMViewModel), new PropertyMetadata(string.Empty));
-
+      
 
         #endregion
 
@@ -205,16 +184,11 @@ namespace Tokiku.ViewModels
         /// 擠型編號
         /// </summary>
         [Display(Name = "單樘數量", Order = 10)]
-        public decimal SingleNumber
+        public decimal? SingleNumber
         {
-            get { return (decimal)GetValue(SingleNumberProperty); }
-            set { SetValue(SingleNumberProperty, value); }
+            get { return 0; }
+            set { SingleNumber = value; RaisePropertyChanged("SingleNumber"); }
         }
-
-        // Using a DependencyProperty as the backing store for SingleNumber.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SingleNumberProperty =
-            DependencyProperty.Register("SingleNumber", typeof(decimal), typeof(BOMViewModel), new PropertyMetadata((decimal)0));
-
 
         #endregion
 
@@ -226,13 +200,11 @@ namespace Tokiku.ViewModels
         [Display(Name = "總需求量", Order = 11)]
         public decimal TotalDemand
         {
-            get { return (decimal)GetValue(TotalDemandProperty); }
-            set { SetValue(TotalDemandProperty, value); }
+            get { return CopyofPOCOInstance.RequiredQuantitySubtotal.HasValue? CopyofPOCOInstance.RequiredQuantitySubtotal.Value: 0; }
+            set { CopyofPOCOInstance.RequiredQuantitySubtotal = value; RaisePropertyChanged("TotalDemand"); }
         }
 
-        // Using a DependencyProperty as the backing store for TotalDemand.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty TotalDemandProperty =
-            DependencyProperty.Register("TotalDemand", typeof(decimal), typeof(BOMViewModel), new PropertyMetadata((decimal)0));
+     
 
 
         #endregion
@@ -242,14 +214,13 @@ namespace Tokiku.ViewModels
         [Display(Name = "備註", Order = 12)]
         public string Comment
         {
-            get { return (string)GetValue(CommentProperty); }
-            set { SetValue(CommentProperty, value); }
+            get { return CopyofPOCOInstance.Comment; }
+            set { CopyofPOCOInstance.Comment = value;
+                RaisePropertyChanged("Comment");
+            }
         }
 
-        // Using a DependencyProperty as the backing store for Comment.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CommentProperty =
-            DependencyProperty.Register("Comment", typeof(string), typeof(BOMViewModel), new PropertyMetadata(string.Empty));
-
+       
 
         #endregion
 
@@ -258,69 +229,30 @@ namespace Tokiku.ViewModels
         [Display(Name = "位置", Order = 13)]
         public string Postion
         {
-            get { return (string)GetValue(PostionProperty); }
-            set { SetValue(PostionProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for Postion.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty PostionProperty =
-            DependencyProperty.Register("Postion", typeof(string), typeof(BOMViewModel), new PropertyMetadata(string.Empty));
-
-
-        #endregion
-
-        #region North Tower Demand 北塔需求量
-
-        /// <summary>
-        /// 北塔需求量
-        /// </summary>
-        [Display(Name = "北塔需求量", Order = 3)]
-        public int NorthTowerDemand
-        {
-            get { return (int)GetValue(NorthTowerDemandProperty); }
-            set { SetValue(NorthTowerDemandProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for NorthTowerDemand.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty NorthTowerDemandProperty =
-            DependencyProperty.Register("NorthTowerDemand", typeof(int), typeof(BOMViewModel), new PropertyMetadata(0));
-
-
-        #endregion
-
-        #region South Tower Demand
-
-        /// <summary>
-        /// 南塔需求量
-        /// </summary>
-        [Display(Name = "南塔需求量", Order = 4)]
-        public int SouthTowerDemand
-        {
-            get { return (int)GetValue(SouthTowerDemandProperty); }
-            set { SetValue(SouthTowerDemandProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for SouthTowerDemand.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SouthTowerDemandProperty =
-            DependencyProperty.Register("SouthTowerDemand", typeof(int), typeof(BOMViewModel), new PropertyMetadata(0));
-
-
-        #endregion
-
-        public override void SetModel(dynamic entity)
-        {
-            try
-            {
-                if (entity is BOM)
-                {
-                    BOM data = (BOM)entity;
-                    BindingFromModel(data, this);
-                }
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
+            get { return ""; }
+            set { 
+                RaisePropertyChanged("Postion");
             }
         }
+
+       
+
+        #endregion
+
+        //public override void SetModel(dynamic entity)
+        //{
+        //    try
+        //    {
+        //        if (entity is BOM)
+        //        {
+        //            BOM data = (BOM)entity;
+        //            BindingFromModel(data);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        setErrortoModel(this, ex);
+        //    }
+        //}
     }
 }

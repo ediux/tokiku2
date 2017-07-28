@@ -30,15 +30,11 @@ namespace Tokiku.ViewModels
 
         }
 
-        /// <summary>
-        /// 給IoC容器使用的建構式。
-        /// </summary>
-        /// <param name="Controller">廠商管理商業邏輯層控制器</param>
-        public ManufacturersViewModelCollection(ManufacturersManageController Controller)
-        {
-            _controller = Controller;
-        }
 
+        /// <summary>
+        /// 列表
+        /// </summary>
+        /// <param name="source"></param>
         public ManufacturersViewModelCollection(IEnumerable<ManufacturersViewModel> source) : base(source)
         {
 
@@ -46,221 +42,131 @@ namespace Tokiku.ViewModels
         #endregion
 
         #region 模型命令方法
-        public override void Initialized()
+
+        public static ManufacturersViewModelCollection Query()
         {
             try
             {
-                base.Initialized();
-
-                _controller = new ManufacturersManageController();
+                return Query<ManufacturersViewModelCollection, Manufacturers>("ManufacturersManage", "QueryAll");
             }
             catch (Exception ex)
             {
-                setErrortoModel(this, ex);
+                ManufacturersViewModelCollection collection = new ManufacturersViewModelCollection();
+                setErrortoModel(collection, ex);
+                return collection;
             }
 
         }
 
-        public override void Query()
+        public static ManufacturersViewModelCollection QueryForCombox()
         {
             try
             {
-                if (!System.Windows.Threading.Dispatcher.CurrentDispatcher.CheckAccess())
-                {
-                    System.Windows.Threading.Dispatcher.CurrentDispatcher.Invoke(new Action(Query), System.Windows.Threading.DispatcherPriority.Background);
-                }
-                else
-                {
-                    if (_controller == null)
-                        return;
-
-                    var queryresult = _controller.QueryAll();
-
-                    if (!queryresult.HasError)
-                    {
-                        ClearItems();
-
-                        foreach (var row in queryresult.Result)
-                        {
-                            ManufacturersViewModel model = new ManufacturersViewModel();
-                            model.DoEvents();
-                            model.SetModel(row);
-                            Add(model);
-                        }
-                    }
-                }
-
+                return Query<ManufacturersViewModelCollection, Manufacturers>("ManufacturersManage", "QueryAllForCombox");
             }
             catch (Exception ex)
             {
-                setErrortoModel(this, ex);
+                ManufacturersViewModelCollection collection = new ManufacturersViewModelCollection();
+                setErrortoModel(collection, ex);
+                return collection;
             }
 
         }
 
-        public void QueryByText(string originalSource)
+        public static ManufacturersViewModelCollection QueryByText(string originalSource)
         {
             try
             {
-                var executeresult = _controller.SearchByText(originalSource);
-
-                if (!executeresult.HasError)
-                {
-                    var objectdataset = executeresult.Result;
-                    ClearItems();
-                    foreach (var row in objectdataset)
-                    {
-                        ManufacturersViewModel model = new ManufacturersViewModel();
-                        model.DoEvents();
-                        model.SetModel(row);
-                        Add(model);
-                    }
-                }
+                return Query<ManufacturersViewModelCollection, Manufacturers>(
+                    "ManufacturersManage", "SearchByText", originalSource);
             }
             catch (Exception ex)
             {
-                setErrortoModel(this, ex);
+                ManufacturersViewModelCollection collection = new ManufacturersViewModelCollection();
+                setErrortoModel(collection, ex);
+                return collection;
             }
 
         }
 
-        public async void QueryByBusinessItem(Guid MaterialCategoriesId, string BusinessItem)
+        public static ManufacturersViewModelCollection QueryByBusinessItem(Guid MaterialCategoriesId, string BusinessItem)
         {
             try
             {
-                ManufacturersManageController controller = new ManufacturersManageController();
-                var queryresult = await controller.GetManufacturersWithBusinessItemAsync(MaterialCategoriesId, BusinessItem);
-                if (!queryresult.HasError)
-                {
-                    var objectdataset = queryresult.Result;
-                    foreach (var row in objectdataset)
-                    {
-                        ManufacturersViewModel model = new ManufacturersViewModel();
-                        model.DoEvents();
-                        model.SetModel(row);
-                        Add(model);
-                    }
-                }
+                return Query<ManufacturersViewModelCollection, Manufacturers>("ManufacturersManage", "GetManufacturersWithBusinessItem", MaterialCategoriesId, BusinessItem);
             }
             catch (Exception ex)
             {
-                setErrortoModel(this, ex);
+                ManufacturersViewModelCollection collection = new ManufacturersViewModelCollection();
+                setErrortoModel(collection, ex);
+                return collection;
+            }
+        }
+        
+        public static ManufacturersViewModelCollection QueryBySupplier(Guid ProjectId)
+        {
+            try
+            {
+                return Query<ManufacturersViewModelCollection, Manufacturers>("ManufacturersManage", "QueryBySupplier", ProjectId);
+            }
+            catch (Exception ex)
+            {
+                ManufacturersViewModelCollection collection = new ManufacturersViewModelCollection();
+                setErrortoModel(collection, ex);
+                return collection;
             }
         }
         #endregion
 
     }
 
-    public class ManufacturersViewModel : BaseViewModel
+    public class ManufacturersViewModel : BaseViewModelWithPOCOClass<Manufacturers>
     {
-        #region 內部變數
-        private ManufacturersManageController controller;
-        #endregion
-
         #region 建構式
         public ManufacturersViewModel() : base()
         {
 
         }
-
-        public ManufacturersViewModel(ManufacturersManageController Controller) : base()
+        public ManufacturersViewModel(Manufacturers entity) : base(entity)
         {
-            controller = Controller;
+
         }
         #endregion
 
         #region 屬性
-
-
-
-
-        public static readonly DependencyProperty CodeProperty = DependencyProperty.Register("Code",
-            typeof(string), typeof(ManufacturersViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
-
-        public static readonly DependencyProperty NameProperty = DependencyProperty.Register("Name",
-            typeof(string), typeof(ManufacturersViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
-
-        public static readonly DependencyProperty ShortNameProperty = DependencyProperty.Register("ShortName",
-            typeof(string), typeof(ManufacturersViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
-
-        public static readonly DependencyProperty PrincipalProperty = DependencyProperty.Register("Principal",
-            typeof(string), typeof(ManufacturersViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
-
-        public static readonly DependencyProperty UniformNumbersProperty = DependencyProperty.Register("UniformNumbers",
-            typeof(string), typeof(ManufacturersViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
-
-        public static readonly DependencyProperty PhoneProperty = DependencyProperty.Register("Phone",
-            typeof(string), typeof(ManufacturersViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
-
-        public static readonly DependencyProperty FaxProperty = DependencyProperty.Register("Fax",
-            typeof(string), typeof(ManufacturersViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
-
-        public static readonly DependencyProperty eMailProperty = DependencyProperty.Register("eMail",
-            typeof(string), typeof(ManufacturersViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
-
-        public static readonly DependencyProperty AddressProperty = DependencyProperty.Register("Address",
-            typeof(string), typeof(ManufacturersViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
-
-        public static readonly DependencyProperty FactoryPhoneProperty = DependencyProperty.Register("FactoryPhone", typeof(string),
-            typeof(ManufacturersViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
-
-        public static readonly DependencyProperty FactoryFaxProperty = DependencyProperty.Register("FactoryFax", typeof(string),
-         typeof(ManufacturersViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
-
-        public static readonly DependencyProperty FactoryAddressProperty = DependencyProperty.Register("FactoryAddress", typeof(string),
-         typeof(ManufacturersViewModel), new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
-
-
-
-        public static readonly DependencyProperty CommentProperty = DependencyProperty.Register("Comment",
-            typeof(string), typeof(ManufacturersViewModel), new PropertyMetadata(string.Empty));
-
-        public static readonly DependencyProperty VoidProperty = DependencyProperty.Register("Void",
-            typeof(bool), typeof(ManufacturersViewModel), new PropertyMetadata(false));
-
-        public static readonly DependencyProperty IsClientProperty = DependencyProperty.Register("IsClient",
-         typeof(bool), typeof(ManufacturersViewModel), new PropertyMetadata(false));
-
-        public static readonly DependencyProperty CreateTimeProperty = DependencyProperty.Register("CreateTime",
-         typeof(DateTime), typeof(ManufacturersViewModel), new PropertyMetadata(DateTime.Now));
-
-        public static readonly DependencyProperty CreateUserIdProperty = DependencyProperty.Register("CreateUserId",
-         typeof(Guid), typeof(ManufacturersViewModel), new PropertyMetadata(Guid.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
-
-        public static readonly DependencyProperty CreateUserProperty = DependencyProperty.Register("CreateUser",
-    typeof(UserViewModel), typeof(ManufacturersViewModel), new PropertyMetadata(default(UserViewModel)));
 
         #region Id
         /// <summary>
         /// 編號
         /// </summary>
         [Display(Name = "編號")]
-        public System.Guid Id { get { return (Guid)GetValue(IdProperty); } set { SetValue(IdProperty, value); RaisePropertyChanged("Id"); } }
-        public static readonly DependencyProperty IdProperty = DependencyProperty.Register("Id",
-           typeof(Guid), typeof(ManufacturersViewModel), new PropertyMetadata(Guid.NewGuid(), new PropertyChangedCallback(DefaultFieldChanged)));
-
+        public new System.Guid Id { get { return CopyofPOCOInstance.Id; } set { CopyofPOCOInstance.Id = value; RaisePropertyChanged("Id"); } }
         #endregion
 
 
-        public string Code { get { return (string)GetValue(CodeProperty); } set { SetValue(CodeProperty, value); RaisePropertyChanged("Code"); } }
-        public string Name { get { return (string)GetValue(NameProperty); } set { SetValue(NameProperty, value); RaisePropertyChanged("Name"); } }
-        public string ShortName { get { return (string)GetValue(ShortNameProperty); } set { SetValue(ShortNameProperty, value); RaisePropertyChanged("ShortName"); } }
-        public string Principal { get { return (string)GetValue(PrincipalProperty); } set { SetValue(PrincipalProperty, value); RaisePropertyChanged("Principal"); } }
-        public string UniformNumbers { get { return (string)GetValue(UniformNumbersProperty); } set { SetValue(UniformNumbersProperty, value); RaisePropertyChanged("UniformNumbers"); } }
-        public string Phone { get { return (string)GetValue(PhoneProperty); } set { SetValue(PhoneProperty, value); RaisePropertyChanged("Phone"); } }
-        public string Fax { get { return (string)GetValue(FaxProperty); } set { SetValue(FaxProperty, value); RaisePropertyChanged("Fax"); } }
-        public string eMail { get { return (string)GetValue(eMailProperty); } set { SetValue(eMailProperty, value); RaisePropertyChanged("eMail"); } }
-        public string Address { get { return (string)GetValue(AddressProperty); } set { SetValue(AddressProperty, value); RaisePropertyChanged("Address"); } }
-        public string FactoryPhone { get { return (string)GetValue(FactoryPhoneProperty); } set { SetValue(FactoryPhoneProperty, value); RaisePropertyChanged("FactoryPhone"); } }
-        public string FactoryFax { get { return (string)GetValue(FactoryFaxProperty); } set { SetValue(FactoryFaxProperty, value); RaisePropertyChanged("FactoryFax"); } }
-        public string FactoryAddress { get { return (string)GetValue(FactoryAddressProperty); } set { SetValue(FactoryAddressProperty, value); RaisePropertyChanged("FactoryAddress"); } }
+        public string Code { get { return CopyofPOCOInstance.Code; } set { CopyofPOCOInstance.Code = value; RaisePropertyChanged("Code"); } }
+        public string Name { get { return CopyofPOCOInstance.Name; } set { CopyofPOCOInstance.Name = value; RaisePropertyChanged("Name"); } }
+        public string ShortName { get { return CopyofPOCOInstance.ShortName; } set { CopyofPOCOInstance.ShortName = value; RaisePropertyChanged("ShortName"); } }
+        public string Principal { get { return CopyofPOCOInstance.Principal; } set { CopyofPOCOInstance.Principal = value; RaisePropertyChanged("Principal"); } }
+        public string UniformNumbers { get { return CopyofPOCOInstance.UniformNumbers; } set { CopyofPOCOInstance.UniformNumbers = value; RaisePropertyChanged("UniformNumbers"); } }
+        public string Phone { get { return CopyofPOCOInstance.Phone; } set { CopyofPOCOInstance.Phone = value; RaisePropertyChanged("Phone"); } }
+        public string Fax { get { return CopyofPOCOInstance.Fax; } set { CopyofPOCOInstance.Fax = value; RaisePropertyChanged("Fax"); } }
+        public string eMail { get {
+                var result = CopyofPOCOInstance.Contacts.Where(s => s.IsDefault == true);
+                if (result.Any())
+                {
+                    return result.Single().EMail;
+                }
+                return CopyofPOCOInstance.eMail; } set { CopyofPOCOInstance.eMail = value; RaisePropertyChanged("eMail"); } }
+        public string Address { get { return CopyofPOCOInstance.Address; } set { CopyofPOCOInstance.Address = value; RaisePropertyChanged("Address"); } }
+        //public string FactoryPhone { get { return CopyofPOCOInstance.FactoryPhone; } set { CopyofPOCOInstance.FactoryPhone = value; RaisePropertyChanged("FactoryPhone"); } }
+        //public string FactoryFax { get { return CopyofPOCOInstance.FactoryFax; } set { CopyofPOCOInstance.FactoryFax = value; RaisePropertyChanged("FactoryFax"); } }
+        //public string FactoryAddress { get { return CopyofPOCOInstance.FactoryAddress; } set { CopyofPOCOInstance.FactoryAddress = value; RaisePropertyChanged("FactoryAddress"); } }
 
-        public string Comment { get { return (string)GetValue(CommentProperty); } set { SetValue(CommentProperty, value); RaisePropertyChanged("Comment"); } }
-        public bool Void { get { return (bool)GetValue(VoidProperty); } set { SetValue(VoidProperty, value); RaisePropertyChanged("Void"); } }
-        public bool IsClient { get { return (bool)GetValue(IsClientProperty); } set { SetValue(IsClientProperty, value); RaisePropertyChanged("IsClient"); } }
-        public System.DateTime CreateTime { get { return (DateTime)GetValue(CreateTimeProperty); } set { SetValue(CreateTimeProperty, value); RaisePropertyChanged("CreateTime"); } }
-        public System.Guid CreateUserId { get { return (Guid)GetValue(CreateUserIdProperty); } set { SetValue(CreateUserIdProperty, value); RaisePropertyChanged("CreateUserId"); } }
-        public virtual UserViewModel CreateUser { get { return (UserViewModel)GetValue(CreateUserProperty); } set { SetValue(CreateUserProperty, value); RaisePropertyChanged("CreateUser"); } }
+        public string Comment { get { return CopyofPOCOInstance.Comment; } set { CopyofPOCOInstance.Comment = value; RaisePropertyChanged("Comment"); } }
+        public bool Void { get { return CopyofPOCOInstance.Void; } set { CopyofPOCOInstance.Void = value; RaisePropertyChanged("Void"); } }
+        public bool IsClient { get { return CopyofPOCOInstance.IsClient; } set { CopyofPOCOInstance.IsClient = value; RaisePropertyChanged("IsClient"); } }
+
 
         #region MainContactPerson
 
@@ -269,33 +175,25 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string MainContactPerson
         {
-            get { return (string)GetValue(MainContactPersonProperty); }
-            set { SetValue(MainContactPersonProperty, value); }
+            get
+            {
+                var result = CopyofPOCOInstance.Contacts.Where(s => s.IsDefault == true);
+                if (result.Any())
+                {
+                    return result.Single().Name;
+                }
+                return string.Empty;
+            }
+            set
+            {
+                RaisePropertyChanged("MainContactPerson");
+            }
         }
 
-        // Using a DependencyProperty as the backing store for MainContactPerson.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty MainContactPersonProperty =
-            DependencyProperty.Register("MainContactPerson", typeof(string),
-                typeof(ManufacturersViewModel), new PropertyMetadata(string.Empty,
-                    new PropertyChangedCallback(DefaultFieldChanged)));
+
         #endregion
 
-        #region AccountingCode
-        /// <summary>
-        /// 會計代碼
-        /// </summary>
-        public string AccountingCode
-        {
-            get { return (string)GetValue(AccountingCodeProperty); }
-            set { SetValue(AccountingCodeProperty, value); }
-        }
 
-        // Using a DependencyProperty as the backing store for AccountingCode.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty AccountingCodeProperty =
-            DependencyProperty.Register("AccountingCode", typeof(string),
-                typeof(ManufacturersViewModel),
-                new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
-        #endregion
 
         #region BankName
         /// <summary>
@@ -303,14 +201,11 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string BankName
         {
-            get { return (string)GetValue(BankNameProperty); }
-            set { SetValue(BankNameProperty, value); }
+            get { return CopyofPOCOInstance.BankName; }
+            set { CopyofPOCOInstance.BankName = value; RaisePropertyChanged("BankName"); }
         }
 
-        // Using a DependencyProperty as the backing store for BankName.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty BankNameProperty =
-            DependencyProperty.Register("BankName", typeof(string), typeof(ManufacturersViewModel),
-                new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
+
         #endregion
 
         #region BankAccount
@@ -319,14 +214,11 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string BankAccount
         {
-            get { return (string)GetValue(BankAccountProperty); }
-            set { SetValue(BankAccountProperty, value); }
+            get { return CopyofPOCOInstance.BankAccount; }
+            set { CopyofPOCOInstance.BankAccount = value; RaisePropertyChanged("BankAccount"); }
         }
 
-        // Using a DependencyProperty as the backing store for BankAccount.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty BankAccountProperty =
-            DependencyProperty.Register("BankAccount", typeof(string), typeof(ManufacturersViewModel),
-                new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
+
         #endregion
 
         #region BankAccountName
@@ -335,14 +227,11 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string BankAccountName
         {
-            get { return (string)GetValue(BankAccountNameProperty); }
-            set { SetValue(BankAccountNameProperty, value); }
+            get { return CopyofPOCOInstance.BankAccountName; }
+            set { BankAccountName = value; RaisePropertyChanged("BankAccountName"); }
         }
 
-        // Using a DependencyProperty as the backing store for BankAccountName.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty BankAccountNameProperty =
-            DependencyProperty.Register("BankAccountName", typeof(string), typeof(ManufacturersViewModel),
-                new PropertyMetadata(new PropertyChangedCallback(DefaultFieldChanged)));
+
         #endregion
 
         #region PaymentType
@@ -351,64 +240,52 @@ namespace Tokiku.ViewModels
         /// </summary>
         public byte PaymentType
         {
-            get { return (byte)GetValue(PaymentTypeProperty); }
-            set { SetValue(PaymentTypeProperty, value); }
+            get { return CopyofPOCOInstance.PaymentType; }
+            set { CopyofPOCOInstance.PaymentType = value; RaisePropertyChanged("PaymentType"); }
         }
 
-        // Using a DependencyProperty as the backing store for PaymentType.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty PaymentTypeProperty =
-            DependencyProperty.Register("PaymentType", typeof(byte), typeof(ManufacturersViewModel),
-                new PropertyMetadata((byte)0, new PropertyChangedCallback(DefaultFieldChanged)));
-        #endregion
-
-        #region 聯絡人清單 Contracts
-        /// <summary>
-        /// 聯絡人清單
-        /// </summary>
-        public ContactsViewModelCollection Contracts
-        {
-            get
-            {
-                var source = (ContactsViewModelCollection)GetValue(ContractsProperty);
-                if (source.Count == 0)
-                {
-                    source.Query();
-                }
-                return source;
-            }
-            set { SetValue(ContractsProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for Contracts.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ContractsProperty =
-            DependencyProperty.Register("Contracts", typeof(ContactsViewModelCollection),
-                typeof(ManufacturersViewModel),
-                new PropertyMetadata(default(ObservableCollection<ContactsViewModel>),
-                    new PropertyChangedCallback(DefaultFieldChanged)));
 
         #endregion
+
+        //#region 聯絡人清單 Contracts
+        ///// <summary>
+        ///// 聯絡人清單
+        ///// </summary>
+        //public ContactsViewModelCollection Contracts
+        //{
+        //    get
+        //    {
+        //        var source = new ContactsViewModelCollection();
+        //        if (source.Count == 0)
+        //        {
+        //            source.Query();
+        //        }
+        //        return source;
+        //    }
+        //    set { RaisePropertyChanged("Contracts"); }
+        //}
+
+
+
+        //#endregion
 
         #region 選擇的聯絡人
+        private ContactsViewModel _SelectedContact;
         /// <summary>
         /// 選擇的聯絡人
         /// </summary>
         public ContactsViewModel SelectedContract
         {
-            get { return (ContactsViewModel)GetValue(SelectedContractProperty); }
-            set { SetValue(SelectedContractProperty, value); }
+            get { return _SelectedContact; }
+            set { _SelectedContact = value; RaisePropertyChanged("SelectedContract"); }
         }
 
-        // Using a DependencyProperty as the backing store for  SelectedContract.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SelectedContractProperty =
-            DependencyProperty.Register(" SelectedContract",
-                typeof(ContactsViewModel), typeof(ManufacturersViewModel),
-                new PropertyMetadata(default(ContactsViewModel),
-                    new PropertyChangedCallback(DefaultFieldChanged)));
+
 
         #endregion
 
         #region ManufacturersBussinessItems 營業項目
-
+        private ManufacturersBussinessItemsViewModelColletion _ManufacturersBussinessItems;
         /// <summary>
         /// 營業項目
         /// </summary>
@@ -416,19 +293,18 @@ namespace Tokiku.ViewModels
         {
             get
             {
-                var model = (ManufacturersBussinessItemsViewModelColletion)GetValue(ManufacturersBussinessItemsProperty);
-                if (model.Count == 0)
+                if (_ManufacturersBussinessItems == null)
                 {
-                    model.Query();
+                    _ManufacturersBussinessItems = new ManufacturersBussinessItemsViewModelColletion(
+                        CopyofPOCOInstance.ManufacturersBussinessItems.Select(s =>
+                        new ManufacturersBussinessItemsViewModel(s)));
                 }
-                return model;
-            }
-            set { SetValue(ManufacturersBussinessItemsProperty, value); }
-        }
 
-        // Using a DependencyProperty as the backing store for ManufacturersBussinessItems.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ManufacturersBussinessItemsProperty =
-            DependencyProperty.Register("ManufacturersBussinessItems", typeof(ManufacturersBussinessItemsViewModelColletion), typeof(ManufacturersViewModel), new PropertyMetadata(default(ManufacturersBussinessItemsViewModelColletion)));
+                return _ManufacturersBussinessItems;
+
+            }
+            set { _ManufacturersBussinessItems = value; RaisePropertyChanged("ManufacturersBussinessItems"); }
+        }
 
         #endregion
 
@@ -439,14 +315,17 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string Mobile
         {
-            get { return (string)GetValue(MobileProperty); }
-            set { SetValue(MobileProperty, value); }
+            get {
+                var result = CopyofPOCOInstance.Contacts.Where(s => s.IsDefault == true);
+                if (result.Any())
+                {
+                    return result.Single().Mobile;
+                }
+                return string.Empty;
+            }
+            set { RaisePropertyChanged("Mobile"); }
         }
 
-        // Using a DependencyProperty as the backing store for Mobile.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty MobileProperty =
-            DependencyProperty.Register("Mobile", typeof(string), typeof(ManufacturersViewModel),
-                new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
 
 
         #endregion
@@ -458,14 +337,18 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string Extension
         {
-            get { return (string)GetValue(ExtensionProperty); }
-            set { SetValue(ExtensionProperty, value); }
+            get {
+                var result = CopyofPOCOInstance.Contacts.Where(s => s.IsDefault == true);
+                if (result.Any())
+                {
+                    return result.Single().ExtensionNumber;
+                }
+                return string.Empty;
+            }
+            set { RaisePropertyChanged("Extension"); }
         }
 
-        // Using a DependencyProperty as the backing store for Extension.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ExtensionProperty =
-            DependencyProperty.Register("Extension", typeof(string), typeof(ClientViewModel),
-                new PropertyMetadata(string.Empty, new PropertyChangedCallback(DefaultFieldChanged)));
+
 
 
         #endregion
@@ -475,55 +358,52 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 票期Id
         /// </summary>
-        public int TicketPeriodId
+        public int? TicketPeriodId
         {
-            get { return (int)GetValue(TicketPeriodIdProperty); }
-            set { SetValue(TicketPeriodIdProperty, value); }
+            get { return CopyofPOCOInstance.TicketPeriodId; }
+            set { CopyofPOCOInstance.TicketPeriodId = value; RaisePropertyChanged("TicketPeriodId"); }
         }
 
-        // Using a DependencyProperty as the backing store for TicketPeriodId.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty TicketPeriodIdProperty =
-            DependencyProperty.Register("TicketPeriodId", typeof(int), typeof(ManufacturersViewModel), new PropertyMetadata(1));
 
 
         #endregion
 
         #region 發票地址
 
-
+        /// <summary>
+        /// 發票地址
+        /// </summary>
         public string InvoiceAddress
         {
-            get { return (string)GetValue(InvoiceAddressProperty); }
-            set { SetValue(InvoiceAddressProperty, value); }
+            get { return CopyofPOCOInstance.InvoiceAddress; }
+            set { CopyofPOCOInstance.InvoiceAddress = value; RaisePropertyChanged("InvoiceAddress"); }
         }
 
-        // Using a DependencyProperty as the backing store for InvoiceAddress.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty InvoiceAddressProperty =
-            DependencyProperty.Register("InvoiceAddress", typeof(string), typeof(ManufacturersViewModel), new PropertyMetadata(string.Empty));
 
 
         #endregion
 
         #region 交易紀錄
 
+        private ManufacturersBussinessTranscationsViewModelCollection _TranscationRecords;
 
         public ManufacturersBussinessTranscationsViewModelCollection TranscationRecords
         {
             get
             {
-                var model = (ManufacturersBussinessTranscationsViewModelCollection)GetValue(TranscationRecordsProperty);
-                if (model.Count == 0)
+                if (_TranscationRecords == null)
                 {
-                    model.Query();
+                    _TranscationRecords = new ManufacturersBussinessTranscationsViewModelCollection();
                 }
-                return model;
-            }
-            set { SetValue(TranscationRecordsProperty, value); }
-        }
 
-        // Using a DependencyProperty as the backing store for TranscationRecords.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty TranscationRecordsProperty =
-            DependencyProperty.Register("TranscationRecords", typeof(ManufacturersBussinessTranscationsViewModelCollection), typeof(ManufacturersViewModel), new PropertyMetadata(default(ManufacturersBussinessTranscationsViewModelCollection)));
+                return _TranscationRecords;
+            }
+            set
+            {
+                _TranscationRecords = value;
+                RaisePropertyChanged("TranscationRecords");
+            }
+        }
 
 
         #endregion
@@ -537,52 +417,39 @@ namespace Tokiku.ViewModels
         /// 查詢單一個體的檢視資料
         /// </summary>
         /// <param name="ManufacturersId"></param>
-        public void QueryModel(Guid ManufacturersId)
+        public static ManufacturersViewModel Query(Guid ManufacturersId)
         {
             try
             {
-                var exeecuteresult = controller.Query(s => s.Id == ManufacturersId);
-                if (!exeecuteresult.HasError)
-                {
-                    var data = exeecuteresult.Result.Single();
-                    BindingFromModel(data, this);
-                }
+                return QuerySingle<ManufacturersViewModel, Manufacturers>(
+                    "ManufacturersManage", "QuerySingle", ManufacturersId);          
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                ManufacturersViewModel view = new ManufacturersViewModel();
+                setErrortoModel(view, ex);
+                return view;
             }
 
         }
         #endregion
 
-        public override void Initialized()
+        public override void Initialized(object Parameter)
         {
-#if DEBUG
-            Debug.WriteLine("ManufacturersViewModel initialized.");
-#endif
-            base.Initialized();
+
+            base.Initialized(Parameter);
 
             try
             {
-                if (controller == null)
-                    controller = new ManufacturersManageController();
-
+              
                 Id = Guid.NewGuid();
 
-                var createnewresult = controller.CreateNew();
-
-                if (!createnewresult.HasError)
-                {
-                    var data = createnewresult.Result;
-                    BindingFromModel(data, this);
-                }
-
-                LastUpdateTime = DateTime.Now;
+                CopyofPOCOInstance = ExecuteAction<Manufacturers>("ManufacturersManage", "CreateNew"); //controller.CreateNew();
+                
+                //LastUpdateTime = DateTime.Now;
                 CreateTime = DateTime.Now;
 
-                Contracts = new ContactsViewModelCollection();
+                //Contracts = new ContactsViewModelCollection();
                 ManufacturersBussinessItems = new ManufacturersBussinessItemsViewModelColletion();
                 TranscationRecords = new ManufacturersBussinessTranscationsViewModelCollection();
             }
@@ -595,87 +462,91 @@ namespace Tokiku.ViewModels
 
         }
 
-        public override void SaveModel()
+        public override void SaveModel(bool isLast = true)
         {
-            try
-            {
-                Manufacturers data = new Manufacturers();
-                //data.ManufacturersBussinessItems.First().SupplierTranscationItem.First().Projects
-                var LoginedUser = controller.GetCurrentLoginUser().Result;
-
-                if (CreateUserId == Guid.Empty)
-                {
-                    CreateUserId = controller.GetCurrentLoginUser().Result.UserId;
-                }
-
-                if (CreateTime.Year < 1754)
-                {
-                    CreateTime = DateTime.Now;
-                }
-
-                CopyToModel(data, this);
-
-                if (ManufacturersBussinessItems != null && ManufacturersBussinessItems.Count > 0)
-                {
-                    data.ManufacturersBussinessItems = new Collection<ManufacturersBussinessItems>();
-
-                    foreach (var x in ManufacturersBussinessItems)
-                    {
-                        ManufacturersBussinessItems BItems = new ManufacturersBussinessItems();
-                        CopyToModel(BItems, x);
-                        BItems.ManufacturersId = Id;
-                        BItems.Id = Guid.NewGuid();
-                        data.ManufacturersBussinessItems.Add(BItems);
-                    }
-                }
-
-                if (Contracts != null)
-                {
-                    if (Contracts.Count > 0)
-                    {
-                        data.Contacts = new Collection<Entity.Contacts>();
-
-                        foreach (var x in Contracts)
-                        {
-                            if (x.Id == Guid.Empty)
-                                x.Id = Guid.NewGuid();
-
-                            
-
-                            if (x.CreateUserId == Guid.Empty)
-                            {
-                                x.CreateUserId = controller.GetCurrentLoginUser().Result.UserId;
-                            }
-
-                            if (x.CreateTime.Year < 1754)
-                            {
-                                x.CreateTime = CreateTime;
-                            }
-
-                            Contacts contact = new Contacts();
-                            CopyToModel(contact, x);                         
-                            data.Contacts.Add(contact);
-                        }
-                    }
-                }
-
-                var resultsec = controller.CreateOrUpdate(data);
-
-                if (resultsec.HasError)
-                {
-                    Errors = resultsec.Errors;
-                    HasError = resultsec.HasError;
-                    return;
-                }
-
-                Refresh();
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-            }
-
+            SaveModel("ManufacturersManage", isLast);
         }
+        //public  void SaveModel()
+        //{
+        //    try
+        //    {
+        //        Manufacturers data = new Manufacturers();
+        //        //data.ManufacturersBussinessItems.First().SupplierTranscationItem.First().Projects
+        //        var LoginedUser = controller.GetCurrentLoginUser().Result;
+
+        //        if (CreateUserId == Guid.Empty)
+        //        {
+        //            CreateUserId = controller.GetCurrentLoginUser().Result.UserId;
+        //        }
+
+        //        if (CreateTime.Year < 1754)
+        //        {
+        //            CreateTime = DateTime.Now;
+        //        }
+
+        //        CopyToModel(data, this);
+
+        //        if (ManufacturersBussinessItems != null && ManufacturersBussinessItems.Count > 0)
+        //        {
+        //            data.ManufacturersBussinessItems = new Collection<ManufacturersBussinessItems>();
+
+        //            foreach (var x in ManufacturersBussinessItems)
+        //            {
+        //                ManufacturersBussinessItems BItems = new ManufacturersBussinessItems();
+        //                CopyToModel(BItems, x);
+        //                BItems.ManufacturersId = Id;
+        //                BItems.Id = Guid.NewGuid();
+        //                data.ManufacturersBussinessItems.Add(BItems);
+        //            }
+        //        }
+
+        //        if (Contracts != null)
+        //        {
+        //            if (Contracts.Count > 0)
+        //            {
+        //                data.Contacts = new Collection<Entity.Contacts>();
+
+        //                foreach (var x in Contracts)
+        //                {
+        //                    if (x.Id == Guid.Empty)
+        //                        x.Id = Guid.NewGuid();
+
+
+
+        //                    if (x.CreateUserId == Guid.Empty)
+        //                    {
+        //                        x.CreateUserId = controller.GetCurrentLoginUser().Result.UserId;
+        //                    }
+
+        //                    if (x.CreateTime.Year < 1754)
+        //                    {
+        //                        x.CreateTime = CreateTime;
+        //                    }
+
+        //                    Contacts contact = new Contacts();
+        //                    CopyToModel(contact, x);                         
+        //                    data.Contacts.Add(contact);
+        //                }
+        //            }
+        //        }
+
+        //        var resultsec = controller.CreateOrUpdate(data);
+
+        //        if (resultsec.HasError)
+        //        {
+        //            Errors = resultsec.Errors;
+        //            HasError = resultsec.HasError;
+        //            return;
+        //        }
+
+        //        Refresh();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        setErrortoModel(this, ex);
+        //    }
+
+        //}
 
         public void QueryByName(string Name)
         {
@@ -689,7 +560,7 @@ namespace Tokiku.ViewModels
                     if (executeresult.Result.Any())
                     {
                         var data = executeresult.Result.Single();
-                        BindingFromModel(data, this);
+
                     }
                 }
             }
@@ -699,46 +570,46 @@ namespace Tokiku.ViewModels
             }
         }
 
-        public override void SetModel(dynamic entity)
-        {
-            try
-            {
-                if (entity is ManufacturersEnter)
-                {
-                    ManufacturersEnter data = (ManufacturersEnter)entity;
-                    BindingFromModel(data, this);
-                    DoEvents();
-                    Status.IsNewInstance = false;
-                    Status.IsModify = false;
-                    Status.IsSaved = false;
-                }
+        //public override void SetModel(dynamic entity)
+        //{
+        //    try
+        //    {
+        //        if (entity is ManufacturersEnter)
+        //        {
+        //            ManufacturersEnter data = (ManufacturersEnter)entity;
+        //            //BindingFromModel(data, this);
+        //            //DoEvents();
+        //            Status.IsNewInstance = false;
+        //            Status.IsModify = false;
+        //            Status.IsSaved = false;
+        //        }
 
-                if (entity is Manufacturers)
-                {
-                    Manufacturers data = (Manufacturers)entity;
-                    BindingFromModel(data, this);
-                    DoEvents();
-                    Status.IsNewInstance = false;
-                    Status.IsModify = false;
-                    Status.IsSaved = false;
-                }
+        //        if (entity is Manufacturers)
+        //        {
+        //            Manufacturers data = (Manufacturers)entity;
+        //            //BindingFromModel(data, this);
+        //            //DoEvents();
+        //            Status.IsNewInstance = false;
+        //            Status.IsModify = false;
+        //            Status.IsSaved = false;
+        //        }
 
-                //await Dispatcher.InvokeAsync(new Action(QueryDetails), System.Windows.Threading.DispatcherPriority.Background);                
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-            }
+        //        //await Dispatcher.InvokeAsync(new Action(QueryDetails), System.Windows.Threading.DispatcherPriority.Background);                
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        setErrortoModel(this, ex);
+        //    }
 
-        }
+        //}
         public void QueryDetails()
         {
-            Contracts.ManufacturersId = Id;
-            Contracts.Query("", Id, IsClient);
+            //Contracts.ManufacturersId = Id;
+            //Contracts.Query("", Id, IsClient);
 
             ManufacturersBussinessItems.QueryAsync(Id);
 
-            TranscationRecords.Query(Id);
+            TranscationRecords = ManufacturersBussinessTranscationsViewModelCollection.Query(Id);
 
         }
         #endregion

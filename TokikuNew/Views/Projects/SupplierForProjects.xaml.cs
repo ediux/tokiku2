@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tokiku.Entity;
 using Tokiku.ViewModels;
 using TokikuNew.Controls;
 
@@ -27,19 +28,42 @@ namespace TokikuNew.Views
             InitializeComponent();
         }
 
-
-
-        public ProjectsViewModel CurrentProject
+        #region SelectedProjectId
+        public Guid SelectedProjectId
         {
-            get { return (ProjectsViewModel)GetValue(CurrentProjectProperty); }
-            set { SetValue(CurrentProjectProperty, value); }
+            get { return (Guid)GetValue(SelectedProjectIdProperty); }
+            set { SetValue(SelectedProjectIdProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for CurrentProject.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CurrentProjectProperty =
-            DependencyProperty.Register("CurrentProject", typeof(ProjectsViewModel), typeof(SupplierForProjects), new PropertyMetadata(default(ProjectsViewModel)));
+        // Using a DependencyProperty as the backing store for SelectedProject.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedProjectIdProperty =
+            DependencyProperty.Register("SelectedProjectId", typeof(Guid),
+                typeof(SupplierForProjects), new PropertyMetadata(Guid.Empty, new PropertyChangedCallback(SelectedProjectIdChange)));
 
+        public static void SelectedProjectIdChange(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            try
+            {
 
+                if (sender is SupplierForProjects)
+                {
+
+                    ObjectDataProvider source = (ObjectDataProvider)((SupplierForProjects)sender).TryFindResource("SupplierSource");
+
+                    if (source != null)
+                    {
+                        source.MethodParameters[0] = e.NewValue;
+                        source.Refresh();
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+        }
+        #endregion
 
         public ManufacturersBussinessItemsViewModelColletion BussinessItemsByCategories
         {
@@ -130,21 +154,6 @@ namespace TokikuNew.Views
             DependencyProperty.Register("Mode", typeof(DocumentLifeCircle), typeof(SupplierForProjects));
         #endregion
 
-        #region SelectedProject
-        public ProjectsViewModel SelectedProject
-        {
-            get { return (ProjectsViewModel)GetValue(SelectedProjectProperty); }
-            set { SetValue(SelectedProjectProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for SelectedProject.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SelectedProjectProperty =
-            DependencyProperty.Register("SelectedProject", typeof(ProjectsViewModel), typeof(SupplierForProjects), new PropertyMetadata(default(ProjectsViewModel)));
-
-        #endregion
-
-
-
         private ManufacturersBussinessItemsViewModel TranscationItem;
 
         private void CBMaterialCategories_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -154,13 +163,10 @@ namespace TokikuNew.Views
                 //
 
                 CBMaterialCategoriesId = ((MaterialCategoriesViewModel)((ComboBox)sender).SelectedItem).Id;
-                if (BussinessItemsGrid.SelectedItem != null)
-                {
-                    SuppliersViewModel model = (SuppliersViewModel)BussinessItemsGrid.SelectedItem;
-                    model.MaterialCategories = ((MaterialCategoriesViewModel)((ComboBox)sender).SelectedItem).Name;
-                }
-                BussinessItemsByCategories = new ManufacturersBussinessItemsViewModelColletion();
-                BussinessItemsByCategories.QueryWithMaterialCategories(CBMaterialCategoriesId);
+
+                BussinessItemsByCategories = ManufacturersBussinessItemsViewModelColletion.QueryWithMaterialCategories(CBMaterialCategoriesId);
+                SuppliersViewModel model = (SuppliersViewModel)BussinessItemsGrid.SelectedItem;
+
                 //var CBTranscationBusiness = (ComboBox)((DataGridTemplateColumn)BussinessItemsGrid.Columns[1]).CellTemplate.FindName("CBTranscationBusiness", BussinessItemsGrid);
                 //if (CBTranscationBusiness != null)
                 //{
@@ -183,7 +189,7 @@ namespace TokikuNew.Views
             try
             {
                 ComboBox CBTranscationBusiness = (ComboBox)sender;
-              
+
                 if (CBTranscationBusiness != null && CBTranscationBusiness.SelectedItem != null)
                 {
                     TranscationItem = ((ManufacturersBussinessItemsViewModel)CBTranscationBusiness.SelectedItem);
@@ -191,13 +197,20 @@ namespace TokikuNew.Views
                     if (BussinessItemsGrid.SelectedItem != null)
                     {
                         SuppliersViewModel model = (SuppliersViewModel)BussinessItemsGrid.SelectedItem;
-                        model.Name = TranscationItem.Name;
-                        model.Id = TranscationItem.Id;
+                        model.ManufacturersBussinessItems = TranscationItem.Entity;
+                        model.MaterialCategories = model.ManufacturersBussinessItems.MaterialCategories.Name;
+                        model.Name = model.ManufacturersBussinessItems.Name;
+                        model.ManufacturersBussinessItemsId = model.ManufacturersBussinessItems.Id;
+                        model.ManufacturersName = model.ManufacturersBussinessItems.Manufacturers.Name;
+                        model.TicketPeriod = model.ManufacturersBussinessItems.TicketPeriod.Name;
+
+
+                        //model.Name = TranscationItem.Name;
+                        //model.Id = TranscationItem.Id;
                     }
 
-                 
-                    ManufacturerListByBussinessItems = new ManufacturersViewModelCollection();
-                    ManufacturerListByBussinessItems.QueryByBusinessItem(CBMaterialCategoriesId, TranscationItem.Name);
+
+                    ManufacturerListByBussinessItems = ManufacturersViewModelCollection.QueryByBusinessItem(CBMaterialCategoriesId, TranscationItem.Name);
                 }
             }
             catch (Exception ex)
@@ -225,8 +238,7 @@ namespace TokikuNew.Views
                         model.ManufacturersName = ((ManufacturersViewModel)CBTranscationBusiness.SelectedItem).Name;
                     }
 
-                    TicketPeriodsByManufacturers = new TicketPeriodsViewModelCollection();
-                    TicketPeriodsByManufacturers.QueryByManufacturers(CBMaterialCategoriesId, TranscationItem.Name, ManufactureId);
+                    TicketPeriodsByManufacturers = TicketPeriodsViewModelCollection.QueryByManufacturers(CBMaterialCategoriesId, TranscationItem.Name, ManufactureId);
                 }
             }
             catch (Exception ex)
@@ -244,8 +256,6 @@ namespace TokikuNew.Views
             try
             {
                 RemoveItem.Clear();
-
-
             }
             catch (Exception ex)
             {
@@ -264,9 +274,16 @@ namespace TokikuNew.Views
             {
                 Button btn = (Button)sender;
                 SuppliersViewModel data = (SuppliersViewModel)btn.DataContext;
-                ((SuppliersViewModelCollection)DataContext).Remove(data);
-                ((SuppliersViewModelCollection)DataContext).SaveModel();
-                ((SuppliersViewModelCollection)DataContext).Refresh();
+
+                var dataset = ((ObjectDataProvider)TryFindResource("SupplierSource")).Data as SuppliersViewModelCollection;
+
+                if (dataset != null)
+                {
+                    dataset.Remove(data);
+                }
+                //((SuppliersViewModelCollection)DataContext).Remove(data);
+                ////((SuppliersViewModelCollection)DataContext).SaveModel();
+                ////((SuppliersViewModelCollection)DataContext).Refresh();
             }
             catch (Exception ex)
             {
@@ -280,10 +297,8 @@ namespace TokikuNew.Views
         {
             try
             {
-                NextStop.Query();
-
+                NextStop = ManufacturersViewModelCollection.QueryForCombox();
                 AddHandler(DockBar.DocumentModeChangedEvent, new RoutedEventHandler(DockBar_DocumentModeChanged));
-
             }
             catch (Exception ex)
             {
@@ -302,32 +317,36 @@ namespace TokikuNew.Views
                 {
 
                     case DocumentLifeCircle.Save:
-                        var dataset = (SuppliersViewModelCollection)DataContext;
-                        if (dataset.Any())
+
+                        var dataset = ((ObjectDataProvider)TryFindResource("SupplierSource")).Data as SuppliersViewModelCollection;
+
+                        if (dataset != null)
                         {
-                            foreach (var item in dataset)
+                            if (dataset.Any())
                             {
-                                item.ProjectId = CurrentProject.Id;
-
+                                foreach (var item in dataset)
+                                {
+                                    item.ProjectId = SelectedProjectId;
+                                }
                             }
-                        }
-                        dataset.SaveModel();
 
-                        if (dataset.HasError)
-                        {
-                            MessageBox.Show(string.Join("\n", dataset.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-                            dataset.Errors = null;
-                            //Mode = dockBar.LastState;
-                            break;
+                            dataset.SaveModel("Suppliers");
+
+                            if (dataset.HasError)
+                            {
+                                MessageBox.Show(string.Join("\n", dataset.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                                dataset.Errors = null;
+                                //Mode = dockBar.LastState;
+                                break;
+                            }
+
                         }
 
                         Mode = DocumentLifeCircle.Read;
-                        dataset.Refresh();
-                        
+                        //dataset.Refresh();
+
                         break;
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -366,9 +385,50 @@ namespace TokikuNew.Views
                     if (BussinessItemsGrid.SelectedItem != null)
                     {
                         SuppliersViewModel model = (SuppliersViewModel)BussinessItemsGrid.SelectedItem;
-                        model.TicketPeriod = item.Name;
+                        //model.TicketPeriod = item.Name;
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+
+            }
+        }
+
+        private void BussinessItemsGrid_AddingNewItem(object sender, AddingNewItemEventArgs e)
+        {
+            try
+            {
+                e.NewItem = new SuppliersViewModel(new SupplierTranscationItem() { Id = Guid.NewGuid() });
+                ((SuppliersViewModel)e.NewItem).Initialized(null);
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+
+            }
+        }
+
+        private void DDLNextStop_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                ComboBox DDLNextStop = (ComboBox)sender;
+
+                if (DDLNextStop != null && DDLNextStop.SelectedItem != null)
+                {
+                    if (BussinessItemsGrid.SelectedItem != null)
+                    {
+                        SuppliersViewModel model = (SuppliersViewModel)BussinessItemsGrid.SelectedItem;
+                        model.NextManufacturers = ((ManufacturersViewModel)DDLNextStop.SelectedItem).Entity;
+                        //model.TicketPeriod = item.Name;
+                    }
+                }
+
+
             }
             catch (Exception ex)
             {

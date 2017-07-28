@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="TokikuNew.Views.RequiredListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1024" Loaded="RequiredListView_Loaded">
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="RequiredListSource" ObjectType="{x:Type vm:RequiredListViewModelCollection}" MethodName="Query"/>
+    </UserControl.Resources>
+    <Grid>
+        <DataGrid x:Name="CheckGrid" AutoGenerateColumns="False" Margin="5" ItemsSource="{Binding Source={StaticResource RequiredListSource}}">
+            <DataGrid.Columns>
+                <DataGridHyperlinkColumn Header="需求單號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" Binding="{Binding FormNumber}" />
+                <DataGridTextColumn Header="廠商編號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" Binding="{Binding ManufacturersCode}" />
+                <DataGridTextColumn Header="廠商名稱" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" Binding="{Binding ManufacturersName}" />
+                <DataGridTextColumn Header="建單日期" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" Binding="{Binding CreateTime}" />
+                <DataGridTextColumn Header="建單人員" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" Binding="{Binding CreateUser.UserName}" />
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="開啟需求單" x:Name="BtnOpen" Click="BtnOpen_Click" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+            
+        </DataGrid>
+
+    </Grid>
+</UserControl>

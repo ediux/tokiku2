@@ -11,8 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Tokiku.ViewModels;
 
-namespace TokikuNew
+namespace TokikuNew.Views
 {
     /// <summary>
     /// InvoiceView.xaml 的互動邏輯
@@ -29,6 +30,13 @@ namespace TokikuNew
             InitialSpreadOtherMoney();
             InitialSpreadReserveMoney();
             InitialSpreadPrepayments();
+        }
+
+        private void InvoiceView_Loaded(object sender, RoutedEventArgs e)
+        {
+            //InvoicesViewModelCollection ctrl = new InvoicesViewModelCollection();
+            //CheckGrid.DataContext = ctrl;
+            //InvoicesViewModelCollection.Query();
         }
 
         //UI設定
@@ -236,6 +244,11 @@ namespace TokikuNew
             //PMSheet.Columns[0].Width = 150;
             //PMSheet.Columns[1].Width = 120;
             //PMSheet.Columns[2].Width = 120;
+
+        }
+
+        private void btnNew_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }

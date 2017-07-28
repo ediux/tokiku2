@@ -113,7 +113,7 @@ namespace TokikuNew.Views
 
                     case DocumentLifeCircle.Create:
                         EngineeringViewModelCollection model1 = (EngineeringViewModelCollection)DataContext;
-                        SelectedEngineering.Initialized();
+                        SelectedEngineering.Initialized(null);
                         SelectedEngineering.CreateUserId = LoginedUser.UserId;
                         model1.Add(SelectedEngineering);
 
@@ -140,7 +140,7 @@ namespace TokikuNew.Views
 
                       
 
-                        model.SaveModel();
+                        model.SaveModel("");
 
                         if (SelectedEngineering != null && SelectedEngineering.HasError)
                         {
@@ -192,7 +192,7 @@ namespace TokikuNew.Views
             if (SelectedEngineering != null)
             {
                 //SelectedEngineering = controller.Query(q => q.Id == SelectedEngineering.Id);
-                SelectedEngineering.Refresh();
+                //SelectedEngineering.Refresh();
 
                 if (SelectedEngineering != null)
                 {

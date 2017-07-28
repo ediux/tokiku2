@@ -11,17 +11,17 @@
         <GroupBox Header="加工圖集異動記錄" Style="{DynamicResource GroupBox_DocumentEditor}">
             <DataGrid>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="加工編號" Width="auto" />
-                    <DataGridTextColumn Header="擠型編號" Width="auto" />
-                    <DataGridTextColumn Header="裁切長度" Width="auto" />
-                    <DataGridTextColumn Header="材料說明" Width="auto" />
-                    <DataGridTextColumn Header="圖集" Width="auto" />
-                    <DataGridTextColumn Header="合計" Width="auto" />
-                    <DataGridTextColumn Header="原擠型編號" Width="auto" />
-                    <DataGridTextColumn Header="原裁切長度" Width="auto" />
-                    <DataGridTextColumn Header="原數量" Width="auto" />
-                    <DataGridTextColumn Header="修改日期" Width="auto" />
-                    <DataGridTextColumn Header="修改原因" Width="auto" />
+                    <DataGridTextColumn Header="加工編號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="擠型編號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="裁切長度" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="材料說明" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="圖集" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="合計" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="原擠型編號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="原裁切長度" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="原數量" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="修改日期" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="修改原因" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
 
                 </DataGrid.Columns>
 

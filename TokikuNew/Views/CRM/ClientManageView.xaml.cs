@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using Tokiku.ViewModels;
 using TokikuNew.Controls;
@@ -43,6 +44,57 @@ namespace TokikuNew.Views
 
         #endregion
 
+        #region 目前操作的廠商資料
+
+        public Guid SelectedManufacturerId
+        {
+            get { return (Guid)GetValue(SelectedManufacturerIdProperty); }
+            set { SetValue(SelectedManufacturerIdProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectedManufacturerId.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedManufacturerIdProperty =
+            DependencyProperty.Register("SelectedManufacturerId", typeof(Guid),
+                typeof(ClientManageView), new PropertyMetadata(Guid.Empty,
+                    new PropertyChangedCallback(SelectedManufacturerIdChange)));
+
+        public static void SelectedManufacturerIdChange(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            try
+            {
+                if (sender is ClientManageView)
+                {
+
+                    ObjectDataProvider source = (ObjectDataProvider)((ClientManageView)sender).TryFindResource("ClientSource");
+
+                    if (source != null)
+                    {
+                        source.MethodParameters[0] = e.NewValue;
+                        source.Refresh();
+
+                        ((ClientManageView)sender).SetValue(SelectedManufacturersProperty, source.Data);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+        }
+
+        public ManufacturersViewModel SelectedManufacturers
+        {
+            get { return (ManufacturersViewModel)GetValue(SelectedManufacturersProperty); }
+            set { SetValue(SelectedManufacturersProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectedManufacturers.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedManufacturersProperty =
+            DependencyProperty.Register("SelectedManufacturers", typeof(ManufacturersViewModel), typeof(ManufacturersManageView), new PropertyMetadata(default(ManufacturersViewModel)));
+
+        #endregion
+
         private void dockBar_DocumentModeChanged(object sender, RoutedEventArgs e)
         {
             try
@@ -72,12 +124,12 @@ namespace TokikuNew.Views
                         break;
                     case DocumentLifeCircle.Save:
 
-                        if (SelectedManufacturers.Contracts.Count > 0 && !SelectedManufacturers.Contracts.Where(w => w.IsDefault == true).Any())
-                        {
-                            MessageBox.Show("請勾選預設聯絡人!","錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-                            SelectedManufacturers.Errors = null;
-                            return;
-                        }
+                        //if (SelectedManufacturers.Contracts.Count > 0 && !SelectedManufacturers.Contracts.Where(w => w.IsDefault == true).Any())
+                        //{
+                        //    MessageBox.Show("請勾選預設聯絡人!","錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                        //    SelectedManufacturers.Errors = null;
+                        //    return;
+                        //}
 
                         SelectedManufacturers.SaveModel();
 
@@ -88,23 +140,23 @@ namespace TokikuNew.Views
                             break;
                         }
 
-                        var maincontact = SelectedManufacturers.Contracts.Where(w => w.IsDefault == true).SingleOrDefault();
-                        if (maincontact != null)
-                        {
-                            tblMainContractPerson.Text = maincontact.Name;
-                            tblExt.Text = maincontact.ExtensionNumber;
-                            tbMobile.Text = maincontact.Mobile;
+                        //var maincontact = SelectedManufacturers.Contracts.Where(w => w.IsDefault == true).SingleOrDefault();
+                        //if (maincontact != null)
+                        //{
+                        //    tblMainContractPerson.Text = maincontact.Name;
+                        //    tblExt.Text = maincontact.ExtensionNumber;
+                        //    tbMobile.Text = maincontact.Mobile;
 
-                            //((ManufacturersViewModel)DataContext).MainContactPerson = maincontact.Name;
-                            //((ManufacturersViewModel)DataContext).Extension = maincontact.ExtensionNumber;
-                        }
-                        else
-                        {
-                            tblMainContractPerson.Text = string.Empty;
-                            tblExt.Text = string.Empty;
-                            tbMobile.Text = string.Empty;
+                        //    //((ManufacturersViewModel)DataContext).MainContactPerson = maincontact.Name;
+                        //    //((ManufacturersViewModel)DataContext).Extension = maincontact.ExtensionNumber;
+                        //}
+                        //else
+                        //{
+                        //    tblMainContractPerson.Text = string.Empty;
+                        //    tblExt.Text = string.Empty;
+                        //    tbMobile.Text = string.Empty;
 
-                        }
+                        //}
 
                         if (SelectedManufacturers.Status.IsNewInstance)
                         {
@@ -165,26 +217,26 @@ namespace TokikuNew.Views
         {
             AddHandler(DockBar.DocumentModeChangedEvent, new RoutedEventHandler(dockBar_DocumentModeChanged));
             ClientViewModel SelectedManufacturers = (ClientViewModel)DataContext;
-            SelectedManufacturers.ClientForProjects.QueryByClient(SelectedManufacturers.Id);
-            SelectedManufacturers.Contracts.Query("", SelectedManufacturers.Id, SelectedManufacturers.IsClient);
+            //SelectedManufacturers.ClientForProjects.QueryByClient(SelectedManufacturers.Id);
+            //SelectedManufacturers.Contracts.Query("", SelectedManufacturers.Id, SelectedManufacturers.IsClient);
 
-            var maincontact = SelectedManufacturers.Contracts.Where(w => w.IsDefault == true).SingleOrDefault();
-            if (maincontact != null)
-            {
-                tblMainContractPerson.Text = maincontact.Name;
-                tblExt.Text = maincontact.ExtensionNumber;
-                tbMobile.Text = maincontact.Mobile;
+            //var maincontact = SelectedManufacturers.Contracts.Where(w => w.IsDefault == true).SingleOrDefault();
+            //if (maincontact != null)
+            //{
+            //    tblMainContractPerson.Text = maincontact.Name;
+            //    tblExt.Text = maincontact.ExtensionNumber;
+            //    tbMobile.Text = maincontact.Mobile;
               
-                //((ManufacturersViewModel)DataContext).MainContactPerson = maincontact.Name;
-                //((ManufacturersViewModel)DataContext).Extension = maincontact.ExtensionNumber;
-            }
-            else
-            {
-                tblMainContractPerson.Text = string.Empty;
-                tblExt.Text = string.Empty;
-                tbMobile.Text = string.Empty;
+            //    //((ManufacturersViewModel)DataContext).MainContactPerson = maincontact.Name;
+            //    //((ManufacturersViewModel)DataContext).Extension = maincontact.ExtensionNumber;
+            //}
+            //else
+            //{
+            //    tblMainContractPerson.Text = string.Empty;
+            //    tblExt.Text = string.Empty;
+            //    tbMobile.Text = string.Empty;
                
-            }
+            //}
         }
 
         private void ContractList_DefaultContactChanged(object sender, RoutedEventArgs e)

@@ -41,8 +41,17 @@ namespace TokikuNew.Views
         {
             PromissoryNoteManagementViewModelCollection ctrl = new PromissoryNoteManagementViewModelCollection();
             CheckGrid.DataContext = ctrl;
-            ctrl.Query();
+            //PromissoryNoteManagementViewModelCollection.Query();
         }
-        
+
+        private void btnNew_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ContractManagement_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

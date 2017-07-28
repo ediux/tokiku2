@@ -24,6 +24,43 @@ namespace TokikuNew.Views
 
         #region 目前操作的廠商資料
 
+        public Guid SelectedManufacturerId
+        {
+            get { return (Guid)GetValue(SelectedManufacturerIdProperty); }
+            set { SetValue(SelectedManufacturerIdProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectedManufacturerId.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedManufacturerIdProperty =
+            DependencyProperty.Register("SelectedManufacturerId", typeof(Guid),
+                typeof(ManufacturersManageView), new PropertyMetadata(Guid.Empty,
+                    new PropertyChangedCallback(SelectedManufacturerIdChange)));
+
+        public static void SelectedManufacturerIdChange(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            try
+            {
+                if (sender is ManufacturersManageView)
+                {
+
+                    ObjectDataProvider source = (ObjectDataProvider)((ManufacturersManageView)sender).TryFindResource("ManufaurtureViewSource");
+
+                    if (source != null)
+                    {
+                        source.MethodParameters[0] = e.NewValue;
+                        source.Refresh();
+
+                        ((ManufacturersManageView)sender).SetValue(SelectedManufacturersProperty, source.Data);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+        }
+
         public ManufacturersViewModel SelectedManufacturers
         {
             get { return (ManufacturersViewModel)GetValue(SelectedManufacturersProperty); }
@@ -72,33 +109,9 @@ namespace TokikuNew.Views
                 AddHandler(DockBar.DocumentModeChangedEvent, new RoutedEventHandler(DockBar_DocumentModeChanged));
 
                 Binding BindingDataContext = new Binding();
-                BindingDataContext.Source = DataContext;
+                BindingDataContext.Source = TryFindResource("ManufaurtureViewSource");
+
                 SetBinding(SelectedManufacturersProperty, BindingDataContext);
-
-                //查詢營業項目
-                SelectedManufacturers.ManufacturersBussinessItems.QueryAsync(SelectedManufacturers.Id);
-
-                //當不是新建模式 則查詢設為預設的聯絡人顯示
-                ((ManufacturersViewModel)DataContext).Contracts.Query("", SelectedManufacturers.Id, false);
-                var maincontact = ((ManufacturersViewModel)DataContext).Contracts.Where(w => w.IsDefault == true).SingleOrDefault();
-                if (maincontact != null)
-                {
-                    tblMainContractPerson.Text = maincontact.Name;
-                    tblExt.Text = maincontact.ExtensionNumber;
-                    tbMobile.Text = maincontact.Mobile;
-                    TBEmail.Text = maincontact.EMail;
-                    //((ManufacturersViewModel)DataContext).MainContactPerson = maincontact.Name;
-                    //((ManufacturersViewModel)DataContext).Extension = maincontact.ExtensionNumber;
-                }
-                else
-                {
-                    tblMainContractPerson.Text = string.Empty ;
-                    tblExt.Text = string.Empty;
-                    tbMobile.Text = string.Empty;
-                    TBEmail.Text = string.Empty;
-                }
-
-
 
             }
             catch (Exception ex)
@@ -108,51 +121,37 @@ namespace TokikuNew.Views
 
         }
 
-
-
-        private void tbName_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            //if (tbName.Text.Length > 0)
-            //{
-            //    tbShortName.Text = tbName.Text;
-            //    tbBankAccountName.Text = tbName.Text;
-            //}
-            //else
-            //{
-            //    tbShortName.Text = string.Empty;
-            //}
-        }
-
         private void DockBar_DocumentModeChanged(object sender, RoutedEventArgs e)
         {
             try
             {
                 e.Handled = true;
 
-                ManufacturersViewModel SelectedManufacturers = (ManufacturersViewModel)DataContext;
+
                 Mode = (DocumentLifeCircle)e.OriginalSource;
 
                 switch (Mode)
                 {
                     case DocumentLifeCircle.Create:
                         DataContext = new ManufacturersViewModel();
-                        SelectedManufacturers = (ManufacturersViewModel)DataContext;
-                        SelectedManufacturers.CreateUserId = LoginedUser.UserId;
+                        //SelectedManufacturers = (ManufacturersViewModel)DataContext;
+
+                        if (SelectedManufacturers.CreateUserId == Guid.Empty)
+                            SelectedManufacturers.CreateUserId = LoginedUser.UserId;
 
                         if (SelectedManufacturers.HasError)
                         {
                             MessageBox.Show(string.Join("\n", SelectedManufacturers.Errors.ToArray()));
                             SelectedManufacturers.Errors = null;
-
                         }
                         break;
                     case DocumentLifeCircle.Save:
-                        if (SelectedManufacturers.Contracts.Count>0 && !SelectedManufacturers.Contracts.Where(w => w.IsDefault == true).Any())
-                        {
-                            MessageBox.Show("請勾選預設聯絡人!", "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-                            SelectedManufacturers.Errors = null;
-                            return;
-                        }
+                        //if (SelectedManufacturers.Contracts.Count>0 && !SelectedManufacturers.Contracts.Where(w => w.IsDefault == true).Any())
+                        //{
+                        //    MessageBox.Show("請勾選預設聯絡人!", "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                        //    SelectedManufacturers.Errors = null;
+                        //    return;
+                        //}
 
                         SelectedManufacturers.SaveModel();
 
@@ -164,25 +163,25 @@ namespace TokikuNew.Views
                             break;
                         }
 
-                        var maincontact = SelectedManufacturers.Contracts.Where(w => w.IsDefault == true).SingleOrDefault();
-                        if (maincontact != null)
-                        {
-                            tblMainContractPerson.Text = maincontact.Name;
-                            tblExt.Text = maincontact.ExtensionNumber;
-                            tbMobile.Text = maincontact.Mobile;
-                        }
-                        else
-                        {
-                            tblMainContractPerson.Text = string.Empty;
-                            tblExt.Text = string.Empty;
-                            tbMobile.Text = string.Empty;
+                        //var maincontact = SelectedManufacturers.Contracts.Where(w => w.IsDefault == true).SingleOrDefault();
+                        //if (maincontact != null)
+                        //{
+                        //    tblMainContractPerson.Text = maincontact.Name;
+                        //    tblExt.Text = maincontact.ExtensionNumber;
+                        //    tbMobile.Text = maincontact.Mobile;
+                        //}
+                        //else
+                        //{
+                        //    tblMainContractPerson.Text = string.Empty;
+                        //    tblExt.Text = string.Empty;
+                        //    tbMobile.Text = string.Empty;
 
-                        }
+                        //}
 
                         if (SelectedManufacturers.Status.IsNewInstance)
                         {
-                            RaiseEvent(new RoutedEventArgs(ClosableTabItem.OnPageClosingEvent, this));
-
+                            //RaiseEvent(new RoutedEventArgs(ClosableTabItem.OnPageClosingEvent, this));
+                            //使用自訂命令
                         }
 
                         Mode = DocumentLifeCircle.Read;

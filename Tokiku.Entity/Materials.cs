@@ -18,7 +18,7 @@ namespace Tokiku.Entity
         public Materials()
         {
             this.Molds = new HashSet<Molds>();
-            this.PurchasingOrder = new HashSet<PurchasingOrder>();
+            this.RequiredDetails = new HashSet<RequiredDetails>();
         }
     
         public System.Guid Id { get; set; }
@@ -32,6 +32,6 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Molds> Molds { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PurchasingOrder> PurchasingOrder { get; set; }
+        public virtual ICollection<RequiredDetails> RequiredDetails { get; set; }
     }
 }

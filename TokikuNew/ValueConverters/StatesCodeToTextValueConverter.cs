@@ -26,8 +26,8 @@ namespace TokikuNew.ValueConverters
 
                             StatesViewModelCollection source = (StatesViewModelCollection)frame.FindResource("StatesSource");
 
-                            if (source.Count == 0)
-                                source.Query();
+                            //if (source.Count == 0)
+                            //    source.Query();
 
                             var result = source.Where(q => q.Id == (byte)value).SingleOrDefault();
 
@@ -74,8 +74,8 @@ namespace TokikuNew.ValueConverters
 
                         StatesViewModelCollection source = (StatesViewModelCollection)frame.FindResource("StatesSource");
 
-                        if (source.Count == 0)
-                            source.Query();
+                        //if (source.Count == 0)
+                        //    source.Query();
 
                         var result = source.Where(q => q.StateName == (string)value).SingleOrDefault();
 

@@ -13,20 +13,31 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <PublishUrl>publish\</PublishUrl>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <PublishUrl>C:\Users\ediux\Documents\東菊\Setup\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
+    <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
+    <InstallUrl>http://f.cenoq.com/</InstallUrl>
+    <SupportUrl>http://f.cenoq.com</SupportUrl>
+    <ProductName>東菊金屬ERP系統</ProductName>
+    <PublisherName>Cenoq Corporation</PublisherName>
+    <SuiteName>TokikuERP</SuiteName>
+    <MinimumRequiredVersion>1.0.0.10</MinimumRequiredVersion>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>index.html</WebPage>
+    <TrustUrlParameters>true</TrustUrlParameters>
+    <ApplicationRevision>11</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -48,7 +59,31 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>358110B273598A51679538B9391E3F1C3B6EF344</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>TokikuNew_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>TokikuNew_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -68,37 +103,71 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid, Version=3.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=3.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\TokikuCommands.cs" />
     <Compile Include="Helpers\ClipboardHelper.cs" />
     <Compile Include="Helpers\SwitchFieldMode.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
-    <Compile Include="Commands\OpenNewPageContentCommand.cs" />
+    <Compile Include="Helpers\Tools.cs" />
+    <Compile Include="Controls\SelectSupplierListView.xaml.cs">
+      <DependentUpon>SelectSupplierListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ValueConverters\DateTime2StringFormatingValueConverter.cs" />
     <Compile Include="ValueConverters\ReplyContentValueConverter.cs" />
     <Compile Include="Views\Finance\ActualCostsView.xaml.cs">
       <DependentUpon>ActualCostsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AluminumExtrusionProcessingView.xaml.cs">
+    <Compile Include="Views\ControlTables\AluminumExtrusionProcessingView.xaml.cs">
       <DependentUpon>AluminumExtrusionProcessingView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AluminumExtrusion\AluminumExtrusionOrderMiscellaneousView.xaml.cs">
-      <DependentUpon>AluminumExtrusionOrderMiscellaneousView.xaml</DependentUpon>
+    <Compile Include="Views\Orders\MiscellaneousView.xaml.cs">
+      <DependentUpon>MiscellaneousView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AluminumExtrusion\AluminumExtrusionOrderMaterialValuationView.xaml.cs">
-      <DependentUpon>AluminumExtrusionOrderMaterialValuationView.xaml</DependentUpon>
+    <Compile Include="Views\Orders\MaterialValuationView.xaml.cs">
+      <DependentUpon>MaterialValuationView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AluminumExtrusion\AluminumExtrusionOrderView.xaml.cs">
-      <DependentUpon>AluminumExtrusionOrderView.xaml</DependentUpon>
+    <Compile Include="Views\Orders\OrderView.xaml.cs">
+      <DependentUpon>OrderView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AluminumExtrusion\AluminumExtrusionOrderListView.xaml.cs">
-      <DependentUpon>AluminumExtrusionOrderListView.xaml</DependentUpon>
+    <Compile Include="Views\Orders\OrderListView.xaml.cs">
+      <DependentUpon>OrderListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ContractManagementView.xaml.cs">
+    <Compile Include="Views\ManufacturerBussinessItemView.xaml.cs">
+      <DependentUpon>ManufacturerBussinessItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ControlTables\ObtainMaterialView.xaml.cs">
+      <DependentUpon>ObtainMaterialView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ControlTables\ObtainMaterialListView.xaml.cs">
+      <DependentUpon>ObtainMaterialListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Finance\PrepaymentsView.xaml.cs">
+      <DependentUpon>PrepaymentsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Projects\ContractManagementView.xaml.cs">
       <DependentUpon>ContractManagementView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ControlTables\AluminumPlateView.xaml.cs">
@@ -106,6 +175,15 @@
     </Compile>
     <Compile Include="Views\ControlTables\IronPartsView.xaml.cs">
       <DependentUpon>IronPartsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ControlTables\InventoryView.xaml.cs">
+      <DependentUpon>InventoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ControlTables\InventoryListView.xaml.cs">
+      <DependentUpon>InventoryListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ControlTables\OrderControlTableView.xaml.cs">
+      <DependentUpon>OrderControlTableView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Projects\ProcessingChangeLogView.xaml.cs">
       <DependentUpon>ProcessingChangeLogView.xaml</DependentUpon>
@@ -131,7 +209,7 @@
     <Compile Include="Views\Projects\AssemblyTableView.xaml.cs">
       <DependentUpon>AssemblyTableView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AluminumExtrusion\ProcessingAtlasDetailView.xaml.cs">
+    <Compile Include="Views\Orders\ProcessingAtlasDetailView.xaml.cs">
       <DependentUpon>ProcessingAtlasDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Projects\ConstructionAtlasView.xaml.cs">
@@ -148,7 +226,6 @@
     <Compile Include="Controls\DockBar.xaml.cs">
       <DependentUpon>DockBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\DocumentLifeCircle.cs" />
     <Compile Include="Controls\SearchBar.xaml.cs">
       <DependentUpon>SearchBar.xaml</DependentUpon>
     </Compile>
@@ -183,8 +260,8 @@
     <Compile Include="ValueConverters\ReadModeToVisibilityValueConverter.cs" />
     <Compile Include="ValueConverters\StatesCodeToTextValueConverter.cs" />
     <Compile Include="ValueConverters\VoidToStateTextValueConverter.cs" />
-    <Compile Include="Views\AluminumExtrusion\AluminumExtrusionOrderSheetView.xaml.cs">
-      <DependentUpon>AluminumExtrusionOrderSheetView.xaml</DependentUpon>
+    <Compile Include="Views\Orders\OrderSheetView.xaml.cs">
+      <DependentUpon>OrderSheetView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CRM\ClientListView.xaml.cs">
       <DependentUpon>ClientListView.xaml</DependentUpon>
@@ -240,31 +317,69 @@
     <Compile Include="Views\ControlTables\RecvMaterialListView.xaml.cs">
       <DependentUpon>RecvMaterialListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ControlTables\RequiredListView.xaml.cs">
+      <DependentUpon>RequiredListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ControlTables\RequiredView.xaml.cs">
+      <DependentUpon>RequiredView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ControlTables\QualityAbnormallySingleView.xaml.cs">
+      <DependentUpon>QualityAbnormallySingleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ControlTables\QualityAbnormallySingleListView.xaml.cs">
+      <DependentUpon>QualityAbnormallySingleListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\System\SystemMembersView.xaml.cs">
+      <DependentUpon>SystemMembersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\System\SystemRolesView.xaml.cs">
+      <DependentUpon>SystemRolesView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Controls\SelectSupplierListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Finance\ActualCostsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AluminumExtrusionProcessingView.xaml">
+    <Page Include="Views\ControlTables\AluminumExtrusionProcessingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AluminumExtrusion\AluminumExtrusionOrderMiscellaneousView.xaml">
+    <Page Include="Views\Orders\MiscellaneousView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AluminumExtrusion\AluminumExtrusionOrderMaterialValuationView.xaml">
+    <Page Include="Views\Orders\MaterialValuationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AluminumExtrusion\AluminumExtrusionOrderView.xaml">
+    <Page Include="Views\Orders\OrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AluminumExtrusion\AluminumExtrusionOrderListView.xaml">
+    <Page Include="Views\Orders\OrderListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ContractManagementView.xaml">
+    <Page Include="Views\ManufacturerBussinessItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ControlTables\ObtainMaterialView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ControlTables\ObtainMaterialListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Finance\PrepaymentsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Projects\ContractManagementView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -275,6 +390,18 @@
     <Page Include="Views\ControlTables\IronPartsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ControlTables\InventoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ControlTables\InventoryListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ControlTables\OrderControlTableView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Projects\ProcessingChangeLogView.xaml">
       <SubType>Designer</SubType>
@@ -308,7 +435,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AluminumExtrusion\ProcessingAtlasDetailView.xaml">
+    <Page Include="Views\Orders\ProcessingAtlasDetailView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -412,7 +539,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\AluminumExtrusion\AluminumExtrusionOrderSheetView.xaml">
+    <Page Include="Views\Orders\OrderSheetView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -488,6 +615,30 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ControlTables\RequiredListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ControlTables\RequiredView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ControlTables\QualityAbnormallySingleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ControlTables\QualityAbnormallySingleListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\System\SystemMembersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\System\SystemRolesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -512,6 +663,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="TokikuNew_TemporaryKey.pfx" />
     <Resource Include="Resources\segmdl2.ttf" />
   </ItemGroup>
   <ItemGroup>

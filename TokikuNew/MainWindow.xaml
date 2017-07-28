@@ -1,14 +1,20 @@
-﻿<Window xmlns:Views="clr-namespace:TokikuNew.Views"  x:Class="TokikuNew.MainWindow"
+﻿<Window xmlns:Views="clr-namespace:TokikuNew.Views" x:Name="mainwindow"  x:Class="TokikuNew.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:TokikuNew" 
-        xmlns:ctrl="clr-namespace:Tokiku.Controllers;assembly=Tokiku.Controllers"
+        xmlns:controls="clr-namespace:TokikuNew.Controls"
+        xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
         mc:Ignorable="d"        
         Title="東菊金屬 ERP System" Height="768" Width="1366" WindowState="Maximized" Icon="{DynamicResource Logo}"
-        Loaded="Window_Loaded" Background="{DynamicResource WindowBackgroundBrush}"
-        Initialized="Window_Initialized">
+         Background="{DynamicResource WindowBackgroundBrush}" 
+        >
+    <Window.Resources>
+        <vm:RedirectCommand x:Key="redirect" RoutingName="MainWindow" />
+        <vm:OpenWindowCommand x:Key="openwin"  />
+        <ObjectDataProvider x:Key="MainSource" ObjectType="{x:Type vm:MainViewModel}" MethodName="Query"/>
+    </Window.Resources>
     <Viewbox Stretch="Fill"
              Margin="0" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" >
         <Grid Width="1366" Height="768">
@@ -19,14 +25,14 @@
             </Grid.RowDefinitions>
             <Menu Grid.Row="0">
                 <MenuItem Header="主檔" Name="MI_Main" >
-                    <MenuItem Header="廠商主檔" Name="MI_Main_Vendor" Click="MI_Main_Vendor_Click"/>
-                    <MenuItem Header="客戶主檔" Name="MI_Main_Client" Click="MI_Main_Client_Click"/>
-                    <MenuItem Header="模具總表" Name="MI_Main_Molds" Click="MI_Main_Molds_Click"/>
+                    <MenuItem Header="廠商主檔" Name="MI_Main_Vendor" vm:CommandRoutingManager.Command="{Binding Source={ StaticResource OpenNewTabItem}}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenVendorListView}" vm:CommandRoutingManager.RoutingName="VendorListView" />
+                    <MenuItem Header="客戶主檔" Name="MI_Main_Client" vm:CommandRoutingManager.Command="{Binding Source={StaticResource OpenNewTabItem}}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenClientListView}" vm:CommandRoutingManager.RoutingName="ClientListView" />
+                    <MenuItem Header="模具總表" Name="MI_Main_Molds" vm:CommandRoutingManager.Command="{Binding Source={StaticResource OpenNewTabItem}}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenMaterialsTotalView}" vm:CommandRoutingManager.RoutingName="MaterialsTotalView" />
                 </MenuItem>
-                <MenuItem Header="報表" Name="MI_Reports" Click="MI_Reports_Click"></MenuItem>
-                <MenuItem Header="帳務" Name="MI_Finance" Click="MI_Finance_Click">
-                    <MenuItem Header="票期管理" Name="MI_Finance_TicketManagement" Click="PromissoryNoteManagement_Click" />
-                    <MenuItem Header="專案合約管理" Name="專案合約管理" Click="ContractManagement_Click" />
+                <MenuItem Header="報表" Name="MI_Reports" ></MenuItem>
+                <MenuItem Header="帳務" Name="MI_Finance" >
+                    <MenuItem Header="本票管理" Name="本票管理" vm:CommandRoutingManager.Command="{Binding Source={StaticResource OpenNewTabItem}}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenPromissoryNoteManagementView}" vm:CommandRoutingManager.RoutingName="PromissoryNoteManagementUC" />
+                    <MenuItem Header="合約管理" Name="合約管理" vm:CommandRoutingManager.Command="{Binding Source={StaticResource OpenNewTabItem}}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenContractManagementView}" vm:CommandRoutingManager.RoutingName="ContractManagementView" />
                     <!-- MenuItem Header="專案合約管理">
                         <MenuItem Header="本約工程" Name="本約工程" Click="本約工程_Click" />
                         <MenuItem Header="追加工程" Name="追加工程" Click="追加工程_Click" />
@@ -41,22 +47,21 @@
                     </MenuItem -->
                 </MenuItem>
                 <MenuItem Header="系統管理">
-                    <MenuItem Header="選項" Name="MI_SystemOption" Click="MI_SystemOption_Click"/>
-                    <MenuItem Header="人員管理" Name="MI_System_Members" Click="MI_System_Members_Click" ></MenuItem>
-                    <MenuItem Header="角色管理" Name="MI_System_Roles" Click="MI_System_Roles_Click"></MenuItem>
-                    <Separator/>
+                    <MenuItem Header="選項" Name="MI_SystemOption" vm:CommandRoutingManager.Command="{StaticResource openwin}" />
+                    <MenuItem Header="人員管理" Name="MI_System_Members" vm:CommandRoutingManager.Command="{Binding Source={StaticResource OpenNewTabItem}}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenSystemMembersView}" vm:CommandRoutingManager.RoutingName="SystemMembersView" />
+                    <MenuItem Header="角色管理" Name="MI_System_Roles" vm:CommandRoutingManager.Command="{Binding Source={StaticResource OpenNewTabItem}}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenSystemRolesView}" vm:CommandRoutingManager.RoutingName="SystemRolesView" />
                     <MenuItem Header="結束程式" Name="ExitApp" Click="ExitApp_Click"></MenuItem>
                 </MenuItem>
             </Menu>
-            <TabControl Grid.Row="1" Margin="0,0,0,0" x:Name="Workspaces" FontSize="9">
+            <TabControl Grid.Row="1" Margin="0,0,0,0" x:Name="Workspaces" FontSize="9" >
                 <TabItem Header="專案列表" >
-                    <Views:ProjectSelectListView x:Name="ProjectSelectionPage" SelectedProjectChanged="ProjectSelectionPage_SelectedProjectChanged" DataContext="{Binding Projects}"  />
+                    <Views:ProjectSelectListView x:Name="ProjectSelectionPage" />
                 </TabItem>
             </TabControl>
             <StatusBar Margin="0" Grid.Row="3">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="1" FontFamily="Segoe MDL2 Assets" Text="&#xe187;" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                    <TextBlock Margin="1,0" Name="userNameDisplay" Text="{Binding LoginedUser.UserName}"/>
+                    <TextBlock Margin="1,0" Name="userNameDisplay" Text="{Binding LoginedUser.UserName, Source={StaticResource MainSource}}"/>
                 </StackPanel>
             </StatusBar>
         </Grid>

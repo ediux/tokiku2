@@ -1,18 +1,85 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+                    xmlns:view="clr-namespace:TokikuNew.Views"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"                  
+                    xmlns:cmd="clr-namespace:TokikuNew.Commands"
+                    xmlns:l="clr-namespace:TokikuNew"
                     xmlns:ValueConverters="clr-namespace:TokikuNew.ValueConverters">
-    <vm:MaterialCategoriesViewModelCollection x:Key="MaterialCategoriesSource" x:Name="MaterialCategoriesSource" />
-    <vm:StatesViewModelCollection x:Key="StatesSource" x:Name="StatesSource"/>
-    <vm:TicketTypesViewModelCollection x:Key="TicketTypesSource"/>
-    <vm:TicketPeriodsViewModelCollection x:Key="TicketPeriodsSource"/>
-    <vm:TranscationCategoriesViewModelCollection x:Key="TranscationCategoriesSource"/>
-    <vm:PaymentTypesManageViewModelCollection x:Key="PaymentTypesSource"/>
-    <vm:VoidViewModelCollection x:Key="VoidStateListSource" />
-    <vm:ConstructionAtlasReplyContextViewModelCollection x:Key="ConstructionAtlasReplySelectList"/>
-    <vm:預付款保證票ViewModelCollection x:Key="預付款保證票清單"/>
-    <vm:保固票ViewModelCollection x:Key="保固票清單"/>
-    <vm:PromissoryNoteManagementViewModelCollection x:Key="PromissoryNoteManagementSource"/>
+    <!--資料來源-->
+    <ObjectDataProvider x:Key="ProjectSource" ObjectType="{x:Type vm:ProjectsViewModel}" MethodName="Query">
+        <ObjectDataProvider.MethodParameters>
+            <x:Static Member="sys:Guid.Empty" />
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+    <ObjectDataProvider x:Key="MaterialCategoriesSource" ObjectType="{x:Type vm:MaterialCategoriesViewModelCollection}" MethodName="Query"/>
+    <ObjectDataProvider x:Key="StatesSource" ObjectType="{x:Type vm:StatesViewModelCollection}" MethodName="Query">
+    </ObjectDataProvider>
+    <ObjectDataProvider x:Key="TicketTypesSource" ObjectType="{x:Type vm:TicketTypesViewModelCollection}" MethodName="Query"/>
+    <ObjectDataProvider x:Key="TicketPeriodsSource" ObjectType="{x:Type vm:TicketPeriodsViewModelCollection}" MethodName="Query"/>
+    <ObjectDataProvider x:Key="TranscationCategoriesSource" ObjectType="{x:Type vm:TranscationCategoriesViewModelCollection}" MethodName="Query"/>
+    <ObjectDataProvider x:Key="PaymentTypesSource" ObjectType="{x:Type vm:PaymentTypesManageViewModelCollection}" MethodName="Query"/>
+    <ObjectDataProvider x:Key="VoidStateListSource" ObjectType="{x:Type vm:VoidViewModelCollection}" MethodName="Query"/>
+    <ObjectDataProvider x:Key="ConstructionAtlasReplySelectList" ObjectType="{x:Type vm:ConstructionAtlasReplyContextViewModelCollection}" MethodName="Query"/>
+    <ObjectDataProvider x:Key="MaterialValuationViewSource" ObjectType="{x:Type vm:AluminumExtrusionOrderMaterialValuationViewModelCollection}" MethodName="Query">
+        <ObjectDataProvider.MethodParameters>
+            <x:Static Member="sys:Guid.Empty" />
+            <x:Static Member="sys:Guid.Empty" />
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+    <ObjectDataProvider x:Key="ManufactureList" ObjectType="{x:Type vm:ManufacturersViewModelCollection}" MethodName="Query"/>
+    <ObjectDataProvider ObjectType="{x:Type vm:OrderDetailViewModelCollection}" x:Key="AluminumExtrusionOrderSource2" MethodName="Query"  >
+    </ObjectDataProvider>
+    <ObjectDataProvider x:Key="RequiredSource" ObjectType="{x:Type vm:RequiredViewModel}" MethodName="CreateNew">
+        <ObjectDataProvider.MethodParameters>
+            <x:Static Member="sys:String.Empty"/>
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+    <ObjectDataProvider x:Key="RequiredDetailSource" ObjectType="{x:Type vm:RequiredDetailViewModelCollection}" MethodName="Query">
+        <ObjectDataProvider.MethodParameters>
+            <x:Static Member="sys:Guid.Empty"/>
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+    <ObjectDataProvider x:Key="ControlTableListSource" ObjectType="{x:Type vm:RequiredControlTableViewModelCollection}" MethodName="Query">
+        <ObjectDataProvider.MethodParameters>
+            <x:Static Member="sys:Guid.Empty"/>
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+    <ObjectDataProvider x:Key="OrderViewSource" ObjectType="{x:Type vm:OrderViewModel}" MethodName="CreateNew">
+        <ObjectDataProvider.MethodParameters>
+            <x:Static Member="sys:Guid.Empty"/>
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+    <ObjectDataProvider x:Key="OrderTypesListSoure" ObjectType="{x:Type vm:OrderTypesViewModelCollection}" MethodName="Query"/>
+    <ObjectDataProvider x:Key="UserListSource" ObjectType="{x:Type vm:UserViewModelCollection}" MethodName="Query"/>
+    <!--訂製單雜項資料來源-->
+    <ObjectDataProvider x:Key="OrderMiscellaneousSource" ObjectType="{x:Type vm:OrderMiscellaneousViewModelCollection}" MethodName="Query">
+        <ObjectDataProvider.MethodParameters>
+            <x:Static Member="sys:Guid.Empty"/>
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+    <!--訂製單雜項資料來源-->
+    <!--倉別資料來源-->
+    <ObjectDataProvider x:Key="StockPickSource" ObjectType="{x:Type vm:StockViewModelCollection}" MethodName="Query"/>
+    <!--倉別資料來源-->
+    <!--訂製單列表資料來源-->
+    <ObjectDataProvider x:Key="OrderListSource" ObjectType="{x:Type vm:OrderViewModelCollection}" MethodName="Query">
+        <ObjectDataProvider.MethodParameters>
+            <x:Static Member="sys:Guid.Empty"></x:Static>
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+    <!--訂製單列表資料來源-->
+    <!--<viewmodels:AluminumExtrusionOrderViewModelCollection x:Key="AluminumExtrusionOrderSource" />-->
+    <ObjectDataProvider ObjectType="{x:Type vm:預付款保證票ViewModel}" x:Key="預付款保證票清單" />
+    <ObjectDataProvider ObjectType="{x:Type vm:保固票ViewModelCollection}" x:Key="保固票清單" />
+    <ObjectDataProvider ObjectType="{x:Type vm:PromissoryNoteManagementViewModelCollection}" x:Key="PromissoryNoteManagementSource" />
+    <ObjectDataProvider ObjectType="{x:Type vm:OrderControlTableViewModelCollection}" x:Key="OrderControlTableSource" MethodName="Query"/>
+    <ObjectDataProvider ObjectType="{x:Type vm:ClientViewModel}" MethodName="Query" x:Key="ClientSource">
+        <ObjectDataProvider.MethodParameters>
+            <x:Static Member="sys:Guid.Empty"/>
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+    <!--轉換器-->
     <ValueConverters:DateTime2StringFormatingValueConverter x:Key="FormatedDatetime"/>
     <ValueConverters:ReplyContentValueConverter x:Key="AtlasReplayContents"/>
     <ValueConverters:NOTGateValueConverter x:Key="NOTGateValueConverter"/>
@@ -27,15 +94,23 @@
     <ValueConverters:VoidToStateTextValueConverter x:Key="Void2TextValueConvterver" />
     <BitmapImage x:Key="Logo" UriSource="/Resources/16x16.png" />
     <BitmapImage x:Key="Banner" UriSource="/Resources/TokikuLogo.gif" />
+    <!--系統與自訂命令-->
     <RoutedUICommand x:Key="Modify" Text="修改" />
-    <RoutedUICommand x:Key="Save" Text="暫存"/>
-    <RoutedUICommand x:Key="Query" Text="查詢"/>
+    <vm:SaveModelCommand x:Key="Save" Text="暫存"/>
+    <vm:QueryCommand x:Key="Query" Text="查詢"  />
     <RoutedUICommand x:Key="Commit" Text="確認送出"/>
     <RoutedUICommand x:Key="Features" Text="功能"/>
-    <RoutedUICommand x:Key="RunExcel" Text="Run Excel App"/>
-    <RoutedUICommand x:Key="Cancel" Text="查詢"/>
+    <RoutedUICommand x:Key="RunExcel" Text="Run Excel App" />
+    <RoutedUICommand x:Key="Cancel" Text="取消" />
     <RoutedUICommand x:Key="AddColumn" Text="新增行"/>
     <RoutedUICommand x:Key="AddRow" Text="新增列"/>
+    <vm:OpenNewTabItem x:Key="OpenNewTabItem"  />
+    <vm:CloseMultiPageContentCommand x:Key="CloseTabItem" />
+    <vm:CloseWindowCommand x:Key="CloseWindow" />
+    <RoutedUICommand x:Key="ResetFiliter" Text="重設查詢" />
+    <RoutedUICommand x:Key="QueryRefresh" Text="重新整理查詢" />
+    <vm:RelayCommand x:Key="Reply" />
+
     <Style TargetType="TextBlock">
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
@@ -43,4 +118,531 @@
     <Style TargetType="DataGridCell">
         <Setter Property="FontSize" Value="14"/>
     </Style>
+    <!-- 各功能畫面參數 -->
+    <!-- 新增專案,TokikuNew.ProjectManagerView -->
+    <vm:RoutedViewResult DisplayText="新增專案" AttachedTargetElementName="Workspaces"
+                         Name="OpenNewProjectView"
+                         ViewType="{x:Type view:ProjectManagerView}"  x:Key="OpenNewProjectView">
+        <vm:RoutedViewResult.RoutedValues>
+            <x:Static Member="sys:Guid.Empty" x:Key="SelectedProjectId"></x:Static>
+            <vm:DocumentLifeCircle x:Key="Mode">Create</vm:DocumentLifeCircle>
+            <x:Type x:Key="SourceViewType" TypeName="l:MainWindow"/>
+            <sys:String x:Key="TabControlName">Workspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <!-- 廠商列表 -->
+    <vm:RoutedViewResult DisplayText="廠商列表" AttachedTargetElementName="Workspaces" 
+                         Name="OpenVendorListView"
+                         ViewType="{x:Type view:VendorListView}" x:Key="OpenVendorListView">
+        <vm:RoutedViewResult.RoutedValues>
+            <x:Type x:Key="SourceViewType" TypeName="l:MainWindow"/>
+            <sys:String x:Key="TabControlName">Workspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <!-- 客戶列表 -->
+    <vm:RoutedViewResult DisplayText="客戶列表" ViewType="{x:Type view:ClientListView}" 
+                         Name="OpenClientListView"
+                         AttachedTargetElementName="Workspaces" x:Key="OpenClientListView">
+        <vm:RoutedViewResult.RoutedValues>
+            <x:Type x:Key="SourceViewType" TypeName="l:MainWindow"/>
+            <sys:String x:Key="TabControlName">Workspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <!-- 新增廠商,TokikuNew.ManufacturersManageView -->
+    <vm:RoutedViewResult x:Key="OpenNewManufacture" AttachedTargetElementName="Workspaces"
+                         Name="ManufacturersManageView"
+                         DataContent="{Binding SelectedItem ,ElementName=VendorList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                         DisplayText="新增廠商" ViewType="{x:Type view:ManufacturersManageView}">
+        <vm:RoutedViewResult.FormatedParameters>
+            <x:Array Type="sys:String">
+                <sys:String>Code</sys:String>
+                <sys:String>ShortName</sys:String>
+            </x:Array>
+        </vm:RoutedViewResult.FormatedParameters>
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="Code">Code</sys:String>
+            <sys:String x:Key="ShortName">ShortName</sys:String>
+            <sys:String x:Key="SelectedManufacturerId">Id</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <vm:DocumentLifeCircle x:Key="Mode">Update</vm:DocumentLifeCircle>
+            <x:Static Member="sys:Guid.Empty" x:Key="SelectedManufacturerId"></x:Static>
+            <x:Type x:Key="SourceViewType" TypeName="l:MainWindow"/>
+            <sys:String x:Key="TabControlName">Workspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <!-- 新增客戶,TokikuNew.ClientManageView -->
+    <vm:RoutedViewResult x:Key="OpenNewClient" AttachedTargetElementName="Workspaces"
+                         Name="OpenNewClient"
+                         DisplayText="新增客戶" ViewType="{x:Type view:ClientManageView}">
+        <vm:RoutedViewResult.FormatedParameters>
+            <x:Array Type="sys:String">
+                <sys:String>Code</sys:String>
+                <sys:String>ShortName</sys:String>
+            </x:Array>
+        </vm:RoutedViewResult.FormatedParameters>
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="Code">Code</sys:String>
+            <sys:String x:Key="ShortName">ShortName</sys:String>
+            <sys:String x:Key="SelectedManufacturerId">Id</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <vm:DocumentLifeCircle x:Key="Mode">Update</vm:DocumentLifeCircle>
+            <x:Static Member="sys:Guid.Empty" x:Key="SelectedManufacturerId"></x:Static>
+            <x:Type x:Key="SourceViewType" TypeName="l:MainWindow"/>
+            <sys:String x:Key="TabControlName">Workspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <!-- 模具總表,TokikuNew.MaterialsTotalView -->
+    <vm:RoutedViewResult x:Key="OpenMaterialsTotalView" AttachedTargetElementName="Workspaces"
+                         Name="OpenMaterialsTotalView"
+                         DisplayText="模具總表" ViewType="{x:Type view:MaterialsTotalView}" >
+        <vm:RoutedViewResult.FormatedParameters>
+            <x:Array Type="sys:String">
+                <sys:String>Code</sys:String>
+                <sys:String>ShortName</sys:String>
+            </x:Array>
+        </vm:RoutedViewResult.FormatedParameters>
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="Code">Code</sys:String>
+            <sys:String x:Key="ShortName">ShortName</sys:String>
+            <sys:String x:Key="SelectedManufacturerId">Id</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <vm:DocumentLifeCircle x:Key="Mode">Update</vm:DocumentLifeCircle>
+            <x:Static Member="sys:Guid.Empty" x:Key="SelectedManufacturerId"></x:Static>
+            <x:Type x:Key="SourceViewType" TypeName="l:MainWindow"/>
+            <sys:String x:Key="TabControlName">Workspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <!-- 本票管理,TokikuNew.PromissoryNoteManagementUC -->
+    <vm:RoutedViewResult x:Key="OpenPromissoryNoteManagementView" AttachedTargetElementName="Workspaces"
+                         Name="OpenPromissoryNoteManagementView"
+                         DisplayText="本票管理" ViewType="{x:Type view:PromissoryNoteManagementUC}" >
+        <vm:RoutedViewResult.FormatedParameters>
+            <x:Array Type="sys:String">
+                <sys:String>Code</sys:String>
+                <sys:String>ShortName</sys:String>
+            </x:Array>
+        </vm:RoutedViewResult.FormatedParameters>
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="Code">Code</sys:String>
+            <sys:String x:Key="ShortName">ShortName</sys:String>
+            <sys:String x:Key="SelectedManufacturerId">Id</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <vm:DocumentLifeCircle x:Key="Mode">Update</vm:DocumentLifeCircle>
+            <x:Static Member="sys:Guid.Empty" x:Key="SelectedManufacturerId"></x:Static>
+            <x:Type x:Key="SourceViewType" TypeName="l:MainWindow"/>
+            <sys:String x:Key="TabControlName">Workspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <!-- 合約管理,TokikuNew.ContractManagementView -->
+    <vm:RoutedViewResult x:Key="OpenContractManagementView" AttachedTargetElementName="Workspaces"
+                         Name="OpenContractManagementView"
+                         DisplayText="合約管理" ViewType="{x:Type view:ContractManagementView}" >
+        <vm:RoutedViewResult.FormatedParameters>
+            <x:Array Type="sys:String">
+                <sys:String>Code</sys:String>
+                <sys:String>ShortName</sys:String>
+            </x:Array>
+        </vm:RoutedViewResult.FormatedParameters>
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="Code">Code</sys:String>
+            <sys:String x:Key="ShortName">ShortName</sys:String>
+            <sys:String x:Key="SelectedManufacturerId">Id</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <vm:DocumentLifeCircle x:Key="Mode">Update</vm:DocumentLifeCircle>
+            <x:Static Member="sys:Guid.Empty" x:Key="SelectedManufacturerId"></x:Static>
+            <x:Type x:Key="SourceViewType" TypeName="l:MainWindow"/>
+            <sys:String x:Key="TabControlName">Workspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <!-- 人員管理,TokikuNew.SystemMembersView -->
+    <vm:RoutedViewResult x:Key="OpenSystemMembersView" AttachedTargetElementName="Workspaces"
+                         Name="OpenSystemMembersView"
+                         DisplayText="人員管理" ViewType="{x:Type view:SystemMembersView}">
+        <vm:RoutedViewResult.FormatedParameters>
+            <x:Array Type="sys:String">
+                <sys:String>Code</sys:String>
+                <sys:String>ShortName</sys:String>
+            </x:Array>
+        </vm:RoutedViewResult.FormatedParameters>
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="Code">Code</sys:String>
+            <sys:String x:Key="ShortName">ShortName</sys:String>
+            <sys:String x:Key="SelectedManufacturerId">Id</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <vm:DocumentLifeCircle x:Key="Mode">Update</vm:DocumentLifeCircle>
+            <x:Static Member="sys:Guid.Empty" x:Key="SelectedManufacturerId"></x:Static>
+            <x:Type x:Key="SourceViewType" TypeName="l:MainWindow"/>
+            <sys:String x:Key="TabControlName">Workspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <!-- 角色管理,TokikuNew.SystemRolesView -->
+    <vm:RoutedViewResult x:Key="OpenSystemRolesView" AttachedTargetElementName="Workspaces"
+                         Name="OpenSystemRolesView"
+                         DisplayText="角色管理" ViewType="{x:Type view:SystemRolesView}" >
+        <vm:RoutedViewResult.FormatedParameters>
+            <x:Array Type="sys:String">
+                <sys:String>Code</sys:String>
+                <sys:String>ShortName</sys:String>
+            </x:Array>
+        </vm:RoutedViewResult.FormatedParameters>
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="Code">Code</sys:String>
+            <sys:String x:Key="ShortName">ShortName</sys:String>
+            <sys:String x:Key="SelectedManufacturerId">Id</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <vm:DocumentLifeCircle x:Key="Mode">Update</vm:DocumentLifeCircle>
+            <x:Static Member="sys:Guid.Empty" x:Key="SelectedManufacturerId"></x:Static>
+            <x:Type x:Key="SourceViewType" TypeName="l:MainWindow"/>
+            <sys:String x:Key="TabControlName">Workspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <!--玻璃-->
+    <vm:RoutedViewResult x:Key="OpenGlassControlTable" AttachedTargetElementName="InnerWorkspaces"
+                         Name="OpenGlassControlTable"
+                         DisplayText="玻璃" ViewType="{x:Type view:GlassViewUC}">
+        <vm:RoutedViewResult.RoutedValues>
+            <sys:String x:Key="FormName" >玻璃管控表</sys:String>
+            <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
+            <vm:ProjectsViewModel x:Key="SelectedProject"></vm:ProjectsViewModel>
+            <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+
+    <!-- 施工圖集,TokikuNew.ConstructionAtlasView -->
+    <vm:RoutedViewResult x:Key="OpenConstructionAtlasView" AttachedTargetElementName="InnerWorkspaces"
+                         Name="OpenConstructionAtlasView"
+                         DisplayText="施工圖集" ViewType="{x:Type view:ConstructionAtlasView}" >
+        <vm:RoutedViewResult.RoutedValues>
+            <sys:String x:Key="FormName" >組裝總表</sys:String>
+            <sys:Guid x:Key="SelectedProjectId"></sys:Guid>
+            <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <!-- 組裝總表,TokikuNew.AssemblyTableView -->
+    <vm:RoutedViewResult x:Key="OpenAssemblyTableView" AttachedTargetElementName="InnerWorkspaces"
+                         Name="OpenAssemblyTableView"
+                                  DisplayText="組裝總表"
+                                  ViewType="{x:Type view:AssemblyTableView}">
+        <vm:RoutedViewResult.RoutedValues>
+            <sys:String x:Key="FormName" >組裝總表</sys:String>
+            <sys:Guid x:Key="SelectedProjectId"></sys:Guid>
+            <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <vm:RoutedViewResult x:Key="OpenProcessingAtlasView" AttachedTargetElementName="InnerWorkspaces"
+                         Name="OpenProcessingAtlasView"
+                              DisplayText="加工圖集"
+                              ViewType="{x:Type view:ProcessingAtlasView}">
+        <vm:RoutedViewResult.RoutedValues>
+            <sys:String x:Key="FormName" >加工圖集</sys:String>
+            <sys:Guid x:Key="SelectedProjectId"></sys:Guid>
+            <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <vm:RoutedViewResult x:Key="OpenOrderControlTable" AttachedTargetElementName="InnerWorkspaces"
+                         Name="OpenOrderControlTable"
+                         DisplayText="訂製單管控表" ViewType="{x:Type view:OrderControlTableView}">
+        <vm:RoutedViewResult.RoutedValues>
+            <sys:String x:Key="FormName" >訂製單管控表</sys:String>
+            <sys:Guid x:Key="SelectedProjectId"></sys:Guid>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+
+    <vm:RoutedViewResult x:Key="OpenAluminumProcessingControlTable" AttachedTargetElementName="InnerWorkspaces"
+                                  DisplayText="鋁擠型材料"      
+                                    Name="OpenAluminumProcessingControlTable"
+                                  ViewType="{x:Type view:ControlTableView}">
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="SelectedProjectId">SelectedProjectId</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <sys:String x:Key="FormName" >鋁擠型材料</sys:String>
+            <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
+            <sys:Guid x:Key="SelectedProjectId"></sys:Guid>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <vm:RoutedViewResult x:Key="OpenProcessingView" AttachedTargetElementName="InnerWorkspaces"
+                         Name="OpenProcessingView"
+                         SourceViewType="{x:Type view:ProjectManagerView}"
+                         DisplayText="鋁擠型加工管控表" ViewType="{x:Type view:AluminumExtrusionProcessingView}">
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="SelectedProjectId">Id</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <sys:String x:Key="FormName" >鋁擠型加工管控表</sys:String>
+            <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
+            <sys:Guid x:Key="SelectedProjectId"></sys:Guid>
+            <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+
+    <!-- 訂製單,TokikuNew.QualityAbnormallySingleView -->
+    <!-- vm:RoutedViewResult x:Key="OpenOrderSheet" AttachedTargetElementName="InnerWorkspaces"
+                         DisplayText="訂製單" ViewType="{x:Type view:AluminumExtrusionOrderSheetView}" / -->
+    <!-- 訂製單列表,TokikuNew.QualityAbnormallySingleListView -->
+    <vm:RoutedViewResult x:Key="OpenOrderList" AttachedTargetElementName="InnerWorkspaces"
+                         Name="OpenOrderList"
+                         DisplayText="訂製單列表" ViewType="{x:Type view:AluminumExtrusionOrderListView}">
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="SelectedProjectId">Id</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
+            <sys:Guid x:Key="SelectedProjectId"></sys:Guid>
+            <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <!-- 收料單,TokikuNew.QualityAbnormallySingleView -->
+    <vm:RoutedViewResult x:Key="OpenRecvMaterialView" AttachedTargetElementName="InnerWorkspaces"
+                         Name="OpenRecvMaterialView"
+                         DisplayText="收料單" ViewType="{x:Type view:RecvMaterialView}">
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="SelectedProjectId">ProjectId</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <x:Static Member="sys:Guid.Empty" x:Key="SelectedProjectId"></x:Static>
+            <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
+            <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <!-- 收料單列表,TokikuNew.QualityAbnormallySingleView -->
+    <vm:RoutedViewResult x:Key="OpenRecvMaterialListView" AttachedTargetElementName="InnerWorkspaces"
+                         Name="OpenRecvMaterialListView"
+                         DisplayText="收料單列表" ViewType="{x:Type view:RecvMaterialListView}">
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="SelectedProjectId">ProjectId</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <x:Static Member="sys:Guid.Empty" x:Key="SelectedProjectId"></x:Static>
+            <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
+            <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+            <sys:String x:Key="ResourceKey">InventoryListSource</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <!-- 出貨單,TokikuNew.QualityAbnormallySingleView -->
+    <vm:RoutedViewResult x:Key="OpenShippingView" AttachedTargetElementName="InnerWorkspaces"
+                         Name="OpenShippingView"
+                         DisplayText="出貨單" ViewType="{x:Type view:ShippingMaterialViewUC}" >
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="SelectedProjectId">ProjectId</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <x:Static Member="sys:Guid.Empty" x:Key="SelectedProjectId"></x:Static>
+            <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
+            <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+            <sys:String x:Key="ResourceKey">InventoryListSource</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <!-- 出貨單列表,TokikuNew.QualityAbnormallySingleView -->
+    <vm:RoutedViewResult x:Key="OpenShippingListView" AttachedTargetElementName="InnerWorkspaces"
+                         Name="OpenShippingListView"
+                         DisplayText="出貨單列表" ViewType="{x:Type view:ShippingMaterialListViewUC}">
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="SelectedProjectId">ProjectId</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <x:Static Member="sys:Guid.Empty" x:Key="SelectedProjectId"></x:Static>
+            <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
+            <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+            <sys:String x:Key="ResourceKey">InventoryListSource</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <!-- 請款單,TokikuNew.InvoiceView -->
+    <vm:RoutedViewResult x:Key="OpenInvoiceView" AttachedTargetElementName="InnerWorkspaces"
+                         Name="OpenInvoiceView"
+                         DisplayText="請款單" ViewType="{x:Type view:InvoiceView}" >
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="SelectedProjectId">ProjectId</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <x:Static Member="sys:Guid.Empty" x:Key="SelectedProjectId"></x:Static>
+            <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
+            <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+            <sys:String x:Key="ResourceKey">InventoryListSource</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <!-- 請款單列表,TokikuNew.Views.InvoiceViewListView -->
+    <vm:RoutedViewResult x:Key="OpenInvoiceViewListView" AttachedTargetElementName="InnerWorkspaces"
+                         Name="OpenInvoiceViewListView"
+                         DisplayText="請款單列表" ViewType="{x:Type view:InvoiceViewListView}" >
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="SelectedProjectId">ProjectId</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <x:Static Member="sys:Guid.Empty" x:Key="SelectedProjectId"></x:Static>
+            <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
+            <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+            <sys:String x:Key="ResourceKey">InventoryListSource</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <!-- 領料單,TokikuNew.Views.ShippingMaterialViewUC -->
+    <vm:RoutedViewResult x:Key="OpenShippingMaterialView" AttachedTargetElementName="InnerWorkspaces"
+                         Name="OpenShippingMaterialView"
+                         DisplayText="領料單" ViewType="{x:Type view:ShippingMaterialViewUC}">
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="SelectedProjectId">ProjectId</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <x:Static Member="sys:Guid.Empty" x:Key="SelectedProjectId"></x:Static>
+            <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
+            <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+            <sys:String x:Key="ResourceKey">InventoryListSource</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <!-- 領料單料單列表,TokikuNew.Views.ShippingMaterialListViewUC -->
+    <vm:RoutedViewResult x:Key="OpenShippingMaterialListView" AttachedTargetElementName="InnerWorkspaces"
+                         Name="OpenShippingMaterialListView"
+                         DisplayText="領料單料單列表" ViewType="{x:Type view:ShippingMaterialListViewUC}">
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="SelectedProjectId">ProjectId</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <x:Static Member="sys:Guid.Empty" x:Key="SelectedProjectId"></x:Static>
+            <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
+            <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+            <sys:String x:Key="ResourceKey">InventoryListSource</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <!-- 品質異常單,TokikuNew.QualityAbnormallySingleView -->
+    <vm:RoutedViewResult x:Key="OpenQualityAbnormallySingleView" AttachedTargetElementName="InnerWorkspaces"
+                         Name="OpenQualityAbnormallySingleView"
+                         DisplayText="品質異常單" ViewType="{x:Type view:QualityAbnormallySingleView}">
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="SelectedProjectId">ProjectId</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <x:Static Member="sys:Guid.Empty" x:Key="SelectedProjectId"></x:Static>
+            <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
+            <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+            <sys:String x:Key="ResourceKey">InventoryListSource</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <!-- 品質異常單列表,TokikuNew.QualityAbnormallySingleListView -->
+    <vm:RoutedViewResult x:Key="OpenQualityAbnormallySingleListView" AttachedTargetElementName="InnerWorkspaces"
+                         Name="OpenQualityAbnormallySingleListView"
+                         DisplayText="品質異常單列表" ViewType="{x:Type view:QualityAbnormallySingleListView}">
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="SelectedProjectId">ProjectId</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <x:Static Member="sys:Guid.Empty" x:Key="SelectedProjectId"></x:Static>
+            <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
+            <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+            <sys:String x:Key="ResourceKey">InventoryListSource</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <!-- 退貨單,TokikuNew.Views.ReturnMaterialViewUC -->
+    <vm:RoutedViewResult x:Key="OpenReturnMaterialView" AttachedTargetElementName="InnerWorkspaces"
+                         Name="OpenReturnMaterialView"
+                         DisplayText="退貨單" ViewType="{x:Type view:ReturnMaterialViewUC}">
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="SelectedProjectId">ProjectId</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <x:Static Member="sys:Guid.Empty" x:Key="SelectedProjectId"></x:Static>
+            <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
+            <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <!-- 退貨單列表,TokikuNew.Views.ReturnMaterialListViewUC -->
+    <vm:RoutedViewResult x:Key="OpenReturnMaterialListView" AttachedTargetElementName="InnerWorkspaces"
+                         Name="OpenReturnMaterialListView"
+                         DisplayText="退貨單列表" ViewType="{x:Type view:ReturnMaterialListViewUC}">
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="SelectedProjectId">ProjectId</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <x:Static Member="sys:Guid.Empty" x:Key="SelectedProjectId"></x:Static>
+            <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
+            <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+            <sys:String x:Key="ResourceKey">InventoryListSource</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <!-- 需求單,TokikuNew.RequiredView -->
+    <vm:RoutedViewResult x:Key="OpenNewRequired" 
+                         Name="OpenNewRequired"
+                         DisplayText="需求單" ViewType="{x:Type view:RequiredView}">
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="ProjectShortName">ShortName</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <x:Static Member="sys:String.Empty" x:Key="ProjectShortName"></x:Static>
+            <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
+            <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+
+    <!-- 需求單列表,TokikuNew.Views.RequiredListView -->
+    <vm:RoutedViewResult x:Key="OpenRequiredList" AttachedTargetElementName="InnerWorkspaces"
+                         Name="OpenRequiredList"
+                         DisplayText="需求單列表" ViewType="{x:Type view:RequiredListView}">
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="SelectedProjectId">ProjectId</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <x:Static Member="sys:Guid.Empty" x:Key="SelectedProjectId"></x:Static>
+            <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
+            <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+            <sys:String x:Key="ResourceKey">RequiredListSource</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <!-- 盤點單,TokikuNew.RequiredView -->
+    <vm:RoutedViewResult x:Key="OpenInventoryView" AttachedTargetElementName="InnerWorkspaces"
+                         Name="OpenInventoryView"
+                         DisplayText="盤點單" ViewType="{x:Type view:InventoryView}">
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="SelectedProjectId">ProjectId</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <x:Static Member="sys:Guid.Empty" x:Key="SelectedProjectId"></x:Static>
+            <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
+            <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+            <sys:String x:Key="ResourceKey">InventoryListSource</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
+    <!-- 盤點單列表,TokikuNew.Views.InventoryListView -->
+    <vm:RoutedViewResult x:Key="OpenInventoryList" AttachedTargetElementName="InnerWorkspaces"
+                         Name="OpenInventoryList"
+                         DisplayText="盤點單列表" ViewType="{x:Type view:InventoryListView}">
+        <vm:RoutedViewResult.RoutingBinding>
+            <sys:String x:Key="SelectedProjectId">ProjectId</sys:String>
+        </vm:RoutedViewResult.RoutingBinding>
+        <vm:RoutedViewResult.RoutedValues>
+            <x:Static Member="sys:Guid.Empty" x:Key="SelectedProjectId"></x:Static>
+            <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
+            <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
+            <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
+            <sys:String x:Key="ResourceKey">InventoryListSource</sys:String>
+        </vm:RoutedViewResult.RoutedValues>
+    </vm:RoutedViewResult>
 </ResourceDictionary>

@@ -4,17 +4,18 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:vm ="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
              mc:Ignorable="d" 
              Background="{DynamicResource ControlBackgroundBrush}"
              d:DesignHeight="768" d:DesignWidth="1366">
     <Grid>
         <DataGrid AutoGenerateColumns="False" Margin="5" ItemsSource="{Binding}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="請款單號"/>
-                <DataGridTextColumn Header="收料單號"/>
-                <DataGridTextColumn Header="廠商來料單號"/>
-                <DataGridTextColumn Header="建單日期"/>
-                <DataGridTextColumn Header="建單人員"/>
+                <DataGridTextColumn Header="請款單號" Binding="{Binding}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="收料單號" Binding="{Binding}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="廠商來料單號" Binding="{Binding}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="建單日期" Binding="{Binding}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="建單人員" Binding="{Binding}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

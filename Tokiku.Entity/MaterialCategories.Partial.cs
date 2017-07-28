@@ -22,8 +22,9 @@ namespace Tokiku.Entity
         public System.Guid CreateUserId { get; set; }
     
         public virtual ICollection<ProjectItemCost> ProjectItemCost { get; set; }
-        public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
         public virtual ICollection<MoldsInProjects> MoldsInProjects { get; set; }
         public virtual ICollection<BOM> BOM { get; set; }
+        public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
+        public virtual ICollection<Required> Required { get; set; }
     }
 }

@@ -54,7 +54,7 @@ namespace TokikuNew.Frame
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             var model = new ClientViewModelCollection();
-            model.Query();
+            //model.Query();
             ClientSelectionList.DataContext = model;
         }
     }

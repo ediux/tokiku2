@@ -1,32 +1,40 @@
 ﻿using System;
 using System.Windows;
+using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class WithLoginUserBaseViewModel : BaseViewModel, IBaseViewModelWithLoginedUser
+    public class WithLoginUserBaseViewModel : BaseViewModelWithPOCOClass<Users>, IBaseViewModelWithLoginedUser
     {
         public WithLoginUserBaseViewModel()
         {
-            LoginedUser = new UserViewModel()
-            {
-                UserId = Guid.Empty,
-                UserName = "root",
-                LoweredUserName = "root",
-                IsAnonymous = false,
-            };
+           
         }
 
-        public static readonly DependencyProperty LoginedUserProperty = DependencyProperty.Register("LoginedUser", typeof(UserViewModel), typeof(BaseViewModel), new PropertyMetadata(default(UserViewModel),
-            new PropertyChangedCallback(DefaultFieldChanged)));
+        public WithLoginUserBaseViewModel(Users entity) : base(entity)
+        {
+
+        }
+
+        private UserViewModel _LoginedUser;
+
         /// <summary>
         /// 取得目前登入的使用者
         /// </summary>
         public UserViewModel LoginedUser
         {
-            get { return GetValue(LoginedUserProperty) as UserViewModel; }
+            get
+            {
+                if (_LoginedUser == null)
+                    _LoginedUser = new UserViewModel(CopyofPOCOInstance);
+
+                return _LoginedUser;
+            }
             set
             {
-                SetValue(LoginedUserProperty, value);
+                CopyofPOCOInstance = value.Entity;
+                _LoginedUser = new UserViewModel(CopyofPOCOInstance);
+                RaisePropertyChanged("LoginedUser");
             }
         }
     }

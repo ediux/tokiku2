@@ -35,8 +35,9 @@ namespace Tokiku.Entity
         public System.Guid CreateUserId { get; set; }
     
         public virtual Users CreateUser { get; set; }
-        public virtual ICollection<PromissoryNoteManagement> PromissoryNoteManagement { get; set; }
         public virtual Projects Projects { get; set; }
         public virtual ICollection<ProcessingAtlas> ProcessingAtlas { get; set; }
+        public virtual ICollection<Engineering> Engineering { get; set; }
+        public virtual ICollection<Required> Required { get; set; }
     }
 }

@@ -22,65 +22,65 @@ namespace Tokiku.ViewModels
 
         public Guid ProjectId { get; set; }
 
-        public override void Query()
-        {
-            try
-            {
+        //public override void Query()
+        //{
+        //    try
+        //    {
 
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        setErrortoModel(this, ex);
+        //    }
+        //}
 
-        public override void SaveModel()
-        {
-            try
-            {
-                BOMController controller = new BOMController();
+        //public override void SaveModel()
+        //{
+        //    try
+        //    {
+        //        BOMController controller = new BOMController();
 
-                Collection<BOM> collection = new Collection<BOM>();
+        //        Collection<BOM> collection = new Collection<BOM>();
 
-                if (Count > 0)
-                {
-                    foreach (var model in Items)
-                    {
-                        BOM entity = new BOM();
-                        CopyToModel(entity, model);
-                        entity.Id = Guid.NewGuid();
-                        var executeResult = controller.GetProcessingAtlasId(model.ProcessingAtlas);
+        //        if (Count > 0)
+        //        {
+        //            foreach (var model in Items)
+        //            {
+        //                BOM entity = new BOM();
+        //                CopyToModel(entity, model);
+        //                entity.Id = Guid.NewGuid();
+        //                var executeResult = controller.GetProcessingAtlasId(model.ProcessingAtlas);
 
-                        if (!executeResult.HasError)
-                        {
-                            entity.ProcessingAtlasId = executeResult.Result;
-                        }
-                        entity.CreateTime = DateTime.Now;
-                        var createuser = controller.GetCurrentLoginUser().Result;
-                        if (createuser != null)
-                        {
-                            entity.CreateUserId = (createuser.UserId);
-                        }
-                        else
-                        {
-                            entity.CreateUserId = Guid.Empty;
-                        }
+        //                if (!executeResult.HasError)
+        //                {
+        //                    entity.ProcessingAtlasId = executeResult.Result;
+        //                }
+        //                entity.CreateTime = DateTime.Now;
+        //                var createuser = controller.GetCurrentLoginUser().Result;
+        //                if (createuser != null)
+        //                {
+        //                    entity.CreateUserId = (createuser.UserId);
+        //                }
+        //                else
+        //                {
+        //                    entity.CreateUserId = Guid.Empty;
+        //                }
 
-                        collection.Add(entity);
-                    }
+        //                collection.Add(entity);
+        //            }
 
-                    var executeResult2 = controller.Imports(collection);
-                    if (executeResult2.HasError)
-                    {
-                        Errors = executeResult2.Errors;
-                        HasError = executeResult2.HasError;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-            }
-        }
+        //            var executeResult2 = controller.Imports(collection);
+        //            if (executeResult2.HasError)
+        //            {
+        //                Errors = executeResult2.Errors;
+        //                HasError = executeResult2.HasError;
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        setErrortoModel(this, ex);
+        //    }
+        //}
     }
 }

@@ -18,7 +18,7 @@ namespace Tokiku.Entity
         public ProcessingAtlas()
         {
             this.BOM = new HashSet<BOM>();
-            this.ShopFlowDetail = new HashSet<ShopFlowDetail>();
+            this.OrderControlTableDetails = new HashSet<OrderControlTableDetails>();
         }
     
         public System.Guid Id { get; set; }
@@ -36,6 +36,6 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BOM> BOM { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ShopFlowDetail> ShopFlowDetail { get; set; }
+        public virtual ICollection<OrderControlTableDetails> OrderControlTableDetails { get; set; }
     }
 }

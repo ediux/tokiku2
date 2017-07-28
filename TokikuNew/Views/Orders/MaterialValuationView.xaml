@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="TokikuNew.Views.MaterialValuationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:controls="clr-namespace:TokikuNew.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="683" d:DesignWidth="1362" Loaded="MaterialValuationView_Loaded">
+    <UserControl.Resources>
+        
+    </UserControl.Resources>
+    <Grid>
+        <controls:CustomDataGrid Margin="5" AutoGenerateColumns="False" x:Name="材質估價DG" 
+                                 ItemsSource="{Binding Source={StaticResource MaterialValuationViewSource}}">
+            <controls:CustomDataGrid.Columns>
+                <DataGridTextColumn Header="材質" Binding="{Binding Material, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="*kg單價*" Binding="{Binding UnitPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="重量" Binding="{Binding Weight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="預估總價" Binding="{Binding TotalPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+            </controls:CustomDataGrid.Columns>
+        </controls:CustomDataGrid>
+
+    </Grid>
+</UserControl>

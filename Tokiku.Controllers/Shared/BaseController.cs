@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
@@ -17,25 +18,9 @@ namespace Tokiku.Controllers
     /// </summary>
     public abstract class BaseController : IBaseController
     {
-        /// <summary>
-        /// 統一資料庫連線物件。
-        /// </summary>
-        protected IUnitOfWork database;
 
         public BaseController()
         {
-            try
-            {
-                database = RepositoryHelper.GetUnitOfWork();
-            }
-            catch
-            {
-#if DEBUG
-                //database = new TokikuEntities("data source=220.130.128.36,1443;initial catalog=Tokiku2;persist security info=True;user id=sa;password=1qaz@WSX;MultipleActiveResultSets=True;App=EntityFramework");
-                database = RepositoryHelper.GetUnitOfWork();
-                database.ConnectionString = "data source = 220.130.128.36,1443; initial catalog = Tokiku2; persist security info = True; user id = sa; password = 1qaz @WSX; MultipleActiveResultSets = True; App = EntityFramework";
-#endif
-            }
         }
 
 
@@ -48,7 +33,6 @@ namespace Tokiku.Controllers
             {
                 if (disposing)
                 {
-                    database.Dispose();
                 }
 
                 // TODO: 釋放 Unmanaged 資源 (Unmanaged 物件) 並覆寫下方的完成項。
@@ -86,7 +70,7 @@ namespace Tokiku.Controllers
             {
 
                 string loweredUserName = model.UserName.ToLowerInvariant();
-                _CurrentLoginedUserStorage = (from q in RepositoryHelper.GetUsersRepository(database).All()
+                _CurrentLoginedUserStorage = (from q in this.GetRepository<Users>().All()
                                               where q.LoweredUserName == loweredUserName
                                               && q.Membership.Password == model.Password
                                               select q).SingleOrDefault();
@@ -171,6 +155,29 @@ namespace Tokiku.Controllers
             {
                 return ExecuteResultEntity<Users>.CreateErrorResultEntity(ex);
             }
+        }
+
+        /// <summary>
+        /// 傳回主索引鍵欄位的內容值。
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        protected object[] IdentifyPrimaryKey<T>(T entity) where T : class
+        {
+
+            ObjectContext objectContext = ((IObjectContextAdapter)this.GetRepository<T>().UnitOfWork.Context).ObjectContext;
+            ObjectSet<T> set = objectContext.CreateObjectSet<T>();
+            IEnumerable<string> keyNames = set.EntitySet.ElementType
+                                                        .KeyMembers
+                                                        .Select(k => k.Name);
+
+            Type entityreflection = typeof(T);
+
+            var pkeys = entityreflection.GetProperties()
+                .Join(keyNames, (x) => x.Name, (y) => y, (k, t) => k)
+                .Select(s => s.GetValue(entity));
+
+            return pkeys.ToArray();
         }
 
         /// <summary>
@@ -269,28 +276,7 @@ namespace Tokiku.Controllers
 
         }
 
-        /// <summary>
-        /// 傳回主索引鍵欄位的內容值。
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        protected object[] IdentifyPrimaryKey(T entity)
-        {
 
-            ObjectContext objectContext = ((IObjectContextAdapter)database.Context).ObjectContext;
-            ObjectSet<T> set = objectContext.CreateObjectSet<T>();
-            IEnumerable<string> keyNames = set.EntitySet.ElementType
-                                                        .KeyMembers
-                                                        .Select(k => k.Name);
-            
-            Type entityreflection = typeof(T);
-
-            var pkeys = entityreflection.GetProperties()
-                .Join(keyNames, (x) => x.Name, (y) => y, (k, t) => k)
-                .Select(s => s.GetValue(entity));
-
-            return pkeys.ToArray();
-        }
 
         /// <summary>
         /// 取得資料庫儲存庫物件。
@@ -298,25 +284,7 @@ namespace Tokiku.Controllers
         /// <returns><回傳指定資料表的儲存庫物件。</returns>
         private IRepositoryBase<T> GetRepository()
         {
-            Type type = typeof(T);
-
-            Type RepositoryType = typeof(RepositoryHelper);
-
-
-            if (RepositoryType != null)
-            {
-                MethodInfo GetRepositoryMethod = RepositoryType.GetMethod(string.Format("Get{0}Repository", type.Name), new Type[] { typeof(IUnitOfWork) });
-
-                database = RepositoryHelper.GetUnitOfWork();
-
-                if (GetRepositoryMethod != null)
-                    return (IRepositoryBase<T>)GetRepositoryMethod.Invoke(null, new object[] { database });
-                else
-                    throw new NotImplementedException(string.Format("Function of Get{0}Repository not found or not implemented.", type.Name));
-            }
-
-            return default(IRepositoryBase<T>);
-
+            return this.GetRepository<T>();
         }
 
         /// <summary>
@@ -347,24 +315,25 @@ namespace Tokiku.Controllers
         {
             try
             {
-                using (IRepositoryBase<T> repo = GetRepository())
+                var repo = GetRepository();
+
+                if (repo == null)
+                    return ExecuteResultEntity.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
+
+                entity = repo.Add(entity);
+
+                if (isLastRecord)
                 {
-                    database = repo.UnitOfWork;
-                    if (repo == null)
-                        return ExecuteResultEntity.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
+                    repo.UnitOfWork.Commit();
+                    //repo.UnitOfWork.Context.Set<T>().Attach(entity);
+                    //database = RepositoryHelper.GetUnitOfWork();
+                    repo = GetRepository();
+                    entity = repo.Get(IdentifyPrimaryKey(entity));
 
-                    entity = repo.Add(entity);
-
-                    if (isLastRecord)
-                    {
-                        repo.UnitOfWork.Commit();
-                        database = repo.UnitOfWork;
-                        repo.UnitOfWork.Context.Set<T>().Attach(entity);
-                        entity = repo.Reload(entity);
-                    }
-
-                    return ExecuteResultEntity.CreateResultEntity();
                 }
+
+                return ExecuteResultEntity.CreateResultEntity();
+
             }
             catch (Exception ex)
             {
@@ -384,10 +353,10 @@ namespace Tokiku.Controllers
 
             try
             {
-              
+
                 var repo = GetRepository();
 
-                database = repo.UnitOfWork;
+                //database = repo.UnitOfWork;
 
                 if (repo == null)
                     return ExecuteResultEntity<ICollection<T>>.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
@@ -396,7 +365,8 @@ namespace Tokiku.Controllers
 
                 if (result.Any())
                 {
-                    model = ExecuteResultEntity<ICollection<T>>.CreateResultEntity(new Collection<T>(result.ToList()));
+                    var detachs = result.ToList();
+                    model = ExecuteResultEntity<ICollection<T>>.CreateResultEntity(new Collection<T>(detachs));
                     return model;
                 }
 
@@ -421,30 +391,24 @@ namespace Tokiku.Controllers
         {
             try
             {
-                using (var repo = GetRepository())
+                var repo = GetRepository();
+                if (repo == null)
+                    return ExecuteResultEntity<T>.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
+
+                //repo.UnitOfWork.Context.Entry(fromModel).State = EntityState.Added;
+                repo.UnitOfWork.Context.Entry(fromModel).State = EntityState.Modified;
+
+                if (isLastRecord)
                 {
-                    if (repo == null)
-                        return ExecuteResultEntity<T>.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
+                    repo.UnitOfWork.Commit();
 
-                    database = repo.UnitOfWork;
-
-                    T findresult = repo.Get(IdentifyPrimaryKey(fromModel));
-
-                    if (findresult != null)
-                    {
-                        CheckAndUpdateValue(fromModel, findresult);
-
-                        if (isLastRecord)
-                        {
-                            repo.UnitOfWork.Commit();
-                            database = repo.UnitOfWork;
-                            findresult = repo.Get(IdentifyPrimaryKey(findresult));
-                        }
-
-                        return ExecuteResultEntity<T>.CreateResultEntity(findresult);
-                    }
+                    //database = null;
+                    repo = GetRepository();
+                    var findresult = repo.Get(IdentifyPrimaryKey(fromModel));
+                    return ExecuteResultEntity<T>.CreateResultEntity(findresult);
                 }
-                return ExecuteResultEntity<T>.CreateErrorResultEntity("Data not found.");
+
+                return ExecuteResultEntity<T>.CreateResultEntity(fromModel);
             }
             catch (Exception ex)
             {
@@ -458,35 +422,30 @@ namespace Tokiku.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public virtual ExecuteResultEntity Delete(Expression<Func<T, bool>> condtion)
+        public virtual ExecuteResultEntity<T> Delete(T entity, bool isDeleteRightNow = false)
         {
             try
             {
-                using (var repo = GetRepository())
-                {
-                    if (repo == null)
-                        return ExecuteResultEntity.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
-                    database = repo.UnitOfWork;
-                    var findresult = repo.Where(condtion);
+                var repo = GetRepository();
 
-                    if (findresult.Any())
-                    {
-                        foreach (var result in findresult)
-                        {
-                            repo.Delete(result);
-                        }
+                if (repo == null)
+                    return ExecuteResultEntity<T>.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
 
-                        repo.UnitOfWork.Commit();
+                var findresult = repo.Get(IdentifyPrimaryKey(entity));
 
-                        return ExecuteResultEntity.CreateResultEntity();
-                    }
+                if (findresult != null)
+                    repo.Delete(findresult);
 
-                    return ExecuteResultEntity.CreateErrorResultEntity("Data no found.");
+                if (isDeleteRightNow)
+                {                    
+                    repo.UnitOfWork.Commit();
                 }
+
+                return ExecuteResultEntity<T>.CreateResultEntity(entity);
             }
             catch (Exception ex)
             {
-                return ExecuteResultEntity.CreateErrorResultEntity(ex);
+                return ExecuteResultEntity<T>.CreateErrorResultEntity(ex);
             }
 
         }
@@ -495,20 +454,24 @@ namespace Tokiku.Controllers
         /// 新增或更新資料至資料庫。
         /// </summary>
         /// <param name="model">已經變更的資料實體物件(來自UI)</param>
-        public virtual ExecuteResultEntity<T> CreateOrUpdate(T entity)
+        public virtual ExecuteResultEntity<T> CreateOrUpdate(T entity, bool isLastRecord = true)
         {
             try
             {
                 var repo = GetRepository();
-                database = repo.UnitOfWork;
+
 
                 if (repo == null)
                     return ExecuteResultEntity<T>.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
 
+
+
                 //檢查資料庫資料是否存在?
                 if (repo.Get(IdentifyPrimaryKey(entity)) != null)
                 {
-                    var update_result = Update(entity);
+                    //repo.UnitOfWork.Context.Entry(entity).State = EntityState.Detached;
+
+                    var update_result = Update(entity, isLastRecord);
 
                     if (update_result.HasError)
                     {
@@ -520,7 +483,7 @@ namespace Tokiku.Controllers
                 }
                 else
                 {
-                    var add_result = Add(entity);
+                    var add_result = Add(entity, isLastRecord);
                     if (add_result.HasError)
                     {
                         return new ExecuteResultEntity<T>()
@@ -548,7 +511,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                return database.Context.Set<T>().Where(filiter).Any();
+                return GetRepository().Where(filiter).Any();
             }
             catch
             {

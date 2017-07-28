@@ -15,16 +15,15 @@ namespace Tokiku.Entity
     public partial class ShopFlowDetail
     {
         public System.Guid Id { get; set; }
-        public Nullable<System.Guid> ShopFlowId { get; set; }
-        public System.Guid ProcessingAtlasId { get; set; }
-        public System.Guid CurrentManufacturersId { get; set; }
-        public System.Guid NextManufacturerId { get; set; }
+        public string LastShopFlowId { get; set; }
+        public System.Guid ShopFlowId { get; set; }
+        public Nullable<System.Guid> NextShopFlowId { get; set; }
+        public string RefenceDataId { get; set; }
+        public System.DateTime StartTime { get; set; }
+        public Nullable<System.DateTime> EndTime { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
     
-        public virtual Manufacturers Manufacturers { get; set; }
-        public virtual Manufacturers Manufacturers1 { get; set; }
-        public virtual ProcessingAtlas ProcessingAtlas { get; set; }
         public virtual ShopFlow ShopFlow { get; set; }
         public virtual Users Users { get; set; }
     }

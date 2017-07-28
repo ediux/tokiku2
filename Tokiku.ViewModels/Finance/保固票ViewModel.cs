@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
@@ -20,9 +21,9 @@ namespace Tokiku.ViewModels
         }
     }
 
-    public class 保固票ViewModel : BaseViewModel
+    public class 保固票ViewModel : BaseViewModelWithPOCOClass<PromissoryNoteManagement>
     {
-        public int Id { get; set; }
+        public new int Id { get; set; }
         public string Name { get; set; }
         public Object obj { get; set; }
     }

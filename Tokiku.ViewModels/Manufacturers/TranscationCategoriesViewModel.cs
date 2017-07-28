@@ -10,55 +10,65 @@ namespace Tokiku.ViewModels
 {
     public class TranscationCategoriesViewModelCollection : BaseViewModelCollection<TranscationCategoriesViewModel>
     {
-        private Controllers.ManufacturersManageController controller;
 
-        public override void Initialized()
+        public TranscationCategoriesViewModelCollection()
         {
-            base.Initialized();
-            controller = new Controllers.ManufacturersManageController();
-            Query();
+
         }
 
-        public async override void Query()
+        public TranscationCategoriesViewModelCollection(IEnumerable<TranscationCategoriesViewModel> source) : base(source)
         {
-            var result = await controller.GetTranscationCategoriesListAsync();
 
-            if (!result.HasError)
-            {
-                if (result.Result.Any())
-                {
-                    ClearItems();
-                    foreach (var item in result.Result)
-                    {
-                        TranscationCategoriesViewModel model = new TranscationCategoriesViewModel();
-                        model.SetModel(item);
-                        Add(model);
-                    }
-                }
-            }
-            else
-            {
-                Errors = result.Errors;
-                HasError = result.HasError;
-            }
+        }
+
+        public static TranscationCategoriesViewModelCollection Query()
+        {
+            return Query<TranscationCategoriesViewModelCollection, TranscationCategories>(
+                "ManufacturersManage",
+                "GetTranscationCategoriesList");
+            //var result = await controller.GetTranscationCategoriesList();
+
+            //if (!result.HasError)
+            //{
+            //    if (result.Result.Any())
+            //    {
+            //        ClearItems();
+            //        foreach (var item in result.Result)
+            //        {
+            //            TranscationCategoriesViewModel model = new TranscationCategoriesViewModel();
+            //            model.SetModel(item);
+            //            Add(model);
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    Errors = result.Errors;
+            //    HasError = result.HasError;
+            //}
         }
     }
 
-    public class TranscationCategoriesViewModel : BaseViewModel
+    public class TranscationCategoriesViewModel : BaseViewModelWithPOCOClass<TranscationCategories>
     {
+        public TranscationCategoriesViewModel()
+        {
+
+        }
+        public TranscationCategoriesViewModel(TranscationCategories entity) : base(entity)
+        {
+
+        }
         #region Id
 
 
-        public int Id
+        public new int Id
         {
-            get { return (int)GetValue(IdProperty); }
-            set { SetValue(IdProperty, value); }
+            get { return CopyofPOCOInstance.Id; }
+            set { CopyofPOCOInstance.Id = value; RaisePropertyChanged("Id"); }
         }
 
-        // Using a DependencyProperty as the backing store for Id.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty IdProperty =
-            DependencyProperty.Register("Id", typeof(int), typeof(TranscationCategoriesViewModel), new PropertyMetadata(0));
-
+   
 
         #endregion
 
@@ -67,29 +77,25 @@ namespace Tokiku.ViewModels
 
         public string Name
         {
-            get { return (string)GetValue(NameProperty); }
-            set { SetValue(NameProperty, value); }
+            get { return CopyofPOCOInstance.Name; }
+            set { CopyofPOCOInstance.Name = value; RaisePropertyChanged("Name"); }
         }
 
-        // Using a DependencyProperty as the backing store for Name.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty NameProperty =
-            DependencyProperty.Register("Name", typeof(string), typeof(TranscationCategoriesViewModel), new PropertyMetadata(string.Empty));
-
-
+    
         #endregion
 
-        public override void SetModel(dynamic entity)
-        {
-            try
-            {
-                TranscationCategories data = (TranscationCategories)entity;
-                BindingFromModel(data, this);
-            }
-            catch (Exception ex)
-            {
+        //public override void SetModel(dynamic entity)
+        //{
+        //    try
+        //    {
+        //        TranscationCategories data = (TranscationCategories)entity;
+        //        BindingFromModel(data, this);
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                setErrortoModel(this, ex);
-            }
-        }
+        //        setErrortoModel(this, ex);
+        //    }
+        //}
     }
 }

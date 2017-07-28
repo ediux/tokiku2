@@ -1,13 +1,17 @@
-﻿<UserControl
+﻿<UserControl x:Class="TokikuNew.Views.ContractManager"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm ="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
              xmlns:local="clr-namespace:TokikuNew.Views"
-             xmlns:Controls="clr-namespace:TokikuNew.Controls" x:Name="userControl" x:Class="TokikuNew.Views.ContractManager"
+             xmlns:Controls="clr-namespace:TokikuNew.Controls" x:Name="userControl"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024" Background="{DynamicResource ControlBackgroundBrush}"
              Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="WorkItemListSource" ObjectType="{x:Type vm:WorkItemListCollection}" MethodName="Query"/>
+    </UserControl.Resources>
     <Grid>
         <GroupBox Grid.Column="0" Grid.Row="1"  Grid.ColumnSpan="2" Margin="5" Header="合約項目(工程項目)" Style="{DynamicResource GroupBox_DocumentEditor}" >
             <Controls:CustomDataGrid Margin="5" VerticalAlignment="Stretch" 
@@ -15,19 +19,24 @@
                                          AutoGenerateColumns="False"
                                          CanUserAddRows="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,  ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl}"
                                          CanUserDeleteRows="{Binding Path=Mode,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl}"
-                                         ItemsSource="{Binding}"
+                                         ItemsSource="{Binding Source={StaticResource WorkItemListSource}}"
                                          IsReadOnly="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl}"
                                          x:Name="EngCaseList"
                                          MouseDoubleClick="EngCaseList_Selected">
                 <Controls:CustomDataGrid.Columns>
-                    <DataGridTextColumn Header=""/>
-                    <DataGridTextColumn Header="項目" Binding="{Binding Code}"/>
-                    <DataGridTextColumn Header="工程項目" Binding="{Binding Name}"/>
-                    <DataGridTextColumn Header="本約追加(減)工程項目" Binding="{Binding StartDate,StringFormat={}{0:yyyy/MM/dd}}"/>
-                    <DataGridTextColumn Header="單位" Binding="{Binding CompletionDate,StringFormat={}{0:yyyy/MM/dd}}"/>
-                    <DataGridTextColumn Header="追加減後總數量" Binding="{Binding WarrantyDate,StringFormat={}{0:yyyy/MM/dd}}"/>
-                    <DataGridTextColumn Header="" Binding="{Binding Architect}"/>
-                    <DataGridTextColumn Header="" Binding="{Binding State, Converter={StaticResource StatesCodeToTextValueConverter}}"/>
+                    <DataGridTextColumn Header="合約編號" Binding="{Binding ContractNumber}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="工程名稱" Binding="{Binding Name}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="項次" Binding="{Binding }" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="工程項目" Binding="{Binding }" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="單位" Binding="{Binding Unit}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="本約數量" Binding="{Binding }" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="追加數量" Binding="{Binding }" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="追減數量" Binding="{Binding }" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="追加減後總數量" Binding="{Binding WarrantyDate}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="備註" Binding="{Binding}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <!-- DataGridTextColumn Header="本約追加(減)工程項目" Binding="{Binding StartDate,StringFormat={}{0:yyyy/MM/dd}}" Width="auto" / -->
+                    <!-- DataGridTextColumn Header="" Binding="{Binding Architect}" Width="auto" / -->
+                    <!-- DataGridTextColumn Header="" Binding="{Binding State, Converter={StaticResource StatesCodeToTextValueConverter}}" Width="auto" / -->
                 </Controls:CustomDataGrid.Columns>
             </Controls:CustomDataGrid>
         </GroupBox>

@@ -21,7 +21,7 @@ namespace Tokiku.ViewModels
 
     }
 
-    public class CompositionTypesViewModel : BaseViewModel
+    public class CompositionTypesViewModel : BaseViewModelWithPOCOClass<Entity.BOM>
     {
 
 
