@@ -8,7 +8,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using Tokiku.ViewModels;
 
-namespace Tokiku.ViewModels
+namespace Tokiku.MVVM.Commands
 {
     public class SaveModelCommand : DelegateCommand
     {
@@ -34,9 +34,9 @@ namespace Tokiku.ViewModels
 
                     if (provider != null)
                     {
-                        IBaseViewModel viewmodel = (IBaseViewModel)provider.Data;
-                        viewmodel.SaveCommand.Execute(parameter);
-                        viewmodel.SaveModel();                        
+                        // viewmodel = (IBaseViewModel)provider.Data;
+                        //viewmodel.SaveCommand.Execute(parameter);
+                        //viewmodel.SaveModel();                        
                     }        
                 }
 

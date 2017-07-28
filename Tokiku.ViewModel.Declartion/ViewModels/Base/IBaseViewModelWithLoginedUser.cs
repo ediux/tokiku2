@@ -1,35 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Tokiku.ViewModels
 {
-    public interface IBaseViewModel : INotifyPropertyChanged
+    public interface IBaseViewModelWithLoginedUser : IBaseViewModel
     {
-
-        /// <summary>
-        /// 錯誤訊息
-        /// </summary>
-        IEnumerable<string> Errors { get; set; }
-
-        /// <summary>
-        /// 指出是否發生錯誤
-        /// </summary>
-        bool HasError { get; set; }
-
-
-        /// <summary>
-        /// 初始化作業。
-        /// </summary>
-        void Initialized(object Parameter);
-
-        void SaveModel(object ControllerName);
-
-        void SaveModel();
-
-        string SaveModelController { get; }
-
         /// <summary>
         /// 查詢命令
         /// </summary>
@@ -50,5 +29,15 @@ namespace Tokiku.ViewModels
         /// 處理轉送路由資料的命令
         /// </summary>
         ICommand RelayCommand { get; set; }
+
+        /// <summary>
+        /// 取得或設定對應的資料實體
+        /// </summary>
+        Type EntityType { get; set; }
+
+        /// <summary>
+        /// 取得目前登入的使用者
+        /// </summary>
+        IUserViewModel LoginedUser { get; set; }
     }
 }

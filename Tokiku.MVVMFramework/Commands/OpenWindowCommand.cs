@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Tokiku.MVVM.Data;
 
-namespace Tokiku.ViewModels
+namespace Tokiku.MVVM.Commands
 {
     public class OpenWindowCommand : ICommand
     {
@@ -19,10 +20,10 @@ namespace Tokiku.ViewModels
 
         public void Execute(object parameter)
         {
-            RoutedViewResult routedvalues = null;
+            RoutedViewData routedvalues = null;
 
-            if (parameter is RoutedViewResult)
-                routedvalues = (RoutedViewResult)parameter;
+            if (parameter is RoutedViewData)
+                routedvalues = (RoutedViewData)parameter;
             else
                 return;
 

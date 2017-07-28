@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
-namespace Tokiku.ViewModels
+namespace Tokiku.MVVM.Commands
 {
     public class BridgingCommand : ICommand
     {
@@ -42,9 +42,9 @@ namespace Tokiku.ViewModels
         {
             if (SourceInstance != null && TargetViewType != null)
             {
-                if (parameter is RoutedViewResult)
+                if (parameter is RoutedViewData)
                 {
-                    RoutedViewResult routeddata = (RoutedViewResult)parameter;
+                    RoutedViewData routeddata = (RoutedViewData)parameter;
 
                     if (routeddata != null)
                     {

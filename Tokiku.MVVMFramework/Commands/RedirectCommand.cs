@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
+using Tokiku.MVVM.Data;
 
-namespace Tokiku.ViewModels
+namespace Tokiku.MVVM.Commands
 {
     public class RedirectCommand : ICommand
     {
@@ -46,7 +47,7 @@ namespace Tokiku.ViewModels
 
         public void Execute(object parameter)
         {
-            RoutedViewResult routingdata = (parameter is RoutedViewResult) ? (RoutedViewResult)parameter : null;
+            RoutedViewData routingdata = (parameter is RoutedViewData) ? (RoutedViewData)parameter : null;
 
             if (routingdata == null)
                 return;

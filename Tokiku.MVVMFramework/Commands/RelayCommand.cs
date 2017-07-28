@@ -5,21 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Tokiku.ViewModels
+namespace Tokiku.MVVM.Commands
 {
-   public class DelegateCommand:ICommand
+    public class RelayCommand : ICommand
     {
-        public string Text { get; set; }
-
         private Action<object> execute;
         private Func<object, bool> canExecute;
 
-        public DelegateCommand():this((x)=> { })
+        public RelayCommand():this((x)=> { })
         {
 
         }
 
-        public DelegateCommand(Action<object> execute, Func<object, bool> canExecute = null)
+        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
         {
             this.execute = execute;
             this.canExecute = canExecute;

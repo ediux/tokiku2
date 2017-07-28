@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace Tokiku.ViewModels
 {
-    public class DocumentStatusViewModel : DependencyObject, INotifyPropertyChanged
+    public class DocumentStatusViewModel : BaseViewModel, IDocumentStatusViewModel
     {
         /// <summary>
         /// 指出目前是否處於初始化狀態

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace Tokiku.ViewModels
+namespace Tokiku.MVVM.Commands
 {
     public class CloseWindowCommand : ICommand
     {
@@ -29,7 +29,7 @@ namespace Tokiku.ViewModels
 
         public void Execute(object parameter)
         {
-            RoutedViewResult executeresult = (parameter is RoutedViewResult) ? (RoutedViewResult)parameter : null;
+            RoutedViewData executeresult = (parameter is RoutedViewData) ? (RoutedViewData)parameter : null;
 
             if (executeresult.SourceInstance is Window)
             {

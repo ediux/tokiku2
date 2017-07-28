@@ -51,23 +51,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\BaseViewModel.cs" />
     <Compile Include="Base\CommandObjectDataProvider.cs" />
-    <Compile Include="Commands\CommandRoutingManager.cs" />
-    <Compile Include="Base\ISingleBaseViewModel.cs" />
-    <Compile Include="Commands\BridgingCommand.cs" />
-    <Compile Include="Commands\CloseMultiPageContentCommand.cs" />
-    <Compile Include="Commands\CloseWindowCommand.cs" />
-    <Compile Include="Commands\DelegateCommand.cs" />
-    <Compile Include="Commands\KeyPressNextFocusCommand.cs" />
-    <Compile Include="Commands\LoginCommand.cs" />
-    <Compile Include="Commands\OpenTabItemCommand.cs" />
-    <Compile Include="Commands\OpenWindowCommand.cs" />
-    <Compile Include="Commands\QueryCommand.cs" />
-    <Compile Include="Commands\RedirectCommand.cs" />
-    <Compile Include="Commands\RoutedViewResult.cs" />
     <Compile Include="ControlTables\ObtainMaterialListViewModel.cs" />
-    <Compile Include="Commands\CreateNewModelCommand.cs" />
-    <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="ControlTables\ObtainMaterialViewModel.cs" />
     <Compile Include="ControlTables\RecvMaterialDetailsViewModel.cs" />
     <Compile Include="ControlTables\RecvMaterialDetailsViewModelCollection.cs" />
@@ -83,7 +69,6 @@
     <Compile Include="Projects\Orders\OrderViewModelCollection.cs" />
     <Compile Include="RequiredDetailViewModel.cs" />
     <Compile Include="RequiredDetailViewModelCollection.cs" />
-    <Compile Include="Commands\SaveModelCommand.cs" />
     <Compile Include="Shared\DocumentLifeCircle.cs" />
     <Compile Include="ControlTables\InventoryListViewModel.cs" />
     <Compile Include="ControlTables\InventoryViewModel.cs" />
@@ -124,9 +109,6 @@
     <Compile Include="Manufacturers\ManufacturersViewModel.cs" />
     <Compile Include="MES\MaterialsViewModel.cs" />
     <Compile Include="Base\DocumentStatusViewModel.cs" />
-    <Compile Include="Base\IBaseViewModel.cs" />
-    <Compile Include="Base\IBaseViewModelWithLoginedUser.cs" />
-    <Compile Include="Base\IToolbarButtonsViewModel.cs" />
     <Compile Include="Manufacturers\TranscationCategoriesViewModel.cs" />
     <Compile Include="ControlTables\RecvMaterialListViewModel.cs" />
     <Compile Include="ControlTables\RecvMaterialViewModel.cs" />
@@ -168,9 +150,20 @@
       <Project>{14cc904e-4a5c-401b-a7db-ddb045abb6dd}</Project>
       <Name>Tokiku.Entity</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tokiku.MVVMFramework\Tokiku.MVVMFramework.csproj">
+      <Project>{bd937663-91e1-4daa-975e-2b2d85a36671}</Project>
+      <Name>Tokiku.MVVMFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tokiku.ViewModel.Declartion\Tokiku.Declartion.csproj">
+      <Project>{c83fa66a-9995-4715-ad93-7ad2d73d47e3}</Project>
+      <Name>Tokiku.Declartion</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="TokikuNew_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Commands\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

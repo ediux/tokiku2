@@ -5,8 +5,9 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Tokiku.MVVM.Data;
 
-namespace Tokiku.ViewModels
+namespace Tokiku.MVVM.Commands
 {
     public class OpenNewTabItem : ICommand
     {
@@ -38,7 +39,7 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                RoutedViewResult executeresult = (parameter is RoutedViewResult) ? (RoutedViewResult)parameter : null;
+                RoutedViewData executeresult = (parameter is RoutedViewData) ? (RoutedViewData)parameter : null;
 
                 if (executeresult == null)
                     return;
@@ -141,7 +142,7 @@ namespace Tokiku.ViewModels
                 return null;
         }
 
-        private TabControl OpenTab(TabControl Workspaces, RoutedViewResult executeresult)
+        private TabControl OpenTab(TabControl Workspaces, RoutedViewData executeresult)
         {
             TabItem addWorkarea = null;
 
@@ -220,7 +221,7 @@ namespace Tokiku.ViewModels
             return Workspaces;
         }
 
-        private static void ProcessRouteValues(RoutedViewResult executeresult, object SharedModel, object vm)
+        private static void ProcessRouteValues(RoutedViewData executeresult, object SharedModel, object vm)
         {
             if (vm != null)
             {

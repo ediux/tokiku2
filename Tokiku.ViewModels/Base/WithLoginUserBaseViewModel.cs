@@ -1,27 +1,32 @@
 ﻿using System;
+using System.Reflection;
 using System.Windows;
+using System.Windows.Input;
 using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class WithLoginUserBaseViewModel : BaseViewModelWithPOCOClass<Users>, IBaseViewModelWithLoginedUser
+    public abstract class WithLoginUserBaseViewModel : BaseViewModel, IBaseViewModelWithLoginedUser
     {
         public WithLoginUserBaseViewModel()
         {
            
         }
 
-        public WithLoginUserBaseViewModel(Users entity) : base(entity)
+        public WithLoginUserBaseViewModel(Users entity) 
         {
 
         }
 
-        private UserViewModel _LoginedUser;
+
+
+        #region Logined User
+        private IUserViewModel _LoginedUser;
 
         /// <summary>
         /// 取得目前登入的使用者
         /// </summary>
-        public UserViewModel LoginedUser
+        public IUserViewModel LoginedUser
         {
             get
             {
@@ -36,6 +41,14 @@ namespace Tokiku.ViewModels
                 _LoginedUser = new UserViewModel(CopyofPOCOInstance);
                 RaisePropertyChanged("LoginedUser");
             }
-        }
+        } 
+        #endregion
+
+        public ICommand QueryCommand { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ICommand SaveCommand { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ICommand CreateNewCommand { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ICommand DeleteCommand { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ICommand RelayCommand { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Type EntityType { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }

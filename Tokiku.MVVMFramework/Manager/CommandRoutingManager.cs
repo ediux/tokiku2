@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using Tokiku.MVVM.Data;
+using Tokiku.ViewModels;
 
-namespace Tokiku.ViewModels
+namespace Tokiku.MVVM
 {
     /// <summary>
     /// Mvvm路由管理器
@@ -27,7 +27,7 @@ namespace Tokiku.ViewModels
 
                 Type CommandType = cmd.GetType();
 
-                RoutedViewResult externaldata = (RoutedViewResult)parameter;
+                RoutedViewData externaldata = (RoutedViewData)parameter;
 
                 var prop = CommandType.GetProperty("RoutingName");
 
@@ -69,7 +69,7 @@ namespace Tokiku.ViewModels
                     {
 
 
-                        RoutedViewResult routingdata = foundroute.Single();
+                        RoutedViewData routingdata = foundroute.Single();
 
                         externaldata.SourceInstance = routingdata.SourceInstance;
                         externaldata.SourceViewType = routingdata.SourceViewType;
@@ -104,7 +104,7 @@ namespace Tokiku.ViewModels
                         }
 
 
-                        IBaseViewModel viewmodel = null;
+                        IMultiBaseViewModel viewmodel = null;
 
                         Assembly LoadableAssembly = null;
 
@@ -126,7 +126,7 @@ namespace Tokiku.ViewModels
 
                         if (routingdata.RoutedValues.ContainsKey("TargetViewModel"))
                         {
-                            viewmodel = (IBaseViewModel)Activator.CreateInstance(LoadableAssembly.GetType(routingdata.RoutedValues["TargetViewModel"].ToString()), _ViewModelConstructionParameters);
+                            viewmodel = (IMultiBaseViewModel)Activator.CreateInstance(LoadableAssembly.GetType(routingdata.RoutedValues["TargetViewModel"].ToString()), _ViewModelConstructionParameters);
                             if (!routingdata.RoutedValues.ContainsKey("TargetViewModelInstance"))
                                 routingdata.RoutedValues.Add("TargetViewModelInstance", viewmodel);
                             else
@@ -166,12 +166,12 @@ namespace Tokiku.ViewModels
             }
         }
 
-        public static void Register(FrameworkElement source, RoutedViewResult routingdata, string RoutingName)
+        public static void Register(FrameworkElement source, RoutedViewData routingdata, string RoutingName)
         {
             try
             {
                 if (_Mapping == null)
-                    _Mapping = new Dictionary<FrameworkElement, HashSet<RoutedViewResult>>();
+                    _Mapping = new Dictionary<FrameworkElement, HashSet<RoutedViewData>>();
 
                 if (_Mapping.Count > 0 && _Mapping.ContainsKey(source))
                     _Mapping[source].RemoveWhere(w => w.Name == routingdata.Name);
@@ -192,7 +192,7 @@ namespace Tokiku.ViewModels
 
                 if (_Mapping.ContainsKey(source) == false)
                 {
-                    _Mapping.Add(source, new HashSet<RoutedViewResult>());
+                    _Mapping.Add(source, new HashSet<RoutedViewData>());
                     _Mapping[source].Add(routingdata);
                 }
                 else
@@ -213,7 +213,7 @@ namespace Tokiku.ViewModels
             {
                 if (_Mapping == null)
                 {
-                    _Mapping = new Dictionary<FrameworkElement, HashSet<RoutedViewResult>>();
+                    _Mapping = new Dictionary<FrameworkElement, HashSet<RoutedViewData>>();
                     return;
                 }
 
@@ -227,7 +227,7 @@ namespace Tokiku.ViewModels
             }
         }
 
-        private static Dictionary<FrameworkElement, HashSet<RoutedViewResult>> _Mapping;
+        private static Dictionary<FrameworkElement, HashSet<RoutedViewData>> _Mapping;
 
         public CommandRoutingManager()
         {
@@ -365,7 +365,7 @@ namespace Tokiku.ViewModels
                 if (sender == null)
                     return;
 
-                RoutedViewResult route = (RoutedViewResult)GetCommandParameter((DependencyObject)sender);
+                RoutedViewData route = (RoutedViewData)GetCommandParameter((DependencyObject)sender);
 
                 if (sender is DataGrid)
                     route.DataContent = ((DataGrid)sender)?.SelectedItem;
@@ -483,9 +483,9 @@ namespace Tokiku.ViewModels
             {
                 if (d is UIElement)
                 {
-                    if (e.NewValue is RoutedViewResult)
+                    if (e.NewValue is RoutedViewData)
                     {
-                        RoutedViewResult routeitem = (RoutedViewResult)e.NewValue;
+                        RoutedViewData routeitem = (RoutedViewData)e.NewValue;
 
                         if (routeitem.RoutedValues.ContainsKey("UIElement") == false)
                             routeitem.RoutedValues.Add("UIElement", d);

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokikuNew", "TokikuNew\TokikuNew.csproj", "{3CCCCF98-429D-4051-9155-007F15A470F8}"
 EndProject
@@ -14,6 +14,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tokiku.Entity", "Tokiku.Entity\Tokiku.Entity.csproj", "{14CC904E-4A5C-401B-A7DB-DDB045ABB6DD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tokiku.ViewModels", "Tokiku.ViewModels\Tokiku.ViewModels.csproj", "{F5811844-946B-4050-847A-7ED8B46EDBF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tokiku.MVVMFramework", "Tokiku.MVVMFramework\Tokiku.MVVMFramework.csproj", "{BD937663-91E1-4DAA-975E-2B2D85A36671}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{71D7F83E-A953-4482-8BB8-6DB052C296FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tokiku.Declartion", "Tokiku.ViewModel.Declartion\Tokiku.Declartion.csproj", "{C83FA66A-9995-4715-AD93-7AD2D73D47E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +43,14 @@ Global
 		{F5811844-946B-4050-847A-7ED8B46EDBF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5811844-946B-4050-847A-7ED8B46EDBF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5811844-946B-4050-847A-7ED8B46EDBF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD937663-91E1-4DAA-975E-2B2D85A36671}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD937663-91E1-4DAA-975E-2B2D85A36671}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD937663-91E1-4DAA-975E-2B2D85A36671}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD937663-91E1-4DAA-975E-2B2D85A36671}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C83FA66A-9995-4715-AD93-7AD2D73D47E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C83FA66A-9995-4715-AD93-7AD2D73D47E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C83FA66A-9995-4715-AD93-7AD2D73D47E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C83FA66A-9995-4715-AD93-7AD2D73D47E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -45,5 +59,7 @@ Global
 		{98214455-767F-4C8E-BF90-AF0BB7135A79} = {D14174F5-8581-4985-9873-7BC2A18B3E8E}
 		{14CC904E-4A5C-401B-A7DB-DDB045ABB6DD} = {2544CEC0-B05D-4BEA-A7A8-132355E7FFD9}
 		{F5811844-946B-4050-847A-7ED8B46EDBF5} = {2544CEC0-B05D-4BEA-A7A8-132355E7FFD9}
+		{BD937663-91E1-4DAA-975E-2B2D85A36671} = {71D7F83E-A953-4482-8BB8-6DB052C296FC}
+		{C83FA66A-9995-4715-AD93-7AD2D73D47E3} = {71D7F83E-A953-4482-8BB8-6DB052C296FC}
 	EndGlobalSection
 EndGlobal

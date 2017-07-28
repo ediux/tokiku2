@@ -26,6 +26,11 @@ namespace Tokiku.ViewModels
 
     public class ShippingDetailsViewModel : BaseViewModelWithPOCOClass<View_Shipping>
     {
+        public ShippingDetailsViewModel()
+        {
+
+        }
+
         public ShippingDetailsViewModel(View_Shipping entity) : base(entity)
         {
         }

@@ -30,7 +30,7 @@ namespace Tokiku.ViewModels
             try
             {
                 OrderDetailViewModelCollection QueryResuly
-                    = Query<OrderDetailViewModelCollection, Orders>("Orders", "Query", ProjectId, ShopFlowId);
+                    = BaseViewModel.Query<OrderDetailViewModelCollection, OrderDetails>("Orders", "Query", ProjectId, ShopFlowId);
 
 
                 if (!returnSet.HasError)

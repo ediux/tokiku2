@@ -9,7 +9,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class UserViewModel : BaseViewModelWithPOCOClass<Users>, IBaseViewModel
+    public class UserViewModel : BaseViewModelWithPOCOClass<Users>, IBaseViewModel, IUserViewModel
     {
         public UserViewModel()
         {
@@ -62,9 +62,12 @@ namespace Tokiku.ViewModels
             get { return CopyofPOCOInstance.Membership.Password; }
         }
 
-        public override Users CreateUser { get => null; set { } }
+       
         public override DateTime CreateTime { get => DateTime.Now; set {  } }
         public override Guid CreateUserId { get => Guid.Empty; set { } }
+
+      
+
         public override void Initialized(object Parameter)
         {
             base.Initialized(Parameter);

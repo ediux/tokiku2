@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using Tokiku.MVVM.Commands;
 
-namespace Tokiku.ViewModels
+namespace Tokiku.MVVM.Data
 {
-    public class RoutedViewResult : UIElement
+    public class RoutedViewData : UIElement
     {
-        public RoutedViewResult()
+        public RoutedViewData()
         {
             RoutedValues = new Dictionary<string, object>();
             RoutingBinding = new Dictionary<string, string>();
@@ -30,7 +31,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for Name.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty NameProperty =
-            DependencyProperty.Register("Name", typeof(string), typeof(RoutedViewResult), new PropertyMetadata("Default"));
+            DependencyProperty.Register("Name", typeof(string), typeof(RoutedViewData), new PropertyMetadata("Default"));
 
 
 
@@ -42,7 +43,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for DisplayText.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DisplayTextProperty =
-            DependencyProperty.Register("DisplayText", typeof(string), typeof(RoutedViewResult), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("DisplayText", typeof(string), typeof(RoutedViewData), new PropertyMetadata(string.Empty));
 
 
         //public string DisplayText { get; set; }
@@ -57,7 +58,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for FormatedDisplay.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty FormatedDisplayProperty =
-            DependencyProperty.Register("FormatedDisplay", typeof(string), typeof(RoutedViewResult), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("FormatedDisplay", typeof(string), typeof(RoutedViewData), new PropertyMetadata(string.Empty));
 
 
 
@@ -69,7 +70,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for FormatedParameters.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty FormatedParametersProperty =
-            DependencyProperty.Register("FormatedParameters", typeof(object[]), typeof(RoutedViewResult), new PropertyMetadata(null));
+            DependencyProperty.Register("FormatedParameters", typeof(object[]), typeof(RoutedViewData), new PropertyMetadata(null));
 
         /// <summary>
         /// View的型別
@@ -82,7 +83,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for ViewType.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ViewTypeProperty =
-            DependencyProperty.Register("ViewType", typeof(Type), typeof(RoutedViewResult), new PropertyMetadata(null));
+            DependencyProperty.Register("ViewType", typeof(Type), typeof(RoutedViewData), new PropertyMetadata(null));
 
         /// <summary>
         /// 來源View的型別        
@@ -95,7 +96,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for SourceViewType.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SourceViewTypeProperty =
-            DependencyProperty.Register("SourceViewType", typeof(Type), typeof(RoutedViewResult), new PropertyMetadata(null));
+            DependencyProperty.Register("SourceViewType", typeof(Type), typeof(RoutedViewData), new PropertyMetadata(null));
 
         /// <summary>
         /// 來源執行個體參考
@@ -108,12 +109,12 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for SourceInstance.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SourceInstanceProperty =
-            DependencyProperty.Register("SourceInstance", typeof(object), typeof(RoutedViewResult), new PropertyMetadata(null, new PropertyChangedCallback(SourceChange)));
+            DependencyProperty.Register("SourceInstance", typeof(object), typeof(RoutedViewData), new PropertyMetadata(null, new PropertyChangedCallback(SourceChange)));
 
         private static void SourceChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
 
-            RoutedViewResult r = (RoutedViewResult)d;
+            RoutedViewData r = (RoutedViewData)d;
             if (r != null)
             {
                 r.SourceViewType = e.NewValue.GetType();
@@ -132,7 +133,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for DataContent.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DataContentProperty =
-            DependencyProperty.Register("DataContent", typeof(object), typeof(RoutedViewResult), new PropertyMetadata(null));
+            DependencyProperty.Register("DataContent", typeof(object), typeof(RoutedViewData), new PropertyMetadata(null));
 
 
         //public Dictionary<string, object> RoutedValues { get; set; }
@@ -150,7 +151,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty RoutingBindingProperty =
-            DependencyProperty.Register("RoutingBinding", typeof(Dictionary<string, string>), typeof(RoutedViewResult), new PropertyMetadata(default(Dictionary<string, Binding>)));
+            DependencyProperty.Register("RoutingBinding", typeof(Dictionary<string, string>), typeof(RoutedViewData), new PropertyMetadata(default(Dictionary<string, Binding>)));
 
 
 
@@ -163,7 +164,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for RoutedValues.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty RoutedValuesProperty =
-            DependencyProperty.Register("RoutedValues", typeof(Dictionary<string, object>), typeof(RoutedViewResult), new PropertyMetadata(default(Dictionary<string, object>)));
+            DependencyProperty.Register("RoutedValues", typeof(Dictionary<string, object>), typeof(RoutedViewData), new PropertyMetadata(default(Dictionary<string, object>)));
 
 
 
@@ -180,7 +181,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for ReplyCommand.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ReplyCommandProperty =
-            DependencyProperty.Register("ReplyCommand", typeof(ICommand), typeof(RoutedViewResult), new PropertyMetadata(null));
+            DependencyProperty.Register("ReplyCommand", typeof(ICommand), typeof(RoutedViewData), new PropertyMetadata(null));
 
 
 
@@ -192,7 +193,7 @@ namespace Tokiku.ViewModels
 
         // Using a DependencyProperty as the backing store for AttachedTargetElementName.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty AttachedTargetElementNameProperty =
-            DependencyProperty.Register("AttachedTargetElementName", typeof(string), typeof(RoutedViewResult), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("AttachedTargetElementName", typeof(string), typeof(RoutedViewData), new PropertyMetadata(string.Empty));
 
 
     }
