@@ -49,8 +49,9 @@ namespace Tokiku.ViewModels
     {
         public RecvMaterialViewModel()
         {
-
+            _SaveModelController = "RecvMaterial";
         }
+    
         public static RecvMaterialViewModel Query(Guid Id,Guid ProjectId)
         {
             try
@@ -64,10 +65,11 @@ namespace Tokiku.ViewModels
                 return emptycollection;
             }
         }
-
+        
+        
         public RecvMaterialViewModel(Receive entity) : base(entity)
         {
-
+            _SaveModelController = "RecvMaterial";
 
         }
 

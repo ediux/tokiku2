@@ -19,7 +19,7 @@ namespace Tokiku.Entity
         public string FactoryNumber { get; set; }
         public string Materials { get; set; }
         public decimal UnitWeight { get; set; }
-        public Nullable<int> OrderLength { get; set; }
+        public int OrderLength { get; set; }
         public Nullable<int> RequiredQuantitySubtotal { get; set; }
         public Nullable<decimal> RequiredQuantityWeightSummary { get; set; }
         public Nullable<decimal> NumberofOrdersNotPlaced { get; set; }
