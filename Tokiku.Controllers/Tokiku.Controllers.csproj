@@ -123,6 +123,7 @@
     <Compile Include="System\SystemMembersController.cs" />
     <Compile Include="System\SystemRolesController.cs" />
     <Compile Include="Projects\WorkItemListController.cs" />
+    <Compile Include="WMS\StockController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

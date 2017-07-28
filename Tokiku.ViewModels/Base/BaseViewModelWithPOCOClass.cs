@@ -338,7 +338,7 @@ namespace Tokiku.ViewModels
         /// </summary>
         public virtual string SaveModelController
         {
-            get { return _SaveModelController ?? _EntityType.Name; }
+            get { return _SaveModelController ?? (_EntityType?.Name ?? string.Empty); }
             set { _SaveModelController = value; }
         }
         #endregion
@@ -557,7 +557,7 @@ namespace Tokiku.ViewModels
         /// <param name="isLast">控制旗標(多列更新使用)</param>
         public virtual void SaveModel(string ControllerName, bool isLast = true)
         {
-           
+
             try
             {
                 ExecuteAction<TPOCO>(_SaveModelController, ActionName, CopyofPOCOInstance, isLast);

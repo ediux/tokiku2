@@ -59,7 +59,9 @@
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
     <!--訂製單雜項資料來源-->
-    
+    <!--倉別資料來源-->
+    <ObjectDataProvider x:Key="StockPickSource" ObjectType="{x:Type vm:StockViewModelCollection}" MethodName="Query"/>
+    <!--倉別資料來源-->
     <!--訂製單列表資料來源-->
     <ObjectDataProvider x:Key="OrderListSource" ObjectType="{x:Type vm:OrderViewModelCollection}" MethodName="Query">
         <ObjectDataProvider.MethodParameters>

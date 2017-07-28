@@ -27,8 +27,28 @@ namespace Tokiku.ViewModels
 
     public class ShippingMaterialViewModel : BaseViewModelWithPOCOClass<PickList>
     {
+        public ShippingMaterialViewModel()
+        {
+
+        }
+
         public ShippingMaterialViewModel(PickList entity) : base(entity)
         {
+        }
+
+        public static ShippingMaterialViewModel Query(Guid Id, Guid ProjectId)
+        {
+            try
+            {
+                return QuerySingle<ShippingMaterialViewModel, PickList>(
+                    "ShippingMaterial", "QuerySingle", Id, ProjectId);
+            }
+            catch (Exception ex)
+            {
+                ShippingMaterialViewModel emptycollection = new ShippingMaterialViewModel();
+                setErrortoModel(emptycollection, ex);
+                return emptycollection;
+            }
         }
 
         // ID
@@ -61,7 +81,7 @@ namespace Tokiku.ViewModels
             get { return CopyofPOCOInstance.IncomingNumber; }
             set { CopyofPOCOInstance.IncomingNumber = value; RaisePropertyChanged("IncomingNumber"); }
         }
-         
+
         /// <summary>
         /// 輸入人員
         /// </summary>
@@ -70,7 +90,7 @@ namespace Tokiku.ViewModels
             get { return CopyofPOCOInstance.CreateUsers.UserName; }
             set { CopyofPOCOInstance.CreateUsers.UserName = value; RaisePropertyChanged("CreateUser"); }
         }
-        
+
         /// <summary>
         /// 輸入日期
         /// </summary>
