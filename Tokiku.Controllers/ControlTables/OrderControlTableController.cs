@@ -10,19 +10,14 @@ namespace Tokiku.Controllers
 {
     public class OrderControlTableController : BaseController
     {
-        private ExecuteResultEntity<ICollection<Orders>> rtn;
-
-        public ExecuteResultEntity<ICollection<Orders>> QuerAll()
+        public ExecuteResultEntity<ICollection<View_OrderControlTable>> QueryAll()
         {
             try {
-                var repo = this.GetRepository<Orders>();
-
-                return ExecuteResultEntity<ICollection<Orders>>.CreateResultEntity(
-                    new Collection<Orders>(repo.All().ToList()));
-            }
-            catch (Exception ex) {
-                rtn = ExecuteResultEntity<ICollection<Orders>>.CreateErrorResultEntity(ex);
-                return rtn;
+                var repo = this.GetRepository<View_OrderControlTable>();
+                return ExecuteResultEntity<ICollection<View_OrderControlTable>>.CreateResultEntity(
+                    new Collection<View_OrderControlTable>(repo.All().ToList()));
+            }catch (Exception ex) {
+                return ExecuteResultEntity<ICollection<View_OrderControlTable>>.CreateErrorResultEntity(ex);
             }
         }
     }
