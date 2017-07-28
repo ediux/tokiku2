@@ -22,7 +22,7 @@ namespace Tokiku.Controllers
 
             try
             {
-                var repo = this.GetReoisitory();
+                var repo = this.GetRepository();
                 var result = from q in repo.All()
                              where q.Projects.ShortName == ProjectShortName
                              orderby q.FormNumber descending
@@ -53,7 +53,7 @@ namespace Tokiku.Controllers
                 }
                 else
                 {
-                    var projectrepo = this.GetReoisitory<Projects>();
+                    var projectrepo = this.GetRepository<Projects>();
                     var findproject = (from q in projectrepo.All()
                                        where q.ShortName == ProjectShortName
                                        select q).SingleOrDefault();
@@ -127,7 +127,7 @@ namespace Tokiku.Controllers
                 }
                 else
                 {
-                    var repo = this.GetReoisitory<RequiredDetails>().All();
+                    var repo = this.GetRepository<RequiredDetails>().All();
                     var result = from q in repo
                                  where q.RequiredId == RequiredId
                                  select q;
@@ -163,7 +163,7 @@ namespace Tokiku.Controllers
                 }
                 else
                 {
-                    var repo = this.GetReoisitory<RequiredDetails>().All();
+                    var repo = this.GetRepository<RequiredDetails>().All();
 
                     var result = from q in repo
                                  from s in q.Required.RequiredDetails
@@ -199,7 +199,7 @@ namespace Tokiku.Controllers
                 }
                 else
                 {
-                    var repo = this.GetReoisitory<RequiredDetails>().All();
+                    var repo = this.GetRepository<RequiredDetails>().All();
 
                     var result = from q in repo
                                  where q.Id == RequiredId
@@ -234,7 +234,7 @@ namespace Tokiku.Controllers
                 }
                 else
                 {
-                    var repo = this.GetReoisitory<RequiredDetails>().All();
+                    var repo = this.GetRepository<RequiredDetails>().All();
 
                     var result = from q in repo
                                  from s in q.Required.RequiredDetails
@@ -272,7 +272,7 @@ namespace Tokiku.Controllers
                 }
                 else
                 {
-                    var repo = this.GetReoisitory<RequiredDetails>().All();
+                    var repo = this.GetRepository<RequiredDetails>().All();
 
                     var result = from q in repo
                                  from s in q.Required.Projects.Required
@@ -311,7 +311,7 @@ namespace Tokiku.Controllers
                 }
                 else
                 {
-                    var repo = this.GetReoisitory<RequiredDetails>().All();
+                    var repo = this.GetRepository<RequiredDetails>().All();
 
                     var result = from q in repo
                                  from s in q.Required.RequiredDetails
@@ -349,7 +349,7 @@ namespace Tokiku.Controllers
                 }
                 else
                 {
-                    var repo = this.GetReoisitory<RequiredDetails>().All();
+                    var repo = this.GetRepository<RequiredDetails>().All();
 
                     var result = from q in repo
                                  from p in q.Required.Projects.Required
@@ -387,7 +387,7 @@ namespace Tokiku.Controllers
                 }
                 else
                 {
-                    var repo = this.GetReoisitory<RequiredDetails>().All();
+                    var repo = this.GetRepository<RequiredDetails>().All();
 
                     var result = from q in repo
                                  from p in q.Required.Projects.Required
@@ -418,7 +418,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var repo = this.GetReoisitory<RequiredDetails>().All();
+                var repo = this.GetRepository<RequiredDetails>().All();
 
                 var result = from q in repo
                              from p in q.Required.Projects.Required
@@ -442,7 +442,7 @@ namespace Tokiku.Controllers
             try
             {
 
-                var repo = this.GetReoisitory<RequiredDetails>().All();
+                var repo = this.GetRepository<RequiredDetails>().All();
 
                 var result = from q in repo
                              from p in q.Required.Projects.Required
@@ -473,7 +473,7 @@ namespace Tokiku.Controllers
             try
             {
 
-                var repo = this.GetReoisitory<RequiredDetails>().All();
+                var repo = this.GetRepository<RequiredDetails>().All();
 
                 var result = from q in repo
                              from s in q.Required.RequiredDetails
@@ -505,7 +505,7 @@ namespace Tokiku.Controllers
             try
             {
 
-                var repo = this.GetReoisitory<RequiredDetails>().All();
+                var repo = this.GetRepository<RequiredDetails>().All();
 
                 var result = from q in repo
                              from s in q.Required.Projects.Required
@@ -536,7 +536,7 @@ namespace Tokiku.Controllers
             try
             {
 
-                var repo = this.GetReoisitory<RequiredDetails>().All();
+                var repo = this.GetRepository<RequiredDetails>().All();
 
                 var result = from q in repo
                              from s in q.Required.RequiredDetails

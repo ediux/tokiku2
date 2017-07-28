@@ -7,6 +7,7 @@ namespace Tokiku.Entity
     [MetadataType(typeof(View_RequiredControlTableMetaData))]
     public partial class View_RequiredControlTable
     {
+        public int RowIndex { get; set; }
     }
     
     public partial class View_RequiredControlTableMetaData

@@ -42,8 +42,8 @@ namespace Tokiku.Entity
         public virtual ICollection<InvoiceDetails> InvoiceDetails { get; set; }
         public virtual ICollection<InvoiceDetails_Material> InvoiceDetails_Material { get; set; }
         public virtual ICollection<InvoiceDetails_Miscellaneous> InvoiceDetails_Miscellaneous { get; set; }
-        public virtual Users Users { get; set; }
-        public virtual Users Users1 { get; set; }
+        public virtual Users CreateUser { get; set; }
+        public virtual Users InvoiceUser { get; set; }
         public virtual Manufacturers Manufacturers { get; set; }
     }
 }

@@ -132,6 +132,9 @@
     <Compile Include="Helpers\SwitchFieldMode.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
     <Compile Include="Helpers\Tools.cs" />
+    <Compile Include="Controls\SelectSupplierListView.xaml.cs">
+      <DependentUpon>SelectSupplierListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ValueConverters\DateTime2StringFormatingValueConverter.cs" />
     <Compile Include="ValueConverters\ReplyContentValueConverter.cs" />
     <Compile Include="Views\Finance\ActualCostsView.xaml.cs">
@@ -332,6 +335,10 @@
     <Compile Include="Views\System\SystemRolesView.xaml.cs">
       <DependentUpon>SystemRolesView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\SelectSupplierListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Finance\ActualCostsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

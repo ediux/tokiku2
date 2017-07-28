@@ -53,5 +53,32 @@ namespace Tokiku.Entity
         [Required]
         public int LackQuantity { get; set; }
         public Nullable<decimal> LackWeight { get; set; }
+        public Nullable<int> Atlas { get; set; }
+        
+        [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
+        public string ReceiptNumber { get; set; }
+        [Required]
+        public System.Guid OrdersMakingUserId { get; set; }
+        [Required]
+        public System.Guid OrderTypeId { get; set; }
+        [Required]
+        public System.Guid ShippingManufactureId { get; set; }
+        public Nullable<System.Guid> OrderId { get; set; }
+        [Required]
+        public System.Guid ControlTableDetailId { get; set; }
+        [Required]
+        public System.Guid RequiredDetailsId { get; set; }
+        [Required]
+        public System.Guid MaterialsId { get; set; }
+        [Required]
+        public System.Guid RequiredId { get; set; }
+        [Required]
+        public System.Guid OrderDetailId { get; set; }
+        [Required]
+        public System.Guid ReceiptsId { get; set; }
+        [Required]
+        public System.Guid ProjectId { get; set; }
+        [Required]
+        public System.Guid ProjectContractId { get; set; }
     }
 }

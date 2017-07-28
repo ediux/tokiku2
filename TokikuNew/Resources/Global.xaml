@@ -72,6 +72,11 @@
     <ObjectDataProvider ObjectType="{x:Type vm:保固票ViewModelCollection}" x:Key="保固票清單" />
     <ObjectDataProvider ObjectType="{x:Type vm:PromissoryNoteManagementViewModelCollection}" x:Key="PromissoryNoteManagementSource" />
     <ObjectDataProvider ObjectType="{x:Type vm:OrderControlTableViewModelCollection}" x:Key="OrderControlTableSource" MethodName="Query"/>
+    <ObjectDataProvider ObjectType="{x:Type vm:ClientViewModel}" MethodName="Query" x:Key="ClientSource">
+        <ObjectDataProvider.MethodParameters>
+            <x:Static Member="sys:Guid.Empty"/>
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
     <!--轉換器-->
     <ValueConverters:DateTime2StringFormatingValueConverter x:Key="FormatedDatetime"/>
     <ValueConverters:ReplyContentValueConverter x:Key="AtlasReplayContents"/>

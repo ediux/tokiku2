@@ -17,7 +17,7 @@ namespace Tokiku.Controllers
 
         private static HashSet<object> RepositoriesTable = new HashSet<object>();
 
-        public static IRepositoryBase<T> GetReoisitory<T>(this IBaseController controller) where T : class
+        public static IRepositoryBase<T> GetRepository<T>(this IBaseController controller) where T : class
         {
             try
             {
@@ -59,15 +59,63 @@ namespace Tokiku.Controllers
             }
         }
 
-        public static IRepositoryBase<T> GetReoisitory<T>(this IBaseController<T> controller) where T : class
+        public static IRepositoryBase<T> GetRepository<T>(this IBaseController<T> controller) where T : class
         {
             try
             {
-                return GetReoisitory<T>((IBaseController)controller);
+                return GetRepository<T>((IBaseController)controller);
             }
             catch
             {
                 throw;
+            }
+        }
+
+        public static string GetNextNumber<T>(this IBaseController<T> obj, string Name, string CodeFormat, params object[] Parameters) where T : class
+        {
+            try
+            {
+                var repo = GetRepository<EncodingRecords>(obj);
+
+                var result = (from q in repo.All()
+                              where q.EncodingName == Name
+                              select q).SingleOrDefault();
+
+                if (result != null)
+                {
+                    List<object> o = new List<object>();
+
+                    o.Insert(0, result.Number5);
+                    o.Insert(0, result.Number4);
+                    o.Insert(0, result.Number3);
+                    o.Insert(0, result.Number2);
+                    o.Insert(0, result.Number1);
+
+                    o.AddRange(Parameters);
+
+                    var coderesult = string.Format(CodeFormat, o.ToArray());
+
+                    if (!string.IsNullOrEmpty(result.CodeName1))
+                        result.Number1++;
+                    if (!string.IsNullOrEmpty(result.CodeName2))
+                        result.Number2++;
+                    if (!string.IsNullOrEmpty(result.CodeName3))
+                        result.Number3++;
+                    if (!string.IsNullOrEmpty(result.CodeName4))
+                        result.Number4++;
+                    if (!string.IsNullOrEmpty(result.CodeName5))
+                        result.Number5++;
+
+                    repo.UnitOfWork.Commit();
+
+                    return coderesult;
+                }
+
+                return string.Empty;
+            }
+            catch
+            {
+                return string.Empty;
             }
         }
     }

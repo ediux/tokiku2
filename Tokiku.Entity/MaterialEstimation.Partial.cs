@@ -30,6 +30,6 @@ namespace Tokiku.Entity
         [Required]
         public System.Guid CreateUserId { get; set; }
     
-        public virtual Users Users { get; set; }
+        public virtual Users CreateUser { get; set; }
     }
 }

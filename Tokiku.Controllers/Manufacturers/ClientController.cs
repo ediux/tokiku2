@@ -19,7 +19,7 @@ namespace Tokiku.Controllers
 
         public ClientController()
         {
-            ManufacturersRepo = this.GetReoisitory<Manufacturers>() as IManufacturersRepository;
+            ManufacturersRepo = this.GetRepository<Manufacturers>() as IManufacturersRepository;
         }
 
         public override ExecuteResultEntity<Manufacturers> CreateNew()
@@ -88,7 +88,7 @@ namespace Tokiku.Controllers
                              orderby q.Code ascending
                              select q;
 
-                ICollection<Manufacturers> model = new Collection<Manufacturers>(result.ToList());                
+                ICollection<Manufacturers> model = new Collection<Manufacturers>(result.ToList());
                 return ExecuteResultEntity<ICollection<Manufacturers>>.CreateResultEntity(model);
             }
             catch (Exception ex)
@@ -130,9 +130,9 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var ManufacturersRepository = this.GetReoisitory();
+                var ManufacturersRepository = this.GetRepository();
 
-                var accesslog = this.GetReoisitory<AccessLog>();
+                var accesslog = this.GetRepository<AccessLog>();
 
                 var LoginedUser = GetCurrentLoginUser();
 
@@ -198,6 +198,26 @@ namespace Tokiku.Controllers
                 var rtn = Query(w => w.Id == fromModel.Id);
                 return ExecuteResultEntity<Manufacturers>.CreateResultEntity(rtn.Result.SingleOrDefault());
 
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<Manufacturers>.CreateErrorResultEntity(ex);
+            }
+        }
+
+        public ExecuteResultEntity<Manufacturers> QuerySingle(Guid ManufacturerId)
+        {
+            try
+            {
+                var result = from q in ManufacturersRepo.All()
+                             where q.IsClient == true && q.Void == false
+                             && q.Id == ManufacturerId
+                             orderby q.Code ascending
+                             select q;
+
+                Manufacturers model = result.SingleOrDefault();
+
+                return ExecuteResultEntity<Manufacturers>.CreateResultEntity(model);
             }
             catch (Exception ex)
             {

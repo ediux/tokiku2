@@ -14,7 +14,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var repo = this.GetReoisitory().All();
+                var repo = this.GetRepository().All();
                 var result = (from q in repo
                               where q.ProjectId == ProjectId
                               select q).ToList();
@@ -39,7 +39,7 @@ namespace Tokiku.Controllers
                     //     .CreateResultEntity(new Collection<ControlTableDetails>(result.ToList()));
 
                     //return model;
-                    var result = (from q in this.GetReoisitory()
+                    var result = (from q in this.GetRepository()
                                   where q.Code.Contains(text) || q.Materials.Contains(text) || q.ManufacturersName.Contains(text)
                                   select q).ToList();
                     int i = 1;
@@ -63,7 +63,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var repo = this.GetReoisitory();
+                var repo = this.GetRepository();
                 var result = repo.All().ToList();
                 int i = 1;
                 result.ForEach((x) => { x.RowIndex = i; i++; });
@@ -86,7 +86,7 @@ namespace Tokiku.Controllers
                    new Collection<View_RequiredControlTable>());
                 }
 
-                var repo = this.GetReoisitory();
+                var repo = this.GetRepository();
 
                 var result = (from q in repo.All()
                               where q.ProjectId == ProjectId

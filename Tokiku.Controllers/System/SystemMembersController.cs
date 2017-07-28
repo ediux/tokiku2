@@ -44,7 +44,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var repo = this.GetReoisitory<Users>();
+                var repo = this.GetRepository<Users>();
 
                 return ExecuteResultEntity<ICollection<Users>>.CreateResultEntity(
                     new Collection<Users>(repo.All().ToList()));

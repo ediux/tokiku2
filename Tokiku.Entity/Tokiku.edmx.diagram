@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2389002a12914c48b97a044932513ea4" Name="Diagram1" ZoomLevel="73">
+      <Diagram DiagramId="2389002a12914c48b97a044932513ea4" Name="Diagram1" ZoomLevel="83">
         <EntityTypeShape EntityType="TokikuModel.Membership" Width="1.5" PointX="5.25" PointY="91.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TokikuModel.Profile" Width="1.5" PointX="5.25" PointY="97.125" IsExpanded="true" />
         <EntityTypeShape EntityType="TokikuModel.Roles" Width="1.5" PointX="0.75" PointY="54.375" IsExpanded="true" />
@@ -40,7 +40,7 @@
         <AssociationConnector Association="TokikuModel.FK_PromissoryNoteManagement_Users" />
         <EntityTypeShape EntityType="TokikuModel.TicketPeriod" Width="1.5" PointX="3.125" PointY="34.75" />
         <EntityTypeShape EntityType="TokikuModel.View_BussinessItemsList" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="TokikuModel.View_ManufacturersBussinessTranscations" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TokikuModel.View_ManufacturersBussinessTranscations" Width="1.875" PointX="4.75" PointY="0.75" />
         <EntityTypeShape EntityType="TokikuModel.TranscationCategories" Width="1.5" PointX="14.5" PointY="39.375" />
         <EntityTypeShape EntityType="TokikuModel.Projects" Width="2.125" PointX="8.375" PointY="36.75" />
         <AssociationConnector Association="TokikuModel.FK_ProjectContract_Projects" />
@@ -74,7 +74,7 @@
         <EntityTypeShape EntityType="TokikuModel.PickList" Width="1.5" PointX="5.25" PointY="48.25" />
         <EntityTypeShape EntityType="TokikuModel.PickListDetails" Width="1.5" PointX="19.625" PointY="58.875" />
         <EntityTypeShape EntityType="TokikuModel.ReceiveDetails" Width="2.125" PointX="18.625" PointY="65.625" />
-        <EntityTypeShape EntityType="TokikuModel.Receive" Width="1.5" PointX="5.25" PointY="58.25" />
+        <EntityTypeShape EntityType="TokikuModel.Receive" Width="2" PointX="5.25" PointY="58.25" />
         <EntityTypeShape EntityType="TokikuModel.Stocks" Width="1.5" PointX="3" PointY="48" />
         <AssociationConnector Association="TokikuModel.FK_OrderDetails_Orders" />
         <AssociationConnector Association="TokikuModel.FK_PickListDetails_OrderDetails" />
@@ -165,8 +165,8 @@
         <AssociationConnector Association="TokikuModel.FK_WorkShops_Manufacturers" />
         <AssociationConnector Association="TokikuModel.ClientsInProjects" />
         <AssociationConnector Association="TokikuModel.ContractsInManufacturers" />
-        <EntityTypeShape EntityType="TokikuModel.View_RequiredForms" Width="1.5" PointX="7.375" PointY="0.75" />
-        <EntityTypeShape EntityType="TokikuModel.View_RequiredControlTable" Width="1.5" PointX="7.375" PointY="6.75" />
+        <EntityTypeShape EntityType="TokikuModel.View_RequiredForms" Width="1.875" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="TokikuModel.View_RequiredControlTable" Width="3.875" PointX="7.375" PointY="6.75" />
         <EntityTypeShape EntityType="TokikuModel.ReturnDetails" Width="1.5" PointX="15.625" PointY="65.5" />
         <EntityTypeShape EntityType="TokikuModel.Returns" Width="1.5" PointX="10.875" PointY="52.875" />
         <AssociationConnector Association="TokikuModel.FK_Returns_Manufacturers" />
@@ -177,7 +177,8 @@
         <AssociationConnector Association="TokikuModel.FK_Returns_MakerUsers" />
         <AssociationConnector Association="TokikuModel.FK_Returns_Stocks" />
         <EntityTypeShape EntityType="TokikuModel.EncodingRecords" Width="1.5" PointX="0.75" PointY="8.75" />
-        <EntityTypeShape EntityType="TokikuModel.View_OrderControlTable" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="TokikuModel.View_OrderControlTable" Width="2" PointX="9.375" PointY="0.75" />
+        <AssociationConnector Association="TokikuModel.FK_Receipts_ManufacturersFactories" />
         </Diagram>
       <Diagram DiagramId="da028285ff1d445f8957817e8b05eec6" Name="專案主檔" ZoomLevel="86" >
         <EntityTypeShape EntityType="TokikuModel.Projects" Width="1.5" PointX="3" PointY="10.625" />

@@ -40,11 +40,13 @@ namespace Tokiku.Entity
         public System.DateTime CreateTime { get; set; }
         [Required]
         public System.Guid CreateUserId { get; set; }
+        public Nullable<System.Guid> IncomingManufacturersFactoryId { get; set; }
     
         public virtual ICollection<ReceiveDetails> ReceiptDetails { get; set; }
-        public virtual Users Users { get; set; }
-        public virtual Users Users1 { get; set; }
+        public virtual Users CreateUser { get; set; }
+        public virtual Users MakingUser { get; set; }
         public virtual Stocks Stocks { get; set; }
-        public virtual Manufacturers Manufacturers { get; set; }
+        public virtual Manufacturers IncomingManufacturers { get; set; }
+        public virtual ManufacturersFactories ManufacturersFactories { get; set; }
     }
 }

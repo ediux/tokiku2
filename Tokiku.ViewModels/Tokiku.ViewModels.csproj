@@ -71,6 +71,8 @@
     <Compile Include="ControlTables\ObtainMaterialViewModel.cs" />
     <Compile Include="ControlTables\RecvMaterialDetailsViewModel.cs" />
     <Compile Include="ControlTables\RecvMaterialDetailsViewModelCollection.cs" />
+    <Compile Include="Manufacturers\ManufacturerFactoryViewModel.cs" />
+    <Compile Include="Manufacturers\ManufacturerFactoryViewModelCollection.cs" />
     <Compile Include="Projects\Orders\OrderMaterialValuationViewModel.cs" />
     <Compile Include="Projects\Orders\OrderMiscellaneousViewModel.cs" />
     <Compile Include="Projects\Orders\OrderViewModel.cs" />

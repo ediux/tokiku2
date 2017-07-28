@@ -46,8 +46,8 @@ namespace Tokiku.ViewModels
         // 請款人
         public string InvoiceUserName
         {
-            get { return CopyofPOCOInstance.Users.UserName; }
-            set { CopyofPOCOInstance.Users.UserName = value; RaisePropertyChanged("InvoiceUserName"); }
+            get { return CopyofPOCOInstance.InvoiceUser?.UserName; }
+            set { CopyofPOCOInstance.InvoiceUser.UserName = value; RaisePropertyChanged("InvoiceUserName"); }
         }
         // 請款日期
         public DateTime InvoiceTime
@@ -82,8 +82,8 @@ namespace Tokiku.ViewModels
         // 輸入人員
         public new string CreateUser
         {
-            get { return CopyofPOCOInstance.Users.UserName; }
-            set { CopyofPOCOInstance.Users.UserName = value; RaisePropertyChanged("CreateUser"); }
+            get { return CopyofPOCOInstance.CreateUser?.UserName; }
+            set { CopyofPOCOInstance.CreateUser.UserName = value; RaisePropertyChanged("CreateUser"); }
         }
         // 輸入日期
         public new DateTime CreateTime

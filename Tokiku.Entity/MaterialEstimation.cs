@@ -23,6 +23,6 @@ namespace Tokiku.Entity
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
     
-        public virtual Users Users { get; set; }
+        public virtual Users CreateUser { get; set; }
     }
 }

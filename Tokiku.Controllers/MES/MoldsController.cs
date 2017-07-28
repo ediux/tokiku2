@@ -33,9 +33,9 @@ namespace Tokiku.Controllers
 
             try
             {
-                var repo = this.GetReoisitory<Molds>();
-                var materialsrepo = this.GetReoisitory<Materials>();
-                var moldusestatusrepo = this.GetReoisitory<MoldUseStatus>();
+                var repo = this.GetRepository<Molds>();
+                var materialsrepo = this.GetRepository<Materials>();
+                var moldusestatusrepo = this.GetRepository<MoldUseStatus>();
 
                 var queryresult = (from a in repo.All()
                                    join b in materialsrepo.All() on a.Id equals b.Id
@@ -75,7 +75,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var repo = this.GetReoisitory<Molds>();
+                var repo = this.GetRepository<Molds>();
 
                 return Task.FromResult(
                     ExecuteResultEntity<ICollection<Molds>>.CreateResultEntity(
@@ -114,7 +114,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var repo = this.GetReoisitory<Molds>();
+                var repo = this.GetRepository<Molds>();
 
                 if (repo == null)
                     return Task.FromResult(ExecuteResultEntity.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(Molds).Name)));
@@ -168,7 +168,7 @@ namespace Tokiku.Controllers
             try
             {
 
-                var repo = this.GetReoisitory<Molds>();
+                var repo = this.GetRepository<Molds>();
 
                 if (repo == null)
                     return ExecuteResultEntity.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(Molds).Name));
@@ -200,7 +200,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var repo = this.GetReoisitory<Molds>();
+                var repo = this.GetRepository<Molds>();
 
                 if (repo == null)
                     return ExecuteResultEntity<Molds>.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(Molds).Name));
@@ -238,7 +238,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var repo = this.GetReoisitory<Molds>();
+                var repo = this.GetRepository<Molds>();
 
 
                 if (repo == null)
@@ -281,8 +281,8 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var ProjectRepo = this.GetReoisitory<Projects>();
-                var Manufacturer = this.GetReoisitory<Manufacturers>();
+                var ProjectRepo = this.GetRepository<Projects>();
+                var Manufacturer = this.GetRepository<Manufacturers>();
 
                 Collection<Molds> DestTarget = new Collection<Molds>();
                 Dictionary<int, string> ColumnMapping = new Dictionary<int, string>();
@@ -456,7 +456,7 @@ namespace Tokiku.Controllers
 
                 }
 
-                var repo = this.GetReoisitory<Molds>();
+                var repo = this.GetRepository<Molds>();
               
                 Collection<Molds> MoldsSource = new Collection<Molds>(repo.All().ToList());
 

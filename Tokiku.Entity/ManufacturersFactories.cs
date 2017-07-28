@@ -14,6 +14,12 @@ namespace Tokiku.Entity
     
     public partial class ManufacturersFactories
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ManufacturersFactories()
+        {
+            this.Receipts = new HashSet<Receive>();
+        }
+    
         public System.Guid Id { get; set; }
         public Nullable<System.Guid> ManufacturersId { get; set; }
         public string Name { get; set; }
@@ -24,5 +30,7 @@ namespace Tokiku.Entity
         public System.Guid CreateUserId { get; set; }
     
         public virtual Manufacturers Manufacturers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Receive> Receipts { get; set; }
     }
 }

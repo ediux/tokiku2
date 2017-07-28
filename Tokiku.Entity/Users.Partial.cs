@@ -43,10 +43,10 @@ namespace Tokiku.Entity
         public virtual ICollection<Orders> OrdersByMakingUser { get; set; }
         public virtual ICollection<PickList> PickList { get; set; }
         public virtual ICollection<PickList> PickList_MakingUser { get; set; }
-        public virtual ICollection<Receive> Receipts { get; set; }
-        public virtual ICollection<Receive> Receipts1 { get; set; }
-        public virtual ICollection<Invoices> Invoices { get; set; }
-        public virtual ICollection<Invoices> Invoices1 { get; set; }
+        public virtual ICollection<Receive> Receipts_CreateUser { get; set; }
+        public virtual ICollection<Receive> Receipts_MakingUser { get; set; }
+        public virtual ICollection<Invoices> Invoices_CreateUser { get; set; }
+        public virtual ICollection<Invoices> Invoices_InvoiceUser { get; set; }
         public virtual ICollection<MaterialEstimation> MaterialEstimation { get; set; }
         public virtual ICollection<Required> Required { get; set; }
         public virtual ICollection<Required> Required1 { get; set; }

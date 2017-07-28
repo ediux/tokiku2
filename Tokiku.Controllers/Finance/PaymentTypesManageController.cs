@@ -15,7 +15,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var repo = this.GetReoisitory();
+                var repo = this.GetRepository();
                 
                 var queryresult = from q in repo.All()
                                   orderby q.Id ascending

@@ -421,6 +421,12 @@
     <Compile Include="ShopFlowHistory.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
+    <Compile Include="SplitString_Result.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SplitString_Result.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
     <Compile Include="States.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>

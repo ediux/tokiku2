@@ -16,7 +16,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var repo = this.GetReoisitory();
+                var repo = this.GetRepository();
 
                 var result = from q in repo.All()
                              from s in q.ReceiptDetails
@@ -38,7 +38,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var repo = this.GetReoisitory<ReceiveDetails>();
+                var repo = this.GetRepository<ReceiveDetails>();
 
                 var result = from q in repo.All()
                              where q.OrderDetails.RequiredDetails.Required.ProjectId == ProjectId

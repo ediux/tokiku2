@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using Tokiku.ViewModels;
 using TokikuNew.Controls;
@@ -40,6 +41,57 @@ namespace TokikuNew.Views
         // Using a DependencyProperty as the backing store for LoginedUserProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty LoginedUserProperty =
             DependencyProperty.Register("LoginedUser", typeof(UserViewModel), typeof(ClientManageView), new PropertyMetadata(default(UserViewModel)));
+
+        #endregion
+
+        #region 目前操作的廠商資料
+
+        public Guid SelectedManufacturerId
+        {
+            get { return (Guid)GetValue(SelectedManufacturerIdProperty); }
+            set { SetValue(SelectedManufacturerIdProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectedManufacturerId.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedManufacturerIdProperty =
+            DependencyProperty.Register("SelectedManufacturerId", typeof(Guid),
+                typeof(ClientManageView), new PropertyMetadata(Guid.Empty,
+                    new PropertyChangedCallback(SelectedManufacturerIdChange)));
+
+        public static void SelectedManufacturerIdChange(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            try
+            {
+                if (sender is ClientManageView)
+                {
+
+                    ObjectDataProvider source = (ObjectDataProvider)((ClientManageView)sender).TryFindResource("ClientSource");
+
+                    if (source != null)
+                    {
+                        source.MethodParameters[0] = e.NewValue;
+                        source.Refresh();
+
+                        ((ClientManageView)sender).SetValue(SelectedManufacturersProperty, source.Data);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+        }
+
+        public ManufacturersViewModel SelectedManufacturers
+        {
+            get { return (ManufacturersViewModel)GetValue(SelectedManufacturersProperty); }
+            set { SetValue(SelectedManufacturersProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectedManufacturers.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedManufacturersProperty =
+            DependencyProperty.Register("SelectedManufacturers", typeof(ManufacturersViewModel), typeof(ManufacturersManageView), new PropertyMetadata(default(ManufacturersViewModel)));
 
         #endregion
 

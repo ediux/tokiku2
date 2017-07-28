@@ -26,11 +26,11 @@ namespace Tokiku.Controllers
                 ExecuteResultEntity<MainWindowEntity> main_model = ExecuteResultEntity<MainWindowEntity>.CreateResultEntity(new MainWindowEntity());
 
                 main_model.Result.LoginedUser = GetCurrentLoginUser();
-                main_model.Result.Projects = ExecuteResultEntity<ICollection<Projects>>.CreateResultEntity(new Collection<Projects>(this.GetReoisitory<Projects>().Where(w => w.Void == false).ToList()));
+                main_model.Result.Projects = ExecuteResultEntity<ICollection<Projects>>.CreateResultEntity(new Collection<Projects>(this.GetRepository<Projects>().Where(w => w.Void == false).ToList()));
                 main_model.Result.Manufacturers = ExecuteResultEntity<ICollection<Manufacturers>>
-                    .CreateResultEntity(new Collection<Manufacturers>(this.GetReoisitory<Manufacturers>().Where(w => w.Void == false && w.IsClient == false).ToList()));
+                    .CreateResultEntity(new Collection<Manufacturers>(this.GetRepository<Manufacturers>().Where(w => w.Void == false && w.IsClient == false).ToList()));
                 main_model.Result.Clients = ExecuteResultEntity<ICollection<Manufacturers>>
-                    .CreateResultEntity(new Collection<Manufacturers>(this.GetReoisitory<Manufacturers>().Where(w => w.Void == false && w.IsClient == true).ToList()));
+                    .CreateResultEntity(new Collection<Manufacturers>(this.GetRepository<Manufacturers>().Where(w => w.Void == false && w.IsClient == true).ToList()));
 
                 return main_model;
 

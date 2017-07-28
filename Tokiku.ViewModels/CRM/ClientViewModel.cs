@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -92,6 +93,7 @@ namespace Tokiku.ViewModels
 
         public ClientViewModel(Guid ProjectId) : base()
         {
+
             QueryCondition_ProjectId = ProjectId;
         }
 
@@ -194,33 +196,39 @@ namespace Tokiku.ViewModels
 
         }
 
-        //public override void Query()
-        //{
-        //    try
-        //    {
-        //        if (Id != Guid.Empty)
-        //        {
-        //            ClientController clientclient = new ClientController();
-        //            var exexuteresult = clientclient.Query(q => q.Id == Id);
-        //            if (!exexuteresult.HasError)
-        //            {
-        //                var item = exexuteresult.Result.Single();
+        public new static ClientViewModel Query(Guid Manuid)
+        {
 
-        //                BindingFromModel(item, this);
-        //                Phone = item.Phone;
-        //                ClientForProjects.QueryByClient(Id);
-        //                Contracts.ManufacturersId = Id;
-        //                Contracts.Query();
-        //            }
-        //        }
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        setErrortoModel(this, ex);
-        //    }
+            try
+            {
+               return QuerySingle<ClientViewModel, Manufacturers>("Client", "QuerySingle", Manuid);
 
-        //}
+                //if (Id != Guid.Empty)
+                //{
+                //    ClientController clientclient = new ClientController();
+                //    var exexuteresult = clientclient.Query();
+                //    if (!exexuteresult.HasError)
+                //    {
+                //        var item = exexuteresult.Result.Single();
+
+                //        BindingFromModel(item, this);
+                //        Phone = item.Phone;
+                //        ClientForProjects.QueryByClient(Id);
+                //        Contracts.ManufacturersId = Id;
+                //        Contracts.Query();
+                //    }
+                //}
+
+            }
+            catch (Exception ex)
+            {
+                ClientViewModel viewmodel = new ClientViewModel(Manuid);
+                setErrortoModel(viewmodel, ex);
+                return viewmodel;
+            }
+
+        }
 
         //public override void Refresh()
         //{

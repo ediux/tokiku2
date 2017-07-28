@@ -43,9 +43,13 @@
                                  AlternatingRowBackground="AliceBlue"  AlternationCount="2"
                                  MouseDoubleClick="ClientList_MouseDoubleClick"
                                  IsReadOnly="True"
+                                 vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}"
                                  >
             <vm:CommandRoutingManager.CommandParameter>
-                <vm:RoutedViewResult FormatedDisplay="客戶:{0}-{1}" Name="VendorList" ViewType="{x:Type local:ManufacturersManageView}" DataContent="{Binding SelectedItem ,ElementName=VendorList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                <vm:RoutedViewResult FormatedDisplay="客戶:{0}-{1}"
+                                     Name="VendorList" 
+                                     ViewType="{x:Type local:ClientManageView}" 
+                                     DataContent="{Binding SelectedItem ,ElementName=VendorList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
                     <vm:RoutedViewResult.FormatedParameters>
                         <x:Array Type="sys:String">
                             <sys:String>Code</sys:String>
@@ -58,6 +62,7 @@
                         <sys:String x:Key="SelectedManufacturerId">Id</sys:String>
                     </vm:RoutedViewResult.RoutingBinding>
                     <vm:RoutedViewResult.RoutedValues>
+                        <sys:Guid x:Key="SelectedManufacturerId"></sys:Guid>
                         <x:Type x:Key="SourceViewType" TypeName="l:MainWindow"/>
                         <sys:String x:Key="TabControlName">Workspaces</sys:String>
                         <sys:String x:Key="ResourceKey">ClientListSource</sys:String>

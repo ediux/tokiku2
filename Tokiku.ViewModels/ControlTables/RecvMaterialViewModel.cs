@@ -68,6 +68,7 @@ namespace Tokiku.ViewModels
         public RecvMaterialViewModel(Receive entity) : base(entity)
         {
 
+
         }
 
         // ID
@@ -85,14 +86,14 @@ namespace Tokiku.ViewModels
         // 來料廠商代碼
         public string IncomingManufacturersCode
         {
-            get { return CopyofPOCOInstance.Manufacturers.Code; }
-            set { CopyofPOCOInstance.Manufacturers.Code = value; RaisePropertyChanged("IncomingManufacturersCode"); }
+            get { return CopyofPOCOInstance.IncomingManufacturers?.Code; }
+            set { CopyofPOCOInstance.IncomingManufacturers.Code = value; RaisePropertyChanged("IncomingManufacturersCode"); }
         }
         // 來料廠商
         public string IncomingManufacturersName
         {
-            get { return CopyofPOCOInstance.Manufacturers.Name; }
-            set { CopyofPOCOInstance.Manufacturers.Name = value; RaisePropertyChanged("IncomingManufacturersName"); }
+            get { return CopyofPOCOInstance.IncomingManufacturers?.Name; }
+            set { CopyofPOCOInstance.IncomingManufacturers.Name = value; RaisePropertyChanged("IncomingManufacturersName"); }
         }
         // 來料單號
         public string IncomingNumber
@@ -100,11 +101,17 @@ namespace Tokiku.ViewModels
             get { return CopyofPOCOInstance.IncomingNumber; }
             set { CopyofPOCOInstance.IncomingNumber = value; RaisePropertyChanged("IncomingNumber"); }
         }
+        public override Guid CreateUserId { get => CopyofPOCOInstance.CreateUserId;
+            set {
+                CopyofPOCOInstance.CreateUserId = value;
+                
+            } }
+        
         // 輸入人員
         public new string CreateUser
         {
-            get { return CopyofPOCOInstance.Users.UserName; }
-            set { CopyofPOCOInstance.Users.UserName = value; RaisePropertyChanged("CreateUser"); }
+            get { return CopyofPOCOInstance.MakingUser?.UserName; }
+            set { CopyofPOCOInstance.MakingUser.UserName = value; RaisePropertyChanged("CreateUser"); }
         }
         // 輸入日期
         public new DateTime CreateTime
@@ -115,8 +122,8 @@ namespace Tokiku.ViewModels
         // 製單人員
         public string MakingUser
         {
-            get { return CopyofPOCOInstance.Users.UserName; }
-            set { CopyofPOCOInstance.Users.UserName = value; RaisePropertyChanged("MakingUser"); }
+            get { return CopyofPOCOInstance.MakingUser?.UserName; }
+            set { CopyofPOCOInstance.MakingUser.UserName = value; RaisePropertyChanged("MakingUser"); }
         }
         // 製單日期
         public DateTime MakingTime
@@ -134,11 +141,11 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 收料支數
         /// </summary>
-        public int ReceiptCount
+        public int? ReceiptCount
         {
             get
             {
-                return CopyofPOCOInstance.ReceiptDetails.Sum(s => s.ReceiptQuantity);
+                return CopyofPOCOInstance.ReceiptDetails?.Sum(s => s.ReceiptQuantity);
             }
             set { RaisePropertyChanged("ReceiptCount"); }
         }

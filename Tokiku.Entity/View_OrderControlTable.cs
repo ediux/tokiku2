@@ -32,5 +32,19 @@ namespace Tokiku.Entity
         public string Comment { get; set; }
         public int LackQuantity { get; set; }
         public Nullable<decimal> LackWeight { get; set; }
+        public Nullable<int> Atlas { get; set; }
+        public string ReceiptNumber { get; set; }
+        public System.Guid OrdersMakingUserId { get; set; }
+        public System.Guid OrderTypeId { get; set; }
+        public System.Guid ShippingManufactureId { get; set; }
+        public Nullable<System.Guid> OrderId { get; set; }
+        public System.Guid ControlTableDetailId { get; set; }
+        public System.Guid RequiredDetailsId { get; set; }
+        public System.Guid MaterialsId { get; set; }
+        public System.Guid RequiredId { get; set; }
+        public System.Guid OrderDetailId { get; set; }
+        public System.Guid ReceiptsId { get; set; }
+        public System.Guid ProjectId { get; set; }
+        public System.Guid ProjectContractId { get; set; }
     }
 }

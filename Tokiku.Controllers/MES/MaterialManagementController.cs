@@ -19,7 +19,7 @@ namespace Tokiku.Controllers
             try
             {
 
-                var repo = this.GetReoisitory();
+                var repo = this.GetRepository();
                 var result = (from q in repo.All()
                               where q.Name == Name
                               select q).SingleOrDefault();
@@ -61,7 +61,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var repo = this.GetReoisitory<MaterialCategories>();
+                var repo = this.GetRepository<MaterialCategories>();
 
                 var result = from q in repo.All()
                              where q.Name.Contains(Name)

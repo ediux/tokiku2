@@ -18,7 +18,7 @@ namespace Tokiku.Controllers
 
             try
             {
-                var repo = this.GetReoisitory<OrderDetails>();
+                var repo = this.GetRepository<OrderDetails>();
                 var result = (from q in repo.All()
                               where q.RequiredDetails.Required.ProjectId == ProjectId
                               && q.Orders.FormNumber.Contains(string.Format("{0}-{1}-O", q.RequiredDetails.Required.Projects.ShortName, q.Orders.Manufacturers.ShortName))
@@ -66,7 +66,7 @@ namespace Tokiku.Controllers
                 }
                 else
                 {
-                    var projectrepo = this.GetReoisitory<Projects>();
+                    var projectrepo = this.GetRepository<Projects>();
                     var findproject = (from q in projectrepo.All()
                                        where q.Id == ProjectId
                                        select q).SingleOrDefault();
@@ -103,7 +103,7 @@ namespace Tokiku.Controllers
 
             try
             {
-                var repo = this.GetReoisitory<OrderDetails>();
+                var repo = this.GetRepository<OrderDetails>();
 
                 var result = (from q in repo.All()
                               where q.RequiredDetails.Required.ProjectId == ProjectId
@@ -127,7 +127,7 @@ namespace Tokiku.Controllers
 
             try
             {
-                var repo = this.GetReoisitory<OrderDetails>();
+                var repo = this.GetRepository<OrderDetails>();
                 var result = (from q in repo.All()
                               from p in q.RequiredDetails.Required.Projects.Required
                               from m in p.RequiredDetails
@@ -223,7 +223,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var repo = this.GetReoisitory<OrderTypes>();
+                var repo = this.GetRepository<OrderTypes>();
 
                 return ExecuteResultEntity<ICollection<OrderTypes>>.CreateResultEntity(
                     new Collection<OrderTypes>(repo.All().ToList()));

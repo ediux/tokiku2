@@ -45,8 +45,8 @@ namespace Tokiku.Entity
         public virtual Manufacturers Manufacturers { get; set; }
         public virtual Orders Orders { get; set; }
         public virtual ICollection<ReturnDetails> ReturnDetails { get; set; }
-        public virtual Users Users { get; set; }
-        public virtual Users Users1 { get; set; }
+        public virtual Users CreateUser { get; set; }
+        public virtual Users MakingUser { get; set; }
         public virtual Stocks Stocks { get; set; }
     }
 }

@@ -34,5 +34,6 @@ namespace Tokiku.Entity
         public System.Guid CreateUserId { get; set; }
     
         public virtual Manufacturers Manufacturers { get; set; }
+        public virtual ICollection<Receive> Receipts { get; set; }
     }
 }

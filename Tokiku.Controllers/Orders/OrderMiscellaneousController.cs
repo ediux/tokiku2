@@ -23,7 +23,7 @@ namespace Tokiku.Controllers
 
             try
             {
-                var repo = this.GetReoisitory<OrderMiscellaneous>();
+                var repo = this.GetRepository<OrderMiscellaneous>();
                 var result = (from q in repo.All()
                               from x in q.Orders.OrderDetails
                               where x.RequiredDetails.Required.ProjectId == ProjectId

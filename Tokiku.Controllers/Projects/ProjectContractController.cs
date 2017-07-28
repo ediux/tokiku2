@@ -137,7 +137,7 @@ namespace Tokiku.Controllers
             try
             {
 
-                var repo = this.GetReoisitory();
+                var repo = this.GetRepository();
                 //database = repo.UnitOfWork;
 
                 var original = (from q in repo.All()

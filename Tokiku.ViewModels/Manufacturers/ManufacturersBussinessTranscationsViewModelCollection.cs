@@ -4,40 +4,39 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tokiku.Controllers;
+using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class ManufacturersBussinessTranscationsViewModelCollection : BaseViewModelCollection<ManufacturersBussinessTranscationsViewModel>
+    public class ManufacturersBussinessTranscationsViewModelCollection 
+        : BaseViewModelCollection<ManufacturersBussinessTranscationsViewModel>
     {
-   
+        public ManufacturersBussinessTranscationsViewModelCollection()
+        {
 
-        public void Query(Guid ManufacturersId)
+        }
+
+        public ManufacturersBussinessTranscationsViewModelCollection(IEnumerable<ManufacturersBussinessTranscationsViewModel> source):
+            base(source)
+        {
+
+        }
+
+        public static ManufacturersBussinessTranscationsViewModelCollection Query(Guid ManufacturersId)
         {
             try
             {
-                ManufacturersManageController controller = new ManufacturersManageController();
-                var executeresult = controller.QueryViewManufacturersBussinessTranscations(ManufacturersId);
-                if (!executeresult.HasError)
-                {
-                    var objectdataset = executeresult.Result;
-                    if (objectdataset.Any())
-                    {
-                        ClearItems();
-                        foreach (var row in objectdataset)
-                        {
-                            ManufacturersBussinessTranscationsViewModel model = new ManufacturersBussinessTranscationsViewModel();
-                           
-                            Add(model);
-                        }
-                    }
-                }
+                return Query<ManufacturersBussinessTranscationsViewModelCollection, ManufacturersBussinessItems>(
+                    "ManufacturersManage", "QueryViewManufacturersBussinessTranscations", ManufacturersId);
             }
             catch (Exception ex)
             {
-                setErrortoModel(this, ex);
+                ManufacturersBussinessTranscationsViewModelCollection emptycollection =
+                    new ManufacturersBussinessTranscationsViewModelCollection();
+                setErrortoModel(emptycollection, ex);
+                return emptycollection;
             }
         }
-
-      
+       
     }
 }

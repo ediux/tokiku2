@@ -79,21 +79,6 @@ namespace Tokiku.ViewModels
             {
                 return Query<ManufacturersViewModelCollection, Manufacturers>(
                     "ManufacturersManage", "SearchByText", originalSource);
-
-                //var executeresult = _controller.SearchByText(originalSource);
-
-                //if (!executeresult.HasError)
-                //{
-                //    var objectdataset = executeresult.Result;
-                //    ClearItems();
-                //    foreach (var row in objectdataset)
-                //    {
-                //        ManufacturersViewModel model = new ManufacturersViewModel();
-
-                //        //model.SetModel(row);
-                //        Add(model);
-                //    }
-                //}
             }
             catch (Exception ex)
             {
@@ -109,6 +94,20 @@ namespace Tokiku.ViewModels
             try
             {
                 return Query<ManufacturersViewModelCollection, Manufacturers>("ManufacturersManage", "GetManufacturersWithBusinessItem", MaterialCategoriesId, BusinessItem);
+            }
+            catch (Exception ex)
+            {
+                ManufacturersViewModelCollection collection = new ManufacturersViewModelCollection();
+                setErrortoModel(collection, ex);
+                return collection;
+            }
+        }
+        
+        public static ManufacturersViewModelCollection QueryBySupplier(Guid ProjectId)
+        {
+            try
+            {
+                return Query<ManufacturersViewModelCollection, Manufacturers>("ManufacturersManage", "QueryBySupplier", ProjectId);
             }
             catch (Exception ex)
             {
@@ -610,7 +609,7 @@ namespace Tokiku.ViewModels
 
             ManufacturersBussinessItems.QueryAsync(Id);
 
-            TranscationRecords.Query(Id);
+            TranscationRecords = ManufacturersBussinessTranscationsViewModelCollection.Query(Id);
 
         }
         #endregion

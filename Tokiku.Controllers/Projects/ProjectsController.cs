@@ -79,7 +79,7 @@ namespace Tokiku.Controllers
 
         public ExecuteResultEntity<string> GetNextProjectSerialNumber(string year)
         {
-            var result = (from q in this.GetReoisitory().All()
+            var result = (from q in this.GetRepository().All()
                           where q.Code.StartsWith(year.Trim()) && q.Void == false
                           orderby q.Code descending
                           select q.Code).FirstOrDefault();
@@ -167,7 +167,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var result = from p in this.GetReoisitory().All()
+                var result = from p in this.GetRepository().All()
                              where p.Id == ProjectId && p.Void == false
                              orderby p.State ascending, p.Code ascending
                              select p;
@@ -193,7 +193,7 @@ namespace Tokiku.Controllers
             try
             {
 
-                var result = from p in this.GetReoisitory().All()
+                var result = from p in this.GetRepository().All()
                              where p.Void == false
                              orderby p.State ascending, p.Code descending
                              select new ProjectListEntity
@@ -225,7 +225,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var result = from p in this.GetReoisitory().All()
+                var result = from p in this.GetRepository().All()
                              where p.Id == ProjectId && p.Void == false
                              orderby p.Code descending, p.State ascending
                              select p;
@@ -244,7 +244,7 @@ namespace Tokiku.Controllers
             try
             {
                 return ExecuteResultEntity<ICollection<States>>.CreateResultEntity(
-                    new Collection<States>(this.GetReoisitory<States>().All().ToList()));
+                    new Collection<States>(this.GetRepository<States>().All().ToList()));
             }
             catch (Exception ex)
             {
@@ -255,7 +255,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var projectsrepo = this.GetReoisitory();
+                var projectsrepo = this.GetRepository();
                 var original = (from q in projectsrepo.All()
                                 where q.Id == fromModel.Id
                                 select q).Single();
@@ -400,7 +400,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var projectsrepo = this.GetReoisitory();
+                var projectsrepo = this.GetRepository();
                 var result = from p in projectsrepo.All()
                              where p.Id == ProjectId && p.Void == false
                              orderby p.State ascending, p.Code ascending
@@ -427,7 +427,7 @@ namespace Tokiku.Controllers
             {
                 if (text != null && text.Length > 0)
                 {
-                    var projectsrepo = this.GetReoisitory();
+                    var projectsrepo = this.GetRepository();
 
                     var result = projectsrepo.Where(s => s.Code.Contains(text)
                      || s.Name.Contains(text)

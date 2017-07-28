@@ -12,6 +12,8 @@ namespace Tokiku.Entity
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class TokikuEntities : DbContext
     {
@@ -89,5 +91,19 @@ namespace Tokiku.Entity
         public virtual DbSet<Returns> Returns { get; set; }
         public virtual DbSet<EncodingRecords> EncodingRecords { get; set; }
         public virtual DbSet<View_OrderControlTable> View_OrderControlTable { get; set; }
+    
+        [DbFunction("TokikuEntities", "SplitString")]
+        public virtual IQueryable<SplitString_Result> SplitString(string splitStr, string splitChar)
+        {
+            var splitStrParameter = splitStr != null ?
+                new ObjectParameter("SplitStr", splitStr) :
+                new ObjectParameter("SplitStr", typeof(string));
+    
+            var splitCharParameter = splitChar != null ?
+                new ObjectParameter("SplitChar", splitChar) :
+                new ObjectParameter("SplitChar", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<SplitString_Result>("[TokikuEntities].[SplitString](@SplitStr, @SplitChar)", splitStrParameter, splitCharParameter);
+        }
     }
 }

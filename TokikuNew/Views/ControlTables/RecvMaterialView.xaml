@@ -60,7 +60,8 @@
                                 <TextBlock Grid.Column="3" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
                                 <TextBlock Grid.Column="4" Text="來料廠商" VerticalAlignment="Center" />
                                 <TextBox Grid.Column="5" Width="88" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding IncomingManufacturersCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Source={StaticResource RecvMaterialSource}}" />
-                                <TextBox Grid.Column="6" Width="165" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding IncomingManufacturersName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Source={StaticResource RecvMaterialSource}}" />
+                                <c:SelectSupplierListView Grid.Column="6" Width="165" SelectedFactoryId="{Binding IncomingManufacturersCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Source={StaticResource RecvMaterialSource}}" />
+                                <!--<TextBox Grid.Column="6" Width="165" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding IncomingManufacturersName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Source={StaticResource RecvMaterialSource}}" />-->
                                 <TextBlock Grid.Column="7" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
                                 <TextBlock Grid.Column="8" Text="來料單號" VerticalAlignment="Center" />
                                 <TextBox Grid.Column="9" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding IncomingNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Source={StaticResource RecvMaterialSource}}" />

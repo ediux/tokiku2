@@ -70,7 +70,7 @@ namespace Tokiku.Controllers
             {
 
                 string loweredUserName = model.UserName.ToLowerInvariant();
-                _CurrentLoginedUserStorage = (from q in this.GetReoisitory<Users>().All()
+                _CurrentLoginedUserStorage = (from q in this.GetRepository<Users>().All()
                                               where q.LoweredUserName == loweredUserName
                                               && q.Membership.Password == model.Password
                                               select q).SingleOrDefault();
@@ -165,7 +165,7 @@ namespace Tokiku.Controllers
         protected object[] IdentifyPrimaryKey<T>(T entity) where T : class
         {
 
-            ObjectContext objectContext = ((IObjectContextAdapter)this.GetReoisitory<T>().UnitOfWork.Context).ObjectContext;
+            ObjectContext objectContext = ((IObjectContextAdapter)this.GetRepository<T>().UnitOfWork.Context).ObjectContext;
             ObjectSet<T> set = objectContext.CreateObjectSet<T>();
             IEnumerable<string> keyNames = set.EntitySet.ElementType
                                                         .KeyMembers
@@ -284,7 +284,7 @@ namespace Tokiku.Controllers
         /// <returns><回傳指定資料表的儲存庫物件。</returns>
         private IRepositoryBase<T> GetRepository()
         {
-            return this.GetReoisitory<T>();
+            return this.GetRepository<T>();
         }
 
         /// <summary>

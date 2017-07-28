@@ -652,6 +652,7 @@
           <Property Name="Order" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ReceiptNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IncomingManufacturersId" Type="uniqueidentifier" />
+          <Property Name="IncomingManufacturersFactoryId" Type="uniqueidentifier" />
           <Property Name="IncomingNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="MakingUserId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="MakingTime" Type="smalldatetime" Nullable="false" />
@@ -880,9 +881,6 @@
         <EntityType Name="View_ManufacturersBussinessTranscations">
           <Key>
             <PropertyRef Name="Id" />
-            <PropertyRef Name="Code" />
-            <PropertyRef Name="Name" />
-            <PropertyRef Name="TranscationItemName" />
             <PropertyRef Name="ManufacturersId" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
@@ -895,20 +893,22 @@
 警告 6002: 資料表/檢視 'Tokiku2_New.dbo.View_OrderControlTable' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
         <EntityType Name="View_OrderControlTable">
           <Key>
-            <PropertyRef Name="FormNumber" />
-            <PropertyRef Name="Code" />
-            <PropertyRef Name="ProjectsName" />
-            <PropertyRef Name="RequiredDetailsCode" />
-            <PropertyRef Name="ManufacturersCode" />
-            <PropertyRef Name="ManufacturersName" />
-            <PropertyRef Name="MaterialsName" />
-            <PropertyRef Name="UnitWeight" />
-            <PropertyRef Name="ExpectedDelivery" />
-            <PropertyRef Name="LackQuantity" />
+            <PropertyRef Name="OrdersMakingUserId" />
+            <PropertyRef Name="OrderTypeId" />
+            <PropertyRef Name="ShippingManufactureId" />
+            <PropertyRef Name="ControlTableDetailId" />
+            <PropertyRef Name="RequiredDetailsId" />
+            <PropertyRef Name="MaterialsId" />
+            <PropertyRef Name="RequiredId" />
+            <PropertyRef Name="OrderDetailId" />
+            <PropertyRef Name="ReceiptsId" />
+            <PropertyRef Name="ProjectId" />
+            <PropertyRef Name="ProjectContractId" />
           </Key>
           <Property Name="FormNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ProjectsName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Atlas" Type="int" />
           <Property Name="RequiredDetailsCode" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ManufacturersCode" Type="nvarchar" MaxLength="15" Nullable="false" />
           <Property Name="ManufacturersName" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -924,6 +924,19 @@
           <Property Name="Comment" Type="nvarchar(max)" />
           <Property Name="LackQuantity" Type="int" Nullable="false" />
           <Property Name="LackWeight" Type="decimal" Precision="29" Scale="3" />
+          <Property Name="ReceiptNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="OrdersMakingUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrderTypeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ShippingManufactureId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrderId" Type="uniqueidentifier" />
+          <Property Name="ControlTableDetailId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RequiredDetailsId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MaterialsId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RequiredId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrderDetailId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReceiptsId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProjectId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProjectContractId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <!--產生期間發現錯誤:
 警告 6002: 資料表/檢視 'Tokiku2_New.dbo.View_OrderMaterialValuation' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
@@ -1041,12 +1054,6 @@
         <EntityType Name="View_RequiredControlTable">
           <Key>
             <PropertyRef Name="ProjectId" />
-            <PropertyRef Name="ProjectName" />
-            <PropertyRef Name="Code" />
-            <PropertyRef Name="ManufacturersName" />
-            <PropertyRef Name="FactoryNumber" />
-            <PropertyRef Name="Materials" />
-            <PropertyRef Name="UnitWeight" />
           </Key>
           <Property Name="ProjectId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ProjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -1083,21 +1090,6 @@
             <PropertyRef Name="ProjectId" />
             <PropertyRef Name="RequiredId" />
             <PropertyRef Name="RequiredDetailsId" />
-            <PropertyRef Name="ProjectName" />
-            <PropertyRef Name="ShopFlowName" />
-            <PropertyRef Name="FormName" />
-            <PropertyRef Name="FormNumber" />
-            <PropertyRef Name="ManufacturersName" />
-            <PropertyRef Name="MakingUser" />
-            <PropertyRef Name="MakingTime" />
-            <PropertyRef Name="RequiredPostion" />
-            <PropertyRef Name="CreateTime" />
-            <PropertyRef Name="CreateUser" />
-            <PropertyRef Name="Code" />
-            <PropertyRef Name="FactoryNumber" />
-            <PropertyRef Name="Materials" />
-            <PropertyRef Name="RequiredQuantity" />
-            <PropertyRef Name="UnitWeight" />
             <PropertyRef Name="MaterialsId" />
             <PropertyRef Name="ManufacturersId" />
             <PropertyRef Name="CreateUserId" />
@@ -2099,7 +2091,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Receipts_Manufacturers">
+        <Association Name="FK_Receipts_Manufacturers1">
           <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="0..1" />
           <End Role="Receipts" Type="Self.Receipts" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2108,6 +2100,18 @@
             </Principal>
             <Dependent Role="Receipts">
               <PropertyRef Name="IncomingManufacturersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Receipts_ManufacturersFactories">
+          <End Role="ManufacturersFactories" Type="Self.ManufacturersFactories" Multiplicity="0..1" />
+          <End Role="Receipts" Type="Self.Receipts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManufacturersFactories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Receipts">
+              <PropertyRef Name="IncomingManufacturersFactoryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2411,6 +2415,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="SplitString" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SplitStr" Type="nvarchar" Mode="In" />
+          <Parameter Name="SplitChar" Type="nvarchar" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="Id" Type="int" />
+                <Property Name="Data" Type="nvarchar" MaxLength="50" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
         <EntityContainer Name="TokikuModelStoreContainer">
           <EntitySet Name="AccessLog" EntityType="Self.AccessLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BOM" EntityType="Self.BOM" Schema="dbo" store:Type="Tables" />
@@ -2496,6 +2512,7 @@
     [View_OrderControlTable].[FormNumber] AS [FormNumber], 
     [View_OrderControlTable].[Code] AS [Code], 
     [View_OrderControlTable].[ProjectsName] AS [ProjectsName], 
+    [View_OrderControlTable].[Atlas] AS [Atlas], 
     [View_OrderControlTable].[RequiredDetailsCode] AS [RequiredDetailsCode], 
     [View_OrderControlTable].[ManufacturersCode] AS [ManufacturersCode], 
     [View_OrderControlTable].[ManufacturersName] AS [ManufacturersName], 
@@ -2510,7 +2527,20 @@
     [View_OrderControlTable].[ShippingOrder] AS [ShippingOrder], 
     [View_OrderControlTable].[Comment] AS [Comment], 
     [View_OrderControlTable].[LackQuantity] AS [LackQuantity], 
-    [View_OrderControlTable].[LackWeight] AS [LackWeight]
+    [View_OrderControlTable].[LackWeight] AS [LackWeight], 
+    [View_OrderControlTable].[ReceiptNumber] AS [ReceiptNumber], 
+    [View_OrderControlTable].[OrdersMakingUserId] AS [OrdersMakingUserId], 
+    [View_OrderControlTable].[OrderTypeId] AS [OrderTypeId], 
+    [View_OrderControlTable].[ShippingManufactureId] AS [ShippingManufactureId], 
+    [View_OrderControlTable].[OrderId] AS [OrderId], 
+    [View_OrderControlTable].[ControlTableDetailId] AS [ControlTableDetailId], 
+    [View_OrderControlTable].[RequiredDetailsId] AS [RequiredDetailsId], 
+    [View_OrderControlTable].[MaterialsId] AS [MaterialsId], 
+    [View_OrderControlTable].[RequiredId] AS [RequiredId], 
+    [View_OrderControlTable].[OrderDetailId] AS [OrderDetailId], 
+    [View_OrderControlTable].[ReceiptsId] AS [ReceiptsId], 
+    [View_OrderControlTable].[ProjectId] AS [ProjectId], 
+    [View_OrderControlTable].[ProjectContractId] AS [ProjectContractId]
     FROM [dbo].[View_OrderControlTable] AS [View_OrderControlTable]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="View_OrderMaterialValuation" EntityType="Self.View_OrderMaterialValuation" store:Type="Views" store:Schema="dbo">
@@ -2959,8 +2989,12 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Receipts" EntitySet="Receipts" />
           </AssociationSet>
-          <AssociationSet Name="FK_Receipts_Manufacturers" Association="Self.FK_Receipts_Manufacturers">
+          <AssociationSet Name="FK_Receipts_Manufacturers1" Association="Self.FK_Receipts_Manufacturers1">
             <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="Receipts" EntitySet="Receipts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Receipts_ManufacturersFactories" Association="Self.FK_Receipts_ManufacturersFactories">
+            <End Role="ManufacturersFactories" EntitySet="ManufacturersFactories" />
             <End Role="Receipts" EntitySet="Receipts" />
           </AssociationSet>
           <AssociationSet Name="FK_Receipts_Stocks" Association="Self.FK_Receipts_Stocks">
@@ -3148,10 +3182,10 @@
           <NavigationProperty Name="OrdersByMakingUser" Relationship="TokikuModel.FK_Orders_MakingUsers" FromRole="Users" ToRole="Orders" />
           <NavigationProperty Name="PickList" Relationship="TokikuModel.FK_PickList_CreateUsers" FromRole="Users" ToRole="PickList" />
           <NavigationProperty Name="PickList_MakingUser" Relationship="TokikuModel.FK_PickList_MakingUsers" FromRole="Users" ToRole="PickList" />
-          <NavigationProperty Name="Receipts" Relationship="TokikuModel.FK_Receipts_CreateUsers" FromRole="Users" ToRole="Receipts" />
-          <NavigationProperty Name="Receipts1" Relationship="TokikuModel.FK_Receipts_MakingUsers" FromRole="Users" ToRole="Receipts" />
-          <NavigationProperty Name="Invoices" Relationship="TokikuModel.FK_Invoices_CreateUsers" FromRole="Users" ToRole="Invoices" />
-          <NavigationProperty Name="Invoices1" Relationship="TokikuModel.FK_Invoices_InvoiceUsers" FromRole="Users" ToRole="Invoices" />
+          <NavigationProperty Name="Receipts_CreateUser" Relationship="TokikuModel.FK_Receipts_CreateUsers" FromRole="Users" ToRole="Receipts" />
+          <NavigationProperty Name="Receipts_MakingUser" Relationship="TokikuModel.FK_Receipts_MakingUsers" FromRole="Users" ToRole="Receipts" />
+          <NavigationProperty Name="Invoices_CreateUser" Relationship="TokikuModel.FK_Invoices_CreateUsers" FromRole="Users" ToRole="Invoices" />
+          <NavigationProperty Name="Invoices_InvoiceUser" Relationship="TokikuModel.FK_Invoices_InvoiceUsers" FromRole="Users" ToRole="Invoices" />
           <NavigationProperty Name="MaterialEstimation" Relationship="TokikuModel.FK_MaterialEstimation_Users" FromRole="Users" ToRole="MaterialEstimation" />
           <NavigationProperty Name="Required" Relationship="TokikuModel.FK_Required_CreateUsers" FromRole="Users" ToRole="Required" />
           <NavigationProperty Name="Required1" Relationship="TokikuModel.FK_Required_MakingUsers" FromRole="Users" ToRole="Required" />
@@ -3688,6 +3722,14 @@
           </AssociationSet>
           <EntitySet Name="EncodingRecords" EntityType="TokikuModel.EncodingRecords" />
           <EntitySet Name="View_OrderControlTable" EntityType="TokikuModel.View_OrderControlTable" />
+          <AssociationSet Name="FK_Receipts_ManufacturersFactories" Association="TokikuModel.FK_Receipts_ManufacturersFactories">
+            <End Role="ManufacturersFactories" EntitySet="ManufacturersFactories" />
+            <End Role="Receive" EntitySet="Receipts" />
+          </AssociationSet>
+          <FunctionImport Name="SplitString" IsComposable="true" ReturnType="Collection(TokikuModel.SplitString_Result)">
+            <Parameter Name="SplitStr" Mode="In" Type="String" />
+            <Parameter Name="SplitChar" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="AccessLog">
           <Key>
@@ -4080,9 +4122,6 @@
         <EntityType Name="View_ManufacturersBussinessTranscations">
           <Key>
             <PropertyRef Name="Id" />
-            <PropertyRef Name="Code" />
-            <PropertyRef Name="Name" />
-            <PropertyRef Name="TranscationItemName" />
             <PropertyRef Name="ManufacturersId" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
@@ -4639,10 +4678,12 @@
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="ReceiptDetails" Relationship="TokikuModel.FK_ReceiptDetails_Receipts" FromRole="Receipts" ToRole="ReceiptDetails" />
-          <NavigationProperty Name="Users" Relationship="TokikuModel.FK_Receipts_CreateUsers" FromRole="Receipts" ToRole="Users" />
-          <NavigationProperty Name="Users1" Relationship="TokikuModel.FK_Receipts_MakingUsers" FromRole="Receipts" ToRole="Users" />
+          <NavigationProperty Name="CreateUser" Relationship="TokikuModel.FK_Receipts_CreateUsers" FromRole="Receipts" ToRole="Users" />
+          <NavigationProperty Name="MakingUser" Relationship="TokikuModel.FK_Receipts_MakingUsers" FromRole="Receipts" ToRole="Users" />
           <NavigationProperty Name="Stocks" Relationship="TokikuModel.FK_Receipts_Stocks" FromRole="Receipts" ToRole="Stocks" />
-          <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_Receipts_Manufacturers" FromRole="Receive" ToRole="Manufacturers" />
+          <NavigationProperty Name="IncomingManufacturers" Relationship="TokikuModel.FK_Receipts_Manufacturers" FromRole="Receive" ToRole="Manufacturers" />
+          <Property Name="IncomingManufacturersFactoryId" Type="Guid" />
+          <NavigationProperty Name="ManufacturersFactories" Relationship="TokikuModel.FK_Receipts_ManufacturersFactories" FromRole="Receive" ToRole="ManufacturersFactories" />
         </EntityType>
         <EntityType Name="Stocks">
           <Key>
@@ -4920,8 +4961,8 @@
           <NavigationProperty Name="InvoiceDetails" Relationship="TokikuModel.FK_InvoiceDetails_Invoices" FromRole="Invoices" ToRole="InvoiceDetails" />
           <NavigationProperty Name="InvoiceDetails_Material" Relationship="TokikuModel.FK_InvoiceDetails_Material_Invoices" FromRole="Invoices" ToRole="InvoiceDetails_Material" />
           <NavigationProperty Name="InvoiceDetails_Miscellaneous" Relationship="TokikuModel.FK_InvoiceDetails_Miscellaneous_Invoices" FromRole="Invoices" ToRole="InvoiceDetails_Miscellaneous" />
-          <NavigationProperty Name="Users" Relationship="TokikuModel.FK_Invoices_CreateUsers" FromRole="Invoices" ToRole="Users" />
-          <NavigationProperty Name="Users1" Relationship="TokikuModel.FK_Invoices_InvoiceUsers" FromRole="Invoices" ToRole="Users" />
+          <NavigationProperty Name="CreateUser" Relationship="TokikuModel.FK_Invoices_CreateUsers" FromRole="Invoices" ToRole="Users" />
+          <NavigationProperty Name="InvoiceUser" Relationship="TokikuModel.FK_Invoices_InvoiceUsers" FromRole="Invoices" ToRole="Users" />
           <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_Invoices_Manufacturers" FromRole="Invoices" ToRole="Manufacturers" />
         </EntityType>
         <Association Name="FK_InvoiceDetails_Invoices">
@@ -5080,7 +5121,7 @@
           <Property Name="FormDetailId" Type="Guid" Nullable="false" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="Users" Relationship="TokikuModel.FK_MaterialEstimation_Users" FromRole="MaterialEstimation" ToRole="Users" />
+          <NavigationProperty Name="CreateUser" Relationship="TokikuModel.FK_MaterialEstimation_Users" FromRole="MaterialEstimation" ToRole="Users" />
         </EntityType>
         <Association Name="FK_MaterialEstimation_Users">
           <End Type="TokikuModel.Users" Role="Users" Multiplicity="1" />
@@ -5510,6 +5551,7 @@
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_ManufacturersFactories_Manufacturers" FromRole="ManufacturersFactories" ToRole="Manufacturers" />
+          <NavigationProperty Name="Receipts" Relationship="TokikuModel.FK_Receipts_ManufacturersFactories" FromRole="ManufacturersFactories" ToRole="Receive" />
         </EntityType>
         <EntityType Name="OrderControlTableDetails">
           <Key>
@@ -5904,21 +5946,6 @@
             <PropertyRef Name="ProjectId" />
             <PropertyRef Name="RequiredId" />
             <PropertyRef Name="RequiredDetailsId" />
-            <PropertyRef Name="ProjectName" />
-            <PropertyRef Name="ShopFlowName" />
-            <PropertyRef Name="FormName" />
-            <PropertyRef Name="FormNumber" />
-            <PropertyRef Name="ManufacturersName" />
-            <PropertyRef Name="MakingUser" />
-            <PropertyRef Name="MakingTime" />
-            <PropertyRef Name="RequiredPostion" />
-            <PropertyRef Name="CreateTime" />
-            <PropertyRef Name="CreateUser" />
-            <PropertyRef Name="Code" />
-            <PropertyRef Name="FactoryNumber" />
-            <PropertyRef Name="Materials" />
-            <PropertyRef Name="RequiredQuantity" />
-            <PropertyRef Name="UnitWeight" />
             <PropertyRef Name="MaterialsId" />
             <PropertyRef Name="ManufacturersId" />
             <PropertyRef Name="CreateUserId" />
@@ -5950,13 +5977,7 @@
         </EntityType>
         <EntityType Name="View_RequiredControlTable">
           <Key>
-            <PropertyRef Name="Code" />
-            <PropertyRef Name="ManufacturersName" />
-            <PropertyRef Name="FactoryNumber" />
-            <PropertyRef Name="Materials" />
-            <PropertyRef Name="UnitWeight" />
             <PropertyRef Name="ProjectId" />
-            <PropertyRef Name="ProjectName" />
           </Key>
           <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ManufacturersName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -6021,8 +6042,8 @@
           <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_Returns_Manufacturers" FromRole="Returns" ToRole="Manufacturers" />
           <NavigationProperty Name="Orders" Relationship="TokikuModel.FK_Returns_Orders" FromRole="Returns" ToRole="Orders" />
           <NavigationProperty Name="ReturnDetails" Relationship="TokikuModel.FK_ReturnDetails_Returns" FromRole="Returns" ToRole="ReturnDetails" />
-          <NavigationProperty Name="Users" Relationship="TokikuModel.FK_Returns_CreateUsers" FromRole="Returns" ToRole="Users" />
-          <NavigationProperty Name="Users1" Relationship="TokikuModel.FK_Returns_MakerUsers" FromRole="Returns" ToRole="Users" />
+          <NavigationProperty Name="CreateUser" Relationship="TokikuModel.FK_Returns_CreateUsers" FromRole="Returns" ToRole="Users" />
+          <NavigationProperty Name="MakingUser" Relationship="TokikuModel.FK_Returns_MakerUsers" FromRole="Returns" ToRole="Users" />
           <NavigationProperty Name="Stocks" Relationship="TokikuModel.FK_Returns_Stocks" FromRole="Returns" ToRole="Stocks" />
         </EntityType>
         <Association Name="FK_Returns_Manufacturers">
@@ -6128,16 +6149,17 @@
         </EntityType>
         <EntityType Name="View_OrderControlTable">
           <Key>
-            <PropertyRef Name="FormNumber" />
-            <PropertyRef Name="Code" />
-            <PropertyRef Name="ProjectsName" />
-            <PropertyRef Name="RequiredDetailsCode" />
-            <PropertyRef Name="ManufacturersCode" />
-            <PropertyRef Name="ManufacturersName" />
-            <PropertyRef Name="MaterialsName" />
-            <PropertyRef Name="UnitWeight" />
-            <PropertyRef Name="ExpectedDelivery" />
-            <PropertyRef Name="LackQuantity" />
+            <PropertyRef Name="OrdersMakingUserId" />
+            <PropertyRef Name="OrderTypeId" />
+            <PropertyRef Name="ShippingManufactureId" />
+            <PropertyRef Name="ControlTableDetailId" />
+            <PropertyRef Name="RequiredDetailsId" />
+            <PropertyRef Name="MaterialsId" />
+            <PropertyRef Name="RequiredId" />
+            <PropertyRef Name="OrderDetailId" />
+            <PropertyRef Name="ReceiptsId" />
+            <PropertyRef Name="ProjectId" />
+            <PropertyRef Name="ProjectContractId" />
           </Key>
           <Property Name="FormNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -6157,7 +6179,37 @@
           <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="LackQuantity" Type="Int32" Nullable="false" />
           <Property Name="LackWeight" Type="Decimal" Precision="29" Scale="3" />
+          <Property Name="Atlas" Type="Int32" />
+          <Property Name="ReceiptNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrdersMakingUserId" Type="Guid" Nullable="false" />
+          <Property Name="OrderTypeId" Type="Guid" Nullable="false" />
+          <Property Name="ShippingManufactureId" Type="Guid" Nullable="false" />
+          <Property Name="OrderId" Type="Guid" />
+          <Property Name="ControlTableDetailId" Type="Guid" Nullable="false" />
+          <Property Name="RequiredDetailsId" Type="Guid" Nullable="false" />
+          <Property Name="MaterialsId" Type="Guid" Nullable="false" />
+          <Property Name="RequiredId" Type="Guid" Nullable="false" />
+          <Property Name="OrderDetailId" Type="Guid" Nullable="false" />
+          <Property Name="ReceiptsId" Type="Guid" Nullable="false" />
+          <Property Name="ProjectId" Type="Guid" Nullable="false" />
+          <Property Name="ProjectContractId" Type="Guid" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Receipts_ManufacturersFactories">
+          <End Type="TokikuModel.ManufacturersFactories" Role="ManufacturersFactories" Multiplicity="0..1" />
+          <End Type="TokikuModel.Receive" Role="Receive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManufacturersFactories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Receive">
+              <PropertyRef Name="IncomingManufacturersFactoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="SplitString_Result">
+          <Property Type="Int32" Name="Id" Nullable="true" />
+          <Property Type="String" Name="Data" Nullable="true" MaxLength="50" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -6742,6 +6794,7 @@
           <EntitySetMapping Name="Receipts">
             <EntityTypeMapping TypeName="TokikuModel.Receive">
               <MappingFragment StoreEntitySet="Receipts">
+                <ScalarProperty Name="IncomingManufacturersFactoryId" ColumnName="IncomingManufacturersFactoryId" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
@@ -7230,6 +7283,20 @@
           <EntitySetMapping Name="View_OrderControlTable">
             <EntityTypeMapping TypeName="TokikuModel.View_OrderControlTable">
               <MappingFragment StoreEntitySet="View_OrderControlTable">
+                <ScalarProperty Name="ProjectContractId" ColumnName="ProjectContractId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="ReceiptsId" ColumnName="ReceiptsId" />
+                <ScalarProperty Name="OrderDetailId" ColumnName="OrderDetailId" />
+                <ScalarProperty Name="RequiredId" ColumnName="RequiredId" />
+                <ScalarProperty Name="MaterialsId" ColumnName="MaterialsId" />
+                <ScalarProperty Name="RequiredDetailsId" ColumnName="RequiredDetailsId" />
+                <ScalarProperty Name="ControlTableDetailId" ColumnName="ControlTableDetailId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="ShippingManufactureId" ColumnName="ShippingManufactureId" />
+                <ScalarProperty Name="OrderTypeId" ColumnName="OrderTypeId" />
+                <ScalarProperty Name="OrdersMakingUserId" ColumnName="OrdersMakingUserId" />
+                <ScalarProperty Name="ReceiptNumber" ColumnName="ReceiptNumber" />
+                <ScalarProperty Name="Atlas" ColumnName="Atlas" />
                 <ScalarProperty Name="LackWeight" ColumnName="LackWeight" />
                 <ScalarProperty Name="LackQuantity" ColumnName="LackQuantity" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
@@ -7251,6 +7318,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SplitString" FunctionName="TokikuModel.Store.SplitString">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TokikuModel.SplitString_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
