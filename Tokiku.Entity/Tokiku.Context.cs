@@ -91,6 +91,7 @@ namespace Tokiku.Entity
         public virtual DbSet<Returns> Returns { get; set; }
         public virtual DbSet<EncodingRecords> EncodingRecords { get; set; }
         public virtual DbSet<View_OrderControlTable> View_OrderControlTable { get; set; }
+        public virtual DbSet<View_Shipping> View_Shipping { get; set; }
     
         [DbFunction("TokikuEntities", "SplitString")]
         public virtual IQueryable<SplitString_Result> SplitString(string splitStr, string splitChar)

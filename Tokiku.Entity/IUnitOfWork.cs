@@ -1,11 +1,10 @@
-using System;
 using System.Data.Entity;
 using System.Threading.Tasks;
 
 namespace Tokiku.Entity
 {
-	public partial interface IUnitOfWork : IDisposable
-    {
+	public partial interface IUnitOfWork
+	{
 		DbContext Context { get; set; }
 
         /// <summary>

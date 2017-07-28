@@ -1,80 +1,52 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Core.Objects;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Tokiku.Entity
 {
-    public partial class EFRepository<T> : IRepositoryBase<T> where T : class
-    {
-        public IUnitOfWork UnitOfWork { get; set; }
+	public partial class EFRepository<T> : IRepositoryBase<T> where T : class
+	{
+		public IUnitOfWork UnitOfWork { get; set; }
+		
+		private IDbSet<T> _objectset;
+		protected IDbSet<T> ObjectSet
+		{
+			get
+			{
+				if (_objectset == null)
+				{
+					_objectset = UnitOfWork.Context.Set<T>();
+				}
+				return _objectset;
+			}
+		}
 
-        private IDbSet<T> _objectset;
-        protected IDbSet<T> ObjectSet
+		public virtual IQueryable<T> All()
+		{
+			return ObjectSet.AsQueryable();
+		}
+
+		public IQueryable<T> Where(Expression<Func<T, bool>> expression)
+		{
+			return ObjectSet.Where(expression);
+		}
+
+		public virtual T Add(T entity)
+		{
+			return ObjectSet.Add(entity);
+		}
+
+		public virtual void Delete(T entity)
+		{
+			ObjectSet.Remove(entity);
+		}
+
+		public Task<IQueryable<T>> AllAsync()
         {
-            get
-            {
-                if (_objectset == null)
-                {
-                    _objectset = UnitOfWork.Context.Set<T>();
-                }
-                _objectset.Load();
-                return _objectset;
-            }
-        }
-
-        /// <summary>
-        /// 傳回主索引鍵欄位的內容值。
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        protected object[] IdentifyPrimaryKey(T entity)
-        {
-
-            ObjectContext objectContext = ((IObjectContextAdapter)UnitOfWork.Context).ObjectContext;
-            ObjectSet<T> set = objectContext.CreateObjectSet<T>();
-            IEnumerable<string> keyNames = set.EntitySet.ElementType
-                                                        .KeyMembers
-                                                        .Select(k => k.Name);
-
-            Type entityreflection = typeof(T);
-
-            var pkeys = entityreflection.GetProperties()
-                .Join(keyNames, (x) => x.Name, (y) => y, (k, t) => k)
-                .Select(s => s.GetValue(entity));
-
-            return pkeys.ToArray();
-        }
-
-        public virtual IQueryable<T> All()
-        {
-
-            return ObjectSet.Local.AsQueryable();
-        }
-
-        public IQueryable<T> Where(Expression<Func<T, bool>> expression)
-        {
-            return ObjectSet.Local.AsQueryable().Where(expression);
-        }
-
-        public virtual T Add(T entity)
-        {
-            ObjectSet.Local.Add(entity);
-            return Get(IdentifyPrimaryKey(entity));
-        }
-
-        public virtual void Delete(T entity)
-        {
-            ObjectSet.Local.Remove(entity);
-        }
-
-        public Task<IQueryable<T>> AllAsync()
-        {
-            return Task.FromResult(All());
+            return Task.Run(() => ObjectSet.AsQueryable());
         }
 
         public IList<T> BatchAdd(IEnumerable<T> entities)
@@ -89,7 +61,7 @@ namespace Tokiku.Entity
 
         public Task<T> GetAsync(params object[] values)
         {
-            return Task.FromResult(Get(values));
+            return Task.Run(() => ObjectSet.Find(values));
         }
 
         public T Reload(T entity)
@@ -100,11 +72,10 @@ namespace Tokiku.Entity
 
         public async Task<T> ReloadAsync(T entity)
         {
-            await UnitOfWork.Context.Entry(entity).ReloadAsync();
+           await UnitOfWork.Context.Entry(entity).ReloadAsync();
             return entity;
         }
-
-        #region IDisposable Support
+		#region IDisposable Support
         private bool disposedValue = false; // 偵測多餘的呼叫
 
         protected virtual void Dispose(bool disposing)
@@ -113,7 +84,7 @@ namespace Tokiku.Entity
             {
                 if (disposing)
                 {
-                    //UnitOfWork.Commit();
+                    UnitOfWork.Commit();
                     UnitOfWork.Context.Dispose();
                 }
 
@@ -139,5 +110,5 @@ namespace Tokiku.Entity
             // GC.SuppressFinalize(this);
         }
         #endregion
-    }
+	}
 }

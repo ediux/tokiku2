@@ -881,6 +881,9 @@
         <EntityType Name="View_ManufacturersBussinessTranscations">
           <Key>
             <PropertyRef Name="Id" />
+            
+            
+            
             <PropertyRef Name="ManufacturersId" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
@@ -892,6 +895,7 @@
         <!--產生期間發現錯誤:
 警告 6002: 資料表/檢視 'Tokiku2_New.dbo.View_OrderControlTable' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
         <EntityType Name="View_OrderControlTable">
+          
           <Key>
             <PropertyRef Name="OrdersMakingUserId" />
             <PropertyRef Name="OrderTypeId" />
@@ -1054,6 +1058,7 @@
         <EntityType Name="View_RequiredControlTable">
           <Key>
             <PropertyRef Name="ProjectId" />
+            
             <PropertyRef Name="Code" />
             <PropertyRef Name="ManufacturersName" />
             <PropertyRef Name="FactoryNumber" />
@@ -1096,6 +1101,21 @@
             <PropertyRef Name="ProjectId" />
             <PropertyRef Name="RequiredId" />
             <PropertyRef Name="RequiredDetailsId" />
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             <PropertyRef Name="MaterialsId" />
             <PropertyRef Name="ManufacturersId" />
             <PropertyRef Name="CreateUserId" />
@@ -1124,6 +1144,40 @@
           <Property Name="ManufacturersId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ShopFlowId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'Tokiku2_New.dbo.View_Shipping' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+        <EntityType Name="View_Shipping">
+          <Key>
+            <PropertyRef Name="PickListNumber" />
+            <PropertyRef Name="BatchNumber" />
+            <PropertyRef Name="RequiredDetailsCode" />
+            <PropertyRef Name="ManufacturersCode" />
+            <PropertyRef Name="ManufacturersName" />
+            <PropertyRef Name="MaterialsName" />
+            <PropertyRef Name="UnitWeight" />
+            <PropertyRef Name="OrderQuantity" />
+          </Key>
+          <Property Name="PickListNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BatchNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RequiredDetailsCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ManufacturersCode" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="ManufacturersName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MaterialsName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UnitWeight" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="OrderLength" Type="int" />
+          <Property Name="OrderQuantity" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ShippingOrder" Type="int" />
+          <Property Name="Weight" Type="float" />
+          <Property Name="LackQuantity" Type="int" />
+          <Property Name="ShippingQuantity" Type="int" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="512" />
+          <Property Name="PickListId" Type="uniqueidentifier" />
+          <Property Name="OrderDetailId" Type="uniqueidentifier" />
+          <Property Name="OrderId" Type="uniqueidentifier" />
+          <Property Name="RequiredDetailsId" Type="uniqueidentifier" />
+          <Property Name="ShippingManufactureId" Type="uniqueidentifier" />
+          <Property Name="MaterialsId" Type="uniqueidentifier" />
         </EntityType>
         <Association Name="FK__aspnet_Me__UserI__164452B1">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
@@ -2671,6 +2725,30 @@
     [View_RequiredForms].[ShopFlowId] AS [ShopFlowId]
     FROM [dbo].[View_RequiredForms] AS [View_RequiredForms]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="View_Shipping" EntityType="Self.View_Shipping" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_Shipping].[PickListNumber] AS [PickListNumber], 
+    [View_Shipping].[BatchNumber] AS [BatchNumber], 
+    [View_Shipping].[RequiredDetailsCode] AS [RequiredDetailsCode], 
+    [View_Shipping].[ManufacturersCode] AS [ManufacturersCode], 
+    [View_Shipping].[ManufacturersName] AS [ManufacturersName], 
+    [View_Shipping].[MaterialsName] AS [MaterialsName], 
+    [View_Shipping].[UnitWeight] AS [UnitWeight], 
+    [View_Shipping].[OrderLength] AS [OrderLength], 
+    [View_Shipping].[OrderQuantity] AS [OrderQuantity], 
+    [View_Shipping].[ShippingOrder] AS [ShippingOrder], 
+    [View_Shipping].[Weight] AS [Weight], 
+    [View_Shipping].[LackQuantity] AS [LackQuantity], 
+    [View_Shipping].[ShippingQuantity] AS [ShippingQuantity], 
+    [View_Shipping].[Comment] AS [Comment], 
+    [View_Shipping].[PickListId] AS [PickListId], 
+    [View_Shipping].[OrderDetailId] AS [OrderDetailId], 
+    [View_Shipping].[OrderId] AS [OrderId], 
+    [View_Shipping].[RequiredDetailsId] AS [RequiredDetailsId], 
+    [View_Shipping].[ShippingManufactureId] AS [ShippingManufactureId], 
+    [View_Shipping].[MaterialsId] AS [MaterialsId]
+    FROM [dbo].[View_Shipping] AS [View_Shipping]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__aspnet_Me__UserI__164452B1" Association="Self.FK__aspnet_Me__UserI__164452B1">
             <End Role="Users" EntitySet="Users" />
             <End Role="Membership" EntitySet="Membership" />
@@ -3736,6 +3814,7 @@
             <Parameter Name="SplitStr" Mode="In" Type="String" />
             <Parameter Name="SplitChar" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="View_Shipping" EntityType="TokikuModel.View_Shipping" />
           </EntityContainer>
         <EntityType Name="AccessLog">
           <Key>
@@ -6222,6 +6301,38 @@
           <Property Type="Int32" Name="Id" Nullable="true" />
           <Property Type="String" Name="Data" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <EntityType Name="View_Shipping">
+          <Key>
+            <PropertyRef Name="PickListNumber" />
+            <PropertyRef Name="BatchNumber" />
+            <PropertyRef Name="RequiredDetailsCode" />
+            <PropertyRef Name="ManufacturersCode" />
+            <PropertyRef Name="ManufacturersName" />
+            <PropertyRef Name="MaterialsName" />
+            <PropertyRef Name="UnitWeight" />
+            <PropertyRef Name="OrderQuantity" />
+          </Key>
+          <Property Name="PickListNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BatchNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RequiredDetailsCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ManufacturersCode" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="ManufacturersName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaterialsName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UnitWeight" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="OrderLength" Type="Int32" />
+          <Property Name="OrderQuantity" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="ShippingOrder" Type="Int32" />
+          <Property Name="Weight" Type="Double" />
+          <Property Name="LackQuantity" Type="Int32" />
+          <Property Name="ShippingQuantity" Type="Int32" />
+          <Property Name="Comment" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="PickListId" Type="Guid" />
+          <Property Name="OrderDetailId" Type="Guid" />
+          <Property Name="OrderId" Type="Guid" />
+          <Property Name="RequiredDetailsId" Type="Guid" />
+          <Property Name="ShippingManufactureId" Type="Guid" />
+          <Property Name="MaterialsId" Type="Guid" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7338,6 +7449,32 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="View_Shipping">
+            <EntityTypeMapping TypeName="TokikuModel.View_Shipping">
+              <MappingFragment StoreEntitySet="View_Shipping">
+                <ScalarProperty Name="MaterialsId" ColumnName="MaterialsId" />
+                <ScalarProperty Name="ShippingManufactureId" ColumnName="ShippingManufactureId" />
+                <ScalarProperty Name="RequiredDetailsId" ColumnName="RequiredDetailsId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="OrderDetailId" ColumnName="OrderDetailId" />
+                <ScalarProperty Name="PickListId" ColumnName="PickListId" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="ShippingQuantity" ColumnName="ShippingQuantity" />
+                <ScalarProperty Name="LackQuantity" ColumnName="LackQuantity" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="ShippingOrder" ColumnName="ShippingOrder" />
+                <ScalarProperty Name="OrderQuantity" ColumnName="OrderQuantity" />
+                <ScalarProperty Name="OrderLength" ColumnName="OrderLength" />
+                <ScalarProperty Name="UnitWeight" ColumnName="UnitWeight" />
+                <ScalarProperty Name="MaterialsName" ColumnName="MaterialsName" />
+                <ScalarProperty Name="ManufacturersName" ColumnName="ManufacturersName" />
+                <ScalarProperty Name="ManufacturersCode" ColumnName="ManufacturersCode" />
+                <ScalarProperty Name="RequiredDetailsCode" ColumnName="RequiredDetailsCode" />
+                <ScalarProperty Name="BatchNumber" ColumnName="BatchNumber" />
+                <ScalarProperty Name="PickListNumber" ColumnName="PickListNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
