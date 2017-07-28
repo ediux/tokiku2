@@ -11,6 +11,7 @@
              d:DesignHeight="768" d:DesignWidth="1366" Loaded="ShippingMaterialView_Loaded">
     <UserControl.Resources>
         <ObjectDataProvider x:Key="ShippingMaterialSource" ObjectType="{x:Type vm:ShippingMaterialViewModelCollection}" MethodName="Query"/>
+        <ObjectDataProvider x:Key="ShippingDetailsSource" ObjectType="{x:Type vm:ShippingDetailsViewModelCollection}" MethodName="Query"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
