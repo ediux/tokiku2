@@ -10,7 +10,7 @@ namespace Tokiku.Controllers
 {
     public class ShippingMaterialController : BaseController
     {
-        public ExecuteResultEntity<ICollection<PickList>> QuerAll()
+        public ExecuteResultEntity<ICollection<PickList>> QueryAll()
         {
             try {
                 var repo = RepositoryHelper.GetPickListRepository();

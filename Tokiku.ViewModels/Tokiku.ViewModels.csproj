@@ -139,6 +139,7 @@
     <Compile Include="Shared\SearchBarViewModel.cs" />
     <Compile Include="Shared\SystemMembersViewModel.cs" />
     <Compile Include="Shared\SystemRolesViewModel.cs" />
+    <Compile Include="ControlTables\ShippingDetailsViewModel.cs" />
     <Compile Include="Users\LoginViewModel.cs" />
     <Compile Include="Main\MainViewModel.cs" />
     <Compile Include="Projects\ProjectsViewModel.cs" />
