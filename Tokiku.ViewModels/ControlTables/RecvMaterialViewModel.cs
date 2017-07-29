@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Tokiku.Controllers;
 using Tokiku.Entity;
+using Tokiku.MVVM.Tools;
 
 namespace Tokiku.ViewModels
 {
-    public class RecvMaterialViewModelCollection : BaseViewModelCollection<RecvMaterialViewModel,Receive>
+    public class RecvMaterialViewModelCollection : BaseViewModelCollection<RecvMaterialViewModel, Receive>
     {
         public RecvMaterialViewModelCollection()
         {
@@ -20,56 +21,59 @@ namespace Tokiku.ViewModels
 
         }
 
-        public static RecvMaterialViewModelCollection Query(Guid ProjectId)
-        {
-            try
-            {
-                return BaseViewModel.Query<RecvMaterialViewModelCollection, Receive>("RecvMaterial", "Query", ProjectId);
-            }
-            catch (Exception ex)
-            {
-                RecvMaterialViewModelCollection emptycollection = new RecvMaterialViewModelCollection();
-                setErrortoModel(emptycollection, ex);
-                return emptycollection;
-            }
-            //RecvMaterialController ctrl = new RecvMaterialController();
-            //ExecuteResultEntity<ICollection<Receive>> ere = ctrl.QuerAll();
+        public override string ControllerName => "RecvMaterial";
 
-            //if (!ere.HasError)
-            //{
-            //    return new RecvMaterialViewModelCollection(ere.Result.Select(s => new RecvMaterialViewModel(s)).ToList());
-            //}
+        //public static RecvMaterialViewModelCollection Query(Guid ProjectId)
+        //{
+        //    try
+        //    {
+        //        return Query<RecvMaterialViewModelCollection>("RecvMaterial", "Query", ProjectId);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        RecvMaterialViewModelCollection emptycollection = new RecvMaterialViewModelCollection();
+        //        setErrortoModel(emptycollection, ex);
+        //        return emptycollection;
+        //    }
+        //    //RecvMaterialController ctrl = new RecvMaterialController();
+        //    //ExecuteResultEntity<ICollection<Receive>> ere = ctrl.QuerAll();
 
-            //return new RecvMaterialViewModelCollection();
-        }
+        //    //if (!ere.HasError)
+        //    //{
+        //    //    return new RecvMaterialViewModelCollection(ere.Result.Select(s => new RecvMaterialViewModel(s)).ToList());
+        //    //}
+
+        //    //return new RecvMaterialViewModelCollection();
+        //}
 
     }
 
     public class RecvMaterialViewModel : BaseViewModelWithPOCOClass<Receive>
     {
+        public override string ControllerName => "RecvMaterial";
         public RecvMaterialViewModel()
         {
-            _SaveModelController = "RecvMaterial";
+
         }
-    
-        public static RecvMaterialViewModel Query(Guid Id,Guid ProjectId)
+
+        public static RecvMaterialViewModel Query(Guid Id, Guid ProjectId)
         {
             try
             {
-                return QuerySingle<RecvMaterialViewModel, Receive>("RecvMaterial", "QuerySingle",ProjectId, Id);
+                return QuerySingle<RecvMaterialViewModel, Receive>("RecvMaterial", QuerySingleRowActionName, ProjectId, Id);
             }
             catch (Exception ex)
             {
                 RecvMaterialViewModel emptycollection = new RecvMaterialViewModel();
-                setErrortoModel(emptycollection, ex);
+                emptycollection.setErrortoModel(ex);
                 return emptycollection;
             }
         }
-        
-        
+
+
         public RecvMaterialViewModel(Receive entity) : base(entity)
         {
-            _SaveModelController = "RecvMaterial";
+            
 
         }
 
@@ -103,12 +107,16 @@ namespace Tokiku.ViewModels
             get { return CopyofPOCOInstance.IncomingNumber; }
             set { CopyofPOCOInstance.IncomingNumber = value; RaisePropertyChanged("IncomingNumber"); }
         }
-        public override Guid CreateUserId { get => CopyofPOCOInstance.CreateUserId;
-            set {
+        public override Guid CreateUserId
+        {
+            get => CopyofPOCOInstance.CreateUserId;
+            set
+            {
                 CopyofPOCOInstance.CreateUserId = value;
-                
-            } }
-        
+
+            }
+        }
+
         // 輸入人員
         public new string CreateUser
         {

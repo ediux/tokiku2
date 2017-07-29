@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tokiku.Entity;
+using Tokiku.MVVM.Tools;
 
 namespace Tokiku.ViewModels
 {
-    public class RecvMaterialDetailsViewModelCollection : BaseViewModelCollection<RecvMaterialDetailsViewModel>
+    public class RecvMaterialDetailsViewModelCollection : BaseViewModelCollection<RecvMaterialDetailsViewModel, ReceiveDetails>
     {
 
         public RecvMaterialDetailsViewModelCollection()
@@ -19,16 +21,16 @@ namespace Tokiku.ViewModels
 
         }
 
-        public static RecvMaterialDetailsViewModelCollection Query(Guid ProjectId,Guid MasterId)
+        public static RecvMaterialDetailsViewModelCollection Query(Guid ProjectId, Guid MasterId)
         {
             try
             {
-                return Query<RecvMaterialDetailsViewModelCollection, Entity.ReceiveDetails>("RecvMaterial", "Query", ProjectId, MasterId);
+                return Query<RecvMaterialDetailsViewModelCollection>("RecvMaterial", "Query", ProjectId, MasterId);
             }
             catch (Exception ex)
             {
                 RecvMaterialDetailsViewModelCollection emptycollection = new RecvMaterialDetailsViewModelCollection();
-                setErrortoModel(emptycollection, ex);
+                emptycollection.setErrortoModel(ex);
                 return emptycollection;
             }
         }

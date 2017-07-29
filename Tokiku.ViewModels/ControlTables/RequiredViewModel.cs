@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Tokiku.Controllers;
 using Tokiku.Entity;
+using Tokiku.MVVM.Tools;
 
 namespace Tokiku.ViewModels
 {
-    public class RequiredViewModelCollection : BaseViewModelCollection<RequiredViewModel>
+    public class RequiredViewModelCollection : BaseViewModelCollection<RequiredViewModel, Required>
     {
         public RequiredViewModelCollection()
         {
@@ -196,7 +197,7 @@ namespace Tokiku.ViewModels
             catch (Exception ex)
             {
                 RequiredViewModel view = new RequiredViewModel();
-                setErrortoModel(view, ex);
+                view.setErrortoModel(ex);
                 return view;
             }
         }

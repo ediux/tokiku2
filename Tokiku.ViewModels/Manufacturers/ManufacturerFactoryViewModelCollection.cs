@@ -4,17 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tokiku.Entity;
+using Tokiku.MVVM.Tools;
 
 namespace Tokiku.ViewModels
 {
-    public class ManufacturerFactoryViewModelCollection : BaseViewModelCollection<ManufacturerFactoryViewModel>
+    public class ManufacturerFactoryViewModelCollection : BaseViewModelCollection<ManufacturerFactoryViewModel, ManufacturersFactories>
     {
         public ManufacturerFactoryViewModelCollection()
         {
 
         }
 
-        public ManufacturerFactoryViewModelCollection(IEnumerable<ManufacturerFactoryViewModel> source):base(source)
+        public ManufacturerFactoryViewModelCollection(IEnumerable<ManufacturerFactoryViewModel> source) : base(source)
         {
 
         }
@@ -23,14 +24,14 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                return Query<ManufacturerFactoryViewModelCollection, ManufacturersFactories>(
+                return Query<ManufacturerFactoryViewModelCollection>(
                     "ManufacturersManage", "QueryManufacturerFactoryByManufacturersId", ManufacturersId);
             }
             catch (Exception ex)
             {
                 ManufacturerFactoryViewModelCollection emptycollection =
                     new ManufacturerFactoryViewModelCollection();
-                setErrortoModel(emptycollection, ex);
+                emptycollection.setErrortoModel(ex);
                 return emptycollection;
             }
         }

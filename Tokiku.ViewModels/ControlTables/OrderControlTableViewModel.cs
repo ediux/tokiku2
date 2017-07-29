@@ -8,7 +8,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class OrderControlTableViewModelCollection : BaseViewModelCollection<OrderControlTableViewModel>
+    public class OrderControlTableViewModelCollection : BaseViewModelCollection<OrderControlTableViewModel, View_OrderControlTable>
     {
         public OrderControlTableViewModelCollection()
         {
@@ -20,7 +20,7 @@ namespace Tokiku.ViewModels
 
         public static OrderControlTableViewModelCollection Query()
         {
-            return Query<OrderControlTableViewModelCollection, View_OrderControlTable>("OrderControlTable", "QueryAll");
+            return Query<OrderControlTableViewModelCollection>("OrderControlTable", "QueryAll");
         }
 
     }

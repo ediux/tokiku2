@@ -9,7 +9,7 @@ using Tokiku.Entity.ViewTables;
 
 namespace Tokiku.ViewModels
 {
-    public class SystemMembersViewModelCollection : BaseViewModelCollection<SystemMembersViewModel>
+    public class SystemMembersViewModelCollection : BaseViewModelCollection<SystemMembersViewModel, Users>
     {
         public SystemMembersViewModelCollection()
         {
@@ -44,7 +44,7 @@ namespace Tokiku.ViewModels
         {
 
         }
-        public SystemMembersViewModel(Users entity):base(entity)
+        public SystemMembersViewModel(Users entity) : base(entity)
         {
 
         }

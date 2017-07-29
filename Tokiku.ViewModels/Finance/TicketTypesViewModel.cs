@@ -8,41 +8,19 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class TicketTypesViewModelCollection : BaseViewModelCollection<TicketTypesViewModel>
+    public class TicketTypesViewModelCollection : BaseViewModelCollection<TicketTypesViewModel, TicketTypes>
     {
-        private Controllers.ManufacturersManageController controller;
-
-        public override void Initialized()
+        public TicketTypesViewModelCollection()
         {
-            base.Initialized();
-            controller = new Controllers.ManufacturersManageController();
-            Query();
+
         }
 
-        public static TicketTypesViewModelCollection Query()
+        public TicketTypesViewModelCollection(IEnumerable<TicketTypesViewModel> source) : base(source)
         {
-            return Query<TicketTypesViewModelCollection, TicketTypes>("ManufacturersManage", "GetTranscationCategoriesList");
-            //var result = await controller.GetTranscationCategoriesListAsync();
 
-            //if (!result.HasError)
-            //{
-            //    if (result.Result.Any())
-            //    {
-            //        ClearItems();
-            //        foreach (var item in result.Result)
-            //        {
-            //            TicketTypesViewModel model = new TicketTypesViewModel();
-            //            model.SetModel(item);
-            //            Add(model);
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    Errors = result.Errors;
-            //    HasError = result.HasError;
-            //}
         }
+
+        public override string ControllerName => ManufacturersManageControllerName; 
     }
 
     public class TicketTypesViewModel : BaseViewModelWithPOCOClass<TicketTypes>
@@ -55,6 +33,9 @@ namespace Tokiku.ViewModels
         {
 
         }
+
+        public override string ControllerName => ManufacturersManageControllerName;
+
         #region Id
 
 
@@ -75,11 +56,11 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.Name = value; RaisePropertyChanged("Name"); }
         }
 
-    
+
 
         #endregion
 
-       
+
 
         //public override void SetModel(dynamic entity)
         //{

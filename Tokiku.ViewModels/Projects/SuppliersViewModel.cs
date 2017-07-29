@@ -11,7 +11,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class SuppliersViewModelCollection : BaseViewModelCollection<SuppliersViewModel>
+    public class SuppliersViewModelCollection : BaseViewModelCollection<SuppliersViewModel, SupplierTranscationItem>
     {
         public SuppliersViewModelCollection() : base()
         {
@@ -25,7 +25,7 @@ namespace Tokiku.ViewModels
 
         public SuppliersViewModelCollection Query(Guid ProjectId)
         {
-            return Query<SuppliersViewModelCollection, SupplierTranscationItem>(
+            return Query<SuppliersViewModelCollection>(
                 "Suppliers", "QueryByProject", ProjectId);
         }
 

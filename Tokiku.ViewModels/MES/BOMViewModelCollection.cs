@@ -9,7 +9,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class BOMViewModelCollection : BaseViewModelCollection<BOMViewModel>
+    public class BOMViewModelCollection : BaseViewModelCollection<BOMViewModel, BOM>
     {
         public BOMViewModelCollection() : base()
         {

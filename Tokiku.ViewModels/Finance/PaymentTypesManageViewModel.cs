@@ -11,7 +11,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class PaymentTypesManageViewModelCollection : BaseViewModelCollection<PaymentTypesManageViewModel>
+    public class PaymentTypesManageViewModelCollection : BaseViewModelCollection<PaymentTypesManageViewModel, PaymentTypes>
     {
        
 
@@ -25,28 +25,10 @@ namespace Tokiku.ViewModels
 
         }
 
-
-
         public static PaymentTypesManageViewModelCollection Query()
         {
-            return Query<PaymentTypesManageViewModelCollection, PaymentTypes>(
+            return Query<PaymentTypesManageViewModelCollection>(
                 "PaymentTypesManage", "QueryAll");
-            //var result = _controller.QueryAll();
-            //if (!result.HasError)
-            //{
-            //    if (result.Result.Any())
-            //    {
-            //        ClearItems();
-
-            //        foreach (var entity in result.Result)
-            //        {
-            //            PaymentTypesManageViewModel item = new PaymentTypesManageViewModel();
-            //            item.SetModel(entity);
-            //            Add(item);
-            //        }
-
-            //    }
-            //}
         }
 
     }

@@ -27,6 +27,9 @@ namespace Tokiku.ViewModels
         /// 控制器名稱格式
         /// </summary>
         protected const string ControllerFullNameFormat = "Tokiku.Controllers.{0}Controller";
+        /// <summary>
+        /// 控制器根命名空間
+        /// </summary>
         protected const string ControllerRootNamespace = "Tokiku.Controllers";
         #endregion
 
@@ -35,6 +38,14 @@ namespace Tokiku.ViewModels
         /// 系統共用控制器
         /// </summary>
         public const string SystemControllerName = "System";
+        /// <summary>
+        /// 廠商/客戶管理控制器
+        /// </summary>
+        public const string ManufacturersManageControllerName = "ManufacturersManage";
+        /// <summary>
+        /// 聯絡人控制器
+        /// </summary>
+        public const string ContactPersonManageControllerName = "ContactPersonManage";
         #endregion
 
         #region 動作方法
@@ -314,8 +325,13 @@ namespace Tokiku.ViewModels
                 return collection;
             }
         }
-        #endregion
-
+        /// <summary>
+        /// 對指定控制器發出查詢呼叫。
+        /// </summary>
+        /// <typeparam name="TView">單一元素資料檢視模型</typeparam>
+        /// <typeparam name="TPOCO">對應的資料庫實體型別</typeparam>
+        /// <param name="parameters">要傳遞到控制器的參數</param>
+        /// <returns>傳回指定檢視模型。</returns>
         public virtual TView Query<TView, TPOCO>(params object[] parameters) where TView : IBaseViewModel where TPOCO : class
         {
             try
@@ -329,7 +345,8 @@ namespace Tokiku.ViewModels
                 return coll;
             }
         }
-
+        #endregion
+        
         #region 檢視模型初始化作業(建構式會呼叫)
         /// <summary>
         /// 檢視模型初始化作業(建構式會呼叫)
@@ -338,12 +355,15 @@ namespace Tokiku.ViewModels
         {
 
         }
+        public virtual void Initialized(object Parameter)
+        {
 
+        }
         /// <summary>
         /// 檢視模型初始化作業(WPF命令會呼叫)
         /// </summary>
         /// <param name="Parameter">命令傳入的參考物件。</param>
-        public static void Initialized(object Parameter)
+        public static void CreateNew(object Parameter)
         {
 
         }

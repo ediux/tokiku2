@@ -9,11 +9,11 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class AluminumExtrusionOrderMaterialValuationViewModelCollection : BaseViewModelCollection<AluminumExtrusionOrderMaterialValuationViewModel>
+    public class AluminumExtrusionOrderMaterialValuationViewModelCollection : BaseViewModelCollection<AluminumExtrusionOrderMaterialValuationViewModel,OrderMaterialValuation>
     {
         public AluminumExtrusionOrderMaterialValuationViewModelCollection()
         {
-            HasError = false;
+          
         }
 
         public AluminumExtrusionOrderMaterialValuationViewModelCollection(IEnumerable<AluminumExtrusionOrderMaterialValuationViewModel> source) : base(source)
@@ -21,54 +21,54 @@ namespace Tokiku.ViewModels
 
         }
 
-        public static AluminumExtrusionOrderMaterialValuationViewModelCollection Query(Guid ProjectId, Guid FormDetailId)
-        {
-            AluminumExtrusionOrderMaterialValuationViewModelCollection returnSet = null;
-            try
-            {
-                AluminumExtrusionOrderMaterialValuationController ctrl = new AluminumExtrusionOrderMaterialValuationController();
+        //public static AluminumExtrusionOrderMaterialValuationViewModelCollection Query(Guid ProjectId, Guid FormDetailId)
+        //{
+        //    AluminumExtrusionOrderMaterialValuationViewModelCollection returnSet = null;
+        //    try
+        //    {
+        //        AluminumExtrusionOrderMaterialValuationController ctrl = new AluminumExtrusionOrderMaterialValuationController();
 
-                ExecuteResultEntity<ICollection<AluminumExtrusionOrderMaterialValuationEntity>> ere = ctrl.Query(ProjectId, FormDetailId);
+        //        ExecuteResultEntity<ICollection<AluminumExtrusionOrderMaterialValuationEntity>> ere = ctrl.Query(ProjectId, FormDetailId);
 
-                if (!ere.HasError)
-                {
-                    returnSet = new AluminumExtrusionOrderMaterialValuationViewModelCollection(ere.Result.ToList()
-                        .ConvertAll(c => new AluminumExtrusionOrderMaterialValuationViewModel()
-                        {
+        //        if (!ere.HasError)
+        //        {
+        //            returnSet = new AluminumExtrusionOrderMaterialValuationViewModelCollection(ere.Result.ToList()
+        //                .ConvertAll(c => new AluminumExtrusionOrderMaterialValuationViewModel()
+        //                {
 
-                        }));
-                }
+        //                }));
+        //        }
 
-                return new AluminumExtrusionOrderMaterialValuationViewModelCollection();
-            }
-            catch (Exception ex)
-            {
-                if (returnSet == null)
-                    returnSet = new AluminumExtrusionOrderMaterialValuationViewModelCollection();
+        //        return new AluminumExtrusionOrderMaterialValuationViewModelCollection();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        if (returnSet == null)
+        //            returnSet = new AluminumExtrusionOrderMaterialValuationViewModelCollection();
 
-                returnSet.Errors = new string[] { ex.Message };
-                returnSet.HasError = true;
+        //        returnSet.Errors = new string[] { ex.Message };
+        //        returnSet.HasError = true;
 
-                return returnSet;
-            }
-        }
+        //        return returnSet;
+        //    }
+        //}
 
-        public static AluminumExtrusionOrderMaterialValuationViewModelCollection Query(Guid ProjectId)
-        {
-            return Query<AluminumExtrusionOrderMaterialValuationViewModelCollection, Entity.OrderMaterialValuation>("Orders", "QueryAll", ProjectId);
+        //public static AluminumExtrusionOrderMaterialValuationViewModelCollection Query(Guid ProjectId)
+        //{
+        //    return Query<AluminumExtrusionOrderMaterialValuationViewModelCollection, Entity.OrderMaterialValuation>("Orders", "QueryAll", ProjectId);
 
-            //AluminumExtrusionOrderMaterialValuationController ctrl = new AluminumExtrusionOrderMaterialValuationController();
-            //ExecuteResultEntity<ICollection<AluminumExtrusionOrderMaterialValuationEntity>> ere = ctrl.QuerAll();
-            //if (!ere.HasError)
-            //{
-            //    AluminumExtrusionOrderMaterialValuationViewModel vm = new AluminumExtrusionOrderMaterialValuationViewModel();
-            //    foreach (var item in ere.Result)
-            //    {
-            //        vm.SetModel(item);
-            //        Add(vm);
-            //    }
-            //}
-        }
+        //    //AluminumExtrusionOrderMaterialValuationController ctrl = new AluminumExtrusionOrderMaterialValuationController();
+        //    //ExecuteResultEntity<ICollection<AluminumExtrusionOrderMaterialValuationEntity>> ere = ctrl.QuerAll();
+        //    //if (!ere.HasError)
+        //    //{
+        //    //    AluminumExtrusionOrderMaterialValuationViewModel vm = new AluminumExtrusionOrderMaterialValuationViewModel();
+        //    //    foreach (var item in ere.Result)
+        //    //    {
+        //    //        vm.SetModel(item);
+        //    //        Add(vm);
+        //    //    }
+        //    //}
+        //}
 
 
     }

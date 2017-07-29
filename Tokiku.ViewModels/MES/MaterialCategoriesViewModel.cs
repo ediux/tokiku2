@@ -9,7 +9,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class MaterialCategoriesViewModelCollection : BaseViewModelCollection<MaterialCategoriesViewModel>
+    public class MaterialCategoriesViewModelCollection : BaseViewModelCollection<MaterialCategoriesViewModel, MaterialCategories>
     {
         public MaterialCategoriesViewModelCollection()
         {
@@ -26,7 +26,7 @@ namespace Tokiku.ViewModels
 
         public static MaterialCategoriesViewModelCollection Query()
         {
-            return Query<MaterialCategoriesViewModelCollection, MaterialCategories>("ManufacturersManage", "GetMaterialCategoriesList");
+            return Query<MaterialCategoriesViewModelCollection>("ManufacturersManage", "GetMaterialCategoriesList");
 
             //var result = await controller.GetMaterialCategoriesListAsync();
             //if (!result.HasError)

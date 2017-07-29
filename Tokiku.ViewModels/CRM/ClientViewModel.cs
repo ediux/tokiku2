@@ -10,10 +10,11 @@ using System.Windows;
 using Tokiku.Controllers;
 using Tokiku.Entity;
 using Tokiku.Entity.ViewTables;
+using Tokiku.MVVM.Tools;
 
 namespace Tokiku.ViewModels
 {
-    public class ClientViewModelCollection : BaseViewModelCollection<ClientViewModel,Manufacturers>
+    public class ClientViewModelCollection : BaseViewModelCollection<ClientViewModel, Manufacturers>
     {
         //private ClientController client_controller;
 
@@ -24,7 +25,7 @@ namespace Tokiku.ViewModels
         public ClientViewModelCollection(IEnumerable<ClientViewModel> source) : base(source)
         {
         }
-                
+
         //public static ClientViewModelCollection Query()
         //{
         //    try
@@ -43,12 +44,12 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                return BaseViewModel.Query<ClientViewModelCollection,ClientViewModel, Manufacturers>("Client", "QueryAll");                
+                return BaseViewModel.Query<ClientViewModelCollection, ClientViewModel, Manufacturers>("Client", "QueryAll");
             }
             catch (Exception ex)
             {
                 ClientViewModelCollection coll = new ClientViewModelCollection();
-                setErrortoModel(coll, ex);
+                coll.setErrortoModel(ex);
                 return coll;
             }
 
@@ -57,13 +58,13 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                return Query<ClientViewModelCollection, Manufacturers>("Client", "QueryByText", originalSource);
-            
+                return Query<ClientViewModelCollection>("Client", "QueryByText", originalSource);
+
             }
             catch (Exception ex)
             {
                 ClientViewModelCollection coll = new ClientViewModelCollection();
-                setErrortoModel(coll, ex);
+                coll.setErrortoModel(ex);
                 return coll;
             }
 
@@ -90,7 +91,7 @@ namespace Tokiku.ViewModels
             QueryCondition_ProjectId = ProjectId;
         }
 
-     
+
 
         private Guid QueryCondition_ProjectId;
 
@@ -118,7 +119,7 @@ namespace Tokiku.ViewModels
         //        IsClient = true;
 
         //        Entity.Manufacturers data = new Entity.Manufacturers();
-             
+
         //        CopyToModel(data, this);
 
         //        if (Contracts != null)
@@ -160,18 +161,18 @@ namespace Tokiku.ViewModels
         //    }
         //}
 
-        public override void Initialized(object Parameter)
+        public override void Initialized()
         {
             try
             {
 #if DEBUG
                 Debug.WriteLine("ClientViewModel initialized.");
 #endif
-                base.Initialized(Parameter);
+                base.Initialized();
 
                 IsClient = true;
 
-               // ClientForProjects = new ProjectsViewModelCollection();
+                // ClientForProjects = new ProjectsViewModelCollection();
                 //Contracts = new ContactsViewModelCollection();
 
                 var createnewresult = controller.CreateNew();
@@ -184,7 +185,7 @@ namespace Tokiku.ViewModels
             }
             catch (Exception ex)
             {
-                setErrortoModel(this, ex);
+                this.setErrortoModel(ex);
             }
 
         }
@@ -195,7 +196,7 @@ namespace Tokiku.ViewModels
 
             try
             {
-               return QuerySingle<ClientViewModel, Manufacturers>("Client", "QuerySingle", Manuid);
+                return QuerySingle<ClientViewModel, Manufacturers>("Client", "QuerySingle", Manuid);
 
                 //if (Id != Guid.Empty)
                 //{
@@ -217,7 +218,7 @@ namespace Tokiku.ViewModels
             catch (Exception ex)
             {
                 ClientViewModel viewmodel = new ClientViewModel(Manuid);
-                setErrortoModel(viewmodel, ex);
+                viewmodel.setErrortoModel(ex);
                 return viewmodel;
             }
 

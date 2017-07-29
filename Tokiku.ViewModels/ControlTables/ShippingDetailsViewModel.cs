@@ -7,7 +7,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class ShippingDetailsViewModelCollection : BaseViewModelCollection<ShippingDetailsViewModel>
+    public class ShippingDetailsViewModelCollection : BaseViewModelCollection<ShippingDetailsViewModel, View_Shipping>
     {
         public ShippingDetailsViewModelCollection()
         {
@@ -19,7 +19,7 @@ namespace Tokiku.ViewModels
 
         public static ShippingDetailsViewModelCollection Query()
         {
-            return Query<ShippingDetailsViewModelCollection, View_Shipping>("ShippingDetails", "QueryAll");
+            return Query<ShippingDetailsViewModelCollection>("ShippingDetails", "QueryAll");
         }
 
     }

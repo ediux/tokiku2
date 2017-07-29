@@ -8,7 +8,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class RequiredListViewModelCollection : BaseViewModelCollection<RequiredListViewModel>
+    public class RequiredListViewModelCollection : BaseViewModelCollection<RequiredListViewModel, Required>
     {
         public RequiredListViewModelCollection()
         {
@@ -22,7 +22,7 @@ namespace Tokiku.ViewModels
 
         public static RequiredListViewModelCollection Query()
         {
-            return Query<RequiredListViewModelCollection, Required>("Required", "Query");         
+            return Query<RequiredListViewModelCollection>("Required", "Query");         
         }
 
     }

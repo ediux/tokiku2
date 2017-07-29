@@ -9,7 +9,7 @@ using Tokiku.Entity.ViewTables;
 
 namespace Tokiku.ViewModels
 {
-    public class RecvMaterialListViewModelCollection : BaseViewModelCollection<RecvMaterialListViewModel>
+    public class RecvMaterialListViewModelCollection : BaseViewModelCollection<RecvMaterialListViewModel, RecvMaterialListEntity>
     {
         public RecvMaterialListViewModelCollection()
         {

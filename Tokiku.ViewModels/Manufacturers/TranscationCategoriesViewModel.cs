@@ -8,7 +8,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class TranscationCategoriesViewModelCollection : BaseViewModelCollection<TranscationCategoriesViewModel>
+    public class TranscationCategoriesViewModelCollection : BaseViewModelCollection<TranscationCategoriesViewModel, TranscationCategories>
     {
 
         public TranscationCategoriesViewModelCollection()
@@ -23,7 +23,7 @@ namespace Tokiku.ViewModels
 
         public static TranscationCategoriesViewModelCollection Query()
         {
-            return Query<TranscationCategoriesViewModelCollection, TranscationCategories>(
+            return Query<TranscationCategoriesViewModelCollection>(
                 "ManufacturersManage",
                 "GetTranscationCategoriesList");
             //var result = await controller.GetTranscationCategoriesList();

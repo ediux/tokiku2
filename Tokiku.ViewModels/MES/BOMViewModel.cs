@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Tokiku.Entity;
+using Tokiku.MVVM.Tools;
 
 namespace Tokiku.ViewModels
 {
@@ -104,7 +105,7 @@ namespace Tokiku.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    setErrortoModel(this, ex);
+                    this.setErrortoModel( ex);
                 }
             }
         }

@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Tokiku.Controllers;
 using Tokiku.Entity;
+using Tokiku.MVVM.Tools;
 
 namespace Tokiku.ViewModels
 {
-    public class InventoryViewModelCollection : BaseViewModelCollection<InventoryViewModel>
+    public class InventoryViewModelCollection : BaseViewModelCollection<InventoryViewModel,Inventory>
     {
         public InventoryViewModelCollection()
         {
@@ -20,7 +21,7 @@ namespace Tokiku.ViewModels
         
         public static InventoryViewModelCollection Query()
         {
-            return Query<InventoryViewModelCollection, Inventory>("Inventory", "QueryAll");
+            return Query<InventoryViewModelCollection>("Inventory", "QueryAll");
         }
 
     }
@@ -42,7 +43,7 @@ namespace Tokiku.ViewModels
                     "Inventory", "CreateNew", ProjectId);
             }catch (Exception ex) {
                 InventoryViewModel view = new InventoryViewModel();
-                setErrortoModel(view, ex);
+                view.setErrortoModel(ex);
                 return view;
             }
         }

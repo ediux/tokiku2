@@ -10,7 +10,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class MaterialsViewModelCollection : BaseViewModelCollection<MaterialsViewModel>
+    public class MaterialsViewModelCollection : BaseViewModelCollection<MaterialsViewModel, Materials>
     {
         public MaterialsViewModelCollection()
         {

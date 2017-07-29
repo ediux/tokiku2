@@ -11,10 +11,10 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class ProjectListViewModelCollection : BaseViewModelCollection<ProjectListViewModel>
+    public class ProjectListViewModelCollection : BaseViewModelCollection<ProjectListViewModel, ProjectListEntity>
     {
         //private ProjectsController _projects_controller;
-
+        public override string ControllerName => "Projects";
         public ProjectListViewModelCollection() : base()
         {
 
@@ -38,7 +38,7 @@ namespace Tokiku.ViewModels
 
         public ProjectListViewModelCollection Query()
         {
-            return Query<ProjectListViewModelCollection, ProjectListEntity>("Projects", "QueryAll");
+            return Query<ProjectListViewModelCollection>("Projects", "QueryAll");
             //var projectResult = _projects_controller.Query(v => v.Void == false);
             //if (!projectResult.HasError)
             //{
@@ -67,7 +67,7 @@ namespace Tokiku.ViewModels
         }
         public ProjectListViewModelCollection QueryByText(string text)
         {
-            return Query<ProjectListViewModelCollection, ProjectListEntity>("Projects", "SearchByText", text);
+            return Query<ProjectListViewModelCollection>("Projects", "SearchByText", text);
             //var projectResult = _projects_controller.SearchByText(text);
             //if (!projectResult.HasError)
             //{
@@ -112,8 +112,8 @@ namespace Tokiku.ViewModels
         }
         //private ProjectsController _projects_controller;
 
+        public override string ControllerName => "Projects";
 
-     
         ///// <summary>
         ///// 編號
         ///// </summary>

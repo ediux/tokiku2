@@ -8,7 +8,7 @@ using Tokiku.Controllers;
 
 namespace Tokiku.ViewModels
 {
-    public class ReturnMaterialListViewModelCollection : BaseViewModelCollection<ReturnMaterialListViewModel>
+    public class ReturnMaterialListViewModelCollection : BaseViewModelCollection<ReturnMaterialListViewModel, Returns>
     {
         public ReturnMaterialListViewModelCollection()
         {
@@ -20,7 +20,7 @@ namespace Tokiku.ViewModels
 
         public static ReturnMaterialListViewModelCollection Query()
         {
-            return Query<ReturnMaterialListViewModelCollection, Returns>("ReturnMaterialList", "QueryAll");
+            return Query<ReturnMaterialListViewModelCollection>("ReturnMaterialList", "QueryAll");
         }
 
     }

@@ -104,7 +104,7 @@ namespace Tokiku.MVVM
                         }
 
 
-                        IMultiBaseViewModel viewmodel = null;
+                        IBaseViewModelWithLoginedUser viewmodel = null;
 
                         Assembly LoadableAssembly = null;
 
@@ -126,7 +126,7 @@ namespace Tokiku.MVVM
 
                         if (routingdata.RoutedValues.ContainsKey("TargetViewModel"))
                         {
-                            viewmodel = (IMultiBaseViewModel)Activator.CreateInstance(LoadableAssembly.GetType(routingdata.RoutedValues["TargetViewModel"].ToString()), _ViewModelConstructionParameters);
+                            viewmodel = (IBaseViewModelWithLoginedUser)Activator.CreateInstance(LoadableAssembly.GetType(routingdata.RoutedValues["TargetViewModel"].ToString()), _ViewModelConstructionParameters);
                             if (!routingdata.RoutedValues.ContainsKey("TargetViewModelInstance"))
                                 routingdata.RoutedValues.Add("TargetViewModelInstance", viewmodel);
                             else

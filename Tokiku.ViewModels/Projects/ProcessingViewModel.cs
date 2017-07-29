@@ -8,11 +8,11 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class ProcessingViewModelCollection : BaseViewModelCollection<ProcessingViewModel>
+    public class ProcessingViewModelCollection : BaseViewModelCollection<ProcessingViewModel,ProcessingAtlas>
     {
         public ProcessingViewModelCollection()
         {
-            HasError = false;
+            
         }
 
         public ProcessingViewModelCollection(IEnumerable<ProcessingViewModel> source) : base(source)
@@ -20,18 +20,18 @@ namespace Tokiku.ViewModels
 
         }
 
-        public static ProcessingViewModelCollection Query()
-        {
-            ProcessingController ctrl = new ProcessingController();
-            ExecuteResultEntity<ICollection<ProcessingAtlas>> ere = ctrl.QuerAll();
+        //public static ProcessingViewModelCollection Query()
+        //{
+        //    ProcessingController ctrl = new ProcessingController();
+        //    ExecuteResultEntity<ICollection<ProcessingAtlas>> ere = ctrl.QuerAll();
 
-            if (!ere.HasError)
-            {
-                return new ProcessingViewModelCollection(ere.Result.Select(s => new ProcessingViewModel(s)).ToList());
-            }
+        //    if (!ere.HasError)
+        //    {
+        //        return new ProcessingViewModelCollection(ere.Result.Select(s => new ProcessingViewModel(s)).ToList());
+        //    }
 
-            return new ProcessingViewModelCollection();
-        }
+        //    return new ProcessingViewModelCollection();
+        //}
 
     }
 

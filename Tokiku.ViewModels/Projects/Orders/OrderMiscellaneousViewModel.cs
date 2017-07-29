@@ -9,7 +9,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class OrderMiscellaneousViewModelCollection :  BaseViewModelCollection<OrderMiscellaneousViewModel>
+    public class OrderMiscellaneousViewModelCollection :  BaseViewModelCollection<OrderMiscellaneousViewModel,OrderMiscellaneous>
     {
         public OrderMiscellaneousViewModelCollection()
         {
@@ -23,7 +23,7 @@ namespace Tokiku.ViewModels
 
         public static OrderMiscellaneousViewModelCollection Query(Guid ProjectId)
         {
-            return Query<OrderMiscellaneousViewModelCollection, OrderMiscellaneous>("OrderMiscellaneous", "QueryAll", ProjectId);
+            return Query<OrderMiscellaneousViewModelCollection>("OrderMiscellaneous", "QueryAll", ProjectId);
             //AluminumExtrusionOrderMiscellaneousController ctrl = new AluminumExtrusionOrderMiscellaneousController();
             //ExecuteResultEntity<ICollection<AluminumExtrusionOrderMiscellaneousEntity>> ere = ctrl.QuerAll();
             //if (!ere.HasError)

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Reflection;
-using System.Windows;
 using System.Windows.Input;
 using Tokiku.Entity;
 using Tokiku.MVVM.Commands;

@@ -7,7 +7,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class 保固票ViewModelCollection : BaseViewModelCollection<保固票ViewModel>
+    public class 保固票ViewModelCollection : BaseViewModelCollection<保固票ViewModel, PromissoryNoteManagement>
     {
         public 保固票ViewModelCollection()
         {

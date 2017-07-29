@@ -13,7 +13,7 @@ using Tokiku.MVVM.Tools;
 
 namespace Tokiku.ViewModels
 {
-    public class ManufacturersViewModelCollection : BaseViewModelCollection<ManufacturersViewModel>
+    public class ManufacturersViewModelCollection : BaseViewModelCollection<ManufacturersViewModel, Manufacturers>
     {
         #region 內部變數
         /// <summary>
@@ -48,12 +48,12 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                return Query<ManufacturersViewModelCollection, Manufacturers>("ManufacturersManage", "QueryAll");
+                return Query<ManufacturersViewModelCollection>(ManufacturersManageControllerName, "QueryAll");
             }
             catch (Exception ex)
             {
                 ManufacturersViewModelCollection collection = new ManufacturersViewModelCollection();
-                setErrortoModel(collection, ex);
+                collection.setErrortoModel(ex);
                 return collection;
             }
 
@@ -63,12 +63,12 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                return Query<ManufacturersViewModelCollection, Manufacturers>("ManufacturersManage", "QueryAllForCombox");
+                return Query<ManufacturersViewModelCollection>(ManufacturersManageControllerName, "QueryAllForCombox");
             }
             catch (Exception ex)
             {
                 ManufacturersViewModelCollection collection = new ManufacturersViewModelCollection();
-                setErrortoModel(collection, ex);
+                collection.setErrortoModel(ex);
                 return collection;
             }
 
@@ -78,13 +78,13 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                return Query<ManufacturersViewModelCollection, Manufacturers>(
-                    "ManufacturersManage", "SearchByText", originalSource);
+                return Query<ManufacturersViewModelCollection>(
+                    ManufacturersManageControllerName, "SearchByText", originalSource);
             }
             catch (Exception ex)
             {
                 ManufacturersViewModelCollection collection = new ManufacturersViewModelCollection();
-                setErrortoModel(collection, ex);
+                collection.setErrortoModel(ex);
                 return collection;
             }
 
@@ -94,12 +94,12 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                return Query<ManufacturersViewModelCollection, Manufacturers>("ManufacturersManage", "GetManufacturersWithBusinessItem", MaterialCategoriesId, BusinessItem);
+                return Query<ManufacturersViewModelCollection>(ManufacturersManageControllerName, "GetManufacturersWithBusinessItem", MaterialCategoriesId, BusinessItem);
             }
             catch (Exception ex)
             {
                 ManufacturersViewModelCollection collection = new ManufacturersViewModelCollection();
-                setErrortoModel(collection, ex);
+                collection.setErrortoModel(ex);
                 return collection;
             }
         }
@@ -108,17 +108,18 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                return Query<ManufacturersViewModelCollection, Manufacturers>("ManufacturersManage", "QueryBySupplier", ProjectId);
+                return Query<ManufacturersViewModelCollection>(ManufacturersManageControllerName, "QueryBySupplier", ProjectId);
             }
             catch (Exception ex)
             {
                 ManufacturersViewModelCollection collection = new ManufacturersViewModelCollection();
-                setErrortoModel(collection, ex);
+                collection.setErrortoModel(ex);
                 return collection;
             }
         }
         #endregion
 
+        public override string ControllerName => ManufacturersManageControllerName;
     }
 
     public class ManufacturersViewModel : BaseViewModelWithPOCOClass<Manufacturers>
@@ -447,10 +448,10 @@ namespace Tokiku.ViewModels
         }
         #endregion
 
-        public override void Initialized(object Parameter)
+        public override void Initialized()
         {
 
-            base.Initialized(Parameter);
+            base.Initialized();
 
             try
             {
@@ -468,12 +469,12 @@ namespace Tokiku.ViewModels
             }
             catch (Exception ex)
             {
-                this.setErrortoModel( ex);
+                this.setErrortoModel(ex);
             }
 
 
         }
-       
+
         //public  void SaveModel()
         //{
         //    try
@@ -574,7 +575,7 @@ namespace Tokiku.ViewModels
             }
             catch (Exception ex)
             {
-                setErrortoModel(this, ex);
+                this.setErrortoModel(ex);
             }
         }
 

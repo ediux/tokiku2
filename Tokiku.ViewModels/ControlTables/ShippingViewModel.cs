@@ -8,7 +8,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class ShippingMaterialViewModelCollection : BaseViewModelCollection<ShippingMaterialViewModel>
+    public class ShippingMaterialViewModelCollection : BaseViewModelCollection<ShippingMaterialViewModel, PickList>
     {
         public ShippingMaterialViewModelCollection()
         {
@@ -20,7 +20,7 @@ namespace Tokiku.ViewModels
 
         public static ShippingMaterialViewModelCollection Query(Guid ProjectId)
         {
-            return Query<ShippingMaterialViewModelCollection, PickList>
+            return Query<ShippingMaterialViewModelCollection>
                 ("Shipping", "QueryAll",ProjectId);
         }
 

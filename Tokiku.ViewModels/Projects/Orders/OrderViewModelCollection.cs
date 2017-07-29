@@ -7,7 +7,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class OrderViewModelCollection : BaseViewModelCollection<OrderViewModel>
+    public class OrderViewModelCollection : BaseViewModelCollection<OrderViewModel,Orders>
     {
         public OrderViewModelCollection()
         {
@@ -21,7 +21,7 @@ namespace Tokiku.ViewModels
 
         public static OrderViewModelCollection Query(Guid ProjectId)
         {
-            return Query<OrderViewModelCollection, Orders>("Orders", "Query", ProjectId);
+            return Query<OrderViewModelCollection>("Orders", "Query", ProjectId);
         }
     }
 }

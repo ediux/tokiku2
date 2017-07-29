@@ -11,7 +11,7 @@ using Tokiku.Entity.ViewTables;
 
 namespace Tokiku.ViewModels
 {
-    public class PromissoryNoteManagementViewModelCollection : BaseViewModelCollection<PromissoryNoteManagementViewModel>
+    public class PromissoryNoteManagementViewModelCollection : BaseViewModelCollection<PromissoryNoteManagementViewModel, PromissoryNoteManagement>
     {
         public PromissoryNoteManagementViewModelCollection()
         {
@@ -23,7 +23,7 @@ namespace Tokiku.ViewModels
 
         public static PromissoryNoteManagementViewModelCollection Query()
         {
-            return Query<PromissoryNoteManagementViewModelCollection, PromissoryNoteManagement>("PromissoryNoteManagementViewModel", "QueryAll");
+            return Query<PromissoryNoteManagementViewModelCollection>("PromissoryNoteManagementViewModel", "QueryAll");
         }
 
     }

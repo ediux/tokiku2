@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tokiku.Entity;
+using Tokiku.MVVM.Tools;
 
 namespace Tokiku.ViewModels
 {
     public class ShippingMaterialDetailsViewModelCollection
-        : BaseViewModelCollection<ShippingMaterialDetailsViewModel>
+        : BaseViewModelCollection<ShippingMaterialDetailsViewModel, PickListDetails>
     {
         public ShippingMaterialDetailsViewModelCollection()
         {
@@ -24,14 +25,14 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                return Query<ShippingMaterialDetailsViewModelCollection, PickListDetails>
-               ("ShippingMaterialDetails", "QueryAll", ShippingMaterialMasterId);
+                return Query<ShippingMaterialDetailsViewModelCollection>(
+                    "ShippingMaterialDetails", "QueryAll", ShippingMaterialMasterId);
             }
             catch (Exception ex)
             {
                 ShippingMaterialDetailsViewModelCollection emptycollection
                     = new ShippingMaterialDetailsViewModelCollection();
-                setErrortoModel(emptycollection, ex);
+                emptycollection.setErrortoModel(ex);
                 throw;
             }
 

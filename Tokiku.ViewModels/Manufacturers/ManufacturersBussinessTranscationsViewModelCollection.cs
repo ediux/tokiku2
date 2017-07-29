@@ -5,18 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using Tokiku.Controllers;
 using Tokiku.Entity;
+using Tokiku.MVVM.Tools;
 
 namespace Tokiku.ViewModels
 {
-    public class ManufacturersBussinessTranscationsViewModelCollection 
-        : BaseViewModelCollection<ManufacturersBussinessTranscationsViewModel>
+    public class ManufacturersBussinessTranscationsViewModelCollection
+        : BaseViewModelCollection<ManufacturersBussinessTranscationsViewModel, ManufacturersBussinessItems>
     {
         public ManufacturersBussinessTranscationsViewModelCollection()
         {
 
         }
 
-        public ManufacturersBussinessTranscationsViewModelCollection(IEnumerable<ManufacturersBussinessTranscationsViewModel> source):
+        public ManufacturersBussinessTranscationsViewModelCollection(IEnumerable<ManufacturersBussinessTranscationsViewModel> source) :
             base(source)
         {
 
@@ -26,17 +27,17 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                return Query<ManufacturersBussinessTranscationsViewModelCollection, ManufacturersBussinessItems>(
+                return Query<ManufacturersBussinessTranscationsViewModelCollection>(
                     "ManufacturersManage", "QueryViewManufacturersBussinessTranscations", ManufacturersId);
             }
             catch (Exception ex)
             {
                 ManufacturersBussinessTranscationsViewModelCollection emptycollection =
                     new ManufacturersBussinessTranscationsViewModelCollection();
-                setErrortoModel(emptycollection, ex);
+                emptycollection.setErrortoModel(ex);
                 return emptycollection;
             }
         }
-       
+
     }
 }

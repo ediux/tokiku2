@@ -7,12 +7,13 @@ using System.Windows;
 using System.Windows.Threading;
 using Tokiku.Controllers;
 using Tokiku.Entity;
+using Tokiku.ViewModels;
 
 namespace Tokiku.ViewModels
 {
-    public class ContactsViewModelCollection : BaseViewModelCollection<ContactsViewModel,Contacts>
+    public class ContactsViewModelCollection : BaseViewModelCollection<ContactsViewModel, Contacts>
     {
-        public override string ControllerName => "ContactPersonManage";
+        public override string ControllerName => ContactPersonManageControllerName;
 
         public ContactsViewModelCollection()
         {
@@ -30,7 +31,7 @@ namespace Tokiku.ViewModels
             set;
         }
 
-        
+
         //public override void Initialized()
         //{
         //    base.Initialized();
@@ -61,31 +62,31 @@ namespace Tokiku.ViewModels
         //    }
         //}
 
-        public void Query(string originalSource, Guid ManufurerterId, bool isClient)
-        {
-            ContactPersonManageController controller = new ContactPersonManageController();
-            var executeResult = controller.SearchByText(originalSource, ManufurerterId, isClient);
-            if (!executeResult.HasError)
-            {
-                if (executeResult.Result.Any())
-                {
-                    ClearItems();
+        //public void Query(string originalSource, Guid ManufurerterId, bool isClient)
+        //{
+        //    ContactPersonManageController controller = new ContactPersonManageController();
+        //    var executeResult = controller.SearchByText(originalSource, ManufurerterId, isClient);
+        //    if (!executeResult.HasError)
+        //    {
+        //        if (executeResult.Result.Any())
+        //        {
+        //            ClearItems();
 
-                    foreach (var row in executeResult.Result)
-                    {
-                        ContactsViewModel model = new ContactsViewModel();
-                    
-                       
-                        Add(model);
-                    }
-                }
-                else
-                {
-                    ClearItems();
-                    
-                }
-            }
-        }
+        //            foreach (var row in executeResult.Result)
+        //            {
+        //                ContactsViewModel model = new ContactsViewModel();
+
+
+        //                Add(model);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            ClearItems();
+
+        //        }
+        //    }
+        //}
     }
 
     public class ContactsViewModel : BaseViewModelWithPOCOClass<Contacts>
@@ -95,12 +96,13 @@ namespace Tokiku.ViewModels
 
         }
 
-        public ContactsViewModel(Contacts entity):base(entity)
+        public ContactsViewModel(Contacts entity) : base(entity)
         {
 
         }
 
-      
+        public override string ControllerName => ContactPersonManageControllerName;
+
 
         /// <summary>
         /// 姓名
@@ -111,14 +113,14 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.Name = value; RaisePropertyChanged("Name"); }
         }
 
-    
+
         /// <summary>
         /// 部門
         /// </summary>
         public string Dep
         {
             get { return CopyofPOCOInstance.Dep; }
-            set { CopyofPOCOInstance.Dep = value;RaisePropertyChanged("Dep"); }
+            set { CopyofPOCOInstance.Dep = value; RaisePropertyChanged("Dep"); }
         }
 
         /// <summary>
@@ -139,7 +141,7 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.Phone = value; RaisePropertyChanged("Phone"); }
         }
 
-     
+
 
         /// <summary>
         /// 分機號碼
@@ -160,7 +162,7 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.Mobile = value; RaisePropertyChanged("Mobile"); }
         }
 
- 
+
         /// <summary>
         /// 傳真
         /// </summary>
@@ -170,7 +172,7 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.Fax = value; RaisePropertyChanged("Fax"); }
         }
 
-    
+
         /// <summary>
         /// 是否為負責人
         /// </summary>
@@ -189,14 +191,14 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.Void = value; RaisePropertyChanged("Void"); }
         }
 
-   
 
-       
+
+
 
         public string EMail
         {
             get { return CopyofPOCOInstance.EMail; }
-            set { CopyofPOCOInstance.EMail = value;RaisePropertyChanged("EMail"); }
+            set { CopyofPOCOInstance.EMail = value; RaisePropertyChanged("EMail"); }
         }
 
         public bool IsDefault
@@ -205,15 +207,16 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.IsDefault = value; RaisePropertyChanged("IsDefault"); }
         }
 
-   
-    
-        public override void Initialized(object Parameter)
+
+
+        public override void Initialized()
         {
-            base.Initialized(Parameter);
+            base.Initialized();
+
             Id = Guid.NewGuid();
             ContactPersonManageController controller = new ContactPersonManageController();
             CreateUserId = controller.GetCurrentLoginUser().Result.UserId;
         }
-     
+
     }
 }

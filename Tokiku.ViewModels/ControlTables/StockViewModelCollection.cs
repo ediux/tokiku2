@@ -1,14 +1,12 @@
 ﻿
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Tokiku.Entity;
+using Tokiku.MVVM.Tools;
 
 namespace Tokiku.ViewModels
 {
-    public class StockViewModelCollection : BaseViewModelCollection<StockViewModel>
+    public class StockViewModelCollection : BaseViewModelCollection<StockViewModel,Stocks>
     {
         public StockViewModelCollection()
         {
@@ -24,13 +22,13 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                return Query<StockViewModelCollection, Stocks>(
+                return Query<StockViewModelCollection>(
                     "Stock", "QueryAll");
             }
             catch (Exception ex)
             {
                 StockViewModelCollection emptycollection = new StockViewModelCollection();
-                setErrortoModel(emptycollection, ex);
+                emptycollection.setErrortoModel(ex);
                 return emptycollection;
             }
         }

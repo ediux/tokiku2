@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Tokiku.Entity;
 namespace Tokiku.ViewModels
 {
-    public class 預付款保證票ViewModelCollection : BaseViewModelCollection<預付款保證票ViewModel>
+    public class 預付款保證票ViewModelCollection : BaseViewModelCollection<預付款保證票ViewModel,PromissoryNoteManagement>
     {
         public 預付款保證票ViewModelCollection()
         {

@@ -10,7 +10,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class ManufacturersBussinessItemsViewModelColletion : BaseViewModelCollection<ManufacturersBussinessItemsViewModel>
+    public class ManufacturersBussinessItemsViewModelColletion : BaseViewModelCollection<ManufacturersBussinessItemsViewModel, ManufacturersBussinessItems>
     {
         public ManufacturersBussinessItemsViewModelColletion()
         {
@@ -101,7 +101,7 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                return Query<ManufacturersBussinessItemsViewModelColletion, ManufacturersBussinessItems>(
+                return Query<ManufacturersBussinessItemsViewModelColletion>(
                     "ManufacturersManage",
                     "GetBussinessItemsListWithMaterialCategories",
                     MaterialCategoriesId);

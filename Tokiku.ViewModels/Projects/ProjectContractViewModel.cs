@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using Tokiku.Controllers;
 using Tokiku.Entity;
+using Tokiku.MVVM.Tools;
 
 namespace Tokiku.ViewModels
 {
-    public class ProjectContractViewModelCollection : BaseViewModelCollection<ProjectContractViewModel>
+    public class ProjectContractViewModelCollection : BaseViewModelCollection<ProjectContractViewModel, ProjectContract>
     {
         private ProjectContractController _controller;
 
@@ -39,12 +40,12 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                return Query<ProjectContractViewModelCollection, ProjectContract>("ProjectContract", "QueryAll", ProjectId);
+                return Query<ProjectContractViewModelCollection>("ProjectContract", "QueryAll", ProjectId);
             }
             catch (Exception ex)
             {
                 ProjectContractViewModelCollection coll = new ProjectContractViewModelCollection();
-                setErrortoModel(coll, ex);
+                coll.setErrortoModel(ex);
                 return coll;
             }
 
@@ -85,7 +86,7 @@ namespace Tokiku.ViewModels
             }
             catch (Exception ex)
             {
-                setErrortoModel(this, ex);
+                this.setErrortoModel(ex);
             }
         }
 
@@ -194,10 +195,10 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.IsRepair = value.HasValue ? value.Value : false; RaisePropertyChanged("IsRepair"); }
         }
 
-   
+
         #endregion
 
-        
+
 
         #region Projects
         /// <summary>
@@ -208,10 +209,10 @@ namespace Tokiku.ViewModels
             get { return CopyofPOCOInstance.Projects; }
         }
 
-     
+
         #endregion
 
-    
+
         //#region Engineerings
         ///// <summary>
         ///// 工程項目列表(清單)

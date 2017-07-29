@@ -6,10 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Tokiku.Controllers;
 using Tokiku.Entity;
+using Tokiku.MVVM.Tools;
 
 namespace Tokiku.ViewModels
 {
-    public class MoldsViewModelCollection : BaseViewModelCollection<MoldsViewModel>
+    public class MoldsViewModelCollection : BaseViewModelCollection<MoldsViewModel,Molds>
     {
         //public override void Query()
         //{
@@ -47,7 +48,7 @@ namespace Tokiku.ViewModels
             catch (Exception ex)
             {
 
-                setErrortoModel(result, ex);
+                result.setErrortoModel(ex);
             }
 
             return result;

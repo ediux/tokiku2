@@ -12,7 +12,7 @@ namespace Tokiku.ViewModels
     /// <summary>
     /// 所有票期設定清單
     /// </summary>
-    public class TicketPeriodsViewModelCollection : BaseViewModelCollection<TicketPeriodsViewModel>
+    public class TicketPeriodsViewModelCollection : BaseViewModelCollection<TicketPeriodsViewModel, TicketPeriod>
     {
         public TicketPeriodsViewModelCollection()
         {
@@ -29,7 +29,7 @@ namespace Tokiku.ViewModels
 
         public static TicketPeriodsViewModelCollection Query()
         {
-            return Query<TicketPeriodsViewModelCollection, TicketPeriod>("TicketPeriodsManagement", "QueryAll");
+            return Query<TicketPeriodsViewModelCollection>("TicketPeriodsManagement", "QueryAll");
             //var result = controller.QueryAll();
             //if (!result.HasError)
             //{

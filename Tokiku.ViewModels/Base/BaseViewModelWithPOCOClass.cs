@@ -304,25 +304,52 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 最後更新人員ID
         /// </summary>
-        public virtual Guid? LastUpdateUserId { get{
+        public virtual Guid? LastUpdateUserId
+        {
+            get
+            {
 
                 try
                 {
-                    ExecuteAction<Users>("AccessLog", QueryActionName, Id);
+                    var lastupdatelog = ExecuteAction<AccessLog>("AccessLog", QueryActionName, Id);
+                    return lastupdatelog.UserId;
                 }
                 catch (Exception ex)
                 {
                     this.setErrortoModel(ex);
-                    
+                    return Guid.Empty;
                 }
-            } set => throw new NotImplementedException(); }
+            }
+            set
+            {
+                RaisePropertyChanged("LastUpdateUserId");
+            }
+
+        }
         #endregion
 
         #region 最後更新人員
         /// <summary>
         /// 最後更新人員
         /// </summary>
-        public virtual IUserViewModel LastUpdateUser { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public virtual IUserViewModel LastUpdateUser
+        {
+            get
+            {
+                try
+                {
+                    if (_LoginUser == null)
+                        _LoginUser = ExecuteAction<Users>("System", "GetCurrentLoginUser");
+
+                    return new UserViewModel(_LoginUser);
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+            set { }
+        }
 
 
         #endregion

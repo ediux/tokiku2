@@ -11,7 +11,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class OrderDetailViewModelCollection : BaseViewModelCollection<OrderDetailViewModel>
+    public class OrderDetailViewModelCollection : BaseViewModelCollection<OrderDetailViewModel, OrderDetails>
     {
         public OrderDetailViewModelCollection()
         {
@@ -30,7 +30,7 @@ namespace Tokiku.ViewModels
             try
             {
                 OrderDetailViewModelCollection QueryResuly
-                    = BaseViewModel.Query<OrderDetailViewModelCollection, OrderDetails>("Orders", "Query", ProjectId, ShopFlowId);
+                    = Query<OrderDetailViewModelCollection>("Orders", "Query", ProjectId, ShopFlowId);
 
 
                 if (!returnSet.HasError)

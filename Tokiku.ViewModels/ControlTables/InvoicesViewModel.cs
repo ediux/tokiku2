@@ -8,7 +8,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class InvoicesViewModelCollection : BaseViewModelCollection<InvoicesViewModel>
+    public class InvoicesViewModelCollection : BaseViewModelCollection<InvoicesViewModel, Invoices>
     {
         public InvoicesViewModelCollection()
         {
@@ -20,7 +20,7 @@ namespace Tokiku.ViewModels
 
         public static InvoicesViewModelCollection Query()
         {
-            return Query<InvoicesViewModelCollection, Invoices>("Invoices", "QueryAll");
+            return Query<InvoicesViewModelCollection>("Invoices", "QueryAll");
         }
 
     }
