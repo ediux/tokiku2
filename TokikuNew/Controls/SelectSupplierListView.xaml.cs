@@ -26,6 +26,20 @@ namespace TokikuNew.Controls
         }
 
 
+        /// <summary>
+        /// 取得或設定是否顯示工廠地址清單
+        /// </summary>
+        public bool IsShowFactoryList
+        {
+            get { return (bool)GetValue(IsShowFactoryListProperty); }
+            set { SetValue(IsShowFactoryListProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsShowFactoryList.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsShowFactoryListProperty =
+            DependencyProperty.Register("IsShowFactoryList", typeof(bool), typeof(SelectSupplierListView), new PropertyMetadata(true));
+
+
 
         #region 取得或設定專案ID
         /// <summary>

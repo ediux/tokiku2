@@ -46,6 +46,8 @@ namespace Tokiku.ViewModels
 
 
         }
+
+        
         //public override void SaveModel()
         //{
         //    try
@@ -93,6 +95,11 @@ namespace Tokiku.ViewModels
             _TicketPeriodId = CopyofPOCOInstance?.ManufacturersBussinessItems?.TicketPeriodId;
             _ManufacturersName = CopyofPOCOInstance?.ManufacturersBussinessItems?.Manufacturers?.Name;
             _ManufacturersId = CopyofPOCOInstance?.ManufacturersBussinessItems?.ManufacturersId;
+        }
+
+        public override string ToString()
+        {
+            return _ManufacturersName;
         }
 
         public override void Initialized(object Parameter)

@@ -68,15 +68,10 @@ namespace TokikuNew.Views
                     if (provider2 != null)
                     {
                         provider2.MethodParameters[0] = ((ShippingMaterialViewModel)provider.Data).Id;
-
                         provider2.Refresh();
-
-
-
                     }
 
-                    _masterEntity = ((ShippingMaterialViewModel)provider.Data).Entity;
-                    _masterEntity.PickListDetails = (Collection<PickListDetails>)provider2.Data;
+                    _masterEntity = ((ShippingMaterialViewModel)provider.Data).Entity;                    
                 }
 
             }
@@ -203,6 +198,8 @@ namespace TokikuNew.Views
                             Name = textBox.Text,
                             CreateTime = DateTime.Now
                         });
+
+                        provider.Refresh();
                     }
                 }
             }

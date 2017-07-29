@@ -21,7 +21,7 @@ namespace Tokiku.ViewModels
         public static ShippingMaterialViewModelCollection Query(Guid ProjectId)
         {
             return Query<ShippingMaterialViewModelCollection, PickList>
-                ("Shipping", "QueryAll",ProjectId);
+                ("Shipping", "QueryAll", ProjectId);
         }
 
     }
@@ -36,6 +36,9 @@ namespace Tokiku.ViewModels
         public ShippingMaterialViewModel(PickList entity) : base(entity)
         {
         }
+
+        public override string SaveModelController { get => "Shipping"; set { } }
+
 
         public static ShippingMaterialViewModel Query(Guid Id, Guid ProjectId)
         {
@@ -64,6 +67,12 @@ namespace Tokiku.ViewModels
             get { return CopyofPOCOInstance.PickListNumber; }
             set { CopyofPOCOInstance.PickListNumber = value; RaisePropertyChanged("PickListNumber"); }
         }
+
+        public Guid? IncomingManufacturerId { get => CopyofPOCOInstance.IncomingManufacturerId; set {
+                CopyofPOCOInstance.IncomingManufacturerId = value;
+                RaisePropertyChanged("IncomingManufacturerId");
+            } }
+
         // 來料廠商代碼
         public string IncomingManufacturersCode
         {
@@ -100,11 +109,12 @@ namespace Tokiku.ViewModels
             get { return CopyofPOCOInstance.CreateTime; }
             set { CopyofPOCOInstance.CreateTime = value; RaisePropertyChanged("CreateTime"); }
         }
+
         // 製單人員
         public string MakingUserName
         {
             get { return CopyofPOCOInstance.MakingUsers.UserName; }
-            set { CopyofPOCOInstance.MakingUsers.UserName = value; RaisePropertyChanged("MakingUserName"); }
+            set {  RaisePropertyChanged("MakingUserName"); }
         }
         // 製單日期
         public DateTime MakingTime
@@ -119,5 +129,42 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.Comment = value; RaisePropertyChanged("Comment"); }
         }
 
+        /// <summary>
+        /// 倉別ID
+        /// </summary>
+        public Guid? StockId
+        {
+            get => CopyofPOCOInstance.StockId; set
+            {
+                CopyofPOCOInstance.StockId = value;
+                var foundStock = ExecuteAction<Stocks>("Stock", "QuerySingle", CopyofPOCOInstance.StockId);
+                if (foundStock != null)
+                {
+                    CopyofPOCOInstance.Stocks = foundStock;
+                }
+                RaisePropertyChanged("StockId");
+            }
+        }
+
+        /// <summary>
+        /// 倉別
+        /// </summary>
+        public StockViewModel Stock
+        {
+            get => new StockViewModel(CopyofPOCOInstance.Stocks); set
+            {
+                Stocks data = value.Entity;
+
+                CopyofPOCOInstance.Stocks = data;
+
+                if (data != null)
+                {
+                    CopyofPOCOInstance.StockId = data.Id;
+                    RaisePropertyChanged("StockId");
+                }
+                
+                RaisePropertyChanged("Stock");
+            }
+        }
     }
 }

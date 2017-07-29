@@ -143,7 +143,13 @@ namespace Tokiku.ViewModels
             {
                 try
                 {
-                    return (Guid)_EntityType.GetProperty("Id").GetValue(CopyofPOCOInstance);
+                    Guid _Id = (Guid)_EntityType.GetProperty("Id").GetValue(CopyofPOCOInstance);
+                    if (_Id == Guid.Empty)
+                    {
+                        _Id = Guid.NewGuid();
+                        _EntityType.GetProperty("Id").SetValue(CopyofPOCOInstance, _Id);
+                    }
+                    return _Id;
                 }
                 catch
                 {
@@ -182,12 +188,15 @@ namespace Tokiku.ViewModels
 
                     if (_CreateTime == default(DateTime))
                     {
-                        return DateTime.Now;
+                        _CreateTime = DateTime.Now;
+
+                        _EntityType.GetProperty("CreateTime").SetValue(CopyofPOCOInstance, _CreateTime);
                     }
 
                     if (_CreateTime.Year < 1900)
                     {
-                        return DateTime.Now;
+                        _CreateTime = DateTime.Now;
+                        _EntityType.GetProperty("CreateTime").SetValue(CopyofPOCOInstance, _CreateTime);
                     }
 
                     return _CreateTime;
@@ -202,7 +211,8 @@ namespace Tokiku.ViewModels
             {
                 try
                 {
-                    _EntityType.GetProperty("CreateTime").SetValue(CopyofPOCOInstance, value); RaisePropertyChanged("CreateTime");
+                    _EntityType.GetProperty("CreateTime").SetValue(CopyofPOCOInstance, value);
+                    RaisePropertyChanged("CreateTime");
                 }
                 catch
                 {
@@ -250,7 +260,8 @@ namespace Tokiku.ViewModels
             {
                 try
                 {
-                    _EntityType.GetProperty("CreateUserId").SetValue(CopyofPOCOInstance, value); RaisePropertyChanged("CreateUserId");
+                    _EntityType.GetProperty("CreateUserId").SetValue(CopyofPOCOInstance, value);
+                    RaisePropertyChanged("CreateUserId");
                 }
                 catch
                 {
@@ -285,7 +296,8 @@ namespace Tokiku.ViewModels
             {
                 try
                 {
-                    _EntityType.GetProperty("CreateUser").SetValue(CopyofPOCOInstance, value); RaisePropertyChanged("CreateUser");
+                    _EntityType.GetProperty("CreateUser").SetValue(CopyofPOCOInstance, value);
+                    RaisePropertyChanged("CreateUser");
                 }
                 catch
                 {
@@ -314,7 +326,11 @@ namespace Tokiku.ViewModels
                     return null;
                 }
             }
-            set { _EntityType.GetProperty("LastUpdateDate").SetValue(CopyofPOCOInstance, value); RaisePropertyChanged("LastUpdateDate"); }
+            set
+            {
+                _EntityType.GetProperty("LastUpdateDate").SetValue(CopyofPOCOInstance, value);
+                RaisePropertyChanged("LastUpdateDate");
+            }
         }
         #endregion
 
@@ -560,7 +576,7 @@ namespace Tokiku.ViewModels
 
             try
             {
-                ExecuteAction<TPOCO>(_SaveModelController, ActionName, CopyofPOCOInstance, isLast);
+                ExecuteAction<TPOCO>(ControllerName, ActionName, CopyofPOCOInstance, isLast);
             }
             catch (Exception ex)
             {
@@ -576,7 +592,7 @@ namespace Tokiku.ViewModels
         {
             _SaveModelController = ControllerName?.ToString() ?? _EntityType.Name;
 
-            SaveModel(SaveModelController, true);
+            SaveModel(_SaveModelController, true);
         }
 
         /// <summary>

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tokiku.ViewModels;
 
 namespace TokikuNew.Views
 {
@@ -28,6 +29,37 @@ namespace TokikuNew.Views
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                 master = (ShippingMaterialViewModel)((ObjectDataProvider)TryFindResource("ShippingMaterialSource")).Data;
+
+                if (master == null)
+                    return;
+
+                master.CreateTime = DateTime.Now;
+
+                master.SaveModel();
+
+                if (master.HasError)
+                {
+                    MessageBox.Show(string.Join("\n", master.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                    master.Errors = new string[] { };
+                    master.HasError = false;
+                    return;
+                }
+
+                RaiseEvent(new RoutedEventArgs(ClosableTabItem.OnPageClosingEvent, this));
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
         }
     }
 }

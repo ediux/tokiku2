@@ -128,6 +128,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\TokikuCommands.cs" />
+    <Compile Include="Controls\OrdersSelector.xaml.cs">
+      <DependentUpon>OrdersSelector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\ClipboardHelper.cs" />
     <Compile Include="Helpers\SwitchFieldMode.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
@@ -335,6 +338,10 @@
     <Compile Include="Views\System\SystemRolesView.xaml.cs">
       <DependentUpon>SystemRolesView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\OrdersSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\SelectSupplierListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

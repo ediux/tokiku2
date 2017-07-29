@@ -18,7 +18,10 @@ namespace Tokiku.ViewModels
             
         }
 
-
+        public override string ToString()
+        {
+            return Name;
+        }
         public string Name { get => CopyofPOCOInstance.Name; set {
                 CopyofPOCOInstance.Name = value;
                 RaisePropertyChanged("Name");

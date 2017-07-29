@@ -19,15 +19,15 @@ namespace TokikuNew.Views
         //private ProjectsController controller = new ProjectsController();
         //private ProjectContractController projectcontractcontroller = new ProjectContractController();
 
-        //public Guid SelectedProjectId
-        //{
-        //    get { return (Guid)GetValue(SelectedProjectIdProperty); }
-        //    set { SetValue(SelectedProjectIdProperty, value); }
-        //}
+        public Guid SelectProjectId
+        {
+            get { return (Guid)GetValue(SelectProjectIdProperty); }
+            set { SetValue(SelectProjectIdProperty, value); }
+        }
 
-        //// Using a DependencyProperty as the backing store for SelectedProject.  This enables animation, styling, binding, etc...
-        //public static readonly DependencyProperty SelectedProjectIdProperty =
-        //    DependencyProperty.Register("SelectedProjectId", typeof(Guid), typeof(ProjectViewer), new PropertyMetadata(Guid.Empty));
+        // Using a DependencyProperty as the backing store for SelectedProject.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectProjectIdProperty =
+            DependencyProperty.Register("SelectProjectId", typeof(Guid), typeof(ProjectViewer), new PropertyMetadata(Guid.Empty));
 
 
         #region Document Mode

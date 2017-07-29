@@ -26,6 +26,20 @@ namespace TokikuNew.Views
             InitializeComponent();
         }
 
+
+
+        public Guid SelectedProjectId
+        {
+            get { return (Guid)GetValue(SelectedProjectIdProperty); }
+            set { SetValue(SelectedProjectIdProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectedProjectId.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedProjectIdProperty =
+            DependencyProperty.Register("SelectedProjectId", typeof(Guid), typeof(OrderControlTableView), new PropertyMetadata(Guid.Empty));
+
+
+
         private void OrderControlTableView_Loaded(object sender, RoutedEventArgs e)
         {
             OrderControlTableViewModelCollection ctrl = new OrderControlTableViewModelCollection();

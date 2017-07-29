@@ -9,10 +9,10 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class OrdersController : BaseController<Orders>, IBaseController<OrderDetails>, IBaseController<OrderTypes>
+    public class OrdersController : BaseController<Orders>
     {
         #region Orders
-        public ExecuteResultEntity<Orders> CreateNew(Guid ProjectId)
+        public ExecuteResultEntity<Orders> CreateNew(Guid ProjectId, Guid ManufacturerId = default(Guid))
         {
             ExecuteResultEntity<Orders> rtn;
 
@@ -120,6 +120,13 @@ namespace Tokiku.Controllers
         }
         #endregion
 
+
+
+
+    }
+
+    public class OrderDetailsController : BaseController<OrderDetails>
+    {
         #region Order Details
         public ExecuteResultEntity<OrderDetails> QuerySingleDetailByCode(string code)
         {
@@ -146,79 +153,14 @@ namespace Tokiku.Controllers
             }
         }
 
-        public ExecuteResultEntity Add(OrderDetails entity, bool isLastRecord = true)
-        {
-            throw new NotImplementedException();
-        }
-
-
-
-        public ExecuteResultEntity<OrderDetails> CreateOrUpdate(OrderDetails entity, bool isLastRecord = true)
-        {
-            throw new NotImplementedException();
-        }
-
-
-
-        public ExecuteResultEntity<OrderDetails> Delete(OrderDetails entity, bool isDeleteRightNow = false)
-        {
-            throw new NotImplementedException();
-        }
-
-
-
-        public bool IsExists(Expression<Func<OrderDetails, bool>> filiter)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public ExecuteResultEntity<ICollection<OrderDetails>> Query(Expression<Func<OrderDetails, bool>> filiter)
-        {
-            throw new NotImplementedException();
-        }
-
-
-
-        public ExecuteResultEntity<OrderDetails> Update(OrderDetails fromModel, bool isLastRecord = true)
-        {
-            throw new NotImplementedException();
-        }
-
-
-
-        ExecuteResultEntity<OrderDetails> IBaseController<OrderDetails>.CreateNew()
-        {
-            throw new NotImplementedException();
-        }
 
 
         #endregion
+    }
 
+    public class OrderTypesController : BaseController<OrderTypes>
+    {
         #region OrderTypes
-        public ExecuteResultEntity Add(OrderTypes entity, bool isLastRecord = true)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ExecuteResultEntity<OrderTypes> CreateOrUpdate(OrderTypes entity, bool isLastRecord = true)
-        {
-            throw new NotImplementedException();
-        }
-        public ExecuteResultEntity<OrderTypes> Delete(OrderTypes entity, bool isDeleteRightNow = false)
-        {
-            throw new NotImplementedException();
-        }
-        public bool IsExists(Expression<Func<OrderTypes, bool>> filiter)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ExecuteResultEntity<ICollection<OrderTypes>> Query(Expression<Func<OrderTypes, bool>> filiter)
-        {
-            throw new NotImplementedException();
-        }
-
         public ExecuteResultEntity<ICollection<OrderTypes>> Query()
         {
             try
@@ -233,16 +175,6 @@ namespace Tokiku.Controllers
                 var rtn = ExecuteResultEntity<ICollection<OrderTypes>>.CreateErrorResultEntity(ex);
                 return rtn;
             }
-        }
-
-        public ExecuteResultEntity<OrderTypes> Update(OrderTypes fromModel, bool isLastRecord = true)
-        {
-            throw new NotImplementedException();
-        }
-
-        ExecuteResultEntity<OrderTypes> IBaseController<OrderTypes>.CreateNew()
-        {
-            throw new NotImplementedException();
         }
         #endregion
     }

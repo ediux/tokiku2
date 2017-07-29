@@ -7,6 +7,7 @@
              xmlns:local="clr-namespace:TokikuNew.Views"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+             x:Name="userControl"
              mc:Ignorable="d" 
              Background="{DynamicResource ControlBackgroundBrush}"
              d:DesignHeight="768" d:DesignWidth="1366" Loaded="ShippingMaterialView_Loaded">
@@ -17,13 +18,11 @@
                 <x:Static Member="sys:Guid.Empty"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
-        <ObjectDataProvider x:Key="ShippingMaterialDetailsSource" ObjectType="{x:Type vm:ship}" MethodName="Query">
+        <ObjectDataProvider x:Key="ShippingMaterialDetailsSource" ObjectType="{x:Type vm:ShippingMaterialDetailsViewModelCollection}" MethodName="Query">
             <ObjectDataProvider.MethodParameters>
                 <x:Static Member="sys:Guid.Empty"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
-        <ObjectDataProvider x:Key="ShippingMaterialSource" ObjectType="{x:Type vm:ShippingMaterialViewModelCollection}" MethodName="Query"/>
-        <ObjectDataProvider x:Key="ShippingDetailsSource" ObjectType="{x:Type vm:ShippingDetailsViewModelCollection}" MethodName="Query"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -61,11 +60,17 @@
                             <TextBox Grid.Column="2" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding PickListNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Source={StaticResource ShippingMaterialSource}}" />
                             <TextBlock Grid.Column="3" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
                             <TextBlock Grid.Column="4" Text="來料廠商" VerticalAlignment="Center" />
-                            <TextBox Grid.Column="5" Width="88" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding IncomingManufacturersCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <TextBox Grid.Column="6" Width="165" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding IncomingManufacturersName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <c:SelectSupplierListView Grid.Column="5" Grid.ColumnSpan="2" Width="253" IsShowFactoryList="False" 
+                                                      SelectedProjectId="{Binding SelectedProjectId,ElementName=userControl}"
+                                                      SupplierManufactuterId="{Binding IncomingManufacturerId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+
+
+                            </c:SelectSupplierListView>
+                            <!--<TextBox Grid.Column="5" Width="88" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding IncomingManufacturersCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox Grid.Column="6" Width="165" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding IncomingManufacturersName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />-->
                             <TextBlock Grid.Column="7" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
                             <TextBlock Grid.Column="8" Text="來料單號" VerticalAlignment="Center" />
-                            <TextBox Grid.Column="9" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding IncomingNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox Grid.Column="9" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding IncomingNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Source={StaticResource ShippingMaterialSource }}" />
                             <TextBlock Grid.Column="10" Text="輸入人員" VerticalAlignment="Center" />
                             <TextBox Grid.Column="11" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding CreateUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </Grid>
@@ -83,13 +88,13 @@
                                 <ColumnDefinition Width="auto" />
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" Text="建檔日期" VerticalAlignment="Center" />
-                            <DatePicker Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="2" Text="{Binding CreateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="2" Text="{Binding CreateTime, Mode=TwoWay, Source={StaticResource ShippingMaterialSource}, StringFormat=\{0:d\}, UpdateSourceTrigger=PropertyChanged}" />
                             <TextBlock Grid.Column="2" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
                             <TextBlock Grid.Column="3" Text="製單人員" VerticalAlignment="Center" />
-                            <TextBox Grid.Column="4" Width="100" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding MakingUserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox Grid.Column="4" Width="100" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding MakingUserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Source={StaticResource ShippingMaterialSource}}" />
                             <TextBlock Grid.Column="5" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
                             <TextBlock Grid.Column="6" Text="製單日期" VerticalAlignment="Center" />
-                            <DatePicker Grid.Column="7" Width="200" VerticalAlignment="Center" Margin="2" Text="{Binding MakingTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DatePicker Grid.Column="7" Width="200" VerticalAlignment="Center" Margin="2" Text="{Binding MakingTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Source={StaticResource ShippingMaterialSource}}" />
                             <TextBlock Grid.Column="8" Text="連絡電話" VerticalAlignment="Center" />
                             <TextBox Grid.Column="9" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
                         </Grid>
@@ -105,8 +110,12 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
                             <TextBlock Grid.Column="1" Text="倉別" VerticalAlignment="Center" Foreground="#FF036808" />
-                            <TextBox Grid.Column="2" Width="110" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding SelectedValue,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=StockPickSelector}" />
-                            <ComboBox x:Name="StockPickSelector" Grid.Column="3" Width="220" IsEditable="True" ItemsSource="{Binding Source={StaticResource StockPickSource}}" TextBoxBase.TextChanged="StockPickSelector_TextChanged">
+                            <!--<TextBox Grid.Column="2" Width="110" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding SelectedValue,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=StockPickSelector}" />-->
+                            <ComboBox x:Name="StockPickSelector" Grid.Column="2" Grid.ColumnSpan="2" Width="330" IsEditable="True" 
+                                      SelectedValuePath="Id"
+                                      Text="{Binding SelectedItem.Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ElementName=StockPickSelector}"
+                                      SelectedValue="{Binding StockId,Source={StaticResource ShippingMaterialSource},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                      ItemsSource="{Binding Source={StaticResource StockPickSource}}" TextBoxBase.TextChanged="StockPickSelector_TextChanged">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Name}"/>
@@ -115,7 +124,7 @@
                             </ComboBox>
                             <!--<TextBox Grid.Column="3" Width="220" MaxLength="20" VerticalAlignment="Center" Margin="2" />-->
                             <TextBlock Grid.Column="4" Text="備註" VerticalAlignment="Center" Foreground="#FF036808" />
-                            <TextBox Grid.Column="5" Width="500" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox Grid.Column="5" Width="500" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Source={StaticResource ShippingMaterialSource}}" />
                             <Button Content="儲存" Grid.Column="6" FontSize="13" Margin="5,0" x:Name="BtnSave" Click="BtnSave_Click" />
 
                         </Grid>

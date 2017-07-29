@@ -463,7 +463,6 @@
             <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
             <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
             <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
-            <sys:String x:Key="ResourceKey">InventoryListSource</sys:String>
         </vm:RoutedViewResult.RoutedValues>
     </vm:RoutedViewResult>
     <!-- 請款單,TokikuNew.InvoiceView -->
@@ -508,7 +507,7 @@
             <vm:DocumentLifeCircle x:Key="Mode">Read</vm:DocumentLifeCircle>
             <x:Type x:Key="SourceViewType" TypeName="view:ProjectViewer"/>
             <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
-            <sys:String x:Key="ResourceKey">InventoryListSource</sys:String>
+            
         </vm:RoutedViewResult.RoutedValues>
     </vm:RoutedViewResult>
     <!-- 領料單料單列表,TokikuNew.Views.ShippingMaterialListViewUC -->

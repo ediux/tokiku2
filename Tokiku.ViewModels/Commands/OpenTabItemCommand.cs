@@ -276,16 +276,17 @@ namespace Tokiku.ViewModels
                                 if (sourceval != null)
                                 {
                                     propb.SetValue(vm, sourceval);
-                                    continue;
                                 }
                             }
                         }
-
-                        var prop = executeresult.ViewType.GetProperty(k);
-
-                        if (prop != null)
+                        else
                         {
-                            prop.SetValue(vm, executeresult.RoutedValues[k]);
+                            var prop = executeresult.ViewType.GetProperty(k);
+
+                            if (prop != null)
+                            {
+                                prop.SetValue(vm, executeresult.RoutedValues[k]);
+                            }
                         }
                     }
                 }

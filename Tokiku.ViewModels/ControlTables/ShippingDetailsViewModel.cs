@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
@@ -72,49 +73,49 @@ namespace Tokiku.ViewModels
         }
 
         // 單位重(kg/m)
-        public string UnitWeight
+        public decimal UnitWeight
         {
             get { return CopyofPOCOInstance.UnitWeight; }
             set { CopyofPOCOInstance.UnitWeight = value; RaisePropertyChanged("UnitWeight"); }
         }
 
         // 訂購長度(mm)
-        public string OrderLength
+        public int? OrderLength
         {
             get { return CopyofPOCOInstance.OrderLength; }
             set { CopyofPOCOInstance.OrderLength = value; RaisePropertyChanged("OrderLength"); }
         }
 
         // 下單數量
-        public string OrderQuantity
+        public decimal OrderQuantity
         {
             get { return CopyofPOCOInstance.OrderQuantity; }
             set { CopyofPOCOInstance.OrderQuantity = value; RaisePropertyChanged("OrderQuantity"); }
         }
 
         // 出貨順序
-        public string ShippingOrder
+        public int? ShippingOrder
         {
             get { return CopyofPOCOInstance.ShippingOrder; }
             set { CopyofPOCOInstance.ShippingOrder = value; RaisePropertyChanged("ShippingOrder"); }
         }
 
         // 出貨重量
-        public string Weight
+        public double? Weight
         {
             get { return CopyofPOCOInstance.Weight; }
             set { CopyofPOCOInstance.Weight = value; RaisePropertyChanged("Weight"); }
         }
 
         // 缺貨數量
-        public string LackQuantity
+        public int? LackQuantity
         {
             get { return CopyofPOCOInstance.LackQuantity; }
             set { CopyofPOCOInstance.LackQuantity = value; RaisePropertyChanged("LackQuantity"); }
         }
 
         // 出貨數量
-        public string ShippingQuantity
+        public int? ShippingQuantity
         {
             get { return CopyofPOCOInstance.ShippingQuantity; }
             set { CopyofPOCOInstance.ShippingQuantity = value; RaisePropertyChanged("ShippingQuantity"); }
