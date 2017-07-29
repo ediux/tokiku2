@@ -31,6 +31,7 @@ namespace Tokiku.Entity
             this.Projects = new HashSet<Projects>();
             this.Contacts = new HashSet<Contacts>();
             this.Returns = new HashSet<Returns>();
+            this.AbnormalQualityDetails = new HashSet<AbnormalQualityDetails>();
         }
     
         public System.Guid Id { get; set; }
@@ -88,5 +89,7 @@ namespace Tokiku.Entity
         public virtual ICollection<Contacts> Contacts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Returns> Returns { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AbnormalQualityDetails> AbnormalQualityDetails { get; set; }
     }
 }

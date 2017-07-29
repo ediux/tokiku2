@@ -12,33 +12,34 @@ namespace Tokiku.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class ProcessingAtlas
+    public partial class AbnormalQuality
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ProcessingAtlas()
+        public AbnormalQuality()
         {
-            this.BOM = new HashSet<BOM>();
-            this.OrderControlTableDetails = new HashSet<OrderControlTableDetails>();
-            this.AbnormalQuality = new HashSet<AbnormalQuality>();
+            this.AbnormalQualityDetails = new HashSet<AbnormalQualityDetails>();
         }
     
         public System.Guid Id { get; set; }
+        public string UnusualNumber { get; set; }
+        public System.DateTime MakingTime { get; set; }
+        public System.Guid MakingUserId { get; set; }
         public System.Guid ProjectContractId { get; set; }
-        public int Atlas { get; set; }
-        public string Name { get; set; }
+        public Nullable<System.Guid> EngineeringId { get; set; }
+        public Nullable<System.Guid> SupplierTranscationItemId { get; set; }
+        public Nullable<System.Guid> ReceiptsId { get; set; }
+        public Nullable<System.Guid> ProcessingAtlasId { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
-        public int Order { get; set; }
-        public int UpdateTimes { get; set; }
-        public Nullable<System.DateTime> ConstructionOrderChangeDate { get; set; }
-        public Nullable<System.DateTime> LastUpdate { get; set; }
     
+        public virtual Engineering Engineering { get; set; }
+        public virtual ProcessingAtlas ProcessingAtlas { get; set; }
         public virtual ProjectContract ProjectContract { get; set; }
+        public virtual Receive Receipts { get; set; }
+        public virtual SupplierTranscationItem SupplierTranscationItem { get; set; }
+        public virtual Users Users { get; set; }
+        public virtual Users Users1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BOM> BOM { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderControlTableDetails> OrderControlTableDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AbnormalQuality> AbnormalQuality { get; set; }
+        public virtual ICollection<AbnormalQualityDetails> AbnormalQualityDetails { get; set; }
     }
 }

@@ -32,6 +32,7 @@ namespace Tokiku.Entity
         public string Comment { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
+        public bool IsShipping { get; set; }
     
         public virtual Users CreateUsers { get; set; }
         public virtual Users MakingUsers { get; set; }

@@ -92,5 +92,6 @@ namespace Tokiku.Entity
         public virtual ICollection<Projects> Projects { get; set; }
         public virtual ICollection<Contacts> Contacts { get; set; }
         public virtual ICollection<Returns> Returns { get; set; }
+        public virtual ICollection<AbnormalQualityDetails> AbnormalQualityDetails { get; set; }
     }
 }

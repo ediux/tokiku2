@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Tokiku.Entity;
 namespace Tokiku.ViewModels
 {
-   public class QualityAbnormallySingleViewModelCollectionViewModel:BaseViewModelWithPOCOClass<>
+    public class QualityAbnormallySingleViewModelCollectionViewModel
     {
     }
 }

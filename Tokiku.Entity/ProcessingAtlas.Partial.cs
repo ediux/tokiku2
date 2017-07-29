@@ -35,5 +35,6 @@ namespace Tokiku.Entity
         public virtual ProjectContract ProjectContract { get; set; }
         public virtual ICollection<BOM> BOM { get; set; }
         public virtual ICollection<OrderControlTableDetails> OrderControlTableDetails { get; set; }
+        public virtual ICollection<AbnormalQuality> AbnormalQuality { get; set; }
     }
 }

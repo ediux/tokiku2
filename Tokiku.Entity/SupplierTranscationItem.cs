@@ -14,6 +14,12 @@ namespace Tokiku.Entity
     
     public partial class SupplierTranscationItem
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public SupplierTranscationItem()
+        {
+            this.AbnormalQuality = new HashSet<AbnormalQuality>();
+        }
+    
         public System.Guid Id { get; set; }
         public System.Guid ManufacturersBussinessItemsId { get; set; }
         public System.Guid ProjectId { get; set; }
@@ -25,5 +31,7 @@ namespace Tokiku.Entity
         public virtual ManufacturersBussinessItems ManufacturersBussinessItems { get; set; }
         public virtual Projects Projects { get; set; }
         public virtual Manufacturers NextManufacturers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AbnormalQuality> AbnormalQuality { get; set; }
     }
 }

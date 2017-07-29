@@ -35,24 +35,24 @@ namespace TokikuNew.Views
         {
             try
             {
-                 master = (ShippingMaterialViewModel)((ObjectDataProvider)TryFindResource("ShippingMaterialSource")).Data;
+                // master = (ShippingMaterialViewModel)((ObjectDataProvider)TryFindResource("ShippingMaterialSource")).Data;
 
-                if (master == null)
-                    return;
+                //if (master == null)
+                //    return;
 
-                master.CreateTime = DateTime.Now;
+                //master.CreateTime = DateTime.Now;
 
-                master.SaveModel();
+                //master.SaveModel();
 
-                if (master.HasError)
-                {
-                    MessageBox.Show(string.Join("\n", master.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-                    master.Errors = new string[] { };
-                    master.HasError = false;
-                    return;
-                }
+                //if (master.HasError)
+                //{
+                //    MessageBox.Show(string.Join("\n", master.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                //    master.Errors = new string[] { };
+                //    master.HasError = false;
+                //    return;
+                //}
 
-                RaiseEvent(new RoutedEventArgs(ClosableTabItem.OnPageClosingEvent, this));
+                //RaiseEvent(new RoutedEventArgs(ClosableTabItem.OnPageClosingEvent, this));
 
 
             }

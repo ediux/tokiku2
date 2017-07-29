@@ -18,10 +18,11 @@ namespace Tokiku.Entity
         public Receive()
         {
             this.ReceiptDetails = new HashSet<ReceiveDetails>();
+            this.AbnormalQuality = new HashSet<AbnormalQuality>();
         }
     
         public System.Guid Id { get; set; }
-        public int Order { get; set; }
+        public Nullable<int> Order { get; set; }
         public string ReceiptNumber { get; set; }
         public Nullable<System.Guid> IncomingManufacturersId { get; set; }
         public string IncomingNumber { get; set; }
@@ -41,5 +42,7 @@ namespace Tokiku.Entity
         public virtual Stocks Stocks { get; set; }
         public virtual Manufacturers IncomingManufacturers { get; set; }
         public virtual ManufacturersFactories ManufacturersFactories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AbnormalQuality> AbnormalQuality { get; set; }
     }
 }

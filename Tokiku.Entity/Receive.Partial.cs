@@ -13,8 +13,7 @@ namespace Tokiku.Entity
     {
         [Required]
         public System.Guid Id { get; set; }
-        [Required]
-        public int Order { get; set; }
+        public Nullable<int> Order { get; set; }
         
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
         [Required]
@@ -48,5 +47,6 @@ namespace Tokiku.Entity
         public virtual Stocks Stocks { get; set; }
         public virtual Manufacturers IncomingManufacturers { get; set; }
         public virtual ManufacturersFactories ManufacturersFactories { get; set; }
+        public virtual ICollection<AbnormalQuality> AbnormalQuality { get; set; }
     }
 }

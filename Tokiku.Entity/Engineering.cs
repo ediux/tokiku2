@@ -18,6 +18,7 @@ namespace Tokiku.Entity
         public Engineering()
         {
             this.ProjectItemCost = new HashSet<ProjectItemCost>();
+            this.AbnormalQuality = new HashSet<AbnormalQuality>();
         }
     
         public System.Guid Id { get; set; }
@@ -37,5 +38,7 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectItemCost> ProjectItemCost { get; set; }
         public virtual ProjectContract ProjectContract { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AbnormalQuality> AbnormalQuality { get; set; }
     }
 }

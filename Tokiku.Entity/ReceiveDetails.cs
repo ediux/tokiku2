@@ -20,6 +20,7 @@ namespace Tokiku.Entity
             this.InvoiceDetails = new HashSet<InvoiceDetails>();
             this.InvoiceDetails_Material = new HashSet<InvoiceDetails_Material>();
             this.InvoiceDetails_Miscellaneous = new HashSet<InvoiceDetails_Miscellaneous>();
+            this.AbnormalQualityDetails = new HashSet<AbnormalQualityDetails>();
         }
     
         public System.Guid Id { get; set; }
@@ -39,5 +40,7 @@ namespace Tokiku.Entity
         public virtual ICollection<InvoiceDetails_Material> InvoiceDetails_Material { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InvoiceDetails_Miscellaneous> InvoiceDetails_Miscellaneous { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AbnormalQualityDetails> AbnormalQualityDetails { get; set; }
     }
 }

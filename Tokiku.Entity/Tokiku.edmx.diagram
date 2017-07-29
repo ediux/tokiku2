@@ -180,6 +180,18 @@
         <EntityTypeShape EntityType="TokikuModel.View_OrderControlTable" Width="2" PointX="9.375" PointY="0.75" />
         <AssociationConnector Association="TokikuModel.FK_Receipts_ManufacturersFactories" />
         <EntityTypeShape EntityType="TokikuModel.View_Shipping" Width="1.5" PointX="3.375" PointY="10.75" />
+        <EntityTypeShape EntityType="TokikuModel.AbnormalQuality" Width="1.5" PointX="23.875" PointY="50.875" />
+        <EntityTypeShape EntityType="TokikuModel.AbnormalQualityDetails" Width="1.5" PointX="26.125" PointY="50.5" />
+        <AssociationConnector Association="TokikuModel.FK_AbnormalQuality_Engineering" />
+        <AssociationConnector Association="TokikuModel.FK_AbnormalQuality_ProcessingAtlas" />
+        <AssociationConnector Association="TokikuModel.FK_AbnormalQuality_ProjectContract" />
+        <AssociationConnector Association="TokikuModel.FK_AbnormalQuality_Receipts" />
+        <AssociationConnector Association="TokikuModel.FK_AbnormalQuality_SupplierTranscationItem" />
+        <AssociationConnector Association="TokikuModel.FK_AbnormalQuality_Users" />
+        <AssociationConnector Association="TokikuModel.FK_AbnormalQuality_Users1" />
+        <AssociationConnector Association="TokikuModel.FK_AbnormalQualityDetails_AbnormalQuality" />
+        <AssociationConnector Association="TokikuModel.FK_AbnormalQualityDetails_Manufacturers" />
+        <AssociationConnector Association="TokikuModel.FK_AbnormalQualityDetails_ReceiptDetails" />
         </Diagram>
       <Diagram DiagramId="da028285ff1d445f8957817e8b05eec6" Name="專案主檔" ZoomLevel="86" >
         <EntityTypeShape EntityType="TokikuModel.Projects" Width="1.5" PointX="3" PointY="10.625" />

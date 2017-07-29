@@ -38,5 +38,6 @@ namespace Tokiku.Entity
         public virtual States States { get; set; }
         public virtual ICollection<ProjectItemCost> ProjectItemCost { get; set; }
         public virtual ProjectContract ProjectContract { get; set; }
+        public virtual ICollection<AbnormalQuality> AbnormalQuality { get; set; }
     }
 }

@@ -39,6 +39,8 @@ namespace Tokiku.Entity
             this.ShopFlowDetail = new HashSet<ShopFlowDetail>();
             this.Returns = new HashSet<Returns>();
             this.Returns1 = new HashSet<Returns>();
+            this.AbnormalQuality = new HashSet<AbnormalQuality>();
+            this.AbnormalQuality1 = new HashSet<AbnormalQuality>();
         }
     
         public System.Guid UserId { get; set; }
@@ -94,5 +96,9 @@ namespace Tokiku.Entity
         public virtual ICollection<Returns> Returns { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Returns> Returns1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AbnormalQuality> AbnormalQuality { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AbnormalQuality> AbnormalQuality1 { get; set; }
     }
 }

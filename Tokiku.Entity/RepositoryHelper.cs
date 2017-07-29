@@ -15,6 +15,34 @@ namespace Tokiku.Entity
         }
 		
 		
+		public static AbnormalQualityRepository GetAbnormalQualityRepository()
+		{
+			var repository = new AbnormalQualityRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static AbnormalQualityRepository GetAbnormalQualityRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new AbnormalQualityRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
+		public static AbnormalQualityDetailsRepository GetAbnormalQualityDetailsRepository()
+		{
+			var repository = new AbnormalQualityDetailsRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static AbnormalQualityDetailsRepository GetAbnormalQualityDetailsRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new AbnormalQualityDetailsRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
 		public static AccessLogRepository GetAccessLogRepository()
 		{
 			var repository = new AccessLogRepository();

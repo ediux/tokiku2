@@ -38,6 +38,8 @@ namespace Tokiku.Entity
         public System.DateTime CreateTime { get; set; }
         [Required]
         public System.Guid CreateUserId { get; set; }
+        [Required]
+        public bool IsShipping { get; set; }
     
         public virtual Users CreateUsers { get; set; }
         public virtual Users MakingUsers { get; set; }

@@ -5,6 +5,38 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="TokikuModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AbnormalQuality">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UnusualNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MakingTime" Type="datetime" Nullable="false" />
+          <Property Name="MakingUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProjectContractId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EngineeringId" Type="uniqueidentifier" />
+          <Property Name="SupplierTranscationItemId" Type="uniqueidentifier" />
+          <Property Name="ReceiptsId" Type="uniqueidentifier" />
+          <Property Name="ProcessingAtlasId" Type="uniqueidentifier" />
+          <Property Name="CreateTime" Type="smalldatetime" Nullable="false" />
+          <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AbnormalQualityDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AbnormalQualityId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReceiptDetailsId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProcessingNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Specifications" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ExceptionsQuantity" Type="int" Nullable="false" />
+          <Property Name="ExceptionsReason" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="ProcessingMethod" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="4000" />
+          <Property Name="LossCalculation" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="RefundsManufacturersId" Type="uniqueidentifier" />
+        </EntityType>
         <EntityType Name="AccessLog">
           <Key>
             <PropertyRef Name="Id" />
@@ -502,6 +534,7 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Order" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsShipping" Type="bit" Nullable="false" />
           <Property Name="PickListNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IncomingManufacturerId" Type="uniqueidentifier" />
           <Property Name="IncomingNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -649,7 +682,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Order" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Order" Type="int" StoreGeneratedPattern="Identity" />
           <Property Name="ReceiptNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IncomingManufacturersId" Type="uniqueidentifier" />
           <Property Name="IncomingManufacturersFactoryId" Type="uniqueidentifier" />
@@ -1200,6 +1233,126 @@
             </Principal>
             <Dependent Role="Profile">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbnormalQuality_Engineering">
+          <End Role="Engineering" Type="Self.Engineering" Multiplicity="0..1" />
+          <End Role="AbnormalQuality" Type="Self.AbnormalQuality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Engineering">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbnormalQuality">
+              <PropertyRef Name="EngineeringId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbnormalQuality_ProcessingAtlas">
+          <End Role="ProcessingAtlas" Type="Self.ProcessingAtlas" Multiplicity="0..1" />
+          <End Role="AbnormalQuality" Type="Self.AbnormalQuality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProcessingAtlas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbnormalQuality">
+              <PropertyRef Name="ProcessingAtlasId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbnormalQuality_ProjectContract">
+          <End Role="ProjectContract" Type="Self.ProjectContract" Multiplicity="1" />
+          <End Role="AbnormalQuality" Type="Self.AbnormalQuality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectContract">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbnormalQuality">
+              <PropertyRef Name="ProjectContractId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbnormalQuality_Receipts">
+          <End Role="Receipts" Type="Self.Receipts" Multiplicity="0..1" />
+          <End Role="AbnormalQuality" Type="Self.AbnormalQuality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Receipts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbnormalQuality">
+              <PropertyRef Name="ReceiptsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbnormalQuality_SupplierTranscationItem">
+          <End Role="SupplierTranscationItem" Type="Self.SupplierTranscationItem" Multiplicity="0..1" />
+          <End Role="AbnormalQuality" Type="Self.AbnormalQuality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupplierTranscationItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbnormalQuality">
+              <PropertyRef Name="SupplierTranscationItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbnormalQuality_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="AbnormalQuality" Type="Self.AbnormalQuality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="AbnormalQuality">
+              <PropertyRef Name="MakingUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbnormalQuality_Users1">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="AbnormalQuality" Type="Self.AbnormalQuality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="AbnormalQuality">
+              <PropertyRef Name="CreateUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbnormalQualityDetails_AbnormalQuality">
+          <End Role="AbnormalQuality" Type="Self.AbnormalQuality" Multiplicity="1" />
+          <End Role="AbnormalQualityDetails" Type="Self.AbnormalQualityDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbnormalQuality">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbnormalQualityDetails">
+              <PropertyRef Name="AbnormalQualityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbnormalQualityDetails_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="0..1" />
+          <End Role="AbnormalQualityDetails" Type="Self.AbnormalQualityDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbnormalQualityDetails">
+              <PropertyRef Name="RefundsManufacturersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbnormalQualityDetails_ReceiptDetails">
+          <End Role="ReceiptDetails" Type="Self.ReceiptDetails" Multiplicity="1" />
+          <End Role="AbnormalQualityDetails" Type="Self.AbnormalQualityDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReceiptDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbnormalQualityDetails">
+              <PropertyRef Name="ReceiptDetailsId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2488,6 +2641,8 @@
           </ReturnType>
         </Function>
         <EntityContainer Name="TokikuModelStoreContainer">
+          <EntitySet Name="AbnormalQuality" EntityType="Self.AbnormalQuality" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AbnormalQualityDetails" EntityType="Self.AbnormalQualityDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AccessLog" EntityType="Self.AccessLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BOM" EntityType="Self.BOM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClientsInProjects" EntityType="Self.ClientsInProjects" Schema="dbo" store:Type="Tables" />
@@ -2756,6 +2911,46 @@
           <AssociationSet Name="FK__aspnet_Pr__UserI__1FCDBCEB" Association="Self.FK__aspnet_Pr__UserI__1FCDBCEB">
             <End Role="Users" EntitySet="Users" />
             <End Role="Profile" EntitySet="Profile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbnormalQuality_Engineering" Association="Self.FK_AbnormalQuality_Engineering">
+            <End Role="Engineering" EntitySet="Engineering" />
+            <End Role="AbnormalQuality" EntitySet="AbnormalQuality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbnormalQuality_ProcessingAtlas" Association="Self.FK_AbnormalQuality_ProcessingAtlas">
+            <End Role="ProcessingAtlas" EntitySet="ProcessingAtlas" />
+            <End Role="AbnormalQuality" EntitySet="AbnormalQuality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbnormalQuality_ProjectContract" Association="Self.FK_AbnormalQuality_ProjectContract">
+            <End Role="ProjectContract" EntitySet="ProjectContract" />
+            <End Role="AbnormalQuality" EntitySet="AbnormalQuality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbnormalQuality_Receipts" Association="Self.FK_AbnormalQuality_Receipts">
+            <End Role="Receipts" EntitySet="Receipts" />
+            <End Role="AbnormalQuality" EntitySet="AbnormalQuality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbnormalQuality_SupplierTranscationItem" Association="Self.FK_AbnormalQuality_SupplierTranscationItem">
+            <End Role="SupplierTranscationItem" EntitySet="SupplierTranscationItem" />
+            <End Role="AbnormalQuality" EntitySet="AbnormalQuality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbnormalQuality_Users" Association="Self.FK_AbnormalQuality_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="AbnormalQuality" EntitySet="AbnormalQuality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbnormalQuality_Users1" Association="Self.FK_AbnormalQuality_Users1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="AbnormalQuality" EntitySet="AbnormalQuality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbnormalQualityDetails_AbnormalQuality" Association="Self.FK_AbnormalQualityDetails_AbnormalQuality">
+            <End Role="AbnormalQuality" EntitySet="AbnormalQuality" />
+            <End Role="AbnormalQualityDetails" EntitySet="AbnormalQualityDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbnormalQualityDetails_Manufacturers" Association="Self.FK_AbnormalQualityDetails_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="AbnormalQualityDetails" EntitySet="AbnormalQualityDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbnormalQualityDetails_ReceiptDetails" Association="Self.FK_AbnormalQualityDetails_ReceiptDetails">
+            <End Role="ReceiptDetails" EntitySet="ReceiptDetails" />
+            <End Role="AbnormalQualityDetails" EntitySet="AbnormalQualityDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_ClientsInProjects_Manufacturers" Association="Self.FK_ClientsInProjects_Manufacturers">
             <End Role="Manufacturers" EntitySet="Manufacturers" />
@@ -3276,6 +3471,8 @@
           <NavigationProperty Name="ShopFlowDetail" Relationship="TokikuModel.FK_ShopFlowDetail_Users" FromRole="Users" ToRole="ShopFlowDetail" />
           <NavigationProperty Name="Returns" Relationship="TokikuModel.FK_Returns_CreateUsers" FromRole="Users" ToRole="Returns" />
           <NavigationProperty Name="Returns1" Relationship="TokikuModel.FK_Returns_MakerUsers" FromRole="Users" ToRole="Returns" />
+          <NavigationProperty Name="AbnormalQuality" Relationship="TokikuModel.FK_AbnormalQuality_Users" FromRole="Users" ToRole="AbnormalQuality" />
+          <NavigationProperty Name="AbnormalQuality1" Relationship="TokikuModel.FK_AbnormalQuality_Users1" FromRole="Users" ToRole="AbnormalQuality" />
         </EntityType>
         <Association Name="FK__aspnet_Me__UserI__164452B1">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
@@ -3815,6 +4012,48 @@
             <Parameter Name="SplitChar" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="View_Shipping" EntityType="TokikuModel.View_Shipping" />
+          <EntitySet Name="AbnormalQuality" EntityType="TokikuModel.AbnormalQuality" />
+          <EntitySet Name="AbnormalQualityDetails" EntityType="TokikuModel.AbnormalQualityDetails" />
+          <AssociationSet Name="FK_AbnormalQuality_Engineering" Association="TokikuModel.FK_AbnormalQuality_Engineering">
+            <End Role="Engineering" EntitySet="Engineering" />
+            <End Role="AbnormalQuality" EntitySet="AbnormalQuality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbnormalQuality_ProcessingAtlas" Association="TokikuModel.FK_AbnormalQuality_ProcessingAtlas">
+            <End Role="ProcessingAtlas" EntitySet="ProcessingAtlas" />
+            <End Role="AbnormalQuality" EntitySet="AbnormalQuality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbnormalQuality_ProjectContract" Association="TokikuModel.FK_AbnormalQuality_ProjectContract">
+            <End Role="ProjectContract" EntitySet="ProjectContract" />
+            <End Role="AbnormalQuality" EntitySet="AbnormalQuality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbnormalQuality_Receipts" Association="TokikuModel.FK_AbnormalQuality_Receipts">
+            <End Role="Receive" EntitySet="Receipts" />
+            <End Role="AbnormalQuality" EntitySet="AbnormalQuality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbnormalQuality_SupplierTranscationItem" Association="TokikuModel.FK_AbnormalQuality_SupplierTranscationItem">
+            <End Role="SupplierTranscationItem" EntitySet="SupplierTranscationItem" />
+            <End Role="AbnormalQuality" EntitySet="AbnormalQuality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbnormalQuality_Users" Association="TokikuModel.FK_AbnormalQuality_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="AbnormalQuality" EntitySet="AbnormalQuality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbnormalQuality_Users1" Association="TokikuModel.FK_AbnormalQuality_Users1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="AbnormalQuality" EntitySet="AbnormalQuality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbnormalQualityDetails_AbnormalQuality" Association="TokikuModel.FK_AbnormalQualityDetails_AbnormalQuality">
+            <End Role="AbnormalQuality" EntitySet="AbnormalQuality" />
+            <End Role="AbnormalQualityDetails" EntitySet="AbnormalQualityDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbnormalQualityDetails_Manufacturers" Association="TokikuModel.FK_AbnormalQualityDetails_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="AbnormalQualityDetails" EntitySet="AbnormalQualityDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AbnormalQualityDetails_ReceiptDetails" Association="TokikuModel.FK_AbnormalQualityDetails_ReceiptDetails">
+            <End Role="ReceiveDetails" EntitySet="ReceiptDetails" />
+            <End Role="AbnormalQualityDetails" EntitySet="AbnormalQualityDetails" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="AccessLog">
           <Key>
@@ -3886,6 +4125,7 @@
           <Property Name="Amount" Type="Decimal" Precision="15" Scale="3" />
           <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ProjectContract" Relationship="TokikuModel.FK_Engineering_ProjectContract" FromRole="Engineering" ToRole="ProjectContract" />
+          <NavigationProperty Name="AbnormalQuality" Relationship="TokikuModel.FK_AbnormalQuality_Engineering" FromRole="Engineering" ToRole="AbnormalQuality" />
         </EntityType>
         <EntityType Name="MaterialCategories">
           <Key>
@@ -3981,6 +4221,7 @@
           <NavigationProperty Name="ProcessingAtlas" Relationship="TokikuModel.FK_ProcessingAtlas_ProjectContract" FromRole="ProjectContract" ToRole="ProcessingAtlas" />
           <NavigationProperty Name="Engineering" Relationship="TokikuModel.FK_Engineering_ProjectContract" FromRole="ProjectContract" ToRole="Engineering" />
           <NavigationProperty Name="Required" Relationship="TokikuModel.FK_Required_ProjectContract" FromRole="ProjectContract" ToRole="Required" />
+          <NavigationProperty Name="AbnormalQuality" Relationship="TokikuModel.FK_AbnormalQuality_ProjectContract" FromRole="ProjectContract" ToRole="AbnormalQuality" />
         </EntityType>
         <EntityType Name="ProjectItemCost">
           <Key>
@@ -4377,6 +4618,7 @@
           <Property Name="LastUpdate" Type="DateTime" Precision="0" />
           <NavigationProperty Name="BOM" Relationship="TokikuModel.FK_BOM_ProcessingAtlas" FromRole="ProcessingAtlas" ToRole="BOM" />
           <NavigationProperty Name="OrderControlTableDetails" Relationship="TokikuModel.FK_OrderControlTableDetails_ProcessingAtlas" FromRole="ProcessingAtlas" ToRole="OrderControlTableDetails" />
+          <NavigationProperty Name="AbnormalQuality" Relationship="TokikuModel.FK_AbnormalQuality_ProcessingAtlas" FromRole="ProcessingAtlas" ToRole="AbnormalQuality" />
         </EntityType>
         <Association Name="FK_ProcessingAtlas_ProjectContract">
           <End Type="TokikuModel.ProjectContract" Role="ProjectContract" Multiplicity="1" />
@@ -4590,6 +4832,7 @@
           <NavigationProperty Name="ManufacturersBussinessItems" Relationship="TokikuModel.FK_SupplierTranscationItem_ManufacturersBussinessItems" FromRole="SupplierTranscationItem" ToRole="ManufacturersBussinessItems" />
           <NavigationProperty Name="Projects" Relationship="TokikuModel.FK_SupplierTranscationItem_Projects" FromRole="SupplierTranscationItem" ToRole="Projects" />
           <NavigationProperty Name="NextManufacturers" Relationship="TokikuModel.FK_SupplierTranscationItem_NextManufacturers" FromRole="SupplierTranscationItem" ToRole="Manufacturers" />
+          <NavigationProperty Name="AbnormalQuality" Relationship="TokikuModel.FK_AbnormalQuality_SupplierTranscationItem" FromRole="SupplierTranscationItem" ToRole="AbnormalQuality" />
         </EntityType>
         <Association Name="FK_SupplierTranscationItem_ManufacturersBussinessItems">
           <End Type="TokikuModel.ManufacturersBussinessItems" Role="ManufacturersBussinessItems" Multiplicity="1" />
@@ -4712,6 +4955,7 @@
           <NavigationProperty Name="Stocks" Relationship="TokikuModel.FK_PickList_Stocks" FromRole="PickList" ToRole="Stocks" />
           <NavigationProperty Name="PickListDetails" Relationship="TokikuModel.FK_PickListDetails_PickList" FromRole="PickList" ToRole="PickListDetails" />
           <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_PickList_IncomingManufacturers" FromRole="PickList" ToRole="Manufacturers" />
+          <Property Name="IsShipping" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="PickListDetails">
           <Key>
@@ -4745,13 +4989,14 @@
           <NavigationProperty Name="InvoiceDetails_Material" Relationship="TokikuModel.FK_InvoiceDetails_Material_ReceiptDetails" FromRole="ReceiptDetails" ToRole="InvoiceDetails_Material" />
           <NavigationProperty Name="InvoiceDetails_Miscellaneous" Relationship="TokikuModel.FK_InvoiceDetails_Miscellaneous_ReceiptDetails" FromRole="ReceiptDetails" ToRole="InvoiceDetails_Miscellaneous" />
           <Property Name="Comment" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AbnormalQualityDetails" Relationship="TokikuModel.FK_AbnormalQualityDetails_ReceiptDetails" FromRole="ReceiveDetails" ToRole="AbnormalQualityDetails" />
         </EntityType>
         <EntityType Name="Receive">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="Order" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Order" Type="Int32" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ReceiptNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IncomingManufacturersId" Type="Guid" />
           <Property Name="IncomingNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -4769,6 +5014,7 @@
           <NavigationProperty Name="IncomingManufacturers" Relationship="TokikuModel.FK_Receipts_Manufacturers" FromRole="Receive" ToRole="Manufacturers" />
           <Property Name="IncomingManufacturersFactoryId" Type="Guid" />
           <NavigationProperty Name="ManufacturersFactories" Relationship="TokikuModel.FK_Receipts_ManufacturersFactories" FromRole="Receive" ToRole="ManufacturersFactories" />
+          <NavigationProperty Name="AbnormalQuality" Relationship="TokikuModel.FK_AbnormalQuality_Receipts" FromRole="Receive" ToRole="AbnormalQuality" />
         </EntityType>
         <EntityType Name="Stocks">
           <Key>
@@ -5861,6 +6107,7 @@
           <NavigationProperty Name="Projects" Relationship="TokikuModel.ClientsInProjects" FromRole="Manufacturers" ToRole="Projects" />
           <NavigationProperty Name="Contacts" Relationship="TokikuModel.ContractsInManufacturers" FromRole="Manufacturers" ToRole="Contacts" />
           <NavigationProperty Name="Returns" Relationship="TokikuModel.FK_Returns_Manufacturers" FromRole="Manufacturers" ToRole="Returns" />
+          <NavigationProperty Name="AbnormalQualityDetails" Relationship="TokikuModel.FK_AbnormalQualityDetails_Manufacturers" FromRole="Manufacturers" ToRole="AbnormalQualityDetails" />
         </EntityType>
         <Association Name="FK_Invoices_Manufacturers">
           <End Type="TokikuModel.Manufacturers" Role="Manufacturers" Multiplicity="0..1" />
@@ -6333,6 +6580,169 @@
           <Property Name="ShippingManufactureId" Type="Guid" />
           <Property Name="MaterialsId" Type="Guid" />
         </EntityType>
+        <EntityType Name="AbnormalQuality">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="UnusualNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MakingTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MakingUserId" Type="Guid" Nullable="false" />
+          <Property Name="ProjectContractId" Type="Guid" Nullable="false" />
+          <Property Name="EngineeringId" Type="Guid" />
+          <Property Name="SupplierTranscationItemId" Type="Guid" />
+          <Property Name="ReceiptsId" Type="Guid" />
+          <Property Name="ProcessingAtlasId" Type="Guid" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Engineering" Relationship="TokikuModel.FK_AbnormalQuality_Engineering" FromRole="AbnormalQuality" ToRole="Engineering" />
+          <NavigationProperty Name="ProcessingAtlas" Relationship="TokikuModel.FK_AbnormalQuality_ProcessingAtlas" FromRole="AbnormalQuality" ToRole="ProcessingAtlas" />
+          <NavigationProperty Name="ProjectContract" Relationship="TokikuModel.FK_AbnormalQuality_ProjectContract" FromRole="AbnormalQuality" ToRole="ProjectContract" />
+          <NavigationProperty Name="Receipts" Relationship="TokikuModel.FK_AbnormalQuality_Receipts" FromRole="AbnormalQuality" ToRole="Receive" />
+          <NavigationProperty Name="SupplierTranscationItem" Relationship="TokikuModel.FK_AbnormalQuality_SupplierTranscationItem" FromRole="AbnormalQuality" ToRole="SupplierTranscationItem" />
+          <NavigationProperty Name="Users" Relationship="TokikuModel.FK_AbnormalQuality_Users" FromRole="AbnormalQuality" ToRole="Users" />
+          <NavigationProperty Name="Users1" Relationship="TokikuModel.FK_AbnormalQuality_Users1" FromRole="AbnormalQuality" ToRole="Users" />
+          <NavigationProperty Name="AbnormalQualityDetails" Relationship="TokikuModel.FK_AbnormalQualityDetails_AbnormalQuality" FromRole="AbnormalQuality" ToRole="AbnormalQualityDetails" />
+        </EntityType>
+        <EntityType Name="AbnormalQualityDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="AbnormalQualityId" Type="Guid" Nullable="false" />
+          <Property Name="ReceiptDetailsId" Type="Guid" Nullable="false" />
+          <Property Name="ProcessingNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Specifications" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ExceptionsQuantity" Type="Int32" Nullable="false" />
+          <Property Name="ExceptionsReason" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="ProcessingMethod" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="LossCalculation" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="RefundsManufacturersId" Type="Guid" />
+          <NavigationProperty Name="AbnormalQuality" Relationship="TokikuModel.FK_AbnormalQualityDetails_AbnormalQuality" FromRole="AbnormalQualityDetails" ToRole="AbnormalQuality" />
+          <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_AbnormalQualityDetails_Manufacturers" FromRole="AbnormalQualityDetails" ToRole="Manufacturers" />
+          <NavigationProperty Name="ReceiptDetails" Relationship="TokikuModel.FK_AbnormalQualityDetails_ReceiptDetails" FromRole="AbnormalQualityDetails" ToRole="ReceiveDetails" />
+        </EntityType>
+        <Association Name="FK_AbnormalQuality_Engineering">
+          <End Type="TokikuModel.Engineering" Role="Engineering" Multiplicity="0..1" />
+          <End Type="TokikuModel.AbnormalQuality" Role="AbnormalQuality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Engineering">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbnormalQuality">
+              <PropertyRef Name="EngineeringId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbnormalQuality_ProcessingAtlas">
+          <End Type="TokikuModel.ProcessingAtlas" Role="ProcessingAtlas" Multiplicity="0..1" />
+          <End Type="TokikuModel.AbnormalQuality" Role="AbnormalQuality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProcessingAtlas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbnormalQuality">
+              <PropertyRef Name="ProcessingAtlasId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbnormalQuality_ProjectContract">
+          <End Type="TokikuModel.ProjectContract" Role="ProjectContract" Multiplicity="1" />
+          <End Type="TokikuModel.AbnormalQuality" Role="AbnormalQuality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectContract">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbnormalQuality">
+              <PropertyRef Name="ProjectContractId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbnormalQuality_Receipts">
+          <End Type="TokikuModel.Receive" Role="Receive" Multiplicity="0..1" />
+          <End Type="TokikuModel.AbnormalQuality" Role="AbnormalQuality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Receive">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbnormalQuality">
+              <PropertyRef Name="ReceiptsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbnormalQuality_SupplierTranscationItem">
+          <End Type="TokikuModel.SupplierTranscationItem" Role="SupplierTranscationItem" Multiplicity="0..1" />
+          <End Type="TokikuModel.AbnormalQuality" Role="AbnormalQuality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupplierTranscationItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbnormalQuality">
+              <PropertyRef Name="SupplierTranscationItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbnormalQuality_Users">
+          <End Type="TokikuModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="TokikuModel.AbnormalQuality" Role="AbnormalQuality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="AbnormalQuality">
+              <PropertyRef Name="MakingUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbnormalQuality_Users1">
+          <End Type="TokikuModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="TokikuModel.AbnormalQuality" Role="AbnormalQuality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="AbnormalQuality">
+              <PropertyRef Name="CreateUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbnormalQualityDetails_AbnormalQuality">
+          <End Type="TokikuModel.AbnormalQuality" Role="AbnormalQuality" Multiplicity="1" />
+          <End Type="TokikuModel.AbnormalQualityDetails" Role="AbnormalQualityDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AbnormalQuality">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbnormalQualityDetails">
+              <PropertyRef Name="AbnormalQualityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbnormalQualityDetails_Manufacturers">
+          <End Type="TokikuModel.Manufacturers" Role="Manufacturers" Multiplicity="0..1" />
+          <End Type="TokikuModel.AbnormalQualityDetails" Role="AbnormalQualityDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbnormalQualityDetails">
+              <PropertyRef Name="RefundsManufacturersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AbnormalQualityDetails_ReceiptDetails">
+          <End Type="TokikuModel.ReceiveDetails" Role="ReceiveDetails" Multiplicity="1" />
+          <End Type="TokikuModel.AbnormalQualityDetails" Role="AbnormalQualityDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReceiveDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AbnormalQualityDetails">
+              <PropertyRef Name="ReceiptDetailsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -6871,6 +7281,7 @@
           <EntitySetMapping Name="PickList">
             <EntityTypeMapping TypeName="TokikuModel.PickList">
               <MappingFragment StoreEntitySet="PickList">
+                <ScalarProperty Name="IsShipping" ColumnName="IsShipping" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
@@ -7472,6 +7883,40 @@
                 <ScalarProperty Name="RequiredDetailsCode" ColumnName="RequiredDetailsCode" />
                 <ScalarProperty Name="BatchNumber" ColumnName="BatchNumber" />
                 <ScalarProperty Name="PickListNumber" ColumnName="PickListNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbnormalQuality">
+            <EntityTypeMapping TypeName="TokikuModel.AbnormalQuality">
+              <MappingFragment StoreEntitySet="AbnormalQuality">
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="ProcessingAtlasId" ColumnName="ProcessingAtlasId" />
+                <ScalarProperty Name="ReceiptsId" ColumnName="ReceiptsId" />
+                <ScalarProperty Name="SupplierTranscationItemId" ColumnName="SupplierTranscationItemId" />
+                <ScalarProperty Name="EngineeringId" ColumnName="EngineeringId" />
+                <ScalarProperty Name="ProjectContractId" ColumnName="ProjectContractId" />
+                <ScalarProperty Name="MakingUserId" ColumnName="MakingUserId" />
+                <ScalarProperty Name="MakingTime" ColumnName="MakingTime" />
+                <ScalarProperty Name="UnusualNumber" ColumnName="UnusualNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbnormalQualityDetails">
+            <EntityTypeMapping TypeName="TokikuModel.AbnormalQualityDetails">
+              <MappingFragment StoreEntitySet="AbnormalQualityDetails">
+                <ScalarProperty Name="RefundsManufacturersId" ColumnName="RefundsManufacturersId" />
+                <ScalarProperty Name="LossCalculation" ColumnName="LossCalculation" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="ProcessingMethod" ColumnName="ProcessingMethod" />
+                <ScalarProperty Name="ExceptionsReason" ColumnName="ExceptionsReason" />
+                <ScalarProperty Name="ExceptionsQuantity" ColumnName="ExceptionsQuantity" />
+                <ScalarProperty Name="Specifications" ColumnName="Specifications" />
+                <ScalarProperty Name="ProcessingNumber" ColumnName="ProcessingNumber" />
+                <ScalarProperty Name="ReceiptDetailsId" ColumnName="ReceiptDetailsId" />
+                <ScalarProperty Name="AbnormalQualityId" ColumnName="AbnormalQualityId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

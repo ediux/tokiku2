@@ -31,5 +31,6 @@ namespace Tokiku.Entity
         public virtual ManufacturersBussinessItems ManufacturersBussinessItems { get; set; }
         public virtual Projects Projects { get; set; }
         public virtual Manufacturers NextManufacturers { get; set; }
+        public virtual ICollection<AbnormalQuality> AbnormalQuality { get; set; }
     }
 }

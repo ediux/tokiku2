@@ -39,5 +39,6 @@ namespace Tokiku.Entity
         public virtual ICollection<ProcessingAtlas> ProcessingAtlas { get; set; }
         public virtual ICollection<Engineering> Engineering { get; set; }
         public virtual ICollection<Required> Required { get; set; }
+        public virtual ICollection<AbnormalQuality> AbnormalQuality { get; set; }
     }
 }
