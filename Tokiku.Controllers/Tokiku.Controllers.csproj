@@ -71,6 +71,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbnormalQualityController.cs" />
     <Compile Include="ControlTables\ObtainMaterialController.cs" />
     <Compile Include="ControlTables\ShippingMaterialDetailsController.cs" />
     <Compile Include="Orders\AluminumExtrusionOrderController.cs" />

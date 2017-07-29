@@ -567,7 +567,27 @@ namespace Tokiku.ViewModels
 
         public void Initialized(object Parameter)
         {
-            throw new NotImplementedException();
+            Initialized();
+        }
+
+        public static TCollection Query<TCollection, TEntity>(params object[] Parameers) where TCollection : BaseViewModelCollection<TView> where TEntity : class
+        {
+            try
+            {
+                TCollection collection = Activator.CreateInstance<TCollection>();
+
+                collection = Query<TCollection, TEntity>(
+                     collection.SaveModelController, "QueryAll", Parameers);
+
+                return collection;
+            }
+            catch (Exception ex)
+            {
+                TCollection emptycollection =
+                    Activator.CreateInstance<TCollection>();
+                setErrortoModel(emptycollection, ex);
+                return emptycollection;
+            }
         }
     }
 }

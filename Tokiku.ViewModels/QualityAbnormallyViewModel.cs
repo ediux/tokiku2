@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 using Tokiku.Entity;
 namespace Tokiku.ViewModels
 {
-    public class QualityAbnormallySingleViewModelCollectionViewModel
+    public class QualityAbnormallyViewModel : BaseViewModelWithPOCOClass<AbnormalQuality>
     {
+        public QualityAbnormallyViewModel()
+        {
+            _SaveModelController = "AbnormalQuality";
+        }
+
+        public QualityAbnormallyViewModel(AbnormalQuality entity) : base(entity)
+        {
+            _SaveModelController = "AbnormalQuality";
+        }
+
+        
     }
 }
