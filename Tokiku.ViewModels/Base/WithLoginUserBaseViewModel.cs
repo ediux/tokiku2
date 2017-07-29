@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using Tokiku.Entity;
+using Tokiku.MVVM.Commands;
 
 namespace Tokiku.ViewModels
 {
@@ -10,15 +11,23 @@ namespace Tokiku.ViewModels
     {
         public WithLoginUserBaseViewModel()
         {
-           
+            SaveCommand = new SaveModelCommand(new Action<object>(SaveModel));
+            CreateNewCommand = new CreateNewModelCommand(new Action<object>(Initialized));
+            RelayCommand = new RelayCommand(new Action<object>(ReplyFrom));
         }
 
-        public WithLoginUserBaseViewModel(Users entity) 
+        #region 目前文件操作模式
+        private DocumentLifeCircle _Mode = DocumentLifeCircle.None;
+
+        /// <summary>
+        /// 目前文件操作模式
+        /// </summary>
+        public DocumentLifeCircle Mode
         {
-
+            get { return _Mode; }
+            set { _Mode = value; RaisePropertyChanged("Mode"); }
         }
-
-
+        #endregion
 
         #region Logined User
         private IUserViewModel _LoginedUser;
@@ -31,24 +40,84 @@ namespace Tokiku.ViewModels
             get
             {
                 if (_LoginedUser == null)
-                    _LoginedUser = new UserViewModel(CopyofPOCOInstance);
+                {
+                    var UserEntity = ExecuteAction<Users>(SystemControllerName, GetLoginedUserActionName);
+                    _LoginedUser = new UserViewModel(UserEntity);
+                }
 
                 return _LoginedUser;
             }
             set
             {
-                CopyofPOCOInstance = value.Entity;
-                _LoginedUser = new UserViewModel(CopyofPOCOInstance);
+                _LoginedUser = value;
                 RaisePropertyChanged("LoginedUser");
             }
-        } 
+        }
         #endregion
 
-        public ICommand QueryCommand { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public ICommand SaveCommand { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public ICommand CreateNewCommand { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public ICommand DeleteCommand { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public ICommand RelayCommand { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Type EntityType { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        #region WPF命令處理區
+
+        #region 查詢
+        private ICommand _QueryCommnand;
+        /// <summary>
+        /// 取得或設定當引發查詢項目時的命令項目。
+        /// </summary>
+        public ICommand QueryCommand { get => _QueryCommnand; set => _QueryCommnand = value; }
+
+        #endregion
+
+        #region 儲存
+        protected ICommand _SaveCommand = new SaveModelCommand();
+        /// <summary>
+        /// 取得或設定當引發儲存時的命令項目。
+        /// </summary>
+        public ICommand SaveCommand { get => _SaveCommand; set => _SaveCommand = value; }
+
+        /// <summary>
+        /// 處理儲存命令時使用的處理方法
+        /// </summary>
+        /// <param name="Parameter"></param>
+        internal virtual void SaveModel(object Parameter)
+        {
+
+        }
+        #endregion
+
+        #region 新建
+        protected ICommand _CreateNewCommand;
+        /// <summary>
+        /// 取得或設定當引發新建項目時的命令項目。
+        /// </summary>
+        public ICommand CreateNewCommand { get => _CreateNewCommand; set => _CreateNewCommand = value; }
+        #endregion
+
+        #region 刪除
+        private ICommand _DeleteCommand;
+        /// <summary>
+        /// 取得或設定當引發刪除項目時的命令項目。
+        /// </summary>
+        public ICommand DeleteCommand { get => _DeleteCommand; set => _DeleteCommand = value; }
+        #endregion
+
+        #region 轉送
+        private ICommand _RelayCommand;
+
+        /// <summary>
+        /// 取得或設定當引發來自其他項目時的命令項目。
+        /// </summary>
+        public ICommand RelayCommand { get => _RelayCommand; set { _RelayCommand = value; } }
+
+        /// <summary>
+        /// 處理接收轉送來源的物件。
+        /// </summary>
+        /// <param name="source">轉送來源。</param>
+        public virtual void ReplyFrom(object source)
+        {
+        }
+
+        #endregion
+
+        #endregion
+
     }
 }

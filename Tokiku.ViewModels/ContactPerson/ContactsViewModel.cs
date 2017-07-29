@@ -10,8 +10,10 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class ContactsViewModelCollection : BaseViewModelCollection<ContactsViewModel>
+    public class ContactsViewModelCollection : BaseViewModelCollection<ContactsViewModel,Contacts>
     {
+        public override string ControllerName => "ContactPersonManage";
+
         public ContactsViewModelCollection()
         {
 
@@ -27,11 +29,13 @@ namespace Tokiku.ViewModels
             get;
             set;
         }
-        public override void Initialized()
-        {
-            base.Initialized();
-            ManufacturersId = Guid.Empty;
-        }
+
+        
+        //public override void Initialized()
+        //{
+        //    base.Initialized();
+        //    ManufacturersId = Guid.Empty;
+        //}
         //public override void Query()
         //{
         //    if (ManufacturersId != Guid.Empty)

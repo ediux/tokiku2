@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Tokiku.MVVM.Data;
 
 namespace Tokiku.MVVM.Commands
 {

@@ -2,7 +2,9 @@
 
 namespace Tokiku.ViewModels
 {
-    public interface IMultiBaseViewModel : IBaseViewModel
+    public interface IMultiBaseViewModel<TView, TEntity> : IBaseViewModel, System.Collections.Generic.ICollection<TView> 
+        where TView : ISingleBaseViewModel<TEntity> 
+        where TEntity : class
     {
         /// <summary>
         /// 查詢命令
@@ -28,7 +30,14 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 取得關聯的子表資料檢視模型
         /// </summary>
-        object Details { get; }
+        TView Master { get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TCollection"></typeparam>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        TCollection QueryAll<TCollection>(params object[] parameters) where TCollection : IMultiBaseViewModel<TView, TEntity>;
     }
 }

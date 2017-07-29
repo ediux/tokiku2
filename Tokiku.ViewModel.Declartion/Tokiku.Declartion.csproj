@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConstValues\DocumentLifeCircle.cs" />
     <Compile Include="ViewModels\Base\IBaseViewModel.cs" />
     <Compile Include="ViewModels\Base\IBaseViewModelWithLoginedUser.cs" />
     <Compile Include="ViewModels\Base\IMultiBaseViewModel.cs" />

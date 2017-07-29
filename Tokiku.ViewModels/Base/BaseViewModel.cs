@@ -21,7 +21,71 @@ namespace Tokiku.ViewModels
 
     public abstract class BaseViewModel : DependencyObject, IBaseViewModel
     {
-        protected const string SaveActionName = "CreateOrUpdate";
+        #region 常數區
+        #region 反映存取常數
+        /// <summary>
+        /// 控制器名稱格式
+        /// </summary>
+        protected const string ControllerFullNameFormat = "Tokiku.Controllers.{0}Controller";
+        protected const string ControllerRootNamespace = "Tokiku.Controllers";
+        #endregion
+
+        #region 控制器
+        /// <summary>
+        /// 系統共用控制器
+        /// </summary>
+        public const string SystemControllerName = "System";
+        #endregion
+
+        #region 動作方法
+        /// <summary>
+        /// 查詢(全部)動作
+        /// </summary>
+        public const string QueryActionName = "Query";
+        /// <summary>
+        /// 查詢(有條件的)動作
+        /// </summary>
+        public const string QueryByActionName = "QueryBy";
+        /// <summary>
+        /// 查詢指定單一資料列動作
+        /// </summary>
+        public const string QuerySingleRowActionName = "QuerySingle";
+        /// <summary>
+        /// 加入資料庫動作
+        /// </summary>
+        public const string AddActionName = "Add";
+        /// <summary>
+        /// 發動資料庫更新動作
+        /// </summary>
+        public const string UpdateActionName = "Update";
+        /// <summary>
+        /// 發動刪除資料列動作
+        /// </summary>
+        public const string DeleteActionName = "Delete";
+        /// <summary>
+        /// 儲存動作
+        /// </summary>
+        public const string SaveActionName = "CreateOrUpdate";
+        /// <summary>
+        /// 取得登入帳號動作
+        /// </summary>
+        public const string GetLoginedUserActionName = "GetCurrentLoginUser";
+        /// <summary>
+        /// 查詢存取紀錄動作
+        /// </summary>
+        public const string QueryAccessLogActionName = "QueryAccessLog";
+        #endregion
+
+        #endregion
+
+        #region 建構式
+        public BaseViewModel()
+        {
+            Errors = new string[] { };
+            HasError = false;
+            _ControllerName = GetType().Name.Replace("Controller", string.Empty);
+        }
+        #endregion
 
         #region 錯誤訊息
 
@@ -59,10 +123,11 @@ namespace Tokiku.ViewModels
         #endregion
 
         #region 對應的控制器名稱
+        protected string _ControllerName = string.Empty;
         /// <summary>
         /// 取得對應的控制器名稱。
         /// </summary>
-        public virtual string ControllerName { get { if (this == null) return string.Empty; return GetType().Name; } }
+        public virtual string ControllerName { get => _ControllerName; }
         #endregion
 
         #region PropertyChanged 事件
@@ -77,10 +142,19 @@ namespace Tokiku.ViewModels
         /// <param name="PropertyName">發生變更的屬性名稱。</param>
         protected void RaisePropertyChanged(string PropertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
+            try
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
+            }
+            catch
+            {
+
+            }
+
         }
         #endregion
 
+        #region 查詢控制器方法
         /// <summary>
         /// 對指定控制器發出單一查詢呼叫。
         /// </summary>
@@ -90,16 +164,16 @@ namespace Tokiku.ViewModels
         /// <param name="values">動作方法參數</param>
         /// <returns>傳回指定檢視模型。</returns>
         public static TView QuerySingle<TView, TResult>(string ControllerName, string ActionName, params object[] values)
-            where TView : BaseViewModelWithPOCOClass<TResult>
+            where TView : ISingleBaseViewModel<TResult>
             where TResult : class
         {
-            TView viewmodel = null;
+            TView viewmodel = default(TView);
 
             try
             {
-                string controllerfullname = string.Format("Tokiku.Controllers.{0}Controller", ControllerName);
+                string controllerfullname = string.Format(ControllerFullNameFormat, ControllerName);
 
-                Type ControllerType = System.Reflection.Assembly.Load("Tokiku.Controllers").GetType(controllerfullname);
+                Type ControllerType = Assembly.Load(ControllerRootNamespace).GetType(controllerfullname);
 
                 if (ControllerType == null)
                 {
@@ -165,9 +239,9 @@ namespace Tokiku.ViewModels
 
             try
             {
-                string controllerfullname = string.Format("Tokiku.Controllers.{0}Controller", ControllerName);
+                string controllerfullname = string.Format(ControllerFullNameFormat, ControllerName);
 
-                Type ControllerType = System.Reflection.Assembly.Load("Tokiku.Controllers").GetType(controllerfullname);
+                Type ControllerType = Assembly.Load(ControllerRootNamespace).GetType(controllerfullname);
 
                 if (ControllerType == null)
                 {
@@ -220,8 +294,9 @@ namespace Tokiku.ViewModels
         /// <param name="ActionName">動作名稱(方法名稱)</param>
         /// <param name="values">動作方法參數</param>
         /// <returns>傳回指定檢視模型集合。</returns>
-        public static TCollection Query<TCollection, TResult>(string ControllerName, string ActionName, params object[] values)
-            where TCollection : IMultiBaseViewModel
+        public static TCollection Query<TCollection, TView, TResult>(string ControllerName, string ActionName, params object[] values)
+            where TCollection : IMultiBaseViewModel<TView, TResult>
+            where TView : ISingleBaseViewModel<TResult>
             where TResult : class
         {
             TCollection collection = default(TCollection);
@@ -239,20 +314,42 @@ namespace Tokiku.ViewModels
                 return collection;
             }
         }
+        #endregion
 
-        
+        public virtual TView Query<TView, TPOCO>(params object[] parameters) where TView : IBaseViewModel where TPOCO : class
+        {
+            try
+            {
+                return (TView)Activator.CreateInstance(typeof(TView), ExecuteAction<TPOCO>(ControllerName, QuerySingleRowActionName, parameters));
+            }
+            catch (Exception ex)
+            {
+                TView coll = Activator.CreateInstance<TView>();
+                coll.setErrortoModel(ex);
+                return coll;
+            }
+        }
 
         #region 檢視模型初始化作業(建構式會呼叫)
         /// <summary>
         /// 檢視模型初始化作業(建構式會呼叫)
         /// </summary>
+        public virtual void Initialized()
+        {
+
+        }
+
+        /// <summary>
+        /// 檢視模型初始化作業(WPF命令會呼叫)
+        /// </summary>
         /// <param name="Parameter">命令傳入的參考物件。</param>
-        public virtual void Initialized(object Parameter)
+        public static void Initialized(object Parameter)
         {
 
         }
         #endregion
 
+        #region 儲存檢視模型方法
         /// <summary>
         /// 儲存檢視模型的方法。
         /// </summary>
@@ -269,6 +366,7 @@ namespace Tokiku.ViewModels
         {
             try
             {
+
                 var callActionInstance = GetType().GetMethod("ExecuteAction", BindingFlags.Instance | BindingFlags.InvokeMethod | BindingFlags.Public);
                 var prop = GetType().GetProperty("EntityType");
                 var prop2 = GetType().GetProperty("Entity");
@@ -280,13 +378,16 @@ namespace Tokiku.ViewModels
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                this.setErrortoModel(ex);
             }
 
         }
+
+
+        #endregion
+
     }
 }
 

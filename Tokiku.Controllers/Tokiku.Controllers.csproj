@@ -118,7 +118,7 @@
     <Compile Include="MES\ShopFlowController.cs" />
     <Compile Include="Shared\StateController.cs" />
     <Compile Include="Projects\SuppliersController.cs" />
-    <Compile Include="Shared\SystemController.cs" />
+    <Compile Include="System\SystemController.cs" />
     <Compile Include="ControlTables\ShippingController.cs" />
     <Compile Include="ControlTables\ShippingMaterialListController.cs" />
     <Compile Include="ShippingDetailsController.cs" />

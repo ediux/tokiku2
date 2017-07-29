@@ -69,7 +69,6 @@
     <Compile Include="Projects\Orders\OrderViewModelCollection.cs" />
     <Compile Include="RequiredDetailViewModel.cs" />
     <Compile Include="RequiredDetailViewModelCollection.cs" />
-    <Compile Include="Shared\DocumentLifeCircle.cs" />
     <Compile Include="ControlTables\InventoryListViewModel.cs" />
     <Compile Include="ControlTables\InventoryViewModel.cs" />
     <Compile Include="ControlTables\InvoicesViewModel.cs" />

@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Tokiku.MVVM.Data;
+using Tokiku.ViewModels;
 
 namespace Tokiku.MVVM.Commands
 {
@@ -256,7 +257,7 @@ namespace Tokiku.MVVM.Commands
                     {
                         if (k == "TargetViewModelInstance")
                         {
-                            IBaseViewModel model = (IBaseViewModel)executeresult.RoutedValues["TargetViewModelInstance"];
+                            IBaseViewModelWithLoginedUser model = (IBaseViewModelWithLoginedUser)executeresult.RoutedValues["TargetViewModelInstance"];
 
                             if (model != null)
                             {

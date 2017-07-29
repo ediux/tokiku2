@@ -30,14 +30,16 @@ namespace Tokiku.ViewModels
         /// </summary>
         ICommand RelayCommand { get; set; }
 
-        /// <summary>
-        /// 取得或設定對應的資料實體
-        /// </summary>
-        Type EntityType { get; set; }
+
 
         /// <summary>
         /// 取得目前登入的使用者
         /// </summary>
         IUserViewModel LoginedUser { get; set; }
+
+        /// <summary>
+        /// 目前文件操作模式
+        /// </summary>
+        DocumentLifeCircle Mode { get; set; }
     }
 }

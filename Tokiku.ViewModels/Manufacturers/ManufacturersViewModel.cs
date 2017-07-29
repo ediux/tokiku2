@@ -9,6 +9,7 @@ using System.Windows;
 using Tokiku.Controllers;
 using Tokiku.Entity;
 using Tokiku.Entity.ViewTables;
+using Tokiku.MVVM.Tools;
 
 namespace Tokiku.ViewModels
 {
@@ -102,7 +103,7 @@ namespace Tokiku.ViewModels
                 return collection;
             }
         }
-        
+
         public static ManufacturersViewModelCollection QueryBySupplier(Guid ProjectId)
         {
             try
@@ -133,7 +134,11 @@ namespace Tokiku.ViewModels
         }
         #endregion
 
+        public override string ControllerName => "ManufacturersManage";
+
         #region 屬性
+
+
 
         #region Id
         /// <summary>
@@ -151,13 +156,19 @@ namespace Tokiku.ViewModels
         public string UniformNumbers { get { return CopyofPOCOInstance.UniformNumbers; } set { CopyofPOCOInstance.UniformNumbers = value; RaisePropertyChanged("UniformNumbers"); } }
         public string Phone { get { return CopyofPOCOInstance.Phone; } set { CopyofPOCOInstance.Phone = value; RaisePropertyChanged("Phone"); } }
         public string Fax { get { return CopyofPOCOInstance.Fax; } set { CopyofPOCOInstance.Fax = value; RaisePropertyChanged("Fax"); } }
-        public string eMail { get {
+        public string eMail
+        {
+            get
+            {
                 var result = CopyofPOCOInstance.Contacts.Where(s => s.IsDefault == true);
                 if (result.Any())
                 {
                     return result.Single().EMail;
                 }
-                return CopyofPOCOInstance.eMail; } set { CopyofPOCOInstance.eMail = value; RaisePropertyChanged("eMail"); } }
+                return CopyofPOCOInstance.eMail;
+            }
+            set { CopyofPOCOInstance.eMail = value; RaisePropertyChanged("eMail"); }
+        }
         public string Address { get { return CopyofPOCOInstance.Address; } set { CopyofPOCOInstance.Address = value; RaisePropertyChanged("Address"); } }
         //public string FactoryPhone { get { return CopyofPOCOInstance.FactoryPhone; } set { CopyofPOCOInstance.FactoryPhone = value; RaisePropertyChanged("FactoryPhone"); } }
         //public string FactoryFax { get { return CopyofPOCOInstance.FactoryFax; } set { CopyofPOCOInstance.FactoryFax = value; RaisePropertyChanged("FactoryFax"); } }
@@ -315,7 +326,8 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string Mobile
         {
-            get {
+            get
+            {
                 var result = CopyofPOCOInstance.Contacts.Where(s => s.IsDefault == true);
                 if (result.Any())
                 {
@@ -337,7 +349,8 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string Extension
         {
-            get {
+            get
+            {
                 var result = CopyofPOCOInstance.Contacts.Where(s => s.IsDefault == true);
                 if (result.Any())
                 {
@@ -422,12 +435,12 @@ namespace Tokiku.ViewModels
             try
             {
                 return QuerySingle<ManufacturersViewModel, Manufacturers>(
-                    "ManufacturersManage", "QuerySingle", ManufacturersId);          
+                    "ManufacturersManage", "QuerySingle", ManufacturersId);
             }
             catch (Exception ex)
             {
                 ManufacturersViewModel view = new ManufacturersViewModel();
-                setErrortoModel(view, ex);
+                view.setErrortoModel(ex);
                 return view;
             }
 
@@ -441,11 +454,11 @@ namespace Tokiku.ViewModels
 
             try
             {
-              
+
                 Id = Guid.NewGuid();
 
                 CopyofPOCOInstance = ExecuteAction<Manufacturers>("ManufacturersManage", "CreateNew"); //controller.CreateNew();
-                
+
                 //LastUpdateTime = DateTime.Now;
                 CreateTime = DateTime.Now;
 
@@ -455,17 +468,12 @@ namespace Tokiku.ViewModels
             }
             catch (Exception ex)
             {
-
-                setErrortoModel(this, ex);
+                this.setErrortoModel( ex);
             }
 
 
         }
-
-        public override void SaveModel(bool isLast = true)
-        {
-            SaveModel("ManufacturersManage", isLast);
-        }
+       
         //public  void SaveModel()
         //{
         //    try

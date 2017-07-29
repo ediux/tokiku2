@@ -13,6 +13,7 @@ namespace Tokiku.ViewModels
         string MobileAlias { get; set; }
         string Password { get; }
         Guid UserId { get; set; }
-        string UserName { get; set; }
+        string UserName { get; set; }      
+        
     }
 }

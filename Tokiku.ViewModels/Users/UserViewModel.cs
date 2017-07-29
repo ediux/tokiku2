@@ -9,7 +9,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class UserViewModel : BaseViewModelWithPOCOClass<Users>, IBaseViewModel, IUserViewModel
+    public class UserViewModel : BaseViewModelWithPOCOClass<Users>, IUserViewModel
     {
         public UserViewModel()
         {
@@ -68,9 +68,10 @@ namespace Tokiku.ViewModels
 
       
 
-        public override void Initialized(object Parameter)
+        public override void Initialized()
         {
-            base.Initialized(Parameter);
+            base.Initialized();
+
             IsAnonymous = true;
             CopyofPOCOInstance.LastActivityDate = new DateTime(1754, 1, 1);
             CopyofPOCOInstance.LoweredUserName = Environment.UserName.ToLowerInvariant();

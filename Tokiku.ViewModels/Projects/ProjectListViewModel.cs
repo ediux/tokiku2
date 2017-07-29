@@ -25,11 +25,11 @@ namespace Tokiku.ViewModels
 
         }
 
-        public override void Initialized()
-        {
-            base.Initialized();
-            //_projects_controller = new ProjectsController();
-        }
+        //public override void Initialized()
+        //{
+        //    base.Initialized();
+        //    //_projects_controller = new ProjectsController();
+        //}
 
         public void Refresh()
         {

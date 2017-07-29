@@ -11,7 +11,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class ProjectsViewModelCollection : BaseViewModelCollection<ProjectsViewModel>
+    public class ProjectsViewModelCollection : BaseViewModelCollection<ProjectsViewModel, Projects>
     {
         private ProjectsController _projectcontroller;
 
@@ -24,13 +24,6 @@ namespace Tokiku.ViewModels
         {
 
         }
-
-        public override void Initialized()
-        {
-            base.Initialized();
-            _projectcontroller = new ProjectsController();
-        }
-
 
         //public override void Query()
         //{

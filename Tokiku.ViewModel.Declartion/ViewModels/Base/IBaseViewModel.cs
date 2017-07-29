@@ -24,7 +24,7 @@ namespace Tokiku.ViewModels
         /// <remarks>
         /// 此方法可以視為當新建立資料時需要呼叫的方法。
         /// </remarks>
-        void Initialized(object Parameter);
+        void Initialized();
 
         /// <summary>
         /// 儲存單一或多個資料列的檢視模型元素時候對應的處理方法。

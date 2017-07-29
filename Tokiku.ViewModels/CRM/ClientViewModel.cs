@@ -13,9 +13,9 @@ using Tokiku.Entity.ViewTables;
 
 namespace Tokiku.ViewModels
 {
-    public class ClientViewModelCollection : BaseViewModelCollection<ClientViewModel>
+    public class ClientViewModelCollection : BaseViewModelCollection<ClientViewModel,Manufacturers>
     {
-        private ClientController client_controller;
+        //private ClientController client_controller;
 
         public ClientViewModelCollection()
         {
@@ -24,13 +24,7 @@ namespace Tokiku.ViewModels
         public ClientViewModelCollection(IEnumerable<ClientViewModel> source) : base(source)
         {
         }
-
-        public override void Initialized()
-        {
-            base.Initialized();
-            client_controller = new ClientController();
-        }
-
+                
         //public static ClientViewModelCollection Query()
         //{
         //    try
@@ -49,8 +43,7 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                return Query<ClientViewModelCollection, Manufacturers>("Client", "QueryAll");
-
+                return BaseViewModel.Query<ClientViewModelCollection,ClientViewModel, Manufacturers>("Client", "QueryAll");                
             }
             catch (Exception ex)
             {

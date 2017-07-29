@@ -8,7 +8,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class RecvMaterialViewModelCollection : BaseViewModelCollection<RecvMaterialViewModel>
+    public class RecvMaterialViewModelCollection : BaseViewModelCollection<RecvMaterialViewModel,Receive>
     {
         public RecvMaterialViewModelCollection()
         {
@@ -24,7 +24,7 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                return Query<RecvMaterialViewModelCollection, Receive>("RecvMaterial", "Query", ProjectId);
+                return BaseViewModel.Query<RecvMaterialViewModelCollection, Receive>("RecvMaterial", "Query", ProjectId);
             }
             catch (Exception ex)
             {

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using Tokiku.MVVM.Data;
+using Tokiku.ViewModels;
 
 namespace Tokiku.MVVM.Commands
 {
@@ -58,9 +60,9 @@ namespace Tokiku.MVVM.Commands
                                 if (element != null && element is ObjectDataProvider)
                                 {
                                     ObjectDataProvider proiver = (ObjectDataProvider)element;
-                                    if(proiver.Data!=null && proiver.Data is IBaseViewModel)
+                                    if(proiver.Data!=null && proiver.Data is IBaseViewModelWithLoginedUser)
                                     {
-                                        ((IBaseViewModel)proiver.Data).RelayCommand.Execute(parameter);
+                                        ((IBaseViewModelWithLoginedUser)proiver.Data).RelayCommand.Execute(parameter);
                                     }
                                 }
                             }
