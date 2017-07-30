@@ -19,7 +19,7 @@
         <DataGrid x:Name="CheckGrid" AutoGenerateColumns="False" CanUserAddRows="True"
                   Margin="5" ItemsSource="{Binding Source={StaticResource QualityAbnormallySingleListSource}}"><!--  -->
                 <DataGrid.Columns>
-                <DataGridTextColumn Header="異常單號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="異常單號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" Binding="{Binding}" />
                 <DataGridTextColumn Header="填單日期" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                 <DataGridTextColumn Header="製單人員" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                 <DataGridTextColumn Header="合約編號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />

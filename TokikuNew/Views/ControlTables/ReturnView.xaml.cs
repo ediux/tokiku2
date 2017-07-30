@@ -37,5 +37,15 @@ namespace TokikuNew.Views
         {
 
         }
+
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CheckGrid_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
+        {
+            
+        }
     }
 }

@@ -121,5 +121,10 @@ namespace Tokiku.ViewModels
         /// 訂單金額
         /// </summary>
         public decimal? OrderAmount { get => CopyofPOCOInstance.OrderAmount; set { CopyofPOCOInstance.OrderAmount = value; RaisePropertyChanged("OrderAmount"); } }
+
+        /// <summary>
+        /// 主表
+        /// </summary>
+        public QualityAbnormallyViewModel Master { get => new QualityAbnormallyViewModel(CopyofPOCOInstance.AbnormalQuality); set { RaisePropertyChanged("Master"); } }
     }
 }

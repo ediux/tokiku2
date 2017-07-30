@@ -154,7 +154,39 @@ namespace Tokiku.Controllers
         }
 
 
+        public ExecuteResultEntity<OrderDetails> QuerySingleDetailByReturnDetail(
+            string OrderFormNumber,
+            string BatchNumber,
+            string Code,
+            string FactoryNumber,
+            string MaterialsName)
+        {
+            ExecuteResultEntity<OrderDetails> rtn;
 
+            try
+            {
+                var repo = this.GetRepository<OrderDetails>();
+                var result = (from q in repo.All()
+                              from p in q.RequiredDetails.Required.Projects.Required
+                              from m in p.RequiredDetails
+                              from x in m.OrderDetails
+                              where x.Orders.FormNumber == OrderFormNumber
+                              && x.Orders.BatchNumber == BatchNumber
+                              && m.Code == Code
+                              && m.FactoryNumber == FactoryNumber
+                              && m.Materials.Name == MaterialsName                              
+                              orderby q.RequiredDetails.Required.Projects.Code descending
+                              select x).Distinct();
+
+
+                return ExecuteResultEntity<OrderDetails>.CreateResultEntity(result.FirstOrDefault());
+            }
+            catch (Exception ex)
+            {
+                rtn = ExecuteResultEntity<OrderDetails>.CreateErrorResultEntity(ex);
+                return rtn;
+            }
+        }
         #endregion
     }
 
