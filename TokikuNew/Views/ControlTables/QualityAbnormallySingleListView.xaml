@@ -4,15 +4,20 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1024">
     <UserControl.Resources>
-        <!-- ObjectDataProvider ObjectType="{x:Type vm:QualityAbnormallySingleListViewModelCollection}" x:Key="QualityAbnormallySingleListSource" MethodName="Query" / -->
+        <ObjectDataProvider ObjectType="{x:Type vm:QualityAbnormallyDetailsViewModelCollection}" x:Key="QualityAbnormallySingleListSource" MethodName="QueryAll">
+            <ObjectDataProvider.MethodParameters>
+                <x:Static Member="sys:Guid.Empty"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
     </UserControl.Resources>
     <Grid>
         <DataGrid x:Name="CheckGrid" AutoGenerateColumns="False" CanUserAddRows="True"
-                  Margin="5" ><!-- ItemsSource="{Binding Source={StaticResource QualityAbnormallySingleListSource}}" -->
+                  Margin="5" ItemsSource="{Binding Source={StaticResource QualityAbnormallySingleListSource}}"><!--  -->
                 <DataGrid.Columns>
                 <DataGridTextColumn Header="異常單號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                 <DataGridTextColumn Header="填單日期" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />

@@ -135,6 +135,42 @@ namespace TokikuNew.Views
                         }
                     }
                 }
+                else
+                {
+                    FrameworkElement ui = (FrameworkElement)e.OriginalSource;
+                    if(ui.Parent is TabItem)
+                    {
+                        TabItem currentworking = (TabItem)ui.Parent;
+
+                        if (currentworking != null)
+                        {
+                            if (currentworking.Content != null)
+                            {
+                                UserControl contextObject = (UserControl)currentworking.Content;
+
+                                if (contextObject != null)
+                                {
+                                    
+                                    //if (contextObject.DataContext is BaseViewModelWithPOCOClass<>)
+                                    //{
+                                    //    BaseViewModel vmodel = (BaseViewModel)contextObject.DataContext;
+                                    //    if (vmodel.Status.IsModify && vmodel.Status.IsSaved == false)
+                                    //    {
+                                    //        if (MessageBox.Show("您尚未儲存，要繼續嗎?", "關閉前確認", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                                    //        {
+                                    //            return;
+                                    //        }
+                                    //    }
+                                    //}
+
+                                }
+
+                                InnerWorkspaces.Items.Remove(currentworking);
+
+                            }
+                        }
+                    }
+                }
 
             }
             catch (Exception ex)

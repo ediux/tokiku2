@@ -25,6 +25,8 @@ namespace Tokiku.Entity
         public string Comment { get; set; }
         public Nullable<decimal> LossCalculation { get; set; }
         public Nullable<System.Guid> RefundsManufacturersId { get; set; }
+        public Nullable<decimal> OrderAmount { get; set; }
+        public string Reason { get; set; }
     
         public virtual AbnormalQuality AbnormalQuality { get; set; }
         public virtual Manufacturers Manufacturers { get; set; }

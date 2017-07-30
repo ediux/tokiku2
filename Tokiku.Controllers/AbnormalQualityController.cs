@@ -28,19 +28,23 @@ namespace Tokiku.Controllers
             }
         }
 
-        //public ExecuteResultEntity<AbnormalQuality> QuerySingle(Guid Id)
-        //{
-        //    try
-        //    {
-        //        var repo = this.GetRepository();
-        //        var result = repo.Get(Id);
+        public ExecuteResultEntity<AbnormalQuality> QuerySingle(Guid ProjectId,Guid Id)
+        {
+            try
+            {
+                var repo = this.GetRepository();
+                var result = from q in repo.All()
+                             from s in q.AbnormalQualityDetails
+                             where s.ReceiptDetails.OrderDetails.RequiredDetails.Required.ProjectId == ProjectId
+                             && q.Id == Id
+                             select q;
 
-        //        return ExecuteResultEntity<AbnormalQuality>.CreateResultEntity(result);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return ExecuteResultEntity<AbnormalQuality>.CreateErrorResultEntity(ex);
-        //    }
-        //}
+                return ExecuteResultEntity<AbnormalQuality>.CreateResultEntity(result.SingleOrDefault());
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<AbnormalQuality>.CreateErrorResultEntity(ex);
+            }
+        }
     }
 }

@@ -36,6 +36,8 @@
           <Property Name="Comment" Type="nvarchar" MaxLength="4000" />
           <Property Name="LossCalculation" Type="decimal" Precision="18" Scale="3" />
           <Property Name="RefundsManufacturersId" Type="uniqueidentifier" />
+          <Property Name="OrderAmount" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="Reason" Type="nvarchar" MaxLength="512" />
         </EntityType>
         <EntityType Name="AccessLog">
           <Key>
@@ -6622,6 +6624,8 @@
           <NavigationProperty Name="AbnormalQuality" Relationship="TokikuModel.FK_AbnormalQualityDetails_AbnormalQuality" FromRole="AbnormalQualityDetails" ToRole="AbnormalQuality" />
           <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_AbnormalQualityDetails_Manufacturers" FromRole="AbnormalQualityDetails" ToRole="Manufacturers" />
           <NavigationProperty Name="ReceiptDetails" Relationship="TokikuModel.FK_AbnormalQualityDetails_ReceiptDetails" FromRole="AbnormalQualityDetails" ToRole="ReceiveDetails" />
+          <Property Name="OrderAmount" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="Reason" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_AbnormalQuality_Engineering">
           <End Type="TokikuModel.Engineering" Role="Engineering" Multiplicity="0..1" />
@@ -7906,6 +7910,8 @@
           <EntitySetMapping Name="AbnormalQualityDetails">
             <EntityTypeMapping TypeName="TokikuModel.AbnormalQualityDetails">
               <MappingFragment StoreEntitySet="AbnormalQualityDetails">
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="OrderAmount" ColumnName="OrderAmount" />
                 <ScalarProperty Name="RefundsManufacturersId" ColumnName="RefundsManufacturersId" />
                 <ScalarProperty Name="LossCalculation" ColumnName="LossCalculation" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />

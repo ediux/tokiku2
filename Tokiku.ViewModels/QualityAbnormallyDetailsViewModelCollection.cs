@@ -19,14 +19,34 @@ namespace Tokiku.ViewModels
             _ControllerName = "AbnormalQualityDetails";
         }
 
-        public static QualityAbnormallyDetailsViewModelCollection Query(Guid ProjectId,Guid MasterId)
+        public static QualityAbnormallyDetailsViewModelCollection QueryAll(Guid ProjectId)
         {
             try
             {
                 QualityAbnormallyDetailsViewModelCollection collection = new QualityAbnormallyDetailsViewModelCollection();
 
                 collection = Query<QualityAbnormallyDetailsViewModelCollection, AbnormalQualityDetails>(
-                     collection.SaveModelController, "QueryAll", ProjectId,MasterId);
+                     collection.SaveModelController, "QueryAllByProject", ProjectId);
+
+                return collection;
+            }
+            catch (Exception ex)
+            {
+                QualityAbnormallyDetailsViewModelCollection emptycollection =
+                    new QualityAbnormallyDetailsViewModelCollection();
+                setErrortoModel(emptycollection, ex);
+                return emptycollection;
+            }
+        }
+
+        public static QualityAbnormallyDetailsViewModelCollection Query(Guid MasterId)
+        {
+            try
+            {
+                QualityAbnormallyDetailsViewModelCollection collection = new QualityAbnormallyDetailsViewModelCollection();
+
+                collection = Query<QualityAbnormallyDetailsViewModelCollection, AbnormalQualityDetails>(
+                     collection.SaveModelController, "QueryAll", MasterId);
 
                 return collection;
             }

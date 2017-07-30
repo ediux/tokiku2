@@ -40,6 +40,10 @@ namespace Tokiku.Entity
         public string Comment { get; set; }
         public Nullable<decimal> LossCalculation { get; set; }
         public Nullable<System.Guid> RefundsManufacturersId { get; set; }
+        public Nullable<decimal> OrderAmount { get; set; }
+        
+        [StringLength(512, ErrorMessage="欄位長度不得大於 512 個字元")]
+        public string Reason { get; set; }
     
         public virtual AbnormalQuality AbnormalQuality { get; set; }
         public virtual Manufacturers Manufacturers { get; set; }

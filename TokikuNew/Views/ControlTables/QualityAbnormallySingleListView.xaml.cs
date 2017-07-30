@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tokiku.Entity;
 
 namespace TokikuNew.Views
 {
@@ -24,5 +25,46 @@ namespace TokikuNew.Views
         {
             InitializeComponent();
         }
+
+        #region SelectedProjectId
+        /// <summary>
+        /// 目前已選擇的專案ID
+        /// </summary>
+        public Guid SelectedProjectId
+        {
+            get { return (Guid)GetValue(SelectedProjectIdProperty); }
+            set { SetValue(SelectedProjectIdProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectedProjectId.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedProjectIdProperty =
+            DependencyProperty.Register("SelectedProjectId",
+                typeof(Guid), typeof(QualityAbnormallySingleListView), new PropertyMetadata(Guid.Empty, new PropertyChangedCallback(ProjectIdChange)));
+
+
+        public static void ProjectIdChange(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            try
+            {
+                if (sender is QualityAbnormallySingleListView)
+                {
+                    QualityAbnormallySingleListView currentview = (QualityAbnormallySingleListView)sender;
+
+                    ObjectDataProvider provider = (ObjectDataProvider)currentview.TryFindResource("QualityAbnormallySingleListSource");
+
+                    if (provider != null)
+                    {
+                        provider.MethodParameters[0] = e.NewValue;
+                        provider.Refresh();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+        }
+
+        #endregion
     }
 }
