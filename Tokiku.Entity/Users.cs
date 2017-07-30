@@ -37,10 +37,10 @@ namespace Tokiku.Entity
             this.Required = new HashSet<Required>();
             this.Required1 = new HashSet<Required>();
             this.ShopFlowDetail = new HashSet<ShopFlowDetail>();
-            this.Returns = new HashSet<Returns>();
-            this.Returns1 = new HashSet<Returns>();
-            this.AbnormalQuality = new HashSet<AbnormalQuality>();
-            this.AbnormalQuality1 = new HashSet<AbnormalQuality>();
+            this.Returns_CreateUser = new HashSet<Returns>();
+            this.Returns_MakingUser = new HashSet<Returns>();
+            this.AbnormalQuality_MakingUser = new HashSet<AbnormalQuality>();
+            this.AbnormalQuality_CreateUser = new HashSet<AbnormalQuality>();
         }
     
         public System.Guid UserId { get; set; }
@@ -93,12 +93,12 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShopFlowDetail> ShopFlowDetail { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Returns> Returns { get; set; }
+        public virtual ICollection<Returns> Returns_CreateUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Returns> Returns1 { get; set; }
+        public virtual ICollection<Returns> Returns_MakingUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AbnormalQuality> AbnormalQuality { get; set; }
+        public virtual ICollection<AbnormalQuality> AbnormalQuality_MakingUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AbnormalQuality> AbnormalQuality1 { get; set; }
+        public virtual ICollection<AbnormalQuality> AbnormalQuality_CreateUser { get; set; }
     }
 }

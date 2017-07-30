@@ -64,7 +64,7 @@ namespace Tokiku.Controllers
         /// </summary>
         /// <param name="model">登入畫面的檢視模型物件。</param>
         /// <returns>傳回登入結果。</returns>
-        public ExecuteResultEntity<Users> Login(LoginParameter model)
+        public ExecuteResultEntity<Users> Login(LoginViewModel model)
         {
             try
             {
@@ -149,7 +149,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                return Login(new LoginParameter() { Password = pwd, UserName = UserName });
+                return Login(new LoginViewModel() { Password = pwd, UserName = UserName });
             }
             catch (Exception ex)
             {
@@ -437,7 +437,7 @@ namespace Tokiku.Controllers
                     repo.Delete(findresult);
 
                 if (isDeleteRightNow)
-                {                    
+                {
                     repo.UnitOfWork.Commit();
                 }
 
@@ -516,6 +516,78 @@ namespace Tokiku.Controllers
             catch
             {
                 throw;
+            }
+        }
+
+        public ExecuteResultEntity<ICollection<T>> QueryAll(params object[] Parameters)
+        {
+            try
+            {
+                var repo = GetRepository();
+
+                var mapping = Parameters.OfType<Dictionary<string, object>>().ToList();
+
+                if (mapping.Any())
+                {
+                    var element = mapping.First();
+
+                    ParameterExpression param = Expression.Parameter(typeof(T), "q");
+
+                    Queue<Expression> expQ = new Queue<Expression>();
+
+                    foreach (string key in element.Keys)
+                    {
+                        var prop = typeof(T).GetProperty(key);
+                        if (prop == null)
+                            continue;
+
+                        Expression left = Expression.Property(param, prop);
+                        Expression right = Expression.Constant(element[key]);
+                        Expression filter = Expression.Equal(left, right);
+
+                        if (expQ.Count == 0)
+                            expQ.Enqueue(filter);
+                        else
+                        {
+                            Expression lastexp = expQ.Dequeue();
+                            Expression currexp = Expression.And(lastexp, filter);
+                            expQ.Enqueue(currexp);
+                        }
+                    }
+
+                    Expression pred = Expression.Lambda(expQ.Dequeue(), param);
+
+                    Expression expr = Expression.Call(typeof(Queryable), "Where", new Type[] { typeof(T) }, Expression.Constant(repo), pred);
+
+                    IQueryable<T> query = repo.All().Provider.CreateQuery<T>(expr);
+
+                    return ExecuteResultEntity<ICollection<T>>.CreateResultEntity(
+                        new Collection<T>(query.ToList()));
+                }
+                else
+                {
+                    return ExecuteResultEntity<ICollection<T>>.CreateResultEntity(
+                    new Collection<T>(repo.All().ToList()));
+                }
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<ICollection<T>>.CreateErrorResultEntity(ex);
+            }
+        }
+
+        public ExecuteResultEntity<T> QuerySingle(params object[] Parameters)
+        {
+            try
+            {
+                var repo = this.GetRepository();
+                var result = repo.Get(Parameters);
+
+                return ExecuteResultEntity<T>.CreateResultEntity(result);
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<T>.CreateErrorResultEntity(ex);
             }
         }
     }

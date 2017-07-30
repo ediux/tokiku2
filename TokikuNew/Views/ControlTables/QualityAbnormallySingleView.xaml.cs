@@ -35,22 +35,36 @@ namespace TokikuNew.Views
         {
             try
             {
-                // master = (ShippingMaterialViewModel)((ObjectDataProvider)TryFindResource("ShippingMaterialSource")).Data;
+                var master = (QualityAbnormallyViewModel)((ObjectDataProvider)TryFindResource("QualityAbnormallySource")).Data;
+                var slave = (QualityAbnormallyDetailsViewModelCollection)((ObjectDataProvider)TryFindResource("QualityAbnormallyDetailsSource")).Data;
 
-                //if (master == null)
-                //    return;
+                if (master == null)
+                    return;
 
-                //master.CreateTime = DateTime.Now;
+                master.CreateTime = DateTime.Now;
 
-                //master.SaveModel();
+                if (slave == null)
+                {
+                    foreach (var detailmodel in slave)
+                    {
+                        if (detailmodel.Entity.AbnormalQualityId != master.Entity.Id)
+                        {
+                            detailmodel.Entity.AbnormalQualityId = master.Entity.Id;
+                            detailmodel.Entity.AbnormalQuality = master.Entity;
+                        }
+                    }
+                }
 
-                //if (master.HasError)
-                //{
-                //    MessageBox.Show(string.Join("\n", master.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-                //    master.Errors = new string[] { };
-                //    master.HasError = false;
-                //    return;
-                //}
+
+                slave.SaveModel();
+
+                if (slave.HasError)
+                {
+                    MessageBox.Show(string.Join("\n", slave.Errors.ToArray()), "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+                    master.Errors = new string[] { };
+                    master.HasError = false;
+                    return;
+                }
 
                 //RaiseEvent(new RoutedEventArgs(ClosableTabItem.OnPageClosingEvent, this));
 

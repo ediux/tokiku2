@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tokiku.Controllers
 {
-    public class LoginParameter
+    public class LoginViewModel
     {
         /// <summary>
         /// 登入帳號

@@ -37,8 +37,8 @@ namespace Tokiku.Entity
         public virtual ProjectContract ProjectContract { get; set; }
         public virtual Receive Receipts { get; set; }
         public virtual SupplierTranscationItem SupplierTranscationItem { get; set; }
-        public virtual Users Users { get; set; }
-        public virtual Users Users1 { get; set; }
+        public virtual Users MakingUser { get; set; }
+        public virtual Users CreateUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AbnormalQualityDetails> AbnormalQualityDetails { get; set; }
     }

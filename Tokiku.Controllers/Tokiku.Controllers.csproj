@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbnormalQualityController.cs" />
+    <Compile Include="AbnormalQualityDetailsController.cs" />
     <Compile Include="ControlTables\ObtainMaterialController.cs" />
     <Compile Include="ControlTables\ShippingMaterialDetailsController.cs" />
     <Compile Include="Orders\AluminumExtrusionOrderController.cs" />
@@ -103,17 +104,17 @@
     <Compile Include="ControlTables\RequiredController.cs" />
     <Compile Include="ControlTables\ReturnsController.cs" />
     <Compile Include="ControlTables\ReturnMaterialListController.cs" />
-    <Compile Include="Shared\IBaseController.cs" />
-    <Compile Include="Shared\LoginParameter.cs" />
+    <Compile Include="Base\IBaseController.cs" />
     <Compile Include="Main\MainWindowController.cs" />
     <Compile Include="Finance\PaymentTypesManageController.cs" />
     <Compile Include="Projects\ProjectContractController.cs" />
     <Compile Include="Projects\ProjectManagerViewController.cs" />
-    <Compile Include="Shared\BaseController.cs" />
+    <Compile Include="Base\BaseController.cs" />
     <Compile Include="Contacts\ContactPersonManageController.cs" />
     <Compile Include="Manufacturers\ManufacturersManageController.cs" />
     <Compile Include="Projects\ProjectsController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shared\LoginViewModel.cs" />
     <Compile Include="Shared\RepositoriesStorageHelper.cs" />
     <Compile Include="Shared\StartUpWindowController.cs" />
     <Compile Include="MES\ShopFlowController.cs" />

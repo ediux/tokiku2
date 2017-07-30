@@ -51,9 +51,9 @@ namespace Tokiku.Entity
         public virtual ICollection<Required> Required { get; set; }
         public virtual ICollection<Required> Required1 { get; set; }
         public virtual ICollection<ShopFlowDetail> ShopFlowDetail { get; set; }
-        public virtual ICollection<Returns> Returns { get; set; }
-        public virtual ICollection<Returns> Returns1 { get; set; }
-        public virtual ICollection<AbnormalQuality> AbnormalQuality { get; set; }
-        public virtual ICollection<AbnormalQuality> AbnormalQuality1 { get; set; }
+        public virtual ICollection<Returns> Returns_CreateUser { get; set; }
+        public virtual ICollection<Returns> Returns_MakingUser { get; set; }
+        public virtual ICollection<AbnormalQuality> AbnormalQuality_MakingUser { get; set; }
+        public virtual ICollection<AbnormalQuality> AbnormalQuality_CreateUser { get; set; }
     }
 }

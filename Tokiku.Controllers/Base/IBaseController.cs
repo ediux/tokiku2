@@ -9,7 +9,7 @@ namespace Tokiku.Controllers
     {
         ExecuteResultEntity<Users> GetCurrentLoginUser();
         ExecuteResultEntity<Users> GetUser(string UserName);
-        ExecuteResultEntity<Users> Login(LoginParameter model);
+        ExecuteResultEntity<Users> Login(LoginViewModel model);
         ExecuteResultEntity<Users> Login(string UserName, string pwd);
     }
 
@@ -22,5 +22,7 @@ namespace Tokiku.Controllers
         ExecuteResultEntity<T> Update(T fromModel, bool isLastRecord = true);
         ExecuteResultEntity<T> Delete(T entity, bool isDeleteRightNow = false);
         ExecuteResultEntity<T> CreateOrUpdate(T entity,bool isLastRecord = true);
+        ExecuteResultEntity<ICollection<T>> QueryAll(params object[] Parameters);
+        ExecuteResultEntity<T> QuerySingle(params object[] Parameters);
     }
 }

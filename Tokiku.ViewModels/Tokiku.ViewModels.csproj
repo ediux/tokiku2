@@ -81,6 +81,8 @@
     <Compile Include="Projects\Orders\OrderMiscellaneousViewModel.cs" />
     <Compile Include="Projects\Orders\OrderViewModel.cs" />
     <Compile Include="Projects\Orders\OrderViewModelCollection.cs" />
+    <Compile Include="QualityAbnormallyDetailsViewModel.cs" />
+    <Compile Include="QualityAbnormallyDetailsViewModelCollection.cs" />
     <Compile Include="QualityAbnormallyViewModel.cs" />
     <Compile Include="QualityAbnormallyViewModelCollection.cs" />
     <Compile Include="RequiredDetailViewModel.cs" />

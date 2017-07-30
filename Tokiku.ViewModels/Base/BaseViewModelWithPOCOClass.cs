@@ -65,6 +65,13 @@ namespace Tokiku.ViewModels
         /// </summary>
         public virtual void Initialized(object Parameter)
         {
+
+            if (Id == Guid.Empty)
+            {
+                Id = Guid.NewGuid();
+                _EntityType.GetProperty("Id").SetValue(CopyofPOCOInstance, Id);
+            }
+
             Status.IsNewInstance = true;
             Status.IsModify = false;
             Status.IsSaved = false;
@@ -144,11 +151,7 @@ namespace Tokiku.ViewModels
                 try
                 {
                     Guid _Id = (Guid)_EntityType.GetProperty("Id").GetValue(CopyofPOCOInstance);
-                    if (_Id == Guid.Empty)
-                    {
-                        _Id = Guid.NewGuid();
-                        _EntityType.GetProperty("Id").SetValue(CopyofPOCOInstance, _Id);
-                    }
+                  
                     return _Id;
                 }
                 catch
@@ -477,7 +480,33 @@ namespace Tokiku.ViewModels
                 }
                 else
                 {
-                    throw new Exception(string.Format("Action '{0}' not found.", ActionName));
+                    method = ControllerType.GetMethod(ActionName, new Type[] { typeof(object[]) });
+
+                    if(method != null)
+                    {
+                        ExecuteResultEntity<TResult> result =
+                      (ExecuteResultEntity<TResult>)method.Invoke(ctrl, new object[] { values });
+
+                        if (!result.HasError)
+                        {
+                            viewmodel = (TView)Activator.CreateInstance(typeof(TView),
+                               result.Result);
+
+                            return viewmodel;
+                        }
+                        else
+                        {
+                            viewmodel = Activator.CreateInstance<TView>();
+                            viewmodel.Errors = result.Errors;
+                            viewmodel.HasError = true;
+                            return viewmodel;
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception(string.Format("Action '{0}' not found.", ActionName));
+                    }
+                    
                 }
 
             }
@@ -608,7 +637,7 @@ namespace Tokiku.ViewModels
         /// 查詢單一個體的檢視資料
         /// </summary>
         /// <param name="ManufacturersId"></param>
-        public static TView Query<TView>(params object[] Parameters) where TView : BaseViewModelWithPOCOClass<TPOCO>
+        public TView Query<TView>(params object[] Parameters) where TView : BaseViewModelWithPOCOClass<TPOCO>
         {
             try
             {

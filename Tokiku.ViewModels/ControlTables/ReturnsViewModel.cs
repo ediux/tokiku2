@@ -12,25 +12,76 @@ namespace Tokiku.ViewModels
     {
         public ReturnsViewModelCollection()
         {
+            _ControllerName = "Returns";
         }
 
         public ReturnsViewModelCollection(IEnumerable<ReturnsViewModel> source) : base(source)
         {
+            _ControllerName = "Returns";
         }
 
-        public static ReturnsViewModelCollection Query()
+        //public static ReturnsViewModelCollection Query()
+        //{
+        //    return Query<ReturnsViewModelCollection, Returns>("Returns", "QueryAll");
+        //}
+        public static ReturnsViewModelCollection Query(Guid ProjectId)
         {
-            return Query<ReturnsViewModelCollection, Returns>("Returns", "QueryAll");
-        }
+            try
+            {
+                ReturnsViewModelCollection collection = new ReturnsViewModelCollection();
 
+                collection = Query<ReturnsViewModelCollection, Returns>(
+                     collection.SaveModelController, "QueryAll", ProjectId);
+
+                return collection;
+            }
+            catch (Exception ex)
+            {
+                ReturnsViewModelCollection emptycollection =
+                    new ReturnsViewModelCollection();
+                setErrortoModel(emptycollection, ex);
+                return emptycollection;
+            }
+        }
     }
 
     public class ReturnsViewModel : BaseViewModelWithPOCOClass<Returns>
     {
-        public ReturnsViewModel(Returns entity) : base(entity)
+        public ReturnsViewModel()
         {
+            _SaveModelController = "Returns";
         }
 
+        public ReturnsViewModel(Returns entity) : base(entity)
+        {
+            _SaveModelController = "Returns";
+        }
+
+        #region 查詢單一個體的檢視資料
+        /// <summary>
+        /// 查詢單一個體的檢視資料
+        /// </summary>
+        /// <param name="ManufacturersId"></param>
+        public ReturnsViewModel Query(Guid Id)
+        {
+            try
+            {
+                ReturnsViewModel viewmodel = new ReturnsViewModel();
+
+                viewmodel = QuerySingle<ReturnsViewModel, Returns>(
+                    viewmodel.SaveModelController, "QuerySingle", Id);
+
+                return viewmodel;
+            }
+            catch (Exception ex)
+            {
+                ReturnsViewModel view = new ReturnsViewModel();
+                setErrortoModel(view, ex);
+                return view;
+            }
+
+        }
+        #endregion
 
         // 退料單號
         public string ReturnNumber

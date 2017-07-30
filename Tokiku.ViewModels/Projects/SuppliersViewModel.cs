@@ -15,12 +15,12 @@ namespace Tokiku.ViewModels
     {
         public SuppliersViewModelCollection() : base()
         {
-
+            _ControllerName = "Suppliers";
         }
 
         public SuppliersViewModelCollection(IEnumerable<SuppliersViewModel> source) : base(source)
         {
-
+            _ControllerName = "Suppliers";
         }
 
         public SuppliersViewModelCollection Query(Guid ProjectId)
@@ -84,11 +84,12 @@ namespace Tokiku.ViewModels
 
         public SuppliersViewModel() : base()
         {
-
+            _SaveModelController = "Suppliers";
         }
 
         public SuppliersViewModel(SupplierTranscationItem entity) : base(entity)
         {
+            _SaveModelController = "Suppliers";
             _MaterialCategories = CopyofPOCOInstance?.ManufacturersBussinessItems?.MaterialCategories?.Name;
             _Name = CopyofPOCOInstance?.ManufacturersBussinessItems?.Name;
             _TicketPeriod = CopyofPOCOInstance?.ManufacturersBussinessItems?.TicketPeriod?.Name;

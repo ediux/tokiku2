@@ -12,13 +12,15 @@ namespace Tokiku.ViewModels
     {
         public InventoryListViewModelCollection()
         {
+            _ControllerName = "InventoryList";
         }
 
         public InventoryListViewModelCollection(IEnumerable<InventoryListViewModel> source) : base(source)
         {
+            _ControllerName = "InventoryList";
         }
 
- 
+
         public static InventoryListViewModelCollection Query()
         {
             try

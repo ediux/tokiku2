@@ -74,16 +74,22 @@ namespace Tokiku.ViewModels
         /// </summary>
         public bool HasError { get; set; }
 
+        protected string _ControllerName = string.Empty;
+
         public virtual string SaveModelController
         {
             get
             {
-                ISingleBaseViewModel view = Activator.CreateInstance<TView>();
+                Type t = GetType();
 
-                if (view != null)
-                    return view.SaveModelController;
-                else
-                    return string.Empty;
+                if (string.IsNullOrEmpty(_ControllerName))
+                {
+                    if (t != null)
+                        _ControllerName = t.Name.Replace("ViewModelCollection", "");
+                    
+                }
+
+                return _ControllerName;
             }
         }
 

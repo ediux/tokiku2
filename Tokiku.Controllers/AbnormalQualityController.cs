@@ -27,5 +27,20 @@ namespace Tokiku.Controllers
                 return ExecuteResultEntity<ICollection<AbnormalQuality>>.CreateErrorResultEntity(ex);
             }
         }
+
+        //public ExecuteResultEntity<AbnormalQuality> QuerySingle(Guid Id)
+        //{
+        //    try
+        //    {
+        //        var repo = this.GetRepository();
+        //        var result = repo.Get(Id);
+
+        //        return ExecuteResultEntity<AbnormalQuality>.CreateResultEntity(result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return ExecuteResultEntity<AbnormalQuality>.CreateErrorResultEntity(ex);
+        //    }
+        //}
     }
 }

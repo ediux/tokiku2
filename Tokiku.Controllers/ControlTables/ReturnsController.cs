@@ -8,12 +8,12 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class ReturnsController : BaseController
+    public class ReturnsController : BaseController<Returns>
     {
         public ExecuteResultEntity<ICollection<Returns>> QueryAll()
         {
             try {
-                var repo = RepositoryHelper.GetReturnsRepository();
+                var repo = this.GetRepository();
                 return ExecuteResultEntity<ICollection<Returns>>.CreateResultEntity(
                     new Collection<Returns>(repo.All().ToList()));
             }catch (Exception ex) {

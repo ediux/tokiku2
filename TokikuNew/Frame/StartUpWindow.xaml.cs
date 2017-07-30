@@ -127,7 +127,7 @@ namespace TokikuNew.Frame
             ObjectDataProvider provider = (ObjectDataProvider)TryFindResource("LoginSource");
             if (provider != null)
             {
-                ((LoginViewModel)provider.Data).Password = pwdBox.Password;
+                ((Tokiku.ViewModels.LoginViewModel)provider.Data).Password = pwdBox.Password;
             }
         }
     }
