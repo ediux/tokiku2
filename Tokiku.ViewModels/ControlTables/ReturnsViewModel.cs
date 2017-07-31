@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,6 +56,25 @@ namespace Tokiku.ViewModels
         public ReturnsViewModel(Returns entity) : base(entity)
         {
             _SaveModelController = "Returns";
+
+            this.Details.CollectionChanged += Details_CollectionChanged;
+        }
+
+        private void Details_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+                    ReturnRecords = Details.Count;
+                    ReturnQuantitySubtotal = Details.Sum(s => s.ReturnQuantity);
+                    ReturnWeightSubtotal = Details.Sum(s => s.Weight);
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
+                    ReturnRecords = Details.Count;
+                    ReturnQuantitySubtotal = Details.Sum(s => s.ReturnQuantity);
+                    ReturnWeightSubtotal = Details.Sum(s => s.Weight);
+                    break;
+            }
         }
 
         #region 查詢單一個體的檢視資料
@@ -132,6 +152,33 @@ namespace Tokiku.ViewModels
         {
             get { return CopyofPOCOInstance.Comment; }
             set { CopyofPOCOInstance.Comment = value; RaisePropertyChanged("Comment"); }
+        }
+
+        private int _ReturnRecords = 0;
+        /// <summary>
+        /// 退貨筆數
+        /// </summary>
+        public int ReturnRecords { get => _ReturnRecords; set { _ReturnRecords = value; RaisePropertyChanged("ReturnRecords"); } }
+
+        private int _ReturnQuantitySubtotal;
+        /// <summary>
+        /// 合計
+        /// </summary>
+        public int ReturnQuantitySubtotal { get => _ReturnQuantitySubtotal; set { _ReturnQuantitySubtotal = value; RaisePropertyChanged("ReturnQuantitySubtotal"); } }
+
+        private double _ReturnWeightSubtotal = 0;
+        public double ReturnWeightSubtotal { get => _ReturnWeightSubtotal; set { _ReturnWeightSubtotal = value; RaisePropertyChanged("ReturnWeightSubtotal"); } }
+        /// <summary>
+        /// 退貨單細項
+        /// </summary>
+        public ReturnsDetailsViewModelCollection Details
+        {
+            get => new ReturnsDetailsViewModelCollection(CopyofPOCOInstance.ReturnDetails.Select(s => new ReturnsDetailsViewModel(s)));
+            set
+            {
+                CopyofPOCOInstance.ReturnDetails = new Collection<ReturnDetails>(value.Select(s => s.Entity).ToList());
+                RaisePropertyChanged("Details");
+            }
         }
 
     }

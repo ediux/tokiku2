@@ -89,6 +89,7 @@
     <Compile Include="RequiredDetailViewModelCollection.cs" />
     <Compile Include="Commands\SaveModelCommand.cs" />
     <Compile Include="ReturnsDetailsViewModel.cs" />
+    <Compile Include="ReturnsDetailsViewModelCollection.cs" />
     <Compile Include="Shared\DocumentLifeCircle.cs" />
     <Compile Include="ControlTables\InventoryListViewModel.cs" />
     <Compile Include="ControlTables\InventoryViewModel.cs" />
