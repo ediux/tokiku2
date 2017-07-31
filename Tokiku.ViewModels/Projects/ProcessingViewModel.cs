@@ -12,16 +12,16 @@ namespace Tokiku.ViewModels
     {
         public ProcessingViewModelCollection()
         {
-            HasError = false;
         }
 
         public ProcessingViewModelCollection(IEnumerable<ProcessingViewModel> source) : base(source)
         {
-
         }
 
         public static ProcessingViewModelCollection Query()
         {
+            return Query<ProcessingViewModelCollection, ProcessingAtlas>("Processing", "QueryAll");
+            /*
             ProcessingController ctrl = new ProcessingController();
             ExecuteResultEntity<ICollection<ProcessingAtlas>> ere = ctrl.QuerAll();
 
@@ -30,7 +30,7 @@ namespace Tokiku.ViewModels
                 return new ProcessingViewModelCollection(ere.Result.Select(s => new ProcessingViewModel(s)).ToList());
             }
 
-            return new ProcessingViewModelCollection();
+            return new ProcessingViewModelCollection(); // */
         }
 
     }
@@ -39,7 +39,6 @@ namespace Tokiku.ViewModels
     {
         public ProcessingViewModel(ProcessingAtlas entity) : base(entity)
         {
-
         }
 
         // 圖集
