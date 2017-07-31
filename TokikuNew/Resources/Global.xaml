@@ -408,7 +408,7 @@
             <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
         </vm:RoutedViewResult.RoutedValues>
     </vm:RoutedViewResult>
-    <!-- 收料單,TokikuNew.QualityAbnormallySingleView -->
+    <!-- 收料單,TokikuNew.RecvMaterialView -->
     <vm:RoutedViewResult x:Key="OpenRecvMaterialView" AttachedTargetElementName="InnerWorkspaces"
                          Name="OpenRecvMaterialView"
                          DisplayText="收料單" ViewType="{x:Type view:RecvMaterialView}">
@@ -422,7 +422,7 @@
             <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
         </vm:RoutedViewResult.RoutedValues>
     </vm:RoutedViewResult>
-    <!-- 收料單列表,TokikuNew.QualityAbnormallySingleView -->
+    <!-- 收料單列表,TokikuNew.RecvMaterialListView -->
     <vm:RoutedViewResult x:Key="OpenRecvMaterialListView" AttachedTargetElementName="InnerWorkspaces"
                          Name="OpenRecvMaterialListView"
                          DisplayText="收料單列表" ViewType="{x:Type view:RecvMaterialListView}">
@@ -437,7 +437,7 @@
             <sys:String x:Key="ResourceKey">InventoryListSource</sys:String>
         </vm:RoutedViewResult.RoutedValues>
     </vm:RoutedViewResult>
-    <!-- 出貨單,TokikuNew.QualityAbnormallySingleView -->
+    <!-- 出貨單,TokikuNew.ShippingMaterialViewUC -->
     <vm:RoutedViewResult x:Key="OpenShippingView" AttachedTargetElementName="InnerWorkspaces"
                          Name="OpenShippingView"
                          DisplayText="出貨單" ViewType="{x:Type view:ShippingMaterialViewUC}" >
@@ -452,7 +452,7 @@
             <sys:String x:Key="ResourceKey">InventoryListSource</sys:String>
         </vm:RoutedViewResult.RoutedValues>
     </vm:RoutedViewResult>
-    <!-- 出貨單列表,TokikuNew.QualityAbnormallySingleView -->
+    <!-- 出貨單列表,TokikuNew.ShippingMaterialListViewUC -->
     <vm:RoutedViewResult x:Key="OpenShippingListView" AttachedTargetElementName="InnerWorkspaces"
                          Name="OpenShippingListView"
                          DisplayText="出貨單列表" ViewType="{x:Type view:ShippingMaterialListViewUC}">
@@ -496,10 +496,10 @@
             <sys:String x:Key="ResourceKey">InventoryListSource</sys:String>
         </vm:RoutedViewResult.RoutedValues>
     </vm:RoutedViewResult>
-    <!-- 領料單,TokikuNew.Views.ShippingMaterialViewUC -->
-    <vm:RoutedViewResult x:Key="OpenShippingMaterialView" AttachedTargetElementName="InnerWorkspaces"
-                         Name="OpenShippingMaterialView"
-                         DisplayText="領料單" ViewType="{x:Type view:ShippingMaterialViewUC}">
+    <!-- 領料單,TokikuNew.Views.ObtainMaterialView -->
+    <vm:RoutedViewResult x:Key="OpenObtainMaterialView" AttachedTargetElementName="InnerWorkspaces"
+                         Name="OpenObtainMaterialView"
+                         DisplayText="領料單" ViewType="{x:Type view:ObtainMaterialView}">
         <vm:RoutedViewResult.RoutingBinding>
             <sys:String x:Key="SelectedProjectId">ProjectId</sys:String>
         </vm:RoutedViewResult.RoutingBinding>
@@ -511,10 +511,10 @@
             
         </vm:RoutedViewResult.RoutedValues>
     </vm:RoutedViewResult>
-    <!-- 領料單料單列表,TokikuNew.Views.ShippingMaterialListViewUC -->
-    <vm:RoutedViewResult x:Key="OpenShippingMaterialListView" AttachedTargetElementName="InnerWorkspaces"
-                         Name="OpenShippingMaterialListView"
-                         DisplayText="領料單料單列表" ViewType="{x:Type view:ShippingMaterialListViewUC}">
+    <!-- 領料單料單列表,TokikuNew.Views.ObtainMaterialListView -->
+    <vm:RoutedViewResult x:Key="OpenObtainMaterialListView" AttachedTargetElementName="InnerWorkspaces"
+                         Name="OpenObtainMaterialListView"
+                         DisplayText="領料單料單列表" ViewType="{x:Type view:ObtainMaterialListView}">
         <vm:RoutedViewResult.RoutingBinding>
             <sys:String x:Key="SelectedProjectId">ProjectId</sys:String>
         </vm:RoutedViewResult.RoutingBinding>

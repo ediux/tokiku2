@@ -5,8 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:c="clr-namespace:TokikuNew.Controls"
              xmlns:local="clr-namespace:TokikuNew.Views"
+             xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1300">
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="ObtainMaterialSource" ObjectType="{x:Type vm:ObtainMaterialViewModelCollection}" MethodName="Query"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27" />
@@ -150,18 +154,18 @@
             </Expander>
         </Canvas>
 
-        <Grid x:Name="CheckGrid" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="570" Margin="10,0,0,0" VerticalAlignment="Top" Width="1326">
-            <DataGrid>
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="570" Margin="10,0,0,0" VerticalAlignment="Top" Width="1326">
+            <DataGrid x:Name="CheckGrid" ItemsSource="{Binding Source={StaticResource ObtainMaterialSource}}" AutoGenerateColumns="False" Margin="5">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="項次" Binding="{Binding }" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="東菊編號" Binding="{Binding }" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="廠商編號" Binding="{Binding }" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="項次" Binding="{Binding RowIndex}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="東菊編號" Binding="{Binding RequiredDetailsCode}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="廠商編號" Binding="{Binding FactoryNumber}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                     <DataGridTextColumn Header="品名/規格" Binding="{Binding }" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="單位重(kg/m)" Binding="{Binding }" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="訂購長度(mm)" Binding="{Binding }" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="領料數量" Binding="{Binding }" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="庫存結餘數量" Binding="{Binding }" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                    <DataGridTextColumn Header="備註" Binding="{Binding }" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="單位重(kg/m)" Binding="{Binding UnitWeight}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="訂購長度(mm)" Binding="{Binding OrderLength}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="領料數量" Binding="{Binding ShippingQuantity}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="庫存結餘數量" Binding="{Binding InventoryStatus_QuantitySubtotal}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="備註" Binding="{Binding Comment}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

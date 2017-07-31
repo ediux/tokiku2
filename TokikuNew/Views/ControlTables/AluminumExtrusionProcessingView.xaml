@@ -10,6 +10,8 @@
              Background="{DynamicResource ControlBackgroundBrush}"
              d:DesignHeight="300" d:DesignWidth="1366" Loaded="AluminumExtrusionProcessingView_Loaded">
     <UserControl.Resources>
+        <ObjectDataProvider x:Key="ProcessingSource" ObjectType="{x:Type vm:ProcessingViewModelCollection}" MethodName="Query"/>
+        
         <vm:RoutedViewResult x:Key="OpenOrderView" AttachedTargetElementName="InnerWorkspaces"
                                   DisplayText="訂製單"
                                   Name="AluminumExtrusionOrderSheetView"
@@ -67,12 +69,12 @@
                     vm:CommandRoutingManager.RoutingName="InvoiceViewListView" />
             <Button Content="領料單" x:Name="btn9" Margin="5,0,0,0"
                     vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}"
-                    vm:CommandRoutingManager.CommandParameter="{StaticResource OpenShippingMaterialView}"
-                    vm:CommandRoutingManager.RoutingName="ShippingMaterialViewUC" />
+                    vm:CommandRoutingManager.CommandParameter="{StaticResource OpenObtainMaterialView}"
+                    vm:CommandRoutingManager.RoutingName="ObtainMaterialView" />
             <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="領料單列表" x:Name="btn10" Margin="0,0,5,0"
                     vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}"
-                    vm:CommandRoutingManager.CommandParameter="{StaticResource OpenShippingMaterialListView}"
-                    vm:CommandRoutingManager.RoutingName="ShippingMaterialListViewUC" />
+                    vm:CommandRoutingManager.CommandParameter="{StaticResource OpenObtainMaterialListView}"
+                    vm:CommandRoutingManager.RoutingName="ObtainMaterialListView" />
             <Button Content="品質異常單" x:Name="btn7" Margin="5,0,0,0"
                     vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}"
                     vm:CommandRoutingManager.CommandParameter="{StaticResource OpenQualityAbnormallySingleView}"
@@ -91,7 +93,7 @@
                     vm:CommandRoutingManager.RoutingName="ReturnMaterialListViewUC" />
         </StackPanel>
         <GroupBox Header="鋁擠型加工管控表" Grid.Row="1" Margin="2" Style="{DynamicResource GroupBox_DocumentEditor}">
-            <DataGrid x:Name="CheckGrid">
+            <DataGrid x:Name="CheckGrid" ItemsSource="{Binding Source={StaticResource ProcessingSource}}" AutoGenerateColumns="False" Margin="5">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="加工編號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                     <DataGridTextColumn Header="擠型編號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />

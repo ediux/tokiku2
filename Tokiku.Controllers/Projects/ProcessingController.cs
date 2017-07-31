@@ -10,17 +10,14 @@ namespace Tokiku.Controllers
 {
     public class ProcessingController : BaseController
     {
-        private ExecuteResultEntity<ICollection<ProcessingAtlas>> rtn;
-
-        public ExecuteResultEntity<ICollection<ProcessingAtlas>> QuerAll()
+        public ExecuteResultEntity<ICollection<ProcessingAtlas>> QueryAll()
         {
             try {
                 var repo = RepositoryHelper.GetProcessingAtlasRepository();
                 return ExecuteResultEntity<ICollection<ProcessingAtlas>>.CreateResultEntity(
                     new Collection<ProcessingAtlas>(repo.All().ToList()));
             }catch (Exception ex) {
-                rtn = ExecuteResultEntity<ICollection<ProcessingAtlas>>.CreateErrorResultEntity(ex);
-                return rtn;
+                return ExecuteResultEntity<ICollection<ProcessingAtlas>>.CreateErrorResultEntity(ex);
             }
         }
 

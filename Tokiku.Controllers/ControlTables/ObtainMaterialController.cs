@@ -10,14 +10,14 @@ namespace Tokiku.Controllers
 {
     public class ObtainMaterialController : BaseController
     {
-        public ExecuteResultEntity<ICollection<PickList>> QueryAll()
+        public ExecuteResultEntity<ICollection<PickListDetails>> QueryAll()
         {
             try {
-                var repo = RepositoryHelper.GetPickListRepository();
-                return ExecuteResultEntity<ICollection<PickList>>.CreateResultEntity(
-                    new Collection<PickList>(repo.All().ToList()));
+                var repo = RepositoryHelper.GetPickListDetailsRepository();
+                return ExecuteResultEntity<ICollection<PickListDetails>>.CreateResultEntity(
+                    new Collection<PickListDetails>(repo.All().ToList()));
             }catch (Exception ex) {
-                return ExecuteResultEntity<ICollection<PickList>>.CreateErrorResultEntity(ex);
+                return ExecuteResultEntity<ICollection<PickListDetails>>.CreateErrorResultEntity(ex);
             }
         }
     }
