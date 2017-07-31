@@ -12,12 +12,12 @@ namespace Tokiku.ViewModels
     {
         public RecvMaterialViewModelCollection()
         {
-            HasError = false;
+            _ControllerName = "RecvMaterial";
         }
 
         public RecvMaterialViewModelCollection(IEnumerable<RecvMaterialViewModel> source) : base(source)
         {
-
+            _ControllerName = "RecvMaterial";
         }
 
         public static RecvMaterialViewModelCollection Query(Guid ProjectId)

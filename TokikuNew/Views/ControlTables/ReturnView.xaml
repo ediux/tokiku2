@@ -46,18 +46,18 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="*" Margin="2,2,0,2" VerticalAlignment="Center" Foreground="#FF0000" />
                                 <TextBlock Grid.Column="1" Text="退料單號" VerticalAlignment="Center" />
-                                <TextBox Grid.Column="2" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding ReturnNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox Grid.Column="2" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding ReturnNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Source={StaticResource ReturnsSource}}" />
                                 <TextBlock Grid.Column="3" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
                                 <TextBlock Grid.Column="4" Text="來料廠商" VerticalAlignment="Center" />
-                                <TextBox Grid.Column="5" Width="88" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding IncomingManufacturerCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <TextBox Grid.Column="6" Width="165" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding IncomingManufacturerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox Grid.Column="5" Width="88" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding IncomingManufacturerCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Source={StaticResource ReturnsSource}}" />
+                                <TextBox Grid.Column="6" Width="165" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding IncomingManufacturerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Source={StaticResource ReturnsSource}}" />
                                 <TextBlock Grid.Column="7" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
                                 <TextBlock Grid.Column="8" Text="來料單號" VerticalAlignment="Center" />
-                                <TextBox Grid.Column="9" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding IncomingNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox Grid.Column="9" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding IncomingNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Source={StaticResource ReturnsSource}}" />
                                 <TextBlock Grid.Column="10" Text="收料單號" VerticalAlignment="Center" />
-                                <TextBox Grid.Column="11" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding ReceiptNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox Grid.Column="11" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding ReceiptNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Source={StaticResource ReturnsSource}}" />
                                 <TextBlock Grid.Column="12" Text="輸入人員" VerticalAlignment="Center" />
-                                <TextBox Grid.Column="13" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding CreateUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox Grid.Column="13" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding CreateUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Source={StaticResource ReturnsSource}}" />
                             </Grid>
                             <Grid Width="1310">
                                 <Grid.ColumnDefinitions>
@@ -75,17 +75,17 @@
                                     <ColumnDefinition Width="auto" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Margin="2,2,0,2" Text="建檔日期" VerticalAlignment="Center" />
-                                <DatePicker Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="2" Text="{Binding CreateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <DatePicker Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="2" Text="{Binding CreateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Source={StaticResource ReturnsSource}}" />
                                 <TextBlock Grid.Column="2" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
                                 <TextBlock Grid.Column="3" Text="製單人員" VerticalAlignment="Center" />
-                                <TextBox Grid.Column="4" Width="100" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding MakingUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox Grid.Column="4" Width="100" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding MakingUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Source={StaticResource ReturnsSource}}" />
                                 <TextBlock Grid.Column="5" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
                                 <TextBlock Grid.Column="6" Text="製單日期" VerticalAlignment="Center" />
-                                <DatePicker Grid.Column="7" Width="200" VerticalAlignment="Center" Margin="2" Text="{Binding MakingTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <DatePicker Grid.Column="7" Width="200" VerticalAlignment="Center" Margin="2" Text="{Binding MakingTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Source={StaticResource ReturnsSource}}" />
                                 <TextBlock Grid.Column="8" Text="連絡電話" VerticalAlignment="Center" />
                                 <TextBox Grid.Column="9" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" />
                                 <TextBlock Grid.Column="10" Text="訂單編號" VerticalAlignment="Center" />
-                                <TextBox Grid.Column="11" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding FormNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox Grid.Column="11" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding FormNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Source={StaticResource ReturnsSource}}" />
                             </Grid>
                             <Grid Width="1310">
                                 <Grid.ColumnDefinitions>
@@ -102,7 +102,7 @@
                                 <TextBox Grid.Column="2" Width="110" MaxLength="20" VerticalAlignment="Center" Margin="2" />
                                 <TextBox Grid.Column="3" Width="220" MaxLength="20" VerticalAlignment="Center" Margin="2" />
                                 <TextBlock Grid.Column="4" Text="備註" VerticalAlignment="Center" Foreground="#FF036808" />
-                                <TextBox Grid.Column="5" Width="500" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox Grid.Column="5" Width="500" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Source={StaticResource ReturnsSource}}" />
                                 <Button Content="儲存" Grid.Column="6" FontSize="13" Margin="5,0" x:Name="BtnSave" Click="BtnSave_Click" />
                             </Grid>
                         </WrapPanel>

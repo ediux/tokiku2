@@ -56,5 +56,21 @@ namespace Tokiku.Controllers
                 return ExecuteResultEntity<Users>.CreateErrorResultEntity(ex);
             }
         }
+
+        public static ExecuteResultEntity<Users> GetUserByUserName(string UserName)
+        {
+            try
+            {
+                var repo = RepositoryHelper.GetUsersRepository();
+                var result = (from q in repo.All()
+                              where q.UserName == UserName
+                              select q).SingleOrDefault();
+                return ExecuteResultEntity<Users>.CreateResultEntity(result);
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity<Users>.CreateErrorResultEntity(ex);
+            }
+        }
     }
 }

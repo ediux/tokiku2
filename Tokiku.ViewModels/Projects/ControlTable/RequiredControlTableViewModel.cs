@@ -253,7 +253,7 @@ namespace Tokiku.ViewModels
         #region 訂單總重量  (訂單+備品)    (單位:kg)
         public decimal? TotalWeightofOrder
         {
-            get { return 0; }
+            get { return CopyofPOCOInstance.o; }
             set {  RaisePropertyChanged("TotalWeightofOrder"); }
         }
         #endregion

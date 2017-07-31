@@ -11,10 +11,12 @@ namespace Tokiku.ViewModels
     {
         public ObtainMaterialViewModelCollection()
         {
+            _ControllerName = "ObtainMaterial";
         }
 
         public ObtainMaterialViewModelCollection(IEnumerable<ObtainMaterialViewModel> source) : base(source)
         {
+            _ControllerName = "ObtainMaterial";
         }
 
         public static ObtainMaterialViewModelCollection Query()
@@ -25,8 +27,13 @@ namespace Tokiku.ViewModels
 
     public class ObtainMaterialViewModel : BaseViewModelWithPOCOClass<PickListDetails>
     {
+        public ObtainMaterialViewModel()
+        {
+            _SaveModelController = "ObtainMaterial";
+        }
         public ObtainMaterialViewModel(PickListDetails entity) : base(entity)
         {
+            _SaveModelController = "ObtainMaterial";
         }
 
         // 東菊編號

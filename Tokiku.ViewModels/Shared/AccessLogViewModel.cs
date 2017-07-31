@@ -13,6 +13,19 @@ namespace Tokiku.ViewModels
 {
     public class AccessLogViewModel : BaseViewModelWithPOCOClass<AccessLog>
     {
+        public AccessLogViewModel()
+        {
+            _SaveModelController = "AccessLog";
+        }
+
+        public AccessLogViewModel(AccessLog entity) : base(entity)
+        {
+            _SaveModelController = "AccessLog";
+        }
+
+        /// <summary>
+        /// 紀錄ID
+        /// </summary>
         [Key]
         public new long Id
         {
@@ -20,12 +33,26 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.Id = value; RaisePropertyChanged("Id"); }
         }
 
+        /// <summary>
+        /// 關聯的資料表
+        /// </summary>
         public string DataTableName
         {
             get { return CopyofPOCOInstance.DataTableName; }
             set { CopyofPOCOInstance.DataTableName = value; RaisePropertyChanged("DataTableName"); }
         }
 
+        /// <summary>
+        /// 異動資料識別碼
+        /// </summary>
+        public string DataId
+        {
+            get => CopyofPOCOInstance.DataId; set
+            {
+                CopyofPOCOInstance.DataId = value;
+                RaisePropertyChanged("DataId");
+            }
+        }
 
         /// <summary>
         /// 異動人員帳號
@@ -34,22 +61,24 @@ namespace Tokiku.ViewModels
         {
             get
             {
-                var executeresult = SystemController.GetUserById(CopyofPOCOInstance.UserId);
+                //var executeresult = SystemController.GetUserById(CopyofPOCOInstance.UserId);
+                var executeresult = ExecuteAction<Users>("System", "GetUserById", CopyofPOCOInstance.UserId);
 
-                if (!executeresult.HasError)
+                if (executeresult != null)
                 {
-                    return executeresult.Result.UserName;
+                    return executeresult.UserName;
                 }
 
                 return string.Empty;
             }
             set
             {
-                SystemController sysCtr = new SystemController();
-                var executeresult = sysCtr.GetUser(value);
-                if (!executeresult.HasError)
+                //SystemController sysCtr = new SystemController();
+                var executeresult = ExecuteAction<Users>("System", "GetUserByUserName", value);
+
+                if (executeresult != null)
                 {
-                    CopyofPOCOInstance.UserId = executeresult.Result.UserId;
+                    CopyofPOCOInstance.UserId = executeresult.UserId;
                 }
             }
         }
@@ -138,24 +167,6 @@ namespace Tokiku.ViewModels
             get { return CopyofPOCOInstance.Reason; }
             set { CopyofPOCOInstance.Reason = value; RaisePropertyChanged("Description"); }
         }
-
-        //public override void SetModel(dynamic entity)
-        //{
-        //    try
-        //    {
-        //        if (entity is AccessLog)
-        //        {
-        //            CopyofPOCOInstance = (AccessLog)entity;
-        //            BindingFromModel(CopyofPOCOInstance);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        setErrortoModel(this, ex);
-        //        throw;
-        //    }
-        //}
-
 
     }
 }

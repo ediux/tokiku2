@@ -31,28 +31,36 @@ namespace TokikuNew.Views
         /// <summary>
         /// 目前處理的合約
         /// </summary>
-        public ProjectContractViewModel CurrentProjectContract
+        public Guid SelectedProjectId
         {
-            get { return (ProjectContractViewModel)GetValue(CurrentProjectContractProperty); }
-            set { SetValue(CurrentProjectContractProperty, value); }
+            get { return (Guid)GetValue(SelectedProjectIdProperty); }
+            set { SetValue(SelectedProjectIdProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for CurrentProjectContract.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CurrentProjectContractProperty =
-            DependencyProperty.Register("CurrentProjectContract", typeof(ProjectContractViewModel), typeof(ConstructionAtlasView), new PropertyMetadata(default(ProjectContractViewModel)));
+        public static readonly DependencyProperty SelectedProjectIdProperty =
+            DependencyProperty.Register("SelectedProjectId", typeof(Guid), typeof(ConstructionAtlasView),
+                new PropertyMetadata(Guid.Empty, new PropertyChangedCallback(ProjectIdChange)));
 
-
-
-        public UserViewModel LoginedUser
+        public static void ProjectIdChange(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            get { return (UserViewModel)GetValue(LoginedUserProperty); }
-            set { SetValue(LoginedUserProperty, value); }
+            try
+            {
+                if (sender is ConstructionAtlasView)
+                {
+
+                    ObjectDataProvider source = (ObjectDataProvider)((ConstructionAtlasView)sender).TryFindResource("ConstructionAtlasSource");
+
+                    source.MethodParameters[0] = e.NewValue;
+                    source.Refresh();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
         }
-
-        // Using a DependencyProperty as the backing store for LoginedUser.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty LoginedUserProperty =
-            DependencyProperty.Register("LoginedUser", typeof(UserViewModel), typeof(ConstructionAtlasView), new PropertyMetadata(default(UserViewModel)));
-
 
         public DocumentLifeCircle Mode
         {
@@ -70,29 +78,29 @@ namespace TokikuNew.Views
             try
             {
                 ConstructionAtlasEditorDialog dialog = new ConstructionAtlasEditorDialog();
+
                 var dmodel = new ConstructionAtlasViewModel();
+
                 dmodel.Id = Guid.NewGuid();
                 dmodel.SubmissionDate = dmodel.CreateTime = DateTime.Now;
                 dmodel.Edition = 1;
-                if (CurrentProjectContract != null)
-                {
-                    dmodel.ProjectContractId = CurrentProjectContract.Id;
-                }
+                dmodel.ProjectId = SelectedProjectId;
+                dmodel.LastUpdateDate = dmodel.CreateTime;
+
+
                 dialog.DataContext = dmodel;
+
                 var result = dialog.ShowDialog();
                 if (result.HasValue && result.Value)
                 {
                     ConstructionAtlasViewModel model = (ConstructionAtlasViewModel)dialog.DataContext;
-
-                    if (LoginedUser != null)
-                        model.CreateUserId = LoginedUser.UserId;
 
                     ObjectDataProvider provider = (ObjectDataProvider)TryFindResource("ConstructionAtlasSource");
 
                     if (provider != null)
                     {
                         ((ConstructionAtlasViewModelCollection)provider.Data).Add(model);
-                        ((ConstructionAtlasViewModelCollection)provider.Data).SaveModel();
+                        provider.Refresh();
                     }
 
                 }
@@ -127,7 +135,7 @@ namespace TokikuNew.Views
                             collection.Remove(RemoveStack.Pop());
                         }
 
-                        collection.SaveModel();
+                        provider.Refresh();
                     }
 
                 }
@@ -144,17 +152,22 @@ namespace TokikuNew.Views
             {
                 ConstructionAtlasEditorDialog dialog = new ConstructionAtlasEditorDialog();
                 var dmodel = (ConstructionAtlasViewModel)AltasGrid.SelectedItem;
-                if (CurrentProjectContract != null)
+
+                if (dmodel.ProjectId == Guid.Empty)
                 {
-                    dmodel.ProjectContractId = CurrentProjectContract.Id;
+                    dmodel.ProjectId = SelectedProjectId;
                 }
+
                 dialog.DataContext = dmodel;
                 var result = dialog.ShowDialog();
                 if (result.HasValue && result.Value)
                 {
-                    UpdateLayout();
                     ConstructionAtlasViewModelCollection sourcecollection = (ConstructionAtlasViewModelCollection)AltasGrid.ItemsSource;
-                    sourcecollection.SaveModel();
+                    int i= sourcecollection.IndexOf((ConstructionAtlasViewModel)dialog.DataContext);
+                    sourcecollection[i] = (ConstructionAtlasViewModel)dialog.DataContext;
+                    UpdateLayout();
+                    
+                    //sourcecollection.SaveModel();
                 }
             }
             catch (Exception ex)

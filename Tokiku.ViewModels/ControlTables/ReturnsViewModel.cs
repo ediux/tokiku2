@@ -112,19 +112,19 @@ namespace Tokiku.ViewModels
         // 來料廠商代碼
         public string IncomingManufacturerCode
         {
-            get { return CopyofPOCOInstance.Manufacturers.Code; }
+            get { return CopyofPOCOInstance.Manufacturers?.Code; }
             set { CopyofPOCOInstance.Manufacturers.Code = value; RaisePropertyChanged("IncomingManufacturerCode"); }
         }
         // 來料廠商
         public string IncomingManufacturerName
         {
-            get { return CopyofPOCOInstance.Manufacturers.Name; }
+            get { return CopyofPOCOInstance.Manufacturers?.Name; }
             set { CopyofPOCOInstance.Manufacturers.Name = value; RaisePropertyChanged("IncomingManufacturerName"); }
         }
         // 來料單號
         public string IncomingNumber
         {
-            get { return CopyofPOCOInstance.Orders.FormNumber; }
+            get { return CopyofPOCOInstance.Orders?.FormNumber; }
             set {
                 CopyofPOCOInstance.IncomingNumber = value;
 
@@ -150,7 +150,7 @@ namespace Tokiku.ViewModels
         // 製單人員
         public string MakingUser
         {
-            get { return CopyofPOCOInstance.MakingUser.UserName; }
+            get { return CopyofPOCOInstance.MakingUser?.UserName; }
             set { CopyofPOCOInstance.MakingUser.UserName = value; RaisePropertyChanged("MakingUser"); }
         }
         // 製單日期

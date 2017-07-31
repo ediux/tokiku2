@@ -244,7 +244,9 @@
                 </Grid>
             </GroupBox>
             <GroupBox Header="相關聯絡人" Grid.Row="1" Margin="2">
-                <local:ContactPersonManageView IsClient="False" SelectedManufacturer="{Binding Source={StaticResource ManufaurtureViewSource}}"  Mode="{Binding Path=Mode, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DefaultContactChanged="ContactPersonManageView_DefaultContactChanged" />
+                <local:ContactPersonManageView IsClient="False" 
+                                               SelectedManufacturerId="{Binding Path=SelectedManufacturerId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=userControl}"  Mode="{Binding Path=Mode, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                               DefaultContactChanged="ContactPersonManageView_DefaultContactChanged" />
             </GroupBox>
         </Grid>
         <Grid Grid.Column="1">

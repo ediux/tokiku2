@@ -322,11 +322,21 @@ namespace Tokiku.Controllers
 
                 entity = repo.Add(entity);
 
+                var log = this.GetRepository<AccessLog>();
+                AccessLog addlog = new AccessLog()
+                {
+                    ActionCode = (byte)ActionCodes.Create,
+                    DataId = typeof(T).GetProperty("Id")?.GetValue(entity).ToString(),
+                    CreateTime = DateTime.Now,
+                    DataTableName = typeof(T).Name,
+                    Reason = "新增資料",
+                    UserId = GetCurrentLoginUser().Result.UserId
+                };
+                log.Add(addlog);
+
                 if (isLastRecord)
                 {
                     repo.UnitOfWork.Commit();
-                    //repo.UnitOfWork.Context.Set<T>().Attach(entity);
-                    //database = RepositoryHelper.GetUnitOfWork();
                     repo = GetRepository();
                     entity = repo.Get(IdentifyPrimaryKey(entity));
 
@@ -398,8 +408,22 @@ namespace Tokiku.Controllers
                 //repo.UnitOfWork.Context.Entry(fromModel).State = EntityState.Added;
                 repo.UnitOfWork.Context.Entry(fromModel).State = EntityState.Modified;
 
+                var log = this.GetRepository<AccessLog>();
+                AccessLog addlog = new AccessLog()
+                {
+                    ActionCode = (byte)ActionCodes.Create,
+                    DataId = typeof(T).GetProperty("Id")?.GetValue(fromModel).ToString(),
+                    CreateTime = DateTime.Now,
+                    DataTableName = typeof(T).Name,
+                    Reason = "更新資料",
+                    UserId = GetCurrentLoginUser().Result.UserId
+                };
+                log.Add(addlog);
+
                 if (isLastRecord)
                 {
+                  
+
                     repo.UnitOfWork.Commit();
 
                     //database = null;
@@ -431,10 +455,19 @@ namespace Tokiku.Controllers
                 if (repo == null)
                     return ExecuteResultEntity<T>.CreateErrorResultEntity(string.Format("Can't found data repository of {0}.", typeof(T).Name));
 
-                var findresult = repo.Get(IdentifyPrimaryKey(entity));
-
-                if (findresult != null)
-                    repo.Delete(findresult);
+                repo.Delete(entity);
+                //repo.UnitOfWork.Context.Entry(entity).State = EntityState.Deleted;
+                var log = this.GetRepository<AccessLog>();
+                AccessLog addlog = new AccessLog()
+                {
+                    ActionCode = (byte)ActionCodes.Create,
+                    DataId = typeof(T).GetProperty("Id")?.GetValue(entity).ToString(),
+                    CreateTime = DateTime.Now,
+                    DataTableName = typeof(T).Name,
+                    Reason = "刪除資料",
+                    UserId = GetCurrentLoginUser().Result.UserId
+                };
+                log.Add(addlog);
 
                 if (isDeleteRightNow)
                 {

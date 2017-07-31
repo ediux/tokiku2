@@ -24,8 +24,8 @@
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Column="0"  Margin="0,0,0,0" >
             <Button Content="收料單" x:Name="btnAddNewForm" Margin="5,0,0,0" vm:CommandRoutingManager.Command="{DynamicResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenRecvMaterialView}" vm:CommandRoutingManager.RoutingName="RecvMaterialView" />
             <Button Content="&#xE179;" ToolTip="收料單列表" FontFamily="/Resources/#Segoe MDL2 Assets" Margin="0,0,5,0" vm:CommandRoutingManager.Command="{DynamicResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenRecvMaterialListView}" vm:CommandRoutingManager.RoutingName="RecvMaterialView" />
-            <Button Content="領料單" x:Name="btn5" Margin="5,0,0,0" vm:CommandRoutingManager.Command="{DynamicResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenShippingView}" vm:CommandRoutingManager.RoutingName="ShippingMaterialViewUC" />
-            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="領料單列表" x:Name="btn6" Margin="0,0,5,0" vm:CommandRoutingManager.Command="{DynamicResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenShippingListView}" vm:CommandRoutingManager.RoutingName="ShippingMaterialListViewUC" />
+            <Button Content="領料單" x:Name="btn5" Margin="5,0,0,0" vm:CommandRoutingManager.Command="{DynamicResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenObtainMaterialView}" vm:CommandRoutingManager.RoutingName="ShippingMaterialViewUC" />
+            <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="領料單列表" x:Name="btn6" Margin="0,0,5,0" vm:CommandRoutingManager.Command="{DynamicResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenObtainMaterialListView}" vm:CommandRoutingManager.RoutingName="ShippingMaterialListViewUC" />
             <Button Content="品質異常單" x:Name="btn7" Margin="5,0,0,0" vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenQualityAbnormallySingleView}" vm:CommandRoutingManager.RoutingName="QualityAbnormallySingleView" />
             <Button Content="&#xE179;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="品質異常單列表" x:Name="btn8" Margin="0,0,5,0" vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenQualityAbnormallySingleListView}" vm:CommandRoutingManager.RoutingName="OpenQualityAbnormallySingleListView" />
             <Button Content="退貨單" x:Name="btn1" Margin="5,0,0,0" vm:CommandRoutingManager.Command="{DynamicResource OpenNewTabItem}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenReturnMaterialView}" vm:CommandRoutingManager.RoutingName="ReturnMaterialViewUC" />
@@ -36,7 +36,9 @@
 
         <GroupBox Header="訂製單管控表" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                <DataGrid x:Name="CheckGrid" ItemsSource="{Binding Source={StaticResource OrderControlTableSource}}" Margin="5" AutoGenerateColumns="False"  >
+                <DataGrid x:Name="CheckGrid" ItemsSource="{Binding Source={StaticResource OrderControlTableSource}}" 
+                          FrozenColumnCount="18"
+                          Margin="5" AutoGenerateColumns="False"  >
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="項次" Binding="{Binding RowIndex,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                         <DataGridTextColumn Header="施工位置/加工圖集" Binding="{Binding Atlas,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />

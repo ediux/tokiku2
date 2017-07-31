@@ -12,10 +12,12 @@ namespace Tokiku.ViewModels
     {
         public InventoryViewModelCollection()
         {
+            _ControllerName = "Inventory";
         }
 
         public InventoryViewModelCollection(IEnumerable<InventoryViewModel> source) : base(source)
         {
+            _ControllerName = "Inventory";
         }
         
         public static InventoryViewModelCollection Query()
@@ -29,10 +31,12 @@ namespace Tokiku.ViewModels
     {
         public InventoryViewModel()
         {
+            _SaveModelController = "Inventory";
         }
 
         public InventoryViewModel(Inventory entity) : base(entity)
         {
+            _SaveModelController = "Inventory";
         }
 
         public static InventoryViewModel CreateNew(Guid ProjectId)

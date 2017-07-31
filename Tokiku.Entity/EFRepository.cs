@@ -69,7 +69,7 @@ namespace Tokiku.Entity
 
         public virtual void Delete(T entity)
         {
-            ObjectSet.Remove(entity);
+            ObjectSet.Local.Remove(entity);            
         }
 
         public Task<IQueryable<T>> AllAsync()

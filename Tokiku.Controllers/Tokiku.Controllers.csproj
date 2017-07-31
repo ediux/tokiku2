@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="AbnormalQualityController.cs" />
     <Compile Include="AbnormalQualityDetailsController.cs" />
+    <Compile Include="AccessLogController.cs" />
     <Compile Include="ControlTables\ObtainMaterialController.cs" />
     <Compile Include="ControlTables\ShippingMaterialDetailsController.cs" />
     <Compile Include="Orders\AluminumExtrusionOrderController.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Manufacturers\ManufacturersManageController.cs" />
     <Compile Include="Projects\ProjectsController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequiredDetailController.cs" />
     <Compile Include="ReturnsDetailsController.cs" />
     <Compile Include="Shared\LoginViewModel.cs" />
     <Compile Include="Shared\RepositoriesStorageHelper.cs" />
@@ -142,6 +144,8 @@
       <Name>Tokiku.Entity</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Users\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -12,86 +12,83 @@
              Background="{DynamicResource ControlBackgroundBrush}"
              d:DesignHeight="600" d:DesignWidth="1024" Loaded="RequiredView_Loaded">
     <UserControl.Resources>
-        
+
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="27" SharedSizeGroup="extendsize" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50*" />
             <ColumnDefinition Width="50*" />
         </Grid.ColumnDefinitions>
-        <Canvas Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Panel.ZIndex="500" Grid.IsSharedSizeScope="True">
-            <Expander Canvas.Left="0" VerticalAlignment="Stretch" ExpandDirection="Down" Header="表頭" IsExpanded="False">
-                <Expander.ContentTemplate>
-                    <DataTemplate>
-                        <WrapPanel Height="81" Orientation="Horizontal" MaxWidth="1310" Width="1310" DataContext="{Binding Source={StaticResource RequiredSource}}">
-                            <Grid Width="1310">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
-                                <TextBlock Grid.Column="1" Text="需求單號" VerticalAlignment="Center" />
-                                <TextBox Grid.Column="2" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding FormNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <TextBlock Grid.Column="3" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
-                                <TextBlock Grid.Column="4" Text="廠商" VerticalAlignment="Center" />
-                                <TextBox Grid.Column="5" Width="88" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding ManufacturersCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <ComboBox ItemsSource="{Binding Source={StaticResource ManufactureList}}" 
+        <Expander Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Stretch" ExpandDirection="Down" Header="表頭" IsExpanded="True">
+            <Expander.ContentTemplate>
+                <DataTemplate>
+                    <WrapPanel Height="81" Orientation="Horizontal" MaxWidth="1310" Width="1310" DataContext="{Binding Source={StaticResource RequiredSource}}">
+                        <Grid Width="1310">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                            <TextBlock Grid.Column="1" Text="需求單號" VerticalAlignment="Center" />
+                            <TextBox Grid.Column="2" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding FormNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Grid.Column="3" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                            <TextBlock Grid.Column="4" Text="廠商" VerticalAlignment="Center" />
+                            <TextBox Grid.Column="5" Width="88" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding ManufacturersCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <ComboBox ItemsSource="{Binding Source={StaticResource ManufactureList}}" 
                                           SelectedItem="{Binding SelectedManufacturers,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                           Grid.Column="6" Width="165">
-                                    <ComboBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Name}"/>
-                                        </DataTemplate>
-                                    </ComboBox.ItemTemplate>
-                                </ComboBox>
-                                <TextBlock Grid.Column="7" Text="輸入人員" VerticalAlignment="Center" />
-                                <TextBox Grid.Column="8" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding CreateUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <TextBlock Grid.Column="9" Text="建檔日期" VerticalAlignment="Center" />
-                                <TextBlock Grid.Column="10" Width="200" VerticalAlignment="Center" Margin="2" Text="{Binding CreateTime}" />
-                            </Grid>
-                            <Grid Width="1310">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
-                                <TextBlock Grid.Column="1" Text="製單人員" VerticalAlignment="Center" />
-                                <TextBox Grid.Column="2" Width="100" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding MakingUserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <TextBlock Grid.Column="3" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
-                                <TextBlock Grid.Column="4" Text="製單日期" VerticalAlignment="Center" />
-                                <DatePicker Grid.Column="5" Width="200" VerticalAlignment="Center" Margin="2" SelectedDate="{Binding MakingTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <TextBlock Grid.Column="6" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
-                                <TextBlock Grid.Column="7" Text="需求數量位置:" VerticalAlignment="Center" Foreground="#FF036808" />
-                                <TextBox Grid.Column="8" Width="220" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding RequiredPostion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                <Button Name="btnSave" Content="儲存" Grid.Column="9" Click="btnSave_Click" />
-                            </Grid>
-                        </WrapPanel>
-                    </DataTemplate>
-                </Expander.ContentTemplate>
-            </Expander>
-        </Canvas>
-
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <TextBlock Grid.Column="7" Text="輸入人員" VerticalAlignment="Center" />
+                            <TextBox Grid.Column="8" Width="160" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding CreateUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Grid.Column="9" Text="建檔日期" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="10" Width="200" VerticalAlignment="Center" Margin="2" Text="{Binding CreateTime}" />
+                        </Grid>
+                        <Grid Width="1310">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                            <TextBlock Grid.Column="1" Text="製單人員" VerticalAlignment="Center" />
+                            <TextBox Grid.Column="2" Width="100" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding MakingUserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Grid.Column="3" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                            <TextBlock Grid.Column="4" Text="製單日期" VerticalAlignment="Center" />
+                            <DatePicker Grid.Column="5" Width="200" VerticalAlignment="Center" Margin="2" SelectedDate="{Binding MakingTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Grid.Column="6" Text="*" VerticalAlignment="Center" Foreground="#FF0000" />
+                            <TextBlock Grid.Column="7" Text="需求數量位置:" VerticalAlignment="Center" Foreground="#FF036808" />
+                            <TextBox Grid.Column="8" Width="220" MaxLength="20" VerticalAlignment="Center" Margin="2" Text="{Binding RequiredPostion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            <Button Name="btnSave" Content="儲存" Grid.Column="9" Click="btnSave_Click" />
+                        </Grid>
+                    </WrapPanel>
+                </DataTemplate>
+            </Expander.ContentTemplate>
+        </Expander>
         <Grid x:Name="CheckGrid" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="570" Margin="10,0,0,0" VerticalAlignment="Top" Width="1326">
             <c:CustomDataGrid AllowExecuteSystemCommand="True"                              
                               CanUserAddRows="True"
@@ -109,6 +106,6 @@
                 </c:CustomDataGrid.Columns>
             </c:CustomDataGrid>
         </Grid>
-        
+
     </Grid>
 </UserControl>
