@@ -141,8 +141,14 @@ namespace Tokiku.ViewModels
         // 製單人員
         public string MakingUserName
         {
-            get { return CopyofPOCOInstance.MakingUsers.UserName; }
-            set { RaisePropertyChanged("MakingUserName"); }
+            get {
+                try {
+                    return CopyofPOCOInstance.MakingUsers.UserName;
+                }catch (Exception ex) {
+                    return string.Empty;
+                }
+            }
+            set {  RaisePropertyChanged("MakingUserName"); }
         }
         // 製單日期
         public DateTime MakingTime
