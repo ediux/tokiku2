@@ -94,28 +94,28 @@ namespace Tokiku.ViewModels
         }
 
         // 出貨順序
-        public int? ShippingOrder
+        public int ShippingOrder
         {
             get { return CopyofPOCOInstance.ShippingOrder; }
             set { CopyofPOCOInstance.ShippingOrder = value; RaisePropertyChanged("ShippingOrder"); }
         }
 
         // 出貨重量
-        public double? Weight
+        public double Weight
         {
             get { return CopyofPOCOInstance.Weight; }
             set { CopyofPOCOInstance.Weight = value; RaisePropertyChanged("Weight"); }
         }
 
         // 缺貨數量
-        public int? LackQuantity
+        public int LackQuantity
         {
             get { return CopyofPOCOInstance.LackQuantity; }
             set { CopyofPOCOInstance.LackQuantity = value; RaisePropertyChanged("LackQuantity"); }
         }
 
         // 出貨數量
-        public int? ShippingQuantity
+        public int ShippingQuantity
         {
             get { return CopyofPOCOInstance.ShippingQuantity; }
             set { CopyofPOCOInstance.ShippingQuantity = value; RaisePropertyChanged("ShippingQuantity"); }
