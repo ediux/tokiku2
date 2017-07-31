@@ -11,7 +11,7 @@ namespace Tokiku.ViewModels
     {
         public ManufacturerFactoryViewModel()
         {
-
+            
         }
 
         public ManufacturerFactoryViewModel(ManufacturersFactories entity) : base(entity)

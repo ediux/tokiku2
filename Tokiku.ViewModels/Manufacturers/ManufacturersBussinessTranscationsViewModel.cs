@@ -12,7 +12,7 @@ namespace Tokiku.ViewModels
     {
         public ManufacturersBussinessTranscationsViewModel() : base()
         {
-
+           
         }
 
         public ManufacturersBussinessTranscationsViewModel(SupplierTranscationItem entity) : base(entity)

@@ -11,12 +11,12 @@ namespace Tokiku.ViewModels
     {
         public OrderTypesViewModel()
         {
-
+            _SaveModelController = "OrderTypes";
         }
 
         public OrderTypesViewModel(OrderTypes entity) : base(entity)
         {
-
+            _SaveModelController = "OrderTypes";
         }
 
         public string Name { get => CopyofPOCOInstance.Name; set { CopyofPOCOInstance.Name = value; RaisePropertyChanged("Name"); } }

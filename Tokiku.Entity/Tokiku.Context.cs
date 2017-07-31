@@ -86,7 +86,6 @@ namespace Tokiku.Entity
         public virtual DbSet<View_PickList> View_PickList { get; set; }
         public virtual DbSet<Manufacturers> Manufacturers { get; set; }
         public virtual DbSet<View_RequiredForms> View_RequiredForms { get; set; }
-        public virtual DbSet<View_RequiredControlTable> View_RequiredControlTable { get; set; }
         public virtual DbSet<ReturnDetails> ReturnDetails { get; set; }
         public virtual DbSet<Returns> Returns { get; set; }
         public virtual DbSet<EncodingRecords> EncodingRecords { get; set; }
@@ -95,6 +94,7 @@ namespace Tokiku.Entity
         public virtual DbSet<AbnormalQuality> AbnormalQuality { get; set; }
         public virtual DbSet<AbnormalQualityDetails> AbnormalQualityDetails { get; set; }
         public virtual DbSet<View_ShippingList> View_ShippingList { get; set; }
+        public virtual DbSet<View_RequiredControlTable> View_RequiredControlTable { get; set; }
     
         [DbFunction("TokikuEntities", "SplitString")]
         public virtual IQueryable<SplitString_Result> SplitString(string splitStr, string splitChar)

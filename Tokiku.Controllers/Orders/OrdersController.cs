@@ -213,6 +213,7 @@ namespace Tokiku.Controllers
 
     public class OrderTypesController : BaseController<OrderTypes>
     {
+       
         #region OrderTypes
         public ExecuteResultEntity<ICollection<OrderTypes>> Query()
         {

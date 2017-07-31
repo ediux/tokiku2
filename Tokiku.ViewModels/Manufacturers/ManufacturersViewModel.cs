@@ -27,7 +27,7 @@ namespace Tokiku.ViewModels
         /// </summary>
         public ManufacturersViewModelCollection()
         {
-
+            _ControllerName = "ManufacturersManage";
         }
 
 
@@ -37,7 +37,7 @@ namespace Tokiku.ViewModels
         /// <param name="source"></param>
         public ManufacturersViewModelCollection(IEnumerable<ManufacturersViewModel> source) : base(source)
         {
-
+            _ControllerName = "ManufacturersManage";
         }
         #endregion
 
@@ -125,11 +125,11 @@ namespace Tokiku.ViewModels
         #region 建構式
         public ManufacturersViewModel() : base()
         {
-
+            _SaveModelController = "ManufacturersManage";
         }
         public ManufacturersViewModel(Manufacturers entity) : base(entity)
         {
-
+            _SaveModelController = "ManufacturersManage";
         }
         #endregion
 

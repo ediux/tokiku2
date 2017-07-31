@@ -13,13 +13,13 @@ namespace Tokiku.ViewModels
     {
         public ManufacturersBussinessTranscationsViewModelCollection()
         {
-
+            _ControllerName = "ManufacturersManage";
         }
 
         public ManufacturersBussinessTranscationsViewModelCollection(IEnumerable<ManufacturersBussinessTranscationsViewModel> source):
             base(source)
         {
-
+            _ControllerName = "ManufacturersManage";
         }
 
         public static ManufacturersBussinessTranscationsViewModelCollection Query(Guid ManufacturersId)

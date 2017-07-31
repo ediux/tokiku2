@@ -13,12 +13,12 @@ namespace Tokiku.ViewModels
     {
         public AluminumExtrusionOrderMaterialValuationViewModelCollection()
         {
-            HasError = false;
+            _ControllerName = "Orders";
         }
 
         public AluminumExtrusionOrderMaterialValuationViewModelCollection(IEnumerable<AluminumExtrusionOrderMaterialValuationViewModel> source) : base(source)
         {
-
+            _ControllerName = "Orders";
         }
 
         public static AluminumExtrusionOrderMaterialValuationViewModelCollection Query(Guid ProjectId, Guid FormDetailId)
@@ -55,7 +55,7 @@ namespace Tokiku.ViewModels
 
         public static AluminumExtrusionOrderMaterialValuationViewModelCollection Query(Guid ProjectId)
         {
-            return Query<AluminumExtrusionOrderMaterialValuationViewModelCollection, Entity.OrderMaterialValuation>("Orders", "QueryAll", ProjectId);
+            return Query<AluminumExtrusionOrderMaterialValuationViewModelCollection, OrderMaterialValuation>("Orders", "QueryAll", ProjectId);
 
             //AluminumExtrusionOrderMaterialValuationController ctrl = new AluminumExtrusionOrderMaterialValuationController();
             //ExecuteResultEntity<ICollection<AluminumExtrusionOrderMaterialValuationEntity>> ere = ctrl.QuerAll();
@@ -77,11 +77,11 @@ namespace Tokiku.ViewModels
     {
         public AluminumExtrusionOrderMaterialValuationViewModel()
         {
-
+            _SaveModelController = "Orders";
         }
         public AluminumExtrusionOrderMaterialValuationViewModel(OrderMaterialValuation entity) : base(entity)
         {
-
+            _SaveModelController = "Orders";
         }
 
         //public override void SetModel(dynamic entity)

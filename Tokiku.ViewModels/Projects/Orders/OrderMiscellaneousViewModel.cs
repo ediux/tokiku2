@@ -13,12 +13,12 @@ namespace Tokiku.ViewModels
     {
         public OrderMiscellaneousViewModelCollection()
         {
-            HasError = false;
+            _ControllerName = "Orders";
         }
 
         public OrderMiscellaneousViewModelCollection(IEnumerable<OrderMiscellaneousViewModel> source) : base(source)
         {
-
+            _ControllerName = "Orders";
         }
 
         public static OrderMiscellaneousViewModelCollection Query(Guid ProjectId)
@@ -42,12 +42,12 @@ namespace Tokiku.ViewModels
     {
         public OrderMiscellaneousViewModel()
         {
-
+            _SaveModelController = "Orders";
         }
 
         public OrderMiscellaneousViewModel(OrderMiscellaneous entity):base(entity)
         {
-
+            _SaveModelController = "Orders";
         }
         //public override void SetModel(dynamic entity)
         //{

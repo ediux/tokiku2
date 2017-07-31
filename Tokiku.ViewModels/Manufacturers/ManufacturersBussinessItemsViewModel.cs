@@ -14,12 +14,12 @@ namespace Tokiku.ViewModels
     {
         public ManufacturersBussinessItemsViewModelColletion()
         {
-
+            _ControllerName = "ManufacturersManage";
         }
 
         public ManufacturersBussinessItemsViewModelColletion(IEnumerable<ManufacturersBussinessItemsViewModel> source) : base(source)
         {
-
+            _ControllerName = "ManufacturersManage";
         }
 
         public async void QueryByBusinessItem(Guid MaterialCategoriesId, string BusinessItem, Guid ManufacturersId)

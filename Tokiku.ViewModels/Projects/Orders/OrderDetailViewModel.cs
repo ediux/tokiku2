@@ -15,12 +15,12 @@ namespace Tokiku.ViewModels
     {
         public OrderDetailViewModelCollection()
         {
-
+            _ControllerName = "OrderDetails";
         }
 
         public OrderDetailViewModelCollection(IEnumerable<OrderDetailViewModel> source) : base(source)
         {
-
+            _ControllerName = "OrderDetails";
 
         }
 
@@ -64,12 +64,12 @@ namespace Tokiku.ViewModels
     {
         public OrderDetailViewModel() : base()
         {
-
+            _SaveModelController = "OrderDetails";
         }
 
         public OrderDetailViewModel(OrderDetails entity) : base(entity)
         {
-
+            _SaveModelController = "OrderDetails";
         }
 
         // "*東菊編號*"

@@ -32,10 +32,11 @@ namespace Tokiku.ViewModels
             base.Initialized();
             ManufacturersId = Guid.Empty;
         }
-        //public override void Query()
+        //public ContactsViewModelCollection Query()
         //{
         //    if (ManufacturersId != Guid.Empty)
         //    {
+        //        //Query<ContactsViewModelCollection, Contacts>("","",ManufacturersId)
         //        Controllers.ContactPersonManageController controller = new Controllers.ContactPersonManageController();
         //        var queryresult = controller.Query(p => p.Manufacturers.Where(s => s.Id == ManufacturersId).Any());
 

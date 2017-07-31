@@ -11,19 +11,19 @@ namespace Tokiku.ViewModels
     {
         public OrderTypesViewModelCollection()
         {
-
+            _ControllerName = "OrderTypes";
         }
 
         public OrderTypesViewModelCollection(IEnumerable<OrderTypesViewModel> source):base(source)
         {
-
+            _ControllerName = "OrderTypes";
         }
 
         public static OrderTypesViewModelCollection Query()
         {
             try
             {
-                var coll = Query<OrderTypesViewModelCollection, OrderTypes>("Orders", "Query");           
+                var coll = Query<OrderTypesViewModelCollection, OrderTypes>("OrderTypes", "Query");           
                 return coll;
             }
             catch (Exception ex)

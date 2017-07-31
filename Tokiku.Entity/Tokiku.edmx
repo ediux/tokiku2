@@ -1094,13 +1094,12 @@
         <EntityType Name="View_RequiredControlTable">
           <Key>
             <PropertyRef Name="ProjectId" />
-            
+            <PropertyRef Name="ProjectName" />
             <PropertyRef Name="Code" />
             <PropertyRef Name="ManufacturersName" />
             <PropertyRef Name="FactoryNumber" />
             <PropertyRef Name="Materials" />
             <PropertyRef Name="UnitWeight" />
-            <PropertyRef Name="OrderLength" />
           </Key>
           <Property Name="ProjectId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ProjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -1109,7 +1108,7 @@
           <Property Name="FactoryNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Materials" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UnitWeight" Type="decimal" Precision="18" Scale="3" Nullable="false" />
-          <Property Name="OrderLength" Type="int" Nullable="false" />
+          <Property Name="OrderLength" Type="int" />
           <Property Name="RequiredQuantitySubtotal" Type="int" />
           <Property Name="RequiredQuantityWeightSummary" Type="decimal" Precision="38" Scale="6" />
           <Property Name="NumberofOrdersNotPlaced" Type="decimal" Precision="38" Scale="0" />
@@ -1119,8 +1118,8 @@
           <Property Name="ArrivalCondition_OutofStock" Type="decimal" Precision="38" Scale="0" />
           <Property Name="ReturnStatus_QuantitySubtotal" Type="int" />
           <Property Name="ReturnStatus_WeightSubtotal" Type="float" />
-          <Property Name="Weight" Type="float" />
-          <Property Name="ShippingQuantity" Type="int" />
+          <Property Name="PickingStatus_WeightSubtotal" Type="float" />
+          <Property Name="PickingStatus_QuantitySubtotal" Type="int" />
           <Property Name="ReturnStatus_Receipt_QuantitySubtotal" Type="decimal" Precision="38" Scale="3" />
           <Property Name="ReturnStatus_Receipt_WeightSubtotal" Type="decimal" Precision="38" Scale="3" />
           <Property Name="ReturnStatus_Charge_QuantitySubtotal" Type="decimal" Precision="38" Scale="3" />
@@ -2904,8 +2903,8 @@
     [View_RequiredControlTable].[ArrivalCondition_OutofStock] AS [ArrivalCondition_OutofStock], 
     [View_RequiredControlTable].[ReturnStatus_QuantitySubtotal] AS [ReturnStatus_QuantitySubtotal], 
     [View_RequiredControlTable].[ReturnStatus_WeightSubtotal] AS [ReturnStatus_WeightSubtotal], 
-    [View_RequiredControlTable].[Weight] AS [Weight], 
-    [View_RequiredControlTable].[ShippingQuantity] AS [ShippingQuantity], 
+    [View_RequiredControlTable].[PickingStatus_WeightSubtotal] AS [PickingStatus_WeightSubtotal], 
+    [View_RequiredControlTable].[PickingStatus_QuantitySubtotal] AS [PickingStatus_QuantitySubtotal], 
     [View_RequiredControlTable].[ReturnStatus_Receipt_QuantitySubtotal] AS [ReturnStatus_Receipt_QuantitySubtotal], 
     [View_RequiredControlTable].[ReturnStatus_Receipt_WeightSubtotal] AS [ReturnStatus_Receipt_WeightSubtotal], 
     [View_RequiredControlTable].[ReturnStatus_Charge_QuantitySubtotal] AS [ReturnStatus_Charge_QuantitySubtotal], 
@@ -4058,7 +4057,6 @@
             <End Role="Manufacturers" EntitySet="Manufacturers" />
           </AssociationSet>
           <EntitySet Name="View_RequiredForms" EntityType="TokikuModel.View_RequiredForms" />
-          <EntitySet Name="View_RequiredControlTable" EntityType="TokikuModel.View_RequiredControlTable" />
           <EntitySet Name="ReturnDetails" EntityType="TokikuModel.ReturnDetails" />
           <EntitySet Name="Returns" EntityType="TokikuModel.Returns" />
           <AssociationSet Name="FK_Returns_Manufacturers" Association="TokikuModel.FK_Returns_Manufacturers">
@@ -4151,6 +4149,7 @@
             <End Role="PickListDetails1" EntitySet="PickListDetails" />
           </AssociationSet>
           <EntitySet Name="View_ShippingList" EntityType="TokikuModel.View_ShippingList" />
+          <EntitySet Name="View_RequiredControlTable" EntityType="TokikuModel.View_RequiredControlTable" />
           </EntityContainer>
         <EntityType Name="AccessLog">
           <Key>
@@ -6409,44 +6408,6 @@
           <Property Name="CreateUserId" Type="Guid" Nullable="false" />
           <Property Name="ShopFlowId" Type="Guid" Nullable="false" />
         </EntityType>
-        <EntityType Name="View_RequiredControlTable">
-          <Key>
-            <PropertyRef Name="ProjectId" />
-            <PropertyRef Name="Code" />
-            <PropertyRef Name="ManufacturersName" />
-            <PropertyRef Name="FactoryNumber" />
-            <PropertyRef Name="Materials" />
-            <PropertyRef Name="UnitWeight" />
-            <PropertyRef Name="OrderLength" />
-          </Key>
-          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ManufacturersName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FactoryNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Materials" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UnitWeight" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
-          <Property Name="OrderLength" Type="Int32" Nullable="false" />
-          <Property Name="RequiredQuantitySubtotal" Type="Int32" />
-          <Property Name="RequiredQuantityWeightSummary" Type="Decimal" Precision="38" Scale="6" />
-          <Property Name="NumberofOrdersNotPlaced" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="QuantityofOrderSummary" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="ArrivalCondition_QuantitySubtotal" Type="Int32" />
-          <Property Name="ArrivalCondition_WeightSubtotal" Type="Double" />
-          <Property Name="ArrivalCondition_OutofStock" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="ReturnStatus_QuantitySubtotal" Type="Int32" />
-          <Property Name="ReturnStatus_WeightSubtotal" Type="Double" />
-          <Property Name="Weight" Type="Double" />
-          <Property Name="ShippingQuantity" Type="Int32" />
-          <Property Name="ProjectId" Type="Guid" Nullable="false" />
-          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="InventoryMargin_LossAdjustment_QuantitySubtotal" Type="Decimal" Precision="38" Scale="3" />
-          <Property Name="InventoryMargin_LossAdjustment_WeightSubtotal" Type="Decimal" Precision="38" Scale="3" />
-          <Property Name="InventoryStatus_QuantitySubtotal" Type="Decimal" Precision="38" Scale="3" />
-          <Property Name="InventoryStatus_WeightSubtotal" Type="Decimal" Precision="38" Scale="3" />
-          <Property Name="ReturnStatus_Receipt_QuantitySubtotal" Type="Decimal" Precision="38" Scale="3" />
-          <Property Name="ReturnStatus_Receipt_WeightSubtotal" Type="Decimal" Precision="38" Scale="3" />
-          <Property Name="ReturnStatus_Charge_QuantitySubtotal" Type="Decimal" Precision="38" Scale="3" />
-          <Property Name="ReturnStatus_Charge_WeightSubtotal" Type="Decimal" Precision="38" Scale="3" />
-        </EntityType>
         <EntityType Name="ReturnDetails">
           <Key>
             <PropertyRef Name="Id" />
@@ -6900,6 +6861,44 @@
           <Property Name="PickListId" Type="Guid" Nullable="false" />
           <Property Name="ShippingId" Type="Guid" Nullable="false" />
           <Property Name="ReceiptsId" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="View_RequiredControlTable">
+          <Key>
+            <PropertyRef Name="ProjectId" />
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="Code" />
+            <PropertyRef Name="ManufacturersName" />
+            <PropertyRef Name="FactoryNumber" />
+            <PropertyRef Name="Materials" />
+            <PropertyRef Name="UnitWeight" />
+          </Key>
+          <Property Name="ProjectId" Type="Guid" Nullable="false" />
+          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ManufacturersName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FactoryNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Materials" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UnitWeight" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="OrderLength" Type="Int32" />
+          <Property Name="RequiredQuantitySubtotal" Type="Int32" />
+          <Property Name="RequiredQuantityWeightSummary" Type="Decimal" Precision="38" Scale="6" />
+          <Property Name="NumberofOrdersNotPlaced" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="QuantityofOrderSummary" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ArrivalCondition_QuantitySubtotal" Type="Int32" />
+          <Property Name="ArrivalCondition_WeightSubtotal" Type="Double" />
+          <Property Name="ArrivalCondition_OutofStock" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ReturnStatus_QuantitySubtotal" Type="Int32" />
+          <Property Name="ReturnStatus_WeightSubtotal" Type="Double" />
+          <Property Name="PickingStatus_WeightSubtotal" Type="Double" />
+          <Property Name="PickingStatus_QuantitySubtotal" Type="Int32" />
+          <Property Name="ReturnStatus_Receipt_QuantitySubtotal" Type="Decimal" Precision="38" Scale="3" />
+          <Property Name="ReturnStatus_Receipt_WeightSubtotal" Type="Decimal" Precision="38" Scale="3" />
+          <Property Name="ReturnStatus_Charge_QuantitySubtotal" Type="Decimal" Precision="38" Scale="3" />
+          <Property Name="ReturnStatus_Charge_WeightSubtotal" Type="Decimal" Precision="38" Scale="3" />
+          <Property Name="InventoryMargin_LossAdjustment_QuantitySubtotal" Type="Decimal" Precision="38" Scale="3" />
+          <Property Name="InventoryMargin_LossAdjustment_WeightSubtotal" Type="Decimal" Precision="38" Scale="3" />
+          <Property Name="InventoryStatus_QuantitySubtotal" Type="Decimal" Precision="38" Scale="3" />
+          <Property Name="InventoryStatus_WeightSubtotal" Type="Decimal" Precision="38" Scale="3" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -7889,39 +7888,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="View_RequiredControlTable">
-            <EntityTypeMapping TypeName="TokikuModel.View_RequiredControlTable">
-              <MappingFragment StoreEntitySet="View_RequiredControlTable">
-                <ScalarProperty Name="ReturnStatus_Charge_WeightSubtotal" ColumnName="ReturnStatus_Charge_WeightSubtotal" />
-                <ScalarProperty Name="ReturnStatus_Charge_QuantitySubtotal" ColumnName="ReturnStatus_Charge_QuantitySubtotal" />
-                <ScalarProperty Name="ReturnStatus_Receipt_WeightSubtotal" ColumnName="ReturnStatus_Receipt_WeightSubtotal" />
-                <ScalarProperty Name="ReturnStatus_Receipt_QuantitySubtotal" ColumnName="ReturnStatus_Receipt_QuantitySubtotal" />
-                <ScalarProperty Name="InventoryStatus_WeightSubtotal" ColumnName="InventoryStatus_WeightSubtotal" />
-                <ScalarProperty Name="InventoryStatus_QuantitySubtotal" ColumnName="InventoryStatus_QuantitySubtotal" />
-                <ScalarProperty Name="InventoryMargin_LossAdjustment_WeightSubtotal" ColumnName="InventoryMargin_LossAdjustment_WeightSubtotal" />
-                <ScalarProperty Name="InventoryMargin_LossAdjustment_QuantitySubtotal" ColumnName="InventoryMargin_LossAdjustment_QuantitySubtotal" />
-                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-                <ScalarProperty Name="ShippingQuantity" ColumnName="ShippingQuantity" />
-                <ScalarProperty Name="Weight" ColumnName="Weight" />
-                <ScalarProperty Name="ReturnStatus_WeightSubtotal" ColumnName="ReturnStatus_WeightSubtotal" />
-                <ScalarProperty Name="ReturnStatus_QuantitySubtotal" ColumnName="ReturnStatus_QuantitySubtotal" />
-                <ScalarProperty Name="ArrivalCondition_OutofStock" ColumnName="ArrivalCondition_OutofStock" />
-                <ScalarProperty Name="ArrivalCondition_WeightSubtotal" ColumnName="ArrivalCondition_WeightSubtotal" />
-                <ScalarProperty Name="ArrivalCondition_QuantitySubtotal" ColumnName="ArrivalCondition_QuantitySubtotal" />
-                <ScalarProperty Name="QuantityofOrderSummary" ColumnName="QuantityofOrderSummary" />
-                <ScalarProperty Name="NumberofOrdersNotPlaced" ColumnName="NumberofOrdersNotPlaced" />
-                <ScalarProperty Name="RequiredQuantityWeightSummary" ColumnName="RequiredQuantityWeightSummary" />
-                <ScalarProperty Name="RequiredQuantitySubtotal" ColumnName="RequiredQuantitySubtotal" />
-                <ScalarProperty Name="OrderLength" ColumnName="OrderLength" />
-                <ScalarProperty Name="UnitWeight" ColumnName="UnitWeight" />
-                <ScalarProperty Name="Materials" ColumnName="Materials" />
-                <ScalarProperty Name="FactoryNumber" ColumnName="FactoryNumber" />
-                <ScalarProperty Name="ManufacturersName" ColumnName="ManufacturersName" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ReturnDetails">
             <EntityTypeMapping TypeName="TokikuModel.ReturnDetails">
               <MappingFragment StoreEntitySet="ReturnDetails">
@@ -8097,6 +8063,39 @@
                 <ScalarProperty Name="ReceiptNumber" ColumnName="ReceiptNumber" />
                 <ScalarProperty Name="ShippingNumber" ColumnName="ShippingNumber" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_RequiredControlTable">
+            <EntityTypeMapping TypeName="TokikuModel.View_RequiredControlTable">
+              <MappingFragment StoreEntitySet="View_RequiredControlTable">
+                <ScalarProperty Name="InventoryStatus_WeightSubtotal" ColumnName="InventoryStatus_WeightSubtotal" />
+                <ScalarProperty Name="InventoryStatus_QuantitySubtotal" ColumnName="InventoryStatus_QuantitySubtotal" />
+                <ScalarProperty Name="InventoryMargin_LossAdjustment_WeightSubtotal" ColumnName="InventoryMargin_LossAdjustment_WeightSubtotal" />
+                <ScalarProperty Name="InventoryMargin_LossAdjustment_QuantitySubtotal" ColumnName="InventoryMargin_LossAdjustment_QuantitySubtotal" />
+                <ScalarProperty Name="ReturnStatus_Charge_WeightSubtotal" ColumnName="ReturnStatus_Charge_WeightSubtotal" />
+                <ScalarProperty Name="ReturnStatus_Charge_QuantitySubtotal" ColumnName="ReturnStatus_Charge_QuantitySubtotal" />
+                <ScalarProperty Name="ReturnStatus_Receipt_WeightSubtotal" ColumnName="ReturnStatus_Receipt_WeightSubtotal" />
+                <ScalarProperty Name="ReturnStatus_Receipt_QuantitySubtotal" ColumnName="ReturnStatus_Receipt_QuantitySubtotal" />
+                <ScalarProperty Name="PickingStatus_QuantitySubtotal" ColumnName="PickingStatus_QuantitySubtotal" />
+                <ScalarProperty Name="PickingStatus_WeightSubtotal" ColumnName="PickingStatus_WeightSubtotal" />
+                <ScalarProperty Name="ReturnStatus_WeightSubtotal" ColumnName="ReturnStatus_WeightSubtotal" />
+                <ScalarProperty Name="ReturnStatus_QuantitySubtotal" ColumnName="ReturnStatus_QuantitySubtotal" />
+                <ScalarProperty Name="ArrivalCondition_OutofStock" ColumnName="ArrivalCondition_OutofStock" />
+                <ScalarProperty Name="ArrivalCondition_WeightSubtotal" ColumnName="ArrivalCondition_WeightSubtotal" />
+                <ScalarProperty Name="ArrivalCondition_QuantitySubtotal" ColumnName="ArrivalCondition_QuantitySubtotal" />
+                <ScalarProperty Name="QuantityofOrderSummary" ColumnName="QuantityofOrderSummary" />
+                <ScalarProperty Name="NumberofOrdersNotPlaced" ColumnName="NumberofOrdersNotPlaced" />
+                <ScalarProperty Name="RequiredQuantityWeightSummary" ColumnName="RequiredQuantityWeightSummary" />
+                <ScalarProperty Name="RequiredQuantitySubtotal" ColumnName="RequiredQuantitySubtotal" />
+                <ScalarProperty Name="OrderLength" ColumnName="OrderLength" />
+                <ScalarProperty Name="UnitWeight" ColumnName="UnitWeight" />
+                <ScalarProperty Name="Materials" ColumnName="Materials" />
+                <ScalarProperty Name="FactoryNumber" ColumnName="FactoryNumber" />
+                <ScalarProperty Name="ManufacturersName" ColumnName="ManufacturersName" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

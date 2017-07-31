@@ -86,7 +86,12 @@ namespace Tokiku.ViewModels
                 {
                     if (t != null)
                         _ControllerName = t.Name.Replace("ViewModelCollection", "");
-                    
+
+                    t = typeof(TView);
+
+                    if(t!=null)
+                        _ControllerName = t.Name.Replace("ViewModel", "");
+
                 }
 
                 return _ControllerName;
