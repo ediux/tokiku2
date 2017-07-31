@@ -581,24 +581,24 @@ namespace Tokiku.ViewModels
             Initialized();
         }
 
-        public static TCollection Query<TCollection, TEntity>(params object[] Parameers) where TCollection : BaseViewModelCollection<TView> where TEntity : class
-        {
-            try
-            {
-                TCollection collection = Activator.CreateInstance<TCollection>();
+        //public static TCollection Query<TCollection, TEntity>(params object[] Parameers) where TCollection : BaseViewModelCollection<TView> where TEntity : class
+        //{
+        //    try
+        //    {
+        //        TCollection collection = Activator.CreateInstance<TCollection>();
 
-                collection = Query<TCollection, TEntity>(
-                     collection.SaveModelController, "QueryAll", Parameers);
+        //        collection = Query<TCollection, TEntity>(
+        //             collection.SaveModelController, "QueryAll", Parameers);
 
-                return collection;
-            }
-            catch (Exception ex)
-            {
-                TCollection emptycollection =
-                    Activator.CreateInstance<TCollection>();
-                setErrortoModel(emptycollection, ex);
-                return emptycollection;
-            }
-        }
+        //        return collection;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TCollection emptycollection =
+        //            Activator.CreateInstance<TCollection>();
+        //        setErrortoModel(emptycollection, ex);
+        //        return emptycollection;
+        //    }
+        //}
     }
 }

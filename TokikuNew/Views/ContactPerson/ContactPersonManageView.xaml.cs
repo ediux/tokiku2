@@ -15,7 +15,7 @@ namespace TokikuNew.Views
     /// </summary>
     public partial class ContactPersonManageView : UserControl
     {
-        private ContactPersonManageController controller = new ContactPersonManageController();
+        //private ContactPersonManageController controller = new ContactPersonManageController();
 
         public ContactPersonManageView()
         {
@@ -113,12 +113,47 @@ namespace TokikuNew.Views
         // Using a DependencyProperty as the backing store for Contracts.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedManufacturerProperty =
             DependencyProperty.Register("SelectedManufacturer", typeof(ManufacturersViewModel)
-                , typeof(ContactPersonManageView), new PropertyMetadata(default(ManufacturersViewModel)));
+                , typeof(ContactPersonManageView), new PropertyMetadata(default(ManufacturersViewModel),
+                    new PropertyChangedCallback(SelectedManufacturerIdChange)));
+
+        public static void SelectedManufacturerIdChange(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            try
+            {
+                
+                if (sender is ContactPersonManageView)
+                {
+
+                    ObjectDataProvider source = (ObjectDataProvider)((ContactPersonManageView)sender).TryFindResource("ContractSource");
+
+                    if (source != null)
+                    {
+                        source.MethodParameters[0] = "";
+                        source.MethodParameters[1] = (((ContactPersonManageView)sender).SelectedManufacturer !=null)? ((ContactPersonManageView)sender).SelectedManufacturer.Id:Guid.Empty;
+                        source.MethodParameters[2] = ((ContactPersonManageView)sender).IsClient;
+                        source.Refresh();
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+        }
         #endregion
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            try
+            {
+            
+            }
+            catch (Exception ex)
+            {
 
+                throw;
+            }
         }
 
         private void DockBar_DocumentModeChanged(object sender, RoutedEventArgs e)

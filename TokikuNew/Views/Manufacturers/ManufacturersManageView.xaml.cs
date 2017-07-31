@@ -106,6 +106,8 @@ namespace TokikuNew.Views
         {
             try
             {
+                e.Handled = true;
+
                 AddHandler(DockBar.DocumentModeChangedEvent, new RoutedEventHandler(DockBar_DocumentModeChanged));
 
                 Binding BindingDataContext = new Binding();
@@ -380,6 +382,7 @@ namespace TokikuNew.Views
 
         private void userControl_ManufacturersManageView_Initialized(object sender, EventArgs e)
         {
+           
             //Dictionary<GrapeCity.Windows.SpreadSheet.UI.KeyStroke, GrapeCity.Windows.SpreadSheet.UI.SpreadAction> keyMap = BussinessItemSheet.View.KeyMap;
             //keyMap.Add(new GrapeCity.Windows.SpreadSheet.UI.KeyStroke(Key.F12, ModifierKeys.None), new GrapeCity.Windows.SpreadSheet.UI.SpreadAction(OnInsertSumFormula));
         }

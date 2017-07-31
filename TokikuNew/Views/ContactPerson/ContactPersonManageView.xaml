@@ -4,13 +4,20 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:c="clr-namespace:TokikuNew.Controls"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:viewmodels="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
     x:Name="userControl" x:Class="TokikuNew.Views.ContactPersonManageView" 
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024" Loaded="UserControl_Loaded"
     Background="{DynamicResource ControlBackgroundBrush}">
     <UserControl.Resources>
-        <ObjectDataProvider x:Key="ContractSource" ObjectType="{x:Type viewmodels:ContactsViewModelCollection }" />
+        <ObjectDataProvider x:Key="ContractSource" ObjectType="{x:Type viewmodels:ContactsViewModelCollection }" MethodName="Query">
+            <ObjectDataProvider.MethodParameters>
+                <x:Static Member="sys:String.Empty"></x:Static>
+                <x:Static Member="sys:Guid.Empty"></x:Static>
+                <sys:Boolean>False</sys:Boolean>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
     </UserControl.Resources>
     <Grid>
         <!-- Grid.RowDefinitions -->
@@ -28,7 +35,7 @@
                   AutoGenerateColumns="False" 
                   x:Name="ContractList" SelectionChanged="ContractList_SelectionChanged"
                   IsReadOnly="{Binding Path=Mode, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  ItemsSource="{Binding}">
+                  ItemsSource="{Binding Source={StaticResource ContractSource}}">
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn Header="預設"  Binding="{Binding IsDefault}" Width="auto">
                     <DataGridCheckBoxColumn.CellStyle>

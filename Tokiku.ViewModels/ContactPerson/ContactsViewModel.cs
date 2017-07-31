@@ -32,57 +32,50 @@ namespace Tokiku.ViewModels
             base.Initialized();
             ManufacturersId = Guid.Empty;
         }
-        //public ContactsViewModelCollection Query()
-        //{
-        //    if (ManufacturersId != Guid.Empty)
-        //    {
-        //        //Query<ContactsViewModelCollection, Contacts>("","",ManufacturersId)
-        //        Controllers.ContactPersonManageController controller = new Controllers.ContactPersonManageController();
-        //        var queryresult = controller.Query(p => p.Manufacturers.Where(s => s.Id == ManufacturersId).Any());
 
-        //        if (!queryresult.HasError)
-        //        {
-        //            var objectdataset = queryresult.Result;
-        //            if (objectdataset.Any())
-        //            {
-        //                ClearItems();
-        //                foreach (var row in objectdataset)
-        //                {
-        //                    ContactsViewModel model = new ContactsViewModel();
-        //                    model.DoEvents();
-        //                    model.SetModel(row);
-        //                    Add(model);
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
+        public ContactsViewModelCollection Query()
+        {
+            try
+            {
+                ContactsViewModelCollection collection = new ContactsViewModelCollection();
 
-        //public void Query(string originalSource, Guid ManufurerterId, bool isClient)
-        //{
-        //    ContactPersonManageController controller = new ContactPersonManageController();
-        //    var executeResult = controller.SearchByText(originalSource, ManufurerterId, isClient);
-        //    if (!executeResult.HasError)
-        //    {
-        //        if (executeResult.Result.Any())
-        //        {
-        //            ClearItems();
+                collection = Query<ContactsViewModelCollection, Contacts>(
+                     "ContactPersonManage", "QueryAll", ManufacturersId);
 
-        //            foreach (var row in executeResult.Result)
-        //            {
-        //                ContactsViewModel model = new ContactsViewModel();
+                return collection;
+            }
+            catch (Exception ex)
+            {
+                ContactsViewModelCollection emptycollection =
+                    new ContactsViewModelCollection();
+                setErrortoModel(emptycollection, ex);
+                return emptycollection;
+            }
 
+           
+        }
 
-        //                Add(model);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            ClearItems();
+        public ContactsViewModelCollection Query(string originalSource, Guid ManufurerterId, bool isClient)
+        {
+            try
+            {
+                ContactsViewModelCollection collection = new ContactsViewModelCollection();
 
-        //        }
-        //    }
-        //}
+                collection = Query<ContactsViewModelCollection, Contacts>(
+                     "ContactPersonManage", "SearchByText", originalSource, ManufurerterId, isClient);
+
+                return collection;
+            }
+            catch (Exception ex)
+            {
+                ContactsViewModelCollection emptycollection =
+                    new ContactsViewModelCollection();
+                setErrortoModel(emptycollection, ex);
+                return emptycollection;
+            }
+
+           
+        }
     }
 
     public class ContactsViewModel : BaseViewModelWithPOCOClass<Contacts>
