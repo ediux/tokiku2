@@ -26,6 +26,27 @@ namespace Tokiku.ViewModels
             EntityType = typeof(TPOCO);
             CopyofPOCOInstance = Activator.CreateInstance<TPOCO>();
 
+            var prop = _EntityType.GetProperty("CreateUserId");
+
+            if (prop != null)
+            {
+                var UserId = (Guid)prop.GetValue(CopyofPOCOInstance);
+
+                if (UserId == Guid.Empty)
+                {
+                    if (_LoginUser == null)
+                        _LoginUser = ExecuteAction<Users>("System", "GetCurrentLoginUser");
+
+                    if (_LoginUser != null)
+                        UserId = _LoginUser.UserId;
+                    else
+                        UserId = Guid.Empty;
+
+                    _EntityType.GetProperty("CreateUserId").SetValue(CopyofPOCOInstance, UserId);
+                }
+            }
+
+
         }
 
         public BaseViewModelWithPOCOClass(TPOCO entity)
@@ -43,6 +64,20 @@ namespace Tokiku.ViewModels
             {
                 EntityType = typeof(TPOCO);
                 CopyofPOCOInstance = Activator.CreateInstance<TPOCO>();
+                var UserId = (Guid)_EntityType.GetProperty("CreateUserId").GetValue(CopyofPOCOInstance);
+
+                if (UserId == Guid.Empty)
+                {
+                    if (_LoginUser == null)
+                        _LoginUser = ExecuteAction<Users>("System", "GetCurrentLoginUser");
+
+                    if (_LoginUser != null)
+                        UserId = _LoginUser.UserId;
+                    else
+                        UserId = Guid.Empty;
+
+                    _EntityType.GetProperty("CreateUserId").SetValue(CopyofPOCOInstance, UserId);
+                }
                 Initialized(null);
             }
 
@@ -151,7 +186,7 @@ namespace Tokiku.ViewModels
                 try
                 {
                     Guid _Id = (Guid)_EntityType.GetProperty("Id").GetValue(CopyofPOCOInstance);
-                  
+
                     return _Id;
                 }
                 catch
@@ -249,6 +284,7 @@ namespace Tokiku.ViewModels
                         else
                             UserId = Guid.Empty;
 
+                        _EntityType.GetProperty("CreateUserId").SetValue(CopyofPOCOInstance, UserId);
                     }
 
                     return UserId;
@@ -482,7 +518,7 @@ namespace Tokiku.ViewModels
                 {
                     method = ControllerType.GetMethod(ActionName, new Type[] { typeof(object[]) });
 
-                    if(method != null)
+                    if (method != null)
                     {
                         ExecuteResultEntity<TResult> result =
                       (ExecuteResultEntity<TResult>)method.Invoke(ctrl, new object[] { values });
@@ -506,7 +542,7 @@ namespace Tokiku.ViewModels
                     {
                         throw new Exception(string.Format("Action '{0}' not found.", ActionName));
                     }
-                    
+
                 }
 
             }

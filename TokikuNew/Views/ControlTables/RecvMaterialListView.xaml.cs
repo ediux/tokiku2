@@ -40,7 +40,7 @@ namespace TokikuNew.Views
 
         // Using a DependencyProperty as the backing store for SelectedProjectId.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedProjectIdProperty =
-            DependencyProperty.Register("SelectedProjectId", typeof(Guid), typeof(RecvMaterialView), new PropertyMetadata(Guid.Empty, new PropertyChangedCallback(ProjectIdChange)));
+            DependencyProperty.Register("SelectedProjectId", typeof(Guid), typeof(RecvMaterialListView), new PropertyMetadata(Guid.Empty, new PropertyChangedCallback(ProjectIdChange)));
 
 
 
@@ -48,16 +48,15 @@ namespace TokikuNew.Views
         {
             try
             {
-                if (sender is RecvMaterialView)
+                if (sender is RecvMaterialListView)
                 {
-                    RecvMaterialView currentview = (RecvMaterialView)sender;
+                    RecvMaterialListView currentview = (RecvMaterialListView)sender;
 
                     ObjectDataProvider provider = (ObjectDataProvider)currentview.TryFindResource("RecvMaterialSource");
 
                     if (provider != null)
-                    {
-                        provider.MethodParameters[0] = currentview.SelectedRecvId;
-                        provider.MethodParameters[1] = e.NewValue;
+                    {            
+                        provider.MethodParameters[0] = e.NewValue;
 
                         provider.Refresh();
                     }

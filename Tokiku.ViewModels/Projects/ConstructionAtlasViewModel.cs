@@ -9,10 +9,23 @@ namespace Tokiku.ViewModels
     {
         public ConstructionAtlasViewModelCollection()
         {
+            _ControllerName = "ConstructionAtlas";
         }
 
         public ConstructionAtlasViewModelCollection(IEnumerable<ConstructionAtlasViewModel> source) : base(source)
         {
+            _ControllerName = "ConstructionAtlas";
+            CollectionChanged += ConstructionAtlasViewModelCollection_CollectionChanged;
+        }
+
+        private void ConstructionAtlasViewModelCollection_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
+                    ExecuteAction<ConstructionAtlas>(SaveModelController, "Delete", Items[e.OldStartingIndex].Entity, true);
+                    break;
+            }
         }
 
         public static ConstructionAtlasViewModelCollection Query()
@@ -34,13 +47,13 @@ namespace Tokiku.ViewModels
 
         public ConstructionAtlasViewModel()
         {
-
+            _SaveModelController = "ConstructionAtlas";
         }
-        public ConstructionAtlasViewModel(ConstructionAtlas entity):base(entity)
+        public ConstructionAtlasViewModel(ConstructionAtlas entity) : base(entity)
         {
-
+            _SaveModelController = "ConstructionAtlas";
         }
-        
+
 
 
         /// <summary>
@@ -52,7 +65,7 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.ProjectContractId = value; RaisePropertyChanged("ProjectContractId"); }
         }
 
-      
+
 
         /// <summary>
         /// 圖名
@@ -60,10 +73,10 @@ namespace Tokiku.ViewModels
         public string ImageName
         {
             get { return CopyofPOCOInstance.ImageName; }
-            set { CopyofPOCOInstance.ImageName = value;RaisePropertyChanged("ImageName"); }
+            set { CopyofPOCOInstance.ImageName = value; RaisePropertyChanged("ImageName"); }
         }
 
-      
+
 
 
         /// <summary>
@@ -72,7 +85,7 @@ namespace Tokiku.ViewModels
         public int Edition
         {
             get { return CopyofPOCOInstance.Edition; }
-            set { CopyofPOCOInstance.Edition = value;RaisePropertyChanged("Edition"); }
+            set { CopyofPOCOInstance.Edition = value; RaisePropertyChanged("Edition"); }
         }
 
 
@@ -87,7 +100,7 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.SubmissionDate = value; RaisePropertyChanged("SubmissionDate"); }
         }
 
-   
+
 
 
 
@@ -97,7 +110,7 @@ namespace Tokiku.ViewModels
         public string SubmitCertificateNumber
         {
             get { return CopyofPOCOInstance.SubmitCertificateNumber; }
-            set { CopyofPOCOInstance.SubmitCertificateNumber = value;RaisePropertyChanged("SubmitCertificateNumber"); }
+            set { CopyofPOCOInstance.SubmitCertificateNumber = value; RaisePropertyChanged("SubmitCertificateNumber"); }
         }
 
 
@@ -111,7 +124,7 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.ReplyDate = value; RaisePropertyChanged("ReplyDate"); }
         }
 
-   
+
 
 
         /// <summary>
@@ -120,10 +133,10 @@ namespace Tokiku.ViewModels
         public string ReplyNumber
         {
             get { return CopyofPOCOInstance.ReplyNumber; }
-            set { CopyofPOCOInstance.ReplyNumber = value;RaisePropertyChanged("ReplyNumber"); }
+            set { CopyofPOCOInstance.ReplyNumber = value; RaisePropertyChanged("ReplyNumber"); }
         }
 
-   
+
 
         /// <summary>
         /// 回覆內容
@@ -131,10 +144,10 @@ namespace Tokiku.ViewModels
         public int ReplyContent
         {
             get { return CopyofPOCOInstance.ReplyContent; }
-            set { CopyofPOCOInstance.ReplyContent = value;RaisePropertyChanged("ReplyContent"); }
+            set { CopyofPOCOInstance.ReplyContent = value; RaisePropertyChanged("ReplyContent"); }
         }
 
- 
+
 
         /// <summary>
         /// 完稿
@@ -142,10 +155,10 @@ namespace Tokiku.ViewModels
         public bool Finalized
         {
             get { return CopyofPOCOInstance.Finalized; }
-            set { CopyofPOCOInstance.Finalized = value;RaisePropertyChanged("Finalized"); }
+            set { CopyofPOCOInstance.Finalized = value; RaisePropertyChanged("Finalized"); }
         }
 
-   
+
 
 
         /// <summary>
@@ -153,24 +166,26 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string Comment
         {
-            get { return CopyofPOCOInstance.Comment;
+            get
+            {
+                return CopyofPOCOInstance.Comment;
             }
             set { CopyofPOCOInstance.Comment = value; RaisePropertyChanged("Comment"); }
         }
 
-    
-
-       
-
-        
 
 
-      
-
-       
 
 
-     
+
+
+
+
+
+
+
+
+
 
 
 

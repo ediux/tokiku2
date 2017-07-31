@@ -71,6 +71,9 @@ namespace TokikuNew.Views
             {
                 ConstructionAtlasEditorDialog dialog = new ConstructionAtlasEditorDialog();
                 var dmodel = new ConstructionAtlasViewModel();
+                dmodel.Id = Guid.NewGuid();
+                dmodel.SubmissionDate = dmodel.CreateTime = DateTime.Now;
+                dmodel.Edition = 1;
                 if (CurrentProjectContract != null)
                 {
                     dmodel.ProjectContractId = CurrentProjectContract.Id;
@@ -84,7 +87,14 @@ namespace TokikuNew.Views
                     if (LoginedUser != null)
                         model.CreateUserId = LoginedUser.UserId;
 
-                    ((ConstructionAtlasViewModelCollection)DataContext).Add(model);
+                    ObjectDataProvider provider = (ObjectDataProvider)TryFindResource("ConstructionAtlasSource");
+
+                    if (provider != null)
+                    {
+                        ((ConstructionAtlasViewModelCollection)provider.Data).Add(model);
+                        ((ConstructionAtlasViewModelCollection)provider.Data).SaveModel();
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -99,10 +109,27 @@ namespace TokikuNew.Views
             {
                 if (AltasGrid.SelectedItems.Count > 0)
                 {
-                    foreach (ConstructionAtlasViewModel item in AltasGrid.SelectedItems)
+                    ObjectDataProvider provider = (ObjectDataProvider)TryFindResource("ConstructionAtlasSource");
+
+                    ConstructionAtlasViewModelCollection collection = (ConstructionAtlasViewModelCollection)provider.Data;
+
+                    if (collection != null)
                     {
-                        ((ConstructionAtlasViewModelCollection)DataContext).Remove(item);
+                        Stack<ConstructionAtlasViewModel> RemoveStack = new Stack<ConstructionAtlasViewModel>();
+
+                        foreach (ConstructionAtlasViewModel item in AltasGrid.SelectedItems)
+                        {
+                            RemoveStack.Push(item);
+                        }
+
+                        while (RemoveStack.Count > 0)
+                        {
+                            collection.Remove(RemoveStack.Pop());
+                        }
+
+                        collection.SaveModel();
                     }
+
                 }
             }
             catch (Exception ex)
@@ -127,7 +154,7 @@ namespace TokikuNew.Views
                 {
                     UpdateLayout();
                     ConstructionAtlasViewModelCollection sourcecollection = (ConstructionAtlasViewModelCollection)AltasGrid.ItemsSource;
-                    
+                    sourcecollection.SaveModel();
                 }
             }
             catch (Exception ex)

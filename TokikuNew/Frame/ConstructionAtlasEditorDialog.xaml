@@ -30,7 +30,7 @@
         <TextBlock Text="圖名：" Grid.Row="0" Grid.Column="0" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right" Height="19" Margin="0,4" Width="45"/>
         <TextBox Text="{Binding ImageName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1" Margin="2"/>
         <TextBlock Text="版次：" Grid.Row="0" Grid.Column="2" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right" Height="19" Margin="0,4" Width="45"/>
-        <TextBox Text="{Binding Edition,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="3" Margin="2" IsReadOnly="True"/>
+        <TextBox Text="{Binding Edition,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="3" Margin="2" />
         <TextBlock Text="送審日期：" Grid.Row="1" Grid.Column="0" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right" Height="19" Margin="0,4" Width="75"/>
         <DatePicker Text="{Binding SubmissionDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" Margin="2"/>
         <TextBlock Text="送審文號：" Grid.Row="1" Grid.Column="2" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right" Height="19" Margin="0,4" Width="75"/>
@@ -40,7 +40,7 @@
         <TextBlock Text="回覆文號：" Grid.Row="2" Grid.Column="2" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right" Height="19" Margin="0,4" Width="75"/>
         <TextBox Text="{Binding ReplyNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="3" Margin="2"/>
         <TextBlock Text="回覆內容：" Grid.Row="3" Grid.Column="0" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right" Height="19" Margin="0,4" Width="75"/>
-        <ComboBox Grid.Row="3" Grid.Column="1" Margin="2" SelectedValue="{Binding ReplyContent,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Value" SelectedIndex="0" ItemsSource="{DynamicResource ConstructionAtlasReplySelectList}" SelectionChanged="ComboBox_SelectionChanged">
+        <ComboBox Grid.Row="3" Grid.Column="1" Margin="2" SelectedValue="{Binding ReplyContent,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Value" SelectedIndex="0" ItemsSource="{Binding Source={StaticResource ConstructionAtlasReplySelectList}}" SelectionChanged="ComboBox_SelectionChanged">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Text}"/>

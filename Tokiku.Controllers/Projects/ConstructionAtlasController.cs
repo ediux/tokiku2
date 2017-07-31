@@ -8,7 +8,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class ConstructionAtlasController : BaseController
+    public class ConstructionAtlasController : BaseController<ConstructionAtlas>
     {
         public ExecuteResultEntity<ICollection<ConstructionAtlas>> SearchByText(string text)
         {
@@ -16,11 +16,18 @@ namespace Tokiku.Controllers
             {
                 if (text != null && text.Length > 0)
                 {
-                    //ExecuteResultEntity<ICollection<ConstructionAtlas>> model = ExecuteResultEntity<ICollection<ConstructionAtlas>>
-                    //     .CreateResultEntity(new Collection<ConstructionAtlas>(result.ToList()));
+                    
 
                     //return model;
-                    return null;
+                    var repo = this.GetRepository();
+                    var result = from q in repo.All()
+                                 where q.ImageName.Contains(text)
+                                 || q.ReplyNumber.Contains(text)
+                                 || q.SubmitCertificateNumber.Contains(text)
+                                 select q;
+
+                    return ExecuteResultEntity<ICollection<ConstructionAtlas>>
+                         .CreateResultEntity(new Collection<ConstructionAtlas>(result.ToList()));
                 }
                 else
                 {
@@ -37,7 +44,7 @@ namespace Tokiku.Controllers
         public ExecuteResultEntity<ICollection<ConstructionAtlas>> QueryAll()
         {
             try {
-                var repo = RepositoryHelper.GetConstructionAtlasRepository();
+                var repo = this.GetRepository();
                 return ExecuteResultEntity<ICollection<ConstructionAtlas>>.CreateResultEntity(
                     new Collection<ConstructionAtlas>(repo.All().ToList()));
             }catch (Exception ex) {
