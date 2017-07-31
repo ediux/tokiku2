@@ -40,10 +40,14 @@ namespace Tokiku.Entity
         public Nullable<int> OrderLength { get; set; }
         [Required]
         public decimal OrderQuantity { get; set; }
-        public Nullable<int> ShippingOrder { get; set; }
-        public Nullable<double> Weight { get; set; }
-        public Nullable<int> LackQuantity { get; set; }
-        public Nullable<int> ShippingQuantity { get; set; }
+        [Required]
+        public int ShippingOrder { get; set; }
+        [Required]
+        public double Weight { get; set; }
+        [Required]
+        public int LackQuantity { get; set; }
+        [Required]
+        public int ShippingQuantity { get; set; }
         
         [StringLength(512, ErrorMessage="欄位長度不得大於 512 個字元")]
         public string Comment { get; set; }

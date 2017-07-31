@@ -13,8 +13,6 @@ namespace Tokiku.Entity
     {
         [Required]
         public System.Guid Id { get; set; }
-        [Required]
-        public int Order { get; set; }
         
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
         [Required]
@@ -22,7 +20,6 @@ namespace Tokiku.Entity
         public Nullable<System.Guid> IncomingManufacturerId { get; set; }
         
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
-        [Required]
         public string IncomingNumber { get; set; }
         public Nullable<System.Guid> MakingUserId { get; set; }
         [Required]
@@ -40,11 +37,13 @@ namespace Tokiku.Entity
         public System.Guid CreateUserId { get; set; }
         [Required]
         public bool IsShipping { get; set; }
+        public Nullable<System.Guid> OrderId { get; set; }
     
         public virtual Users CreateUsers { get; set; }
         public virtual Users MakingUsers { get; set; }
         public virtual Stocks Stocks { get; set; }
         public virtual ICollection<PickListDetails> PickListDetails { get; set; }
         public virtual Manufacturers Manufacturers { get; set; }
+        public virtual Orders Orders { get; set; }
     }
 }

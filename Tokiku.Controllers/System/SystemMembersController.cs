@@ -8,7 +8,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class SystemMembersController : BaseController
+    public class SystemMembersController : BaseController<Membership>
     {
         private string sql;
 

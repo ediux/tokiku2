@@ -192,6 +192,9 @@
         <AssociationConnector Association="TokikuModel.FK_AbnormalQualityDetails_AbnormalQuality" />
         <AssociationConnector Association="TokikuModel.FK_AbnormalQualityDetails_Manufacturers" />
         <AssociationConnector Association="TokikuModel.FK_AbnormalQualityDetails_ReceiptDetails" />
+        <AssociationConnector Association="TokikuModel.FK_PickList_Orders" />
+        <AssociationConnector Association="TokikuModel.FK_PickListDetails_PickListDetails" />
+        <EntityTypeShape EntityType="TokikuModel.View_ShippingList" Width="1.5" PointX="12.375" PointY="0.75" />
         </Diagram>
       <Diagram DiagramId="da028285ff1d445f8957817e8b05eec6" Name="專案主檔" ZoomLevel="86" >
         <EntityTypeShape EntityType="TokikuModel.Projects" Width="1.5" PointX="3" PointY="10.625" />

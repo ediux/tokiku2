@@ -79,6 +79,7 @@
             <x:Static Member="sys:Guid.Empty"/>
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
+    
     <!--轉換器-->
     <ValueConverters:DateTime2StringFormatingValueConverter x:Key="FormatedDatetime"/>
     <ValueConverters:ReplyContentValueConverter x:Key="AtlasReplayContents"/>

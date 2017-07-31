@@ -25,8 +25,9 @@ namespace Tokiku.ViewModels
         //    //ToolBarButtons = new ToolbarButtonsViewModel();
 
         //}
+        public override string SaveModelController { get => "System"; set { } }
 
-        public static MainViewModel Query()
+        public MainViewModel Query()
         {
            UserViewModel loginUser = QuerySingle<UserViewModel, Users>("System", "GetCurrentLoginUser");
             return new MainViewModel() { LoginedUser = loginUser };

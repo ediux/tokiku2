@@ -26,8 +26,11 @@ namespace Tokiku.Entity
         
         [StringLength(512, ErrorMessage="欄位長度不得大於 512 個字元")]
         public string Comment { get; set; }
+        public Nullable<System.Guid> ShippingId { get; set; }
     
         public virtual OrderDetails OrderDetails { get; set; }
         public virtual PickList PickList { get; set; }
+        public virtual ICollection<PickListDetails> PickListDetails1 { get; set; }
+        public virtual PickListDetails PickListDetails2 { get; set; }
     }
 }

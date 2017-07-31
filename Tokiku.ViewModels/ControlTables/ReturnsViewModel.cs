@@ -67,12 +67,12 @@ namespace Tokiku.ViewModels
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     ReturnRecords = Details.Count;
                     ReturnQuantitySubtotal = Details.Sum(s => s.ReturnQuantity);
-                    ReturnWeightSubtotal = Details.Sum(s => s.Weight);
+                    ReturnWeightSubtotal = Details.Sum(s => s.Weight * s.ReturnQuantity);
                     break;
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
                     ReturnRecords = Details.Count;
                     ReturnQuantitySubtotal = Details.Sum(s => s.ReturnQuantity);
-                    ReturnWeightSubtotal = Details.Sum(s => s.Weight);
+                    ReturnWeightSubtotal = Details.Sum(s => s.Weight * s.ReturnQuantity);
                     break;
             }
         }
@@ -124,8 +124,20 @@ namespace Tokiku.ViewModels
         // 來料單號
         public string IncomingNumber
         {
-            get { return CopyofPOCOInstance.IncomingNumber; }
-            set { CopyofPOCOInstance.IncomingNumber = value; RaisePropertyChanged("IncomingNumber"); }
+            get { return CopyofPOCOInstance.Orders.FormNumber; }
+            set {
+                CopyofPOCOInstance.IncomingNumber = value;
+
+                var IncomingOrder = ExecuteAction<ICollection<Orders>>("Orders", "QueryBy", value);
+                if (IncomingOrder != null && IncomingOrder.Any())
+                {
+                    CopyofPOCOInstance.Orders = IncomingOrder.SingleOrDefault();
+                    if (CopyofPOCOInstance.Orders != null)
+                    {
+                        CopyofPOCOInstance.OrderId = CopyofPOCOInstance.Orders.Id;
+                    }
+                }
+                RaisePropertyChanged("IncomingNumber"); }
         }
 
         // 收料單號
@@ -167,6 +179,9 @@ namespace Tokiku.ViewModels
         public int ReturnQuantitySubtotal { get => _ReturnQuantitySubtotal; set { _ReturnQuantitySubtotal = value; RaisePropertyChanged("ReturnQuantitySubtotal"); } }
 
         private double _ReturnWeightSubtotal = 0;
+        /// <summary>
+        /// 退貨重量總計
+        /// </summary>
         public double ReturnWeightSubtotal { get => _ReturnWeightSubtotal; set { _ReturnWeightSubtotal = value; RaisePropertyChanged("ReturnWeightSubtotal"); } }
         /// <summary>
         /// 退貨單細項

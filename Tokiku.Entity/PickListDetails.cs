@@ -14,6 +14,12 @@ namespace Tokiku.Entity
     
     public partial class PickListDetails
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PickListDetails()
+        {
+            this.PickListDetails1 = new HashSet<PickListDetails>();
+        }
+    
         public System.Guid Id { get; set; }
         public Nullable<System.Guid> PickListId { get; set; }
         public Nullable<System.Guid> OrderDetailId { get; set; }
@@ -22,8 +28,12 @@ namespace Tokiku.Entity
         public int LackQuantity { get; set; }
         public int ShippingQuantity { get; set; }
         public string Comment { get; set; }
+        public Nullable<System.Guid> ShippingId { get; set; }
     
         public virtual OrderDetails OrderDetails { get; set; }
         public virtual PickList PickList { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PickListDetails> PickListDetails1 { get; set; }
+        public virtual PickListDetails PickListDetails2 { get; set; }
     }
 }

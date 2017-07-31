@@ -21,7 +21,6 @@ namespace Tokiku.Entity
         }
     
         public System.Guid Id { get; set; }
-        public int Order { get; set; }
         public string PickListNumber { get; set; }
         public Nullable<System.Guid> IncomingManufacturerId { get; set; }
         public string IncomingNumber { get; set; }
@@ -33,6 +32,7 @@ namespace Tokiku.Entity
         public System.DateTime CreateTime { get; set; }
         public System.Guid CreateUserId { get; set; }
         public bool IsShipping { get; set; }
+        public Nullable<System.Guid> OrderId { get; set; }
     
         public virtual Users CreateUsers { get; set; }
         public virtual Users MakingUsers { get; set; }
@@ -40,5 +40,6 @@ namespace Tokiku.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PickListDetails> PickListDetails { get; set; }
         public virtual Manufacturers Manufacturers { get; set; }
+        public virtual Orders Orders { get; set; }
     }
 }

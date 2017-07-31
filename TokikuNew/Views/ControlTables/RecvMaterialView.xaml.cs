@@ -34,7 +34,7 @@ namespace TokikuNew.Views
         public static readonly DependencyProperty SelectedProjectIdProperty =
             DependencyProperty.Register("SelectedProjectId", typeof(Guid), typeof(RecvMaterialView), new PropertyMetadata(Guid.Empty, new PropertyChangedCallback(ProjectIdChange)));
 
-        private static Receive _masterEntity;
+     
 
         public static void ProjectIdChange(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
@@ -54,20 +54,21 @@ namespace TokikuNew.Views
                         provider.Refresh();
                     }
 
-                    ObjectDataProvider provider2 = (ObjectDataProvider)currentview.TryFindResource("RecvMaterialDetailsSource");
+                    //ObjectDataProvider provider2 = (ObjectDataProvider)currentview.TryFindResource("RecvMaterialDetailsSource");
 
-                    if (provider2 != null)
-                    {
+                    //if (provider2 != null)
+                    //{
                        
-                        provider2.MethodParameters[0] = e.NewValue;
-                        provider2.MethodParameters[1] = ((RecvMaterialViewModel)provider.Data).Entity.Id;
+                    //    provider2.MethodParameters[0] = e.NewValue;
+                    //    provider2.MethodParameters[1] = ((RecvMaterialViewModel)provider.Data).Entity.Id;
 
-                        provider2.Refresh();
+                    //    provider2.Refresh();
 
-                        _masterEntity = ((RecvMaterialViewModel)provider.Data).Entity;
+                    //    _masterEntity = ((RecvMaterialViewModel)provider.Data).Entity;
 
-                        _masterEntity.ReceiptDetails = (Collection<ReceiveDetails>)provider2.Data;
-                    }
+                    //    _masterEntity.ReceiptDetails = new Collection<ReceiveDetails>(
+                    //        ((RecvMaterialDetailsViewModelCollection)provider2.Data).Select(s=>s.Entity).ToList());
+                    //}
                 }
 
             }
@@ -170,6 +171,39 @@ namespace TokikuNew.Views
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            }
+        }
+
+        private void StockPickSelector_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                ObjectDataProvider provider = (ObjectDataProvider)TryFindResource("StockPickSource");
+
+                if (provider != null)
+                {
+                    StockViewModelCollection stocks = (StockViewModelCollection)provider.Data;
+
+                    var textBox = e.OriginalSource as TextBox;
+
+                    var query_result = stocks.Where(w => w.Name == textBox.Text);
+
+                    if (!query_result.Any())
+                    {
+                        stocks.Add(new StockViewModel()
+                        {
+                            Id = Guid.NewGuid(),
+                            Name = textBox.Text,
+                            CreateTime = DateTime.Now
+                        });
+
+                        provider.Refresh();
+                    }
+                }
+            }
+            catch
+            {
+
             }
         }
     }

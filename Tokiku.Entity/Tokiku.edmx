@@ -535,11 +535,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Order" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IsShipping" Type="bit" Nullable="false" />
           <Property Name="PickListNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IncomingManufacturerId" Type="uniqueidentifier" />
-          <Property Name="IncomingNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IncomingNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="OrderId" Type="uniqueidentifier" />
           <Property Name="MakingUserId" Type="uniqueidentifier" />
           <Property Name="MakingTime" Type="smalldatetime" Nullable="false" />
           <Property Name="MakerPhone" Type="nvarchar" MaxLength="15" />
@@ -560,6 +560,7 @@
           <Property Name="LackQuantity" Type="int" Nullable="false" />
           <Property Name="ShippingQuantity" Type="int" Nullable="false" />
           <Property Name="Comment" Type="nvarchar" MaxLength="512" />
+          <Property Name="ShippingId" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="ProcessingAtlas">
           <Key>
@@ -1192,6 +1193,10 @@
             <PropertyRef Name="MaterialsName" />
             <PropertyRef Name="UnitWeight" />
             <PropertyRef Name="OrderQuantity" />
+            
+            
+            
+            
           </Key>
           <Property Name="PickListNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="BatchNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -1202,10 +1207,10 @@
           <Property Name="UnitWeight" Type="decimal" Precision="18" Scale="3" Nullable="false" />
           <Property Name="OrderLength" Type="int" />
           <Property Name="OrderQuantity" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="ShippingOrder" Type="int" />
-          <Property Name="Weight" Type="float" />
-          <Property Name="LackQuantity" Type="int" />
-          <Property Name="ShippingQuantity" Type="int" />
+          <Property Name="ShippingOrder" Type="int" Nullable="false" />
+          <Property Name="Weight" Type="float" Nullable="false" />
+          <Property Name="LackQuantity" Type="int" Nullable="false" />
+          <Property Name="ShippingQuantity" Type="int" Nullable="false" />
           <Property Name="Comment" Type="nvarchar" MaxLength="512" />
           <Property Name="PickListId" Type="uniqueidentifier" />
           <Property Name="OrderDetailId" Type="uniqueidentifier" />
@@ -1213,6 +1218,38 @@
           <Property Name="RequiredDetailsId" Type="uniqueidentifier" />
           <Property Name="ShippingManufactureId" Type="uniqueidentifier" />
           <Property Name="MaterialsId" Type="uniqueidentifier" />
+        </EntityType>
+        <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'Tokiku2_New.dbo.View_ShippingList' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+        <EntityType Name="View_ShippingList">
+          <Key>
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="ShippingNumber" />
+            <PropertyRef Name="ReceiptNumber" />
+            <PropertyRef Name="PickListNumber" />
+            <PropertyRef Name="PickListTime" />
+            <PropertyRef Name="ShippingTime" />
+            <PropertyRef Name="ShippingName" />
+            <PropertyRef Name="OrderDetailsId" />
+            <PropertyRef Name="PickListDetailsId" />
+            <PropertyRef Name="ReceiptDetailsId" />
+            <PropertyRef Name="PickListId" />
+            <PropertyRef Name="ShippingId" />
+            <PropertyRef Name="ReceiptsId" />
+          </Key>
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ShippingNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ReceiptNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PickListNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PickListTime" Type="smalldatetime" Nullable="false" />
+          <Property Name="ShippingTime" Type="smalldatetime" Nullable="false" />
+          <Property Name="ShippingName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="OrderDetailsId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PickListDetailsId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReceiptDetailsId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PickListId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ShippingId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReceiptsId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <Association Name="FK__aspnet_Me__UserI__164452B1">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
@@ -2078,6 +2115,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PickList_Orders">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
+          <End Role="PickList" Type="Self.PickList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PickList">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PickList_Stocks">
           <End Role="Stocks" Type="Self.Stocks" Multiplicity="0..1" />
           <End Role="PickList" Type="Self.PickList" Multiplicity="*" />
@@ -2111,6 +2160,18 @@
             </Principal>
             <Dependent Role="PickListDetails">
               <PropertyRef Name="PickListId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PickListDetails_PickListDetails">
+          <End Role="PickListDetails" Type="Self.PickListDetails" Multiplicity="0..1" />
+          <End Role="PickListDetails1" Type="Self.PickListDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PickListDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PickListDetails1">
+              <PropertyRef Name="ShippingId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2906,6 +2967,23 @@
     [View_Shipping].[MaterialsId] AS [MaterialsId]
     FROM [dbo].[View_Shipping] AS [View_Shipping]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="View_ShippingList" EntityType="Self.View_ShippingList" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_ShippingList].[Name] AS [Name], 
+    [View_ShippingList].[ShippingNumber] AS [ShippingNumber], 
+    [View_ShippingList].[ReceiptNumber] AS [ReceiptNumber], 
+    [View_ShippingList].[PickListNumber] AS [PickListNumber], 
+    [View_ShippingList].[PickListTime] AS [PickListTime], 
+    [View_ShippingList].[ShippingTime] AS [ShippingTime], 
+    [View_ShippingList].[ShippingName] AS [ShippingName], 
+    [View_ShippingList].[OrderDetailsId] AS [OrderDetailsId], 
+    [View_ShippingList].[PickListDetailsId] AS [PickListDetailsId], 
+    [View_ShippingList].[ReceiptDetailsId] AS [ReceiptDetailsId], 
+    [View_ShippingList].[PickListId] AS [PickListId], 
+    [View_ShippingList].[ShippingId] AS [ShippingId], 
+    [View_ShippingList].[ReceiptsId] AS [ReceiptsId]
+    FROM [dbo].[View_ShippingList] AS [View_ShippingList]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__aspnet_Me__UserI__164452B1" Association="Self.FK__aspnet_Me__UserI__164452B1">
             <End Role="Users" EntitySet="Users" />
             <End Role="Membership" EntitySet="Membership" />
@@ -3194,6 +3272,10 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="PickList" EntitySet="PickList" />
           </AssociationSet>
+          <AssociationSet Name="FK_PickList_Orders" Association="Self.FK_PickList_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="PickList" EntitySet="PickList" />
+          </AssociationSet>
           <AssociationSet Name="FK_PickList_Stocks" Association="Self.FK_PickList_Stocks">
             <End Role="Stocks" EntitySet="Stocks" />
             <End Role="PickList" EntitySet="PickList" />
@@ -3205,6 +3287,10 @@
           <AssociationSet Name="FK_PickListDetails_PickList" Association="Self.FK_PickListDetails_PickList">
             <End Role="PickList" EntitySet="PickList" />
             <End Role="PickListDetails" EntitySet="PickListDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PickListDetails_PickListDetails" Association="Self.FK_PickListDetails_PickListDetails">
+            <End Role="PickListDetails" EntitySet="PickListDetails" />
+            <End Role="PickListDetails1" EntitySet="PickListDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_ProcessingAtlas_ProjectContract" Association="Self.FK_ProcessingAtlas_ProjectContract">
             <End Role="ProjectContract" EntitySet="ProjectContract" />
@@ -4056,6 +4142,15 @@
             <End Role="ReceiveDetails" EntitySet="ReceiptDetails" />
             <End Role="AbnormalQualityDetails" EntitySet="AbnormalQualityDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_PickList_Orders" Association="TokikuModel.FK_PickList_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="PickList" EntitySet="PickList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PickListDetails_PickListDetails" Association="TokikuModel.FK_PickListDetails_PickListDetails">
+            <End Role="PickListDetails" EntitySet="PickListDetails" />
+            <End Role="PickListDetails1" EntitySet="PickListDetails" />
+          </AssociationSet>
+          <EntitySet Name="View_ShippingList" EntityType="TokikuModel.View_ShippingList" />
           </EntityContainer>
         <EntityType Name="AccessLog">
           <Key>
@@ -4925,6 +5020,7 @@
           <NavigationProperty Name="OrderMiscellaneous" Relationship="TokikuModel.FK_OrderMiscellaneous_Orders" FromRole="Orders" ToRole="OrderMiscellaneous" />
           <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_Orders_ShippingManufacturers" FromRole="Orders" ToRole="Manufacturers" />
           <NavigationProperty Name="Returns" Relationship="TokikuModel.FK_Returns_Orders" FromRole="Orders" ToRole="Returns" />
+          <NavigationProperty Name="PickList" Relationship="TokikuModel.FK_PickList_Orders" FromRole="Orders" ToRole="PickList" />
         </EntityType>
         <EntityType Name="OrderTypes">
           <Key>
@@ -4941,10 +5037,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="Order" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PickListNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IncomingManufacturerId" Type="Guid" />
-          <Property Name="IncomingNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IncomingNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MakingUserId" Type="Guid" />
           <Property Name="MakingTime" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="MakerPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
@@ -4958,6 +5053,8 @@
           <NavigationProperty Name="PickListDetails" Relationship="TokikuModel.FK_PickListDetails_PickList" FromRole="PickList" ToRole="PickListDetails" />
           <NavigationProperty Name="Manufacturers" Relationship="TokikuModel.FK_PickList_IncomingManufacturers" FromRole="PickList" ToRole="Manufacturers" />
           <Property Name="IsShipping" Type="Boolean" Nullable="false" />
+          <Property Name="OrderId" Type="Guid" />
+          <NavigationProperty Name="Orders" Relationship="TokikuModel.FK_PickList_Orders" FromRole="PickList" ToRole="Orders" />
         </EntityType>
         <EntityType Name="PickListDetails">
           <Key>
@@ -4973,6 +5070,9 @@
           <Property Name="Comment" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="OrderDetails" Relationship="TokikuModel.FK_PickListDetails_OrderDetails" FromRole="PickListDetails" ToRole="OrderDetails" />
           <NavigationProperty Name="PickList" Relationship="TokikuModel.FK_PickListDetails_PickList" FromRole="PickListDetails" ToRole="PickList" />
+          <Property Name="ShippingId" Type="Guid" />
+          <NavigationProperty Name="PickListDetails1" Relationship="TokikuModel.FK_PickListDetails_PickListDetails" FromRole="PickListDetails" ToRole="PickListDetails1" />
+          <NavigationProperty Name="PickListDetails2" Relationship="TokikuModel.FK_PickListDetails_PickListDetails" FromRole="PickListDetails1" ToRole="PickListDetails" />
         </EntityType>
         <EntityType Name="ReceiveDetails">
           <Key>
@@ -6570,10 +6670,10 @@
           <Property Name="UnitWeight" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
           <Property Name="OrderLength" Type="Int32" />
           <Property Name="OrderQuantity" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="ShippingOrder" Type="Int32" />
-          <Property Name="Weight" Type="Double" />
-          <Property Name="LackQuantity" Type="Int32" />
-          <Property Name="ShippingQuantity" Type="Int32" />
+          <Property Name="ShippingOrder" Type="Int32" Nullable="false" />
+          <Property Name="Weight" Type="Double" Nullable="false" />
+          <Property Name="LackQuantity" Type="Int32" Nullable="false" />
+          <Property Name="ShippingQuantity" Type="Int32" Nullable="false" />
           <Property Name="Comment" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
           <Property Name="PickListId" Type="Guid" />
           <Property Name="OrderDetailId" Type="Guid" />
@@ -6747,6 +6847,60 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PickList_Orders">
+          <End Type="TokikuModel.Orders" Role="Orders" Multiplicity="0..1" />
+          <End Type="TokikuModel.PickList" Role="PickList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PickList">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PickListDetails_PickListDetails">
+          <End Type="TokikuModel.PickListDetails" Role="PickListDetails" Multiplicity="0..1" />
+          <End Type="TokikuModel.PickListDetails" Role="PickListDetails1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PickListDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PickListDetails1">
+              <PropertyRef Name="ShippingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="View_ShippingList">
+          <Key>
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="ShippingNumber" />
+            <PropertyRef Name="ReceiptNumber" />
+            <PropertyRef Name="PickListNumber" />
+            <PropertyRef Name="PickListTime" />
+            <PropertyRef Name="ShippingTime" />
+            <PropertyRef Name="ShippingName" />
+            <PropertyRef Name="OrderDetailsId" />
+            <PropertyRef Name="PickListDetailsId" />
+            <PropertyRef Name="ReceiptDetailsId" />
+            <PropertyRef Name="PickListId" />
+            <PropertyRef Name="ShippingId" />
+            <PropertyRef Name="ReceiptsId" />
+          </Key>
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShippingNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiptNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PickListNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PickListTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ShippingTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ShippingName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="OrderDetailsId" Type="Guid" Nullable="false" />
+          <Property Name="PickListDetailsId" Type="Guid" Nullable="false" />
+          <Property Name="ReceiptDetailsId" Type="Guid" Nullable="false" />
+          <Property Name="PickListId" Type="Guid" Nullable="false" />
+          <Property Name="ShippingId" Type="Guid" Nullable="false" />
+          <Property Name="ReceiptsId" Type="Guid" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7285,6 +7439,7 @@
           <EntitySetMapping Name="PickList">
             <EntityTypeMapping TypeName="TokikuModel.PickList">
               <MappingFragment StoreEntitySet="PickList">
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="IsShipping" ColumnName="IsShipping" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
@@ -7296,7 +7451,6 @@
                 <ScalarProperty Name="IncomingNumber" ColumnName="IncomingNumber" />
                 <ScalarProperty Name="IncomingManufacturerId" ColumnName="IncomingManufacturerId" />
                 <ScalarProperty Name="PickListNumber" ColumnName="PickListNumber" />
-                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -7304,6 +7458,7 @@
           <EntitySetMapping Name="PickListDetails">
             <EntityTypeMapping TypeName="TokikuModel.PickListDetails">
               <MappingFragment StoreEntitySet="PickListDetails">
+                <ScalarProperty Name="ShippingId" ColumnName="ShippingId" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="ShippingQuantity" ColumnName="ShippingQuantity" />
                 <ScalarProperty Name="LackQuantity" ColumnName="LackQuantity" />
@@ -7923,6 +8078,25 @@
                 <ScalarProperty Name="ReceiptDetailsId" ColumnName="ReceiptDetailsId" />
                 <ScalarProperty Name="AbnormalQualityId" ColumnName="AbnormalQualityId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_ShippingList">
+            <EntityTypeMapping TypeName="TokikuModel.View_ShippingList">
+              <MappingFragment StoreEntitySet="View_ShippingList">
+                <ScalarProperty Name="ReceiptsId" ColumnName="ReceiptsId" />
+                <ScalarProperty Name="ShippingId" ColumnName="ShippingId" />
+                <ScalarProperty Name="PickListId" ColumnName="PickListId" />
+                <ScalarProperty Name="ReceiptDetailsId" ColumnName="ReceiptDetailsId" />
+                <ScalarProperty Name="PickListDetailsId" ColumnName="PickListDetailsId" />
+                <ScalarProperty Name="OrderDetailsId" ColumnName="OrderDetailsId" />
+                <ScalarProperty Name="ShippingName" ColumnName="ShippingName" />
+                <ScalarProperty Name="ShippingTime" ColumnName="ShippingTime" />
+                <ScalarProperty Name="PickListTime" ColumnName="PickListTime" />
+                <ScalarProperty Name="PickListNumber" ColumnName="PickListNumber" />
+                <ScalarProperty Name="ReceiptNumber" ColumnName="ReceiptNumber" />
+                <ScalarProperty Name="ShippingNumber" ColumnName="ShippingNumber" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

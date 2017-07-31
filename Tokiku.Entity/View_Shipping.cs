@@ -23,10 +23,10 @@ namespace Tokiku.Entity
         public decimal UnitWeight { get; set; }
         public Nullable<int> OrderLength { get; set; }
         public decimal OrderQuantity { get; set; }
-        public Nullable<int> ShippingOrder { get; set; }
-        public Nullable<double> Weight { get; set; }
-        public Nullable<int> LackQuantity { get; set; }
-        public Nullable<int> ShippingQuantity { get; set; }
+        public int ShippingOrder { get; set; }
+        public double Weight { get; set; }
+        public int LackQuantity { get; set; }
+        public int ShippingQuantity { get; set; }
         public string Comment { get; set; }
         public Nullable<System.Guid> PickListId { get; set; }
         public Nullable<System.Guid> OrderDetailId { get; set; }

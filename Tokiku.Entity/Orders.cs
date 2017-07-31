@@ -21,6 +21,7 @@ namespace Tokiku.Entity
             this.OrderMaterialValuation = new HashSet<OrderMaterialValuation>();
             this.OrderMiscellaneous = new HashSet<OrderMiscellaneous>();
             this.Returns = new HashSet<Returns>();
+            this.PickList = new HashSet<PickList>();
         }
     
         public System.Guid Id { get; set; }
@@ -50,5 +51,7 @@ namespace Tokiku.Entity
         public virtual Manufacturers Manufacturers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Returns> Returns { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PickList> PickList { get; set; }
     }
 }

@@ -48,5 +48,6 @@ namespace Tokiku.Entity
         public virtual ICollection<OrderMiscellaneous> OrderMiscellaneous { get; set; }
         public virtual Manufacturers Manufacturers { get; set; }
         public virtual ICollection<Returns> Returns { get; set; }
+        public virtual ICollection<PickList> PickList { get; set; }
     }
 }

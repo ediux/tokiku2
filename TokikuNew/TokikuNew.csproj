@@ -131,6 +131,9 @@
     <Compile Include="Controls\OrdersSelector.xaml.cs">
       <DependentUpon>OrdersSelector.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SystemUserSelector.xaml.cs">
+      <DependentUpon>SystemUserSelector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\ClipboardHelper.cs" />
     <Compile Include="Helpers\SwitchFieldMode.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
@@ -343,6 +346,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\SelectSupplierListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SystemUserSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

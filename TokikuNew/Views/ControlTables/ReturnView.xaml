@@ -199,7 +199,7 @@
         </Canvas>
 
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="570" Margin="10,0,0,0" VerticalAlignment="Top" Width="1326">
-            <DataGrid x:Name="CheckGrid" AutoGenerateColumns="False" Margin="5" ItemsSource="{Binding Source={StaticResource ReturnsSource}}" RowEditEnding="CheckGrid_RowEditEnding">
+            <DataGrid x:Name="CheckGrid" AutoGenerateColumns="False" Margin="5" ItemsSource="{Binding Details, Source={StaticResource ReturnsSource}}" RowEditEnding="CheckGrid_RowEditEnding">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="單號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" Binding="{Binding OrderFormNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                     <DataGridTextColumn Header="批號" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" Binding="{Binding BatchNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
@@ -221,11 +221,11 @@
         
         <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="31" Margin="10,0,0,6" VerticalAlignment="Bottom" Width="1006">
             <Label Content="退料筆數:" HorizontalAlignment="Left" Height="22" Margin="10,10,0,0" VerticalAlignment="Top" Width="51" Grid.Column="1"/>
-            <TextBox HorizontalAlignment="Left" Height="24" Margin="66,8,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="65"/>
+            <TextBox HorizontalAlignment="Left" Height="24" Margin="66,8,0,0" TextWrapping="Wrap" Text="{Binding ReturnRecords,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Source={StaticResource ReturnsSource}}" VerticalAlignment="Top" Width="65"/>
             <Label Content="合計:" HorizontalAlignment="Left" Height="22" Margin="149,10,0,0" VerticalAlignment="Top" Width="32"/>
-            <TextBox HorizontalAlignment="Left" Height="24" Margin="186,8,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="168"/>
+            <TextBox HorizontalAlignment="Left" Height="24" Margin="186,8,0,0" TextWrapping="Wrap" Text="{Binding ReturnQuantitySubtotal,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Source={StaticResource ReturnsSource}}" VerticalAlignment="Top" Width="168"/>
             <Label Content="退料總重:" HorizontalAlignment="Left" Height="22" Margin="359,10,0,0" VerticalAlignment="Top" Width="54"/>
-            <TextBox HorizontalAlignment="Left" Height="24" Margin="413,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="139"/>
+            <TextBox HorizontalAlignment="Left" Height="24" Margin="413,5,0,0" TextWrapping="Wrap" Text="{Binding ReturnWeightSubtotal,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Source={StaticResource ReturnsSource}}" VerticalAlignment="Top" Width="139"/>
             <Label Content="KG" HorizontalAlignment="Left" Height="22" Margin="557,10,0,0" VerticalAlignment="Top" Width="32"/>
         </Grid>
        

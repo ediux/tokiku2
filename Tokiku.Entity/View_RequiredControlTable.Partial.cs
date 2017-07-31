@@ -7,7 +7,6 @@ namespace Tokiku.Entity
     [MetadataType(typeof(View_RequiredControlTableMetaData))]
     public partial class View_RequiredControlTable
     {
-        public int RowIndex { get; set; }
     }
     
     public partial class View_RequiredControlTableMetaData
@@ -30,7 +29,8 @@ namespace Tokiku.Entity
         public string Materials { get; set; }
         [Required]
         public decimal UnitWeight { get; set; }
-        public Nullable<int> OrderLength { get; set; }
+        [Required]
+        public int OrderLength { get; set; }
         public Nullable<int> RequiredQuantitySubtotal { get; set; }
         public Nullable<decimal> RequiredQuantityWeightSummary { get; set; }
         public Nullable<decimal> NumberofOrdersNotPlaced { get; set; }

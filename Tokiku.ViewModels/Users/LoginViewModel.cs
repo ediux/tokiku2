@@ -35,7 +35,7 @@ namespace Tokiku.ViewModels
         public string UserName { get { return CopyofPOCOInstance.UserName ?? string.Empty; } set { CopyofPOCOInstance.UserName = value; RaisePropertyChanged("UserName"); } }
 
         //public static readonly DependencyProperty PasswordProperty = DependencyProperty.Register("Password", typeof(string), typeof(LoginViewModel), new PropertyMetadata(string.Empty));
-
+        public override string SaveModelController { get => "StartUpWindow"; set { } }
         /// <summary>
         /// 登入密碼
         /// </summary>

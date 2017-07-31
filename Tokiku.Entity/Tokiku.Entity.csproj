@@ -690,6 +690,7 @@
     <Compile Include="View_RequiredControlTable.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
+    <Compile Include="View_RequiredControlTable.partialclass.cs" />
     <Compile Include="View_RequiredControlTableRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
@@ -707,6 +708,15 @@
     </Compile>
     <Compile Include="View_Shipping.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_ShippingList.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_ShippingList.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_ShippingListRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
     <Compile Include="View_ShippingRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
@@ -760,6 +770,8 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="PartialClasses\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

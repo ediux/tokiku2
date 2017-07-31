@@ -97,6 +97,27 @@ namespace Tokiku.Controllers
             }
         }
 
+        public ExecuteResultEntity<ICollection<Orders>> QueryBy(string OrderFormNumber)
+        {
+            ExecuteResultEntity<ICollection<Orders>> rtn;
+
+            try
+            {
+                var repo = this.GetRepository();
+
+                var result = (from q in repo.All()
+                              where q.FormNumber == OrderFormNumber
+                              orderby q.FormNumber descending
+                              select q).Distinct();
+
+                return ExecuteResultEntity<ICollection<Orders>>.CreateResultEntity(new Collection<Orders>(result.ToList()));
+            }
+            catch (Exception ex)
+            {
+                rtn = ExecuteResultEntity<ICollection<Orders>>.CreateErrorResultEntity(ex);
+                return rtn;
+            }
+        }
         public ExecuteResultEntity<ICollection<Orders>> Query(Guid ProjectId)
         {
             ExecuteResultEntity<ICollection<Orders>> rtn;

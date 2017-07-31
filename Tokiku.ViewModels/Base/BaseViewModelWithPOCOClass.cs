@@ -632,30 +632,30 @@ namespace Tokiku.ViewModels
             SaveModel(SaveModelController);
         }
 
-        #region 查詢單一個體的檢視資料
-        /// <summary>
-        /// 查詢單一個體的檢視資料
-        /// </summary>
-        /// <param name="ManufacturersId"></param>
-        public TView Query<TView>(params object[] Parameters) where TView : BaseViewModelWithPOCOClass<TPOCO>
-        {
-            try
-            {
-                TView viewmodel = Activator.CreateInstance<TView>();
+        //#region 查詢單一個體的檢視資料
+        ///// <summary>
+        ///// 查詢單一個體的檢視資料
+        ///// </summary>
+        ///// <param name="ManufacturersId"></param>
+        //public TView Query<TView>(params object[] Parameters) where TView : BaseViewModelWithPOCOClass<TPOCO>
+        //{
+        //    try
+        //    {
+        //        TView viewmodel = Activator.CreateInstance<TView>();
 
-                viewmodel=  QuerySingle<TView, TPOCO>(
-                    viewmodel.SaveModelController, "QuerySingle", Parameters);
+        //        viewmodel=  QuerySingle<TView, TPOCO>(
+        //            viewmodel.SaveModelController, "QuerySingle", Parameters);
 
-                return viewmodel;
-            }
-            catch (Exception ex)
-            {
-                TView view = Activator.CreateInstance<TView>();
-                setErrortoModel(view, ex);
-                return view;
-            }
+        //        return viewmodel;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TView view = Activator.CreateInstance<TView>();
+        //        setErrortoModel(view, ex);
+        //        return view;
+        //    }
 
-        }
-        #endregion
+        //}
+        //#endregion
     }
 }

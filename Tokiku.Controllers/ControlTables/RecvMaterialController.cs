@@ -24,8 +24,23 @@ namespace Tokiku.Controllers
                              && q.Id == Id
                              select s.Receipts;
 
-                return ExecuteResultEntity<Receive>.CreateResultEntity(
-                    result.SingleOrDefault());
+                var founddata =
+                    result.SingleOrDefault();
+
+                if (founddata == null)
+                {
+                    founddata = new Receive();
+                    founddata.Id = Guid.NewGuid();
+                   
+                    founddata.CreateTime = founddata.MakingTime = DateTime.Now;
+                    founddata.CreateUser = GetCurrentLoginUser().Result;
+                    founddata.CreateUserId = founddata.CreateUser.UserId;
+
+                }
+
+                return ExecuteResultEntity<Receive>.CreateResultEntity(founddata);
+
+
             }
             catch (Exception ex)
             {

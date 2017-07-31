@@ -939,6 +939,20 @@ namespace Tokiku.Entity
 			return repository;
 		}		
 
+		public static View_ShippingListRepository GetView_ShippingListRepository()
+		{
+			var repository = new View_ShippingListRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static View_ShippingListRepository GetView_ShippingListRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new View_ShippingListRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
 		public static WorkShopsRepository GetWorkShopsRepository()
 		{
 			var repository = new WorkShopsRepository();
