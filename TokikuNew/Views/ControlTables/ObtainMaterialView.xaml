@@ -153,7 +153,7 @@
         <Grid x:Name="CheckGrid" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="570" Margin="10,0,0,0" VerticalAlignment="Top" Width="1326">
             <DataGrid>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="項次" Binding="{Binding }" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                    <DataGridTextColumn Header="項次" Binding="{Binding RowIndex}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                     <DataGridTextColumn Header="東菊編號" Binding="{Binding }" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                     <DataGridTextColumn Header="廠商編號" Binding="{Binding }" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                     <DataGridTextColumn Header="品名/規格" Binding="{Binding }" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
