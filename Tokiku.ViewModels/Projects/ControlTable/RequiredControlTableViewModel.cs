@@ -274,7 +274,7 @@ namespace Tokiku.ViewModels
         }
         #endregion
 
-        #region 缺貨數量小計
+        #region 到貨狀況 缺貨數量小計
         public decimal? ArrivalCondition_OutofStock
         {
             get { return CopyofPOCOInstance.ArrivalCondition_OutofStock; }
@@ -327,6 +327,22 @@ namespace Tokiku.ViewModels
         {
             get { return 0; }
             set { RaisePropertyChanged("ReturnStatus_Charge_WeightSubtotal"); }
+        }
+        #endregion
+
+        #region 領料狀況 數量小計
+        public Nullable<decimal> PickingStatus_QuantitySubtotal
+        {
+            get { return 0; }
+            set { RaisePropertyChanged("PickingStatus_QuantitySubtotal"); }
+        }
+        #endregion
+
+        #region 領料狀況 重量小計
+        public Nullable<decimal> PickingStatus_WeightSubtotal
+        {
+            get { return 0; }
+            set { RaisePropertyChanged("PickingStatus_WeightSubtotal"); }
         }
         #endregion
 
