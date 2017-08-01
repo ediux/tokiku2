@@ -21,15 +21,5 @@ namespace Tokiku.Controllers
             }
         }
         
-        public ExecuteResultEntity<ICollection<PickListDetails>> QueryHeader()
-        {
-            try {
-                var repo = RepositoryHelper.GetPickListDetailsRepository();
-                return ExecuteResultEntity<ICollection<PickListDetails>>.CreateResultEntity(
-                    new Collection<PickListDetails>(repo.All().ToList()));
-            }catch (Exception ex) {
-                return ExecuteResultEntity<ICollection<PickListDetails>>.CreateErrorResultEntity(ex);
-            }
-        }
     }
 }

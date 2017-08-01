@@ -23,11 +23,7 @@ namespace Tokiku.ViewModels
         {
             return Query<ObtainMaterialViewModelCollection, PickListDetails>("ObtainMaterial", "QueryAll");
         }
-
-        public static ObtainMaterialViewModelCollection QueryHeader()
-        {
-            return Query<ObtainMaterialViewModelCollection, PickListDetails>("ObtainMaterial", "QueryHeader");
-        }
+        
     }
 
     public class ObtainMaterialViewModel : BaseViewModelWithPOCOClass<PickListDetails>
@@ -40,9 +36,7 @@ namespace Tokiku.ViewModels
         {
             _SaveModelController = "ObtainMaterial";
         }
-
-        #region 領料單明細
-
+        
         // 東菊編號
         public string RequiredDetailsCode
         {
@@ -50,18 +44,18 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.OrderDetails.RequiredDetails.Code = value; RaisePropertyChanged("RequiredDetailsCode"); }
         }
 
-        // 廠商編號
+        // 廠商編號(加工廠商)
         public string ManufacturersCode
         {
-            get { return CopyofPOCOInstance.OrderDetails.RequiredDetails.Required.Manufacturers.Code; }
-            set { CopyofPOCOInstance.OrderDetails.RequiredDetails.Required.Manufacturers.Code = value; RaisePropertyChanged("ManufacturersCode"); }
+            get { return CopyofPOCOInstance.PickList.Manufacturers.Code; }
+            set { CopyofPOCOInstance.PickList.Manufacturers.Code = value; RaisePropertyChanged("ManufacturersCode"); }
         }
 
-        // 廠商名稱
+        // 廠商名稱(加工廠商)
         public string ManufacturersName
         {
-            get { return CopyofPOCOInstance.OrderDetails.RequiredDetails.Required.Manufacturers.Name; }
-            set { CopyofPOCOInstance.OrderDetails.RequiredDetails.Required.Manufacturers.Name = value; RaisePropertyChanged("ManufacturersName"); }
+            get { return CopyofPOCOInstance.PickList.Manufacturers.Name; }
+            set { CopyofPOCOInstance.PickList.Manufacturers.Name = value; RaisePropertyChanged("ManufacturersName"); }
         }
 
         // 材質
@@ -105,11 +99,7 @@ namespace Tokiku.ViewModels
             get { return CopyofPOCOInstance.Comment; }
             set { CopyofPOCOInstance.Comment = value; RaisePropertyChanged("Comment"); }
         }
-
-        #endregion
-
-        #region 領料單檔頭
-
+        
         // 專案合約編號
         public string ContractNumber
         {
@@ -151,14 +141,7 @@ namespace Tokiku.ViewModels
             get { return CopyofPOCOInstance.PickList.MakingUsers.UserName; }
             set { CopyofPOCOInstance.PickList.MakingUsers.UserName = value; RaisePropertyChanged("MakingUser"); }
         }
-
-        // 加工廠商
-        public string IncomingManufacturersName
-        {
-            get { return CopyofPOCOInstance.PickList.Manufacturers.Name; }
-            set { CopyofPOCOInstance.PickList.Manufacturers.Name = value; RaisePropertyChanged("IncomingManufacturersName"); }
-        }
-
+        
         // 輸入日期
         public override DateTime CreateTime
         {
@@ -172,7 +155,6 @@ namespace Tokiku.ViewModels
             get { return CopyofPOCOInstance.PickList.CreateUsers.UserName; }
             set { CopyofPOCOInstance.PickList.MakingUsers.UserName = value; RaisePropertyChanged("CreateUserName"); }
         }
-
-        #endregion
+        
     }
 }
