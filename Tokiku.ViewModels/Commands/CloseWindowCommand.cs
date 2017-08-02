@@ -31,10 +31,18 @@ namespace Tokiku.ViewModels
         {
             RoutedViewResult executeresult = (parameter is RoutedViewResult) ? (RoutedViewResult)parameter : null;
 
-            if (executeresult.SourceInstance is Window)
+            if (executeresult != null)
             {
-                ((Window)executeresult.SourceInstance).Close();
+                if (executeresult.SourceInstance is Window)
+                {
+                    ((Window)executeresult.SourceInstance).Close();
+                }
             }
+            else
+            {
+                Application.Current.Shutdown();
+            }
+
         }
     }
 }

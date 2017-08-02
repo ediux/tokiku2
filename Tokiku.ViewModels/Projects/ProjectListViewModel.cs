@@ -8,95 +8,96 @@ using System.Threading.Tasks;
 using System.Windows;
 using Tokiku.Controllers;
 using Tokiku.Entity;
+using GalaSoft.MvvmLight;
 
 namespace Tokiku.ViewModels
 {
-    public class ProjectListViewModelCollection : BaseViewModelCollection<ProjectListViewModel>
+    public class ProjectListViewModelCollection : ViewModelBase
     {
         //private ProjectsController _projects_controller;
 
         public ProjectListViewModelCollection() : base()
         {
-
+          
         }
 
-        public ProjectListViewModelCollection(IEnumerable<ProjectListViewModel> source) : base(source)
-        {
+        //public ProjectListViewModelCollection(IEnumerable<ProjectListViewModel> source) : base(source)
+        //{
 
-        }
+        //}
 
-        public override void Initialized()
-        {
-            base.Initialized();
-            //_projects_controller = new ProjectsController();
-        }
+        //public override void Initialized()
+        //{
+        //    base.Initialized();
+        //    //_projects_controller = new ProjectsController();
+        //}
 
         public void Refresh()
         {
 
         }
 
-        public ProjectListViewModelCollection Query()
-        {
-            return Query<ProjectListViewModelCollection, ProjectListEntity>("Projects", "QueryAll");
-            //var projectResult = _projects_controller.Query(v => v.Void == false);
-            //if (!projectResult.HasError)
-            //{
-            //    Clear();
-            //    var result = projectResult.Result
-            //        .OrderByDescending(s => s.Code)
-            //        .OrderBy(s => s.State)
-            //        .Select(s => new ProjectListViewModel()
-            //        {
-            //            Code = s.Code,
-            //            CompletionDate = s.PromissoryNoteManagement.Where(k => k.TicketTypeId == 3 || k.TicketTypeId == 4).OrderByDescending(w => w.OpenDate).FirstOrDefault()?.OpenDate,
-            //            Id = s.Id,
-            //            Name = s.Name,
-            //            ShortName = s.ShortName,
-            //            StartDate = s.StartDate,
-            //            State = s.State,
-            //            WarrantyDate = s.PromissoryNoteManagement.Where(k => k.TicketTypeId == 3 || k.TicketTypeId == 4).OrderByDescending(w => w.RecoveryDate).FirstOrDefault()?.RecoveryDate
-            //        });
+        //public ProjectListViewModelCollection Query()
+        //{
+        //    //return Query<ProjectListViewModelCollection, ProjectListEntity>("Projects", "QueryAll");
+        //    //var projectResult = _projects_controller.Query(v => v.Void == false);
+        //    //if (!projectResult.HasError)
+        //    //{
+        //    //    Clear();
+        //    //    var result = projectResult.Result
+        //    //        .OrderByDescending(s => s.Code)
+        //    //        .OrderBy(s => s.State)
+        //    //        .Select(s => new ProjectListViewModel()
+        //    //        {
+        //    //            Code = s.Code,
+        //    //            CompletionDate = s.PromissoryNoteManagement.Where(k => k.TicketTypeId == 3 || k.TicketTypeId == 4).OrderByDescending(w => w.OpenDate).FirstOrDefault()?.OpenDate,
+        //    //            Id = s.Id,
+        //    //            Name = s.Name,
+        //    //            ShortName = s.ShortName,
+        //    //            StartDate = s.StartDate,
+        //    //            State = s.State,
+        //    //            WarrantyDate = s.PromissoryNoteManagement.Where(k => k.TicketTypeId == 3 || k.TicketTypeId == 4).OrderByDescending(w => w.RecoveryDate).FirstOrDefault()?.RecoveryDate
+        //    //        });
 
-            //    foreach (var row in result)
-            //    {
-            //        Add(row);
-            //    }
+        //    //    foreach (var row in result)
+        //    //    {
+        //    //        Add(row);
+        //    //    }
 
-            //}
-        }
-        public ProjectListViewModelCollection QueryByText(string text)
-        {
-            return Query<ProjectListViewModelCollection, ProjectListEntity>("Projects", "SearchByText", text);
-            //var projectResult = _projects_controller.SearchByText(text);
-            //if (!projectResult.HasError)
-            //{
-            //    Clear();
-            //    var result = projectResult.Result
-            //        .Where(s => s.Code.Contains(text)
-            //        || s.Name.Contains(text)
-            //        || (s.ShortName != null && s.ShortName.Contains(text)))
-            //        .OrderByDescending(s => s.Code)
-            //        .OrderBy(s => s.State)
-            //        .Select(s => new ProjectListViewModel()
-            //        {
-            //            Code = s.Code,
-            //            CompletionDate = s.CompletionDate,
-            //            Id = s.Id,
-            //            Name = s.Name,
-            //            ShortName = s.ShortName,
-            //            StartDate = s.StartDate,
-            //            State = s.State,
-            //            WarrantyDate = s.WarrantyDate
-            //        });
+        //    //}
+        //}
+        //public ProjectListViewModelCollection QueryByText(string text)
+        //{
+        //    //return Query<ProjectListViewModelCollection, ProjectListEntity>("Projects", "SearchByText", text);
+        //    //var projectResult = _projects_controller.SearchByText(text);
+        //    //if (!projectResult.HasError)
+        //    //{
+        //    //    Clear();
+        //    //    var result = projectResult.Result
+        //    //        .Where(s => s.Code.Contains(text)
+        //    //        || s.Name.Contains(text)
+        //    //        || (s.ShortName != null && s.ShortName.Contains(text)))
+        //    //        .OrderByDescending(s => s.Code)
+        //    //        .OrderBy(s => s.State)
+        //    //        .Select(s => new ProjectListViewModel()
+        //    //        {
+        //    //            Code = s.Code,
+        //    //            CompletionDate = s.CompletionDate,
+        //    //            Id = s.Id,
+        //    //            Name = s.Name,
+        //    //            ShortName = s.ShortName,
+        //    //            StartDate = s.StartDate,
+        //    //            State = s.State,
+        //    //            WarrantyDate = s.WarrantyDate
+        //    //        });
 
-            //    //foreach (var row in result)
-            //    //{
-            //    //    Add(row);
-            //    //}
+        //    //    //foreach (var row in result)
+        //    //    //{
+        //    //    //    Add(row);
+        //    //    //}
 
-            //}
-        }
+        //    //}
+        //}
 
     }
     public class ProjectListViewModel : BaseViewModelWithPOCOClass<ProjectListEntity>

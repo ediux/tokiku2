@@ -53,14 +53,39 @@ namespace Tokiku.ViewModels
 
             CommandRoutingManager.HandleCommand(this, parameter, routingdata.Name);
 
+            object[] _ConstructionParameters = new object[] { };
+
+            if (routingdata.RoutedValues.ContainsKey("ViewParameters"))
+            {
+                _ConstructionParameters = (object[])routingdata.RoutedValues["ViewParameters"];
+            }
+
+            object targetelement = Activator.CreateInstance(routingdata.ViewType,
+                _ConstructionParameters);
+
             if (routingdata.RoutedValues.ContainsKey("TargetInstance"))
             {
-                if (routingdata.RoutedValues["TargetInstance"] is Window)
+                routingdata.RoutedValues["TargetInstance"] = targetelement;
+            }
+            else
+            {
+                routingdata.RoutedValues.Add("TargetInstance", targetelement);
+            }
+
+            if (targetelement != null)
+            {
+                if (targetelement is Window)
                 {
                     OpenWindowCommand openwindowcmd = new OpenWindowCommand();
+
+                    if (!routingdata.RoutedValues.ContainsKey("IsOwnerHide"))
+                        routingdata.RoutedValues.Add("IsOwnerHide", true);
+
                     openwindowcmd.Execute(parameter);
                 }
             }
+
+
         }
     }
 }

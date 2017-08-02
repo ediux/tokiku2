@@ -15,18 +15,18 @@ namespace Tokiku.ViewModels
     {
 
         //private StartUpWindowController _controller = null;
-
+        [System.ComponentModel.Composition.ImportingConstructor]
         public LoginViewModel()
         {
             RelayCommand = new LoginCommand(new Action<object>(Login));
             //_controller = controller;
         }
 
-        public LoginViewModel(Users entity) : base(entity)
-        {
-            RelayCommand = new LoginCommand(new Action<object>(Login));
+        //public LoginViewModel(Users entity) : base(entity)
+        //{
+        //    RelayCommand = new LoginCommand(new Action<object>(Login));
 
-        }
+        //}
         //public static readonly DependencyProperty UserNameProperty = DependencyProperty.Register("UserName", typeof(string), typeof(LoginViewModel), new PropertyMetadata(string.Empty));
 
         /// <summary>

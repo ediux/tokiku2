@@ -45,77 +45,100 @@ namespace Tokiku.ViewModels
 
                 CommandRoutingManager.HandleCommand(this, parameter, executeresult.Name);
 
-
-
-                if (executeresult.RoutedValues.ContainsKey("UIElement") && executeresult.RoutedValues["UIElement"] is TabControl)
+                if (executeresult.RoutedValues.ContainsKey("UIElementRoot"))
                 {
-                    TabControl Workspaces = null;
-
                     if (executeresult.RoutedValues.ContainsKey("UIElement"))
                     {
-                        Workspaces = (TabControl)executeresult.RoutedValues["UIElement"];
+                        FrameworkElement ui = (FrameworkElement)executeresult.RoutedValues["UIElement"];
 
-                        if (Workspaces == null)
-                            return;
+                        var propselected = ui.GetType().GetProperty("SelectedItem");
+
+                        if (propselected != null)
+                        {
+                            executeresult.DataContent = propselected.GetValue(ui);
+                        }
+                        else
+                        {
+                            var propdatacontent = ui.GetType().GetProperty("DataContent");
+
+                            if (propdatacontent != null)
+                            {
+                                executeresult.DataContent = propdatacontent.GetValue(ui);
+                            }
+                        }
+                        //if (ui == null)
+                        //    return;
+
+                        //Workspaces = OpenTab(Workspaces, executeresult);
+                        //Workspaces.UpdateLayout();
+                    }
+
+                    FrameworkElement rootelement = (FrameworkElement)executeresult.RoutedValues["UIElementRoot"];
+
+                    //TabControlName
+                    if (executeresult.RoutedValues.ContainsKey("TabControlName"))
+                    {
+                        TabControl Workspaces = (TabControl)FindControl(rootelement, (string)executeresult.RoutedValues["TabControlName"]);
 
                         Workspaces = OpenTab(Workspaces, executeresult);
                         Workspaces.UpdateLayout();
+                        return;
                     }
                 }
 
-                if (executeresult.RoutedValues.ContainsKey("UIElement") && executeresult.RoutedValues["UIElement"] is DataGrid)
-                {
-                    DataGrid dg = (DataGrid)executeresult.RoutedValues["UIElement"];
-                    executeresult.DataContent = dg.SelectedItem;
-                    if (dg != null)
-                    {
-                        //TabControlName
-                        if (executeresult.RoutedValues.ContainsKey("TabControlName"))
-                        {
-                            TabControl Workspaces = (TabControl)FindControl(dg, (string)executeresult.RoutedValues["TabControlName"]);
+                //if (executeresult.RoutedValues.ContainsKey("UIElement") && executeresult.RoutedValues["UIElement"] is DataGrid)
+                //{
+                //    DataGrid dg = (DataGrid)executeresult.RoutedValues["UIElement"];
+                //    executeresult.DataContent = dg.SelectedItem;
+                //    if (dg != null)
+                //    {
+                //        //TabControlName
+                //        if (executeresult.RoutedValues.ContainsKey("TabControlName"))
+                //        {
+                //            TabControl Workspaces = (TabControl)FindControl(dg, (string)executeresult.RoutedValues["TabControlName"]);
 
-                            Workspaces = OpenTab(Workspaces, executeresult);
-                            Workspaces.UpdateLayout();
-                        }
-                    }
-                }
+                //            Workspaces = OpenTab(Workspaces, executeresult);
+                //            Workspaces.UpdateLayout();
+                //        }
+                //    }
+                //}
 
-                if (executeresult.RoutedValues.ContainsKey("UIElement") && executeresult.RoutedValues["UIElement"] is MenuItem)
-                {
-                    MenuItem dg = (MenuItem)executeresult.RoutedValues["UIElement"];
+                //if (executeresult.RoutedValues.ContainsKey("UIElement") && executeresult.RoutedValues["UIElement"] is MenuItem)
+                //{
+                //    MenuItem dg = (MenuItem)executeresult.RoutedValues["UIElement"];
+                   
+                //    if (dg != null)
+                //    {
+                //        //TabControlName
+                //        if (executeresult.RoutedValues.ContainsKey("TabControlName"))
+                //        {
+                //            TabControl Workspaces = (TabControl)FindControl(dg, (string)executeresult.RoutedValues["TabControlName"]);
 
-                    if (dg != null)
-                    {
-                        //TabControlName
-                        if (executeresult.RoutedValues.ContainsKey("TabControlName"))
-                        {
-                            TabControl Workspaces = (TabControl)FindControl(dg, (string)executeresult.RoutedValues["TabControlName"]);
+                //            Workspaces = OpenTab(Workspaces, executeresult);
+                //            Workspaces.UpdateLayout();
+                //        }
+                //    }
+                //}
 
-                            Workspaces = OpenTab(Workspaces, executeresult);
-                            Workspaces.UpdateLayout();
-                        }
-                    }
-                }
+                //if (executeresult.RoutedValues.ContainsKey("UIElement") && executeresult.RoutedValues["UIElement"] is Button)
+                //{
+                //    Button dg = (Button)executeresult.RoutedValues["UIElement"];
+                //    executeresult.DataContent = dg.DataContext;
+                //    if (dg != null)
+                //    {
+                //        //TabControlName
+                //        if (executeresult.RoutedValues.ContainsKey("TabControlName"))
+                //        {
+                //            TabControl Workspaces = (TabControl)FindControl(dg, (string)executeresult.RoutedValues["TabControlName"]);
 
-                if (executeresult.RoutedValues.ContainsKey("UIElement") && executeresult.RoutedValues["UIElement"] is Button)
-                {
-                    Button dg = (Button)executeresult.RoutedValues["UIElement"];
-                    executeresult.DataContent = dg.DataContext;
-                    if (dg != null)
-                    {
-                        //TabControlName
-                        if (executeresult.RoutedValues.ContainsKey("TabControlName"))
-                        {
-                            TabControl Workspaces = (TabControl)FindControl(dg, (string)executeresult.RoutedValues["TabControlName"]);
+                //            if (Workspaces == null)
+                //                return;
 
-                            if (Workspaces == null)
-                                return;
+                //            OpenTab(Workspaces, executeresult);
 
-                            OpenTab(Workspaces, executeresult);
-
-                        }
-                    }
-                }
+                //        }
+                //    }
+                //}
             }
             catch (Exception ex)
             {

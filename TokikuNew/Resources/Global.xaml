@@ -40,11 +40,7 @@
             <x:Static Member="sys:Guid.Empty"/>
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
-    <ObjectDataProvider x:Key="ControlTableListSource" ObjectType="{x:Type vm:RequiredControlTableViewModelCollection}" MethodName="Query">
-        <ObjectDataProvider.MethodParameters>
-            <x:Static Member="sys:Guid.Empty"/>
-        </ObjectDataProvider.MethodParameters>
-    </ObjectDataProvider>
+
     <ObjectDataProvider x:Key="OrderViewSource" ObjectType="{x:Type vm:OrderViewModel}" MethodName="CreateNew">
         <ObjectDataProvider.MethodParameters>
             <x:Static Member="sys:Guid.Empty"/>

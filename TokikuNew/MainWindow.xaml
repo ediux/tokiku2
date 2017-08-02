@@ -11,6 +11,7 @@
          Background="{DynamicResource WindowBackgroundBrush}" 
         >
     <Window.Resources>
+        
         <vm:RedirectCommand x:Key="redirect" RoutingName="MainWindow" />
         <vm:OpenWindowCommand x:Key="openwin"  />
         <ObjectDataProvider x:Key="MainSource" ObjectType="{x:Type vm:MainViewModel}" MethodName="Query"/>

@@ -21,7 +21,7 @@ namespace Tokiku.ViewModels
         }
 
 
-        public static InventoryListViewModelCollection Query()
+        public InventoryListViewModelCollection Query()
         {
             try
             {

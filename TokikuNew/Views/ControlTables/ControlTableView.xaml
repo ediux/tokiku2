@@ -26,7 +26,11 @@
                 <sys:String x:Key="TabControlName">InnerWorkspaces</sys:String>
             </vm:RoutedViewResult.RoutedValues>
         </vm:RoutedViewResult>
-
+        <ObjectDataProvider x:Key="ControlTableListSource" ObjectType="{x:Type vm:RequiredControlTableViewModelCollection}" MethodName="Query">
+            <ObjectDataProvider.MethodParameters>
+                <x:Static Member="sys:Guid.Empty"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
         <Style TargetType="DataGrid" BasedOn="{StaticResource {x:Type DataGrid}}">
             <Setter Property="Visibility" Value="Collapsed"/>
             <Style.Triggers>

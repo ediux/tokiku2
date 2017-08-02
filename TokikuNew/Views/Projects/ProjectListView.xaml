@@ -55,6 +55,7 @@
                                  CanUserDeleteRows="False"
                                  CanUserSortColumns="False"                                 
                                  IsReadOnly="True"   
+                                 vm:CommandRoutingManager.EventMapping="MouseDoubleClick"
                                  vm:CommandRoutingManager.RoutingName="ProjectList"
                                  vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}" >
             <vm:CommandRoutingManager.CommandParameter>

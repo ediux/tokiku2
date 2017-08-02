@@ -13,6 +13,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
+    
     public abstract class BaseViewModelCollection<TView> : ObservableCollection<TView>, IBaseViewModel where TView : ISingleBaseViewModel
     {
         public BaseViewModelCollection()

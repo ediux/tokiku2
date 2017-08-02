@@ -37,9 +37,9 @@ namespace Tokiku.ViewModels
                     {
                         if ((bool)routedvalues.RoutedValues["IsOwnerHide"])
                         {
-                            ((Window)routedvalues.SourceInstance).Hide();
+                            if (routedvalues.SourceInstance != null)
+                                ((Window)routedvalues.SourceInstance).Hide();
                         }
-
                     }
 
                     Window _win = (Window)routedvalues.RoutedValues["TargetInstance"];
@@ -73,7 +73,7 @@ namespace Tokiku.ViewModels
 
 
 
-                    
+
                 }
 
             }

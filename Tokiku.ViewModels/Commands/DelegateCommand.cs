@@ -7,14 +7,14 @@ using System.Windows.Input;
 
 namespace Tokiku.ViewModels
 {
-   public class DelegateCommand:ICommand
+    public class DelegateCommand : ICommand
     {
         public string Text { get; set; }
 
         private Action<object> execute;
         private Func<object, bool> canExecute;
 
-        public DelegateCommand():this((x)=> { })
+        public DelegateCommand() : this((x) => { })
         {
 
         }

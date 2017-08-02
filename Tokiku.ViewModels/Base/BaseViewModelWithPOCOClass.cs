@@ -5,10 +5,10 @@ using System.Linq;
 using System.Windows.Input;
 using Tokiku.Controllers;
 using Tokiku.Entity;
-
+using GalaSoft.MvvmLight;
 namespace Tokiku.ViewModels
 {
-    public class BaseViewModelWithPOCOClass<TPOCO> : ISingleBaseViewModel where TPOCO : class
+    public class BaseViewModelWithPOCOClass<TPOCO> : ViewModelBase, ISingleBaseViewModel where TPOCO : class
     {
         protected TPOCO CopyofPOCOInstance;
 
@@ -42,7 +42,7 @@ namespace Tokiku.ViewModels
                     else
                         UserId = Guid.Empty;
 
-                    _EntityType.GetProperty("CreateUserId").SetValue(CopyofPOCOInstance, UserId);
+                    prop.SetValue(CopyofPOCOInstance, UserId);
                 }
             }
 
@@ -64,20 +64,27 @@ namespace Tokiku.ViewModels
             {
                 EntityType = typeof(TPOCO);
                 CopyofPOCOInstance = Activator.CreateInstance<TPOCO>();
-                var UserId = (Guid)_EntityType.GetProperty("CreateUserId").GetValue(CopyofPOCOInstance);
 
-                if (UserId == Guid.Empty)
+                var prop = _EntityType.GetProperty("CreateUserId");
+
+                if (prop != null)
                 {
-                    if (_LoginUser == null)
-                        _LoginUser = ExecuteAction<Users>("System", "GetCurrentLoginUser");
+                    var UserId = (Guid)prop.GetValue(CopyofPOCOInstance);
 
-                    if (_LoginUser != null)
-                        UserId = _LoginUser.UserId;
-                    else
-                        UserId = Guid.Empty;
+                    if (UserId == Guid.Empty)
+                    {
+                        if (_LoginUser == null)
+                            _LoginUser = ExecuteAction<Users>("System", "GetCurrentLoginUser");
 
-                    _EntityType.GetProperty("CreateUserId").SetValue(CopyofPOCOInstance, UserId);
+                        if (_LoginUser != null)
+                            UserId = _LoginUser.UserId;
+                        else
+                            UserId = Guid.Empty;
+
+                        prop.SetValue(CopyofPOCOInstance, UserId);
+                    }
                 }
+
                 Initialized(null);
             }
 
@@ -104,7 +111,8 @@ namespace Tokiku.ViewModels
             if (Id == Guid.Empty)
             {
                 Id = Guid.NewGuid();
-                _EntityType.GetProperty("Id").SetValue(CopyofPOCOInstance, Id);
+                _EntityType.GetProperty("Id")
+                    ?.SetValue(CopyofPOCOInstance, Id);
             }
 
             Status.IsNewInstance = true;

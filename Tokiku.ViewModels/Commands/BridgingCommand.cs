@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using GalaSoft.MvvmLight.CommandWpf;
 
 namespace Tokiku.ViewModels
 {
-    public class BridgingCommand : ICommand
+    public class BridgingCommand : RelayCommand
     {
         public object SourceInstance { get; set; }
         public Type TargetViewType { get; set; }
