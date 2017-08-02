@@ -15,7 +15,7 @@
             <ObjectDataProvider.MethodParameters>
                 <x:Static Member="sys:String.Empty"></x:Static>
                 <x:Static Member="sys:Guid.Empty"></x:Static>
-                <sys:Boolean>False</sys:Boolean>
+                <sys:Boolean>false</sys:Boolean>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </UserControl.Resources>

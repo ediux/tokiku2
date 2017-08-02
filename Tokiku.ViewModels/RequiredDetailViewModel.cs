@@ -10,7 +10,7 @@ namespace Tokiku.ViewModels
     {
         public RequiredDetailViewModel()
         {
-
+           
         }
         public RequiredDetailViewModel(RequiredDetails entity) : base(entity)
         {

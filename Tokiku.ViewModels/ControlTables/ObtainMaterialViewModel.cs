@@ -11,24 +11,32 @@ namespace Tokiku.ViewModels
     {
         public ObtainMaterialViewModelCollection()
         {
+            _ControllerName = "ObtainMaterial";
         }
 
         public ObtainMaterialViewModelCollection(IEnumerable<ObtainMaterialViewModel> source) : base(source)
         {
+            _ControllerName = "ObtainMaterial";
         }
 
         public static ObtainMaterialViewModelCollection Query()
         {
             return Query<ObtainMaterialViewModelCollection, PickListDetails>("ObtainMaterial", "QueryAll");
         }
+        
     }
 
     public class ObtainMaterialViewModel : BaseViewModelWithPOCOClass<PickListDetails>
     {
+        public ObtainMaterialViewModel()
+        {
+            _SaveModelController = "ObtainMaterial";
+        }
         public ObtainMaterialViewModel(PickListDetails entity) : base(entity)
         {
+            _SaveModelController = "ObtainMaterial";
         }
-
+        
         // 東菊編號
         public string RequiredDetailsCode
         {
@@ -36,11 +44,25 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.OrderDetails.RequiredDetails.Code = value; RaisePropertyChanged("RequiredDetailsCode"); }
         }
 
-        // 廠商編號
-        public string FactoryNumber
+        // 廠商編號(加工廠商)
+        public string ManufacturersCode
         {
-            get { return CopyofPOCOInstance.OrderDetails.RequiredDetails.FactoryNumber; }
-            set { CopyofPOCOInstance.OrderDetails.RequiredDetails.FactoryNumber = value; RaisePropertyChanged("FactoryNumber"); }
+            get { return CopyofPOCOInstance.PickList.Manufacturers.Code; }
+            set { CopyofPOCOInstance.PickList.Manufacturers.Code = value; RaisePropertyChanged("ManufacturersCode"); }
+        }
+
+        // 廠商名稱(加工廠商)
+        public string ManufacturersName
+        {
+            get { return CopyofPOCOInstance.PickList.Manufacturers.Name; }
+            set { CopyofPOCOInstance.PickList.Manufacturers.Name = value; RaisePropertyChanged("ManufacturersName"); }
+        }
+
+        // 材質
+        public string MaterialsName
+        {
+            get { return CopyofPOCOInstance.OrderDetails.RequiredDetails.Materials.Name; }
+            set { CopyofPOCOInstance.OrderDetails.RequiredDetails.Materials.Name = value; RaisePropertyChanged("MaterialsName"); }
         }
 
         // 單位重
@@ -77,6 +99,62 @@ namespace Tokiku.ViewModels
             get { return CopyofPOCOInstance.Comment; }
             set { CopyofPOCOInstance.Comment = value; RaisePropertyChanged("Comment"); }
         }
+        
+        // 專案合約編號
+        public string ContractNumber
+        {
+            get { return CopyofPOCOInstance.OrderDetails.RequiredDetails.Required.ProjectContract.ContractNumber; }
+            set { CopyofPOCOInstance.OrderDetails.RequiredDetails.Required.ProjectContract.ContractNumber = value; RaisePropertyChanged("ContractNumber"); }
+        }
 
+        // 專案名稱
+        public string ProjectsName
+        {
+            get { return CopyofPOCOInstance.OrderDetails.RequiredDetails.Required.ProjectContract.Projects.Name; }
+            set { CopyofPOCOInstance.OrderDetails.RequiredDetails.Required.ProjectContract.Projects.Name = value; RaisePropertyChanged("ProjectsName"); }
+        }
+
+        // 領料單號
+        public string PickListNumber
+        {
+            get { return CopyofPOCOInstance.PickList.PickListNumber; }
+            set { CopyofPOCOInstance.PickList.PickListNumber = value; RaisePropertyChanged("PickListNumber"); }
+        }
+
+        // 領料倉別
+        public string StocksName
+        {
+            get { return CopyofPOCOInstance.PickList.Stocks.Name; }
+            set { CopyofPOCOInstance.PickList.Stocks.Name = value; RaisePropertyChanged("StocksName"); }
+        }
+
+        // 申請日期
+        public DateTime MakingTime
+        {
+            get { return CopyofPOCOInstance.PickList.MakingTime; }
+            set { CopyofPOCOInstance.PickList.MakingTime = value; RaisePropertyChanged("MakingTime"); }
+        }
+
+        // 製單人
+        public string MakingUser
+        {
+            get { return CopyofPOCOInstance.PickList.MakingUsers.UserName; }
+            set { CopyofPOCOInstance.PickList.MakingUsers.UserName = value; RaisePropertyChanged("MakingUser"); }
+        }
+        
+        // 輸入日期
+        public override DateTime CreateTime
+        {
+            get { return CopyofPOCOInstance.PickList.CreateTime; }
+            set { CopyofPOCOInstance.PickList.CreateTime = value; RaisePropertyChanged("CreateTime"); }
+        }
+
+        // 輸入人員
+        public string CreateUserName
+        {
+            get { return CopyofPOCOInstance.PickList.CreateUsers.UserName; }
+            set { CopyofPOCOInstance.PickList.MakingUsers.UserName = value; RaisePropertyChanged("CreateUserName"); }
+        }
+        
     }
 }

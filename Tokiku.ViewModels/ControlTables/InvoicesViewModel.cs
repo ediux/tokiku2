@@ -12,10 +12,12 @@ namespace Tokiku.ViewModels
     {
         public InvoicesViewModelCollection()
         {
+            _ControllerName = "Invoices";
         }
 
         public InvoicesViewModelCollection(IEnumerable<InvoicesViewModel> source) : base(source)
         {
+            _ControllerName = "Invoices";
         }
 
         public static InvoicesViewModelCollection Query()
@@ -27,8 +29,14 @@ namespace Tokiku.ViewModels
 
     public class InvoicesViewModel : BaseViewModelWithPOCOClass<Invoices>
     {
+        public InvoicesViewModel()
+        {
+
+        }
+
         public InvoicesViewModel(Invoices entity) : base(entity)
         {
+            _SaveModelController = "Invoices";
         }
 
         // ID

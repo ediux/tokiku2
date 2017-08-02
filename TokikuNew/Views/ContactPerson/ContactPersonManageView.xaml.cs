@@ -15,15 +15,12 @@ namespace TokikuNew.Views
     /// </summary>
     public partial class ContactPersonManageView : UserControl
     {
-        //private ContactPersonManageController controller = new ContactPersonManageController();
-
         public ContactPersonManageView()
         {
             InitializeComponent();
         }
 
-
-
+        #region IsClient
         public bool IsClient
         {
             get { return (bool)GetValue(IsClientProperty); }
@@ -33,21 +30,6 @@ namespace TokikuNew.Views
         // Using a DependencyProperty as the backing store for IsClient.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsClientProperty =
             DependencyProperty.Register("IsClient", typeof(bool), typeof(ContactPersonManageView), new PropertyMetadata(false));
-
-
-
-        #region 登入人員
-
-        public UserViewModel LoginedUser
-        {
-            get { return (UserViewModel)GetValue(LoginedUserProperty); }
-            set { SetValue(LoginedUserProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for LoginedUser.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty LoginedUserProperty =
-            DependencyProperty.Register("LoginedUser", typeof(UserViewModel), typeof(ContactPersonManageView), new PropertyMetadata(default(UserViewModel)));
-
 
         #endregion
 
@@ -94,6 +76,7 @@ namespace TokikuNew.Views
         }
         #endregion
 
+        #region 預設聯絡人變更事件
         public static readonly RoutedEvent DefaultContactChangedEvent = EventManager.RegisterRoutedEvent(
          "DefaultContactChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ContactPersonManageView));
 
@@ -102,25 +85,26 @@ namespace TokikuNew.Views
             add { AddHandler(DefaultContactChangedEvent, value); }
             remove { RemoveHandler(DefaultContactChangedEvent, value); }
         }
+        #endregion
 
         #region 資料來源副本(廠商/聯絡人)
-        public ManufacturersViewModel SelectedManufacturer
+        public Guid SelectedManufacturerId
         {
-            get { return (ManufacturersViewModel)GetValue(SelectedManufacturerProperty); }
-            set { SetValue(SelectedManufacturerProperty, value); }
+            get { return (Guid)GetValue(SelectedManufacturerIdProperty); }
+            set { SetValue(SelectedManufacturerIdProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for Contracts.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SelectedManufacturerProperty =
-            DependencyProperty.Register("SelectedManufacturer", typeof(ManufacturersViewModel)
-                , typeof(ContactPersonManageView), new PropertyMetadata(default(ManufacturersViewModel),
+        public static readonly DependencyProperty SelectedManufacturerIdProperty =
+            DependencyProperty.Register("SelectedManufacturerId", typeof(Guid)
+                , typeof(ContactPersonManageView), new PropertyMetadata(Guid.Empty,
                     new PropertyChangedCallback(SelectedManufacturerIdChange)));
 
         public static void SelectedManufacturerIdChange(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             try
             {
-                
+
                 if (sender is ContactPersonManageView)
                 {
 
@@ -129,7 +113,7 @@ namespace TokikuNew.Views
                     if (source != null)
                     {
                         source.MethodParameters[0] = "";
-                        source.MethodParameters[1] = (((ContactPersonManageView)sender).SelectedManufacturer !=null)? ((ContactPersonManageView)sender).SelectedManufacturer.Id:Guid.Empty;
+                        source.MethodParameters[1] = (Guid)e.NewValue;
                         source.MethodParameters[2] = ((ContactPersonManageView)sender).IsClient;
                         source.Refresh();
                     }
@@ -147,7 +131,7 @@ namespace TokikuNew.Views
         {
             try
             {
-            
+
             }
             catch (Exception ex)
             {
@@ -166,10 +150,22 @@ namespace TokikuNew.Views
                 switch (Mode)
                 {
                     case DocumentLifeCircle.Save:
-                        if (SelectedManufacturer.CreateUserId == Guid.Empty)
+
+                        ObjectDataProvider source = (ObjectDataProvider)((ContactPersonManageView)sender).TryFindResource("ContractSource");
+
+                        if (source != null)
                         {
-                            SelectedManufacturer.CreateUserId = LoginedUser.UserId;
+                            ((ContractManagementViewModelCollection)source.Data).SaveModel();
+
+                            if (((ContractManagementViewModelCollection)source.Data).HasError)
+                            {
+                                MessageBox.Show(string.Join("\n", ((ContractManagementViewModelCollection)source.Data).Errors.ToArray()));
+                            }
                         }
+                        //if (SelectedManufacturer.CreateUserId == Guid.Empty)
+                        //{
+                        //    SelectedManufacturer.CreateUserId = LoginedUser.UserId;
+                        //}
                         //if (SelectedManufacturer.Contracts.Count > 0)
                         //{
                         //    foreach (ContactsViewModel model in SelectedManufacturer.Contracts)
@@ -181,10 +177,7 @@ namespace TokikuNew.Views
                         //    }
                         //}
 
-                        if (SelectedManufacturer.HasError)
-                        {
-                            MessageBox.Show(string.Join("\n", SelectedManufacturer.Errors.ToArray()));
-                        }
+
 
                         break;
 
@@ -237,19 +230,19 @@ namespace TokikuNew.Views
             {
                 if (ContractList.DataContext is ManufacturersViewModel)
                 {
-              //      var founddefuts = ((ManufacturersViewModel)ContractList.DataContext).Contracts
-              //.Where(w => w.IsDefault == true);
+                    //      var founddefuts = ((ManufacturersViewModel)ContractList.DataContext).Contracts
+                    //.Where(w => w.IsDefault == true);
 
-              //      if (founddefuts.Any())
-              //      {
-              //          if (founddefuts.Count() > 0)
-              //          {
-              //              foreach (var fix in founddefuts)
-              //              {
-              //                  fix.IsDefault = false;
-              //              }
-              //          }
-              //      }
+                    //      if (founddefuts.Any())
+                    //      {
+                    //          if (founddefuts.Count() > 0)
+                    //          {
+                    //              foreach (var fix in founddefuts)
+                    //              {
+                    //                  fix.IsDefault = false;
+                    //              }
+                    //          }
+                    //      }
                 }
                 else
                 {

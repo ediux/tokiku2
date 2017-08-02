@@ -52,12 +52,12 @@ namespace Tokiku.ViewModels
     {
         public RequiredViewModel()
         {
-
+            _SaveModelController = "Required";
         }
 
         public RequiredViewModel(Required entity) : base(entity)
         {
-
+            _SaveModelController = "Required";
         }
 
         //// 專案代碼

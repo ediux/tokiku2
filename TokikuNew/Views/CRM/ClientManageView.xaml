@@ -88,7 +88,12 @@
 
             <GroupBox Header="相關聯絡人" Grid.Row="0" Grid.Column="1" Margin="5">
                 <Grid>
-                    <local:ContactPersonManageView x:Name="ContractList" DataContext="{Binding Contracts,Source={StaticResource ClientSource},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Mode="{Binding Path=Mode, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedManufacturer="{Binding DataContext, ElementName=userControl}" IsClient="{Binding DataContext.IsClient, ElementName=userControl}" DefaultContactChanged="ContractList_DefaultContactChanged" />
+                    <local:ContactPersonManageView x:Name="ContractList" 
+                                                   DataContext="{Binding Contracts,Source={StaticResource ClientSource},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                                   Mode="{Binding Path=Mode, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                   SelectedManufacturerId ="{Binding SelectedManufacturerId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ElementName=userControl}" 
+                                                   IsClient="{Binding DataContext.IsClient, ElementName=userControl}" 
+                                                   DefaultContactChanged="ContractList_DefaultContactChanged" />
                 </Grid>
             </GroupBox>
             <GroupBox Header="專案工程資料" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="4" Margin="2">

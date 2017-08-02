@@ -22,15 +22,45 @@ namespace Tokiku.ViewModels
         {
             switch (e.Action)
             {
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
+                    for (int i = 0; i < e.NewItems.Count; i++)
+                    {
+                        ExecuteAction<ConstructionAtlas>(SaveModelController, "Update", ((ConstructionAtlasViewModel)e.NewItems[i]).Entity
+                            , i == (e.NewItems.Count - 1));
+                    }
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+                    for (int i = 0; i < e.NewItems.Count; i++)
+                    {
+                        ExecuteAction<ConstructionAtlas>(SaveModelController, "Add", ((ConstructionAtlasViewModel)e.NewItems[i]).Entity
+                            , i == (e.NewItems.Count - 1));
+                    }
+                    break;
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
-                    ExecuteAction<ConstructionAtlas>(SaveModelController, "Delete", Items[e.OldStartingIndex].Entity, true);
+
+                    for(int i = e.OldStartingIndex; i < e.OldStartingIndex + e.OldItems.Count; i++)
+                    {
+                        ExecuteAction<ConstructionAtlas>(SaveModelController, "Delete", ((ConstructionAtlasViewModel)e.OldItems[i]).Entity
+                            , i==(e.OldStartingIndex + e.OldItems.Count - 1));
+                    }
+                    
                     break;
             }
         }
 
-        public static ConstructionAtlasViewModelCollection Query()
+        public static ConstructionAtlasViewModelCollection Query(Guid ProjectId)
         {
-            return Query<ConstructionAtlasViewModelCollection, ConstructionAtlas>("ConstructionAtlas", "QueryAll");
+            try
+            {
+                return Query<ConstructionAtlasViewModelCollection, ConstructionAtlas>("ConstructionAtlas", "QueryAll", ProjectId);
+            }
+            catch (Exception ex)
+            {
+                ConstructionAtlasViewModelCollection emptycollection = new ConstructionAtlasViewModelCollection();
+                setErrortoModel(emptycollection, ex);
+                return emptycollection;
+            }
+            
         }
 
         public static ConstructionAtlasViewModelCollection QueryByText(string text)
@@ -54,7 +84,19 @@ namespace Tokiku.ViewModels
             _SaveModelController = "ConstructionAtlas";
         }
 
+        /// <summary>
+        /// 目前的專案
+        /// </summary>
+        public Guid? ProjectId
+        {
+            get => CopyofPOCOInstance.ProjectId;
+            set
+            {
+                CopyofPOCOInstance.ProjectId = value;
+                RaisePropertyChanged("ProjectId");
 
+            }
+        }
 
         /// <summary>
         /// 專案合約編號

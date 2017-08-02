@@ -358,7 +358,19 @@ namespace Tokiku.ViewModels
             {
                 try
                 {
-                    return (DateTime?)_EntityType.GetProperty("LastUpdateDate").GetValue(CopyofPOCOInstance);
+                    var _lastupdateUseridprop = _EntityType.GetProperty("LastUpdateDate");
+
+                    if (_lastupdateUseridprop != null)
+                        return (DateTime?)_lastupdateUseridprop.GetValue(CopyofPOCOInstance);
+
+                    var log = ExecuteAction<AccessLog>("AccessLog", "QueryLastUpdateLog", Id.ToString());
+
+                    if (log != null)
+                    {
+                        return log.CreateTime;
+                    }
+
+                    return CreateTime;
                 }
                 catch
                 {
@@ -367,9 +379,76 @@ namespace Tokiku.ViewModels
             }
             set
             {
-                _EntityType.GetProperty("LastUpdateDate").SetValue(CopyofPOCOInstance, value);
+                var prop = _EntityType.GetProperty("LastUpdateDate");
+
+                if (prop != null)
+                    prop.SetValue(CopyofPOCOInstance, value);
+
                 RaisePropertyChanged("LastUpdateDate");
             }
+        }
+        #endregion
+
+        #region 最後異動人員
+        public virtual Guid? LastUpdateUserId
+        {
+            get
+            {
+                var _lastupdateUseridprop = _EntityType.GetProperty("LastUpdateUserId");
+
+                if (_lastupdateUseridprop != null)
+                    return (Guid?)_lastupdateUseridprop.GetValue(CopyofPOCOInstance);
+
+                var log = ExecuteAction<AccessLog>("AccessLog", "QueryLastUpdateLog", Id.ToString());
+
+                if (log != null)
+                {
+                    return log.UserId;
+                }
+
+                return Guid.Empty;
+            }
+            set
+            {
+                var _lastupdateUseridprop = _EntityType.GetProperty("LastUpdateUserId");
+
+                if (_lastupdateUseridprop != null)
+                {
+                    _lastupdateUseridprop.SetValue(CopyofPOCOInstance, value);
+                    RaisePropertyChanged("LastUpdateUserId");
+                    return;
+                }
+
+            }
+        }
+
+        public UserViewModel LastUpadateUser
+        {
+            get
+            {
+                try
+                {
+                    var _lastupdateUseridprop = _EntityType.GetProperty("LastUpdateUser");
+
+                    if (_lastupdateUseridprop != null)
+                        return new UserViewModel((Users)_lastupdateUseridprop.GetValue(CopyofPOCOInstance));
+
+                    var log = ExecuteAction<AccessLog>("AccessLog", "QueryLastUpdateLog", Id.ToString());
+
+                    if (log != null)
+                    {
+                        return new UserViewModel((new AccessLogViewModel(log)).CreateUser);
+                    }
+
+                    return null;
+                }
+                catch
+                {
+                    return null;
+                }
+
+            }
+            set { }
         }
         #endregion
 

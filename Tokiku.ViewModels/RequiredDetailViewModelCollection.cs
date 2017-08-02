@@ -11,12 +11,12 @@ namespace Tokiku.ViewModels
     {
         public RequiredDetailViewModelCollection()
         {
-
+            _ControllerName = "RequiredDetail";
         }
 
         public RequiredDetailViewModelCollection(IEnumerable<RequiredDetailViewModel> source):base(source)
         {
-
+            _ControllerName = "RequiredDetail";
         }
 
         public static RequiredDetailViewModelCollection Query(Guid RequireId)

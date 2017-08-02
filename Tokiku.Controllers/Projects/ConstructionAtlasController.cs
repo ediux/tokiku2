@@ -41,12 +41,17 @@ namespace Tokiku.Controllers
             }
         }
 
-        public ExecuteResultEntity<ICollection<ConstructionAtlas>> QueryAll()
+        public ExecuteResultEntity<ICollection<ConstructionAtlas>> QueryAll(Guid ProjectId)
         {
             try {
                 var repo = this.GetRepository();
+                var result = from q in repo.All()
+                             where q.ProjectId == ProjectId
+                             select q;
+
                 return ExecuteResultEntity<ICollection<ConstructionAtlas>>.CreateResultEntity(
-                    new Collection<ConstructionAtlas>(repo.All().ToList()));
+                    new Collection<ConstructionAtlas>(result.ToList()));
+
             }catch (Exception ex) {
                 return ExecuteResultEntity<ICollection<ConstructionAtlas>>.CreateErrorResultEntity(ex);
             }
