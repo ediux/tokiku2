@@ -13,7 +13,7 @@ namespace Tokiku.Controllers
     /// <summary>
     /// 聯絡人商業邏輯層控制器
     /// </summary>
-    public class ContactPersonManageController : BaseController<Contacts>
+    public class ContactPersonManageController : BaseController<Contacts>, IContactPersonManageController
     {
         private IContactsRepository repo;
         private IAccessLogRepository accesslogrepo;
@@ -24,7 +24,7 @@ namespace Tokiku.Controllers
             accesslogrepo = this.GetRepository<AccessLog>() as IAccessLogRepository;
         }
 
-        public ExecuteResultEntity<ICollection<Contacts>> QueryAll()
+        public IExecuteResultEntity<ICollection<Contacts>> QueryAll()
         {
             try
             {
@@ -44,7 +44,7 @@ namespace Tokiku.Controllers
         }
 
 
-        public ExecuteResultEntity<ICollection<Contacts>> SearchByText(string filiter, Guid ManufactoryId, bool isClient)
+        public IExecuteResultEntity<ICollection<Contacts>> SearchByText(string filiter, Guid ManufactoryId, bool isClient)
         {
             try
             {
@@ -100,7 +100,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        public ExecuteResultEntity Update(Contacts updatedProject, Guid UserId)
+        public IExecuteResultEntity Update(Contacts updatedProject, Guid UserId)
         {
             try
             {
@@ -117,7 +117,7 @@ namespace Tokiku.Controllers
         /// <summary>
         /// 儲存變更
         /// </summary>
-        public override ExecuteResultEntity<Contacts> CreateOrUpdate(Contacts entity, bool isLastRecord = true)
+        public override IExecuteResultEntity<Contacts> CreateOrUpdate(Contacts entity, bool isLastRecord = true)
         {
             try
             {
@@ -161,7 +161,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        public override ExecuteResultEntity<Contacts> CreateNew()
+        public override IExecuteResultEntity<Contacts> CreateNew()
         {
             try
             {
@@ -175,7 +175,7 @@ namespace Tokiku.Controllers
 
         }
 
-        public override ExecuteResultEntity Add(Contacts entity, bool isLastRecord = true)
+        public override IExecuteResultEntity Add(Contacts entity, bool isLastRecord = true)
         {
             try
             {
@@ -191,7 +191,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        public override ExecuteResultEntity<Contacts> Update(Contacts fromModel, bool isLastRecord = true)
+        public override IExecuteResultEntity<Contacts> Update(Contacts fromModel, bool isLastRecord = true)
         {
             try
             {
@@ -224,7 +224,7 @@ namespace Tokiku.Controllers
 
         }
 
-        public override ExecuteResultEntity<Contacts> Delete(Contacts entity, bool isDeleteRightNow = false)
+        public override IExecuteResultEntity<Contacts> Delete(Contacts entity, bool isDeleteRightNow = false)
         {
             try
             {

@@ -64,7 +64,7 @@ namespace Tokiku.Controllers
         /// </summary>
         /// <param name="model">登入畫面的檢視模型物件。</param>
         /// <returns>傳回登入結果。</returns>
-        public ExecuteResultEntity<Users> Login(LoginViewModel model)
+        public IExecuteResultEntity<Users> Login(LoginViewModel model)
         {
             try
             {
@@ -80,14 +80,14 @@ namespace Tokiku.Controllers
                     return new ExecuteResultEntity<Users>() { Result = _CurrentLoginedUserStorage };
                 }
 
-                ExecuteResultEntity<Users> error = ExecuteResultEntity<Users>.CreateErrorResultEntity("登入失敗!");
+                IExecuteResultEntity<Users> error = ExecuteResultEntity<Users>.CreateErrorResultEntity("登入失敗!");
 
                 return error;
 
             }
             catch (Exception ex)
             {
-                ExecuteResultEntity<Users> error = ExecuteResultEntity<Users>.CreateErrorResultEntity(ex);
+                IExecuteResultEntity<Users> error = ExecuteResultEntity<Users>.CreateErrorResultEntity(ex);
                 return error;
             }
 
@@ -99,7 +99,7 @@ namespace Tokiku.Controllers
         /// 取得目前登入的使用者資訊物件。
         /// </summary>
         /// <returns>傳回目前已經登入的使用者資訊物件。</returns>
-        public ExecuteResultEntity<Users> GetCurrentLoginUser()
+        public IExecuteResultEntity<Users> GetCurrentLoginUser()
         {
             try
             {
@@ -117,7 +117,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        public ExecuteResultEntity<Users> GetUser(string UserName)
+        public IExecuteResultEntity<Users> GetUser(string UserName)
         {
             try
             {
@@ -145,7 +145,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        public ExecuteResultEntity<Users> Login(string UserName, string pwd)
+        public IExecuteResultEntity<Users> Login(string UserName, string pwd)
         {
             try
             {
@@ -235,7 +235,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        public static ExecuteResultEntity AddLogRecord(string DataId, Guid UserId, byte ActionCode, string TableName = "", string ActionReason = "")
+        public static IExecuteResultEntity AddLogRecord(string DataId, Guid UserId, byte ActionCode, string TableName = "", string ActionReason = "")
         {
             try
             {
@@ -291,7 +291,7 @@ namespace Tokiku.Controllers
         /// 建立預設的資料實體物件執行個體的方法。
         /// </summary>
         /// <returns>傳回初始化的資料實體物件。</returns>
-        public virtual ExecuteResultEntity<T> CreateNew()
+        public virtual IExecuteResultEntity<T> CreateNew()
         {
             ExecuteResultEntity<T> model = null;
 
@@ -311,7 +311,7 @@ namespace Tokiku.Controllers
         /// </summary>
         /// <param name="entity">要插入到資料庫的檢視資料實體模型。</param>
         /// <returns></returns>
-        public virtual ExecuteResultEntity Add(T entity, bool isLastRecord = true)
+        public virtual IExecuteResultEntity Add(T entity, bool isLastRecord = true)
         {
             try
             {
@@ -356,7 +356,7 @@ namespace Tokiku.Controllers
         /// </summary>
         /// <param name="filiter">LINQ查詢表示式</param>
         /// <returns>傳回帶有訊息的查詢集合。</returns>
-        public virtual ExecuteResultEntity<ICollection<T>> Query(Expression<Func<T, bool>> filiter)
+        public virtual IExecuteResultEntity<ICollection<T>> Query(Expression<Func<T, bool>> filiter)
         {
 
             ExecuteResultEntity<ICollection<T>> model = null;
@@ -397,7 +397,7 @@ namespace Tokiku.Controllers
         /// </summary>
         /// <param name="model">來自前端UI且綁定的資料實體物件執行個體。</param>
         /// <returns></returns>
-        public virtual ExecuteResultEntity<T> Update(T fromModel, bool isLastRecord = true)
+        public virtual IExecuteResultEntity<T> Update(T fromModel, bool isLastRecord = true)
         {
             try
             {
@@ -446,7 +446,7 @@ namespace Tokiku.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public virtual ExecuteResultEntity<T> Delete(T entity, bool isDeleteRightNow = false)
+        public virtual IExecuteResultEntity<T> Delete(T entity, bool isDeleteRightNow = false)
         {
             try
             {
@@ -487,7 +487,7 @@ namespace Tokiku.Controllers
         /// 新增或更新資料至資料庫。
         /// </summary>
         /// <param name="model">已經變更的資料實體物件(來自UI)</param>
-        public virtual ExecuteResultEntity<T> CreateOrUpdate(T entity, bool isLastRecord = true)
+        public virtual IExecuteResultEntity<T> CreateOrUpdate(T entity, bool isLastRecord = true)
         {
             try
             {
@@ -552,7 +552,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        public ExecuteResultEntity<ICollection<T>> QueryAll(params object[] Parameters)
+        public IExecuteResultEntity<ICollection<T>> QueryAll(params object[] Parameters)
         {
             try
             {
@@ -609,7 +609,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        public ExecuteResultEntity<T> QuerySingle(params object[] Parameters)
+        public IExecuteResultEntity<T> QuerySingle(params object[] Parameters)
         {
             try
             {

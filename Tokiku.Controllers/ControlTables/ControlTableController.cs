@@ -8,9 +8,9 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class ControlTableController : BaseController<View_RequiredControlTable>
+    public class ControlTableController : BaseController<View_RequiredControlTable>, IControlTableController
     {
-        public ExecuteResultEntity<ICollection<View_RequiredControlTable>> Query(Guid ProjectId)
+        public IExecuteResultEntity<ICollection<View_RequiredControlTable>> Query(Guid ProjectId)
         {
             try
             {
@@ -29,7 +29,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        public ExecuteResultEntity<ICollection<View_RequiredControlTable>> SearchByText(string text)
+        public IExecuteResultEntity<ICollection<View_RequiredControlTable>> SearchByText(string text)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        public ExecuteResultEntity<ICollection<View_RequiredControlTable>> QueryAll()
+        public IExecuteResultEntity<ICollection<View_RequiredControlTable>> QueryAll()
         {
             try
             {
@@ -76,7 +76,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        public ExecuteResultEntity<ICollection<View_RequiredControlTable>> QueryAll(Guid ProjectId)
+        public IExecuteResultEntity<ICollection<View_RequiredControlTable>> QueryAll(Guid ProjectId)
         {
             try
             {
