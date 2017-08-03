@@ -162,112 +162,6 @@ namespace Tokiku.Controllers
             }
         }
 
-        /// <summary>
-        /// 傳回主索引鍵欄位的內容值。
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        protected object[] IdentifyPrimaryKey<T>(T entity) where T : class
-        {
-
-            ObjectContext objectContext = ((IObjectContextAdapter)this.GetRepository<IUsersRepository, Users>().UnitOfWork.Context).ObjectContext;
-            ObjectSet<T> set = objectContext.CreateObjectSet<T>();
-            IEnumerable<string> keyNames = set.EntitySet.ElementType
-                                                        .KeyMembers
-                                                        .Select(k => k.Name);
-
-            Type entityreflection = typeof(T);
-
-            var pkeys = entityreflection.GetProperties()
-                .Join(keyNames, (x) => x.Name, (y) => y, (k, t) => k)
-                .Select(s => s.GetValue(entity));
-
-            return pkeys.ToArray();
-        }
-
-        /// <summary>
-        /// 檢查並更新來自資料庫的資料實體內容。
-        /// </summary>
-        /// <param name="source">來源資料實體物件(通常來自於前端UI的變更後資料內容)</param>
-        /// <param name="target">目的資料實體物件(一定是來自資料庫的資料實體)</param>
-        protected void CheckAndUpdateValue(dynamic source, dynamic target)
-        {
-            if (source == null)
-                throw new ArgumentNullException("source");
-
-            if (target == null)
-                throw new ArgumentNullException("target");
-
-            Type sourcetype = ((object)source).GetType();
-            Type targettype = ((object)target).GetType();
-
-            foreach (var tarprop in targettype.GetProperties())
-            {
-                var sourceprop = sourcetype.GetProperty(tarprop.Name);
-
-                if (sourceprop != null)
-                {
-                    if (sourceprop.PropertyType == tarprop.PropertyType)
-                    {
-                        if (sourceprop.PropertyType.IsGenericType && sourceprop.PropertyType.GetGenericTypeDefinition() == typeof(ICollection<>))
-                        {
-                            continue;
-                        }
-
-                        object sourcevalue = sourceprop.GetValue(source);
-                        object targetvalue = tarprop.GetValue(target);
-
-                        if (targetvalue != null)
-                        {
-                            if (sourcevalue != null && !targetvalue.Equals(sourcevalue))
-                            {
-                                tarprop.SetValue(target, sourcevalue);
-                            }
-                            else
-                            {
-                                continue;
-                            }
-                        }
-                        else
-                        {
-                            if (sourcevalue != null)
-                            {
-                                tarprop.SetValue(target, sourcevalue);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        public static IExecuteResultEntity AddLogRecord(string DataId, Guid UserId, byte ActionCode, string TableName = "", string ActionReason = "")
-        {
-            try
-            {
-                AccessLog newLogData = new AccessLog()
-                {
-                    ActionCode = ActionCode,
-                    CreateTime = DateTime.Now,
-                    DataId = DataId,
-                    UserId = UserId,
-                    DataTableName = TableName,
-                    Reason = ActionReason
-                };
-
-                using (var db = RepositoryHelper.GetAccessLogRepository())
-                {
-                    db.Add(newLogData);
-                    db.UnitOfWork.Commit();
-                }
-
-                return ExecuteResultEntity.CreateResultEntity();
-            }
-            catch (Exception ex)
-            {
-                return ExecuteResultEntity.CreateErrorResultEntity(ex);
-            }
-        }
-
     }
 
     /// <summary>
@@ -630,6 +524,112 @@ namespace Tokiku.Controllers
             {
                 return ExecuteResultEntity<T>.CreateErrorResultEntity(ex);
             }
+        }
+
+        public static IExecuteResultEntity AddLogRecord(string DataId, Guid UserId, byte ActionCode, string TableName = "", string ActionReason = "")
+        {
+            try
+            {
+                AccessLog newLogData = new AccessLog()
+                {
+                    ActionCode = ActionCode,
+                    CreateTime = DateTime.Now,
+                    DataId = DataId,
+                    UserId = UserId,
+                    DataTableName = TableName,
+                    Reason = ActionReason
+                };
+
+                using (var db = RepositoryHelper.GetAccessLogRepository())
+                {
+                    db.Add(newLogData);
+                    db.UnitOfWork.Commit();
+                }
+
+                return ExecuteResultEntity.CreateResultEntity();
+            }
+            catch (Exception ex)
+            {
+                return ExecuteResultEntity.CreateErrorResultEntity(ex);
+            }
+        }
+
+        /// <summary>
+        /// 檢查並更新來自資料庫的資料實體內容。
+        /// </summary>
+        /// <param name="source">來源資料實體物件(通常來自於前端UI的變更後資料內容)</param>
+        /// <param name="target">目的資料實體物件(一定是來自資料庫的資料實體)</param>
+        protected void CheckAndUpdateValue(dynamic source, dynamic target)
+        {
+            if (source == null)
+                throw new ArgumentNullException("source");
+
+            if (target == null)
+                throw new ArgumentNullException("target");
+
+            Type sourcetype = ((object)source).GetType();
+            Type targettype = ((object)target).GetType();
+
+            foreach (var tarprop in targettype.GetProperties())
+            {
+                var sourceprop = sourcetype.GetProperty(tarprop.Name);
+
+                if (sourceprop != null)
+                {
+                    if (sourceprop.PropertyType == tarprop.PropertyType)
+                    {
+                        if (sourceprop.PropertyType.IsGenericType && sourceprop.PropertyType.GetGenericTypeDefinition() == typeof(ICollection<>))
+                        {
+                            continue;
+                        }
+
+                        object sourcevalue = sourceprop.GetValue(source);
+                        object targetvalue = tarprop.GetValue(target);
+
+                        if (targetvalue != null)
+                        {
+                            if (sourcevalue != null && !targetvalue.Equals(sourcevalue))
+                            {
+                                tarprop.SetValue(target, sourcevalue);
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            if (sourcevalue != null)
+                            {
+                                tarprop.SetValue(target, sourcevalue);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 傳回主索引鍵欄位的內容值。
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        protected object[] IdentifyPrimaryKey(T entity)
+        {
+
+            ObjectContext objectContext = ((IObjectContextAdapter)this.GetRepository<IUsersRepository, Users>().UnitOfWork.Context).ObjectContext;
+            ObjectSet<T> set = objectContext.CreateObjectSet<T>();
+            IEnumerable<string> keyNames = set.EntitySet.ElementType
+                                                        .KeyMembers
+                                                        .Select(k => k.Name);
+
+            Type entityreflection = typeof(T);
+
+            var pkeys = entityreflection.GetProperties()
+                .Join(keyNames, (x) => x.Name, (y) => y, (k, t) => k)
+                .Select(s => s.GetValue(entity));
+
+            return pkeys.ToArray();
         }
     }
 }

@@ -20,7 +20,7 @@ using Tokiku.Entity;
 namespace Tokiku.ViewModels
 {
 
-    public class BaseViewModel : ViewModelBase, IBaseViewModel
+    public abstract class BaseViewModel : ViewModelBase, IBaseViewModel
     {
         public BaseViewModel()
         {
@@ -42,17 +42,7 @@ namespace Tokiku.ViewModels
         public bool HasError { get => _HasError; set => _HasError = value; }
         #endregion
 
-        #region 資料識別碼
-        private Guid _Id = Guid.Empty;
-        /// <summary>
-        /// 資料識別碼
-        /// </summary>
-        public virtual Guid Id
-        {
-            get => _Id;
-            set { _Id = value; RaisePropertyChanged("Id"); }
-        }
-        #endregion
+       
 
         #region Helper Functions
         /// <summary>

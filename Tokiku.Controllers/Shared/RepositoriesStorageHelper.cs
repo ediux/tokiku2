@@ -13,7 +13,7 @@ namespace Tokiku.Controllers
         /// <summary>
         /// 統一資料庫連線物件。
         /// </summary>
-        private static IUnitOfWork database;
+        //private static IUnitOfWork database;
 
         //private static HashSet<object> RepositoriesTable = new HashSet<object>();
 

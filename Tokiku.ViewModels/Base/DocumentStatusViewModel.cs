@@ -4,7 +4,7 @@ using GalaSoft.MvvmLight;
 
 namespace Tokiku.ViewModels
 {
-    public class DocumentStatusViewModel : ViewModelBase, INotifyPropertyChanged, IDocumentStatusViewModel
+    public abstract class DocumentStatusViewModel : ViewModelBase, INotifyPropertyChanged, IDocumentStatusViewModel
     {
         private bool _IsNewInstance = false;
         /// <summary>

@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Tokiku.Controllers.BaseController">
+    <Position X="39.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAAAAAAAAAAAAAAAAAEIAQAgAAAAA=</HashCode>
+      <FileName>Base\BaseController.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tokiku.Controllers.BaseController&lt;TMainRepository, T&gt;">
+    <Position X="29.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYCAAAAACAAAAAAAABAAgAAQAEAAAgQAAAAAABACBA=</HashCode>
+      <FileName>Base\BaseController.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tokiku.Controllers.ControllersLocator" Collapsed="true">
+    <Position X="73.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Base\ControllersLocator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Controllers.ControlTableController" Collapsed="true">
+    <Position X="12.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgACAAAAAAAAEAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>ControlTables\ControlTableController.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tokiku.Controllers.InventoryController" Collapsed="true">
+    <Position X="14.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ControlTables\InventoryController.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tokiku.Controllers.InventoryListController" Collapsed="true">
+    <Position X="10" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ControlTables\InventoryListController.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tokiku.Controllers.InvoicesController" Collapsed="true">
+    <Position X="7.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ControlTables\InvoicesController.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tokiku.Controllers.ObtainMaterialController" Collapsed="true">
+    <Position X="66.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ControlTables\ObtainMaterialController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Controllers.ObtainMaterialListController" Collapsed="true">
+    <Position X="70.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ControlTables\ObtainMaterialListController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Controllers.OrderControlTableController" Collapsed="true">
+    <Position X="52.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ControlTables\OrderControlTableController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Controllers.RecvMaterialController" Collapsed="true">
+    <Position X="19" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAABgAAAAAAAAACAA=</HashCode>
+      <FileName>ControlTables\RecvMaterialController.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tokiku.Controllers.RecvMaterialListController" Collapsed="true">
+    <Position X="68.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ControlTables\RecvMaterialListController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Controllers.RequiredController" Collapsed="true">
+    <Position X="25.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAEgAAgAABBAgAAAEAAAAgAAAAAAAQAAAA=</HashCode>
+      <FileName>ControlTables\RequiredController.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tokiku.Controllers.ReturnMaterialListController" Collapsed="true">
+    <Position X="57.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ControlTables\ReturnMaterialListController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Controllers.ReturnsController" Collapsed="true">
+    <Position X="21.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ControlTables\ReturnsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Controllers.ShippingController" Collapsed="true">
+    <Position X="23.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>ControlTables\ShippingController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Controllers.ShippingMaterialDetailsController" Collapsed="true">
+    <Position X="30.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>ControlTables\ShippingMaterialDetailsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Controllers.ShippingMaterialListController" Collapsed="true">
+    <Position X="64" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ControlTables\ShippingMaterialListController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Controllers.ContactPersonManageController" Collapsed="true">
+    <Position X="16.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAgACAAAAAAAAEAAgAAIAEAAAAQAAAAAAAAABA=</HashCode>
+      <FileName>Contacts\ContactPersonManageController.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tokiku.Controllers.PaymentTypesManageController" Collapsed="true">
+    <Position X="28" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Finance\PaymentTypesManageController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Controllers.PromissoryNoteManagementViewModelController" Collapsed="true">
+    <Position X="32.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Finance\PromissoryNoteManagementViewModelController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Controllers.TicketPeriodsManagementController" Collapsed="true">
+    <Position X="34.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAQAAAAAAAAAAAAIAAAAAAAAAACAA=</HashCode>
+      <FileName>Finance\TicketPeriodsManagementController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Controllers.ClientController" Collapsed="true">
+    <Position X="39.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAgACAAAAAAAAAAAgAAIAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Manufacturers\ClientController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Controllers.ManufacturersManageController" Collapsed="true">
+    <Position X="41.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQIgACAAQAACAAAgEjBBAhkAAAgQAgAAAAgAGEA=</HashCode>
+      <FileName>Manufacturers\ManufacturersManageController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Controllers.RepositoriesStorageHelper" Collapsed="true">
+    <Position X="75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAABAAAAAAAAQBAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Shared\RepositoriesStorageHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Controllers.StartUpWindowController" Collapsed="true">
+    <Position X="59.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Shared\StartUpWindowController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Controllers.SystemController" Collapsed="true">
+    <Position X="55" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACIAAAgAAAAAAAAAAAAAAAAIAAAEAAAAAAAAAA=</HashCode>
+      <FileName>System\SystemController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Controllers.AbnormalQualityController" Collapsed="true">
+    <Position X="43.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>AbnormalQualityController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Controllers.AbnormalQualityDetailsController" Collapsed="true">
+    <Position X="48.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AbnormalQualityDetailsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Controllers.AccessLogController" Collapsed="true">
+    <Position X="37" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AccessLogController.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tokiku.Controllers.RequiredDetailController">
+    <Position X="50.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RequiredDetailController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Controllers.ReturnsDetailsController" Collapsed="true">
+    <Position X="76.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ReturnsDetailsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Controllers.ShippingDetailsController" Collapsed="true">
+    <Position X="61.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ShippingDetailsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Controllers.UsersController" Collapsed="true">
+    <Position X="46" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UsersController.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Tokiku.Controllers.IContactPersonManageController" Collapsed="true">
+    <Position X="75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAgACAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Base\Interfaces\IContactPersonManageController.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.Controllers.IControlTableController" Collapsed="true">
+    <Position X="76.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgACAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Base\Interfaces\IControlTableController.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.Controllers.IInventoryController" Collapsed="true">
+    <Position X="73.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Base\Interfaces\IInventoryController.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.Controllers.IInventoryListController" Collapsed="true">
+    <Position X="75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Base\Interfaces\IInventoryListController.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.Controllers.IInvoicesController" Collapsed="true">
+    <Position X="76.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Base\Interfaces\IInvoicesController.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.Controllers.IRecvMaterialController" Collapsed="true">
+    <Position X="73.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAACAA=</HashCode>
+      <FileName>Base\Interfaces\IRecvMaterialController.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.Controllers.IRequiredController" Collapsed="true">
+    <Position X="75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAEgAAgAABBAgAAAEAAAAgAAAAAAAQAAAA=</HashCode>
+      <FileName>Base\Interfaces\IRequiredController.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.Controllers.IUsersController" Collapsed="true">
+    <Position X="76.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Base\Interfaces\IUsersController.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.Controllers.IAccessLogController" Collapsed="true">
+    <Position X="73.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IAccessLogController.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Microsoft JhengHei UI" Size="9" />
+</ClassDiagram>

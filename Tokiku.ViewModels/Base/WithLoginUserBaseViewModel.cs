@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Windows;
+using Tokiku.Controllers;
 using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class WithLoginUserBaseViewModel : BaseViewModel, IBaseViewModelWithLoginedUser
+    /// <summary>
+    /// 具有目前登入帳號資訊的檢視模型
+    /// </summary>
+    [ControllerMapping(typeof(SystemController))]
+    public abstract class WithLoginUserBaseViewModel : BaseViewModel, IBaseViewModelWithLoginedUser
     {
-        public WithLoginUserBaseViewModel()
+        public WithLoginUserBaseViewModel() : base()
         {
 
         }
-
 
         private UserViewModel _LoginedUser;
 

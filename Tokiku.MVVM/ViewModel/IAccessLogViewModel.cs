@@ -7,6 +7,9 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
+    /// <summary>
+    /// 存取記錄檢視模型
+    /// </summary>
     public interface IAccessLogViewModel : IBaseViewModel
     {
         string AccessUser { get; }

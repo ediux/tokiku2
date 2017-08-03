@@ -71,11 +71,17 @@
     <Compile Include="Base\BaseViewModel.cs" />
     <Compile Include="Base\DocumentBaseViewModel.cs" />
     <Compile Include="Base\DocumentStatusViewModel.cs" />
+    <Compile Include="Base\Interfaces\IBaseViewModelWithLoginedUser.cs" />
+    <Compile Include="Base\Interfaces\IDocumentBaseViewModel.cs" />
+    <Compile Include="Base\Interfaces\IUserViewModel.cs" />
+    <Compile Include="EntityBaseViewModel.cs" />
+    <Compile Include="IFormBaseViewModel.cs" />
+    <Compile Include="Main\MainViewModel.cs" />
     <Compile Include="Users\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Users\UserViewModel.cs" />
     <Compile Include="Base\WithLoginUserBaseViewModel.cs" />
-    <Compile Include="Users\UserViewModelCollection.cs" />
+    <Compile Include="ViewModelLocator\ViewModelLocator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tokiku.Controllers\Tokiku.Controllers.csproj">
@@ -92,6 +98,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Digrams\ViewModels.cd" />
     <None Include="packages.config" />
     <None Include="TokikuNew_TemporaryKey.pfx" />
   </ItemGroup>

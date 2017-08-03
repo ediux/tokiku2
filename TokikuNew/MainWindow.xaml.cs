@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using Tokiku.Controllers;
-using Tokiku.ViewModels;
-using TokikuNew.Controls;
-using TokikuNew.Views;
 
 namespace TokikuNew
 {
@@ -18,7 +12,7 @@ namespace TokikuNew
         public MainWindow()
         {
             InitializeComponent();
-            AddHandler(ClosableTabItem.OnPageClosingEvent, new RoutedEventHandler(btnTabClose_Click));
+            //AddHandler(ClosableTabItem.OnPageClosingEvent, new RoutedEventHandler(btnTabClose_Click));
         }
 
 
@@ -51,7 +45,7 @@ namespace TokikuNew
                     {
                         if (currentworking.Content != null)
                         {
-                            Workspaces.Items.Remove(currentworking);                           
+                            //Workspaces.Items.Remove(currentworking);                           
                         }
                     }
                 }

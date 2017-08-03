@@ -17,6 +17,7 @@ using Microsoft.Practices.ServiceLocation;
 using System;
 using System.Linq;
 using System.Reflection;
+using Tokiku.MVVM;
 
 namespace Tokiku.ViewModels
 {
@@ -45,32 +46,37 @@ namespace Tokiku.ViewModels
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
 
-            Type tDefprovider = SimpleIoc.Default.GetType();
+            Type tDefprovider = typeof(SimpleIoc);
 
-            var IsRegisteredMethod = tDefprovider.GetMethod("IsRegistered", BindingFlags.CreateInstance | BindingFlags.Public);
-            var RegisterMethod = tDefprovider.GetMethod("Register", BindingFlags.CreateInstance | BindingFlags.Public);
+            //var IsRegisteredMethod = tDefprovider.GetMethod("IsRegistered", BindingFlags.Instance | BindingFlags.InvokeMethod | BindingFlags.Public,Type.DefaultBinder,Type.EmptyTypes, null);
 
-            Assembly currentAsm = Assembly.GetExecutingAssembly();
+            //RegisterMethod.Invoke("Register", Type.EmptyTypes);
+            SimpleIoc.Default.Register<ILoginViewModel, LoginViewModel>();
+            SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<IUserViewModel, UserViewModel>();
+            //Assembly currentAsm = Assembly.GetExecutingAssembly();
 
-            var types = currentAsm.GetTypes().Where(w => w.IsInterface == false
-            && w.IsClass == true
-            && w.Name.EndsWith("ViewModel"));
+            //var types = currentAsm.GetTypes().Where(w => w.IsInterface == false
+            //&& w.IsClass == true
+            //&& w.Name.EndsWith("ViewModel"));
 
-            foreach (var reg_type in types)
-            {
-                var rtinvoker_isRegister = IsRegisteredMethod.MakeGenericMethod(reg_type.BaseType);
-                var rtinvoker_Register = RegisterMethod.MakeGenericMethod(reg_type);
+            //foreach (var reg_type in types)
+            //{
+            //    var rtinvoker_isRegister = IsRegisteredMethod.MakeGenericMethod(reg_type.BaseType);
+            //    var RegisterMethod = tDefprovider.GetMethods(BindingFlags.Instance | BindingFlags.InvokeMethod | BindingFlags.Public).Where(w=>w.GetGenericMethodDefinition().GetGenericArguments(a;
+            //    var rtinvoker_Register = RegisterMethod.MakeGenericMethod(reg_type);
 
-                if (!(bool)rtinvoker_isRegister.Invoke(SimpleIoc.Default, new object[] { }))
-                {
-                    rtinvoker_Register.Invoke(SimpleIoc.Default, new object[] { });
-                }
-            }
+            //    if (!(bool)rtinvoker_isRegister.Invoke(SimpleIoc.Default, new object[] { }))
+            //    {
+            //        rtinvoker_Register.Invoke(SimpleIoc.Default, new object[] { });
+            //    }
+            //}
 
             //SimpleIoc.Default.Register<MainViewModel>();
             //SimpleIoc.Default.Register<LoginViewModel>();
             //SimpleIoc.Default.Register<UserViewModel>();
             //SimpleIoc.Default.Register<ProjectListViewModelCollection>();
+            SetupNavigation();
         }
 
         /// <summary>
@@ -83,11 +89,20 @@ namespace Tokiku.ViewModels
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }
-        
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
-           
+
+        }
+
+        private static void SetupNavigation()
+        {
+            var navigationService = new FrameNavigationService();
+            navigationService.Configure("mainwindow", new Uri("/MainWindow.xaml", UriKind.Relative));
+
+            if (!SimpleIoc.Default.IsRegistered<IFrameNavigationService>())
+                SimpleIoc.Default.Register<IFrameNavigationService>(() => navigationService);
         }
 
         /// <summary>
@@ -96,15 +111,15 @@ namespace Tokiku.ViewModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic",
             Justification = "This non-static member is needed for data binding purposes.")]
-        public LoginViewModel Login
+        public ILoginViewModel Login
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<LoginViewModel>();
+                return ServiceLocator.Current.GetInstance<ILoginViewModel>();
             }
         }
 
-    
+
 
         /// <summary>
         /// Gets the UserAccount property.
@@ -112,11 +127,11 @@ namespace Tokiku.ViewModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic",
             Justification = "This non-static member is needed for data binding purposes.")]
-        public UserViewModel UserAccount
+        public IUserViewModel UserAccount
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<UserViewModel>();
+                return ServiceLocator.Current.GetInstance<IUserViewModel>();
             }
         }
     }

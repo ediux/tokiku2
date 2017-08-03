@@ -10,16 +10,24 @@ using System.Windows;
 using System.Windows.Input;
 using Tokiku.Controllers;
 using Tokiku.Entity;
+using Tokiku.MVVM;
 
 namespace Tokiku.ViewModels
 {
+    /// <summary>
+    /// 登入畫面檢視模型
+    /// </summary>
     [ControllerMapping(typeof(StartUpWindowController))]
     public class LoginViewModel : BaseViewModel, ILoginViewModel
     {
+        IFrameNavigationService _navigationService;
         [PreferredConstructor]
-        public LoginViewModel()
+        public LoginViewModel(IFrameNavigationService navigationService)
         {
+            _navigationService = navigationService;
+
             _LoginCommand = new RelayCommand(Login);
+            _ExitCommand = new RelayCommand<Window>(Exit);
             //_controller = controller;
         }
 
@@ -36,7 +44,7 @@ namespace Tokiku.ViewModels
         public string Password
         {
             get => _Password;
-          
+
             set { _Password = value; RaisePropertyChanged("Password"); }
         }
 
@@ -49,22 +57,29 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                var reult = ExecuteAction<Users>("StartUpWindow", "Login", (ILoginViewModel)this);
+                 _navigationService.NavigateTo("mainwindow");
+                //var reult = ExecuteAction<Users>("StartUpWindow", "Login", (ILoginViewModel)this);
 
-                if (reult != null)
-                {
-                    //RelayCommand<ILoginViewModel> Login = (LoginCommand)RelayCommand;
-                    //RedirectCommand Redirect = new RedirectCommand();
-                    ////Redirect.SourceInstance = Login.SourceInstance;
-                    //Redirect.Execute(Parameter);
-                    //((Window)Redirect.SourceInstance).Close();
-                }
+                //if (reult != null)
+                //{
+                  
+                //    //RelayCommand<ILoginViewModel> Login = (LoginCommand)RelayCommand;
+                //    //RedirectCommand Redirect = new RedirectCommand();
+                //    ////Redirect.SourceInstance = Login.SourceInstance;
+                //    //Redirect.Execute(Parameter);
+                //    //((Window)Redirect.SourceInstance).Close();
+                //}
             }
             catch (Exception ex)
             {
                 setErrortoModel(this, ex);
                 RaisePropertyChanged("Errors");
             }
+        }
+
+        public void Exit(Window win)
+        {
+            win.Close();
         }
     }
 }

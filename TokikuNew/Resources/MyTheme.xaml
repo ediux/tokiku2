@@ -1,11 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:ctrl="clr-namespace:TokikuNew.Controls">
+                   >
     <RoutedUICommand x:Key="CloseTab" Text="Close Tab"/>
     <Style TargetType="DataGridColumnHeader" x:Key="HeaderStyleCenter">
         <Setter Property="HorizontalContentAlignment" Value="Center" />
     </Style>
-    <Style TargetType="{x:Type ctrl:ClosableTabItem}">
+    <!--<Style TargetType="{x:Type ctrl:ClosableTabItem}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ctrl:ClosableTabItem}">
@@ -169,7 +169,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
+    </Style>-->
     <Style TargetType="{x:Type TextBox}" x:Key="ReadModeSwitch" BasedOn="{StaticResource  {x:Type TextBox}}">
         <Setter Property="BorderBrush" Value="{DynamicResource TextControlBorderBrush}"/>
         <Style.Triggers>
@@ -478,9 +478,9 @@
                         <Border x:Name="Header" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Padding="3,1,3,0">
                             <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" ContentSource="Header" RecognizesAccessKey="True" Margin="0,4,0,4" HorizontalAlignment="Left" />
                         </Border>
-                        <ctrl:DockBar x:Name="dockBar" Panel.ZIndex="999" VerticalAlignment="Center" Grid.Row="0" Grid.RowSpan="2"  Grid.Column="2" Background="{TemplateBinding Background}" HorizontalAlignment="Right" DocumentMode="{Binding Path=Mode, ElementName=userControl}">
+                        <!--<ctrl:DockBar x:Name="dockBar" Panel.ZIndex="999" VerticalAlignment="Center" Grid.Row="0" Grid.RowSpan="2"  Grid.Column="2" Background="{TemplateBinding Background}" HorizontalAlignment="Right" DocumentMode="{Binding Path=Mode, ElementName=userControl}">
      
-                        </ctrl:DockBar>
+                        </ctrl:DockBar>-->
                         <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Margin="{TemplateBinding Padding}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" />
                     </Grid>
                 </ControlTemplate>

@@ -1,6 +1,9 @@
 ﻿
 namespace Tokiku.ViewModels
 {
+    /// <summary>
+    /// 文件操作生命週期
+    /// </summary>
     public enum DocumentLifeCircle
     {
         None = 0,

@@ -2,18 +2,21 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Tokiku.Entity;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace Tokiku.ViewModels
 {
-    public class UserViewModel : DocumentBaseViewModel<Users>, IUserViewModel
+    public class UserViewModel : EntityBaseViewModel<Users>, IUserViewModel
     {
+        [PreferredConstructor]
         public UserViewModel()
         {
-            Status = new DocumentStatusViewModel();
+
         }
 
         public UserViewModel(Users entity) : base(entity)
@@ -62,9 +65,11 @@ namespace Tokiku.ViewModels
             get { return CopyofPOCOInstance.Membership.Password; }
         }
 
-        public override IUserViewModel CreateUser { get => null; set { } }
-        public override DateTime CreateTime { get => DateTime.Now; set {  } }
-        public override Guid CreateUserId { get => Guid.Empty; set { } }
+
+
+        //Expression<Func<IUsers, bool>> IEntityBaseViewModel<IUsers>.Filiter { get => (x)=>true; set => throw new NotImplementedException(); }
+
+        //IUsers IEntityBaseViewModel<IUsers>.Entity => throw new NotImplementedException();
 
         public override void CreateNew()
         {

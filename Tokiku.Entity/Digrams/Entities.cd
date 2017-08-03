@@ -1,0 +1,1261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Tokiku.Entity.EntityLocator" Collapsed="true">
+    <Position X="7.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Base\EntityLocator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ExecuteResultEntity" Collapsed="true">
+    <Position X="3.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAACACAAAQAGAAAAAAAAgAAAAAAIAAAgAgAAAEA=</HashCode>
+      <FileName>Base\ExecuteResultEntity.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tokiku.Entity.ExecuteResultEntity&lt;TEntity&gt;" Collapsed="true">
+    <Position X="3.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAACAAAAAAAAAAAAQAAAAAAAAAAAAgAAAAAAI=</HashCode>
+      <FileName>Base\ExecuteResultEntity.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tokiku.Entity.RepositoryLocator" Collapsed="true">
+    <Position X="6" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Base\RepositoryLocator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.AbnormalQuality" Collapsed="true">
+    <Position X="6" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgCgAAAQUAAAEAAAAAAEARAAAEAAAAAAQCAAAgFAEA=</HashCode>
+      <FileName>AbnormalQuality.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.EFRepository&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAABACAAABBBAAAAEAIAQAEAgAAACIAAIgAAAAA=</HashCode>
+      <FileName>EFRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tokiku.Entity.Profile" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAACAAAAAAAAAAAAAAgAgAAAAAAAAAAAAAIAAQAAA=</HashCode>
+      <FileName>Profile.Partial.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tokiku.Entity.TokikuEntities" Collapsed="true">
+    <Position X="16.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>hUmAASBCBI8AAADAAbRQAIxA0gQLaYAARRgEJiARB8w=</HashCode>
+      <FileName>PartialClasses\TokikuEntities.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.Users" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="21.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gEAAACAAAgNABgAAApAAAAwIQgQFCIBAgRAEIAAQIAA=</HashCode>
+      <FileName>Users.Partial.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tokiku.Entity.View_RequiredControlTable" Collapsed="true">
+    <Position X="25.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EEBAABCAIABEAAIQCCCgAAAAVAQBCgAAgAAIAAAFSAA=</HashCode>
+      <FileName>View_RequiredControlTable.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.AluminumExtrusionOrderEntity" Collapsed="true">
+    <Position X="16.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAABACBAAAAAAAABACAAAAAIgAEAAAA=</HashCode>
+      <FileName>ViewTables\AluminumExtrusionOrderEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.AluminumExtrusionOrderMaterialValuationEntity" Collapsed="true">
+    <Position X="20" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IEAAAAAAAAAAAAAAAAAAAAAAACAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewTables\AluminumExtrusionOrderMaterialValuationEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.AluminumExtrusionOrderMiscellaneousEntity" Collapsed="true">
+    <Position X="21.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAgAAAAAABAAACAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>ViewTables\AluminumExtrusionOrderMiscellaneousEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ContractManagementEntity" Collapsed="true">
+    <Position X="11.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewTables\ContractManagementEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.InventoryListEntity" Collapsed="true">
+    <Position X="11.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewTables\InventoryListEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.MainWindowEntity" Collapsed="true">
+    <Position X="6" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAACAAAAAAAAAAAAAABAAAAAAAAQA=</HashCode>
+      <FileName>ViewTables\MainWindowEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ProcessingAtlasDetailEntity" Collapsed="true">
+    <Position X="14.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIACAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewTables\ProcessingAtlasDetailEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ProjectListEntity" Collapsed="true">
+    <Position X="6" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAACAAAAAAAAAABAAAAgAAQAAAAAAIAACAAABEAAAAA=</HashCode>
+      <FileName>ViewTables\ProjectListEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.PromissoryNoteManagementEntity" Collapsed="true">
+    <Position X="13" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAQAChAAACABAAAAAAAEBAAAABAQAIAgAABA=</HashCode>
+      <FileName>ViewTables\PromissoryNoteManagementEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.SystemMembersEntity" Collapsed="true">
+    <Position X="6" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewTables\SystemMembersEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.SystemRolesEntity" Collapsed="true">
+    <Position X="7.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewTables\SystemRolesEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ViewTables.AluminumExtrusionOrderListEntity" Collapsed="true">
+    <Position X="18.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewTables\AluminumExtrusionOrderListEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ViewTables.ManufacturersEnter" Collapsed="true">
+    <Position X="13" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAASAAAAgAAAAAAAAAAgAAQAAAAAAIEDAAQgIAACAAA=</HashCode>
+      <FileName>ViewTables\ManufacturersEnter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ViewTables.MoldsEnter" Collapsed="true">
+    <Position X="13" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CEAIAAAEAAAQQIAAAAAgAAAAIAFBAAAAAAAAAgAgAAA=</HashCode>
+      <FileName>ViewTables\MoldsEnter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ViewTables.RecvMaterialListEntity" Collapsed="true">
+    <Position X="25.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewTables\RecvMaterialListEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.EFUnitOfWork" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="21.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAiAABAAAAAAAAAAAAAAAAAAAQCAAAwAAACA=</HashCode>
+      <FileName>EFUnitOfWork.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tokiku.Entity.MoldsRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MoldsRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tokiku.Entity.PaymentTypesRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="27" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PaymentTypesRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tokiku.Entity.ReceiveDetailsRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="21.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ReceiveDetailsRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tokiku.Entity.RepositoryHelper" Collapsed="true">
+    <Position X="27" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QZgIIocBgAAA0XIxGIgqCkRACgyBGCAICa0AQQACE0g=</HashCode>
+      <FileName>RepositoryHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ShopFlowHistoryRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ShopFlowHistoryRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tokiku.Entity.UsersRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="25.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UsersRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tokiku.Entity.View_RequiredFormsRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View_RequiredFormsRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tokiku.Entity.View_ShippingListRepository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View_ShippingListRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tokiku.Entity.AbnormalQualityMetaData" Collapsed="true">
+    <Position X="11.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgCgAAAQUAAAEAAAAAAEARAAAEAAAAAAQCAAAgFAEA=</HashCode>
+      <FileName>AbnormalQuality.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.AbnormalQualityDetails" Collapsed="true">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAABEAAAAAAKAFgAAgIAAAAIAAAACBAABAAAIAAA=</HashCode>
+      <FileName>AbnormalQualityDetails.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.AbnormalQualityDetailsMetaData" Collapsed="true">
+    <Position X="9.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAABEAAAAAAKAFgAAgIAAAAIAAAACBAABAAAIAAA=</HashCode>
+      <FileName>AbnormalQualityDetails.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.AccessLog" Collapsed="true">
+    <Position X="13" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAIAAAAAAAoAAAEAAAAAAAAABAAAgAA=</HashCode>
+      <FileName>AccessLog.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.AccessLogMetaData" Collapsed="true">
+    <Position X="14.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAIAAAAAAAoAAAEAAAAAAAAABAAAgAA=</HashCode>
+      <FileName>AccessLog.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.BOM" Collapsed="true">
+    <Position X="23.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAhCADCWIEBAgAIRICCgCAAAUAUBCkAAgIIJgggFCAA=</HashCode>
+      <FileName>BOM.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.BOMMetaData" Collapsed="true">
+    <Position X="25.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAhCADCWIEBAgAIRICCgCAAAUAUBCkAAgIIJgggFCAA=</HashCode>
+      <FileName>BOM.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ConstructionAtlas" Collapsed="true">
+    <Position X="27" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACCAAAEAAAAAAAAAAAAAAAABAEAhAAKAECAQAgAASA=</HashCode>
+      <FileName>ConstructionAtlas.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ConstructionAtlasMetaData" Collapsed="true">
+    <Position X="6" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACCAAAEAAAAAAAAAAAAAAAABAEAhAAKAECAQAgAASA=</HashCode>
+      <FileName>ConstructionAtlas.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.Contacts" Collapsed="true">
+    <Position X="7.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAQAEgBAAAECAAAAAAAQAACEAAACABAAAIAgCAAA=</HashCode>
+      <FileName>Contacts.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ContactsMetaData" Collapsed="true">
+    <Position X="9.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAQAEgBAAAECAAAAAAAQAACEAAACABAAAIAgCAAA=</HashCode>
+      <FileName>Contacts.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ControlTableDetails" Collapsed="true">
+    <Position X="13" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABCABCQIABAAgIQATCACAAAQgQACgAAhIAAAgAFCAA=</HashCode>
+      <FileName>ControlTableDetails.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ControlTableDetailsMetaData" Collapsed="true">
+    <Position X="14.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABCABCQIABAAgIQATCACAAAQgQACgAAhIAAAgAFCAA=</HashCode>
+      <FileName>ControlTableDetails.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ControlTables" Collapsed="true">
+    <Position X="16.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAQAAAAAAAAAAAAABAEACAAAAAAAAggAAQA=</HashCode>
+      <FileName>ControlTables.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ControlTablesMetaData" Collapsed="true">
+    <Position X="18.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAQAAAAAAAAAAAAABAEACAAAAAAAAggAAQA=</HashCode>
+      <FileName>ControlTables.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.EncodingRecords" Collapsed="true">
+    <Position X="23.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACvIAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EncodingRecords.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.EncodingRecordsMetaData" Collapsed="true">
+    <Position X="25.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACvIAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EncodingRecords.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.Engineering" Collapsed="true">
+    <Position X="27" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAABAAAAAAABAIAAgAASAAAUAAAAAAACABEgAAAA=</HashCode>
+      <FileName>Engineering.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.EngineeringMetaData" Collapsed="true">
+    <Position X="6" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAABAAAAAAABAIAAgAASAAAUAAAAAAACABEgAAAA=</HashCode>
+      <FileName>Engineering.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.Inventory" Collapsed="true">
+    <Position X="9.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAQAAgAAAAEAAACAggAAAAAAAAEIAAAQAAA=</HashCode>
+      <FileName>Inventory.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.InventoryMetaData" Collapsed="true">
+    <Position X="13" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAQAAgAAAAEAAACAggAAAAAAAAEIAAAQAAA=</HashCode>
+      <FileName>Inventory.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.InvoiceDetails" Collapsed="true">
+    <Position X="14.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACIAAAAAAAAABAABQAAIAQAgAAAAAAAgIBIWEIAAA=</HashCode>
+      <FileName>InvoiceDetails.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.InvoiceDetailsMetaData" Collapsed="true">
+    <Position X="23.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACIAAAAAAAAABAABQAAIAQAgAAAAAAAgIBIWEIAAA=</HashCode>
+      <FileName>InvoiceDetails.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.InvoiceDetails_Material" Collapsed="true">
+    <Position X="16.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAACIAAAAAAAAAAAASAAAIAAACAAQAAAAAAAgCAIAAA=</HashCode>
+      <FileName>InvoiceDetails_Material.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.InvoiceDetails_MaterialMetaData" Collapsed="true">
+    <Position X="18.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAACIAAAAAAAAAAAASAAAIAAACAAQAAAAAAAgCAIAAA=</HashCode>
+      <FileName>InvoiceDetails_Material.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.InvoiceDetails_Miscellaneous" Collapsed="true">
+    <Position X="20" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACIAAAAAAAAAAAAAAAAIAAAAAAAAAgAAAEACEIAAA=</HashCode>
+      <FileName>InvoiceDetails_Miscellaneous.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.InvoiceDetails_MiscellaneousMetaData" Collapsed="true">
+    <Position X="21.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACIAAAAAAAAAAAAAAAAIAAAAAAAAAgAAAEACEIAAA=</HashCode>
+      <FileName>InvoiceDetails_Miscellaneous.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.Invoices" Collapsed="true">
+    <Position X="25.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEECAAEEAQAAAABAAgAAAAAEBAEQAQAABAEAAIgAAAA=</HashCode>
+      <FileName>Invoices.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.InvoicesMetaData" Collapsed="true">
+    <Position X="27" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEECAAEEAQAAAABAAgAAAAAEBAEQAQAABAEAAIgAAAA=</HashCode>
+      <FileName>Invoices.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.Manufacturers" Collapsed="true">
+    <Position X="7.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAESAAAEhAkAAAAIAIAwAAQAAAUIAYCjARggICgjgUA=</HashCode>
+      <FileName>Manufacturers.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ManufacturersMetaData" Collapsed="true">
+    <Position X="18.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAESAAAEhAkAAAAIAIAwAAQAAAUIAYCjARggICgjgUA=</HashCode>
+      <FileName>Manufacturers.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ManufacturersBussinessItems" Collapsed="true">
+    <Position X="9.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAACBAAAAAAAAAgQAAQAAAAAAUAABAAAgAAgAEA=</HashCode>
+      <FileName>ManufacturersBussinessItems.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ManufacturersBussinessItemsMetaData" Collapsed="true">
+    <Position X="11.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAACBAAAAAAAAAgQAAQAAAAAAUAABAAAgAAgAEA=</HashCode>
+      <FileName>ManufacturersBussinessItems.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ManufacturersFactories" Collapsed="true">
+    <Position X="14.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAEAAAEABAYAgAgBAAA=</HashCode>
+      <FileName>ManufacturersFactories.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ManufacturersFactoriesMetaData" Collapsed="true">
+    <Position X="16.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAEAAAEABAYAgAgBAAA=</HashCode>
+      <FileName>ManufacturersFactories.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.MaterialCategories" Collapsed="true">
+    <Position X="20" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAMAAAAAAAAAAAQAAAUCAAAAAAAAIAgAAAA=</HashCode>
+      <FileName>MaterialCategories.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.MaterialCategoriesMetaData" Collapsed="true">
+    <Position X="21.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAMAAAAAAAAAAAQAAAUCAAAAAAAAIAgAAAA=</HashCode>
+      <FileName>MaterialCategories.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.MaterialEstimation" Collapsed="true">
+    <Position X="23.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAASAAAAAQAQAAAAAAAAAAQAACEAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>MaterialEstimation.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.MaterialEstimationMetaData" Collapsed="true">
+    <Position X="25.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAASAAAAAQAQAAAAAAAAAAQAACEAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>MaterialEstimation.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.Materials" Collapsed="true">
+    <Position X="27" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAACAAAAAQAAAAAAAAAAAAQAAAEAAIAAAAAAgAgQAAA=</HashCode>
+      <FileName>Materials.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.MaterialsMetaData" Collapsed="true">
+    <Position X="6" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAACAAAAAQAAAAAAAAAAAAQAAAEAAIAAAAAAgAgQAAA=</HashCode>
+      <FileName>Materials.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.Membership" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ECAAACAEACgIRAAAAAAAAEgQAACAAAJSAAABAAQgAAA=</HashCode>
+      <FileName>Membership.Partial.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tokiku.Entity.MembershipMetaData" Collapsed="true">
+    <Position X="9.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ECAAACAEACgIRAAAAAAAAEgQAACAAAJSAAABAAQgAAA=</HashCode>
+      <FileName>Membership.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.Molds" Collapsed="true">
+    <Position X="11.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CEALAAAEAQAAQAAAACQgAAAAIAFDAAAABBAAggggAAA=</HashCode>
+      <FileName>Molds.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.MoldsMetaData" Collapsed="true">
+    <Position X="18.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CEALAAAEAQAAQAAAACQgAAAAIAFDAAAABBAAggggAAA=</HashCode>
+      <FileName>Molds.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.MoldsInProjects" Collapsed="true">
+    <Position X="14.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAACAAAAAAAAAAAAAAAABAAAAIAAAAAAACAAAQg=</HashCode>
+      <FileName>MoldsInProjects.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.MoldsInProjectsMetaData" Collapsed="true">
+    <Position X="16.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAACAAAAAAAAAAAAAAAABAAAAIAAAAAAACAAAQg=</HashCode>
+      <FileName>MoldsInProjects.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.MoldUseStatus" Collapsed="true">
+    <Position X="21.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAEAAIAAAAAAAAgAAAA=</HashCode>
+      <FileName>MoldUseStatus.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.MoldUseStatusMetaData" Collapsed="true">
+    <Position X="23.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAEAAIAAAAAAAAgAAAA=</HashCode>
+      <FileName>MoldUseStatus.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.OrderControlTableDetails" Collapsed="true">
+    <Position X="25.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgCAAAAAEQAAAAAQBAAAAAAAAAAAEAACAAAAQAAAAA=</HashCode>
+      <FileName>OrderControlTableDetails.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.OrderControlTableDetailsMetaData" Collapsed="true">
+    <Position X="27" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgCAAAAAEQAAAAAQBAAAAAAAAAAAEAACAAAAQAAAAA=</HashCode>
+      <FileName>OrderControlTableDetails.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.OrderDetails" Collapsed="true">
+    <Position X="6" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAECACAEAAQAAABBAAQCAIgAgAEAAAAABAEAAAgQAAA=</HashCode>
+      <FileName>OrderDetails.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.OrderDetailsMetaData" Collapsed="true">
+    <Position X="7.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAECACAEAAQAAABBAAQCAIgAgAEAAAAABAEAAAgQAAA=</HashCode>
+      <FileName>OrderDetails.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.OrderMaterialValuation" Collapsed="true">
+    <Position X="9.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EEECAAAAAAQAAAAAAAAAAAAAgCAAQAAAAAEAAAAQAAA=</HashCode>
+      <FileName>OrderMaterialValuation.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.OrderMaterialValuationMetaData" Collapsed="true">
+    <Position X="11.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EEECAAAAAAQAAAAAAAAAAAAAgCAAQAAAAAEAAAAQAAA=</HashCode>
+      <FileName>OrderMaterialValuation.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.OrderMiscellaneous" Collapsed="true">
+    <Position X="13" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MAECAAAAAAAgAAAAAAAAAAAAEAAAQQAAAAAAgAAAABA=</HashCode>
+      <FileName>OrderMiscellaneous.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.OrderMiscellaneousMetaData" Collapsed="true">
+    <Position X="14.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MAECAAAAAAAgAAAAAAAAAAAAEAAAQQAAAAAAgAAAABA=</HashCode>
+      <FileName>OrderMiscellaneous.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.Orders" Collapsed="true">
+    <Position X="16.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIEqgAAAQAAAAAAAAZCAAACCAAEAQAAABAkUAAggAgA=</HashCode>
+      <FileName>Orders.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.OrdersMetaData" Collapsed="true">
+    <Position X="18.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIEqgAAAQAAAAAAAAZCAAACCAAEAQAAABAkUAAggAgA=</HashCode>
+      <FileName>Orders.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.OrderTypes" Collapsed="true">
+    <Position X="20" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAAAAAAAAAAAAAAAAQAAAEAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>OrderTypes.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.OrderTypesMetaData" Collapsed="true">
+    <Position X="21.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAAAAAAAAAAAAAAAAQAAAEAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>OrderTypes.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.PaymentTypes" Collapsed="true">
+    <Position X="23.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAABAAAAAAAAAAAAAAAAAAAAAAAAABAAAIAAAAAA=</HashCode>
+      <FileName>PaymentTypes.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.PaymentTypesMetaData" Collapsed="true">
+    <Position X="25.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAABAAAAAAAAAAAAAAAAAAAAAAAAABAAAIAAAAAA=</HashCode>
+      <FileName>PaymentTypes.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.PickList" Collapsed="true">
+    <Position X="6" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EJECgAAEQAAAAAAAADAAAAgAgAEAAAAABAEIIAgAAAA=</HashCode>
+      <FileName>PickList.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.PickListMetaData" Collapsed="true">
+    <Position X="11.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EJECgAAEQAAAAAAAADAAAAgAgAEAAAAABAEIIAgAAAA=</HashCode>
+      <FileName>PickList.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.PickListDetails" Collapsed="true">
+    <Position X="7.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAEGgAAAAAAAJAAAABIACAEAEAAAAAAAQAAAAA=</HashCode>
+      <FileName>PickListDetails.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.PickListDetailsMetaData" Collapsed="true">
+    <Position X="9.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAEGgAAAAAAAJAAAABIACAEAEAAAAAAAQAAAAA=</HashCode>
+      <FileName>PickListDetails.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ProcessingAtlas" Collapsed="true">
+    <Position X="13" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAIBCAAIAgAAAAAAAAAQQAAEAAAAABACAAAgAAAA=</HashCode>
+      <FileName>ProcessingAtlas.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ProcessingAtlasMetaData" Collapsed="true">
+    <Position X="16.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAIBCAAIAgAAAAAAAAAQQAAEAAAAABACAAAgAAAA=</HashCode>
+      <FileName>ProcessingAtlas.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ProfileMetaData" Collapsed="true">
+    <Position X="20" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAACAAAAAAAAAAAAAAgAgAAAAAAAAAAAAAIAAQAAA=</HashCode>
+      <FileName>Profile.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ProjectContract" Collapsed="true">
+    <Position X="21.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgCEABAAQEAAAAAAAAAEARABAEBAAAAAgAAAAgAAQA=</HashCode>
+      <FileName>ProjectContract.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ProjectContractMetaData" Collapsed="true">
+    <Position X="23.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgCEABAAQEAAAAAAAAAEARABAEBAAAAAgAAAAgAAQA=</HashCode>
+      <FileName>ProjectContract.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ProjectItemCost" Collapsed="true">
+    <Position X="25.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YAACAAACAQAAAFAAIAAAAADAAAEAAEAABAAAgAgAAAA=</HashCode>
+      <FileName>ProjectItemCost.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ProjectItemCostMetaData" Collapsed="true">
+    <Position X="27" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YAACAAACAQAAAFAAIAAAAADAAAEAAEAABAAAgAgAAAA=</HashCode>
+      <FileName>ProjectItemCost.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.Projects" Collapsed="true">
+    <Position X="7.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACCAAAMCAFBAQBAgEAgACQAhgEDAoAoBABABUgiBkA=</HashCode>
+      <FileName>Projects.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ProjectsMetaData" Collapsed="true">
+    <Position X="9.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACCAAAMCAFBAQBAgEAgACQAhgEDAoAoBABABUgiBkA=</HashCode>
+      <FileName>Projects.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.PromissoryNoteManagement" Collapsed="true">
+    <Position X="11.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAQAAAAAAAAAAAACBBAEAAAAAQBAAAAgAAQA=</HashCode>
+      <FileName>PromissoryNoteManagement.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.PromissoryNoteManagementMetaData" Collapsed="true">
+    <Position X="14.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAQAAAAAAAAAAAACBBAEAAAAAQBAAAAgAAQA=</HashCode>
+      <FileName>PromissoryNoteManagement.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.Receive" Collapsed="true">
+    <Position X="16.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEECgABEQQgAAQAAACAAAIAAwAEAAAgAAAAIIAgAAAA=</HashCode>
+      <FileName>Receive.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ReceiveMetaData" Collapsed="true">
+    <Position X="23.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEECgABEQQgAAQAAACAAAIAAwAEAAAgAAAAIIAgAAAA=</HashCode>
+      <FileName>Receive.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ReceiveDetails" Collapsed="true">
+    <Position X="18.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEACAAAEAAAAAABAABAAEAAIACAEAQAAAQAAAQABAAE=</HashCode>
+      <FileName>ReceiveDetails.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ReceiveDetailsMetaData" Collapsed="true">
+    <Position X="20" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEACAAAEAAAAAABAABAAEAAIACAEAQAAAQAAAQABAAE=</HashCode>
+      <FileName>ReceiveDetails.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.Required" Collapsed="true">
+    <Position X="7.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACgAACQQAAAAAAAAAAAAQARAEACEAABACAgggQAwA=</HashCode>
+      <FileName>Required.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.RequiredMetaData" Collapsed="true">
+    <Position X="13" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACgAACQQAAAAAAAAAAAAQARAEACEAABACAgggQAwA=</HashCode>
+      <FileName>Required.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.RequiredDetails" Collapsed="true">
+    <Position X="9.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEECAAAAAAEQAAABARAgACAAEAABAAAAAAAIAgAAAAA=</HashCode>
+      <FileName>RequiredDetails.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.RequiredDetailsMetaData" Collapsed="true">
+    <Position X="11.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEECAAAAAAEQAAABARAgACAAEAABAAAAAAAIAgAAAAA=</HashCode>
+      <FileName>RequiredDetails.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ReturnDetails" Collapsed="true">
+    <Position X="14.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAIAEAAAAAAAAABAAAAAIACAkAAAAAAgAAQAAAAA=</HashCode>
+      <FileName>ReturnDetails.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ReturnDetailsMetaData" Collapsed="true">
+    <Position X="16.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAIAEAAAAAAAAABAAAAAIACAkAAAAAAgAAQAAAAA=</HashCode>
+      <FileName>ReturnDetails.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.Returns" Collapsed="true">
+    <Position X="18.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EFECgAAEQQAAAAAAACQAAAAAgAEAAAAABAAIIAgBAAA=</HashCode>
+      <FileName>Returns.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ReturnsMetaData" Collapsed="true">
+    <Position X="20" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EFECgAAEQQAAAAAAACQAAAAAgAEAAAAABAAIIAgBAAA=</HashCode>
+      <FileName>Returns.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.Roles" Collapsed="true">
+    <Position X="21.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACIAAAAggAAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Roles.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.RolesMetaData" Collapsed="true">
+    <Position X="23.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACIAAAAggAAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Roles.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ShopFlow" Collapsed="true">
+    <Position X="25.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAACAAAAAAMAAAAAAAAAAAQAAgEAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>ShopFlow.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ShopFlowMetaData" Collapsed="true">
+    <Position X="13" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAACAAAAAAMAAAAAAAAAAAQAAgEAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>ShopFlow.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ShopFlowDetail" Collapsed="true">
+    <Position X="27" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACACAAAAAAAABAAAAAAAAgIAEgCAAAAAAAIggAAAA=</HashCode>
+      <FileName>ShopFlowDetail.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ShopFlowDetailMetaData" Collapsed="true">
+    <Position X="6" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACACAAAAAAAABAAAAAAAAgIAEgCAAAAAAAIggAAAA=</HashCode>
+      <FileName>ShopFlowDetail.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ShopFlowHistory" Collapsed="true">
+    <Position X="7.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAABAAAAAAAAgIAEgAAAAAAAAIggAAAA=</HashCode>
+      <FileName>ShopFlowHistory.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.ShopFlowHistoryMetaData" Collapsed="true">
+    <Position X="9.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAABAAAAAAAAgIAEgAAAAAAAAIggAAAA=</HashCode>
+      <FileName>ShopFlowHistory.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.SplitString_Result" Collapsed="true">
+    <Position X="14.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>SplitString_Result.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.SplitString_ResultMetaData" Collapsed="true">
+    <Position X="16.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>SplitString_Result.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.States" Collapsed="true">
+    <Position X="18.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAEAAQA=</HashCode>
+      <FileName>States.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.StatesMetaData" Collapsed="true">
+    <Position X="20" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAEAAQA=</HashCode>
+      <FileName>States.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.Stocks" Collapsed="true">
+    <Position X="21.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAIAAAAQAAAEAAAAAAAgAAggBAAA=</HashCode>
+      <FileName>Stocks.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.StocksMetaData" Collapsed="true">
+    <Position X="23.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAIAAAAQAAAEAAAAAAAgAAggBAAA=</HashCode>
+      <FileName>Stocks.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.SupplierTranscationItem" Collapsed="true">
+    <Position X="25.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAABACAAAAAAAAEAgAIAABAAAAAAIAQAAIAAAAQA=</HashCode>
+      <FileName>SupplierTranscationItem.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.SupplierTranscationItemMetaData" Collapsed="true">
+    <Position X="27" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAABACAAAAAAAAEAgAIAABAAAAAAIAQAAIAAAAQA=</HashCode>
+      <FileName>SupplierTranscationItem.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.TicketPeriod" Collapsed="true">
+    <Position X="9.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAgAQAAAEAAAAABAAAIAgAAAA=</HashCode>
+      <FileName>TicketPeriod.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.TicketPeriodMetaData" Collapsed="true">
+    <Position X="11.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAgAQAAAEAAAAABAAAIAgAAAA=</HashCode>
+      <FileName>TicketPeriod.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.TicketTypes" Collapsed="true">
+    <Position X="13" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAABAAAAAAAAAAAQAAAEBAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>TicketTypes.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.TicketTypesMetaData" Collapsed="true">
+    <Position X="14.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAABAAAAAAAAAAAQAAAEBAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>TicketTypes.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.TranscationCategories" Collapsed="true">
+    <Position X="18.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>TranscationCategories.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.TranscationCategoriesMetaData" Collapsed="true">
+    <Position X="20" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>TranscationCategories.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.UsersMetaData" Collapsed="true">
+    <Position X="23.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gEAAACAAAgNABgAAApAAAAwIQgQFCIBAgRAEIAAQIAA=</HashCode>
+      <FileName>Users.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.View_BussinessItemsList" Collapsed="true">
+    <Position X="27" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAABCBAAAAAAAAAAAAAQAAAAAAAAAAAAAgAAAAEA=</HashCode>
+      <FileName>View_BussinessItemsList.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.View_BussinessItemsListMetaData" Collapsed="true">
+    <Position X="6" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAABCBAAAAAAAAAAAAAQAAAAAAAAAAAAAgAAAAEA=</HashCode>
+      <FileName>View_BussinessItemsList.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.View_ManufacturersBussinessTranscations" Collapsed="true">
+    <Position X="7.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAgAAQAAAAAAAEAAAAAgAAAAAA=</HashCode>
+      <FileName>View_ManufacturersBussinessTranscations.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.View_ManufacturersBussinessTranscationsMetaData" Collapsed="true">
+    <Position X="9.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAgAAQAAAAAAAEAAAAAgAAAAAA=</HashCode>
+      <FileName>View_ManufacturersBussinessTranscations.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.View_OrderControlTable" Collapsed="true">
+    <Position X="11.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EMAgAAAEABAYgAABQEAiEGAKhAAFAEAAAAGYAQAAQgA=</HashCode>
+      <FileName>View_OrderControlTable.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.View_OrderControlTableMetaData" Collapsed="true">
+    <Position X="13" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EMAgAAAEABAYgAABQEAiEGAKhAAFAEAAAAGYAQAAQgA=</HashCode>
+      <FileName>View_OrderControlTable.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.View_OrderMaterialValuation" Collapsed="true">
+    <Position X="14.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IEAokAAAIQAAAAAgDCCAACCCBCEAYAAAAAAQAgAgAgE=</HashCode>
+      <FileName>View_OrderMaterialValuation.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.View_OrderMaterialValuationMetaData" Collapsed="true">
+    <Position X="16.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IEAokAAAIQAAAAAgDCCAACCCBCEAYAAAAAAQAgAgAgE=</HashCode>
+      <FileName>View_OrderMaterialValuation.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.View_Orders" Collapsed="true">
+    <Position X="18.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAEAAAQAAABCAAiACAAFAABIAAAAAAYAAgAAgE=</HashCode>
+      <FileName>View_Orders.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.View_OrdersMetaData" Collapsed="true">
+    <Position X="20" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAEAAAQAAABCAAiACAAFAABIAAAAAAYAAgAAgE=</HashCode>
+      <FileName>View_Orders.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.View_PickList" Collapsed="true">
+    <Position X="21.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABACAAAAAAAAAQAACBAAAAAABAAAIAAAAAAAAAgAAAA=</HashCode>
+      <FileName>View_PickList.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.View_PickListMetaData" Collapsed="true">
+    <Position X="23.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABACAAAAAAAAAQAACBAAAAAABAAAIAAAAAAAAAgAAAA=</HashCode>
+      <FileName>View_PickList.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.View_RequiredControlTableMetaData" Collapsed="true">
+    <Position X="27" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EEBAABCAIABEAAIQCCCgAAAAVAQBCgAAgAAIAAAFSAA=</HashCode>
+      <FileName>View_RequiredControlTable.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.View_RequiredForms" Collapsed="true">
+    <Position X="6" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAgAAAAQAQAAABCAAgACAA1AEBAAAAAAAIgggAQgE=</HashCode>
+      <FileName>View_RequiredForms.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.View_RequiredFormsMetaData" Collapsed="true">
+    <Position X="7.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAgAAAAQAQAAABCAAgACAA1AEBAAAAAAAIgggAQgE=</HashCode>
+      <FileName>View_RequiredForms.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.View_Shipping" Collapsed="true">
+    <Position X="11.25" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EIAgAAAECAAAAAABAFAAACAIgCAFAEAAAAAIAQAgQAA=</HashCode>
+      <FileName>View_Shipping.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.View_ShippingMetaData" Collapsed="true">
+    <Position X="18.25" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EIAgAAAECAAAAAABAFAAACAIgCAFAEAAAAAIAQAgQAA=</HashCode>
+      <FileName>View_Shipping.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.View_ShippingList" Collapsed="true">
+    <Position X="13" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AMABAAAACAAAAAAAgBAAEBRQAIAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>View_ShippingList.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.View_ShippingListMetaData" Collapsed="true">
+    <Position X="14.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AMABAAAACAAAAAAAgBAAEBRQAIAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>View_ShippingList.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.WorkShops" Collapsed="true">
+    <Position X="20" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAIAAAAAAAAAAIAAAQAAAEAQAAABAAAAAgCAAA=</HashCode>
+      <FileName>WorkShops.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tokiku.Entity.WorkShopsMetaData" Collapsed="true">
+    <Position X="21.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAIAAAAAAAAAAIAAAQAAAEAQAAABAAAAAgCAAA=</HashCode>
+      <FileName>WorkShops.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Tokiku.Entity.IUsers2">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gEAAACAAAANABgAAApAAAAQIQgQBCIAAgBAEIAAQIAA=</HashCode>
+      <FileName>PartialClasses\Users.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.Entity.IInvoicesRepository" Collapsed="true">
+    <Position X="6" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>InvoicesRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.Entity.IUnitOfWork" Collapsed="true">
+    <Position X="14.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAgAAAAAAAAAAAAAAAAAAAAAAQCAAAQAAACA=</HashCode>
+      <FileName>IUnitOfWork.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.Entity.IMoldsInProjectsRepository" Collapsed="true">
+    <Position X="7.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MoldsInProjectsRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.Entity.IPaymentTypesRepository" Collapsed="true">
+    <Position X="9.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PaymentTypesRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.Entity.IPromissoryNoteManagementRepository" Collapsed="true">
+    <Position X="11.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PromissoryNoteManagementRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.Entity.IShopFlowDetailRepository" Collapsed="true">
+    <Position X="13" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ShopFlowDetailRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.Entity.IUsersRepository" Collapsed="true">
+    <Position X="16.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UsersRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.Entity.IView_RequiredFormsRepository" Collapsed="true">
+    <Position X="18.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View_RequiredFormsRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.Entity.IUsers" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Microsoft JhengHei UI" Size="9" />
+</ClassDiagram>

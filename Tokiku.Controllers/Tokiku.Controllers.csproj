@@ -97,8 +97,8 @@
     <Compile Include="Base\Interfaces\IInventoryListController.cs" />
     <Compile Include="Base\Interfaces\IInvoicesController.cs" />
     <Compile Include="Base\Interfaces\IUsersController.cs" />
-    <Compile Include="ControlTables\IRecvMaterialController.cs" />
-    <Compile Include="ControlTables\IRequiredController.cs" />
+    <Compile Include="Base\Interfaces\IRecvMaterialController.cs" />
+    <Compile Include="Base\Interfaces\IRequiredController.cs" />
     <Compile Include="ControlTables\ObtainMaterialController.cs" />
     <Compile Include="ControlTables\ShippingMaterialDetailsController.cs" />
     <Compile Include="IAccessLogController.cs" />
@@ -133,6 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Digrams\Controllers.cd" />
     <None Include="packages.config" />
     <None Include="TokikuNew_TemporaryKey.pfx" />
   </ItemGroup>

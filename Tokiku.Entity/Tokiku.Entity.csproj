@@ -200,6 +200,7 @@
     <Compile Include="InvoicesRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
+    <Compile Include="IRepositoriesService.cs" />
     <Compile Include="Manufacturers.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
@@ -760,6 +761,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <None Include="Digrams\Entities.cd" />
+    <None Include="Digrams\Repositories.cd" />
     <None Include="packages.config" />
     <None Include="Tokiku.edmx.diagram">
       <DependentUpon>Tokiku.edmx</DependentUpon>

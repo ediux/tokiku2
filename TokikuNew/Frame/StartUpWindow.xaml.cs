@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.CommandWpf;
+using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -103,10 +104,12 @@ namespace TokikuNew.Frame
             {
                 if (e.Key == Key.Enter)
                 {
-                    LoginCommand cmd = (LoginCommand)CommandRoutingManager.GetCommand(btnLogin);
+
+                    ICommand cmd = btnLogin.Command;
+
                     if (cmd != null)
                     {
-                        cmd.Execute(CommandRoutingManager.GetCommandParameter(btnLogin));
+                        cmd.Execute(((ViewModelLocator)TryFindResource("Locator")).Login);
                     }
                 }
             }

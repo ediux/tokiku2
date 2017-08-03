@@ -7,7 +7,10 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class RequiredDetailController : BaseController<RequiredDetails>
+    /// <summary>
+    /// 需求單細項
+    /// </summary>
+    public class RequiredDetailController : BaseController<IRequiredDetailsRepository, RequiredDetails>
     {
     }
 }

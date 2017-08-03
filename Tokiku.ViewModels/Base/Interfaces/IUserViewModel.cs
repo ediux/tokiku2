@@ -3,10 +3,8 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public interface IUserViewModel : IBaseViewModel
+    public interface IUserViewModel : IEntityBaseViewModel<Users>
     {
-        DateTime CreateTime { get; set; }
-        Guid CreateUserId { get; set; }
         bool IsAnonymous { get; set; }
         DateTime LastActivityDate { get; set; }
         string LoweredUserName { get; set; }

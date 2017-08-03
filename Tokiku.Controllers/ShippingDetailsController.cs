@@ -12,11 +12,14 @@ namespace Tokiku.Controllers
     {
         public ExecuteResultEntity<ICollection<View_Shipping>> QueryAll()
         {
-            try {
-                var repo = this.GetRepository<View_Shipping>();
+            try
+            {
+                var repo = this.GetRepository<IView_ShippingRepository, View_Shipping>();
                 return ExecuteResultEntity<ICollection<View_Shipping>>.CreateResultEntity(
                     new Collection<View_Shipping>(repo.All().ToList()));
-            }catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 return ExecuteResultEntity<ICollection<View_Shipping>>.CreateErrorResultEntity(ex);
             }
         }

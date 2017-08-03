@@ -8,7 +8,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class ReturnsDetailsController:BaseController<ReturnDetails>
+    public class ReturnsDetailsController : BaseController<IReturnDetailsRepository, ReturnDetails>
     {
         public ExecuteResultEntity<ICollection<ReturnDetails>> QueryAllByProject(Guid ProjectId)
         {

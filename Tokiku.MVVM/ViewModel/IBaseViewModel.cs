@@ -18,10 +18,7 @@ namespace Tokiku.ViewModels
         /// </summary>
         bool HasError { get; set; }
 
-        /// <summary>
-        /// 資料識別碼
-        /// </summary>
-        Guid Id { get; set; }
+  
 
         
     }

@@ -142,134 +142,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Commands\TokikuCommands.cs" />
-    <Compile Include="Controls\OrdersSelector.xaml.cs">
-      <DependentUpon>OrdersSelector.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\SystemUserSelector.xaml.cs">
-      <DependentUpon>SystemUserSelector.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Helpers\ClipboardHelper.cs" />
     <Compile Include="Helpers\SwitchFieldMode.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
     <Compile Include="Helpers\Tools.cs" />
-    <Compile Include="Controls\SelectSupplierListView.xaml.cs">
-      <DependentUpon>SelectSupplierListView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ValueConverters\DateTime2StringFormatingValueConverter.cs" />
     <Compile Include="ValueConverters\ReplyContentValueConverter.cs" />
-    <Compile Include="Views\Finance\ActualCostsView.xaml.cs">
-      <DependentUpon>ActualCostsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ControlTables\AluminumExtrusionProcessingView.xaml.cs">
-      <DependentUpon>AluminumExtrusionProcessingView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Orders\MiscellaneousView.xaml.cs">
-      <DependentUpon>MiscellaneousView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Orders\MaterialValuationView.xaml.cs">
-      <DependentUpon>MaterialValuationView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Orders\OrderView.xaml.cs">
-      <DependentUpon>OrderView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Orders\OrderListView.xaml.cs">
-      <DependentUpon>OrderListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ManufacturerBussinessItemView.xaml.cs">
-      <DependentUpon>ManufacturerBussinessItemView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ControlTables\ObtainMaterialView.xaml.cs">
-      <DependentUpon>ObtainMaterialView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ControlTables\ObtainMaterialListView.xaml.cs">
-      <DependentUpon>ObtainMaterialListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Finance\PrepaymentsView.xaml.cs">
-      <DependentUpon>PrepaymentsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Projects\ContractManagementView.xaml.cs">
-      <DependentUpon>ContractManagementView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ControlTables\AluminumPlateView.xaml.cs">
-      <DependentUpon>AluminumPlateView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ControlTables\IronPartsView.xaml.cs">
-      <DependentUpon>IronPartsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ControlTables\InventoryView.xaml.cs">
-      <DependentUpon>InventoryView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ControlTables\InventoryListView.xaml.cs">
-      <DependentUpon>InventoryListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ControlTables\OrderControlTableView.xaml.cs">
-      <DependentUpon>OrderControlTableView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Projects\ProcessingChangeLogView.xaml.cs">
-      <DependentUpon>ProcessingChangeLogView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Projects\ContractListView.xaml.cs">
-      <DependentUpon>ContractListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Finance\CostEstimateView.xaml.cs">
-      <DependentUpon>CostEstimateView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ControlTables\ControlTableView.xaml.cs">
-      <DependentUpon>ControlTableView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ControlTables\GlassView.xaml.cs">
-      <DependentUpon>GlassView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ControlTables\HardwareView.xaml.cs">
-      <DependentUpon>HardwareView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ControlTables\InvoiceViewListView.xaml.cs">
-      <DependentUpon>InvoiceViewListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Projects\AssemblyTableView.xaml.cs">
-      <DependentUpon>AssemblyTableView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Orders\ProcessingAtlasDetailView.xaml.cs">
-      <DependentUpon>ProcessingAtlasDetailView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Projects\ConstructionAtlasView.xaml.cs">
-      <DependentUpon>ConstructionAtlasView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Frame\ConstructionAtlasEditorDialog.xaml.cs">
-      <DependentUpon>ConstructionAtlasEditorDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ClosableTab.xaml.cs">
-      <DependentUpon>ClosableTab.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ClosableTabItem.cs" />
-    <Compile Include="Controls\CustomDataGrid.cs" />
-    <Compile Include="Controls\DockBar.xaml.cs">
-      <DependentUpon>DockBar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\SearchBar.xaml.cs">
-      <DependentUpon>SearchBar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Frame\ClientSelectionDialog.xaml.cs">
-      <DependentUpon>ClientSelectionDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Frame\OptionWindow.xaml.cs">
       <DependentUpon>OptionWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Frame\ProjectSelectionWindow.xaml.cs">
-      <DependentUpon>ProjectSelectionWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Frame\StartUpWindow.xaml.cs">
       <DependentUpon>StartUpWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ControlTables\InvoiceView.xaml.cs">
-      <DependentUpon>InvoiceView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Projects\ProcessingAtlasView.xaml.cs">
-      <DependentUpon>ProcessingAtlasView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ControlTables\RecvMaterialView.xaml.cs">
-      <DependentUpon>RecvMaterialView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValueConverters\DocumentLifeCycleStateToVisibilityValueConverter.cs" />
     <Compile Include="ValueConverters\NOTGateValueConverter.cs" />
@@ -279,232 +162,12 @@
     <Compile Include="ValueConverters\ReadModeToDisabledValueConverter.cs" />
     <Compile Include="ValueConverters\ReadModeToEnabledValueConverter.cs" />
     <Compile Include="ValueConverters\ReadModeToVisibilityValueConverter.cs" />
-    <Compile Include="ValueConverters\StatesCodeToTextValueConverter.cs" />
     <Compile Include="ValueConverters\VoidToStateTextValueConverter.cs" />
-    <Compile Include="Views\Orders\OrderSheetView.xaml.cs">
-      <DependentUpon>OrderSheetView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CRM\ClientListView.xaml.cs">
-      <DependentUpon>ClientListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CRM\ClientManageView.xaml.cs">
-      <DependentUpon>ClientManageView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ContactPerson\ContactPersonManageView.xaml.cs">
-      <DependentUpon>ContactPersonManageView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Projects\WorkItemListView.xaml.cs">
-      <DependentUpon>WorkItemListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Manufacturers\ManufacturersManageView.xaml.cs">
-      <DependentUpon>ManufacturersManageView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MES\MaterialsTotalView.xaml.cs">
-      <DependentUpon>MaterialsTotalView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Finance\PaymentTypesManageView.xaml.cs">
-      <DependentUpon>PaymentTypesManageView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Projects\ProjectManagerView.xaml.cs">
-      <DependentUpon>ProjectManagerView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Projects\ProjectListView.xaml.cs">
-      <DependentUpon>ProjectListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Projects\ProjectView.xaml.cs">
-      <DependentUpon>ProjectView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Manufacturers\VendorListView.xaml.cs">
-      <DependentUpon>VendorListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Projects\SupplierForProjects.xaml.cs">
-      <DependentUpon>SupplierForProjects.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Finance\PromissoryNoteManagementViewUC.xaml.cs">
-      <DependentUpon>PromissoryNoteManagementViewUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ControlTables\ReturnListView.xaml.cs">
-      <DependentUpon>ReturnListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ControlTables\ReturnView.xaml.cs">
-      <DependentUpon>ReturnView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ControlTables\ShippingListView.xaml.cs">
-      <DependentUpon>ShippingListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ControlTables\ShippingView.xaml.cs">
-      <DependentUpon>ShippingView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ControlTables\RecvMaterialListView.xaml.cs">
-      <DependentUpon>RecvMaterialListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ControlTables\RequiredListView.xaml.cs">
-      <DependentUpon>RequiredListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ControlTables\RequiredView.xaml.cs">
-      <DependentUpon>RequiredView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ControlTables\QualityAbnormallySingleView.xaml.cs">
-      <DependentUpon>QualityAbnormallySingleView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ControlTables\QualityAbnormallySingleListView.xaml.cs">
-      <DependentUpon>QualityAbnormallySingleListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\System\SystemMembersView.xaml.cs">
-      <DependentUpon>SystemMembersView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\System\SystemRolesView.xaml.cs">
-      <DependentUpon>SystemRolesView.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Controls\OrdersSelector.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\SelectSupplierListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\SystemUserSelector.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Finance\ActualCostsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ControlTables\AluminumExtrusionProcessingView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Orders\MiscellaneousView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Orders\MaterialValuationView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Orders\OrderView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Orders\OrderListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ManufacturerBussinessItemView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ControlTables\ObtainMaterialView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ControlTables\ObtainMaterialListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Finance\PrepaymentsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Projects\ContractManagementView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ControlTables\AluminumPlateView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\ControlTables\IronPartsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\ControlTables\InventoryView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ControlTables\InventoryListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ControlTables\OrderControlTableView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Projects\ProcessingChangeLogView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Projects\ContractListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Finance\CostEstimateView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ControlTables\ControlTableView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ControlTables\GlassView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ControlTables\HardwareView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ControlTables\InvoiceViewListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Projects\AssemblyTableView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Orders\ProcessingAtlasDetailView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Projects\ConstructionAtlasView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Frame\ConstructionAtlasEditorDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\ClosableTab.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\DockBar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\SearchBar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Frame\ClientSelectionDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Frame\OptionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Frame\ProjectSelectionWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Frame\StartUpWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ControlTables\InvoiceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -520,14 +183,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\Projects\ProcessingAtlasView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ControlTables\RecvMaterialView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Resources\Global.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -567,106 +222,6 @@
     <Page Include="Themes\WhistlerBlue.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Orders\OrderSheetView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\CRM\ClientListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\CRM\ClientManageView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ContactPerson\ContactPersonManageView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Projects\WorkItemListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Manufacturers\ManufacturersManageView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\MES\MaterialsTotalView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Finance\PaymentTypesManageView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Projects\ProjectManagerView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Projects\ProjectListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Projects\ProjectView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Manufacturers\VendorListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Projects\SupplierForProjects.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Finance\PromissoryNoteManagementViewUC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ControlTables\ReturnListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ControlTables\ReturnView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ControlTables\ShippingListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ControlTables\ShippingView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ControlTables\RecvMaterialListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ControlTables\RequiredListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ControlTables\RequiredView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ControlTables\QualityAbnormallySingleView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ControlTables\QualityAbnormallySingleListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\System\SystemMembersView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\System\SystemRolesView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -709,6 +264,10 @@
       <Project>{14cc904e-4a5c-401b-a7db-ddb045abb6dd}</Project>
       <Name>Tokiku.Entity</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tokiku.MVVM\Tokiku.MVVM.csproj">
+      <Project>{e58d7c44-2feb-44c7-94bb-2b61a14687aa}</Project>
+      <Name>Tokiku.MVVM</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tokiku.ViewModels\Tokiku.ViewModels.csproj">
       <Project>{f5811844-946b-4050-847a-7ed8b46edbf5}</Project>
       <Name>Tokiku.ViewModels</Name>
@@ -734,7 +293,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Base\" />
-    <Folder Include="Views\Forms\" />
+    <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ReadMe.txt" />
