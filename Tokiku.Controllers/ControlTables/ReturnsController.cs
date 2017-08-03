@@ -8,7 +8,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class ReturnsController : BaseController<Returns>
+    public class ReturnsController : BaseController<IReturnsRepository, Returns>
     {
         public ExecuteResultEntity<ICollection<Returns>> QueryAll()
         {

@@ -68,120 +68,14 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base\CommandObjectDataProvider.cs" />
-    <Compile Include="Commands\CommandRoutingManager.cs" />
-    <Compile Include="Base\ISingleBaseViewModel.cs" />
-    <Compile Include="Commands\BridgingCommand.cs" />
-    <Compile Include="Commands\CloseMultiPageContentCommand.cs" />
-    <Compile Include="Commands\CloseWindowCommand.cs" />
-    <Compile Include="Commands\DelegateCommand.cs" />
-    <Compile Include="Commands\KeyPressNextFocusCommand.cs" />
-    <Compile Include="Commands\LoginCommand.cs" />
-    <Compile Include="Commands\OpenTabItemCommand.cs" />
-    <Compile Include="Commands\OpenWindowCommand.cs" />
-    <Compile Include="Commands\QueryCommand.cs" />
-    <Compile Include="Commands\RedirectCommand.cs" />
-    <Compile Include="Commands\RoutedViewResult.cs" />
-    <Compile Include="ControlTables\ObtainMaterialListViewModel.cs" />
-    <Compile Include="Commands\CreateNewModelCommand.cs" />
-    <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="ControlTables\ObtainMaterialViewModel.cs" />
-    <Compile Include="ControlTables\RecvMaterialDetailsViewModel.cs" />
-    <Compile Include="ControlTables\RecvMaterialDetailsViewModelCollection.cs" />
-    <Compile Include="ControlTables\ShippingMaterialDetailsViewModel.cs" />
-    <Compile Include="ControlTables\ShippingMaterialDetailsViewModelCollection.cs" />
-    <Compile Include="ControlTables\StockViewModel.cs" />
-    <Compile Include="ControlTables\StockViewModelCollection.cs" />
-    <Compile Include="Manufacturers\ManufacturerFactoryViewModel.cs" />
-    <Compile Include="Manufacturers\ManufacturerFactoryViewModelCollection.cs" />
-    <Compile Include="Projects\Orders\OrderMaterialValuationViewModel.cs" />
-    <Compile Include="Projects\Orders\OrderMiscellaneousViewModel.cs" />
-    <Compile Include="Projects\Orders\OrderViewModel.cs" />
-    <Compile Include="Projects\Orders\OrderViewModelCollection.cs" />
-    <Compile Include="QualityAbnormallyDetailsViewModel.cs" />
-    <Compile Include="QualityAbnormallyDetailsViewModelCollection.cs" />
-    <Compile Include="QualityAbnormallyViewModel.cs" />
-    <Compile Include="QualityAbnormallyViewModelCollection.cs" />
-    <Compile Include="RequiredDetailViewModel.cs" />
-    <Compile Include="RequiredDetailViewModelCollection.cs" />
-    <Compile Include="Commands\SaveModelCommand.cs" />
-    <Compile Include="ReturnsDetailsViewModel.cs" />
-    <Compile Include="ReturnsDetailsViewModelCollection.cs" />
-    <Compile Include="Shared\DocumentLifeCircle.cs" />
-    <Compile Include="ControlTables\InventoryListViewModel.cs" />
-    <Compile Include="ControlTables\InventoryViewModel.cs" />
-    <Compile Include="ControlTables\InvoicesViewModel.cs" />
-    <Compile Include="ControlTables\OrderControlTableViewModel.cs" />
-    <Compile Include="Projects\AssemblyTableViewModel.cs" />
-    <Compile Include="Base\BaseViewModelWithPOCOClass.cs" />
-    <Compile Include="Projects\ControlTable\RequiredControlTableViewModel.cs" />
-    <Compile Include="Projects\ProcessingViewModel.cs" />
-    <Compile Include="Projects\ContractManagementViewModel.cs" />
-    <Compile Include="Finance\TicketPeriodsViewModel.cs" />
-    <Compile Include="Finance\保固票ViewModel.cs" />
-    <Compile Include="Finance\預付款保證票ViewModel.cs" />
-    <Compile Include="Manufacturers\ManufacturersBussinessTranscationsViewModel.cs" />
-    <Compile Include="Manufacturers\ManufacturersBussinessTranscationsViewModelCollection.cs" />
-    <Compile Include="Manufacturers\ManufacturersBussinessItemsViewModel.cs" />
-    <Compile Include="MES\BOMViewModel.cs" />
-    <Compile Include="MES\BOMViewModelCollection.cs" />
-    <Compile Include="MES\MaterialCategoriesViewModel.cs" />
-    <Compile Include="MES\MoldsViewModel.cs" />
-    <Compile Include="MES\MoldsViewModelCollection.cs" />
-    <Compile Include="MES\MoldUseStatusViewModel.cs" />
-    <Compile Include="MES\MoldUseStatusViewModelCollection.cs" />
-    <Compile Include="Projects\ConstructionAtlasReplyContextViewModel.cs" />
-    <Compile Include="Projects\ConstructionAtlasReplyContextViewModelCollection.cs" />
-    <Compile Include="Projects\ConstructionAtlasViewModel.cs" />
-    <Compile Include="CRM\ClientViewModel.cs" />
-    <Compile Include="Projects\EngineeringViewModel.cs" />
-    <Compile Include="Projects\Orders\OrderDetailViewModel.cs" />
-    <Compile Include="Projects\ProcessingAtlasViewModel.cs" />
-    <Compile Include="Projects\SuppliersViewModel.cs" />
-    <Compile Include="Finance\PaymentTypesManageViewModel.cs" />
-    <Compile Include="Projects\ProjectContractViewModel.cs" />
-    <Compile Include="Projects\ProjectListViewModel.cs" />
-    <Compile Include="Finance\PromissoryNoteManagementViewModel.cs" />
-    <Compile Include="Base\BaseViewModelCollection.cs" />
-    <Compile Include="ContactPerson\ContactsViewModel.cs" />
-    <Compile Include="Manufacturers\ManufacturersViewModel.cs" />
-    <Compile Include="MES\MaterialsViewModel.cs" />
+    <Compile Include="Base\BaseViewModel.cs" />
+    <Compile Include="Base\DocumentBaseViewModel.cs" />
     <Compile Include="Base\DocumentStatusViewModel.cs" />
-    <Compile Include="Base\IBaseViewModel.cs" />
-    <Compile Include="Base\IBaseViewModelWithLoginedUser.cs" />
-    <Compile Include="Base\IToolbarButtonsViewModel.cs" />
-    <Compile Include="Manufacturers\TranscationCategoriesViewModel.cs" />
-    <Compile Include="ControlTables\RecvMaterialListViewModel.cs" />
-    <Compile Include="ControlTables\RecvMaterialViewModel.cs" />
-    <Compile Include="ControlTables\RequiredListViewModel.cs" />
-    <Compile Include="ControlTables\RequiredViewModel.cs" />
-    <Compile Include="ControlTables\ReturnMaterialListViewModel.cs" />
-    <Compile Include="ControlTables\ReturnsViewModel.cs" />
-    <Compile Include="Shared\AccessLogViewModel.cs" />
-    <Compile Include="Shared\AccessLogViewModelCollection.cs" />
-    <Compile Include="ControlTables\ShippingMaterialListViewModel.cs" />
-    <Compile Include="ControlTables\ShippingViewModel.cs" />
-    <Compile Include="Shared\OrderTypesViewModel.cs" />
-    <Compile Include="Shared\OrderTypesViewModelCollection.cs" />
-    <Compile Include="Shared\SearchBarViewModel.cs" />
-    <Compile Include="Shared\SystemMembersViewModel.cs" />
-    <Compile Include="Shared\SystemRolesViewModel.cs" />
-    <Compile Include="ControlTables\ShippingDetailsViewModel.cs" />
     <Compile Include="Users\LoginViewModel.cs" />
-    <Compile Include="Main\MainViewModel.cs" />
-    <Compile Include="Projects\ProjectsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Shared\ToolbarButtonsViewModel.cs" />
     <Compile Include="Users\UserViewModel.cs" />
     <Compile Include="Base\WithLoginUserBaseViewModel.cs" />
-    <Compile Include="MES\ShopFlowHistoryViewModel.cs" />
-    <Compile Include="Shared\StatesViewModel.cs" />
-    <Compile Include="Finance\TicketTypesViewModel.cs" />
-    <Compile Include="Shared\VoidViewModel.cs" />
-    <Compile Include="Shared\VoidViewModelCollection.cs" />
     <Compile Include="Users\UserViewModelCollection.cs" />
-    <Compile Include="ViewModelLocator\ViewModelLocator.cs" />
-    <Compile Include="WorkItemListViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tokiku.Controllers\Tokiku.Controllers.csproj">
@@ -192,10 +86,17 @@
       <Project>{14cc904e-4a5c-401b-a7db-ddb045abb6dd}</Project>
       <Name>Tokiku.Entity</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tokiku.MVVM\Tokiku.MVVM.csproj">
+      <Project>{e58d7c44-2feb-44c7-94bb-2b61a14687aa}</Project>
+      <Name>Tokiku.MVVM</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="TokikuNew_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Commands\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

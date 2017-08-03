@@ -8,7 +8,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class ShippingController : BaseController<PickList>
+    public class ShippingController : BaseController<IPickListRepository, PickList>
     {
         public ExecuteResultEntity<ICollection<PickList>> QueryAll(Guid ProjectId)
         {

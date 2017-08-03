@@ -9,7 +9,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class PaymentTypesManageController : BaseController<PaymentTypes>
+    public class PaymentTypesManageController : BaseController<IPaymentTypesRepository, PaymentTypes>
     {
         public ExecuteResultEntity<ICollection<PaymentTypes>> QueryAll()
         {

@@ -8,13 +8,13 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class AbnormalQualityController : BaseController<AbnormalQuality>
+    public class AbnormalQualityController : BaseController<IAbnormalQualityRepository, AbnormalQuality>
     {
         public ExecuteResultEntity<ICollection<AbnormalQuality>> QueryAll(Guid ProjectId)
         {
             try
             {
-                var repo = this.GetRepository();
+                var repo = GetRepository();
                 var result = from q in repo.All()
                              from s in q.AbnormalQualityDetails
                              where s.ReceiptDetails.OrderDetails.RequiredDetails.Required.ProjectId == ProjectId
@@ -28,11 +28,11 @@ namespace Tokiku.Controllers
             }
         }
 
-        public ExecuteResultEntity<AbnormalQuality> QuerySingle(Guid ProjectId,Guid Id)
+        public ExecuteResultEntity<AbnormalQuality> QuerySingle(Guid ProjectId, Guid Id)
         {
             try
             {
-                var repo = this.GetRepository();
+                var repo = GetRepository();
                 var result = from q in repo.All()
                              from s in q.AbnormalQualityDetails
                              where s.ReceiptDetails.OrderDetails.RequiredDetails.Required.ProjectId == ProjectId

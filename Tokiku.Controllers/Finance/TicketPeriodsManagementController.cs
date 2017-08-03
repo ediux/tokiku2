@@ -8,7 +8,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class TicketPeriodsManagementController : BaseController<TicketPeriod>
+    public class TicketPeriodsManagementController : BaseController<ITicketPeriodRepository, TicketPeriod>
     {
         public ExecuteResultEntity<TicketPeriod> QuerySingle(int TicketPeriodId)
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Ioc;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
@@ -71,7 +72,7 @@ namespace Tokiku.Controllers
             {
 
                 string loweredUserName = model.UserName.ToLowerInvariant();
-                _CurrentLoginedUserStorage = (from q in this.GetRepository<Users>().All()
+                _CurrentLoginedUserStorage = (from q in this.GetRepository<IUsersRepository, Users>().All()
                                               where q.LoweredUserName == loweredUserName
                                               && q.Membership.Password == model.Password
                                               select q).SingleOrDefault();
@@ -150,7 +151,10 @@ namespace Tokiku.Controllers
         {
             try
             {
-                return Login(new LoginViewModel() { Password = pwd, UserName = UserName });
+                var model= SimpleIoc.Default.GetInstance<ILoginViewModel>();
+                model.UserName = UserName;
+                model.Password = pwd;
+                return Login(model);
             }
             catch (Exception ex)
             {
@@ -166,7 +170,7 @@ namespace Tokiku.Controllers
         protected object[] IdentifyPrimaryKey<T>(T entity) where T : class
         {
 
-            ObjectContext objectContext = ((IObjectContextAdapter)this.GetRepository<T>().UnitOfWork.Context).ObjectContext;
+            ObjectContext objectContext = ((IObjectContextAdapter)this.GetRepository<IUsersRepository, Users>().UnitOfWork.Context).ObjectContext;
             ObjectSet<T> set = objectContext.CreateObjectSet<T>();
             IEnumerable<string> keyNames = set.EntitySet.ElementType
                                                         .KeyMembers
@@ -270,7 +274,9 @@ namespace Tokiku.Controllers
     /// 針對指定實體類別<typeparamref name="T"/>的商業邏輯控制器。
     /// </summary>
     /// <typeparam name="T">對應的資料表實體物件。</typeparam>
-    public abstract class BaseController<T> : BaseController, IBaseController<T> where T : class
+    public abstract class BaseController<TMainRepository, T> : BaseController, IBaseController<T>
+        where TMainRepository : IRepositoryBase<T>
+        where T : class
     {
         public BaseController() : base()
         {
@@ -283,9 +289,9 @@ namespace Tokiku.Controllers
         /// 取得資料庫儲存庫物件。
         /// </summary>
         /// <returns><回傳指定資料表的儲存庫物件。</returns>
-        private IRepositoryBase<T> GetRepository()
+        protected TMainRepository GetRepository()
         {
-            return this.GetRepository<T>();
+            return this.GetRepository<TMainRepository, T>();
         }
 
         /// <summary>
@@ -323,7 +329,8 @@ namespace Tokiku.Controllers
 
                 entity = repo.Add(entity);
 
-                var log = this.GetRepository<AccessLog>();
+                var log = this.GetRepository<IAccessLogRepository, AccessLog>();
+
                 AccessLog addlog = new AccessLog()
                 {
                     ActionCode = (byte)ActionCodes.Create,
@@ -409,7 +416,7 @@ namespace Tokiku.Controllers
                 //repo.UnitOfWork.Context.Entry(fromModel).State = EntityState.Added;
                 repo.UnitOfWork.Context.Entry(fromModel).State = EntityState.Modified;
 
-                var log = this.GetRepository<AccessLog>();
+                var log = this.GetRepository<IAccessLogRepository, AccessLog>();
                 AccessLog addlog = new AccessLog()
                 {
                     ActionCode = (byte)ActionCodes.Create,
@@ -423,7 +430,7 @@ namespace Tokiku.Controllers
 
                 if (isLastRecord)
                 {
-                  
+
 
                     repo.UnitOfWork.Commit();
 
@@ -458,7 +465,7 @@ namespace Tokiku.Controllers
 
                 repo.Delete(entity);
                 //repo.UnitOfWork.Context.Entry(entity).State = EntityState.Deleted;
-                var log = this.GetRepository<AccessLog>();
+                var log = this.GetRepository<IAccessLogRepository, AccessLog>();
                 AccessLog addlog = new AccessLog()
                 {
                     ActionCode = (byte)ActionCodes.Create,

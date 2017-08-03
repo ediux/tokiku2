@@ -8,11 +8,12 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class RecvMaterialController : BaseController<Receive>
+    public class RecvMaterialController : BaseController<IReceiveRepository, Receive>,
+        IRecvMaterialController
     {
-        private ExecuteResultEntity<ICollection<Receive>> rtn;
+        private IExecuteResultEntity<ICollection<Receive>> rtn;
 
-        public ExecuteResultEntity<Receive> QuerySingle(Guid ProjectId, Guid Id)
+        public IExecuteResultEntity<Receive> QuerySingle(Guid ProjectId, Guid Id)
         {
             try
             {
@@ -31,9 +32,9 @@ namespace Tokiku.Controllers
                 {
                     founddata = new Receive();
                     founddata.Id = Guid.NewGuid();
-                   
+
                     founddata.CreateTime = founddata.MakingTime = DateTime.Now;
-                    founddata.CreateUser = GetCurrentLoginUser().Result;
+                    founddata.CreateUser = (Users)GetCurrentLoginUser().Result;
                     founddata.CreateUserId = founddata.CreateUser.UserId;
 
                 }
@@ -49,11 +50,11 @@ namespace Tokiku.Controllers
             }
         }
 
-        public ExecuteResultEntity<ICollection<ReceiveDetails>> Query(Guid ProjectId, Guid Id)
+        public IExecuteResultEntity<ICollection<ReceiveDetails>> Query(Guid ProjectId, Guid Id)
         {
             try
             {
-                var repo = this.GetRepository<ReceiveDetails>();
+                var repo = this.GetRepository<IReceiveDetailsRepository, ReceiveDetails>();
 
                 var result = from q in repo.All()
                              where q.OrderDetails.RequiredDetails.Required.ProjectId == ProjectId
@@ -69,11 +70,11 @@ namespace Tokiku.Controllers
                 return rtn;
             }
         }
-        public ExecuteResultEntity<ICollection<Receive>> QuerAll()
+        public IExecuteResultEntity<ICollection<Receive>> QuerAll()
         {
             try
             {
-                var repo = RepositoryHelper.GetReceiveRepository();
+                var repo = GetRepository();
                 return ExecuteResultEntity<ICollection<Receive>>.CreateResultEntity(
                     new Collection<Receive>(repo.All().ToList()));
             }

@@ -96,32 +96,21 @@
     <Compile Include="Base\Interfaces\IInventoryController.cs" />
     <Compile Include="Base\Interfaces\IInventoryListController.cs" />
     <Compile Include="Base\Interfaces\IInvoicesController.cs" />
+    <Compile Include="Base\Interfaces\IUsersController.cs" />
+    <Compile Include="ControlTables\IRecvMaterialController.cs" />
+    <Compile Include="ControlTables\IRequiredController.cs" />
     <Compile Include="ControlTables\ObtainMaterialController.cs" />
     <Compile Include="ControlTables\ShippingMaterialDetailsController.cs" />
-    <Compile Include="Orders\AluminumExtrusionOrderController.cs" />
-    <Compile Include="Orders\AluminumExtrusionOrderListController.cs" />
-    <Compile Include="Orders\AluminumExtrusionOrderMaterialValuationController.cs" />
-    <Compile Include="Orders\OrderMiscellaneousController.cs" />
-    <Compile Include="Orders\OrdersController.cs" />
-    <Compile Include="Projects\AssemblyTableController.cs" />
-    <Compile Include="Projects\ConstructionAtlasController.cs" />
-    <Compile Include="Projects\ContractManagementController.cs" />
+    <Compile Include="IAccessLogController.cs" />
     <Compile Include="ControlTables\ControlTableController.cs" />
     <Compile Include="Finance\PromissoryNoteManagementViewModelController.cs" />
     <Compile Include="Finance\TicketPeriodsManagementController.cs" />
     <Compile Include="ControlTables\InventoryController.cs" />
     <Compile Include="ControlTables\InventoryListController.cs" />
     <Compile Include="ControlTables\InvoicesController.cs" />
-    <Compile Include="MES\BOMController.cs" />
-    <Compile Include="MES\MaterialManagementController.cs" />
-    <Compile Include="MES\MoldsController.cs" />
     <Compile Include="ControlTables\ObtainMaterialListController.cs" />
     <Compile Include="ControlTables\OrderControlTableController.cs" />
-    <Compile Include="Orders\AluminumExtrusionOrderSheetViewController.cs" />
     <Compile Include="Manufacturers\ClientController.cs" />
-    <Compile Include="Projects\ProcessingController.cs" />
-    <Compile Include="Projects\ProcessingAtlasController.cs" />
-    <Compile Include="Projects\EngineeringController.cs" />
     <Compile Include="ControlTables\RecvMaterialController.cs" />
     <Compile Include="ControlTables\RecvMaterialListController.cs" />
     <Compile Include="ControlTables\RequiredController.cs" />
@@ -129,29 +118,18 @@
     <Compile Include="ControlTables\ReturnMaterialListController.cs" />
     <Compile Include="Main\MainWindowController.cs" />
     <Compile Include="Finance\PaymentTypesManageController.cs" />
-    <Compile Include="Projects\ProjectContractController.cs" />
-    <Compile Include="Projects\ProjectManagerViewController.cs" />
     <Compile Include="Contacts\ContactPersonManageController.cs" />
     <Compile Include="Manufacturers\ManufacturersManageController.cs" />
-    <Compile Include="Projects\ProjectsController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequiredDetailController.cs" />
     <Compile Include="ReturnsDetailsController.cs" />
-    <Compile Include="Shared\LoginViewModel.cs" />
     <Compile Include="Shared\RepositoriesStorageHelper.cs" />
     <Compile Include="Shared\StartUpWindowController.cs" />
-    <Compile Include="MES\ShopFlowController.cs" />
-    <Compile Include="Shared\StateController.cs" />
-    <Compile Include="Projects\SuppliersController.cs" />
-    <Compile Include="Shared\SystemController.cs" />
+    <Compile Include="System\SystemController.cs" />
     <Compile Include="ControlTables\ShippingController.cs" />
     <Compile Include="ControlTables\ShippingMaterialListController.cs" />
     <Compile Include="ShippingDetailsController.cs" />
-    <Compile Include="System\SystemMembersController.cs" />
-    <Compile Include="System\SystemRolesController.cs" />
-    <Compile Include="Projects\WorkItemListController.cs" />
     <Compile Include="UsersController.cs" />
-    <Compile Include="WMS\StockController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -169,7 +147,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="MES\" />
+    <Folder Include="Orders\" />
+    <Folder Include="Projects\" />
     <Folder Include="Users\" />
+    <Folder Include="WMS\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

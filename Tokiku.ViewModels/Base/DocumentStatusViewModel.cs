@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel;
 using System.Windows;
+using GalaSoft.MvvmLight;
 
 namespace Tokiku.ViewModels
 {
-    public class DocumentStatusViewModel : INotifyPropertyChanged
+    public class DocumentStatusViewModel : ViewModelBase, INotifyPropertyChanged, IDocumentStatusViewModel
     {
         private bool _IsNewInstance = false;
         /// <summary>
@@ -39,22 +40,6 @@ namespace Tokiku.ViewModels
                 _IsSaved = value;
                 RaisePropertyChanged("IsSaved");
             }
-        }
-
-        #region PropertyChanged 事件
-        /// <summary>
-        /// 屬性變更事件。
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// 引發屬性變更事件。
-        /// </summary>
-        /// <param name="PropertyName">發生變更的屬性名稱。</param>
-        protected void RaisePropertyChanged(string PropertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
-        }
-        #endregion
+        } 
     }
 }

@@ -8,7 +8,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class AbnormalQualityDetailsController : BaseController<AbnormalQualityDetails>
+    public class AbnormalQualityDetailsController : BaseController<IAbnormalQualityDetailsRepository, AbnormalQualityDetails>
     {
         public ExecuteResultEntity<ICollection<AbnormalQualityDetails>> QueryAllByProject(Guid ProjectId)
         {

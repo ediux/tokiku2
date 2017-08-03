@@ -8,12 +8,13 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class InventoryController : BaseController<Inventory>, IInventoryController
+    public class InventoryController : BaseController<IInventoryRepository,Inventory>
+        , IInventoryController
     {
         public IExecuteResultEntity<ICollection<Inventory>> QueryAll()
         {
             try {
-                var repo = RepositoryHelper.GetInventoryRepository();
+                var repo = this.GetRepository<IInventoryRepository,Inventory>();
                 return ExecuteResultEntity<ICollection<Inventory>>.CreateResultEntity(
                     new Collection<Inventory>(repo.All().ToList()));
             }catch (Exception ex) {

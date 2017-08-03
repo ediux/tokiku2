@@ -13,16 +13,16 @@ namespace Tokiku.Controllers
     /// <summary>
     /// 客戶端商業邏輯層控制器
     /// </summary>
-    public class ClientController : BaseController<Manufacturers>
+    public class ClientController : BaseController<IManufacturersRepository, Manufacturers>
     {
         private IManufacturersRepository ManufacturersRepo;
 
         public ClientController()
         {
-            ManufacturersRepo = this.GetRepository<Manufacturers>() as IManufacturersRepository;
+            ManufacturersRepo = this.GetRepository() as IManufacturersRepository;
         }
 
-        public override ExecuteResultEntity<Manufacturers> CreateNew()
+        public override IExecuteResultEntity<Manufacturers> CreateNew()
         {
             try
             {
@@ -59,7 +59,7 @@ namespace Tokiku.Controllers
 
         }
 
-        public ExecuteResultEntity<ICollection<Manufacturers>> QueryAll(Guid ProjectId)
+        public IExecuteResultEntity<ICollection<Manufacturers>> QueryAll(Guid ProjectId)
         {
             try
             {
@@ -79,7 +79,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        public ExecuteResultEntity<ICollection<Manufacturers>> QueryAll()
+        public IExecuteResultEntity<ICollection<Manufacturers>> QueryAll()
         {
             try
             {
@@ -97,7 +97,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        public ExecuteResultEntity<ICollection<Manufacturers>> SearchByText(string originalSource)
+        public IExecuteResultEntity<ICollection<Manufacturers>> SearchByText(string originalSource)
         {
             if (originalSource != null && originalSource.Length > 0)
             {
@@ -126,13 +126,13 @@ namespace Tokiku.Controllers
             }
         }
 
-        public override ExecuteResultEntity<Manufacturers> Update(Manufacturers fromModel, bool isLastRecord = true)
+        public override IExecuteResultEntity<Manufacturers> Update(Manufacturers fromModel, bool isLastRecord = true)
         {
             try
             {
                 var ManufacturersRepository = this.GetRepository();
 
-                var accesslog = this.GetRepository<AccessLog>();
+                var accesslog = this.GetRepository<IAccessLogRepository, AccessLog>();
 
                 var LoginedUser = GetCurrentLoginUser();
 
@@ -205,7 +205,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        public ExecuteResultEntity<Manufacturers> QuerySingle(Guid ManufacturerId)
+        public IExecuteResultEntity<Manufacturers> QuerySingle(Guid ManufacturerId)
         {
             try
             {

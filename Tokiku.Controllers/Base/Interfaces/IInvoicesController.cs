@@ -5,6 +5,6 @@ namespace Tokiku.Controllers
 {
     public interface IInvoicesController : IBaseController<Invoices>
     {
-        ExecuteResultEntity<ICollection<Invoices>> QueryAll();
+        IExecuteResultEntity<ICollection<Invoices>> QueryAll();
     }
 }

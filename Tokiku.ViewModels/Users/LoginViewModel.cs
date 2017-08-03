@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Ioc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -11,59 +13,50 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class LoginViewModel : BaseViewModelWithPOCOClass<Users>, ILoginViewModel
+    [ControllerMapping(typeof(StartUpWindowController))]
+    public class LoginViewModel : BaseViewModel, ILoginViewModel
     {
-
-        //private StartUpWindowController _controller = null;
-        [System.ComponentModel.Composition.ImportingConstructor]
+        [PreferredConstructor]
         public LoginViewModel()
         {
-            RelayCommand = new LoginCommand(new Action<object>(Login));
+            _LoginCommand = new RelayCommand(Login);
             //_controller = controller;
         }
 
-        //public LoginViewModel(Users entity) : base(entity)
-        //{
-        //    RelayCommand = new LoginCommand(new Action<object>(Login));
-
-        //}
-        //public static readonly DependencyProperty UserNameProperty = DependencyProperty.Register("UserName", typeof(string), typeof(LoginViewModel), new PropertyMetadata(string.Empty));
-
+        private string _UserName = string.Empty;
         /// <summary>
         /// 登入帳號
         /// </summary>
-        public string UserName { get { return CopyofPOCOInstance.UserName ?? string.Empty; } set { CopyofPOCOInstance.UserName = value; RaisePropertyChanged("UserName"); } }
+        public string UserName { get => _UserName; set { _UserName = value; RaisePropertyChanged("UserName"); } }
 
-        //public static readonly DependencyProperty PasswordProperty = DependencyProperty.Register("Password", typeof(string), typeof(LoginViewModel), new PropertyMetadata(string.Empty));
-        public override string SaveModelController { get => "StartUpWindow"; set { } }
+        private string _Password = string.Empty;
         /// <summary>
         /// 登入密碼
         /// </summary>
-        public string Password { get {
-                try
-                {
-                    return CopyofPOCOInstance?.Membership?.Password ?? string.Empty;
+        public string Password
+        {
+            get => _Password;
+          
+            set { _Password = value; RaisePropertyChanged("Password"); }
+        }
 
-                }
-                catch 
-                {
-                    return string.Empty;
-                }
-            } set { if (CopyofPOCOInstance.Membership == null) { CopyofPOCOInstance.Membership = new Membership(); } CopyofPOCOInstance.Membership.Password = value; RaisePropertyChanged("Password"); } }
+        private RelayCommand _LoginCommand;
+        public RelayCommand LoginCommand { get => _LoginCommand; set { _LoginCommand = value; RaisePropertyChanged("LoginCommand"); } }
+        private RelayCommand<Window> _ExitCommand;
+        public RelayCommand<Window> ExitCommand { get => _ExitCommand; set { _ExitCommand = value; RaisePropertyChanged("ExitCommand"); } }
 
-
-        public void Login(object Parameter)
+        public void Login()
         {
             try
             {
-                var reult = ExecuteAction<Users>("StartUpWindow", "Login", UserName, Password);
+                var reult = ExecuteAction<Users>("StartUpWindow", "Login", (ILoginViewModel)this);
 
                 if (reult != null)
                 {
-                    LoginCommand Login = (LoginCommand)RelayCommand;
-                    RedirectCommand Redirect = new RedirectCommand();
-                    //Redirect.SourceInstance = Login.SourceInstance;
-                    Redirect.Execute(Parameter);
+                    //RelayCommand<ILoginViewModel> Login = (LoginCommand)RelayCommand;
+                    //RedirectCommand Redirect = new RedirectCommand();
+                    ////Redirect.SourceInstance = Login.SourceInstance;
+                    //Redirect.Execute(Parameter);
                     //((Window)Redirect.SourceInstance).Close();
                 }
             }
@@ -72,23 +65,6 @@ namespace Tokiku.ViewModels
                 setErrortoModel(this, ex);
                 RaisePropertyChanged("Errors");
             }
-
-            //_controller.Login(UserName, Password);
-
-            //if (!reult.HasError)
-            //{
-            //    UserViewModel model = new UserViewModel(reult.Result);
-            //    return model;
-            //}
-            //else
-            //{
-            //    return new UserViewModel()
-            //    {
-            //        Errors = reult.Errors,
-            //        HasError = reult.HasError
-            //    };
-            //}
-
         }
     }
 }

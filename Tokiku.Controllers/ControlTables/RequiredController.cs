@@ -8,7 +8,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class RequiredController : BaseController<Required>
+    public class RequiredController : BaseController<IRequiredRepository, Required>, IRequiredController
     {
         #region 表頭建立
         /// <summary>
@@ -16,7 +16,7 @@ namespace Tokiku.Controllers
         /// </summary>
         /// <param name="ProjectShortName"></param>
         /// <returns></returns>
-        public ExecuteResultEntity<Required> CreateNew(string ProjectShortName)
+        public IExecuteResultEntity<Required> CreateNew(string ProjectShortName)
         {
             ExecuteResultEntity<Required> rtn;
 
@@ -44,7 +44,7 @@ namespace Tokiku.Controllers
                     newitem.CreateTime = DateTime.Now;
                     newitem.MakingTime = DateTime.Now;
 
-                    newitem.CreateUser = GetCurrentLoginUser().Result;
+                    newitem.CreateUser = (Users)GetCurrentLoginUser().Result;
                     newitem.CreateUserId = newitem.CreateUser.UserId;
                     newitem.MakingUser = newitem.CreateUser;
                     newitem.MakingUserId = newitem.MakingUser.UserId;
@@ -53,7 +53,7 @@ namespace Tokiku.Controllers
                 }
                 else
                 {
-                    var projectrepo = this.GetRepository<Projects>();
+                    var projectrepo = this.GetRepository<IProjectsRepository, Projects>();
                     var findproject = (from q in projectrepo.All()
                                        where q.ShortName == ProjectShortName
                                        select q).SingleOrDefault();
@@ -72,7 +72,7 @@ namespace Tokiku.Controllers
                     newitem.CreateTime = DateTime.Now;
                     newitem.MakingTime = DateTime.Now;
 
-                    newitem.CreateUser = GetCurrentLoginUser().Result;
+                    newitem.CreateUser = (Users)GetCurrentLoginUser().Result;
                     newitem.CreateUserId = newitem.CreateUser.UserId;
                     newitem.MakingUser = newitem.CreateUser;
                     newitem.MakingUserId = newitem.MakingUser.UserId;
@@ -92,7 +92,7 @@ namespace Tokiku.Controllers
         /// 查詢需求單列表
         /// </summary>
         /// <returns></returns>
-        public ExecuteResultEntity<ICollection<Required>> Query()
+        public IExecuteResultEntity<ICollection<Required>> Query()
         {
             ExecuteResultEntity<ICollection<Required>> rtn;
 
@@ -116,7 +116,7 @@ namespace Tokiku.Controllers
         /// </summary>
         /// <param name="RequiredId"></param>
         /// <returns></returns>
-        public ExecuteResultEntity<ICollection<RequiredDetails>> QueryAllDetail(Guid RequiredId)
+        public IExecuteResultEntity<ICollection<RequiredDetails>> QueryAllDetail(Guid RequiredId)
         {
             try
             {
@@ -127,7 +127,7 @@ namespace Tokiku.Controllers
                 }
                 else
                 {
-                    var repo = this.GetRepository<RequiredDetails>().All();
+                    var repo = this.GetRepository<IRequiredDetailsRepository, RequiredDetails>().All();
                     var result = from q in repo
                                  where q.RequiredId == RequiredId
                                  select q;
@@ -152,7 +152,7 @@ namespace Tokiku.Controllers
         /// <param name="RequiredDetailId"></param>
         /// <param name="Code">要查詢的東菊編號</param>
         /// <returns></returns>
-        public ExecuteResultEntity<RequiredDetails> QuerySingleDetailByCode(Guid ProjectId, Guid RequiredDetailId, string Code)
+        public IExecuteResultEntity<RequiredDetails> QuerySingleDetailByCode(Guid ProjectId, Guid RequiredDetailId, string Code)
         {
             try
             {
@@ -163,7 +163,7 @@ namespace Tokiku.Controllers
                 }
                 else
                 {
-                    var repo = this.GetRepository<RequiredDetails>().All();
+                    var repo = this.GetRepository<IRequiredDetailsRepository, RequiredDetails>().All();
 
                     var result = from q in repo
                                  from s in q.Required.RequiredDetails
@@ -188,7 +188,7 @@ namespace Tokiku.Controllers
         /// </summary>
         /// <param name="RequiredId"></param>
         /// <returns></returns>
-        public ExecuteResultEntity<RequiredDetails> QuerySingleDetail(Guid RequiredId)
+        public IExecuteResultEntity<RequiredDetails> QuerySingleDetail(Guid RequiredId)
         {
             try
             {
@@ -199,7 +199,7 @@ namespace Tokiku.Controllers
                 }
                 else
                 {
-                    var repo = this.GetRepository<RequiredDetails>().All();
+                    var repo = this.GetRepository<IRequiredDetailsRepository, RequiredDetails>().All();
 
                     var result = from q in repo
                                  where q.Id == RequiredId
@@ -223,7 +223,7 @@ namespace Tokiku.Controllers
         /// <param name="RequiredId"></param>
         /// <param name="FactoryNumber"></param>
         /// <returns></returns>
-        public ExecuteResultEntity<RequiredDetails> QuerySingleDetailByFactoryNumber(Guid ProjectId, Guid RequiredDetailId, string FactoryNumber)
+        public IExecuteResultEntity<RequiredDetails> QuerySingleDetailByFactoryNumber(Guid ProjectId, Guid RequiredDetailId, string FactoryNumber)
         {
             try
             {
@@ -234,7 +234,7 @@ namespace Tokiku.Controllers
                 }
                 else
                 {
-                    var repo = this.GetRepository<RequiredDetails>().All();
+                    var repo = this.GetRepository<IRequiredDetailsRepository, RequiredDetails>().All();
 
                     var result = from q in repo
                                  from s in q.Required.RequiredDetails
@@ -261,7 +261,7 @@ namespace Tokiku.Controllers
         /// <param name="RequiredId"></param>
         /// <param name="FactoryNumber"></param>
         /// <returns></returns>
-        public ExecuteResultEntity<RequiredDetails> QuerySingleDetailByFactoryNumber(string TokikuId, string FactoryNumber)
+        public IExecuteResultEntity<RequiredDetails> QuerySingleDetailByFactoryNumber(string TokikuId, string FactoryNumber)
         {
             try
             {
@@ -272,7 +272,7 @@ namespace Tokiku.Controllers
                 }
                 else
                 {
-                    var repo = this.GetRepository<RequiredDetails>().All();
+                    var repo = this.GetRepository<IRequiredDetailsRepository, RequiredDetails>().All();
 
                     var result = from q in repo
                                  from s in q.Required.Projects.Required
@@ -300,7 +300,7 @@ namespace Tokiku.Controllers
         /// <param name="RequiredId"></param>
         /// <param name="Material"></param>
         /// <returns></returns>
-        public ExecuteResultEntity<RequiredDetails> QuerySingleDetailByMaterial(Guid ProjectId, Guid RequiredDetailId, string Material)
+        public IExecuteResultEntity<RequiredDetails> QuerySingleDetailByMaterial(Guid ProjectId, Guid RequiredDetailId, string Material)
         {
             try
             {
@@ -311,7 +311,7 @@ namespace Tokiku.Controllers
                 }
                 else
                 {
-                    var repo = this.GetRepository<RequiredDetails>().All();
+                    var repo = this.GetRepository<IRequiredDetailsRepository, RequiredDetails>().All();
 
                     var result = from q in repo
                                  from s in q.Required.RequiredDetails
@@ -338,7 +338,7 @@ namespace Tokiku.Controllers
         /// <param name="RequiredId"></param>
         /// <param name="Material"></param>
         /// <returns></returns>
-        public ExecuteResultEntity<RequiredDetails> QuerySingleDetailByCode(string Code)
+        public IExecuteResultEntity<RequiredDetails> QuerySingleDetailByCode(string Code)
         {
             try
             {
@@ -349,7 +349,7 @@ namespace Tokiku.Controllers
                 }
                 else
                 {
-                    var repo = this.GetRepository<RequiredDetails>().All();
+                    var repo = this.GetRepository<IRequiredDetailsRepository, RequiredDetails>().All();
 
                     var result = from q in repo
                                  from p in q.Required.Projects.Required
@@ -376,7 +376,7 @@ namespace Tokiku.Controllers
         /// <param name="RequiredId"></param>
         /// <param name="Material"></param>
         /// <returns></returns>
-        public ExecuteResultEntity<RequiredDetails> QuerySingleDetailByMaterial(string TokikuId, string ManufacturersId, string Material)
+        public IExecuteResultEntity<RequiredDetails> QuerySingleDetailByMaterial(string TokikuId, string ManufacturersId, string Material)
         {
             try
             {
@@ -387,7 +387,7 @@ namespace Tokiku.Controllers
                 }
                 else
                 {
-                    var repo = this.GetRepository<RequiredDetails>().All();
+                    var repo = this.GetRepository<IRequiredDetailsRepository, RequiredDetails>().All();
 
                     var result = from q in repo
                                  from p in q.Required.Projects.Required
@@ -414,11 +414,11 @@ namespace Tokiku.Controllers
         /// </summary>
         /// <param name="Material"></param>
         /// <returns></returns>
-        public ExecuteResultEntity<RequiredDetails> QuerySingleDetailByMaterial(string Material)
+        public IExecuteResultEntity<RequiredDetails> QuerySingleDetailByMaterial(string Material)
         {
             try
             {
-                var repo = this.GetRepository<RequiredDetails>().All();
+                var repo = this.GetRepository<IRequiredDetailsRepository, RequiredDetails>().All();
 
                 var result = from q in repo
                              from p in q.Required.Projects.Required
@@ -437,12 +437,12 @@ namespace Tokiku.Controllers
             }
         }
 
-        public ExecuteResultEntity<RequiredDetails> QuerySingleDetailByUnitPrice(string Material, float? UnitPrice)
+        public IExecuteResultEntity<RequiredDetails> QuerySingleDetailByUnitPrice(string Material, float? UnitPrice)
         {
             try
             {
 
-                var repo = this.GetRepository<RequiredDetails>().All();
+                var repo = this.GetRepository<IRequiredDetailsRepository, RequiredDetails>().All();
 
                 var result = from q in repo
                              from p in q.Required.Projects.Required
@@ -468,12 +468,12 @@ namespace Tokiku.Controllers
         /// <param name="RequiredId"></param>
         /// <param name="Weight"></param>
         /// <returns></returns>
-        public ExecuteResultEntity<RequiredDetails> QuerySingleDetailByUnitWeight(Guid ProjectId, Guid RequiredDetailId, decimal Weight)
+        public IExecuteResultEntity<RequiredDetails> QuerySingleDetailByUnitWeight(Guid ProjectId, Guid RequiredDetailId, decimal Weight)
         {
             try
             {
 
-                var repo = this.GetRepository<RequiredDetails>().All();
+                var repo = this.GetRepository<IRequiredDetailsRepository, RequiredDetails>().All();
 
                 var result = from q in repo
                              from s in q.Required.RequiredDetails
@@ -500,12 +500,12 @@ namespace Tokiku.Controllers
         /// <param name="RequiredId"></param>
         /// <param name="Weight"></param>
         /// <returns></returns>
-        public ExecuteResultEntity<RequiredDetails> QuerySingleDetailByUnitWeight(decimal Weight)
+        public IExecuteResultEntity<RequiredDetails> QuerySingleDetailByUnitWeight(decimal Weight)
         {
             try
             {
 
-                var repo = this.GetRepository<RequiredDetails>().All();
+                var repo = this.GetRepository<IRequiredDetailsRepository, RequiredDetails>().All();
 
                 var result = from q in repo
                              from s in q.Required.Projects.Required
@@ -531,12 +531,12 @@ namespace Tokiku.Controllers
         /// <param name="RequiredId"></param>
         /// <param name="OrderLength"></param>
         /// <returns></returns>
-        public ExecuteResultEntity<RequiredDetails> QuerySingleDetailByOrderLength(Guid ProjectId, Guid RequiredDetailId, decimal OrderLength)
+        public IExecuteResultEntity<RequiredDetails> QuerySingleDetailByOrderLength(Guid ProjectId, Guid RequiredDetailId, decimal OrderLength)
         {
             try
             {
 
-                var repo = this.GetRepository<RequiredDetails>().All();
+                var repo = this.GetRepository<IRequiredDetailsRepository, RequiredDetails>().All();
 
                 var result = from q in repo
                              from s in q.Required.RequiredDetails

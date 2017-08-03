@@ -17,13 +17,13 @@ namespace Tokiku.Controllers
 
         //private static HashSet<object> RepositoriesTable = new HashSet<object>();
 
-        public  static readonly RepositoryLocator RepositoriesTable = new RepositoryLocator();
+        public static readonly RepositoryLocator RepositoriesTable = new RepositoryLocator();
 
-        public static IRepositoryBase<T> GetRepository<T>(this IBaseController controller) where T : class
+        public static TRepository GetRepository<TRepository, T>(this IBaseController controller) where TRepository : IRepositoryBase<T> where T : class
         {
             try
             {
-               return SimpleIoc.Default.GetInstance<IRepositoryBase<T>>();   
+                return SimpleIoc.Default.GetInstance<TRepository>();
                 //    if (database == null)
                 //        database = RepositoryHelper.GetUnitOfWork();
 
@@ -62,11 +62,11 @@ namespace Tokiku.Controllers
             }
         }
 
-        public static TRepository GetRepository<TRepository,T>(this TRepository  controller) where TRepository : IRepositoryBase<T> where T :class
+        public static TRepository GetRepository<TRepository, T>(this IBaseController<T> controller) where TRepository : IRepositoryBase<T> where T : class
         {
             try
             {
-                return GetRepository<T>((IBaseController)controller);
+                return GetRepository<TRepository, T>((IBaseController)controller);
             }
             catch
             {
@@ -78,7 +78,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var repo = GetRepository<EncodingRecords>(obj);
+                var repo = GetRepository<IEncodingRecordsRepository, EncodingRecords>(obj);
 
                 var result = (from q in repo.All()
                               where q.EncodingName == Name

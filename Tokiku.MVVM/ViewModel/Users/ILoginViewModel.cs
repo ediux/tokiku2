@@ -1,11 +1,19 @@
-﻿namespace Tokiku.ViewModels
+﻿using GalaSoft.MvvmLight.CommandWpf;
+using System.Windows;
+using System.Windows.Input;
+
+namespace Tokiku.ViewModels
 {
-    public interface ILoginViewModel
+    public interface ILoginViewModel : IBaseViewModel
     {
         string Password { get; set; }
-        string SaveModelController { get; set; }
+       
         string UserName { get; set; }
 
-        void Login(object Parameter);
+        RelayCommand LoginCommand { get; set; }
+
+        RelayCommand<Window> ExitCommand { get; set; }
+
+        void Login();
     }
 }

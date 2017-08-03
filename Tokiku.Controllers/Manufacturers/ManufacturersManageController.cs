@@ -12,7 +12,7 @@ using Tokiku.Entity.ViewTables;
 
 namespace Tokiku.Controllers
 {
-    public class ManufacturersManageController : BaseController<Manufacturers>
+    public class ManufacturersManageController : BaseController<IManufacturersRepository, Manufacturers>
     {
         private ManufacturersBussinessItemsRepository BussinessItemsRepo;
 
@@ -20,7 +20,7 @@ namespace Tokiku.Controllers
 
         public ManufacturersManageController()
         {
-            BussinessItemsRepo = (ManufacturersBussinessItemsRepository)this.GetRepository<ManufacturersBussinessItems>();
+            BussinessItemsRepo = (ManufacturersBussinessItemsRepository)this.GetRepository<IManufacturersBussinessItemsRepository, ManufacturersBussinessItems>();
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace Tokiku.Controllers
         }
 
 
-        public override ExecuteResultEntity<ICollection<Manufacturers>> Query(Expression<Func<Manufacturers, bool>> filiter)
+        public override IExecuteResultEntity<ICollection<Manufacturers>> Query(Expression<Func<Manufacturers, bool>> filiter)
         {
             try
             {
@@ -190,7 +190,7 @@ namespace Tokiku.Controllers
             try
             {
                 var repo =
-                    this.GetRepository<View_ManufacturersBussinessTranscations>();
+                    this.GetRepository<IView_ManufacturersBussinessTranscationsRepository, View_ManufacturersBussinessTranscations>();
 
                 var result = repo
                     .Where(w => w.ManufacturersId == ManufacturersId)
@@ -294,7 +294,7 @@ namespace Tokiku.Controllers
 
         }
 
-        public override ExecuteResultEntity<Manufacturers> CreateNew()
+        public override IExecuteResultEntity<Manufacturers> CreateNew()
         {
             try
             {
@@ -334,7 +334,7 @@ namespace Tokiku.Controllers
             {
 
                 var repo =
-                    this.GetRepository<ManufacturersBussinessItems>();
+                    this.GetRepository<IManufacturersBussinessItemsRepository, ManufacturersBussinessItems>();
 
                 var result = from q in repo.All()
                              where q.Id == entity.Id
@@ -508,7 +508,7 @@ namespace Tokiku.Controllers
         //    }
         //}
 
-        public override ExecuteResultEntity<Manufacturers> Delete(Manufacturers entity, bool isDeleteRightNow = false)
+        public override IExecuteResultEntity<Manufacturers> Delete(Manufacturers entity, bool isDeleteRightNow = false)
         {
             try
             {
@@ -541,7 +541,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var repo = this.GetRepository<TranscationCategories>();
+                var repo = this.GetRepository<ITranscationCategoriesRepository, TranscationCategories>();
 
                 var result = (from q in repo.All()
                               where q.Id == TranscationCategoriesId
@@ -564,7 +564,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var repo = this.GetRepository<TranscationCategories>();
+                var repo = this.GetRepository<ITranscationCategoriesRepository, TranscationCategories>();
 
                 return ExecuteResultEntity<ICollection<TranscationCategories>>.CreateResultEntity(
                     new Collection<TranscationCategories>(repo.All().ToList()));
@@ -594,7 +594,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var repo = this.GetRepository<MaterialCategories>();
+                var repo = this.GetRepository<IMaterialCategoriesRepository, MaterialCategories>();
 
                 var result = from q in repo.All()
                              select q;
@@ -625,7 +625,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var biListRepo = this.GetRepository<ManufacturersBussinessItems>();
+                var biListRepo = this.GetRepository<IManufacturersBussinessItemsRepository, ManufacturersBussinessItems>();
 
                 var result = (from q in biListRepo.All()
                               where q.ManufacturersId == ManufacturersId
@@ -645,7 +645,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var biListRepo = this.GetRepository<ManufacturersBussinessItems>();
+                var biListRepo = this.GetRepository<IManufacturersBussinessItemsRepository, ManufacturersBussinessItems>();
 
                 var result = (from q in biListRepo.All()
                               where q.ManufacturersId == ManufacturersId
@@ -669,7 +669,7 @@ namespace Tokiku.Controllers
             //, Guid TranscationCategoriesId, Guid TicketPeriodId
             try
             {
-                var repo = this.GetRepository<ManufacturersBussinessItems>();
+                var repo = this.GetRepository<IManufacturersBussinessItemsRepository, ManufacturersBussinessItems>();
                 //database = repo.UnitOfWork;
 
                 var remap = (from q in repo.All()
@@ -760,7 +760,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var repo = this.GetRepository<ManufacturersFactories>();
+                var repo = this.GetRepository<IManufacturersFactoriesRepository, ManufacturersFactories>();
 
 
                 var matchedresult = (from q in repo.All()

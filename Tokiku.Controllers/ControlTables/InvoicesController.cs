@@ -8,9 +8,9 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class InvoicesController : BaseController<Invoices>, IInvoicesController
+    public class InvoicesController : BaseController<IInvoicesRepository,Invoices>, IInvoicesController
     {
-        public ExecuteResultEntity<ICollection<Invoices>> QueryAll()
+        public IExecuteResultEntity<ICollection<Invoices>> QueryAll()
         {
             try {
                 var repo = RepositoryHelper.GetInvoicesRepository();

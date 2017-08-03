@@ -12,7 +12,7 @@ namespace Tokiku.Controllers
     /// <summary>
     /// 材料(質)資料管理控制器
     /// </summary>
-    public class MaterialManagementController : BaseController<Materials>
+    public class MaterialManagementController : BaseController<IMaterialsRepository, Materials>
     {
         public ExecuteResultEntity<Materials> QueryByName(string Name)
         {
@@ -52,7 +52,7 @@ namespace Tokiku.Controllers
         /// </summary>
         /// <param name="filiter">LINQ查詢表示式</param>
         /// <returns>傳回帶有訊息的查詢集合。</returns>
-        public virtual Task<ExecuteResultEntity<ICollection<Materials>>> QueryAsync(Expression<Func<Materials, bool>> filiter)
+        public virtual Task<IExecuteResultEntity<ICollection<Materials>>> QueryAsync(Expression<Func<Materials, bool>> filiter)
         {
             return Task.FromResult(Query(filiter));
         }
@@ -61,7 +61,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var repo = this.GetRepository<MaterialCategories>();
+                var repo = this.GetRepository<IMaterialCategoriesRepository, MaterialCategories>();
 
                 var result = from q in repo.All()
                              where q.Name.Contains(Name)

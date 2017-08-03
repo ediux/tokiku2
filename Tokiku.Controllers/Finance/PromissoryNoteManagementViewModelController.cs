@@ -9,12 +9,12 @@ using Tokiku.Entity.ViewTables;
 
 namespace Tokiku.Controllers
 {
-    public class PromissoryNoteManagementViewModelController : BaseController
+    public class PromissoryNoteManagementViewModelController : BaseController<IPromissoryNoteManagementRepository,PromissoryNoteManagement>
     {
         public ExecuteResultEntity<ICollection<PromissoryNoteManagement>> QueryAll()
         {
             try {
-                var repo = this.GetRepository<PromissoryNoteManagement>();
+                var repo = this.GetRepository();
                 return ExecuteResultEntity<ICollection<PromissoryNoteManagement>>.CreateResultEntity(
                     new Collection<PromissoryNoteManagement>(repo.All().ToList()));
             }catch (Exception ex) {

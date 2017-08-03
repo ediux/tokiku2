@@ -7,7 +7,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class ProjectsController : BaseController<Projects>
+    public class ProjectsController : BaseController<IProjectsRepository, Projects>, IProjectsController
     {
         //IUsersRepository UserRepo;
         //IManufacturersRepository manufacturerepo;
@@ -54,7 +54,7 @@ namespace Tokiku.Controllers
 
         //}
 
-        public override ExecuteResultEntity<Projects> CreateNew()
+        public override IExecuteResultEntity<Projects> CreateNew()
         {
             try
             {
@@ -77,7 +77,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        public ExecuteResultEntity<string> GetNextProjectSerialNumber(string year)
+        public IExecuteResultEntity<string> GetNextProjectSerialNumber(string year)
         {
             var result = (from q in this.GetRepository().All()
                           where q.Code.StartsWith(year.Trim()) && q.Void == false
@@ -163,7 +163,7 @@ namespace Tokiku.Controllers
         //    }
         //}
 
-        public ExecuteResultEntity<Projects> QuerySingle(Guid ProjectId)
+        public IExecuteResultEntity<Projects> QuerySingle(Guid ProjectId)
         {
             try
             {
@@ -188,7 +188,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        public ExecuteResultEntity<ICollection<ProjectListEntity>> QueryAll()
+        public IExecuteResultEntity<ICollection<ProjectListEntity>> QueryAll()
         {
             try
             {
@@ -239,19 +239,19 @@ namespace Tokiku.Controllers
             }
         }
 
-        public ExecuteResultEntity<ICollection<States>> GetStates()
+        public IExecuteResultEntity<ICollection<States>> GetStates()
         {
             try
             {
                 return ExecuteResultEntity<ICollection<States>>.CreateResultEntity(
-                    new Collection<States>(this.GetRepository<States>().All().ToList()));
+                    new Collection<States>(this.GetRepository<IStatesRepository, States>().All().ToList()));
             }
             catch (Exception ex)
             {
                 return ExecuteResultEntity<ICollection<States>>.CreateErrorResultEntity(ex);
             }
         }
-        public override ExecuteResultEntity<Projects> Update(Projects fromModel, bool isLastRecord = true)
+        public override IExecuteResultEntity<Projects> Update(Projects fromModel, bool isLastRecord = true)
         {
             try
             {
@@ -378,7 +378,7 @@ namespace Tokiku.Controllers
                     }
                     #endregion
 
-                    
+
                     projectsrepo.UnitOfWork.Commit();
 
                 }
@@ -420,7 +420,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        public ExecuteResultEntity<ICollection<ProjectListEntity>> SearchByText(string text)
+        public IExecuteResultEntity<ICollection<ProjectListEntity>> SearchByText(string text)
         {
 
             try

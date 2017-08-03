@@ -8,7 +8,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class ControlTableController : BaseController<View_RequiredControlTable>, IControlTableController
+    public class ControlTableController : BaseController<IView_RequiredControlTableRepository, View_RequiredControlTable>, IControlTableController
     {
         private IView_RequiredControlTableRepository repo;
 
@@ -46,7 +46,7 @@ namespace Tokiku.Controllers
                     //     .CreateResultEntity(new Collection<ControlTableDetails>(result.ToList()));
 
                     //return model;
-                    var result = (from q in this.GetRepository()
+                    var result = (from q in this.GetRepository<IView_RequiredControlTableRepository,View_RequiredControlTable>()
                                   where q.Code.Contains(text) || q.Materials.Contains(text) || q.ManufacturersName.Contains(text)
                                   select q).ToList();
                     int i = 1;
@@ -70,7 +70,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                var repo = this.GetRepository();
+                var repo = this.GetRepository<IView_RequiredControlTableRepository,View_RequiredControlTable>();
                 var result = repo.All().ToList();
                 int i = 1;
                 result.ForEach((x) => { x.RowIndex = i; i++; });
@@ -93,7 +93,7 @@ namespace Tokiku.Controllers
                    new Collection<View_RequiredControlTable>());
                 }
 
-                var repo = this.GetRepository();
+                var repo = this.GetRepository<IView_RequiredControlTableRepository, View_RequiredControlTable>();
 
                 var result = (from q in repo.All()
                               where q.ProjectId == ProjectId

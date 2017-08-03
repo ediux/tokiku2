@@ -7,13 +7,18 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class UsersController : BaseController<Users>
+    public class UsersController : BaseController<IUsersRepository, Users>, IUsersController
     {
-        public ExecuteResultEntity<Users> QueryByUserName(string username)
+        public UsersController()
+        {
+
+        }
+
+        public IExecuteResultEntity<Users> QueryByUserName(string username)
         {
             try
             {
-                var repo = this.GetRepository();
+                var repo = this.GetRepository<IUsersRepository,Users>();
 
                 var result = from q in repo.All()
                              where q.UserName.Contains(username)

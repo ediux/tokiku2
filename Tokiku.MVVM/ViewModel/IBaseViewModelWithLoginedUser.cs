@@ -8,6 +8,6 @@ namespace Tokiku.ViewModels
 {
     public interface IBaseViewModelWithLoginedUser : IBaseViewModel
     {
-        UserViewModel LoginedUser { get; set; }
+        IUserViewModel LoginedUser { get; set; }
     }
 }

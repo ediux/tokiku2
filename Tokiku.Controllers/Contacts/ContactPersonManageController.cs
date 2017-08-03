@@ -14,7 +14,7 @@ namespace Tokiku.Controllers
     /// <summary>
     /// 聯絡人商業邏輯層控制器
     /// </summary>
-    public class ContactPersonManageController : BaseController<Contacts>, IContactPersonManageController
+    public class ContactPersonManageController : BaseController<IContactsRepository, Contacts>, IContactPersonManageController
     {
         private IContactsRepository repo;
         private IAccessLogRepository accesslogrepo;

@@ -4,37 +4,40 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class WithLoginUserBaseViewModel : BaseViewModelWithPOCOClass<Users>, IBaseViewModelWithLoginedUser
+    public class WithLoginUserBaseViewModel : BaseViewModel, IBaseViewModelWithLoginedUser
     {
         public WithLoginUserBaseViewModel()
         {
-           
-        }
-
-        public WithLoginUserBaseViewModel(Users entity) : base(entity)
-        {
 
         }
+
 
         private UserViewModel _LoginedUser;
 
         /// <summary>
         /// 取得目前登入的使用者
         /// </summary>
-        public UserViewModel LoginedUser
+        public IUserViewModel LoginedUser
         {
             get
             {
                 if (_LoginedUser == null)
-                    _LoginedUser = new UserViewModel(CopyofPOCOInstance);
+                {
+                    var loginedUserEntity = ExecuteAction<Users>("System", "GetCurrentLoginUser");
+                    _LoginedUser = new UserViewModel(loginedUserEntity);
+                }
 
                 return _LoginedUser;
             }
             set
             {
-                CopyofPOCOInstance = value.Entity;
-                _LoginedUser = new UserViewModel(CopyofPOCOInstance);
-                RaisePropertyChanged("LoginedUser");
+                if (_LoginedUser != value)
+                {
+                    //重新登入
+                    var loginedUserEntity = ExecuteAction<Users>("System", "Relogin", _LoginedUser, value);
+                    _LoginedUser = new UserViewModel(loginedUserEntity);
+                    RaisePropertyChanged("LoginedUser");
+                }
             }
         }
     }

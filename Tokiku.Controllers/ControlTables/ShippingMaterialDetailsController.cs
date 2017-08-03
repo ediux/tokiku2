@@ -8,7 +8,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class ShippingMaterialDetailsController : BaseController<PickListDetails>
+    public class ShippingMaterialDetailsController : BaseController<IPickListDetailsRepository, PickListDetails>
     {
         public ExecuteResultEntity<PickListDetails> QuerySingle(Guid Id)
         {

@@ -7,9 +7,9 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class AccessLogController : BaseController<AccessLog>
+    public class AccessLogController : BaseController<IAccessLogRepository, AccessLog>, IAccessLogController
     {
-        public ExecuteResultEntity<AccessLog> QueryLastUpdateLog(string DataId)
+        public IExecuteResultEntity<AccessLog> QueryLastUpdateLog(string DataId)
         {
             try
             {
