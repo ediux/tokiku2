@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Ioc;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity.Validation;
@@ -18,10 +19,11 @@ namespace Tokiku.Controllers
         private IContactsRepository repo;
         private IAccessLogRepository accesslogrepo;
 
-        public ContactPersonManageController()
+        [PreferredConstructor]
+        public ContactPersonManageController(IContactsRepository ContactsRepo, IAccessLogRepository AccessLogRepo)
         {
-            repo = this.GetRepository() as IContactsRepository;
-            accesslogrepo = this.GetRepository<AccessLog>() as IAccessLogRepository;
+            repo = ContactsRepo;
+            accesslogrepo = AccessLogRepo; 
         }
 
         public IExecuteResultEntity<ICollection<Contacts>> QueryAll()
@@ -128,13 +130,13 @@ namespace Tokiku.Controllers
 
                 if (IsExists(s => s.Id == entity.Id))
                 {
-                    ExecuteResultEntity<Contacts> result = Update(entity);
+                    IExecuteResultEntity<Contacts> result = Update(entity);
 
                     return result;
                 }
                 else
                 {
-                    ExecuteResultEntity result = Add(entity);
+                    IExecuteResultEntity result = Add(entity);
 
                     if (!result.HasError)
                     {

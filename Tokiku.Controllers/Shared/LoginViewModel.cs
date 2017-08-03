@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tokiku.ViewModels;
 
 namespace Tokiku.Controllers
 {
-    public class LoginViewModel
+    public class LoginViewModel : ILoginViewModel
     {
         /// <summary>
         /// 登入帳號
@@ -17,5 +18,12 @@ namespace Tokiku.Controllers
         /// 登入密碼
         /// </summary>
         public string Password { get; set; }
+
+        public string SaveModelController { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public void Login(object Parameter)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

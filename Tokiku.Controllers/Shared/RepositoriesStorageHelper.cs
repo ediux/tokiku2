@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Tokiku.Entity;
-
+using GalaSoft.MvvmLight.Ioc;
 namespace Tokiku.Controllers
 {
     public static class RepositoriesStorageHelper
@@ -15,43 +15,46 @@ namespace Tokiku.Controllers
         /// </summary>
         private static IUnitOfWork database;
 
-        private static HashSet<object> RepositoriesTable = new HashSet<object>();
+        //private static HashSet<object> RepositoriesTable = new HashSet<object>();
+
+        public  static readonly RepositoryLocator RepositoriesTable = new RepositoryLocator();
 
         public static IRepositoryBase<T> GetRepository<T>(this IBaseController controller) where T : class
         {
             try
             {
-                if (database == null)
-                    database = RepositoryHelper.GetUnitOfWork();
+               return SimpleIoc.Default.GetInstance<IRepositoryBase<T>>();   
+                //    if (database == null)
+                //        database = RepositoryHelper.GetUnitOfWork();
 
-                var searchResult = RepositoriesTable.OfType<IRepositoryBase<T>>();
+                //    var searchResult = RepositoriesTable.OfType<IRepositoryBase<T>>();
 
-                if (searchResult.Any())
-                {
-                    return searchResult.Single();
-                }
+                //    if (searchResult.Any())
+                //    {
+                //        return searchResult.Single();
+                //    }
 
-                Type type = typeof(T);
+                //    Type type = typeof(T);
 
-                Type RepositoryType = typeof(RepositoryHelper);
+                //    Type RepositoryType = typeof(RepositoryHelper);
 
-                if (RepositoryType != null)
-                {
-                    MethodInfo GetRepositoryMethod = RepositoryType.GetMethod(string.Format("Get{0}Repository", type.Name), new Type[] { typeof(IUnitOfWork) });
+                //    if (RepositoryType != null)
+                //    {
+                //        MethodInfo GetRepositoryMethod = RepositoryType.GetMethod(string.Format("Get{0}Repository", type.Name), new Type[] { typeof(IUnitOfWork) });
 
 
 
-                    if (GetRepositoryMethod != null)
-                    {
-                        IRepositoryBase<T> repositoryobject = (IRepositoryBase<T>)GetRepositoryMethod.Invoke(null, new object[] { database });
-                        RepositoriesTable.Add(repositoryobject);
-                        return repositoryobject;
-                    }
-                    else
-                        throw new NotImplementedException(string.Format("Function of Get{0}Repository not found or not implemented.", type.Name));
-                }
+                //        if (GetRepositoryMethod != null)
+                //        {
+                //            IRepositoryBase<T> repositoryobject = (IRepositoryBase<T>)GetRepositoryMethod.Invoke(null, new object[] { database });
+                //            RepositoriesTable.Add(repositoryobject);
+                //            return repositoryobject;
+                //        }
+                //        else
+                //            throw new NotImplementedException(string.Format("Function of Get{0}Repository not found or not implemented.", type.Name));
+                //    }
 
-                throw new NotImplementedException(string.Format("Repository of {0} can't found.", typeof(IRepositoryBase<T>).Name));
+                //    throw new NotImplementedException(string.Format("Repository of {0} can't found.", typeof(IRepositoryBase<T>).Name));
             }
             catch
             {
@@ -59,7 +62,7 @@ namespace Tokiku.Controllers
             }
         }
 
-        public static IRepositoryBase<T> GetRepository<T>(this IBaseController<T> controller) where T : class
+        public static TRepository GetRepository<TRepository,T>(this TRepository  controller) where TRepository : IRepositoryBase<T> where T :class
         {
             try
             {

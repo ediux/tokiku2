@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using Tokiku.Entity;
+using Tokiku.ViewModels;
 
 namespace Tokiku.Controllers
 {
     public interface IBaseController : IDisposable
     {
-        IExecuteResultEntity<Users> GetCurrentLoginUser();
-        IExecuteResultEntity<Users> GetUser(string UserName);
-        IExecuteResultEntity<Users> Login(LoginViewModel model);
-        IExecuteResultEntity<Users> Login(string UserName, string pwd);
+        IExecuteResultEntity<IUsers> GetCurrentLoginUser();
+        IExecuteResultEntity<IUsers> GetUser(string UserName);
+        IExecuteResultEntity<IUsers> Login(ILoginViewModel model);
+        IExecuteResultEntity<IUsers> Login(string UserName, string Password);
     }
 
     public interface IBaseController<T> : IBaseController where T : class

@@ -10,12 +10,19 @@ namespace Tokiku.Controllers
 {
     public class ControlTableController : BaseController<View_RequiredControlTable>, IControlTableController
     {
+        private IView_RequiredControlTableRepository repo;
+
+        public ControlTableController(IView_RequiredControlTableRepository View_RequiredControlTableRepo)
+        {
+            repo = View_RequiredControlTableRepo;
+        }
+
         public IExecuteResultEntity<ICollection<View_RequiredControlTable>> Query(Guid ProjectId)
         {
             try
             {
-                var repo = this.GetRepository().All();
-                var result = (from q in repo
+                //var repo = this.GetRepository().All();
+                var result = (from q in repo.All()
                               where q.ProjectId == ProjectId
                               select q).ToList();
                 int i = 1;

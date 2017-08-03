@@ -5,15 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tokiku.Entity;
+using Microsoft.Practices.ServiceLocation;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace Tokiku.Controllers
 {
-    public class InventoryListController : BaseController
+    public class InventoryListController : BaseController<Inventory>, IInventoryListController
     {
         public ExecuteResultEntity<ICollection<Inventory>> QueryAll()
         {
             try {
-                var repo = RepositoryHelper.GetInventoryRepository();
+                var repo = SimpleIoc.Default.GetInstance<IInventoryRepository>();
                 return ExecuteResultEntity<ICollection<Inventory>>.CreateResultEntity(
                     new Collection<Inventory>(repo.All().ToList()));
             }catch (Exception ex) {

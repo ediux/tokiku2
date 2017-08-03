@@ -11,7 +11,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class LoginViewModel : BaseViewModelWithPOCOClass<Users>
+    public class LoginViewModel : BaseViewModelWithPOCOClass<Users>, ILoginViewModel
     {
 
         //private StartUpWindowController _controller = null;

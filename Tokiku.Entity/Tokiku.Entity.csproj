@@ -97,7 +97,8 @@
     <Compile Include="AccessLogRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
-    <Compile Include="ActionCodes.cs" />
+    <Compile Include="Base\EntityLocator.cs" />
+    <Compile Include="Base\RepositoryLocator.cs" />
     <Compile Include="BOM.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
@@ -316,6 +317,11 @@
     <Compile Include="OrderTypesRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
+    <Compile Include="PartialClasses\AbnormalQuality.Partial.cs" />
+    <Compile Include="PartialClasses\EFRepository.Partial.cs" />
+    <Compile Include="PartialClasses\Membership.Partial.cs" />
+    <Compile Include="PartialClasses\Profile.Partial.cs" />
+    <Compile Include="PartialClasses\Users.Partial.cs" />
     <Compile Include="PaymentTypes.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
@@ -535,15 +541,14 @@
     <Compile Include="EngineeringRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
-    <Compile Include="ExecuteResultEntity.cs" />
-    <Compile Include="IExecuteResultEntity.cs" />
+    <Compile Include="Base\ExecuteResultEntity.cs" />
     <Compile Include="IUnitOfWork.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
     <Compile Include="MaterialEstimationRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
-    <Compile Include="ProcessingAtlasDetailEntity.cs" />
+    <Compile Include="ViewTables\ProcessingAtlasDetailEntity.cs" />
     <Compile Include="ProcessingAtlasRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
@@ -638,7 +643,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Tokiku.edmx</DependentUpon>
     </Compile>
-    <Compile Include="TokikuEntities.cs" />
+    <Compile Include="PartialClasses\TokikuEntities.cs" />
     <Compile Include="UsersRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
@@ -705,7 +710,7 @@
     <Compile Include="View_RequiredControlTable.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
-    <Compile Include="View_RequiredControlTable.partialclass.cs" />
+    <Compile Include="PartialClasses\View_RequiredControlTable.partialclass.cs" />
     <Compile Include="View_RequiredControlTableRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
@@ -785,8 +790,12 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="PartialClasses\" />
+    <ProjectReference Include="..\Tokiku.MVVM\Tokiku.MVVM.csproj">
+      <Project>{e58d7c44-2feb-44c7-94bb-2b61a14687aa}</Project>
+      <Name>Tokiku.MVVM</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

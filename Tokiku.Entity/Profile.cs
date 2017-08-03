@@ -12,7 +12,7 @@ namespace Tokiku.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class Profile
+    public partial class Profile 
     {
         public System.Guid UserId { get; set; }
         public string PropertyNames { get; set; }

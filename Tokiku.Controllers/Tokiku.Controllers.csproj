@@ -89,10 +89,13 @@
     <Compile Include="AbnormalQualityController.cs" />
     <Compile Include="AbnormalQualityDetailsController.cs" />
     <Compile Include="AccessLogController.cs" />
+    <Compile Include="Base\BaseController.cs" />
     <Compile Include="Base\ControllersLocator.cs" />
     <Compile Include="Base\Interfaces\IContactPersonManageController.cs" />
     <Compile Include="Base\Interfaces\IControlTableController.cs" />
     <Compile Include="Base\Interfaces\IInventoryController.cs" />
+    <Compile Include="Base\Interfaces\IInventoryListController.cs" />
+    <Compile Include="Base\Interfaces\IInvoicesController.cs" />
     <Compile Include="ControlTables\ObtainMaterialController.cs" />
     <Compile Include="ControlTables\ShippingMaterialDetailsController.cs" />
     <Compile Include="Orders\AluminumExtrusionOrderController.cs" />
@@ -124,12 +127,10 @@
     <Compile Include="ControlTables\RequiredController.cs" />
     <Compile Include="ControlTables\ReturnsController.cs" />
     <Compile Include="ControlTables\ReturnMaterialListController.cs" />
-    <Compile Include="Base\Interfaces\IBaseController.cs" />
     <Compile Include="Main\MainWindowController.cs" />
     <Compile Include="Finance\PaymentTypesManageController.cs" />
     <Compile Include="Projects\ProjectContractController.cs" />
     <Compile Include="Projects\ProjectManagerViewController.cs" />
-    <Compile Include="Base\BaseController.cs" />
     <Compile Include="Contacts\ContactPersonManageController.cs" />
     <Compile Include="Manufacturers\ManufacturersManageController.cs" />
     <Compile Include="Projects\ProjectsController.cs" />
@@ -161,6 +162,10 @@
     <ProjectReference Include="..\Tokiku.Entity\Tokiku.Entity.csproj">
       <Project>{14cc904e-4a5c-401b-a7db-ddb045abb6dd}</Project>
       <Name>Tokiku.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tokiku.MVVM\Tokiku.MVVM.csproj">
+      <Project>{e58d7c44-2feb-44c7-94bb-2b61a14687aa}</Project>
+      <Name>Tokiku.MVVM</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

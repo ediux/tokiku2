@@ -12,7 +12,7 @@ namespace Tokiku.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class Membership
+    public partial class Membership : IMembership
     {
         public System.Guid UserId { get; set; }
         public string Password { get; set; }

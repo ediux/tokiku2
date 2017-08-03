@@ -10,6 +10,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using Tokiku.Entity;
+using Tokiku.ViewModels;
 
 namespace Tokiku.Controllers
 {
@@ -64,7 +65,7 @@ namespace Tokiku.Controllers
         /// </summary>
         /// <param name="model">登入畫面的檢視模型物件。</param>
         /// <returns>傳回登入結果。</returns>
-        public IExecuteResultEntity<Users> Login(LoginViewModel model)
+        public IExecuteResultEntity<IUsers> Login(ILoginViewModel model)
         {
             try
             {
@@ -77,17 +78,17 @@ namespace Tokiku.Controllers
 
                 if (_CurrentLoginedUserStorage != null)
                 {
-                    return new ExecuteResultEntity<Users>() { Result = _CurrentLoginedUserStorage };
+                    return new ExecuteResultEntity<IUsers>() { Result = _CurrentLoginedUserStorage };
                 }
 
-                IExecuteResultEntity<Users> error = ExecuteResultEntity<Users>.CreateErrorResultEntity("登入失敗!");
+                IExecuteResultEntity<IUsers> error = ExecuteResultEntity<IUsers>.CreateErrorResultEntity("登入失敗!");
 
                 return error;
 
             }
             catch (Exception ex)
             {
-                IExecuteResultEntity<Users> error = ExecuteResultEntity<Users>.CreateErrorResultEntity(ex);
+                IExecuteResultEntity<IUsers> error = ExecuteResultEntity<IUsers>.CreateErrorResultEntity(ex);
                 return error;
             }
 
@@ -99,25 +100,25 @@ namespace Tokiku.Controllers
         /// 取得目前登入的使用者資訊物件。
         /// </summary>
         /// <returns>傳回目前已經登入的使用者資訊物件。</returns>
-        public IExecuteResultEntity<Users> GetCurrentLoginUser()
+        public IExecuteResultEntity<IUsers> GetCurrentLoginUser()
         {
             try
             {
                 if (_CurrentLoginedUserStorage != null)
                 {
-                    return new ExecuteResultEntity<Users>() { Result = _CurrentLoginedUserStorage };
+                    return new ExecuteResultEntity<IUsers>() { Result = _CurrentLoginedUserStorage };
                 }
 
-                return new ExecuteResultEntity<Users>() { Errors = new string[] { "登入失敗!" } };
+                return new ExecuteResultEntity<IUsers>() { Errors = new string[] { "登入失敗!" } };
             }
             catch (Exception ex)
             {
 
-                return ExecuteResultEntity<Users>.CreateErrorResultEntity(ex);
+                return ExecuteResultEntity<IUsers>.CreateErrorResultEntity(ex);
             }
         }
 
-        public IExecuteResultEntity<Users> GetUser(string UserName)
+        public IExecuteResultEntity<IUsers> GetUser(string UserName)
         {
             try
             {
@@ -131,21 +132,21 @@ namespace Tokiku.Controllers
 
                     if (_CurrentLoginedUserStorage != null)
                     {
-                        return ExecuteResultEntity<Users>.CreateResultEntity(_CurrentLoginedUserStorage);
+                        return ExecuteResultEntity<IUsers>.CreateResultEntity(_CurrentLoginedUserStorage);
                     }
 
 
-                    return ExecuteResultEntity<Users>.CreateErrorResultEntity(new Exception("登入失敗!"));
+                    return ExecuteResultEntity<IUsers>.CreateErrorResultEntity(new Exception("登入失敗!"));
                 }
 
             }
             catch (Exception ex)
             {
-                return ExecuteResultEntity<Users>.CreateErrorResultEntity(ex);
+                return ExecuteResultEntity<IUsers>.CreateErrorResultEntity(ex);
             }
         }
 
-        public IExecuteResultEntity<Users> Login(string UserName, string pwd)
+        public IExecuteResultEntity<IUsers> Login(string UserName, string pwd)
         {
             try
             {
@@ -153,7 +154,7 @@ namespace Tokiku.Controllers
             }
             catch (Exception ex)
             {
-                return ExecuteResultEntity<Users>.CreateErrorResultEntity(ex);
+                return ExecuteResultEntity<IUsers>.CreateErrorResultEntity(ex);
             }
         }
 
