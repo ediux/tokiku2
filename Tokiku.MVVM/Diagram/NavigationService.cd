@@ -15,5 +15,19 @@
       <FileName>IFrameNavigationService.cs</FileName>
     </TypeIdentifier>
   </Interface>
+  <Interface Name="Tokiku.Controllers.IBaseController">
+    <Position X="14.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAEAAQAAAAAAA=</HashCode>
+      <FileName>Controllers\Interfaces\IBaseController.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.Controllers.IBaseController&lt;T&gt;">
+    <Position X="14.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAACAAAAAAAAAAAgAAAAEAAAgQAAAAAAAACBA=</HashCode>
+      <FileName>Controllers\Interfaces\IBaseController.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
   <Font Name="Microsoft JhengHei UI" Size="9" />
 </ClassDiagram>
