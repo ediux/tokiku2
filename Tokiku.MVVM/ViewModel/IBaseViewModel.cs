@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Input;
+using Tokiku.MVVM;
 
 namespace Tokiku.ViewModels
 {
-    public interface IBaseViewModel : INotifyPropertyChanged
+    public interface IBaseViewModel
     {
 
         /// <summary>

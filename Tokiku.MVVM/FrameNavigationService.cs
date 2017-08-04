@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Ioc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace Tokiku.MVVM
     {
         #region Fields
         private readonly Dictionary<string, Uri> _pagesByKey;
+        private readonly Dictionary<string, Type> _elementByKey;
         private readonly List<string> _historic;
         private string _currentPageKey;
         #endregion
@@ -37,11 +39,15 @@ namespace Tokiku.MVVM
             }
         }
         public object Parameter { get; private set; }
+
+
+
         #endregion
         #region Ctors and Methods
         public FrameNavigationService()
         {
             _pagesByKey = new Dictionary<string, Uri>();
+            _elementByKey = new Dictionary<string, Type>();
             _historic = new List<string>();
         }
         public void GoBack()
@@ -72,35 +78,44 @@ namespace Tokiku.MVVM
                 {
                     frame.Source = _pagesByKey[pageKey];
                 }
-                
-                var window = GetDescendantFromName(Application.Current.MainWindow, pageKey) as Window;
-                if (window != null)
+                else
                 {
-                    Application.Current.MainWindow = window;
+
+                    Window win = (Window)Activator.CreateInstance(_elementByKey[pageKey]);
+                    Application.Current.MainWindow = win;
+                    //SimpleIoc.Default.GetInstance()
                 }
+
+
                 Parameter = parameter;
                 _historic.Add(pageKey);
                 CurrentPageKey = pageKey;
             }
         }
 
-        public void Configure(string key, Uri pageType)
+        public void Configure(string key, Uri pageType, Type elementtype = null)
         {
             lock (_pagesByKey)
             {
                 if (_pagesByKey.ContainsKey(key))
                 {
                     _pagesByKey[key] = pageType;
+                    _elementByKey[key] = elementtype;
                 }
                 else
                 {
                     _pagesByKey.Add(key, pageType);
+                    _elementByKey.Add(key, elementtype);
+
                 }
             }
         }
 
         private static FrameworkElement GetDescendantFromName(DependencyObject parent, string name)
         {
+
+
+            //尋找子元素
             var count = VisualTreeHelper.GetChildrenCount(parent);
 
             if (count < 1)
@@ -111,6 +126,7 @@ namespace Tokiku.MVVM
             for (var i = 0; i < count; i++)
             {
                 var frameworkElement = VisualTreeHelper.GetChild(parent, i) as FrameworkElement;
+
                 if (frameworkElement != null)
                 {
                     if (frameworkElement.Name == name)

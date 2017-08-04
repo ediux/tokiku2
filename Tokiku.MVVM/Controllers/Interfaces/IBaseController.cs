@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using Tokiku.Entity;
+using Tokiku.MVVM;
 using Tokiku.ViewModels;
 
 namespace Tokiku.Controllers
 {
     public interface IBaseController : IDisposable
     {
+        
         IExecuteResultEntity<IUsers> GetCurrentLoginUser();
         IExecuteResultEntity<IUsers> GetUser(string UserName);
         IExecuteResultEntity<IUsers> Login(ILoginViewModel model);

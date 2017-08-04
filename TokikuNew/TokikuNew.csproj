@@ -163,6 +163,7 @@
     <Compile Include="ValueConverters\ReadModeToEnabledValueConverter.cs" />
     <Compile Include="ValueConverters\ReadModeToVisibilityValueConverter.cs" />
     <Compile Include="ValueConverters\VoidToStateTextValueConverter.cs" />
+    <Compile Include="Views\ViewsLocator.cs" />
     <Page Include="Frame\OptionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -293,7 +294,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Base\" />
-    <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ReadMe.txt" />

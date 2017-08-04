@@ -61,11 +61,29 @@ namespace Tokiku.MVVM.Properties {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 值不能為空。參數:{0} 的當地語系化字串。
         /// </summary>
         public static string Common_NullOrEmpty {
             get {
                 return ResourceManager.GetString("Common_NullOrEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似  的當地語系化字串。
+        /// </summary>
+        public static string Common_PartialViewNotFound {
+            get {
+                return ResourceManager.GetString("Common_PartialViewNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似  的當地語系化字串。
+        /// </summary>
+        public static string Common_ViewNotFound {
+            get {
+                return ResourceManager.GetString("Common_ViewNotFound", resourceCulture);
             }
         }
         
@@ -75,6 +93,24 @@ namespace Tokiku.MVVM.Properties {
         public static string ControllerBase_CannotHandleMultipleRequests {
             get {
                 return ResourceManager.GetString("ControllerBase_CannotHandleMultipleRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似  的當地語系化字串。
+        /// </summary>
+        public static string DependencyResolver_DoesNotImplementICommonServiceLocator {
+            get {
+                return ResourceManager.GetString("DependencyResolver_DoesNotImplementICommonServiceLocator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Child actions are not allowed to perform redirect actions. 的當地語系化字串。
+        /// </summary>
+        public static string RedirectAction_CannotRedirectInChildAction {
+            get {
+                return ResourceManager.GetString("RedirectAction_CannotRedirectInChildAction", resourceCulture);
             }
         }
         

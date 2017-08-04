@@ -76,7 +76,7 @@ namespace Tokiku.ViewModels
             //SimpleIoc.Default.Register<LoginViewModel>();
             //SimpleIoc.Default.Register<UserViewModel>();
             //SimpleIoc.Default.Register<ProjectListViewModelCollection>();
-            SetupNavigation();
+            
         }
 
         /// <summary>
@@ -96,15 +96,7 @@ namespace Tokiku.ViewModels
 
         }
 
-        private static void SetupNavigation()
-        {
-            var navigationService = new FrameNavigationService();
-            navigationService.Configure("mainwindow", new Uri("/MainWindow.xaml", UriKind.Relative));
-
-            if (!SimpleIoc.Default.IsRegistered<IFrameNavigationService>())
-                SimpleIoc.Default.Register<IFrameNavigationService>(() => navigationService);
-        }
-
+      
         /// <summary>
         /// Gets the 登入畫面檢視模型 property.
         /// </summary>

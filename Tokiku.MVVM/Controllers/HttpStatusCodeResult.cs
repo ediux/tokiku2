@@ -5,7 +5,4 @@ using System.Text;
 
 namespace Tokiku.MVVM
 {
-    public class ControllerContext
-    {
-    }
 }
