@@ -76,6 +76,7 @@
     <Compile Include="Base\Interfaces\IUserViewModel.cs" />
     <Compile Include="Base\EntityBaseViewModel.cs" />
     <Compile Include="Base\Interfaces\IFormBaseViewModel.cs" />
+    <Compile Include="Interfaces\IMainViewModel.cs" />
     <Compile Include="Main\MainViewModel.cs" />
     <Compile Include="MVVMLocatorMaker.cs">
       <DependentUpon>MVVMLocatorMaker.tt</DependentUpon>

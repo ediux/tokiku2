@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace TokikuNew.ValueConverters
 {
-    class VoidToStateTextValueConverter : IValueConverter
+    public class VoidToStateTextValueConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

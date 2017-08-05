@@ -9,7 +9,7 @@ using System.Windows.Data;
 
 namespace TokikuNew.ValueConverters
 {
-    public class BooleanToVisibilityValueConveter : IValueConverter
+    public class BooleanToVisibilityValueConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

@@ -81,7 +81,7 @@
     <ValueConverters:ReplyContentValueConverter x:Key="AtlasReplayContents"/>
     <ValueConverters:NOTGateValueConverter x:Key="NOTGateValueConverter"/>
     <ValueConverters:RadioButtonSwitchValueConverter x:Key="RadioButtonSwitchValueConverter" />
-    <ValueConverters:BooleanToVisibilityValueConveter x:Key="BooleanToVisibilityValueConveter"/>
+    <ValueConverters:BooleanToVisibilityValueConverter x:Key="BooleanToVisibilityValueConveter"/>
     <ValueConverters:DocumentLifeCycleStateToVisibilityValueConverter x:Key="DocumentLifeCycleStateToVisibilityValueConverter"/>
     <ValueConverters:ReadModeToDisabledValueConverter x:Key="ReadModeToDisabledValueConverter"/>
     <!--<ValueConverters:StatesCodeToTextValueConverter x:Key="StatesCodeToTextValueConverter"/>-->

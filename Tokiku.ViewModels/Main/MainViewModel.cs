@@ -9,7 +9,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class MainViewModel : WithLoginUserBaseViewModel, IBaseViewModelWithLoginedUser
+    public class MainViewModel : WithLoginUserBaseViewModel, IMainViewModel
     {
         //private Controllers.ProjectsController _projects_controller;
 

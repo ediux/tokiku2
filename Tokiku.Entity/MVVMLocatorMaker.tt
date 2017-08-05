@@ -41,8 +41,8 @@
 	var fs=	VisualStudioHelper.GetAllProjectItems(p);	
 
 	Stack<string> NamespaceStack = new Stack<string>();
-	Dictionary<string,string> classbook = new Dictionary<string,string>();
-
+	Dictionary<string,vsClassState> classbook = new Dictionary<string,vsClassState>();
+	
 	foreach(var t in fs)
 	{ 
 		if(t == null)
@@ -61,49 +61,156 @@
 		{
 			try
             {
+				bool isaddclass = false;
+				bool isaddinterface = false;
+				bool iskeepalive=false;
+				bool isexecption=false;
+				string addinterfacename = string.Empty;
+
 				if(celt.IsAbstract)
-					continue;
+					isexecption=true;
 
-				//取出實作的類別
-				foreach(EnvDTE.CodeElement inface in celt.Bases)
-				{					
-					if(inface!=null && (inface.Name=="Window" || inface.Name=="Control"))
-                    {
-						if(!NamespaceStack.Contains(celt.Namespace.Name))
-							NamespaceStack.Push(celt.Namespace.Name);
+				if(celt.FullName.EndsWith("Locator"))
+					isexecption=true;
 
-						if(!classbook.ContainsKey(celt.Name))
-						{
-							classbook.Add(celt.Name,string.Empty);
-                        }
-                    }
-					
+				if(celt.FullName.EndsWith("Converter"))
+					isexecption=true;
+				
+				switch(celt.Name)
+                {
+					case "EFRepository":
+					case "RepositoryHelper":
+					case "App":
+					case "ThemeResourceDictionary":
+					case "Program":
+					case "ClipboardHelper":
+					case "ThemeManager":
+					case "Tools":
+					case "Resources":
+					case "Settings":
+						isaddclass=true;
+						isexecption=true;
+						break;
                 }
 
-				foreach(EnvDTE.CodeInterface inf in celt.ImplementedInterfaces)
+				if(isexecption)
+					continue;
+
+				if(!NamespaceStack.Contains(celt.Namespace.FullName))
+					NamespaceStack.Push(celt.Namespace.FullName);			
+				
+				if(celt.Bases.Count>0)
 				{
-					if(inf!=null && (inf.Name=="IBaseViewModelWithLoginedUser"
-						|| inf.Name=="IEntityBaseViewModel"
-						|| inf.Name=="IDocumentBaseViewModel"
-						|| inf.Name=="IUserViewModel"
-						|| ((string)inf.Name).EndsWith("Repository")))
-                    {
-						if(!NamespaceStack.Contains(celt.Namespace.Name))
-							NamespaceStack.Push(celt.Namespace.Name);
-
-						if(!NamespaceStack.Contains(inf.Namespace.Name))
-							NamespaceStack.Push(inf.Namespace.Name);
-
-						if(!classbook.ContainsKey(celt.Name))
+					//取出繼承的類別
+					foreach(EnvDTE.CodeElement inherit_Class in celt.Bases)
+					{
+						if(inherit_Class!=null 
+							&& ((EnvDTE.CodeClass)inherit_Class).IsAbstract==false)
 						{
-							classbook.Add(celt.Name,inf.Name);
-						}
-						else
-                        {
-							classbook[celt.Name] = inf.Name;
-                        }
+							switch(inherit_Class.FullName)
+							{
+								case "Window":
+								case "Control":
+									isaddclass=true;
+									break;
+								case "EFRepository":
+									isaddclass=true;									
+									iskeepalive=true;
+									break;
+                            }	
+						}						
+
+						if(isaddclass)
+							break;
+					}
+                }
+
+
+				//取出實作的介面
+				foreach(EnvDTE.CodeInterface imp_interface in celt.ImplementedInterfaces)
+				{
+					switch(imp_interface.Name)
+					{
+						case "IBaseViewModel":							
+						case "IEntityBaseViewModel":
+						case "IDocumentBaseViewModel":
+						case "IBaseViewModelWithLoginedUser":
+						case "IController":
+						case "IControllerBase":
+						case "IDataService":
+							isaddclass=true;
+							isaddinterface = false;						
+							break;
+						case "IRepositoryBase":						
+							isaddclass=true;
+							isaddinterface = false;
+							iskeepalive=true;
+							addinterfacename=imp_interface.Name;
+							break;
+						case "IUnitOfWork":
+							isaddclass=true;
+							isaddinterface=true;
+							iskeepalive=true;
+							addinterfacename=imp_interface.Name;
+							break;
                     }
-                }				
+
+					if(isaddclass && isaddinterface)
+						break;
+
+					//取得介面繼承的父代介面
+					var base_imp_interfaces = VisualStudioHelper.CodeModel.GetAllBaseInterfaces(imp_interface)
+						.Where(w=>w.IsCodeType && (w.Name=="IBaseViewModel"
+						|| w.Name == "IBaseViewModelWithLoginedUser"
+						|| w.Name == "IEntityBaseViewModel"
+						|| w.Name == "IDocumentBaseViewModel"
+						|| w.Name == "IUnitOfWork"
+						|| w.Name == "IRepositoryBase"
+						|| w.Name == "IController"
+						|| w.Name == "IControllerBase"
+						|| w.Name == "IDataService"));
+
+					if(base_imp_interfaces.Any())
+					{
+						isaddclass=true;
+						isaddinterface=true;
+
+						if(base_imp_interfaces.Any(d=>d.Name=="IRepositoryBase"))
+							iskeepalive=true;		
+	
+						if(base_imp_interfaces.Any(d=>d.Name=="IUnitOfWork"))
+							iskeepalive=true;		
+						addinterfacename = imp_interface.Name;
+						
+						if(!NamespaceStack.Contains(imp_interface.Namespace.FullName))
+							NamespaceStack.Push(imp_interface.Namespace.FullName);
+
+						break;
+                    }
+
+                }
+
+				vsClassState newState = new vsClassState();
+
+				if(iskeepalive)
+					newState.IsKeepAlive=iskeepalive;	
+
+				newState.InterfaceName = string.Empty;
+
+				if(isaddinterface)
+                {
+					newState.InterfaceName = addinterfacename;							
+                }
+					
+				if(!classbook.ContainsKey(celt.Name))
+				{
+					classbook.Add(celt.Name,newState);				
+				}
+				else
+				{
+					classbook[celt.Name] = newState;
+				}			
+				
             }
 			catch
 			{
@@ -143,45 +250,83 @@ namespace <#= defaultNamespace #>
 <#
 	foreach(string classname in classbook.Keys)
     {
-		if(!string.IsNullOrEmpty(classbook[classname]))
+		if(!string.IsNullOrEmpty(classbook[classname].InterfaceName))
         {
 #>
 
-			if (!SimpleIoc.Default.IsRegistered<<#= classbook[classname] #>>())
-				SimpleIoc.Default.Register<<#= classbook[classname] #>,<#= classname #>>();			
+			if (!SimpleIoc.Default.IsRegistered<<#= classbook[classname].InterfaceName #>>())
 <#
+			if(classbook[classname].IsKeepAlive)
+            {
+#>				SimpleIoc.Default.Register<<#= classbook[classname].InterfaceName #>,<#= classname #>>(true);
+<#			}
+			else
+            {
+#>				SimpleIoc.Default.Register<<#= classbook[classname].InterfaceName #>,<#= classname #>>();			
+<#
+            }
         }
 		else
 		{			
 #>
-
+			
 			if (!SimpleIoc.Default.IsRegistered<<#= classname #>>())
-				SimpleIoc.Default.Register<<#= classname #>>(() => new <#= classname #>(),"<#= classname #>");
 <#
+			if(classbook[classname].IsKeepAlive)
+            {
+#>				SimpleIoc.Default.Register<<#= classname #>>(true);
+<#
+            }
+			else
+            {
+#>				SimpleIoc.Default.Register<<#= classname #>>();
+<#
+            }
 		}		    
 
     }
 #>										
 		}
 
+		private static <#= rootclassname #>Locator _Current=null;
+		
+		/// <summary>
+        /// 取得預設的容器解析物件。
+        /// </summary>
+        public static <#= rootclassname #>Locator Current
+        {
+            get
+            {
+                if (_Current == null)
+                    _Current = new <#= rootclassname #>Locator();
+                return _Current;
+            }
+        }
+
 <#
 	foreach(string classname in classbook.Keys)
     {
-		if(!string.IsNullOrEmpty(classbook[classname]))
+		if(!string.IsNullOrEmpty(classbook[classname].InterfaceName))
         {
 #>
-		public <#= classbook[classname] #> <#= classname #>
+		/// <summary>
+        /// 取得IoC容器中的實作 <#= classbook[classname].InterfaceName #> 介面的物件執行個體。
+        /// </summary>
+		public <#= classbook[classname].InterfaceName #> <#= classname #>
 		{
-			get => SimpleIoc.Default.GetInstance<<#= classbook[classname] #>>();
+			get => SimpleIoc.Default.GetInstance<<#= classbook[classname].InterfaceName #>>();
 		}
 <#
         }
 		else
         {
 #>
+		/// <summary>
+        /// 取得IoC容器中的 <#= classname #> 物件執行個體。
+        /// </summary>
 		public <#= classname #> <#= classname #>
 		{
-			get => SimpleIoc.Default.GetInstance<<#= classname #>>("<#= classname #>");
+			get => SimpleIoc.Default.GetInstance<<#= classname #>>();
 		}
 <#
 		}
@@ -615,5 +760,10 @@ public class vsProjectType
 	public const string VisualCPlusPlus = "{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}";
 	public const string VisualJSharp = "{E6FDF86B-F3D1-11D4-8576-0002A516ECE8}";
 	public const string WebProject = "{E24C65DC-7377-472b-9ABA-BC803B73C61A}";
+}
+
+public class vsClassState{
+	public string InterfaceName {get;set;}
+	public bool IsKeepAlive {get;set;}
 }
 #>

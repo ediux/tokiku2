@@ -168,7 +168,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MVVMLocatorMaker.tt</DependentUpon>
     </Compile>
-    <Compile Include="Views\ViewsLocator.cs" />
     <Page Include="Frame\OptionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

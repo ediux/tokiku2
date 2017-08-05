@@ -15,29 +15,53 @@ namespace TokikuNew
 		{
 			if (!ServiceLocator.IsLocationProviderSet)
                 ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-
+			
 			if (!SimpleIoc.Default.IsRegistered<OptionWindow>())
-				SimpleIoc.Default.Register<OptionWindow>(() => new OptionWindow(),"OptionWindow");
-
+				SimpleIoc.Default.Register<OptionWindow>();
+			
 			if (!SimpleIoc.Default.IsRegistered<StartUpWindow>())
-				SimpleIoc.Default.Register<StartUpWindow>(() => new StartUpWindow(),"StartUpWindow");
-
+				SimpleIoc.Default.Register<StartUpWindow>();
+			
 			if (!SimpleIoc.Default.IsRegistered<MainWindow>())
-				SimpleIoc.Default.Register<MainWindow>(() => new MainWindow(),"MainWindow");
+				SimpleIoc.Default.Register<MainWindow>();
 										
 		}
 
+		private static ViewsLocator _Current=null;
+		
+		/// <summary>
+        /// 取得預設的容器解析物件。
+        /// </summary>
+        public static ViewsLocator Current
+        {
+            get
+            {
+                if (_Current == null)
+                    _Current = new ViewsLocator();
+                return _Current;
+            }
+        }
+
+		/// <summary>
+        /// 取得IoC容器中的 OptionWindow 物件執行個體。
+        /// </summary>
 		public OptionWindow OptionWindow
 		{
-			get => SimpleIoc.Default.GetInstance<OptionWindow>("OptionWindow");
+			get => SimpleIoc.Default.GetInstance<OptionWindow>();
 		}
+		/// <summary>
+        /// 取得IoC容器中的 StartUpWindow 物件執行個體。
+        /// </summary>
 		public StartUpWindow StartUpWindow
 		{
-			get => SimpleIoc.Default.GetInstance<StartUpWindow>("StartUpWindow");
+			get => SimpleIoc.Default.GetInstance<StartUpWindow>();
 		}
+		/// <summary>
+        /// 取得IoC容器中的 MainWindow 物件執行個體。
+        /// </summary>
 		public MainWindow MainWindow
 		{
-			get => SimpleIoc.Default.GetInstance<MainWindow>("MainWindow");
+			get => SimpleIoc.Default.GetInstance<MainWindow>();
 		}
 	}
 }
