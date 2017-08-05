@@ -13,7 +13,7 @@
         
         <!--<vm:RedirectCommand x:Key="redirect" RoutingName="MainWindow" />
         <vm:OpenWindowCommand x:Key="openwin"  />-->
-        <ObjectDataProvider x:Key="MainSource" ObjectType="{x:Type vm:MainViewModel}" MethodName="Query"/>
+       
     </Window.Resources>
     <Viewbox Stretch="Fill"
              Margin="0" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" >
@@ -61,7 +61,7 @@
             <StatusBar Margin="0" Grid.Row="3">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="1" FontFamily="Segoe MDL2 Assets" Text="&#xe187;" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                    <TextBlock Margin="1,0" Name="userNameDisplay" Text="{Binding LoginedUser.UserName, Source={StaticResource MainSource}}"/>
+                    <TextBlock Margin="1,0" Name="userNameDisplay" Text="{Binding LoginedUser.UserName}"/>
                 </StackPanel>
             </StatusBar>
         </Grid>

@@ -97,7 +97,6 @@
     <Compile Include="AccessLogRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
-    <Compile Include="Base\EntityLocator.cs" />
     <Compile Include="Base\RepositoryLocator.cs" />
     <Compile Include="BOM.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
@@ -263,6 +262,11 @@
     </Compile>
     <Compile Include="MoldUseStatus.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MVVMLocatorMaker.cs">
+      <DependentUpon>MVVMLocatorMaker.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="OrderControlTableDetails.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
@@ -777,6 +781,10 @@
     <Content Include="EFGeneratePartialClass.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EFGeneratePartialClass.cs</LastGenOutput>
+    </Content>
+    <Content Include="MVVMLocatorMaker.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MVVMLocatorMaker.cs</LastGenOutput>
     </Content>
     <Content Include="Tokiku.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

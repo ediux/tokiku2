@@ -1,23 +1,19 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Tokiku.MVVM;
 
 namespace TokikuNew.Views
 {
-   public class ViewsLocator
+    public partial class ViewsLocator
     {
-        public ViewsLocator()
-        {
-            if (!ServiceLocator.IsLocationProviderSet)
-                ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+        //public ViewsLocator()
+        //{
+        //    if (!ServiceLocator.IsLocationProviderSet)
+        //        ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-            SetupNavigation();
-        }
+        //    SetupNavigation();
+        //}
 
         private static void SetupNavigation()
         {
@@ -29,5 +25,9 @@ namespace TokikuNew.Views
                 SimpleIoc.Default.Register<IFrameNavigationService>(() => navigationService);
         }
 
+        public MainWindow MainWindow
+        {
+            get => SimpleIoc.Default.GetInstance<MainWindow>();
+        }
     }
 }

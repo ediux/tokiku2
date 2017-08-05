@@ -109,7 +109,7 @@ namespace TokikuNew.Frame
 
                     if (cmd != null)
                     {
-                        cmd.Execute(((ViewModelLocator)TryFindResource("Locator")).Login);
+                        cmd.Execute(((ViewModelLocator)TryFindResource("Locator")));
                     }
                 }
             }

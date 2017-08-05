@@ -19,6 +19,7 @@ namespace Tokiku.MVVM
         private readonly List<string> _historic;
         private string _currentPageKey;
         #endregion
+
         #region Properties                                              
         public string CurrentPageKey
         {
@@ -80,10 +81,30 @@ namespace Tokiku.MVVM
                 }
                 else
                 {
+                    Type tIoC = typeof(SimpleIoc);
 
-                    Window win = (Window)Activator.CreateInstance(_elementByKey[pageKey]);
-                    Application.Current.MainWindow = win;
-                    //SimpleIoc.Default.GetInstance()
+                    try
+                    {
+                        var methodinfo = tIoC.GetMethods().Where(w => w.Name == "GetInstance"
+                    && w.GetParameters().Any(a => a.ParameterType == typeof(string))
+                    && w.GetGenericArguments().Count() == 1).Single().MakeGenericMethod(_elementByKey[pageKey]);
+
+                        var lastwin = Application.Current.MainWindow;
+
+                        Window win = (Window)methodinfo.Invoke(SimpleIoc.Default, new object[] { pageKey });
+                        
+                        Application.Current.MainWindow = win;
+
+                        lastwin.Close();
+                        win.Show();
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+
+
+                    
                 }
 
 
