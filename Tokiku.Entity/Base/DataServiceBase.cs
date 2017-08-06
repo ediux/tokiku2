@@ -10,13 +10,8 @@ using Tokiku.ViewModels;
 
 namespace Tokiku.MVVM
 {
-    /// <summary>
-    /// 資料存取服務基底類別!
-    /// 使用MVVM Light Toolkit
-    /// </summary>
-    public class DataServiceBase<TModel> : IDataService<TModel> where TModel : ViewModelBase
+    public abstract class DataServiceBase : IDataService
     {
-
         private IEnumerable<string> _Errors;
         /// <summary>
         /// 錯誤訊息
@@ -28,7 +23,13 @@ namespace Tokiku.MVVM
         /// 指出是否發生錯誤
         /// </summary>
         public bool HasError { get => _HasError; set => _HasError = value; }
-
+    }
+    /// <summary>
+    /// 資料存取服務基底類別!
+    /// 使用MVVM Light Toolkit
+    /// </summary>
+    public abstract class DataServiceBase<TModel> : DataServiceBase, IDataService<TModel> where TModel : ViewModelBase
+    {
         /// <summary>
         /// 取得資料庫儲存庫物件。
         /// </summary>        

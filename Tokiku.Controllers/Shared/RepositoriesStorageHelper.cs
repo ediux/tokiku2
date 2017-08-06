@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Tokiku.Entity;
 using GalaSoft.MvvmLight.Ioc;
+using Tokiku.MVVM;
+
 namespace Tokiku.Controllers
 {
     public static class RepositoriesStorageHelper
@@ -19,7 +21,7 @@ namespace Tokiku.Controllers
 
         public static readonly RepositoryLocator RepositoriesTable = new RepositoryLocator();
 
-        public static TRepository GetRepository<TRepository, T>(this IBaseController controller) where TRepository : IRepositoryBase<T> where T : class
+        public static TRepository GetRepository<TRepository, T>(this IViewController controller) where TRepository : IRepositoryBase<T> where T : class
         {
             try
             {
@@ -62,64 +64,64 @@ namespace Tokiku.Controllers
             }
         }
 
-        public static TRepository GetRepository<TRepository, T>(this IBaseController<T> controller) where TRepository : IRepositoryBase<T> where T : class
-        {
-            try
-            {
-                return GetRepository<TRepository, T>((IBaseController)controller);
-            }
-            catch
-            {
-                throw;
-            }
-        }
+        //public static TRepository GetRepository<TRepository, T>(this IBaseController<T> controller) where TRepository : IRepositoryBase<T> where T : class
+        //{
+        //    try
+        //    {
+        //        return GetRepository<TRepository, T>((IBaseController)controller);
+        //    }
+        //    catch
+        //    {
+        //        throw;
+        //    }
+        //}
 
-        public static string GetNextNumber<T>(this IBaseController<T> obj, string Name, string CodeFormat, params object[] Parameters) where T : class
-        {
-            try
-            {
-                var repo = GetRepository<IEncodingRecordsRepository, EncodingRecords>(obj);
+        //public static string GetNextNumber<T>(this IBaseController<T> obj, string Name, string CodeFormat, params object[] Parameters) where T : class
+        //{
+        //    try
+        //    {
+        //        var repo = GetRepository<IEncodingRecordsRepository, EncodingRecords>(obj);
 
-                var result = (from q in repo.All()
-                              where q.EncodingName == Name
-                              select q).SingleOrDefault();
+        //        var result = (from q in repo.All()
+        //                      where q.EncodingName == Name
+        //                      select q).SingleOrDefault();
 
-                if (result != null)
-                {
-                    List<object> o = new List<object>();
+        //        if (result != null)
+        //        {
+        //            List<object> o = new List<object>();
 
-                    o.Insert(0, result.Number5);
-                    o.Insert(0, result.Number4);
-                    o.Insert(0, result.Number3);
-                    o.Insert(0, result.Number2);
-                    o.Insert(0, result.Number1);
+        //            o.Insert(0, result.Number5);
+        //            o.Insert(0, result.Number4);
+        //            o.Insert(0, result.Number3);
+        //            o.Insert(0, result.Number2);
+        //            o.Insert(0, result.Number1);
 
-                    o.AddRange(Parameters);
+        //            o.AddRange(Parameters);
 
-                    var coderesult = string.Format(CodeFormat, o.ToArray());
+        //            var coderesult = string.Format(CodeFormat, o.ToArray());
 
-                    if (!string.IsNullOrEmpty(result.CodeName1))
-                        result.Number1++;
-                    if (!string.IsNullOrEmpty(result.CodeName2))
-                        result.Number2++;
-                    if (!string.IsNullOrEmpty(result.CodeName3))
-                        result.Number3++;
-                    if (!string.IsNullOrEmpty(result.CodeName4))
-                        result.Number4++;
-                    if (!string.IsNullOrEmpty(result.CodeName5))
-                        result.Number5++;
+        //            if (!string.IsNullOrEmpty(result.CodeName1))
+        //                result.Number1++;
+        //            if (!string.IsNullOrEmpty(result.CodeName2))
+        //                result.Number2++;
+        //            if (!string.IsNullOrEmpty(result.CodeName3))
+        //                result.Number3++;
+        //            if (!string.IsNullOrEmpty(result.CodeName4))
+        //                result.Number4++;
+        //            if (!string.IsNullOrEmpty(result.CodeName5))
+        //                result.Number5++;
 
-                    repo.UnitOfWork.Commit();
+        //            repo.UnitOfWork.Commit();
 
-                    return coderesult;
-                }
+        //            return coderesult;
+        //        }
 
-                return string.Empty;
-            }
-            catch
-            {
-                return string.Empty;
-            }
-        }
+        //        return string.Empty;
+        //    }
+        //    catch
+        //    {
+        //        return string.Empty;
+        //    }
+        //}
     }
 }

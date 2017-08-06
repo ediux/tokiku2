@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Tokiku.ViewModels.EntityBaseViewModel&lt;TPOCO&gt;" Collapsed="true">
-    <Position X="16" Y="9.75" Width="1.5" />
+    <Position X="16" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAAggIAKAQAAIAEAAkAAAgAAQAEAAAgAAABEJAAEAIA=</HashCode>
       <FileName>Base\EntityBaseViewModel.cs</FileName>
@@ -9,15 +9,15 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Tokiku.ViewModels.LoginViewModel" BaseTypeListCollapsed="true">
-    <Position X="21.75" Y="9.75" Width="1.5" />
+    <Position X="21.75" Y="8.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAIAAAAAAAAEEAIAJAAAAAAAAAAAACIQAQAACAAAA=</HashCode>
-      <FileName>Users\LoginViewModel.cs</FileName>
+      <HashCode>AAAAIAAAAAAAAEEAAAJAAAAAAAAAAAACIQAQAACAAAA=</HashCode>
+      <FileName>StartUp\LoginViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Tokiku.ViewModels.UserViewModel" BaseTypeListCollapsed="true">
-    <Position X="17.25" Y="11.25" Width="1.5" />
+    <Position X="17.25" Y="10" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAAAAAAAAAggAAAQEAABCAQAAAAAAAAA=</HashCode>
       <FileName>Users\UserViewModel.cs</FileName>
@@ -27,29 +27,21 @@
   <Class Name="Tokiku.ViewModels.BaseViewModel">
     <Position X="18.25" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAQAGAgAAAAEAAAAAAAgIAAAAABAACEA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAACAgAAAAEAAAAAAAgAAAAAABAACAA=</HashCode>
       <FileName>Base\BaseViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Tokiku.ViewModels.DocumentBaseViewModel&lt;TPOCO&gt;" BaseTypeListCollapsed="true">
-    <Position X="15" Y="11.25" Width="1.5" />
+    <Position X="15" Y="10" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACIAEEAYAAAAQSAAAAAAAAAAEAAAAAAAAAAAgEAIA=</HashCode>
       <FileName>Base\DocumentBaseViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="Tokiku.ViewModels.DocumentStatusViewModel" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="24.25" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAACAAAIAAAAAEAAAAAAAAAAAAAAAgAKAAAAAAAA=</HashCode>
-      <FileName>Base\DocumentStatusViewModel.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
   <Class Name="Tokiku.ViewModels.WithLoginUserBaseViewModel" BaseTypeListCollapsed="true">
-    <Position X="19.5" Y="9.75" Width="1.5" />
+    <Position X="19.5" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Base\WithLoginUserBaseViewModel.cs</FileName>
@@ -60,7 +52,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Tokiku.ViewModels.MainViewModel" Collapsed="true">
-    <Position X="19.5" Y="12.25" Width="1.5" />
+    <Position X="19.5" Y="11" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
       <FileName>Main\MainViewModel.cs</FileName>

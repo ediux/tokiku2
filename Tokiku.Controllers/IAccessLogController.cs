@@ -1,9 +1,10 @@
 ﻿using Tokiku.Entity;
+using Tokiku.MVVM;
 
 namespace Tokiku.Controllers
 {
-    public interface IAccessLogController : IBaseController<AccessLog>
+    public interface IAccessLogController : IViewController
     {
-        IExecuteResultEntity<AccessLog> QueryLastUpdateLog(string DataId);
+        ActionResult QueryLastUpdateLog(string DataId);
     }
 }

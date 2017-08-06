@@ -8,12 +8,12 @@ using Tokiku.MVVM;
 
 namespace Tokiku.Controllers
 {
-    public class SystemDataService : IDataService
+    public class SystemDataService : DataServiceBase, IDataService
     {
-        public new static ExecuteResultEntity<Users> GetCurrentLoginUser()
-        {
-            return ExecuteResultEntity<Users>.CreateResultEntity(_CurrentLoginedUserStorage);
-        }
+        //public static ExecuteResultEntity<Users> GetCurrentLoginUser()
+        //{
+        //    return ExecuteResultEntity<Users>.CreateResultEntity(_CurrentLoginedUserStorage);
+        //}
 
         public static ExecuteResultEntity<ICollection<AccessLog>> QueryAccessLog(string DataId)
         {

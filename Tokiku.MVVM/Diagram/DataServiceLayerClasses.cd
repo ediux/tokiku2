@@ -1,10 +1,68 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Tokiku.Entity.ExecuteResultEntity" Collapsed="true">
+    <Position X="7.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAACACAAAQAGAAAAAAAAgAAAAAAIAAAgAgAAAEA=</HashCode>
+      <FileName>DataAccessLayers\Entities\ExecuteResultEntity.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tokiku.Entity.ExecuteResultEntity&lt;TEntity&gt;" Collapsed="true">
+    <Position X="7.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAACAAAAAAAAAAAAQAAAAAAAAAAAAgAAAAAAI=</HashCode>
+      <FileName>DataAccessLayers\Entities\ExecuteResultEntity.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
   <Interface Name="Tokiku.MVVM.IDataService">
-    <Position X="11" Y="1.75" Width="1.5" />
+    <Position X="7.25" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
       <FileName>DataAccessLayers\DataServices\Interfaces\IDataService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.MVVM.IDataService&lt;TModel&gt;" Collapsed="true">
+    <Position X="7.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAAAAAAAAAAAAAFAEAAAAAAAAgIgAAAAAEAgA=</HashCode>
+      <FileName>DataAccessLayers\DataServices\Interfaces\IDataService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.Entity.IExecuteResultEntity" Collapsed="true">
+    <Position X="10.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>DataAccessLayers\Entities\Interfaces\IExecuteResultEntity.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.Entity.IExecuteResultEntity&lt;T&gt;" Collapsed="true">
+    <Position X="10.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataAccessLayers\Entities\Interfaces\IExecuteResultEntity.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.Entity.IMembership" Collapsed="true">
+    <Position X="12.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ECAAAAAEACgIRAAAAAAAAEgQAACAAAJSAAABAAQgAAA=</HashCode>
+      <FileName>DataAccessLayers\Entities\Interfaces\IMembership.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.Entity.IProfile" Collapsed="true">
+    <Position X="14.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAAAgAgAAAAAAAAAAAAAIAAQAAA=</HashCode>
+      <FileName>DataAccessLayers\Entities\Interfaces\IProfile.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.Entity.IUsers" Collapsed="true">
+    <Position X="12.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAgAAAQEAABAAQAAAAAAAAA=</HashCode>
+      <FileName>DataAccessLayers\Entities\Interfaces\IUsers.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Microsoft JhengHei UI" Size="9" />

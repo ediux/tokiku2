@@ -70,7 +70,6 @@
   <ItemGroup>
     <Compile Include="Base\BaseViewModel.cs" />
     <Compile Include="Base\DocumentBaseViewModel.cs" />
-    <Compile Include="Base\DocumentStatusViewModel.cs" />
     <Compile Include="Base\Interfaces\IBaseViewModelWithLoginedUser.cs" />
     <Compile Include="Base\Interfaces\IDocumentBaseViewModel.cs" />
     <Compile Include="Base\Interfaces\IUserViewModel.cs" />
@@ -89,10 +88,6 @@
     <Compile Include="Base\WithLoginUserBaseViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Tokiku.Controllers\Tokiku.Controllers.csproj">
-      <Project>{98214455-767F-4C8E-BF90-AF0BB7135A79}</Project>
-      <Name>Tokiku.Controllers</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Tokiku.Entity\Tokiku.Entity.csproj">
       <Project>{14cc904e-4a5c-401b-a7db-ddb045abb6dd}</Project>
       <Name>Tokiku.Entity</Name>

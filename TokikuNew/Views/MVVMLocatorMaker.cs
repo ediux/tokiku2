@@ -30,7 +30,7 @@ namespace TokikuNew
 		/// <summary>
         /// 執行額外的註冊作業。
         /// </summary>
-		partial void RunOthersRegister()
+		void RunOthersRegister()
         {
         }
 

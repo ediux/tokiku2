@@ -1,48 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
-using System.Windows;
-using System.Windows.Controls;
+using Tokiku.ViewModels;
 
 namespace Tokiku.MVVM
 {
-    public abstract class ControllerBase : IControllerBase
+    public abstract class ControllerBase : IViewController
     {
-        public ControllerContext ControllerContext { get; set; }
-
-        protected virtual void Execute(RequestContext requestContext)
+        public void Execute(ControllerContext context, params object[] Paramters)
         {
-            if (requestContext == null)
+            Assembly loadableasm = Assembly.Load(context.AssemblyName);
+            var ControllerClassName = string.Format("{0}Controller", context.Controller);
+            List<Type> findctrtypes = loadableasm.GetTypes().Where(w => w.Name == ControllerClassName && w.Namespace.ToLowerInvariant().EndsWith("controllers")).ToList();
+            if (findctrtypes.Any())
             {
-                throw new ArgumentNullException("requestContext");
+                foreach (var type in findctrtypes)
+                {
+                    var findresult = type.GetMethods().Where(w => w.Name == context.Action);
+
+                    foreach (var methodinfo in findresult)
+                    {
+                        var ptypes = methodinfo.GetParameters().Select(s => s.GetType()).ToArray();
+
+                    }
+                }
             }
 
-            Initialize(requestContext);
         }
 
-        protected abstract void ExecuteCore();
-
-        protected virtual void Initialize(RequestContext requestContext)
+        protected ActionResult View<TModel>(TModel model) where TModel : IBaseViewModel
         {
-            ControllerContext = new ControllerContext(requestContext, this);
+            return null;
         }
 
-        private Control _view;
+        protected ActionResult View<TModel>(string ViewName, TModel model) where TModel : IBaseViewModel { return null; }
 
-        public Control ViewData
-        {
-            get => ControllerContext.RouteData.Values["view"] as Control;
-            set => _view = value;
-        }
+        protected ActionResult PartialView<TModel>(string ViewName, TModel model) where TModel : IBaseViewModel { return null; }
 
-        #region IController Members
-
-        void IControllerBase.Execute(RequestContext requestContext)
-        {
-            Execute(requestContext);
-        }
-
-        #endregion
+        protected ActionResult Redirect(string ViewName, string Action, params object[] RouteValues) { return null; }
     }
 }

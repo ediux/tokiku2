@@ -145,6 +145,10 @@
       <Project>{e58d7c44-2feb-44c7-94bb-2b61a14687aa}</Project>
       <Name>Tokiku.MVVM</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tokiku.ViewModels\Tokiku.ViewModels.csproj">
+      <Project>{f5811844-946b-4050-847a-7ed8b46edbf5}</Project>
+      <Name>Tokiku.ViewModels</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MES\" />
