@@ -1,31 +1,33 @@
 ﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Ioc;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Threading;
-using Tokiku.Controllers;
-using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-
-    public abstract class BaseViewModel : ViewModelBase2, IBaseViewModel
+    public class ViewModelBase2 : ViewModelBase, IBaseViewModel
     {
-        public BaseViewModel()
+        public ViewModelBase2()
         {
-          
+            _Errors = new string[] { };
+            _HasError = false;
         }
+
+        #region Error
+        private IEnumerable<string> _Errors;
+        /// <summary>
+        /// 錯誤訊息
+        /// </summary>
+        public IEnumerable<string> Errors { get => _Errors; set { _Errors = value; if (_Errors.Any()) { _HasError = true; } } }
+
+        private bool _HasError = false;
+        /// <summary>
+        /// 指出是否有發生錯誤
+        /// </summary>
+        public bool HasError { get => _HasError; set => _HasError = value; }
+        #endregion
 
         #region Helper Functions
         /// <summary>
@@ -304,5 +306,3 @@ namespace Tokiku.ViewModels
         #endregion
     }
 }
-
-

@@ -285,8 +285,15 @@ namespace <#= defaultNamespace #>
 		}		    
 
     }
-#>										
+#>			RunOthersRegister();								
 		}
+
+		/// <summary>
+        /// 執行額外的註冊作業。
+        /// </summary>
+		partial void RunOthersRegister()
+        {
+        }
 
 		private static <#= rootclassname #>Locator _Current=null;
 		

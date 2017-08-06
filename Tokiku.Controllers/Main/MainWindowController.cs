@@ -8,7 +8,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class MainWindowController : BaseController
+    public class MainWindowController : ControllerBase
     {
         //ProjectsRepository ProjectRepository;
         //ManufacturersRepository ManufacturerRepository;

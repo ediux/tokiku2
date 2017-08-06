@@ -9,7 +9,7 @@ using Tokiku.Entity.ViewTables;
 
 namespace Tokiku.Controllers
 {
-    public class RecvMaterialListController : BaseController
+    public class RecvMaterialListController : ControllerBase
     {
         private string sql;
 

@@ -89,7 +89,6 @@
     <Compile Include="AbnormalQualityController.cs" />
     <Compile Include="AbnormalQualityDetailsController.cs" />
     <Compile Include="AccessLogController.cs" />
-    <Compile Include="Base\BaseController.cs" />
     <Compile Include="Base\ControllersLocator.cs" />
     <Compile Include="Base\Interfaces\IContactPersonManageController.cs" />
     <Compile Include="Base\Interfaces\IControlTableController.cs" />
@@ -125,7 +124,7 @@
     <Compile Include="ReturnsDetailsController.cs" />
     <Compile Include="Shared\RepositoriesStorageHelper.cs" />
     <Compile Include="Shared\StartUpWindowController.cs" />
-    <Compile Include="System\SystemController.cs" />
+    <Compile Include="System\SystemDataService.cs" />
     <Compile Include="ControlTables\ShippingController.cs" />
     <Compile Include="ControlTables\ShippingMaterialListController.cs" />
     <Compile Include="ShippingDetailsController.cs" />

@@ -10,7 +10,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class StartUpWindowController : BaseController
+    public class StartUpWindowController : ControllerBase
     {
         public StartUpWindowController()
         {

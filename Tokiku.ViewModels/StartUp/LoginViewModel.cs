@@ -20,12 +20,10 @@ namespace Tokiku.ViewModels
     [ControllerMapping(typeof(StartUpWindowController))]
     public class LoginViewModel : BaseViewModel, ILoginViewModel
     {
-        IFrameNavigationService _navigationService;
+
         [PreferredConstructor]
         public LoginViewModel(IFrameNavigationService navigationService)
         {
-            _navigationService = navigationService;
-
             _LoginCommand = new RelayCommand(Login);
             _ExitCommand = new RelayCommand<Window>(Exit);
             //_controller = controller;
@@ -57,12 +55,12 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                 _navigationService.NavigateTo("mainwindow");
+                StartUpLocator.Current.NavigationService.NavigateTo("MainWindow");
                 //var reult = ExecuteAction<Users>("StartUpWindow", "Login", (ILoginViewModel)this);
 
                 //if (reult != null)
                 //{
-                  
+
                 //    //RelayCommand<ILoginViewModel> Login = (LoginCommand)RelayCommand;
                 //    //RedirectCommand Redirect = new RedirectCommand();
                 //    ////Redirect.SourceInstance = Login.SourceInstance;

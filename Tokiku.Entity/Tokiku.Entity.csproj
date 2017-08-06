@@ -97,6 +97,7 @@
     <Compile Include="AccessLogRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
+    <Compile Include="Base\DataServiceBase.cs" />
     <Compile Include="Base\RepositoryLocator.cs" />
     <Compile Include="BOM.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
@@ -199,7 +200,6 @@
     <Compile Include="InvoicesRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
-    <Compile Include="IRepositoriesService.cs" />
     <Compile Include="Manufacturers.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
@@ -546,7 +546,6 @@
     <Compile Include="EngineeringRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
-    <Compile Include="Base\ExecuteResultEntity.cs" />
     <Compile Include="IUnitOfWork.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>

@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tokiku.Entity;
+using Tokiku.MVVM;
 
 namespace Tokiku.Controllers
 {
-    public class SystemController : BaseController
+    public class SystemDataService : IDataService
     {
         public new static ExecuteResultEntity<Users> GetCurrentLoginUser()
         {

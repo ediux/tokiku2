@@ -11,6 +11,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using Tokiku.Entity;
+using Tokiku.MVVM;
 using Tokiku.ViewModels;
 
 namespace Tokiku.Controllers
@@ -18,10 +19,10 @@ namespace Tokiku.Controllers
     /// <summary>
     /// 商業邏輯層控制器基底類別。
     /// </summary>
-    public abstract class BaseController : IBaseController
+    public abstract class ControllerBase :  IViewController
     {
 
-        public BaseController()
+        public ControllerBase()
         {
         }
 
@@ -168,7 +169,7 @@ namespace Tokiku.Controllers
     /// 針對指定實體類別<typeparamref name="T"/>的商業邏輯控制器。
     /// </summary>
     /// <typeparam name="T">對應的資料表實體物件。</typeparam>
-    public abstract class BaseController<TMainRepository, T> : BaseController, IBaseController<T>
+    public abstract class BaseController<TMainRepository, T> : ControllerBase, IBaseController<T>
         where TMainRepository : IRepositoryBase<T>
         where T : class
     {
@@ -179,14 +180,7 @@ namespace Tokiku.Controllers
 
 
 
-        /// <summary>
-        /// 取得資料庫儲存庫物件。
-        /// </summary>
-        /// <returns><回傳指定資料表的儲存庫物件。</returns>
-        protected TMainRepository GetRepository()
-        {
-            return this.GetRepository<TMainRepository, T>();
-        }
+
 
         /// <summary>
         /// 建立預設的資料實體物件執行個體的方法。

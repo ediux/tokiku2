@@ -8,7 +8,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class ShippingDetailsController : BaseController
+    public class ShippingDetailsController : ControllerBase
     {
         public ExecuteResultEntity<ICollection<View_Shipping>> QueryAll()
         {

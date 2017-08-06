@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
@@ -14,9 +15,9 @@ namespace Tokiku.MVVM
     public class FrameNavigationService : IFrameNavigationService, INotifyPropertyChanged
     {
         #region Fields
-        private readonly Dictionary<string, Uri> _pagesByKey;
-        private readonly Dictionary<string, Type> _elementByKey;
-        private readonly List<string> _historic;
+        private static Dictionary<string, Uri> _pagesByKey;
+        private static Dictionary<string, Type> _elementByKey;
+        private static List<string> _historic;
         private string _currentPageKey;
         #endregion
 
@@ -51,6 +52,7 @@ namespace Tokiku.MVVM
             _elementByKey = new Dictionary<string, Type>();
             _historic = new List<string>();
         }
+
         public void GoBack()
         {
             if (_historic.Count > 1)
@@ -59,6 +61,7 @@ namespace Tokiku.MVVM
                 NavigateTo(_historic.Last(), null);
             }
         }
+
         public void NavigateTo(string pageKey)
         {
             NavigateTo(pageKey, null);
@@ -66,52 +69,7 @@ namespace Tokiku.MVVM
 
         public virtual void NavigateTo(string pageKey, object parameter)
         {
-            lock (_pagesByKey)
-            {
-                if (!_pagesByKey.ContainsKey(pageKey))
-                {
-                    throw new ArgumentException(string.Format("No such page: {0} ", pageKey), "pageKey");
-                }
-
-                var frame = GetDescendantFromName(Application.Current.MainWindow, "MainFrame") as Frame;
-
-                if (frame != null)
-                {
-                    frame.Source = _pagesByKey[pageKey];
-                }
-                else
-                {
-                    Type tIoC = typeof(SimpleIoc);
-
-                    try
-                    {
-                        var methodinfo = tIoC.GetMethods().Where(w => w.Name == "GetInstance"
-                    && w.GetParameters().Any(a => a.ParameterType == typeof(string))
-                    && w.GetGenericArguments().Count() == 1).Single().MakeGenericMethod(_elementByKey[pageKey]);
-
-                        var lastwin = Application.Current.MainWindow;
-
-                        Window win = (Window)methodinfo.Invoke(SimpleIoc.Default, new object[] { pageKey });
-                        
-                        Application.Current.MainWindow = win;
-
-                        lastwin.Close();
-                        win.Show();
-                    }
-                    catch (Exception)
-                    {
-                        throw;
-                    }
-
-
-                    
-                }
-
-
-                Parameter = parameter;
-                _historic.Add(pageKey);
-                CurrentPageKey = pageKey;
-            }
+            NavigateTo(pageKey, parameter, false);
         }
 
         public void Configure(string key, Uri pageType, Type elementtype = null)
@@ -170,6 +128,61 @@ namespace Tokiku.MVVM
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void NavigateTo(string pageKey, object parameter, bool isModal)
+        {
+            lock (_pagesByKey)
+            {
+                if (!_pagesByKey.ContainsKey(pageKey))
+                {
+                    throw new ArgumentException(string.Format("No such page: {0} ", pageKey), "pageKey");
+                }
+
+                var frame = GetDescendantFromName(Application.Current.MainWindow, "MainFrame") as Frame;
+
+                if (frame != null)
+                {
+                    frame.Source = _pagesByKey[pageKey];
+                }
+                else
+                {
+                    try
+                    {
+                        var lastwin = Application.Current.MainWindow;
+
+                        Window win = (Window)SimpleIoc.Default.GetInstance(_elementByKey[pageKey]);
+
+                        Application.Current.MainWindow = win;
+
+                        if (isModal)
+                        {
+                            win.ShowDialog();
+                        }
+                        else
+                        {
+                            lastwin.Close();
+                            win.Show();
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+
+                }
+
+                Parameter = parameter;
+                _historic.Add(pageKey);
+                CurrentPageKey = pageKey;
+            }
+        }
+
+        public void AutoConfigure()
+        {
+            Assembly currentasm = Assembly.GetExecutingAssembly();
+            _elementByKey = currentasm.GetTypes().Where(w => w.BaseType == typeof(Window) || w.BaseType == typeof(Page)).ToDictionary(x => x.Name);
+            _pagesByKey = _elementByKey.ToDictionary(x => x.Key, y => new Uri(string.Format("/{0}/{1}.xaml", y.Value.Namespace.Replace(".", "/"), y.Value.Name), UriKind.Relative));
         }
         #endregion
     }

@@ -3,7 +3,7 @@
   <Interface Name="Tokiku.MVVM.IDataService">
     <Position X="11" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAYAAAAAAAAAAQAAAAAAFAEAAAAAAAAoIgAAAAAEAgA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
       <FileName>DataAccessLayers\DataServices\Interfaces\IDataService.cs</FileName>
     </TypeIdentifier>
   </Interface>

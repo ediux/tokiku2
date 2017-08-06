@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Tokiku.Entity;
+using Tokiku.MVVM;
 
 namespace Tokiku.Controllers
 {
-    public interface IContactPersonManageController : IBaseController<Contacts>
+    public interface IContactPersonManageController : IViewController
     {
         bool IsExists(Guid ContactId);
         IExecuteResultEntity<ICollection<Contacts>> QueryAll();

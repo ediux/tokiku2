@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using Tokiku.Controllers;
+using Tokiku.MVVM;
 
 namespace TokikuNew
 {
@@ -77,6 +78,9 @@ namespace TokikuNew
                     //close
                     Shutdown();
                 }
+
+                StartUpLocator.StartUp();
+                StartUpLocator.Current.NavigationService.AutoConfigure();
             }
             catch
             {

@@ -8,7 +8,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.Controllers
 {
-    public class OrderControlTableController : BaseController
+    public class OrderControlTableController : ControllerBase
     {
         public ExecuteResultEntity<ICollection<View_OrderControlTable>> QueryAll()
         {

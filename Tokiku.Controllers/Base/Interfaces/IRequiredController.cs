@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Tokiku.Entity;
+using Tokiku.MVVM;
 
 namespace Tokiku.Controllers
 {
-    public interface IRequiredController : IBaseController<Required>
+    public interface IRequiredController : IViewController
     {
         IExecuteResultEntity<Required> CreateNew(string ProjectShortName);
         IExecuteResultEntity<ICollection<Required>> Query();
