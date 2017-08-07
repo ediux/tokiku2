@@ -15,6 +15,12 @@ namespace Tokiku.ViewModels
 			if (!ServiceLocator.IsLocationProviderSet)
                 ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
+			if (!SimpleIoc.Default.IsRegistered<ICloseableTabViewModel>())
+				SimpleIoc.Default.Register<ICloseableTabViewModel,CloseableTabViewModel>();			
+
+			if (!SimpleIoc.Default.IsRegistered<IFixedTabViewModel>())
+				SimpleIoc.Default.Register<IFixedTabViewModel,FixedTabViewModel>();			
+
 			if (!SimpleIoc.Default.IsRegistered<IMainViewModel>())
 				SimpleIoc.Default.Register<IMainViewModel,MainViewModel>();			
 
@@ -43,6 +49,20 @@ namespace Tokiku.ViewModels
             }
         }
 
+		/// <summary>
+        /// 取得IoC容器中的實作 ICloseableTabViewModel 介面的物件執行個體。
+        /// </summary>
+		public ICloseableTabViewModel CloseableTabViewModel
+		{
+			get => SimpleIoc.Default.GetInstance<ICloseableTabViewModel>();
+		}
+		/// <summary>
+        /// 取得IoC容器中的實作 IFixedTabViewModel 介面的物件執行個體。
+        /// </summary>
+		public IFixedTabViewModel FixedTabViewModel
+		{
+			get => SimpleIoc.Default.GetInstance<IFixedTabViewModel>();
+		}
 		/// <summary>
         /// 取得IoC容器中的實作 IMainViewModel 介面的物件執行個體。
         /// </summary>

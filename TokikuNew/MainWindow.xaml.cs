@@ -17,50 +17,50 @@ namespace TokikuNew
 
 
 
-        public IInputElement CommandTarget
-        {
-            get { return (IInputElement)GetValue(CommandTargetProperty); }
-            set { SetValue(CommandTargetProperty, value); }
-        }
+        //public IInputElement CommandTarget
+        //{
+        //    get { return (IInputElement)GetValue(CommandTargetProperty); }
+        //    set { SetValue(CommandTargetProperty, value); }
+        //}
 
-        // Using a DependencyProperty as the backing store for CommandTarget.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CommandTargetProperty =
-            DependencyProperty.Register("CommandTarget", typeof(IInputElement), typeof(MainWindow), new UIPropertyMetadata(null));
+        //// Using a DependencyProperty as the backing store for CommandTarget.  This enables animation, styling, binding, etc...
+        //public static readonly DependencyProperty CommandTargetProperty =
+        //    DependencyProperty.Register("CommandTarget", typeof(IInputElement), typeof(MainWindow), new UIPropertyMetadata(null));
 
 
-        /// <summary>
-        /// 當關閉分頁時觸發的事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnTabClose_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                if (e.Source is TabItem)
-                {
-                    TabItem currentworking = (TabItem)e.Source;
+        ///// <summary>
+        ///// 當關閉分頁時觸發的事件
+        ///// </summary>
+        ///// <param name="sender"></param>
+        ///// <param name="e"></param>
+        //private void btnTabClose_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (e.Source is TabItem)
+        //        {
+        //            TabItem currentworking = (TabItem)e.Source;
 
-                    if (currentworking != null)
-                    {
-                        if (currentworking.Content != null)
-                        {
-                            //Workspaces.Items.Remove(currentworking);                           
-                        }
-                    }
-                }
+        //            if (currentworking != null)
+        //            {
+        //                if (currentworking.Content != null)
+        //                {
+        //                    //Workspaces.Items.Remove(currentworking);                           
+        //                }
+        //            }
+        //        }
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+        //    }
 
-        }
+        //}
 
-        private void ExitApp_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+        //private void ExitApp_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Close();
+        //}
     }
 }

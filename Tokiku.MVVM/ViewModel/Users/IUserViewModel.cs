@@ -9,7 +9,7 @@ namespace Tokiku.ViewModels
         DateTime LastActivityDate { get; set; }
         string LoweredUserName { get; set; }
         string MobileAlias { get; set; }
-        string Password { get; }
+        string Password { get; set; }
         Guid UserId { get; set; }
         string UserName { get; set; }
     }

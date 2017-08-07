@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Ioc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -88,6 +89,34 @@ namespace Tokiku.DataServices
                 }
 
                 return false;
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(ex);
+                return null;
+            }
+        }
+
+        public IUserViewModel GetCurrentLoginedUser()
+        {
+            try
+            {
+                IUserViewModel model = SimpleIoc.Default.GetInstance<IUserViewModel>();
+
+                if (_CurrentLoginedUser != null)
+                {
+                    model.IsAnonymous = _CurrentLoginedUser.IsAnonymous;
+                    model.LastActivityDate = _CurrentLoginedUser.LastActivityDate;
+                    model.LoweredUserName = _CurrentLoginedUser.LoweredUserName;
+                    model.MobileAlias = _CurrentLoginedUser.MobileAlias;
+                
+                    model.UserName = _CurrentLoginedUser.UserName;
+                    model.UserId = _CurrentLoginedUser.UserId;
+
+                    return model;
+                }
+
+                return null;
             }
             catch (Exception ex)
             {

@@ -28,8 +28,15 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="27"/>
             </Grid.RowDefinitions>
-            <!--<Menu Grid.Row="0">
-                <MenuItem Header="主檔" Name="MI_Main" >
+            <Menu Grid.Row="0" ItemsSource="{Binding Current.MainViewModel.MainMenus ,Source={StaticResource ViewModelLocator}}">
+                <Menu.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Header}"/>
+                    </DataTemplate>
+                    
+                </Menu.ItemTemplate>
+
+                <!--<MenuItem Header="主檔" Name="MI_Main" >
                     <MenuItem Header="廠商主檔" Name="MI_Main_Vendor" vm:CommandRoutingManager.Command="{Binding Source={ StaticResource OpenNewTabItem}}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenVendorListView}" vm:CommandRoutingManager.RoutingName="VendorListView" />
                     <MenuItem Header="客戶主檔" Name="MI_Main_Client" vm:CommandRoutingManager.Command="{Binding Source={StaticResource OpenNewTabItem}}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenClientListView}" vm:CommandRoutingManager.RoutingName="ClientListView" />
                     <MenuItem Header="模具總表" Name="MI_Main_Molds" vm:CommandRoutingManager.Command="{Binding Source={StaticResource OpenNewTabItem}}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenMaterialsTotalView}" vm:CommandRoutingManager.RoutingName="MaterialsTotalView" />
@@ -38,7 +45,8 @@
                 <MenuItem Header="帳務" Name="MI_Finance" >
                     <MenuItem Header="本票管理" Name="本票管理" vm:CommandRoutingManager.Command="{Binding Source={StaticResource OpenNewTabItem}}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenPromissoryNoteManagementView}" vm:CommandRoutingManager.RoutingName="PromissoryNoteManagementUC" />
                     <MenuItem Header="合約管理" Name="合約管理" vm:CommandRoutingManager.Command="{Binding Source={StaticResource OpenNewTabItem}}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenContractManagementView}" vm:CommandRoutingManager.RoutingName="ContractManagementView" />
-                    --><!-- MenuItem Header="專案合約管理">
+                    -->
+                    <!--< MenuItem Header="專案合約管理">
                         <MenuItem Header="本約工程" Name="本約工程" Click="本約工程_Click" />
                         <MenuItem Header="追加工程" Name="追加工程" Click="追加工程_Click" />
                         <MenuItem Header="修繕工程" Name="修繕工程" Click="修繕工程_Click" />
@@ -49,24 +57,34 @@
                         <MenuItem Header="追加工程標單項目" Name="追加工程標單項目" Click="追加工程標單項目_Click" />
                         <MenuItem Header="追加工程實際成本" Name="追加工程實際成本" Click="追加工程實際成本_Click" />
                         <MenuItem Header="修繕工程實際成本" Name="修繕工程實際成本" Click="修繕工程實際成本_Click" />
-                    </MenuItem --><!--
+                    </MenuItem>
+                    
                 </MenuItem>
                 <MenuItem Header="系統管理">
                     <MenuItem Header="選項" Name="MI_SystemOption" vm:CommandRoutingManager.Command="{StaticResource openwin}" />
                     <MenuItem Header="人員管理" Name="MI_System_Members" vm:CommandRoutingManager.Command="{Binding Source={StaticResource OpenNewTabItem}}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenSystemMembersView}" vm:CommandRoutingManager.RoutingName="SystemMembersView" />
                     <MenuItem Header="角色管理" Name="MI_System_Roles" vm:CommandRoutingManager.Command="{Binding Source={StaticResource OpenNewTabItem}}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenSystemRolesView}" vm:CommandRoutingManager.RoutingName="SystemRolesView" />
                     <MenuItem Header="結束程式" Name="ExitApp" Click="ExitApp_Click"></MenuItem>
-                </MenuItem>
+                </MenuItem>-->
             </Menu>
-            <TabControl Grid.Row="1" Margin="0,0,0,0" x:Name="Workspaces" FontSize="9" >
-                <TabItem Header="專案列表" >
-                    <Views:ProjectSelectListView x:Name="ProjectSelectionPage" />
-                </TabItem>
-            </TabControl>-->
+            
+            <TabControl Grid.Row="1" Margin="0,0,0,0" x:Name="Workspaces" FontSize="9" TabStripPlacement="Top"
+                        ItemsSource="{Binding Current.MainViewModel.FeaturesTabs ,Source={StaticResource ViewModelLocator}}">
+                <TabControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Header}"/>
+                    </DataTemplate>
+                </TabControl.ItemTemplate>
+                <TabControl.ContentTemplate>
+                    <DataTemplate>
+                        <ContentPresenter Content="{Binding ContentView}"/>
+                    </DataTemplate>
+                </TabControl.ContentTemplate>
+            </TabControl>
             <StatusBar Margin="0" Grid.Row="3">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="1" FontFamily="Segoe MDL2 Assets" Text="&#xe187;" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                    <TextBlock Margin="1,0" Name="userNameDisplay" Text="{Binding LoginedUser.UserName}"/>
+                    <TextBlock Margin="1,0" Name="userNameDisplay" Text="{Binding Current.MainViewModel.LoginedUser.UserName ,Source={StaticResource ViewModelLocator}}"/>
                 </StackPanel>
             </StatusBar>
         </Grid>

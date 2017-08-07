@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Tokiku.ViewModels.EntityBaseViewModel&lt;TPOCO&gt;" Collapsed="true">
-    <Position X="16" Y="8.5" Width="1.5" />
+    <Position X="2" Y="11.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAAggIAKAQAAIAEAAkAAAgAAQAEAAAgAAABEJAAEAIA=</HashCode>
       <FileName>Base\EntityBaseViewModel.cs</FileName>
@@ -9,14 +9,15 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Tokiku.ViewModels.LoginViewModel" BaseTypeListCollapsed="true">
-    <Position X="21.75" Y="8.5" Width="1.5" />
+    <Position X="7.75" Y="11.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAoAAAAAAAAEEAAAJAAAAAAIAAAAACIQAQAACAAAA=</HashCode>
       <FileName>StartUp\LoginViewModel.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Tokiku.ViewModels.UserViewModel" BaseTypeListCollapsed="true">
-    <Position X="17.25" Y="10" Width="1.5" />
+    <Position X="3.25" Y="13" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAAAAAAAAAggAAAQEAABCAQAAAAAAAAA=</HashCode>
       <FileName>Users\UserViewModel.cs</FileName>
@@ -24,15 +25,15 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Tokiku.ViewModels.BaseViewModel">
-    <Position X="18.25" Y="5.5" Width="1.5" />
+    <Position X="4.25" Y="9.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAgAAAAAABAACAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Base\BaseViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Tokiku.ViewModels.DocumentBaseViewModel&lt;TPOCO&gt;" BaseTypeListCollapsed="true">
-    <Position X="15" Y="10" Width="1.5" />
+    <Position X="1" Y="13" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACIAEEAYAAAAQSAAAAAAAAAAEAAAAAAAAAAAgEAIA=</HashCode>
       <FileName>Base\DocumentBaseViewModel.cs</FileName>
@@ -40,9 +41,9 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Tokiku.ViewModels.WithLoginUserBaseViewModel" BaseTypeListCollapsed="true">
-    <Position X="19.5" Y="8.5" Width="1.5" />
+    <Position X="5.5" Y="11.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAEAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Base\WithLoginUserBaseViewModel.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -50,53 +51,113 @@
     </ShowAsAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="Tokiku.ViewModels.MainViewModel" Collapsed="true">
-    <Position X="19.5" Y="11" Width="1.5" />
+  <Class Name="Tokiku.ViewModels.MainViewModel">
+    <Position X="5.5" Y="14" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAgAAAAAAAAAAACAAAAAQAAAAIAAAAAAAAAAAAAA=</HashCode>
       <FileName>Main\MainViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Interface Name="Tokiku.ViewModels.IBaseViewModelWithLoginedUser" Collapsed="true">
-    <Position X="9" Y="2.5" Width="1.5" />
+  <Class Name="Tokiku.ViewModels.FixedTabViewModel">
+    <Position X="10.75" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>FixedTabViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tokiku.ViewModels.TabViewModelBase">
+    <Position X="12" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAJAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAACAAAAAA=</HashCode>
+      <FileName>TabViewModelBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tokiku.ViewModels.CloseableTabViewModel">
+    <Position X="13" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAIAAAAAAAAAAAAAAAAAAAAAAACAAACAAAIA=</HashCode>
+      <FileName>CloseableTabViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tokiku.ViewModels.MenuItemViewModel">
+    <Position X="11.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAJAAAAQAAAAACAQAAAAAAAAAAAAAEAAAAAACAAAAAA=</HashCode>
+      <FileName>MenuItemViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Tokiku.ViewModels.IBaseViewModelWithLoginedUser">
+    <Position X="5.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Base\Interfaces\IBaseViewModelWithLoginedUser.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Tokiku.ViewModels.IDocumentBaseViewModel&lt;T&gt;">
-    <Position X="11.25" Y="4" Width="2.25" />
+    <Position X="8" Y="4" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAACAAEEAYAAAAAQAAAAAAAAAAEAAAAAAAAAAAgAAAA=</HashCode>
       <FileName>Base\Interfaces\IDocumentBaseViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Tokiku.ViewModels.IBaseViewModel">
-    <Position X="11.5" Y="0.5" Width="1.5" />
+    <Position X="7.25" Y="0.5" Width="1.5" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="Tokiku.ViewModels.IFormBaseViewModel&lt;TMasterPOCO, TDetailPOCO&gt;">
-    <Position X="11.5" Y="7.5" Width="1.5" />
+    <Position X="8.5" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Base\Interfaces\IFormBaseViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Tokiku.ViewModels.IEntityBaseViewModel&lt;T&gt;" Collapsed="true">
-    <Position X="12.75" Y="2.5" Width="1.5" />
+    <Position X="8.5" Y="2.5" Width="1.5" />
     <TypeIdentifier />
   </Interface>
-  <Interface Name="Tokiku.ViewModels.IMainViewModel" Collapsed="true">
-    <Position X="9" Y="4" Width="1.5" />
+  <Interface Name="Tokiku.ViewModels.IMainViewModel">
+    <Position X="5.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IMainViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Tokiku.ViewModels.IUserViewModel" Collapsed="true">
-    <Position X="14.25" Y="4" Width="1.5" />
+    <Position X="13.25" Y="2.5" Width="1.5" />
     <TypeIdentifier />
+  </Interface>
+  <Interface Name="Tokiku.ViewModels.IFixedTabViewModel">
+    <Position X="3.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IFixedTabViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.ViewModels.ITabViewModel">
+    <Position X="2.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>ITabViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.ViewModels.ICloseableTabViewModel">
+    <Position X="1.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>ICloseableTabViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.ViewModels.IMenuItemViewModel">
+    <Position X="11" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAIAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>IMenuItemViewModel.cs</FileName>
+    </TypeIdentifier>
   </Interface>
   <Font Name="Microsoft JhengHei UI" Size="9" />
 </ClassDiagram>

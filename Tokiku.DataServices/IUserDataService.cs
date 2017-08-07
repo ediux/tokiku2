@@ -15,7 +15,16 @@ namespace Tokiku.DataServices
         /// <param name="model"></param>
         /// <returns></returns>
         bool? Login(ILoginViewModel model);
+        /// <summary>
+        /// 登出系統
+        /// </summary>
+        /// <returns></returns>
         bool? Logout();
-        
+
+        /// <summary>
+        /// 取得目前登入的使用者。
+        /// </summary>
+        /// <returns></returns>
+        IUserViewModel GetCurrentLoginedUser();
     }
 }

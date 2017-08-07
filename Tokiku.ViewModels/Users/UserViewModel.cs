@@ -57,12 +57,13 @@ namespace Tokiku.ViewModels
         public DateTime LastActivityDate
         {
             get { return CopyofPOCOInstance.LastActivityDate; }
-            set { CopyofPOCOInstance.LastActivityDate = value; RaisePropertyChanged(""); }
+            set { CopyofPOCOInstance.LastActivityDate = value; RaisePropertyChanged("LastActivityDate"); }
         }
 
         public string Password
         {
             get { return CopyofPOCOInstance.Membership.Password; }
+            set { CopyofPOCOInstance.Membership.Password = value; RaisePropertyChanged("Password"); }
         }
 
 

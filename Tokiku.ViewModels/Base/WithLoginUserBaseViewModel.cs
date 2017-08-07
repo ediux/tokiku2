@@ -1,4 +1,6 @@
-﻿using Tokiku.Entity;
+﻿using GalaSoft.MvvmLight.Ioc;
+using Tokiku.DataServices;
+using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
@@ -7,12 +9,14 @@ namespace Tokiku.ViewModels
     /// </summary>
     public abstract class WithLoginUserBaseViewModel : BaseViewModel, IBaseViewModelWithLoginedUser
     {
-        public WithLoginUserBaseViewModel() : base()
-        {
+        protected IUserDataService _UserDataService;
 
+        public WithLoginUserBaseViewModel(IUserDataService UserDataService) : base()
+        {
+            _UserDataService = UserDataService;
         }
 
-        private UserViewModel _LoginedUser;
+        private IUserViewModel _LoginedUser;
 
         /// <summary>
         /// 取得目前登入的使用者
@@ -23,8 +27,7 @@ namespace Tokiku.ViewModels
             {
                 if (_LoginedUser == null)
                 {
-                    var loginedUserEntity = ExecuteAction<Users>("System", "GetCurrentLoginUser");
-                    _LoginedUser = new UserViewModel(loginedUserEntity);
+                    _LoginedUser = _UserDataService.GetCurrentLoginedUser();
                 }
 
                 return _LoginedUser;
@@ -34,9 +37,11 @@ namespace Tokiku.ViewModels
                 if (_LoginedUser != value)
                 {
                     //重新登入
-                    var loginedUserEntity = ExecuteAction<Users>("System", "Relogin", _LoginedUser, value);
-                    _LoginedUser = new UserViewModel(loginedUserEntity);
-                    RaisePropertyChanged("LoginedUser");
+                    _UserDataService.Logout();
+                    ILoginViewModel model = SimpleIoc.Default.GetInstance<ILoginViewModel>();
+                    model.UserName = value.UserName;
+                    model.Password = value.Password;
+                    _UserDataService.Login(model);
                 }
             }
         }
