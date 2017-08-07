@@ -24,15 +24,10 @@ namespace TokikuNew
 			
 			if (!SimpleIoc.Default.IsRegistered<MainWindow>())
 				SimpleIoc.Default.Register<MainWindow>();
-			RunOthersRegister();								
+										
+            if (_Current == null)
+                _Current = this;
 		}
-
-		/// <summary>
-        /// 執行額外的註冊作業。
-        /// </summary>
-		void RunOthersRegister()
-        {
-        }
 
 		private static ViewsLocator _Current=null;
 		

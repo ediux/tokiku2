@@ -286,6 +286,8 @@ namespace <#= defaultNamespace #>
 
     }
 #>										
+            if (_Current == null)
+                _Current = this;
 		}
 
 		private static <#= rootclassname #>Locator _Current=null;

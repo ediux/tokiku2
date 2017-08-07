@@ -800,7 +800,9 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DataService\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tokiku.MVVM\Tokiku.MVVM.csproj">
       <Project>{e58d7c44-2feb-44c7-94bb-2b61a14687aa}</Project>

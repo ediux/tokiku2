@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using Tokiku.DataServices;
+using Tokiku.Controllers;
 using Tokiku.Entity;
 using Tokiku.MVVM;
 
@@ -17,16 +17,14 @@ namespace Tokiku.ViewModels
     /// <summary>
     /// 登入畫面檢視模型
     /// </summary>
+    [ControllerMapping(typeof(StartUpWindowController))]
     public class LoginViewModel : BaseViewModel, ILoginViewModel
     {
-        private IFrameNavigationService _naviService;
-        private IUserDataService _SystemService;
-
+        IFrameNavigationService _navigationService;
         [PreferredConstructor]
-        public LoginViewModel(IFrameNavigationService navigationService, IUserDataService systemService)
+        public LoginViewModel(IFrameNavigationService navigationService)
         {
-            _naviService = navigationService;
-            _SystemService = systemService;
+            _navigationService = navigationService;
 
             _LoginCommand = new RelayCommand(Login);
             _ExitCommand = new RelayCommand<Window>(Exit);
@@ -59,25 +57,12 @@ namespace Tokiku.ViewModels
         {
             try
             {
-
-
-                if (_SystemService != null)
-                {
-                    var loginresult = _SystemService.Login(this);
-
-                    if (loginresult.HasValue && loginresult.Value)
-                    {
-                        _naviService?.NavigateTo("MainWindow");
-                        return;
-                    }
-                }
-
-                MessageBox.Show("登入失敗!");
+                 _navigationService.NavigateTo("mainwindow");
                 //var reult = ExecuteAction<Users>("StartUpWindow", "Login", (ILoginViewModel)this);
 
                 //if (reult != null)
                 //{
-
+                  
                 //    //RelayCommand<ILoginViewModel> Login = (LoginCommand)RelayCommand;
                 //    //RedirectCommand Redirect = new RedirectCommand();
                 //    ////Redirect.SourceInstance = Login.SourceInstance;

@@ -3,7 +3,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public interface IUserViewModel : IEntityBaseViewModel<Users>
+    public interface IUserViewModel : IBaseViewModel
     {
         bool IsAnonymous { get; set; }
         DateTime LastActivityDate { get; set; }

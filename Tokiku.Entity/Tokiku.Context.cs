@@ -17,6 +17,7 @@ namespace Tokiku.Entity
     
     public partial class TokikuEntities : DbContext
     {
+        [GalaSoft.MvvmLight.Ioc.PreferredConstructor]
         public TokikuEntities()
             : base("name=TokikuEntities")
         {

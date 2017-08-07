@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -72,7 +72,6 @@
     <Compile Include="Base\DocumentBaseViewModel.cs" />
     <Compile Include="Base\Interfaces\IBaseViewModelWithLoginedUser.cs" />
     <Compile Include="Base\Interfaces\IDocumentBaseViewModel.cs" />
-    <Compile Include="Base\Interfaces\IUserViewModel.cs" />
     <Compile Include="Base\EntityBaseViewModel.cs" />
     <Compile Include="Base\Interfaces\IFormBaseViewModel.cs" />
     <Compile Include="Interfaces\IMainViewModel.cs" />
@@ -88,6 +87,10 @@
     <Compile Include="Base\WithLoginUserBaseViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Tokiku.DataServices\Tokiku.DataServices.csproj">
+      <Project>{D104BE69-4212-4D05-9D20-D241C8053402}</Project>
+      <Name>Tokiku.DataServices</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tokiku.Entity\Tokiku.Entity.csproj">
       <Project>{14cc904e-4a5c-401b-a7db-ddb045abb6dd}</Project>
       <Name>Tokiku.Entity</Name>

@@ -24,6 +24,8 @@ namespace Tokiku.ViewModels
 			if (!SimpleIoc.Default.IsRegistered<IUserViewModel>())
 				SimpleIoc.Default.Register<IUserViewModel,UserViewModel>();			
 										
+            if (_Current == null)
+                _Current = this;
 		}
 
 		private static ViewModelLocator _Current=null;

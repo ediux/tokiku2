@@ -17,6 +17,9 @@ namespace Tokiku.MVVM
 
             if (!SimpleIoc.Default.IsRegistered<IFrameNavigationService>())
                 SimpleIoc.Default.Register<IFrameNavigationService, FrameNavigationService>();
+
+            if (_Current == null)
+                _Current = new StartUpLocator();
         }
 
         private static StartUpLocator _Current = null;

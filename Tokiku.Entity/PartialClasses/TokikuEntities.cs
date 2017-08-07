@@ -48,6 +48,117 @@ namespace Tokiku.Entity
                 database.TicketTypes.Add(new TicketTypes() { Id = 4, Name = "新開立保固票", IsPromissoryNote = false });
                 database.SaveChanges();
             }
+
+            if (!database.Users.Any(a => a.LoweredUserName == "root"))
+            {
+                Users Root = new Users();
+                Root.UserId = Guid.NewGuid();
+                Root.UserName = "Root";
+                Root.LoweredUserName = "root";
+                Root.IsAnonymous = false;
+                Root.MobileAlias = "Root";
+                Root.Membership = new Membership();
+                Root.Membership.UserId = Root.UserId;
+                Root.Membership.CreateDate = DateTime.Now;
+                Root.Membership.Email = "root@local.host";
+                Root.Membership.IsApproved = true;
+                Root.Membership.IsLockedOut = false;
+                Root.Membership.LoweredEmail = Root.Membership.Email;
+                Root.Membership.Password = "1234";
+                Root.Membership.PasswordFormat = 0;
+
+                database.Users.Add(Root);
+            }
+
+            if (!database.Users.Any(a => a.LoweredUserName == "guest"))
+            {
+                Users guestuser = new Users();
+                guestuser.UserId = Guid.NewGuid();
+                guestuser.UserName = "Guest";
+                guestuser.LoweredUserName = "guest";
+                guestuser.IsAnonymous = false;
+                guestuser.MobileAlias = "訪客";
+                guestuser.Membership = new Membership();
+                guestuser.Membership.UserId = guestuser.UserId;
+                guestuser.Membership.CreateDate = DateTime.Now;
+                guestuser.Membership.Email = "anonymous@local.host";
+                guestuser.Membership.IsApproved = true;
+                guestuser.Membership.IsLockedOut = false;
+                guestuser.Membership.LoweredEmail = guestuser.Membership.Email;
+                guestuser.Membership.Password = "1234";
+                guestuser.Membership.PasswordFormat = 0;
+
+                database.Users.Add(guestuser);
+            }
+
+            if (!database.Roles.Any(a => a.LoweredRoleName == "Roots"))
+            {
+                Roles AdminsRole = new Roles();
+                AdminsRole.Description = "超級管理員";
+                AdminsRole.LoweredRoleName = "roots";
+                AdminsRole.RoleId = Guid.NewGuid();
+                AdminsRole.RoleName = "Roots";
+
+                database.Roles.Add(AdminsRole);
+
+                if (database.Users.Any(a => a.LoweredUserName == "root"))
+                {
+                    Users Root = database.Users.Single(a=>a.LoweredUserName == "root");
+                   
+                    AdminsRole.Users.Add(Root);
+                }
+
+                database.SaveChanges();
+
+            }
+
+            if (!database.Roles.Any(a => a.LoweredRoleName == "admins"))
+            {
+                Roles AdminsRole = new Roles();
+                AdminsRole.Description = "系統管理員";
+                AdminsRole.LoweredRoleName = "admins";
+                AdminsRole.RoleId = Guid.NewGuid();
+                AdminsRole.RoleName = "Admins";
+
+                database.Roles.Add(AdminsRole);
+                database.SaveChanges();
+
+            }
+
+            if (!database.Roles.Any(a => a.LoweredRoleName == "users"))
+            {
+                Roles UsersRole = new Roles();
+                UsersRole.Description = "一般使用者";
+                UsersRole.LoweredRoleName = "users";
+                UsersRole.RoleId = Guid.NewGuid();
+                UsersRole.RoleName = "Users";
+
+                database.Roles.Add(UsersRole);
+                database.SaveChanges();
+
+            }
+
+            if (!database.Roles.Any(a => a.LoweredRoleName == "guests"))
+            {
+                Roles GuestRole = new Roles();
+                GuestRole.Description = "訪客";
+                GuestRole.LoweredRoleName = "guests";
+                GuestRole.RoleId = Guid.NewGuid();
+                GuestRole.RoleName = "Guests";
+
+                database.Roles.Add(GuestRole);
+
+                if (database.Users.Any(a => a.LoweredUserName == "guest"))
+                {
+                    Users GuestUser = database.Users.Single(a => a.LoweredUserName == "guest");
+
+                    GuestRole.Users.Add(GuestUser);
+                }
+
+                database.SaveChanges();
+
+            }
+
         }
     }
 }

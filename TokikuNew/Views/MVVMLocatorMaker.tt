@@ -285,15 +285,10 @@ namespace <#= defaultNamespace #>
 		}		    
 
     }
-#>			RunOthersRegister();								
+#>										
+            if (_Current == null)
+                _Current = this;
 		}
-
-		/// <summary>
-        /// 執行額外的註冊作業。
-        /// </summary>
-		void RunOthersRegister()
-        {
-        }
 
 		private static <#= rootclassname #>Locator _Current=null;
 		

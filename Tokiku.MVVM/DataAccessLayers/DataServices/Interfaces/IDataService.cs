@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using Tokiku.ViewModels;
 
 namespace Tokiku.MVVM
 {
@@ -22,7 +23,7 @@ namespace Tokiku.MVVM
         bool HasError { get; set; }        
     }
 
-    public interface IDataService<TModel> : IDataService where TModel : ViewModelBase
+    public interface IDataService<TModel> : IDataService where TModel : ViewModelBase, IBaseViewModel
     {
         /// <summary>
         /// 將單一檢視模型中資料新增到資料庫的方法。

@@ -15,9 +15,6 @@ namespace Tokiku.Entity
 		{
 			if (!ServiceLocator.IsLocationProviderSet)
                 ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-			
-			if (!SimpleIoc.Default.IsRegistered<ExecuteResultEntity>())
-				SimpleIoc.Default.Register<ExecuteResultEntity>();
 
 			if (!SimpleIoc.Default.IsRegistered<IAbnormalQualityDetailsRepository>())
 				SimpleIoc.Default.Register<IAbnormalQualityDetailsRepository,AbnormalQualityDetailsRepository>(true);
@@ -688,6 +685,8 @@ namespace Tokiku.Entity
 			if (!SimpleIoc.Default.IsRegistered<SystemRolesEntity>())
 				SimpleIoc.Default.Register<SystemRolesEntity>();
 										
+            if (_Current == null)
+                _Current = this;
 		}
 
 		private static EntityLocator _Current=null;
@@ -705,13 +704,6 @@ namespace Tokiku.Entity
             }
         }
 
-		/// <summary>
-        /// 取得IoC容器中的 ExecuteResultEntity 物件執行個體。
-        /// </summary>
-		public ExecuteResultEntity ExecuteResultEntity
-		{
-			get => SimpleIoc.Default.GetInstance<ExecuteResultEntity>();
-		}
 		/// <summary>
         /// 取得IoC容器中的實作 IAbnormalQualityDetailsRepository 介面的物件執行個體。
         /// </summary>

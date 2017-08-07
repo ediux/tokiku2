@@ -1,12 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application xmlns:local="clr-namespace:TokikuNew" StartupUri="Frame/StartUpWindow.xaml" xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" x:Class="TokikuNew.App" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Startup="Application_Startup" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" d1p1:Ignorable="d" xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             >
+             xmlns:mvvm="clr-namespace:Tokiku.MVVM;assembly=Tokiku.MVVM"
+             xmlns:dataservices="clr-namespace:Tokiku.DataServices;assembly=Tokiku.DataServices"
+             xmlns:entity="clr-namespace:Tokiku.Entity;assembly=Tokiku.Entity">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
-                    <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
+                    <mvvm:StartUpLocator x:Key="StartUpLocator" d:IsDataSource="True" x:Name="StartUpLocator"/>
+                    <entity:EntityLocator x:Key="EntityLocator" d:IsDataSource="True" />
+                    <dataservices:DefaultLocator x:Key="DataServiceLocator" d:IsDataSource="True" />
+                    <vm:ViewModelLocator x:Key="ViewModelLocator" d:IsDataSource="True" />
                 </ResourceDictionary>
                 <ResourceDictionary Source="Resources\Global.xaml">
                 </ResourceDictionary>

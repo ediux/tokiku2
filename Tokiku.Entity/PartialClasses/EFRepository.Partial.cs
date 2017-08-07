@@ -11,7 +11,7 @@ namespace Tokiku.Entity
     {
         public EFRepository()
         {
-            UnitOfWork = SimpleIoc.Default.GetInstance<IUnitOfWork>();
+            UnitOfWork = EntityLocator.Current.EFUnitOfWork;
         }
     }
 }

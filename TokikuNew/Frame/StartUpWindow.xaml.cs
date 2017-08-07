@@ -6,7 +6,6 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
-using Tokiku.Controllers;
 using Tokiku.ViewModels;
 using TokikuNew.Helpers;
 

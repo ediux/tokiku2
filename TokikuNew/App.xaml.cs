@@ -8,7 +8,6 @@ using System.Security.AccessControl;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using Tokiku.Controllers;
 using Tokiku.MVVM;
 
 namespace TokikuNew
@@ -21,6 +20,10 @@ namespace TokikuNew
         static string appGuid = "{25f64493-215e-44aa-a3f3-cf3aed6bb7a0}";
         private static Mutex m;
 
+        public App()
+        {
+            StartUpLocator.StartUp();
+        }
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             try

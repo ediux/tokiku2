@@ -11,10 +11,9 @@
   <Class Name="Tokiku.ViewModels.LoginViewModel" BaseTypeListCollapsed="true">
     <Position X="21.75" Y="8.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAIAAAAAAAAEEAAAJAAAAAAAAAAAACIQAQAACAAAA=</HashCode>
+      <HashCode>AAAAoAAAAAAAAEEAAAJAAAAAAIAAAAACIQAQAACAAAA=</HashCode>
       <FileName>StartUp\LoginViewModel.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Tokiku.ViewModels.UserViewModel" BaseTypeListCollapsed="true">
     <Position X="17.25" Y="10" Width="1.5" />
@@ -27,7 +26,7 @@
   <Class Name="Tokiku.ViewModels.BaseViewModel">
     <Position X="18.25" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAACAgAAAAEAAAAAAAgAAAAAABAACAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAgAAAAAABAACAA=</HashCode>
       <FileName>Base\BaseViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -59,13 +58,6 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Interface Name="Tokiku.ViewModels.IUserViewModel" Collapsed="true">
-    <Position X="14.25" Y="4" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAgAAAAAAAAAAAAgAAAQEAABCAQAAAAAAAAA=</HashCode>
-      <FileName>Base\Interfaces\IUserViewModel.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
   <Interface Name="Tokiku.ViewModels.IBaseViewModelWithLoginedUser" Collapsed="true">
     <Position X="9" Y="2.5" Width="1.5" />
     <TypeIdentifier>
@@ -101,6 +93,10 @@
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IMainViewModel.cs</FileName>
     </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.ViewModels.IUserViewModel" Collapsed="true">
+    <Position X="14.25" Y="4" Width="1.5" />
+    <TypeIdentifier />
   </Interface>
   <Font Name="Microsoft JhengHei UI" Size="9" />
 </ClassDiagram>
