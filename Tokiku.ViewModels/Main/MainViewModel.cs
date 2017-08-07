@@ -16,9 +16,17 @@ namespace Tokiku.ViewModels
         {
             _FeaturesTabs = new ObservableCollection<ITabViewModel>();
             _FeaturesTabs.Add(new FixedTabViewModel() { Header = "專案列表" });
-            _MainMenus = new ObservableCollection<IMenuItemViewModel>();
-            _MainMenus.Add(new MenuItemViewModel() { Header = "主檔 " });
 
+            _MainMenus = new ObservableCollection<IMenuItemViewModel>();
+            var menuroot1 = new MenuItemViewModel() { Header = "主檔 " };
+
+            menuroot1.SubMenus.Add(new MenuItemViewModel() { Header = "廠商列表" });
+            menuroot1.SubMenus.Add(new MenuItemViewModel() { Header = "客戶列表" });
+            menuroot1.SubMenus.Add(new MenuItemViewModel() { Header = "模具總表" });
+
+            _MainMenus.Add(menuroot1);
+            _MainMenus.Add(new MenuItemViewModel() { Header = "報表" });
+            _MainMenus.Add(new MenuItemViewModel() { Header = "財務" });
         }
         private ObservableCollection<ITabViewModel> _FeaturesTabs;
         /// <summary>

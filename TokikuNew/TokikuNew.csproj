@@ -142,6 +142,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helpers\Behaviors\OnWindowCloseBehavior.cs" />
+    <Compile Include="Helpers\Behaviors\PasswordChangedBehavior.cs" />
+    <Compile Include="Helpers\Behaviors\TabOnEnterBehavior_PasswordBox.cs" />
+    <Compile Include="Helpers\Behaviors\TabOnEnterBehavior_TextBox.cs" />
     <Compile Include="Helpers\ClipboardHelper.cs" />
     <Compile Include="Helpers\SwitchFieldMode.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />

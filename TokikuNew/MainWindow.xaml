@@ -14,10 +14,10 @@
         <helpers:OnWindowCloseBehavior />
     </i:Interaction.Behaviors>
     <Window.Resources>
-        
+
         <!--<vm:RedirectCommand x:Key="redirect" RoutingName="MainWindow" />
         <vm:OpenWindowCommand x:Key="openwin"  />-->
-       
+
     </Window.Resources>
     <Viewbox Stretch="Fill"
              Margin="0" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" >
@@ -30,10 +30,27 @@
             <Menu Grid.Row="0" ItemsSource="{Binding Current.MainViewModel.MainMenus ,Source={StaticResource ViewModelLocator}}">
                 <Menu.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Header}"/>
+                        <MenuItem>
+                            <ControlTemplate TargetType="{x:Type MenuItem}">
+                                <Grid Background="{TemplateBinding Background}">
+                                    <MenuItem Header="{TemplateBinding Header}" />
+                                </Grid>
+                            </ControlTemplate>
+                        </MenuItem>
                     </DataTemplate>
-                    
                 </Menu.ItemTemplate>
+
+                <!--<Menu.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <MenuItem Header="{Binding Header}" ItemsSource="{Binding SubMenus}">
+                            <MenuItem.ItemTemplate>
+                                <ItemContainerTemplate>
+                                    <MenuItem Header="{Binding Header}" ItemsSource="{Binding SubMenus}"/>
+                                </ItemContainerTemplate>
+                            </MenuItem.ItemTemplate>
+                        </MenuItem>    
+                    </ItemsPanelTemplate>
+                </Menu.ItemsPanel>-->
 
                 <!--<MenuItem Header="主檔" Name="MI_Main" >
                     <MenuItem Header="廠商主檔" Name="MI_Main_Vendor" vm:CommandRoutingManager.Command="{Binding Source={ StaticResource OpenNewTabItem}}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenVendorListView}" vm:CommandRoutingManager.RoutingName="VendorListView" />
@@ -45,7 +62,7 @@
                     <MenuItem Header="本票管理" Name="本票管理" vm:CommandRoutingManager.Command="{Binding Source={StaticResource OpenNewTabItem}}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenPromissoryNoteManagementView}" vm:CommandRoutingManager.RoutingName="PromissoryNoteManagementUC" />
                     <MenuItem Header="合約管理" Name="合約管理" vm:CommandRoutingManager.Command="{Binding Source={StaticResource OpenNewTabItem}}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenContractManagementView}" vm:CommandRoutingManager.RoutingName="ContractManagementView" />
                     -->
-                    <!--< MenuItem Header="專案合約管理">
+                <!--< MenuItem Header="專案合約管理">
                         <MenuItem Header="本約工程" Name="本約工程" Click="本約工程_Click" />
                         <MenuItem Header="追加工程" Name="追加工程" Click="追加工程_Click" />
                         <MenuItem Header="修繕工程" Name="修繕工程" Click="修繕工程_Click" />
@@ -66,7 +83,7 @@
                     <MenuItem Header="結束程式" Name="ExitApp" Click="ExitApp_Click"></MenuItem>
                 </MenuItem>-->
             </Menu>
-            
+
             <TabControl Grid.Row="1" Margin="0,0,0,0" x:Name="Workspaces" FontSize="9" TabStripPlacement="Top"
                         ItemsSource="{Binding Current.MainViewModel.FeaturesTabs ,Source={StaticResource ViewModelLocator}}">
                 <TabControl.ItemTemplate>
