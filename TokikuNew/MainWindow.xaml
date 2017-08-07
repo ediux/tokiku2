@@ -9,8 +9,7 @@
         xmlns:helpers="clr-namespace:TokikuNew.Helpers"
         mc:Ignorable="d"        
         Title="東菊金屬 ERP System" Height="768" Width="1366" WindowState="Maximized" Icon="{DynamicResource Logo}"
-         Background="{DynamicResource WindowBackgroundBrush}" 
-        >
+         Background="{DynamicResource WindowBackgroundBrush}">
     <i:Interaction.Behaviors>
         <helpers:OnWindowCloseBehavior />
     </i:Interaction.Behaviors>
