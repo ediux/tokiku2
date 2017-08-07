@@ -36,29 +36,31 @@ namespace Tokiku.DataServices
                 {
                     _CurrentLoginedUser = checkAccountExist.Single();
 
-                    if (_CurrentLoginedUser.Membership.Comment.Length > 0
+#if CheckIsLogin
+                    if (!string.IsNullOrEmpty(_CurrentLoginedUser.Membership.Comment)
                         && _CurrentLoginedUser.Membership.Comment == "LoginLocker")
                     {
-                        _AccessLogService.AddAccessLog("Users", _CurrentLoginedUser.UserId.ToString(), _CurrentLoginedUser, "Login Fail", ActionCodes.SystemLogin);
+                        _AccessLogService.AddAccessLog("Users", _CurrentLoginedUser.UserId.ToString(), _CurrentLoginedUser.UserId, "Logined on other computer.", ActionCodes.SystemLogin);
 
                         throw new Exception("此帳號已在其他電腦上登入!");
                     }
-
+                    _CurrentLoginedUser.Membership.Comment = "LoginLocker";
+#endif
                     _CurrentLoginedUser.Membership.Comment = "LoginLocker";
                     _CurrentLoginedUser.LastActivityDate = DateTime.Now;
                     _CurrentLoginedUser.Membership.LastLoginDate = DateTime.Now;
 
                     _UsersRepo.UnitOfWork.Commit();
 
-                    _AccessLogService.AddAccessLog("Users", _CurrentLoginedUser.UserId.ToString(), _CurrentLoginedUser, "Login Success", ActionCodes.SystemLogin);
-                    _AccessLogService.AddAccessLog("Membership", _CurrentLoginedUser.Membership.UserId.ToString(), _CurrentLoginedUser, "Login Success", ActionCodes.SystemLogin);
+                    _AccessLogService.AddAccessLog("Users", _CurrentLoginedUser.UserId.ToString(), _CurrentLoginedUser.UserId, "Login Success", ActionCodes.SystemLogin);
+                    _AccessLogService.AddAccessLog("Membership", _CurrentLoginedUser.Membership.UserId.ToString(), _CurrentLoginedUser.UserId, "Login Success", ActionCodes.SystemLogin);
 
                     _CurrentLoginedUser = _UsersRepo.Reload(_CurrentLoginedUser);
 
                     return true;
                 }
 
-                _AccessLogService.AddAccessLog("Users", Guid.Empty.ToString(), null, "Login Fail", ActionCodes.SystemLogin);
+                _AccessLogService.AddAccessLog("Users", Guid.Empty.ToString(), Guid.Empty, "Login Fail", ActionCodes.SystemLogin);
 
                 return false;
             }
@@ -76,10 +78,11 @@ namespace Tokiku.DataServices
                 if (_CurrentLoginedUser != null)
                 {
                     _CurrentLoginedUser.LastActivityDate = DateTime.Now;
+                    _CurrentLoginedUser.Membership.Comment = "";
 
                     _UsersRepo.UnitOfWork.Commit();
 
-                    _AccessLogService.AddAccessLog("Users", _CurrentLoginedUser.UserId.ToString(), _CurrentLoginedUser, "Logout System", ActionCodes.SystemLogout);
+                    _AccessLogService.AddAccessLog("Users", _CurrentLoginedUser.UserId.ToString(), _CurrentLoginedUser.UserId, "Logout System", ActionCodes.SystemLogout);
 
                     _CurrentLoginedUser = null;
                 }

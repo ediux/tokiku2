@@ -80,57 +80,47 @@ namespace TokikuNew.Frame
 
         //}
 
-       
-
-        private void TextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            try
-            {
-                if (e.Key == Key.Enter & (sender as TextBox).AcceptsReturn == false) this.MoveToNextUIElement(e);
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
 
 
-        }
-        
-        private void pwdBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            try
-            {
-                if (e.Key == Key.Enter)
-                {
+        //private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (e.Key == Key.Enter & (sender as TextBox).AcceptsReturn == false) this.MoveToNextUIElement(e);
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                    ICommand cmd = btnLogin.Command;
-
-                    if (cmd != null)
-                    {
-                        cmd.Execute(((ViewModelLocator)TryFindResource("Locator")));
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
+        //        MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+        //    }
 
 
-        }
+        //}
 
-     
+        //private void pwdBox_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (e.Key == Key.Enter)
+        //        {
+
+        //            ICommand cmd = btnLogin.Command;
+
+        //            if (cmd != null)
+        //            {
+        //                cmd.Execute(((ViewModelLocator)TryFindResource("Locator")));
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+        //    }
 
 
-        private void pwdBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            ObjectDataProvider provider = (ObjectDataProvider)TryFindResource("LoginSource");
-            if (provider != null)
-            {
-                ((Tokiku.ViewModels.LoginViewModel)provider.Data).Password = pwdBox.Password;
-            }
-        }
+        //}
+
+    
     }
 }

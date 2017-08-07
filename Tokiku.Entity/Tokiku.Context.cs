@@ -14,13 +14,15 @@ namespace Tokiku.Entity
     using System.Data.Entity.Infrastructure;
     using System.Data.Entity.Core.Objects;
     using System.Linq;
+    using GalaSoft.MvvmLight.Ioc;
     
     public partial class TokikuEntities : DbContext
     {
-        [GalaSoft.MvvmLight.Ioc.PreferredConstructor]
+    	[PreferredConstructor]
         public TokikuEntities()
             : base("name=TokikuEntities")
         {
+    		StartUp();
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

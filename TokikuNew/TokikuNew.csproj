@@ -298,6 +298,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Base\" />
+    <Folder Include="Controls\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ReadMe.txt" />

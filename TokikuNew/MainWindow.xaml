@@ -5,10 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:TokikuNew" 
         xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:helpers="clr-namespace:TokikuNew.Helpers"
         mc:Ignorable="d"        
         Title="東菊金屬 ERP System" Height="768" Width="1366" WindowState="Maximized" Icon="{DynamicResource Logo}"
          Background="{DynamicResource WindowBackgroundBrush}" 
         >
+    <i:Interaction.Behaviors>
+        <helpers:OnWindowCloseBehavior />
+    </i:Interaction.Behaviors>
     <Window.Resources>
         
         <!--<vm:RedirectCommand x:Key="redirect" RoutingName="MainWindow" />

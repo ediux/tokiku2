@@ -59,8 +59,9 @@ namespace Tokiku.ViewModels
         {
             try
             {
-
-
+                Errors = new string[] { };
+                HasError = false;
+                    
                 if (_SystemService != null)
                 {
                     var loginresult = _SystemService.Login(this);
@@ -72,7 +73,9 @@ namespace Tokiku.ViewModels
                     }
                 }
 
-                MessageBox.Show("登入失敗!");
+                Errors = _SystemService.Errors;
+                HasError = true;
+                    
                 //var reult = ExecuteAction<Users>("StartUpWindow", "Login", (ILoginViewModel)this);
 
                 //if (reult != null)
@@ -94,6 +97,7 @@ namespace Tokiku.ViewModels
 
         public void Exit(Window win)
         {
+            _SystemService.Logout();
             win.Close();
         }
     }

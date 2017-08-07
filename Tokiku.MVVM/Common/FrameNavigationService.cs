@@ -180,7 +180,7 @@ namespace Tokiku.MVVM
 
         public void AutoConfigure()
         {
-            Assembly currentasm = Assembly.GetExecutingAssembly();
+            Assembly currentasm = Assembly.GetEntryAssembly();
             _elementByKey = currentasm.GetTypes().Where(w => w.BaseType == typeof(Window) || w.BaseType == typeof(Page)).ToDictionary(x => x.Name);
             _pagesByKey = _elementByKey.ToDictionary(x => x.Key, y => new Uri(string.Format("/{0}/{1}.xaml", y.Value.Namespace.Replace(".", "/"), y.Value.Name), UriKind.Relative));
         }

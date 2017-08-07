@@ -12,6 +12,7 @@
                     <entity:EntityLocator x:Key="EntityLocator" d:IsDataSource="True" />
                     <dataservices:DefaultLocator x:Key="DataServiceLocator" d:IsDataSource="True" />
                     <vm:ViewModelLocator x:Key="ViewModelLocator" d:IsDataSource="True" />
+                    <local:ViewsLocator x:Key="ViewLocator" d:IsDataSource="True" />
                 </ResourceDictionary>
                 <ResourceDictionary Source="Resources\Global.xaml">
                 </ResourceDictionary>

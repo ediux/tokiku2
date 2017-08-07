@@ -23,7 +23,9 @@ namespace TokikuNew
         public App()
         {
             StartUpLocator.StartUp();
+            StartUpLocator.Current.NavigationService.AutoConfigure();
         }
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             try
@@ -82,8 +84,6 @@ namespace TokikuNew
                     Shutdown();
                 }
 
-                StartUpLocator.StartUp();
-                StartUpLocator.Current.NavigationService.AutoConfigure();
             }
             catch
             {

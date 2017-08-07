@@ -49,15 +49,18 @@ if (container.FunctionImports.Any())
 #>
 using System.Data.Entity.Core.Objects;
 using System.Linq;
+using GalaSoft.MvvmLight.Ioc;
 <#
 }
 #>
 
 <#=Accessibility.ForType(container)#> partial class <#=code.Escape(container)#> : DbContext
 {
+	[PreferredConstructor]
     public <#=code.Escape(container)#>()
         : base("name=<#=container.Name#>")
     {
+		StartUp();
 <#
 if (!loader.IsLazyLoadingEnabled(container))
 {
