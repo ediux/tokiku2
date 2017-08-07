@@ -51,17 +51,27 @@ namespace Tokiku.ViewModels
         }
 
         private RelayCommand _LoginCommand;
+        /// <summary>
+        /// 登入系統命令
+        /// </summary>
         public RelayCommand LoginCommand { get => _LoginCommand; set { _LoginCommand = value; RaisePropertyChanged("LoginCommand"); } }
+
         private RelayCommand<Window> _ExitCommand;
+        /// <summary>
+        /// 登出系統命令
+        /// </summary>
         public RelayCommand<Window> ExitCommand { get => _ExitCommand; set { _ExitCommand = value; RaisePropertyChanged("ExitCommand"); } }
 
+        /// <summary>
+        /// 處理登入作業
+        /// </summary>
         public void Login()
         {
             try
             {
                 Errors = new string[] { };
                 HasError = false;
-                    
+
                 if (_SystemService != null)
                 {
                     var loginresult = _SystemService.Login(this);
@@ -75,18 +85,7 @@ namespace Tokiku.ViewModels
 
                 Errors = _SystemService.Errors;
                 HasError = true;
-                    
-                //var reult = ExecuteAction<Users>("StartUpWindow", "Login", (ILoginViewModel)this);
 
-                //if (reult != null)
-                //{
-
-                //    //RelayCommand<ILoginViewModel> Login = (LoginCommand)RelayCommand;
-                //    //RedirectCommand Redirect = new RedirectCommand();
-                //    ////Redirect.SourceInstance = Login.SourceInstance;
-                //    //Redirect.Execute(Parameter);
-                //    //((Window)Redirect.SourceInstance).Close();
-                //}
             }
             catch (Exception ex)
             {
@@ -95,10 +94,21 @@ namespace Tokiku.ViewModels
             }
         }
 
+        /// <summary>
+        /// 處理登出作業
+        /// </summary>
+        /// <param name="win">要進行系統登出的視窗執行個體。</param>
         public void Exit(Window win)
         {
-            _SystemService.Logout();
-            win.Close();
+            try
+            {
+                _SystemService.Logout();
+                win.Close();
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
         }
     }
 }
