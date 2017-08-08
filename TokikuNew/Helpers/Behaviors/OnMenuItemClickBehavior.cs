@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Ioc;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,19 +15,6 @@ namespace TokikuNew.Helpers
 {
     public class OnMenuItemClickBehavior : Behavior<MenuItem>
     {
-
-
-        public ObservableCollection<ITabViewModel> PageContainer
-        {
-            get { return (ObservableCollection<ITabViewModel>)GetValue(PageContainerProperty); }
-            set { SetValue(PageContainerProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for PageContainer.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty PageContainerProperty =
-            DependencyProperty.Register("PageContainer", typeof(ObservableCollection<ITabViewModel>), typeof(OnMenuItemClickBehavior), new PropertyMetadata(null));
-
-
 
         public string TabControlName
         {
@@ -53,6 +41,19 @@ namespace TokikuNew.Helpers
 
 
 
+
+        public Type ViewType
+        {
+            get { return (Type)GetValue(ViewTypeProperty); }
+            set { SetValue(ViewTypeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ViewType.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ViewTypeProperty =
+            DependencyProperty.Register("ViewType", typeof(Type), typeof(OnMenuItemClickBehavior), new PropertyMetadata(null));
+
+
+
         protected override void OnAttached()
         {
             AssociatedObject.Click += AssociatedObject_Click;
@@ -60,29 +61,23 @@ namespace TokikuNew.Helpers
 
         private void AssociatedObject_Click(object sender, System.Windows.RoutedEventArgs e)
         {
+            ITabViewModel tab = new FixedTabViewModel();
+
+            tab.Header = Header;
+
             if (AssociatedObject.DataContext != null)
             {
-                if (PageContainer != null)
-                {
-                    ITabViewModel tab = new FixedTabViewModel();
-
-                    tab.Header = Header;
-                    tab.ContentView = AssociatedObject.DataContext;
-
-                    if (!PageContainer.Contains(tab))
-                    {
-                        PageContainer.Add(tab);
-                    }
-                    else
-                    {
-                        int i = PageContainer.IndexOf(tab);
-                        tab = PageContainer[i];
-                        
-                        //TabControl tabctl = (TabControl)((FrameworkElement)this).FindName(TabControlName);
-                    }
-
-                }
+                tab.ContentView = AssociatedObject.DataContext;
+                tab.ViewType = AssociatedObject.DataContext?.GetType();
             }
+            else
+            {
+                tab.ContentView = SimpleIoc.Default.GetInstance(ViewType);
+                tab.ViewType = ViewType;
+            }
+
+            GalaSoft.MvvmLight.Messaging.Messenger.Default.Send(tab, TabControlName);
+
         }
 
         protected override void OnDetaching()
