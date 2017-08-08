@@ -27,40 +27,22 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="27"/>
             </Grid.RowDefinitions>
-            <Menu Grid.Row="0" ItemsSource="{Binding Current.MainViewModel.MainMenus ,Source={StaticResource ViewModelLocator}}">
-                <Menu.ItemTemplate>
-                    <DataTemplate>
-                        <MenuItem>
-                            <ControlTemplate TargetType="{x:Type MenuItem}">
-                                <Grid Background="{TemplateBinding Background}">
-                                    <MenuItem Header="{TemplateBinding Header}" />
-                                </Grid>
-                            </ControlTemplate>
-                        </MenuItem>
-                    </DataTemplate>
-                </Menu.ItemTemplate>
-
-                <!--<Menu.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <MenuItem Header="{Binding Header}" ItemsSource="{Binding SubMenus}">
-                            <MenuItem.ItemTemplate>
-                                <ItemContainerTemplate>
-                                    <MenuItem Header="{Binding Header}" ItemsSource="{Binding SubMenus}"/>
-                                </ItemContainerTemplate>
-                            </MenuItem.ItemTemplate>
-                        </MenuItem>    
-                    </ItemsPanelTemplate>
-                </Menu.ItemsPanel>-->
-
-                <!--<MenuItem Header="主檔" Name="MI_Main" >
-                    <MenuItem Header="廠商主檔" Name="MI_Main_Vendor" vm:CommandRoutingManager.Command="{Binding Source={ StaticResource OpenNewTabItem}}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenVendorListView}" vm:CommandRoutingManager.RoutingName="VendorListView" />
-                    <MenuItem Header="客戶主檔" Name="MI_Main_Client" vm:CommandRoutingManager.Command="{Binding Source={StaticResource OpenNewTabItem}}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenClientListView}" vm:CommandRoutingManager.RoutingName="ClientListView" />
-                    <MenuItem Header="模具總表" Name="MI_Main_Molds" vm:CommandRoutingManager.Command="{Binding Source={StaticResource OpenNewTabItem}}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenMaterialsTotalView}" vm:CommandRoutingManager.RoutingName="MaterialsTotalView" />
+            <Menu Grid.Row="0">
+                <MenuItem Header="{Binding Current.MainViewModel.MainMenus[0].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_Main" >
+                    <MenuItem Header="{Binding Current.MainViewModel.MainMenus[0].SubMenus[0].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_Main_Vendor" />
+                    <MenuItem Header="{Binding Current.MainViewModel.MainMenus[0].SubMenus[1].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_Main_Client" />
+                    <MenuItem Header="{Binding Current.MainViewModel.MainMenus[0].SubMenus[2].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_Main_Molds" />
                 </MenuItem>
-                <MenuItem Header="報表" Name="MI_Reports" ></MenuItem>
+                <MenuItem Header="{Binding Current.MainViewModel.MainMenus[1].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_Reports" />
+                <MenuItem Header="{Binding Current.MainViewModel.MainMenus[2].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_Finance">
+                    <MenuItem Header="{Binding Current.MainViewModel.MainMenus[2].SubMenus[0].Header ,Source={StaticResource ViewModelLocator}}" Name="本票管理" />
+                    <MenuItem Header="{Binding Current.MainViewModel.MainMenus[2].SubMenus[1].Header ,Source={StaticResource ViewModelLocator}}" Name="合約管理" />
+                </MenuItem>
+
+                <!--
+                
                 <MenuItem Header="帳務" Name="MI_Finance" >
-                    <MenuItem Header="本票管理" Name="本票管理" vm:CommandRoutingManager.Command="{Binding Source={StaticResource OpenNewTabItem}}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenPromissoryNoteManagementView}" vm:CommandRoutingManager.RoutingName="PromissoryNoteManagementUC" />
-                    <MenuItem Header="合約管理" Name="合約管理" vm:CommandRoutingManager.Command="{Binding Source={StaticResource OpenNewTabItem}}" vm:CommandRoutingManager.CommandParameter="{StaticResource OpenContractManagementView}" vm:CommandRoutingManager.RoutingName="ContractManagementView" />
+                    
                     -->
                 <!--< MenuItem Header="專案合約管理">
                         <MenuItem Header="本約工程" Name="本約工程" Click="本約工程_Click" />

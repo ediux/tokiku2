@@ -26,7 +26,15 @@ namespace Tokiku.ViewModels
 
             _MainMenus.Add(menuroot1);
             _MainMenus.Add(new MenuItemViewModel() { Header = "報表" });
-            _MainMenus.Add(new MenuItemViewModel() { Header = "財務" });
+
+            var menuroot2 = new MenuItemViewModel() { Header = "帳務" };
+
+            menuroot2.SubMenus.Add(new MenuItemViewModel() { Header = "本票管理" });
+            menuroot2.SubMenus.Add(new MenuItemViewModel() { Header = "合約管理" });
+
+            _MainMenus.Add(menuroot2);
+            var menuroot3 = new MenuItemViewModel() { Header = "系統管理" };
+            _MainMenus.Add(menuroot3);
         }
         private ObservableCollection<ITabViewModel> _FeaturesTabs;
         /// <summary>
