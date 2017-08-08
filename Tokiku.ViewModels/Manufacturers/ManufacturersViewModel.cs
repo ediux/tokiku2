@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using Tokiku.Entity;
 using Tokiku.Entity.ViewTables;
+using GalaSoft.MvvmLight.Messaging;
+using Tokiku.DataServices;
 
 namespace Tokiku.ViewModels
 {
@@ -102,7 +104,7 @@ namespace Tokiku.ViewModels
     //            return collection;
     //        }
     //    }
-        
+
     //    public static ManufacturersViewModelCollection QueryBySupplier(Guid ProjectId)
     //    {
     //        try
@@ -120,13 +122,27 @@ namespace Tokiku.ViewModels
 
     //}
 
-    public class ManufacturersViewModel : DocumentBaseViewModel<Manufacturers> , IManufacturersViewModel
+    public class ManufacturersViewModel : DocumentBaseViewModel<Manufacturers>, IManufacturersViewModel
     {
+        private IManufacturersDataService _ManufacturersDataService;
+
         #region 建構式
         [PreferredConstructor]
-        public ManufacturersViewModel() : base()
+        public ManufacturersViewModel(IManufacturersDataService ManufacturersDataService, IUserDataService UserDataService, IAccessLogDataService AccessLogDataService) : base(UserDataService,AccessLogDataService)
         {
-          
+            _ManufacturersDataService = ManufacturersDataService;
+            Messenger.Default.Register<VendorListItemViewModel>(this, "VendorListItemViewModel", (x) => {
+                CopyofPOCOInstance = ((VendorListItemViewModel)x).Entity;
+            });
+        }
+
+        public ManufacturersViewModel(Manufacturers entity, IManufacturersDataService ManufacturersDataService, IUserDataService UserDataService, IAccessLogDataService AccessLogDataService) : base(entity, UserDataService, AccessLogDataService)
+        {
+            _ManufacturersDataService = ManufacturersDataService;
+
+            Messenger.Default.Register<IVendorListItemViewModel>(this, "VendorListItemViewModel", (x) => {
+                CopyofPOCOInstance = x.Entity;
+            });
         }
         #endregion
 
@@ -148,13 +164,19 @@ namespace Tokiku.ViewModels
         public string UniformNumbers { get { return CopyofPOCOInstance.UniformNumbers; } set { CopyofPOCOInstance.UniformNumbers = value; RaisePropertyChanged("UniformNumbers"); } }
         public string Phone { get { return CopyofPOCOInstance.Phone; } set { CopyofPOCOInstance.Phone = value; RaisePropertyChanged("Phone"); } }
         public string Fax { get { return CopyofPOCOInstance.Fax; } set { CopyofPOCOInstance.Fax = value; RaisePropertyChanged("Fax"); } }
-        public string eMail { get {
+        public string eMail
+        {
+            get
+            {
                 var result = CopyofPOCOInstance.Contacts.Where(s => s.IsDefault == true);
                 if (result.Any())
                 {
                     return result.Single().EMail;
                 }
-                return CopyofPOCOInstance.eMail; } set { CopyofPOCOInstance.eMail = value; RaisePropertyChanged("eMail"); } }
+                return CopyofPOCOInstance.eMail;
+            }
+            set { CopyofPOCOInstance.eMail = value; RaisePropertyChanged("eMail"); }
+        }
         public string Address { get { return CopyofPOCOInstance.Address; } set { CopyofPOCOInstance.Address = value; RaisePropertyChanged("Address"); } }
         //public string FactoryPhone { get { return CopyofPOCOInstance.FactoryPhone; } set { CopyofPOCOInstance.FactoryPhone = value; RaisePropertyChanged("FactoryPhone"); } }
         //public string FactoryFax { get { return CopyofPOCOInstance.FactoryFax; } set { CopyofPOCOInstance.FactoryFax = value; RaisePropertyChanged("FactoryFax"); } }
@@ -266,44 +288,44 @@ namespace Tokiku.ViewModels
 
         //#endregion
 
-        #region 選擇的聯絡人
-        private ContactsViewModel _SelectedContact;
-        /// <summary>
-        /// 選擇的聯絡人
-        /// </summary>
-        public ContactsViewModel SelectedContract
-        {
-            get { return _SelectedContact; }
-            set { _SelectedContact = value; RaisePropertyChanged("SelectedContract"); }
-        }
+        //#region 選擇的聯絡人
+        //private ContactsViewModel _SelectedContact;
+        ///// <summary>
+        ///// 選擇的聯絡人
+        ///// </summary>
+        //public ContactsViewModel SelectedContract
+        //{
+        //    get { return _SelectedContact; }
+        //    set { _SelectedContact = value; RaisePropertyChanged("SelectedContract"); }
+        //}
 
 
 
-        #endregion
+        //#endregion
 
-        #region ManufacturersBussinessItems 營業項目
-        private ObservableCollection<IManufacturersBussinessItemsViewModel> _ManufacturersBussinessItems;
-        /// <summary>
-        /// 營業項目
-        /// </summary>
-        public ObservableCollection<IManufacturersBussinessItemsViewModel> ManufacturersBussinessItems
-        {
-            get
-            {
-                if (_ManufacturersBussinessItems == null)
-                {
-                    _ManufacturersBussinessItems = new ManufacturersBussinessItemsViewModelColletion(
-                        CopyofPOCOInstance.ManufacturersBussinessItems.Select(s =>
-                        new ManufacturersBussinessItemsViewModel(s)));
-                }
+        //#region ManufacturersBussinessItems 營業項目
+        //private ObservableCollection<IManufacturersBussinessItemsViewModel> _ManufacturersBussinessItems;
+        ///// <summary>
+        ///// 營業項目
+        ///// </summary>
+        //public ObservableCollection<IManufacturersBussinessItemsViewModel> ManufacturersBussinessItems
+        //{
+        //    get
+        //    {
+        //        if (_ManufacturersBussinessItems == null)
+        //        {
+        //            _ManufacturersBussinessItems = new ManufacturersBussinessItemsViewModelColletion(
+        //                CopyofPOCOInstance.ManufacturersBussinessItems.Select(s =>
+        //                new ManufacturersBussinessItemsViewModel(s)));
+        //        }
 
-                return _ManufacturersBussinessItems;
+        //        return _ManufacturersBussinessItems;
 
-            }
-            set { _ManufacturersBussinessItems = value; RaisePropertyChanged("ManufacturersBussinessItems"); }
-        }
+        //    }
+        //    set { _ManufacturersBussinessItems = value; RaisePropertyChanged("ManufacturersBussinessItems"); }
+        //}
 
-        #endregion
+        //#endregion
 
         #region 行動電話
 
@@ -312,7 +334,8 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string Mobile
         {
-            get {
+            get
+            {
                 var result = CopyofPOCOInstance.Contacts.Where(s => s.IsDefault == true);
                 if (result.Any())
                 {
@@ -334,7 +357,8 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string Extension
         {
-            get {
+            get
+            {
                 var result = CopyofPOCOInstance.Contacts.Where(s => s.IsDefault == true);
                 if (result.Any())
                 {
@@ -376,33 +400,39 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.InvoiceAddress = value; RaisePropertyChanged("InvoiceAddress"); }
         }
 
+        private bool _IsSameForAddress = false;
+        /// <summary>
+        /// 同公司地址控制旗標
+        /// </summary>
+        public bool IsSameForAddress { get => _IsSameForAddress; set { RaisePropertyChanged("IsSameForAddress"); } }
+
 
 
         #endregion
 
         #region 交易紀錄
 
-        private ManufacturersBussinessTranscationsViewModelCollection _TranscationRecords;
+        //private ManufacturersBussinessTranscationsViewModelCollection _TranscationRecords;
 
-        public ManufacturersBussinessTranscationsViewModelCollection TranscationRecords
-        {
-            get
-            {
-                if (_TranscationRecords == null)
-                {
-                    _TranscationRecords = new ManufacturersBussinessTranscationsViewModelCollection();
-                }
+        //public ManufacturersBussinessTranscationsViewModelCollection TranscationRecords
+        //{
+        //    get
+        //    {
+        //        if (_TranscationRecords == null)
+        //        {
+        //            _TranscationRecords = new ManufacturersBussinessTranscationsViewModelCollection();
+        //        }
 
-                return _TranscationRecords;
-            }
-            set
-            {
-                _TranscationRecords = value;
-                RaisePropertyChanged("TranscationRecords");
-            }
-        }
+        //        return _TranscationRecords;
+        //    }
+        //    set
+        //    {
+        //        _TranscationRecords = value;
+        //        RaisePropertyChanged("TranscationRecords");
+        //    }
+        //}
 
-        public IUserViewModel LoginedUser { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        //public IUserViewModel LoginedUser { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
 
         #endregion
@@ -411,60 +441,63 @@ namespace Tokiku.ViewModels
 
         #region 模型命令
 
-        #region 查詢單一個體的檢視資料
-        /// <summary>
-        /// 查詢單一個體的檢視資料
-        /// </summary>
-        /// <param name="ManufacturersId"></param>
-        public static ManufacturersViewModel Query(Guid ManufacturersId)
-        {
-            try
-            {
-                return QuerySingle<ManufacturersViewModel, Manufacturers>(
-                    "ManufacturersManage", "QuerySingle", ManufacturersId);          
-            }
-            catch (Exception ex)
-            {
-                ManufacturersViewModel view = new ManufacturersViewModel();
-                setErrortoModel(view, ex);
-                return view;
-            }
+        //#region 查詢單一個體的檢視資料
+        ///// <summary>
+        ///// 查詢單一個體的檢視資料
+        ///// </summary>
+        ///// <param name="ManufacturersId"></param>
+        //public static ManufacturersViewModel Query(Guid ManufacturersId)
+        //{
+        //    try
+        //    {
 
-        }
-        #endregion
+        //        //return QuerySingle<ManufacturersViewModel, Manufacturers>(
+        //        //    "ManufacturersManage", "QuerySingle", ManufacturersId);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ManufacturersViewModel view = new ManufacturersViewModel();
+        //        setErrortoModel(view, ex);
+        //        return view;
+        //    }
 
-        public override void Initialized(object Parameter)
-        {
+        //}
+        //#endregion
 
-            base.Initialized(Parameter);
+        //public void Initialized(object Parameter)
+        //{
 
-            try
-            {
-              
-                Id = Guid.NewGuid();
+           
 
-                CopyofPOCOInstance = ExecuteAction<Manufacturers>("ManufacturersManage", "CreateNew"); //controller.CreateNew();
-                
-                //LastUpdateTime = DateTime.Now;
-                CreateTime = DateTime.Now;
+        //    try
+        //    {
 
-                //Contracts = new ContactsViewModelCollection();
-                ManufacturersBussinessItems = new ManufacturersBussinessItemsViewModelColletion();
-                TranscationRecords = new ManufacturersBussinessTranscationsViewModelCollection();
-            }
-            catch (Exception ex)
-            {
+        //        Id = Guid.NewGuid();
 
-                setErrortoModel(this, ex);
-            }
+        //        CopyofPOCOInstance = ExecuteAction<Manufacturers>("ManufacturersManage", "CreateNew"); //controller.CreateNew();
+
+        //        //LastUpdateTime = DateTime.Now;
+        //        CreateTime = DateTime.Now;
+
+        //        //Contracts = new ContactsViewModelCollection();
+        //        //ManufacturersBussinessItems = new ManufacturersBussinessItemsViewModelColletion();
+        //        //TranscationRecords = new ManufacturersBussinessTranscationsViewModelCollection();
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        setErrortoModel(this, ex);
+        //    }
 
 
-        }
+        //}
 
-        public override void SaveModel(bool isLast = true)
-        {
-            SaveModel("ManufacturersManage", isLast);
-        }
+   
+
+        //public override void SaveModel(bool isLast = true)
+        //{
+        //    SaveModel("ManufacturersManage", isLast);
+        //}
         //public  void SaveModel()
         //{
         //    try
@@ -547,27 +580,27 @@ namespace Tokiku.ViewModels
 
         //}
 
-        public void QueryByName(string Name)
-        {
-            try
-            {
-                ManufacturersManageController controller = new ManufacturersManageController();
-                var executeresult = controller.Query(p => p.Name == Name);
+        //public void QueryByName(string Name)
+        //{
+        //    try
+        //    {
+        //        ManufacturersManageController controller = new ManufacturersManageController();
+        //        var executeresult = controller.Query(p => p.Name == Name);
 
-                if (!executeresult.HasError)
-                {
-                    if (executeresult.Result.Any())
-                    {
-                        var data = executeresult.Result.Single();
+        //        if (!executeresult.HasError)
+        //        {
+        //            if (executeresult.Result.Any())
+        //            {
+        //                var data = executeresult.Result.Single();
 
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-            }
-        }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        setErrortoModel(this, ex);
+        //    }
+        //}
 
         //public override void SetModel(dynamic entity)
         //{
@@ -601,16 +634,16 @@ namespace Tokiku.ViewModels
         //    }
 
         //}
-        public void QueryDetails()
-        {
-            //Contracts.ManufacturersId = Id;
-            //Contracts.Query("", Id, IsClient);
+        //public void QueryDetails()
+        //{
+        //    //Contracts.ManufacturersId = Id;
+        //    //Contracts.Query("", Id, IsClient);
 
-            ManufacturersBussinessItems.QueryAsync(Id);
+        //    ManufacturersBussinessItems.QueryAsync(Id);
 
-            TranscationRecords = ManufacturersBussinessTranscationsViewModelCollection.Query(Id);
+        //    TranscationRecords = ManufacturersBussinessTranscationsViewModelCollection.Query(Id);
 
-        }
+        //}
         #endregion
 
     }

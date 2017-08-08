@@ -10,6 +10,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 using System.Linq.Expressions;
 using System.Reflection;
 using GalaSoft.MvvmLight.Ioc;
+using Tokiku.DataServices;
 
 namespace Tokiku.ViewModels
 {
@@ -19,6 +20,10 @@ namespace Tokiku.ViewModels
     public abstract class DocumentBaseViewModel<TPOCO> : EntityBaseViewModel<TPOCO>, IDocumentBaseViewModel<TPOCO>
             where TPOCO : class
     {
+
+        private IAccessLogDataService _AccessLogDataService;
+        private IUserDataService _UserDataService;
+
         #region 文件狀態
         private IDocumentStatusViewModel _Status;
         /// <summary>
@@ -107,7 +112,6 @@ namespace Tokiku.ViewModels
         #endregion
 
         #region CreateUserId
-        private Users _LoginUser;
         /// <summary>
         /// 建立人員識別碼
         /// </summary>
@@ -121,15 +125,7 @@ namespace Tokiku.ViewModels
 
                     if (UserId == Guid.Empty)
                     {
-                        if (_LoginUser == null)
-                            _LoginUser = ExecuteAction<Users>("System", "GetCurrentLoginUser");
-
-                        if (_LoginUser != null)
-                            UserId = _LoginUser.UserId;
-                        else
-                            UserId = Guid.Empty;
-
-                        _EntityType.GetProperty("CreateUserId").SetValue(CopyofPOCOInstance, UserId);
+                        _EntityType.GetProperty("CreateUserId").SetValue(CopyofPOCOInstance, CreateUser.UserId);
                     }
 
                     return UserId;
@@ -169,12 +165,7 @@ namespace Tokiku.ViewModels
 
                     if (_CreateUser == null)
                     {
-                        if (_LoginUser == null)
-                            _CreateUser = _LoginUser = ExecuteAction<Users>("System", "GetCurrentLoginUser");
-                        else
-                            _CreateUser = _LoginUser;
-
-                        _EntityType.GetProperty("CreateUserId").SetValue(CopyofPOCOInstance, _CreateUser.UserId);
+                        _EntityType.GetProperty("CreateUserId").SetValue(CopyofPOCOInstance, _UserDataService.GetCurrentLoginedUser());
                     }
 
                     return new UserViewModel(_CreateUser);
@@ -217,11 +208,11 @@ namespace Tokiku.ViewModels
                     if (_lastupdateUseridprop != null)
                         return _lastupdateUseridprop.AccessTime;
 
-                    var log = ExecuteAction<AccessLog>("AccessLog", "QueryLastUpdateLog", Id.ToString());
+                    var log = _AccessLogDataService.GetLastUpdateTime(typeof(TPOCO).Name, Id.ToString());
 
                     if (log != null)
                     {
-                        return log.CreateTime;
+                        return log;
                     }
 
                     return CreateTime;
@@ -248,7 +239,7 @@ namespace Tokiku.ViewModels
                 if (_lastupdateUseridprop != null)
                     return (Guid?)_lastupdateUseridprop.GetValue(CopyofPOCOInstance);
 
-                var log = ExecuteAction<AccessLog>("AccessLog", "QueryLastUpdateLog", Id.ToString());
+                var log = LastUpadateUser;
 
                 if (log != null)
                 {
@@ -274,15 +265,8 @@ namespace Tokiku.ViewModels
                     if (_lastupdateUseridprop != null)
                         return new UserViewModel((Users)_lastupdateUseridprop.GetValue(CopyofPOCOInstance));
 
-                    var log = ExecuteAction<AccessLog>("AccessLog", "QueryLastUpdateLog", Id.ToString());
-
-                    if (log != null)
-                    {
-                        var lastupdateuser = ExecuteAction<Users>("System", "GetUserById", log.UserId);
-                        return new UserViewModel(lastupdateuser);
-                    }
-
-                    return null;
+                    var log = _AccessLogDataService.GetLastUpdateUser(typeof(TPOCO).Name, Id.ToString());
+                    return log;
                 }
                 catch
                 {
@@ -297,9 +281,10 @@ namespace Tokiku.ViewModels
 
 
         [PreferredConstructor]
-        public DocumentBaseViewModel()
+        public DocumentBaseViewModel(IUserDataService UserDataService, IAccessLogDataService AccessLogDataService)
         {
-
+            _UserDataService = UserDataService;
+            _AccessLogDataService = AccessLogDataService;
 
             var prop = _EntityType.GetProperty("CreateUserId");
 
@@ -309,13 +294,7 @@ namespace Tokiku.ViewModels
 
                 if (UserId == Guid.Empty)
                 {
-                    if (_LoginUser == null)
-                        _LoginUser = ExecuteAction<Users>("System", "GetCurrentLoginUser");
-
-                    if (_LoginUser != null)
-                        UserId = _LoginUser.UserId;
-                    else
-                        UserId = Guid.Empty;
+                   
 
                     prop.SetValue(CopyofPOCOInstance, UserId);
                 }
@@ -325,8 +304,10 @@ namespace Tokiku.ViewModels
 
         }
 
-        public DocumentBaseViewModel(TPOCO entity) : base(entity)
+        public DocumentBaseViewModel(TPOCO entity, IUserDataService UserDataService, IAccessLogDataService AccessLogDataService) : base(entity)
         {
+            _UserDataService = UserDataService;
+            _AccessLogDataService = AccessLogDataService;
 
             var prop = _EntityType.GetProperty("CreateUserId");
 
@@ -336,13 +317,8 @@ namespace Tokiku.ViewModels
 
                 if (UserId == Guid.Empty)
                 {
-                    if (_LoginUser == null)
-                        _LoginUser = ExecuteAction<Users>("System", "GetCurrentLoginUser");
 
-                    if (_LoginUser != null)
-                        UserId = _LoginUser.UserId;
-                    else
-                        UserId = Guid.Empty;
+                    UserId = UserDataService.GetCurrentLoginedUser().UserId;
 
                     prop.SetValue(CopyofPOCOInstance, UserId);
                 }

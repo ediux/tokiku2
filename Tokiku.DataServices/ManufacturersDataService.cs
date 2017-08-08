@@ -41,6 +41,26 @@ namespace Tokiku.DataServices
             }
         }
 
+        public Manufacturers QuerySingle(Guid ManufacturersId)
+        {
+            try
+            {
+
+                var queryresult = from q in _ManufacturersRepository.All()
+                                  where q.Void == false && q.IsClient == false
+                                  && q.Id == ManufacturersId
+                                  orderby q.Code ascending
+                                  select q;
+
+                return queryresult.SingleOrDefault();
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(ex);
+                return null;
+            }
+        }
+
         public Collection<Manufacturers> SearchByText(string filiter)
         {
             try

@@ -49,5 +49,29 @@ namespace Tokiku.ViewModels
         public string UniformNumbers { get { return CopyofPOCOInstance.UniformNumbers; } set { CopyofPOCOInstance.UniformNumbers = value; RaisePropertyChanged("UniformNumbers"); } }
         public bool Void { get { return CopyofPOCOInstance.Void; } set { CopyofPOCOInstance.Void = value; RaisePropertyChanged("Void"); } }
         public string VoidStateText { get; set; }
+        #region MainContactPerson
+
+        /// <summary>
+        /// 主要聯絡人
+        /// </summary>
+        public string MainContactPerson
+        {
+            get
+            {
+                var result = CopyofPOCOInstance.Contacts.Where(s => s.IsDefault == true);
+                if (result.Any())
+                {
+                    return result.Single().Name;
+                }
+                return string.Empty;
+            }
+            set
+            {
+                RaisePropertyChanged("MainContactPerson");
+            }
+        }
+
+
+        #endregion
     }
 }

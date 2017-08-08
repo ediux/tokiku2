@@ -14,5 +14,6 @@ namespace Tokiku.DataServices
     {
         Collection<Manufacturers> QueryAll();
         Collection<Manufacturers> SearchByText(string filiter);
+        Manufacturers QuerySingle(Guid ManufacturersId);
     }
 }

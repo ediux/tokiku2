@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Interactivity;
 using Tokiku.ViewModels;
 
-namespace TokikuNew.Helpers.Behaviors
+namespace TokikuNew.Helpers
 {
     public class OnDataGridMouseDoubleClickBehavior : Behavior<DataGrid>
     {
@@ -60,18 +61,13 @@ namespace TokikuNew.Helpers.Behaviors
 
             tab.Header = Header;
 
-            if (AssociatedObject.DataContext != null)
-            {
-                tab.ContentView = AssociatedObject.DataContext;
-                tab.ViewType = AssociatedObject.DataContext?.GetType();
-            }
-            else
-            {
-                tab.ContentView = SimpleIoc.Default.GetInstance(ViewType);
-                tab.ViewType = ViewType;
-            }
 
-            GalaSoft.MvvmLight.Messaging.Messenger.Default.Send(tab, TabControlName);
+            tab.ContentView = SimpleIoc.Default.GetInstance(ViewType);
+            tab.ViewType = ViewType;
+
+
+            Messenger.Default.Send(tab, TabControlName);
+            Messenger.Default.Send(AssociatedObject.SelectedItem, AssociatedObject.SelectedItems?.GetType().Name);
         }
 
         protected override void OnDetaching()

@@ -78,6 +78,7 @@
     <Compile Include="ControlModels\FixedTabViewModel.cs" />
     <Compile Include="Interfaces\ICloseableTabViewModel.cs" />
     <Compile Include="Interfaces\IFixedTabViewModel.cs" />
+    <Compile Include="Interfaces\IManufacturersViewModel.cs" />
     <Compile Include="Interfaces\IMenuItemViewModel.cs" />
     <Compile Include="Interfaces\IMainViewModel.cs" />
     <Compile Include="Interfaces\ITabViewModel.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Main\MainViewModel.cs" />
     <Compile Include="ControlModels\MenuItemViewModel.cs" />
     <Compile Include="Interfaces\IVendorListViewModel.cs" />
+    <Compile Include="Manufacturers\ManufacturersViewModel.cs" />
     <Compile Include="Manufacturers\VendorListItemViewModel.cs" />
     <Compile Include="Manufacturers\VendorListViewModel.cs" />
     <Compile Include="MVVMLocatorMaker.cs">

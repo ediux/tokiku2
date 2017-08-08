@@ -27,6 +27,9 @@ namespace Tokiku.ViewModels
 			if (!SimpleIoc.Default.IsRegistered<IMainViewModel>())
 				SimpleIoc.Default.Register<IMainViewModel,MainViewModel>();			
 
+			if (!SimpleIoc.Default.IsRegistered<IManufacturersViewModel>())
+				SimpleIoc.Default.Register<IManufacturersViewModel,ManufacturersViewModel>();			
+
 			if (!SimpleIoc.Default.IsRegistered<IVendorListItemViewModel>())
 				SimpleIoc.Default.Register<IVendorListItemViewModel,VendorListItemViewModel>();			
 
@@ -88,6 +91,13 @@ namespace Tokiku.ViewModels
 		public IMainViewModel MainViewModel
 		{
 			get => SimpleIoc.Default.GetInstance<IMainViewModel>();
+		}
+		/// <summary>
+        /// 取得IoC容器中的實作 IManufacturersViewModel 介面的物件執行個體。
+        /// </summary>
+		public IManufacturersViewModel ManufacturersViewModel
+		{
+			get => SimpleIoc.Default.GetInstance<IManufacturersViewModel>();
 		}
 		/// <summary>
         /// 取得IoC容器中的實作 IVendorListItemViewModel 介面的物件執行個體。

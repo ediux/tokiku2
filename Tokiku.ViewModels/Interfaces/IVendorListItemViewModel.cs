@@ -15,5 +15,6 @@ namespace Tokiku.ViewModels
         string UniformNumbers { get; set; }
         bool Void { get; set; }
         string VoidStateText { get; set; }
+        string MainContactPerson { get; set; }
     }
 }

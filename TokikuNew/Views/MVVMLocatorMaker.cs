@@ -31,6 +31,9 @@ namespace TokikuNew
 			if (!SimpleIoc.Default.IsRegistered<SearchBar>())
 				SimpleIoc.Default.Register<SearchBar>();
 			
+			if (!SimpleIoc.Default.IsRegistered<OnDataGridMouseDoubleClickBehavior>())
+				SimpleIoc.Default.Register<OnDataGridMouseDoubleClickBehavior>();
+			
 			if (!SimpleIoc.Default.IsRegistered<OnMenuItemClickBehavior>())
 				SimpleIoc.Default.Register<OnMenuItemClickBehavior>();
 			
@@ -54,6 +57,9 @@ namespace TokikuNew
 			
 			if (!SimpleIoc.Default.IsRegistered<MainWindow>())
 				SimpleIoc.Default.Register<MainWindow>();
+			
+			if (!SimpleIoc.Default.IsRegistered<ManufacturersManageView>())
+				SimpleIoc.Default.Register<ManufacturersManageView>();
 			
 			if (!SimpleIoc.Default.IsRegistered<VendorListView>())
 				SimpleIoc.Default.Register<VendorListView>();
@@ -112,6 +118,13 @@ namespace TokikuNew
 			get => SimpleIoc.Default.GetInstance<SearchBar>();
 		}
 		/// <summary>
+        /// 取得IoC容器中的 OnDataGridMouseDoubleClickBehavior 物件執行個體。
+        /// </summary>
+		public OnDataGridMouseDoubleClickBehavior OnDataGridMouseDoubleClickBehavior
+		{
+			get => SimpleIoc.Default.GetInstance<OnDataGridMouseDoubleClickBehavior>();
+		}
+		/// <summary>
         /// 取得IoC容器中的 OnMenuItemClickBehavior 物件執行個體。
         /// </summary>
 		public OnMenuItemClickBehavior OnMenuItemClickBehavior
@@ -166,6 +179,13 @@ namespace TokikuNew
 		public MainWindow MainWindow
 		{
 			get => SimpleIoc.Default.GetInstance<MainWindow>();
+		}
+		/// <summary>
+        /// 取得IoC容器中的 ManufacturersManageView 物件執行個體。
+        /// </summary>
+		public ManufacturersManageView ManufacturersManageView
+		{
+			get => SimpleIoc.Default.GetInstance<ManufacturersManageView>();
 		}
 		/// <summary>
         /// 取得IoC容器中的 VendorListView 物件執行個體。
