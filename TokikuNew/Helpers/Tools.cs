@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace TokikuNew.Helpers
 {
@@ -32,6 +33,21 @@ namespace TokikuNew.Helpers
 
             }
 
+        }
+
+        public static DependencyObject FindElement<TElement>(this DependencyObject obj) where TElement : FrameworkElement
+        {
+            if (obj == null)
+                return null;
+
+            var el = VisualTreeHelper.GetParent(obj);
+
+            if (el is TElement)
+            {
+                return el;
+            }
+
+            return FindElement<TElement>(el); 
         }
     }
 }

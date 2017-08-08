@@ -14,10 +14,11 @@ namespace Tokiku.ViewModels
     {
         public MainViewModel(IUserDataService UserDataService) : base(UserDataService)
         {
+            
             _FeaturesTabs = new ObservableCollection<ITabViewModel>();
             _FeaturesTabs.Add(new FixedTabViewModel() { Header = "專案列表" });
 
-            _MainMenus = new ObservableCollection<IMenuItemViewModel>();
+          
             var menuroot1 = new MenuItemViewModel() { Header = "主檔 " };
 
             menuroot1.SubMenus.Add(new MenuItemViewModel() { Header = "廠商列表" });
@@ -34,6 +35,10 @@ namespace Tokiku.ViewModels
 
             _MainMenus.Add(menuroot2);
             var menuroot3 = new MenuItemViewModel() { Header = "系統管理" };
+            menuroot3.SubMenus.Add(new MenuItemViewModel() { Header="選項" });
+            menuroot3.SubMenus.Add(new MenuItemViewModel() { Header = "人員管理" });
+            menuroot3.SubMenus.Add(new MenuItemViewModel() { Header = "角色管理" });
+            menuroot3.SubMenus.Add(new MenuItemViewModel() { Header = "結束程式" });
             _MainMenus.Add(menuroot3);
         }
         private ObservableCollection<ITabViewModel> _FeaturesTabs;
@@ -42,10 +47,10 @@ namespace Tokiku.ViewModels
         /// </summary>
         public ObservableCollection<ITabViewModel> FeaturesTabs { get => _FeaturesTabs; set { _FeaturesTabs = value; RaisePropertyChanged("FeaturesTabs"); } }
 
-        private ObservableCollection<IMenuItemViewModel> _MainMenus;
+        private ObservableCollection<IMenuItemViewModel> _MainMenus = new ObservableCollection<IMenuItemViewModel>();
         /// <summary>
         /// 主功能列
         /// </summary>
-        public ObservableCollection<IMenuItemViewModel> MainMenus { get => _MainMenus; set { _MainMenus = value; } }
+        public ObservableCollection<IMenuItemViewModel> MainMenus { get => _MainMenus; set { _MainMenus = value; RaisePropertyChanged("MainMenus"); } }
     }
 }
