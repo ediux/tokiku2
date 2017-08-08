@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Ioc;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
@@ -6,130 +7,126 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using Tokiku.Controllers;
 using Tokiku.Entity;
 using Tokiku.Entity.ViewTables;
 
 namespace Tokiku.ViewModels
 {
-    public class ManufacturersViewModelCollection : BaseViewModelCollection<ManufacturersViewModel>
-    {
-        #region 內部變數
-        /// <summary>
-        /// 廠商管理對應的控制器
-        /// </summary>
-        private ManufacturersManageController _controller;
-        #endregion
+    //public class ManufacturersViewModelCollection : BaseViewModelCollection<ManufacturersViewModel>
+    //{
+    //    #region 內部變數
+    //    /// <summary>
+    //    /// 廠商管理對應的控制器
+    //    /// </summary>
+    //    private ManufacturersManageController _controller;
+    //    #endregion
 
-        #region 建構式
-        /// <summary>
-        /// 預設的建構式
-        /// </summary>
-        public ManufacturersViewModelCollection()
-        {
-            _ControllerName = "ManufacturersManage";
-        }
+    //    #region 建構式
+    //    /// <summary>
+    //    /// 預設的建構式
+    //    /// </summary>
+    //    public ManufacturersViewModelCollection()
+    //    {
+    //        _ControllerName = "ManufacturersManage";
+    //    }
 
 
-        /// <summary>
-        /// 列表
-        /// </summary>
-        /// <param name="source"></param>
-        public ManufacturersViewModelCollection(IEnumerable<ManufacturersViewModel> source) : base(source)
-        {
-            _ControllerName = "ManufacturersManage";
-        }
-        #endregion
+    //    /// <summary>
+    //    /// 列表
+    //    /// </summary>
+    //    /// <param name="source"></param>
+    //    public ManufacturersViewModelCollection(IEnumerable<ManufacturersViewModel> source) : base(source)
+    //    {
+    //        _ControllerName = "ManufacturersManage";
+    //    }
+    //    #endregion
 
-        #region 模型命令方法
+    //    #region 模型命令方法
 
-        public static ManufacturersViewModelCollection Query()
-        {
-            try
-            {
-                return Query<ManufacturersViewModelCollection, Manufacturers>("ManufacturersManage", "QueryAll");
-            }
-            catch (Exception ex)
-            {
-                ManufacturersViewModelCollection collection = new ManufacturersViewModelCollection();
-                setErrortoModel(collection, ex);
-                return collection;
-            }
+    //    public static ManufacturersViewModelCollection Query()
+    //    {
+    //        try
+    //        {
+    //            return Query<ManufacturersViewModelCollection, Manufacturers>("ManufacturersManage", "QueryAll");
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            ManufacturersViewModelCollection collection = new ManufacturersViewModelCollection();
+    //            setErrortoModel(collection, ex);
+    //            return collection;
+    //        }
 
-        }
+    //    }
 
-        public static ManufacturersViewModelCollection QueryForCombox()
-        {
-            try
-            {
-                return Query<ManufacturersViewModelCollection, Manufacturers>("ManufacturersManage", "QueryAllForCombox");
-            }
-            catch (Exception ex)
-            {
-                ManufacturersViewModelCollection collection = new ManufacturersViewModelCollection();
-                setErrortoModel(collection, ex);
-                return collection;
-            }
+    //    public static ManufacturersViewModelCollection QueryForCombox()
+    //    {
+    //        try
+    //        {
+    //            return Query<ManufacturersViewModelCollection, Manufacturers>("ManufacturersManage", "QueryAllForCombox");
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            ManufacturersViewModelCollection collection = new ManufacturersViewModelCollection();
+    //            setErrortoModel(collection, ex);
+    //            return collection;
+    //        }
 
-        }
+    //    }
 
-        public static ManufacturersViewModelCollection QueryByText(string originalSource)
-        {
-            try
-            {
-                return Query<ManufacturersViewModelCollection, Manufacturers>(
-                    "ManufacturersManage", "SearchByText", originalSource);
-            }
-            catch (Exception ex)
-            {
-                ManufacturersViewModelCollection collection = new ManufacturersViewModelCollection();
-                setErrortoModel(collection, ex);
-                return collection;
-            }
+    //    public static ManufacturersViewModelCollection QueryByText(string originalSource)
+    //    {
+    //        try
+    //        {
+    //            return Query<ManufacturersViewModelCollection, Manufacturers>(
+    //                "ManufacturersManage", "SearchByText", originalSource);
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            ManufacturersViewModelCollection collection = new ManufacturersViewModelCollection();
+    //            setErrortoModel(collection, ex);
+    //            return collection;
+    //        }
 
-        }
+    //    }
 
-        public static ManufacturersViewModelCollection QueryByBusinessItem(Guid MaterialCategoriesId, string BusinessItem)
-        {
-            try
-            {
-                return Query<ManufacturersViewModelCollection, Manufacturers>("ManufacturersManage", "GetManufacturersWithBusinessItem", MaterialCategoriesId, BusinessItem);
-            }
-            catch (Exception ex)
-            {
-                ManufacturersViewModelCollection collection = new ManufacturersViewModelCollection();
-                setErrortoModel(collection, ex);
-                return collection;
-            }
-        }
+    //    public static ManufacturersViewModelCollection QueryByBusinessItem(Guid MaterialCategoriesId, string BusinessItem)
+    //    {
+    //        try
+    //        {
+    //            return Query<ManufacturersViewModelCollection, Manufacturers>("ManufacturersManage", "GetManufacturersWithBusinessItem", MaterialCategoriesId, BusinessItem);
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            ManufacturersViewModelCollection collection = new ManufacturersViewModelCollection();
+    //            setErrortoModel(collection, ex);
+    //            return collection;
+    //        }
+    //    }
         
-        public static ManufacturersViewModelCollection QueryBySupplier(Guid ProjectId)
-        {
-            try
-            {
-                return Query<ManufacturersViewModelCollection, Manufacturers>("ManufacturersManage", "QueryBySupplier", ProjectId);
-            }
-            catch (Exception ex)
-            {
-                ManufacturersViewModelCollection collection = new ManufacturersViewModelCollection();
-                setErrortoModel(collection, ex);
-                return collection;
-            }
-        }
-        #endregion
+    //    public static ManufacturersViewModelCollection QueryBySupplier(Guid ProjectId)
+    //    {
+    //        try
+    //        {
+    //            return Query<ManufacturersViewModelCollection, Manufacturers>("ManufacturersManage", "QueryBySupplier", ProjectId);
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            ManufacturersViewModelCollection collection = new ManufacturersViewModelCollection();
+    //            setErrortoModel(collection, ex);
+    //            return collection;
+    //        }
+    //    }
+    //    #endregion
 
-    }
+    //}
 
-    public class ManufacturersViewModel : BaseViewModelWithPOCOClass<Manufacturers>
+    public class ManufacturersViewModel : DocumentBaseViewModel<Manufacturers> , IManufacturersViewModel
     {
         #region 建構式
+        [PreferredConstructor]
         public ManufacturersViewModel() : base()
         {
-            _SaveModelController = "ManufacturersManage";
-        }
-        public ManufacturersViewModel(Manufacturers entity) : base(entity)
-        {
-            _SaveModelController = "ManufacturersManage";
+          
         }
         #endregion
 
@@ -285,11 +282,11 @@ namespace Tokiku.ViewModels
         #endregion
 
         #region ManufacturersBussinessItems 營業項目
-        private ManufacturersBussinessItemsViewModelColletion _ManufacturersBussinessItems;
+        private ObservableCollection<IManufacturersBussinessItemsViewModel> _ManufacturersBussinessItems;
         /// <summary>
         /// 營業項目
         /// </summary>
-        public ManufacturersBussinessItemsViewModelColletion ManufacturersBussinessItems
+        public ObservableCollection<IManufacturersBussinessItemsViewModel> ManufacturersBussinessItems
         {
             get
             {
@@ -404,6 +401,8 @@ namespace Tokiku.ViewModels
                 RaisePropertyChanged("TranscationRecords");
             }
         }
+
+        public IUserViewModel LoginedUser { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
 
         #endregion

@@ -63,7 +63,9 @@
   <ItemGroup>
     <Compile Include="AccessLogDataService.cs" />
     <Compile Include="IAccessLogDataService.cs" />
+    <Compile Include="IManufacturersDataService.cs" />
     <Compile Include="IUserDataService.cs" />
+    <Compile Include="ManufacturersDataService.cs" />
     <Compile Include="MVVMLocatorMaker.cs">
       <DependentUpon>MVVMLocatorMaker.tt</DependentUpon>
       <AutoGen>True</AutoGen>

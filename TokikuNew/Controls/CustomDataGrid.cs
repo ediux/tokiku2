@@ -23,7 +23,7 @@ namespace TokikuNew.Controls
 
                 AutoGenerateColumns = false;
 
-                CommandRoutingManager.SetCommand(this, new RedirectCommand());
+                //CommandRoutingManager.SetCommand(this, new RedirectCommand());
                 
                 if (ItemsSource != null)
                     DataSourceType = ItemsSource.GetType();
@@ -126,40 +126,40 @@ namespace TokikuNew.Controls
             {
                 e.Handled = true;
 
-                if (Command is RedirectCommand)
-                {
-                    if (SelectedItem != null)
-                    {
+                //if (Command is RedirectCommand)
+                //{
+                //    if (SelectedItem != null)
+                //    {
 
-                        RedirectCommand command = (RedirectCommand)Command;
+                //        RedirectCommand command = (RedirectCommand)Command;
 
-                        if (command != null)
-                        {
-                            var routedvalue = new RoutedViewResult()
-                            {
-                                DisplayText = this.DisplayText,
-                                ViewType = this.OpenViewType,
-                                RoutedValues = new Dictionary<string, object>()
-                            };
-                            routedvalue.FormatedDisplay = this.FormationDisplayText;
+                //        if (command != null)
+                //        {
+                //            var routedvalue = new RoutedViewResult()
+                //            {
+                //                DisplayText = this.DisplayText,
+                //                ViewType = this.OpenViewType,
+                //                RoutedValues = new Dictionary<string, object>()
+                //            };
+                //            routedvalue.FormatedDisplay = this.FormationDisplayText;
 
-                            List<object> values = new List<object>();
+                //            List<object> values = new List<object>();
 
-                            foreach (var key in FormatDisplayParametersMapping)
-                            {
-                                values.Add(DataSourceType.GetProperty(key).GetValue(SelectedItem));
-                            }
-                            routedvalue.FormatedParameters = values.ToArray();
-                            routedvalue.RoutedValues = new Dictionary<string, object>();
-                            foreach (var k in RoutedValues.Keys)
-                            {
-                                routedvalue.RoutedValues.Add(k, DataSourceType.GetProperty((string)RoutedValues[k]).GetValue(SelectedItem));
-                            }
-                            routedvalue.AttachedTargetElementName = TriggerTargetElementName;
-                            command.Execute(routedvalue);
-                        }
-                    }
-                }
+                //            foreach (var key in FormatDisplayParametersMapping)
+                //            {
+                //                values.Add(DataSourceType.GetProperty(key).GetValue(SelectedItem));
+                //            }
+                //            routedvalue.FormatedParameters = values.ToArray();
+                //            routedvalue.RoutedValues = new Dictionary<string, object>();
+                //            foreach (var k in RoutedValues.Keys)
+                //            {
+                //                routedvalue.RoutedValues.Add(k, DataSourceType.GetProperty((string)RoutedValues[k]).GetValue(SelectedItem));
+                //            }
+                //            routedvalue.AttachedTargetElementName = TriggerTargetElementName;
+                //            command.Execute(routedvalue);
+                //        }
+                //    }
+                //}
             }
             catch (Exception ex)
             {

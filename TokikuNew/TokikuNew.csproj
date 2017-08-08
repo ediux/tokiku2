@@ -146,6 +146,7 @@
       <DependentUpon>ClosableTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ClosableTabItem.cs" />
+    <Compile Include="Controls\CustomDataGrid.cs" />
     <Compile Include="Helpers\Behaviors\OnMenuItemClickBehavior.cs" />
     <Compile Include="Helpers\Behaviors\OnMenuItemClickToClaseWindowBehavior.cs" />
     <Compile Include="Helpers\Behaviors\OnWindowCloseBehavior.cs" />
@@ -158,6 +159,9 @@
     <Compile Include="Helpers\Tools.cs" />
     <Compile Include="ValueConverters\DateTime2StringFormatingValueConverter.cs" />
     <Compile Include="ValueConverters\ReplyContentValueConverter.cs" />
+    <Compile Include="Views\Manufacturers\VendorListView.xaml.cs">
+      <DependentUpon>VendorListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window\OptionWindow.xaml.cs">
       <DependentUpon>OptionWindow.xaml</DependentUpon>
     </Compile>
@@ -179,6 +183,10 @@
       <DependentUpon>MVVMLocatorMaker.tt</DependentUpon>
     </Compile>
     <Page Include="Controls\ClosableTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Manufacturers\VendorListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

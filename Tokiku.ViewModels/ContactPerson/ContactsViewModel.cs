@@ -5,80 +5,79 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Threading;
-using Tokiku.Controllers;
 using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class ContactsViewModelCollection : BaseViewModelCollection<ContactsViewModel>
-    {
-        public ContactsViewModelCollection()
-        {
-            _ControllerName = "ContactPersonManage";
-        }
+    //public class ContactsViewModelCollection : BaseViewModelCollection<ContactsViewModel>
+    //{
+    //    public ContactsViewModelCollection()
+    //    {
+    //        _ControllerName = "ContactPersonManage";
+    //    }
 
-        public ContactsViewModelCollection(IEnumerable<ContactsViewModel> source) : base(source)
-        {
-            _ControllerName = "ContactPersonManage";
-        }
+    //    public ContactsViewModelCollection(IEnumerable<ContactsViewModel> source) : base(source)
+    //    {
+    //        _ControllerName = "ContactPersonManage";
+    //    }
 
-        public Guid ManufacturersId
-        {
-            get;
-            set;
-        }
-        public override void Initialized()
-        {
-            base.Initialized();
-            ManufacturersId = Guid.Empty;
-        }
+    //    public Guid ManufacturersId
+    //    {
+    //        get;
+    //        set;
+    //    }
+    //    public override void Initialized()
+    //    {
+    //        base.Initialized();
+    //        ManufacturersId = Guid.Empty;
+    //    }
 
-        public ContactsViewModelCollection Query()
-        {
-            try
-            {
-                ContactsViewModelCollection collection = new ContactsViewModelCollection();
+    //    public ContactsViewModelCollection Query()
+    //    {
+    //        try
+    //        {
+    //            ContactsViewModelCollection collection = new ContactsViewModelCollection();
 
-                collection = Query<ContactsViewModelCollection, Contacts>(
-                     "ContactPersonManage", "QueryAll", ManufacturersId);
+    //            collection = Query<ContactsViewModelCollection, Contacts>(
+    //                 "ContactPersonManage", "QueryAll", ManufacturersId);
 
-                return collection;
-            }
-            catch (Exception ex)
-            {
-                ContactsViewModelCollection emptycollection =
-                    new ContactsViewModelCollection();
-                setErrortoModel(emptycollection, ex);
-                return emptycollection;
-            }
-
-           
-        }
-
-        public ContactsViewModelCollection Query(string originalSource, Guid ManufurerterId, bool isClient)
-        {
-            try
-            {
-                ContactsViewModelCollection collection = new ContactsViewModelCollection();
-
-                collection = Query<ContactsViewModelCollection, Contacts>(
-                     "ContactPersonManage", "SearchByText", originalSource, ManufurerterId, isClient);
-
-                return collection;
-            }
-            catch (Exception ex)
-            {
-                ContactsViewModelCollection emptycollection =
-                    new ContactsViewModelCollection();
-                setErrortoModel(emptycollection, ex);
-                return emptycollection;
-            }
+    //            return collection;
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            ContactsViewModelCollection emptycollection =
+    //                new ContactsViewModelCollection();
+    //            setErrortoModel(emptycollection, ex);
+    //            return emptycollection;
+    //        }
 
            
-        }
-    }
+    //    }
 
-    public class ContactsViewModel : BaseViewModelWithPOCOClass<Contacts>
+    //    public ContactsViewModelCollection Query(string originalSource, Guid ManufurerterId, bool isClient)
+    //    {
+    //        try
+    //        {
+    //            ContactsViewModelCollection collection = new ContactsViewModelCollection();
+
+    //            collection = Query<ContactsViewModelCollection, Contacts>(
+    //                 "ContactPersonManage", "SearchByText", originalSource, ManufurerterId, isClient);
+
+    //            return collection;
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            ContactsViewModelCollection emptycollection =
+    //                new ContactsViewModelCollection();
+    //            setErrortoModel(emptycollection, ex);
+    //            return emptycollection;
+    //        }
+
+           
+    //    }
+    //}
+
+    public class ContactsViewModel : EntityBaseViewModel<Contacts>, IContactsViewModel
     {
         public ContactsViewModel()
         {

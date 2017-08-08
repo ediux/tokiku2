@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:TokikuNew" 
         xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:view="clr-namespace:TokikuNew.Views"
         xmlns:helpers="clr-namespace:TokikuNew.Helpers"
         mc:Ignorable="d"        
         Title="東菊金屬 ERP System" Height="768" Width="1366" WindowState="Maximized" Icon="{DynamicResource Logo}"
@@ -29,7 +30,16 @@
             </Grid.RowDefinitions>
             <Menu Grid.Row="0">
                 <MenuItem Header="{Binding Current.MainViewModel.MainMenus[0].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_Main" >
-                    <MenuItem Header="{Binding Current.MainViewModel.MainMenus[0].SubMenus[0].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_Main_Vendor" />
+                    <MenuItem Header="{Binding Current.MainViewModel.MainMenus[0].SubMenus[0].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_Main_Vendor">
+                        <MenuItem.DataContext>
+                            <view:VendorListView />
+                        </MenuItem.DataContext>
+                        <i:Interaction.Behaviors>
+                            <helpers:OnMenuItemClickBehavior Header="廠商列表" PageContainer="{Binding Current.MainViewModel.FeaturesTabs ,Source={StaticResource ViewModelLocator}}">
+                                
+                            </helpers:OnMenuItemClickBehavior>
+                        </i:Interaction.Behaviors>
+                    </MenuItem>
                     <MenuItem Header="{Binding Current.MainViewModel.MainMenus[0].SubMenus[1].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_Main_Client" />
                     <MenuItem Header="{Binding Current.MainViewModel.MainMenus[0].SubMenus[2].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_Main_Molds" />
                 </MenuItem>

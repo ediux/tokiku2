@@ -5,182 +5,181 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
-using Tokiku.Controllers;
 using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class ManufacturersBussinessItemsViewModelColletion : BaseViewModelCollection<ManufacturersBussinessItemsViewModel>
-    {
-        public ManufacturersBussinessItemsViewModelColletion()
-        {
-            _ControllerName = "ManufacturersManage";
-        }
+    //public class ManufacturersBussinessItemsViewModelColletion : BaseViewModelCollection<ManufacturersBussinessItemsViewModel>
+    //{
+    //    public ManufacturersBussinessItemsViewModelColletion()
+    //    {
+    //        _ControllerName = "ManufacturersManage";
+    //    }
 
-        public ManufacturersBussinessItemsViewModelColletion(IEnumerable<ManufacturersBussinessItemsViewModel> source) : base(source)
-        {
-            _ControllerName = "ManufacturersManage";
-        }
+    //    public ManufacturersBussinessItemsViewModelColletion(IEnumerable<ManufacturersBussinessItemsViewModel> source) : base(source)
+    //    {
+    //        _ControllerName = "ManufacturersManage";
+    //    }
 
-        public async void QueryByBusinessItem(Guid MaterialCategoriesId, string BusinessItem, Guid ManufacturersId)
-        {
-            try
-            {
-                ManufacturersManageController controller = new ManufacturersManageController();
-                var queryresult = await controller.GetBussinessItemsListWithMaterialCategoriesAsync(MaterialCategoriesId);
-                if (!queryresult.HasError)
-                {
-                    var objectdataset = queryresult.Result;
-                    if (objectdataset.Any())
-                    {
-                        var bi = (from q in objectdataset
-                                  where q.Name.Contains(BusinessItem) &&
-                                  q.ManufacturersId == ManufacturersId
-                                  select q).ToList();
+    //    public async void QueryByBusinessItem(Guid MaterialCategoriesId, string BusinessItem, Guid ManufacturersId)
+    //    {
+    //        try
+    //        {
+    //            ManufacturersManageController controller = new ManufacturersManageController();
+    //            var queryresult = await controller.GetBussinessItemsListWithMaterialCategoriesAsync(MaterialCategoriesId);
+    //            if (!queryresult.HasError)
+    //            {
+    //                var objectdataset = queryresult.Result;
+    //                if (objectdataset.Any())
+    //                {
+    //                    var bi = (from q in objectdataset
+    //                              where q.Name.Contains(BusinessItem) &&
+    //                              q.ManufacturersId == ManufacturersId
+    //                              select q).ToList();
 
-                        foreach (var row in objectdataset)
-                        {
-                            ManufacturersBussinessItemsViewModel model = new ManufacturersBussinessItemsViewModel();
+    //                    foreach (var row in objectdataset)
+    //                    {
+    //                        ManufacturersBussinessItemsViewModel model = new ManufacturersBussinessItemsViewModel();
 
 
-                            Add(model);
-                        }
-                    }
+    //                        Add(model);
+    //                    }
+    //                }
 
-                }
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-            }
-        }
+    //            }
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            setErrortoModel(this, ex);
+    //        }
+    //    }
 
-        public async void QueryByBusinessItem(Guid MaterialCategoriesId, string BusinessItem, Guid ManufacturersId, int TicketPeriodId)
-        {
-            try
-            {
-                ManufacturersManageController controller = new ManufacturersManageController();
-                var queryresult = await controller.GetBussinessItemsListWithMaterialCategoriesAsync(MaterialCategoriesId);
-                if (!queryresult.HasError)
-                {
-                    var objectdataset = queryresult.Result;
-                    if (objectdataset.Any())
-                    {
-                        var bi = (from q in objectdataset
-                                  where q.Name.Contains(BusinessItem) &&
-                                  q.ManufacturersId == ManufacturersId &&
-                                  q.TicketPeriodId == TicketPeriodId
-                                  select q)
-                                  .Distinct()
-                                  .ToList();
+    //    public async void QueryByBusinessItem(Guid MaterialCategoriesId, string BusinessItem, Guid ManufacturersId, int TicketPeriodId)
+    //    {
+    //        try
+    //        {
+    //            ManufacturersManageController controller = new ManufacturersManageController();
+    //            var queryresult = await controller.GetBussinessItemsListWithMaterialCategoriesAsync(MaterialCategoriesId);
+    //            if (!queryresult.HasError)
+    //            {
+    //                var objectdataset = queryresult.Result;
+    //                if (objectdataset.Any())
+    //                {
+    //                    var bi = (from q in objectdataset
+    //                              where q.Name.Contains(BusinessItem) &&
+    //                              q.ManufacturersId == ManufacturersId &&
+    //                              q.TicketPeriodId == TicketPeriodId
+    //                              select q)
+    //                              .Distinct()
+    //                              .ToList();
 
-                        foreach (var row in bi)
-                        {
-                            ManufacturersBussinessItemsViewModel model = new ManufacturersBussinessItemsViewModel();
+    //                    foreach (var row in bi)
+    //                    {
+    //                        ManufacturersBussinessItemsViewModel model = new ManufacturersBussinessItemsViewModel();
 
-                            //model.SetModel(row);
-                            //model.MaterialCategories = row.MaterialCategories.Name;
-                            //model.PaymentTypeName = row.PaymentTypes.PaymentTypeName;
-                            //model.TicketPeriod = row.TicketPeriod.Name;
-                            //model.PaymentTypeName = row.PaymentTypes.PaymentTypeName;
-                            //model.TranscationCategories = row.TranscationCategories.Name;
+    //                        //model.SetModel(row);
+    //                        //model.MaterialCategories = row.MaterialCategories.Name;
+    //                        //model.PaymentTypeName = row.PaymentTypes.PaymentTypeName;
+    //                        //model.TicketPeriod = row.TicketPeriod.Name;
+    //                        //model.PaymentTypeName = row.PaymentTypes.PaymentTypeName;
+    //                        //model.TranscationCategories = row.TranscationCategories.Name;
 
-                            Add(model);
-                        }
-                    }
+    //                        Add(model);
+    //                    }
+    //                }
 
-                }
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-            }
-        }
+    //            }
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            setErrortoModel(this, ex);
+    //        }
+    //    }
 
-        public static ManufacturersBussinessItemsViewModelColletion QueryWithMaterialCategories(Guid MaterialCategoriesId)
-        {
-            try
-            {
-                return Query<ManufacturersBussinessItemsViewModelColletion, ManufacturersBussinessItems>(
-                    "ManufacturersManage",
-                    "GetBussinessItemsListWithMaterialCategories",
-                    MaterialCategoriesId);
-            }
-            catch (Exception ex)
-            {
-                ManufacturersBussinessItemsViewModelColletion coll = new ManufacturersBussinessItemsViewModelColletion();
-                setErrortoModel(coll, ex);
-                return coll;
-            }
-        }
+    //    public static ManufacturersBussinessItemsViewModelColletion QueryWithMaterialCategories(Guid MaterialCategoriesId)
+    //    {
+    //        try
+    //        {
+    //            return Query<ManufacturersBussinessItemsViewModelColletion, ManufacturersBussinessItems>(
+    //                "ManufacturersManage",
+    //                "GetBussinessItemsListWithMaterialCategories",
+    //                MaterialCategoriesId);
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            ManufacturersBussinessItemsViewModelColletion coll = new ManufacturersBussinessItemsViewModelColletion();
+    //            setErrortoModel(coll, ex);
+    //            return coll;
+    //        }
+    //    }
 
-        public static ManufacturersBussinessItemsViewModelColletion Query(Guid ManufacturersId)
-        {
-            try
-            {
-                return Query<ManufacturersBussinessItemsViewModelColletion, ManufacturersBussinessItems>(
-                    "ManufacturersManage", "QueryBussinessItemsList", ManufacturersId);
-                //ManufacturersManageController controller = new ManufacturersManageController();
+    //    public static ManufacturersBussinessItemsViewModelColletion Query(Guid ManufacturersId)
+    //    {
+    //        try
+    //        {
+    //            return Query<ManufacturersBussinessItemsViewModelColletion, ManufacturersBussinessItems>(
+    //                "ManufacturersManage", "QueryBussinessItemsList", ManufacturersId);
+    //            //ManufacturersManageController controller = new ManufacturersManageController();
 
-                //var queryresult = await controller.QueryBussinessItemsListAsync(ManufacturersId);
+    //            //var queryresult = await controller.QueryBussinessItemsListAsync(ManufacturersId);
 
-                //if (!queryresult.HasError)
-                //{
-                //    var objectdataset = queryresult.Result;
-                //    if (objectdataset.Any())
-                //    {
+    //            //if (!queryresult.HasError)
+    //            //{
+    //            //    var objectdataset = queryresult.Result;
+    //            //    if (objectdataset.Any())
+    //            //    {
 
-                //        ClearItems();
-                //        foreach (var row in objectdataset)
-                //        {
-                //            ManufacturersBussinessItemsViewModel model = new ManufacturersBussinessItemsViewModel();
+    //            //        ClearItems();
+    //            //        foreach (var row in objectdataset)
+    //            //        {
+    //            //            ManufacturersBussinessItemsViewModel model = new ManufacturersBussinessItemsViewModel();
 
-                //            Add(model);
-                //        }
-                //    }
-                //}
-            }
-            catch (Exception ex)
-            {
-                ManufacturersBussinessItemsViewModelColletion collection = new ManufacturersBussinessItemsViewModelColletion();
-                setErrortoModel(collection, ex);
-                return collection;
-            }
-        }
+    //            //            Add(model);
+    //            //        }
+    //            //    }
+    //            //}
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            ManufacturersBussinessItemsViewModelColletion collection = new ManufacturersBussinessItemsViewModelColletion();
+    //            setErrortoModel(collection, ex);
+    //            return collection;
+    //        }
+    //    }
 
-        public async void QueryAsync(Guid ManufacturersId)
-        {
-            try
-            {
-                ManufacturersManageController controller = new ManufacturersManageController();
+    //    public async void QueryAsync(Guid ManufacturersId)
+    //    {
+    //        try
+    //        {
+    //            ManufacturersManageController controller = new ManufacturersManageController();
 
-                var queryresult = await controller.QueryBussinessItemsListAsync(ManufacturersId);
+    //            var queryresult = await controller.QueryBussinessItemsListAsync(ManufacturersId);
 
-                if (!queryresult.HasError)
-                {
-                    var objectdataset = queryresult.Result;
-                    if (objectdataset.Any())
-                    {
+    //            if (!queryresult.HasError)
+    //            {
+    //                var objectdataset = queryresult.Result;
+    //                if (objectdataset.Any())
+    //                {
 
-                        ClearItems();
-                        foreach (var row in objectdataset)
-                        {
-                            ManufacturersBussinessItemsViewModel model = new ManufacturersBussinessItemsViewModel();
+    //                    ClearItems();
+    //                    foreach (var row in objectdataset)
+    //                    {
+    //                        ManufacturersBussinessItemsViewModel model = new ManufacturersBussinessItemsViewModel();
 
-                            Add(model);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-            }
+    //                        Add(model);
+    //                    }
+    //                }
+    //            }
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            setErrortoModel(this, ex);
+    //        }
 
-        }
-    }
+    //    }
+    //}
 
-    public class ManufacturersBussinessItemsViewModel : BaseViewModelWithPOCOClass<ManufacturersBussinessItems>
+    public class ManufacturersBussinessItemsViewModel : EntityBaseViewModel<ManufacturersBussinessItems>, IManufacturersBussinessItemsViewModel
     {
         public ManufacturersBussinessItemsViewModel() : base()
         {

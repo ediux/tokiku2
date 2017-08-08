@@ -21,8 +21,17 @@ namespace Tokiku.ViewModels
 			if (!SimpleIoc.Default.IsRegistered<IFixedTabViewModel>())
 				SimpleIoc.Default.Register<IFixedTabViewModel,FixedTabViewModel>();			
 
+			if (!SimpleIoc.Default.IsRegistered<IMenuItemViewModel>())
+				SimpleIoc.Default.Register<IMenuItemViewModel,MenuItemViewModel>();			
+
 			if (!SimpleIoc.Default.IsRegistered<IMainViewModel>())
 				SimpleIoc.Default.Register<IMainViewModel,MainViewModel>();			
+
+			if (!SimpleIoc.Default.IsRegistered<IVendorListItemViewModel>())
+				SimpleIoc.Default.Register<IVendorListItemViewModel,VendorListItemViewModel>();			
+
+			if (!SimpleIoc.Default.IsRegistered<IVendorListViewModel>())
+				SimpleIoc.Default.Register<IVendorListViewModel,VendorListViewModel>();			
 
 			if (!SimpleIoc.Default.IsRegistered<ILoginViewModel>())
 				SimpleIoc.Default.Register<ILoginViewModel,LoginViewModel>();			
@@ -64,11 +73,32 @@ namespace Tokiku.ViewModels
 			get => SimpleIoc.Default.GetInstance<IFixedTabViewModel>();
 		}
 		/// <summary>
+        /// 取得IoC容器中的實作 IMenuItemViewModel 介面的物件執行個體。
+        /// </summary>
+		public IMenuItemViewModel MenuItemViewModel
+		{
+			get => SimpleIoc.Default.GetInstance<IMenuItemViewModel>();
+		}
+		/// <summary>
         /// 取得IoC容器中的實作 IMainViewModel 介面的物件執行個體。
         /// </summary>
 		public IMainViewModel MainViewModel
 		{
 			get => SimpleIoc.Default.GetInstance<IMainViewModel>();
+		}
+		/// <summary>
+        /// 取得IoC容器中的實作 IVendorListItemViewModel 介面的物件執行個體。
+        /// </summary>
+		public IVendorListItemViewModel VendorListItemViewModel
+		{
+			get => SimpleIoc.Default.GetInstance<IVendorListItemViewModel>();
+		}
+		/// <summary>
+        /// 取得IoC容器中的實作 IVendorListViewModel 介面的物件執行個體。
+        /// </summary>
+		public IVendorListViewModel VendorListViewModel
+		{
+			get => SimpleIoc.Default.GetInstance<IVendorListViewModel>();
 		}
 		/// <summary>
         /// 取得IoC容器中的實作 ILoginViewModel 介面的物件執行個體。

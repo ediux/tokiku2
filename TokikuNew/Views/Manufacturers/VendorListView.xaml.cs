@@ -20,26 +20,26 @@ namespace TokikuNew.Views
             InitializeComponent();
         }
 
-        public static readonly RoutedEvent SelectedVendorChangedEvent = EventManager.RegisterRoutedEvent(
-             "SelectedVendorChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(VendorListView));
+        //public static readonly RoutedEvent SelectedVendorChangedEvent = EventManager.RegisterRoutedEvent(
+        //     "SelectedVendorChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(VendorListView));
 
-        public event RoutedEventHandler SelectedVendorChanged
-        {
-            add { AddHandler(SelectedVendorChangedEvent, value); }
-            remove { RemoveHandler(SelectedVendorChangedEvent, value); }
-        }
+        //public event RoutedEventHandler SelectedVendorChanged
+        //{
+        //    add { AddHandler(SelectedVendorChangedEvent, value); }
+        //    remove { RemoveHandler(SelectedVendorChangedEvent, value); }
+        //}
 
 
 
-        public ManufacturersViewModel SelectedManufacturer
-        {
-            get { return (ManufacturersViewModel)GetValue(SelectedManufacturerProperty); }
-            set { SetValue(SelectedManufacturerProperty, value); }
-        }
+        //public ManufacturersViewModel SelectedManufacturer
+        //{
+        //    get { return (ManufacturersViewModel)GetValue(SelectedManufacturerProperty); }
+        //    set { SetValue(SelectedManufacturerProperty, value); }
+        //}
 
-        // Using a DependencyProperty as the backing store for SelectedManufacturer.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SelectedManufacturerProperty =
-            DependencyProperty.Register("SelectedManufacturer", typeof(ManufacturersViewModel), typeof(VendorListView), new PropertyMetadata(default(ManufacturersViewModel)));
+        //// Using a DependencyProperty as the backing store for SelectedManufacturer.  This enables animation, styling, binding, etc...
+        //public static readonly DependencyProperty SelectedManufacturerProperty =
+        //    DependencyProperty.Register("SelectedManufacturer", typeof(ManufacturersViewModel), typeof(VendorListView), new PropertyMetadata(default(ManufacturersViewModel)));
 
 
 
@@ -87,148 +87,148 @@ namespace TokikuNew.Views
 
         //}
 
-        private void VendorList_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
-        {
-            try
-            {
-                if (e.AddedCells.Any())
-                {
-                    var obj = e.AddedCells.First().Item;
-                    var header = e.AddedCells.First().Column.DisplayIndex;
+        //private void VendorList_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (e.AddedCells.Any())
+        //        {
+        //            var obj = e.AddedCells.First().Item;
+        //            var header = e.AddedCells.First().Column.DisplayIndex;
 
-                    if (header == 0)
-                    {
-                        if (obj != null)
-                        {
-                            SelectedManufacturer = (ManufacturersViewModel)obj;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
+        //            if (header == 0)
+        //            {
+        //                if (obj != null)
+        //                {
+        //                    SelectedManufacturer = (ManufacturersViewModel)obj;
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+        //    }
 
 
 
-        }
+        //}
 
-        private void VendorList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            try
-            {
-                e.Handled = true;
+        //private void VendorList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        //{
+        //    try
+        //    {
+        //        e.Handled = true;
 
-                if (VendorList.SelectedItem != null)
-                {
-                    SelectedManufacturer = (ManufacturersViewModel)VendorList.SelectedItem;
-                }
+        //        if (VendorList.SelectedItem != null)
+        //        {
+        //            SelectedManufacturer = (ManufacturersViewModel)VendorList.SelectedItem;
+        //        }
 
-                RoutedUICommand command = (RoutedUICommand)TryFindResource("OpenNewTabItem");
+        //        RoutedUICommand command = (RoutedUICommand)TryFindResource("OpenNewTabItem");
 
-                if (command != null)
-                {
-                    var routedvalue = new RoutedViewResult()
-                    {
-                        FormatedDisplay = "廠商:{0}-{1}",
-                        FormatedParameters = new object[] { SelectedManufacturer.Code, SelectedManufacturer.ShortName },
-                        ViewType = typeof(ManufacturersManageView),
-                        RoutedValues = new Dictionary<string, object>()
-                    };
-                    routedvalue.RoutedValues.Add("SelectedManufacturerId", SelectedManufacturer.Id);
-                    command.Execute(routedvalue, VendorList);
-                }
-            }
-            catch (Exception ex)
-            {
+        //        if (command != null)
+        //        {
+        //            var routedvalue = new RoutedViewResult()
+        //            {
+        //                FormatedDisplay = "廠商:{0}-{1}",
+        //                FormatedParameters = new object[] { SelectedManufacturer.Code, SelectedManufacturer.ShortName },
+        //                ViewType = typeof(ManufacturersManageView),
+        //                RoutedValues = new Dictionary<string, object>()
+        //            };
+        //            routedvalue.RoutedValues.Add("SelectedManufacturerId", SelectedManufacturer.Id);
+        //            command.Execute(routedvalue, VendorList);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
-            }
+        //        MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+        //    }
 
-        }
+        //}
 
-        private void QueryCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.Handled = true;
-            e.CanExecute = true;
-        }
+        //private void QueryCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        //{
+        //    e.Handled = true;
+        //    e.CanExecute = true;
+        //}
 
-        private void QueryCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            try
-            {
-                ObjectDataProvider provider = (ObjectDataProvider)TryFindResource("ManufacturerListSource");
-                if (provider != null)
-                {
-                    provider.MethodName = "QueryByText";
-                    provider.MethodParameters.Clear();
-                    provider.MethodParameters.Add(e.Parameter);
-                    provider.Refresh();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+        //private void QueryCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        ObjectDataProvider provider = (ObjectDataProvider)TryFindResource("ManufacturerListSource");
+        //        if (provider != null)
+        //        {
+        //            provider.MethodName = "QueryByText";
+        //            provider.MethodParameters.Clear();
+        //            provider.MethodParameters.Add(e.Parameter);
+        //            provider.Refresh();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
 
-            }
-        }
+        //    }
+        //}
 
-        private void QueryRefreshCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.Handled = true;
-            e.CanExecute = true;
-        }
+        //private void QueryRefreshCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        //{
+        //    e.Handled = true;
+        //    e.CanExecute = true;
+        //}
 
-        private void QueryRefreshCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            try
-            {
-                ObjectDataProvider provider = (ObjectDataProvider)TryFindResource("ManufacturerListSource");
-                if (provider != null)
-                {
-                    provider.Refresh();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+        //private void QueryRefreshCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        ObjectDataProvider provider = (ObjectDataProvider)TryFindResource("ManufacturerListSource");
+        //        if (provider != null)
+        //        {
+        //            provider.Refresh();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
 
-            }
-        }
+        //    }
+        //}
 
-        private void btnNew_PreviewCanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.Handled = true;
-            e.CanExecute = true;
-        }
+        //private void btnNew_PreviewCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        //{
+        //    e.Handled = true;
+        //    e.CanExecute = true;
+        //}
 
-        private void ResetFiliterCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.Handled = true;
-            e.CanExecute = true;
-        }
+        //private void ResetFiliterCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        //{
+        //    e.Handled = true;
+        //    e.CanExecute = true;
+        //}
 
-        private void ResetFiliterCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            try
-            {
-                e.Handled = true;
+        //private void ResetFiliterCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        e.Handled = true;
 
-                ObjectDataProvider provider = (ObjectDataProvider)FindResource("ManufacturerListSource");
+        //        ObjectDataProvider provider = (ObjectDataProvider)FindResource("ManufacturerListSource");
 
-                if (provider != null)
-                {
-                    provider.MethodName = "Query";
-                    provider.MethodParameters.Clear();
-                    provider.Refresh();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+        //        if (provider != null)
+        //        {
+        //            provider.MethodName = "Query";
+        //            provider.MethodParameters.Clear();
+        //            provider.Refresh();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
 
-            }
-        }
+        //    }
+        //}
     }
 }

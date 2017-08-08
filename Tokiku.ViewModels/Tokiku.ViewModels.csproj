@@ -81,8 +81,12 @@
     <Compile Include="Interfaces\IMenuItemViewModel.cs" />
     <Compile Include="Interfaces\IMainViewModel.cs" />
     <Compile Include="Interfaces\ITabViewModel.cs" />
+    <Compile Include="Interfaces\IVendorListItemViewModel.cs" />
     <Compile Include="Main\MainViewModel.cs" />
     <Compile Include="ControlModels\MenuItemViewModel.cs" />
+    <Compile Include="Interfaces\IVendorListViewModel.cs" />
+    <Compile Include="Manufacturers\VendorListItemViewModel.cs" />
+    <Compile Include="Manufacturers\VendorListViewModel.cs" />
     <Compile Include="MVVMLocatorMaker.cs">
       <DependentUpon>MVVMLocatorMaker.tt</DependentUpon>
       <AutoGen>True</AutoGen>
