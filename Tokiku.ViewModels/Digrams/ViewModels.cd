@@ -60,10 +60,10 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Tokiku.ViewModels.FixedTabViewModel">
-    <Position X="10.75" Y="12.75" Width="1.5" />
+    <Position X="10.75" Y="13" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
-      <FileName>FixedTabViewModel.cs</FileName>
+      <FileName>ControlModels\FixedTabViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -71,23 +71,23 @@
     <Position X="12" Y="9.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAJAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAACAAAAAA=</HashCode>
-      <FileName>TabViewModelBase.cs</FileName>
+      <FileName>ControlModels\TabViewModelBase.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Tokiku.ViewModels.CloseableTabViewModel">
-    <Position X="13" Y="12.75" Width="1.5" />
+    <Position X="13" Y="13" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAIAAIAAAAAAAAAAAAAAAAAAAAAAACAAACAAAIA=</HashCode>
-      <FileName>CloseableTabViewModel.cs</FileName>
+      <FileName>ControlModels\CloseableTabViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Tokiku.ViewModels.MenuItemViewModel">
-    <Position X="11.5" Y="5.5" Width="1.5" />
+    <Position X="15.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAJAAAAQAAAAACAQAAAAAAAAAAAAAEAAAAAACAAAAAA=</HashCode>
-      <FileName>MenuItemViewModel.cs</FileName>
+      <FileName>ControlModels\MenuItemViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -135,28 +135,28 @@
     <Position X="3.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>IFixedTabViewModel.cs</FileName>
+      <FileName>Interfaces\IFixedTabViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Tokiku.ViewModels.ITabViewModel">
     <Position X="2.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
-      <FileName>ITabViewModel.cs</FileName>
+      <FileName>Interfaces\ITabViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Tokiku.ViewModels.ICloseableTabViewModel">
     <Position X="1.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAA=</HashCode>
-      <FileName>ICloseableTabViewModel.cs</FileName>
+      <FileName>Interfaces\ICloseableTabViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Tokiku.ViewModels.IMenuItemViewModel">
     <Position X="11" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAIAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
-      <FileName>IMenuItemViewModel.cs</FileName>
+      <FileName>Interfaces\IMenuItemViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Microsoft JhengHei UI" Size="9" />

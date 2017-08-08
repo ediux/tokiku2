@@ -12,7 +12,7 @@ namespace Tokiku.ViewModels
 
         string ViewName { get; set; }
 
-        object ContentView { get; set; }
+        object ViewContent { get; set; }
 
         Type ViewType { get; set; }
 

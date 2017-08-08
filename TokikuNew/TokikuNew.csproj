@@ -142,6 +142,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\ClosableTab.xaml.cs">
+      <DependentUpon>ClosableTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ClosableTabItem.cs" />
     <Compile Include="Helpers\Behaviors\OnWindowCloseBehavior.cs" />
     <Compile Include="Helpers\Behaviors\PasswordChangedBehavior.cs" />
     <Compile Include="Helpers\Behaviors\TabOnEnterBehavior_PasswordBox.cs" />
@@ -152,10 +156,10 @@
     <Compile Include="Helpers\Tools.cs" />
     <Compile Include="ValueConverters\DateTime2StringFormatingValueConverter.cs" />
     <Compile Include="ValueConverters\ReplyContentValueConverter.cs" />
-    <Compile Include="Frame\OptionWindow.xaml.cs">
+    <Compile Include="Window\OptionWindow.xaml.cs">
       <DependentUpon>OptionWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Frame\StartUpWindow.xaml.cs">
+    <Compile Include="Window\StartUpWindow.xaml.cs">
       <DependentUpon>StartUpWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValueConverters\DocumentLifeCycleStateToVisibilityValueConverter.cs" />
@@ -172,11 +176,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MVVMLocatorMaker.tt</DependentUpon>
     </Compile>
-    <Page Include="Frame\OptionWindow.xaml">
+    <Page Include="Controls\ClosableTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\OptionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Frame\StartUpWindow.xaml">
+    <Page Include="Window\StartUpWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -302,7 +310,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Base\" />
-    <Folder Include="Controls\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ReadMe.txt" />

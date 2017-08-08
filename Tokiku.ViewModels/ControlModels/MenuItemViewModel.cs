@@ -20,7 +20,7 @@ namespace Tokiku.ViewModels
         private string _ViewName;
         public string ViewName { get => _ViewName; set { _ViewName = value; RaisePropertyChanged("ViewName"); } }
         private object _ContentView = null;
-        public object ContentView { get => _ContentView; set { _ContentView = value; RaisePropertyChanged("ContentView"); } }
+        public object ViewContent { get => _ContentView; set { _ContentView = value; RaisePropertyChanged("ContentView"); } }
         private Type _ViewType;
         public Type ViewType { get => _ViewType; set { _ViewType = value; RaisePropertyChanged("ViewType"); } }
 
