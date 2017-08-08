@@ -33,6 +33,9 @@ namespace Tokiku.ViewModels
 			if (!SimpleIoc.Default.IsRegistered<IVendorListViewModel>())
 				SimpleIoc.Default.Register<IVendorListViewModel,VendorListViewModel>();			
 
+			if (!SimpleIoc.Default.IsRegistered<ISearchBarViewModel>())
+				SimpleIoc.Default.Register<ISearchBarViewModel,SearchBarViewModel>();			
+
 			if (!SimpleIoc.Default.IsRegistered<ILoginViewModel>())
 				SimpleIoc.Default.Register<ILoginViewModel,LoginViewModel>();			
 
@@ -99,6 +102,13 @@ namespace Tokiku.ViewModels
 		public IVendorListViewModel VendorListViewModel
 		{
 			get => SimpleIoc.Default.GetInstance<IVendorListViewModel>();
+		}
+		/// <summary>
+        /// 取得IoC容器中的實作 ISearchBarViewModel 介面的物件執行個體。
+        /// </summary>
+		public ISearchBarViewModel SearchBarViewModel
+		{
+			get => SimpleIoc.Default.GetInstance<ISearchBarViewModel>();
 		}
 		/// <summary>
         /// 取得IoC容器中的實作 ILoginViewModel 介面的物件執行個體。

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.CommandWpf;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -6,57 +7,31 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
+using GalaSoft.MvvmLight.Messaging;
 
-namespace Tokiku.ViewModels.Shared
+namespace Tokiku.ViewModels
 {
-    public class SearchBarViewModel : INotifyPropertyChanged
+    public class SearchBarViewModel : BaseViewModel, ISearchBarViewModel
     {
         public SearchBarViewModel()
         {
-            MethodName = new Stack<dynamic>();
-            _QueryCommand = new QueryCommand(Query);
-            _RefreshCommand = new DelegateCommand(Refresh);
-            _ResetCommand = new DelegateCommand(Reset);
+            _QueryCommand = new RelayCommand(Query);
+            _RefreshCommand = new RelayCommand(Refresh);
+            _RefreshCommand = new RelayCommand(Reset);
         }
 
-        private Stack<dynamic> MethodName;
+        private string _Prefix = string.Empty;
 
-        private void Query(object parameter)
+        public string Prefix { get => _Prefix; set { _Prefix = value; RaisePropertyChanged("Prefix"); } }
+
+        private void Query()
         {
             try
             {
-                //BaseViewModelCollection>.QuerySingle<IC>
-                if (parameter is ObjectDataProvider)
-                {
-
-                    ObjectDataProvider provider = (ObjectDataProvider)parameter;
-
-                    if (provider != null)
-                    {
-                        if (MethodName.Count == 0)
-                            MethodName.Push(new { MethodName = provider.MethodName, Parameters = provider.MethodParameters });
-
-                        provider.MethodName = "QueryByText";
-
-                        if (provider.MethodParameters.Count == 0)
-                            provider.MethodParameters.Add(SearchText);
-                        else
-                        {
-                            if (provider.MethodParameters.Count > 1)
-                            {
-                                provider.MethodParameters.Clear();
-                                provider.MethodParameters.Add(SearchText);
-                            }
-                            else
-                            {
-                                provider.MethodParameters[0] = SearchText;
-                            }
-                        }
-                        provider.Refresh();
-                    }
-
-
-                }
+                if (!string.IsNullOrEmpty(Prefix))
+                    Messenger.Default.Send(SearchText, string.Format("SearchBar_Query_{0}", Prefix));
+                else
+                    Messenger.Default.Send(SearchText, "SearchBar_Query");
 
             }
             catch (Exception)
@@ -66,37 +41,14 @@ namespace Tokiku.ViewModels.Shared
 
         }
 
-        private void Refresh(object parameter)
+        private void Refresh()
         {
             try
             {
-                //BaseViewModelCollection>.QuerySingle<IC>
-                if (parameter is ObjectDataProvider)
-                {
-
-                    ObjectDataProvider provider = (ObjectDataProvider)parameter;
-
-                    if (provider != null)
-                    {
-                        provider.MethodName = "QueryByText";
-
-                        if (provider.MethodParameters.Count == 0)
-                            provider.MethodParameters.Add(SearchText);
-                        else
-                        {
-                            if (provider.MethodParameters.Count > 1)
-                            {
-                                provider.MethodParameters.Clear();
-                                provider.MethodParameters.Add(SearchText);
-                            }
-                            else
-                            {
-                                provider.MethodParameters[0] = SearchText;
-                            }
-                        }
-                        provider.Refresh();
-                    }
-                }
+                if (!string.IsNullOrEmpty(Prefix))
+                    Messenger.Default.Send(SearchText, string.Format("SearchBar_Refresh_{0}", Prefix));
+                else
+                    Messenger.Default.Send(SearchText, "SearchBar_Refresh");
             }
             catch (Exception)
             {
@@ -105,35 +57,14 @@ namespace Tokiku.ViewModels.Shared
 
         }
 
-        private void Reset(object parameter)
+        private void Reset()
         {
             try
             {
-                if (parameter is ObjectDataProvider)
-                {
-
-                    ObjectDataProvider provider = (ObjectDataProvider)parameter;
-
-                    if (provider != null)
-                    {
-                        if (MethodName.Count > 0)
-                        {
-                            var laststack = MethodName.Pop();
-
-                            provider.MethodName = laststack.MethodName;
-                            provider.MethodParameters.Clear();
-                            foreach (var item in laststack.Parameters)
-                            {
-                                provider.MethodParameters.Add(item);
-                            }
-                        }
-
-
-                        provider.Refresh();
-                    }
-
-                    SearchText = "";
-                }
+                if (!string.IsNullOrEmpty(Prefix))
+                    Messenger.Default.Send(SearchText, string.Format("SearchBar_Reset_{0}", Prefix));
+                else
+                    Messenger.Default.Send(SearchText, "SearchBar_Reset");
             }
             catch (Exception)
             {
@@ -142,7 +73,7 @@ namespace Tokiku.ViewModels.Shared
 
         }
         private string _SearchText = string.Empty;
-        public string SearchText { get => _SearchText; set { _SearchText = value; OnPropertyChanged("SearchText"); } }
+        public string SearchText { get => _SearchText; set { _SearchText = value; RaisePropertyChanged("SearchText"); } }
 
         private ICommand _QueryCommand;
         public ICommand QueryCommand { get => _QueryCommand; set => _QueryCommand = value; }
@@ -150,14 +81,6 @@ namespace Tokiku.ViewModels.Shared
         public ICommand RefreshCommand { get => _RefreshCommand; set => _RefreshCommand = value; }
         private ICommand _ResetCommand;
         public ICommand ResetCommand { get => _ResetCommand; set => _ResetCommand = value; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string Name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(Name));
-        }
-
 
     }
 }

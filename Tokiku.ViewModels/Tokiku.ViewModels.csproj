@@ -92,6 +92,8 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Interfaces\ISearchBarViewModel.cs" />
+    <Compile Include="Shared\SearchBarViewModel.cs" />
     <Compile Include="StartUp\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ControlModels\TabViewModelBase.cs" />
