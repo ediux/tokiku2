@@ -40,5 +40,38 @@ namespace Tokiku.DataServices
                 return new Collection<Manufacturers>();
             }
         }
+
+        public Collection<Manufacturers> SearchByText(string filiter)
+        {
+            try
+            {
+
+                if (filiter != null && filiter.Length > 0)
+                {
+        
+                    var queryresult = from q in _ManufacturersRepository.All()
+                                      where q.Void == false && q.IsClient == false &&
+                                      (q.Name.Contains(filiter) ||
+                                    (q.ManufacturersBussinessItems != null && q.ManufacturersBussinessItems.Any(s => s.Name.Contains(filiter)))
+                                      || (q.Principal != null && q.Principal.Contains(filiter)))
+                                      orderby q.Code ascending
+                                      select q;
+
+                    
+
+                    return new Collection<Manufacturers>(queryresult.ToList());
+
+                }
+                else
+                {
+                    return QueryAll();
+                }
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(ex);
+                return new Collection<Manufacturers>();
+            }
+        }
     }
 }

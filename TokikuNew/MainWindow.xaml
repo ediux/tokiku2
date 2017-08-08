@@ -31,13 +31,9 @@
             <Menu Grid.Row="0">
                 <MenuItem Header="{Binding Current.MainViewModel.MainMenus[0].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_Main" >
                     <MenuItem Header="{Binding Current.MainViewModel.MainMenus[0].SubMenus[0].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_Main_Vendor">
-                        <MenuItem.DataContext>
-                            <view:VendorListView />
-                        </MenuItem.DataContext>
                         <i:Interaction.Behaviors>
-                            <helpers:OnMenuItemClickBehavior Header="廠商列表" PageContainer="{Binding Current.MainViewModel.FeaturesTabs ,Source={StaticResource ViewModelLocator}}">
-                                
-                            </helpers:OnMenuItemClickBehavior>
+                            <helpers:OnMenuItemClickBehavior Header="廠商列表" TabControlName="Workspaces"
+                                                             ViewType="{x:Type view:VendorListView}" />
                         </i:Interaction.Behaviors>
                     </MenuItem>
                     <MenuItem Header="{Binding Current.MainViewModel.MainMenus[0].SubMenus[1].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_Main_Client" />
@@ -74,6 +70,9 @@
                         <ContentPresenter Content="{Binding ContentView}"/>
                     </DataTemplate>
                 </TabControl.ContentTemplate>
+                <i:Interaction.Behaviors>
+                    <helpers:OnTabControlAddTabSwitchBehavior/>
+                </i:Interaction.Behaviors>
             </TabControl>
             <StatusBar Margin="0" Grid.Row="3">
                 <StackPanel Orientation="Horizontal">

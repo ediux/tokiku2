@@ -13,5 +13,6 @@ namespace Tokiku.DataServices
     public interface IManufacturersDataService : IDataService
     {
         Collection<Manufacturers> QueryAll();
+        Collection<Manufacturers> SearchByText(string filiter);
     }
 }

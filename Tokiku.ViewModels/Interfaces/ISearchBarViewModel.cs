@@ -9,7 +9,7 @@ namespace Tokiku.ViewModels
         ICommand RefreshCommand { get; set; }
         ICommand ResetCommand { get; set; }
         string SearchText { get; set; }
-
+        string Prefix { get; set; }
         event PropertyChangedEventHandler PropertyChanged;
     }
 }

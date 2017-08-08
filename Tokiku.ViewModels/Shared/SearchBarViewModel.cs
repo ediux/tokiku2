@@ -17,7 +17,7 @@ namespace Tokiku.ViewModels
         {
             _QueryCommand = new RelayCommand(Query);
             _RefreshCommand = new RelayCommand(Refresh);
-            _RefreshCommand = new RelayCommand(Reset);
+            _ResetCommand = new RelayCommand(Reset);
         }
 
         private string _Prefix = string.Empty;
@@ -61,6 +61,7 @@ namespace Tokiku.ViewModels
         {
             try
             {
+                SearchText = string.Empty;
                 if (!string.IsNullOrEmpty(Prefix))
                     Messenger.Default.Send(SearchText, string.Format("SearchBar_Reset_{0}", Prefix));
                 else

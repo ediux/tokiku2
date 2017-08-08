@@ -147,8 +147,12 @@
     </Compile>
     <Compile Include="Controls\ClosableTabItem.cs" />
     <Compile Include="Controls\CustomDataGrid.cs" />
+    <Compile Include="Controls\SearchBar.xaml.cs">
+      <DependentUpon>SearchBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\Behaviors\OnMenuItemClickBehavior.cs" />
     <Compile Include="Helpers\Behaviors\OnMenuItemClickToClaseWindowBehavior.cs" />
+    <Compile Include="Helpers\Behaviors\OnTabControlAddTabSwitchBehavior.cs" />
     <Compile Include="Helpers\Behaviors\OnWindowCloseBehavior.cs" />
     <Compile Include="Helpers\Behaviors\PasswordChangedBehavior.cs" />
     <Compile Include="Helpers\Behaviors\TabOnEnterBehavior_PasswordBox.cs" />
@@ -183,6 +187,10 @@
       <DependentUpon>MVVMLocatorMaker.tt</DependentUpon>
     </Compile>
     <Page Include="Controls\ClosableTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\SearchBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
