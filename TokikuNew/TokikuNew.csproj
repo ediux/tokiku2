@@ -146,6 +146,7 @@
       <DependentUpon>ClosableTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ClosableTabItem.cs" />
+    <Compile Include="Helpers\Behaviors\OnMenuItemClickBehavior.cs" />
     <Compile Include="Helpers\Behaviors\OnMenuItemClickToClaseWindowBehavior.cs" />
     <Compile Include="Helpers\Behaviors\OnWindowCloseBehavior.cs" />
     <Compile Include="Helpers\Behaviors\PasswordChangedBehavior.cs" />
