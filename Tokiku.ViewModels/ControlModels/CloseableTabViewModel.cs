@@ -13,14 +13,16 @@ namespace Tokiku.ViewModels
         {
             _Mode = DocumentLifeCircle.None;
             _CloseTabCommand = new RelayCommand(ProcessCloseHandler);
-            
+            _CanClose = true;
         }
 
-  
+
         private ICommand _CloseTabCommand;
         public ICommand CloseTabCommand { get => _CloseTabCommand; set { _CloseTabCommand = value; RaisePropertyChanged("CloseTabCommand"); } }
         private DocumentLifeCircle _Mode;
-        public DocumentLifeCircle Mode { get => _Mode; set { _Mode = value; RaisePropertyChanged("Mode"); } }
+        public DocumentLifeCircle Mode { get => _Mode; set { _Mode = value; RaisePropertyChanged<DocumentLifeCircle>("Mode", broadcast: true); } }
+
+        public override bool CanClose { get => true; set { RaisePropertyChanged("CanClose"); } }
 
         private void ProcessCloseHandler()
         {

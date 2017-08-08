@@ -164,6 +164,7 @@
     <Compile Include="Helpers\Tools.cs" />
     <Compile Include="ValueConverters\DateTime2StringFormatingValueConverter.cs" />
     <Compile Include="ValueConverters\ReplyContentValueConverter.cs" />
+    <Compile Include="ValueConverters\StringFormationMultiConverter.cs" />
     <Compile Include="Views\Manufacturers\ManufacturersManageView.xaml.cs">
       <DependentUpon>ManufacturersManageView.xaml</DependentUpon>
     </Compile>

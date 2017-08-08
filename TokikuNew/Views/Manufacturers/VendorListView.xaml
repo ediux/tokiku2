@@ -9,9 +9,18 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
              xmlns:helpers="clr-namespace:TokikuNew.Helpers"
+             xmlns:valueconverters="clr-namespace:TokikuNew.ValueConverters"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024"              
              Background="{DynamicResource ControlBackgroundBrush}">
+    <UserControl.Resources>
+        <x:Array Type="system:String" x:Key="filesp">
+            <system:String>ShortName</system:String>
+            <system:String>Code</system:String>
+        </x:Array>
+        <valueconverters:StringFormationMultiConverter x:Key="mutlifieldconverter" />
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>
@@ -39,10 +48,12 @@
                                  AutoGenerateColumns="False" 
                                  HorizontalScrollBarVisibility="Auto" CanUserAddRows="True"
                                  IsReadOnly="True"
-                                ItemsSource="{Binding Current.VendorListViewModel.VendorList , Source={StaticResource ViewModelLocator}}"
-                                 >
+                                ItemsSource="{Binding Current.VendorListViewModel.VendorList , Source={StaticResource ViewModelLocator}}">
             <i:Interaction.Behaviors>
-                <helpers:OnDataGridMouseDoubleClickBehavior TabControlName="Workspaces" Header="廠商主檔" ViewType="{x:Type local:ManufacturersManageView}"  />
+                <helpers:OnDataGridMouseDoubleClickBehavior TabControlName="Workspaces" ViewType="{x:Type local:ManufacturersManageView}"
+                                                            Fields="{StaticResource filesp}"
+                                                            Header="廠商:{0}-{1}" >
+                </helpers:OnDataGridMouseDoubleClickBehavior>
             </i:Interaction.Behaviors>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="廠商代號" Binding="{Binding Code}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />

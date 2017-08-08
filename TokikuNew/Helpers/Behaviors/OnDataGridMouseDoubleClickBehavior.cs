@@ -50,6 +50,19 @@ namespace TokikuNew.Helpers
         public static readonly DependencyProperty ViewTypeProperty =
             DependencyProperty.Register("ViewType", typeof(Type), typeof(OnDataGridMouseDoubleClickBehavior), new PropertyMetadata(null));
 
+
+
+        public string[] Fields
+        {
+            get { return (string[])GetValue(FieldsProperty); }
+            set { SetValue(FieldsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Fields.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FieldsProperty =
+            DependencyProperty.Register("Fields", typeof(string[]), typeof(OnDataGridMouseDoubleClickBehavior), new PropertyMetadata(default(string[])));
+
+
         protected override void OnAttached()
         {
             AssociatedObject.MouseDoubleClick += AssociatedObject_MouseDoubleClick;
@@ -57,17 +70,24 @@ namespace TokikuNew.Helpers
 
         private void AssociatedObject_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            ITabViewModel tab = new FixedTabViewModel();
+            ITabViewModel tab = new CloseableTabViewModel();
 
-            tab.Header = Header;
-
+            if (Fields != null)
+            {
+                Type itemtype = AssociatedObject.SelectedItem.GetType();
+                object[] values = itemtype.GetProperties().Where(s => Fields.Contains(s.Name)).Select(s => s.GetValue(AssociatedObject.SelectedItem)).ToArray();
+                tab.Header = string.Format(Header, values);
+            }
+            else
+            {
+                tab.Header = Header;
+            }
 
             tab.ContentView = SimpleIoc.Default.GetInstance(ViewType);
             tab.ViewType = ViewType;
-
-
+            ((FrameworkElement)tab.ContentView).DataContext = AssociatedObject.SelectedItem;
             Messenger.Default.Send(tab, TabControlName);
-            Messenger.Default.Send(AssociatedObject.SelectedItem, AssociatedObject.SelectedItems?.GetType().Name);
+            Messenger.Default.Send((IBaseViewModel)AssociatedObject.SelectedItem);
         }
 
         protected override void OnDetaching()

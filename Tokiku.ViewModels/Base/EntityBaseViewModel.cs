@@ -20,9 +20,14 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 主要資料實體來源物件。
         /// </summary>
-        public TPOCO Entity
+        public virtual TPOCO Entity
         {
             get => CopyofPOCOInstance;
+            protected set
+            {
+                CopyofPOCOInstance = value;
+                RaisePropertyChanged("Entity");
+            }
         }
         #endregion
 

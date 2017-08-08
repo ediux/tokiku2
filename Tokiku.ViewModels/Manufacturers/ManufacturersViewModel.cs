@@ -131,8 +131,8 @@ namespace Tokiku.ViewModels
         public ManufacturersViewModel(IManufacturersDataService ManufacturersDataService, IUserDataService UserDataService, IAccessLogDataService AccessLogDataService) : base(UserDataService,AccessLogDataService)
         {
             _ManufacturersDataService = ManufacturersDataService;
-            Messenger.Default.Register<VendorListItemViewModel>(this, "VendorListItemViewModel", (x) => {
-                CopyofPOCOInstance = ((VendorListItemViewModel)x).Entity;
+            Messenger.Default.Register<IBaseViewModel>(this, (x) => {
+                this.Entity = ManufacturersDataService.QuerySingle(((IVendorListItemViewModel)x).Entity.Id);
             });
         }
 
@@ -140,8 +140,8 @@ namespace Tokiku.ViewModels
         {
             _ManufacturersDataService = ManufacturersDataService;
 
-            Messenger.Default.Register<IVendorListItemViewModel>(this, "VendorListItemViewModel", (x) => {
-                CopyofPOCOInstance = x.Entity;
+            Messenger.Default.Register<IBaseViewModel>(this, (x) => {
+              this.Entity = ((IVendorListItemViewModel)x).Entity;
             });
         }
         #endregion
@@ -156,7 +156,7 @@ namespace Tokiku.ViewModels
         public new System.Guid Id { get { return CopyofPOCOInstance.Id; } set { CopyofPOCOInstance.Id = value; RaisePropertyChanged("Id"); } }
         #endregion
 
-
+        
         public string Code { get { return CopyofPOCOInstance.Code; } set { CopyofPOCOInstance.Code = value; RaisePropertyChanged("Code"); } }
         public string Name { get { return CopyofPOCOInstance.Name; } set { CopyofPOCOInstance.Name = value; RaisePropertyChanged("Name"); } }
         public string ShortName { get { return CopyofPOCOInstance.ShortName; } set { CopyofPOCOInstance.ShortName = value; RaisePropertyChanged("ShortName"); } }

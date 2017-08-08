@@ -61,7 +61,7 @@ namespace TokikuNew.Helpers
 
         private void AssociatedObject_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            ITabViewModel tab = new FixedTabViewModel();
+            ITabViewModel tab = new CloseableTabViewModel();
 
             tab.Header = Header;
 

@@ -12,5 +12,7 @@ namespace Tokiku.ViewModels
         System.Type ViewType { get; set; }
 
         object ContentView { get; set; }
+
+        bool CanClose { get; set; }
     }
 }

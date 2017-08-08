@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+                    xmlns:local="clr-namespace:TokikuNew.Resources"
+                    xmlns:mvvm="clr-namespace:Tokiku.MVVM;assembly=Tokiku.MVVM"
+                    xmlns:dataservices="clr-namespace:Tokiku.DataServices;assembly=Tokiku.DataServices"
+                    xmlns:entity="clr-namespace:Tokiku.Entity;assembly=Tokiku.Entity"
+                    xmlns:tokikunew="clr-namespace:TokikuNew"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008">
+    <mvvm:StartUpLocator x:Key="StartUpLocator" x:Name="StartUpLocator"/>
+    <entity:EntityLocator x:Key="EntityLocator" />
+    <dataservices:DefaultLocator x:Key="DataServiceLocator" />
+    <vm:ViewModelLocator x:Key="ViewModelLocator" />
+    <tokikunew:ViewsLocator x:Key="ViewLocator" />
+</ResourceDictionary>

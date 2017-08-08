@@ -7,6 +7,7 @@
         xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:view="clr-namespace:TokikuNew.Views"
+        xmlns:controls ="clr-namespace:TokikuNew.Controls"
         xmlns:helpers="clr-namespace:TokikuNew.Helpers"
         mc:Ignorable="d"        
         Title="東菊金屬 ERP System" Height="768" Width="1366" WindowState="Maximized" Icon="{DynamicResource Logo}"
@@ -58,18 +59,8 @@
                 </MenuItem>
             </Menu>
 
-            <TabControl Grid.Row="1" Margin="0,0,0,0" x:Name="Workspaces" FontSize="9" TabStripPlacement="Top"
+            <TabControl Grid.Row="1" Margin="0,0,0,0" x:Name="Workspaces" FontSize="9" TabStripPlacement="Top"                        
                         ItemsSource="{Binding Current.MainViewModel.FeaturesTabs ,Source={StaticResource ViewModelLocator}}">
-                <TabControl.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Header}"/>
-                    </DataTemplate>
-                </TabControl.ItemTemplate>
-                <TabControl.ContentTemplate>
-                    <DataTemplate>
-                        <ContentPresenter Content="{Binding ContentView}"/>
-                    </DataTemplate>
-                </TabControl.ContentTemplate>
                 <i:Interaction.Behaviors>
                     <helpers:OnTabControlAddTabSwitchBehavior/>
                 </i:Interaction.Behaviors>

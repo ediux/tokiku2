@@ -21,5 +21,8 @@ namespace Tokiku.ViewModels
         private object _ContentView = null;
 
         public object ContentView { get => _ContentView; set{ _ContentView = value; RaisePropertyChanged("ContentView"); } }
+
+        protected bool _CanClose = false;
+        public virtual bool CanClose { get => _CanClose; set { _CanClose = value; RaisePropertyChanged("CanClose"); } }
     }
 }
