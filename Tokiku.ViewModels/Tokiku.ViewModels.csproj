@@ -70,22 +70,11 @@
   <ItemGroup>
     <Compile Include="Base\BaseViewModel.cs" />
     <Compile Include="Base\DocumentBaseViewModel.cs" />
-    <Compile Include="Base\Interfaces\IBaseViewModelWithLoginedUser.cs" />
-    <Compile Include="Base\Interfaces\IDocumentBaseViewModel.cs" />
     <Compile Include="Base\EntityBaseViewModel.cs" />
-    <Compile Include="Base\Interfaces\IFormBaseViewModel.cs" />
     <Compile Include="ControlModels\CloseableTabViewModel.cs" />
     <Compile Include="ControlModels\FixedTabViewModel.cs" />
-    <Compile Include="Interfaces\ICloseableTabViewModel.cs" />
-    <Compile Include="Interfaces\IFixedTabViewModel.cs" />
-    <Compile Include="Interfaces\IManufacturersViewModel.cs" />
-    <Compile Include="Interfaces\IMenuItemViewModel.cs" />
-    <Compile Include="Interfaces\IMainViewModel.cs" />
-    <Compile Include="Interfaces\ITabViewModel.cs" />
-    <Compile Include="Interfaces\IVendorListItemViewModel.cs" />
     <Compile Include="Main\MainViewModel.cs" />
     <Compile Include="ControlModels\MenuItemViewModel.cs" />
-    <Compile Include="Interfaces\IVendorListViewModel.cs" />
     <Compile Include="Manufacturers\ManufacturersViewModel.cs" />
     <Compile Include="Manufacturers\VendorListItemViewModel.cs" />
     <Compile Include="Manufacturers\VendorListViewModel.cs" />
@@ -94,13 +83,15 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Interfaces\ISearchBarViewModel.cs" />
     <Compile Include="Shared\SearchBarViewModel.cs" />
     <Compile Include="StartUp\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ControlModels\TabViewModelBase.cs" />
     <Compile Include="Users\UserViewModel.cs" />
     <Compile Include="Base\WithLoginUserBaseViewModel.cs" />
+    <Compile Include="Views\EmptyView.xaml.cs">
+      <DependentUpon>EmptyView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tokiku.DataServices\Tokiku.DataServices.csproj">
@@ -121,7 +112,12 @@
     <None Include="packages.config" />
     <None Include="TokikuNew_TemporaryKey.pfx" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Page Include="Views\EmptyView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="MVVMLocatorMaker.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -130,6 +126,10 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Base\Interfaces\" />
+    <Folder Include="Interfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

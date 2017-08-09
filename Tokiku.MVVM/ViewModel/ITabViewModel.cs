@@ -9,7 +9,7 @@ namespace Tokiku.ViewModels
     {
         string Header { get; set; }
 
-        System.Type ViewType { get; set; }
+        Type ViewType { get; set; }
 
         object ContentView { get; set; }
 
