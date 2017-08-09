@@ -127,19 +127,22 @@ namespace Tokiku.ViewModels
         private IManufacturersDataService _ManufacturersDataService;
 
         #region 建構式
+        public ManufacturersViewModel() : base(null, null)
+        {
+
+        }
+
         [PreferredConstructor]
-        public ManufacturersViewModel(IManufacturersDataService ManufacturersDataService, IUserDataService UserDataService, IAccessLogDataService AccessLogDataService) : base(UserDataService,AccessLogDataService)
+        public ManufacturersViewModel(IManufacturersDataService ManufacturersDataService,
+            IUserDataService UserDataService,
+            IAccessLogDataService AccessLogDataService) : base(UserDataService, AccessLogDataService)
         {
             _ManufacturersDataService = ManufacturersDataService;
-            Messenger.Default.Register<IBaseViewModel>(this, (x) => {
-                this.Entity = ManufacturersDataService.QuerySingle(((IVendorListItemViewModel)x).Entity.Id);
-  
-            });
+
 
             _VoidList = new ObservableCollection<IVoidViewModel>();
             VoidList.Add(new VoidViewModel() { Value = false, Text = "啟用" });
             VoidList.Add(new VoidViewModel() { Value = true, Text = "停用" });
-            RaisePropertyChanged("VoidList");
 
         }
 
@@ -147,16 +150,15 @@ namespace Tokiku.ViewModels
         {
             _ManufacturersDataService = ManufacturersDataService;
 
-            Messenger.Default.Register<IBaseViewModel>(this, (x) => {
-              this.Entity = ((IVendorListItemViewModel)x).Entity;
-            });
+            //Messenger.Default.Register<object>(this, RecviceFromOthers);
 
             _VoidList = new ObservableCollection<IVoidViewModel>();
             _VoidList.Add(new VoidViewModel() { Value = false, Text = "啟用" });
             _VoidList.Add(new VoidViewModel() { Value = true, Text = "停用" });
-            RaisePropertyChanged("VoidList");
         }
         #endregion
+
+        
 
         #region 屬性
 
@@ -168,7 +170,7 @@ namespace Tokiku.ViewModels
         public new System.Guid Id { get { return CopyofPOCOInstance.Id; } set { CopyofPOCOInstance.Id = value; RaisePropertyChanged("Id"); } }
         #endregion
 
-        
+
         public string Code { get { return CopyofPOCOInstance.Code; } set { CopyofPOCOInstance.Code = value; RaisePropertyChanged("Code"); } }
         public string Name { get { return CopyofPOCOInstance.Name; } set { CopyofPOCOInstance.Name = value; RaisePropertyChanged("Name"); } }
         public string ShortName { get { return CopyofPOCOInstance.ShortName; } set { CopyofPOCOInstance.ShortName = value; RaisePropertyChanged("ShortName"); } }
@@ -418,13 +420,11 @@ namespace Tokiku.ViewModels
         /// </summary>
         public bool IsSameForAddress { get => _IsSameForAddress; set { RaisePropertyChanged("IsSameForAddress"); } }
 
+        #endregion
+
         private ObservableCollection<IVoidViewModel> _VoidList;
 
         public ObservableCollection<IVoidViewModel> VoidList { get => _VoidList; set { _VoidList = value; RaisePropertyChanged("VoidList"); } }
-
-
-
-        #endregion
 
         #region 交易紀錄
 

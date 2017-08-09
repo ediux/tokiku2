@@ -82,7 +82,7 @@ namespace TokikuNew.Helpers
 
         protected override void OnDetaching()
         {
-            base.OnDetaching();
+            AssociatedObject.Click -= AssociatedObject_Click;
         }
     }
 }

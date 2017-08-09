@@ -325,6 +325,10 @@ namespace Tokiku.ViewModels
             }
         }
 
-
+        public void SetEntity(TPOCO entity)
+        {
+            CopyofPOCOInstance = entity;
+            RaisePropertyChanged<TPOCO>(broadcast: true);
+        }
     }
 }

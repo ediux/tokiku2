@@ -7,18 +7,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-     //<DataGridTextColumn Header = "廠商代號" Binding="{Binding Code}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-     //           <DataGridTextColumn Header = "名稱(全名)" Binding="{Binding Path=Name}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-     //           <DataGridTextColumn Header = "名稱(簡稱)" Binding="{Binding ShortName}" Width="auto"  HeaderStyle="{StaticResource HeaderStyleCenter}" />
-     //           <DataGridTextColumn Header = "主要聯絡人" Binding="{Binding MainContactPerson}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-     //           <DataGridTextColumn Header = "公司電話" Binding="{Binding Phone}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-     //           <DataGridTextColumn Header = "公司傳真" Binding="{Binding Fax}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-     //           <DataGridTextColumn Header = "電子郵件" Binding="{Binding EMail}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-     //           <DataGridTextColumn Header = "公司地址" Binding="{Binding Address}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-     //           <DataGridTextColumn Header = "負責人" Binding="{Binding Principal}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-     //           <DataGridTextColumn Header = "統一編號" Binding="{Binding UniformNumbers}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-
-     //           <DataGridTextColumn Header = "狀態" Binding="{Binding Void, Converter={StaticResource Void2TextValueConvterver}}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+  
     public class VendorListItemViewModel : EntityBaseViewModel<Manufacturers>, IVendorListItemViewModel
     {
         public VendorListItemViewModel(Manufacturers entity):base(entity)

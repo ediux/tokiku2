@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,17 +15,15 @@ namespace TokikuNew.Helpers
 {
     public class OnDataGridMouseDoubleClickBehavior : Behavior<DataGrid>
     {
-        public string TabControlName
+        public string TabControlChannellName
         {
-            get { return (string)GetValue(TabControlNameProperty); }
-            set { SetValue(TabControlNameProperty, value); }
+            get { return (string)GetValue(TabControlChannellNameProperty); }
+            set { SetValue(TabControlChannellNameProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for TabControlName.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty TabControlNameProperty =
-            DependencyProperty.Register("TabControlName", typeof(string), typeof(OnDataGridMouseDoubleClickBehavior), new PropertyMetadata(string.Empty));
-
-
+        public static readonly DependencyProperty TabControlChannellNameProperty =
+            DependencyProperty.Register("TabControlChannellName", typeof(string), typeof(OnDataGridMouseDoubleClickBehavior), new PropertyMetadata(string.Empty));
 
 
         public string Header
@@ -63,6 +62,19 @@ namespace TokikuNew.Helpers
             DependencyProperty.Register("Fields", typeof(string[]), typeof(OnDataGridMouseDoubleClickBehavior), new PropertyMetadata(default(string[])));
 
 
+
+        public string DataChannelName
+        {
+            get { return (string)GetValue(DataChannelNameProperty); }
+            set { SetValue(DataChannelNameProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for DataChannelName.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty DataChannelNameProperty =
+            DependencyProperty.Register("DataChannelName", typeof(string), typeof(OnDataGridMouseDoubleClickBehavior), new PropertyMetadata(string.Empty));
+
+
+
         protected override void OnAttached()
         {
             AssociatedObject.MouseDoubleClick += AssociatedObject_MouseDoubleClick;
@@ -72,22 +84,34 @@ namespace TokikuNew.Helpers
         {
             ITabViewModel tab = new CloseableTabViewModel();
 
+            tab.ContentView = SimpleIoc.Default.GetInstance(ViewType);
+            tab.ViewType = ViewType;
+
             if (Fields != null)
             {
                 Type itemtype = AssociatedObject.SelectedItem.GetType();
-                object[] values = itemtype.GetProperties().Where(s => Fields.Contains(s.Name)).Select(s => s.GetValue(AssociatedObject.SelectedItem)).ToArray();
-                tab.Header = string.Format(Header, values);
+
+                int i = 0;
+
+                Dictionary<int, KeyValuePair<string, object>> mapping = itemtype.GetProperties().Where(s => Fields.Contains(s.Name))
+                    .ToDictionary(s => i++, v => new KeyValuePair<string, object>(v.Name, v.GetValue(AssociatedObject.SelectedItem)));
+
+                //用正規表示式檢查並替換
+                tab.Header = string.Format(Header, mapping.OrderBy(o => o.Key).Select(s => s.Value.Value).ToArray());
+
+                foreach (int FieldOrder in mapping.Keys)
+                {
+                    ViewType.GetProperty(mapping[FieldOrder].Key)?.SetValue(tab.ContentView, mapping[FieldOrder].Value);
+                }
             }
             else
             {
                 tab.Header = Header;
             }
 
-            tab.ContentView = SimpleIoc.Default.GetInstance(ViewType);
-            tab.ViewType = ViewType;
-            ((FrameworkElement)tab.ContentView).DataContext = AssociatedObject.SelectedItem;
-            Messenger.Default.Send(tab, TabControlName);
-            Messenger.Default.Send((IBaseViewModel)AssociatedObject.SelectedItem);
+            Messenger.Default.Send(tab, TabControlChannellName);
+            Messenger.Default.Send(AssociatedObject.SelectedItem, DataChannelName);
+
         }
 
         protected override void OnDetaching()

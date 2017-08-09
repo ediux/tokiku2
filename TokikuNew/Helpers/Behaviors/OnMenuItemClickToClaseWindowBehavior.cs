@@ -38,9 +38,6 @@ namespace TokikuNew.Helpers
                 WindowInstance.Close();
             else
                 App.Current.Shutdown();
-            //VisualTreeHelper.GetParent(item);
-            //item.FindCommonVisualAncestor(item);
-
         }
 
         protected override void OnDetaching()

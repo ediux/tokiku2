@@ -160,6 +160,7 @@
     <Compile Include="Helpers\Behaviors\OnMenuItemClickToClaseWindowBehavior.cs" />
     <Compile Include="Helpers\Behaviors\OnSaveButtonClickBehavior.cs" />
     <Compile Include="Helpers\Behaviors\OnTabControlAddTabSwitchBehavior.cs" />
+    <Compile Include="Helpers\Behaviors\OnUserControlPassDataObjectBehavior.cs" />
     <Compile Include="Helpers\Behaviors\OnWindowCloseBehavior.cs" />
     <Compile Include="Helpers\Behaviors\PasswordChangedBehavior.cs" />
     <Compile Include="Helpers\Behaviors\TabOnEnterBehavior_PasswordBox.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="ValueConverters\DateTime2StringFormatingValueConverter.cs" />
     <Compile Include="ValueConverters\ReplyContentValueConverter.cs" />
     <Compile Include="ValueConverters\StringFormationMultiConverter.cs" />
+    <Compile Include="ValueConverters\TypeValueConverter.cs" />
     <Compile Include="Views\Manufacturers\ManufacturersManageView.xaml.cs">
       <DependentUpon>ManufacturersManageView.xaml</DependentUpon>
     </Compile>

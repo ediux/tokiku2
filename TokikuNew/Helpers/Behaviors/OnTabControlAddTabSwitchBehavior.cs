@@ -14,18 +14,30 @@ namespace TokikuNew.Helpers
 {
     public class OnTabControlAddTabSwitchBehavior : Behavior<TabControl>
     {
+        public string ChannelName
+        {
+            get { return (string)GetValue(ChannelNameProperty); }
+            set { SetValue(ChannelNameProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ChannelName.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ChannelNameProperty =
+            DependencyProperty.Register("ChannelName", typeof(string), typeof(OnTabControlAddTabSwitchBehavior), new PropertyMetadata(string.Empty));
+
         protected override void OnAttached()
         {
             AssociatedObject.Initialized += AssociatedObject_Initialized;
-            Messenger.Default.Register<ITabViewModel>(AssociatedObject, "TabItem_Close_View", (x) =>
-            {
-                //var removeitem = ((ObservableCollection<ITabViewModel>)AssociatedObject.ItemsSource).Where(w => w.Header == x).Single();
-                ((ObservableCollection<ITabViewModel>)AssociatedObject.ItemsSource).Remove(x);
-            });
+
+           
         }
 
         private void AssociatedObject_Initialized(object sender, EventArgs e)
         {
+            Messenger.Default.Register<ITabViewModel>(AssociatedObject, "TabItem_Close_View", (x) =>
+            {
+                ((ObservableCollection<ITabViewModel>)AssociatedObject.ItemsSource).Remove(x);
+            });
+
             Messenger.Default.Register<ITabViewModel>(AssociatedObject, AssociatedObject.Name ?? "TabControl", (s) =>
                 {
                     if (AssociatedObject.ItemsSource is ObservableCollection<ITabViewModel>)
@@ -35,26 +47,7 @@ namespace TokikuNew.Helpers
                         if (!source.Any(w => w.Header == s.Header))
                         {
                             source.Add(s);
-                            AssociatedObject.SelectedItem = s;
-                            //if (s is IFixedTabViewModel)
-                            //{
-                            //    TabItem fixedItem = new TabItem()
-                            //    {
-                            //        Header = s.Header,
-                            //        Content = s.ContentView
-                            //    };
-                            //    AssociatedObject.Items.Add(fixedItem);
-                            //    AssociatedObject.SelectedItem = fixedItem;
-                            //}
-                            //if(s is ICloseableTabViewModel)
-                            //{
-                            //    Controls.ClosableTabItem dytabliem = new Controls.ClosableTabItem() {
-                            //        Header = s.Header,
-                            //        Content = s.ContentView
-                            //    };
-                            //    AssociatedObject.Items.Add(dytabliem);
-                            //    AssociatedObject.SelectedItem = dytabliem;
-                            //}
+                            AssociatedObject.SelectedItem = s;                          
                         }
                         else
                         {

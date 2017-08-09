@@ -60,6 +60,8 @@ namespace Tokiku.ViewModels
         /// 最後異動人員
         /// </summary>
         IUserViewModel LastUpadateUser { get; }
+
+        void SetEntity(T entity);
     }
 
    

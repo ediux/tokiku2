@@ -50,7 +50,8 @@
                                  IsReadOnly="True"
                                 ItemsSource="{Binding Current.VendorListViewModel.VendorList , Source={StaticResource ViewModelLocator}}">
             <i:Interaction.Behaviors>
-                <helpers:OnDataGridMouseDoubleClickBehavior TabControlName="Workspaces" ViewType="{x:Type local:ManufacturersManageView}"
+                <helpers:OnDataGridMouseDoubleClickBehavior TabControlChannellName="Workspaces" ViewType="{x:Type local:ManufacturersManageView}"
+                                                            DataChannelName="ManufacturersViewModel"
                                                             Fields="{StaticResource filesp}"
                                                             Header="廠商:{0}-{1}" >
                 </helpers:OnDataGridMouseDoubleClickBehavior>
@@ -69,7 +70,7 @@
                 <DataGridTextColumn Header="工廠地址" Binding="{Binding FactoryAddress}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                 <DataGridTextColumn Header="工廠電話" Binding="{Binding FactoryPhone}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                 <DataGridTextColumn Header="工廠傳真" Binding="{Binding FactoryFax}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
-                <DataGridTextColumn Header="狀態" Binding="{Binding Void, Converter={StaticResource Void2TextValueConvterver}}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
+                <DataGridTextColumn Header="狀態" Binding="{Binding VoidStateText}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
