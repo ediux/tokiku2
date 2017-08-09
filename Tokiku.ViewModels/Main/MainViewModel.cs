@@ -16,7 +16,7 @@ namespace Tokiku.ViewModels
         {
             
             _FeaturesTabs = new ObservableCollection<ITabViewModel>();
-            _FeaturesTabs.Add(new FixedTabViewModel() { Header = "專案列表" });
+            _FeaturesTabs.Add(new FixedTabViewModel() { Header = "專案列表" ,ContentView = new TokikuNew.Controls.EmptyView()});
 
           
             var menuroot1 = new MenuItemViewModel() { Header = "主檔 " };
