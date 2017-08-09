@@ -147,13 +147,18 @@
     </Compile>
     <Compile Include="Controls\ClosableTabItem.cs" />
     <Compile Include="Controls\CustomDataGrid.cs" />
+    <Compile Include="Controls\DockBar.xaml.cs">
+      <DependentUpon>DockBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SearchBar.xaml.cs">
       <DependentUpon>SearchBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Behaviors\OnCloseTabButtonClickBehavior.cs" />
     <Compile Include="Helpers\Behaviors\OnDataGridMouseDoubleClickBehavior.cs" />
+    <Compile Include="Helpers\Behaviors\OnEditButtonClickBehavior.cs" />
     <Compile Include="Helpers\Behaviors\OnMenuItemClickBehavior.cs" />
     <Compile Include="Helpers\Behaviors\OnMenuItemClickToClaseWindowBehavior.cs" />
+    <Compile Include="Helpers\Behaviors\OnSaveButtonClickBehavior.cs" />
     <Compile Include="Helpers\Behaviors\OnTabControlAddTabSwitchBehavior.cs" />
     <Compile Include="Helpers\Behaviors\OnWindowCloseBehavior.cs" />
     <Compile Include="Helpers\Behaviors\PasswordChangedBehavior.cs" />
@@ -193,6 +198,10 @@
       <DependentUpon>MVVMLocatorMaker.tt</DependentUpon>
     </Compile>
     <Page Include="Controls\ClosableTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\DockBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

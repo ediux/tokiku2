@@ -7,37 +7,30 @@ using System.Windows;
 
 namespace Tokiku.ViewModels
 {
-    public class VoidViewModel : DependencyObject
+    public class VoidViewModel : ViewModelBase2, IVoidViewModel
     {
 
         #region Value
+        private bool _Value = false;
         /// <summary>
         /// 停用/啟用數值內容
         /// </summary>
         public bool Value
         {
-            get { return (bool)GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
+            get => _Value;
+            set { _Value = value; RaisePropertyChanged("Value"); }
         }
-
-        // Using a DependencyProperty as the backing store for Value.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(bool), typeof(VoidViewModel), new PropertyMetadata(false));
 
         #endregion
 
         #region Text
 
-
+        private string _Text = string.Empty;
         public string Text
         {
-            get { return (string)GetValue(TextProperty); }
-            set { SetValue(TextProperty, value); }
+            get => _Text;
+            set { _Text = value; RaisePropertyChanged("Text"); }
         }
-
-        // Using a DependencyProperty as the backing store for Text.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(string), typeof(VoidViewModel), new PropertyMetadata(string.Empty));
 
         #endregion
 
@@ -56,9 +49,9 @@ namespace Tokiku.ViewModels
             }
         }
 
-        public override string ToString()
-        {
-            return Text;
-        }
+        //public override string ToString()
+        //{
+        //    return Text;
+        //}
     }
 }

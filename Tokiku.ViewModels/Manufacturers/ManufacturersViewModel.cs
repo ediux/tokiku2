@@ -133,7 +133,14 @@ namespace Tokiku.ViewModels
             _ManufacturersDataService = ManufacturersDataService;
             Messenger.Default.Register<IBaseViewModel>(this, (x) => {
                 this.Entity = ManufacturersDataService.QuerySingle(((IVendorListItemViewModel)x).Entity.Id);
+  
             });
+
+            _VoidList = new ObservableCollection<IVoidViewModel>();
+            VoidList.Add(new VoidViewModel() { Value = false, Text = "啟用" });
+            VoidList.Add(new VoidViewModel() { Value = true, Text = "停用" });
+            RaisePropertyChanged("VoidList");
+
         }
 
         public ManufacturersViewModel(Manufacturers entity, IManufacturersDataService ManufacturersDataService, IUserDataService UserDataService, IAccessLogDataService AccessLogDataService) : base(entity, UserDataService, AccessLogDataService)
@@ -143,6 +150,11 @@ namespace Tokiku.ViewModels
             Messenger.Default.Register<IBaseViewModel>(this, (x) => {
               this.Entity = ((IVendorListItemViewModel)x).Entity;
             });
+
+            _VoidList = new ObservableCollection<IVoidViewModel>();
+            _VoidList.Add(new VoidViewModel() { Value = false, Text = "啟用" });
+            _VoidList.Add(new VoidViewModel() { Value = true, Text = "停用" });
+            RaisePropertyChanged("VoidList");
         }
         #endregion
 
@@ -406,6 +418,10 @@ namespace Tokiku.ViewModels
         /// </summary>
         public bool IsSameForAddress { get => _IsSameForAddress; set { RaisePropertyChanged("IsSameForAddress"); } }
 
+        private ObservableCollection<IVoidViewModel> _VoidList;
+
+        public ObservableCollection<IVoidViewModel> VoidList { get => _VoidList; set { _VoidList = value; RaisePropertyChanged("VoidList"); } }
+
 
 
         #endregion
@@ -467,7 +483,7 @@ namespace Tokiku.ViewModels
         //public void Initialized(object Parameter)
         //{
 
-           
+
 
         //    try
         //    {
@@ -492,7 +508,7 @@ namespace Tokiku.ViewModels
 
         //}
 
-   
+
 
         //public override void SaveModel(bool isLast = true)
         //{

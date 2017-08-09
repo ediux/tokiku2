@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokikuNew", "TokikuNew\TokikuNew.csproj", "{3CCCCF98-429D-4051-9155-007F15A470F8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Controllers", "Controllers", "{D14174F5-8581-4985-9873-7BC2A18B3E8E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataServices", "DataServices", "{D14174F5-8581-4985-9873-7BC2A18B3E8E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Entity", "Entity", "{2544CEC0-B05D-4BEA-A7A8-132355E7FFD9}"
 EndProject

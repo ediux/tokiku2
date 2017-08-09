@@ -73,6 +73,9 @@
     <Compile Include="Base\EntityBaseViewModel.cs" />
     <Compile Include="ControlModels\CloseableTabViewModel.cs" />
     <Compile Include="ControlModels\FixedTabViewModel.cs" />
+    <Compile Include="Interfaces\IManufacturersViewModel.cs" />
+    <Compile Include="Interfaces\IVendorListItemViewModel.cs" />
+    <Compile Include="Interfaces\IVendorListViewModel.cs" />
     <Compile Include="Main\MainViewModel.cs" />
     <Compile Include="ControlModels\MenuItemViewModel.cs" />
     <Compile Include="Manufacturers\ManufacturersViewModel.cs" />
@@ -84,6 +87,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Shared\SearchBarViewModel.cs" />
+    <Compile Include="Shared\VoidViewModel.cs" />
     <Compile Include="StartUp\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ControlModels\TabViewModelBase.cs" />
@@ -129,7 +133,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Base\Interfaces\" />
-    <Folder Include="Interfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
