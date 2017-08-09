@@ -150,6 +150,7 @@
     <Compile Include="Controls\SearchBar.xaml.cs">
       <DependentUpon>SearchBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Behaviors\OnCloseTabButtonClickBehavior.cs" />
     <Compile Include="Helpers\Behaviors\OnDataGridMouseDoubleClickBehavior.cs" />
     <Compile Include="Helpers\Behaviors\OnMenuItemClickBehavior.cs" />
     <Compile Include="Helpers\Behaviors\OnMenuItemClickToClaseWindowBehavior.cs" />

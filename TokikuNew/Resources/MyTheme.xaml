@@ -1,39 +1,50 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                     xmlns:controls="clr-namespace:TokikuNew.Controls"
-                   >
+                    xmlns:helper="clr-namespace:TokikuNew.Helpers">
     <RoutedUICommand x:Key="CloseTab" Text="Close Tab"/>
     <Style TargetType="DataGridColumnHeader" x:Key="HeaderStyleCenter">
         <Setter Property="HorizontalContentAlignment" Value="Center" />
     </Style>
-    <Style TargetType="TabControl" BasedOn="{StaticResource {x:Type TabControl}}">
-        <Setter Property="ItemTemplate">
+    <DataTemplate x:Key="FixedTab">
+        <TextBlock Text="{Binding Header}" />
+    </DataTemplate>
+    <DataTemplate x:Key="ClosableTab">
+        <Grid Margin="1,0,1,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="22"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Margin="1" Text="{Binding Header}"/>
+            <Button Grid.Column="1" Grid.Row="0" Margin="-1,0,0,0" x:Name="btnTabClose" Width="19" Height="19" 
+                    DataContext="{Binding}"   >
+                <i:Interaction.Behaviors>
+                    <helper:OnCloseTabButtonClickBehavior />
+                </i:Interaction.Behaviors>
+                <Button.Content>
+                    <Path x:Name="Cross" Data="M0,0 L1,1 M0,1 L1,0" Stretch="Fill" 
+                          Stroke="Black" StrokeThickness="2" Width="8" Height="8" />
+                </Button.Content>
+            </Button>
+        </Grid>
+    </DataTemplate>
+    <Style TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
+        <Setter Property="HeaderTemplate" Value="{DynamicResource FixedTab }"/>
+        <Setter Property="ContentTemplate">
             <Setter.Value>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Header}" />
+                <DataTemplate >
+                    <ContentPresenter Content="{Binding ContentView}"/>
                 </DataTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="ContentTemplate">
-            <Setter.Value>
-                <DataTemplate>
-                    <ContentPresenter Content="{Binding ContentView}"/>
-                </DataTemplate>
-            </Setter.Value>            
-        </Setter>
         <Style.Triggers>
-            <DataTrigger Binding="{Binding Path=SelectedItem.CanClose, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabControl}}}"  Value="True">
-                <Setter Property="ItemTemplate">
-                    <Setter.Value>
-                        <DataTemplate>
-                            <controls:ClosableTab DataContext="{Binding Header}" x:Name="ContentSite">
-                            </controls:ClosableTab>
-                        </DataTemplate>
-                    </Setter.Value>
-                </Setter>
+            <DataTrigger Binding="{Binding Path=CanClose}"  Value="True">
+                <Setter Property="HeaderTemplate" Value="{DynamicResource ClosableTab}"/>
             </DataTrigger>
         </Style.Triggers>
     </Style>
+   
     <Style TargetType="{x:Type TextBox}" x:Key="ReadModeSwitch" BasedOn="{StaticResource  {x:Type TextBox}}">
         <Setter Property="BorderBrush" Value="{DynamicResource TextControlBorderBrush}"/>
         <Style.Triggers>

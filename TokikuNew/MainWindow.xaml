@@ -60,7 +60,9 @@
             </Menu>
 
             <TabControl Grid.Row="1" Margin="0,0,0,0" x:Name="Workspaces" FontSize="9" TabStripPlacement="Top"                        
-                        ItemsSource="{Binding Current.MainViewModel.FeaturesTabs ,Source={StaticResource ViewModelLocator}}">
+                        ItemsSource="{Binding Current.MainViewModel.FeaturesTabs ,Source={StaticResource ViewModelLocator}}"
+                       
+                       >
                 <i:Interaction.Behaviors>
                     <helpers:OnTabControlAddTabSwitchBehavior/>
                 </i:Interaction.Behaviors>

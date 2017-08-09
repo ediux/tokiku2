@@ -17,6 +17,11 @@ namespace TokikuNew.Helpers
         protected override void OnAttached()
         {
             AssociatedObject.Initialized += AssociatedObject_Initialized;
+            Messenger.Default.Register<ITabViewModel>(AssociatedObject, "TabItem_Close_View", (x) =>
+            {
+                //var removeitem = ((ObservableCollection<ITabViewModel>)AssociatedObject.ItemsSource).Where(w => w.Header == x).Single();
+                ((ObservableCollection<ITabViewModel>)AssociatedObject.ItemsSource).Remove(x);
+            });
         }
 
         private void AssociatedObject_Initialized(object sender, EventArgs e)
@@ -62,6 +67,7 @@ namespace TokikuNew.Helpers
 
         protected override void OnDetaching()
         {
+            Messenger.Default.Unregister<ITabViewModel>(AssociatedObject);
             AssociatedObject.Initialized -= AssociatedObject_Initialized;
         }
     }
