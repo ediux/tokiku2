@@ -16,15 +16,15 @@ namespace TokikuNew.Helpers
     public class OnMenuItemClickBehavior : Behavior<MenuItem>
     {
 
-        public string TabControlName
+        public string TabControlChannellName
         {
-            get { return (string)GetValue(TabControlNameProperty); }
-            set { SetValue(TabControlNameProperty, value); }
+            get { return (string)GetValue(TabControlChannellNameProperty); }
+            set { SetValue(TabControlChannellNameProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for TabControlName.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty TabControlNameProperty =
-            DependencyProperty.Register("TabControlName", typeof(string), typeof(OnMenuItemClickBehavior), new PropertyMetadata(string.Empty));
+        public static readonly DependencyProperty TabControlChannellNameProperty =
+            DependencyProperty.Register("TabControlChannellName", typeof(string), typeof(OnMenuItemClickBehavior), new PropertyMetadata(string.Empty));
 
 
 
@@ -76,7 +76,7 @@ namespace TokikuNew.Helpers
                 tab.ViewType = ViewType;
             }
 
-            GalaSoft.MvvmLight.Messaging.Messenger.Default.Send(tab, TabControlName);
+            GalaSoft.MvvmLight.Messaging.Messenger.Default.Send(tab, TabControlChannellName);
 
         }
 

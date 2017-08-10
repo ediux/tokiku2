@@ -33,7 +33,7 @@
                 <MenuItem Header="{Binding Current.MainViewModel.MainMenus[0].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_Main" >
                     <MenuItem Header="{Binding Current.MainViewModel.MainMenus[0].SubMenus[0].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_Main_Vendor">
                         <i:Interaction.Behaviors>
-                            <helpers:OnMenuItemClickBehavior Header="廠商列表" TabControlName="Workspaces"                                                             
+                            <helpers:OnMenuItemClickBehavior Header="廠商列表" TabControlChannellName="Workspaces"                                                             
                                                              ViewType="{x:Type view:VendorListView}" />
                         </i:Interaction.Behaviors>
                     </MenuItem>

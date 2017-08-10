@@ -12,10 +12,29 @@ using Tokiku.ViewModels;
 
 namespace TokikuNew.Helpers
 {
+    /// <summary>
+    /// 可關閉分頁按鈕行為物件
+    /// </summary>
     public class OnCloseTabButtonClickBehavior : Behavior<Button>
     {
 
+        /// <summary>
+        /// 控制項通訊通道名稱
+        /// </summary>
+        public string ControlsChannelName
+        {
+            get { return (string)GetValue(ControlsChannelNameProperty); }
+            set { SetValue(ControlsChannelNameProperty, value); }
+        }
 
+        // Using a DependencyProperty as the backing store for ControllChannelName.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ControlsChannelNameProperty =
+            DependencyProperty.Register("ControlsChannelName", typeof(string), typeof(OnCloseTabButtonClickBehavior), new PropertyMetadata(string.Empty));
+
+
+        /// <summary>
+        /// 標題內容
+        /// </summary>
         public string Header
         {
             get { return (string)GetValue(HeaderProperty); }
@@ -69,7 +88,7 @@ namespace TokikuNew.Helpers
                 if (isContinue)
                     return;
 
-                Messenger.Default.Send(tabcontext, "TabItem_Close_View");
+                Messenger.Default.Send(tabcontext, (!string.IsNullOrEmpty(ControlsChannelName))?ControlsChannelName: "TabItem_Close_View");
             }
         }
 
