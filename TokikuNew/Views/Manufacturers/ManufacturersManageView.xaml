@@ -58,7 +58,7 @@
                 <RowDefinition Height="60*"/>
                 <RowDefinition Height="50*"/>
             </Grid.RowDefinitions>
-            <GroupBox Header="基本資料" Grid.Row="0" Margin="5">
+            <GroupBox Header="基本資料" Grid.Row="0" Margin="5" Style="{StaticResource GroupBox_DocumentEditor}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="25*"/>
@@ -162,6 +162,7 @@
                     <TextBlock Text="狀態：" Grid.Row="10" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
                     <ComboBox Grid.Row="10" Grid.Column="1" VerticalAlignment="Center" 
                               Margin="2"  
+                              Style="{DynamicResource ReadModeSwitch_ComboBox}"
                               SelectedValuePath="Value"
                               SelectedValue="{Binding Void, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               SelectedIndex="0"
@@ -256,9 +257,7 @@
                 </Grid>
             </GroupBox>
             <GroupBox Header="相關聯絡人" Grid.Row="1" Margin="2">
-                <!--<local:ContactPersonManageView IsClient="False" 
-                                               SelectedManufacturerId="{Binding Path=SelectedManufacturerId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=userControl}"  Mode="{Binding Path=Mode, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                               DefaultContactChanged="ContactPersonManageView_DefaultContactChanged" />-->
+                <local:ContactPersonManageView DataContext="{Binding ContactsList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
             </GroupBox>
         </Grid>
         <Grid Grid.Column="1">
@@ -271,8 +270,7 @@
                 <c:CustomDataGrid CanUserAddRows="False" CanUserDeleteRows="False"
                                        AutoGenerateColumns="False"
                                       IsReadOnly="True"
-                                      ItemsSource="{Binding TranscationRecords}"
-                                      >
+                                      ItemsSource="{Binding TranscationRecords}">
                     <c:CustomDataGrid.Columns>
                         <DataGridTextColumn Header="工程代碼" Binding="{Binding Code}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                         <DataGridTextColumn Header="工程名稱" Binding="{Binding Name}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />

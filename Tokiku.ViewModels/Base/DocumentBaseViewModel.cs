@@ -21,8 +21,8 @@ namespace Tokiku.ViewModels
             where TPOCO : class
     {
 
-        private IAccessLogDataService _AccessLogDataService;
-        private IUserDataService _UserDataService;
+        protected IAccessLogDataService _AccessLogDataService;
+        protected IUserDataService _UserDataService;
 
         #region 文件狀態
         private IDocumentStatusViewModel _Status;
@@ -325,7 +325,7 @@ namespace Tokiku.ViewModels
             }
         }
 
-        public void SetEntity(TPOCO entity)
+        public virtual void SetEntity(TPOCO entity)
         {
             CopyofPOCOInstance = entity;
             RaisePropertyChanged<TPOCO>(broadcast: true);

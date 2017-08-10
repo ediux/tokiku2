@@ -35,6 +35,7 @@ namespace Tokiku.ViewModels
         bool IsSameForAddress { get; set; }
         ObservableCollection<IVoidViewModel> VoidList { get; set; }
         ObservableCollection<IPaymentTypesViewModel> PaymentTypes { get; set; }
+        IContactListViewModel ContactsList { get; set; }
         //void Initialized(object Parameter);
         //void QueryByName(string Name);
         //void QueryDetails();

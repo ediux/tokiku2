@@ -7,20 +7,33 @@ using System.Threading.Tasks;
 using Tokiku.Entity;
 using Tokiku.MVVM;
 using Tokiku.ViewModels;
+using System.Linq.Expressions;
+using System.Collections.ObjectModel;
 
 namespace Tokiku.DataServices
 {
-    public class UsersDataService : DataServiceBase, IUserDataService
+    public class UsersDataService : DataServiceBase<IUsers>, IUserDataService
     {
         private IUsersRepository _UsersRepo;
         private IAccessLogDataService _AccessLogService;
+        private IContactsRepository _ContactsRepository;
 
-        public UsersDataService(IUnitOfWork UnitOfWork, IUsersRepository UsersRepo, IAccessLogDataService AccessLogService)
+        #region 建構式
+        public UsersDataService(IUnitOfWork UnitOfWork,
+            IUsersRepository UsersRepo,
+            IContactsRepository ContactsRepository,
+            IAccessLogDataService AccessLogService)
         {
             _AccessLogService = AccessLogService;
             _UsersRepo = UsersRepo;
+            _ContactsRepository = ContactsRepository;
             _UsersRepo.UnitOfWork = UnitOfWork;
         }
+
+        #endregion
+
+        #region 帳號操作管理
+        private static Users _CurrentLoginedUser;
 
         public bool? Login(ILoginViewModel model)
         {
@@ -109,7 +122,7 @@ namespace Tokiku.DataServices
                     model.LastActivityDate = _CurrentLoginedUser.LastActivityDate;
                     model.LoweredUserName = _CurrentLoginedUser.LoweredUserName;
                     model.MobileAlias = _CurrentLoginedUser.MobileAlias;
-                
+
                     model.UserName = _CurrentLoginedUser.UserName;
                     model.UserId = _CurrentLoginedUser.UserId;
 
@@ -125,6 +138,173 @@ namespace Tokiku.DataServices
             }
         }
 
-        private static Users _CurrentLoginedUser;
+        public override IUsers Add(IUsers model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IEnumerable<IUsers> AddRange(IEnumerable<IUsers> models)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IUsers GetSingle(Expression<Func<IUsers, bool>> filiter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IEnumerable<IUsers> GetAll(Expression<Func<IUsers, bool>> filiter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IUsers Update(IUsers Source, Expression<Func<IUsers, bool>> filiter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IEnumerable<IUsers> UpdateRange(IEnumerable<IUsers> MultiSource, Expression<Func<IUsers, bool>> filiter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Remove(IUsers model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void RemoveAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void RemoveWhere(Expression<Func<IUsers, bool>> filiter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public override ICollection<IUsers> SearchByText(string filiter)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region 聯絡人資料存取服務
+        public Contacts Add(Contacts model)
+        {
+            throw new NotImplementedException();
+        }
+        public IEnumerable<Contacts> AddRange(IEnumerable<Contacts> models)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Contacts GetSingle(Expression<Func<Contacts, bool>> filiter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Contacts> GetAll(Expression<Func<Contacts, bool>> filiter = null)
+        {
+            try
+            {
+                var result = from p in _ContactsRepository.All()
+                             orderby p.IsDefault ascending
+                             select p;
+
+                if (filiter == null)
+                {
+                    return result.AsEnumerable();
+                }
+                else
+                {
+                    return result.Where(filiter).AsEnumerable();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(ex);
+                return null;
+            }
+        }
+
+        public Contacts Update(Contacts Source, Expression<Func<Contacts, bool>> filiter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Contacts> UpdateRange(IEnumerable<Contacts> MultiSource, Expression<Func<Contacts, bool>> filiter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(Contacts model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveWhere(Expression<Func<Contacts, bool>> filiter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerable<Contacts> IDataService<Contacts>.DirectExecuteSQL(string tsql, params object[] parameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        ICollection<Contacts> IDataService<Contacts>.SearchByText(string filiter)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IDataService<Contacts>.RemoveAll()
+        {
+
+        }
+
+        public ICollection<Contacts> SearchByText(string filiter, Guid ManufactoryId, bool isClient)
+        {
+            try
+            {
+                if (filiter != null && filiter.Length > 0)
+                {                 
+                    var result = (from p in GetAll()
+                                  from q in p.Manufacturers
+                                  where (p.Void == false && q.Id == ManufactoryId
+                                  && q.IsClient == isClient) ||
+                                  (p.Name.Contains(filiter) || p.Phone.Contains(filiter))
+                                  orderby q.Name ascending, p.IsDefault descending
+                                  select p);
+
+                    var rtn = new Collection<Contacts>(result.ToList());
+
+                    return rtn;
+                }
+                else
+                {
+                    var result = (from p in GetAll()
+                                  from q in p.Manufacturers
+                                  where q.Void == false && q.IsClient == isClient
+                                  && q.Id == ManufactoryId
+                                  orderby p.Name ascending, p.IsDefault descending
+                                  select p);
+
+                    var rtn = new Collection<Contacts>(result.ToList());
+
+                    return rtn;
+                }
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(ex);
+                return null;
+            }
+        }
+        #endregion
+
     }
 }

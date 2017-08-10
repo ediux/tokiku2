@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Messaging;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -86,11 +87,18 @@ namespace Tokiku.ViewModels
 
         public ContactsViewModel(Contacts entity) : base(entity)
         {
+            MessengerInstance.Register<PropertyChangedMessageBase>(this, (m) => {
+                
+            });
             //_SaveModelController = "ContactPersonManage";
         }
 
 
-
+        private bool _IsSelected = false;
+        /// <summary>
+        /// 是否已經選定此資料列的控制旗標
+        /// </summary>
+        public bool IsSelected { get => _IsSelected; set { _IsSelected = value; RaisePropertyChanged("IsSelected"); } }
 
         /// <summary>
         /// 姓名
@@ -179,31 +187,33 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.Void = value; RaisePropertyChanged("Void"); }
         }
 
-
-
-
-
+        /// <summary>
+        /// 電子郵件
+        /// </summary>
         public string EMail
         {
             get { return CopyofPOCOInstance.EMail; }
             set { CopyofPOCOInstance.EMail = value; RaisePropertyChanged("EMail"); }
         }
 
+        /// <summary>
+        /// 預設聯絡人
+        /// </summary>
         public bool IsDefault
         {
             get { return CopyofPOCOInstance.IsDefault; }
-            set { CopyofPOCOInstance.IsDefault = value; RaisePropertyChanged("IsDefault"); }
+            set { CopyofPOCOInstance.IsDefault = value; RaisePropertyChanged<bool>("IsDefault",broadcast:true); }
         }
 
 
 
-        public override void Initialized(object Parameter)
-        {
-            base.Initialized(Parameter);
-            Id = Guid.NewGuid();
-            ContactPersonManageController controller = new ContactPersonManageController();
-            CreateUserId = controller.GetCurrentLoginUser().Result.UserId;
-        }
+        //public override void Initialized(object Parameter)
+        //{
+        //    base.Initialized(Parameter);
+        //    Id = Guid.NewGuid();
+        //    ContactPersonManageController controller = new ContactPersonManageController();
+        //    CreateUserId = controller.GetCurrentLoginUser().Result.UserId;
+        //}
 
     }
 }

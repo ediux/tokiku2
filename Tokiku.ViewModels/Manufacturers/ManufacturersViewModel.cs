@@ -166,6 +166,8 @@ namespace Tokiku.ViewModels
 
         private void FetchListDataSource()
         {
+            _ContactsList = new ContactListViewModel(this, _UserDataService);
+
             _VoidList = new ObservableCollection<IVoidViewModel>();
             VoidList.Add(new VoidViewModel() { Value = false, Text = "啟用" });
             VoidList.Add(new VoidViewModel() { Value = true, Text = "停用" });
@@ -293,6 +295,13 @@ namespace Tokiku.ViewModels
 
         #endregion
 
+        public override void SetEntity(Manufacturers entity)
+        {
+            base.SetEntity(entity);
+
+            ContactsList = new ContactListViewModel(this, _UserDataService);
+
+        }
         //#region 聯絡人清單 Contracts
         ///// <summary>
         ///// 聯絡人清單
@@ -455,7 +464,11 @@ namespace Tokiku.ViewModels
                 RaisePropertyChanged("PaymentTypes");
             }
         }
+
         #endregion
+
+        private IContactListViewModel _ContactsList;
+        public IContactListViewModel ContactsList { get => _ContactsList; set { _ContactsList = value; RaisePropertyChanged("ContactsList"); } }
 
         #region 交易紀錄
 

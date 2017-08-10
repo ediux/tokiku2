@@ -71,10 +71,12 @@
     <Compile Include="Base\BaseViewModel.cs" />
     <Compile Include="Base\DocumentBaseViewModel.cs" />
     <Compile Include="Base\EntityBaseViewModel.cs" />
+    <Compile Include="ContactListViewModel.cs" />
     <Compile Include="ContactPerson\ContactsViewModel.cs" />
     <Compile Include="ContactPerson\IContactsViewModel.cs" />
     <Compile Include="ControlModels\CloseableTabViewModel.cs" />
     <Compile Include="ControlModels\FixedTabViewModel.cs" />
+    <Compile Include="IContactListViewModel.cs" />
     <Compile Include="Interfaces\IManufacturersViewModel.cs" />
     <Compile Include="Interfaces\IVendorListItemViewModel.cs" />
     <Compile Include="Interfaces\IVendorListViewModel.cs" />
