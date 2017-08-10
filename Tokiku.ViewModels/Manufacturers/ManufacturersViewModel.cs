@@ -216,6 +216,7 @@ namespace Tokiku.ViewModels
         public override DocumentLifeCircle Mode { get => base.Mode; set {
                 base.Mode = value;
                 ContactsList.ModeChangedCommand.Execute(value);
+                BusinessItemsList.ModeChangedCommand.Execute(value);
             } }
         public string Comment { get { return CopyofPOCOInstance.Comment; } set { CopyofPOCOInstance.Comment = value; RaisePropertyChanged("Comment"); } }
         public bool Void { get { return CopyofPOCOInstance.Void; } set { CopyofPOCOInstance.Void = value; RaisePropertyChanged("Void"); } }
