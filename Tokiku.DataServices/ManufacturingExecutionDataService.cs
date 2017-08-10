@@ -172,7 +172,25 @@ namespace Tokiku.DataServices
         }
         public IEnumerable<ManufacturersBussinessItems> GetAll(Expression<Func<ManufacturersBussinessItems, bool>> filiter = null)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var biListRepo = _ManufacturersBussinessItemsRepository;
+
+                var result = from q in biListRepo.All()
+                              select q;
+
+                if (filiter != null)
+                {
+                    return result.Where(filiter);
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(ex);
+                return null;
+            }
         }
         public ManufacturersBussinessItems GetSingle(Expression<Func<ManufacturersBussinessItems, bool>> filiter)
         {

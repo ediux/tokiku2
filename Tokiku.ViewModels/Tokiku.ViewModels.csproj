@@ -77,12 +77,16 @@
     <Compile Include="ControlModels\CloseableTabViewModel.cs" />
     <Compile Include="ControlModels\FixedTabViewModel.cs" />
     <Compile Include="IContactListViewModel.cs" />
+    <Compile Include="IManufacturerBusinessItemsListViewModel.cs" />
     <Compile Include="Interfaces\IManufacturersViewModel.cs" />
     <Compile Include="Interfaces\IVendorListItemViewModel.cs" />
     <Compile Include="Interfaces\IVendorListViewModel.cs" />
     <Compile Include="IPaymentTypesViewModel.cs" />
     <Compile Include="Main\MainViewModel.cs" />
     <Compile Include="ControlModels\MenuItemViewModel.cs" />
+    <Compile Include="ManufacturerBusinessItemsListViewModel.cs" />
+    <Compile Include="Manufacturers\IManufacturersBussinessItemsViewModel.cs" />
+    <Compile Include="Manufacturers\ManufacturersBussinessItemsViewModel.cs" />
     <Compile Include="Manufacturers\ManufacturersViewModel.cs" />
     <Compile Include="Manufacturers\VendorListItemViewModel.cs" />
     <Compile Include="Manufacturers\VendorListViewModel.cs" />

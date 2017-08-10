@@ -469,6 +469,12 @@ namespace Tokiku.ViewModels
         private IContactListViewModel _ContactsList;
         public IContactListViewModel ContactsList { get => _ContactsList; set { _ContactsList = value; RaisePropertyChanged("ContactsList"); } }
 
+        private IManufacturerBusinessItemsListViewModel _BusinessItemsList;
+        public IManufacturerBusinessItemsListViewModel BusinessItemsList { get => _BusinessItemsList; set {
+                _BusinessItemsList = value;
+                RaisePropertyChanged("BusinessItemsList");
+            } }
+
         #region 交易紀錄
 
         //private ManufacturersBussinessTranscationsViewModelCollection _TranscationRecords;

@@ -37,6 +37,7 @@ namespace Tokiku.ViewModels
         ObservableCollection<IVoidViewModel> VoidList { get; set; }
         ObservableCollection<IPaymentTypesViewModel> PaymentTypes { get; set; }
         IContactListViewModel ContactsList { get; set; }
+        IManufacturerBusinessItemsListViewModel BusinessItemsList { get; set; }
         //void Initialized(object Parameter);
         //void QueryByName(string Name);
         //void QueryDetails();

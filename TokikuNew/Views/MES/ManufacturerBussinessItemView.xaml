@@ -31,7 +31,7 @@
             <DataGrid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Margin="2" AutoGenerateColumns="False"            
                       IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       x:Name="BusinessProjectDataGrid" 
-                      ItemsSource="{Binding Source={StaticResource BusinessItemsSource}}">
+                      ItemsSource="{Binding BusinessItemsList}">
                 <DataGrid.Columns>
                     <!-- DataGridTextColumn Header="材料類別" Width="auto" Binding="{Binding MaterialCategories}" / -->
                     <DataGridTemplateColumn Header="材料類別" Width="auto" >
@@ -44,7 +44,7 @@
                             <DataTemplate>
                                 <ComboBox x:Name="CBMaterialCategories" Grid.Column="1" Grid.Row="0" Margin="2" IsReadOnly="False"
                                           Text="{Binding MaterialCategories}"
-                                          ItemsSource="{Binding Source={StaticResource MaterialCategoriesSource}}" 
+                                          ItemsSource="{Binding }" 
                                           SelectedValuePath="Id" DisplayMemberPath="Name" 
                                           SelectedValue="{Binding MaterialCategoriesId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                                           IsEditable="True">
@@ -80,7 +80,7 @@
                             <DataTemplate>
                                 <ComboBox x:Name="cbTranscationCategories" Grid.Column="1" Grid.Row="0" Margin="2" IsReadOnly="False"
                                           Text="{Binding TranscationCategories}"
-                                          ItemsSource="{Binding Source={StaticResource  TranscationCategoriesSource}}" 
+                                          ItemsSource="{Binding }" 
                                           SelectedValuePath="Id" DisplayMemberPath="Name" 
                                           SelectedValue="{Binding TranscationCategoriesId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                                           IsEditable="True">
@@ -104,7 +104,7 @@
                             <DataTemplate>
                                 <ComboBox x:Name="cbPaymentTypeBI" Grid.Column="1" Grid.Row="0" Margin="2" IsReadOnly="False"
                                           Text="{Binding PaymentTypeName}"
-                                          ItemsSource="{Binding Source={StaticResource  PaymentTypesSource}}" 
+                                          ItemsSource="{Binding }" 
                                           SelectedValuePath="Id" DisplayMemberPath="PaymentTypeName" 
                                           SelectedValue="{Binding PaymentTypeId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                                           IsEditable="True">
@@ -128,7 +128,7 @@
                             <DataTemplate>
                                 <ComboBox x:Name="cbTicketPeriodBI" Grid.Column="1" Grid.Row="0" Margin="2" IsReadOnly="False"
                                           Text="{Binding TicketPeriod}"                                          
-                                          ItemsSource="{Binding Source={StaticResource TicketPeriodsSource}}" 
+                                          ItemsSource="{Binding }" 
                                           SelectedValuePath="Id" DisplayMemberPath="Name" 
                                           SelectedValue="{Binding TicketPeriodId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                                           IsEditable="True">
