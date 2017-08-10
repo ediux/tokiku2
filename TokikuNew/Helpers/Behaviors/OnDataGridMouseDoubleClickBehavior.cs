@@ -109,7 +109,7 @@ namespace TokikuNew.Helpers
                 tab.Header = Header;
             }
 
-            Messenger.Default.Send(tab, string.IsNullOrEmpty(TabControlChannellName) ? TabControlChannellName : "TabControl");
+            Messenger.Default.Send((ITabViewModel)tab, (!string.IsNullOrEmpty(TabControlChannellName)) ? TabControlChannellName : "TabControl");
             Messenger.Default.Send(AssociatedObject.SelectedItem, DataChannelName);
 
         }

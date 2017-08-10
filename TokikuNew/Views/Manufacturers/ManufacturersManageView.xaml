@@ -9,9 +9,8 @@
              xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:valueconverters="clr-namespace:TokikuNew.ValueConverters"
-    xmlns:helpers="clr-namespace:TokikuNew.Helpers"
+             xmlns:helpers="clr-namespace:TokikuNew.Helpers"
              x:Class="TokikuNew.Views.ManufacturersManageView"  
-           
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1366" Background="{DynamicResource ControlBackgroundBrush}" 
              x:Name="userControl">
@@ -107,7 +106,6 @@
                                  VerticalAlignment="Center" Margin="2" 
                                  Text="{Binding Phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                  IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-
                         <TextBlock Text="公司傳真：" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
                         <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="5" MaxLength="10" Grid.Column="3" VerticalAlignment="Center" Margin="2" Text="{Binding Fax, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </Grid>
@@ -157,7 +155,7 @@
                                  IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </Grid>
                     <TextBlock Text="工廠地址：" Grid.Row="9" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-                    <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="9" Grid.Column="1" VerticalAlignment="Center" Margin="2" 
+                    <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="9" Grid.ColumnSpan="3" Grid.Column="1" VerticalAlignment="Center" Margin="2" 
                              Text="{Binding FactoryAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                              IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter},Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
@@ -190,7 +188,9 @@
 					IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <TextBlock Text="支付方式：" Grid.Row="7" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
-                    <ComboBox Style="{DynamicResource ReadModeSwitch_ComboBox}" x:Name="cbPaymentType" Grid.Row="7" Grid.Column="3" SelectedValuePath="Id"
+                    <ComboBox Style="{DynamicResource ReadModeSwitch_ComboBox}" x:Name="cbPaymentType" 
+                              Grid.Row="7" Grid.Column="3" SelectedValuePath="Id"
+                              ItemsSource="{Binding PaymentTypes,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                               SelectedValue="{Binding PaymentType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               SelectedIndex="0"
                               IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                 
@@ -202,7 +202,7 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
 
-                    <TextBlock Text="票期：" Grid.Row="8" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
+                    <!--<TextBlock Text="票期：" Grid.Row="8" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
                     <ComboBox Style="{DynamicResource ReadModeSwitch_ComboBox}" x:Name="cbTicketPeriod" Grid.Row="8" Grid.Column="3" 
                               SelectedValuePath="Id"
                               SelectedIndex="0"
@@ -214,7 +214,7 @@
                                 <TextBlock Text="{Binding Name}"/>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
-                    </ComboBox>
+                    </ComboBox>-->
 
                     <TextBlock Text="行動電話：" Grid.Row="1" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
                     <TextBlock Grid.Row="1" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center" HorizontalAlignment="Stretch"
@@ -241,7 +241,7 @@
                     <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="3" Grid.Column="4" VerticalAlignment="Stretch" Margin="2" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                              IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                    <Grid Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2">
+                    <Grid Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"/>
                             <ColumnDefinition Width="25*"/>

@@ -173,6 +173,9 @@
     <Compile Include="ValueConverters\ReplyContentValueConverter.cs" />
     <Compile Include="ValueConverters\StringFormationMultiConverter.cs" />
     <Compile Include="ValueConverters\TypeValueConverter.cs" />
+    <Compile Include="Views\ContactPerson\ContactPersonManageView.xaml.cs">
+      <DependentUpon>ContactPersonManageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Manufacturers\ManufacturersManageView.xaml.cs">
       <DependentUpon>ManufacturersManageView.xaml</DependentUpon>
     </Compile>
@@ -208,6 +211,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\SearchBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ContactPerson\ContactPersonManageView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

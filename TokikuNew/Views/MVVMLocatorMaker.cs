@@ -7,6 +7,7 @@ using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using TokikuNew.Frame;
 using TokikuNew.Views;
+using TokikuNew.Helpers.Behaviors;
 using TokikuNew.Helpers;
 using TokikuNew.Controls;
 
@@ -28,11 +29,20 @@ namespace TokikuNew
 			if (!SimpleIoc.Default.IsRegistered<CustomDataGrid>())
 				SimpleIoc.Default.Register<CustomDataGrid>();
 			
+			if (!SimpleIoc.Default.IsRegistered<DockBar>())
+				SimpleIoc.Default.Register<DockBar>();
+			
 			if (!SimpleIoc.Default.IsRegistered<SearchBar>())
 				SimpleIoc.Default.Register<SearchBar>();
 			
+			if (!SimpleIoc.Default.IsRegistered<OnCloseTabButtonClickBehavior>())
+				SimpleIoc.Default.Register<OnCloseTabButtonClickBehavior>();
+			
 			if (!SimpleIoc.Default.IsRegistered<OnDataGridMouseDoubleClickBehavior>())
 				SimpleIoc.Default.Register<OnDataGridMouseDoubleClickBehavior>();
+			
+			if (!SimpleIoc.Default.IsRegistered<OnEditButtonClickBehavior>())
+				SimpleIoc.Default.Register<OnEditButtonClickBehavior>();
 			
 			if (!SimpleIoc.Default.IsRegistered<OnMenuItemClickBehavior>())
 				SimpleIoc.Default.Register<OnMenuItemClickBehavior>();
@@ -40,8 +50,14 @@ namespace TokikuNew
 			if (!SimpleIoc.Default.IsRegistered<OnMenuItemClickToClaseWindowBehavior>())
 				SimpleIoc.Default.Register<OnMenuItemClickToClaseWindowBehavior>();
 			
+			if (!SimpleIoc.Default.IsRegistered<OnSaveButtonClickBehavior>())
+				SimpleIoc.Default.Register<OnSaveButtonClickBehavior>();
+			
 			if (!SimpleIoc.Default.IsRegistered<OnTabControlAddTabSwitchBehavior>())
 				SimpleIoc.Default.Register<OnTabControlAddTabSwitchBehavior>();
+			
+			if (!SimpleIoc.Default.IsRegistered<OnUserControlPassDataObjectBehavior>())
+				SimpleIoc.Default.Register<OnUserControlPassDataObjectBehavior>();
 			
 			if (!SimpleIoc.Default.IsRegistered<OnWindowCloseBehavior>())
 				SimpleIoc.Default.Register<OnWindowCloseBehavior>();
@@ -111,6 +127,13 @@ namespace TokikuNew
 			get => SimpleIoc.Default.GetInstance<CustomDataGrid>();
 		}
 		/// <summary>
+        /// 取得IoC容器中的 DockBar 物件執行個體。
+        /// </summary>
+		public DockBar DockBar
+		{
+			get => SimpleIoc.Default.GetInstance<DockBar>();
+		}
+		/// <summary>
         /// 取得IoC容器中的 SearchBar 物件執行個體。
         /// </summary>
 		public SearchBar SearchBar
@@ -118,11 +141,25 @@ namespace TokikuNew
 			get => SimpleIoc.Default.GetInstance<SearchBar>();
 		}
 		/// <summary>
+        /// 取得IoC容器中的 OnCloseTabButtonClickBehavior 物件執行個體。
+        /// </summary>
+		public OnCloseTabButtonClickBehavior OnCloseTabButtonClickBehavior
+		{
+			get => SimpleIoc.Default.GetInstance<OnCloseTabButtonClickBehavior>();
+		}
+		/// <summary>
         /// 取得IoC容器中的 OnDataGridMouseDoubleClickBehavior 物件執行個體。
         /// </summary>
 		public OnDataGridMouseDoubleClickBehavior OnDataGridMouseDoubleClickBehavior
 		{
 			get => SimpleIoc.Default.GetInstance<OnDataGridMouseDoubleClickBehavior>();
+		}
+		/// <summary>
+        /// 取得IoC容器中的 OnEditButtonClickBehavior 物件執行個體。
+        /// </summary>
+		public OnEditButtonClickBehavior OnEditButtonClickBehavior
+		{
+			get => SimpleIoc.Default.GetInstance<OnEditButtonClickBehavior>();
 		}
 		/// <summary>
         /// 取得IoC容器中的 OnMenuItemClickBehavior 物件執行個體。
@@ -139,11 +176,25 @@ namespace TokikuNew
 			get => SimpleIoc.Default.GetInstance<OnMenuItemClickToClaseWindowBehavior>();
 		}
 		/// <summary>
+        /// 取得IoC容器中的 OnSaveButtonClickBehavior 物件執行個體。
+        /// </summary>
+		public OnSaveButtonClickBehavior OnSaveButtonClickBehavior
+		{
+			get => SimpleIoc.Default.GetInstance<OnSaveButtonClickBehavior>();
+		}
+		/// <summary>
         /// 取得IoC容器中的 OnTabControlAddTabSwitchBehavior 物件執行個體。
         /// </summary>
 		public OnTabControlAddTabSwitchBehavior OnTabControlAddTabSwitchBehavior
 		{
 			get => SimpleIoc.Default.GetInstance<OnTabControlAddTabSwitchBehavior>();
+		}
+		/// <summary>
+        /// 取得IoC容器中的 OnUserControlPassDataObjectBehavior 物件執行個體。
+        /// </summary>
+		public OnUserControlPassDataObjectBehavior OnUserControlPassDataObjectBehavior
+		{
+			get => SimpleIoc.Default.GetInstance<OnUserControlPassDataObjectBehavior>();
 		}
 		/// <summary>
         /// 取得IoC容器中的 OnWindowCloseBehavior 物件執行個體。
