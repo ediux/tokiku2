@@ -5,6 +5,7 @@
 
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
+using TokikuNew.Controls;
 
 namespace Tokiku.ViewModels 
 {	
@@ -36,14 +37,23 @@ namespace Tokiku.ViewModels
 			if (!SimpleIoc.Default.IsRegistered<IVendorListViewModel>())
 				SimpleIoc.Default.Register<IVendorListViewModel,VendorListViewModel>();			
 
+			if (!SimpleIoc.Default.IsRegistered<IPaymentTypesViewModel>())
+				SimpleIoc.Default.Register<IPaymentTypesViewModel,PaymentTypesViewModel>();			
+
 			if (!SimpleIoc.Default.IsRegistered<ISearchBarViewModel>())
 				SimpleIoc.Default.Register<ISearchBarViewModel,SearchBarViewModel>();			
+
+			if (!SimpleIoc.Default.IsRegistered<IVoidViewModel>())
+				SimpleIoc.Default.Register<IVoidViewModel,VoidViewModel>();			
 
 			if (!SimpleIoc.Default.IsRegistered<ILoginViewModel>())
 				SimpleIoc.Default.Register<ILoginViewModel,LoginViewModel>();			
 
 			if (!SimpleIoc.Default.IsRegistered<IUserViewModel>())
 				SimpleIoc.Default.Register<IUserViewModel,UserViewModel>();			
+			
+			if (!SimpleIoc.Default.IsRegistered<EmptyView>())
+				SimpleIoc.Default.Register<EmptyView>();
 										
             if (_Current == null)
                 _Current = this;
@@ -114,11 +124,25 @@ namespace Tokiku.ViewModels
 			get => SimpleIoc.Default.GetInstance<IVendorListViewModel>();
 		}
 		/// <summary>
+        /// 取得IoC容器中的實作 IPaymentTypesViewModel 介面的物件執行個體。
+        /// </summary>
+		public IPaymentTypesViewModel PaymentTypesViewModel
+		{
+			get => SimpleIoc.Default.GetInstance<IPaymentTypesViewModel>();
+		}
+		/// <summary>
         /// 取得IoC容器中的實作 ISearchBarViewModel 介面的物件執行個體。
         /// </summary>
 		public ISearchBarViewModel SearchBarViewModel
 		{
 			get => SimpleIoc.Default.GetInstance<ISearchBarViewModel>();
+		}
+		/// <summary>
+        /// 取得IoC容器中的實作 IVoidViewModel 介面的物件執行個體。
+        /// </summary>
+		public IVoidViewModel VoidViewModel
+		{
+			get => SimpleIoc.Default.GetInstance<IVoidViewModel>();
 		}
 		/// <summary>
         /// 取得IoC容器中的實作 ILoginViewModel 介面的物件執行個體。
@@ -133,6 +157,13 @@ namespace Tokiku.ViewModels
 		public IUserViewModel UserViewModel
 		{
 			get => SimpleIoc.Default.GetInstance<IUserViewModel>();
+		}
+		/// <summary>
+        /// 取得IoC容器中的 EmptyView 物件執行個體。
+        /// </summary>
+		public EmptyView EmptyView
+		{
+			get => SimpleIoc.Default.GetInstance<EmptyView>();
 		}
 	}
 }

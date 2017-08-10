@@ -15,7 +15,5 @@ namespace Tokiku.ViewModels
         string Phone { get; set; }
         string Title { get; set; }
         bool Void { get; set; }
-
-        void Initialized(object Parameter);
     }
 }

@@ -81,12 +81,12 @@ namespace Tokiku.ViewModels
     {
         public ContactsViewModel()
         {
-            _SaveModelController = "ContactPersonManage";
+            //_SaveModelController = "ContactPersonManage";
         }
 
         public ContactsViewModel(Contacts entity) : base(entity)
         {
-            _SaveModelController = "ContactPersonManage";
+            //_SaveModelController = "ContactPersonManage";
         }
 
 

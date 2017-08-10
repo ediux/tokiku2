@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Tokiku.ViewModels
 {
-    public class MenuItemViewModel : ViewModelBase2, IMenuItemViewModel
+    public class MenuItemViewModel : BaseViewModel, IMenuItemViewModel
     {
         public MenuItemViewModel()
         {

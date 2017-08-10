@@ -31,9 +31,10 @@ namespace Tokiku.ViewModels
         //ManufacturersBussinessTranscationsViewModelCollection TranscationRecords { get; set; }
         string UniformNumbers { get; set; }
         bool Void { get; set; }
-        ObservableCollection<IVoidViewModel> VoidList { get; set; }
-        bool IsSameForAddress { get; set; }
 
+        bool IsSameForAddress { get; set; }
+        ObservableCollection<IVoidViewModel> VoidList { get; set; }
+        ObservableCollection<IPaymentTypesViewModel> PaymentTypes { get; set; }
         //void Initialized(object Parameter);
         //void QueryByName(string Name);
         //void QueryDetails();

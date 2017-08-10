@@ -73,14 +73,7 @@ namespace Tokiku.ViewModels
       
 
 
-        /// <summary>
-        /// 支付方式
-        /// </summary>
-        public string PaymentTypeName
-        {
-            get { return CopyofPOCOInstance.PaymentTypeName; }
-            set { CopyofPOCOInstance.PaymentTypeName = value; RaisePropertyChanged("PaymentTypeName"); }
-        }
+      
 
      
         ///// <summary>

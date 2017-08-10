@@ -11,6 +11,7 @@ using Tokiku.Entity;
 using Tokiku.Entity.ViewTables;
 using GalaSoft.MvvmLight.Messaging;
 using Tokiku.DataServices;
+using Tokiku.MVVM;
 
 namespace Tokiku.ViewModels
 {
@@ -125,6 +126,7 @@ namespace Tokiku.ViewModels
     public class ManufacturersViewModel : DocumentBaseViewModel<Manufacturers>, IManufacturersViewModel
     {
         private IManufacturersDataService _ManufacturersDataService;
+        private IFinancialManagementDataService _FinancialManagementDataService;
 
         #region 建構式
         public ManufacturersViewModel() : base(null, null)
@@ -134,31 +136,44 @@ namespace Tokiku.ViewModels
 
         [PreferredConstructor]
         public ManufacturersViewModel(IManufacturersDataService ManufacturersDataService,
+            IFinancialManagementDataService FinancialManagementDataService,
             IUserDataService UserDataService,
             IAccessLogDataService AccessLogDataService) : base(UserDataService, AccessLogDataService)
         {
             _ManufacturersDataService = ManufacturersDataService;
+            _FinancialManagementDataService = FinancialManagementDataService;
 
+            SetMode();
+            FetchListDataSource();
 
+        }
+
+        public ManufacturersViewModel(Manufacturers entity, IManufacturersDataService ManufacturersDataService, 
+            IFinancialManagementDataService FinancialManagementDataService, 
+            IUserDataService UserDataService, 
+            IAccessLogDataService AccessLogDataService) : base(entity, UserDataService, AccessLogDataService)
+        {
+            _ManufacturersDataService = ManufacturersDataService;
+            SetMode();
+            FetchListDataSource();
+        }
+        #endregion
+
+        private void SetMode()
+        {
+            Mode = DocumentLifeCircle.Read;
+        }
+
+        private void FetchListDataSource()
+        {
             _VoidList = new ObservableCollection<IVoidViewModel>();
             VoidList.Add(new VoidViewModel() { Value = false, Text = "啟用" });
             VoidList.Add(new VoidViewModel() { Value = true, Text = "停用" });
 
+            _PaymentTypes = new ObservableCollection<IPaymentTypesViewModel>(
+              ((IDataService<PaymentTypes>)_FinancialManagementDataService).GetAll()
+                .Select(s => new PaymentTypesViewModel(s)).ToList());
         }
-
-        public ManufacturersViewModel(Manufacturers entity, IManufacturersDataService ManufacturersDataService, IUserDataService UserDataService, IAccessLogDataService AccessLogDataService) : base(entity, UserDataService, AccessLogDataService)
-        {
-            _ManufacturersDataService = ManufacturersDataService;
-
-            //Messenger.Default.Register<object>(this, RecviceFromOthers);
-
-            _VoidList = new ObservableCollection<IVoidViewModel>();
-            _VoidList.Add(new VoidViewModel() { Value = false, Text = "啟用" });
-            _VoidList.Add(new VoidViewModel() { Value = true, Text = "停用" });
-        }
-        #endregion
-
-        
 
         #region 屬性
 
@@ -169,8 +184,6 @@ namespace Tokiku.ViewModels
         [Display(Name = "編號")]
         public new System.Guid Id { get { return CopyofPOCOInstance.Id; } set { CopyofPOCOInstance.Id = value; RaisePropertyChanged("Id"); } }
         #endregion
-
-
         public string Code { get { return CopyofPOCOInstance.Code; } set { CopyofPOCOInstance.Code = value; RaisePropertyChanged("Code"); } }
         public string Name { get { return CopyofPOCOInstance.Name; } set { CopyofPOCOInstance.Name = value; RaisePropertyChanged("Name"); } }
         public string ShortName { get { return CopyofPOCOInstance.ShortName; } set { CopyofPOCOInstance.ShortName = value; RaisePropertyChanged("ShortName"); } }
@@ -422,9 +435,27 @@ namespace Tokiku.ViewModels
 
         #endregion
 
+        #region 資料啟用狀態下拉選單
         private ObservableCollection<IVoidViewModel> _VoidList;
 
         public ObservableCollection<IVoidViewModel> VoidList { get => _VoidList; set { _VoidList = value; RaisePropertyChanged("VoidList"); } }
+
+        #endregion
+
+        #region 支付方式的下拉式清單資料來源
+        private ObservableCollection<IPaymentTypesViewModel> _PaymentTypes;
+        /// <summary>
+        /// 支付方式的下拉式清單資料來源
+        /// </summary>
+        public ObservableCollection<IPaymentTypesViewModel> PaymentTypes
+        {
+            get => _PaymentTypes; set
+            {
+                _PaymentTypes = value;
+                RaisePropertyChanged("PaymentTypes");
+            }
+        }
+        #endregion
 
         #region 交易紀錄
 

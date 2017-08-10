@@ -11,7 +11,7 @@ using GalaSoft.MvvmLight.Messaging;
 
 namespace Tokiku.ViewModels
 {
-    public class VendorListViewModel : ViewModelBase2, IVendorListViewModel
+    public class VendorListViewModel : BaseViewModel, IVendorListViewModel
     {
         private IManufacturersDataService _ManufacturersDataService;
 

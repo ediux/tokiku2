@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Tokiku.ViewModels
 {
-    public abstract class TabViewModelBase : ViewModelBase2, ITabViewModel
+    public abstract class TabViewModelBase : BaseViewModel, ITabViewModel
     {
         public TabViewModelBase() : base()
         {
