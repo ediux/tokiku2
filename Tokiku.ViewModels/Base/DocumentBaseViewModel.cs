@@ -33,12 +33,12 @@ namespace Tokiku.ViewModels
         #endregion
 
         #region 文件操作模式
-        private DocumentLifeCircle _Mode;
+        protected DocumentLifeCircle _Mode;
 
         /// <summary>
         /// 文件操作模式
         /// </summary>
-        public DocumentLifeCircle Mode { get => _Mode; set => _Mode = value; }
+        public virtual DocumentLifeCircle Mode { get => _Mode; set { _Mode = value;  RaisePropertyChanged("Mode"); } }
         #endregion
 
         #region 資料識別碼

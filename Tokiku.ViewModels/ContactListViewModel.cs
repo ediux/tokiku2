@@ -7,6 +7,8 @@ using Tokiku.DataServices;
 using Tokiku.Entity;
 using Tokiku.MVVM;
 using GalaSoft.MvvmLight.Ioc;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.CommandWpf;
 
 namespace Tokiku.ViewModels
 {
@@ -20,18 +22,43 @@ namespace Tokiku.ViewModels
             _UserDataService = UserDataService;
             _ContractsList = new ObservableCollection<IContactsViewModel>(((IContactsDataService)_UserDataService).GetAll()
                 .Select(s => new ContactsViewModel(s)));
+            _QueryCommand = new RelayCommand<Manufacturers>(RunQuery);
+            _Mode = DocumentLifeCircle.Read;
         }
 
-        public ContactListViewModel(IManufacturersViewModel model, ICoreDataService UserDataService) : this(UserDataService)
-        {
-            ContractsList =
-                new ObservableCollection<IContactsViewModel>(
-                    (from q in _ContractsList
-                    from s in q.Entity.Manufacturers
-                    where s.Id == model.Id && s.IsClient == model.IsClient
-                    select q).ToList());
+        //public ContactListViewModel(IManufacturersViewModel model, ICoreDataService UserDataService) : this(UserDataService)
+        //{
 
-            _Mode = model.Mode;
+
+        //    _Mode = model.Mode;
+        //}
+
+        protected virtual void RunQuery(Manufacturers Parameter)
+        {
+            if (Parameter != null)
+            {
+                ContractsList =
+             new ObservableCollection<IContactsViewModel>(
+                 (from q in _ContractsList
+                  from s in q.Entity.Manufacturers
+                  where s.Id == Parameter.Id && s.IsClient == Parameter.IsClient
+                  select q).ToList());
+            }
+            else
+            {
+                ContractsList = new ObservableCollection<IContactsViewModel>();
+            }
+        }
+
+        protected virtual void RunSave(Manufacturers Parameter)
+        {
+
+        }
+
+        protected virtual void RunModeChanged(DocumentLifeCircle parameter)
+        {
+            _Mode = parameter;
+            RaisePropertyChanged("Mode");
         }
 
         private ObservableCollection<IContactsViewModel> _ContractsList;
@@ -46,5 +73,14 @@ namespace Tokiku.ViewModels
 
         private DocumentLifeCircle _Mode;
         public DocumentLifeCircle Mode { get => _Mode; set { _Mode = value; RaisePropertyChanged("Mode"); } }
+
+        private ICommand _QueryCommand;
+        public ICommand QueryCommand { get => _QueryCommand; set { _QueryCommand = value; RaisePropertyChanged("QueryCommand"); } }
+
+        private ICommand _SaveCommand;
+        public ICommand SaveCommand { get => _SaveCommand; set { _SaveCommand = value; RaisePropertyChanged("SaveCommand"); } }
+
+        private ICommand _ModeChangedCommand;
+        public ICommand ModeChangedCommand { get => _ModeChangedCommand; set { _ModeChangedCommand = value; RaisePropertyChanged("ModeChangedCommand"); } }
     }
 }

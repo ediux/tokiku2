@@ -31,7 +31,7 @@
             <DataGrid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Margin="2" AutoGenerateColumns="False"            
                       IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       x:Name="BusinessProjectDataGrid" 
-                      ItemsSource="{Binding BusinessItemsList}">
+                      ItemsSource="{Binding BussinessItemsList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
                 <DataGrid.Columns>
                     <!-- DataGridTextColumn Header="材料類別" Width="auto" Binding="{Binding MaterialCategories}" / -->
                     <DataGridTemplateColumn Header="材料類別" Width="auto" >

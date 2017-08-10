@@ -165,7 +165,8 @@ namespace Tokiku.ViewModels
 
         private void FetchListDataSource()
         {
-            _ContactsList = new ContactListViewModel(this,_CoreDataService);
+            _ContactsList = ViewModelLocator.Current.ContactListViewModel;
+            _ContactsList.QueryCommand.Execute(Entity);
 
             _VoidList = new ObservableCollection<IVoidViewModel>();
             VoidList.Add(new VoidViewModel() { Value = false, Text = "啟用" });
@@ -174,6 +175,9 @@ namespace Tokiku.ViewModels
             _PaymentTypes = new ObservableCollection<IPaymentTypesViewModel>(
               ((IDataService<PaymentTypes>)_FinancialManagementDataService).GetAll()
                 .Select(s => new PaymentTypesViewModel(s)).ToList());
+
+            _BusinessItemsList = ViewModelLocator.Current.ManufacturerBusinessItemsListViewModel;
+            _BusinessItemsList.QueryCommand.Execute(Entity);
         }
 
         #region 屬性
@@ -209,7 +213,10 @@ namespace Tokiku.ViewModels
         //public string FactoryPhone { get { return CopyofPOCOInstance.FactoryPhone; } set { CopyofPOCOInstance.FactoryPhone = value; RaisePropertyChanged("FactoryPhone"); } }
         //public string FactoryFax { get { return CopyofPOCOInstance.FactoryFax; } set { CopyofPOCOInstance.FactoryFax = value; RaisePropertyChanged("FactoryFax"); } }
         //public string FactoryAddress { get { return CopyofPOCOInstance.FactoryAddress; } set { CopyofPOCOInstance.FactoryAddress = value; RaisePropertyChanged("FactoryAddress"); } }
-
+        public override DocumentLifeCircle Mode { get => base.Mode; set {
+                base.Mode = value;
+                ContactsList.ModeChangedCommand.Execute(value);
+            } }
         public string Comment { get { return CopyofPOCOInstance.Comment; } set { CopyofPOCOInstance.Comment = value; RaisePropertyChanged("Comment"); } }
         public bool Void { get { return CopyofPOCOInstance.Void; } set { CopyofPOCOInstance.Void = value; RaisePropertyChanged("Void"); } }
         public bool IsClient { get { return CopyofPOCOInstance.IsClient; } set { CopyofPOCOInstance.IsClient = value; RaisePropertyChanged("IsClient"); } }
@@ -297,9 +304,7 @@ namespace Tokiku.ViewModels
         public override void SetEntity(Manufacturers entity)
         {
             base.SetEntity(entity);
-
-            ContactsList = new ContactListViewModel(this, _CoreDataService);
-
+            ContactsList.QueryCommand.Execute(entity);
         }
         //#region 聯絡人清單 Contracts
         ///// <summary>
@@ -465,6 +470,7 @@ namespace Tokiku.ViewModels
         }
 
         #endregion
+ 
 
         private IContactListViewModel _ContactsList;
         public IContactListViewModel ContactsList { get => _ContactsList; set { _ContactsList = value; RaisePropertyChanged("ContactsList"); } }
