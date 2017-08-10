@@ -105,7 +105,7 @@ namespace Tokiku.MVVM
 
         }
 
-        private TModel _ViewModel = null;
+        private TModel _ViewModel = default(TModel);
 
         protected TModel ViewModel { get => _ViewModel; set => _ViewModel = value; }
 
