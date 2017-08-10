@@ -10,6 +10,11 @@ namespace Tokiku.DataServices
 {
     public class FinancialManagementDataService : DataServiceBase, IFinancialManagementDataService
     {
+        public FinancialManagementDataService()
+        {
+
+        }
+
         public PaymentTypes Add(PaymentTypes model)
         {
             throw new NotImplementedException();
@@ -47,7 +52,21 @@ namespace Tokiku.DataServices
 
         public IEnumerable<PaymentTypes> GetAll(Expression<Func<PaymentTypes, bool>> filiter = null)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var repo = GetRepository<IPaymentTypesRepository>();
+
+                var queryresult = from q in repo.All()
+                                  orderby q.Id ascending
+                                  select q;
+
+                return queryresult;
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(ex);
+                return null;
+            }
         }
 
         public IEnumerable<TicketPeriod> GetAll(Expression<Func<TicketPeriod, bool>> filiter = null)

@@ -18,6 +18,9 @@ namespace Tokiku.DataServices
 			if (!SimpleIoc.Default.IsRegistered<IAccessLogDataService>())
 				SimpleIoc.Default.Register<IAccessLogDataService,AccessLogDataService>();			
 
+			if (!SimpleIoc.Default.IsRegistered<IFinancialManagementDataService>())
+				SimpleIoc.Default.Register<IFinancialManagementDataService,FinancialManagementDataService>();			
+
 			if (!SimpleIoc.Default.IsRegistered<IManufacturersDataService>())
 				SimpleIoc.Default.Register<IManufacturersDataService,ManufacturersDataService>();			
 
@@ -49,6 +52,13 @@ namespace Tokiku.DataServices
 		public IAccessLogDataService AccessLogDataService
 		{
 			get => SimpleIoc.Default.GetInstance<IAccessLogDataService>();
+		}
+		/// <summary>
+        /// 取得IoC容器中的實作 IFinancialManagementDataService 介面的物件執行個體。
+        /// </summary>
+		public IFinancialManagementDataService FinancialManagementDataService
+		{
+			get => SimpleIoc.Default.GetInstance<IFinancialManagementDataService>();
 		}
 		/// <summary>
         /// 取得IoC容器中的實作 IManufacturersDataService 介面的物件執行個體。
