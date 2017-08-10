@@ -62,7 +62,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessLogDataService.cs" />
+    <Compile Include="FinancialManagementDataService.cs" />
     <Compile Include="IAccessLogDataService.cs" />
+    <Compile Include="IFinancialManagementDataService.cs" />
     <Compile Include="IManufacturersDataService.cs" />
     <Compile Include="IUserDataService.cs" />
     <Compile Include="ManufacturersDataService.cs" />

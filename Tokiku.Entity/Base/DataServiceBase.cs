@@ -93,7 +93,7 @@ namespace Tokiku.MVVM
     /// 資料存取服務基底類別!
     /// 使用MVVM Light Toolkit
     /// </summary>
-    public abstract class DataServiceBase<TModel> : DataServiceBase, IDataService<TModel> where TModel : ViewModelBase, IBaseViewModel
+    public abstract class DataServiceBase<TModel> : DataServiceBase, IDataService<TModel>
     {
         public DataServiceBase()
         {
@@ -144,5 +144,6 @@ namespace Tokiku.MVVM
         public abstract void Remove(TModel model);
         public abstract void RemoveAll();
         public abstract void RemoveWhere(Expression<Func<TModel, bool>> filiter = null);
+        public abstract ICollection<TModel> SearchByText(string filiter);
     }
 }

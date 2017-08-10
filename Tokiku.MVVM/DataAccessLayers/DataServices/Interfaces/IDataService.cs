@@ -23,7 +23,7 @@ namespace Tokiku.MVVM
         bool HasError { get; set; }        
     }
 
-    public interface IDataService<TModel> : IDataService where TModel : ViewModelBase, IBaseViewModel
+    public interface IDataService<TModel> : IDataService
     {
         /// <summary>
         /// 將單一檢視模型中資料新增到資料庫的方法。
@@ -93,5 +93,11 @@ namespace Tokiku.MVVM
         /// <param name="parameters">要傳遞的參數集合。</param>
         /// <returns>傳回查詢結果集合。</returns>
         IEnumerable<TModel> DirectExecuteSQL(string tsql, params object[] parameters);
+        /// <summary>
+        /// 以文字輸入的內容搜尋。
+        /// </summary>
+        /// <param name="filiter">輸入的搜尋條件</param>
+        /// <returns></returns>
+        ICollection<TModel> SearchByText(string filiter);
     }
 }

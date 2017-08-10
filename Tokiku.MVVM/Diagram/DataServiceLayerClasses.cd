@@ -23,10 +23,10 @@
       <FileName>DataAccessLayers\DataServices\Interfaces\IDataService.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="Tokiku.MVVM.IDataService&lt;TModel&gt;" Collapsed="true">
+  <Interface Name="Tokiku.MVVM.IDataService&lt;TModel&gt;">
     <Position X="7.25" Y="8.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAYAAAAAAAAAAAAAAAAAFAEAAAAAAAAgIgAAAAAEAgA=</HashCode>
+      <HashCode>AAYAAAAgAAAAAAAAAAAAFAEAAAAAAAAgIgAAAAAEAgA=</HashCode>
       <FileName>DataAccessLayers\DataServices\Interfaces\IDataService.cs</FileName>
     </TypeIdentifier>
   </Interface>

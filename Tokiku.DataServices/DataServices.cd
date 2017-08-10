@@ -1,33 +1,49 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Tokiku.DataServices.UsersDataService">
-    <Position X="10.5" Y="0.5" Width="1.5" />
+  <Class Name="Tokiku.DataServices.UsersDataService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAAIAAAAACAAMAAAQAAAAAAA=</HashCode>
       <FileName>UsersDataService.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
+    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="Tokiku.DataServices.AccessLogDataService">
-    <Position X="8.75" Y="0.5" Width="1.5" />
+  <Class Name="Tokiku.DataServices.AccessLogDataService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQEAAA=</HashCode>
+      <HashCode>AAAAAQAAAIAAAAAAAAAAAAAAAAAAAAgIAAAAAAQEAAA=</HashCode>
       <FileName>AccessLogDataService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tokiku.DataServices.ManufacturersDataService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>ManufacturersDataService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tokiku.DataServices.FinancialManagementDataService">
+    <Position X="9.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAgAAAAAAAAAAAAFgEAAAAEAAAgIgAAAAAEIgE=</HashCode>
+      <FileName>FinancialManagementDataService.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Interface Name="Tokiku.DataServices.IUserDataService">
     <Position X="4" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAEAAAQAAAAAAA=</HashCode>
       <FileName>IUserDataService.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Tokiku.MVVM.IDataService" Collapsed="true">
-    <Position X="4" Y="0.5" Width="1.5" />
+    <Position X="5" Y="0.5" Width="1.5" />
     <TypeIdentifier />
   </Interface>
-  <Interface Name="Tokiku.MVVM.IDataService&lt;TModel&gt;" Collapsed="true">
+  <Interface Name="Tokiku.MVVM.IDataService&lt;TModel&gt;">
     <Position X="6.25" Y="1.75" Width="1.5" />
     <TypeIdentifier />
   </Interface>
@@ -36,6 +52,20 @@
     <TypeIdentifier>
       <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQEAAA=</HashCode>
       <FileName>IAccessLogDataService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.DataServices.IManufacturersDataService">
+    <Position X="8.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>IManufacturersDataService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.DataServices.IFinancialManagementDataService">
+    <Position X="6.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IFinancialManagementDataService.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Microsoft JhengHei UI" Size="9" />
