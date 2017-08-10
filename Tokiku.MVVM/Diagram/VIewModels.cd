@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Tokiku.ViewModels.ControllerMappingAttribute" Collapsed="true">
-    <Position X="11.25" Y="1.25" Width="1.5" />
+    <Position X="24.75" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAIAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>ViewModel\ControllerMappingAttribute.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Tokiku.ViewModels.ViewModelBase2" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="13" Y="1.25" Width="1.5" />
+    <Position X="26.5" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAQAGAgAAAAEAAAAAAAgIAAAAABAACEA=</HashCode>
       <FileName>ViewModel\ViewModelBase2.cs</FileName>
@@ -30,7 +30,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="Tokiku.ViewModels.IBaseViewModel" Collapsed="true">
-    <Position X="6.5" Y="1.25" Width="1.5" />
+    <Position X="13.25" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
       <FileName>ViewModel\IBaseViewModel.cs</FileName>
@@ -44,7 +44,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="Tokiku.ViewModels.IDocumentStatusViewModel" Collapsed="true">
-    <Position X="11.25" Y="2.5" Width="1.5" />
+    <Position X="24.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAACAAAAAAAAAEAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
       <FileName>ViewModel\IDocumentStatusViewModel.cs</FileName>
@@ -57,17 +57,87 @@
       <FileName>ViewModel\IEntityBaseViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
+  <Interface Name="Tokiku.ViewModels.IBaseViewModelWithLoginedUser" Collapsed="true">
+    <Position X="11" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\IBaseViewModelWithLoginedUser.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.ViewModels.ICloseableTabViewModel" Collapsed="true">
+    <Position X="13.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>ViewModel\ICloseableTabViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.ViewModels.IDocumentBaseViewModel&lt;T&gt;" Collapsed="true">
+    <Position X="8.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAEEAYAAAAAQAAAAEAAAAAEAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>ViewModel\IDocumentBaseViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.ViewModels.IFixedTabViewModel" Collapsed="true">
+    <Position X="15.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\IFixedTabViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.ViewModels.IFormBaseViewModel&lt;TMasterPOCO, TDetailPOCO&gt;" Collapsed="true">
+    <Position X="8.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\IFormBaseViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.ViewModels.IMainViewModel" Collapsed="true">
+    <Position X="11" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\IMainViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.ViewModels.IMenuItemViewModel" Collapsed="true">
+    <Position X="20" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAIAACAAAAAA=</HashCode>
+      <FileName>ViewModel\IMenuItemViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.ViewModels.ISearchBarViewModel" Collapsed="true">
+    <Position X="22.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAACggAEAAAAAAAABAAAAAA=</HashCode>
+      <FileName>ViewModel\ISearchBarViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.ViewModels.ITabViewModel" Collapsed="true">
+    <Position X="14.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAIAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAACAAAAAA=</HashCode>
+      <FileName>ViewModel\ITabViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.ViewModels.IVoidViewModel" Collapsed="true">
+    <Position X="17.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgCAAAAAA=</HashCode>
+      <FileName>ViewModel\IVoidViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
   <Enum Name="Tokiku.ViewModels.DocumentLifeCircle" Collapsed="true">
-    <Position X="13" Y="3.5" Width="1.5" />
+    <Position X="26.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAIAAAAAAAAAAAAAAAAAgAAEAAEAAAAAAAAEAAAA=</HashCode>
       <FileName>Common\DocumentLifeCircle.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="Tokiku.Entity.ActionCodes" Collapsed="true">
-    <Position X="11.25" Y="3.5" Width="1.5" />
+    <Position X="24.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAgAAEAAEAEAAAAAAAAAAA=</HashCode>
+      <HashCode>BAQBAAAAAAAAAAAAAgAAAAAgAAECAEAEAAAAAAAAAAA=</HashCode>
       <FileName>Common\ActionCodes.cs</FileName>
     </TypeIdentifier>
   </Enum>
