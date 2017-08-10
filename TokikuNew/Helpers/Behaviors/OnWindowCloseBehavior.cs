@@ -15,7 +15,7 @@ namespace TokikuNew.Helpers
         {
             try
             {
-                Tokiku.DataServices.DefaultLocator.Current.UsersDataService.Logout();
+                Tokiku.DataServices.DefaultLocator.Current.CoreDataService.Logout();
             }
             catch (Exception ex)
             {

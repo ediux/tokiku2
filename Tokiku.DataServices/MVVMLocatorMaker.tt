@@ -180,36 +180,32 @@
 	
 						if(base_imp_interfaces.Any(d=>d.Name=="IUnitOfWork"))
 							iskeepalive=true;		
+
 						addinterfacename = imp_interface.Name;
 						
 						if(!NamespaceStack.Contains(imp_interface.Namespace.FullName))
 							NamespaceStack.Push(imp_interface.Namespace.FullName);
 
-						break;
+						//break;
                     }
-
-                }
-
-				vsClassState newState = new vsClassState();
-
-				if(iskeepalive)
-					newState.IsKeepAlive=iskeepalive;	
-
-				newState.InterfaceName = string.Empty;
-
-				if(isaddinterface)
-                {
-					newState.InterfaceName = addinterfacename;							
-                }
 					
-				if(!classbook.ContainsKey(celt.Name))
-				{
-					classbook.Add(celt.Name,newState);				
-				}
-				else
-				{
-					classbook[celt.Name] = newState;
-				}			
+					vsClassState newState = new vsClassState();
+
+								if(iskeepalive)
+									newState.IsKeepAlive=iskeepalive;	
+
+								newState.InterfaceName = string.Empty;
+
+								if(isaddinterface)
+								{
+									newState.InterfaceName = addinterfacename;							
+								}
+					classbook.Add(celt.Name,newState);	
+                }
+
+			
+
+			
 				
             }
 			catch

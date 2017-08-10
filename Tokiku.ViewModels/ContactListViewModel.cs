@@ -12,17 +12,17 @@ namespace Tokiku.ViewModels
 {
     public class ContactListViewModel : BaseViewModel, IContactListViewModel
     {
-        private IUserDataService _UserDataService;
+        private ICoreDataService _UserDataService;
 
         [PreferredConstructor]
-        public ContactListViewModel(IUserDataService UserDataService) : base()
+        public ContactListViewModel(ICoreDataService UserDataService) : base()
         {
             _UserDataService = UserDataService;
-            _ContractsList = new ObservableCollection<IContactsViewModel>(((IDataService<Contacts>)_UserDataService).GetAll()
+            _ContractsList = new ObservableCollection<IContactsViewModel>(((IContactsDataService)_UserDataService).GetAll()
                 .Select(s => new ContactsViewModel(s)));
         }
 
-        public ContactListViewModel(IManufacturersViewModel model, IUserDataService UserDataService) : this(UserDataService)
+        public ContactListViewModel(IManufacturersViewModel model, ICoreDataService UserDataService) : this(UserDataService)
         {
             ContractsList =
                 new ObservableCollection<IContactsViewModel>(

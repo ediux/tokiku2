@@ -15,17 +15,17 @@ namespace Tokiku.DataServices
 			if (!ServiceLocator.IsLocationProviderSet)
                 ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-			if (!SimpleIoc.Default.IsRegistered<IAccessLogDataService>())
-				SimpleIoc.Default.Register<IAccessLogDataService,AccessLogDataService>();			
+			if (!SimpleIoc.Default.IsRegistered<ICoreDataService>())
+				SimpleIoc.Default.Register<ICoreDataService,CoreDataService>();			
+
+			if (!SimpleIoc.Default.IsRegistered<ICustomerRelationshipManagementDataService>())
+				SimpleIoc.Default.Register<ICustomerRelationshipManagementDataService,CustomerRelationshipManagementDataService>();			
 
 			if (!SimpleIoc.Default.IsRegistered<IFinancialManagementDataService>())
 				SimpleIoc.Default.Register<IFinancialManagementDataService,FinancialManagementDataService>();			
 
-			if (!SimpleIoc.Default.IsRegistered<IManufacturersDataService>())
-				SimpleIoc.Default.Register<IManufacturersDataService,ManufacturersDataService>();			
-
-			if (!SimpleIoc.Default.IsRegistered<IUserDataService>())
-				SimpleIoc.Default.Register<IUserDataService,UsersDataService>();			
+			if (!SimpleIoc.Default.IsRegistered<IManufacturingExecutionDataService>())
+				SimpleIoc.Default.Register<IManufacturingExecutionDataService,ManufacturingExecutionDataService>();			
 										
             if (_Current == null)
                 _Current = this;
@@ -47,11 +47,18 @@ namespace Tokiku.DataServices
         }
 
 		/// <summary>
-        /// 取得IoC容器中的實作 IAccessLogDataService 介面的物件執行個體。
+        /// 取得IoC容器中的實作 ICoreDataService 介面的物件執行個體。
         /// </summary>
-		public IAccessLogDataService AccessLogDataService
+		public ICoreDataService CoreDataService
 		{
-			get => SimpleIoc.Default.GetInstance<IAccessLogDataService>();
+			get => SimpleIoc.Default.GetInstance<ICoreDataService>();
+		}
+		/// <summary>
+        /// 取得IoC容器中的實作 ICustomerRelationshipManagementDataService 介面的物件執行個體。
+        /// </summary>
+		public ICustomerRelationshipManagementDataService CustomerRelationshipManagementDataService
+		{
+			get => SimpleIoc.Default.GetInstance<ICustomerRelationshipManagementDataService>();
 		}
 		/// <summary>
         /// 取得IoC容器中的實作 IFinancialManagementDataService 介面的物件執行個體。
@@ -61,18 +68,11 @@ namespace Tokiku.DataServices
 			get => SimpleIoc.Default.GetInstance<IFinancialManagementDataService>();
 		}
 		/// <summary>
-        /// 取得IoC容器中的實作 IManufacturersDataService 介面的物件執行個體。
+        /// 取得IoC容器中的實作 IManufacturingExecutionDataService 介面的物件執行個體。
         /// </summary>
-		public IManufacturersDataService ManufacturersDataService
+		public IManufacturingExecutionDataService ManufacturingExecutionDataService
 		{
-			get => SimpleIoc.Default.GetInstance<IManufacturersDataService>();
-		}
-		/// <summary>
-        /// 取得IoC容器中的實作 IUserDataService 介面的物件執行個體。
-        /// </summary>
-		public IUserDataService UsersDataService
-		{
-			get => SimpleIoc.Default.GetInstance<IUserDataService>();
+			get => SimpleIoc.Default.GetInstance<IManufacturingExecutionDataService>();
 		}
 	}
 }

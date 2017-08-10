@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Threading;
 using Tokiku.Entity;
-
+using GalaSoft.MvvmLight.Ioc;
 namespace Tokiku.ViewModels
 {
     //public class ContactsViewModelCollection : BaseViewModelCollection<ContactsViewModel>
@@ -80,6 +80,7 @@ namespace Tokiku.ViewModels
 
     public class ContactsViewModel : EntityBaseViewModel<Contacts>, IContactsViewModel
     {
+        [PreferredConstructor]
         public ContactsViewModel()
         {
             //_SaveModelController = "ContactPersonManage";

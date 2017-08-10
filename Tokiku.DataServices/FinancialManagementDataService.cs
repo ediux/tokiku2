@@ -8,6 +8,9 @@ using Tokiku.MVVM;
 
 namespace Tokiku.DataServices
 {
+    /// <summary>
+    /// 財務管理資料存取服務
+    /// </summary>
     public class FinancialManagementDataService : DataServiceBase, IFinancialManagementDataService
     {
         public FinancialManagementDataService()

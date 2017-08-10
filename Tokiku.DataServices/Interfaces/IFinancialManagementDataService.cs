@@ -8,7 +8,7 @@ using Tokiku.Entity;
 namespace Tokiku.DataServices
 {
     /// <summary>
-    /// 財務管理資料服務介面
+    /// 財務管理資料存取服務介面
     /// </summary>
     public interface IFinancialManagementDataService : IDataService<PaymentTypes>, IDataService<TicketPeriod>, IDataService<PromissoryNoteManagement>
     {

@@ -16,6 +16,12 @@ namespace Tokiku.ViewModels
 			if (!ServiceLocator.IsLocationProviderSet)
                 ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
+			if (!SimpleIoc.Default.IsRegistered<IContactListViewModel>())
+				SimpleIoc.Default.Register<IContactListViewModel,ContactListViewModel>();			
+
+			if (!SimpleIoc.Default.IsRegistered<IContactsViewModel>())
+				SimpleIoc.Default.Register<IContactsViewModel,ContactsViewModel>();			
+
 			if (!SimpleIoc.Default.IsRegistered<ICloseableTabViewModel>())
 				SimpleIoc.Default.Register<ICloseableTabViewModel,CloseableTabViewModel>();			
 
@@ -74,6 +80,20 @@ namespace Tokiku.ViewModels
             }
         }
 
+		/// <summary>
+        /// 取得IoC容器中的實作 IContactListViewModel 介面的物件執行個體。
+        /// </summary>
+		public IContactListViewModel ContactListViewModel
+		{
+			get => SimpleIoc.Default.GetInstance<IContactListViewModel>();
+		}
+		/// <summary>
+        /// 取得IoC容器中的實作 IContactsViewModel 介面的物件執行個體。
+        /// </summary>
+		public IContactsViewModel ContactsViewModel
+		{
+			get => SimpleIoc.Default.GetInstance<IContactsViewModel>();
+		}
 		/// <summary>
         /// 取得IoC容器中的實作 ICloseableTabViewModel 介面的物件執行個體。
         /// </summary>

@@ -21,8 +21,8 @@ namespace Tokiku.ViewModels
             where TPOCO : class
     {
 
-        protected IAccessLogDataService _AccessLogDataService;
-        protected IUserDataService _UserDataService;
+        protected ICoreDataService _CoreDataService;
+
 
         #region 文件狀態
         private IDocumentStatusViewModel _Status;
@@ -54,7 +54,7 @@ namespace Tokiku.ViewModels
         #endregion
 
         #region 異動紀錄
-        private ObservableCollection<IAccessLogViewModel> _AccessLogs;
+        private ObservableCollection<IAccessLogViewModel> _AccessLogs = null;
         /// <summary>
         /// 異動紀錄
         /// </summary>
@@ -165,7 +165,7 @@ namespace Tokiku.ViewModels
 
                     if (_CreateUser == null)
                     {
-                        _EntityType.GetProperty("CreateUserId").SetValue(CopyofPOCOInstance, _UserDataService.GetCurrentLoginedUser());
+                        _EntityType.GetProperty("CreateUserId").SetValue(CopyofPOCOInstance, _CoreDataService.GetCurrentLoginedUser());
                     }
 
                     return new UserViewModel(_CreateUser);
@@ -208,7 +208,7 @@ namespace Tokiku.ViewModels
                     if (_lastupdateUseridprop != null)
                         return _lastupdateUseridprop.AccessTime;
 
-                    var log = _AccessLogDataService.GetLastUpdateTime(typeof(TPOCO).Name, Id.ToString());
+                    var log = _CoreDataService.GetLastUpdateTime(typeof(TPOCO).Name, Id.ToString());
 
                     if (log != null)
                     {
@@ -265,7 +265,7 @@ namespace Tokiku.ViewModels
                     if (_lastupdateUseridprop != null)
                         return new UserViewModel((Users)_lastupdateUseridprop.GetValue(CopyofPOCOInstance));
 
-                    var log = _AccessLogDataService.GetLastUpdateUser(typeof(TPOCO).Name, Id.ToString());
+                    var log = _CoreDataService.GetLastUpdateUser(typeof(TPOCO).Name, Id.ToString());
                     return log;
                 }
                 catch
@@ -281,10 +281,9 @@ namespace Tokiku.ViewModels
 
 
         [PreferredConstructor]
-        public DocumentBaseViewModel(IUserDataService UserDataService, IAccessLogDataService AccessLogDataService)
+        public DocumentBaseViewModel(ICoreDataService CoreDataService)
         {
-            _UserDataService = UserDataService;
-            _AccessLogDataService = AccessLogDataService;
+            _CoreDataService = CoreDataService;
 
             var prop = _EntityType.GetProperty("CreateUserId");
 
@@ -294,7 +293,7 @@ namespace Tokiku.ViewModels
 
                 if (UserId == Guid.Empty)
                 {
-                   
+
 
                     prop.SetValue(CopyofPOCOInstance, UserId);
                 }
@@ -304,10 +303,9 @@ namespace Tokiku.ViewModels
 
         }
 
-        public DocumentBaseViewModel(TPOCO entity, IUserDataService UserDataService, IAccessLogDataService AccessLogDataService) : base(entity)
+        public DocumentBaseViewModel(TPOCO entity, ICoreDataService CoreDataService) : base(entity)
         {
-            _UserDataService = UserDataService;
-            _AccessLogDataService = AccessLogDataService;
+            _CoreDataService = CoreDataService;
 
             var prop = _EntityType.GetProperty("CreateUserId");
 
@@ -318,7 +316,7 @@ namespace Tokiku.ViewModels
                 if (UserId == Guid.Empty)
                 {
 
-                    UserId = UserDataService.GetCurrentLoginedUser().UserId;
+                    UserId = _CoreDataService.GetCurrentLoginedUser().UserId;
 
                     prop.SetValue(CopyofPOCOInstance, UserId);
                 }

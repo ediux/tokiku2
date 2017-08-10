@@ -7,6 +7,9 @@ using Tokiku.ViewModels;
 
 namespace Tokiku.DataServices
 {
+    /// <summary>
+    /// 資料存取歷史紀錄存取服務
+    /// </summary>
     public interface IAccessLogDataService : MVVM.IDataService
     {
         void AddAccessLog(string DataTableName, string DataId, object UserId, string Reason, ActionCodes Action);

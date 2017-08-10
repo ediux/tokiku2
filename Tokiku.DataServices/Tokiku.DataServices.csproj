@@ -61,19 +61,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccessLogDataService.cs" />
+    <Compile Include="CoreDataService.cs" />
+    <Compile Include="CustomerRelationshipManagementDataService.cs" />
     <Compile Include="FinancialManagementDataService.cs" />
-    <Compile Include="IAccessLogDataService.cs" />
-    <Compile Include="IFinancialManagementDataService.cs" />
-    <Compile Include="IManufacturersDataService.cs" />
-    <Compile Include="IUserDataService.cs" />
-    <Compile Include="ManufacturersDataService.cs" />
+    <Compile Include="Interfaces\IAccessLogDataService.cs" />
+    <Compile Include="Interfaces\IBusinessItemsDataService.cs" />
+    <Compile Include="Interfaces\IClientDataService.cs" />
+    <Compile Include="Interfaces\IContactsDataService.cs" />
+    <Compile Include="Interfaces\ICoreDataService.cs" />
+    <Compile Include="Interfaces\ICustomerRelationshipManagementDataService.cs" />
+    <Compile Include="Interfaces\IFinancialManagementDataService.cs" />
+    <Compile Include="Interfaces\IManufacturersDataService.cs" />
+    <Compile Include="Interfaces\IManufacturingExecutionDataService.cs" />
+    <Compile Include="Interfaces\IRoleDataService.cs" />
+    <Compile Include="Interfaces\IUserDataService.cs" />
+    <Compile Include="ManufacturingExecutionDataService.cs" />
     <Compile Include="MVVMLocatorMaker.cs">
       <DependentUpon>MVVMLocatorMaker.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="UsersDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

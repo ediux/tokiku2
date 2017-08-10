@@ -10,10 +10,9 @@ using Tokiku.ViewModels;
 
 namespace Tokiku.DataServices
 {
-    public interface IManufacturersDataService : IDataService
+    public interface IManufacturersDataService : IDataService<Manufacturers>
     {
         Collection<Manufacturers> QueryAll();
-        Collection<Manufacturers> SearchByText(string filiter);
         Manufacturers QuerySingle(Guid ManufacturersId);
     }
 }

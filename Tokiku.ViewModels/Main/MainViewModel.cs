@@ -12,7 +12,7 @@ namespace Tokiku.ViewModels
 {
     public class MainViewModel : WithLoginUserBaseViewModel, IMainViewModel
     {
-        public MainViewModel(IUserDataService UserDataService) : base(UserDataService)
+        public MainViewModel(ICoreDataService CoreDataService) : base(CoreDataService)
         {
             
             _FeaturesTabs = new ObservableCollection<ITabViewModel>();

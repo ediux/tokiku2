@@ -13,9 +13,9 @@ namespace Tokiku.ViewModels
 {
     public class VendorListViewModel : BaseViewModel, IVendorListViewModel
     {
-        private IManufacturersDataService _ManufacturersDataService;
+        private IManufacturingExecutionDataService _ManufacturersDataService;
 
-        public VendorListViewModel(IManufacturersDataService ManufacturersDataService)
+        public VendorListViewModel(IManufacturingExecutionDataService ManufacturersDataService)
         {
             _ManufacturersDataService = ManufacturersDataService;
             _QueryCommand = new RelayCommand(Query);
@@ -23,19 +23,19 @@ namespace Tokiku.ViewModels
 
             Messenger.Default.Register<string>(this, "SearchBar_Query_VendorList", (x) =>
             {
-                VendorList = new ObservableCollection<IVendorListItemViewModel>(_ManufacturersDataService.SearchByText(x)
+                VendorList = new ObservableCollection<IVendorListItemViewModel>(((IManufacturersDataService)_ManufacturersDataService).SearchByText(x)
                 .Select(s => new VendorListItemViewModel(s)));
             });
 
             Messenger.Default.Register<string>(this, "SearchBar_Refresh_VendorList", (x) =>
             {
-                VendorList = new ObservableCollection<IVendorListItemViewModel>(_ManufacturersDataService.SearchByText(x)
+                VendorList = new ObservableCollection<IVendorListItemViewModel>(((IManufacturersDataService)_ManufacturersDataService).SearchByText(x)
                 .Select(s => new VendorListItemViewModel(s)));
             });
 
             Messenger.Default.Register<string>(this, "SearchBar_Reset_VendorList", (x) =>
             {
-                VendorList = new ObservableCollection<IVendorListItemViewModel>(_ManufacturersDataService.QueryAll()
+                VendorList = new ObservableCollection<IVendorListItemViewModel>(((IManufacturersDataService)_ManufacturersDataService).QueryAll()
                 .Select(s => new VendorListItemViewModel(s)));
             });
         }

@@ -11,11 +11,11 @@
              Background="{DynamicResource ControlBackgroundBrush}"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <ObjectDataProvider x:Key="BusinessItemsSource" ObjectType="{x:Type vm:ManufacturersBussinessItemsViewModelColletion}" MethodName="Query">
+        <!--<ObjectDataProvider x:Key="BusinessItemsSource" ObjectType="{x:Type vm:ManufacturersBussinessItemsViewModelColletion}" MethodName="Query">
             <ObjectDataProvider.MethodParameters>
                 <x:Static Member="sys:Guid.Empty"/>
             </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
+        </ObjectDataProvider>-->
     </UserControl.Resources>
     <GroupBox Grid.Row="0" Header="營業項目" Margin="5" MinHeight="297">
         <Grid>

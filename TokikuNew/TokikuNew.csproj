@@ -182,6 +182,9 @@
     <Compile Include="Views\Manufacturers\VendorListView.xaml.cs">
       <DependentUpon>VendorListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MES\ManufacturerBussinessItemView.xaml.cs">
+      <DependentUpon>ManufacturerBussinessItemView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window\OptionWindow.xaml.cs">
       <DependentUpon>OptionWindow.xaml</DependentUpon>
     </Compile>
@@ -223,6 +226,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Manufacturers\VendorListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MES\ManufacturerBussinessItemView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

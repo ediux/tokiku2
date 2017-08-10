@@ -28,6 +28,7 @@ namespace Tokiku.ViewModels
 
         string ShortName { get; set; }
         int? TicketPeriodId { get; set; }
+
         //ManufacturersBussinessTranscationsViewModelCollection TranscationRecords { get; set; }
         string UniformNumbers { get; set; }
         bool Void { get; set; }

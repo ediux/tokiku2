@@ -125,7 +125,7 @@ namespace Tokiku.ViewModels
 
     public class ManufacturersViewModel : DocumentBaseViewModel<Manufacturers>, IManufacturersViewModel
     {
-        private IManufacturersDataService _ManufacturersDataService;
+        private IManufacturingExecutionDataService _ManufacturersDataService;
         private IFinancialManagementDataService _FinancialManagementDataService;
 
         #region 建構式
@@ -135,10 +135,9 @@ namespace Tokiku.ViewModels
         }
 
         [PreferredConstructor]
-        public ManufacturersViewModel(IManufacturersDataService ManufacturersDataService,
+        public ManufacturersViewModel(IManufacturingExecutionDataService ManufacturersDataService,
             IFinancialManagementDataService FinancialManagementDataService,
-            IUserDataService UserDataService,
-            IAccessLogDataService AccessLogDataService) : base(UserDataService, AccessLogDataService)
+            ICoreDataService CoreDataService) : base(CoreDataService)
         {
             _ManufacturersDataService = ManufacturersDataService;
             _FinancialManagementDataService = FinancialManagementDataService;
@@ -148,10 +147,10 @@ namespace Tokiku.ViewModels
 
         }
 
-        public ManufacturersViewModel(Manufacturers entity, IManufacturersDataService ManufacturersDataService, 
-            IFinancialManagementDataService FinancialManagementDataService, 
-            IUserDataService UserDataService, 
-            IAccessLogDataService AccessLogDataService) : base(entity, UserDataService, AccessLogDataService)
+        public ManufacturersViewModel(Manufacturers entity,
+            IManufacturingExecutionDataService ManufacturersDataService, 
+            IFinancialManagementDataService FinancialManagementDataService,
+            ICoreDataService CoreDataService) : base(entity, CoreDataService)
         {
             _ManufacturersDataService = ManufacturersDataService;
             SetMode();
@@ -166,7 +165,7 @@ namespace Tokiku.ViewModels
 
         private void FetchListDataSource()
         {
-            _ContactsList = new ContactListViewModel(this, _UserDataService);
+            _ContactsList = new ContactListViewModel(this,_CoreDataService);
 
             _VoidList = new ObservableCollection<IVoidViewModel>();
             VoidList.Add(new VoidViewModel() { Value = false, Text = "啟用" });
@@ -299,7 +298,7 @@ namespace Tokiku.ViewModels
         {
             base.SetEntity(entity);
 
-            ContactsList = new ContactListViewModel(this, _UserDataService);
+            ContactsList = new ContactListViewModel(this, _CoreDataService);
 
         }
         //#region 聯絡人清單 Contracts

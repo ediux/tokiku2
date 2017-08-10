@@ -20,10 +20,10 @@ namespace Tokiku.ViewModels
     public class LoginViewModel : BaseViewModel, ILoginViewModel
     {
         private IFrameNavigationService _naviService;
-        private IUserDataService _SystemService;
+        private ICoreDataService _SystemService;
 
         [PreferredConstructor]
-        public LoginViewModel(IFrameNavigationService navigationService, IUserDataService systemService)
+        public LoginViewModel(IFrameNavigationService navigationService, ICoreDataService systemService)
         {
             _naviService = navigationService;
             _SystemService = systemService;
