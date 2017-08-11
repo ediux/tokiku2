@@ -85,7 +85,7 @@
     <Compile Include="Interfaces\IPaymentTypesViewModel.cs" />
     <Compile Include="Interfaces\IManufacturersBussinessTranscationsViewModel.cs" />
     <Compile Include="Interfaces\IManufacturerFactoryViewModel.cs" />
-    <Compile Include="MES\Manufacturers\IManufacturerFactoryListViewModel.cs" />
+    <Compile Include="Interfaces\IManufacturerFactoryListViewModel.cs" />
     <Compile Include="MES\Manufacturers\ManufacturerFactoryListViewModel.cs" />
     <Compile Include="MES\Manufacturers\ManufacturerFactoryViewModel.cs" />
     <Compile Include="MES\Manufacturers\ManufacturersBussinessTranscationsListViewModel.cs" />
