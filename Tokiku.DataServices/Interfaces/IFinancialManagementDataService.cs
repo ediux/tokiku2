@@ -10,7 +10,7 @@ namespace Tokiku.DataServices
     /// <summary>
     /// 財務管理資料存取服務介面
     /// </summary>
-    public interface IFinancialManagementDataService : IDataService<PaymentTypes>, IDataService<TicketPeriod>, IDataService<PromissoryNoteManagement>
+    public interface IFinancialManagementDataService : ITicketPeriodDataService, IMaterialCategoryDataService, IPaymentTypesDataService, IPromissoryNoteManagementDataService
     {
     }
 }

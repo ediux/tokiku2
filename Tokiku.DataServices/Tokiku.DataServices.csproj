@@ -64,6 +64,8 @@
     <Compile Include="CoreDataService.cs" />
     <Compile Include="CustomerRelationshipManagementDataService.cs" />
     <Compile Include="FinancialManagementDataService.cs" />
+    <Compile Include="IMaterialCategoryDataService.cs" />
+    <Compile Include="Interfaces\IEncodingSubSystemDataService.cs" />
     <Compile Include="Interfaces\IAccessLogDataService.cs" />
     <Compile Include="Interfaces\IBusinessItemsDataService.cs" />
     <Compile Include="Interfaces\IClientDataService.cs" />
@@ -76,6 +78,9 @@
     <Compile Include="Interfaces\IRoleDataService.cs" />
     <Compile Include="Interfaces\IUserDataService.cs" />
     <Compile Include="Interfaces\ISupplierTranscationDataService.cs" />
+    <Compile Include="IPaymentTypesDataService.cs" />
+    <Compile Include="IPromissoryNoteManagementDataService.cs" />
+    <Compile Include="ITicketPeriodDataService.cs" />
     <Compile Include="ManufacturingExecutionDataService.cs" />
     <Compile Include="MVVMLocatorMaker.cs">
       <DependentUpon>MVVMLocatorMaker.tt</DependentUpon>

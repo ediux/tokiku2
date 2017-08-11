@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Ioc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ namespace Tokiku.ViewModels
 {
     public class ManufacturerFactoryViewModel : EntityBaseViewModel<ManufacturersFactories>, IManufacturerFactoryViewModel
     {
+        [PreferredConstructor]
         public ManufacturerFactoryViewModel()
         {
             

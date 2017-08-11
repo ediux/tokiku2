@@ -45,6 +45,91 @@ namespace Tokiku.DataServices
         #endregion
 
         #region 廠商管理
+        public string GetNextProjectSerialNumber()
+        {
+            string Code = string.Empty;
+            var repo = _ManufacturersRepository;
+            var lastitem = repo.All()
+                .OrderByDescending(s => s.Code)
+                .FirstOrDefault();
+
+            if (lastitem != null)
+            {
+                int numif = 0;
+                if (int.TryParse(lastitem.Code, out numif))
+                {
+                    if (numif <= 99)
+                    {
+                        Code = string.Format("{0:00}", (numif + 1));
+                        return Code;
+                    }
+
+                }
+
+                Dictionary<int, string> dict = new Dictionary<int, string>();
+                dict.Add(0, "0");
+                dict.Add(1, "1");
+                dict.Add(2, "2");
+                dict.Add(3, "3");
+                dict.Add(4, "4");
+                dict.Add(5, "5");
+                dict.Add(6, "6");
+                dict.Add(7, "7");
+                dict.Add(8, "8");
+                dict.Add(9, "9");
+                dict.Add(10, "A");
+                dict.Add(11, "B");
+                dict.Add(12, "C");
+                dict.Add(13, "D");
+                dict.Add(14, "E");
+                dict.Add(15, "F");
+                dict.Add(16, "G");
+                dict.Add(17, "H");
+                dict.Add(18, "I");
+                dict.Add(19, "J");
+                dict.Add(20, "K");
+                dict.Add(21, "L");
+                dict.Add(22, "M");
+                dict.Add(23, "N");
+                dict.Add(24, "O");
+                dict.Add(25, "P");
+                dict.Add(26, "Q");
+                dict.Add(27, "R");
+                dict.Add(28, "S");
+                dict.Add(29, "T");
+                dict.Add(30, "U");
+                dict.Add(31, "V");
+                dict.Add(32, "W");
+                dict.Add(33, "X");
+                dict.Add(34, "Y");
+                dict.Add(35, "Z");
+
+                string hignchar = lastitem.Code.Substring(0, 1);
+                string lowchar = lastitem.Code.Substring(1, 1);
+
+                int lowint = dict.Where(w => w.Value == lowchar).Select(s => s.Key).Single();
+                int highint = dict.Where(w => w.Value == hignchar).Select(s => s.Key).Single();
+
+                if (lowint == 35)
+                {
+                    lowint = 0;
+                    highint += 1;
+                }
+                else
+                {
+                    lowint += 1;
+                }
+
+                Code = dict[highint] + dict[lowint];
+            }
+            else
+            {
+                Code = "01";
+            }
+
+            return string.Format("{0:00}", Code);
+        }
+
         public Manufacturers Add(Manufacturers model)
         {
             try
@@ -64,24 +149,37 @@ namespace Tokiku.DataServices
                 return null;
             }
         }
+
         public IEnumerable<Manufacturers> AddRange(IEnumerable<Manufacturers> models)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                foreach (var addrow in models)
+                {
+                    var newdata = _ManufacturersRepository.Add(addrow);
+
+                    _CoreDataService.AddAccessLog("Manufacturers", newdata.Id.ToString(),
+                   newdata.CreateUserId, "Insert Data", ActionCodes.Create, false);
+                }
+
+                _ManufacturersRepository.UnitOfWork.Commit();
+
+                return ((IManufacturersDataService)this).GetAll(w => models.Where(a => a.Id == w.Id).Any());
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(ex);
+                return null;
+            }
         }
+
         public IEnumerable<Manufacturers> DirectExecuteSQL(string tsql, params object[] parameters)
         {
             throw new NotImplementedException();
         }
-        public IEnumerable<Manufacturers> GetAll(Expression<Func<Manufacturers, bool>> filiter = null)
-        {
-            throw new NotImplementedException();
-        }
-        public Manufacturers GetSingle(Expression<Func<Manufacturers, bool>> filiter)
-        {
-            throw new NotImplementedException();
-        }
 
-        public Collection<Manufacturers> QueryAll()
+        public IEnumerable<Manufacturers> GetAll(Expression<Func<Manufacturers, bool>> filiter = null)
         {
             try
             {
@@ -90,14 +188,43 @@ namespace Tokiku.DataServices
                                   orderby q.Code ascending
                                   select q;
 
-                return new Collection<Manufacturers>(
-                   queryresult.ToList());
+                if (filiter != null)
+                    return new Collection<Manufacturers>(queryresult.Where(filiter).ToList());
+
+                return new Collection<Manufacturers>(queryresult.ToList());
             }
             catch (Exception ex)
             {
                 setErrortoModel(ex);
                 return new Collection<Manufacturers>();
             }
+        }
+
+        public Manufacturers GetSingle(Expression<Func<Manufacturers, bool>> filiter)
+        {
+
+            try
+            {
+
+                var queryresult = (from q in _ManufacturersRepository.All()
+                                   where q.Void == false && q.IsClient == false
+
+                                   orderby q.Code ascending
+                                   select q).Where(filiter);
+
+                return queryresult.SingleOrDefault();
+
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(ex);
+                return null;
+            }
+        }
+
+        public Collection<Manufacturers> QueryAll()
+        {
+            return new Collection<Manufacturers>(((IManufacturersDataService)this).GetAll().ToList());
         }
 
         public Manufacturers QuerySingle(Guid ManufacturersId)
@@ -122,11 +249,12 @@ namespace Tokiku.DataServices
 
         public void Remove(Manufacturers model)
         {
-            throw new NotImplementedException();
+            model.Void = true;
+            Update(model, w => w.Id == model.Id);
         }
         public void RemoveAll()
         {
-            throw new NotImplementedException();
+            ((IManufacturersDataService)this).RemoveWhere();
         }
 
         public void RemoveWhere(Expression<Func<Manufacturers, bool>> filiter = null)
@@ -138,7 +266,6 @@ namespace Tokiku.DataServices
         {
             try
             {
-
                 if (filiter != null && filiter.Length > 0)
                 {
 
@@ -177,7 +304,36 @@ namespace Tokiku.DataServices
 
         ICollection<Manufacturers> IDataService<Manufacturers>.SearchByText(string filiter)
         {
-            throw new NotImplementedException();
+            ICollection<Manufacturers> rtn;
+            try
+            {
+                if (filiter != null && filiter.Length > 0)
+                {
+
+                    var queryresult = from q in _ManufacturersRepository.All()
+                                      where q.Void == false && q.IsClient == false &&
+                                      (q.Name.Contains(filiter) ||
+                                    (q.ManufacturersBussinessItems != null && q.ManufacturersBussinessItems.Any(s => s.Name.Contains(filiter)))
+                                      || (q.Principal != null && q.Principal.Contains(filiter)))
+                                      orderby q.Code ascending
+                                      select q;
+
+                    rtn =
+                        new Collection<Manufacturers>(queryresult.ToList());
+
+                    return rtn;
+
+                }
+                else
+                {
+                    return QueryAll();
+                }
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(ex);
+                return new Collection<Manufacturers>();
+            }
         }
         #endregion
 
@@ -300,6 +456,8 @@ namespace Tokiku.DataServices
         {
             throw new NotImplementedException();
         }
+
+
         #endregion
     }
 }

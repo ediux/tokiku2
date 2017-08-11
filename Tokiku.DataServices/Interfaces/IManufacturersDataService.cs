@@ -14,5 +14,6 @@ namespace Tokiku.DataServices
     {
         Collection<Manufacturers> QueryAll();
         Manufacturers QuerySingle(Guid ManufacturersId);
+        string GetNextProjectSerialNumber();
     }
 }

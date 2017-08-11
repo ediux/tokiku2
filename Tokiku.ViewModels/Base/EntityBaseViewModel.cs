@@ -154,12 +154,7 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                ControllerMappingAttribute attr = MethodBase.GetCurrentMethod().GetCustomAttribute<ControllerMappingAttribute>();
-
-                if (attr != null)
-                {
-                    //ExecuteAction<TPOCO>(attr.Name, "Delete", CopyofPOCOInstance, true);
-                }
+               
             }
             catch (Exception ex)
             {

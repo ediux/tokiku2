@@ -16,114 +16,6 @@ using GalaSoft.MvvmLight.CommandWpf;
 
 namespace Tokiku.ViewModels
 {
-    //public class ManufacturersViewModelCollection : BaseViewModelCollection<ManufacturersViewModel>
-    //{
-    //    #region 內部變數
-    //    /// <summary>
-    //    /// 廠商管理對應的控制器
-    //    /// </summary>
-    //    private ManufacturersManageController _controller;
-    //    #endregion
-
-    //    #region 建構式
-    //    /// <summary>
-    //    /// 預設的建構式
-    //    /// </summary>
-    //    public ManufacturersViewModelCollection()
-    //    {
-    //        _ControllerName = "ManufacturersManage";
-    //    }
-
-
-    //    /// <summary>
-    //    /// 列表
-    //    /// </summary>
-    //    /// <param name="source"></param>
-    //    public ManufacturersViewModelCollection(IEnumerable<ManufacturersViewModel> source) : base(source)
-    //    {
-    //        _ControllerName = "ManufacturersManage";
-    //    }
-    //    #endregion
-
-    //    #region 模型命令方法
-
-    //    public static ManufacturersViewModelCollection Query()
-    //    {
-    //        try
-    //        {
-    //            return Query<ManufacturersViewModelCollection, Manufacturers>("ManufacturersManage", "QueryAll");
-    //        }
-    //        catch (Exception ex)
-    //        {
-    //            ManufacturersViewModelCollection collection = new ManufacturersViewModelCollection();
-    //            setErrortoModel(collection, ex);
-    //            return collection;
-    //        }
-
-    //    }
-
-    //    public static ManufacturersViewModelCollection QueryForCombox()
-    //    {
-    //        try
-    //        {
-    //            return Query<ManufacturersViewModelCollection, Manufacturers>("ManufacturersManage", "QueryAllForCombox");
-    //        }
-    //        catch (Exception ex)
-    //        {
-    //            ManufacturersViewModelCollection collection = new ManufacturersViewModelCollection();
-    //            setErrortoModel(collection, ex);
-    //            return collection;
-    //        }
-
-    //    }
-
-    //    public static ManufacturersViewModelCollection QueryByText(string originalSource)
-    //    {
-    //        try
-    //        {
-    //            return Query<ManufacturersViewModelCollection, Manufacturers>(
-    //                "ManufacturersManage", "SearchByText", originalSource);
-    //        }
-    //        catch (Exception ex)
-    //        {
-    //            ManufacturersViewModelCollection collection = new ManufacturersViewModelCollection();
-    //            setErrortoModel(collection, ex);
-    //            return collection;
-    //        }
-
-    //    }
-
-    //    public static ManufacturersViewModelCollection QueryByBusinessItem(Guid MaterialCategoriesId, string BusinessItem)
-    //    {
-    //        try
-    //        {
-    //            return Query<ManufacturersViewModelCollection, Manufacturers>("ManufacturersManage", "GetManufacturersWithBusinessItem", MaterialCategoriesId, BusinessItem);
-    //        }
-    //        catch (Exception ex)
-    //        {
-    //            ManufacturersViewModelCollection collection = new ManufacturersViewModelCollection();
-    //            setErrortoModel(collection, ex);
-    //            return collection;
-    //        }
-    //    }
-
-    //    public static ManufacturersViewModelCollection QueryBySupplier(Guid ProjectId)
-    //    {
-    //        try
-    //        {
-    //            return Query<ManufacturersViewModelCollection, Manufacturers>("ManufacturersManage", "QueryBySupplier", ProjectId);
-    //        }
-    //        catch (Exception ex)
-    //        {
-    //            ManufacturersViewModelCollection collection = new ManufacturersViewModelCollection();
-    //            setErrortoModel(collection, ex);
-    //            return collection;
-    //        }
-    //    }
-    //    #endregion
-
-    //}
-
     public class ManufacturersViewModel : DocumentBaseViewModel<Manufacturers>, IManufacturersViewModel
     {
         private IManufacturingExecutionDataService _ManufacturersDataService;
@@ -446,13 +338,35 @@ namespace Tokiku.ViewModels
             SetEntity(item.Entity);
         }
 
+        public override void CreateNew()
+        {
+            try
+            {
+                ModeChangedCommand.Execute(DocumentLifeCircle.Create);
+
+                Entity = new Manufacturers()
+                {
+                    Id = Guid.NewGuid(),
+                    Code = _ManufacturersDataService.GetNextProjectSerialNumber(),
+                    Contacts = new Collection<Contacts>()
+                };
+
+                ContactsList.CreateNewCommand.Execute(Entity);
+                BusinessItemsList.CreateNewCommand.Execute(Entity);              
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+
+        }
+
         public override void SetEntity(Manufacturers entity)
         {
             base.SetEntity(entity);
             ContactsList.QueryCommand.Execute(entity);
             BusinessItemsList.QueryCommand.Execute(entity);
             TranscationRecords.QueryCommand.Execute(entity);
-
         }
 
         public override void Save()
@@ -463,15 +377,19 @@ namespace Tokiku.ViewModels
                 {
                     case DocumentLifeCircle.Create:
                         //目前處於新增模式
+                        _ManufacturersDataService.Add(Entity);
+                        Broadcast(Mode, DocumentLifeCircle.Read, "Mode");
                         break;
                     case DocumentLifeCircle.Update:
                         //目前處於編輯模式
+                        _ManufacturersDataService.Update(Entity);
+                        ModeChangedCommand.Execute(DocumentLifeCircle.Read);
                         break;
-                }
+                }               
             }
             catch (Exception ex)
             {
-                setErrortoModel(this, ex);              
+                setErrortoModel(this, ex);
             }
         }
 

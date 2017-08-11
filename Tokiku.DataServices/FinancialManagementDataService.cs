@@ -13,8 +13,40 @@ namespace Tokiku.DataServices
     /// </summary>
     public class FinancialManagementDataService : DataServiceBase, IFinancialManagementDataService
     {
-        public FinancialManagementDataService()
+        private IUnitOfWork _UnitOfWork;
+        private ITicketPeriodRepository _TicketPeriodRepository;
+        private ITicketTypesRepository _TicketTypesRepository;
+        private ITranscationCategoriesRepository _TranscationCategoriesRepository;
+        private IPaymentTypesRepository _PaymentTypesRepository;
+        private IPromissoryNoteManagementRepository _PromissoryNoteManagementRepository;
+        private IMaterialCategoriesRepository _MaterialCategoriesRepository;
+
+        public FinancialManagementDataService(IUnitOfWork UnitOfWork,
+            ITicketPeriodRepository TicketPeriodRepository,
+            ITicketTypesRepository TicketTypesRepository,
+            ITranscationCategoriesRepository TranscationCategoriesRepository,
+            IPaymentTypesRepository PaymentTypesRepository,
+            IPromissoryNoteManagementRepository PromissoryNoteManagementRepository,
+            IMaterialCategoriesRepository MaterialCategoriesRepository)
         {
+            _UnitOfWork = UnitOfWork;
+            _TicketPeriodRepository = TicketPeriodRepository;
+            _TicketPeriodRepository.UnitOfWork = _UnitOfWork;
+
+            _TicketTypesRepository = TicketTypesRepository;
+            _TicketTypesRepository.UnitOfWork = _UnitOfWork;
+
+            _TranscationCategoriesRepository = TranscationCategoriesRepository;
+            _TranscationCategoriesRepository.UnitOfWork = _UnitOfWork;
+
+            _PaymentTypesRepository = PaymentTypesRepository;
+            _PaymentTypesRepository.UnitOfWork = _UnitOfWork;
+
+            _PromissoryNoteManagementRepository = PromissoryNoteManagementRepository;
+            _PromissoryNoteManagementRepository.UnitOfWork = _UnitOfWork;
+
+            _MaterialCategoriesRepository = MaterialCategoriesRepository;
+            _MaterialCategoriesRepository.UnitOfWork = _UnitOfWork;
 
         }
 
@@ -29,6 +61,11 @@ namespace Tokiku.DataServices
         }
 
         public PromissoryNoteManagement Add(PromissoryNoteManagement model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public MaterialCategories Add(MaterialCategories model)
         {
             throw new NotImplementedException();
         }
@@ -48,6 +85,11 @@ namespace Tokiku.DataServices
             throw new NotImplementedException();
         }
 
+        public IEnumerable<MaterialCategories> AddRange(IEnumerable<MaterialCategories> models)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<PaymentTypes> DirectExecuteSQL(string tsql, params object[] parameters)
         {
             throw new NotImplementedException();
@@ -57,7 +99,7 @@ namespace Tokiku.DataServices
         {
             try
             {
-                var repo = GetRepository<IPaymentTypesRepository>();
+                var repo = _PaymentTypesRepository;
 
                 var queryresult = from q in repo.All()
                                   orderby q.Id ascending
@@ -82,6 +124,11 @@ namespace Tokiku.DataServices
             throw new NotImplementedException();
         }
 
+        public IEnumerable<MaterialCategories> GetAll(Expression<Func<MaterialCategories, bool>> filiter = null)
+        {
+            throw new NotImplementedException();
+        }
+
         public PaymentTypes GetSingle(Expression<Func<PaymentTypes, bool>> filiter)
         {
             throw new NotImplementedException();
@@ -97,6 +144,11 @@ namespace Tokiku.DataServices
             throw new NotImplementedException();
         }
 
+        public MaterialCategories GetSingle(Expression<Func<MaterialCategories, bool>> filiter)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Remove(PaymentTypes model)
         {
             throw new NotImplementedException();
@@ -108,6 +160,11 @@ namespace Tokiku.DataServices
         }
 
         public void Remove(PromissoryNoteManagement model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(MaterialCategories model)
         {
             throw new NotImplementedException();
         }
@@ -132,6 +189,11 @@ namespace Tokiku.DataServices
             throw new NotImplementedException();
         }
 
+        public void RemoveWhere(Expression<Func<MaterialCategories, bool>> filiter = null)
+        {
+            throw new NotImplementedException();
+        }
+
         public ICollection<PaymentTypes> SearchByText(string filiter)
         {
             throw new NotImplementedException();
@@ -152,6 +214,11 @@ namespace Tokiku.DataServices
             throw new NotImplementedException();
         }
 
+        public MaterialCategories Update(MaterialCategories Source, Expression<Func<MaterialCategories, bool>> filiter = null)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<PaymentTypes> UpdateRange(IEnumerable<PaymentTypes> MultiSource, Expression<Func<PaymentTypes, bool>> filiter = null)
         {
             throw new NotImplementedException();
@@ -167,6 +234,11 @@ namespace Tokiku.DataServices
             throw new NotImplementedException();
         }
 
+        public IEnumerable<MaterialCategories> UpdateRange(IEnumerable<MaterialCategories> MultiSource, Expression<Func<MaterialCategories, bool>> filiter = null)
+        {
+            throw new NotImplementedException();
+        }
+
         IEnumerable<TicketPeriod> IDataService<TicketPeriod>.DirectExecuteSQL(string tsql, params object[] parameters)
         {
             throw new NotImplementedException();
@@ -177,12 +249,22 @@ namespace Tokiku.DataServices
             throw new NotImplementedException();
         }
 
+        IEnumerable<MaterialCategories> IDataService<MaterialCategories>.DirectExecuteSQL(string tsql, params object[] parameters)
+        {
+            throw new NotImplementedException();
+        }
+
         ICollection<TicketPeriod> IDataService<TicketPeriod>.SearchByText(string filiter)
         {
             throw new NotImplementedException();
         }
 
         ICollection<PromissoryNoteManagement> IDataService<PromissoryNoteManagement>.SearchByText(string filiter)
+        {
+            throw new NotImplementedException();
+        }
+
+        ICollection<MaterialCategories> IDataService<MaterialCategories>.SearchByText(string filiter)
         {
             throw new NotImplementedException();
         }

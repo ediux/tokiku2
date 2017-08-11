@@ -12,7 +12,7 @@ namespace Tokiku.DataServices
     /// </summary>
     public interface IAccessLogDataService : MVVM.IDataService
     {
-        void AddAccessLog(string DataTableName, string DataId, object UserId, string Reason, ActionCodes Action);
+        void AddAccessLog(string DataTableName, string DataId, object UserId, string Reason, ActionCodes Action, bool isLastRecord = true);
 
         IUserViewModel GetLastUpdateUser(string DataTable, string DataId);
 

@@ -73,6 +73,10 @@
     <Compile Include="Base\EntityBaseViewModel.cs" />
     <Compile Include="ContactPerson\ContactListViewModel.cs" />
     <Compile Include="ContactPerson\ContactsViewModel.cs" />
+    <Compile Include="Finance\IMaterialCategoriesListViewModel.cs" />
+    <Compile Include="Finance\IMaterialCategoriesViewModel.cs" />
+    <Compile Include="Finance\MaterialCategoriesListViewModel.cs" />
+    <Compile Include="Finance\MaterialCategoriesViewModel.cs" />
     <Compile Include="Interfaces\IManufacturersBussinessTranscationsListViewModel.cs" />
     <Compile Include="Interfaces\IContactsViewModel.cs" />
     <Compile Include="ControlModels\CloseableTabViewModel.cs" />

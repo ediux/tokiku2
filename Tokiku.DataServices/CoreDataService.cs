@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Text.RegularExpressions;
 using Tokiku.Entity;
 using Tokiku.MVVM;
 using Tokiku.ViewModels;
@@ -21,12 +22,14 @@ namespace Tokiku.DataServices
         private IUsersRepository _UsersRepo;
         private IRolesRepository _RolesRepo;
         private IContactsRepository _ContactsRepository;
+        private IEncodingRecordsRepository _EncodingRecordsRepository;
 
         #region 建構式
         public CoreDataService(IUnitOfWork UnitOfWork,
             IUsersRepository UsersRepo,
             IRolesRepository RolesRepository,
             IContactsRepository ContactsRepository,
+            IEncodingRecordsRepository EncodingRecordsRepository,
             IAccessLogRepository AccessLogRepository)
         {
             _UnitOfWork = UnitOfWork;
@@ -42,11 +45,14 @@ namespace Tokiku.DataServices
 
             _RolesRepo = RolesRepository;
             _RolesRepo.UnitOfWork = _UnitOfWork;
+
+            _EncodingRecordsRepository = EncodingRecordsRepository;
+            _EncodingRecordsRepository.UnitOfWork = _UnitOfWork;
         }
         #endregion
 
         #region 資料存取紀錄資料操作
-        public void AddAccessLog(string DataTableName, string DataId, object UserId, string Reason, ActionCodes Action)
+        public void AddAccessLog(string DataTableName, string DataId, object UserId, string Reason, ActionCodes Action, bool isLastRecord = true)
         {
             try
             {
@@ -60,7 +66,9 @@ namespace Tokiku.DataServices
                 newLog.UserId = (Guid)(UserId ?? Guid.Empty);
 
                 _AccessLogRepo.Add(newLog);
-                _AccessLogRepo.UnitOfWork.Commit();
+
+                if (isLastRecord)
+                    _AccessLogRepo.UnitOfWork.Commit();
             }
             catch (Exception ex)
             {
@@ -420,7 +428,154 @@ namespace Tokiku.DataServices
             throw new NotImplementedException();
         }
 
+
+
         #endregion
 
+        #region 流水編號子系統資料存取服務
+        public EncodingRecords Add(EncodingRecords model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<EncodingRecords> AddRange(IEnumerable<EncodingRecords> models)
+        {
+            throw new NotImplementedException();
+        }
+
+        public EncodingRecords GetSingle(Expression<Func<EncodingRecords, bool>> filiter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<EncodingRecords> GetAll(Expression<Func<EncodingRecords, bool>> filiter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public EncodingRecords Update(EncodingRecords Source, Expression<Func<EncodingRecords, bool>> filiter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<EncodingRecords> UpdateRange(IEnumerable<EncodingRecords> MultiSource, Expression<Func<EncodingRecords, bool>> filiter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(EncodingRecords model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveWhere(Expression<Func<EncodingRecords, bool>> filiter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerable<EncodingRecords> IDataService<EncodingRecords>.DirectExecuteSQL(string tsql, params object[] parameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        ICollection<EncodingRecords> IDataService<EncodingRecords>.SearchByText(string filiter)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected const string RegExPattern = @"-*.({([\.]?(\w+)?)*([<<]+(\w+))?([:]+(\w+))?})+";
+        /// <summary>
+        /// 取得下一組流水號編碼
+        /// </summary>
+        /// <param name="Name">編碼名稱</param>
+        /// <param name="CodeFormat">編碼格式化字串</param>
+        /// <param name="Parameters">傳入的額外引數內容值。</param>
+        /// <returns>傳回新的流水號編碼字串。</returns>
+        public string GetNextCode(string Name, string CodeFormat, params object[] Parameters)
+        {
+
+            var lastencoding = ((IEncodingSubSystemDataService)this).GetSingle(w => w.EncodingName == Name);
+            string prefix = string.Empty;
+
+            if (lastencoding != null)
+            {
+                //取回最後一次編碼設定
+
+                Regex r = new Regex(RegExPattern, RegexOptions.IgnoreCase);
+                Match m = r.Match(CodeFormat);
+
+                prefix = r.Replace(CodeFormat, "");
+
+                int group_index = 0;
+
+                Dictionary<int, string> _tablenames = new Dictionary<int, string>();
+                Dictionary<int, string> _columnnames = new Dictionary<int, string>();
+
+                while (m.Success)
+                {
+                    //取得對應的資料表
+                    if (m.Groups[3].Captures.Count > 0)
+                    {
+                        //取得string.Format 的引數的索引
+                        if (m.Groups[7].Success)
+                        {
+                            int ci = 0;
+
+                            int.TryParse(m.Groups[7].Value, out ci);
+
+                            List<string> _spiltname = new List<string>();
+
+                            for (int c = 0; c < m.Groups[3].Captures.Count - 1; c++)
+                            {
+                                _spiltname.Add(m.Groups[3].Captures[c].Value);
+                            }
+
+                            _tablenames.Add(ci, string.Join(".", _spiltname.ToArray()));
+                            _columnnames.Add(ci, m.Groups[3].Captures[m.Groups[3].Captures.Count - 1].Value);
+                        }
+                    }
+                    else
+                    {
+                        string tablename = m.Groups[3].Value;
+                        //取得string.Format 的引數的索引
+                        if (m.Groups[7].Success)
+                        {
+                            int ci = 0;
+
+                            int.TryParse(m.Groups[7].Value, out ci);
+
+                            List<string> _spiltname = new List<string>();
+
+                            for (int c = 0; c < m.Groups[3].Captures.Count - 1; c++)
+                            {
+                                _spiltname.Add(m.Groups[3].Captures[c].Value);
+                            }
+
+                            _tablenames.Add(ci, string.Join(".", _spiltname.ToArray()));
+                            _columnnames.Add(ci, m.Groups[3].Captures[m.Groups[3].Captures.Count - 1].Value);
+                        }
+                    }
+                    //for (int i = 1; i <= m.Groups.Count; i++)
+                    //{
+                    //    Group g = m.Groups[i];
+
+                    //    CaptureCollection cc = g.Captures;
+                    //    for (int j = 0; j < cc.Count; j++)
+                    //    {
+                    //        Capture c = cc[j];
+                    //        //System.Console.WriteLine("Capture" + j + "='" + c + "', Position=" + c.Index);
+                    //    }
+                    //}
+                    m = m.NextMatch();
+                    ++group_index;
+                }
+            }
+            else
+            {
+
+            }
+            return string.Empty;
+        }
+        #endregion
     }
 }
