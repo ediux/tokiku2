@@ -38,6 +38,7 @@ namespace Tokiku.ViewModels
         protected virtual void RunSave(Manufacturers Parameter)
         {
 
+            ModeChangedCommand.Execute(DocumentLifeCircle.Read);
         }
 
         protected virtual void RunModeChanged(DocumentLifeCircle Mode)
@@ -45,6 +46,7 @@ namespace Tokiku.ViewModels
             _Mode = Mode;
             RaisePropertyChanged("Mode");
         }
+
         private DocumentLifeCircle _Mode = DocumentLifeCircle.Read;
 
         public DocumentLifeCircle Mode { get => _Mode; set { _Mode = value; RaisePropertyChanged("Mode"); } }

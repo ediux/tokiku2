@@ -310,67 +310,36 @@ namespace Tokiku.ViewModels
         {
             base.SetEntity(entity);
             ContactsList.QueryCommand.Execute(entity);
+            BusinessItemsList.QueryCommand.Execute(entity);
         }
-        //#region 聯絡人清單 Contracts
-        ///// <summary>
-        ///// 聯絡人清單
-        ///// </summary>
-        //public ContactsViewModelCollection Contracts
-        //{
-        //    get
-        //    {
-        //        var source = new ContactsViewModelCollection();
-        //        if (source.Count == 0)
-        //        {
-        //            source.Query();
-        //        }
-        //        return source;
-        //    }
-        //    set { RaisePropertyChanged("Contracts"); }
-        //}
 
 
+        #region 聯絡人
 
-        //#endregion
+        private IContactListViewModel _ContactsList = ViewModelLocator.Current.ContactListViewModel;
+        /// <summary>
+        /// 聯絡人清單
+        /// </summary>
+        public IContactListViewModel ContactsList { get => _ContactsList; set { _ContactsList = value; RaisePropertyChanged("ContactsList"); } }
 
-        //#region 選擇的聯絡人
-        //private ContactsViewModel _SelectedContact;
-        ///// <summary>
-        ///// 選擇的聯絡人
-        ///// </summary>
-        //public ContactsViewModel SelectedContract
-        //{
-        //    get { return _SelectedContact; }
-        //    set { _SelectedContact = value; RaisePropertyChanged("SelectedContract"); }
-        //}
+        #endregion
 
+        #region ManufacturersBussinessItems 營業項目
+        private IManufacturerBusinessItemsListViewModel _BusinessItemsList = ViewModelLocator.Current.ManufacturerBusinessItemsListViewModel;
+       
+        /// <summary>
+        /// 營業項目
+        /// </summary>
+        public IManufacturerBusinessItemsListViewModel BusinessItemsList
+        {
+            get => _BusinessItemsList; set
+            {
+                _BusinessItemsList = value;
+                RaisePropertyChanged("BusinessItemsList");
+            }
+        }
 
-
-        //#endregion
-
-        //#region ManufacturersBussinessItems 營業項目
-        //private ObservableCollection<IManufacturersBussinessItemsViewModel> _ManufacturersBussinessItems;
-        ///// <summary>
-        ///// 營業項目
-        ///// </summary>
-        //public ObservableCollection<IManufacturersBussinessItemsViewModel> ManufacturersBussinessItems
-        //{
-        //    get
-        //    {
-        //        if (_ManufacturersBussinessItems == null)
-        //        {
-        //            _ManufacturersBussinessItems = new ManufacturersBussinessItemsViewModelColletion(
-        //                CopyofPOCOInstance.ManufacturersBussinessItems.Select(s =>
-        //                new ManufacturersBussinessItemsViewModel(s)));
-        //        }
-
-        //        return _ManufacturersBussinessItems;
-
-        //    }
-        //    set { _ManufacturersBussinessItems = value; RaisePropertyChanged("ManufacturersBussinessItems"); }
-        //}
-
-        //#endregion
+        #endregion
 
         #region 行動電話
 
@@ -430,8 +399,6 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.TicketPeriodId = value; RaisePropertyChanged("TicketPeriodId"); }
         }
 
-
-
         #endregion
 
         #region 發票地址
@@ -475,20 +442,6 @@ namespace Tokiku.ViewModels
         }
 
         #endregion
-
-
-        private IContactListViewModel _ContactsList = ViewModelLocator.Current.ContactListViewModel;
-        public IContactListViewModel ContactsList { get => _ContactsList; set { _ContactsList = value; RaisePropertyChanged("ContactsList"); } }
-
-        private IManufacturerBusinessItemsListViewModel _BusinessItemsList = ViewModelLocator.Current.ManufacturerBusinessItemsListViewModel;
-        public IManufacturerBusinessItemsListViewModel BusinessItemsList
-        {
-            get => _BusinessItemsList; set
-            {
-                _BusinessItemsList = value;
-                RaisePropertyChanged("BusinessItemsList");
-            }
-        }
 
         #region 交易紀錄
 

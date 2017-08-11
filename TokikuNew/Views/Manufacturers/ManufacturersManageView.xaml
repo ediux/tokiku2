@@ -265,7 +265,7 @@
                 <RowDefinition Height="60*"/>
                 <RowDefinition Height="50*"/>
             </Grid.RowDefinitions>
-            <!--<local:ManufacturerBussinessItemView Mode="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=userControl}" SelectedManufacturerId="{Binding SelectedManufacturerId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ElementName=userControl}"/>-->
+            <local:ManufacturerBussinessItemView DataContext="{Binding BusinessItemsList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
             <GroupBox Header="交易紀錄" Grid.Row="1" Margin="5" Grid.RowSpan="2">
                 <c:CustomDataGrid CanUserAddRows="False" CanUserDeleteRows="False"
                                        AutoGenerateColumns="False"
