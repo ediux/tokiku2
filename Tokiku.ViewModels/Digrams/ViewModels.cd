@@ -3,7 +3,7 @@
   <Class Name="Tokiku.ViewModels.EntityBaseViewModel&lt;TPOCO&gt;" Collapsed="true">
     <Position X="12.25" Y="12.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAggIAKAQAAIAEAAkAAAgAAQAEAAAgAAABEJAAEAIA=</HashCode>
+      <HashCode>EAAggIAKAQAAIAEAAkAAEgAAQAEAAAgAAABEJAAEAIA=</HashCode>
       <FileName>Base\EntityBaseViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -20,7 +20,7 @@
     <Position X="7.75" Y="14" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAAAAAAAAAggAAAQEAABCAQAAAAAAAAA=</HashCode>
-      <FileName>Users\UserViewModel.cs</FileName>
+      <FileName>Shared\Users\UserViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
@@ -35,7 +35,7 @@
   <Class Name="Tokiku.ViewModels.DocumentBaseViewModel&lt;TPOCO&gt;" BaseTypeListCollapsed="true">
     <Position X="5.5" Y="14" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACIAEEAYAAAAQQAAAAEAAAAAEAAAAAAAAAAAgEAIA=</HashCode>
+      <HashCode>AAACIAEEAYAAAAQSAACAAAAAAAEEAAAAAAAAAAgEAIA=</HashCode>
       <FileName>Base\DocumentBaseViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -95,7 +95,7 @@
     <Position X="5.5" Y="19.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAASAIEEgIAIQgAIAAAwFAQAACQEAZCjABQoICAihAA=</HashCode>
-      <FileName>Manufacturers\ManufacturersViewModel.cs</FileName>
+      <FileName>MES\Manufacturers\ManufacturersViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -103,7 +103,7 @@
     <Position X="10" Y="14" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAQAAAAgAAEAAAAAAAgAAQAAAAAAIAjAAAgIAACAAA=</HashCode>
-      <FileName>Manufacturers\VendorListItemViewModel.cs</FileName>
+      <FileName>MES\Manufacturers\VendorListItemViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -111,7 +111,7 @@
     <Position X="30.25" Y="12.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAABAAAAAAAAAAAgAAAAAAgAAAQABAgAAAA=</HashCode>
-      <FileName>Manufacturers\VendorListViewModel.cs</FileName>
+      <FileName>MES\Manufacturers\VendorListViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -119,7 +119,7 @@
     <Position X="12.25" Y="14" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>PaymentTypesViewModel.cs</FileName>
+      <FileName>Finance\PaymentTypesViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -134,7 +134,7 @@
   <Class Name="Tokiku.ViewModels.ContactListViewModel">
     <Position X="32.5" Y="12.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAUAQIAAAAACAECAAAAAAEAEAAAAAAAABAkEAIA=</HashCode>
+      <HashCode>AAAAAAUAQAAAAAAAAAAAAAAAAEAAAAAAAAAAAAEAAAA=</HashCode>
       <FileName>ContactPerson\ContactListViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -142,8 +142,8 @@
   <Class Name="Tokiku.ViewModels.ManufacturerBusinessItemsListViewModel">
     <Position X="21.25" Y="12.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAQIAAAgACAEiAAAAABAAEAAAAAAAABAkEAIA=</HashCode>
-      <FileName>Manufacturers\ManufacturerBusinessItemsListViewModel.cs</FileName>
+      <HashCode>AAAAAAAAQAAAAgAAAAgAAAAABAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>MES\Manufacturers\ManufacturerBusinessItemsListViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -151,7 +151,7 @@
     <Position X="16.75" Y="14" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAABCBAAAAAAAAAgAAAQAAAAAAUAABAAAgAAgAEA=</HashCode>
-      <FileName>Manufacturers\ManufacturersBussinessItemsViewModel.cs</FileName>
+      <FileName>MES\Manufacturers\ManufacturersBussinessItemsViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -159,7 +159,7 @@
     <Position X="19" Y="14" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAgAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Manufacturers\ManufacturersBussinessTranscationsViewModel.cs</FileName>
+      <FileName>MES\Manufacturers\ManufacturersBussinessTranscationsViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -251,14 +251,14 @@
   <Interface Name="Tokiku.ViewModels.IContactListViewModel">
     <Position X="32.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAAAACAAAAAAAAAEAAAAAAAAAABAAEAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IContactListViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Tokiku.ViewModels.IManufacturerBusinessItemsListViewModel">
     <Position X="10" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAACAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IManufacturerBusinessItemsListViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -280,7 +280,7 @@
     <Position X="16.75" Y="8" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
-      <FileName>IManufacturersBussinessTranscationsListViewModel.cs</FileName>
+      <FileName>Interfaces\IManufacturersBussinessTranscationsListViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Microsoft JhengHei UI" Size="9" />

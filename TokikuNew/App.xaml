@@ -5,12 +5,12 @@
              xmlns:dataservices="clr-namespace:Tokiku.DataServices;assembly=Tokiku.DataServices"
              xmlns:entity="clr-namespace:Tokiku.Entity;assembly=Tokiku.Entity">
     <Application.Resources>
-        <ResourceDictionary>
+        <ResourceDictionary >
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
                     <mvvm:StartUpLocator x:Key="StartUpLocator" d:IsDataSource="True" x:Name="StartUpLocator"/>
-                    <entity:EntityLocator x:Key="EntityLocator" d:IsDataSource="True" />
                     <dataservices:DefaultLocator x:Key="DataServiceLocator" d:IsDataSource="True" />
+                    <entity:EntityLocator x:Key="EntityLocator" d:IsDataSource="True" />
                     <vm:ViewModelLocator x:Key="ViewModelLocator" d:IsDataSource="True" />
                     <local:ViewsLocator x:Key="ViewLocator" d:IsDataSource="True" />
                 </ResourceDictionary>
@@ -18,18 +18,9 @@
                 </ResourceDictionary>
                 <ResourceDictionary Source="Themes\BureauBlue.xaml">
                 </ResourceDictionary>
-                <!--
-                <ResourceDictionary Source="Themes\BureauBlack.xaml" />
-                <ResourceDictionary Source="Themes\ExpressionDark.xaml" />
-                <ResourceDictionary Source="Themes\ExpressionLight.xaml" />
-                <ResourceDictionary Source="Themes\ShinyBlue.xaml" />
-                <ResourceDictionary Source="Themes\ShinyRed.xaml" />
-                <ResourceDictionary Source="Themes\WhistlerBlue.xaml" />
-                -->
                 <ResourceDictionary Source="Resources\SystemStrings.xaml">
                 </ResourceDictionary>
                 <ResourceDictionary Source="Resources\MyTheme.xaml">
-
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

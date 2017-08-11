@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Ioc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,14 +12,16 @@ namespace Tokiku.ViewModels
     /// <summary>
     /// 交易歷史紀錄檢視模型
     /// </summary>
-    public class ManufacturersBussinessTranscationsViewModel : EntityBaseViewModel<SupplierTranscationItem>, 
+    public class ManufacturersBussinessTranscationsViewModel : EntityBaseViewModel<SupplierTranscationItem>,
         IManufacturersBussinessTranscationsViewModel
     {
+        [PreferredConstructor]
         public ManufacturersBussinessTranscationsViewModel() : base()
         {
 
         }
 
+        
         public ManufacturersBussinessTranscationsViewModel(SupplierTranscationItem entity) : base(entity)
         {
 
@@ -34,7 +37,7 @@ namespace Tokiku.ViewModels
 
             set
             {
-                RaisePropertyChanged("Code", CopyofPOCOInstance.Projects.Code,value, broadcast: true);
+                RaisePropertyChanged("Code", CopyofPOCOInstance.Projects.Code, value, broadcast: true);
             }
         }
 
@@ -48,7 +51,8 @@ namespace Tokiku.ViewModels
         public string Name
         {
             get => CopyofPOCOInstance.Projects.ShortName;
-            set {
+            set
+            {
                 RaisePropertyChanged("Name", CopyofPOCOInstance.Projects.ShortName, value, broadcast: true);
             }
         }

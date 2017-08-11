@@ -73,7 +73,7 @@
     <Compile Include="Base\EntityBaseViewModel.cs" />
     <Compile Include="ContactPerson\ContactListViewModel.cs" />
     <Compile Include="ContactPerson\ContactsViewModel.cs" />
-    <Compile Include="IManufacturersBussinessTranscationsListViewModel.cs" />
+    <Compile Include="Interfaces\IManufacturersBussinessTranscationsListViewModel.cs" />
     <Compile Include="Interfaces\IContactsViewModel.cs" />
     <Compile Include="ControlModels\CloseableTabViewModel.cs" />
     <Compile Include="ControlModels\FixedTabViewModel.cs" />
@@ -84,27 +84,27 @@
     <Compile Include="Interfaces\IVendorListViewModel.cs" />
     <Compile Include="Interfaces\IPaymentTypesViewModel.cs" />
     <Compile Include="Interfaces\IManufacturersBussinessTranscationsViewModel.cs" />
-    <Compile Include="Manufacturers\ManufacturersBussinessTranscationsViewModel.cs" />
+    <Compile Include="MES\Manufacturers\ManufacturersBussinessTranscationsViewModel.cs" />
     <Compile Include="Shared\Main\MainViewModel.cs" />
     <Compile Include="ControlModels\MenuItemViewModel.cs" />
-    <Compile Include="Manufacturers\ManufacturerBusinessItemsListViewModel.cs" />
+    <Compile Include="MES\Manufacturers\ManufacturerBusinessItemsListViewModel.cs" />
     <Compile Include="Interfaces\IManufacturersBussinessItemsViewModel.cs" />
-    <Compile Include="Manufacturers\ManufacturersBussinessItemsViewModel.cs" />
-    <Compile Include="Manufacturers\ManufacturersViewModel.cs" />
-    <Compile Include="Manufacturers\VendorListItemViewModel.cs" />
-    <Compile Include="Manufacturers\VendorListViewModel.cs" />
+    <Compile Include="MES\Manufacturers\ManufacturersBussinessItemsViewModel.cs" />
+    <Compile Include="MES\Manufacturers\ManufacturersViewModel.cs" />
+    <Compile Include="MES\Manufacturers\VendorListItemViewModel.cs" />
+    <Compile Include="MES\Manufacturers\VendorListViewModel.cs" />
     <Compile Include="MVVMLocatorMaker.cs">
       <DependentUpon>MVVMLocatorMaker.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="PaymentTypesViewModel.cs" />
+    <Compile Include="Finance\PaymentTypesViewModel.cs" />
     <Compile Include="Shared\SearchBarViewModel.cs" />
     <Compile Include="Shared\VoidViewModel.cs" />
     <Compile Include="Shared\StartUp\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ControlModels\TabViewModelBase.cs" />
-    <Compile Include="Users\UserViewModel.cs" />
+    <Compile Include="Shared\Users\UserViewModel.cs" />
     <Compile Include="Base\WithLoginUserBaseViewModel.cs" />
     <Compile Include="Shared\Views\EmptyView.xaml.cs">
       <DependentUpon>EmptyView.xaml</DependentUpon>
@@ -146,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Base\Interfaces\" />
+    <Folder Include="MES\Projects\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

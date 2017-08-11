@@ -31,14 +31,17 @@ namespace Tokiku.ViewModels
 			if (!SimpleIoc.Default.IsRegistered<IMenuItemViewModel>())
 				SimpleIoc.Default.Register<IMenuItemViewModel,MenuItemViewModel>();			
 
-			if (!SimpleIoc.Default.IsRegistered<IMainViewModel>())
-				SimpleIoc.Default.Register<IMainViewModel,MainViewModel>();			
+			if (!SimpleIoc.Default.IsRegistered<IPaymentTypesViewModel>())
+				SimpleIoc.Default.Register<IPaymentTypesViewModel,PaymentTypesViewModel>();			
 
 			if (!SimpleIoc.Default.IsRegistered<IManufacturerBusinessItemsListViewModel>())
 				SimpleIoc.Default.Register<IManufacturerBusinessItemsListViewModel,ManufacturerBusinessItemsListViewModel>();			
-			
-			if (!SimpleIoc.Default.IsRegistered<ManufacturersBussinessItemsViewModel>())
-				SimpleIoc.Default.Register<ManufacturersBussinessItemsViewModel>();
+
+			if (!SimpleIoc.Default.IsRegistered<IManufacturersBussinessItemsViewModel>())
+				SimpleIoc.Default.Register<IManufacturersBussinessItemsViewModel,ManufacturersBussinessItemsViewModel>();			
+
+			if (!SimpleIoc.Default.IsRegistered<IManufacturersBussinessTranscationsViewModel>())
+				SimpleIoc.Default.Register<IManufacturersBussinessTranscationsViewModel,ManufacturersBussinessTranscationsViewModel>();			
 
 			if (!SimpleIoc.Default.IsRegistered<IManufacturersViewModel>())
 				SimpleIoc.Default.Register<IManufacturersViewModel,ManufacturersViewModel>();			
@@ -49,14 +52,11 @@ namespace Tokiku.ViewModels
 			if (!SimpleIoc.Default.IsRegistered<IVendorListViewModel>())
 				SimpleIoc.Default.Register<IVendorListViewModel,VendorListViewModel>();			
 
-			if (!SimpleIoc.Default.IsRegistered<IPaymentTypesViewModel>())
-				SimpleIoc.Default.Register<IPaymentTypesViewModel,PaymentTypesViewModel>();			
+			if (!SimpleIoc.Default.IsRegistered<IMainViewModel>())
+				SimpleIoc.Default.Register<IMainViewModel,MainViewModel>();			
 
 			if (!SimpleIoc.Default.IsRegistered<ISearchBarViewModel>())
 				SimpleIoc.Default.Register<ISearchBarViewModel,SearchBarViewModel>();			
-
-			if (!SimpleIoc.Default.IsRegistered<IVoidViewModel>())
-				SimpleIoc.Default.Register<IVoidViewModel,VoidViewModel>();			
 
 			if (!SimpleIoc.Default.IsRegistered<ILoginViewModel>())
 				SimpleIoc.Default.Register<ILoginViewModel,LoginViewModel>();			
@@ -66,6 +66,9 @@ namespace Tokiku.ViewModels
 			
 			if (!SimpleIoc.Default.IsRegistered<EmptyView>())
 				SimpleIoc.Default.Register<EmptyView>();
+
+			if (!SimpleIoc.Default.IsRegistered<IVoidViewModel>())
+				SimpleIoc.Default.Register<IVoidViewModel,VoidViewModel>();			
 										
             if (_Current == null)
                 _Current = this;
@@ -122,11 +125,11 @@ namespace Tokiku.ViewModels
 			get => SimpleIoc.Default.GetInstance<IMenuItemViewModel>();
 		}
 		/// <summary>
-        /// 取得IoC容器中的實作 IMainViewModel 介面的物件執行個體。
+        /// 取得IoC容器中的實作 IPaymentTypesViewModel 介面的物件執行個體。
         /// </summary>
-		public IMainViewModel MainViewModel
+		public IPaymentTypesViewModel PaymentTypesViewModel
 		{
-			get => SimpleIoc.Default.GetInstance<IMainViewModel>();
+			get => SimpleIoc.Default.GetInstance<IPaymentTypesViewModel>();
 		}
 		/// <summary>
         /// 取得IoC容器中的實作 IManufacturerBusinessItemsListViewModel 介面的物件執行個體。
@@ -136,11 +139,18 @@ namespace Tokiku.ViewModels
 			get => SimpleIoc.Default.GetInstance<IManufacturerBusinessItemsListViewModel>();
 		}
 		/// <summary>
-        /// 取得IoC容器中的 ManufacturersBussinessItemsViewModel 物件執行個體。
+        /// 取得IoC容器中的實作 IManufacturersBussinessItemsViewModel 介面的物件執行個體。
         /// </summary>
-		public ManufacturersBussinessItemsViewModel ManufacturersBussinessItemsViewModel
+		public IManufacturersBussinessItemsViewModel ManufacturersBussinessItemsViewModel
 		{
-			get => SimpleIoc.Default.GetInstance<ManufacturersBussinessItemsViewModel>();
+			get => SimpleIoc.Default.GetInstance<IManufacturersBussinessItemsViewModel>();
+		}
+		/// <summary>
+        /// 取得IoC容器中的實作 IManufacturersBussinessTranscationsViewModel 介面的物件執行個體。
+        /// </summary>
+		public IManufacturersBussinessTranscationsViewModel ManufacturersBussinessTranscationsViewModel
+		{
+			get => SimpleIoc.Default.GetInstance<IManufacturersBussinessTranscationsViewModel>();
 		}
 		/// <summary>
         /// 取得IoC容器中的實作 IManufacturersViewModel 介面的物件執行個體。
@@ -164,11 +174,11 @@ namespace Tokiku.ViewModels
 			get => SimpleIoc.Default.GetInstance<IVendorListViewModel>();
 		}
 		/// <summary>
-        /// 取得IoC容器中的實作 IPaymentTypesViewModel 介面的物件執行個體。
+        /// 取得IoC容器中的實作 IMainViewModel 介面的物件執行個體。
         /// </summary>
-		public IPaymentTypesViewModel PaymentTypesViewModel
+		public IMainViewModel MainViewModel
 		{
-			get => SimpleIoc.Default.GetInstance<IPaymentTypesViewModel>();
+			get => SimpleIoc.Default.GetInstance<IMainViewModel>();
 		}
 		/// <summary>
         /// 取得IoC容器中的實作 ISearchBarViewModel 介面的物件執行個體。
@@ -176,13 +186,6 @@ namespace Tokiku.ViewModels
 		public ISearchBarViewModel SearchBarViewModel
 		{
 			get => SimpleIoc.Default.GetInstance<ISearchBarViewModel>();
-		}
-		/// <summary>
-        /// 取得IoC容器中的實作 IVoidViewModel 介面的物件執行個體。
-        /// </summary>
-		public IVoidViewModel VoidViewModel
-		{
-			get => SimpleIoc.Default.GetInstance<IVoidViewModel>();
 		}
 		/// <summary>
         /// 取得IoC容器中的實作 ILoginViewModel 介面的物件執行個體。
@@ -204,6 +207,13 @@ namespace Tokiku.ViewModels
 		public EmptyView EmptyView
 		{
 			get => SimpleIoc.Default.GetInstance<EmptyView>();
+		}
+		/// <summary>
+        /// 取得IoC容器中的實作 IVoidViewModel 介面的物件執行個體。
+        /// </summary>
+		public IVoidViewModel VoidViewModel
+		{
+			get => SimpleIoc.Default.GetInstance<IVoidViewModel>();
 		}
 	}
 }
