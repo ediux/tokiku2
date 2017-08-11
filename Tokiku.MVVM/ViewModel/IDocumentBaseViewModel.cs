@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Tokiku.ViewModels
 {
+    /// <summary>
+    /// 以文件操作模式為基礎的UX檢視模型基底介面
+    /// </summary>
+    /// <typeparam name="T">文件對應的資料實體物件型別。</typeparam>
     public interface IDocumentBaseViewModel<T> : IEntityBaseViewModel<T> where T : class
     {
         /// <summary>
@@ -62,7 +61,9 @@ namespace Tokiku.ViewModels
         IUserViewModel LastUpadateUser { get; }
 
        
-
+        /// <summary>
+        /// 取得或設定文件生命週期變更命令物件。
+        /// </summary>
         ICommand ModeChangedCommand { get; set; }
     }
 

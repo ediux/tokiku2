@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Ioc;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using Tokiku.DataServices;
 using Tokiku.Entity;
-using Tokiku.MVVM;
-using GalaSoft.MvvmLight.Ioc;
-using System.Windows.Input;
-using GalaSoft.MvvmLight.CommandWpf;
 
 namespace Tokiku.ViewModels
 {
+    /// <summary>
+    /// 聯絡人清單控制項檢視模型
+    /// </summary>
     public class ContactListViewModel : DocumentBaseViewModel<Contacts>, IContactListViewModel
     {
         private ICoreDataService _UserDataService;
@@ -52,6 +50,10 @@ namespace Tokiku.ViewModels
 
 
         private ObservableCollection<IContactsViewModel> _ContractsList;
+
+        /// <summary>
+        /// 取得或設定指定廠商或客戶的聯絡人清單
+        /// </summary>
         public ObservableCollection<IContactsViewModel> ContractsList
         {
             get => _ContractsList; set
