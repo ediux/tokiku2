@@ -23,6 +23,7 @@ namespace Tokiku.ViewModels
 
             _QueryCommand = new RelayCommand<Manufacturers>(RunQuery);
             _SaveCommand = new RelayCommand<Manufacturers>(RunSave);
+            _ModeChangedCommand = new RelayCommand<DocumentLifeCircle>(RunModeChanged);
         }
 
         protected virtual void RunQuery(Manufacturers Parameter)
@@ -39,6 +40,11 @@ namespace Tokiku.ViewModels
 
         }
 
+        protected virtual void RunModeChanged(DocumentLifeCircle Mode)
+        {
+            _Mode = Mode;
+            RaisePropertyChanged("Mode");
+        }
         private DocumentLifeCircle _Mode = DocumentLifeCircle.Read;
 
         public DocumentLifeCircle Mode { get => _Mode; set { _Mode = value; RaisePropertyChanged("Mode"); } }
@@ -56,5 +62,9 @@ namespace Tokiku.ViewModels
                 _SaveCommand = value;
                 RaisePropertyChanged("SaveCommand");
             } }
+
+        private ICommand _ModeChangedCommand;
+
+        public ICommand ModeChangedCommand { get => _ModeChangedCommand; set { _ModeChangedCommand = value; RaisePropertyChanged("ModeChangedCommand"); } }
     }
 }

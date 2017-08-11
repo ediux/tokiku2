@@ -148,7 +148,7 @@ namespace Tokiku.ViewModels
         }
 
         public ManufacturersViewModel(Manufacturers entity,
-            IManufacturingExecutionDataService ManufacturersDataService, 
+            IManufacturingExecutionDataService ManufacturersDataService,
             IFinancialManagementDataService FinancialManagementDataService,
             ICoreDataService CoreDataService) : base(entity, CoreDataService)
         {
@@ -213,11 +213,15 @@ namespace Tokiku.ViewModels
         //public string FactoryPhone { get { return CopyofPOCOInstance.FactoryPhone; } set { CopyofPOCOInstance.FactoryPhone = value; RaisePropertyChanged("FactoryPhone"); } }
         //public string FactoryFax { get { return CopyofPOCOInstance.FactoryFax; } set { CopyofPOCOInstance.FactoryFax = value; RaisePropertyChanged("FactoryFax"); } }
         //public string FactoryAddress { get { return CopyofPOCOInstance.FactoryAddress; } set { CopyofPOCOInstance.FactoryAddress = value; RaisePropertyChanged("FactoryAddress"); } }
-        public override DocumentLifeCircle Mode { get => base.Mode; set {
+        public override DocumentLifeCircle Mode
+        {
+            get => base.Mode; set
+            {
                 base.Mode = value;
                 ContactsList.ModeChangedCommand.Execute(value);
                 BusinessItemsList.ModeChangedCommand.Execute(value);
-            } }
+            }
+        }
         public string Comment { get { return CopyofPOCOInstance.Comment; } set { CopyofPOCOInstance.Comment = value; RaisePropertyChanged("Comment"); } }
         public bool Void { get { return CopyofPOCOInstance.Void; } set { CopyofPOCOInstance.Void = value; RaisePropertyChanged("Void"); } }
         public bool IsClient { get { return CopyofPOCOInstance.IsClient; } set { CopyofPOCOInstance.IsClient = value; RaisePropertyChanged("IsClient"); } }
@@ -450,14 +454,14 @@ namespace Tokiku.ViewModels
         #endregion
 
         #region 資料啟用狀態下拉選單
-        private ObservableCollection<IVoidViewModel> _VoidList;
+        private ObservableCollection<IVoidViewModel> _VoidList = new ObservableCollection<IVoidViewModel>();
 
         public ObservableCollection<IVoidViewModel> VoidList { get => _VoidList; set { _VoidList = value; RaisePropertyChanged("VoidList"); } }
 
         #endregion
 
         #region 支付方式的下拉式清單資料來源
-        private ObservableCollection<IPaymentTypesViewModel> _PaymentTypes;
+        private ObservableCollection<IPaymentTypesViewModel> _PaymentTypes = new ObservableCollection<IPaymentTypesViewModel>();
         /// <summary>
         /// 支付方式的下拉式清單資料來源
         /// </summary>
@@ -471,16 +475,20 @@ namespace Tokiku.ViewModels
         }
 
         #endregion
- 
 
-        private IContactListViewModel _ContactsList;
+
+        private IContactListViewModel _ContactsList = ViewModelLocator.Current.ContactListViewModel;
         public IContactListViewModel ContactsList { get => _ContactsList; set { _ContactsList = value; RaisePropertyChanged("ContactsList"); } }
 
-        private IManufacturerBusinessItemsListViewModel _BusinessItemsList;
-        public IManufacturerBusinessItemsListViewModel BusinessItemsList { get => _BusinessItemsList; set {
+        private IManufacturerBusinessItemsListViewModel _BusinessItemsList = ViewModelLocator.Current.ManufacturerBusinessItemsListViewModel;
+        public IManufacturerBusinessItemsListViewModel BusinessItemsList
+        {
+            get => _BusinessItemsList; set
+            {
                 _BusinessItemsList = value;
                 RaisePropertyChanged("BusinessItemsList");
-            } }
+            }
+        }
 
         #region 交易紀錄
 

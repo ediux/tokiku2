@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using Tokiku.Entity;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace Tokiku.ViewModels
 {
@@ -181,6 +182,7 @@ namespace Tokiku.ViewModels
 
     public class ManufacturersBussinessItemsViewModel : EntityBaseViewModel<ManufacturersBussinessItems>, IManufacturersBussinessItemsViewModel
     {
+        [PreferredConstructor]
         public ManufacturersBussinessItemsViewModel() : base()
         {
 

@@ -23,26 +23,21 @@ namespace Tokiku.ViewModels
             _ContractsList = new ObservableCollection<IContactsViewModel>(((IContactsDataService)_UserDataService).GetAll()
                 .Select(s => new ContactsViewModel(s)));
             _QueryCommand = new RelayCommand<Manufacturers>(RunQuery);
+            _ModeChangedCommand = new RelayCommand<DocumentLifeCircle>(RunModeChanged);
+            _SaveCommand = new RelayCommand<Manufacturers>(RunSave);
             _Mode = DocumentLifeCircle.Read;
         }
-
-        //public ContactListViewModel(IManufacturersViewModel model, ICoreDataService UserDataService) : this(UserDataService)
-        //{
-
-
-        //    _Mode = model.Mode;
-        //}
-
+        
         protected virtual void RunQuery(Manufacturers Parameter)
         {
             if (Parameter != null)
             {
                 ContractsList =
              new ObservableCollection<IContactsViewModel>(
-                 (from q in _ContractsList
-                  from s in q.Entity.Manufacturers
+                 (from q in ((IContactsDataService)_UserDataService).GetAll()
+                  from s in q.Manufacturers
                   where s.Id == Parameter.Id && s.IsClient == Parameter.IsClient
-                  select q).ToList());
+                  select new ContactsViewModel(q)).ToList());
             }
             else
             {
