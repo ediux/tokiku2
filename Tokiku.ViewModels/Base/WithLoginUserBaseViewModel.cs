@@ -1,6 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using Tokiku.DataServices;
-using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {

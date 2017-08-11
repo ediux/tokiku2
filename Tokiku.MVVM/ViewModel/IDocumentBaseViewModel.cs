@@ -61,7 +61,9 @@ namespace Tokiku.ViewModels
         /// </summary>
         IUserViewModel LastUpadateUser { get; }
 
-        void SetEntity(T entity);
+       
+
+        ICommand ModeChangedCommand { get; set; }
     }
 
    

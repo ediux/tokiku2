@@ -11,19 +11,23 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class ManufacturerBusinessItemsListViewModel : BaseViewModel, IManufacturerBusinessItemsListViewModel
+    /// <summary>
+    /// 廠商主檔:營業項目設定控制項檢視模型
+    /// </summary>
+    public class ManufacturerBusinessItemsListViewModel : DocumentBaseViewModel<ManufacturersBussinessItems>, IManufacturerBusinessItemsListViewModel
     {
         private IManufacturingExecutionDataService _ManufacturingExecutionDataService;
 
-        public ManufacturerBusinessItemsListViewModel(IManufacturingExecutionDataService ManufacturingExecutionDataService)
+        public ManufacturerBusinessItemsListViewModel(IManufacturingExecutionDataService ManufacturingExecutionDataService
+            ,ICoreDataService CoreDataService)
+            :base(CoreDataService)
         {
             _ManufacturingExecutionDataService = ManufacturingExecutionDataService;
 
             _BussinessItemsList = new ObservableCollection<IManufacturersBussinessItemsViewModel>();
 
-            _QueryCommand = new RelayCommand<Manufacturers>(RunQuery);
-            _SaveCommand = new RelayCommand<Manufacturers>(RunSave);
-            _ModeChangedCommand = new RelayCommand<DocumentLifeCircle>(RunModeChanged);
+            QueryCommand = new RelayCommand<Manufacturers>(RunQuery);
+            SaveCommand = new RelayCommand<Manufacturers>(RunSave);
         }
 
         protected virtual void RunQuery(Manufacturers Parameter)
@@ -41,32 +45,15 @@ namespace Tokiku.ViewModels
             ModeChangedCommand.Execute(DocumentLifeCircle.Read);
         }
 
-        protected virtual void RunModeChanged(DocumentLifeCircle Mode)
-        {
-            _Mode = Mode;
-            RaisePropertyChanged("Mode");
-        }
-
-        private DocumentLifeCircle _Mode = DocumentLifeCircle.Read;
-
-        public DocumentLifeCircle Mode { get => _Mode; set { _Mode = value; RaisePropertyChanged("Mode"); } }
-
         private ObservableCollection<IManufacturersBussinessItemsViewModel> _BussinessItemsList;
+
+        /// <summary>
+        /// 取得或設定指定廠商的營業項目清單
+        /// </summary>
         public ObservableCollection<IManufacturersBussinessItemsViewModel> BussinessItemsList { get => _BussinessItemsList;
             set {
                 _BussinessItemsList = value;
                 RaisePropertyChanged("BussinessItemsList");
             } }
-        private ICommand _QueryCommand;
-        public ICommand QueryCommand { get => _QueryCommand; set { _QueryCommand = value; RaisePropertyChanged("QueryCommand"); } }
-        private ICommand _SaveCommand;
-        public ICommand SaveCommand { get => _SaveCommand; set {
-                _SaveCommand = value;
-                RaisePropertyChanged("SaveCommand");
-            } }
-
-        private ICommand _ModeChangedCommand;
-
-        public ICommand ModeChangedCommand { get => _ModeChangedCommand; set { _ModeChangedCommand = value; RaisePropertyChanged("ModeChangedCommand"); } }
     }
 }

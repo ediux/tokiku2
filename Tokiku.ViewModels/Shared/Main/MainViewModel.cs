@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Collections.ObjectModel;
 using Tokiku.DataServices;
-using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
@@ -38,9 +31,10 @@ namespace Tokiku.ViewModels
             menuroot3.SubMenus.Add(new MenuItemViewModel() { Header="選項" });
             menuroot3.SubMenus.Add(new MenuItemViewModel() { Header = "人員管理" });
             menuroot3.SubMenus.Add(new MenuItemViewModel() { Header = "角色管理" });
-            menuroot3.SubMenus.Add(new MenuItemViewModel() { Header = "結束程式" });
+            menuroot3.SubMenus.Add(new MenuItemViewModel() { Header = "結束程式" });      
             _MainMenus.Add(menuroot3);
         }
+
         private ObservableCollection<ITabViewModel> _FeaturesTabs;
         /// <summary>
         /// 分頁功能區塊

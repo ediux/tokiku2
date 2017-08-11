@@ -8,12 +8,9 @@ using System.Windows.Input;
 
 namespace Tokiku.ViewModels
 {
-    public interface IManufacturerBusinessItemsListViewModel : IBaseViewModel
+    public interface IManufacturerBusinessItemsListViewModel : IDocumentBaseViewModel<ManufacturersBussinessItems>
     {
-        ICommand QueryCommand { get; set; }
-        ICommand SaveCommand { get; set; }
-        ICommand ModeChangedCommand { get; set; }
-        DocumentLifeCircle Mode { get; set; }
+       
         ObservableCollection<IManufacturersBussinessItemsViewModel> BussinessItemsList { get; set; }
     }
 }

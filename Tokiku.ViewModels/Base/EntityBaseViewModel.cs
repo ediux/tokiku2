@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Windows.Input;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace Tokiku.ViewModels
 {
@@ -45,10 +46,11 @@ namespace Tokiku.ViewModels
         #endregion
 
         #region 建構式
+        [PreferredConstructor]
         public EntityBaseViewModel()
         {
             _SaveCommand = new RelayCommand(Save);
-            _QueryCommnand = new RelayCommand(Load);
+            _QueryCommnand = new RelayCommand<TPOCO>(Query);
             _DeleteCommand = new RelayCommand(Delete);
             _CreateNewCommand = new RelayCommand(CreateNew);
             _ReplyCommand = new RelayCommand<object>(Relay);
@@ -101,10 +103,6 @@ namespace Tokiku.ViewModels
         /// </summary>
         public ICommand DeleteCommand { get => _DeleteCommand; set => _DeleteCommand = value; }
 
-
-
-
-
         /// <summary>
         /// 取得或設定當引發查詢項目時的命令項目。
         /// </summary>
@@ -139,12 +137,12 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                ControllerMappingAttribute attr = MethodBase.GetCurrentMethod().GetCustomAttribute<ControllerMappingAttribute>();
+                //ControllerMappingAttribute attr = MethodBase.GetCurrentMethod().GetCustomAttribute<ControllerMappingAttribute>();
 
-                if (attr != null)
-                {
-                    ExecuteAction<TPOCO>(attr.Name, "CreateNew");
-                }
+                //if (attr != null)
+                //{
+                //    //ExecuteAction<TPOCO>(attr.Name, "CreateNew");
+                //}
             }
             catch (Exception ex)
             {
@@ -160,7 +158,7 @@ namespace Tokiku.ViewModels
 
                 if (attr != null)
                 {
-                    ExecuteAction<TPOCO>(attr.Name, "Delete", CopyofPOCOInstance, true);
+                    //ExecuteAction<TPOCO>(attr.Name, "Delete", CopyofPOCOInstance, true);
                 }
             }
             catch (Exception ex)
@@ -173,20 +171,20 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                ControllerMappingAttribute attr = MethodBase.GetCurrentMethod().GetCustomAttribute<ControllerMappingAttribute>();
+                //ControllerMappingAttribute attr = MethodBase.GetCurrentMethod().GetCustomAttribute<ControllerMappingAttribute>();
 
-                if (attr != null)
-                {
-                    if (Filiter != null)
-                    {
-                        ExecuteAction<TPOCO>(attr.Name, "Query", Filiter);
-                    }
-                    else
-                    {
-                        ExecuteAction<TPOCO>(attr.Name, "Query");
-                    }
+                //if (attr != null)
+                //{
+                //    if (Filiter != null)
+                //    {
+                //        ExecuteAction<TPOCO>(attr.Name, "Query", Filiter);
+                //    }
+                //    else
+                //    {
+                //        ExecuteAction<TPOCO>(attr.Name, "Query");
+                //    }
 
-                }
+                //}
             }
             catch (Exception ex)
             {
@@ -197,7 +195,7 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 向前相容性方法
         /// </summary>
-        public virtual void Query()
+        public virtual void Query(TPOCO Parameter)
         {
             Load();
         }
@@ -211,17 +209,23 @@ namespace Tokiku.ViewModels
         {
             try
             {
-                ControllerMappingAttribute attr = MethodBase.GetCurrentMethod().GetCustomAttribute<ControllerMappingAttribute>();
+                //ControllerMappingAttribute attr = MethodBase.GetCurrentMethod().GetCustomAttribute<ControllerMappingAttribute>();
 
-                if (attr != null)
-                {
-                    ExecuteAction<TPOCO>(attr.Name, ActionName, CopyofPOCOInstance, true);
-                }
+                //if (attr != null)
+                //{
+                //    ExecuteAction<TPOCO>(attr.Name, ActionName, CopyofPOCOInstance, true);
+                //}
             }
             catch (Exception ex)
             {
                 setErrortoModel(this, ex);
             }
+        }
+
+        public virtual void SetEntity(TPOCO entity)
+        {
+            CopyofPOCOInstance = entity;
+            RaisePropertyChanged<TPOCO>(broadcast: true);
         }
     }
 }

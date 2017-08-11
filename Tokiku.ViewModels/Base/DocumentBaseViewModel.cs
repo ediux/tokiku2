@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Ioc;
+using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
-using Tokiku.Entity;
-using GalaSoft.MvvmLight;
-using System.Collections.ObjectModel;
-using GalaSoft.MvvmLight.CommandWpf;
-using System.Linq.Expressions;
-using System.Reflection;
-using GalaSoft.MvvmLight.Ioc;
 using Tokiku.DataServices;
+using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
@@ -277,13 +272,25 @@ namespace Tokiku.ViewModels
 
         }
 
+
         #endregion
 
+        #region 文件生命週期變更命令
+
+        private ICommand _ModeChangedCommand;
+        /// <summary>
+        /// 取得或設定文件生命週期變更命令物件參考。
+        /// </summary>
+        public ICommand ModeChangedCommand { get => _ModeChangedCommand; set { _ModeChangedCommand = value; RaisePropertyChanged("ModeChangedCommand"); } } 
+        
+        #endregion
 
         [PreferredConstructor]
         public DocumentBaseViewModel(ICoreDataService CoreDataService)
         {
             _CoreDataService = CoreDataService;
+
+            _ModeChangedCommand = new RelayCommand<DocumentLifeCircle>(RunModeChanged);
 
             var prop = _EntityType.GetProperty("CreateUserId");
 
@@ -298,14 +305,13 @@ namespace Tokiku.ViewModels
                     prop.SetValue(CopyofPOCOInstance, UserId);
                 }
             }
-
-
-
         }
 
         public DocumentBaseViewModel(TPOCO entity, ICoreDataService CoreDataService) : base(entity)
         {
             _CoreDataService = CoreDataService;
+
+            _ModeChangedCommand = new RelayCommand<DocumentLifeCircle>(RunModeChanged);
 
             var prop = _EntityType.GetProperty("CreateUserId");
 
@@ -323,10 +329,10 @@ namespace Tokiku.ViewModels
             }
         }
 
-        public virtual void SetEntity(TPOCO entity)
+        protected virtual void RunModeChanged(DocumentLifeCircle Mode)
         {
-            CopyofPOCOInstance = entity;
-            RaisePropertyChanged<TPOCO>(broadcast: true);
+            _Mode = Mode;
+            RaisePropertyChanged("Mode");
         }
     }
 }

@@ -3,7 +3,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public interface IManufacturersBussinessItemsViewModel
+    public interface IManufacturersBussinessItemsViewModel : IEntityBaseViewModel<ManufacturersBussinessItems>
     {
         Manufacturers Manufacturers { get; set; }
         Guid ManufacturersId { get; set; }

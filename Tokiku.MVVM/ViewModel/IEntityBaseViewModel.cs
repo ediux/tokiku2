@@ -20,6 +20,8 @@ namespace Tokiku.ViewModels
 
         void Save();
 
+        void SetEntity(T entity);
+
         Expression<Func<T, bool>> Filiter { get; set; }
 
         /// <summary>

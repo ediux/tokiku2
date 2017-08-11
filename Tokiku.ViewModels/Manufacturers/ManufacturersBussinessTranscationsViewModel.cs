@@ -8,11 +8,15 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class ManufacturersBussinessTranscationsViewModel : BaseViewModelWithPOCOClass<SupplierTranscationItem>
+    /// <summary>
+    /// 交易歷史紀錄檢視模型
+    /// </summary>
+    public class ManufacturersBussinessTranscationsViewModel : EntityBaseViewModel<SupplierTranscationItem>, 
+        IManufacturersBussinessTranscationsViewModel
     {
         public ManufacturersBussinessTranscationsViewModel() : base()
         {
-           
+
         }
 
         public ManufacturersBussinessTranscationsViewModel(SupplierTranscationItem entity) : base(entity)
@@ -20,31 +24,34 @@ namespace Tokiku.ViewModels
 
         }
 
-
-
         #region Code
-
-
+        /// <summary>
+        /// 專案代碼
+        /// </summary>
         public string Code
         {
             get { return CopyofPOCOInstance.Projects.Code; }
-            set { CopyofPOCOInstance.Projects.Code = value; RaisePropertyChanged("Code"); }
-        }
 
-       
+            set
+            {
+                RaisePropertyChanged("Code", CopyofPOCOInstance.Projects.Code,value, broadcast: true);
+            }
+        }
 
         #endregion
 
         #region Name
 
-
+        /// <summary>
+        /// 專案簡稱
+        /// </summary>
         public string Name
         {
-            get { return ""; }
-            set {  }
+            get => CopyofPOCOInstance.Projects.ShortName;
+            set {
+                RaisePropertyChanged("Name", CopyofPOCOInstance.Projects.ShortName, value, broadcast: true);
+            }
         }
-
-     
 
         #endregion
 
@@ -56,7 +63,7 @@ namespace Tokiku.ViewModels
         //    set { SetValue(TranscationItemNameProperty, value); }
         //}
 
-    
+
 
         #endregion
 
@@ -69,11 +76,11 @@ namespace Tokiku.ViewModels
         //    set { SetValue(ManufacturersIdProperty, value); }
         //}
 
-       
+
 
 
         #endregion
 
-      
+
     }
 }

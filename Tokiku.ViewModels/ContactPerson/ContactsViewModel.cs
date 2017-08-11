@@ -1,89 +1,14 @@
-﻿using GalaSoft.MvvmLight.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Windows;
-using System.Windows.Threading;
+﻿using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using Tokiku.Entity;
-using GalaSoft.MvvmLight.Ioc;
+
 namespace Tokiku.ViewModels
 {
-    //public class ContactsViewModelCollection : BaseViewModelCollection<ContactsViewModel>
-    //{
-    //    public ContactsViewModelCollection()
-    //    {
-    //        _ControllerName = "ContactPersonManage";
-    //    }
-
-    //    public ContactsViewModelCollection(IEnumerable<ContactsViewModel> source) : base(source)
-    //    {
-    //        _ControllerName = "ContactPersonManage";
-    //    }
-
-    //    public Guid ManufacturersId
-    //    {
-    //        get;
-    //        set;
-    //    }
-    //    public override void Initialized()
-    //    {
-    //        base.Initialized();
-    //        ManufacturersId = Guid.Empty;
-    //    }
-
-    //    public ContactsViewModelCollection Query()
-    //    {
-    //        try
-    //        {
-    //            ContactsViewModelCollection collection = new ContactsViewModelCollection();
-
-    //            collection = Query<ContactsViewModelCollection, Contacts>(
-    //                 "ContactPersonManage", "QueryAll", ManufacturersId);
-
-    //            return collection;
-    //        }
-    //        catch (Exception ex)
-    //        {
-    //            ContactsViewModelCollection emptycollection =
-    //                new ContactsViewModelCollection();
-    //            setErrortoModel(emptycollection, ex);
-    //            return emptycollection;
-    //        }
-
-           
-    //    }
-
-    //    public ContactsViewModelCollection Query(string originalSource, Guid ManufurerterId, bool isClient)
-    //    {
-    //        try
-    //        {
-    //            ContactsViewModelCollection collection = new ContactsViewModelCollection();
-
-    //            collection = Query<ContactsViewModelCollection, Contacts>(
-    //                 "ContactPersonManage", "SearchByText", originalSource, ManufurerterId, isClient);
-
-    //            return collection;
-    //        }
-    //        catch (Exception ex)
-    //        {
-    //            ContactsViewModelCollection emptycollection =
-    //                new ContactsViewModelCollection();
-    //            setErrortoModel(emptycollection, ex);
-    //            return emptycollection;
-    //        }
-
-           
-    //    }
-    //}
-
     public class ContactsViewModel : EntityBaseViewModel<Contacts>, IContactsViewModel
     {
         [PreferredConstructor]
         public ContactsViewModel()
         {
-            //_SaveModelController = "ContactPersonManage";
         }
 
         public ContactsViewModel(Contacts entity) : base(entity)
@@ -91,7 +16,7 @@ namespace Tokiku.ViewModels
             MessengerInstance.Register<PropertyChangedMessageBase>(this, (m) => {
                 
             });
-            //_SaveModelController = "ContactPersonManage";
+
         }
 
 
@@ -205,16 +130,5 @@ namespace Tokiku.ViewModels
             get { return CopyofPOCOInstance.IsDefault; }
             set { CopyofPOCOInstance.IsDefault = value; RaisePropertyChanged<bool>("IsDefault",broadcast:true); }
         }
-
-
-
-        //public override void Initialized(object Parameter)
-        //{
-        //    base.Initialized(Parameter);
-        //    Id = Guid.NewGuid();
-        //    ContactPersonManageController controller = new ContactPersonManageController();
-        //    CreateUserId = controller.GetCurrentLoginUser().Result.UserId;
-        //}
-
     }
 }

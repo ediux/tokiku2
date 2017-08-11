@@ -73,6 +73,7 @@
     <Compile Include="Base\EntityBaseViewModel.cs" />
     <Compile Include="ContactPerson\ContactListViewModel.cs" />
     <Compile Include="ContactPerson\ContactsViewModel.cs" />
+    <Compile Include="IManufacturersBussinessTranscationsListViewModel.cs" />
     <Compile Include="Interfaces\IContactsViewModel.cs" />
     <Compile Include="ControlModels\CloseableTabViewModel.cs" />
     <Compile Include="ControlModels\FixedTabViewModel.cs" />
@@ -82,10 +83,12 @@
     <Compile Include="Interfaces\IVendorListItemViewModel.cs" />
     <Compile Include="Interfaces\IVendorListViewModel.cs" />
     <Compile Include="Interfaces\IPaymentTypesViewModel.cs" />
+    <Compile Include="Interfaces\IManufacturersBussinessTranscationsViewModel.cs" />
+    <Compile Include="Manufacturers\ManufacturersBussinessTranscationsViewModel.cs" />
     <Compile Include="Shared\Main\MainViewModel.cs" />
     <Compile Include="ControlModels\MenuItemViewModel.cs" />
     <Compile Include="Manufacturers\ManufacturerBusinessItemsListViewModel.cs" />
-    <Compile Include="Manufacturers\IManufacturersBussinessItemsViewModel.cs" />
+    <Compile Include="Interfaces\IManufacturersBussinessItemsViewModel.cs" />
     <Compile Include="Manufacturers\ManufacturersBussinessItemsViewModel.cs" />
     <Compile Include="Manufacturers\ManufacturersViewModel.cs" />
     <Compile Include="Manufacturers\VendorListItemViewModel.cs" />
