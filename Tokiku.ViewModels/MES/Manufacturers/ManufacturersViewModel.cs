@@ -12,6 +12,7 @@ using Tokiku.Entity.ViewTables;
 using GalaSoft.MvvmLight.Messaging;
 using Tokiku.DataServices;
 using Tokiku.MVVM;
+using GalaSoft.MvvmLight.CommandWpf;
 
 namespace Tokiku.ViewModels
 {
@@ -131,7 +132,8 @@ namespace Tokiku.ViewModels
         #region 建構式
         public ManufacturersViewModel() : base(null, null)
         {
-
+            SetMode();
+            FetchListDataSource();
         }
 
         [PreferredConstructor]
@@ -153,32 +155,11 @@ namespace Tokiku.ViewModels
             ICoreDataService CoreDataService) : base(entity, CoreDataService)
         {
             _ManufacturersDataService = ManufacturersDataService;
+            QueryCommand = new RelayCommand<IVendorListItemViewModel>(RunQuery);
             SetMode();
             FetchListDataSource();
         }
         #endregion
-
-        private void SetMode()
-        {
-            Mode = DocumentLifeCircle.Read;
-        }
-
-        private void FetchListDataSource()
-        {
-            _ContactsList = ViewModelLocator.Current.ContactListViewModel;
-            _ContactsList.QueryCommand.Execute(Entity);
-
-            _VoidList = new ObservableCollection<IVoidViewModel>();
-            VoidList.Add(new VoidViewModel() { Value = false, Text = "啟用" });
-            VoidList.Add(new VoidViewModel() { Value = true, Text = "停用" });
-
-            _PaymentTypes = new ObservableCollection<IPaymentTypesViewModel>(
-              ((IDataService<PaymentTypes>)_FinancialManagementDataService).GetAll()
-                .Select(s => new PaymentTypesViewModel(s)).ToList());
-
-            _BusinessItemsList = ViewModelLocator.Current.ManufacturerBusinessItemsListViewModel;
-            _BusinessItemsList.QueryCommand.Execute(Entity);
-        }
 
         #region 屬性
 
@@ -213,15 +194,6 @@ namespace Tokiku.ViewModels
         //public string FactoryPhone { get { return CopyofPOCOInstance.FactoryPhone; } set { CopyofPOCOInstance.FactoryPhone = value; RaisePropertyChanged("FactoryPhone"); } }
         //public string FactoryFax { get { return CopyofPOCOInstance.FactoryFax; } set { CopyofPOCOInstance.FactoryFax = value; RaisePropertyChanged("FactoryFax"); } }
         //public string FactoryAddress { get { return CopyofPOCOInstance.FactoryAddress; } set { CopyofPOCOInstance.FactoryAddress = value; RaisePropertyChanged("FactoryAddress"); } }
-        public override DocumentLifeCircle Mode
-        {
-            get => base.Mode; set
-            {
-                base.Mode = value;
-                ContactsList.ModeChangedCommand.Execute(value);
-                BusinessItemsList.ModeChangedCommand.Execute(value);
-            }
-        }
         public string Comment { get { return CopyofPOCOInstance.Comment; } set { CopyofPOCOInstance.Comment = value; RaisePropertyChanged("Comment"); } }
         public bool Void { get { return CopyofPOCOInstance.Void; } set { CopyofPOCOInstance.Void = value; RaisePropertyChanged("Void"); } }
         public bool IsClient { get { return CopyofPOCOInstance.IsClient; } set { CopyofPOCOInstance.IsClient = value; RaisePropertyChanged("IsClient"); } }
@@ -251,8 +223,6 @@ namespace Tokiku.ViewModels
 
 
         #endregion
-
-
 
         #region BankName
         /// <summary>
@@ -306,14 +276,6 @@ namespace Tokiku.ViewModels
 
         #endregion
 
-        public override void SetEntity(Manufacturers entity)
-        {
-            base.SetEntity(entity);
-            ContactsList.QueryCommand.Execute(entity);
-            BusinessItemsList.QueryCommand.Execute(entity);
-        }
-
-
         #region 聯絡人
 
         private IContactListViewModel _ContactsList = ViewModelLocator.Current.ContactListViewModel;
@@ -321,23 +283,6 @@ namespace Tokiku.ViewModels
         /// 聯絡人清單
         /// </summary>
         public IContactListViewModel ContactsList { get => _ContactsList; set { _ContactsList = value; RaisePropertyChanged("ContactsList"); } }
-
-        #endregion
-
-        #region ManufacturersBussinessItems 營業項目
-        private IManufacturerBusinessItemsListViewModel _BusinessItemsList = ViewModelLocator.Current.ManufacturerBusinessItemsListViewModel;
-       
-        /// <summary>
-        /// 營業項目
-        /// </summary>
-        public IManufacturerBusinessItemsListViewModel BusinessItemsList
-        {
-            get => _BusinessItemsList; set
-            {
-                _BusinessItemsList = value;
-                RaisePropertyChanged("BusinessItemsList");
-            }
-        }
 
         #endregion
 
@@ -420,6 +365,10 @@ namespace Tokiku.ViewModels
 
         #endregion
 
+        #endregion
+
+        #region 控制項清單資料來源
+
         #region 資料啟用狀態下拉選單
         private ObservableCollection<IVoidViewModel> _VoidList = new ObservableCollection<IVoidViewModel>();
 
@@ -441,39 +390,119 @@ namespace Tokiku.ViewModels
             }
         }
 
+
+
         #endregion
 
         #region 交易紀錄
 
-        //private ManufacturersBussinessTranscationsViewModelCollection _TranscationRecords;
+        private IManufacturersBussinessTranscationsListViewModel _TranscationRecords = ViewModelLocator.Current.ManufacturersBussinessTranscationsListViewModel;
 
-        //public ManufacturersBussinessTranscationsViewModelCollection TranscationRecords
-        //{
-        //    get
-        //    {
-        //        if (_TranscationRecords == null)
-        //        {
-        //            _TranscationRecords = new ManufacturersBussinessTranscationsViewModelCollection();
-        //        }
-
-        //        return _TranscationRecords;
-        //    }
-        //    set
-        //    {
-        //        _TranscationRecords = value;
-        //        RaisePropertyChanged("TranscationRecords");
-        //    }
-        //}
-
-        //public IUserViewModel LoginedUser { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
+        /// <summary>
+        /// 取得廠商已交易紀錄資訊清單。
+        /// </summary>
+        public IManufacturersBussinessTranscationsListViewModel TranscationRecords
+        {
+            get => _TranscationRecords; set
+            {
+                _TranscationRecords = value;
+                RaisePropertyChanged("TranscationRecords");
+            }
+        }
 
         #endregion
 
+        #region ManufacturersBussinessItems 營業項目
+        private IManufacturerBusinessItemsListViewModel _BusinessItemsList = ViewModelLocator.Current.ManufacturerBusinessItemsListViewModel;
+
+        /// <summary>
+        /// 營業項目
+        /// </summary>
+        public IManufacturerBusinessItemsListViewModel BusinessItemsList
+        {
+            get => _BusinessItemsList; set
+            {
+                _BusinessItemsList = value;
+                RaisePropertyChanged("BusinessItemsList");
+            }
+        }
         #endregion
 
-        #region 模型命令
+        #region 工廠地址清單
 
+        private IManufacturerFactoryListViewModel _Factories;
+
+        /// <summary>
+        /// 取得或設定工廠地址清單
+        /// </summary>
+        public IManufacturerFactoryListViewModel Factories { get => _Factories; set { _Factories = value; RaisePropertyChanged("Factories"); } }
+
+        #endregion
+        #endregion
+
+        #region 模型控制命令
+        public virtual void RunQuery(IVendorListItemViewModel item)
+        {
+            SetEntity(item.Entity);
+        }
+
+        public override void SetEntity(Manufacturers entity)
+        {
+            base.SetEntity(entity);
+            ContactsList.QueryCommand.Execute(entity);
+            BusinessItemsList.QueryCommand.Execute(entity);
+            TranscationRecords.QueryCommand.Execute(entity);
+
+        }
+
+        public override void Save()
+        {
+            try
+            {
+                switch (Mode)
+                {
+                    case DocumentLifeCircle.Create:
+                        //目前處於新增模式
+                        break;
+                    case DocumentLifeCircle.Update:
+                        //目前處於編輯模式
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);              
+            }
+        }
+
+        private void SetMode()
+        {
+            Mode = DocumentLifeCircle.Read;
+        }
+
+        private void FetchListDataSource()
+        {
+            _ContactsList = ViewModelLocator.Current.ContactListViewModel;
+            _ContactsList.QueryCommand.Execute(Entity);
+
+            _VoidList = new ObservableCollection<IVoidViewModel>();
+            VoidList.Add(new VoidViewModel() { Value = false, Text = "啟用" });
+            VoidList.Add(new VoidViewModel() { Value = true, Text = "停用" });
+
+            _PaymentTypes = new ObservableCollection<IPaymentTypesViewModel>(
+              ((IDataService<PaymentTypes>)_FinancialManagementDataService).GetAll()
+                .Select(s => new PaymentTypesViewModel(s)).ToList());
+
+            _BusinessItemsList = ViewModelLocator.Current.ManufacturerBusinessItemsListViewModel;
+            _BusinessItemsList.QueryCommand.Execute(Entity);
+        }
+
+        protected override void RunModeChanged(DocumentLifeCircle Mode)
+        {
+            base.RunModeChanged(Mode);
+            BusinessItemsList.ModeChangedCommand.Execute(Mode);
+            ContactsList.ModeChangedCommand.Execute(Mode);
+        }
         //#region 查詢單一個體的檢視資料
         ///// <summary>
         ///// 查詢單一個體的檢視資料

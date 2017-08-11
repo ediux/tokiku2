@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                     xmlns:controls="clr-namespace:TokikuNew.Controls"
+                    xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.MVVM"
                     xmlns:helper="clr-namespace:TokikuNew.Helpers">
     <RoutedUICommand x:Key="CloseTab" Text="Close Tab"/>
     <Style TargetType="DataGridColumnHeader" x:Key="HeaderStyleCenter">
@@ -341,17 +342,24 @@
                         <Border x:Name="Header" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Padding="3,1,3,0">
                             <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" ContentSource="Header" RecognizesAccessKey="True" Margin="0,4,0,4" HorizontalAlignment="Left" />
                         </Border>
-                        <StackPanel Grid.Row="0" Grid.RowSpan="2"  Grid.Column="2"  Orientation="Horizontal" Panel.ZIndex="999">
-                            <Button Margin="2" Width="22" Name="btnF9" FontSize="15" Content="&#xE10E;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="取消" Style="{DynamicResource ReadModeSwitch_Button}" Panel.ZIndex="9999" >
+                        <StackPanel Grid.Row="0" Grid.RowSpan="2"  Grid.Column="2"  Orientation="Horizontal" Panel.ZIndex="999" HorizontalAlignment="Right">
+                            <Button Margin="2" Width="22" Name="btnF9" FontSize="15" Content="&#xE10E;" 
+                                    FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="取消" 
+                                    Command="{Binding ModeChangedCommand}"
+                                    CommandParameter="{x:Static vm:DocumentLifeCircle.Read}"
+                                    Style="{DynamicResource ReadModeSwitch_Button}" Panel.ZIndex="9999" >
                                 <i:Interaction.Behaviors>
 
                                 </i:Interaction.Behaviors>
                             </Button>
-                            <Button Margin="2" Width="22" x:Name="btnF2" FontSize="15" Content="&#xE104;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="修改" Style="{DynamicResource ReadModeSwitch_ModifyButton}" Panel.ZIndex="9999">
+                            <Button Margin="2" Width="22" x:Name="btnF2" FontSize="15" Content="&#xE104;"
+                                    Command="{Binding ModeChangedCommand}"
+                                    CommandParameter="{x:Static vm:DocumentLifeCircle.Update}"
+                                    FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="修改" Style="{DynamicResource ReadModeSwitch_ModifyButton}" Panel.ZIndex="9999">
                               
                             </Button>
                             <Button Style="{DynamicResource ReadModeSwitch_SaveButton}" Margin="2" Width="22" Name="btnF3" FontSize="15" 
-                                    Command="{Binding SaveCommand}" CommandParameter="{Binding Id}" Panel.ZIndex="9999"
+                                    Command="{Binding SaveCommand}" CommandParameter="{x:Static vm:DocumentLifeCircle.Save}" Panel.ZIndex="9999"
                                     Content="&#xE105;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="儲存"  >
                             </Button>
                         </StackPanel>

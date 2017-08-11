@@ -75,6 +75,7 @@
     <Compile Include="Interfaces\IManufacturingExecutionDataService.cs" />
     <Compile Include="Interfaces\IRoleDataService.cs" />
     <Compile Include="Interfaces\IUserDataService.cs" />
+    <Compile Include="Interfaces\ISupplierTranscationDataService.cs" />
     <Compile Include="ManufacturingExecutionDataService.cs" />
     <Compile Include="MVVMLocatorMaker.cs">
       <DependentUpon>MVVMLocatorMaker.tt</DependentUpon>

@@ -32,7 +32,7 @@ namespace Tokiku.ViewModels
 
         protected virtual void RunQuery(Manufacturers Parameter)
         {
-            var queryresult = _ManufacturingExecutionDataService.GetAll(w => w.ManufacturersId == Parameter.Id)
+            var queryresult = Parameter.ManufacturersBussinessItems
                   .Select(s => new ManufacturersBussinessItemsViewModel(s)).ToList();
 
             _BussinessItemsList = new ObservableCollection<IManufacturersBussinessItemsViewModel>(queryresult);
@@ -44,6 +44,7 @@ namespace Tokiku.ViewModels
 
             ModeChangedCommand.Execute(DocumentLifeCircle.Read);
         }
+
 
         private ObservableCollection<IManufacturersBussinessItemsViewModel> _BussinessItemsList;
 

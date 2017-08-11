@@ -7,7 +7,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class ManufacturerFactoryViewModel : BaseViewModelWithPOCOClass<ManufacturersFactories>
+    public class ManufacturerFactoryViewModel : EntityBaseViewModel<ManufacturersFactories>, IManufacturerFactoryViewModel
     {
         public ManufacturerFactoryViewModel()
         {

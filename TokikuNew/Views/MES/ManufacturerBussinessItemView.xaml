@@ -11,11 +11,6 @@
              Background="{DynamicResource ControlBackgroundBrush}"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <!--<ObjectDataProvider x:Key="BusinessItemsSource" ObjectType="{x:Type vm:ManufacturersBussinessItemsViewModelColletion}" MethodName="Query">
-            <ObjectDataProvider.MethodParameters>
-                <x:Static Member="sys:Guid.Empty"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>-->
     </UserControl.Resources>
     <GroupBox Grid.Row="0" Header="營業項目" Margin="5" MinHeight="297">
         <Grid>
@@ -29,7 +24,7 @@
                 <ColumnDefinition Width="25*"/>
             </Grid.ColumnDefinitions>
             <DataGrid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Margin="2" AutoGenerateColumns="False"            
-                      IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, ElementName=userControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       x:Name="BusinessProjectDataGrid" 
                       ItemsSource="{Binding BussinessItemsList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
                 <DataGrid.Columns>

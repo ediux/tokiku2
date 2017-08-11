@@ -270,7 +270,7 @@
                 <c:CustomDataGrid CanUserAddRows="False" CanUserDeleteRows="False"
                                        AutoGenerateColumns="False"
                                       IsReadOnly="True"
-                                      ItemsSource="{Binding TranscationRecords}">
+                                      ItemsSource="{Binding TranscationRecords.TranscationRecords}">
                     <c:CustomDataGrid.Columns>
                         <DataGridTextColumn Header="工程代碼" Binding="{Binding Code}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                         <DataGridTextColumn Header="工程名稱" Binding="{Binding Name}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />

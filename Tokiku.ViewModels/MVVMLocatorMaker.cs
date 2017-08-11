@@ -34,6 +34,9 @@ namespace Tokiku.ViewModels
 			if (!SimpleIoc.Default.IsRegistered<IPaymentTypesViewModel>())
 				SimpleIoc.Default.Register<IPaymentTypesViewModel,PaymentTypesViewModel>();			
 
+			if (!SimpleIoc.Default.IsRegistered<IManufacturersBussinessTranscationsListViewModel>())
+				SimpleIoc.Default.Register<IManufacturersBussinessTranscationsListViewModel,ManufacturersBussinessTranscationsListViewModel>();			
+
 			if (!SimpleIoc.Default.IsRegistered<IManufacturerBusinessItemsListViewModel>())
 				SimpleIoc.Default.Register<IManufacturerBusinessItemsListViewModel,ManufacturerBusinessItemsListViewModel>();			
 
@@ -130,6 +133,13 @@ namespace Tokiku.ViewModels
 		public IPaymentTypesViewModel PaymentTypesViewModel
 		{
 			get => SimpleIoc.Default.GetInstance<IPaymentTypesViewModel>();
+		}
+		/// <summary>
+        /// 取得IoC容器中的實作 IManufacturersBussinessTranscationsListViewModel 介面的物件執行個體。
+        /// </summary>
+		public IManufacturersBussinessTranscationsListViewModel ManufacturersBussinessTranscationsListViewModel
+		{
+			get => SimpleIoc.Default.GetInstance<IManufacturersBussinessTranscationsListViewModel>();
 		}
 		/// <summary>
         /// 取得IoC容器中的實作 IManufacturerBusinessItemsListViewModel 介面的物件執行個體。

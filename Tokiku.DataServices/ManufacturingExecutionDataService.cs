@@ -19,13 +19,15 @@ namespace Tokiku.DataServices
         private ICoreDataService _CoreDataService;
         private IManufacturersRepository _ManufacturersRepository;
         private IManufacturersBussinessItemsRepository _ManufacturersBussinessItemsRepository;
+        private ISupplierTranscationItemRepository _SupplierTranscationItemRepository;
         #endregion
 
         #region 建構式
         public ManufacturingExecutionDataService(IUnitOfWork UnitOfWork,
             ICoreDataService CoreDataService,
             IManufacturersRepository ManufacturersRepository,
-            IManufacturersBussinessItemsRepository ManufacturersBussinessItemsRepository)
+            IManufacturersBussinessItemsRepository ManufacturersBussinessItemsRepository,
+            ISupplierTranscationItemRepository SupplierTranscationItemRepository)
         {
             _UnitOfWork = UnitOfWork;
 
@@ -36,13 +38,31 @@ namespace Tokiku.DataServices
 
             _ManufacturersBussinessItemsRepository = ManufacturersBussinessItemsRepository;
             _ManufacturersBussinessItemsRepository.UnitOfWork = _UnitOfWork;
+
+            _SupplierTranscationItemRepository = SupplierTranscationItemRepository;
+            _SupplierTranscationItemRepository.UnitOfWork = _UnitOfWork;
         }
         #endregion
 
         #region 廠商管理
         public Manufacturers Add(Manufacturers model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                model = _ManufacturersRepository.Add(model);
+                _ManufacturersRepository.UnitOfWork.Commit();
+                _ManufacturersRepository.Reload(model);
+
+                _CoreDataService.AddAccessLog("Manufacturers", model.Id.ToString(),
+                    model.CreateUserId, "Insert Data", ActionCodes.Create);
+
+                return model;
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(ex);
+                return null;
+            }
         }
         public IEnumerable<Manufacturers> AddRange(IEnumerable<Manufacturers> models)
         {
@@ -177,7 +197,7 @@ namespace Tokiku.DataServices
                 var biListRepo = _ManufacturersBussinessItemsRepository;
 
                 var result = from q in biListRepo.All()
-                              select q;
+                             select q;
 
                 if (filiter != null)
                 {
@@ -226,7 +246,60 @@ namespace Tokiku.DataServices
         {
             throw new NotImplementedException();
         }
+
+
         #endregion
 
+        #region 供應商交易紀錄存取服務
+        public SupplierTranscationItem Add(SupplierTranscationItem model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<SupplierTranscationItem> AddRange(IEnumerable<SupplierTranscationItem> models)
+        {
+            throw new NotImplementedException();
+        }
+
+        public SupplierTranscationItem GetSingle(Expression<Func<SupplierTranscationItem, bool>> filiter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<SupplierTranscationItem> GetAll(Expression<Func<SupplierTranscationItem, bool>> filiter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public SupplierTranscationItem Update(SupplierTranscationItem Source, Expression<Func<SupplierTranscationItem, bool>> filiter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<SupplierTranscationItem> UpdateRange(IEnumerable<SupplierTranscationItem> MultiSource, Expression<Func<SupplierTranscationItem, bool>> filiter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(SupplierTranscationItem model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveWhere(Expression<Func<SupplierTranscationItem, bool>> filiter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerable<SupplierTranscationItem> IDataService<SupplierTranscationItem>.DirectExecuteSQL(string tsql, params object[] parameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        ICollection<SupplierTranscationItem> IDataService<SupplierTranscationItem>.SearchByText(string filiter)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
     }
 }
