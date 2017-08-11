@@ -3,6 +3,19 @@
 //=								By Edward Huang(2017/8/5)	   =
 //==============================================================
 
+/*
+  In App.xaml:
+  <Application.Resources>
+      <vm:ViewModelLocator xmlns:vm="clr-namespace:Tokiku.ViewModels"
+                           x:Key="Locator" />
+  </Application.Resources>
+  
+  In the View:
+  DataContext="{Binding Source={StaticResource Locator}, Path=ViewModelName}"
+
+  You can also use Blend to do all this with the tool's support.
+  See http://www.galasoft.ch/mvvm
+*/
 <#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ assembly name="System.Core" #>
 <#@ assembly name="EnvDTE"#>

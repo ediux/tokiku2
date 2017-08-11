@@ -3,6 +3,19 @@
 //=								By Edward Huang(2017/8/5)	   =
 //==============================================================
 
+/*
+  In App.xaml:
+  <Application.Resources>
+      <vm:ViewModelLocator xmlns:vm="clr-namespace:Tokiku.ViewModels"
+                           x:Key="Locator" />
+  </Application.Resources>
+  
+  In the View:
+  DataContext="{Binding Source={StaticResource Locator}, Path=ViewModelName}"
+
+  You can also use Blend to do all this with the tool's support.
+  See http://www.galasoft.ch/mvvm
+*/
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using TokikuNew.Frame;
@@ -74,11 +87,17 @@ namespace TokikuNew
 			if (!SimpleIoc.Default.IsRegistered<MainWindow>())
 				SimpleIoc.Default.Register<MainWindow>();
 			
+			if (!SimpleIoc.Default.IsRegistered<ContactPersonManageView>())
+				SimpleIoc.Default.Register<ContactPersonManageView>();
+			
 			if (!SimpleIoc.Default.IsRegistered<ManufacturersManageView>())
 				SimpleIoc.Default.Register<ManufacturersManageView>();
 			
 			if (!SimpleIoc.Default.IsRegistered<VendorListView>())
 				SimpleIoc.Default.Register<VendorListView>();
+			
+			if (!SimpleIoc.Default.IsRegistered<ManufacturerBussinessItemView>())
+				SimpleIoc.Default.Register<ManufacturerBussinessItemView>();
 			
 			if (!SimpleIoc.Default.IsRegistered<OptionWindow>())
 				SimpleIoc.Default.Register<OptionWindow>();
@@ -232,6 +251,13 @@ namespace TokikuNew
 			get => SimpleIoc.Default.GetInstance<MainWindow>();
 		}
 		/// <summary>
+        /// 取得IoC容器中的 ContactPersonManageView 物件執行個體。
+        /// </summary>
+		public ContactPersonManageView ContactPersonManageView
+		{
+			get => SimpleIoc.Default.GetInstance<ContactPersonManageView>();
+		}
+		/// <summary>
         /// 取得IoC容器中的 ManufacturersManageView 物件執行個體。
         /// </summary>
 		public ManufacturersManageView ManufacturersManageView
@@ -244,6 +270,13 @@ namespace TokikuNew
 		public VendorListView VendorListView
 		{
 			get => SimpleIoc.Default.GetInstance<VendorListView>();
+		}
+		/// <summary>
+        /// 取得IoC容器中的 ManufacturerBussinessItemView 物件執行個體。
+        /// </summary>
+		public ManufacturerBussinessItemView ManufacturerBussinessItemView
+		{
+			get => SimpleIoc.Default.GetInstance<ManufacturerBussinessItemView>();
 		}
 		/// <summary>
         /// 取得IoC容器中的 OptionWindow 物件執行個體。
