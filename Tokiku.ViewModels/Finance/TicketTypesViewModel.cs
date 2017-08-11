@@ -8,44 +8,9 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class TicketTypesViewModelCollection : BaseViewModelCollection<TicketTypesViewModel>
-    {
-        private Controllers.ManufacturersManageController controller;
+  
 
-        public override void Initialized()
-        {
-            base.Initialized();
-            controller = new Controllers.ManufacturersManageController();
-            Query();
-        }
-
-        public static TicketTypesViewModelCollection Query()
-        {
-            return Query<TicketTypesViewModelCollection, TicketTypes>("ManufacturersManage", "GetTranscationCategoriesList");
-            //var result = await controller.GetTranscationCategoriesListAsync();
-
-            //if (!result.HasError)
-            //{
-            //    if (result.Result.Any())
-            //    {
-            //        ClearItems();
-            //        foreach (var item in result.Result)
-            //        {
-            //            TicketTypesViewModel model = new TicketTypesViewModel();
-            //            model.SetModel(item);
-            //            Add(model);
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    Errors = result.Errors;
-            //    HasError = result.HasError;
-            //}
-        }
-    }
-
-    public class TicketTypesViewModel : BaseViewModelWithPOCOClass<TicketTypes>
+    public class TicketTypesViewModel : EntityBaseViewModel<TicketTypes>, ITicketTypesViewModel
     {
         public TicketTypesViewModel()
         {

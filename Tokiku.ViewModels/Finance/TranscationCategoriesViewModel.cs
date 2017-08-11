@@ -8,48 +8,9 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class TranscationCategoriesViewModelCollection : BaseViewModelCollection<TranscationCategoriesViewModel>
-    {
+   
 
-        public TranscationCategoriesViewModelCollection()
-        {
-
-        }
-
-        public TranscationCategoriesViewModelCollection(IEnumerable<TranscationCategoriesViewModel> source) : base(source)
-        {
-
-        }
-
-        public static TranscationCategoriesViewModelCollection Query()
-        {
-            return Query<TranscationCategoriesViewModelCollection, TranscationCategories>(
-                "ManufacturersManage",
-                "GetTranscationCategoriesList");
-            //var result = await controller.GetTranscationCategoriesList();
-
-            //if (!result.HasError)
-            //{
-            //    if (result.Result.Any())
-            //    {
-            //        ClearItems();
-            //        foreach (var item in result.Result)
-            //        {
-            //            TranscationCategoriesViewModel model = new TranscationCategoriesViewModel();
-            //            model.SetModel(item);
-            //            Add(model);
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    Errors = result.Errors;
-            //    HasError = result.HasError;
-            //}
-        }
-    }
-
-    public class TranscationCategoriesViewModel : BaseViewModelWithPOCOClass<TranscationCategories>
+    public class TranscationCategoriesViewModel : EntityBaseViewModel<TranscationCategories>, ITranscationCategoriesViewModel
     {
         public TranscationCategoriesViewModel()
         {

@@ -75,8 +75,16 @@
     <Compile Include="ContactPerson\ContactsViewModel.cs" />
     <Compile Include="Finance\IMaterialCategoriesListViewModel.cs" />
     <Compile Include="Finance\IMaterialCategoriesViewModel.cs" />
+    <Compile Include="Finance\ITicketTypesListViewModel.cs" />
+    <Compile Include="Finance\ITicketTypesViewModel.cs" />
+    <Compile Include="Finance\ITranscationCategoriesListViewModel.cs" />
+    <Compile Include="Finance\ITranscationCategoriesViewModel.cs" />
     <Compile Include="Finance\MaterialCategoriesListViewModel.cs" />
     <Compile Include="Finance\MaterialCategoriesViewModel.cs" />
+    <Compile Include="Finance\TicketTypesListViewModel.cs" />
+    <Compile Include="Finance\TicketTypesViewModel.cs" />
+    <Compile Include="Finance\TranscationCategoriesListViewModel.cs" />
+    <Compile Include="Finance\TranscationCategoriesViewModel.cs" />
     <Compile Include="Interfaces\IManufacturersBussinessTranscationsListViewModel.cs" />
     <Compile Include="Interfaces\IContactsViewModel.cs" />
     <Compile Include="ControlModels\CloseableTabViewModel.cs" />

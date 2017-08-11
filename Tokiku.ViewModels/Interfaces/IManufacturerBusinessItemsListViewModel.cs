@@ -11,6 +11,9 @@ namespace Tokiku.ViewModels
     public interface IManufacturerBusinessItemsListViewModel : IDocumentBaseViewModel<ManufacturersBussinessItems>
     {
        
+       
         ObservableCollection<IManufacturersBussinessItemsViewModel> BussinessItemsList { get; set; }
+
+       
     }
 }

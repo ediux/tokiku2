@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
@@ -16,5 +17,13 @@ namespace Tokiku.ViewModels
         int TicketPeriodId { get; set; }
         string TranscationCategories { get; set; }
         int? TranscationCategoriesId { get; set; }
+
+        IMaterialCategoriesListViewModel MaterialCategoriesList { get; set; }
+
+        ITranscationCategoriesListViewModel TranscationCategoriesList { get; set; }
+
+        ITicketTypesListViewModel TicketTypesList { get; set; }
+
+       
     }
 }
