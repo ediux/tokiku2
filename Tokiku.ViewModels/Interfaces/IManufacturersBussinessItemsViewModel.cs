@@ -24,6 +24,6 @@ namespace Tokiku.ViewModels
 
         ITicketTypesListViewModel TicketTypesList { get; set; }
 
-       
+        IPaymentTypesListViewModel PaymentTypesList { get; set; }
     }
 }

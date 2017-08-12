@@ -98,10 +98,12 @@
     <Compile Include="Interfaces\IManufacturersBussinessTranscationsViewModel.cs" />
     <Compile Include="Interfaces\IManufacturerFactoryViewModel.cs" />
     <Compile Include="Interfaces\IManufacturerFactoryListViewModel.cs" />
+    <Compile Include="IPaymentTypesListViewModel.cs" />
     <Compile Include="MES\Manufacturers\ManufacturerFactoryListViewModel.cs" />
     <Compile Include="MES\Manufacturers\ManufacturerFactoryViewModel.cs" />
     <Compile Include="MES\Manufacturers\ManufacturersBussinessTranscationsListViewModel.cs" />
     <Compile Include="MES\Manufacturers\ManufacturersBussinessTranscationsViewModel.cs" />
+    <Compile Include="PaymentTypesListViewModel.cs" />
     <Compile Include="Shared\Main\MainViewModel.cs" />
     <Compile Include="ControlModels\MenuItemViewModel.cs" />
     <Compile Include="MES\Manufacturers\ManufacturerBusinessItemsListViewModel.cs" />
