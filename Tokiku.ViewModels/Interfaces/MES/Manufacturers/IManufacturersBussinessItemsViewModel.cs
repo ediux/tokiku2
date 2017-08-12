@@ -18,22 +18,8 @@ namespace Tokiku.ViewModels
         string TranscationCategories { get; set; }
         int? TranscationCategoriesId { get; set; }
 
-        /// <summary>
-        /// 材料類別
-        /// </summary>
-        IMaterialCategoriesListViewModel MaterialCategoriesList { get; set; }
-
-        /// <summary>
-        /// 交易類別
-        /// </summary>
-        ITranscationCategoriesListViewModel TranscationCategoriesList { get; set; }
-
-        /// <summary>
-        /// 票期清單
-        /// </summary>
-        ITicketPeriodsListViewModel TicketPeriodsList { get; set; }
+       
 
 
-        IPaymentTypesListViewModel PaymentTypesList { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Tokiku.ViewModels.EntityBaseViewModel&lt;TPOCO&gt;" Collapsed="true">
-    <Position X="12.25" Y="2.5" Width="1.5" />
+    <Position X="19" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAAggIAKAQAAIAEAAkAAEgAAQAEAAAgAAABEJAAEAIA=</HashCode>
       <FileName>Base\EntityBaseViewModel.cs</FileName>
@@ -9,7 +9,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Tokiku.ViewModels.LoginViewModel" BaseTypeListCollapsed="true">
-    <Position X="23.5" Y="2.5" Width="1.5" />
+    <Position X="37" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAoAAAAAAAAEEAAAJAAAAAAIAAAAACIQAQAACAAAA=</HashCode>
       <FileName>Shared\StartUp\LoginViewModel.cs</FileName>
@@ -17,7 +17,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Tokiku.ViewModels.UserViewModel" BaseTypeListCollapsed="true">
-    <Position X="7.75" Y="4" Width="1.5" />
+    <Position X="14.5" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAAAAAAAAAggAAAQEAABCAQAAAAAAAAA=</HashCode>
       <FileName>Shared\Users\UserViewModel.cs</FileName>
@@ -25,7 +25,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Tokiku.ViewModels.BaseViewModel">
-    <Position X="14.5" Y="0.5" Width="1.5" />
+    <Position X="21.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Base\BaseViewModel.cs</FileName>
@@ -33,7 +33,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Tokiku.ViewModels.DocumentBaseViewModel&lt;TPOCO&gt;" BaseTypeListCollapsed="true">
-    <Position X="5.5" Y="4" Width="1.5" />
+    <Position X="8.75" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACIAEEAYAAAAQSAACAAAAAAAEEAAAAAAAAAAgEAIA=</HashCode>
       <FileName>Base\DocumentBaseViewModel.cs</FileName>
@@ -41,7 +41,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Tokiku.ViewModels.WithLoginUserBaseViewModel" BaseTypeListCollapsed="true">
-    <Position X="21.25" Y="2.5" Width="1.5" />
+    <Position X="34.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Base\WithLoginUserBaseViewModel.cs</FileName>
@@ -52,7 +52,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Tokiku.ViewModels.MainViewModel">
-    <Position X="21.25" Y="5" Width="1.5" />
+    <Position X="34.75" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAgAAAAAAAAAAACAAAAAQAAAAIAAAAAAAAAAAAAA=</HashCode>
       <FileName>Shared\Main\MainViewModel.cs</FileName>
@@ -68,7 +68,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Tokiku.ViewModels.TabViewModelBase">
-    <Position X="2.25" Y="2.5" Width="1.5" />
+    <Position X="2" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAJAAAAAAAAAAAAAAAAAAAAAAAAAAkAAAAIACAAAAAA=</HashCode>
       <FileName>ControlModels\TabViewModelBase.cs</FileName>
@@ -84,7 +84,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Tokiku.ViewModels.MenuItemViewModel">
-    <Position X="25.75" Y="2.5" Width="1.5" />
+    <Position X="39.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BABAAAAQAAAAACAQAAAAAAAAAAAAAEAAAIAACAAAAAA=</HashCode>
       <FileName>ControlModels\MenuItemViewModel.cs</FileName>
@@ -100,7 +100,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Tokiku.ViewModels.VendorListItemViewModel" Collapsed="true">
-    <Position X="10" Y="4" Width="1.5" />
+    <Position X="19" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAQAAAAgAAEAAAAAAAgAAQAAAAAAIAjAAAgIAACAAA=</HashCode>
       <FileName>MES\Manufacturers\VendorListItemViewModel.cs</FileName>
@@ -108,7 +108,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Tokiku.ViewModels.VendorListViewModel">
-    <Position X="28" Y="2.5" Width="1.5" />
+    <Position X="41.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAABAAAAAAAAAAAgAAAAAAgAAAQABAgAAAA=</HashCode>
       <FileName>MES\Manufacturers\VendorListViewModel.cs</FileName>
@@ -116,7 +116,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Tokiku.ViewModels.PaymentTypesViewModel">
-    <Position X="12.25" Y="4" Width="1.5" />
+    <Position X="21.25" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Finance\PaymentTypesViewModel.cs</FileName>
@@ -124,7 +124,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Tokiku.ViewModels.ContactsViewModel">
-    <Position X="14.5" Y="4" Width="1.5" />
+    <Position X="23.5" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAQAAgBAAEECAAAAAAAQAACAAAACAAAAAIACCAAA=</HashCode>
       <FileName>ContactPerson\ContactsViewModel.cs</FileName>
@@ -132,7 +132,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Tokiku.ViewModels.ContactListViewModel" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="45.75" Y="0.5" Width="1.5" />
+    <Position X="48.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAUAQAAAAAAAAAAAAAAAAEAAAAAAAAAAAAEAAAA=</HashCode>
       <FileName>ContactPerson\ContactListViewModel.cs</FileName>
@@ -140,7 +140,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Tokiku.ViewModels.ManufacturerBusinessItemsListViewModel" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="47.5" Y="0.5" Width="1.5" />
+    <Position X="50" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAQAAAAgAAAAgAAAAABAAAAAAAAAAAAAEAAAA=</HashCode>
       <FileName>MES\Manufacturers\ManufacturerBusinessItemsListViewModel.cs</FileName>
@@ -148,15 +148,15 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Tokiku.ViewModels.ManufacturersBussinessItemsViewModel">
-    <Position X="16.75" Y="4" Width="1.5" />
+    <Position X="25.75" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAABCBAAAIAAAAAgAAAQAAAAAAUAQBAAAgAAkAEA=</HashCode>
+      <HashCode>AAAAAABKBAAAAAAAAAgAIAQAEAAAAUAABAAAgAAgAEA=</HashCode>
       <FileName>MES\Manufacturers\ManufacturersBussinessItemsViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Tokiku.ViewModels.ManufacturersBussinessTranscationsViewModel">
-    <Position X="19" Y="4" Width="1.5" />
+    <Position X="28" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAgAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MES\Manufacturers\ManufacturersBussinessTranscationsViewModel.cs</FileName>
@@ -164,7 +164,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Tokiku.ViewModels.ManufacturersBussinessTranscationsListViewModel" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="45.75" Y="1.5" Width="1.5" />
+    <Position X="51.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAgAAAAAAIAAAAAAAAAAAAAAAAAkAAAA=</HashCode>
       <FileName>MES\Manufacturers\ManufacturersBussinessTranscationsListViewModel.cs</FileName>
@@ -172,15 +172,15 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Tokiku.ViewModels.TranscationCategoriesViewModel" Collapsed="true">
-    <Position X="39.25" Y="4" Width="1.5" />
+    <Position X="32.5" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Finance\TranscationCategoriesViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Tokiku.ViewModels.MaterialCategoriesListViewModel" Collapsed="true">
-    <Position X="16.75" Y="9.75" Width="1.5" />
+  <Class Name="Tokiku.ViewModels.MaterialCategoriesListViewModel">
+    <Position X="7.75" Y="9.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAACAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Finance\MaterialCategoriesListViewModel.cs</FileName>
@@ -188,219 +188,234 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Tokiku.ViewModels.MaterialCategoriesViewModel" Collapsed="true">
-    <Position X="32.5" Y="4" Width="1.5" />
+    <Position X="10" Y="9.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Finance\MaterialCategoriesViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Tokiku.ViewModels.TicketTypesListViewModel" Collapsed="true">
-    <Position X="14.5" Y="9.75" Width="1.5" />
+  <Class Name="Tokiku.ViewModels.TicketTypesListViewModel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="48.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
       <FileName>Finance\TicketTypesListViewModel.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
+    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Tokiku.ViewModels.TicketTypesViewModel" Collapsed="true">
-    <Position X="37" Y="4" Width="1.5" />
+    <Position X="30.25" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Finance\TicketTypesViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Tokiku.ViewModels.TranscationCategoriesListViewModel" Collapsed="true">
-    <Position X="19" Y="9.75" Width="1.5" />
+  <Class Name="Tokiku.ViewModels.TranscationCategoriesListViewModel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="50" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAEA=</HashCode>
       <FileName>Finance\TranscationCategoriesListViewModel.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
+    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Tokiku.ViewModels.PaymentTypesListViewModel">
-    <Position X="33.75" Y="8.5" Width="1.5" />
+    <Position X="12.25" Y="9.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAgAAAAAAAAE=</HashCode>
-      <FileName>PaymentTypesListViewModel.cs</FileName>
+      <FileName>Finance\PaymentTypesListViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tokiku.ViewModels.TradingItemsViewModel">
+    <Position X="16.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAQAAAAAAAAAAAAQAAAEAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>TradingItemsViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Interface Name="Tokiku.ViewModels.IBaseViewModelWithLoginedUser">
-    <Position X="20.75" Y="10.5" Width="1.5" />
+    <Position X="14.25" Y="14.5" Width="1.5" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="Tokiku.ViewModels.IDocumentBaseViewModel&lt;T&gt;" HideInheritanceLine="true">
-    <Position X="26" Y="12" Width="2.25" />
+    <Position X="21.75" Y="16" Width="2.25" />
     <InheritanceLine Type="Tokiku.ViewModels.IBaseViewModel" IsHidden="true" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="Tokiku.ViewModels.IBaseViewModel">
-    <Position X="29.75" Y="8.5" Width="1.5" />
+    <Position X="27.75" Y="12.5" Width="1.5" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="Tokiku.ViewModels.IFormBaseViewModel&lt;TMasterPOCO, TDetailPOCO&gt;" HideInheritanceLine="true">
-    <Position X="22.25" Y="21" Width="1.5" />
+    <Position X="18.75" Y="20" Width="1.5" />
     <InheritanceLine Type="Tokiku.ViewModels.IEntityBaseViewModel&lt;TMasterPOCO&gt;" IsHidden="true" />
     <InheritanceLine Type="Tokiku.ViewModels.IBaseViewModel" IsHidden="true" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="Tokiku.ViewModels.IEntityBaseViewModel&lt;T&gt;" Collapsed="true">
-    <Position X="32" Y="10.5" Width="1.5" />
+    <Position X="30" Y="14.5" Width="1.5" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="Tokiku.ViewModels.IMainViewModel" HideInheritanceLine="true">
-    <Position X="20.75" Y="12.5" Width="1.5" />
+    <Position X="14.25" Y="16.5" Width="1.5" />
     <InheritanceLine Type="Tokiku.ViewModels.IBaseViewModel" IsHidden="true" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="Tokiku.ViewModels.IUserViewModel" Collapsed="true">
-    <Position X="43.25" Y="10.5" Width="1.5" />
+    <Position X="45.75" Y="14.5" Width="1.5" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="Tokiku.ViewModels.ITabViewModel">
-    <Position X="17.25" Y="10.5" Width="1.5" />
+    <Position X="10.75" Y="14.5" Width="1.5" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="Tokiku.ViewModels.IMenuItemViewModel">
-    <Position X="41" Y="10.5" Width="1.5" />
+    <Position X="43.5" Y="14.5" Width="1.5" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="Tokiku.ViewModels.IManufacturersViewModel" Collapsed="true">
-    <Position X="24.5" Y="21" Width="1.5" />
+    <Position X="21" Y="20" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAQAIAEgAAAAAAIEAAwAAQAAAQEAZCjABAgICkigAA=</HashCode>
-      <FileName>Interfaces\IManufacturersViewModel.cs</FileName>
+      <FileName>Interfaces\MES\Manufacturers\IManufacturersViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Tokiku.ViewModels.IVendorListItemViewModel" Collapsed="true">
-    <Position X="29.75" Y="12" Width="1.5" />
+    <Position X="27.75" Y="16" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAQAAAAgAAEAAAAAAAgAAQAAAAAAIAjAAAgIAACAAA=</HashCode>
-      <FileName>Interfaces\IVendorListItemViewModel.cs</FileName>
+      <FileName>Interfaces\MES\Manufacturers\IVendorListItemViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Tokiku.ViewModels.IVendorListViewModel" Collapsed="true">
-    <Position X="23" Y="10.5" Width="1.5" />
+    <Position X="16.5" Y="14.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAABAAAAAA=</HashCode>
-      <FileName>Interfaces\IVendorListViewModel.cs</FileName>
+      <FileName>Interfaces\MES\Manufacturers\IVendorListViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Tokiku.ViewModels.ICloseableTabViewModel" HideInheritanceLine="true">
-    <Position X="16.25" Y="13" Width="1.5" />
+    <Position X="9.75" Y="17" Width="1.5" />
     <InheritanceLine Type="Tokiku.ViewModels.IBaseViewModel" IsHidden="true" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="Tokiku.ViewModels.IFixedTabViewModel" HideInheritanceLine="true">
-    <Position X="18.5" Y="13" Width="1.5" />
+    <Position X="12" Y="17" Width="1.5" />
     <InheritanceLine Type="Tokiku.ViewModels.IBaseViewModel" IsHidden="true" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="Tokiku.ViewModels.IPaymentTypesViewModel">
-    <Position X="32" Y="12" Width="1.5" />
+    <Position X="30" Y="16" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Interfaces\IPaymentTypesViewModel.cs</FileName>
+      <FileName>Interfaces\Finance\IPaymentTypesViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Tokiku.ViewModels.IContactsViewModel" Collapsed="true">
-    <Position X="34.25" Y="12" Width="1.5" />
+    <Position X="32.25" Y="16" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAQAAgBAAAECAAAAAAAQAACAAAACAAAAAIAACAAA=</HashCode>
-      <FileName>Interfaces\IContactsViewModel.cs</FileName>
+      <FileName>Interfaces\Core\IContactsViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="Tokiku.ViewModels.IContactListViewModel">
-    <Position X="30.25" Y="14" Width="1.5" />
+  <Interface Name="Tokiku.ViewModels.IContactListViewModel" Collapsed="true">
+    <Position X="48.25" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Interfaces\IContactListViewModel.cs</FileName>
+      <FileName>Interfaces\Core\IContactListViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="Tokiku.ViewModels.IManufacturerBusinessItemsListViewModel">
-    <Position X="13.75" Y="14" Width="1.5" />
+  <Interface Name="Tokiku.ViewModels.IManufacturerBusinessItemsListViewModel" Collapsed="true">
+    <Position X="50" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Interfaces\IManufacturerBusinessItemsListViewModel.cs</FileName>
+      <FileName>Interfaces\MES\Manufacturers\IManufacturerBusinessItemsListViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Tokiku.ViewModels.IManufacturersBussinessTranscationsViewModel">
-    <Position X="38.75" Y="12" Width="1.5" />
+    <Position X="36.75" Y="16" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAgAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Interfaces\IManufacturersBussinessTranscationsViewModel.cs</FileName>
+      <FileName>Interfaces\MES\Manufacturers\IManufacturersBussinessTranscationsViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="Tokiku.ViewModels.IManufacturersBussinessTranscationsListViewModel">
-    <Position X="23" Y="14" Width="1.5" />
+  <Interface Name="Tokiku.ViewModels.IManufacturersBussinessTranscationsListViewModel" Collapsed="true">
+    <Position X="51.75" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
-      <FileName>Interfaces\IManufacturersBussinessTranscationsListViewModel.cs</FileName>
+      <FileName>Interfaces\MES\Manufacturers\IManufacturersBussinessTranscationsListViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="Tokiku.ViewModels.ITicketPeriodsListViewModel">
-    <Position X="32.5" Y="14" Width="1.5" />
+  <Interface Name="Tokiku.ViewModels.ITicketPeriodsListViewModel" Collapsed="true">
+    <Position X="48.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ITicketPeriodsListViewModel.cs</FileName>
+      <FileName>Interfaces\Finance\ITicketPeriodsListViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="Tokiku.ViewModels.ITicketPeriodsManagementViewModel">
-    <Position X="41.75" Y="14" Width="1.5" />
+  <Interface Name="Tokiku.ViewModels.ITicketPeriodsManagementViewModel" Collapsed="true">
+    <Position X="50" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
-      <FileName>ITicketPeriodsManagementViewModel.cs</FileName>
+      <FileName>Interfaces\Finance\ITicketPeriodsManagementViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Tokiku.ViewModels.IManufacturersBussinessItemsViewModel">
-    <Position X="36.5" Y="12" Width="1.5" />
+    <Position X="34.5" Y="16" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAABCBAAAIAAAAAgAAAQAAAAAAUAQBAAAgAAkAEA=</HashCode>
-      <FileName>Interfaces\IManufacturersBussinessItemsViewModel.cs</FileName>
+      <HashCode>AAAAAABKBAAAAAAAAAgAIAQAEAAAAUAABAAAgAAgAEQ=</HashCode>
+      <FileName>Interfaces\MES\Manufacturers\IManufacturersBussinessItemsViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Tokiku.ViewModels.IMaterialCategoriesListViewModel">
-    <Position X="31.25" Y="21" Width="1.5" />
+    <Position X="23.25" Y="20" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Finance\IMaterialCategoriesListViewModel.cs</FileName>
+      <FileName>Interfaces\Finance\IMaterialCategoriesListViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Tokiku.ViewModels.IMaterialCategoriesViewModel" Collapsed="true">
-    <Position X="53.75" Y="17" Width="1.5" />
+    <Position X="25.5" Y="20" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Finance\IMaterialCategoriesViewModel.cs</FileName>
+      <FileName>Interfaces\Finance\IMaterialCategoriesViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Tokiku.ViewModels.ITicketTypesListViewModel" Collapsed="true">
-    <Position X="33.5" Y="21" Width="1.5" />
+    <Position X="51.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Finance\ITicketTypesListViewModel.cs</FileName>
+      <FileName>Interfaces\Finance\ITicketTypesListViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Tokiku.ViewModels.ITicketTypesViewModel" Collapsed="true">
-    <Position X="40.25" Y="17" Width="1.5" />
+    <Position X="39" Y="16" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Finance\ITicketTypesViewModel.cs</FileName>
+      <FileName>Interfaces\Finance\ITicketTypesViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Tokiku.ViewModels.ITranscationCategoriesListViewModel" Collapsed="true">
-    <Position X="35.75" Y="21" Width="1.5" />
+    <Position X="48.25" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
-      <FileName>Finance\ITranscationCategoriesListViewModel.cs</FileName>
+      <FileName>Interfaces\Finance\ITranscationCategoriesListViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Tokiku.ViewModels.ITranscationCategoriesViewModel" Collapsed="true">
-    <Position X="42.5" Y="17" Width="1.5" />
+    <Position X="41.25" Y="16" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Finance\ITranscationCategoriesViewModel.cs</FileName>
+      <FileName>Interfaces\Finance\ITranscationCategoriesViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.ViewModels.ITradingItemsListViewModel">
+    <Position X="45.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\Finance\ITradingItemsListViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Microsoft JhengHei UI" Size="9" />

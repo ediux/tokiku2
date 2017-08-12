@@ -9,12 +9,13 @@ namespace Tokiku.ViewModels
 {
     public class PaymentTypesViewModel : EntityBaseViewModel<PaymentTypes>, IPaymentTypesViewModel
     {
-        [PreferredConstructor]
+
         public PaymentTypesViewModel() : base()
         {
 
         }
 
+        [PreferredConstructor]
         public PaymentTypesViewModel(PaymentTypes entity) : base(entity)
         {
 

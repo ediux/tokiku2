@@ -19,17 +19,14 @@ namespace Tokiku.ViewModels
         private IManufacturingExecutionDataService _ManufacturingExecutionDataService;
 
         public ManufacturerBusinessItemsListViewModel(IManufacturingExecutionDataService ManufacturingExecutionDataService
-            ,ICoreDataService CoreDataService)
-            :base(CoreDataService)
+            , ICoreDataService CoreDataService)
+            : base(CoreDataService)
         {
             _ManufacturingExecutionDataService = ManufacturingExecutionDataService;
-
             _BussinessItemsList = new ObservableCollection<IManufacturersBussinessItemsViewModel>();
 
             QueryCommand = new RelayCommand<Manufacturers>(RunQuery);
             SaveCommand = new RelayCommand<Manufacturers>(RunSave);
-
-            
         }
 
         protected virtual void RunQuery(Manufacturers Parameter)
@@ -38,25 +35,67 @@ namespace Tokiku.ViewModels
                   .Select(s => new ManufacturersBussinessItemsViewModel(s)).ToList();
 
             _BussinessItemsList = new ObservableCollection<IManufacturersBussinessItemsViewModel>(queryresult);
+
             RaisePropertyChanged("BussinessItemsList");
         }
 
         protected virtual void RunSave(Manufacturers Parameter)
         {
-
             ModeChangedCommand.Execute(DocumentLifeCircle.Read);
         }
-
 
         private ObservableCollection<IManufacturersBussinessItemsViewModel> _BussinessItemsList;
 
         /// <summary>
         /// 取得或設定指定廠商的營業項目清單
         /// </summary>
-        public ObservableCollection<IManufacturersBussinessItemsViewModel> BussinessItemsList { get => _BussinessItemsList;
-            set {
+        public ObservableCollection<IManufacturersBussinessItemsViewModel> BussinessItemsList
+        {
+            get => _BussinessItemsList;
+            set
+            {
                 _BussinessItemsList = value;
                 RaisePropertyChanged("BussinessItemsList");
-            } }
+            }
+        }
+
+        private IMaterialCategoriesListViewModel _MaterialCategoriesDropDownList;
+        /// <summary>
+        /// 材料類別選擇清單
+        /// </summary>
+        public IMaterialCategoriesListViewModel MaterialCategoriesDropDownList
+        {
+            get => _MaterialCategoriesDropDownList; set
+            {
+                _MaterialCategoriesDropDownList = value;
+                RaisePropertyChanged("MaterialCategoriesDropDownList");
+            }
+        }
+
+        private ITranscationCategoriesListViewModel _TranscationCategoriesDropDownList;
+        /// <summary>
+        /// 交易類別選擇清單        
+        /// </summary>
+        public ITranscationCategoriesListViewModel TranscationCategoriesDropDownList
+        {
+            get => _TranscationCategoriesDropDownList; set
+            {
+                _TranscationCategoriesDropDownList = value;
+                RaisePropertyChanged("TranscationCategoriesDropDownList");
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public IPaymentTypesListViewModel PaymentTypesDropDownList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        /// <summary>
+        /// 
+        /// </summary>
+        public ITicketPeriodsListViewModel TicketPeriodsDropDownList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        /// <summary>
+        /// 
+        /// </summary>
+        public ITradingItemsListViewModel TradingItemDropDownList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
     }
 }

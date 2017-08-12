@@ -25,7 +25,7 @@ namespace Tokiku.ViewModels
         #region Id
 
 
-        public new byte Id
+        public byte Id
         {
             get { return CopyofPOCOInstance.Id; }
             set { CopyofPOCOInstance.Id = value; RaisePropertyChanged("Id"); }

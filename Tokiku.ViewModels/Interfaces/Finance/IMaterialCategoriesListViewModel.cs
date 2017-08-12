@@ -2,8 +2,9 @@
 using Tokiku.Entity;
 namespace Tokiku.ViewModels
 {
-    public interface IMaterialCategoriesListViewModel : IDocumentBaseViewModel<MaterialCategories>
+    public interface IMaterialCategoriesListViewModel : IDocumentBaseViewModel
     {
+        void RunQuery(IManufacturersBussinessItemsViewModel Parameter);
         ObservableCollection<IMaterialCategoriesViewModel> MaterialCategories { get; set; }
     }
 }

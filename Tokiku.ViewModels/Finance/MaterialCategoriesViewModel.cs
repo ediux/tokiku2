@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Ioc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ namespace Tokiku.ViewModels
 
         }
 
+        [PreferredConstructor]
         public MaterialCategoriesViewModel(MaterialCategories entity, ICoreDataService CoreDataService)
             : base(entity, CoreDataService)
         {
@@ -30,7 +32,10 @@ namespace Tokiku.ViewModels
         }
         #endregion
 
-
+        public override void Query(MaterialCategories Parameter)
+        {
+            base.Query(Parameter);
+        }
 
     }
 }

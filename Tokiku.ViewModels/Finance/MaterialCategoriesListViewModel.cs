@@ -1,57 +1,44 @@
-﻿using System.Collections.ObjectModel;
+﻿using GalaSoft.MvvmLight.CommandWpf;
+using System;
+using System.Collections.ObjectModel;
 using Tokiku.DataServices;
 using Tokiku.Entity;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace Tokiku.ViewModels
 {
-    public class MaterialCategoriesListViewModel : DocumentBaseViewModel<MaterialCategories>, IMaterialCategoriesListViewModel
+    public class MaterialCategoriesListViewModel : DocumentBaseViewModel, IMaterialCategoriesListViewModel
     {
+        private IFinancialManagementDataService _FinancialManagementDataService;
 
-        public MaterialCategoriesListViewModel(ICoreDataService CoreDataService) : base(CoreDataService)
+        public MaterialCategoriesListViewModel(IFinancialManagementDataService FinancialManagementDataService, ICoreDataService CoreDataService) : base(CoreDataService)
         {
-
+            _FinancialManagementDataService = FinancialManagementDataService;
+            QueryCommand = new RelayCommand<IManufacturersBussinessItemsViewModel>(RunQuery);
         }
 
+        [PreferredConstructor]
         public MaterialCategoriesListViewModel(MaterialCategories entity, 
-            ICoreDataService CoreDataService) : base(entity, CoreDataService)
+            IFinancialManagementDataService FinancialManagementDataService,
+            ICoreDataService CoreDataService) : base(CoreDataService)
         {
+            _FinancialManagementDataService = FinancialManagementDataService;
+            QueryCommand = new RelayCommand<IManufacturersBussinessItemsViewModel>(RunQuery);
+            
+        }
 
+        public override void Query(object Parameter)
+        {
+            
         }
 
         private ObservableCollection<IMaterialCategoriesViewModel> _MaterialCategories;
 
         public ObservableCollection<IMaterialCategoriesViewModel> MaterialCategories { get => _MaterialCategories; set { _MaterialCategories = value; RaisePropertyChanged("MaterialCategories"); } }
-        //public MaterialCategoriesViewModelCollection(IEnumerable<MaterialCategoriesViewModel> source) : base(source)
-        //{
 
-        //}
-        ////private ManufacturersManageController controller;
-
-
-
-        //public static MaterialCategoriesViewModelCollection Query()
-        //{
-        //    return Query<MaterialCategoriesViewModelCollection, MaterialCategories>("ManufacturersManage", "GetMaterialCategoriesList");
-
-        //    //var result = await controller.GetMaterialCategoriesListAsync();
-        //    //if (!result.HasError)
-        //    //{
-        //    //    if (result.Result.Any())
-        //    //    {
-        //    //        ClearItems();
-        //    //        foreach (var item in result.Result)
-        //    //        {
-        //    //            MaterialCategoriesViewModel model = new MaterialCategoriesViewModel();
-        //    //            model.SetModel(item);
-        //    //            Add(model);
-        //    //        }
-        //    //    }
-        //    //}
-        //    //else
-        //    //{
-        //    //    Errors = result.Errors;
-        //    //    HasError = result.HasError;
-        //    //}
-        //}
+        public virtual void RunQuery(IManufacturersBussinessItemsViewModel Parameter)
+        {
+            
+        }
     }
 }

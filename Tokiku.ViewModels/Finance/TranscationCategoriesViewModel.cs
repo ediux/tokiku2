@@ -25,14 +25,11 @@ namespace Tokiku.ViewModels
         }
         #region Id
 
-
-        public new int Id
+        public int Id
         {
             get { return CopyofPOCOInstance.Id; }
             set { CopyofPOCOInstance.Id = value; RaisePropertyChanged("Id"); }
         }
-
-
 
         #endregion
 

@@ -27,7 +27,7 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 編號
         /// </summary>
-        public new int Id
+        public int Id
         {
             get { return CopyofPOCOInstance.Id; }
             set { CopyofPOCOInstance.Id = value; RaisePropertyChanged("Id"); }

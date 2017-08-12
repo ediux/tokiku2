@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
 using Tokiku.DataServices;
 using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class PaymentTypesListViewModel : DocumentBaseViewModel<PaymentTypes>, IPaymentTypesListViewModel
+    public class PaymentTypesListViewModel : DocumentBaseViewModel, IPaymentTypesListViewModel
     {
         private IFinancialManagementDataService _FinancialManagementDataService;
 
@@ -27,5 +28,8 @@ namespace Tokiku.ViewModels
                 RaisePropertyChanged("PaymentTypesList");
             }
         }
+
+        private ICommand _RefreshFromPaymentTypesCommand;
+        public ICommand RefreshFromPaymentTypesCommand { get => _RefreshFromPaymentTypesCommand; set { _RefreshFromPaymentTypesCommand = value; RaisePropertyChanged("RefreshFromPaymentTypesCommand"); } }
     }
 }
