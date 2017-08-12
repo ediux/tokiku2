@@ -21,9 +21,11 @@ namespace Tokiku.ViewModels
 
         }
 
-        #region MaterialCategoriesId
+        #region MaterialCategoriesId 材料類別Id
 
-
+        /// <summary>
+        /// 材料類別Id
+        /// </summary>
         public Guid? MaterialCategoriesId
         {
             get { return CopyofPOCOInstance.MaterialCategoriesId; }
@@ -32,7 +34,7 @@ namespace Tokiku.ViewModels
 
         #endregion
 
-        #region MaterialCategories
+        #region MaterialCategories 材料類別
         /// <summary>
         /// 材料類別
         /// </summary>
@@ -46,7 +48,7 @@ namespace Tokiku.ViewModels
 
         #endregion
 
-        #region Name
+        #region Name 交易品項
 
         /// <summary>
         /// 交易品項
@@ -59,9 +61,11 @@ namespace Tokiku.ViewModels
 
         #endregion
 
-        #region PaymentTypeId
+        #region PaymentTypeId  支付方式識別碼(Id)
 
-
+        /// <summary>
+        /// 支付方式識別碼(Id)
+        /// </summary>
         public byte PaymentTypeId
         {
             get { return CopyofPOCOInstance.PaymentTypeId.HasValue ? CopyofPOCOInstance.PaymentTypeId.Value : (byte)0; }
@@ -70,7 +74,7 @@ namespace Tokiku.ViewModels
 
         #endregion
 
-        #region PaymentTypeName 
+        #region PaymentTypeName 支付方式名稱
 
         /// <summary>
         /// 選定的支付方式顯示文字
@@ -83,9 +87,11 @@ namespace Tokiku.ViewModels
 
         #endregion
 
-        #region TicketPeriodId
+        #region TicketPeriodId 票期ID
 
-
+        /// <summary>
+        /// 票期的識別碼
+        /// </summary>
         public int TicketPeriodId
         {
             get { return CopyofPOCOInstance.TicketPeriodId.HasValue ? CopyofPOCOInstance.TicketPeriodId.Value : 0; }
@@ -108,7 +114,7 @@ namespace Tokiku.ViewModels
 
         #endregion
 
-        #region TicketPeriod 
+        #region TicketPeriod 票期名稱
 
         /// <summary>
         /// 所選票期顯示的文字
@@ -122,14 +128,26 @@ namespace Tokiku.ViewModels
 
         #region ManufacturersId
 
+        /// <summary>
+        /// 關聯的廠商識別碼
+        /// </summary>
         public Guid ManufacturersId
         {
             get { return CopyofPOCOInstance.ManufacturersId; }
             set { CopyofPOCOInstance.ManufacturersId = value; RaisePropertyChanged("ManufacturersId"); }
         }
 
+        #endregion
 
-
+        #region 關聯的廠商
+        /// <summary>
+        /// 關聯的廠商
+        /// </summary>
+        public Manufacturers Manufacturers
+        {
+            get { return CopyofPOCOInstance.Manufacturers; }
+            set { CopyofPOCOInstance.Manufacturers = value; RaisePropertyChanged("Manufacturers"); }
+        }
         #endregion
 
         #region TranscationCategoriesId
@@ -160,10 +178,10 @@ namespace Tokiku.ViewModels
 
         #endregion
 
-        #region TranscationCategories 
+        #region TranscationCategories 交易類別名稱
 
         /// <summary>
-        /// 交易類別
+        /// 交易類別名稱
         /// </summary>
         public string TranscationCategories
         {
@@ -175,12 +193,13 @@ namespace Tokiku.ViewModels
         #endregion
 
 
-
-        public Manufacturers Manufacturers
-        {
-            get { return CopyofPOCOInstance.Manufacturers; }
-            set { Manufacturers = value; RaisePropertyChanged("Manufacturers"); }
-        }
+        /// <summary>
+        /// 材料類別選擇清單
+        /// </summary>
+        public IMaterialCategoriesListViewModel MaterialCategoriesList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ITranscationCategoriesListViewModel TranscationCategoriesList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ITicketTypesListViewModel TicketTypesList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public IPaymentTypesListViewModel PaymentTypesList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public IMaterialCategoriesListViewModel MaterialCategoriesList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public ITranscationCategoriesListViewModel TranscationCategoriesList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }

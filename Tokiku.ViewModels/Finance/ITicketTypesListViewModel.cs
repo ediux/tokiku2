@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {

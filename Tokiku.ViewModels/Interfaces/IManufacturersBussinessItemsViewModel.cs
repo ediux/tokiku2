@@ -34,6 +34,6 @@ namespace Tokiku.ViewModels
         ITicketPeriodsListViewModel TicketPeriodsList { get; set; }
 
 
-
+        IPaymentTypesListViewModel PaymentTypesList { get; set; }
     }
 }
