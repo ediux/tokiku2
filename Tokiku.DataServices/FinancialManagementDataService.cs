@@ -70,6 +70,11 @@ namespace Tokiku.DataServices
             throw new NotImplementedException();
         }
 
+        public TranscationCategories Add(TranscationCategories model)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<PaymentTypes> AddRange(IEnumerable<PaymentTypes> models)
         {
             throw new NotImplementedException();
@@ -90,6 +95,11 @@ namespace Tokiku.DataServices
             throw new NotImplementedException();
         }
 
+        public IEnumerable<TranscationCategories> AddRange(IEnumerable<TranscationCategories> models)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<PaymentTypes> DirectExecuteSQL(string tsql, params object[] parameters)
         {
             throw new NotImplementedException();
@@ -105,6 +115,9 @@ namespace Tokiku.DataServices
                                   orderby q.Id ascending
                                   select q;
 
+                if (filiter != null)
+                    return queryresult.Where(filiter);
+
                 return queryresult;
             }
             catch (Exception ex)
@@ -116,37 +129,200 @@ namespace Tokiku.DataServices
 
         public IEnumerable<TicketPeriod> GetAll(Expression<Func<TicketPeriod, bool>> filiter = null)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var repo = _TicketPeriodRepository;
+
+                var queryresult = from q in repo.All()
+                                  orderby q.Id ascending
+                                  select q;
+
+                if (filiter != null)
+                    return queryresult.Where(filiter);
+
+                return queryresult;
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(ex);
+                return null;
+            }
         }
 
         public IEnumerable<PromissoryNoteManagement> GetAll(Expression<Func<PromissoryNoteManagement, bool>> filiter = null)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var repo = _PromissoryNoteManagementRepository ;
+
+                var queryresult = from q in repo.All()
+                                  orderby q.Id ascending
+                                  select q;
+
+                if (filiter != null)
+                    return queryresult.Where(filiter);
+
+                return queryresult;
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(ex);
+                return null;
+            }
         }
 
         public IEnumerable<MaterialCategories> GetAll(Expression<Func<MaterialCategories, bool>> filiter = null)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var repo = _MaterialCategoriesRepository;
+
+                var queryresult = from q in repo.All()
+                                  orderby q.Id ascending
+                                  select q;
+
+                if (filiter != null)
+                    return queryresult.Where(filiter);
+
+                return queryresult;
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(ex);
+                return null;
+            }
+        }
+
+        public IEnumerable<TranscationCategories> GetAll(Expression<Func<TranscationCategories, bool>> filiter = null)
+        {
+            try
+            {
+                var repo = _TranscationCategoriesRepository;
+
+                var queryresult = from q in repo.All()
+                                  orderby q.Id ascending
+                                  select q;
+
+                if (filiter != null)
+                    return queryresult.Where(filiter);
+
+                return queryresult;
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(ex);
+                return null;
+            }
         }
 
         public PaymentTypes GetSingle(Expression<Func<PaymentTypes, bool>> filiter)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var repo = _PaymentTypesRepository;
+
+                var queryresult = from q in repo.All()
+                                  orderby q.Id ascending
+                                  select q;
+
+                if (filiter != null)
+                    return queryresult.Where(filiter).SingleOrDefault();
+
+                return queryresult.SingleOrDefault();
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(ex);
+                return null;
+            }
         }
 
         public TicketPeriod GetSingle(Expression<Func<TicketPeriod, bool>> filiter)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var repo = _TicketPeriodRepository;
+
+                var queryresult = from q in repo.All()
+                                  orderby q.Id ascending
+                                  select q;
+
+                if (filiter != null)
+                    return queryresult.Where(filiter).SingleOrDefault();
+
+                return queryresult.SingleOrDefault();
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(ex);
+                return null;
+            }
         }
 
         public PromissoryNoteManagement GetSingle(Expression<Func<PromissoryNoteManagement, bool>> filiter)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var repo = _PromissoryNoteManagementRepository;
+
+                var queryresult = from q in repo.All()
+                                  orderby q.Id ascending
+                                  select q;
+
+                if (filiter != null)
+                    return queryresult.Where(filiter).SingleOrDefault();
+
+                return queryresult.SingleOrDefault();
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(ex);
+                return null;
+            }
         }
 
         public MaterialCategories GetSingle(Expression<Func<MaterialCategories, bool>> filiter)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var repo = _MaterialCategoriesRepository;
+
+                var queryresult = from q in repo.All()
+                                  orderby q.Id ascending
+                                  select q;
+
+                if (filiter != null)
+                    return queryresult.Where(filiter).SingleOrDefault();
+
+                return queryresult.SingleOrDefault();
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(ex);
+                return null;
+            }
+        }
+
+        public TranscationCategories GetSingle(Expression<Func<TranscationCategories, bool>> filiter)
+        {
+            try
+            {
+                var repo = _TranscationCategoriesRepository;
+
+                var queryresult = from q in repo.All()
+                                  orderby q.Id ascending
+                                  select q;
+
+                if (filiter != null)
+                    return queryresult.Where(filiter).SingleOrDefault();
+
+                return queryresult.SingleOrDefault();
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(ex);
+                return null;
+            }
         }
 
         public void Remove(PaymentTypes model)
@@ -165,6 +341,11 @@ namespace Tokiku.DataServices
         }
 
         public void Remove(MaterialCategories model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(TranscationCategories model)
         {
             throw new NotImplementedException();
         }
@@ -194,6 +375,11 @@ namespace Tokiku.DataServices
             throw new NotImplementedException();
         }
 
+        public void RemoveWhere(Expression<Func<TranscationCategories, bool>> filiter = null)
+        {
+            throw new NotImplementedException();
+        }
+
         public ICollection<PaymentTypes> SearchByText(string filiter)
         {
             throw new NotImplementedException();
@@ -219,6 +405,11 @@ namespace Tokiku.DataServices
             throw new NotImplementedException();
         }
 
+        public TranscationCategories Update(TranscationCategories Source, Expression<Func<TranscationCategories, bool>> filiter = null)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<PaymentTypes> UpdateRange(IEnumerable<PaymentTypes> MultiSource, Expression<Func<PaymentTypes, bool>> filiter = null)
         {
             throw new NotImplementedException();
@@ -239,6 +430,11 @@ namespace Tokiku.DataServices
             throw new NotImplementedException();
         }
 
+        public IEnumerable<TranscationCategories> UpdateRange(IEnumerable<TranscationCategories> MultiSource, Expression<Func<TranscationCategories, bool>> filiter = null)
+        {
+            throw new NotImplementedException();
+        }
+
         IEnumerable<TicketPeriod> IDataService<TicketPeriod>.DirectExecuteSQL(string tsql, params object[] parameters)
         {
             throw new NotImplementedException();
@@ -254,6 +450,11 @@ namespace Tokiku.DataServices
             throw new NotImplementedException();
         }
 
+        IEnumerable<TranscationCategories> IDataService<TranscationCategories>.DirectExecuteSQL(string tsql, params object[] parameters)
+        {
+            throw new NotImplementedException();
+        }
+
         ICollection<TicketPeriod> IDataService<TicketPeriod>.SearchByText(string filiter)
         {
             throw new NotImplementedException();
@@ -265,6 +466,11 @@ namespace Tokiku.DataServices
         }
 
         ICollection<MaterialCategories> IDataService<MaterialCategories>.SearchByText(string filiter)
+        {
+            throw new NotImplementedException();
+        }
+
+        ICollection<TranscationCategories> IDataService<TranscationCategories>.SearchByText(string filiter)
         {
             throw new NotImplementedException();
         }

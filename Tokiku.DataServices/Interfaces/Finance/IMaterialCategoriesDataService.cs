@@ -7,7 +7,7 @@ using Tokiku.MVVM;
 
 namespace Tokiku.DataServices
 {
-    public interface IMaterialCategoryDataService : IDataService<MaterialCategories>
+    public interface IMaterialCategoriesDataService : IDataService<MaterialCategories>
     {
     }
 }

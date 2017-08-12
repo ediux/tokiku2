@@ -64,23 +64,24 @@
     <Compile Include="CoreDataService.cs" />
     <Compile Include="CustomerRelationshipManagementDataService.cs" />
     <Compile Include="FinancialManagementDataService.cs" />
-    <Compile Include="IMaterialCategoryDataService.cs" />
-    <Compile Include="Interfaces\IEncodingSubSystemDataService.cs" />
-    <Compile Include="Interfaces\IAccessLogDataService.cs" />
-    <Compile Include="Interfaces\IBusinessItemsDataService.cs" />
-    <Compile Include="Interfaces\IClientDataService.cs" />
-    <Compile Include="Interfaces\IContactsDataService.cs" />
-    <Compile Include="Interfaces\ICoreDataService.cs" />
-    <Compile Include="Interfaces\ICustomerRelationshipManagementDataService.cs" />
-    <Compile Include="Interfaces\IFinancialManagementDataService.cs" />
-    <Compile Include="Interfaces\IManufacturersDataService.cs" />
-    <Compile Include="Interfaces\IManufacturingExecutionDataService.cs" />
-    <Compile Include="Interfaces\IRoleDataService.cs" />
-    <Compile Include="Interfaces\IUserDataService.cs" />
-    <Compile Include="Interfaces\ISupplierTranscationDataService.cs" />
-    <Compile Include="IPaymentTypesDataService.cs" />
-    <Compile Include="IPromissoryNoteManagementDataService.cs" />
-    <Compile Include="ITicketPeriodDataService.cs" />
+    <Compile Include="Interfaces\Finance\IMaterialCategoriesDataService.cs" />
+    <Compile Include="Interfaces\Core\IEncodingSubSystemDataService.cs" />
+    <Compile Include="Interfaces\Core\IAccessLogDataService.cs" />
+    <Compile Include="Interfaces\MES\IBusinessItemsDataService.cs" />
+    <Compile Include="Interfaces\CRM\IClientDataService.cs" />
+    <Compile Include="Interfaces\Core\IContactsDataService.cs" />
+    <Compile Include="Interfaces\Core\ICoreDataService.cs" />
+    <Compile Include="Interfaces\CRM\ICustomerRelationshipManagementDataService.cs" />
+    <Compile Include="Interfaces\Finance\IFinancialManagementDataService.cs" />
+    <Compile Include="Interfaces\MES\IManufacturersDataService.cs" />
+    <Compile Include="Interfaces\MES\IManufacturingExecutionDataService.cs" />
+    <Compile Include="Interfaces\Core\IRoleDataService.cs" />
+    <Compile Include="Interfaces\Core\IUserDataService.cs" />
+    <Compile Include="Interfaces\MES\ISupplierTranscationDataService.cs" />
+    <Compile Include="Interfaces\Finance\IPaymentTypesDataService.cs" />
+    <Compile Include="Interfaces\Finance\IPromissoryNoteManagementDataService.cs" />
+    <Compile Include="Interfaces\Finance\ITicketPeriodDataService.cs" />
+    <Compile Include="ITranscationCategoriesDataService.cs" />
     <Compile Include="ManufacturingExecutionDataService.cs" />
     <Compile Include="MVVMLocatorMaker.cs">
       <DependentUpon>MVVMLocatorMaker.tt</DependentUpon>
@@ -112,6 +113,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interfaces\WMS\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
