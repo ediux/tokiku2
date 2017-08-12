@@ -98,6 +98,8 @@ namespace Tokiku.Entity
         public virtual DbSet<AbnormalQualityDetails> AbnormalQualityDetails { get; set; }
         public virtual DbSet<View_ShippingList> View_ShippingList { get; set; }
         public virtual DbSet<View_RequiredControlTable> View_RequiredControlTable { get; set; }
+        public virtual DbSet<TradingItems> TradingItems { get; set; }
+        public virtual DbSet<View_ObtainMaterial> View_ObtainMaterial { get; set; }
     
         [DbFunction("TokikuEntities", "SplitString")]
         public virtual IQueryable<SplitString_Result> SplitString(string splitStr, string splitChar)

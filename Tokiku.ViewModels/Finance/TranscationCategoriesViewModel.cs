@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Ioc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-   
+
 
     public class TranscationCategoriesViewModel : EntityBaseViewModel<TranscationCategories>, ITranscationCategoriesViewModel
     {
@@ -16,6 +17,8 @@ namespace Tokiku.ViewModels
         {
 
         }
+
+        [PreferredConstructor]
         public TranscationCategoriesViewModel(TranscationCategories entity) : base(entity)
         {
 
@@ -29,7 +32,7 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.Id = value; RaisePropertyChanged("Id"); }
         }
 
-   
+
 
         #endregion
 
@@ -42,21 +45,8 @@ namespace Tokiku.ViewModels
             set { CopyofPOCOInstance.Name = value; RaisePropertyChanged("Name"); }
         }
 
-    
+
         #endregion
 
-        //public override void SetModel(dynamic entity)
-        //{
-        //    try
-        //    {
-        //        TranscationCategories data = (TranscationCategories)entity;
-        //        BindingFromModel(data, this);
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        setErrortoModel(this, ex);
-        //    }
-        //}
     }
 }

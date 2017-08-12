@@ -9,7 +9,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class ManufacturersBussinessTranscationsListViewModel : DocumentBaseViewModel<SupplierTranscationItem>, IManufacturersBussinessTranscationsListViewModel
+    public class ManufacturersBussinessTranscationsListViewModel : DocumentBaseViewModel, IManufacturersBussinessTranscationsListViewModel
     {
         private IManufacturingExecutionDataService _ManufacturingExecutionDataService;
         public ManufacturersBussinessTranscationsListViewModel(IManufacturingExecutionDataService ManufacturingExecutionDataService

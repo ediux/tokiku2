@@ -3,8 +3,8 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public interface ITranscationCategoriesListViewModel : IDocumentBaseViewModel<TranscationCategories>
+    public interface ITranscationCategoriesListViewModel : IDocumentBaseViewModel
     {
-        ObservableCollection<TranscationCategoriesViewModel> TranscationCategories { get; set; }
+        ObservableCollection<ITranscationCategoriesViewModel> TranscationCategories { get; set; }
     }
 }

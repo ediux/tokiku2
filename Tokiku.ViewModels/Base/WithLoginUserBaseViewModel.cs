@@ -8,11 +8,11 @@ namespace Tokiku.ViewModels
     /// </summary>
     public abstract class WithLoginUserBaseViewModel : BaseViewModel, IBaseViewModelWithLoginedUser
     {
-        protected IUserDataService _UserDataService;
+        protected ICoreDataService _CoreDataService;
 
-        public WithLoginUserBaseViewModel(IUserDataService UserDataService) : base()
+        public WithLoginUserBaseViewModel(ICoreDataService CoreDataService) : base()
         {
-            _UserDataService = UserDataService;
+            _CoreDataService = CoreDataService;
         }
 
         private IUserViewModel _LoginedUser;
@@ -26,7 +26,7 @@ namespace Tokiku.ViewModels
             {
                 if (_LoginedUser == null)
                 {
-                    _LoginedUser = _UserDataService.GetCurrentLoginedUser();
+                    _LoginedUser = _CoreDataService.GetCurrentLoginedUser();
                 }
 
                 return _LoginedUser;
@@ -36,11 +36,11 @@ namespace Tokiku.ViewModels
                 if (_LoginedUser != value)
                 {
                     //重新登入
-                    _UserDataService.Logout();
+                    _CoreDataService.Logout();
                     ILoginViewModel model = SimpleIoc.Default.GetInstance<ILoginViewModel>();
                     model.UserName = value.UserName;
                     model.Password = value.Password;
-                    _UserDataService.Login(model);
+                    _CoreDataService.Login(model);
                 }
             }
         }

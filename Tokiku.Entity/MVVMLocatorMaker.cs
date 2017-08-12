@@ -559,6 +559,12 @@ namespace Tokiku.Entity
 			if (!SimpleIoc.Default.IsRegistered<TicketTypesMetaData>())
 				SimpleIoc.Default.Register<TicketTypesMetaData>();
 			
+			if (!SimpleIoc.Default.IsRegistered<TradingItems>())
+				SimpleIoc.Default.Register<TradingItems>();
+			
+			if (!SimpleIoc.Default.IsRegistered<TradingItemsMetaData>())
+				SimpleIoc.Default.Register<TradingItemsMetaData>();
+			
 			if (!SimpleIoc.Default.IsRegistered<TranscationCategories>())
 				SimpleIoc.Default.Register<TranscationCategories>();
 			
@@ -582,6 +588,12 @@ namespace Tokiku.Entity
 			
 			if (!SimpleIoc.Default.IsRegistered<View_ManufacturersBussinessTranscationsMetaData>())
 				SimpleIoc.Default.Register<View_ManufacturersBussinessTranscationsMetaData>();
+			
+			if (!SimpleIoc.Default.IsRegistered<View_ObtainMaterial>())
+				SimpleIoc.Default.Register<View_ObtainMaterial>();
+			
+			if (!SimpleIoc.Default.IsRegistered<View_ObtainMaterialMetaData>())
+				SimpleIoc.Default.Register<View_ObtainMaterialMetaData>();
 			
 			if (!SimpleIoc.Default.IsRegistered<View_OrderControlTable>())
 				SimpleIoc.Default.Register<View_OrderControlTable>();
@@ -1972,6 +1984,20 @@ namespace Tokiku.Entity
 			get => SimpleIoc.Default.GetInstance<TicketTypesMetaData>();
 		}
 		/// <summary>
+        /// 取得IoC容器中的 TradingItems 物件執行個體。
+        /// </summary>
+		public TradingItems TradingItems
+		{
+			get => SimpleIoc.Default.GetInstance<TradingItems>();
+		}
+		/// <summary>
+        /// 取得IoC容器中的 TradingItemsMetaData 物件執行個體。
+        /// </summary>
+		public TradingItemsMetaData TradingItemsMetaData
+		{
+			get => SimpleIoc.Default.GetInstance<TradingItemsMetaData>();
+		}
+		/// <summary>
         /// 取得IoC容器中的 TranscationCategories 物件執行個體。
         /// </summary>
 		public TranscationCategories TranscationCategories
@@ -2026,6 +2052,20 @@ namespace Tokiku.Entity
 		public View_ManufacturersBussinessTranscationsMetaData View_ManufacturersBussinessTranscationsMetaData
 		{
 			get => SimpleIoc.Default.GetInstance<View_ManufacturersBussinessTranscationsMetaData>();
+		}
+		/// <summary>
+        /// 取得IoC容器中的 View_ObtainMaterial 物件執行個體。
+        /// </summary>
+		public View_ObtainMaterial View_ObtainMaterial
+		{
+			get => SimpleIoc.Default.GetInstance<View_ObtainMaterial>();
+		}
+		/// <summary>
+        /// 取得IoC容器中的 View_ObtainMaterialMetaData 物件執行個體。
+        /// </summary>
+		public View_ObtainMaterialMetaData View_ObtainMaterialMetaData
+		{
+			get => SimpleIoc.Default.GetInstance<View_ObtainMaterialMetaData>();
 		}
 		/// <summary>
         /// 取得IoC容器中的 View_OrderControlTable 物件執行個體。

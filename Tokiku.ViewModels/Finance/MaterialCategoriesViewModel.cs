@@ -4,18 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Tokiku.DataServices;
 using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class MaterialCategoriesViewModel : EntityBaseViewModel<MaterialCategories>, IMaterialCategoriesViewModel
+    public class MaterialCategoriesViewModel : DocumentBaseViewModel<MaterialCategories>, IMaterialCategoriesViewModel
     {
-        public MaterialCategoriesViewModel()
+        public MaterialCategoriesViewModel(ICoreDataService CoreDataService) : base(CoreDataService)
         {
 
         }
 
-        public MaterialCategoriesViewModel(MaterialCategories entity) : base(entity)
+        public MaterialCategoriesViewModel(MaterialCategories entity, ICoreDataService CoreDataService)
+            : base(entity, CoreDataService)
         {
 
         }

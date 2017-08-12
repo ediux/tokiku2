@@ -10,12 +10,13 @@ namespace Tokiku.ViewModels
 {
     public class ManufacturerFactoryViewModel : EntityBaseViewModel<ManufacturersFactories>, IManufacturerFactoryViewModel
     {
-        [PreferredConstructor]
+
         public ManufacturerFactoryViewModel()
         {
-            
+
         }
 
+        [PreferredConstructor]
         public ManufacturerFactoryViewModel(ManufacturersFactories entity) : base(entity)
         {
 

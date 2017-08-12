@@ -14,10 +14,6 @@ namespace Tokiku.Entity
         [Required]
         public System.Guid Id { get; set; }
         public Nullable<System.Guid> MaterialCategoriesId { get; set; }
-        
-        [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
-        [Required]
-        public string Name { get; set; }
         public Nullable<byte> PaymentTypeId { get; set; }
         public Nullable<int> TicketPeriodId { get; set; }
         [Required]

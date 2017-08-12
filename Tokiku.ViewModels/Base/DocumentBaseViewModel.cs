@@ -9,6 +9,187 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
+    public abstract class DocumentBaseViewModel : WithLoginUserBaseViewModel, IDocumentBaseViewModel
+    {
+        public DocumentBaseViewModel(ICoreDataService CoreDataService) : base(CoreDataService)
+        {
+            _ModeChangedCommand = new RelayCommand<DocumentLifeCircle>(RunModeChanged);
+
+            _Status = new DocumentStatusViewModel();
+
+            _SaveCommand = new RelayCommand(Save);
+            _QueryCommnand = new RelayCommand<object>(Query);
+            _DeleteCommand = new RelayCommand(Delete);
+            _CreateNewCommand = new RelayCommand(CreateNew);
+            _ReplyCommand = new RelayCommand<object>(Relay);
+        }
+
+        #region 文件狀態
+        private IDocumentStatusViewModel _Status;
+        /// <summary>
+        /// 文件狀態
+        /// </summary>
+        public IDocumentStatusViewModel Status { get => _Status; set => _Status = value; }
+        #endregion
+
+        #region 文件操作模式
+        protected DocumentLifeCircle _Mode;
+
+        /// <summary>
+        /// 文件操作模式
+        /// </summary>
+        public virtual DocumentLifeCircle Mode { get => _Mode; set { _Mode = value; RaisePropertyChanged("Mode"); } }
+        #endregion
+
+        #region 異動紀錄
+        private ObservableCollection<IAccessLogViewModel> _AccessLogs = null;
+        /// <summary>
+        /// 異動紀錄
+        /// </summary>
+        public ObservableCollection<IAccessLogViewModel> AccessLogs => _AccessLogs;
+        #endregion
+
+        #region 文件生命週期變更命令
+
+        private ICommand _ModeChangedCommand;
+        /// <summary>
+        /// 取得或設定文件生命週期變更命令物件參考。
+        /// </summary>
+        public ICommand ModeChangedCommand { get => _ModeChangedCommand; set { _ModeChangedCommand = value; RaisePropertyChanged("ModeChangedCommand"); } }
+
+        #endregion
+
+        protected virtual void RunModeChanged(DocumentLifeCircle Mode)
+        {
+            _Mode = Mode;
+            RaisePropertyChanged("Mode");
+        }
+
+        #region 模型 WPF MVVM命令
+        private ICommand _CreateNewCommand = null;
+
+        private ICommand _DeleteCommand;
+
+        private ICommand _QueryCommnand = null;
+
+        private ICommand _ReplyCommand;
+
+        private ICommand _SaveCommand = null;
+
+        /// <summary>
+        /// 取得或設定當引發新建項目時的命令項目。
+        /// </summary>
+        public ICommand CreateNewCommand { get => _CreateNewCommand; set => _CreateNewCommand = value; }
+
+        /// <summary>
+        /// 取得或設定當引發刪除項目時的命令項目。
+        /// </summary>
+        public ICommand DeleteCommand { get => _DeleteCommand; set => _DeleteCommand = value; }
+
+        /// <summary>
+        /// 取得或設定當引發查詢項目時的命令項目。
+        /// </summary>
+        public ICommand QueryCommand { get => _QueryCommnand; set => _QueryCommnand = value; }
+
+        /// <summary>
+        /// 取得或設定當引發來自其他項目時的命令項目。
+        /// </summary>
+        public ICommand RelayCommand { get => _ReplyCommand; set { _ReplyCommand = value; } }
+
+        /// <summary>
+        /// 取得或設定當引發儲存時的命令項目。
+        /// </summary>
+        public ICommand SaveCommand { get => _SaveCommand; set => _SaveCommand = value; }
+
+        #endregion
+
+        #region 命令處理方法
+        public virtual void CreateNew()
+        {
+            try
+            {
+                //ControllerMappingAttribute attr = MethodBase.GetCurrentMethod().GetCustomAttribute<ControllerMappingAttribute>();
+
+                //if (attr != null)
+                //{
+                //    //ExecuteAction<TPOCO>(attr.Name, "CreateNew");
+                //}
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+        }
+
+        public virtual void Delete()
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+        }
+
+        public virtual void Load()
+        {
+            try
+            {
+                //ControllerMappingAttribute attr = MethodBase.GetCurrentMethod().GetCustomAttribute<ControllerMappingAttribute>();
+
+                //if (attr != null)
+                //{
+                //    if (Filiter != null)
+                //    {
+                //        ExecuteAction<TPOCO>(attr.Name, "Query", Filiter);
+                //    }
+                //    else
+                //    {
+                //        ExecuteAction<TPOCO>(attr.Name, "Query");
+                //    }
+
+                //}
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+        }
+
+        /// <summary>
+        /// 向前相容性方法
+        /// </summary>
+        public virtual void Query(object Parameter)
+        {
+            Load();
+        }
+
+        public virtual void Relay(object source)
+        {
+
+        }
+
+        public virtual void Save()
+        {
+            try
+            {
+                //ControllerMappingAttribute attr = MethodBase.GetCurrentMethod().GetCustomAttribute<ControllerMappingAttribute>();
+
+                //if (attr != null)
+                //{
+                //    ExecuteAction<TPOCO>(attr.Name, ActionName, CopyofPOCOInstance, true);
+                //}
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+        }
+        #endregion
+    }
+
     /// <summary>
     /// 以文件為輸入模式的檢視模型抽象基底類別
     /// </summary>
@@ -33,7 +214,7 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 文件操作模式
         /// </summary>
-        public virtual DocumentLifeCircle Mode { get => _Mode; set { _Mode = value;  RaisePropertyChanged("Mode"); } }
+        public virtual DocumentLifeCircle Mode { get => _Mode; set { _Mode = value; RaisePropertyChanged("Mode"); } }
         #endregion
 
         #region 資料識別碼
@@ -281,15 +462,15 @@ namespace Tokiku.ViewModels
         /// <summary>
         /// 取得或設定文件生命週期變更命令物件參考。
         /// </summary>
-        public ICommand ModeChangedCommand { get => _ModeChangedCommand; set { _ModeChangedCommand = value; RaisePropertyChanged("ModeChangedCommand"); } } 
-        
+        public ICommand ModeChangedCommand { get => _ModeChangedCommand; set { _ModeChangedCommand = value; RaisePropertyChanged("ModeChangedCommand"); } }
+
         #endregion
 
         [PreferredConstructor]
         public DocumentBaseViewModel(ICoreDataService CoreDataService)
         {
             _CoreDataService = CoreDataService;
-
+            _Status = new DocumentStatusViewModel();
             _ModeChangedCommand = new RelayCommand<DocumentLifeCircle>(RunModeChanged);
 
             var prop = _EntityType.GetProperty("CreateUserId");
@@ -310,7 +491,7 @@ namespace Tokiku.ViewModels
         public DocumentBaseViewModel(TPOCO entity, ICoreDataService CoreDataService) : base(entity)
         {
             _CoreDataService = CoreDataService;
-
+            _Status = new DocumentStatusViewModel();
             _ModeChangedCommand = new RelayCommand<DocumentLifeCircle>(RunModeChanged);
 
             var prop = _EntityType.GetProperty("CreateUserId");

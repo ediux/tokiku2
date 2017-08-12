@@ -10,7 +10,7 @@ namespace Tokiku.ViewModels
     /// <summary>
     /// 聯絡人清單控制項檢視模型
     /// </summary>
-    public class ContactListViewModel : DocumentBaseViewModel<Contacts>, IContactListViewModel
+    public class ContactListViewModel : DocumentBaseViewModel, IContactListViewModel
     {
         private ICoreDataService _UserDataService;
 

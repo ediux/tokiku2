@@ -504,6 +504,12 @@
     <Compile Include="TicketTypes.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
+    <Compile Include="TradingItems.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TradingItems.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
     <Compile Include="TranscationCategories.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
@@ -671,6 +677,12 @@
     </Compile>
     <Compile Include="View_ManufacturersBussinessTranscationsRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_ObtainMaterial.cs">
+      <DependentUpon>Tokiku.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_ObtainMaterial.Partial.cs">
+      <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
     <Compile Include="View_OrderControlTable.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>

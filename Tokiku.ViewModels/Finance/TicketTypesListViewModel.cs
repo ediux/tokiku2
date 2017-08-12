@@ -9,7 +9,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class TicketTypesListViewModel : DocumentBaseViewModel<TicketTypes>, ITicketTypesListViewModel
+    public class TicketTypesListViewModel : DocumentBaseViewModel, ITicketTypesListViewModel
     {
         public TicketTypesListViewModel(ICoreDataService CoreDataService):base(CoreDataService)
         {

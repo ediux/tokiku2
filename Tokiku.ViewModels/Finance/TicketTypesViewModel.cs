@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Ioc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ namespace Tokiku.ViewModels
         {
 
         }
+        [PreferredConstructor]
         public TicketTypesViewModel(TicketTypes entity) : base(entity)
         {
 
@@ -44,20 +46,6 @@ namespace Tokiku.ViewModels
 
         #endregion
 
-       
-
-        //public override void SetModel(dynamic entity)
-        //{
-        //    try
-        //    {
-        //        TicketTypes data = (TicketTypes)entity;
-        //        BindingFromModel(data, this);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        setErrortoModel(this, ex);
-        //    }
-        //}
         public override string ToString()
         {
             return Name;

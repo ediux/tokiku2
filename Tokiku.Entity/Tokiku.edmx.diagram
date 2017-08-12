@@ -195,6 +195,9 @@
         <AssociationConnector Association="TokikuModel.FK_PickListDetails_PickListDetails" />
         <EntityTypeShape EntityType="TokikuModel.View_ShippingList" Width="1.5" PointX="12.375" PointY="0.75" />
         <EntityTypeShape EntityType="TokikuModel.View_RequiredControlTable" Width="3.875" PointX="7.375" PointY="8.75" />
+        <EntityTypeShape EntityType="TokikuModel.TradingItems" Width="1.5" PointX="12.375" PointY="5.875" />
+        <EntityTypeShape EntityType="TokikuModel.View_ObtainMaterial" Width="1.5" PointX="12.375" PointY="9.75" />
+        <AssociationConnector Association="TokikuModel.FK_ManufacturersBussinessItems_TradingItems" />
         </Diagram>
       <Diagram DiagramId="da028285ff1d445f8957817e8b05eec6" Name="專案主檔" ZoomLevel="86" >
         <EntityTypeShape EntityType="TokikuModel.Projects" Width="1.5" PointX="3" PointY="10.625" />

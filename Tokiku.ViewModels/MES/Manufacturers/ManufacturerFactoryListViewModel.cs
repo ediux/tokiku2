@@ -10,7 +10,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public class ManufacturerFactoryListViewModel : DocumentBaseViewModel<ManufacturersFactories>, IManufacturerFactoryListViewModel
+    public class ManufacturerFactoryListViewModel : DocumentBaseViewModel, IManufacturerFactoryListViewModel
     {
         private IManufacturingExecutionDataService _ManufacturingExecutionDataService;
 

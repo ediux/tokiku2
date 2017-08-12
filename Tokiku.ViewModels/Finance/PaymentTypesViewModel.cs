@@ -7,15 +7,15 @@ using GalaSoft.MvvmLight.Ioc;
 
 namespace Tokiku.ViewModels
 {
-    public class PaymentTypesViewModel : EntityBaseViewModel<PaymentTypes>,IPaymentTypesViewModel
+    public class PaymentTypesViewModel : EntityBaseViewModel<PaymentTypes>, IPaymentTypesViewModel
     {
         [PreferredConstructor]
-        public PaymentTypesViewModel():base()
+        public PaymentTypesViewModel() : base()
         {
 
         }
 
-        public PaymentTypesViewModel(PaymentTypes entity):base(entity)
+        public PaymentTypesViewModel(PaymentTypes entity) : base(entity)
         {
 
         }

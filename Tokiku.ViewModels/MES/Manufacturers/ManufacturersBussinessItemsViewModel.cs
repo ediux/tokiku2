@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Threading;
 using Tokiku.Entity;
 using GalaSoft.MvvmLight.Ioc;
 
@@ -15,12 +9,13 @@ namespace Tokiku.ViewModels
     /// </summary>
     public class ManufacturersBussinessItemsViewModel : EntityBaseViewModel<ManufacturersBussinessItems>, IManufacturersBussinessItemsViewModel
     {
-        [PreferredConstructor]
+
         public ManufacturersBussinessItemsViewModel() : base()
         {
 
         }
 
+        [PreferredConstructor]
         public ManufacturersBussinessItemsViewModel(ManufacturersBussinessItems entity) : base(entity)
         {
 
@@ -58,11 +53,9 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string Name
         {
-            get { return CopyofPOCOInstance.Name; }
-            set { CopyofPOCOInstance.Name = value; RaisePropertyChanged("Name"); }
+            get { return CopyofPOCOInstance.TradingItems.Name; }
+            set { RaisePropertyChanged("Name", CopyofPOCOInstance.TradingItems.Name, value, true); }
         }
-
-
 
         #endregion
 
@@ -79,11 +72,13 @@ namespace Tokiku.ViewModels
 
         #region PaymentTypeName 
 
-
+        /// <summary>
+        /// 選定的支付方式顯示文字
+        /// </summary>
         public string PaymentTypeName
         {
             get { return CopyofPOCOInstance?.PaymentTypes?.PaymentTypeName; }
-            set { RaisePropertyChanged("PaymentTypeName"); }
+            set { RaisePropertyChanged("PaymentTypeName", CopyofPOCOInstance?.PaymentTypes?.PaymentTypeName, value, true); }
         }
 
         #endregion
@@ -116,7 +111,7 @@ namespace Tokiku.ViewModels
         #region TicketPeriod 
 
         /// <summary>
-        /// 票期
+        /// 所選票期顯示的文字
         /// </summary>
         public string TicketPeriod
         {
@@ -145,7 +140,8 @@ namespace Tokiku.ViewModels
         public int? TranscationCategoriesId
         {
             get { return CopyofPOCOInstance.TranscationCategoriesId; }
-            set {
+            set
+            {
                 CopyofPOCOInstance.TranscationCategoriesId = value;
                 RaisePropertyChanged("TranscationCategoriesId");
                 //var result = ExecuteAction<TranscationCategories>(
@@ -185,6 +181,10 @@ namespace Tokiku.ViewModels
             get { return CopyofPOCOInstance.Manufacturers; }
             set { Manufacturers = value; RaisePropertyChanged("Manufacturers"); }
         }
+
+        public IMaterialCategoriesListViewModel MaterialCategoriesList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ITranscationCategoriesListViewModel TranscationCategoriesList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ITicketPeriodsListViewModel TicketPeriodsList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
 
 

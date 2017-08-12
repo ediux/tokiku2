@@ -7,7 +7,7 @@ using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public interface IManufacturersBussinessTranscationsListViewModel : IDocumentBaseViewModel<SupplierTranscationItem>
+    public interface IManufacturersBussinessTranscationsListViewModel : IDocumentBaseViewModel
     {
         ObservableCollection<IManufacturersBussinessTranscationsViewModel> TranscationRecords { get; set; }
     }

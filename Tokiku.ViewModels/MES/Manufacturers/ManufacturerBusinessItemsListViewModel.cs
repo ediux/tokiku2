@@ -14,7 +14,7 @@ namespace Tokiku.ViewModels
     /// <summary>
     /// 廠商主檔:營業項目設定控制項檢視模型
     /// </summary>
-    public class ManufacturerBusinessItemsListViewModel : DocumentBaseViewModel<ManufacturersBussinessItems>, IManufacturerBusinessItemsListViewModel
+    public class ManufacturerBusinessItemsListViewModel : DocumentBaseViewModel, IManufacturerBusinessItemsListViewModel
     {
         private IManufacturingExecutionDataService _ManufacturingExecutionDataService;
 
@@ -28,6 +28,8 @@ namespace Tokiku.ViewModels
 
             QueryCommand = new RelayCommand<Manufacturers>(RunQuery);
             SaveCommand = new RelayCommand<Manufacturers>(RunSave);
+
+            
         }
 
         protected virtual void RunQuery(Manufacturers Parameter)

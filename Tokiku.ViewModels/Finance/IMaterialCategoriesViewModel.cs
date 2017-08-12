@@ -1,9 +1,10 @@
-﻿using Tokiku.Entity;
+﻿using System;
+using Tokiku.Entity;
 
 namespace Tokiku.ViewModels
 {
-    public interface IMaterialCategoriesViewModel : IEntityBaseViewModel<MaterialCategories>
-    {
+    public interface IMaterialCategoriesViewModel : IDocumentBaseViewModel<MaterialCategories>
+    {       
         string Name { get; set; }
     }
 }
