@@ -92,7 +92,7 @@ namespace Tokiku.MVVM
                 }
 
             }
-            catch (Exception ex)
+            catch
             {
                 if (collection == null)
                     collection = Activator.CreateInstance<TCollection>();
@@ -192,12 +192,11 @@ namespace Tokiku.MVVM
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 if (viewmodel == null)
                     viewmodel = Activator.CreateInstance<TView>();
-
-             
+                
                 return viewmodel;
             }
         }

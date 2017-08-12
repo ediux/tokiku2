@@ -48,7 +48,7 @@ namespace TokikuNew
                 {                  
                     mutexIsNew = true;
                 }
-                catch (UnauthorizedAccessException ex)
+                catch (UnauthorizedAccessException)
                 {                    
                     MessageBox.Show("程式已經在執行中!請關閉另一個相同程式!", "東菊金屬ERP系統", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
                     Shutdown();

@@ -154,6 +154,7 @@
       <DependentUpon>SearchBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Behaviors\OnCloseTabButtonClickBehavior.cs" />
+    <Compile Include="Helpers\Behaviors\OnComboBoxSelectionChangedBehavior.cs" />
     <Compile Include="Helpers\Behaviors\OnDataGridMouseDoubleClickBehavior.cs" />
     <Compile Include="Helpers\Behaviors\OnEditButtonClickBehavior.cs" />
     <Compile Include="Helpers\Behaviors\OnMenuItemClickBehavior.cs" />

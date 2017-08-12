@@ -350,7 +350,7 @@ namespace TokikuNew.Controls
                 {
                     // parse the clipboard data
                     List<string[]> rowData = ClipboardHelper.ParseClipboardData();
-                    bool hasAddedNewRow = false;
+                   
 
                     // call OnPastingCellClipboardContent for each cell
                     int minRowIndex = Math.Max(data.Items.IndexOf(data.CurrentItem), 0);
@@ -368,9 +368,9 @@ namespace TokikuNew.Controls
                             // add a new row to be pasted to
                             ICollectionView cv = CollectionViewSource.GetDefaultView(data.Items);
                             IEditableCollectionView iecv = cv as IEditableCollectionView;
+
                             if (iecv != null)
-                            {
-                                hasAddedNewRow = true;
+                            {                              
                                 iecv.AddNew();
                                 if (rowDataIndex + 1 < rowData.Count)
                                 {
