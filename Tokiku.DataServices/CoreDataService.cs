@@ -1,7 +1,9 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -62,7 +64,7 @@ namespace Tokiku.DataServices
                 newLog.CreateTime = DateTime.Now;
                 newLog.DataId = DataId;
                 newLog.DataTableName = DataTableName;
-                newLog.Reason = Reason;
+                newLog.Reason = (Reason.Length > 512) ? Reason.Substring(0, 512) : Reason;
                 newLog.UserId = (Guid)(UserId ?? Guid.Empty);
 
                 _AccessLogRepo.Add(newLog);
@@ -230,11 +232,67 @@ namespace Tokiku.DataServices
 
         public IUsers Update(IUsers Source, Expression<Func<IUsers, bool>> filiter = null)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var repo = _UsersRepo;
+
+                if (repo == null)
+                {
+                    setErrortoModel(string.Format("Can't found data repository of {0}.", typeof(Users).Name));
+                    return Source;
+                }
+
+                string updateContext = JsonConvert.SerializeObject(Source);
+
+                if (filiter != null)
+                {
+                    var fromdatabase = GetSingle(filiter);
+
+                    if (fromdatabase == null)
+                        throw new NullReferenceException("此符合此條件的資料不存在於資料庫!");
+
+                    fromdatabase.IsAnonymous = Source.IsAnonymous;
+                    fromdatabase.LastActivityDate = Source.LastActivityDate;
+                    fromdatabase.LoweredUserName = Source.LoweredUserName;
+                    fromdatabase.MobileAlias = Source.MobileAlias;
+                    fromdatabase.UserName = Source.UserName;
+
+                    repo.UnitOfWork.Commit();
+                }
+                else
+                {
+                    repo.UnitOfWork.Context.Entry(Source).State = EntityState.Modified;
+                    repo.UnitOfWork.Commit();
+                }
+
+                //新增一筆存取紀錄
+                ((IAccessLogDataService)this).AddAccessLog(typeof(Users).Name,
+                    Source.UserId.ToString(), ((IUserDataService)this).GetCurrentLoginedUser().UserId,
+                    "資料更新:" + updateContext, ActionCodes.Update);
+
+                return repo.Reload((Users)Source);
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(ex);
+                return Source;
+            }
         }
 
         public IEnumerable<IUsers> UpdateRange(IEnumerable<IUsers> MultiSource, Expression<Func<IUsers, bool>> filiter = null)
         {
+            //if (isLastRecord)
+            //{
+
+
+            //    repo.UnitOfWork.Commit();
+
+            //    //database = null;
+            //    repo = GetRepository();
+            //    var findresult = repo.Get(IdentifyPrimaryKey(fromModel));
+            //    return ExecuteResultEntity<T>.CreateResultEntity(findresult);
+            //}
+
             throw new NotImplementedException();
         }
 
@@ -258,7 +316,55 @@ namespace Tokiku.DataServices
             throw new NotImplementedException();
         }
 
+        public void CreateOrUpdate(IUsers Model)
+        {
+            try
+            {
+                if (_UsersRepo == null)
+                {
+                    setErrortoModel(string.Format("Can't found data repository of {0}.", typeof(Users).Name));
+                    return;
+                }
 
+                //檢查資料庫資料是否存在?
+                if (_UsersRepo.Where(w => w.UserId == Model.UserId || w.UserName == Model.UserName)?.Count() > 0)
+                {
+                    //repo.UnitOfWork.Context.Entry(entity).State = EntityState.Detached;
+
+                    var update_result = ((IUserDataService)this).Update(Model);
+
+                    if (HasError)
+                    {
+                        setErrortoModel("更新資料時發生錯誤!");
+                        return;
+                    }
+
+                    Model = _UsersRepo.Reload((Users)Model);
+                }
+                else
+                {
+                    var add_result = ((IUserDataService)this).Add(Model);
+
+                    if (HasError)
+                    {
+                        Errors = (new string[] { "新增資料發生錯誤!" }).Concat(Errors);
+                        HasError = true;
+                        return;
+                    }
+
+                    Model = _UsersRepo.Reload((Users)Model);
+                }
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(ex);
+            }
+        }
+
+        public void CreateOrUpdate(IEnumerable<IUsers> Model)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
         #region 聯絡人
@@ -577,15 +683,7 @@ namespace Tokiku.DataServices
             return string.Empty;
         }
 
-        public void CreateOrUpdate(IUsers Model)
-        {
-            throw new NotImplementedException();
-        }
 
-        public void CreateOrUpdate(IEnumerable<IUsers> Model)
-        {
-            throw new NotImplementedException();
-        }
 
         public void CreateOrUpdate(Contacts Model)
         {

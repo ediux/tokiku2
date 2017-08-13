@@ -98,6 +98,13 @@ namespace Tokiku.ViewModels
             get { return CopyofPOCOInstance.TicketPeriodId.HasValue ? CopyofPOCOInstance.TicketPeriodId.Value : 0; }
             set
             {
+                CopyofPOCOInstance.TicketPeriodId = value;
+
+                Tokiku.DataServices.ITicketPeriodDataService TicketPeriodDataService = Tokiku.DataServices.DefaultLocator.Current.FinancialManagementDataService;
+
+                CopyofPOCOInstance.TicketPeriod = TicketPeriodDataService.GetSingle(w => w.Id == CopyofPOCOInstance.TicketPeriodId);
+
+                RaisePropertyChanged("TicketPeriodId");
                 //CopyofPOCOInstance.TicketPeriodId = value;
                 //RaisePropertyChanged("TicketPeriodId");
                 //var result = ExecuteAction<TicketPeriod>(

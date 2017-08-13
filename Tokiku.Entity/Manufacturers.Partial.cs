@@ -1,5 +1,6 @@
 namespace Tokiku.Entity
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -7,6 +8,7 @@ namespace Tokiku.Entity
     [MetadataType(typeof(ManufacturersMetaData))]
     public partial class Manufacturers
     {
+     
     }
     
     public partial class ManufacturersMetaData
@@ -77,21 +79,37 @@ namespace Tokiku.Entity
         public string InvoiceAddress { get; set; }
     
         public virtual ICollection<Invoices> Invoices { get; set; }
+        [JsonIgnore()]
         public virtual PaymentTypes PaymentTypes { get; set; }
+        [JsonIgnore()]
         public virtual TicketPeriod TicketPeriod { get; set; }
+        [JsonIgnore()]
         public virtual ICollection<ManufacturersBussinessItems> ManufacturersBussinessItems { get; set; }
+        [JsonIgnore()]
         public virtual ICollection<ManufacturersFactories> ManufacturersFactories { get; set; }
+        [JsonIgnore()]
         public virtual ICollection<Molds> Molds { get; set; }
+        [JsonIgnore()]
         public virtual ICollection<Orders> Orders { get; set; }
+        [JsonIgnore()]
         public virtual ICollection<PickList> PickList { get; set; }
+        [JsonIgnore()]
         public virtual ICollection<ProjectItemCost> ProjectItemCost { get; set; }
+        [JsonIgnore()]
         public virtual ICollection<Receive> Receipts { get; set; }
+        [JsonIgnore()]
         public virtual ICollection<Required> Required { get; set; }
+        [JsonIgnore()]
         public virtual ICollection<SupplierTranscationItem> SupplierTranscationItem { get; set; }
+        [JsonIgnore()]
         public virtual ICollection<WorkShops> WorkShops { get; set; }
+        [JsonIgnore()]
         public virtual ICollection<Projects> Projects { get; set; }
+        [JsonIgnore()]
         public virtual ICollection<Contacts> Contacts { get; set; }
+        [JsonIgnore()]
         public virtual ICollection<Returns> Returns { get; set; }
+        [JsonIgnore()]
         public virtual ICollection<AbnormalQualityDetails> AbnormalQualityDetails { get; set; }
     }
 }

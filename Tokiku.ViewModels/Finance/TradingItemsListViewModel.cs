@@ -3,6 +3,7 @@ using Tokiku.DataServices;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
+using System.Linq;
 
 namespace Tokiku.ViewModels
 {
@@ -20,7 +21,7 @@ namespace Tokiku.ViewModels
         public override void Query(object Parameter)
         {
             TradingItemsList = new ObservableCollection<ITradingItemsViewModel>(
-                );
+                ((ITradingItemsDataService)_FinancialManagementDataService).GetAll().Select(s => new TradingItemsViewModel(s)));
 
         }
 

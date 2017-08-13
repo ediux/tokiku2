@@ -3,7 +3,7 @@
   <Class Name="Tokiku.DataServices.FinancialManagementDataService" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="35.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAYIAgAgAIAABAAAAAAAFgMAAAAEAAIgKgAEBAAEIgE=</HashCode>
+      <HashCode>AAYIAgAgAIAABAAJAAAAFgMAAAAEAAIgKgAEBAAEIhE=</HashCode>
       <FileName>FinancialManagementDataService.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -11,7 +11,7 @@
   <Class Name="Tokiku.DataServices.CoreDataService" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="35.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AIZQAQAgAMAACAgABAAQFAMAAACACAgsIgAQAAQEAgA=</HashCode>
+      <HashCode>AIZQAQAgAMAACAgABAAQFAMAAACACAgsIgAQAAQEAhA=</HashCode>
       <FileName>CoreDataService.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -19,7 +19,7 @@
   <Class Name="Tokiku.DataServices.ManufacturingExecutionDataService" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="37.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAYgAAAgA6AAAAAAAAAAFgFABAEBAAAgIgAAAAAECgE=</HashCode>
+      <HashCode>IAYgAAAgA6AAAAAAAAAAFgFABAEBAAAgIgAAAAAEChE=</HashCode>
       <FileName>ManufacturingExecutionDataService.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -27,7 +27,7 @@
   <Class Name="Tokiku.DataServices.CustomerRelationshipManagementDataService" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="37.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAYAAAAgAQAAAAAAAAAAFAEAAAAAAAAgIgAAAAAEAgA=</HashCode>
+      <HashCode>AAYAAAAgAQAAAAAAAAAAVAFAAAAAAAAgIgQAAAAEAhA=</HashCode>
       <FileName>CustomerRelationshipManagementDataService.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -164,6 +164,13 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\Finance\ITranscationCategoriesDataService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Tokiku.DataServices.ITradingItemsDataService">
+    <Position X="22.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\Finance\ITradingItemsDataService.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Microsoft JhengHei UI" Size="9" />

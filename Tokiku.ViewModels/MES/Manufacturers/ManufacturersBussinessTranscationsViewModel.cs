@@ -33,11 +33,11 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string Code
         {
-            get { return CopyofPOCOInstance.Projects.Code; }
+            get { return CopyofPOCOInstance?.Projects?.Code; }
 
             set
             {
-                RaisePropertyChanged("Code", CopyofPOCOInstance.Projects.Code, value, broadcast: true);
+                RaisePropertyChanged("Code", CopyofPOCOInstance?.Projects?.Code, value, broadcast: true);
             }
         }
 
@@ -50,7 +50,7 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string Name
         {
-            get => CopyofPOCOInstance.Projects.ShortName;
+            get => CopyofPOCOInstance?.Projects?.ShortName;
             set
             {
                 RaisePropertyChanged("Name", CopyofPOCOInstance.Projects.ShortName, value, broadcast: true);

@@ -131,7 +131,7 @@ namespace Tokiku.MVVM
             return null;
         }
 
-        public IEnumerable<TModel> DirectExecuteSQL(string tsql, params object[] parameters)
+        public virtual IEnumerable<TModel> DirectExecuteSQL(string tsql, params object[] parameters)
         {
             return SimpleIoc.Default.GetInstance<IUnitOfWork>().Context.Database.SqlQuery<TModel>(tsql, parameters).AsEnumerable();
         }
@@ -146,15 +146,8 @@ namespace Tokiku.MVVM
         public abstract void RemoveAll();
         public abstract void RemoveWhere(Expression<Func<TModel, bool>> filiter = null);
         public abstract ICollection<TModel> SearchByText(string filiter);
-
-        public void CreateOrUpdate(TModel Model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CreateOrUpdate(IEnumerable<TModel> Model)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract void CreateOrUpdate(TModel Model);
+        public abstract void CreateOrUpdate(IEnumerable<TModel> Model);
+        
     }
 }

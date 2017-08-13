@@ -18,7 +18,8 @@ namespace Tokiku.ViewModels
         }
         public override void Query(object Parameter)
         {
-            _TicketTypesList = new ObservableCollection<ITicketTypesViewModel>();
+            _TicketTypesList = new ObservableCollection<ITicketTypesViewModel>(
+                );
         }
 
         private ObservableCollection<ITicketTypesViewModel> _TicketTypesList;

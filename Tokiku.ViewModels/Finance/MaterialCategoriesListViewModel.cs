@@ -31,8 +31,9 @@ namespace Tokiku.ViewModels
 
         public override void Query(object Parameter)
         {
-            _MaterialCategories = new ObservableCollection<IMaterialCategoriesViewModel>(
-                ((IMaterialCategoriesDataService)_FinancialManagementDataService).GetAll().Select(s => new MaterialCategoriesViewModel(s, _FinancialManagementDataService, _CoreDataService)));
+            MaterialCategories = new ObservableCollection<IMaterialCategoriesViewModel>(
+                ((IMaterialCategoriesDataService)_FinancialManagementDataService).GetAll()
+                .Select(s => new MaterialCategoriesViewModel(s, _FinancialManagementDataService, _CoreDataService)));
         }
 
         private ObservableCollection<IMaterialCategoriesViewModel> _MaterialCategories;

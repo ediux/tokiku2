@@ -20,7 +20,7 @@ namespace Tokiku.ViewModels
         public override void Query(object Parameter)
         {
             _TicketTypesList = new ObservableCollection<ITicketPeriodsViewModel>(
-                ((ITicketPeriodDataService)_FinancialManagementDataService).GetAll().Select(s => new TicketPeriodsViewModel(s)).ToList());            
+                ((ITicketPeriodDataService)_FinancialManagementDataService).GetAll().Select(s => new TicketPeriodsViewModel(s)));            
         }
 
         private ObservableCollection<ITicketPeriodsViewModel> _TicketTypesList;

@@ -28,7 +28,7 @@ namespace Tokiku.ViewModels
         public Guid UserId
         {
             get { return CopyofPOCOInstance.UserId; }
-            set { RaisePropertyChanged("UserId"); }
+            set { CopyofPOCOInstance.UserId = value; RaisePropertyChanged("UserId"); }
         }
 
         public string UserName

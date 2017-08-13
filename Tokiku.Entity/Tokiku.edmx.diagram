@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2389002a12914c48b97a044932513ea4" Name="Diagram1" ZoomLevel="83">
+      <Diagram DiagramId="2389002a12914c48b97a044932513ea4" Name="Diagram1" ZoomLevel="73">
         <EntityTypeShape EntityType="TokikuModel.Membership" Width="1.5" PointX="5.25" PointY="91.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TokikuModel.Profile" Width="1.5" PointX="5.25" PointY="97.125" IsExpanded="true" />
         <EntityTypeShape EntityType="TokikuModel.Roles" Width="1.5" PointX="0.75" PointY="54.375" IsExpanded="true" />
