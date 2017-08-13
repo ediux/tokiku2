@@ -11,8 +11,8 @@ namespace Tokiku.Entity
     {
         partial void ExtraRegister()
         {
-            if (!SimpleIoc.Default.IsRegistered<Tokiku.MVVM.Entities.IUnitOfWork>())
-                SimpleIoc.Default.Register<Tokiku.MVVM.Entities.IUnitOfWork, EFUnitOfWork>(true);
+            //if (!SimpleIoc.Default.IsRegistered<Tokiku.MVVM.Entities.IUnitOfWork>())
+            //    SimpleIoc.Default.Register<Tokiku.MVVM.Entities.IUnitOfWork, EFUnitOfWork>(true);
         }
     }
 }
