@@ -286,9 +286,13 @@ namespace <#= defaultNamespace #>
 
     }
 #>										
-            if (_Current == null)
+            ExtraRegister();
+			
+			if (_Current == null)
                 _Current = this;
 		}
+
+		partial void ExtraRegister();
 
 		private static <#= rootclassname #>Locator _Current=null;
 		

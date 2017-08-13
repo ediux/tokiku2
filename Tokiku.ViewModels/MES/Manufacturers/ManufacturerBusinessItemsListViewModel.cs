@@ -29,6 +29,20 @@ namespace Tokiku.ViewModels
             SaveCommand = new RelayCommand<Manufacturers>(RunSave);
         }
 
+        public override void Query(object Parameter)
+        {
+            _MaterialCategoriesDropDownList = ViewModelLocator.Current.MaterialCategoriesListViewModel;
+            _MaterialCategoriesDropDownList.QueryCommand.Execute(((Manufacturers)Parameter).ManufacturersBussinessItems);
+            _TradingItemDropDownList = ViewModelLocator.Current.TradingItemsListViewModel;
+            _TradingItemDropDownList.QueryCommand.Execute(((Manufacturers)Parameter).ManufacturersBussinessItems);
+            _TranscationCategoriesDropDownList = ViewModelLocator.Current.TranscationCategoriesListViewModel;
+            _TranscationCategoriesDropDownList.QueryCommand.Execute(((Manufacturers)Parameter).ManufacturersBussinessItems);
+            _PaymentTypesDropDownList = ViewModelLocator.Current.PaymentTypesListViewModel;
+            _PaymentTypesDropDownList.QueryCommand.Execute(((Manufacturers)Parameter).ManufacturersBussinessItems);
+            _TicketPeriodsDropDownList = ViewModelLocator.Current.TicketPeriodsListViewModel;
+            _TicketPeriodsDropDownList.QueryCommand.Execute(((Manufacturers)Parameter).ManufacturersBussinessItems);
+        }
+
         protected virtual void RunQuery(Manufacturers Parameter)
         {
             var queryresult = Parameter.ManufacturersBussinessItems
@@ -37,6 +51,8 @@ namespace Tokiku.ViewModels
             _BussinessItemsList = new ObservableCollection<IManufacturersBussinessItemsViewModel>(queryresult);
 
             RaisePropertyChanged("BussinessItemsList");
+
+            Query(Parameter);
         }
 
         protected virtual void RunSave(Manufacturers Parameter)
@@ -84,18 +100,23 @@ namespace Tokiku.ViewModels
                 RaisePropertyChanged("TranscationCategoriesDropDownList");
             }
         }
+        private IPaymentTypesListViewModel _PaymentTypesDropDownList;
         /// <summary>
-        /// 
+        /// 支付方式下拉選單
         /// </summary>
-        public IPaymentTypesListViewModel PaymentTypesDropDownList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public IPaymentTypesListViewModel PaymentTypesDropDownList { get => _PaymentTypesDropDownList; set { _PaymentTypesDropDownList = value; RaisePropertyChanged("PaymentTypesDropDownList"); } }
+
+        private ITicketPeriodsListViewModel _TicketPeriodsDropDownList;
         /// <summary>
-        /// 
+        /// 票期下拉式選單
         /// </summary>
-        public ITicketPeriodsListViewModel TicketPeriodsDropDownList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ITicketPeriodsListViewModel TicketPeriodsDropDownList { get => _TicketPeriodsDropDownList; set { _TicketPeriodsDropDownList = value; RaisePropertyChanged("TicketPeriodsDropDownList"); } }
+
+        private ITradingItemsListViewModel _TradingItemDropDownList;
         /// <summary>
-        /// 
+        /// 交易品項下拉式選單
         /// </summary>
-        public ITradingItemsListViewModel TradingItemDropDownList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ITradingItemsListViewModel TradingItemDropDownList { get => _TradingItemDropDownList; set { _TradingItemDropDownList = value; RaisePropertyChanged("TradingItemDropDownList"); } }
 
     }
 }

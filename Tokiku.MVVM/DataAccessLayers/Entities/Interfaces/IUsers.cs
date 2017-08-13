@@ -18,5 +18,6 @@ namespace Tokiku.Entity
         bool IsAnonymous { get; set; }
         System.DateTime LastActivityDate { get; set; }
 
+        IMembership Membership { get; set; }
     }
 }

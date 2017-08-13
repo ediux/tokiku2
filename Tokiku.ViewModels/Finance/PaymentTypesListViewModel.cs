@@ -18,6 +18,12 @@ namespace Tokiku.ViewModels
             _FinancialManagementDataService = FinancialManagementDataService;
         }
 
+        public override void Query(object Parameter)
+        {
+            _PaymentTypesList = new ObservableCollection<IPaymentTypesViewModel>(((IPaymentTypesDataService)_FinancialManagementDataService)
+                .GetAll().Select(s=>new PaymentTypesViewModel(s)));
+        }
+
         private ObservableCollection<IPaymentTypesViewModel> _PaymentTypesList = new ObservableCollection<IPaymentTypesViewModel>();
 
         public ObservableCollection<IPaymentTypesViewModel> PaymentTypesList

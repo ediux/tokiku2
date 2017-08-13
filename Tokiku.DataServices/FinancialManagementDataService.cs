@@ -100,6 +100,56 @@ namespace Tokiku.DataServices
             throw new NotImplementedException();
         }
 
+        public void CreateOrUpdate(TicketPeriod Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateOrUpdate(IEnumerable<TicketPeriod> Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateOrUpdate(PaymentTypes Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateOrUpdate(IEnumerable<PaymentTypes> Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateOrUpdate(PromissoryNoteManagement Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateOrUpdate(IEnumerable<PromissoryNoteManagement> Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateOrUpdate(MaterialCategories Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateOrUpdate(IEnumerable<MaterialCategories> Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateOrUpdate(TranscationCategories Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateOrUpdate(IEnumerable<TranscationCategories> Model)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<PaymentTypes> DirectExecuteSQL(string tsql, params object[] parameters)
         {
             throw new NotImplementedException();

@@ -11,12 +11,21 @@ namespace Tokiku.ViewModels
 {
     public class TicketPeriodsListViewModel : DocumentBaseViewModel, ITicketPeriodsListViewModel
     {
-        public TicketPeriodsListViewModel(ICoreDataService CoreDataService) : base(CoreDataService)
+        private IFinancialManagementDataService _FinancialManagementDataService;
+        public TicketPeriodsListViewModel(IFinancialManagementDataService FinancialManagementDataService, ICoreDataService CoreDataService) : base(CoreDataService)
         {
-
+            _FinancialManagementDataService = FinancialManagementDataService;            
         }
 
-        public ObservableCollection<ITicketPeriodsViewModel> TicketTypesList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public override void Query(object Parameter)
+        {
+            _TicketTypesList = new ObservableCollection<ITicketPeriodsViewModel>(
+                ((ITicketPeriodDataService)_FinancialManagementDataService).GetAll().Select(s => new TicketPeriodsViewModel(s)).ToList());            
+        }
+
+        private ObservableCollection<ITicketPeriodsViewModel> _TicketTypesList;
+
+        public ObservableCollection<ITicketPeriodsViewModel> TicketTypesList { get => _TicketTypesList; set { _TicketTypesList = value; RaisePropertyChanged("TicketTypesList"); } }
 
         private ICommand _RefreshFromPaymentTypesCommand;
         public ICommand RefreshFromPaymentTypesCommand { get => _RefreshFromPaymentTypesCommand; set { _RefreshFromPaymentTypesCommand = value; RaisePropertyChanged("RefreshFromPaymentTypesCommand"); } }

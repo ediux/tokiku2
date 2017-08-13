@@ -22,10 +22,9 @@ namespace Tokiku.ViewModels
         private IFinancialManagementDataService _FinancialManagementDataService;
 
         #region 建構式
-        public ManufacturersViewModel() : base(null, null)
+        public ManufacturersViewModel() : base(EntityLocator.Current.Manufacturers,DefaultLocator.Current.CoreDataService)
         {
-            SetMode();
-            FetchListDataSource();
+            
         }
 
         [PreferredConstructor]
@@ -34,11 +33,7 @@ namespace Tokiku.ViewModels
             ICoreDataService CoreDataService) : base(CoreDataService)
         {
             _ManufacturersDataService = ManufacturersDataService;
-            _FinancialManagementDataService = FinancialManagementDataService;
-
-            SetMode();
-            FetchListDataSource();
-
+            _FinancialManagementDataService = FinancialManagementDataService;           
         }
 
         public ManufacturersViewModel(Manufacturers entity,
@@ -47,9 +42,7 @@ namespace Tokiku.ViewModels
             ICoreDataService CoreDataService) : base(entity, CoreDataService)
         {
             _ManufacturersDataService = ManufacturersDataService;
-            QueryCommand = new RelayCommand<IVendorListItemViewModel>(RunQuery);
-            SetMode();
-            FetchListDataSource();
+            QueryCommand = new RelayCommand<IVendorListItemViewModel>(RunQuery);            
         }
         #endregion
 
@@ -333,9 +326,31 @@ namespace Tokiku.ViewModels
         #endregion
 
         #region 模型控制命令
+        public override void Query(Manufacturers Parameter)
+        {
+            _ContactsList = ViewModelLocator.Current.ContactListViewModel;
+            _ContactsList.QueryCommand.Execute(Entity);
+
+            _VoidList = new ObservableCollection<IVoidViewModel>();
+            VoidList.Add(new VoidViewModel() { Value = false, Text = "啟用" });
+            VoidList.Add(new VoidViewModel() { Value = true, Text = "停用" });
+
+            _PaymentTypes = new ObservableCollection<IPaymentTypesViewModel>(
+              ((IDataService<PaymentTypes>)_FinancialManagementDataService).GetAll()
+                .Select(s => new PaymentTypesViewModel(s)).ToList());
+
+            _BusinessItemsList = ViewModelLocator.Current.ManufacturerBusinessItemsListViewModel;
+            _BusinessItemsList.QueryCommand.Execute(Entity);
+
+            ContactsList.QueryCommand.Execute(Parameter);
+            BusinessItemsList.QueryCommand.Execute(Parameter);
+            TranscationRecords.QueryCommand.Execute(Parameter);
+        }
+
         public virtual void RunQuery(IVendorListItemViewModel item)
         {
             SetEntity(item.Entity);
+            Query(Entity);
         }
 
         public override void CreateNew()
@@ -352,21 +367,13 @@ namespace Tokiku.ViewModels
                 };
 
                 ContactsList.CreateNewCommand.Execute(Entity);
-                BusinessItemsList.CreateNewCommand.Execute(Entity);              
+                BusinessItemsList.CreateNewCommand.Execute(Entity);
             }
             catch (Exception ex)
             {
                 setErrortoModel(this, ex);
             }
 
-        }
-
-        public override void SetEntity(Manufacturers entity)
-        {
-            base.SetEntity(entity);
-            ContactsList.QueryCommand.Execute(entity);
-            BusinessItemsList.QueryCommand.Execute(entity);
-            TranscationRecords.QueryCommand.Execute(entity);
         }
 
         public override void Save()
@@ -382,10 +389,11 @@ namespace Tokiku.ViewModels
                         break;
                     case DocumentLifeCircle.Update:
                         //目前處於編輯模式
-                        _ManufacturersDataService.Update(Entity);
+                        _ManufacturersDataService.CreateOrUpdate(Entity);
                         ModeChangedCommand.Execute(DocumentLifeCircle.Read);
                         break;
-                }               
+                }
+                ModeChangedCommand.Execute(DocumentLifeCircle.Read);
             }
             catch (Exception ex)
             {
@@ -393,31 +401,14 @@ namespace Tokiku.ViewModels
             }
         }
 
-        private void SetMode()
-        {
-            Mode = DocumentLifeCircle.Read;
-        }
-
-        private void FetchListDataSource()
-        {
-            _ContactsList = ViewModelLocator.Current.ContactListViewModel;
-            _ContactsList.QueryCommand.Execute(Entity);
-
-            _VoidList = new ObservableCollection<IVoidViewModel>();
-            VoidList.Add(new VoidViewModel() { Value = false, Text = "啟用" });
-            VoidList.Add(new VoidViewModel() { Value = true, Text = "停用" });
-
-            _PaymentTypes = new ObservableCollection<IPaymentTypesViewModel>(
-              ((IDataService<PaymentTypes>)_FinancialManagementDataService).GetAll()
-                .Select(s => new PaymentTypesViewModel(s)).ToList());
-
-            _BusinessItemsList = ViewModelLocator.Current.ManufacturerBusinessItemsListViewModel;
-            _BusinessItemsList.QueryCommand.Execute(Entity);
-        }
 
         protected override void RunModeChanged(DocumentLifeCircle Mode)
-        {
+        {            
+            if (Mode == DocumentLifeCircle.None)
+                Mode = DocumentLifeCircle.Read;
+
             base.RunModeChanged(Mode);
+
             BusinessItemsList.ModeChangedCommand.Execute(Mode);
             ContactsList.ModeChangedCommand.Execute(Mode);
         }

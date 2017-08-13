@@ -81,7 +81,7 @@
     <Compile Include="Interfaces\Finance\IPaymentTypesDataService.cs" />
     <Compile Include="Interfaces\Finance\IPromissoryNoteManagementDataService.cs" />
     <Compile Include="Interfaces\Finance\ITicketPeriodDataService.cs" />
-    <Compile Include="ITranscationCategoriesDataService.cs" />
+    <Compile Include="Interfaces\Finance\ITranscationCategoriesDataService.cs" />
     <Compile Include="ManufacturingExecutionDataService.cs" />
     <Compile Include="MVVMLocatorMaker.cs">
       <DependentUpon>MVVMLocatorMaker.tt</DependentUpon>

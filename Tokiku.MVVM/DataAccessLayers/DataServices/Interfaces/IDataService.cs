@@ -20,7 +20,7 @@ namespace Tokiku.MVVM
         /// <summary>
         /// 指出是否發生錯誤?
         /// </summary>
-        bool HasError { get; set; }        
+        bool HasError { get; set; }
     }
 
     public interface IDataService<TModel> : IDataService
@@ -52,7 +52,7 @@ namespace Tokiku.MVVM
         /// <typeparam name="TModel">要查詢的檢視模型。</typeparam>
         /// <param name="filiter">條件表示式。</param>
         /// <returns></returns>
-        IEnumerable<TModel> GetAll(Expression<Func<TModel, bool>> filiter = null) ;
+        IEnumerable<TModel> GetAll(Expression<Func<TModel, bool>> filiter = null);
         /// <summary>
         /// 將單一檢視模型中資料更新到資料庫的方法。
         /// </summary>
@@ -60,7 +60,7 @@ namespace Tokiku.MVVM
         /// <param name="Source"></param>
         /// <param name="filiter">條件表示式。</param>
         /// <returns></returns>
-        TModel Update(TModel Source, Expression<Func<TModel, bool>> filiter = null) ;
+        TModel Update(TModel Source, Expression<Func<TModel, bool>> filiter = null);
         /// <summary>
         /// 更新多筆檢視模型中的資料到資料庫中。
         /// </summary>
@@ -99,5 +99,17 @@ namespace Tokiku.MVVM
         /// <param name="filiter">輸入的搜尋條件</param>
         /// <returns></returns>
         ICollection<TModel> SearchByText(string filiter);
+
+        /// <summary>
+        /// 更新或建立單一資料檢視模型
+        /// </summary>
+        /// <param name="Model">要新增或更新的資料檢視模型。</param>
+        void CreateOrUpdate(TModel Model);
+
+        /// <summary>
+        /// 更新或建立多個資料檢視模型
+        /// </summary>
+        /// <param name="Model">要新增或更新的資料檢視模型。</param>
+        void CreateOrUpdate(IEnumerable<TModel> Model);
     }
 }

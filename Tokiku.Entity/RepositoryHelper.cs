@@ -785,6 +785,20 @@ namespace Tokiku.Entity
 			return repository;
 		}		
 
+		public static TradingItemsRepository GetTradingItemsRepository()
+		{
+			var repository = new TradingItemsRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static TradingItemsRepository GetTradingItemsRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new TradingItemsRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
 		public static TranscationCategoriesRepository GetTranscationCategoriesRepository()
 		{
 			var repository = new TranscationCategoriesRepository();
@@ -837,6 +851,20 @@ namespace Tokiku.Entity
 		public static View_ManufacturersBussinessTranscationsRepository GetView_ManufacturersBussinessTranscationsRepository(IUnitOfWork unitOfWork)
 		{
 			var repository = new View_ManufacturersBussinessTranscationsRepository();
+			repository.UnitOfWork = unitOfWork;
+			return repository;
+		}		
+
+		public static View_ObtainMaterialRepository GetView_ObtainMaterialRepository()
+		{
+			var repository = new View_ObtainMaterialRepository();
+			repository.UnitOfWork = GetUnitOfWork();
+			return repository;
+		}
+
+		public static View_ObtainMaterialRepository GetView_ObtainMaterialRepository(IUnitOfWork unitOfWork)
+		{
+			var repository = new View_ObtainMaterialRepository();
 			repository.UnitOfWork = unitOfWork;
 			return repository;
 		}		

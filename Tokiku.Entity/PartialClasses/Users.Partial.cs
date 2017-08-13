@@ -8,7 +8,7 @@ namespace Tokiku.Entity
 {
     public interface IUsers2 : IUsers
     {
-        Membership Membership { get; set; }
+
         Profile Profile { get; set; }
         ICollection<Roles> Roles { get; set; }
 
@@ -39,5 +39,6 @@ namespace Tokiku.Entity
 
     public partial class Users : IUsers2
     {
+        IMembership IUsers.Membership { get => Membership; set => Membership = (Membership)value; }
     }
 }

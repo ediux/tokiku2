@@ -184,6 +184,9 @@ namespace Tokiku.Entity
 			if (!SimpleIoc.Default.IsRegistered<ITicketTypesRepository>())
 				SimpleIoc.Default.Register<ITicketTypesRepository,TicketTypesRepository>(true);
 
+			if (!SimpleIoc.Default.IsRegistered<ITradingItemsRepository>())
+				SimpleIoc.Default.Register<ITradingItemsRepository,TradingItemsRepository>(true);
+
 			if (!SimpleIoc.Default.IsRegistered<ITranscationCategoriesRepository>())
 				SimpleIoc.Default.Register<ITranscationCategoriesRepository,TranscationCategoriesRepository>(true);
 
@@ -195,6 +198,9 @@ namespace Tokiku.Entity
 
 			if (!SimpleIoc.Default.IsRegistered<IView_ManufacturersBussinessTranscationsRepository>())
 				SimpleIoc.Default.Register<IView_ManufacturersBussinessTranscationsRepository,View_ManufacturersBussinessTranscationsRepository>(true);
+
+			if (!SimpleIoc.Default.IsRegistered<IView_ObtainMaterialRepository>())
+				SimpleIoc.Default.Register<IView_ObtainMaterialRepository,View_ObtainMaterialRepository>(true);
 
 			if (!SimpleIoc.Default.IsRegistered<IView_OrderControlTableRepository>())
 				SimpleIoc.Default.Register<IView_OrderControlTableRepository,View_OrderControlTableRepository>(true);
@@ -697,9 +703,13 @@ namespace Tokiku.Entity
 			if (!SimpleIoc.Default.IsRegistered<SystemRolesEntity>())
 				SimpleIoc.Default.Register<SystemRolesEntity>();
 										
-            if (_Current == null)
+            ExtraRegister();
+			
+			if (_Current == null)
                 _Current = this;
 		}
+
+		partial void ExtraRegister();
 
 		private static EntityLocator _Current=null;
 		
@@ -1109,6 +1119,13 @@ namespace Tokiku.Entity
 			get => SimpleIoc.Default.GetInstance<ITicketTypesRepository>();
 		}
 		/// <summary>
+        /// 取得IoC容器中的實作 ITradingItemsRepository 介面的物件執行個體。
+        /// </summary>
+		public ITradingItemsRepository TradingItemsRepository
+		{
+			get => SimpleIoc.Default.GetInstance<ITradingItemsRepository>();
+		}
+		/// <summary>
         /// 取得IoC容器中的實作 ITranscationCategoriesRepository 介面的物件執行個體。
         /// </summary>
 		public ITranscationCategoriesRepository TranscationCategoriesRepository
@@ -1135,6 +1152,13 @@ namespace Tokiku.Entity
 		public IView_ManufacturersBussinessTranscationsRepository View_ManufacturersBussinessTranscationsRepository
 		{
 			get => SimpleIoc.Default.GetInstance<IView_ManufacturersBussinessTranscationsRepository>();
+		}
+		/// <summary>
+        /// 取得IoC容器中的實作 IView_ObtainMaterialRepository 介面的物件執行個體。
+        /// </summary>
+		public IView_ObtainMaterialRepository View_ObtainMaterialRepository
+		{
+			get => SimpleIoc.Default.GetInstance<IView_ObtainMaterialRepository>();
 		}
 		/// <summary>
         /// 取得IoC容器中的實作 IView_OrderControlTableRepository 介面的物件執行個體。

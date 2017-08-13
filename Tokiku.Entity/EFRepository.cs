@@ -9,25 +9,25 @@ using System.Threading.Tasks;
 
 namespace Tokiku.Entity
 {
-    public partial class EFRepository<T> : IRepositoryBase<T> where T : class
-    {
-        public IUnitOfWork UnitOfWork { get; set; }
-
-        private IDbSet<T> _objectset;
-        protected IDbSet<T> ObjectSet
-        {
-            get
-            {
-                if (_objectset == null)
+	public partial class EFRepository<T> : IRepositoryBase<T> where T : class
+	{
+		public IUnitOfWork UnitOfWork { get; set; }
+		
+		private IDbSet<T> _objectset;
+		protected IDbSet<T> ObjectSet
+		{
+			get
+			{
+				if (_objectset == null)
                 {
                     _objectset = UnitOfWork.Context.Set<T>();
                 }
                 _objectset.Load();
                 return _objectset;
-            }
-        }
+			}
+		}
 
-        /// <summary>
+		/// <summary>
         /// 傳回主索引鍵欄位的內容值。
         /// </summary>
         /// <param name="entity"></param>
@@ -50,29 +50,28 @@ namespace Tokiku.Entity
             return pkeys.ToArray();
         }
 
-        public virtual IQueryable<T> All()
-        {
+		public virtual IQueryable<T> All()
+		{
+			return ObjectSet.Local.AsQueryable();;
+		}
 
-            return ObjectSet.Local.AsQueryable();
-        }
+		public IQueryable<T> Where(Expression<Func<T, bool>> expression)
+		{
+			return ObjectSet.Local.AsQueryable().Where(expression);
+		}
 
-        public IQueryable<T> Where(Expression<Func<T, bool>> expression)
-        {
-            return ObjectSet.Local.AsQueryable().Where(expression);
-        }
-
-        public virtual T Add(T entity)
-        {
+		public virtual T Add(T entity)
+		{
             ObjectSet.Local.Add(entity);
             return Get(IdentifyPrimaryKey(entity));
-        }
+		}
 
-        public virtual void Delete(T entity)
-        {
-            ObjectSet.Local.Remove(entity);            
-        }
+		public virtual void Delete(T entity)
+		{
+			ObjectSet.Local.Remove(entity); 
+		}
 
-        public Task<IQueryable<T>> AllAsync()
+		public Task<IQueryable<T>> AllAsync()
         {
             return Task.FromResult(All());
         }
@@ -103,8 +102,7 @@ namespace Tokiku.Entity
             await UnitOfWork.Context.Entry(entity).ReloadAsync();
             return entity;
         }
-
-        #region IDisposable Support
+		#region IDisposable Support
         private bool disposedValue = false; // 偵測多餘的呼叫
 
         protected virtual void Dispose(bool disposing)
@@ -113,7 +111,7 @@ namespace Tokiku.Entity
             {
                 if (disposing)
                 {
-                    //UnitOfWork.Commit();
+                    UnitOfWork.Commit();
                     UnitOfWork.Context.Dispose();
                 }
 
@@ -139,5 +137,5 @@ namespace Tokiku.Entity
             // GC.SuppressFinalize(this);
         }
         #endregion
-    }
+	}
 }

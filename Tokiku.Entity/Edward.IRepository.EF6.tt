@@ -25,6 +25,9 @@ namespace <#= code.VsNamespaceSuggestion() #>
 	public partial interface IRepositoryBase<T> :IDisposable
 		where T : class
 	{
+		/// <summary>
+		/// 取得統一資料庫連線物件
+		/// </summary>		
 		IUnitOfWork UnitOfWork { get; set; }
 		
 		/// <summary>
@@ -32,13 +35,23 @@ namespace <#= code.VsNamespaceSuggestion() #>
 		/// </summary>
 		/// <returns>Entity全部筆數的IQueryable。</returns>
 		IQueryable<T> All();
+
         /// <summary>
         /// 取得Entity全部筆數的IQueryable<<typeparamref name="T>"></typeparamref>>的非同步版本。
         /// </summary>
         /// <returns></returns>
         Task<IQueryable<T>> AllAsync();
 
+		/// <summary>
+		/// 篩選查詢結果。
+		/// </summary>
+		/// <returns>傳回符合查詢條件的結果</returns>
 		IQueryable<T> Where(Expression<Func<T, bool>> expression);
+
+		/// <summary>
+		/// 加入指定的資料列
+		/// </summary>
+		/// <returns></returns>
 		T Add(T entity);
 
 		/// <summary>
@@ -47,7 +60,10 @@ namespace <#= code.VsNamespaceSuggestion() #>
 		/// <returns>The create.</returns>
 		/// <param name="entities">Entities.</param>
 		IList<T> BatchAdd(IEnumerable<T> entities);
-		
+
+		/// <summary>
+		/// 刪除指定資料列
+		/// </summary>		
 		void Delete(T entity);
 
         /// <summary>
@@ -65,11 +81,15 @@ namespace <#= code.VsNamespaceSuggestion() #>
         Task<T> GetAsync(params object[] values);
 
 		/// <summary>
-		/// Reload the specified entity.
+		/// 重新載入資料實體的同步方法。
 		/// </summary>
 		/// <param name="entity">Entity.</param>
 		T Reload(T entity);
 
+		/// <summary>
+		/// 重新載入資料實體的非同步方法。
+		/// </summary>
+		/// <returns></returns>
 		Task<T> ReloadAsync(T entity);
 	}
 }<#
@@ -116,20 +136,11 @@ using System.Threading.Tasks;
 
 namespace <#= code.VsNamespaceSuggestion() #>
 {
-	public partial interface IUnitOfWork
+	public partial interface IUnitOfWork : Tokiku.MVVM.Entities.IUnitOfWork
 	{
-		DbContext Context { get; set; }
-
+		
         /// <summary>
-        /// 提交資料庫變更耀球的非同步方法。
-        /// </summary>
-		void Commit();
-		bool LazyLoadingEnabled { get; set; }
-		bool ProxyCreationEnabled { get; set; }
-		string ConnectionString { get; set; }
-
-        /// <summary>
-        /// 提交資料庫變更耀球的非同步方法。
+        /// 提交資料庫變更要求的非同步方法。
         /// </summary>
         /// <returns>非同步執行結果。</returns>
         Task CommitAsync();
@@ -138,6 +149,8 @@ namespace <#= code.VsNamespaceSuggestion() #>
 #>using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -154,36 +167,61 @@ namespace <#= code.VsNamespaceSuggestion() #>
 			get
 			{
 				if (_objectset == null)
-				{
-					_objectset = UnitOfWork.Context.Set<T>();
-				}
-				return _objectset;
+                {
+                    _objectset = UnitOfWork.Context.Set<T>();
+                }
+                _objectset.Load();
+                return _objectset;
 			}
 		}
 
+		/// <summary>
+        /// 傳回主索引鍵欄位的內容值。
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        protected object[] IdentifyPrimaryKey(T entity)
+        {
+
+            ObjectContext objectContext = ((IObjectContextAdapter)UnitOfWork.Context).ObjectContext;
+            ObjectSet<T> set = objectContext.CreateObjectSet<T>();
+            IEnumerable<string> keyNames = set.EntitySet.ElementType
+                                                        .KeyMembers
+                                                        .Select(k => k.Name);
+
+            Type entityreflection = typeof(T);
+
+            var pkeys = entityreflection.GetProperties()
+                .Join(keyNames, (x) => x.Name, (y) => y, (k, t) => k)
+                .Select(s => s.GetValue(entity));
+
+            return pkeys.ToArray();
+        }
+
 		public virtual IQueryable<T> All()
 		{
-			return ObjectSet.AsQueryable();
+			return ObjectSet.Local.AsQueryable();;
 		}
 
 		public IQueryable<T> Where(Expression<Func<T, bool>> expression)
 		{
-			return ObjectSet.Where(expression);
+			return ObjectSet.Local.AsQueryable().Where(expression);
 		}
 
 		public virtual T Add(T entity)
 		{
-			return ObjectSet.Add(entity);
+            ObjectSet.Local.Add(entity);
+            return Get(IdentifyPrimaryKey(entity));
 		}
 
 		public virtual void Delete(T entity)
 		{
-			ObjectSet.Remove(entity);
+			ObjectSet.Local.Remove(entity); 
 		}
 
 		public Task<IQueryable<T>> AllAsync()
         {
-            return Task.Run(() => ObjectSet.AsQueryable());
+            return Task.FromResult(All());
         }
 
         public IList<T> BatchAdd(IEnumerable<T> entities)
@@ -198,7 +236,7 @@ namespace <#= code.VsNamespaceSuggestion() #>
 
         public Task<T> GetAsync(params object[] values)
         {
-            return Task.Run(() => ObjectSet.Find(values));
+            return Task.FromResult(Get(values));
         }
 
         public T Reload(T entity)
@@ -209,7 +247,7 @@ namespace <#= code.VsNamespaceSuggestion() #>
 
         public async Task<T> ReloadAsync(T entity)
         {
-           await UnitOfWork.Context.Entry(entity).ReloadAsync();
+            await UnitOfWork.Context.Entry(entity).ReloadAsync();
             return entity;
         }
 		#region IDisposable Support
@@ -251,47 +289,21 @@ namespace <#= code.VsNamespaceSuggestion() #>
 }<#fileManager.StartNewFile("EFUnitOfWork.cs");
 #>using System.Data.Entity;
 using System.Threading.Tasks;
+using Tokiku.MVVM.Entities;
 
 namespace <#= code.VsNamespaceSuggestion() #>
 {
-	public partial class EFUnitOfWork : IUnitOfWork
+	public partial class EFUnitOfWork : EFUnitOfWorkBase, IUnitOfWork
 	{
-		private DbContext _context;
-		public DbContext Context { get{ return _context;} set{ _context=value;} }
-
 		public EFUnitOfWork()
 		{
 			Context = new <#=code.Escape(container)#>();
 		}
-
-		public void Commit()
-		{
-			Context.SaveChanges();
-		}
-		
+	
 		public async Task CommitAsync()
         {
             await Context.SaveChangesAsync();
         }
-
-		public bool LazyLoadingEnabled
-		{
-			get { return Context.Configuration.LazyLoadingEnabled; }
-			set { Context.Configuration.LazyLoadingEnabled = value; }
-		}
-
-		public bool ProxyCreationEnabled
-		{
-			get { return Context.Configuration.ProxyCreationEnabled; }
-			set { Context.Configuration.ProxyCreationEnabled = value; }
-		}
-		
-		public string ConnectionString
-		{
-			get { return Context.Database.Connection.ConnectionString; }
-			set { Context.Database.Connection.ConnectionString = value; }
-		}
-
 	}
 }
 <#fileManager.StartNewFile("RepositoryHelper.cs");

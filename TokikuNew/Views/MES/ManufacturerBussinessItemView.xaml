@@ -39,7 +39,7 @@
                             <DataTemplate>
                                 <ComboBox x:Name="CBMaterialCategories" Grid.Column="1" Grid.Row="0" Margin="2" IsReadOnly="False"
                                           Text="{Binding MaterialCategories}"
-                                          ItemsSource="{Binding }" 
+                                          ItemsSource="{Binding MaterialCategoriesDropDownList}" 
                                           SelectedValuePath="Id" DisplayMemberPath="Name" 
                                           SelectedValue="{Binding MaterialCategoriesId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                                           IsEditable="True">
@@ -60,7 +60,18 @@
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
-                                <TextBox Text="{Binding Path=Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                <ComboBox x:Name="CBTranscationCategories" Grid.Column="1" Grid.Row="0" Margin="2" IsReadOnly="False"
+                                          Text="{Binding Name}"
+                                          ItemsSource="{Binding TradingItemDropDownList}" 
+                                          SelectedValuePath="Id" DisplayMemberPath="Name" 
+                                          SelectedValue="{Binding TradingItemsId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                          IsEditable="True">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}"/>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
@@ -75,7 +86,7 @@
                             <DataTemplate>
                                 <ComboBox x:Name="cbTranscationCategories" Grid.Column="1" Grid.Row="0" Margin="2" IsReadOnly="False"
                                           Text="{Binding TranscationCategories}"
-                                          ItemsSource="{Binding }" 
+                                          ItemsSource="{Binding TranscationCategoriesDropDownList}" 
                                           SelectedValuePath="Id" DisplayMemberPath="Name" 
                                           SelectedValue="{Binding TranscationCategoriesId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                                           IsEditable="True">
@@ -99,7 +110,7 @@
                             <DataTemplate>
                                 <ComboBox x:Name="cbPaymentTypeBI" Grid.Column="1" Grid.Row="0" Margin="2" IsReadOnly="False"
                                           Text="{Binding PaymentTypeName}"
-                                          ItemsSource="{Binding }" 
+                                          ItemsSource="{Binding PaymentTypesDropDownList}" 
                                           SelectedValuePath="Id" DisplayMemberPath="PaymentTypeName" 
                                           SelectedValue="{Binding PaymentTypeId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                                           IsEditable="True">
@@ -123,7 +134,7 @@
                             <DataTemplate>
                                 <ComboBox x:Name="cbTicketPeriodBI" Grid.Column="1" Grid.Row="0" Margin="2" IsReadOnly="False"
                                           Text="{Binding TicketPeriod}"                                          
-                                          ItemsSource="{Binding }" 
+                                          ItemsSource="{Binding TicketPeriodsDropDownList}" 
                                           SelectedValuePath="Id" DisplayMemberPath="Name" 
                                           SelectedValue="{Binding TicketPeriodId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                                           IsEditable="True">

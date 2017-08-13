@@ -18,7 +18,7 @@ namespace Tokiku.ViewModels
         [PreferredConstructor]
         public ManufacturersBussinessItemsViewModel(ManufacturersBussinessItems entity) : base(entity)
         {
-
+            
         }
 
         #region MaterialCategoriesId 材料類別Id
@@ -59,6 +59,7 @@ namespace Tokiku.ViewModels
             set { RaisePropertyChanged("Name", CopyofPOCOInstance.TradingItems.Name, value, true); }
         }
 
+        public Guid TradingItemsId { get => CopyofPOCOInstance.TradingItemsId; set { CopyofPOCOInstance.TradingItemsId = value;RaisePropertyChanged("TradingItemsId"); } }
         #endregion
 
         #region PaymentTypeId  支付方式識別碼(Id)

@@ -11,14 +11,15 @@ using GalaSoft.MvvmLight.Ioc;
 
 namespace Tokiku.ViewModels
 {
-    public class UserViewModel : EntityBaseViewModel<Users>, IUserViewModel
+    public class UserViewModel : EntityBaseViewModel<IUsers>, IUserViewModel
     {
-        [PreferredConstructor]
+
         public UserViewModel()
         {
 
         }
 
+        [PreferredConstructor]
         public UserViewModel(Users entity) : base(entity)
         {
 

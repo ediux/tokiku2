@@ -97,7 +97,6 @@
     <Compile Include="AccessLogRepository.cs">
       <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
-    <Compile Include="Base\DataServiceBase.cs" />
     <Compile Include="Base\RepositoryLocator.cs" />
     <Compile Include="BOM.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
@@ -155,6 +154,7 @@
     <Compile Include="Engineering.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityLocator.Partial.cs" />
     <Compile Include="Inventory.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
@@ -510,6 +510,9 @@
     <Compile Include="TradingItems.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
+    <Compile Include="TradingItemsRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
+    </Compile>
     <Compile Include="TranscationCategories.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>
     </Compile>
@@ -683,6 +686,9 @@
     </Compile>
     <Compile Include="View_ObtainMaterial.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_ObtainMaterialRepository.cs">
+      <DependentUpon>Edward.IRepository.EF6.tt</DependentUpon>
     </Compile>
     <Compile Include="View_OrderControlTable.cs">
       <DependentUpon>Tokiku.tt</DependentUpon>

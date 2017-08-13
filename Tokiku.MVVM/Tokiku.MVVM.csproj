@@ -75,7 +75,10 @@
     <Compile Include="Controllers\ActionResult.cs" />
     <Compile Include="Common\ActionCodes.cs" />
     <Compile Include="Common\DocumentLifeCircle.cs" />
+    <Compile Include="DataAccessLayers\DataServices\DataServiceBase.cs" />
+    <Compile Include="DataAccessLayers\Entities\EFUnitOfWorkBase.cs" />
     <Compile Include="DataAccessLayers\Entities\Interfaces\IExecuteResultEntity.cs" />
+    <Compile Include="DataAccessLayers\Entities\Interfaces\IUnitOfWork.cs" />
     <Compile Include="StartUpLocator.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\ControllerContext.cs" />

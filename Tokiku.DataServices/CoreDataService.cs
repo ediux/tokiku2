@@ -576,6 +576,46 @@ namespace Tokiku.DataServices
             }
             return string.Empty;
         }
+
+        public void CreateOrUpdate(IUsers Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateOrUpdate(IEnumerable<IUsers> Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateOrUpdate(Contacts Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateOrUpdate(IEnumerable<Contacts> Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateOrUpdate(Roles Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateOrUpdate(IEnumerable<Roles> Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateOrUpdate(EncodingRecords Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateOrUpdate(IEnumerable<EncodingRecords> Model)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

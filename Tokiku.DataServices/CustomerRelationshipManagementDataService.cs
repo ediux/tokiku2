@@ -11,10 +11,18 @@ namespace Tokiku.DataServices
     public class CustomerRelationshipManagementDataService : DataServiceBase, ICustomerRelationshipManagementDataService
     {
         private ICoreDataService _CoreDataService;
+        private IClientDataService _ClientDataService;
+        private IManufacturingExecutionDataService _IManufacturingExecutionDataService;
+        private IManufacturersDataService _ManufacturersDataService;
 
-        public CustomerRelationshipManagementDataService(ICoreDataService CoreDataService)
+        public CustomerRelationshipManagementDataService(ICustomerRelationshipManagementDataService CustomerRelationshipManagementDataService,
+            IManufacturingExecutionDataService ManufacturingExecutionDataService,
+            ICoreDataService CoreDataService)
         {
             _CoreDataService = CoreDataService;
+            _IManufacturingExecutionDataService = ManufacturingExecutionDataService;
+            _ManufacturersDataService = _IManufacturingExecutionDataService;
+            _ClientDataService = CustomerRelationshipManagementDataService;
         }
 
         public Manufacturers Add(Manufacturers model)
@@ -23,6 +31,16 @@ namespace Tokiku.DataServices
         }
 
         public IEnumerable<Manufacturers> AddRange(IEnumerable<Manufacturers> models)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateOrUpdate(Manufacturers Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateOrUpdate(IEnumerable<Manufacturers> Model)
         {
             throw new NotImplementedException();
         }

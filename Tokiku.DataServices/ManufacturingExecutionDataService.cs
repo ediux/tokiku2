@@ -457,6 +457,36 @@ namespace Tokiku.DataServices
             throw new NotImplementedException();
         }
 
+        public void CreateOrUpdate(Manufacturers Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateOrUpdate(IEnumerable<Manufacturers> Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateOrUpdate(ManufacturersBussinessItems Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateOrUpdate(IEnumerable<ManufacturersBussinessItems> Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateOrUpdate(SupplierTranscationItem Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateOrUpdate(IEnumerable<SupplierTranscationItem> Model)
+        {
+            throw new NotImplementedException();
+        }
+
 
         #endregion
     }

@@ -26,6 +26,9 @@ namespace Tokiku.ViewModels
         #region Text
 
         private string _Text = string.Empty;
+        /// <summary>
+        /// 取得或設定代表停用/啟用數值內容的文字內容
+        /// </summary>
         public string Text
         {
             get => _Text;
@@ -34,24 +37,9 @@ namespace Tokiku.ViewModels
 
         #endregion
 
-        public void SetModel(dynamic entity)
+        public override string ToString()
         {
-            bool data = (bool)entity;
-            if (data)
-            {
-                Value = data;
-                Text = "停用";
-            }
-            else
-            {
-                Value = data;
-                Text = "啟用";
-            }
+            return Text;
         }
-
-        //public override string ToString()
-        //{
-        //    return Text;
-        //}
     }
 }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using Tokiku.Entity;
+using Tokiku.MVVM.Entities;
 using Tokiku.ViewModels;
 
 namespace Tokiku.MVVM
@@ -145,5 +146,15 @@ namespace Tokiku.MVVM
         public abstract void RemoveAll();
         public abstract void RemoveWhere(Expression<Func<TModel, bool>> filiter = null);
         public abstract ICollection<TModel> SearchByText(string filiter);
+
+        public void CreateOrUpdate(TModel Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateOrUpdate(IEnumerable<TModel> Model)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
