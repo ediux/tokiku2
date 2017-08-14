@@ -87,12 +87,14 @@
     <Compile Include="Interfaces\MES\IManufacturingExecutionDataService.cs" />
     <Compile Include="Interfaces\Core\IRoleDataService.cs" />
     <Compile Include="Interfaces\Core\IUserDataService.cs" />
+    <Compile Include="Interfaces\MES\IProjectsDataService.cs" />
     <Compile Include="Interfaces\MES\ISupplierTranscationDataService.cs" />
     <Compile Include="Interfaces\Finance\IPaymentTypesDataService.cs" />
     <Compile Include="Interfaces\Finance\IPromissoryNoteManagementDataService.cs" />
     <Compile Include="Interfaces\Finance\ITicketPeriodDataService.cs" />
     <Compile Include="Interfaces\Finance\ITranscationCategoriesDataService.cs" />
     <Compile Include="Interfaces\Finance\ITradingItemsDataService.cs" />
+    <Compile Include="Interfaces\WMS\IWarehouseManagementDataService.cs" />
     <Compile Include="ManufacturingExecutionDataService.cs" />
     <Compile Include="MVVMLocatorMaker.cs">
       <DependentUpon>MVVMLocatorMaker.tt</DependentUpon>
@@ -126,8 +128,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\WMS\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

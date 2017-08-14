@@ -136,6 +136,7 @@ namespace Tokiku.DataServices
         {
             try
             {
+                model.IsClient = false;
                 model = _ManufacturersRepository.Add(model);
                 _ManufacturersRepository.UnitOfWork.Commit();
                 _ManufacturersRepository.Reload(model);
@@ -159,6 +160,7 @@ namespace Tokiku.DataServices
 
                 foreach (var addrow in models)
                 {
+                    addrow.IsClient = false;
                     var newdata = _ManufacturersRepository.Add(addrow);
 
                     _CoreDataService.AddAccessLog("Manufacturers", newdata.Id.ToString(),
@@ -210,9 +212,11 @@ namespace Tokiku.DataServices
 
                 var queryresult = (from q in _ManufacturersRepository.All()
                                    where q.Void == false && q.IsClient == false
-
                                    orderby q.Code ascending
-                                   select q).Where(filiter);
+                                   select q);
+
+                if (filiter != null)
+                    return queryresult.Where(filiter).SingleOrDefault();
 
                 return queryresult.SingleOrDefault();
 
@@ -252,7 +256,7 @@ namespace Tokiku.DataServices
         public void Remove(Manufacturers model)
         {
             model.Void = true;
-            Update(model, w => w.Id == model.Id);
+            Update(model, w => w.Id == model.Id && w.IsClient==false);
         }
         public void RemoveAll()
         {
@@ -389,7 +393,7 @@ namespace Tokiku.DataServices
                 }
 
                 //檢查資料庫資料是否存在?
-                if (_ManufacturersRepository.Where(w => w.Id == Model.Id)?.Count() > 0)
+                if (_ManufacturersRepository.Where(w => w.Id == Model.Id && w.IsClient==false)?.Count() > 0)
                 {
                     //repo.UnitOfWork.Context.Entry(entity).State = EntityState.Detached;
 
@@ -422,6 +426,10 @@ namespace Tokiku.DataServices
                 setErrortoModel(ex);
             }
         }
+        public void CreateOrUpdate(IEnumerable<Manufacturers> Model)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
         #region 營業項目管理
@@ -430,6 +438,14 @@ namespace Tokiku.DataServices
             throw new NotImplementedException();
         }
         public IEnumerable<ManufacturersBussinessItems> AddRange(IEnumerable<ManufacturersBussinessItems> models)
+        {
+            throw new NotImplementedException();
+        }
+        public void CreateOrUpdate(ManufacturersBussinessItems Model)
+        {
+            throw new NotImplementedException();
+        }
+        public void CreateOrUpdate(IEnumerable<ManufacturersBussinessItems> Model)
         {
             throw new NotImplementedException();
         }
@@ -544,23 +560,6 @@ namespace Tokiku.DataServices
             throw new NotImplementedException();
         }
 
-       
-
-        public void CreateOrUpdate(IEnumerable<Manufacturers> Model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CreateOrUpdate(ManufacturersBussinessItems Model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CreateOrUpdate(IEnumerable<ManufacturersBussinessItems> Model)
-        {
-            throw new NotImplementedException();
-        }
-
         public void CreateOrUpdate(SupplierTranscationItem Model)
         {
             throw new NotImplementedException();
@@ -571,7 +570,68 @@ namespace Tokiku.DataServices
             throw new NotImplementedException();
         }
 
+        #endregion
 
+        #region 專案管理
+        public Projects Add(Projects model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Projects> AddRange(IEnumerable<Projects> models)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Projects GetSingle(Expression<Func<Projects, bool>> filiter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Projects> GetAll(Expression<Func<Projects, bool>> filiter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Projects Update(Projects Source, Expression<Func<Projects, bool>> filiter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Projects> UpdateRange(IEnumerable<Projects> MultiSource, Expression<Func<Projects, bool>> filiter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(Projects model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveWhere(Expression<Func<Projects, bool>> filiter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerable<Projects> IDataService<Projects>.DirectExecuteSQL(string tsql, params object[] parameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        ICollection<Projects> IDataService<Projects>.SearchByText(string filiter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateOrUpdate(Projects Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateOrUpdate(IEnumerable<Projects> Model)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }
