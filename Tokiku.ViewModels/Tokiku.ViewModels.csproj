@@ -73,6 +73,12 @@
     <Compile Include="Base\EntityBaseViewModel.cs" />
     <Compile Include="ContactPerson\ContactListViewModel.cs" />
     <Compile Include="ContactPerson\ContactsViewModel.cs" />
+    <Compile Include="CRM\ClientListItemViewModel.cs" />
+    <Compile Include="CRM\ClientListViewModel.cs" />
+    <Compile Include="CRM\ClientViewModel.cs" />
+    <Compile Include="Interfaces\CRM\IClientListItemViewModel.cs" />
+    <Compile Include="Interfaces\CRM\IClientListViewModel.cs" />
+    <Compile Include="Interfaces\CRM\IClientViewModel.cs" />
     <Compile Include="Interfaces\Finance\IMaterialCategoriesListViewModel.cs" />
     <Compile Include="Interfaces\Finance\IMaterialCategoriesViewModel.cs" />
     <Compile Include="Interfaces\Finance\ITicketPeriodsViewModel.cs" />

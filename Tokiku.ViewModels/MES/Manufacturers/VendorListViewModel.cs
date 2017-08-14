@@ -11,15 +11,16 @@ using GalaSoft.MvvmLight.Messaging;
 
 namespace Tokiku.ViewModels
 {
-    public class VendorListViewModel : BaseViewModel, IVendorListViewModel
+    public class VendorListViewModel : DocumentBaseViewModel, IVendorListViewModel
     {
         private IManufacturingExecutionDataService _ManufacturersDataService;
 
-        public VendorListViewModel(IManufacturingExecutionDataService ManufacturersDataService)
+        public VendorListViewModel(IManufacturingExecutionDataService ManufacturersDataService,
+            ICoreDataService CoreDataService):base(CoreDataService)
         {
             _ManufacturersDataService = ManufacturersDataService;
-            _QueryCommand = new RelayCommand(Query);
-            _QueryCommand.Execute(null);
+            QueryCommand = new RelayCommand(Query);
+            
 
             Messenger.Default.Register<string>(this, "SearchBar_Query_VendorList", (x) =>
             {
@@ -41,10 +42,15 @@ namespace Tokiku.ViewModels
         }
 
         private ObservableCollection<IVendorListItemViewModel> _VendorList;
-        public ObservableCollection<IVendorListItemViewModel> VendorList { get => _VendorList; set { _VendorList = value; RaisePropertyChanged("VendorList"); } }
+        public ObservableCollection<IVendorListItemViewModel> VendorList { get {
+                if (_VendorList == null)
+                {
+                    QueryCommand.Execute(null);
+                }
 
-        private ICommand _QueryCommand;
-        public ICommand QueryCommand { get => _QueryCommand; set { _QueryCommand = value; RaisePropertyChanged("QueryCommand"); } }
+                return _VendorList;
+
+            } set { _VendorList = value; RaisePropertyChanged("VendorList"); } }
 
         protected void Query()
         {

@@ -24,5 +24,11 @@ namespace Tokiku.ViewModels
 
         protected bool _CanClose = false;
         public virtual bool CanClose { get => _CanClose; set { _CanClose = value; RaisePropertyChanged("CanClose"); } }
+
+        private object _SelectedObject = null;
+        public object SelectedObject { get =>_SelectedObject; set { _SelectedObject = value;RaisePropertyChanged("SelectedObject"); } }
+
+        private string _TabControlName = string.Empty;
+        public string TabControlName { get => _TabControlName; set { _TabControlName = value; RaisePropertyChanged("TabControlName"); } }
     }
 }

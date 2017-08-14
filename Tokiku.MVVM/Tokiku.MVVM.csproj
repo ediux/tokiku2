@@ -72,6 +72,19 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviors\OnCloseTabButtonClickBehavior.cs" />
+    <Compile Include="Behaviors\OnComboBoxSelectionChangedBehavior.cs" />
+    <Compile Include="Behaviors\OnDataGridMouseDoubleClickBehavior.cs" />
+    <Compile Include="Behaviors\OnEditButtonClickBehavior.cs" />
+    <Compile Include="Behaviors\OnMenuItemClickBehavior.cs" />
+    <Compile Include="Behaviors\OnMenuItemClickToClaseWindowBehavior.cs" />
+    <Compile Include="Behaviors\OnSaveButtonClickBehavior.cs" />
+    <Compile Include="Behaviors\OnTabControlAddTabSwitchBehavior.cs" />
+    <Compile Include="Behaviors\OnUserControlPassDataObjectBehavior.cs" />
+    <Compile Include="Behaviors\OnWindowCloseBehavior.cs" />
+    <Compile Include="Behaviors\PasswordChangedBehavior.cs" />
+    <Compile Include="Behaviors\TabOnEnterBehavior_PasswordBox.cs" />
+    <Compile Include="Behaviors\TabOnEnterBehavior_TextBox.cs" />
     <Compile Include="Controllers\ActionResult.cs" />
     <Compile Include="Common\ActionCodes.cs" />
     <Compile Include="Common\DocumentLifeCircle.cs" />

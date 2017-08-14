@@ -10,7 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Interactivity;
 using Tokiku.ViewModels;
 
-namespace TokikuNew.Helpers
+namespace Tokiku.MVVM.Behaviors
 {
     /// <summary>
     /// 可關閉分頁按鈕行為物件
@@ -56,7 +56,7 @@ namespace TokikuNew.Helpers
             if (AssociatedObject.DataContext is ITabViewModel)
             {
                 ITabViewModel tabcontext = (ITabViewModel)AssociatedObject.DataContext;
-
+              
                 Type ViewType = tabcontext.ViewType;
 
                 List<PropertyInfo> PropNames = ViewType.GetProperties()
@@ -88,7 +88,10 @@ namespace TokikuNew.Helpers
                 if (isContinue)
                     return;
 
-                Messenger.Default.Send(tabcontext, (!string.IsNullOrEmpty(ControlsChannelName))?ControlsChannelName: "TabItem_Close_View");
+                //傳送訊息給分頁控制項
+                NotificationMessage<ITabViewModel> NotifyToClosingTabMessage = new NotificationMessage<ITabViewModel>(AssociatedObject, tabcontext, "CloseTab");
+                Messenger.Default.Send(NotifyToClosingTabMessage);
+                // Messenger.Default.Send(tabcontext, (!string.IsNullOrEmpty(ControlsChannelName))?ControlsChannelName: "TabItem_Close_View");
             }
         }
 

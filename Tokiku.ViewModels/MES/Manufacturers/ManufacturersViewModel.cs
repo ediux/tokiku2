@@ -26,6 +26,7 @@ namespace Tokiku.ViewModels
         {
             ModeChangedCommand.Execute(DocumentLifeCircle.Read);
             QueryCommand = new RelayCommand<IVendorListItemViewModel>(RunQuery);
+            
         }
 
         [PreferredConstructor]
@@ -37,6 +38,7 @@ namespace Tokiku.ViewModels
             _FinancialManagementDataService = FinancialManagementDataService;
             ModeChangedCommand.Execute(DocumentLifeCircle.Read);
             QueryCommand = new RelayCommand<IVendorListItemViewModel>(RunQuery);
+            Messenger.Default.Register<NotificationMessage<IVendorListItemViewModel>>(this, PassFromOthers);
             //QueryCommand.Execute(CopyofPOCOInstance);
         }
 
@@ -421,6 +423,14 @@ namespace Tokiku.ViewModels
 
             BusinessItemsList.ModeChangedCommand.Execute(Mode);
             ContactsList.ModeChangedCommand.Execute(Mode);
+        }
+        
+        protected virtual void PassFromOthers(NotificationMessage<IVendorListItemViewModel> message)
+        {
+            if (message == null)
+                return;
+
+            
         }
         //#region 查詢單一個體的檢視資料
         ///// <summary>

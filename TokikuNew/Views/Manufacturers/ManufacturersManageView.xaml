@@ -10,13 +10,15 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:valueconverters="clr-namespace:TokikuNew.ValueConverters"
              xmlns:helpers="clr-namespace:TokikuNew.Helpers"
+             xmlns:behavior="clr-namespace:Tokiku.MVVM.Behaviors;assembly=Tokiku.MVVM"
              x:Class="TokikuNew.Views.ManufacturersManageView"  
              mc:Ignorable="d" 
+             DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=ManufacturersViewModel}"
              d:DesignHeight="768" d:DesignWidth="1366" Background="{DynamicResource ControlBackgroundBrush}" 
              x:Name="userControl">
-    <i:Interaction.Behaviors>
-        <helpers:OnUserControlPassDataObjectBehavior DataChannelName="ManufacturersViewModel" DataObjectType="{x:Type vm:IManufacturersViewModel}"/>
-    </i:Interaction.Behaviors>
+    <!--<i:Interaction.Behaviors>
+        <behavior:OnUserControlPassDataObjectBehavior DataChannelName="ManufacturersViewModel" DataObjectType="{x:Type vm:IManufacturersViewModel}"/>
+    </i:Interaction.Behaviors>-->
     <UserControl.Resources>
         <valueconverters:TypeValueConverter x:Key="TypeConverter"/>
         <Style TargetType="CheckBox" x:Key="ReadModeSwitch_CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
@@ -83,7 +85,8 @@
                     <TextBlock x:Name="tbCode" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Code}"/>
 
                     <TextBlock Text="名稱(全名)：" Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-                    <TextBox Style="{DynamicResource ReadModeSwitch}" x:Name="tbName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Name,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Style="{DynamicResource ReadModeSwitch}" x:Name="tbName" Grid.Row="1" Grid.Column="1" 
+                             VerticalAlignment="Center" Margin="2" Text="{Binding Name,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <TextBlock Text="名稱(簡稱)：" Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
                     <TextBox Style="{DynamicResource ReadModeSwitch}" x:Name="tbShortName" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding ShortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding Path=Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>

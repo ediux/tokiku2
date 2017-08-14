@@ -9,11 +9,12 @@
         xmlns:view="clr-namespace:TokikuNew.Views"
         xmlns:controls ="clr-namespace:TokikuNew.Controls"
         xmlns:helpers="clr-namespace:TokikuNew.Helpers"
+        xmlns:behaviors="clr-namespace:Tokiku.MVVM.Behaviors;assembly=Tokiku.MVVM"
         mc:Ignorable="d"        
         Title="東菊金屬 ERP System" Height="768" Width="1366" WindowState="Maximized" Icon="{DynamicResource Logo}"
          Background="{DynamicResource WindowBackgroundBrush}">
     <i:Interaction.Behaviors>
-        <helpers:OnWindowCloseBehavior />
+        <behaviors:OnWindowCloseBehavior />
     </i:Interaction.Behaviors>
     <Window.Resources>
 
@@ -33,11 +34,17 @@
                 <MenuItem Header="{Binding Current.MainViewModel.MainMenus[0].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_Main" >
                     <MenuItem Header="{Binding Current.MainViewModel.MainMenus[0].SubMenus[0].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_Main_Vendor">
                         <i:Interaction.Behaviors>
-                            <helpers:OnMenuItemClickBehavior Header="廠商列表" TabControlChannellName="Workspaces"                                                             
+                            <behaviors:OnMenuItemClickBehavior Header="廠商列表" TabControlChannellName="Workspaces"                                                             
                                                              ViewType="{x:Type view:VendorListView}" />
                         </i:Interaction.Behaviors>
                     </MenuItem>
-                    <MenuItem Header="{Binding Current.MainViewModel.MainMenus[0].SubMenus[1].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_Main_Client" />
+                    <MenuItem Header="{Binding Current.MainViewModel.MainMenus[0].SubMenus[1].Header ,Source={StaticResource ViewModelLocator}}" 
+                              Name="MI_Main_Client">
+                        <i:Interaction.Behaviors>
+                            <behaviors:OnMenuItemClickBehavior Header="客戶列表" TabControlChannellName="Workspaces"                                                             
+                                                             ViewType="{x:Type view:ClientListView}" />
+                        </i:Interaction.Behaviors>
+                    </MenuItem>
                     <MenuItem Header="{Binding Current.MainViewModel.MainMenus[0].SubMenus[2].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_Main_Molds" />
                 </MenuItem>
                 <MenuItem Header="{Binding Current.MainViewModel.MainMenus[1].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_Reports" />
@@ -53,7 +60,7 @@
                     <Separator/>
                     <MenuItem Header="{Binding Current.MainViewModel.MainMenus[3].SubMenus[3].Header ,Source={StaticResource ViewModelLocator}}" Name="ExitApp" >
                         <i:Interaction.Behaviors>
-                            <helpers:OnMenuItemClickToClaseWindowBehavior WindowInstance="{x:Reference Name=mainwindow}" />
+                            <behaviors:OnMenuItemClickToClaseWindowBehavior WindowInstance="{x:Reference Name=mainwindow}" />
                         </i:Interaction.Behaviors>
                     </MenuItem>
                 </MenuItem>
@@ -62,7 +69,7 @@
             <TabControl Grid.Row="1" Margin="0,0,0,0" x:Name="Workspaces" FontSize="9" TabStripPlacement="Top"                        
                         ItemsSource="{Binding Current.MainViewModel.FeaturesTabs ,Source={StaticResource ViewModelLocator}}" >
                 <i:Interaction.Behaviors>
-                    <helpers:OnTabControlAddTabSwitchBehavior TabControlChannellName="Workspaces"/>
+                    <behaviors:OnTabControlAddTabSwitchBehavior />
                 </i:Interaction.Behaviors>
             </TabControl>
             <StatusBar Margin="0" Grid.Row="3">

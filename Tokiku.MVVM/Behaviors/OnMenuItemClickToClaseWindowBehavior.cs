@@ -8,7 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Interactivity;
 using System.Windows.Media;
 
-namespace TokikuNew.Helpers
+namespace Tokiku.MVVM.Behaviors
 {
     public class OnMenuItemClickToClaseWindowBehavior : Behavior<MenuItem>
     {
@@ -37,7 +37,7 @@ namespace TokikuNew.Helpers
             if (WindowInstance != null)
                 WindowInstance.Close();
             else
-                App.Current.Shutdown();
+                Application.Current.Shutdown();
         }
 
         protected override void OnDetaching()

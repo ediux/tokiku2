@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Interactivity;
 
-namespace TokikuNew.Helpers
+namespace Tokiku.MVVM.Behaviors
 {
     public class OnSaveButtonClickBehavior : Behavior<Button>
     {

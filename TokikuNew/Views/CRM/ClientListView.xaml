@@ -7,14 +7,13 @@
              xmlns:controls="clr-namespace:TokikuNew.Controls"
              xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
              xmlns:l="clr-namespace:TokikuNew"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
+             DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=ClientListViewModel}"
              Background="{DynamicResource ControlBackgroundBrush}"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             d:DesignHeight="768" d:DesignWidth="1024"
-             Loaded="UserControl_Loaded">
+             d:DesignHeight="768" d:DesignWidth="1024">
     <UserControl.Resources>
-        <ObjectDataProvider x:Key="ClientListSource" ObjectType="{x:Type vm:ClientViewModelCollection}" MethodName="QueryAll" />
-        <!--<vm:ClientViewModelCollection x:Key="" />-->
+    
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -32,43 +31,17 @@
                     <ColumnDefinition Width="125*"/>
                     <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
-                <controls:SearchBar x:Name="sSearchBar"  DataContext="{StaticResource ClientListSource}"  Grid.Column="0"/>
-                <Button Name="btnNew" Grid.Column="1" Margin="1" Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" Click="btnNew_Click" />
+                <controls:SearchBar x:Name="sSearchBar" Grid.Column="0" Prefix="ClientList"/>
+                <Button Name="btnNew" Grid.Column="1" Margin="1" Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" 
+                        Command="{Binding CreateNewCommand}" />
             </Grid>
         </Grid>
         <controls:CustomDataGrid x:Name="ClientList" AllowExecuteSystemCommand="False" Grid.Row="1" Margin="5"
-                                 ItemsSource="{Binding Source= {StaticResource ClientListSource}}" CanUserDeleteRows="False"  CanUserAddRows="False"
+                                 ItemsSource="{Binding ClientsList}" CanUserDeleteRows="False"  CanUserAddRows="False"
                                  AutoGenerateColumns="False"
                                  CellStyle="{StaticResource DataGrid_Centering}" FontSize="20" MinRowHeight="30"
                                  AlternatingRowBackground="AliceBlue"  AlternationCount="2"
-                                 MouseDoubleClick="ClientList_MouseDoubleClick"
-                                 IsReadOnly="True"
-                                 vm:CommandRoutingManager.Command="{StaticResource OpenNewTabItem}"
-                                 >
-            <vm:CommandRoutingManager.CommandParameter>
-                <vm:RoutedViewResult FormatedDisplay="客戶:{0}-{1}"
-                                     Name="VendorList" 
-                                     ViewType="{x:Type local:ClientManageView}" 
-                                     DataContent="{Binding SelectedItem ,ElementName=VendorList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
-                    <vm:RoutedViewResult.FormatedParameters>
-                        <x:Array Type="sys:String">
-                            <sys:String>Code</sys:String>
-                            <sys:String>ShortName</sys:String>
-                        </x:Array>
-                    </vm:RoutedViewResult.FormatedParameters>
-                    <vm:RoutedViewResult.RoutingBinding>
-                        <sys:String x:Key="Code">Code</sys:String>
-                        <sys:String x:Key="ShortName">ShortName</sys:String>
-                        <sys:String x:Key="SelectedManufacturerId">Id</sys:String>
-                    </vm:RoutedViewResult.RoutingBinding>
-                    <vm:RoutedViewResult.RoutedValues>
-                        <sys:Guid x:Key="SelectedManufacturerId"></sys:Guid>
-                        <x:Type x:Key="SourceViewType" TypeName="l:MainWindow"/>
-                        <sys:String x:Key="TabControlName">Workspaces</sys:String>
-                        <sys:String x:Key="ResourceKey">ClientListSource</sys:String>
-                    </vm:RoutedViewResult.RoutedValues>
-                </vm:RoutedViewResult>
-            </vm:CommandRoutingManager.CommandParameter>
+                                 IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="客戶代號" Width="auto" Binding="{Binding Code}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                 <DataGridTextColumn Header="名稱(全名)" Width="auto" Binding="{Binding Name}" HeaderStyle="{StaticResource HeaderStyleCenter}" />

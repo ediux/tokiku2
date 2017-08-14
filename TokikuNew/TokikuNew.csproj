@@ -147,25 +147,9 @@
     </Compile>
     <Compile Include="Controls\ClosableTabItem.cs" />
     <Compile Include="Controls\CustomDataGrid.cs" />
-    <Compile Include="Controls\DockBar.xaml.cs">
-      <DependentUpon>DockBar.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\SearchBar.xaml.cs">
       <DependentUpon>SearchBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\Behaviors\OnCloseTabButtonClickBehavior.cs" />
-    <Compile Include="Helpers\Behaviors\OnComboBoxSelectionChangedBehavior.cs" />
-    <Compile Include="Helpers\Behaviors\OnDataGridMouseDoubleClickBehavior.cs" />
-    <Compile Include="Helpers\Behaviors\OnEditButtonClickBehavior.cs" />
-    <Compile Include="Helpers\Behaviors\OnMenuItemClickBehavior.cs" />
-    <Compile Include="Helpers\Behaviors\OnMenuItemClickToClaseWindowBehavior.cs" />
-    <Compile Include="Helpers\Behaviors\OnSaveButtonClickBehavior.cs" />
-    <Compile Include="Helpers\Behaviors\OnTabControlAddTabSwitchBehavior.cs" />
-    <Compile Include="Helpers\Behaviors\OnUserControlPassDataObjectBehavior.cs" />
-    <Compile Include="Helpers\Behaviors\OnWindowCloseBehavior.cs" />
-    <Compile Include="Helpers\Behaviors\PasswordChangedBehavior.cs" />
-    <Compile Include="Helpers\Behaviors\TabOnEnterBehavior_PasswordBox.cs" />
-    <Compile Include="Helpers\Behaviors\TabOnEnterBehavior_TextBox.cs" />
     <Compile Include="Helpers\ClipboardHelper.cs" />
     <Compile Include="Helpers\SwitchFieldMode.cs" />
     <Compile Include="Helpers\ThemeManager.cs" />
@@ -176,6 +160,9 @@
     <Compile Include="ValueConverters\TypeValueConverter.cs" />
     <Compile Include="Views\ContactPerson\ContactPersonManageView.xaml.cs">
       <DependentUpon>ContactPersonManageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CRM\ClientListView.xaml.cs">
+      <DependentUpon>ClientListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Manufacturers\ManufacturersManageView.xaml.cs">
       <DependentUpon>ManufacturersManageView.xaml</DependentUpon>
@@ -210,15 +197,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\DockBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Controls\SearchBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ContactPerson\ContactPersonManageView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CRM\ClientListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -364,6 +351,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Base\" />
+    <Folder Include="Behaviors\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ReadMe.txt" />

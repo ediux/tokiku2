@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -22,6 +23,8 @@ namespace Tokiku.ViewModels
             _DeleteCommand = new RelayCommand(Delete);
             _CreateNewCommand = new RelayCommand(CreateNew);
             _ReplyCommand = new RelayCommand<object>(Relay);
+
+            Messenger.Default.Register<NotificationMessage<IBaseViewModel>>(this, RecviceFromOthers);
         }
 
         #region 文件狀態
@@ -59,6 +62,10 @@ namespace Tokiku.ViewModels
 
         #endregion
 
+        protected virtual void RecviceFromOthers(NotificationMessage<IBaseViewModel> model)
+        {
+            QueryCommand?.Execute(model.Content);
+        }
         protected virtual void RunModeChanged(DocumentLifeCircle Mode)
         {
             _Mode = Mode;

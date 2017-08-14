@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interactivity;
 
-namespace TokikuNew.Helpers
+namespace Tokiku.MVVM.Behaviors
 {
     public class TabOnEnterBehaviorForPassword : Behavior<PasswordBox>
     {

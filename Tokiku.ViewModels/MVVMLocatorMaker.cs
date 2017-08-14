@@ -31,6 +31,15 @@ namespace Tokiku.ViewModels
 			if (!SimpleIoc.Default.IsRegistered<IMenuItemViewModel>())
 				SimpleIoc.Default.Register<IMenuItemViewModel,MenuItemViewModel>();			
 
+			if (!SimpleIoc.Default.IsRegistered<IClientListItemViewModel>())
+				SimpleIoc.Default.Register<IClientListItemViewModel,ClientListItemViewModel>();			
+
+			if (!SimpleIoc.Default.IsRegistered<IClientListViewModel>())
+				SimpleIoc.Default.Register<IClientListViewModel,ClientListViewModel>();			
+
+			if (!SimpleIoc.Default.IsRegistered<IClientViewModel>())
+				SimpleIoc.Default.Register<IClientViewModel,ClientViewModel>();			
+
 			if (!SimpleIoc.Default.IsRegistered<IMaterialCategoriesListViewModel>())
 				SimpleIoc.Default.Register<IMaterialCategoriesListViewModel,MaterialCategoriesListViewModel>();			
 
@@ -57,6 +66,9 @@ namespace Tokiku.ViewModels
 
 			if (!SimpleIoc.Default.IsRegistered<ITradingItemsListViewModel>())
 				SimpleIoc.Default.Register<ITradingItemsListViewModel,TradingItemsListViewModel>();			
+
+			if (!SimpleIoc.Default.IsRegistered<ITradingItemsViewModel>())
+				SimpleIoc.Default.Register<ITradingItemsViewModel,TradingItemsViewModel>();			
 
 			if (!SimpleIoc.Default.IsRegistered<ITranscationCategoriesListViewModel>())
 				SimpleIoc.Default.Register<ITranscationCategoriesListViewModel,TranscationCategoriesListViewModel>();			
@@ -108,9 +120,6 @@ namespace Tokiku.ViewModels
 
 			if (!SimpleIoc.Default.IsRegistered<IVoidViewModel>())
 				SimpleIoc.Default.Register<IVoidViewModel,VoidViewModel>();			
-
-			if (!SimpleIoc.Default.IsRegistered<ITradingItemsViewModel>())
-				SimpleIoc.Default.Register<ITradingItemsViewModel,TradingItemsViewModel>();			
 										
             if (_Current == null)
                 _Current = this;
@@ -165,6 +174,27 @@ namespace Tokiku.ViewModels
 		public IMenuItemViewModel MenuItemViewModel
 		{
 			get => SimpleIoc.Default.GetInstance<IMenuItemViewModel>();
+		}
+		/// <summary>
+        /// 取得IoC容器中的實作 IClientListItemViewModel 介面的物件執行個體。
+        /// </summary>
+		public IClientListItemViewModel ClientListItemViewModel
+		{
+			get => SimpleIoc.Default.GetInstance<IClientListItemViewModel>();
+		}
+		/// <summary>
+        /// 取得IoC容器中的實作 IClientListViewModel 介面的物件執行個體。
+        /// </summary>
+		public IClientListViewModel ClientListViewModel
+		{
+			get => SimpleIoc.Default.GetInstance<IClientListViewModel>();
+		}
+		/// <summary>
+        /// 取得IoC容器中的實作 IClientViewModel 介面的物件執行個體。
+        /// </summary>
+		public IClientViewModel ClientViewModel
+		{
+			get => SimpleIoc.Default.GetInstance<IClientViewModel>();
 		}
 		/// <summary>
         /// 取得IoC容器中的實作 IMaterialCategoriesListViewModel 介面的物件執行個體。
@@ -228,6 +258,13 @@ namespace Tokiku.ViewModels
 		public ITradingItemsListViewModel TradingItemsListViewModel
 		{
 			get => SimpleIoc.Default.GetInstance<ITradingItemsListViewModel>();
+		}
+		/// <summary>
+        /// 取得IoC容器中的實作 ITradingItemsViewModel 介面的物件執行個體。
+        /// </summary>
+		public ITradingItemsViewModel TradingItemsViewModel
+		{
+			get => SimpleIoc.Default.GetInstance<ITradingItemsViewModel>();
 		}
 		/// <summary>
         /// 取得IoC容器中的實作 ITranscationCategoriesListViewModel 介面的物件執行個體。
@@ -347,13 +384,6 @@ namespace Tokiku.ViewModels
 		public IVoidViewModel VoidViewModel
 		{
 			get => SimpleIoc.Default.GetInstance<IVoidViewModel>();
-		}
-		/// <summary>
-        /// 取得IoC容器中的實作 ITradingItemsViewModel 介面的物件執行個體。
-        /// </summary>
-		public ITradingItemsViewModel TradingItemsViewModel
-		{
-			get => SimpleIoc.Default.GetInstance<ITradingItemsViewModel>();
 		}
 	}
 }

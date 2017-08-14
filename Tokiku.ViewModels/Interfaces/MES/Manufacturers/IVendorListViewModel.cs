@@ -3,10 +3,9 @@ using System.Windows.Input;
 
 namespace Tokiku.ViewModels
 {
-    public interface IVendorListViewModel : IBaseViewModel
+    public interface IVendorListViewModel : IDocumentBaseViewModel
     {
         ObservableCollection<IVendorListItemViewModel> VendorList { get; set; }
-        ICommand QueryCommand { get; set; }
     }
 
     

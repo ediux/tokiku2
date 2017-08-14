@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,7 +12,7 @@ using System.Windows.Interactivity;
 using System.Windows.Media;
 using Tokiku.ViewModels;
 
-namespace TokikuNew.Helpers
+namespace Tokiku.MVVM.Behaviors
 {
     public class OnMenuItemClickBehavior : Behavior<MenuItem>
     {
@@ -59,9 +60,9 @@ namespace TokikuNew.Helpers
             AssociatedObject.Click += AssociatedObject_Click;
         }
 
-        private void AssociatedObject_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void AssociatedObject_Click(object sender, RoutedEventArgs e)
         {
-            ITabViewModel tab = new CloseableTabViewModel();
+            ITabViewModel tab = SimpleIoc.Default.GetInstanceWithoutCaching<ICloseableTabViewModel>();
 
             tab.Header = Header;
 
@@ -76,7 +77,11 @@ namespace TokikuNew.Helpers
                 tab.ViewType = ViewType;
             }
 
-            GalaSoft.MvvmLight.Messaging.Messenger.Default.Send(tab, TabControlChannellName);
+            tab.TabControlName = TabControlChannellName;
+
+            var msg = new NotificationMessage<ITabViewModel>(sender, tab, "OpenTab");
+            Messenger.Default.Send(msg);
+            //Messenger.Default.Send(tab, TabControlChannellName);
 
         }
 

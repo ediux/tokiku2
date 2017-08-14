@@ -7,11 +7,15 @@ namespace Tokiku.ViewModels
 {
     public interface ITabViewModel : IBaseViewModel
     {
+        string TabControlName { get; set; }
+
         string Header { get; set; }
 
         Type ViewType { get; set; }
 
         object ContentView { get; set; }
+
+        object SelectedObject { get; set; }
 
         bool CanClose { get; set; }
     }

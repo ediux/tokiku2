@@ -3,7 +3,7 @@
                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                     xmlns:controls="clr-namespace:TokikuNew.Controls"
                     xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.MVVM"
-                    xmlns:helper="clr-namespace:TokikuNew.Helpers">
+                    xmlns:behaviors="clr-namespace:Tokiku.MVVM.Behaviors;assembly=Tokiku.MVVM">
     <RoutedUICommand x:Key="CloseTab" Text="Close Tab"/>
     <Style TargetType="DataGridColumnHeader" x:Key="HeaderStyleCenter">
         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -21,7 +21,7 @@
             <Button Grid.Column="1" Grid.Row="0" Margin="-1,0,0,0" x:Name="btnTabClose" Width="19" Height="19" 
                     DataContext="{Binding}"   >
                 <i:Interaction.Behaviors>
-                    <helper:OnCloseTabButtonClickBehavior />
+                    <behaviors:OnCloseTabButtonClickBehavior />
                 </i:Interaction.Behaviors>
                 <Button.Content>
                     <Path x:Name="Cross" Data="M0,0 L1,1 M0,1 L1,0" Stretch="Fill" 

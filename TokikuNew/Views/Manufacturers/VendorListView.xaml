@@ -7,10 +7,11 @@
              xmlns:l="clr-namespace:TokikuNew"
              xmlns:controls="clr-namespace:TokikuNew.Controls"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
+             xmlns:behaviors="clr-namespace:Tokiku.MVVM.Behaviors;assembly=Tokiku.MVVM"
              xmlns:helpers="clr-namespace:TokikuNew.Helpers"
              xmlns:valueconverters="clr-namespace:TokikuNew.ValueConverters"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
+             DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=VendorListViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024"              
              Background="{DynamicResource ControlBackgroundBrush}">
@@ -38,7 +39,8 @@
                     <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
                 <controls:SearchBar x:Name="sSearchBar" Grid.Column="0" Prefix="VendorList" />
-                <Button Name="btnNew" Grid.Column="1" Margin="2,1" Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" ToolTip="新增"/>
+                <Button Name="btnNew" Grid.Column="1" Margin="2,1" Content="&#xE109;" FontFamily="/Resources/#Segoe MDL2 Assets" 
+                        Command="{Binding CreateNewCommand}" ToolTip="新增"/>
             </Grid>
         </Grid>
         <DataGrid x:Name="VendorList"  Grid.Row="1" Margin="5"
@@ -48,13 +50,15 @@
                                  AutoGenerateColumns="False" 
                                  HorizontalScrollBarVisibility="Auto" CanUserAddRows="True"
                                  IsReadOnly="True"
-                                ItemsSource="{Binding Current.VendorListViewModel.VendorList , Source={StaticResource ViewModelLocator}}">
+                                ItemsSource="{Binding VendorList}"
+                 
+                  >
             <i:Interaction.Behaviors>
-                <helpers:OnDataGridMouseDoubleClickBehavior TabControlChannellName="Workspaces" ViewType="{x:Type local:ManufacturersManageView}"
+                <behaviors:OnDataGridMouseDoubleClickBehavior TabControlChannellName="Workspaces" ViewType="{x:Type local:ManufacturersManageView}"
                                                             DataChannelName="ManufacturersViewModel"
                                                             Fields="{StaticResource filesp}"
                                                             Header="廠商:{0}-{1}" >
-                </helpers:OnDataGridMouseDoubleClickBehavior>
+                </behaviors:OnDataGridMouseDoubleClickBehavior>
             </i:Interaction.Behaviors>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="廠商代號" Binding="{Binding Code}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />

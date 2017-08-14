@@ -256,7 +256,7 @@ namespace Tokiku.DataServices
         public void Remove(Manufacturers model)
         {
             model.Void = true;
-            Update(model, w => w.Id == model.Id && w.IsClient==false);
+            Update(model, w => w.Id == model.Id && w.IsClient == false);
         }
         public void RemoveAll()
         {
@@ -265,7 +265,18 @@ namespace Tokiku.DataServices
 
         public void RemoveWhere(Expression<Func<Manufacturers, bool>> filiter = null)
         {
-            throw new NotImplementedException();
+            var removefor = GetAll(filiter);
+
+            foreach (var item in removefor)
+            {
+                item.Void = true;
+                string updateContext = JsonConvert.SerializeObject(item);
+                _CoreDataService.AddAccessLog("Manufacturers", item.Id.ToString(), _CoreDataService.GetCurrentLoginedUser().UserId,
+                    "資料更新:" + updateContext,
+                    ActionCodes.Update, false);
+            }
+
+            _ManufacturersRepository.UnitOfWork.Commit();
         }
 
         public Collection<Manufacturers> SearchByText(string filiter)
@@ -320,7 +331,7 @@ namespace Tokiku.DataServices
                     if (fromdatabase == null)
                         throw new NullReferenceException("此符合此條件的資料不存在於資料庫!");
 
-               
+
 
                     repo.UnitOfWork.Commit();
                 }
@@ -393,7 +404,7 @@ namespace Tokiku.DataServices
                 }
 
                 //檢查資料庫資料是否存在?
-                if (_ManufacturersRepository.Where(w => w.Id == Model.Id && w.IsClient==false)?.Count() > 0)
+                if (_ManufacturersRepository.Where(w => w.Id == Model.Id && w.IsClient == false)?.Count() > 0)
                 {
                     //repo.UnitOfWork.Context.Entry(entity).State = EntityState.Detached;
 

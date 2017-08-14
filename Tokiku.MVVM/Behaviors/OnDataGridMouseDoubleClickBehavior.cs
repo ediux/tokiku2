@@ -3,15 +3,12 @@ using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interactivity;
 using Tokiku.ViewModels;
 
-namespace TokikuNew.Helpers
+namespace Tokiku.MVVM.Behaviors
 {
     public class OnDataGridMouseDoubleClickBehavior : Behavior<DataGrid>
     {
@@ -35,9 +32,6 @@ namespace TokikuNew.Helpers
         // Using a DependencyProperty as the backing store for Header.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty HeaderProperty =
             DependencyProperty.Register("Header", typeof(string), typeof(OnDataGridMouseDoubleClickBehavior), new PropertyMetadata("未命名"));
-
-
-
 
         public Type ViewType
         {
@@ -82,9 +76,10 @@ namespace TokikuNew.Helpers
 
         private void AssociatedObject_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            ITabViewModel tab = new CloseableTabViewModel();
+            ITabViewModel tab = SimpleIoc.Default.GetInstanceWithoutCaching<ICloseableTabViewModel>();
 
             tab.ContentView = SimpleIoc.Default.GetInstance(ViewType);
+
             tab.ViewType = ViewType;
 
             if (Fields != null)
@@ -109,8 +104,13 @@ namespace TokikuNew.Helpers
                 tab.Header = Header;
             }
 
-            Messenger.Default.Send((ITabViewModel)tab, (!string.IsNullOrEmpty(TabControlChannellName)) ? TabControlChannellName : "TabControl");
-            Messenger.Default.Send(AssociatedObject.SelectedItem, DataChannelName);
+            tab.SelectedObject = AssociatedObject.SelectedItem;
+            tab.TabControlName = TabControlChannellName;
+
+            var msg = new NotificationMessage<ITabViewModel>(sender, tab, "OpenTab");
+            Messenger.Default.Send(msg);
+            //Messenger.Default.Send((ITabViewModel)tab, (!string.IsNullOrEmpty(TabControlChannellName)) ? TabControlChannellName : "TabControl");
+            //Messenger.Default.Send(AssociatedObject.SelectedItem, DataChannelName);
 
         }
 

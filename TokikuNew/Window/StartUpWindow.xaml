@@ -8,6 +8,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:l="clr-namespace:TokikuNew.Frame"
         xmlns:helpers="clr-namespace:TokikuNew.Helpers"
+        xmlns:behaviors="clr-namespace:Tokiku.MVVM.Behaviors;assembly=Tokiku.MVVM"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Title="東菊金屬 ERP System" Height="300" Width="400" 
@@ -41,14 +42,14 @@
             <TextBlock Text="登入帳號" Grid.Row="0" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Margin="2,0"/>
             <TextBox Grid.Row="0" Grid.Column="1" Margin="2" Text="{Binding Current.LoginViewModel.UserName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Source={StaticResource ViewModelLocator}}" TabIndex="1" AcceptsReturn="True" Name="tbUserName">
                 <i:Interaction.Behaviors>
-                    <helpers:TabOnEnterBehavior />
+                    <behaviors:TabOnEnterBehavior />
                 </i:Interaction.Behaviors>
             </TextBox>
             <TextBlock Text="登入密碼" Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Margin="2,0"/>
             <PasswordBox Grid.Row="1" Grid.Column="1" Margin="2" Name="pwdBox" TabIndex="2" DataContext="{Binding Current.LoginViewModel.Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Source={StaticResource ViewModelLocator}}">
                 <i:Interaction.Behaviors>
-                    <helpers:TabOnEnterBehaviorForPassword/>
-                    <helpers:PasswordChangedBehavior/>
+                    <behaviors:TabOnEnterBehaviorForPassword/>
+                    <behaviors:PasswordChangedBehavior/>
                 </i:Interaction.Behaviors>
             </PasswordBox>
             <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
