@@ -24,7 +24,7 @@ namespace Tokiku.ViewModels
             _CreateNewCommand = new RelayCommand(CreateNew);
             _ReplyCommand = new RelayCommand<object>(Relay);
 
-            Messenger.Default.Register<NotificationMessage<IBaseViewModel>>(this, RecviceFromOthers);
+           
         }
 
         #region 文件狀態
@@ -62,10 +62,18 @@ namespace Tokiku.ViewModels
 
         #endregion
 
-        protected virtual void RecviceFromOthers(NotificationMessage<IBaseViewModel> model)
-        {
-            QueryCommand?.Execute(model.Content);
-        }
+        //protected virtual void RecviceFromOthers(NotificationMessage<IBaseViewModel> model)
+        //{
+        //    try
+        //    {
+        //        QueryCommand?.Execute(model.Content);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        setErrortoModel(this, ex);
+        //    }
+      
+        //}
         protected virtual void RunModeChanged(DocumentLifeCircle Mode)
         {
             _Mode = Mode;
@@ -480,6 +488,8 @@ namespace Tokiku.ViewModels
             _Status = new DocumentStatusViewModel();
             _ModeChangedCommand = new RelayCommand<DocumentLifeCircle>(RunModeChanged);
 
+            //Messenger.Default.Register<NotificationMessage<IBaseViewModel>>(this, RecviceFromOthers);
+
             var prop = _EntityType.GetProperty("CreateUserId");
 
             if (prop != null)
@@ -516,6 +526,19 @@ namespace Tokiku.ViewModels
                 }
             }
         }
+
+        //protected virtual void RecviceFromOthers(NotificationMessage<IBaseViewModel> model)
+        //{
+        //    try
+        //    {
+        //        QueryCommand?.Execute(model.Content);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        setErrortoModel(this, ex);
+        //    }
+        
+        //}
 
         protected virtual void RunModeChanged(DocumentLifeCircle Mode)
         {

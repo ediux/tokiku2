@@ -55,7 +55,7 @@ namespace Tokiku.ViewModels
         /// </summary>
         public string Name
         {
-            get { return CopyofPOCOInstance.TradingItems.Name; }
+            get { return CopyofPOCOInstance.TradingItems?.Name; }
             set { RaisePropertyChanged("Name", CopyofPOCOInstance.TradingItems.Name, value, true); }
         }
 

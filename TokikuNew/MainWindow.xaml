@@ -10,6 +10,7 @@
         xmlns:controls ="clr-namespace:TokikuNew.Controls"
         xmlns:helpers="clr-namespace:TokikuNew.Helpers"
         xmlns:behaviors="clr-namespace:Tokiku.MVVM.Behaviors;assembly=Tokiku.MVVM"
+        DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=MainViewModel}"
         mc:Ignorable="d"        
         Title="東菊金屬 ERP System" Height="768" Width="1366" WindowState="Maximized" Icon="{DynamicResource Logo}"
          Background="{DynamicResource WindowBackgroundBrush}">
@@ -31,34 +32,34 @@
                 <RowDefinition Height="27"/>
             </Grid.RowDefinitions>
             <Menu Grid.Row="0">
-                <MenuItem Header="{Binding Current.MainViewModel.MainMenus[0].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_Main" >
-                    <MenuItem Header="{Binding Current.MainViewModel.MainMenus[0].SubMenus[0].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_Main_Vendor">
+                <MenuItem Header="{Binding MainMenus[0].Header}" Name="MI_Main" >
+                    <MenuItem Header="{Binding MainMenus[0].SubMenus[0].Header}" Name="MI_Main_Vendor">
                         <i:Interaction.Behaviors>
                             <behaviors:OnMenuItemClickBehavior Header="廠商列表" TabControlChannellName="Workspaces"                                                             
                                                              ViewType="{x:Type view:VendorListView}" />
                         </i:Interaction.Behaviors>
                     </MenuItem>
-                    <MenuItem Header="{Binding Current.MainViewModel.MainMenus[0].SubMenus[1].Header ,Source={StaticResource ViewModelLocator}}" 
+                    <MenuItem Header="{Binding MainMenus[0].SubMenus[1].Header}" 
                               Name="MI_Main_Client">
                         <i:Interaction.Behaviors>
                             <behaviors:OnMenuItemClickBehavior Header="客戶列表" TabControlChannellName="Workspaces"                                                             
                                                              ViewType="{x:Type view:ClientListView}" />
                         </i:Interaction.Behaviors>
                     </MenuItem>
-                    <MenuItem Header="{Binding Current.MainViewModel.MainMenus[0].SubMenus[2].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_Main_Molds" />
+                    <MenuItem Header="{Binding MainMenus[0].SubMenus[2].Header }" Name="MI_Main_Molds" />
                 </MenuItem>
-                <MenuItem Header="{Binding Current.MainViewModel.MainMenus[1].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_Reports" />
-                <MenuItem Header="{Binding Current.MainViewModel.MainMenus[2].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_Finance">
-                    <MenuItem Header="{Binding Current.MainViewModel.MainMenus[2].SubMenus[0].Header ,Source={StaticResource ViewModelLocator}}" Name="本票管理" />
-                    <MenuItem Header="{Binding Current.MainViewModel.MainMenus[2].SubMenus[1].Header ,Source={StaticResource ViewModelLocator}}" Name="合約管理" />
+                <MenuItem Header="{Binding MainMenus[1].Header }" Name="MI_Reports" />
+                <MenuItem Header="{Binding MainMenus[2].Header }" Name="MI_Finance">
+                    <MenuItem Header="{Binding MainMenus[2].SubMenus[0].Header }" Name="本票管理" />
+                    <MenuItem Header="{Binding MainMenus[2].SubMenus[1].Header }" Name="合約管理" />
                 </MenuItem>
-                <MenuItem Header="{Binding Current.MainViewModel.MainMenus[3].Header ,Source={StaticResource ViewModelLocator}}">
-                    <MenuItem Header="{Binding Current.MainViewModel.MainMenus[3].SubMenus[0].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_SystemOption" />
+                <MenuItem Header="{Binding MainMenus[3].Header}">
+                    <MenuItem Header="{Binding MainMenus[3].SubMenus[0].Header }" Name="MI_SystemOption" />
                     <Separator/>
-                    <MenuItem Header="{Binding Current.MainViewModel.MainMenus[3].SubMenus[1].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_System_Members" />
-                    <MenuItem Header="{Binding Current.MainViewModel.MainMenus[3].SubMenus[2].Header ,Source={StaticResource ViewModelLocator}}" Name="MI_System_Roles" />
+                    <MenuItem Header="{Binding MainMenus[3].SubMenus[1].Header}" Name="MI_System_Members" />
+                    <MenuItem Header="{Binding MainMenus[3].SubMenus[2].Header }" Name="MI_System_Roles" />
                     <Separator/>
-                    <MenuItem Header="{Binding Current.MainViewModel.MainMenus[3].SubMenus[3].Header ,Source={StaticResource ViewModelLocator}}" Name="ExitApp" >
+                    <MenuItem Header="{Binding MainMenus[3].SubMenus[3].Header }" Name="ExitApp">
                         <i:Interaction.Behaviors>
                             <behaviors:OnMenuItemClickToClaseWindowBehavior WindowInstance="{x:Reference Name=mainwindow}" />
                         </i:Interaction.Behaviors>
@@ -67,7 +68,7 @@
             </Menu>
 
             <TabControl Grid.Row="1" Margin="0,0,0,0" x:Name="Workspaces" FontSize="9" TabStripPlacement="Top"                        
-                        ItemsSource="{Binding Current.MainViewModel.FeaturesTabs ,Source={StaticResource ViewModelLocator}}" >
+                        ItemsSource="{Binding FeaturesTabs ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" >
                 <i:Interaction.Behaviors>
                     <behaviors:OnTabControlAddTabSwitchBehavior />
                 </i:Interaction.Behaviors>
@@ -75,7 +76,7 @@
             <StatusBar Margin="0" Grid.Row="3">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="1" FontFamily="Segoe MDL2 Assets" Text="&#xe187;" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                    <TextBlock Margin="1,0" Name="userNameDisplay" Text="{Binding Current.MainViewModel.LoginedUser.UserName ,Source={StaticResource ViewModelLocator}}"/>
+                    <TextBlock Margin="1,0" Name="userNameDisplay" Text="{Binding LoginedUser.UserName }"/>
                 </StackPanel>
             </StatusBar>
         </Grid>

@@ -54,25 +54,49 @@ namespace Tokiku.MVVM.Behaviors
 
         protected override void OnAttached()
         {
-            AssociatedObject.Initialized += AssociatedObject_Initialized;
+            Messenger.Default.Register<NotificationMessage<IBaseViewModel>>(AssociatedObject, RecviceFromOthers);
+
         }
 
-        private void AssociatedObject_Initialized(object sender, EventArgs e)
-        {
-            //Messenger.Default.Register<object>(AssociatedObject, GetDataChannelName(AssociatedObject), RecviceFromOthers);
-            Messenger.Default.Register<NotificationMessage<IBaseViewModel>>(AssociatedObject, RecviceFromOthers);
-        }
+        //private void AssociatedObject_Initialized(object sender, EventArgs e)
+        //{
+        //    //Messenger.Default.Register<object>(AssociatedObject, GetDataChannelName(AssociatedObject), RecviceFromOthers);
+
+        //}
 
         private void RecviceFromOthers(NotificationMessage<IBaseViewModel> model)
         {
             if (model.Target.Equals(AssociatedObject))
             {
-                if (AssociatedObject.DataContext is IDocumentBaseViewModel)
+                try
                 {
-                    IDocumentBaseViewModel baseobj = (IDocumentBaseViewModel)AssociatedObject.DataContext;
-                    baseobj.QueryCommand.Execute(model.Content);
+                    AssociatedObject.DataContext = Activator.CreateInstance(GetDataObjectType(AssociatedObject));
+                    var v = AssociatedObject.DataContext;
+                    var t = v.GetType();
+
+                    var command_p = t.GetProperty("QueryCommand");
+                    var m_i = command_p.PropertyType?.GetMethod("Execute");
+                    m_i?.Invoke(command_p.GetValue(v), new object[] { model.Content });
+
+
+
+
+
                 }
+                catch
+                {
+
+                    throw;
+                }
+                //if (AssociatedObject.DataContext is IDocumentBaseViewModel)
+                //{
+                //    IDocumentBaseViewModel baseobj = (IDocumentBaseViewModel)AssociatedObject.DataContext;
+                //    baseobj.QueryCommand.Execute(model.Content);
+                //}
+
             }
+
+            AssociatedObject.UpdateLayout();
             //Type _DataObjectType = GetDataObjectType(AssociatedObject);
 
             //if (model?.GetType() == _DataObjectType)
@@ -130,7 +154,7 @@ namespace Tokiku.MVVM.Behaviors
         protected override void OnDetaching()
         {
             Messenger.Default.Unregister<NotificationMessage<IBaseViewModel>>(AssociatedObject, RecviceFromOthers);
-            AssociatedObject.Initialized -= AssociatedObject_Initialized;
+            //AssociatedObject.Initialized -= AssociatedObject_Initialized;
         }
     }
 }

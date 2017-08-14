@@ -27,7 +27,7 @@ namespace Tokiku.MVVM.Behaviors
 
         protected virtual void ProcessRemoveTab(NotificationMessage<ITabViewModel> Message)
         {
-            if (Message.Content.TabControlName == AssociatedObject.Name && Message.Notification=="CloseTab")
+            if (Message.Content.TabControlName == AssociatedObject.Name && Message.Notification == "CloseTab")
                 ((ObservableCollection<ITabViewModel>)AssociatedObject.ItemsSource).Remove(Message.Content);
         }
 
@@ -45,6 +45,7 @@ namespace Tokiku.MVVM.Behaviors
                     if (!source.Any(w => w.Header == Message.Content.Header))
                     {
                         source.Add(Message.Content);
+                        
                         AssociatedObject.SelectedItem = Message.Content;
                     }
                     else

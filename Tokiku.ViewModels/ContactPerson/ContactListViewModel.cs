@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Tokiku.DataServices;
 using Tokiku.Entity;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace Tokiku.ViewModels
 {
@@ -62,5 +63,21 @@ namespace Tokiku.ViewModels
                 RaisePropertyChanged("ContractsList");
             }
         }
+
+        //protected override void RecviceFromOthers(NotificationMessage<IBaseViewModel> model)
+        //{
+        //    try
+        //    {
+        //        if (model.Content is IVendorListItemViewModel)
+        //        {
+        //            QueryCommand?.Execute(((IVendorListItemViewModel)model.Content).Entity);
+        //        }
+        //    }
+        //    catch (System.Exception ex)
+        //    {
+        //        setErrortoModel(this, ex);
+        //    }
+
+        //}
     }
 }

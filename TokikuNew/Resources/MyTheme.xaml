@@ -34,8 +34,8 @@
         <Setter Property="HeaderTemplate" Value="{DynamicResource FixedTab }"/>
         <Setter Property="ContentTemplate">
             <Setter.Value>
-                <DataTemplate >
-                    <ContentPresenter Content="{Binding ContentView}"/>
+                <DataTemplate>
+                    <ContentControl Content="{Binding ContentView}"/>
                 </DataTemplate>
             </Setter.Value>
         </Setter>
@@ -45,7 +45,15 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
-
+    <!--<Style TargetType="TabControl" BasedOn="{StaticResource {x:Type TabControl}}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabControl">
+                    <ContentPresenter ContentSource="SelectedContent" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>-->
     <Style TargetType="{x:Type TextBox}" x:Key="ReadModeSwitch" BasedOn="{StaticResource  {x:Type TextBox}}">
         <Setter Property="BorderBrush" Value="{DynamicResource TextControlBorderBrush}"/>
         <Style.Triggers>

@@ -66,16 +66,16 @@ namespace Tokiku.MVVM.Behaviors
 
             tab.Header = Header;
 
-            if (AssociatedObject.DataContext != null)
-            {
-                tab.ContentView = AssociatedObject.DataContext;
-                tab.ViewType = AssociatedObject.DataContext?.GetType();
-            }
-            else
-            {
+            //if (AssociatedObject.DataContext != null)
+            //{
+            //    tab.ContentView = AssociatedObject.DataContext;
+            //    tab.ViewType = AssociatedObject.DataContext?.GetType();
+            //}
+            //else
+            //{
                 tab.ContentView = SimpleIoc.Default.GetInstance(ViewType);
                 tab.ViewType = ViewType;
-            }
+            //}
 
             tab.TabControlName = TabControlChannellName;
 

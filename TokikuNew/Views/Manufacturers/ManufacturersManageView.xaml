@@ -13,13 +13,13 @@
              xmlns:behavior="clr-namespace:Tokiku.MVVM.Behaviors;assembly=Tokiku.MVVM"
              x:Class="TokikuNew.Views.ManufacturersManageView"  
              mc:Ignorable="d" 
-             DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=ManufacturersViewModel}"
              d:DesignHeight="768" d:DesignWidth="1366" Background="{DynamicResource ControlBackgroundBrush}" 
-             x:Name="userControl">
-    <!--<i:Interaction.Behaviors>
-        <behavior:OnUserControlPassDataObjectBehavior DataChannelName="ManufacturersViewModel" DataObjectType="{x:Type vm:IManufacturersViewModel}"/>
-    </i:Interaction.Behaviors>-->
+             x:Name="userControl" behavior:OnUserControlPassDataObjectBehavior.DataObjectType="{x:Type vm:ManufacturersViewModel}">
+    <i:Interaction.Behaviors>
+        <behavior:OnUserControlPassDataObjectBehavior />
+    </i:Interaction.Behaviors>
     <UserControl.Resources>
+        
         <valueconverters:TypeValueConverter x:Key="TypeConverter"/>
         <Style TargetType="CheckBox" x:Key="ReadModeSwitch_CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
             <Style.Triggers>
@@ -82,7 +82,8 @@
                         <RowDefinition Height="27"/>
                     </Grid.RowDefinitions>
                     <TextBlock Text="廠商代號：" Grid.Row="0" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
-                    <TextBlock x:Name="tbCode" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="2" Text="{Binding Code}"/>
+                    <TextBlock x:Name="tbCode" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="2" 
+                               Text="{Binding Code,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
 
                     <TextBlock Text="名稱(全名)：" Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
                     <TextBox Style="{DynamicResource ReadModeSwitch}" x:Name="tbName" Grid.Row="1" Grid.Column="1" 
@@ -242,7 +243,8 @@
                                Text="{Binding eMail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <TextBlock Text="備註" Grid.Row="3" Grid.Column="2" TextAlignment="Right" VerticalAlignment="Center"/>
-                    <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="3" Grid.Column="4" VerticalAlignment="Stretch" Margin="2" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    <TextBox Style="{DynamicResource ReadModeSwitch}" Grid.Row="3" Grid.Column="4" VerticalAlignment="Stretch" Margin="2" 
+                             Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                              IsReadOnly="{Binding Mode, Converter={StaticResource ReadModeToEnabledValueConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <Grid Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2">

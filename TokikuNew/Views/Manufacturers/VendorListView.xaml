@@ -50,9 +50,7 @@
                                  AutoGenerateColumns="False" 
                                  HorizontalScrollBarVisibility="Auto" CanUserAddRows="True"
                                  IsReadOnly="True"
-                                ItemsSource="{Binding VendorList}"
-                 
-                  >
+                                ItemsSource="{Binding VendorList}" >
             <i:Interaction.Behaviors>
                 <behaviors:OnDataGridMouseDoubleClickBehavior TabControlChannellName="Workspaces" ViewType="{x:Type local:ManufacturersManageView}"
                                                             DataChannelName="ManufacturersViewModel"
