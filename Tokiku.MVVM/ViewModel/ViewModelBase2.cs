@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,8 @@ namespace Tokiku.ViewModels
         #endregion
 
         #region Helper Functions
+        //log4net
+        static ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
         /// 將錯誤訊息寫到檢視模型中以利顯示。
         /// </summary>
@@ -35,17 +38,27 @@ namespace Tokiku.ViewModels
         /// <param name="ex">例外錯誤狀況執行個體。</param>
         protected static void setErrortoModel(IBaseViewModel model, Exception ex)
         {
-            if (model == null)
-                model = (IBaseViewModel)Activator.CreateInstance(model.GetType());
+            try
+            {
+                logger.Error(string.Format("執行 '{0}' 方法時發生錯誤!", System.Reflection.MethodBase.GetCurrentMethod().Name), ex);
 
-            List<string> _Messages = new List<string>();
-            ScanErrorMessage(ex, _Messages);
+                if (model == null)
+                    model = (IBaseViewModel)Activator.CreateInstance(model.GetType());
 
-            if (model.Errors == null)
-                model.Errors = new string[] { }.AsEnumerable();
+                List<string> _Messages = new List<string>();
 
-            model.Errors = _Messages.AsEnumerable();
+                ScanErrorMessage(ex, _Messages);
 
+                if (model.Errors == null)
+                    model.Errors = new string[] { }.AsEnumerable();
+
+                model.Errors = _Messages.AsEnumerable();
+            }
+            catch (Exception log_ex)
+            {
+                logger.Fatal("產生操作紀錄時發生預期外的錯誤!", log_ex);
+            }
+           
         }
 
         /// <summary>
@@ -55,13 +68,23 @@ namespace Tokiku.ViewModels
         /// <param name="Message"></param>
         protected static void setErrortoModel(IBaseViewModel model, string Message)
         {
-            if (model == null)
-                model = (IBaseViewModel)Activator.CreateInstance(model.GetType());
+            try
+            {
+                logger.Error(Message);
 
-            if (model.Errors == null)
-                model.Errors = new string[] { }.AsEnumerable();
+                if (model == null)
+                    model = (IBaseViewModel)Activator.CreateInstance(model.GetType());
 
-            model.Errors = new string[] { Message };
+                if (model.Errors == null)
+                    model.Errors = new string[] { }.AsEnumerable();
+
+                model.Errors = new string[] { Message };
+            }
+            catch (Exception ex)
+            {
+                logger.Fatal("產生操作紀錄時發生預期外的錯誤!", ex);
+            }
+         
         }
 
         /// <summary>

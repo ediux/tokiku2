@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+﻿using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Interactivity;
 using Tokiku.ViewModels;
 
@@ -45,7 +47,6 @@ namespace Tokiku.MVVM.Behaviors
                     if (!source.Any(w => w.Header == Message.Content.Header))
                     {
                         source.Add(Message.Content);
-                        
                         AssociatedObject.SelectedItem = Message.Content;
                     }
                     else
@@ -53,11 +54,51 @@ namespace Tokiku.MVVM.Behaviors
                         var tab = source.Single(w => w.Header == Message.Content.Header);
                         AssociatedObject.SelectedItem = tab;
                     }
+                    if (Message.Content.ContentView == null)
+                    {
+                        if (Message.Content.ViewType != null)
+                            Message.Content.ContentView = SimpleIoc.Default.GetInstance(Message.Content.ViewType);
+                        else
+                            return;
+                    }
 
                     if (Message.Content.SelectedObject != null)
                     {
-                        var DataPassMessage = new NotificationMessage<IBaseViewModel>(AssociatedObject, Message.Content.ContentView, (IBaseViewModel)Message.Content.SelectedObject, string.Empty);
-                        Messenger.Default.Send(DataPassMessage);
+
+
+                        if (Message.Content.ContentView is UserControl)
+                        {
+                            UserControl element = (UserControl)Message.Content.ContentView;
+
+                            Type DataModelType = Message.Content.DataModelType ??
+                                ((!(element.DataContext is IFixedTabViewModel) && !(element.DataContext is ICloseableTabViewModel)) ? element.DataContext.GetType() : null);
+
+                            if (BindingOperations.GetBinding(element, FrameworkElement.DataContextProperty) != null)
+                            {
+                                BindingOperations.ClearBinding(element, FrameworkElement.DataContextProperty); //移除綁定
+                            }
+
+                            if (DataModelType != null)
+                            {
+                                object DataModel = SimpleIoc.Default.GetInstanceWithoutCaching(DataModelType);
+
+                                var DataPassMessage = new NotificationMessage<IBaseViewModel>(AssociatedObject,
+                                    DataModel, (IBaseViewModel)Message.Content.SelectedObject,
+                                    ((IBaseViewModel)Message.Content.SelectedObject).GetType().FullName);
+
+                                Messenger.Default.Send(DataPassMessage);
+
+                                element.DataContext = DataModel;
+                            }
+                            else
+                            {
+                                var DataPassMessage = new NotificationMessage<IBaseViewModel>(AssociatedObject,
+                                    (IBaseViewModel)Message.Content.SelectedObject,
+                                  ((IBaseViewModel)Message.Content.SelectedObject).GetType().FullName);
+
+                                Messenger.Default.Send(DataPassMessage);
+                            }
+                        }
                     }
                 }
             }
@@ -65,7 +106,6 @@ namespace Tokiku.MVVM.Behaviors
 
         protected override void OnDetaching()
         {
-
             Messenger.Default.Unregister<NotificationMessage<ITabViewModel>>(AssociatedObject, ProcessRemoveTab);
             Messenger.Default.Unregister<NotificationMessage<ITabViewModel>>(AssociatedObject, ProcessAddTab);
             AssociatedObject.Initialized -= AssociatedObject_Initialized;

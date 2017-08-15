@@ -7,22 +7,21 @@
         xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:view="clr-namespace:TokikuNew.Views"
-        xmlns:controls ="clr-namespace:TokikuNew.Controls"
-        xmlns:helpers="clr-namespace:TokikuNew.Helpers"
-        xmlns:behaviors="clr-namespace:Tokiku.MVVM.Behaviors;assembly=Tokiku.MVVM"
-        DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=MainViewModel}"
+        xmlns:behaviors="clr-namespace:TokikuNew.Behaviors"
+        xmlns:behaviorsmvvm="clr-namespace:Tokiku.MVVM.Behaviors;assembly=Tokiku.MVVM"
+        xmlns:command="http://www.galasoft.ch/mvvmlight"
         mc:Ignorable="d"        
-        Title="東菊金屬 ERP System" Height="768" Width="1366" WindowState="Maximized" Icon="{DynamicResource Logo}"
+        Title="東菊金屬 ERP System" Height="768" Width="1366" WindowState="Maximized" Icon="{StaticResource Logo}"
          Background="{DynamicResource WindowBackgroundBrush}">
     <i:Interaction.Behaviors>
         <behaviors:OnWindowCloseBehavior />
     </i:Interaction.Behaviors>
     <Window.Resources>
-
-        <!--<vm:RedirectCommand x:Key="redirect" RoutingName="MainWindow" />
-        <vm:OpenWindowCommand x:Key="openwin"  />-->
-
+        <vm:ViewModelLocator x:Key="ViewModelLocator" />
     </Window.Resources>
+    <Window.DataContext>
+        <Binding Path="MainViewModel" Source="{StaticResource ViewModelLocator}"/>
+    </Window.DataContext>
     <Viewbox Stretch="Fill"
              Margin="0" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" >
         <Grid Width="1366" Height="768">
@@ -31,46 +30,24 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="27"/>
             </Grid.RowDefinitions>
-            <Menu Grid.Row="0">
-                <MenuItem Header="{Binding MainMenus[0].Header}" Name="MI_Main" >
-                    <MenuItem Header="{Binding MainMenus[0].SubMenus[0].Header}" Name="MI_Main_Vendor">
-                        <i:Interaction.Behaviors>
-                            <behaviors:OnMenuItemClickBehavior Header="廠商列表" TabControlChannellName="Workspaces"                                                             
-                                                             ViewType="{x:Type view:VendorListView}" />
-                        </i:Interaction.Behaviors>
-                    </MenuItem>
-                    <MenuItem Header="{Binding MainMenus[0].SubMenus[1].Header}" 
-                              Name="MI_Main_Client">
-                        <i:Interaction.Behaviors>
-                            <behaviors:OnMenuItemClickBehavior Header="客戶列表" TabControlChannellName="Workspaces"                                                             
-                                                             ViewType="{x:Type view:ClientListView}" />
-                        </i:Interaction.Behaviors>
-                    </MenuItem>
-                    <MenuItem Header="{Binding MainMenus[0].SubMenus[2].Header }" Name="MI_Main_Molds" />
-                </MenuItem>
-                <MenuItem Header="{Binding MainMenus[1].Header }" Name="MI_Reports" />
-                <MenuItem Header="{Binding MainMenus[2].Header }" Name="MI_Finance">
-                    <MenuItem Header="{Binding MainMenus[2].SubMenus[0].Header }" Name="本票管理" />
-                    <MenuItem Header="{Binding MainMenus[2].SubMenus[1].Header }" Name="合約管理" />
-                </MenuItem>
-                <MenuItem Header="{Binding MainMenus[3].Header}">
-                    <MenuItem Header="{Binding MainMenus[3].SubMenus[0].Header }" Name="MI_SystemOption" />
-                    <Separator/>
-                    <MenuItem Header="{Binding MainMenus[3].SubMenus[1].Header}" Name="MI_System_Members" />
-                    <MenuItem Header="{Binding MainMenus[3].SubMenus[2].Header }" Name="MI_System_Roles" />
-                    <Separator/>
-                    <MenuItem Header="{Binding MainMenus[3].SubMenus[3].Header }" Name="ExitApp">
-                        <i:Interaction.Behaviors>
-                            <behaviors:OnMenuItemClickToClaseWindowBehavior WindowInstance="{x:Reference Name=mainwindow}" />
-                        </i:Interaction.Behaviors>
-                    </MenuItem>
-                </MenuItem>
+            <Menu Grid.Row="0" ItemsSource="{Binding MainMenus}" >
+                <Menu.ItemContainerStyle>
+                    <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource {x:Type MenuItem}}">
+                        <Setter Property="Command" Value="{Binding ClickCommand}" />
+                    </Style>
+                </Menu.ItemContainerStyle>
+                <Menu.ItemTemplate>
+                    <HierarchicalDataTemplate DataType="{x:Type vm:MenuItemViewModel}" ItemsSource="{Binding Path=MenuItems}">
+                        <TextBlock Text="{Binding Header}"/>
+                    </HierarchicalDataTemplate>
+                </Menu.ItemTemplate>
+               
             </Menu>
 
             <TabControl Grid.Row="1" Margin="0,0,0,0" x:Name="Workspaces" FontSize="9" TabStripPlacement="Top"                        
                         ItemsSource="{Binding FeaturesTabs ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" >
                 <i:Interaction.Behaviors>
-                    <behaviors:OnTabControlAddTabSwitchBehavior />
+                    <behaviorsmvvm:OnTabControlAddTabSwitchBehavior />
                 </i:Interaction.Behaviors>
             </TabControl>
             <StatusBar Margin="0" Grid.Row="3">

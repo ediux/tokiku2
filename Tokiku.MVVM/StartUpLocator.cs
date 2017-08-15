@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
+using log4net;
 using Microsoft.Practices.ServiceLocation;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,11 @@ namespace Tokiku.MVVM
 {
     public class StartUpLocator
     {
-        public static void StartUp()
+
+
+        public StartUpLocator()
         {
+
             if (!ServiceLocator.IsLocationProviderSet)
                 ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
@@ -19,22 +23,25 @@ namespace Tokiku.MVVM
                 SimpleIoc.Default.Register<IFrameNavigationService, FrameNavigationService>();
 
             if (_Current == null)
-                _Current = new StartUpLocator();
+                _Current = this;
+
+            _Current.NavigationService.AutoConfigure();
         }
 
-        private static StartUpLocator _Current = null;
+        private static StartUpLocator _Current;
 
-        /// <summary>
-        /// 取得預設的容器解析物件。
-        /// </summary>
         public static StartUpLocator Current
         {
             get
             {
                 if (_Current == null)
+                {
                     _Current = new StartUpLocator();
+                    _Current.NavigationService.AutoConfigure();
+                }
 
-                return _Current;
+
+                return _Current = null;
             }
         }
 

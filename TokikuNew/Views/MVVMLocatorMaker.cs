@@ -30,6 +30,9 @@ namespace TokikuNew
 		{
 			if (!ServiceLocator.IsLocationProviderSet)
                 ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+
+			RunOthersRegister();
+
 			
 			if (!SimpleIoc.Default.IsRegistered<ClosableTab>())
 				SimpleIoc.Default.Register<ClosableTab>();
@@ -69,7 +72,11 @@ namespace TokikuNew
 										
             if (_Current == null)
                 _Current = this;
+
+			
 		}
+
+		partial void RunOthersRegister();
 
 		private static ViewsLocator _Current=null;
 		

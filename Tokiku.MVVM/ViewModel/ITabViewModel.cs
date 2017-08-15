@@ -13,6 +13,8 @@ namespace Tokiku.ViewModels
 
         Type ViewType { get; set; }
 
+        Type DataModelType { get; set; }
+
         object ContentView { get; set; }
 
         object SelectedObject { get; set; }

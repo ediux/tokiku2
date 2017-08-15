@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
 
 namespace Tokiku.ViewModels
 {
@@ -14,8 +15,12 @@ namespace Tokiku.ViewModels
 
         object ViewContent { get; set; }
 
+        string TabControlName { get; set; }
+
         Type ViewType { get; set; }
 
-        ObservableCollection<IMenuItemViewModel> SubMenus { get; set; }
+        ObservableCollection<IMenuItemViewModel> MenuItems { get; set; }
+
+        ICommand ClickCommand { get; set; }
     }
 }

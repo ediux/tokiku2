@@ -30,5 +30,8 @@ namespace Tokiku.ViewModels
 
         private string _TabControlName = string.Empty;
         public string TabControlName { get => _TabControlName; set { _TabControlName = value; RaisePropertyChanged("TabControlName"); } }
+
+        private Type _DataModelType;
+        public Type DataModelType { get => _DataModelType; set { _DataModelType = value; RaisePropertyChanged("DataModelType"); } }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,8 @@ namespace Tokiku.MVVM.Behaviors
     /// </summary>
     public class OnCloseTabButtonClickBehavior : Behavior<Button>
     {
+        //log4net
+        static ILog logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>
         /// 控制項通訊通道名稱
@@ -48,7 +51,15 @@ namespace Tokiku.MVVM.Behaviors
 
         protected override void OnAttached()
         {
-            AssociatedObject.Click += AssociatedObject_Click;
+            try
+            {
+                AssociatedObject.Click += AssociatedObject_Click;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(string.Format("執行 '{0}' 方法時發生錯誤!", MethodBase.GetCurrentMethod().Name), ex);
+            }
+
         }
 
         private void AssociatedObject_Click(object sender, RoutedEventArgs e)
@@ -56,7 +67,7 @@ namespace Tokiku.MVVM.Behaviors
             if (AssociatedObject.DataContext is ITabViewModel)
             {
                 ITabViewModel tabcontext = (ITabViewModel)AssociatedObject.DataContext;
-              
+
                 Type ViewType = tabcontext.ViewType;
 
                 List<PropertyInfo> PropNames = ViewType.GetProperties()
@@ -97,7 +108,16 @@ namespace Tokiku.MVVM.Behaviors
 
         protected override void OnDetaching()
         {
-            AssociatedObject.Click -= AssociatedObject_Click;
+            try
+            {
+                AssociatedObject.Click -= AssociatedObject_Click;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(string.Format("執行 '{0}' 方法時發生錯誤!", MethodBase.GetCurrentMethod().Name), ex);
+            }
+
+           
         }
     }
 }

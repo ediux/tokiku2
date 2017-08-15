@@ -13,7 +13,7 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              d:DesignHeight="768" d:DesignWidth="1024">
     <UserControl.Resources>
-    
+        <vm:ViewModelLocator x:Key="ViewModelLocator"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>

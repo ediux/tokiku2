@@ -66,35 +66,32 @@ namespace Tokiku.MVVM.Behaviors
 
         private void RecviceFromOthers(NotificationMessage<IBaseViewModel> model)
         {
-            if (model.Target.Equals(AssociatedObject))
+            if (model.Target != null)
             {
-                try
+                if (model.Target.Equals(AssociatedObject))
                 {
-                    AssociatedObject.DataContext = Activator.CreateInstance(GetDataObjectType(AssociatedObject));
-                    var v = AssociatedObject.DataContext;
-                    var t = v.GetType();
+                    try
+                    {
+                        AssociatedObject.DataContext = Activator.CreateInstance(GetDataObjectType(AssociatedObject));
+                        var v = AssociatedObject.DataContext;
+                        var t = v.GetType();
 
-                    var command_p = t.GetProperty("QueryCommand");
-                    var m_i = command_p.PropertyType?.GetMethod("Execute");
-                    m_i?.Invoke(command_p.GetValue(v), new object[] { model.Content });
-
-
-
-
+                        var command_p = t.GetProperty("QueryCommand");
+                        var m_i = command_p.PropertyType?.GetMethod("Execute");
+                        m_i?.Invoke(command_p.GetValue(v), new object[] { model.Content });
+                    }
+                    catch
+                    {
+                    }
+                    //if (AssociatedObject.DataContext is IDocumentBaseViewModel)
+                    //{
+                    //    IDocumentBaseViewModel baseobj = (IDocumentBaseViewModel)AssociatedObject.DataContext;
+                    //    baseobj.QueryCommand.Execute(model.Content);
+                    //}
 
                 }
-                catch
-                {
-
-                    throw;
-                }
-                //if (AssociatedObject.DataContext is IDocumentBaseViewModel)
-                //{
-                //    IDocumentBaseViewModel baseobj = (IDocumentBaseViewModel)AssociatedObject.DataContext;
-                //    baseobj.QueryCommand.Execute(model.Content);
-                //}
-
             }
+
 
             AssociatedObject.UpdateLayout();
             //Type _DataObjectType = GetDataObjectType(AssociatedObject);

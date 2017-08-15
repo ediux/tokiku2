@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
@@ -20,16 +21,19 @@ namespace TokikuNew
         static string appGuid = "{25f64493-215e-44aa-a3f3-cf3aed6bb7a0}";
         private static Mutex m;
 
+        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         public App()
         {
-            StartUpLocator.StartUp();
-            StartUpLocator.Current.NavigationService.AutoConfigure();
+           
+            
         }
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             try
             {
+                log4net.Config.XmlConfigurator.Configure();
 
                 //如果要做到跨Session唯一，名稱可加入"Global\"前綴字
                 //如此即使用多個帳號透過Terminal Service登入系統

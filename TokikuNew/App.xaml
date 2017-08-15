@@ -5,14 +5,10 @@
              xmlns:dataservices="clr-namespace:Tokiku.DataServices;assembly=Tokiku.DataServices"
              xmlns:entity="clr-namespace:Tokiku.Entity;assembly=Tokiku.Entity">
     <Application.Resources>
-        <ResourceDictionary>
+        <ResourceDictionary >
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
-                    <entity:EntityLocator x:Key="EntityLocator" d:IsDataSource="True" />
-                    <dataservices:DefaultLocator x:Key="DataServiceLocator" d:IsDataSource="True" />
-                    <vm:ViewModelLocator x:Key="ViewModelLocator" d:IsDataSource="True" />
-                    <mvvm:StartUpLocator x:Key="StartUpLocator" d:IsDataSource="True" x:Name="StartUpLocator"/>
-                    <local:ViewsLocator x:Key="ViewLocator" d:IsDataSource="True" />
+                    <local:ViewsLocator x:Key="ApplicationResources" />
                 </ResourceDictionary>
                 <ResourceDictionary Source="Resources\Global.xaml">
                 </ResourceDictionary>

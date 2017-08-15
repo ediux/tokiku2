@@ -8,10 +8,11 @@
              xmlns:controls="clr-namespace:TokikuNew.Controls"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:behaviors="clr-namespace:Tokiku.MVVM.Behaviors;assembly=Tokiku.MVVM"
+             xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
              xmlns:helpers="clr-namespace:TokikuNew.Helpers"
              xmlns:valueconverters="clr-namespace:TokikuNew.ValueConverters"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
-             DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=VendorListViewModel}"
+             DataContext="{Binding Source={StaticResource Locator}, Path=VendorListViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024"              
              Background="{DynamicResource ControlBackgroundBrush}">
@@ -21,6 +22,7 @@
             <system:String>Code</system:String>
         </x:Array>
         <valueconverters:StringFormationMultiConverter x:Key="mutlifieldconverter" />
+        <vm:ViewModelLocator x:Key="Locator" />
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>

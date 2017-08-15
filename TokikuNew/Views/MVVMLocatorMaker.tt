@@ -260,6 +260,9 @@ namespace <#= defaultNamespace #>
 		{
 			if (!ServiceLocator.IsLocationProviderSet)
                 ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+
+			RunOthersRegister();
+
 <#
 	foreach(string classname in classbook.Keys)
     {
@@ -301,7 +304,11 @@ namespace <#= defaultNamespace #>
 #>										
             if (_Current == null)
                 _Current = this;
+
+			
 		}
+
+		partial void RunOthersRegister();
 
 		private static <#= rootclassname #>Locator _Current=null;
 		
