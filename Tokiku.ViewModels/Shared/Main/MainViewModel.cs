@@ -13,19 +13,33 @@ namespace Tokiku.ViewModels
         {
 
             _FeaturesTabs = new ObservableCollection<ITabViewModel>();
-            _FeaturesTabs.Add(new FixedTabViewModel() { Header = "專案列表", ContentView = new TokikuNew.Controls.EmptyView() });
+         
 
 
             var menuroot1 = new MenuItemViewModel() { Header = "主檔 " };
+            var assembly = Assembly.Load("TokikuNew");
+
+            _FeaturesTabs.Add(new FixedTabViewModel()
+            {
+                Header = "專案列表",
+                ContentView = null 
+            });
 
             menuroot1.MenuItems.Add(new MenuItemViewModel()
             {
                 Header = "廠商列表",
                 TabControlName = "Workspaces",
-                ViewType = Assembly.Load("TokikuNew").GetType("TokikuNew.Views.VendorListView"),
-                DataModelType= typeof(IManufacturersViewModel)
+                ViewType = assembly.GetType("TokikuNew.Views.VendorListView"),
+                DataModelType = typeof(IVendorListViewModel)
             });
-            menuroot1.MenuItems.Add(new MenuItemViewModel() { Header = "客戶列表", TabControlName = "Workspaces" });
+            menuroot1.MenuItems.Add(new MenuItemViewModel()
+            {
+                Header = "客戶列表",
+                TabControlName = "Workspaces",
+                ViewType = assembly.GetType("TokikuNew.Views.ClientListView"),
+                DataModelType = typeof(IClientListViewModel)
+            });
+
             menuroot1.MenuItems.Add(new MenuItemViewModel() { Header = "模具總表", TabControlName = "Workspaces" });
 
             _MainMenus.Add(menuroot1);

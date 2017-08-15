@@ -370,7 +370,8 @@ namespace Tokiku.DataServices
                     var queryresult = from q in _ManufacturersRepository.All()
                                       where q.Void == false && q.IsClient == false &&
                                       (q.Name.Contains(filiter) ||
-                                    (q.ManufacturersBussinessItems != null && q.ManufacturersBussinessItems.Any(s => s.TradingItems.Name.Contains(filiter)))
+                                    (q.ManufacturersBussinessItems != null 
+                                    && q.ManufacturersBussinessItems.Any(s => s.TradingItems!= null && s.TradingItems.Name.Contains(filiter)))
                                       || (q.Principal != null && q.Principal.Contains(filiter)))
                                       orderby q.Code ascending
                                       select q;

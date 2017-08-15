@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Security.AccessControl;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,8 +22,8 @@ namespace TokikuNew
         static string appGuid = "{25f64493-215e-44aa-a3f3-cf3aed6bb7a0}";
         private static Mutex m;
 
-        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+      
         public App()
         {
            
@@ -89,87 +90,13 @@ namespace TokikuNew
                 }
 
             }
-            catch
+            catch(Exception ex)
             {
-
+                Log.Error(string.Format("執行 '{0}' 方法時發生錯誤!", MethodBase.GetCurrentMethod().Name), ex);
 
             }
         }
 
-        //public static TController Resolve<TController>() where TController : class
-        //{
-        //    try
-        //    {
-        //        var result = _IoC.OfType<TController>();
-        //        if (result.Any())
-        //        {
-        //            return result.First();
-        //        }
-        //        return null;
-        //    }
-        //    catch
-        //    {
-        //        return default(TController);
-
-        //    }
-        //}
-
-
-
-        //public static TWin Navigate<TWin, TView>(TView Model) where TWin : Window where TView : Tokiku.ViewModels.IBaseViewModel
-        //{
-        //    try
-        //    {
-        //        Type windowType = typeof(TWin);
-        //        TWin window = default(TWin);
-
-        //        var ctors = windowType.GetConstructors();
-        //        if (ctors.Any())
-        //        {
-        //            foreach (var ctor in ctors.OrderByDescending(s => s.GetParameters().Length))
-        //            {
-        //                var parameters = ctor.GetParameters();
-
-        //                Type[] inParamArrayTypes = parameters.Select(s => s.ParameterType).ToArray();
-        //                if (inParamArrayTypes != null)
-        //                {
-        //                    object[] inParamArray = (object[])Array.CreateInstance(typeof(object), inParamArrayTypes.Length);
-
-
-        //                    for (int i = 0; i < inParamArray.Length; i++)
-        //                    {
-        //                        var result = _IoC.Where(w => inParamArrayTypes[i] == w.GetType());
-        //                        inParamArray[i] = result.SingleOrDefault();
-        //                    }
-
-        //                    try
-        //                    {
-        //                        window = (TWin)Activator.CreateInstance(windowType, inParamArray);
-        //                        break;
-        //                    }
-        //                    catch
-        //                    {
-        //                        continue;
-        //                    }
-        //                }
-        //            }
-        //        }
-
-        //        if (window == null)
-        //            throw new NullReferenceException();
-
-        //        window.DataContext = Model;
-        //        window.Show();
-        //        return window;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        if (Model == null)
-        //            Model = Activator.CreateInstance<TView>();
-
-        //        Model.Errors = new string[] { ex.Message, ex.StackTrace };
-        //        return default(TWin);
-        //    }
-        //}
+       
     }
 }

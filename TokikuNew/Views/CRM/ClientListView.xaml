@@ -8,13 +8,9 @@
              xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
              xmlns:l="clr-namespace:TokikuNew"
              mc:Ignorable="d"
-             DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=ClientListViewModel}"
              Background="{DynamicResource ControlBackgroundBrush}"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              d:DesignHeight="768" d:DesignWidth="1024">
-    <UserControl.Resources>
-        <vm:ViewModelLocator x:Key="ViewModelLocator"/>
-    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>

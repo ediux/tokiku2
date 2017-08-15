@@ -64,40 +64,51 @@ namespace Tokiku.MVVM.Behaviors
 
         private void AssociatedObject_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                
+            }
+            catch (Exception ex)
+            {
+                logger.Error(string.Format("執行 '{0}' 方法時發生錯誤!", MethodBase.GetCurrentMethod().Name), ex);
+            }
+
             if (AssociatedObject.DataContext is ITabViewModel)
             {
                 ITabViewModel tabcontext = (ITabViewModel)AssociatedObject.DataContext;
 
                 Type ViewType = tabcontext.ViewType;
 
-                List<PropertyInfo> PropNames = ViewType.GetProperties()
-                    .Where(w => w.PropertyType.GetInterfaces().Any(a => a.Name == "IDocumentBaseViewModel"))
-                    .Select(s => s).ToList();
-
-                bool isContinue = false;
-                foreach (var prop in PropNames)
+                if(ViewType != null)
                 {
-                    var obj = prop.GetValue(tabcontext.ContentView);
-                    var isSaved_Prop = prop.GetValue(tabcontext.ContentView).GetType().GetProperty("IsSaved");
-                    bool IsSaved = (bool)isSaved_Prop.GetValue(obj);
+                    List<PropertyInfo> PropNames = ViewType.GetProperties()
+                   .Where(w => w.PropertyType.GetInterfaces().Any(a => a.Name == "IDocumentBaseViewModel"))
+                   .Select(s => s).ToList();
 
-                    if (IsSaved == false)
+                    bool isContinue = false;
+                    foreach (var prop in PropNames)
                     {
-                        if (MessageBox.Show("您尚未儲存!要繼續嗎?\n如果按「是」，所做的變更將不會儲存!") == MessageBoxResult.Yes)
-                        {
-                            Messenger.Default.Send(tabcontext, "TabItem_Close_View");
-                            break;
-                        }
-                        else
-                        {
-                            isContinue = true;
-                        }
+                        var obj = prop.GetValue(tabcontext.ContentView);
+                        var isSaved_Prop = prop.GetValue(tabcontext.ContentView).GetType().GetProperty("IsSaved");
+                        bool IsSaved = (bool)isSaved_Prop.GetValue(obj);
 
+                        if (IsSaved == false)
+                        {
+                            if (MessageBox.Show("您尚未儲存!要繼續嗎?\n如果按「是」，所做的變更將不會儲存!") == MessageBoxResult.Yes)
+                            {
+                                Messenger.Default.Send(tabcontext, "TabItem_Close_View");
+                                break;
+                            }
+                            else
+                            {
+                                isContinue = true;
+                            }
+                        }
                     }
-                }
 
-                if (isContinue)
-                    return;
+                    if (isContinue)
+                        return;
+                }
 
                 //傳送訊息給分頁控制項
                 NotificationMessage<ITabViewModel> NotifyToClosingTabMessage = new NotificationMessage<ITabViewModel>(AssociatedObject, tabcontext, "CloseTab");

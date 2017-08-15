@@ -64,11 +64,12 @@ namespace Tokiku.MVVM.Behaviors
                         return;
                 }
 
+                UserControl element = (UserControl)Message.Content.ContentView;
+
                 if (Message.Content.SelectedObject != null)
                 {
                     if (Message.Content.ContentView is UserControl)
                     {
-                        UserControl element = (UserControl)Message.Content.ContentView;
 
                         Type DataModelType = Message.Content.DataModelType ??
                             ((!(element.DataContext is IFixedTabViewModel) && !(element.DataContext is ICloseableTabViewModel)) ? element.DataContext.GetType() : null);
@@ -82,7 +83,6 @@ namespace Tokiku.MVVM.Behaviors
                               "Pass");
 
                         Messenger.Default.Send(DataPassMessage);
-
 
                     }
                 }
