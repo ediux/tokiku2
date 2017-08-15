@@ -38,7 +38,12 @@ namespace Tokiku.ViewModels
             _FinancialManagementDataService = FinancialManagementDataService;
             ModeChangedCommand.Execute(DocumentLifeCircle.Read);
             QueryCommand = new RelayCommand<IVendorListItemViewModel>(RunQuery);
-            //Messenger.Default.Register<NotificationMessage<IVendorListItemViewModel>>(this, PassFromOthers);
+            Messenger.Default.Register<NotificationMessage<IBaseViewModel>>(this, (x)=> {
+                if(x.Content is IVendorListItemViewModel)
+                {
+                    SetEntity(((IVendorListItemViewModel)x.Content).Entity);
+                }
+            });
             //QueryCommand.Execute(CopyofPOCOInstance);
         }
 

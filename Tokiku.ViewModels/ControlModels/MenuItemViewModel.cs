@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
+using Tokiku.MVVM;
 
 namespace Tokiku.ViewModels
 {
@@ -18,18 +19,27 @@ namespace Tokiku.ViewModels
             _ViewName = string.Empty;
             _ContentView = null;
             _SubMenus = new ObservableCollection<IMenuItemViewModel>();
-            _ClickCommand = new RelayCommand<IMenuItemViewModel>((x) => {
+            _ClickCommand = new RelayCommand<IMenuItemViewModel>((x) =>
+            {
+                if (!string.IsNullOrEmpty(ViewName))
+                {
+                    StartUpLocator.Current.NavigationService.NavigateTo(ViewName);
+                }
+                else
+                {
+                    ITabViewModel tab = SimpleIoc.Default.GetInstanceWithoutCaching<ICloseableTabViewModel>();
 
-                ITabViewModel tab = SimpleIoc.Default.GetInstanceWithoutCaching<ICloseableTabViewModel>();
-            
-                tab.Header = Header;
-                tab.ContentView = ViewContent;
-                tab.ViewType = ViewType;
-                tab.TabControlName = TabControlName;
+                    tab.Header = Header;
+                    tab.ContentView = ViewContent;
+                    tab.ViewType = ViewType;
+                    tab.TabControlName = TabControlName;
+                    tab.DataModelType = DataModelType;
 
-                //發出開啟新分頁的訊息
-                var msg = new NotificationMessage<ITabViewModel>(this, tab, "OpenTab");
-                Messenger.Default.Send(msg);
+                    //發出開啟新分頁的訊息
+                    var msg = new NotificationMessage<ITabViewModel>(this, tab, "OpenTab");
+                    Messenger.Default.Send(msg);
+                }
+
             });
         }
 
@@ -50,5 +60,8 @@ namespace Tokiku.ViewModels
 
         private string _TabControlName = string.Empty;
         public string TabControlName { get => _TabControlName; set { _TabControlName = value; RaisePropertyChanged("TabControlName"); } }
+
+        private Type _DataModelType;
+        public Type DataModelType { get => _DataModelType; set { _DataModelType = value; RaisePropertyChanged("DataModelType"); } }
     }
 }

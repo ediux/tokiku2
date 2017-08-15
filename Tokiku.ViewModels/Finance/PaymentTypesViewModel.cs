@@ -29,5 +29,10 @@ namespace Tokiku.ViewModels
             get { return CopyofPOCOInstance.PaymentTypeName; }
             set { CopyofPOCOInstance.PaymentTypeName = value; RaisePropertyChanged("PaymentTypeName"); }
         }
+
+        public override string ToString()
+        {
+            return PaymentTypeName;
+        }
     }
 }

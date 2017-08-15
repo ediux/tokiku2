@@ -22,5 +22,7 @@ namespace Tokiku.ViewModels
         ObservableCollection<IMenuItemViewModel> MenuItems { get; set; }
 
         ICommand ClickCommand { get; set; }
+
+        Type DataModelType { get; set; }
     }
 }

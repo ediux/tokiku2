@@ -1,8 +1,10 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interactivity;
@@ -67,11 +69,20 @@ namespace Tokiku.MVVM.Behaviors
         public static readonly DependencyProperty DataChannelNameProperty =
             DependencyProperty.Register("DataChannelName", typeof(string), typeof(OnDataGridMouseDoubleClickBehavior), new PropertyMetadata(string.Empty));
 
-
+        //log4net
+        static ILog logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         protected override void OnAttached()
         {
-            AssociatedObject.MouseDoubleClick += AssociatedObject_MouseDoubleClick;
+            try
+            {
+                AssociatedObject.MouseDoubleClick += AssociatedObject_MouseDoubleClick;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(string.Format("執行 '{0}' 方法時發生錯誤!", MethodBase.GetCurrentMethod().Name), ex);
+            }
+
         }
 
         private void AssociatedObject_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -105,6 +116,7 @@ namespace Tokiku.MVVM.Behaviors
             }
 
             tab.SelectedObject = AssociatedObject.SelectedItem;
+            
             tab.TabControlName = TabControlChannellName;
 
             var msg = new NotificationMessage<ITabViewModel>(sender, tab, "OpenTab");
@@ -116,7 +128,14 @@ namespace Tokiku.MVVM.Behaviors
 
         protected override void OnDetaching()
         {
-            AssociatedObject.MouseDoubleClick -= AssociatedObject_MouseDoubleClick;
+            try
+            {
+                AssociatedObject.MouseDoubleClick -= AssociatedObject_MouseDoubleClick;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(string.Format("執行 '{0}' 方法時發生錯誤!", MethodBase.GetCurrentMethod().Name), ex);
+            }
         }
     }
 }

@@ -4,17 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TokikuNew.Views"
-             xmlns:l="clr-namespace:TokikuNew"
              xmlns:controls="clr-namespace:TokikuNew.Controls"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:behaviors="clr-namespace:Tokiku.MVVM.Behaviors;assembly=Tokiku.MVVM"
              xmlns:vm="clr-namespace:Tokiku.ViewModels;assembly=Tokiku.ViewModels"
-             xmlns:helpers="clr-namespace:TokikuNew.Helpers"
              xmlns:valueconverters="clr-namespace:TokikuNew.ValueConverters"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
-             DataContext="{Binding Source={StaticResource Locator}, Path=VendorListViewModel}"
+             xmlns:command="http://www.galasoft.ch/mvvmlight"
              mc:Ignorable="d" 
-             d:DesignHeight="768" d:DesignWidth="1024"              
+             d:DesignHeight="768" d:DesignWidth="1024"             
+             DataContext="{Binding VendorListViewModel , Source={StaticResource Locator}}"
              Background="{DynamicResource ControlBackgroundBrush}">
     <UserControl.Resources>
         <x:Array Type="system:String" x:Key="filesp">
@@ -22,7 +21,7 @@
             <system:String>Code</system:String>
         </x:Array>
         <valueconverters:StringFormationMultiConverter x:Key="mutlifieldconverter" />
-        <vm:ViewModelLocator x:Key="Locator" />
+
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -53,13 +52,12 @@
                                  HorizontalScrollBarVisibility="Auto" CanUserAddRows="True"
                                  IsReadOnly="True"
                                 ItemsSource="{Binding VendorList}" >
-            <i:Interaction.Behaviors>
-                <behaviors:OnDataGridMouseDoubleClickBehavior TabControlChannellName="Workspaces" ViewType="{x:Type local:ManufacturersManageView}"
-                                                            DataChannelName="ManufacturersViewModel"
-                                                            Fields="{StaticResource filesp}"
-                                                            Header="廠商:{0}-{1}" >
-                </behaviors:OnDataGridMouseDoubleClickBehavior>
-            </i:Interaction.Behaviors>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <command:EventToCommand Command="{Binding SelectedAndOpenCommand}" PassEventArgsToCommand="False"
+                                           CommandParameter="{Binding SelectedItem, ElementName=VendorList}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="廠商代號" Binding="{Binding Code}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                 <DataGridTextColumn Header="名稱(全名)" Binding="{Binding Path=Name}" Width="auto" HeaderStyle="{StaticResource HeaderStyleCenter}" />

@@ -14,12 +14,8 @@
              x:Class="TokikuNew.Views.ManufacturersManageView"  
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1366" Background="{DynamicResource ControlBackgroundBrush}" 
-             x:Name="userControl" behavior:OnUserControlPassDataObjectBehavior.DataObjectType="{x:Type vm:ManufacturersViewModel}">
-    <i:Interaction.Behaviors>
-        <behavior:OnUserControlPassDataObjectBehavior />
-    </i:Interaction.Behaviors>
+             x:Name="userControl">
     <UserControl.Resources>
-        
         <valueconverters:TypeValueConverter x:Key="TypeConverter"/>
         <Style TargetType="CheckBox" x:Key="ReadModeSwitch_CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
             <Style.Triggers>
@@ -50,6 +46,7 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
+    
     <Grid MinHeight="297">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50*"/>

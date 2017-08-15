@@ -54,51 +54,36 @@ namespace Tokiku.MVVM.Behaviors
                         var tab = source.Single(w => w.Header == Message.Content.Header);
                         AssociatedObject.SelectedItem = tab;
                     }
-                    if (Message.Content.ContentView == null)
+                }
+
+                if (Message.Content.ContentView == null)
+                {
+                    if (Message.Content.ViewType != null)
+                        Message.Content.ContentView = SimpleIoc.Default.GetInstanceWithoutCaching(Message.Content.ViewType);
+                    else
+                        return;
+                }
+
+                if (Message.Content.SelectedObject != null)
+                {
+                    if (Message.Content.ContentView is UserControl)
                     {
-                        if (Message.Content.ViewType != null)
-                            Message.Content.ContentView = SimpleIoc.Default.GetInstance(Message.Content.ViewType);
-                        else
-                            return;
-                    }
+                        UserControl element = (UserControl)Message.Content.ContentView;
 
-                    if (Message.Content.SelectedObject != null)
-                    {
+                        Type DataModelType = Message.Content.DataModelType ??
+                            ((!(element.DataContext is IFixedTabViewModel) && !(element.DataContext is ICloseableTabViewModel)) ? element.DataContext.GetType() : null);
 
 
-                        if (Message.Content.ContentView is UserControl)
-                        {
-                            UserControl element = (UserControl)Message.Content.ContentView;
+                        element.DataContext = SimpleIoc.Default.GetInstanceWithoutCaching(Message.Content.DataModelType);
 
-                            Type DataModelType = Message.Content.DataModelType ??
-                                ((!(element.DataContext is IFixedTabViewModel) && !(element.DataContext is ICloseableTabViewModel)) ? element.DataContext.GetType() : null);
+                        var DataPassMessage = new NotificationMessage<IBaseViewModel>(Message.Sender,
+                            element.DataContext,
+                            (IBaseViewModel)Message.Content.SelectedObject,
+                              "Pass");
 
-                            if (BindingOperations.GetBinding(element, FrameworkElement.DataContextProperty) != null)
-                            {
-                                BindingOperations.ClearBinding(element, FrameworkElement.DataContextProperty); //移除綁定
-                            }
+                        Messenger.Default.Send(DataPassMessage);
 
-                            if (DataModelType != null)
-                            {
-                                object DataModel = SimpleIoc.Default.GetInstanceWithoutCaching(DataModelType);
 
-                                var DataPassMessage = new NotificationMessage<IBaseViewModel>(AssociatedObject,
-                                    DataModel, (IBaseViewModel)Message.Content.SelectedObject,
-                                    ((IBaseViewModel)Message.Content.SelectedObject).GetType().FullName);
-
-                                Messenger.Default.Send(DataPassMessage);
-
-                                element.DataContext = DataModel;
-                            }
-                            else
-                            {
-                                var DataPassMessage = new NotificationMessage<IBaseViewModel>(AssociatedObject,
-                                    (IBaseViewModel)Message.Content.SelectedObject,
-                                  ((IBaseViewModel)Message.Content.SelectedObject).GetType().FullName);
-
-                                Messenger.Default.Send(DataPassMessage);
-                            }
-                        }
                     }
                 }
             }

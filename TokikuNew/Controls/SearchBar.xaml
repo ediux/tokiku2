@@ -7,10 +7,8 @@
              mc:Ignorable="d" 
              x:Name="userControl"
              Focusable="True"
-             DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=SearchBarViewModel}"
+             DataContext="{Binding SearchBarViewModel, Source={StaticResource Locator}}"
              d:DesignHeight="27" d:DesignWidth="300">
-    <UserControl.Resources>
-    </UserControl.Resources>
     <UserControl.InputBindings>
         <KeyBinding Key="Esc" Command="{Binding Path=ResetCommand}"/>
         <KeyBinding Key="Return" Command="{Binding Path=QueryCommand}"/>

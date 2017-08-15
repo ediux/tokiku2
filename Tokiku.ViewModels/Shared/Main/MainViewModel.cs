@@ -23,7 +23,7 @@ namespace Tokiku.ViewModels
                 Header = "廠商列表",
                 TabControlName = "Workspaces",
                 ViewType = Assembly.Load("TokikuNew").GetType("TokikuNew.Views.VendorListView"),
-                ViewName = "VendorListView"               
+                DataModelType= typeof(IManufacturersViewModel)
             });
             menuroot1.MenuItems.Add(new MenuItemViewModel() { Header = "客戶列表", TabControlName = "Workspaces" });
             menuroot1.MenuItems.Add(new MenuItemViewModel() { Header = "模具總表", TabControlName = "Workspaces" });
