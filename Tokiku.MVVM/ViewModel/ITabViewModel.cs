@@ -20,5 +20,7 @@ namespace Tokiku.ViewModels
         object SelectedObject { get; set; }
 
         bool CanClose { get; set; }
+
+        bool IsNewModel { get; set; }
     }
 }

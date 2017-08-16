@@ -3,6 +3,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:command="http://www.galasoft.ch/mvvmlight"
     x:Name="userControl" x:Class="TokikuNew.Views.ContactPersonManageView" 
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024"
@@ -17,25 +19,40 @@
         </ObjectDataProvider>-->
     </UserControl.Resources>
     <Grid>
-        <!-- Grid.RowDefinitions -->
-            <!--<RowDefinition Height="17"/>-->
-            <!-- RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50*"/>
-            <ColumnDefinition Width="50*"/>
-        </Grid.ColumnDefinitions -->
-        <!--<TextBlock Grid.Row="0" Grid.Column="0" Text="搜尋" VerticalAlignment="Center" HorizontalAlignment="Right" />
-        <c:SearchBar x:Name="ContractSearchBar" Grid.Column="1" Grid.Row="0" ResetSearch="ContractSearchBar_ResetSearch" Search="ContractSearchBar_Search" />-->
-        <!-- SelectionChanged="ContractList_SelectionChanged"-->
-        <DataGrid CanUserAddRows="{Binding Path=Mode, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl}" 
-                  CanUserDeleteRows="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ConverterParameter=1, Converter={StaticResource ReadModeToDisabledValueConverter}, ElementName=userControl}" 
-                  AutoGenerateColumns="False" 
+        <DataGrid AutoGenerateColumns="False" 
                   x:Name="ContractList" 
-                  IsReadOnly="{Binding Path=Mode, ConverterParameter=1, Converter={StaticResource ReadModeToEnabledValueConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   ItemsSource="{Binding ContractsList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.Style>
+                <Style TargetType="{x:Type DataGrid}" BasedOn="{StaticResource {x:Type DataGrid}}">
+                    <Setter Property="IsReadOnly" Value="False"/>
+                    <Setter Property="CanUserAddRows" Value="True"/>
+                    <Setter Property="CanUserDeleteRows" Value="True"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Value="Create">
+                            <Setter Property="CanUserAddRows" Value="True"/>
+                            <Setter Property="CanUserDeleteRows" Value="True"/>
+                            <Setter Property="IsReadOnly" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Value="Update">
+                            <Setter Property="CanUserAddRows" Value="True"/>
+                            <Setter Property="CanUserDeleteRows" Value="True"/>
+                            <Setter Property="IsReadOnly" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=Mode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Value="Read">
+                            <Setter Property="CanUserAddRows" Value="False"/>
+                            <Setter Property="CanUserDeleteRows" Value="False"/>
+                            <Setter Property="IsReadOnly" Value="True"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.Style>
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn Header="預設"  Binding="{Binding IsDefault, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="auto">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="CheckBox.Checked">
+                            <command:EventToCommand Command="{Binding SetDefaultCommand}" PassEventArgsToCommand="True"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                     <!--<DataGridCheckBoxColumn.CellStyle>
                         <Style>
                             <EventSetter Event="CheckBox.Checked" Handler="OnChecked"/>

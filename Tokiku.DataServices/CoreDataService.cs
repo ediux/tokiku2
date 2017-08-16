@@ -34,22 +34,30 @@ namespace Tokiku.DataServices
             IEncodingRecordsRepository EncodingRecordsRepository,
             IAccessLogRepository AccessLogRepository)
         {
-            _UnitOfWork = UnitOfWork;
+            try
+            {
+                _UnitOfWork = UnitOfWork;
 
-            _AccessLogRepo = AccessLogRepository;
-            _AccessLogRepo.UnitOfWork = _UnitOfWork;
+                _AccessLogRepo = AccessLogRepository;
+                _AccessLogRepo.UnitOfWork = _UnitOfWork;
 
-            _UsersRepo = UsersRepo;
-            _UsersRepo.UnitOfWork = _UnitOfWork;
+                _UsersRepo = UsersRepo;
+                _UsersRepo.UnitOfWork = _UnitOfWork;
 
-            _ContactsRepository = ContactsRepository;
-            _ContactsRepository.UnitOfWork = UnitOfWork;
+                _ContactsRepository = ContactsRepository;
+                _ContactsRepository.UnitOfWork = UnitOfWork;
 
-            _RolesRepo = RolesRepository;
-            _RolesRepo.UnitOfWork = _UnitOfWork;
+                _RolesRepo = RolesRepository;
+                _RolesRepo.UnitOfWork = _UnitOfWork;
 
-            _EncodingRecordsRepository = EncodingRecordsRepository;
-            _EncodingRecordsRepository.UnitOfWork = _UnitOfWork;
+                _EncodingRecordsRepository = EncodingRecordsRepository;
+                _EncodingRecordsRepository.UnitOfWork = _UnitOfWork;
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(ex);
+            }
+
         }
         #endregion
 
@@ -599,91 +607,96 @@ namespace Tokiku.DataServices
         /// <returns>傳回新的流水號編碼字串。</returns>
         public string GetNextCode(string Name, string CodeFormat, params object[] Parameters)
         {
-
-            var lastencoding = ((IEncodingSubSystemDataService)this).GetSingle(w => w.EncodingName == Name);
-            string prefix = string.Empty;
-
-            if (lastencoding != null)
+            try
             {
-                //取回最後一次編碼設定
+                var lastencoding = ((IEncodingSubSystemDataService)this).GetSingle(w => w.EncodingName == Name);
+                string prefix = string.Empty;
 
-                Regex r = new Regex(RegExPattern, RegexOptions.IgnoreCase);
-                Match m = r.Match(CodeFormat);
-
-                prefix = r.Replace(CodeFormat, "");
-
-                int group_index = 0;
-
-                Dictionary<int, string> _tablenames = new Dictionary<int, string>();
-                Dictionary<int, string> _columnnames = new Dictionary<int, string>();
-
-                while (m.Success)
+                if (lastencoding != null)
                 {
-                    //取得對應的資料表
-                    if (m.Groups[3].Captures.Count > 0)
+                    //取回最後一次編碼設定
+
+                    Regex r = new Regex(RegExPattern, RegexOptions.IgnoreCase);
+                    Match m = r.Match(CodeFormat);
+
+                    prefix = r.Replace(CodeFormat, "");
+
+                    int group_index = 0;
+
+                    Dictionary<int, string> _tablenames = new Dictionary<int, string>();
+                    Dictionary<int, string> _columnnames = new Dictionary<int, string>();
+
+                    while (m.Success)
                     {
-                        //取得string.Format 的引數的索引
-                        if (m.Groups[7].Success)
+                        //取得對應的資料表
+                        if (m.Groups[3].Captures.Count > 0)
                         {
-                            int ci = 0;
-
-                            int.TryParse(m.Groups[7].Value, out ci);
-
-                            List<string> _spiltname = new List<string>();
-
-                            for (int c = 0; c < m.Groups[3].Captures.Count - 1; c++)
+                            //取得string.Format 的引數的索引
+                            if (m.Groups[7].Success)
                             {
-                                _spiltname.Add(m.Groups[3].Captures[c].Value);
-                            }
+                                int ci = 0;
 
-                            _tablenames.Add(ci, string.Join(".", _spiltname.ToArray()));
-                            _columnnames.Add(ci, m.Groups[3].Captures[m.Groups[3].Captures.Count - 1].Value);
+                                int.TryParse(m.Groups[7].Value, out ci);
+
+                                List<string> _spiltname = new List<string>();
+
+                                for (int c = 0; c < m.Groups[3].Captures.Count - 1; c++)
+                                {
+                                    _spiltname.Add(m.Groups[3].Captures[c].Value);
+                                }
+
+                                _tablenames.Add(ci, string.Join(".", _spiltname.ToArray()));
+                                _columnnames.Add(ci, m.Groups[3].Captures[m.Groups[3].Captures.Count - 1].Value);
+                            }
                         }
-                    }
-                    else
-                    {
-                        string tablename = m.Groups[3].Value;
-                        //取得string.Format 的引數的索引
-                        if (m.Groups[7].Success)
+                        else
                         {
-                            int ci = 0;
-
-                            int.TryParse(m.Groups[7].Value, out ci);
-
-                            List<string> _spiltname = new List<string>();
-
-                            for (int c = 0; c < m.Groups[3].Captures.Count - 1; c++)
+                            string tablename = m.Groups[3].Value;
+                            //取得string.Format 的引數的索引
+                            if (m.Groups[7].Success)
                             {
-                                _spiltname.Add(m.Groups[3].Captures[c].Value);
+                                int ci = 0;
+
+                                int.TryParse(m.Groups[7].Value, out ci);
+
+                                List<string> _spiltname = new List<string>();
+
+                                for (int c = 0; c < m.Groups[3].Captures.Count - 1; c++)
+                                {
+                                    _spiltname.Add(m.Groups[3].Captures[c].Value);
+                                }
+
+                                _tablenames.Add(ci, string.Join(".", _spiltname.ToArray()));
+                                _columnnames.Add(ci, m.Groups[3].Captures[m.Groups[3].Captures.Count - 1].Value);
                             }
-
-                            _tablenames.Add(ci, string.Join(".", _spiltname.ToArray()));
-                            _columnnames.Add(ci, m.Groups[3].Captures[m.Groups[3].Captures.Count - 1].Value);
                         }
-                    }
-                    //for (int i = 1; i <= m.Groups.Count; i++)
-                    //{
-                    //    Group g = m.Groups[i];
+                        //for (int i = 1; i <= m.Groups.Count; i++)
+                        //{
+                        //    Group g = m.Groups[i];
 
-                    //    CaptureCollection cc = g.Captures;
-                    //    for (int j = 0; j < cc.Count; j++)
-                    //    {
-                    //        Capture c = cc[j];
-                    //        //System.Console.WriteLine("Capture" + j + "='" + c + "', Position=" + c.Index);
-                    //    }
-                    //}
-                    m = m.NextMatch();
-                    ++group_index;
+                        //    CaptureCollection cc = g.Captures;
+                        //    for (int j = 0; j < cc.Count; j++)
+                        //    {
+                        //        Capture c = cc[j];
+                        //        //System.Console.WriteLine("Capture" + j + "='" + c + "', Position=" + c.Index);
+                        //    }
+                        //}
+                        m = m.NextMatch();
+                        ++group_index;
+                    }
                 }
+                else
+                {
+
+                }
+                return string.Empty;
             }
-            else
+            catch (Exception ex)
             {
-
+                setErrortoModel(ex);
+                return null;
             }
-            return string.Empty;
         }
-
-
 
         public void CreateOrUpdate(Contacts Model)
         {

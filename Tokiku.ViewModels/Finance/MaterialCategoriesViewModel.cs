@@ -44,7 +44,7 @@ namespace Tokiku.ViewModels
         public Guid CreateUserId { get => CopyofPOCOInstance.CreateUserId; set { CopyofPOCOInstance.CreateUserId = value; RaisePropertyChanged("CreateUserId"); } }
         public IUserViewModel CreateUser { get => new UserViewModel((Users)((IUserDataService)_CoreDataService).GetSingle(s => s.UserId == CopyofPOCOInstance.CreateUserId)); set { CopyofPOCOInstance.CreateUserId = value.Entity.UserId; RaisePropertyChanged(""); } }
 
-        public override void Query(MaterialCategories Parameter)
+        protected override void Query(object Parameter)
         {
             base.Query(Parameter);
         }

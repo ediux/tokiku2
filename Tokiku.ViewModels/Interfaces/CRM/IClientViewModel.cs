@@ -11,7 +11,7 @@ namespace Tokiku.ViewModels
         string BankName { get; set; }
         string Code { get; set; }
         string Comment { get; set; }
-        IContactListViewModel ContactsList { get; set; }
+        IContactListViewModel Contracts { get; set; }
         string eMail { get; set; }
         string Extension { get; set; }
         string Fax { get; set; }

@@ -9,7 +9,10 @@
              xmlns:l="clr-namespace:TokikuNew"
              mc:Ignorable="d"
              Background="{DynamicResource ControlBackgroundBrush}"
+             DataContext="{Binding ClientListViewModel, Source={StaticResource Locator}}"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:command="http://www.galasoft.ch/mvvmlight"
              d:DesignHeight="768" d:DesignWidth="1024">
     <Grid>
         <Grid.RowDefinitions>
@@ -33,11 +36,17 @@
             </Grid>
         </Grid>
         <controls:CustomDataGrid x:Name="ClientList" AllowExecuteSystemCommand="False" Grid.Row="1" Margin="5"
-                                 ItemsSource="{Binding ClientsList}" CanUserDeleteRows="False"  CanUserAddRows="False"
+                                 ItemsSource="{Binding ClientsList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" CanUserDeleteRows="False"  CanUserAddRows="False"
                                  AutoGenerateColumns="False"
                                  CellStyle="{StaticResource DataGrid_Centering}" FontSize="20" MinRowHeight="30"
                                  AlternatingRowBackground="AliceBlue"  AlternationCount="2"
                                  IsReadOnly="True">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <command:EventToCommand Command="{Binding SelectedAndOpenCommand}" PassEventArgsToCommand="False"
+                                           CommandParameter="{Binding SelectedItem, ElementName=ClientList}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="客戶代號" Width="auto" Binding="{Binding Code}" HeaderStyle="{StaticResource HeaderStyleCenter}" />
                 <DataGridTextColumn Header="名稱(全名)" Width="auto" Binding="{Binding Name}" HeaderStyle="{StaticResource HeaderStyleCenter}" />

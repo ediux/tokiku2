@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -64,28 +65,77 @@ namespace Tokiku.MVVM.Behaviors
                         return;
                 }
 
+
+
                 UserControl element = (UserControl)Message.Content.ContentView;
+                element.DataContext = SimpleIoc.Default.GetInstanceWithoutCaching(Message.Content.DataModelType);
 
                 if (Message.Content.SelectedObject != null)
                 {
-                    if (Message.Content.ContentView is UserControl)
+                    Type DataModelType = Message.Content.DataModelType ??
+                        ((!(element.DataContext is IFixedTabViewModel) && !(element.DataContext is ICloseableTabViewModel)) ? element.DataContext.GetType() : null);
+
+                    var DataPassMessage = new NotificationMessage<IBaseViewModel>(Message.Sender,
+                        element.DataContext,
+                        (IBaseViewModel)Message.Content.SelectedObject,
+                          "Pass");
+
+                    Messenger.Default.Send(DataPassMessage);
+
+                }
+
+                //if (element.DataContext is IDocumentBaseViewModel)
+                //{
+                //    if (Message.Content.IsNewModel)
+                //        ((IDocumentBaseViewModel)element.DataContext).CreateNewCommand.Execute(Message.Content.SelectedObject);
+                //    else
+                //        ((IDocumentBaseViewModel)element.DataContext).QueryCommand.Execute(Message.Content.SelectedObject);
+                //}
+                //else
+                //{
+                Type DataType = element.DataContext.GetType();
+
+                if (Message.Content.IsNewModel)
+                {
+                    var QueryCmdProperty = DataType.GetProperty("CreateNewCommand", BindingFlags.Public | BindingFlags.Instance);
+
+                    if (QueryCmdProperty != null)
                     {
+                        var QueryCmd = QueryCmdProperty.GetValue(element.DataContext);
 
-                        Type DataModelType = Message.Content.DataModelType ??
-                            ((!(element.DataContext is IFixedTabViewModel) && !(element.DataContext is ICloseableTabViewModel)) ? element.DataContext.GetType() : null);
+                        if (QueryCmd != null)
+                        {
+                            var Execute_Method = QueryCmd.GetType().GetMethod("Execute", new Type[] { typeof(object) });
 
-
-                        element.DataContext = SimpleIoc.Default.GetInstanceWithoutCaching(Message.Content.DataModelType);
-
-                        var DataPassMessage = new NotificationMessage<IBaseViewModel>(Message.Sender,
-                            element.DataContext,
-                            (IBaseViewModel)Message.Content.SelectedObject,
-                              "Pass");
-
-                        Messenger.Default.Send(DataPassMessage);
-
+                            if (Execute_Method != null)
+                            {
+                                Execute_Method.Invoke(QueryCmd, new object[] { Message.Content.SelectedObject });
+                            }
+                        }
                     }
                 }
+                else
+                {
+                    var QueryCmdProperty = DataType.GetProperty("QueryCommand", BindingFlags.Public | BindingFlags.Instance);
+
+                    if (QueryCmdProperty != null)
+                    {
+                        var QueryCmd = QueryCmdProperty.GetValue(element.DataContext);
+
+                        if (QueryCmd != null)
+                        {
+                            var Execute_Method = QueryCmd.GetType().GetMethod("Execute", new Type[] { typeof(object) });
+
+                            if (Execute_Method != null)
+                            {
+                                Execute_Method.Invoke(QueryCmd, new object[] { Message.Content.SelectedObject });
+                            }
+                        }
+                    }
+                }
+
+                //}
+
             }
         }
 

@@ -1,10 +1,12 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,6 +14,9 @@ namespace Tokiku.Entity
 {
     public class ExecuteResultEntity : IExecuteResultEntity
     {
+        //log4net
+        static ILog logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private IEnumerable<string> _Errors;
         public IEnumerable<string> Errors { get { return _Errors; } set { _Errors = value; if (_Errors != null) { _HasError = true; } else { _HasError = false; } RaisePropertyChanged("Errors"); RaisePropertyChanged("HasError"); } }
         private bool _HasError = false;
@@ -21,12 +26,29 @@ namespace Tokiku.Entity
 
         protected void RaisePropertyChanged(string name)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            try
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            }
+            catch (Exception ex)
+            {
+                logger.Error(string.Format("執行 '{0}' 方法時發生錯誤!", MethodBase.GetCurrentMethod().Name), ex);
+            }
+
         }
 
         public static ExecuteResultEntity CreateResultEntity()
         {
-            return new ExecuteResultEntity() { Errors = null };
+            try
+            {
+                return new ExecuteResultEntity() { Errors = null };
+            }
+            catch (Exception ex)
+            {
+                logger.Error(string.Format("執行 '{0}' 方法時發生錯誤!", MethodBase.GetCurrentMethod().Name), ex);
+                throw ex;
+            }
+
         }
 
         #region IDisposable Support
@@ -34,19 +56,27 @@ namespace Tokiku.Entity
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            try
             {
-                if (disposing)
+                if (!disposedValue)
                 {
-                    // TODO: 處置 Managed 狀態 (Managed 物件)。
+                    if (disposing)
+                    {
+                        // TODO: 處置 Managed 狀態 (Managed 物件)。
 
+                    }
+
+                    // TODO: 釋放 Unmanaged 資源 (Unmanaged 物件) 並覆寫下方的完成項。
+                    // TODO: 將大型欄位設為 null。
+
+                    disposedValue = true;
                 }
-
-                // TODO: 釋放 Unmanaged 資源 (Unmanaged 物件) 並覆寫下方的完成項。
-                // TODO: 將大型欄位設為 null。
-
-                disposedValue = true;
             }
+            catch (Exception ex)
+            {
+                logger.Error(string.Format("執行 '{0}' 方法時發生錯誤!", MethodBase.GetCurrentMethod().Name), ex);
+            }
+
         }
 
         // TODO: 僅當上方的 Dispose(bool disposing) 具有會釋放 Unmanaged 資源的程式碼時，才覆寫完成項。

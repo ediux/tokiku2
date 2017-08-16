@@ -1,9 +1,11 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using Tokiku.Entity;
 using Tokiku.MVVM.Entities;
@@ -13,6 +15,9 @@ namespace Tokiku.MVVM
 {
     public abstract class DataServiceBase : IDataService
     {
+        //log4net
+        static ILog logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         public DataServiceBase()
         {
             _Errors = new string[] { };
@@ -32,30 +37,29 @@ namespace Tokiku.MVVM
         public bool HasError { get => _HasError; set => _HasError = value; }
 
         /// <summary>
-        /// 取得資料庫儲存庫物件。
-        /// </summary>        
-        /// <typeparam name="TRepository"></typeparam>
-        /// <returns>回傳指定資料表的儲存庫物件。</returns>
-        protected TRepository GetRepository<TRepository>()
-        {
-            return SimpleIoc.Default.GetInstance<TRepository>();
-        }
-
-        /// <summary>
         /// 將錯誤訊息寫到檢視模型中以利顯示。
         /// </summary>
         /// <param name="ex">例外錯誤狀況執行個體。</param>
-        protected  void setErrortoModel( Exception ex)
+        protected void setErrortoModel(Exception ex)
         {
-          
+            try
+            {
+                List<string> _Messages = new List<string>();
 
-            List<string> _Messages = new List<string>();
-            ScanErrorMessage(ex, _Messages);
+                ScanErrorMessage(ex, _Messages);
 
-            if (_Errors == null)
-                _Errors = new string[] { }.AsEnumerable();
+                if (_Errors == null)
+                    _Errors = new string[] { }.AsEnumerable();
 
-            _Errors = _Messages.AsEnumerable();
+                _Errors = _Messages.AsEnumerable();
+
+                logger.Error(string.Concat(_Errors), ex);
+            }
+            catch (Exception log_ex)
+            {
+                logger.Error(string.Format("執行 '{0}' 方法時發生錯誤!", MethodBase.GetCurrentMethod().Name), log_ex);
+            }
+
 
         }
 
@@ -66,12 +70,21 @@ namespace Tokiku.MVVM
         /// <param name="Message"></param>
         protected void setErrortoModel(string Message)
         {
-          
+            try
+            {
+                if (_Errors == null)
+                    _Errors = new string[] { }.AsEnumerable();
 
-            if (_Errors == null)
-                _Errors = new string[] { }.AsEnumerable();
+                _Errors = new string[] { Message };
 
-            _Errors = new string[] { Message };
+                logger.Error(string.Concat(_Errors));
+            }
+            catch (Exception ex)
+            {
+                logger.Error(string.Format("執行 '{0}' 方法時發生錯誤!", MethodBase.GetCurrentMethod().Name), ex);
+            }
+
+
         }
 
         /// <summary>
@@ -112,28 +125,54 @@ namespace Tokiku.MVVM
 
         protected Type GetEntityType(TModel model)
         {
-            var prop_entity = typeof(TModel).GetProperty("EntityType");
-            if (prop_entity != null)
+            try
             {
-                return (Type)prop_entity.GetValue(model);
+                var prop_entity = typeof(TModel).GetProperty("EntityType");
+                if (prop_entity != null)
+                {
+                    return (Type)prop_entity.GetValue(model);
+                }
+                return null;
             }
-            return null;
+            catch (Exception ex)
+            {
+                setErrortoModel(ex);
+                return null;
+            }
+
         }
 
         protected object GetEntity(TModel model)
         {
-            var prop_entity = typeof(TModel).GetProperty("Entity");
-
-            if (prop_entity != null)
+            try
             {
-                return prop_entity.GetValue(model);
+                var prop_entity = typeof(TModel).GetProperty("Entity");
+
+                if (prop_entity != null)
+                {
+                    return prop_entity.GetValue(model);
+                }
+                return null;
             }
-            return null;
+            catch (Exception ex)
+            {
+                setErrortoModel(ex);
+                return null;
+            }
+
         }
 
         public virtual IEnumerable<TModel> DirectExecuteSQL(string tsql, params object[] parameters)
         {
-            return SimpleIoc.Default.GetInstance<IUnitOfWork>().Context.Database.SqlQuery<TModel>(tsql, parameters).AsEnumerable();
+            try
+            {
+                return SimpleIoc.Default.GetInstance<IUnitOfWork>().Context.Database.SqlQuery<TModel>(tsql, parameters).AsEnumerable();
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(ex);
+                return null;
+            }
         }
 
         public abstract TModel Add(TModel model);
@@ -148,6 +187,6 @@ namespace Tokiku.MVVM
         public abstract ICollection<TModel> SearchByText(string filiter);
         public abstract void CreateOrUpdate(TModel Model);
         public abstract void CreateOrUpdate(IEnumerable<TModel> Model);
-        
+
     }
 }

@@ -1,7 +1,9 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,35 +11,109 @@ namespace Tokiku.MVVM.Entities
 {
     public class EFUnitOfWorkBase : IUnitOfWork
     {
+        //log4net
+        static ILog logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private DbContext _context;
         public DbContext Context { get { return _context; } set { _context = value; } }
 
         public EFUnitOfWorkBase()
         {
-            
+
         }
 
         public void Commit()
         {
-            Context.SaveChanges();
+            try
+            {
+                Context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                logger.Error(string.Format("執行 '{0}' 方法時發生錯誤!", MethodBase.GetCurrentMethod().Name), ex);
+            }
+
         }
-     
+
         public bool LazyLoadingEnabled
         {
-            get { return Context.Configuration.LazyLoadingEnabled; }
-            set { Context.Configuration.LazyLoadingEnabled = value; }
+            get
+            {
+                try
+                {
+                    return Context.Configuration.LazyLoadingEnabled;
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(string.Format("執行 '{0}' 方法時發生錯誤!", MethodBase.GetCurrentMethod().Name), ex);
+                    throw ex;
+                }
+            }
+            set
+            {
+                try
+                {
+                    Context.Configuration.LazyLoadingEnabled = value;
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(string.Format("執行 '{0}' 方法時發生錯誤!", MethodBase.GetCurrentMethod().Name), ex);
+                }
+            }
         }
 
         public bool ProxyCreationEnabled
         {
-            get { return Context.Configuration.ProxyCreationEnabled; }
-            set { Context.Configuration.ProxyCreationEnabled = value; }
+            get
+            {
+                try
+                {
+                    return Context.Configuration.ProxyCreationEnabled;
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(string.Format("執行 '{0}' 方法時發生錯誤!", MethodBase.GetCurrentMethod().Name), ex);
+                    throw ex;
+                }
+            }
+            set
+            {
+                try
+                {
+                    Context.Configuration.ProxyCreationEnabled = value;
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(string.Format("執行 '{0}' 方法時發生錯誤!", MethodBase.GetCurrentMethod().Name), ex);
+                }
+            }
         }
 
         public string ConnectionString
         {
-            get { return Context.Database.Connection.ConnectionString; }
-            set { Context.Database.Connection.ConnectionString = value; }
+            get
+            {
+                try
+                {
+                    return Context.Database.Connection.ConnectionString;
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(string.Format("執行 '{0}' 方法時發生錯誤!", MethodBase.GetCurrentMethod().Name), ex);
+                    throw ex;
+                }
+            }
+            set
+            {
+                try
+                {
+                    Context.Database.Connection.ConnectionString = value;
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(string.Format("執行 '{0}' 方法時發生錯誤!", MethodBase.GetCurrentMethod().Name), ex);
+                }
+            }
         }
 
         #region IDisposable Support
@@ -45,19 +121,27 @@ namespace Tokiku.MVVM.Entities
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            try
             {
-                if (disposing)
+                if (!disposedValue)
                 {
-                    // TODO: 處置 Managed 狀態 (Managed 物件)。
-                    _context.Dispose();
+                    if (disposing)
+                    {
+                        // TODO: 處置 Managed 狀態 (Managed 物件)。
+                        _context.Dispose();
+                    }
+
+                    // TODO: 釋放 Unmanaged 資源 (Unmanaged 物件) 並覆寫下方的完成項。
+                    // TODO: 將大型欄位設為 null。
+
+                    disposedValue = true;
                 }
-
-                // TODO: 釋放 Unmanaged 資源 (Unmanaged 物件) 並覆寫下方的完成項。
-                // TODO: 將大型欄位設為 null。
-
-                disposedValue = true;
             }
+            catch (Exception ex)
+            {
+                logger.Error(string.Format("執行 '{0}' 方法時發生錯誤!", MethodBase.GetCurrentMethod().Name), ex);
+            }
+
         }
 
         // TODO: 僅當上方的 Dispose(bool disposing) 具有會釋放 Unmanaged 資源的程式碼時，才覆寫完成項。

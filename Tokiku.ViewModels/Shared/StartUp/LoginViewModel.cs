@@ -85,7 +85,7 @@ namespace Tokiku.ViewModels
 
                 Errors = _SystemService.Errors;
                 HasError = true;
-
+                RaisePropertyChanged("Errors");
             }
             catch (Exception ex)
             {

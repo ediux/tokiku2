@@ -24,7 +24,7 @@ namespace Tokiku.ViewModels
             _CreateNewCommand = new RelayCommand(CreateNew);
             _ReplyCommand = new RelayCommand<object>(Relay);
 
-           
+
         }
 
         #region 文件狀態
@@ -72,7 +72,7 @@ namespace Tokiku.ViewModels
         //    {
         //        setErrortoModel(this, ex);
         //    }
-      
+
         //}
         protected virtual void RunModeChanged(DocumentLifeCircle Mode)
         {
@@ -240,7 +240,18 @@ namespace Tokiku.ViewModels
         public virtual Guid Id
         {
             get => _Id;
-            set { _Id = value; RaisePropertyChanged("Id"); }
+            set
+            {
+                try
+                {
+                    _Id = value;
+                    RaisePropertyChanged("Id");
+                }
+                catch (Exception ex)
+                {
+                    setErrortoModel(this, ex);
+                }
+            }
         }
         #endregion
 
@@ -280,8 +291,9 @@ namespace Tokiku.ViewModels
 
                     return _CreateTime;
                 }
-                catch
+                catch (Exception ex)
                 {
+                    setErrortoModel(this, ex);
                     return DateTime.Now;
                 }
 
@@ -293,9 +305,9 @@ namespace Tokiku.ViewModels
                     _EntityType.GetProperty("CreateTime").SetValue(CopyofPOCOInstance, value);
                     RaisePropertyChanged("CreateTime");
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    setErrortoModel(this, ex);
                 }
             }
         }
@@ -321,8 +333,9 @@ namespace Tokiku.ViewModels
 
                     return UserId;
                 }
-                catch
+                catch (Exception ex)
                 {
+                    setErrortoModel(this, ex);
                     return Guid.Empty;
                 }
 
@@ -334,8 +347,9 @@ namespace Tokiku.ViewModels
                     _EntityType.GetProperty("CreateUserId").SetValue(CopyofPOCOInstance, value);
                     RaisePropertyChanged("CreateUserId");
                 }
-                catch
+                catch (Exception ex)
                 {
+                    setErrortoModel(this, ex);
                 }
             }
         }
@@ -361,8 +375,9 @@ namespace Tokiku.ViewModels
 
                     return new UserViewModel(_CreateUser);
                 }
-                catch
+                catch (Exception ex)
                 {
+                    setErrortoModel(this, ex);
                     return null;
                 }
 
@@ -374,9 +389,9 @@ namespace Tokiku.ViewModels
                     _EntityType.GetProperty("CreateUser")?.SetValue(CopyofPOCOInstance, value);
                     RaisePropertyChanged("CreateUser");
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    setErrortoModel(this, ex);
                 }
             }
         }
@@ -408,8 +423,9 @@ namespace Tokiku.ViewModels
 
                     return CreateTime;
                 }
-                catch
+                catch (Exception ex)
                 {
+                    setErrortoModel(this, ex);
                     return null;
                 }
             }
@@ -425,19 +441,28 @@ namespace Tokiku.ViewModels
         {
             get
             {
-                var _lastupdateUseridprop = _EntityType.GetProperty("LastUpdateUserId");
-
-                if (_lastupdateUseridprop != null)
-                    return (Guid?)_lastupdateUseridprop.GetValue(CopyofPOCOInstance);
-
-                var log = LastUpadateUser;
-
-                if (log != null)
+                try
                 {
-                    return log.UserId;
+                    var _lastupdateUseridprop = _EntityType.GetProperty("LastUpdateUserId");
+
+                    if (_lastupdateUseridprop != null)
+                        return (Guid?)_lastupdateUseridprop.GetValue(CopyofPOCOInstance);
+
+                    var log = LastUpadateUser;
+
+                    if (log != null)
+                    {
+                        return log.UserId;
+                    }
+
+                    return Guid.Empty;
+                }
+                catch (Exception ex)
+                {
+                    setErrortoModel(this, ex);
+                    return default(Guid);
                 }
 
-                return Guid.Empty;
             }
 
         }
@@ -459,8 +484,9 @@ namespace Tokiku.ViewModels
                     var log = _CoreDataService.GetLastUpdateUser(typeof(TPOCO).Name, Id.ToString());
                     return log;
                 }
-                catch
+                catch (Exception ex)
                 {
+                    setErrortoModel(this, ex);
                     return null;
                 }
 
@@ -487,6 +513,7 @@ namespace Tokiku.ViewModels
             _CoreDataService = CoreDataService;
             _Status = new DocumentStatusViewModel();
             _ModeChangedCommand = new RelayCommand<DocumentLifeCircle>(RunModeChanged);
+
 
             //Messenger.Default.Register<NotificationMessage<IBaseViewModel>>(this, RecviceFromOthers);
 
@@ -527,23 +554,18 @@ namespace Tokiku.ViewModels
             }
         }
 
-        //protected virtual void RecviceFromOthers(NotificationMessage<IBaseViewModel> model)
-        //{
-        //    try
-        //    {
-        //        QueryCommand?.Execute(model.Content);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        setErrortoModel(this, ex);
-        //    }
-        
-        //}
-
         protected virtual void RunModeChanged(DocumentLifeCircle Mode)
         {
-            _Mode = Mode;
-            RaisePropertyChanged("Mode");
+            try
+            {
+                _Mode = Mode;
+                RaisePropertyChanged("Mode");
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+
         }
     }
 }

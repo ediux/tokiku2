@@ -12,14 +12,6 @@ namespace Tokiku.ViewModels
     /// </summary>
     public interface IEntityBaseViewModel<T> : IBaseViewModel where T : class
     {
-        void CreateNew();
-
-        void Delete();
-
-        void Load();
-
-        void Save();
-
         void SetEntity(T entity);
 
         Expression<Func<T, bool>> Filiter { get; set; }

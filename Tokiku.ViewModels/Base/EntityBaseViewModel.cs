@@ -50,7 +50,7 @@ namespace Tokiku.ViewModels
         public EntityBaseViewModel()
         {
             _SaveCommand = new RelayCommand(Save);
-            _QueryCommnand = new RelayCommand<TPOCO>(Query);
+            _QueryCommnand = new RelayCommand<object>(Query);
             _DeleteCommand = new RelayCommand(Delete);
             _CreateNewCommand = new RelayCommand(CreateNew);
             _ReplyCommand = new RelayCommand<object>(Relay);
@@ -63,7 +63,7 @@ namespace Tokiku.ViewModels
         public EntityBaseViewModel(TPOCO entity)
         {
             _SaveCommand = new RelayCommand(Save);
-            _QueryCommnand = new RelayCommand(Load);
+            _QueryCommnand = new RelayCommand<object>(Query);
             _DeleteCommand = new RelayCommand(Delete);
             _CreateNewCommand = new RelayCommand(CreateNew);
             _ReplyCommand = new RelayCommand<object>(Relay);
@@ -130,91 +130,31 @@ namespace Tokiku.ViewModels
         public Expression<Func<TPOCO, bool>> Filiter { get => _Filiter; set => _Filiter = value; }
         #endregion
 
-
-        protected const string ActionName = "CreateOrUpdate";
-
-        public virtual void CreateNew()
+        protected virtual void CreateNew()
         {
-            try
-            {
-                //ControllerMappingAttribute attr = MethodBase.GetCurrentMethod().GetCustomAttribute<ControllerMappingAttribute>();
 
-                //if (attr != null)
-                //{
-                //    //ExecuteAction<TPOCO>(attr.Name, "CreateNew");
-                //}
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-            }
         }
 
-        public virtual void Delete()
+        protected virtual void Delete()
         {
-            try
-            {
-               
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-            }
-        }
-
-        public virtual void Load()
-        {
-            try
-            {
-                //ControllerMappingAttribute attr = MethodBase.GetCurrentMethod().GetCustomAttribute<ControllerMappingAttribute>();
-
-                //if (attr != null)
-                //{
-                //    if (Filiter != null)
-                //    {
-                //        ExecuteAction<TPOCO>(attr.Name, "Query", Filiter);
-                //    }
-                //    else
-                //    {
-                //        ExecuteAction<TPOCO>(attr.Name, "Query");
-                //    }
-
-                //}
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-            }
         }
 
         /// <summary>
         /// 向前相容性方法
         /// </summary>
-        public virtual void Query(TPOCO Parameter)
-        {
-            Load();
-        }
-
-        public virtual void Relay(object source)
+        protected virtual void Query(object Parameter)
         {
 
         }
 
-        public virtual void Save()
+        protected virtual void Relay(object source)
         {
-            try
-            {
-                //ControllerMappingAttribute attr = MethodBase.GetCurrentMethod().GetCustomAttribute<ControllerMappingAttribute>();
 
-                //if (attr != null)
-                //{
-                //    ExecuteAction<TPOCO>(attr.Name, ActionName, CopyofPOCOInstance, true);
-                //}
-            }
-            catch (Exception ex)
-            {
-                setErrortoModel(this, ex);
-            }
+        }
+
+        protected virtual void Save()
+        {
+
         }
 
         public virtual void SetEntity(TPOCO entity)

@@ -20,18 +20,35 @@ namespace Tokiku.ViewModels
 
         private object _ContentView = null;
 
-        public object ContentView { get => _ContentView; set{ _ContentView = value; RaisePropertyChanged("ContentView"); } }
+        public object ContentView { get => _ContentView; set { _ContentView = value; RaisePropertyChanged("ContentView"); } }
 
         protected bool _CanClose = false;
         public virtual bool CanClose { get => _CanClose; set { _CanClose = value; RaisePropertyChanged("CanClose"); } }
 
         private object _SelectedObject = null;
-        public object SelectedObject { get =>_SelectedObject; set { _SelectedObject = value;RaisePropertyChanged("SelectedObject"); } }
+        public object SelectedObject { get => _SelectedObject; set { _SelectedObject = value; RaisePropertyChanged("SelectedObject"); } }
 
         private string _TabControlName = string.Empty;
         public string TabControlName { get => _TabControlName; set { _TabControlName = value; RaisePropertyChanged("TabControlName"); } }
 
         private Type _DataModelType;
         public Type DataModelType { get => _DataModelType; set { _DataModelType = value; RaisePropertyChanged("DataModelType"); } }
+
+        private bool _IsNewModel = false;
+        public bool IsNewModel
+        {
+            get => _IsNewModel; set
+            {
+                try
+                {
+                    _IsNewModel = value;
+                    RaisePropertyChanged("IsNewModel");
+                }
+                catch (Exception ex)
+                {
+                    setErrortoModel(this, ex);
+                }
+            }
+        }
     }
 }

@@ -100,7 +100,6 @@ namespace Tokiku.ViewModels
             }
 
             messageQueue.Add(ex.Message);
-
         }
 
         #endregion

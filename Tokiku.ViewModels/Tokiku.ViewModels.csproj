@@ -180,7 +180,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Base\Interfaces\" />
-    <Folder Include="MES\Projects\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

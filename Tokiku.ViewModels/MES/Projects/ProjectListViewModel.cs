@@ -6,20 +6,136 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Tokiku.Controllers;
 using Tokiku.Entity;
 using GalaSoft.MvvmLight;
+using Tokiku.DataServices;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Ioc;
+using System.Reflection;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace Tokiku.ViewModels
 {
-    public class ProjectListViewModelCollection : ViewModelBase
+    public class ProjectListViewModel : DocumentBaseViewModel, IProjectListViewModel
     {
+        public ProjectListViewModel(ICoreDataService CoreDataService) : base(CoreDataService)
+        {
+        }
+
+        private ObservableCollection<IProjectListItemViewModel> _ProjectsList;
+
+        public ObservableCollection<IProjectListItemViewModel> ProjectsList
+        {
+            get => _ProjectsList;
+            set
+            {
+                try
+                {
+                    _ProjectsList = value;
+                    RaisePropertyChanged("ProjectsList");
+
+                }
+                catch (Exception ex)
+                {
+                    setErrortoModel(this, ex);
+                }
+            }
+        }
+
+        private ICommand _SelectedAndOpenCommand;
+
+        public ICommand SelectedAndOpenCommand
+        {
+            get => _SelectedAndOpenCommand; set
+            {
+                try
+                {
+                    _SelectedAndOpenCommand = value;
+                    RaisePropertyChanged("SelectedAndOpenCommand");
+                }
+                catch (Exception ex)
+                {
+                    setErrortoModel(this, ex);
+                }
+            }
+        }
+
+        public override void CreateNew()
+        {
+            try
+            {
+                ITabViewModel tab = SimpleIoc.Default.GetInstanceWithoutCaching<ICloseableTabViewModel>();
+
+                tab.ViewType = Assembly.Load("TokikuNew").GetType("TokikuNew.Views.ClientManageView");
+                tab.ContentView = SimpleIoc.Default.GetInstanceWithoutCaching(tab.ViewType);
+                tab.Header = "新增客戶";
+                tab.SelectedObject = null;
+                tab.DataModelType = typeof(IClientViewModel);
+                tab.TabControlName = "Workspaces";
+                tab.IsNewModel = true;
+
+                var msg = new NotificationMessage<ITabViewModel>(this, tab, "OpenTab");
+                Messenger.Default.Send(msg);
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+
+
+        }
+
+        protected void RunSelectedAndOpenCommand(object parameter)
+        {
+            try
+            {
+                if (parameter is IVendorListItemViewModel)
+                {
+                    ITabViewModel tab = SimpleIoc.Default.GetInstanceWithoutCaching<ICloseableTabViewModel>();
+                    IVendorListItemViewModel selecteditem = (IVendorListItemViewModel)parameter;
+
+                    if (selecteditem != null)
+                    {
+                        tab.ViewType = Assembly.Load("TokikuNew").GetType("TokikuNew.Views.ClientManageView");
+                        tab.ContentView = SimpleIoc.Default.GetInstanceWithoutCaching(tab.ViewType);
+                        tab.Header = string.Format("客戶:{0}-{1}", selecteditem.Code, selecteditem.ShortName);
+                        tab.SelectedObject = selecteditem;
+                        tab.DataModelType = typeof(IClientViewModel);
+                        tab.TabControlName = "Workspaces";
+
+                        var msg = new NotificationMessage<ITabViewModel>(this, tab, "OpenTab");
+                        Messenger.Default.Send(msg);
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+
+
+        }
+
+        public override void Query(object Parameter)
+        {
+            try
+            {
+                if (Parameter == null)
+                {
+                    _ClientsList = new ObservableCollection<IClientListItemViewModel>(
+                        _ClientDataService.GetAll().Select(s => new ClientListItemViewModel(s)));
+                }
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+
+
+        }
         //private ProjectsController _projects_controller;
 
-        public ProjectListViewModelCollection() : base()
-        {
-          
-        }
 
         //public ProjectListViewModelCollection(IEnumerable<ProjectListViewModel> source) : base(source)
         //{
@@ -100,106 +216,5 @@ namespace Tokiku.ViewModels
         //}
 
     }
-    public class ProjectListViewModel : BaseViewModelWithPOCOClass<ProjectListEntity>
-    {
-        public ProjectListViewModel()
-        {
 
-        }
-
-        public ProjectListViewModel(ProjectListEntity entity):base(entity)
-        {
-
-        }
-        //private ProjectsController _projects_controller;
-
-
-     
-        ///// <summary>
-        ///// 編號
-        ///// </summary>
-        //public Guid Id
-        //{
-        //    get { return (Guid)GetValue(IdProperty); }
-        //    set { SetValue(IdProperty, value); RaisePropertyChanged("Id"); }
-        //}
-
-        /// <summary>
-        /// 專案代碼
-        /// </summary>
-        public string Code
-        {
-            get { return CopyofPOCOInstance.Code; }
-            set { CopyofPOCOInstance.Code = value; RaisePropertyChanged("Code"); }
-        }
-
-        /// <summary>
-        /// 專案名稱
-        /// </summary>
-        public string Name { get { return CopyofPOCOInstance.Name; } set { CopyofPOCOInstance.Name = value; RaisePropertyChanged("ProjectName"); } }
-        /// <summary>
-        /// 專案名稱(簡稱)
-        /// </summary>
-        public string ShortName { get { return CopyofPOCOInstance.ShortName; } set { CopyofPOCOInstance.ShortName = value;  RaisePropertyChanged("ShortName"); } }
-
-        /// <summary>
-        /// 狀態
-        /// </summary>
-        public byte State { get { return CopyofPOCOInstance.State; } set { CopyofPOCOInstance.State = value; RaisePropertyChanged("State"); } }
-
-        public DateTime? StartDate
-        {
-            get { return CopyofPOCOInstance.StartDate; }
-            set { CopyofPOCOInstance.StartDate = value; RaisePropertyChanged("StartDate"); }
-        }
-
-     
-
-
-        public DateTime? CompletionDate
-        {
-            get { return CopyofPOCOInstance.CompletionDate; }
-            set { CopyofPOCOInstance.CompletionDate = value; RaisePropertyChanged("CompletionDate"); }
-        }
-
-        /// <summary>
-        /// 保固日期
-        /// </summary>
-        public DateTime? WarrantyDate
-        {
-            get { return CopyofPOCOInstance.WarrantyDate; }
-            set { CopyofPOCOInstance.WarrantyDate = value;
-                RaisePropertyChanged("WarrantyDate");
-            }
-        }
-
-     
-        //public System.DateTime StartDate { get; set; }
-        //public System.DateTime CompletionDate { get; set; }
-     
-
-        //public override void Query()
-        //{
-        //    if (Id == Guid.Empty)
-        //        return;
-
-        //    var result = _projects_controller.QuerySingle(Id);
-
-        //    if (!result.HasError)
-        //    {
-        //        BindingFromModel(result.Result, this);
-               
-
-        //        if (CompletionDate.HasValue == false)
-        //        {
-        //            CompletionDate = DateTime.Today;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        Errors = result.Errors;
-        //        HasError = result.HasError;
-        //    }
-        //}
-    }
 }

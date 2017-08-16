@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿using System;
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Tokiku.Entity;
 
@@ -6,15 +7,35 @@ namespace Tokiku.ViewModels
 {
     public class ContactsViewModel : EntityBaseViewModel<Contacts>, IContactsViewModel
     {
-        [PreferredConstructor]
+
         public ContactsViewModel()
         {
+            MessengerInstance.Register<PropertyChangedMessageBase>(this, (m) =>
+            {
+                try
+                {
+
+                }
+                catch (Exception ex)
+                {
+                    setErrortoModel(this, ex);
+                }
+            });
         }
 
+        [PreferredConstructor]
         public ContactsViewModel(Contacts entity) : base(entity)
         {
-            MessengerInstance.Register<PropertyChangedMessageBase>(this, (m) => {
-                
+            MessengerInstance.Register<PropertyChangedMessageBase>(this, (m) =>
+            {
+                try
+                {
+
+                }
+                catch (Exception ex)
+                {
+                    setErrortoModel(this, ex);
+                }
             });
 
         }
@@ -128,7 +149,51 @@ namespace Tokiku.ViewModels
         public bool IsDefault
         {
             get { return CopyofPOCOInstance.IsDefault; }
-            set { CopyofPOCOInstance.IsDefault = value; RaisePropertyChanged<bool>("IsDefault",broadcast:true); }
+            set
+            {
+                try
+                {
+                    CopyofPOCOInstance.IsDefault = value;
+                    RaisePropertyChanged<bool>("IsDefault", broadcast: true);
+                }
+                catch (Exception ex)
+                {
+                    setErrortoModel(this, ex);
+                }
+            }
+        }
+
+        public Guid Id
+        {
+            get => CopyofPOCOInstance.Id; set
+            {
+                try
+                {
+                    CopyofPOCOInstance.Id = value;
+                    RaisePropertyChanged("Id");
+                }
+                catch (Exception ex)
+                {
+                    setErrortoModel(this, ex);
+                }
+
+            }
+        }
+
+        public string Comment
+        {
+            get => CopyofPOCOInstance.Comment; set
+            {
+                try
+                {
+                    CopyofPOCOInstance.Comment = value;
+                    RaisePropertyChanged("Comment");
+                }
+                catch (Exception ex)
+                {
+                    setErrortoModel(this, ex);
+                }
+            }
         }
     }
 }

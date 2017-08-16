@@ -26,31 +26,7 @@ namespace Tokiku.Controllers
         {
             try
             {
-                Manufacturers model = new Manufacturers();
-
-                var findlast = (from q in ManufacturersRepo.All()
-                                where q.IsClient == true
-                                orderby q.Code descending
-                                select q).FirstOrDefault();
-
-                if (findlast != null)
-                {
-                    if (findlast.Code.StartsWith("CM"))
-                    {
-                        int i = 0;
-
-                        if (int.TryParse(findlast.Code.Substring(2), out i))
-                        {
-                            model.Code = string.Format("CM{0:000}", i + 1);
-                            return ExecuteResultEntity<Manufacturers>.CreateResultEntity(model);
-                        }
-                    }
-                }
-
-                model.Id = Guid.NewGuid();
-                model.Code = "CM001";
-
-                return ExecuteResultEntity<Manufacturers>.CreateResultEntity(model);
+                
             }
             catch (Exception ex)
             {

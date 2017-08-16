@@ -17,16 +17,27 @@ namespace Tokiku.DataServices
         private IUnitOfWork _UnitOfWork;
         private IManufacturersRepository _ManufacturersRepository;
 
-
+        #region 建構式
         public CustomerRelationshipManagementDataService(IManufacturersRepository ManufacturersRepository,
-            ICoreDataService CoreDataService) : base()
+                  ICoreDataService CoreDataService) : base()
         {
-            _CoreDataService = CoreDataService;
-            _UnitOfWork = EntityLocator.Current.EFUnitOfWork;
-            _ManufacturersRepository = ManufacturersRepository;
-            _ManufacturersRepository.UnitOfWork = _UnitOfWork;
+            try
+            {
+                _CoreDataService = CoreDataService;
+                _UnitOfWork = EntityLocator.Current.EFUnitOfWork;
+                _ManufacturersRepository = ManufacturersRepository;
+                _ManufacturersRepository.UnitOfWork = _UnitOfWork;
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(ex);
+            }
+
         }
 
+        #endregion
+
+        #region 客戶主檔資料存取服務
         public Manufacturers Add(Manufacturers model)
         {
             try
@@ -73,6 +84,43 @@ namespace Tokiku.DataServices
             }
         }
 
+        public Manufacturers CreateNew()
+        {
+            try
+            {
+                Manufacturers model = new Manufacturers();
+
+                var findlast = (from q in _ManufacturersRepository.All()
+                                where q.IsClient == true
+                                orderby q.Code descending
+                                select q).FirstOrDefault();
+
+                if (findlast != null)
+                {
+                    if (findlast.Code.StartsWith("CM"))
+                    {
+                        int i = 0;
+
+                        if (int.TryParse(findlast.Code.Substring(2), out i))
+                        {
+                            model.Code = string.Format("CM{0:000}", i + 1);
+                            return model;
+                        }
+                    }
+                }
+
+                model.Id = Guid.NewGuid();
+                model.Code = "CM001";
+
+                return model;
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(ex);
+                return null;
+            }
+        }
+
         public void CreateOrUpdate(Manufacturers Model)
         {
             try
@@ -88,7 +136,7 @@ namespace Tokiku.DataServices
                 {
                     //repo.UnitOfWork.Context.Entry(entity).State = EntityState.Detached;
 
-                    var update_result = ((IManufacturersDataService)this).Update(Model);
+                    var update_result = ((IClientDataService)this).Update(Model);
 
                     if (HasError)
                     {
@@ -100,7 +148,7 @@ namespace Tokiku.DataServices
                 }
                 else
                 {
-                    var add_result = ((IManufacturersDataService)this).Add(Model);
+                    var add_result = ((IClientDataService)this).Add(Model);
 
                     if (HasError)
                     {
@@ -251,5 +299,7 @@ namespace Tokiku.DataServices
         {
             throw new NotImplementedException();
         }
+        #endregion
+
     }
 }

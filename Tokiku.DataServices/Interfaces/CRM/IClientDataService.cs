@@ -12,5 +12,6 @@ namespace Tokiku.DataServices
     /// </summary>
     public interface IClientDataService : IDataService<Manufacturers>
     {
+        Manufacturers CreateNew();
     }
 }

@@ -12,7 +12,8 @@ namespace Tokiku.ViewModels
     /// 聯絡人清單檢視模型
     /// </summary>
     public interface IContactListViewModel : IDocumentBaseViewModel
-    {      
+    {
+        ICommand SetDefaultCommand { get; set; }
         ObservableCollection<IContactsViewModel> ContractsList { get; set; }
     }
 }

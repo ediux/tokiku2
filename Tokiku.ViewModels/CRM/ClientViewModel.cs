@@ -20,15 +20,36 @@ namespace Tokiku.ViewModels
     /// </summary>
     public class ClientViewModel : DocumentBaseViewModel<Manufacturers>, IClientViewModel
     {
-        private Guid QueryCondition_ProjectId;
+        private IClientDataService _ClientDataService;
 
-        public ClientViewModel(ICoreDataService CoreDataService) : base(CoreDataService)
+        public ClientViewModel(ICoreDataService CoreDataService,
+             ICustomerRelationshipManagementDataService CustomerRelationshipManagementDataService) : base(CoreDataService)
         {
+            try
+            {
+                _ClientDataService = CustomerRelationshipManagementDataService;
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+
         }
 
         [PreferredConstructor]
-        public ClientViewModel(Manufacturers entity, ICoreDataService CoreDataService) : base(entity, CoreDataService)
+        public ClientViewModel(Manufacturers entity,
+            ICustomerRelationshipManagementDataService CustomerRelationshipManagementDataService,
+            ICoreDataService CoreDataService) : base(entity, CoreDataService)
         {
+            try
+            {
+                _ClientDataService = CustomerRelationshipManagementDataService;
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+
         }
 
         #region 屬性
@@ -52,14 +73,34 @@ namespace Tokiku.ViewModels
         {
             get
             {
-                var result = CopyofPOCOInstance.Contacts.Where(s => s.IsDefault == true);
-                if (result.Any())
+                try
                 {
-                    return result.Single().EMail;
+                    var result = CopyofPOCOInstance.Contacts.Where(s => s.IsDefault == true);
+                    if (result.Any())
+                    {
+                        return result.Single().EMail;
+                    }
+                    return CopyofPOCOInstance.eMail;
                 }
-                return CopyofPOCOInstance.eMail;
+                catch (Exception ex)
+                {
+                    setErrortoModel(this, ex);
+                    return null;
+                }
+
             }
-            set { CopyofPOCOInstance.eMail = value; RaisePropertyChanged("eMail"); }
+            set
+            {
+                try
+                {
+                    CopyofPOCOInstance.eMail = value;
+                    RaisePropertyChanged("eMail");
+                }
+                catch (Exception ex)
+                {
+                    setErrortoModel(this, ex);
+                }
+            }
         }
         public string Address { get { return CopyofPOCOInstance.Address; } set { CopyofPOCOInstance.Address = value; RaisePropertyChanged("Address"); } }
         public string Comment { get { return CopyofPOCOInstance.Comment; } set { CopyofPOCOInstance.Comment = value; RaisePropertyChanged("Comment"); } }
@@ -226,167 +267,131 @@ namespace Tokiku.ViewModels
 
         #region 聯絡人
 
-        private IContactListViewModel _ContactsList = ViewModelLocator.Current.ContactListViewModel;
+        private IContactListViewModel _Contracts = ViewModelLocator.Current.ContactListViewModel;
         /// <summary>
         /// 聯絡人清單
         /// </summary>
-        public IContactListViewModel ContactsList { get => _ContactsList; set { _ContactsList = value; RaisePropertyChanged("ContactsList"); } }
+        public IContactListViewModel Contracts
+        {
+            get
+            {
+                try
+                {
+                    if (_Contracts == null)
+                    {
+                        _Contracts = SimpleIoc.Default.GetInstance<IContactListViewModel>();
+                    }
+
+                    return _Contracts;
+                }
+                catch (Exception ex)
+                {
+                    setErrortoModel(this, ex);
+                    return _Contracts;
+                }
+
+            }
+            set { _Contracts = value; RaisePropertyChanged("Contracts"); }
+        }
 
         #endregion
 
-        public override void CreateNew()
+        protected override void CreateNew()
         {
-            //            try
-            //            {
-            //#if DEBUG
-            //                Debug.WriteLine("ClientViewModel initialized.");
-            //#endif
-            //                base.Initialized(Parameter);
+            try
+            {
 
-            //                IsClient = true;
+                ModeChangedCommand.Execute(DocumentLifeCircle.Create);
 
-            //               // ClientForProjects = new ProjectsViewModelCollection();
-            //                //Contracts = new ContactsViewModelCollection();
+                Manufacturers createnewresult = _ClientDataService.CreateNew();
 
-            //                var createnewresult = controller.CreateNew();
+                Status.IsNewInstance = true;
+                Status.IsSaved = false;
 
-            //                if (!createnewresult.HasError)
-            //                {
-            //                    var data = createnewresult.Result;
-            //                    //BindingFromModel(data, this);
-            //                }
-            //            }
-            //            catch (Exception ex)
-            //            {
-            //                setErrortoModel(this, ex);
-            //            }
+                Contracts.QueryCommand.Execute(createnewresult);
+
+                if (!_ClientDataService.HasError)
+                {
+                    CopyofPOCOInstance = createnewresult;
+                    CopyofPOCOInstance.IsClient = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
         }
 
-        public override void Save()
+        protected override void RunModeChanged(DocumentLifeCircle Mode)
         {
-            //    try
-            //    {
-            //        if (Status.IsNewInstance)
-            //        {
-            //            Id = Guid.NewGuid();
-            //        }
-
-            //        if (Status.IsNewInstance)
-            //        {
-            //            CreateTime = DateTime.Now;
-            //        }
-
-            //        var LoginedUser = controller.GetCurrentLoginUser().Result;
-
-            //        if (CreateUserId == Guid.Empty)
-            //        {
-            //            CreateUserId = LoginedUser.UserId;
-            //        }
-
-            //        IsClient = true;
-
-            //        Entity.Manufacturers data = new Entity.Manufacturers();
-
-            //        CopyToModel(data, this);
-
-            //        if (Contracts != null)
-            //        {
-            //            if (Contracts.Count > 0)
-            //            {
-            //                data.Contacts = new Collection<Entity.Contacts>();
-
-            //                foreach (var x in Contracts)
-            //                {
-            //                    if (x.Status.IsNewInstance)
-            //                    {
-            //                        x.CreateTime = CreateTime;
-            //                        x.CreateUserId = LoginedUser.UserId;
-            //                    }
-
-            //                    Entity.Contacts contact = new Entity.Contacts();
-            //                    CopyToModel(contact, x);
-            //                    data.Contacts.Add(contact);
-            //                }
-            //            }
-            //        }
-
-            //        var executeResult = controller.CreateOrUpdate(data);
-
-            //        if (!executeResult.HasError)
-            //        {
-            //            Refresh();
-            //        }
-            //        else
-            //        {
-            //            Errors = executeResult.Errors;
-            //            HasError = executeResult.HasError;
-            //        }
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        setErrortoModel(this, ex);
-            //    }
+            base.RunModeChanged(Mode);
+            Contracts.ModeChangedCommand.Execute(Mode);
         }
 
-        public override void Query(Manufacturers Parameter)
+        protected override void Save()
         {
-            //            try
-            //            {
-            //               return QuerySingle<ClientViewModel, Manufacturers>("Client", "QuerySingle", Manuid);
+            try
+            {
+                if (Status.IsNewInstance)
+                {
+                    Id = Guid.NewGuid();
+                    CreateTime = DateTime.Now;
+                }
 
-            //                //if (Id != Guid.Empty)
-            //                //{
-            //                //    ClientController clientclient = new ClientController();
-            //                //    var exexuteresult = clientclient.Query();
-            //                //    if (!exexuteresult.HasError)
-            //                //    {
-            //                //        var item = exexuteresult.Result.Single();
+                var LoginedUser = _CoreDataService.GetCurrentLoginedUser();
 
-            //                //        BindingFromModel(item, this);
-            //                //        Phone = item.Phone;
-            //                //        ClientForProjects.QueryByClient(Id);
-            //                //        Contracts.ManufacturersId = Id;
-            //                //        Contracts.Query();
-            //                //    }
-            //                //}
+                if (CreateUserId == Guid.Empty)
+                {
+                    CreateUserId = LoginedUser.UserId;
+                }
 
-            //            }
-            //            catch (Exception ex)
-            //            {
-            //                ClientViewModel viewmodel = new ClientViewModel(Manuid);
-            //                setErrortoModel(viewmodel, ex);
-            //                return viewmodel;
-            //            }
+                IsClient = true;
 
-            //    try
-            //    {
-            //        if (entity is Manufacturers)
-            //        {
-            //            Manufacturers data = (Manufacturers)entity;
-            //            BindingFromModel(data, this);
-            //            DoEvents();
-            //            Status.IsNewInstance = false;
-            //            Status.IsModify = false;
-            //            Status.IsSaved = false;
-            //        }
+                if (Contracts != null)
+                {
+                    Contracts.SaveCommand.Execute(CopyofPOCOInstance);
+                }
 
-            //        if (entity is ManufacturersEnter)
-            //        {
-            //            ManufacturersEnter data = (ManufacturersEnter)entity;
-            //            BindingFromModel(data, this);
-            //            DoEvents();
-            //            Status.IsNewInstance = false;
-            //            Status.IsModify = false;
-            //            Status.IsSaved = false;
-            //        }
+                _ClientDataService.CreateOrUpdate(CopyofPOCOInstance);
 
-            //        //await Dispatcher.InvokeAsync(new Action(QueryDetails), System.Windows.Threading.DispatcherPriority.Background);
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        setErrortoModel(this, ex);
-            //    }
+                if (_ClientDataService.HasError)
+                {
+                    setErrortoModel(this, "儲存聯絡人時發生錯誤!");
+                    return;
+                }
+
+                ModeChangedCommand.Execute(DocumentLifeCircle.Read);
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
         }
-       
+
+        protected override void Query(object Parameter)
+        {
+            try
+            {
+                if (Parameter is Manufacturers)
+                {
+                    CopyofPOCOInstance = (Manufacturers)Parameter;
+                }
+
+                if (Parameter is ClientListItemViewModel)
+                {
+                    CopyofPOCOInstance = ((ClientListItemViewModel)Parameter).Entity;
+                }
+
+                Status.IsNewInstance = false;
+                Status.IsSaved = false;
+
+                Contracts.QueryCommand.Execute(CopyofPOCOInstance);
+                ModeChangedCommand.Execute(DocumentLifeCircle.Read);
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+        }
     }
 }

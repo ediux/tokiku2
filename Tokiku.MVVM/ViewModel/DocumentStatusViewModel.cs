@@ -1,16 +1,25 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using GalaSoft.MvvmLight;
+using System;
 
 namespace Tokiku.ViewModels
 {
-    public class DocumentStatusViewModel : ViewModelBase, IDocumentStatusViewModel
+    public class DocumentStatusViewModel : ViewModelBase2, IDocumentStatusViewModel
     {
         public DocumentStatusViewModel()
         {
-            _IsModify = false;
-            _IsNewInstance = true;
-            _IsSaved = false;
+            try
+            {
+                _IsModify = false;
+                _IsNewInstance = true;
+                _IsSaved = false;
+            }
+            catch (Exception ex)
+            {
+                setErrortoModel(this, ex);
+            }
+
         }
         private bool _IsNewInstance = false;
         /// <summary>
@@ -19,22 +28,43 @@ namespace Tokiku.ViewModels
         public bool IsNewInstance
         {
             get => _IsNewInstance;
-            set { _IsNewInstance = value; RaisePropertyChanged("IsNewInstance"); }
+            set
+            {
+                try
+                {
+                    _IsNewInstance = value; RaisePropertyChanged("IsNewInstance");
+                }
+                catch (Exception ex)
+                {
+                    setErrortoModel(this, ex);
+                }
+
+            }
         }
 
         private bool _IsModify = false;
-            
+
         /// <summary>
         /// 指出是否已經修改
         /// </summary>
         public bool IsModify
         {
             get => _IsModify;
-            set { _IsModify = value; RaisePropertyChanged("IsModify"); }
+            set
+            {
+                try
+                {
+                    _IsModify = value; RaisePropertyChanged("IsModify");
+                }
+                catch (Exception ex)
+                {
+                    setErrortoModel(this, ex);
+                }
+            }
         }
 
         private bool _IsSaved = false;
-     
+
         /// <summary>
         /// 是否已存檔?
         /// </summary>
@@ -43,9 +73,16 @@ namespace Tokiku.ViewModels
             get { return _IsSaved; }
             set
             {
-                _IsSaved = value;
-                RaisePropertyChanged("IsSaved");
+                try
+                {
+                    _IsSaved = value;
+                    RaisePropertyChanged("IsSaved");
+                }
+                catch (Exception ex)
+                {
+                    setErrortoModel(this, ex);
+                }
             }
-        } 
+        }
     }
 }

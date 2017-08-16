@@ -327,7 +327,7 @@ namespace Tokiku.ViewModels
         /// </summary>
 		public IManufacturersViewModel ManufacturersViewModel
 		{
-			get => SimpleIoc.Default.GetInstanceWithoutCaching<IManufacturersViewModel>();
+			get => SimpleIoc.Default.GetInstance<IManufacturersViewModel>();
 		}
 		/// <summary>
         /// 取得IoC容器中的實作 IVendorListItemViewModel 介面的物件執行個體。

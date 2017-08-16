@@ -21,6 +21,7 @@ using Microsoft.Practices.ServiceLocation;
 using TokikuNew.Frame;
 using TokikuNew.Views;
 using TokikuNew.Controls;
+using TokikuNew.Behaviors;
 
 namespace TokikuNew 
 {	
@@ -33,6 +34,9 @@ namespace TokikuNew
 
 			RunOthersRegister();
 
+			
+			if (!SimpleIoc.Default.IsRegistered<OnWindowCloseBehavior>())
+				SimpleIoc.Default.Register<OnWindowCloseBehavior>();
 			
 			if (!SimpleIoc.Default.IsRegistered<ClosableTab>())
 				SimpleIoc.Default.Register<ClosableTab>();
@@ -54,6 +58,9 @@ namespace TokikuNew
 			
 			if (!SimpleIoc.Default.IsRegistered<ClientListView>())
 				SimpleIoc.Default.Register<ClientListView>();
+			
+			if (!SimpleIoc.Default.IsRegistered<ClientManageView>())
+				SimpleIoc.Default.Register<ClientManageView>();
 			
 			if (!SimpleIoc.Default.IsRegistered<ManufacturersManageView>())
 				SimpleIoc.Default.Register<ManufacturersManageView>();
@@ -93,6 +100,13 @@ namespace TokikuNew
             }
         }
 
+		/// <summary>
+        /// 取得IoC容器中的 OnWindowCloseBehavior 物件執行個體。
+        /// </summary>
+		public OnWindowCloseBehavior OnWindowCloseBehavior
+		{
+			get => SimpleIoc.Default.GetInstance<OnWindowCloseBehavior>();
+		}
 		/// <summary>
         /// 取得IoC容器中的 ClosableTab 物件執行個體。
         /// </summary>
@@ -141,6 +155,13 @@ namespace TokikuNew
 		public ClientListView ClientListView
 		{
 			get => SimpleIoc.Default.GetInstance<ClientListView>();
+		}
+		/// <summary>
+        /// 取得IoC容器中的 ClientManageView 物件執行個體。
+        /// </summary>
+		public ClientManageView ClientManageView
+		{
+			get => SimpleIoc.Default.GetInstance<ClientManageView>();
 		}
 		/// <summary>
         /// 取得IoC容器中的 ManufacturersManageView 物件執行個體。

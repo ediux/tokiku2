@@ -73,7 +73,7 @@ namespace Tokiku.ViewModels
 
         //IUsers IEntityBaseViewModel<IUsers>.Entity => throw new NotImplementedException();
 
-        public override void CreateNew()
+        protected override void CreateNew()
         {
             IsAnonymous = true;
             CopyofPOCOInstance = new Users();

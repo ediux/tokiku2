@@ -22,11 +22,11 @@ namespace Tokiku.ViewModels
         private IFinancialManagementDataService _FinancialManagementDataService;
 
         #region 建構式
-        public ManufacturersViewModel() : base(EntityLocator.Current.Manufacturers,DefaultLocator.Current.CoreDataService)
+        public ManufacturersViewModel() : base(EntityLocator.Current.Manufacturers, DefaultLocator.Current.CoreDataService)
         {
             ModeChangedCommand.Execute(DocumentLifeCircle.Read);
             QueryCommand = new RelayCommand<IVendorListItemViewModel>(RunQuery);
-            
+
         }
 
         [PreferredConstructor]
@@ -38,8 +38,9 @@ namespace Tokiku.ViewModels
             _FinancialManagementDataService = FinancialManagementDataService;
             ModeChangedCommand.Execute(DocumentLifeCircle.Read);
             QueryCommand = new RelayCommand<IVendorListItemViewModel>(RunQuery);
-            Messenger.Default.Register<NotificationMessage<IBaseViewModel>>(this, (x)=> {
-                if(x.Content is IVendorListItemViewModel)
+            Messenger.Default.Register<NotificationMessage<IBaseViewModel>>(this, (x) =>
+            {
+                if (x.Content is IVendorListItemViewModel)
                 {
                     SetEntity(((IVendorListItemViewModel)x.Content).Entity);
                 }
@@ -338,7 +339,7 @@ namespace Tokiku.ViewModels
         #endregion
 
         #region 模型控制命令
-        public override void Query(Manufacturers Parameter)
+        protected override void Query(object Parameter)
         {
             ContactsList = ViewModelLocator.Current.ContactListViewModel;
             ContactsList.QueryCommand.Execute(Parameter);
@@ -364,13 +365,13 @@ namespace Tokiku.ViewModels
             Query(entity);
         }
         public virtual void RunQuery(IVendorListItemViewModel item)
-        {            
-           
+        {
+
             CopyofPOCOInstance = item.Entity;
             Query(item.Entity);
         }
 
-        public override void CreateNew()
+        protected override void CreateNew()
         {
             try
             {
@@ -393,7 +394,7 @@ namespace Tokiku.ViewModels
 
         }
 
-        public override void Save()
+        protected override void Save()
         {
             try
             {
@@ -420,7 +421,7 @@ namespace Tokiku.ViewModels
 
 
         protected override void RunModeChanged(DocumentLifeCircle Mode)
-        {            
+        {
             if (Mode == DocumentLifeCircle.None)
                 Mode = DocumentLifeCircle.Read;
 

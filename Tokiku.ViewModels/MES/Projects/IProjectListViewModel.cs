@@ -3,9 +3,9 @@ using System.Windows.Input;
 
 namespace Tokiku.ViewModels
 {
-    public interface IClientListViewModel : IDocumentBaseViewModel
+    public interface IProjectListViewModel : IDocumentBaseViewModel
     {
+        ObservableCollection<IProjectListItemViewModel> ProjectsList { get; set; }
         ICommand SelectedAndOpenCommand { get; set; }
-        ObservableCollection<IClientListItemViewModel> ClientsList { get; set; }
     }
 }
